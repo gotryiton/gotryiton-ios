@@ -1,0 +1,1 @@
+/Users/jeremy/Library/Developer/Xcode/DerivedData/project-gxgbfxptqapggtbdgsfddjqzzhgs/Build/Products/Debug-iphonesimulator/Specs.app

@@ -1,0 +1,1 @@
+--workspace GTIO.xcodeproj/project.xcworkspace --scheme Specs -v --sdk 4.3

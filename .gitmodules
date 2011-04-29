@@ -1,0 +1,12 @@
+[submodule "Libraries/three20"]
+	path = Libraries/three20
+	url = git@github.com:twotoasters/three20.git
+[submodule "Libraries/RestKit"]
+	path = Libraries/RestKit
+	url = git@github.com:twotoasters/RestKit.git
+[submodule "Libraries/Frank"]
+	path = Libraries/Frank
+	url = https://github.com/moredip/Frank.git
+[submodule "Libraries/UISpec"]
+	path = Libraries/UISpec
+	url = git@github.com:twotoasters/UISpec.git
