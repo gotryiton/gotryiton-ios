@@ -153,6 +153,24 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		3FCB815E136B03D000F78DBD /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCB815D136B03D000F78DBD /* libOCMock.a */; };
+		3FF7A3C2136F3AAC00CB201C /* GTIOLauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A3C0136F3AAC00CB201C /* GTIOLauncherViewController.m */; };
+		3FF7A3C3136F3AAC00CB201C /* GTIOLauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A3C0136F3AAC00CB201C /* GTIOLauncherViewController.m */; };
+		3FF7A3C4136F3AAC00CB201C /* GTIOLauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A3C0136F3AAC00CB201C /* GTIOLauncherViewController.m */; };
+		3FF7A3C5136F3AAC00CB201C /* GTIOLauncherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF7A3C1136F3AAC00CB201C /* GTIOLauncherViewController.xib */; };
+		3FF7A3C6136F3AAC00CB201C /* GTIOLauncherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF7A3C1136F3AAC00CB201C /* GTIOLauncherViewController.xib */; };
+		3FF7A3C7136F3AAC00CB201C /* GTIOLauncherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF7A3C1136F3AAC00CB201C /* GTIOLauncherViewController.xib */; };
+		3FF7A48A136F487700CB201C /* GTIOWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A488136F487700CB201C /* GTIOWelcomeViewController.m */; };
+		3FF7A48B136F487700CB201C /* GTIOWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A488136F487700CB201C /* GTIOWelcomeViewController.m */; };
+		3FF7A48C136F487700CB201C /* GTIOWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A488136F487700CB201C /* GTIOWelcomeViewController.m */; };
+		3FF7A48D136F487700CB201C /* GTIOWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF7A489136F487700CB201C /* GTIOWelcomeViewController.xib */; };
+		3FF7A48E136F487700CB201C /* GTIOWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF7A489136F487700CB201C /* GTIOWelcomeViewController.xib */; };
+		3FF7A48F136F487700CB201C /* GTIOWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF7A489136F487700CB201C /* GTIOWelcomeViewController.xib */; };
+		3FF7A493136F4A9400CB201C /* GTIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A491136F4A9400CB201C /* GTIOLoginViewController.m */; };
+		3FF7A494136F4A9400CB201C /* GTIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A491136F4A9400CB201C /* GTIOLoginViewController.m */; };
+		3FF7A495136F4A9400CB201C /* GTIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A491136F4A9400CB201C /* GTIOLoginViewController.m */; };
+		3FF7A496136F4A9400CB201C /* GTIOLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF7A492136F4A9400CB201C /* GTIOLoginViewController.xib */; };
+		3FF7A497136F4A9400CB201C /* GTIOLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF7A492136F4A9400CB201C /* GTIOLoginViewController.xib */; };
+		3FF7A498136F4A9400CB201C /* GTIOLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF7A492136F4A9400CB201C /* GTIOLoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -686,6 +704,15 @@
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = Libraries/three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = Libraries/three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		3FCB815D136B03D000F78DBD /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = Specs/Support/OCMock/libOCMock.a; sourceTree = "<group>"; };
+		3FF7A3BF136F3AAC00CB201C /* GTIOLauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLauncherViewController.h; sourceTree = "<group>"; };
+		3FF7A3C0136F3AAC00CB201C /* GTIOLauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOLauncherViewController.m; sourceTree = "<group>"; };
+		3FF7A3C1136F3AAC00CB201C /* GTIOLauncherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTIOLauncherViewController.xib; sourceTree = "<group>"; };
+		3FF7A487136F487700CB201C /* GTIOWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOWelcomeViewController.h; sourceTree = "<group>"; };
+		3FF7A488136F487700CB201C /* GTIOWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWelcomeViewController.m; sourceTree = "<group>"; };
+		3FF7A489136F487700CB201C /* GTIOWelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTIOWelcomeViewController.xib; sourceTree = "<group>"; };
+		3FF7A490136F4A9400CB201C /* GTIOLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLoginViewController.h; sourceTree = "<group>"; };
+		3FF7A491136F4A9400CB201C /* GTIOLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOLoginViewController.m; sourceTree = "<group>"; };
+		3FF7A492136F4A9400CB201C /* GTIOLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTIOLoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -871,6 +898,15 @@
 		258518AF135357EB005DCBA5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3FF7A3BF136F3AAC00CB201C /* GTIOLauncherViewController.h */,
+				3FF7A3C0136F3AAC00CB201C /* GTIOLauncherViewController.m */,
+				3FF7A3C1136F3AAC00CB201C /* GTIOLauncherViewController.xib */,
+				3FF7A487136F487700CB201C /* GTIOWelcomeViewController.h */,
+				3FF7A488136F487700CB201C /* GTIOWelcomeViewController.m */,
+				3FF7A489136F487700CB201C /* GTIOWelcomeViewController.xib */,
+				3FF7A490136F4A9400CB201C /* GTIOLoginViewController.h */,
+				3FF7A491136F4A9400CB201C /* GTIOLoginViewController.m */,
+				3FF7A492136F4A9400CB201C /* GTIOLoginViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1569,6 +1605,9 @@
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
 				25D5C7F713535ABE007B6F14 /* InfoPlist.strings in Resources */,
 				25D5C7F813535ABE007B6F14 /* MainWindow.xib in Resources */,
+				3FF7A3C5136F3AAC00CB201C /* GTIOLauncherViewController.xib in Resources */,
+				3FF7A48D136F487700CB201C /* GTIOWelcomeViewController.xib in Resources */,
+				3FF7A496136F4A9400CB201C /* GTIOLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1579,6 +1618,9 @@
 				25D5C96E13536855007B6F14 /* Three20.bundle in Resources */,
 				25D5C96F13536855007B6F14 /* InfoPlist.strings in Resources */,
 				25D5C97013536855007B6F14 /* MainWindow.xib in Resources */,
+				3FF7A3C6136F3AAC00CB201C /* GTIOLauncherViewController.xib in Resources */,
+				3FF7A48E136F487700CB201C /* GTIOWelcomeViewController.xib in Resources */,
+				3FF7A497136F4A9400CB201C /* GTIOLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1592,6 +1634,9 @@
 				25D5CA3A13536EA1007B6F14 /* frank_static_resources.bundle in Resources */,
 				25D5CA5F13536EA2007B6F14 /* UISpec.bundle in Resources */,
 				25D5CA6113536EA2007B6F14 /* update_from_svn.rb in Resources */,
+				3FF7A3C7136F3AAC00CB201C /* GTIOLauncherViewController.xib in Resources */,
+				3FF7A48F136F487700CB201C /* GTIOWelcomeViewController.xib in Resources */,
+				3FF7A498136F4A9400CB201C /* GTIOLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1604,6 +1649,9 @@
 			files = (
 				25D5C7EC13535AA6007B6F14 /* AppDelegate.m in Sources */,
 				25D5C7ED13535AA6007B6F14 /* main.m in Sources */,
+				3FF7A3C2136F3AAC00CB201C /* GTIOLauncherViewController.m in Sources */,
+				3FF7A48A136F487700CB201C /* GTIOWelcomeViewController.m in Sources */,
+				3FF7A493136F4A9400CB201C /* GTIOLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1615,6 +1663,9 @@
 				25D5C979135368ED007B6F14 /* main.m in Sources */,
 				25D5C97A135368ED007B6F14 /* UISpec+UISpecRunner.m in Sources */,
 				25D5C98213536C2C007B6F14 /* AppLaunchSpec.m in Sources */,
+				3FF7A3C3136F3AAC00CB201C /* GTIOLauncherViewController.m in Sources */,
+				3FF7A48B136F487700CB201C /* GTIOWelcomeViewController.m in Sources */,
+				3FF7A494136F4A9400CB201C /* GTIOLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1682,6 +1733,9 @@
 				25D5CA7413536EA2007B6F14 /* RoutingHTTPConnection.m in Sources */,
 				25D5CA7513536EA2007B6F14 /* StaticResourcesRoute.m in Sources */,
 				25D5CA7613536EA2007B6F14 /* UISpecCommandReceiver.m in Sources */,
+				3FF7A3C4136F3AAC00CB201C /* GTIOLauncherViewController.m in Sources */,
+				3FF7A48C136F487700CB201C /* GTIOWelcomeViewController.m in Sources */,
+				3FF7A495136F4A9400CB201C /* GTIOLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

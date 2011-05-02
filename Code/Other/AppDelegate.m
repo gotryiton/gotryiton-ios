@@ -9,6 +9,7 @@
 #import <RestKit/RestKit.h>
 #import <Three20/Three20.h>
 #import "AppDelegate.h"
+#import "GTIOLauncherViewController.h"
 
 @implementation AppDelegate
 
@@ -19,9 +20,22 @@
     // RKObjectManager* manager = [RKObjectManager objectManagerWithBaseURL:@"http://restkit.org"];
     
     // Initialize Three20
+    TTNavigator* navigator = [TTNavigator navigator];
+    [navigator setPersistenceMode:TTNavigatorPersistenceModeAll];
+    TTURLMap* map = navigator.URLMap;
+    [map from:@"gtio://home" toSharedViewController:[GTIOLauncherViewController class]];
+    
     
     // Override point for customization after application launch.
+    navigator.window = self.window;
     [self.window makeKeyAndVisible];
+    
+    if ([navigator restoreViewControllers] == nil) {
+        TTOpenURL(@"gtio://home");
+        // TODO: check to see if we are logged in.
+        // Present login if we are not.
+    }
+    
     
     return YES;
 }
@@ -59,5 +73,11 @@
     [_window release];
     [super dealloc];
 }
+
+#ifdef FRANK
+
+// Frank Helpers. Login, Logout, open URL, etc. Anything that needs to modify state of the app.
+
+#endif
 
 @end
