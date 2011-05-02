@@ -56,5 +56,7 @@ namespace :features do
   end
 end
 
+task :features => ['features:build', 'features:run']
+
 desc "Run all specs"
 task :default => 'uispec:all'
