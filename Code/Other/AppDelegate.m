@@ -16,7 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Initialize RestKit
-    RKObjectManager* manager = [RKObjectManager objectManagerWithBaseURL:@"http://restkit.org"];
+    // RKObjectManager* manager = [RKObjectManager objectManagerWithBaseURL:@"http://restkit.org"];
     
     // Initialize Three20
     

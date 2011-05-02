@@ -10,14 +10,17 @@ Given /^I launch the app$/ do
 
   require 'sim_launcher'
 
-  app_path = ENV['APP_BUNDLE_PATH'] || APP_BUNDLE_PATH
-  raise "APP_BUNDLE_PATH was not set. \nPlease set a APP_BUNDLE_PATH ruby constant or environment variable to the path of your compiled Frankified iOS app bundle" if app_path.nil?
-
-  if( ENV['USE_SIM_LAUNCHER_SERVER'] )
-    simulator = SimLauncher::Client.for_iphone_app( app_path, "4.3" )
-  else
+  # app_path = ENV['APP_BUNDLE_PATH'] || APP_BUNDLE_PATH
+  app_path = File.read("features/features_built_path").strip
+  #raise "APP_BUNDLE_PATH was not set. \nPlease set a APP_BUNDLE_PATH ruby constant or environment variable to the path of your compiled Frankified iOS app bundle" if app_path.nil?
+  
+  puts "Launch Path: #{app_path}"
+  
+  # if( ENV['USE_SIM_LAUNCHER_SERVER'] )
+  #   simulator = SimLauncher::Client.for_iphone_app( app_path, "4.3" )
+  # else
     simulator = SimLauncher::DirectClient.for_iphone_app( app_path, "4.3" )
-  end
+  # end
   
   num_timeouts = 0
   loop do

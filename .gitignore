@@ -1,6 +1,9 @@
 # the build
 Build
 
+# Features Stuff
+Features/features_built_path
+
 # temp nibs and swap files
 *~.nib
 *.swp
