@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UISpec.h"
+#import "UIExpectation.h"
 
 @interface AppLaunchSpec : NSObject <UISpec> {
     
@@ -19,6 +20,7 @@
 
 - (void)itShouldRunSpecs {
     NSLog(@"Log something...");
+//    [expectThat(@"blah") should:be(@"hah")];
 }
 
 @end

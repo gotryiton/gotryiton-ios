@@ -1,8 +1,9 @@
 # the build
 Build
 
-# Features Stuff
+# Specs and Features Stuff
 Features/features_built_path
+.uispec.app
 
 # temp nibs and swap files
 *~.nib

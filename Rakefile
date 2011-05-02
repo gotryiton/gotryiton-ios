@@ -32,6 +32,7 @@ namespace :uispec do
 end
 
 namespace :features do
+  desc "build features scheme"
   task :build do
     cmd = "xcodebuild -workspace GTIO.xcodeproj/project.xcworkspace -scheme Features -sdk iphonesimulator4.3"
     features_built_path = nil
@@ -46,6 +47,7 @@ namespace :features do
     puts "Features Built Path: '#{features_built_path}'"
   end
   
+  desc "run features"
   task :run do
     features_built_path = File.read('features/features_built_path')
     status = Open4::popen4("cucumber") do |pid, stdin, stdout, stderr|
@@ -56,7 +58,11 @@ namespace :features do
   end
 end
 
+desc "Run features"
 task :features => ['features:build', 'features:run']
 
 desc "Run all specs"
-task :default => 'uispec:all'
+task :specs => ['uispec:all']
+
+desc "Run all specs and features"
+task :default => ['uispec:all', 'features']
