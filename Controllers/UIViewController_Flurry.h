@@ -1,0 +1,21 @@
+//
+//  UIViewController_Flurry.h
+//  GoTryItOn
+//
+//  Created by Jeremy Ellison on 2/16/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface UIViewController (Flurry)
+
+@end
+
+@interface UINavigationController (Flurry)
+
+@end
+
+@interface UITabBarController (Flurry)
+
+@end

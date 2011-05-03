@@ -1,0 +1,42 @@
+//
+//  GTIOEnvironment.m
+//  GoTryItOn
+//
+//  Created by Blake Watters on 8/17/10.
+//  Copyright 2010 Two Toasters. All rights reserved.
+//
+
+#import "GTIOEnvironment.h"
+
+/**
+ * Go Try It On Build Environments
+ *
+ * These settings determine what server environment the client
+ * is communicating with
+ */
+
+#if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
+	NSString* const kGTIOEnvironmentName = @"development";
+	NSString* const kGTIOBaseURLString = @"http://www.gotryiton.com";
+	NSString* const kGTIOJanRainEngageApplicationID = @"";
+    NSString* const kGTIOFlurryAPIKey = @"CJ5AC5DU3YPZ3YJ6E7ES";
+#endif 
+
+#if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
+	NSString* const kGTIOEnvironmentName = @"staging";
+	NSString* const kGTIOBaseURLString = @"http://iphonedev.gotryiton.com";
+	NSString* const kGTIOJanRainEngageApplicationID = @"gcaojlbgaiajjnmekobm";
+    NSString* const kGTIOFlurryAPIKey = @"CJ5AC5DU3YPZ3YJ6E7ES";
+#endif
+
+#if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
+	NSString* const kGTIOEnvironmentName = @"production";
+	NSString* const kGTIOBaseURLString = @"http://i.gotryiton.com";
+	NSString* const kGTIOJanRainEngageApplicationID = @"iligdiaplfgbmhcpebgf";
+    NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
+#endif
+
+NSString* GTIORestResourcePath(NSString* string) {
+	return [NSString stringWithFormat:@"/rest/v2%@", string];
+	//return [NSString stringWithFormat:@"/rest%@", string];
+}

@@ -1,0 +1,255 @@
+//
+//  GTIOOutfitReviewTableCell.m
+//  GoTryItOn
+//
+//  Created by Daniel Hammond on 1/28/11.
+//  Copyright 2011 Two Toasters. All rights reserved.
+//
+
+#import "GTIOOutfitReviewTableCell.h"
+#import <TWTCommon/TWTAlertViewDelegate.h>
+#import "GTIOBadge.h"
+
+CGSize kMaxSize = {260,8000};
+
+@implementation GTIOOutfitReviewTableCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+		self.contentView.backgroundColor = RGBACOLOR(255,255,255,0.3);
+		UIImage* bgImage = [[UIImage imageNamed:@"comment-bg.png"] stretchableImageWithLeftCapWidth:152 topCapHeight:39];
+		_bgImageView = [[UIImageView alloc] initWithImage:bgImage];
+		[self.contentView addSubview:_bgImageView];
+		
+        _reviewTextLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectZero];
+        _reviewTextLabel.backgroundColor = RGBCOLOR(245,245,245);
+        [self.contentView addSubview:_reviewTextLabel];
+		
+		_authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		_authorLabel.font = kGTIOFetteFontOfSize(18);
+		_authorLabel.backgroundColor = [UIColor clearColor];
+		_authorLabel.textColor = kGTIOColorBrightPink;
+		[self.contentView addSubview:_authorLabel];
+        _authorButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        [self.contentView addSubview:_authorButton];
+        [_authorButton addTarget:self action:@selector(authorButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        _authorCalloutImage = [[[UIImageView alloc] initWithImage:
+                                [UIImage imageNamed:@"profile-out.png"]]
+                               autorelease];
+        [self.contentView addSubview:_authorCalloutImage];
+		
+		_agreeVotesLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		_agreeVotesLabel.font = kGTIOFontBoldHelveticaNeueOfSize(15);
+		_agreeVotesLabel.backgroundColor = [UIColor clearColor];
+		_agreeVotesLabel.textColor = kGTIOColorBrightPink;
+		[self.contentView addSubview:_agreeVotesLabel];
+		
+		_agreeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+		[_agreeButton setBackgroundImage:[UIImage imageNamed:@"agree-button.png"] forState:UIControlStateNormal];
+		[_agreeButton setBackgroundImage:[UIImage imageNamed:@"agree-button-ON.png"] forState:UIControlStateHighlighted];
+        [_agreeButton setBackgroundImage:[UIImage imageNamed:@"agree-button-ON.png"] forState:UIControlStateDisabled];
+		_agreeButton.titleLabel.font = kGTIOFontHelveticaNeueOfSize(15);
+		[_agreeButton setTitle:@"agree" forState:UIControlStateNormal];
+		[_agreeButton setTitleColor:kGTIOColorb1b1b1 forState:UIControlStateNormal];
+        [_agreeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [_agreeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+		[self.contentView addSubview:_agreeButton];
+		
+		_deleteButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+		[_deleteButton setBackgroundImage:[UIImage imageNamed:@"agree-button.png"] forState:UIControlStateNormal];
+		[_deleteButton setBackgroundImage:[UIImage imageNamed:@"agree-button-ON.png"] forState:UIControlStateHighlighted];
+		_deleteButton.titleLabel.font = kGTIOFontHelveticaNeueOfSize(15);
+		[_deleteButton setTitle:@"remove" forState:UIControlStateNormal];
+		[_deleteButton setTitleColor:kGTIOColorb1b1b1 forState:UIControlStateNormal];
+		[self.contentView addSubview:_deleteButton];
+		
+		_flagButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+		[_flagButton setBackgroundImage:[UIImage imageNamed:@"report.png"] forState:UIControlStateNormal];
+		[_flagButton setBackgroundImage:[UIImage imageNamed:@"report-ON.png"] forState:UIControlStateHighlighted];
+		[self.contentView addSubview:_flagButton];
+		
+		[_flagButton addTarget:self action:@selector(flagButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+		[_agreeButton addTarget:self action:@selector(agreeButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+		[_deleteButton addTarget:self action:@selector(deleteButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+		
+		self.selectionStyle = UITableViewCellSelectionStyleNone;
+	}
+	return self;
+}
+
++ (CGSize)sizeForReviewText:(NSString*)text {
+    NSScanner* scanner = [NSScanner scannerWithString:text];
+    NSString* foundText = nil;
+    while (![scanner isAtEnd]) {
+        // find start of tag
+        [scanner scanUpToString:@"<" intoString:NULL] ; 
+        
+        // find end of tag
+        [scanner scanUpToString:@">" intoString:&foundText] ;
+        
+        // replace the found tag with a space
+        //(you can filter multi-spaces out later if you wish)
+        text = [text stringByReplacingOccurrencesOfString:
+                [NSString stringWithFormat:@"%@>", foundText]
+                                               withString:@""];
+        
+    }
+//    NSLog(@"Text: %@", text);
+    
+	return [text sizeWithFont:kGTIOFontHelveticaRBCOfSize(15) constrainedToSize:kMaxSize lineBreakMode:UILineBreakModeWordWrap];
+}
+
++ (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
+	NSString* text = [[object review] text];
+    
+	CGFloat textHeight = [self sizeForReviewText:text].height;
+	return textHeight+50.0+5;
+}
+
+- (void)layoutSubviews {
+	[super layoutSubviews];
+	_bgImageView.frame = CGRectMake(2, 3, self.contentView.size.width - 4, self.contentView.size.height);
+	CGSize textSize = [[self class] sizeForReviewText:[[_reviewTableItem review] text]];
+	_reviewTextLabel.frame = CGRectMake(12+2, 12+4, textSize.width, textSize.height);
+	
+	[_agreeVotesLabel sizeToFit];
+	
+	int width = 230;
+	if ([[_reviewTableItem.review uid] isEqualToString:[[GTIOUser currentUser] UID]]) {
+		_agreeButton.frame = CGRectZero;
+		_flagButton.frame = CGRectZero;
+		_deleteButton.frame = CGRectMake(9+width, self.height - 30, 59, 24);
+	} else {
+		_agreeButton.frame = CGRectMake(9+width, self.height - 30, 59, 24);
+		_flagButton.frame = CGRectMake(self.contentView.frame.size.width-35, 12, 24, 24);
+		_deleteButton.frame = CGRectZero;
+	}
+	
+	_agreeVotesLabel.frame = CGRectMake(3+width-_agreeVotesLabel.width, self.height - 7 - 18, _agreeVotesLabel.width, 18);
+    
+    int maxWidthForAuthorContent = width - _agreeVotesLabel.width;
+    int maxWidthForAuthorLabel = maxWidthForAuthorContent - 20 - [_badgeImageViews count]*(26+5);
+    
+    _authorLabel.frame = CGRectMake(12+2, self.height - 7 - 18 + 1, maxWidthForAuthorLabel, 18);
+    [_authorLabel sizeToFit];
+    
+    int xBadgePosition = CGRectGetMaxX(_authorLabel.frame) + 5;
+    for (TTImageView* imageView in _badgeImageViews) {
+        imageView.frame = CGRectMake(xBadgePosition, _authorLabel.frame.origin.y + 1, 13,13);
+        xBadgePosition += 13+5;
+    }
+    
+    _authorCalloutImage.frame = CGRectMake(xBadgePosition,
+                                           self.height - 7 - 18,
+                                           18,
+                                           15);
+    int buttonWidth = xBadgePosition + 18 - CGRectGetMinX(_authorLabel.frame);
+    [self.contentView addSubview:_authorButton]; // Push button to top of stack. pops it over any badge image views.
+	_authorButton.frame = CGRectMake(_authorLabel.frame.origin.x, _authorLabel.frame.origin.y,
+                                     buttonWidth,
+                                     _authorLabel.frame.size.height);
+}	
+
+- (void)dealloc {
+	TT_RELEASE_SAFELY(_bgImageView);
+	TT_RELEASE_SAFELY(_reviewTableItem);
+	TT_RELEASE_SAFELY(_authorLabel);
+	TT_RELEASE_SAFELY(_agreeVotesLabel);
+	TT_RELEASE_SAFELY(_agreeButton);
+	TT_RELEASE_SAFELY(_flagButton);	
+	[super dealloc];
+}
+
+- (void)setObject:(id)object {
+	[_reviewTableItem release];
+	_reviewTableItem = [object retain];
+	[super setObject:object];
+	GTIOReview* review = [_reviewTableItem review];
+	_authorLabel.text = [[[review user] displayName] uppercaseString];
+    NSString* html = [NSString stringWithFormat:@"<span class='reviewTextStyle'>%@</span>", review.text];
+    _reviewTextLabel.html = html;
+	_agreeVotesLabel.text = [NSString stringWithFormat:@"+%d",[[review agreeVotes] intValue]];
+    
+    for (TTImageView* imageView in _badgeImageViews) {
+        [imageView removeFromSuperview];
+    }
+    [_badgeImageViews release];
+    _badgeImageViews = [NSMutableArray new];
+    for (GTIOBadge* badge in review.user.badges) {
+        NSString* badgeURL = badge.imgURL;
+        TTImageView* imageView = [[[TTImageView alloc] init] autorelease];
+        imageView.urlPath = badgeURL;
+        
+        imageView.backgroundColor = RGBCOLOR(251,251,251);
+		[imageView setContentMode:UIViewContentModeScaleAspectFit];
+        
+        [_badgeImageViews addObject:imageView];
+        [self.contentView addSubview:imageView];
+    }
+    
+    [self setNeedsLayout];
+}
+
+- (void)agreeButtonWasPressed:(id)sender {
+    TTOpenURL(@"gtio://analytics/trackAgreeWithReview");
+	_agreeButton.enabled = NO;
+	GTIOReview* review = [_reviewTableItem review];
+	NSString* path = [NSString stringWithFormat:@"/review/%@/", review.outfitID];
+	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+							_reviewTableItem.review.reviewID, @"reviewId",
+							@"true", @"agree",
+							nil];
+	params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+	[[RKClient sharedClient] post:GTIORestResourcePath(path) params:params delegate:nil];
+	_agreeVotesLabel.text = [NSString stringWithFormat:@"+%d",[[review agreeVotes] intValue] + 1];
+    [self setNeedsLayout];
+}
+
+- (void)flagConfirmed {
+    TTOpenURL(@"gtio://analytics/trackFlagReview");
+	_flagButton.enabled = NO;
+	GTIOReview* review = [_reviewTableItem review];
+	NSString* path = [NSString stringWithFormat:@"/review/%@/", review.outfitID];
+	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+							_reviewTableItem.review.reviewID, @"reviewId",
+							@"true", @"flag",
+							nil];
+	params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+	[[RKClient sharedClient] post:GTIORestResourcePath(path) params:params delegate:nil];
+}
+
+- (void)flagButtonWasPressed:(id)sender {
+	TWTAlertViewDelegate* delegate = [[[TWTAlertViewDelegate alloc] init] autorelease];
+	[delegate setTarget:self selector:@selector(flagConfirmed) object:nil forButtonIndex:1];
+	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"GO TRY IT ON" message:@"flag this review as inappropriate?" delegate:delegate cancelButtonTitle:@"cancel" otherButtonTitles:@"flag", nil];
+	[alert show];
+	[alert release];
+}
+
+- (void)deleteConfirmed {
+	GTIOReview* review = [_reviewTableItem review];
+	NSString* path = [NSString stringWithFormat:@"/review/%@/", review.outfitID];
+	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+							_reviewTableItem.review.reviewID, @"reviewId",
+							@"true", @"remove",
+							nil];
+	params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+	[[RKClient sharedClient] post:GTIORestResourcePath(path) params:params delegate:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"ReviewDeletedNotification" object:review];
+}
+
+- (void)deleteButtonWasPressed:(id)sender {
+	TWTAlertViewDelegate* delegate = [[[TWTAlertViewDelegate alloc] init] autorelease];
+	[delegate setTarget:self selector:@selector(deleteConfirmed) object:nil forButtonIndex:1];
+	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"GO TRY IT ON" message:@"delete this review?" delegate:delegate cancelButtonTitle:@"cancel" otherButtonTitles:@"delete", nil];
+	[alert show];
+	[alert release];
+}
+
+- (void)authorButtonWasPressed:(id)sender {
+    NSString* url = [NSString stringWithFormat:@"gtio://profile/%@", _reviewTableItem.review.uid];
+    TTOpenURL(url);
+}
+
+@end

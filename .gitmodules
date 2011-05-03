@@ -10,3 +10,9 @@
 [submodule "Libraries/UISpec"]
 	path = Libraries/UISpec
 	url = git@github.com:twotoasters/UISpec.git
+[submodule "Libraries/TWTCommon"]
+	path = Libraries/TWTCommon
+	url = git@github.com:twotoasters/TWTCommon.git
+[submodule "Libraries/JanRain"]
+	path = Libraries/JanRain
+	url = https://github.com/janrain/engage.iphone.git
