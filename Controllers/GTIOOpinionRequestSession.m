@@ -161,7 +161,8 @@ static GTIOOpinionRequestSession* globalSession = nil;
 												 selector:@selector(removeLoginObservers) 
 													 name:kGTIOUserDidCancelLoginNotificationName 
 												   object:nil];
-		[currentUser login];
+		//[currentUser login];
+        TTOpenURL(@"gtio://login");
 	}		
 }
 

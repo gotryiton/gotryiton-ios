@@ -23,7 +23,7 @@
 }
 
 - (UIImageView*)bgImageView {
-    return [self viewWithTag:99293];
+    return (UIImageView*)[self viewWithTag:99293];
 }
 
 - (id)initWithFrame:(CGRect)frame {

@@ -25,7 +25,17 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
-	<array/>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb134143416622354</string>
+				<string>fb126454074038555</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>com.twotoasters.gtio</string>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>3.0</string>
 	<key>LSRequiresIPhoneOS</key>

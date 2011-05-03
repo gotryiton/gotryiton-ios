@@ -16,6 +16,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -23,6 +24,10 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+- (void)dismiss {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -33,12 +38,21 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (IBAction)facebookButtonWasPressed:(id)sender {
+    TTOpenURL(@"gtio://loginWithFacebook");
+}
+
+- (IBAction)otherProvidersButtonWasPressed:(id)sender {
+    TTOpenURL(@"gtio://loginWithJanRain");
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)] autorelease];
 }
 
 - (void)viewDidUnload

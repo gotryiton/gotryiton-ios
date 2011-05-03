@@ -41,6 +41,8 @@ extern NSString* const kGTIOJanRainEngageApplicationID;
 // The JanRain token URL to hit during authentication
 extern NSString* const kGTIOJanRainEngageTokenURLString;
 
+// The Facebook App ID
+extern NSString* const kGTIOFacebookAppID;
 
 // The Flurry API Key
 extern NSString* const kGTIOFlurryAPIKey;

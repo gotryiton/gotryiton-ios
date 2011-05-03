@@ -8,7 +8,12 @@
 
 #import "RKObjectLoader_Additions.h"
 
+@interface RKObjectLoader (PrivateAdditions)
 
+- (BOOL)encounteredErrorWhileProcessingRequest:(RKResponse*)response;
+- (void)responseProcessingSuccessful:(BOOL)successful withError:(NSError*)error;
+
+@end
 
 @implementation RKObjectLoader (Additions)
 

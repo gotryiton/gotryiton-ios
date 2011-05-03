@@ -42,6 +42,7 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize deviceToken = _deviceToken;
 @synthesize services = _services;
 @synthesize eventTypes = _eventTypes;
+@synthesize facebook = _facebook;
 
 + (GTIOUser*)currentUser {
 	if (nil == gCurrentUser) {
@@ -113,7 +114,13 @@ static GTIOUser* gCurrentUser = nil;
 	[super dealloc];
 }
 
-- (void)login {
+- (void)loginWithFacebook {
+    _facebook = [[Facebook alloc] initWithAppId:kGTIOFacebookAppID];
+    NSArray* permissions = [NSArray arrayWithObjects:@"publish_stream", @"offline_access", @"email", @"user_birthday", nil];
+    [_facebook authorize:permissions delegate:self];
+}
+
+- (void)loginWithJanRain {
 	if (NO == self.isLoggedIn) {
 		TTOpenURL(@"gtio://analytics/trackUserDidViewLogin");
         JREngage* engage = [JREngage jrEngageWithAppId:kGTIOJanRainEngageApplicationID
@@ -294,11 +301,34 @@ static GTIOUser* gCurrentUser = nil;
 	return [NSURL URLWithString:authURL];
 }
 
+#pragma mark FBSessionDelegate
+
+- (void)fbDidLogin {
+    NSLog(@"Logged in: %@", [_facebook accessToken]);
+}
+
+/**
+ * Called when the user dismissed the dialog without logging in.
+ */
+- (void)fbDidNotLogin:(BOOL)cancelled {
+    [self clearUserData];
+	[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidCancelLoginNotificationName object:self];	
+}
+
+/**
+ * Called when the user logged out.
+ */
+- (void)fbDidLogout {
+    [self clearUserData];
+    [self setLoggedIn:NO];
+}
+
 #pragma mark JRAuthenticateDelegate
 
 - (void)jrAuthenticationDidReachTokenUrl:(NSString*)tokenUrl withResponse:(NSURLResponse*)response andPayload:(NSData*)tokenUrlPayload forProvider:(NSString*)provider {
 	SBJsonParser* jsonParser = [SBJsonParser new];
-    NSDictionary* profileInfo = (NSDictionary*) [jsonParser objectWithString:tokenUrlPayload];
+    NSString* tokenUrlPayloadString = [[[NSString alloc] initWithData:tokenUrlPayload encoding:NSUTF8StringEncoding] autorelease];
+    NSDictionary* profileInfo = (NSDictionary*) [jsonParser objectWithString:tokenUrlPayloadString];
     [self digestProfileInfo:profileInfo];
 	[jsonParser release];
 }

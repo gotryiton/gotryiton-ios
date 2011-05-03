@@ -13,4 +13,7 @@
     
 }
 
+- (IBAction)facebookButtonWasPressed:(id)sender;
+- (IBAction)otherProvidersButtonWasPressed:(id)sender;
+
 @end

@@ -309,7 +309,8 @@
 		
 		GTIOUser* currentUser = [GTIOUser currentUser];
 		if (!currentUser.loggedIn && _isShowingCurrentUser) {
-			[currentUser login];
+			//[currentUser login];
+            TTOpenURL(@"gtio://login");
 		}
 	}
 }

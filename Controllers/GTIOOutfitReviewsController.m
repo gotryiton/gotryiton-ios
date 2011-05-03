@@ -322,7 +322,8 @@
 	if (![textEditor.text isWhitespaceAndNewlines]) {
         if (![[GTIOUser currentUser] isLoggedIn]) {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotification:) name:kGTIOUserDidLoginNotificationName object:nil];
-            [[GTIOUser currentUser] login];
+            //[[GTIOUser currentUser] login];
+            TTOpenURL(@"gtio://login");
         } else {
             [self postReview];
         }

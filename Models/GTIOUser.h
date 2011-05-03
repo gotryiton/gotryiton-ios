@@ -8,6 +8,7 @@
 
 #import "JREngage.h"
 #import <RestKit/RestKit.h>
+#import "Facebook.h"
 
 //////////////////////////////////////////////////////////////////////
 // Notifications
@@ -39,7 +40,7 @@ NSString* const kGTIOUserDidUpdateProfileNotificationName;
 
 //////////////////////////////////////////////////////////////////////
 
-@interface GTIOUser : NSObject <JREngageDelegate> {
+@interface GTIOUser : NSObject <JREngageDelegate, FBSessionDelegate> {
 	BOOL _loggedIn;	
 	NSString* _token;
 	NSString* _UID;
@@ -54,6 +55,8 @@ NSString* const kGTIOUserDidUpdateProfileNotificationName;
 	NSString* _deviceToken;
 	NSArray* _services;
 	NSArray* _eventTypes;
+    
+    Facebook* _facebook;
 }
 
 @property (nonatomic, assign) BOOL iphonePush;
@@ -62,6 +65,8 @@ NSString* const kGTIOUserDidUpdateProfileNotificationName;
 @property (nonatomic, copy) NSString* token;
 @property (nonatomic, copy) NSString* UID;
 @property (nonatomic, copy) NSString* username;
+
+@property (nonatomic, readonly) Facebook* facebook;
 
 /**
  * Either 'male' or 'female'
@@ -150,9 +155,14 @@ NSString* const kGTIOUserDidUpdateProfileNotificationName;
 + (RKObjectLoader*)voteForOutfit:(NSString*)outfitID look:(NSInteger)look reasons:(NSArray*)reasons delegate:(NSObject<RKObjectLoaderDelegate>*)delegate;
 
 /**
+ * Begin the login process with Facebook (preferred)
+ */
+- (void)loginWithFacebook;
+
+/**
  * Begin the login process using JanRain Engage
  */
-- (void)login;
+- (void)loginWithJanRain;
 
 /**
  * Resumes a current session via a persisted token

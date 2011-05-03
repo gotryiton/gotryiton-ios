@@ -20,6 +20,7 @@
 	NSString* const kGTIOBaseURLString = @"http://www.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"";
     NSString* const kGTIOFlurryAPIKey = @"CJ5AC5DU3YPZ3YJ6E7ES";
+    NSString* const kGTIOFacebookAppID = @"134143416622354";
 #endif 
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
@@ -27,6 +28,7 @@
 	NSString* const kGTIOBaseURLString = @"http://iphonedev.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"gcaojlbgaiajjnmekobm";
     NSString* const kGTIOFlurryAPIKey = @"CJ5AC5DU3YPZ3YJ6E7ES";
+    NSString* const kGTIOFacebookAppID = @"134143416622354";
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
@@ -34,6 +36,7 @@
 	NSString* const kGTIOBaseURLString = @"http://i.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"iligdiaplfgbmhcpebgf";
     NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
+    NSString* const kGTIOFacebookAppID = @"126454074038555";
 #endif
 
 NSString* GTIORestResourcePath(NSString* string) {

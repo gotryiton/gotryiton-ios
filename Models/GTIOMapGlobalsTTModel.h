@@ -13,4 +13,6 @@
 
 }
 
+- (void)mapGlobalsFrom:(NSArray*)models;
+
 @end

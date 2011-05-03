@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "GTIOLauncherViewController.h"
 #import "GTIOWelcomeViewController.h"
+#import "GTIOLoginViewController.h"
 
 #import <TWTCommon/TWTAlertViewDelegate.h>
 #import <TWTCommon/TWTBundledAssetsURLCache.h>
@@ -30,6 +31,7 @@
 #import "GTIOVotingResultSet.h"
 #import "GTIOAppStatusAlert.h"
 #import "GTIOAppStatusAlertButton.h"
+#import "Facebook.h"
 
 @interface AppDelegate (Private)
 
@@ -61,8 +63,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
     [map from:@"gtio://home" toSharedViewController:[GTIOLauncherViewController class]];
     [map from:@"gtio://welcome" toModalViewController:[GTIOWelcomeViewController class]];
+    [map from:@"gtio://login" toModalViewController:[GTIOLoginViewController class]];
     
-	[map from:@"gtio://login" toObject:[GTIOUser currentUser] selector:@selector(login)];
+	[map from:@"gtio://loginWithJanRain" toObject:[GTIOUser currentUser] selector:@selector(loginWithJanRain)];
+   	[map from:@"gtio://loginWithFacebook" toObject:[GTIOUser currentUser] selector:@selector(loginWithFacebook)];
 	[map from:@"gtio://logout" toObject:[GTIOUser currentUser] selector:@selector(logout)];
 	
 	// External URL's
@@ -81,7 +85,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://external/ensureLogin/showOutfitOnGiveAnOpinionTab/(requireLoginAndShowOutfitOnGiveAnOpinionTab:)" toObject:externalURLHelper];
 	
 	[map from:@"gtio://launching" toSharedViewController:NSClassFromString(@"GTIOLaunchingViewController")];
-	[map from:@"gtio://tabbar" toSharedViewController:NSClassFromString(@"GTIOTabBarController")];
 	[map from:@"gtio://settings" toSharedViewController:NSClassFromString(@"GTIOSettingsViewController")];
 	[map from:@"gtio://contacts" toModalViewController:NSClassFromString(@"GTIOContactViewController")];
 	[map from:@"gtio://photosPreview" toSharedViewController:NSClassFromString(@"GTIOPhotosPreviewViewController")];
@@ -89,7 +92,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://photoGuidelines" toViewController:NSClassFromString(@"GTIOPhotoGuidelinesViewController") transition:UIViewAnimationTransitionCurlDown];
 	
 	// Get an Opinion
-	[map from:@"gtio://getAnOpinion" parent:@"gtio://tabbar" toSharedViewController:NSClassFromString(@"GTIOGetAnOpinionViewController")];
+	[map from:@"gtio://getAnOpinion" toModalViewController:NSClassFromString(@"GTIOGetAnOpinionViewController")];
 	[map from:@"gtio://getAnOpinion/photosPreview" parent:@"gtio://getAnOpinion" toSharedViewController:NSClassFromString(@"GTIOPhotosPreviewViewController")];
 	[map from:@"gtio://getAnOpinion/tellUsAboutIt/multiplePhotos" parent:@"gtio://getAnOpinion/photosPreview" toSharedViewController:NSClassFromString(@"GTIOTellUsAboutItViewController")];
 	[map from:@"gtio://getAnOpinion/tellUsAboutIt" parent:@"gtio://getAnOpinion" toSharedViewController:NSClassFromString(@"GTIOTellUsAboutItViewController")];
@@ -100,7 +103,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Registered within the controller...
 	
 	// Profile view
-	[map from:@"gtio://profile" parent:@"gtio://tabbar" toSharedViewController:NSClassFromString(@"GTIOProfileViewController")];	
+	[map from:@"gtio://profile" toModalViewController:NSClassFromString(@"GTIOProfileViewController")];	
 	[map from:@"gtio://profile/look/(initWithOutfitID:)" toViewController:NSClassFromString(@"GTIOOutfitViewController")];
 	
 	[map from:@"gtio://profile/new" toModalViewController:NSClassFromString(@"GTIOEditProfileViewController") selector:@selector(initWithNewProfile)];
@@ -155,7 +158,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(userDidLoginWithIncompleteProfile:) 
 												 name:kGTIOUserDidLoginWithIncompleteProfileNotificationName 
-											   object:nil];	
+											   object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin:) name:kGTIOUserDidLoginNotificationName object:nil];
 	
 	// Handle Launch Options
 	if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]) {
@@ -269,7 +273,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 			
 			return YES;			
 		}
-	} else {
+	} else if ([[URL absoluteString] rangeOfString:@"fb"].location == 0) {
+        Facebook* facebook = [GTIOUser currentUser].facebook;
+        return [facebook handleOpenURL:URL];
+    } else {
 		if (![URL isEqual:_launchURL]) {
 			[[TTNavigator navigator] openURLAction:
 			 [TTURLAction actionWithURLPath:URL.absoluteString]];
@@ -322,6 +329,12 @@ void uncaughtExceptionHandler(NSException *exception) {
   	// Trigger display of the 'Almost Done' screen
 	[[TTNavigator navigator] openURLAction:
 	 [[TTURLAction actionWithURLPath:@"gtio://profile/new"] applyAnimated:YES]];
+}
+
+- (void)userDidLogin:(NSNotification*)note {
+    UIViewController* home = TTOpenURL(@"gtio://home");
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+    [home dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark Push Notifications
@@ -391,7 +404,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Let's assume that they will give us a tturl to open for now.
 	NSString* url = [[aps objectForKey:@"loc-args"] objectForKey:@"url"];
 	if (url) {
-		TTOpenURL(@"gtio://tabbar");
+		TTOpenURL(@"gtio://home");
 		TTOpenURL(url);
 	}
 }

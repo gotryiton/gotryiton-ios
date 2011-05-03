@@ -91,4 +91,6 @@ extern CGRect const wear4of4Frame;
 - (void)didAppear;
 - (void)mayHaveDisappeared;
 
+- (void)setWillMoveInFromLeft:(BOOL)fromLeft;
+
 @end
