@@ -38,6 +38,12 @@ extern NSString* const kGTIOUserDidCancelLoginNotificationName;
  */
 NSString* const kGTIOUserDidUpdateProfileNotificationName;
 
+/**
+ * Posted when the login process starts and stops
+ */
+extern NSString* const kGTIOUserDidBeginLoginProcess;
+extern NSString* const kGTIOUserDidEndLoginProcess;
+
 //////////////////////////////////////////////////////////////////////
 
 @interface GTIOUser : NSObject <JREngageDelegate, FBSessionDelegate> {

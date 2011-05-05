@@ -18,7 +18,7 @@
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
 	NSString* const kGTIOEnvironmentName = @"development";
 	NSString* const kGTIOBaseURLString = @"http://www.gotryiton.com";
-	NSString* const kGTIOJanRainEngageApplicationID = @"";
+	NSString* const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString* const kGTIOFlurryAPIKey = @"CJ5AC5DU3YPZ3YJ6E7ES";
     NSString* const kGTIOFacebookAppID = @"134143416622354";
 #endif 
@@ -26,7 +26,7 @@
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
 	NSString* const kGTIOEnvironmentName = @"staging";
 	NSString* const kGTIOBaseURLString = @"http://iphonedev.gotryiton.com";
-	NSString* const kGTIOJanRainEngageApplicationID = @"gcaojlbgaiajjnmekobm";
+	NSString* const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString* const kGTIOFlurryAPIKey = @"CJ5AC5DU3YPZ3YJ6E7ES";
     NSString* const kGTIOFacebookAppID = @"134143416622354";
 #endif

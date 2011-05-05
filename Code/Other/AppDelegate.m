@@ -412,6 +412,20 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 // Frank Helpers. Login, Logout, open URL, etc. Anything that needs to modify state of the app.
 
+- (void)franklyLogoutUser {
+    [[GTIOUser currentUser] logout];
+}
+
+- (void)franklyOpenURL:(NSString*)URL {
+    TTOpenURL(URL);
+}
+
+- (void)franklyLogin {
+    GTIOUser* user = [GTIOUser currentUser];
+    user.username = @"Jeremy E.";
+    user.loggedIn = YES;
+}
+
 #endif
 
 @end

@@ -7,7 +7,6 @@ Scenario:
     Launching the app for the first time
 Given I launch the app
 And I am not logged in
-And I launch the app
 Then I should see the "Welcome Screen"
 
 Scenario:
@@ -15,3 +14,5 @@ Scenario:
 Given I am on the "Welcome Screen"
 And I press the "LOG IN / SIGN UP" button
 Then I should see the "Login Screen"
+When the user logs in
+Then I should see the "Home Screen"

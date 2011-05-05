@@ -11,18 +11,17 @@
 
 @implementation GTIOLoginViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStartedNotification:) name:kGTIOUserDidBeginLoginProcess object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginEndedNotification:) name:kGTIOUserDidEndLoginProcess object:nil];
     }
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
@@ -30,12 +29,24 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)loginStartedNotification:(NSNotification*)note {
+    if (nil == [self.view viewWithTag:999]) {
+        TTActivityLabel* activityLabel = [[TTActivityLabel alloc] initWithFrame:self.view.bounds style:TTActivityLabelStyleBlackBox text:NSLocalizedString(@"Logging In...", @"Logging in loading text")];
+        activityLabel.tag = 999;
+        [self.view addSubview:activityLabel];
+        [activityLabel release];
+    }
+}
+
+- (void)loginEndedNotification:(NSNotification*)note {
+    [[self.view viewWithTag:999] removeFromSuperview];
 }
 
 - (IBAction)facebookButtonWasPressed:(id)sender {

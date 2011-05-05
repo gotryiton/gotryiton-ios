@@ -12,6 +12,8 @@
 @interface GTIOLauncherViewController : UIViewController {
     IBOutlet UIView* _launcherView;
     IBOutlet UIButton* _notifications;
+    IBOutlet UILabel* _usernameLabel;
+    IBOutlet UIBarButtonItem* _loginLogoutButton;
 }
 
 - (IBAction)myStylistsButtonWasPressed;

@@ -1979,20 +1979,6 @@
 			remoteGlobalIDString = 2590E66B1252353700531FA8;
 			remoteInfo = "RestKitJSONParser+SBJSON";
 		};
-		25D5C81B13535ACD007B6F14 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 73057FD11331AD2E001908EE;
-			remoteInfo = "RestKitJSONParser+JSONKit";
-		};
-		25D5C81D13535ACD007B6F14 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 25BD43BD1340315800DBACDD;
-			remoteInfo = "RestKitXMLParser+Libxml";
-		};
 		25D5C81F13535ACD007B6F14 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
@@ -2301,40 +2287,26 @@
 			remoteGlobalIDString = BEF31F3A0F352DF5000DE5D2;
 			remoteInfo = Three20UI;
 		};
+		3F22EE021371F08A0000FCA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 73057FD11331AD2E001908EE;
+			remoteInfo = "RestKitJSONParser+JSONKit";
+		};
+		3F22EE041371F08A0000FCA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25BD43BD1340315800DBACDD;
+			remoteInfo = "RestKitXMLParser+Libxml";
+		};
 		3F70AE64136B02D600761AF4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 253A081312551D5300976E89;
 			remoteInfo = RestKitCoreData;
-		};
-		3FCBE9E4137063380039D779 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3FCBE9DC137063380039D779 /* TWTCommon.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = TWTCommon;
-		};
-		3FCBE9E61370634B0039D779 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3FCBE9DC137063380039D779 /* TWTCommon.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = TWTCommon;
-		};
-		3FCBE9EA137063600039D779 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3FCBE9DC137063380039D779 /* TWTCommon.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = TWTCommon;
-		};
-		3FCBE9EE1370636C0039D779 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3FCBE9DC137063380039D779 /* TWTCommon.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = TWTCommon;
 		};
 		3FCBF22A1370820B0039D779 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2363,6 +2335,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = "facebook-ios-sdk";
+		};
+		3FE8B3FB1372F03F00514FE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = TWTCommon;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -2720,7 +2699,6 @@
 		3FCBE8A71370621F0039D779 /* TTTableLinkedItemCell_Accessories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableLinkedItemCell_Accessories.m; sourceTree = "<group>"; };
 		3FCBE8A81370621F0039D779 /* TTTableViewDelegate+GTIOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTTableViewDelegate+GTIOAdditions.h"; sourceTree = "<group>"; };
 		3FCBE8A91370621F0039D779 /* TTTableViewDelegate+GTIOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTTableViewDelegate+GTIOAdditions.m"; sourceTree = "<group>"; };
-		3FCBE9DC137063380039D779 /* TWTCommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TWTCommon.xcodeproj; path = Libraries/TWTCommon/TWTCommon.xcodeproj; sourceTree = "<group>"; };
 		3FCBE9E8137063520039D779 /* libTWTCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libTWTCommon.a; sourceTree = SOURCE_ROOT; };
 		3FCBE9EC137063640039D779 /* libTWTCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libTWTCommon.a; sourceTree = SOURCE_ROOT; };
 		3FCBE9F0137063710039D779 /* libTWTCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libTWTCommon.a; sourceTree = SOURCE_ROOT; };
@@ -3262,6 +3240,7 @@
 		3FCBF22E1370824D0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
 		3FCBF2321370825F0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
 		3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
+		3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TWTCommon.xcodeproj; path = Libraries/TWTCommon/TWTCommon.xcodeproj; sourceTree = "<group>"; };
 		3FF536F613708E84001DEE26 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		3FF536F713708E84001DEE26 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		3FF7A3BF136F3AAC00CB201C /* GTIOLauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLauncherViewController.h; sourceTree = "<group>"; };
@@ -3471,10 +3450,10 @@
 		258518AC135357D0005DCBA5 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */,
 				3FCBF2231370820B0039D779 /* facebook-ios-sdk.xcodeproj */,
 				3FCBEA02137065930039D779 /* JanRain */,
 				3FCBE9F2137064D40039D779 /* FlurryLib */,
-				3FCBE9DC137063380039D779 /* TWTCommon.xcodeproj */,
 				25D5CA7A13537374007B6F14 /* UISpec.xcodeproj */,
 				25D5C9B913536EA1007B6F14 /* frank_static_resources.bundle */,
 				25D5C9BA13536EA1007B6F14 /* lib */,
@@ -3608,8 +3587,8 @@
 				25D5C81613535ACD007B6F14 /* libRestKitSupport.a */,
 				25D5C81813535ACD007B6F14 /* libRestKitJSONParserYAJL.a */,
 				25D5C81A13535ACD007B6F14 /* libRestKitJSONParserSBJSON.a */,
-				25D5C81C13535ACD007B6F14 /* libRestKitJSONParserJSONKit.a */,
-				25D5C81E13535ACD007B6F14 /* libRestKitXMLParserLibxml.a */,
+				3F22EE031371F08A0000FCA9 /* libRestKitJSONParserJSONKit.a */,
+				3F22EE051371F08A0000FCA9 /* libRestKitXMLParserLibxml.a */,
 				25D5C82013535ACD007B6F14 /* libRestKitCoreData.a */,
 				25D5C82213535ACD007B6F14 /* libRestKitThree20.a */,
 				25D5C82413535ACD007B6F14 /* UISpec.app */,
@@ -4112,14 +4091,6 @@
 			);
 			name = "Views(Old)";
 			path = Views;
-			sourceTree = "<group>";
-		};
-		3FCBE9DD137063380039D779 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3FCBE9E5137063380039D779 /* libTWTCommon.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		3FCBE9F2137064D40039D779 /* FlurryLib */ = {
@@ -4941,6 +4912,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		3FE8B3F81372F03F00514FE5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3FE8B3FC1372F03F00514FE5 /* libTWTCommon.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4956,7 +4935,6 @@
 			);
 			dependencies = (
 				3FCBF235137082690039D779 /* PBXTargetDependency */,
-				3FCBE9E71370634B0039D779 /* PBXTargetDependency */,
 				25D5C91313535D52007B6F14 /* PBXTargetDependency */,
 				3F70AE65136B02D600761AF4 /* PBXTargetDependency */,
 				3201088596B4756681693701 /* PBXTargetDependency */,
@@ -4984,7 +4962,6 @@
 			);
 			dependencies = (
 				3FCBF231137082580039D779 /* PBXTargetDependency */,
-				3FCBE9EB137063600039D779 /* PBXTargetDependency */,
 				25D5CA8A13537398007B6F14 /* PBXTargetDependency */,
 				25D5C94013536855007B6F14 /* PBXTargetDependency */,
 				25D5C94213536855007B6F14 /* PBXTargetDependency */,
@@ -5012,7 +4989,6 @@
 			);
 			dependencies = (
 				3FCBF22D1370823D0039D779 /* PBXTargetDependency */,
-				3FCBE9EF1370636C0039D779 /* PBXTargetDependency */,
 				25D5C98413536D8F007B6F14 /* PBXTargetDependency */,
 				25D5C98613536D8F007B6F14 /* PBXTargetDependency */,
 				25D5C98813536D8F007B6F14 /* PBXTargetDependency */,
@@ -5080,8 +5056,8 @@
 					ProjectRef = 320A737074758E53BA54BE90 /* Three20UINavigator.xcodeproj */;
 				},
 				{
-					ProductGroup = 3FCBE9DD137063380039D779 /* Products */;
-					ProjectRef = 3FCBE9DC137063380039D779 /* TWTCommon.xcodeproj */;
+					ProductGroup = 3FE8B3F81372F03F00514FE5 /* Products */;
+					ProjectRef = 3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */;
 				},
 				{
 					ProductGroup = 25D5CA7B13537374007B6F14 /* Products */;
@@ -5131,20 +5107,6 @@
 			fileType = archive.ar;
 			path = libRestKitJSONParserSBJSON.a;
 			remoteRef = 25D5C81913535ACD007B6F14 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		25D5C81C13535ACD007B6F14 /* libRestKitJSONParserJSONKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRestKitJSONParserJSONKit.a;
-			remoteRef = 25D5C81B13535ACD007B6F14 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		25D5C81E13535ACD007B6F14 /* libRestKitXMLParserLibxml.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRestKitXMLParserLibxml.a;
-			remoteRef = 25D5C81D13535ACD007B6F14 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		25D5C82013535ACD007B6F14 /* libRestKitCoreData.a */ = {
@@ -5280,11 +5242,18 @@
 			remoteRef = 320F2C48872C2E2C4DF86206 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3FCBE9E5137063380039D779 /* libTWTCommon.a */ = {
+		3F22EE031371F08A0000FCA9 /* libRestKitJSONParserJSONKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libTWTCommon.a;
-			remoteRef = 3FCBE9E4137063380039D779 /* PBXContainerItemProxy */;
+			path = libRestKitJSONParserJSONKit.a;
+			remoteRef = 3F22EE021371F08A0000FCA9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3F22EE051371F08A0000FCA9 /* libRestKitXMLParserLibxml.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKitXMLParserLibxml.a;
+			remoteRef = 3F22EE041371F08A0000FCA9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3FCBF22B1370820B0039D779 /* libfacebook_ios_sdk.a */ = {
@@ -5292,6 +5261,13 @@
 			fileType = archive.ar;
 			path = libfacebook_ios_sdk.a;
 			remoteRef = 3FCBF22A1370820B0039D779 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3FE8B3FC1372F03F00514FE5 /* libTWTCommon.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTWTCommon.a;
+			remoteRef = 3FE8B3FB1372F03F00514FE5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -7317,21 +7293,6 @@
 			name = RestKitCoreData;
 			targetProxy = 3F70AE64136B02D600761AF4 /* PBXContainerItemProxy */;
 		};
-		3FCBE9E71370634B0039D779 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TWTCommon;
-			targetProxy = 3FCBE9E61370634B0039D779 /* PBXContainerItemProxy */;
-		};
-		3FCBE9EB137063600039D779 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TWTCommon;
-			targetProxy = 3FCBE9EA137063600039D779 /* PBXContainerItemProxy */;
-		};
-		3FCBE9EF1370636C0039D779 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TWTCommon;
-			targetProxy = 3FCBE9EE1370636C0039D779 /* PBXContainerItemProxy */;
-		};
 		3FCBF22D1370823D0039D779 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "facebook-ios-sdk";
@@ -7442,6 +7403,7 @@
 					Specs/Support/OCMock/Headers,
 					Libraries/RestKit/Build,
 					"Libraries/facebook-ios-sdk/src/",
+					Libraries/TWTCommon/Code/,
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -7469,6 +7431,7 @@
 					Specs/Support/OCMock/Headers,
 					Libraries/RestKit/Build,
 					"Libraries/facebook-ios-sdk/src/",
+					Libraries/TWTCommon/Code/,
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -7498,6 +7461,7 @@
 					Specs/Support/OCMock/Headers,
 					Libraries/RestKit/Build,
 					Specs/Support/UISpec/headers,
+					"Libraries/facebook-ios-sdk/src/",
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -7526,6 +7490,7 @@
 					Specs/Support/OCMock/Headers,
 					Libraries/RestKit/Build,
 					Specs/Support/UISpec/headers,
+					"Libraries/facebook-ios-sdk/src/",
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -7549,6 +7514,14 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(BUILT_PRODUCTS_DIR)/../three20",
+					"$(BUILT_PRODUCTS_DIR)/../../three20",
+					Libraries/three20/Build/Products/three20,
+					Specs/Support/OCMock/Headers,
+					Libraries/RestKit/Build,
+					"Libraries/facebook-ios-sdk/src/",
+				);
 				INFOPLIST_FILE = Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7569,6 +7542,14 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(BUILT_PRODUCTS_DIR)/../three20",
+					"$(BUILT_PRODUCTS_DIR)/../../three20",
+					Libraries/three20/Build/Products/three20,
+					Specs/Support/OCMock/Headers,
+					Libraries/RestKit/Build,
+					"Libraries/facebook-ios-sdk/src/",
+				);
 				INFOPLIST_FILE = Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

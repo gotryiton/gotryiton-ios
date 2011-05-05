@@ -24,6 +24,9 @@ NSString* const kGTIOUserDidLogoutNotificationName = @"kGTIOUserDidLogoutNotific
 NSString* const kGTIOUserDidCancelLoginNotificationName = @"kGTIOUserDidCancelLoginNotificationName";
 NSString* const kGTIOUserDidUpdateProfileNotificationName = @"kUserProfileUpdatedNotification";
 
+NSString* const kGTIOUserDidBeginLoginProcess = @"kGTIOUserDidBeginLoginProcess";
+NSString* const kGTIOUserDidEndLoginProcess = @"kGTIOUserDidEndLoginProcess";
+
 // Global current User instance
 static GTIOUser* gCurrentUser = nil;
 
@@ -114,13 +117,23 @@ static GTIOUser* gCurrentUser = nil;
 	[super dealloc];
 }
 
+- (void)didStartLogin {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidBeginLoginProcess object:self];
+}
+
+- (void)didStopLogin {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidEndLoginProcess object:self];
+}
+
 - (void)loginWithFacebook {
+    [self didStartLogin];
     _facebook = [[Facebook alloc] initWithAppId:kGTIOFacebookAppID];
     NSArray* permissions = [NSArray arrayWithObjects:@"publish_stream", @"offline_access", @"email", @"user_birthday", nil];
     [_facebook authorize:permissions delegate:self];
 }
 
 - (void)loginWithJanRain {
+    [self didStartLogin];
 	if (NO == self.isLoggedIn) {
 		TTOpenURL(@"gtio://analytics/trackUserDidViewLogin");
         JREngage* engage = [JREngage jrEngageWithAppId:kGTIOJanRainEngageApplicationID
@@ -301,16 +314,35 @@ static GTIOUser* gCurrentUser = nil;
 	return [NSURL URLWithString:authURL];
 }
 
+#pragma mark RKRequestDelegate
+
+- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    NSLog(@"Profile Info: %@", [response bodyAsString]);
+    [self digestProfileInfo:[response bodyAsJSON]];
+    [self didStopLogin];
+}
+
+- (void)request:(RKRequest*)request didFailLoadWithError:(NSError*)error {
+    [self didStopLogin];
+    [self clearUserData];
+}
+
 #pragma mark FBSessionDelegate
 
 - (void)fbDidLogin {
     NSLog(@"Logged in: %@", [_facebook accessToken]);
+    NSString* url = [NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, GTIORestResourcePath(@"/auth")];
+    RKRequest* request = [RKRequest requestWithURL:[NSURL URLWithString:url] delegate:self];
+    request.method = RKRequestMethodPOST;
+    request.params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken", nil];
+    [request send];
 }
 
 /**
  * Called when the user dismissed the dialog without logging in.
  */
 - (void)fbDidNotLogin:(BOOL)cancelled {
+    [self didStopLogin];
     [self clearUserData];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidCancelLoginNotificationName object:self];	
 }
@@ -331,6 +363,7 @@ static GTIOUser* gCurrentUser = nil;
     NSDictionary* profileInfo = (NSDictionary*) [jsonParser objectWithString:tokenUrlPayloadString];
     [self digestProfileInfo:profileInfo];
 	[jsonParser release];
+    [self didStopLogin];
 }
 
 - (void)jrEngageDialogDidFailToShowWithError:(NSError*)error {
