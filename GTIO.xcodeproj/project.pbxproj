@@ -1923,6 +1923,9 @@
 		3FCBF22F1370824F0039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF22E1370824D0039D779 /* libfacebook_ios_sdk.a */; };
 		3FCBF233137082600039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF2321370825F0039D779 /* libfacebook_ios_sdk.a */; };
 		3FCBF2371370826F0039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */; };
+		3FE8B3FF13730B5C00514FE5 /* JRSessionData_Overrides.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE8B3FE13730B5C00514FE5 /* JRSessionData_Overrides.m */; };
+		3FE8B40013730B5F00514FE5 /* JRSessionData_Overrides.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE8B3FE13730B5C00514FE5 /* JRSessionData_Overrides.m */; };
+		3FE8B40113730B6000514FE5 /* JRSessionData_Overrides.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE8B3FE13730B5C00514FE5 /* JRSessionData_Overrides.m */; };
 		3FF7A3C2136F3AAC00CB201C /* GTIOLauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A3C0136F3AAC00CB201C /* GTIOLauncherViewController.m */; };
 		3FF7A3C3136F3AAC00CB201C /* GTIOLauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A3C0136F3AAC00CB201C /* GTIOLauncherViewController.m */; };
 		3FF7A3C4136F3AAC00CB201C /* GTIOLauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF7A3C0136F3AAC00CB201C /* GTIOLauncherViewController.m */; };
@@ -3241,6 +3244,8 @@
 		3FCBF2321370825F0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
 		3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
 		3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TWTCommon.xcodeproj; path = Libraries/TWTCommon/TWTCommon.xcodeproj; sourceTree = "<group>"; };
+		3FE8B3FD13730B5C00514FE5 /* JRSessionData_Overrides.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSessionData_Overrides.h; sourceTree = "<group>"; };
+		3FE8B3FE13730B5C00514FE5 /* JRSessionData_Overrides.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSessionData_Overrides.m; sourceTree = "<group>"; };
 		3FF536F613708E84001DEE26 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		3FF536F713708E84001DEE26 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		3FF7A3BF136F3AAC00CB201C /* GTIOLauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLauncherViewController.h; sourceTree = "<group>"; };
@@ -3551,6 +3556,8 @@
 				25D5C7E913535AA6007B6F14 /* AppDelegate.h */,
 				25D5C7EA13535AA6007B6F14 /* AppDelegate.m */,
 				25D5C7EB13535AA6007B6F14 /* main.m */,
+				3FE8B3FD13730B5C00514FE5 /* JRSessionData_Overrides.h */,
+				3FE8B3FE13730B5C00514FE5 /* JRSessionData_Overrides.m */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -6849,6 +6856,7 @@
 				3FCBECDD137065CA0039D779 /* JRUserInterfaceMaestro.m in Sources */,
 				3FCBECE0137065CA0039D779 /* JRUserLandingController.m in Sources */,
 				3FCBECE3137065CA0039D779 /* JRWebViewController.m in Sources */,
+				3FE8B3FF13730B5C00514FE5 /* JRSessionData_Overrides.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6978,6 +6986,7 @@
 				3FCBECDE137065CA0039D779 /* JRUserInterfaceMaestro.m in Sources */,
 				3FCBECE1137065CA0039D779 /* JRUserLandingController.m in Sources */,
 				3FCBECE4137065CA0039D779 /* JRWebViewController.m in Sources */,
+				3FE8B40013730B5F00514FE5 /* JRSessionData_Overrides.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7157,6 +7166,7 @@
 				3FCBECDF137065CA0039D779 /* JRUserInterfaceMaestro.m in Sources */,
 				3FCBECE2137065CA0039D779 /* JRUserLandingController.m in Sources */,
 				3FCBECE5137065CA0039D779 /* JRWebViewController.m in Sources */,
+				3FE8B40113730B6000514FE5 /* JRSessionData_Overrides.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

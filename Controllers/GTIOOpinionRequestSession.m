@@ -396,18 +396,15 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	[_opinionRequest.photos removeAllObjects];
 	
 	[[self.window viewWithTag:kGTIOActivityLabelTag] removeFromSuperview];
-	[self.navigationController popToRootViewControllerAnimated:YES];
 	
-	// Switch to the Profile tab
-	UITabBarController* tabBarController = (UITabBarController*) [[TTNavigator globalNavigator] viewControllerForURL:@"gtio://tabbar"];
-	tabBarController.selectedIndex = 2;
-	GTIOProfileViewController* controller = (GTIOProfileViewController*) [[TTNavigator globalNavigator] viewControllerForURL:@"gtio://profile"];
-    [controller invalidateModel];
-	TTDINFO(@"Loading submitted URL: %@", submission.outfitURL);
-	// TODO: fix this so it opens on the profile tab.
-	NSString* outfitURLString = [submission.outfitURL absoluteString];
-	TTOpenURL(outfitURLString);
-//	[controller loadURL:submission.outfitURL];
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+	[self.navigationController dismissModalViewControllerAnimated:YES];
+//    TTOpenURL(@"gtio://profile");
+//    TTOpenURL(@"gtio://home");
+    
+//    TTOpenURL([NSString stringWithFormat:@"gtio://profile/look/%@", submission.outfitURL]);
+//	TTDINFO(@"Loading submitted URL: %@", submission.outfitURL);
+
 	[submission release];
 	
 	// Persist the settings for next time

@@ -82,7 +82,10 @@
     TTOpenURL(looksURL);
 }
 
-- (IBAction)uploadButtonWasPressed {}
+- (IBAction)uploadButtonWasPressed {
+    TTOpenURL(@"gtio://getAnOpinion");
+}
+
 - (IBAction)todosButtonWasPressed {}
 - (IBAction)browseButtonWasPressed {}
 - (IBAction)myReviewsButtonWasPressed {

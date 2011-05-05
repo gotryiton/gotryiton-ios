@@ -367,18 +367,22 @@ static GTIOUser* gCurrentUser = nil;
 }
 
 - (void)jrEngageDialogDidFailToShowWithError:(NSError*)error {
+    [self didStopLogin];
 	[self clearUserData];
 }
 
 - (void)jrAuthenticationDidFailWithError:(NSError*)error forProvider:(NSString*)provider {
+    [self didStopLogin];
     [self clearUserData];
 }
 
 - (void)jrAuthenticationCallToTokenUrl:(NSString*)tokenUrl didFailWithError:(NSError*)error forProvider:(NSString*)provider {
+    [self didStopLogin];
 	[self clearUserData];
 }
 
 - (void)jrAuthenticationDidNotComplete {
+    [self didStopLogin];
 	[self clearUserData];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidCancelLoginNotificationName object:self];	
 }
