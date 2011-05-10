@@ -13,8 +13,8 @@
 #import "GTIOWelcomeViewController.h"
 #import "GTIOLoginViewController.h"
 
-#import <TWTCommon/TWTAlertViewDelegate.h>
-#import <TWTCommon/TWTBundledAssetsURLCache.h>
+#import <TWTAlertViewDelegate.h>
+#import <TWTBundledAssetsURLCache.h>
 #import "GTIOOpinionRequestSession.h"
 #import "GTIOStyleSheet.h"
 #import "GTIOUser.h"

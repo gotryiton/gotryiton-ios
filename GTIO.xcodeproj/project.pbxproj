@@ -2346,6 +2346,13 @@
 			remoteGlobalIDString = D2AAC07E0554694100DB518D;
 			remoteInfo = TWTCommon;
 		};
+		A708E8411379795F002F1F62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = TWTCommon;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -2356,7 +2363,7 @@
 		25851893135357C5005DCBA5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		25D5C7E813535AA6007B6F14 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prefix.pch; path = Code/Other/Prefix.pch; sourceTree = "<group>"; };
 		25D5C7E913535AA6007B6F14 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Code/Other/AppDelegate.h; sourceTree = "<group>"; };
-		25D5C7EA13535AA6007B6F14 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Code/Other/AppDelegate.m; sourceTree = "<group>"; };
+		25D5C7EA13535AA6007B6F14 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AppDelegate.m; path = Code/Other/AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		25D5C7EB13535AA6007B6F14 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Code/Other/main.m; sourceTree = "<group>"; };
 		25D5C7F213535ABE007B6F14 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		25D5C7F413535ABE007B6F14 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainWindow.xib; sourceTree = "<group>"; };
@@ -2528,7 +2535,7 @@
 		3FCBE7EE1370621E0039D779 /* GTIOContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOContactViewController.m; sourceTree = "<group>"; };
 		3FCBE7EF1370621E0039D779 /* GTIOEditOutfitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOEditOutfitViewController.h; sourceTree = "<group>"; };
 		3FCBE7F01370621E0039D779 /* GTIOEditOutfitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOEditOutfitViewController.m; sourceTree = "<group>"; };
-		3FCBE7F11370621E0039D779 /* GTIOEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOEditProfileViewController.h; sourceTree = "<group>"; };
+		3FCBE7F11370621E0039D779 /* GTIOEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GTIOEditProfileViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3FCBE7F21370621E0039D779 /* GTIOEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOEditProfileViewController.m; sourceTree = "<group>"; };
 		3FCBE7F31370621E0039D779 /* GTIOGetAnOpinionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOGetAnOpinionViewController.h; sourceTree = "<group>"; };
 		3FCBE7F41370621E0039D779 /* GTIOGetAnOpinionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOGetAnOpinionViewController.m; sourceTree = "<group>"; };
@@ -2550,7 +2557,7 @@
 		3FCBE8041370621E0039D779 /* GTIOPhotosPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotosPreviewViewController.m; sourceTree = "<group>"; };
 		3FCBE8051370621E0039D779 /* GTIOProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileViewController.h; sourceTree = "<group>"; };
 		3FCBE8061370621E0039D779 /* GTIOProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileViewController.m; sourceTree = "<group>"; };
-		3FCBE8071370621E0039D779 /* GTIOSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSettingsViewController.h; sourceTree = "<group>"; };
+		3FCBE8071370621E0039D779 /* GTIOSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GTIOSettingsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3FCBE8081370621E0039D779 /* GTIOSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSettingsViewController.m; sourceTree = "<group>"; };
 		3FCBE8091370621E0039D779 /* GTIOShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOShareViewController.h; sourceTree = "<group>"; };
 		3FCBE80A1370621E0039D779 /* GTIOShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOShareViewController.m; sourceTree = "<group>"; };
@@ -2560,8 +2567,8 @@
 		3FCBE80E1370621E0039D779 /* GTIOTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableViewController.m; sourceTree = "<group>"; };
 		3FCBE80F1370621E0039D779 /* GTIOTakeAPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTakeAPictureViewController.h; sourceTree = "<group>"; };
 		3FCBE8101370621E0039D779 /* GTIOTakeAPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTakeAPictureViewController.m; sourceTree = "<group>"; };
-		3FCBE8111370621E0039D779 /* GTIOTellUsAboutItViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTellUsAboutItViewController.h; sourceTree = "<group>"; };
-		3FCBE8121370621E0039D779 /* GTIOTellUsAboutItViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTellUsAboutItViewController.m; sourceTree = "<group>"; };
+		3FCBE8111370621E0039D779 /* GTIOTellUsAboutItViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GTIOTellUsAboutItViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3FCBE8121370621E0039D779 /* GTIOTellUsAboutItViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GTIOTellUsAboutItViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3FCBE8131370621E0039D779 /* GTIOTopPaddedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTopPaddedTableViewController.h; sourceTree = "<group>"; };
 		3FCBE8141370621E0039D779 /* GTIOTopPaddedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTopPaddedTableViewController.m; sourceTree = "<group>"; };
 		3FCBE8151370621E0039D779 /* GTIOUserOutfitsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserOutfitsTableViewController.h; sourceTree = "<group>"; };
@@ -2613,7 +2620,7 @@
 		3FCBE84B1370621F0039D779 /* GTIOGiveAnOpinionTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOGiveAnOpinionTableViewDataSource.h; sourceTree = "<group>"; };
 		3FCBE84C1370621F0039D779 /* GTIOGiveAnOpinionTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOGiveAnOpinionTableViewDataSource.m; sourceTree = "<group>"; };
 		3FCBE84D1370621F0039D779 /* GTIOOutfitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitViewController.h; sourceTree = "<group>"; };
-		3FCBE84E1370621F0039D779 /* GTIOOutfitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitViewController.m; sourceTree = "<group>"; };
+		3FCBE84E1370621F0039D779 /* GTIOOutfitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GTIOOutfitViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3FCBE84F1370621F0039D779 /* GTIOProfileViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileViewDataSource.h; sourceTree = "<group>"; };
 		3FCBE8501370621F0039D779 /* GTIOProfileViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileViewDataSource.m; sourceTree = "<group>"; };
 		3FCBE8511370621F0039D779 /* GTIOReachabilityObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOReachabilityObserver.h; sourceTree = "<group>"; };
@@ -2659,7 +2666,7 @@
 		3FCBE87C1370621F0039D779 /* GTIOOutfitPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitPageView.h; sourceTree = "<group>"; };
 		3FCBE87D1370621F0039D779 /* GTIOOutfitPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitPageView.m; sourceTree = "<group>"; };
 		3FCBE87E1370621F0039D779 /* GTIOOutfitReviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitReviewTableCell.h; sourceTree = "<group>"; };
-		3FCBE87F1370621F0039D779 /* GTIOOutfitReviewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitReviewTableCell.m; sourceTree = "<group>"; };
+		3FCBE87F1370621F0039D779 /* GTIOOutfitReviewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GTIOOutfitReviewTableCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3FCBE8801370621F0039D779 /* GTIOOutfitReviewTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitReviewTableItem.h; sourceTree = "<group>"; };
 		3FCBE8811370621F0039D779 /* GTIOOutfitReviewTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitReviewTableItem.m; sourceTree = "<group>"; };
 		3FCBE8821370621F0039D779 /* GTIOOutfitTableHeaderDragRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTableHeaderDragRefreshView.h; sourceTree = "<group>"; };
@@ -4941,6 +4948,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A708E8421379795F002F1F62 /* PBXTargetDependency */,
 				3FCBF235137082690039D779 /* PBXTargetDependency */,
 				25D5C91313535D52007B6F14 /* PBXTargetDependency */,
 				3F70AE65136B02D600761AF4 /* PBXTargetDependency */,
@@ -7318,6 +7326,11 @@
 			name = "facebook-ios-sdk";
 			targetProxy = 3FCBF234137082690039D779 /* PBXContainerItemProxy */;
 		};
+		A708E8421379795F002F1F62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TWTCommon;
+			targetProxy = A708E8411379795F002F1F62 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -7366,7 +7379,7 @@
 				);
 				SDKROOT = iphoneos;
 				SYMROOT = Build;
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -7394,7 +7407,7 @@
 				);
 				SDKROOT = iphoneos;
 				SYMROOT = Build;
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 			};
 			name = Release;
 		};
@@ -7423,6 +7436,7 @@
 					"\"$(SRCROOT)/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7452,6 +7466,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -7482,6 +7497,7 @@
 					"\"$(SRCROOT)/FlurryLib\"",
 				);
 				PRODUCT_NAME = Specs;
+				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7512,6 +7528,7 @@
 				);
 				PRODUCT_NAME = Specs;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -7541,6 +7558,7 @@
 				);
 				OTHER_CFLAGS = "-DFRANK";
 				PRODUCT_NAME = Features;
+				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7573,6 +7591,7 @@
 				);
 				PRODUCT_NAME = Features;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

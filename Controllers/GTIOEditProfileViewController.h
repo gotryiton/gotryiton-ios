@@ -7,7 +7,7 @@
 //
 
 #import <Three20/Three20.h>
-#import <TWTCommon/TWTPickerControl.h>
+#import <TWTPickerControl.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 

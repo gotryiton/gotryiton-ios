@@ -8,8 +8,8 @@
 
 #import "GTIOOutfitViewController.h"
 #import "GTIOOutfitPageView.h"
-#import <TWTCommon/TWTActionSheetDelegate.h>
-#import <TWTCommon/TWTAlertViewDelegate.h>
+#import <TWTActionSheetDelegate.h>
+#import <TWTAlertViewDelegate.h>
 #import "GTIOEditOutfitViewController.h"
 
 @implementation GTIOOutfitViewController

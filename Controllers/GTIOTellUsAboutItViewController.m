@@ -11,7 +11,7 @@
 #import "GTIOSectionedDataSource.h"
 #import "GTIOTableImageControlItem.h"
 #import "TTTableViewDelegate+GTIOAdditions.h"
-#import <TWTCommon/TTSectionedDataSource+TWTAdditions.h>
+#import <TTSectionedDataSource+TWTAdditions.h>
 #import "GTIOControlTableViewVarHeightDelegate.h"
 
 @implementation GTIOTellUsAboutItViewController

@@ -8,7 +8,7 @@
 
 #import "GTIOTableViewController.h"
 #import "CustomUISwitch.h"
-#import <TWTCommon/TWTPickerControl.h>
+#import <TWTPickerControl.h>
 
 @interface GTIOSettingsViewController : GTIOTableViewController <TWTPickerDelegate, CustomUISwitchDelegate> {
 

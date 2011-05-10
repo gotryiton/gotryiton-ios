@@ -7,7 +7,7 @@
 //
 
 #import <Three20/Three20.h>
-#import <TWTCommon/TWTPickerControl.h>
+#import <TWTPickerControl.h>
 #import "GTIOUser.h"
 
 NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker);

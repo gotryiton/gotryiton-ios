@@ -7,7 +7,7 @@
 //
 
 #import "GTIOOutfitReviewTableCell.h"
-#import <TWTCommon/TWTAlertViewDelegate.h>
+#import <TWTAlertViewDelegate.h>
 #import "GTIOBadge.h"
 
 CGSize kMaxSize = {260,8000};

@@ -20,7 +20,7 @@
 // Pull in Three20
 #import <Three20/Three20.h>
 #import <Three20/Three20+Additions.h>
-#import <TWTCommon/TTListDataSource+TWTAdditions.h>
+#import <TTListDataSource+TWTAdditions.h>
 #import "TTViewController+GTIOAdditions.h"
 
 // Pull in Flurry

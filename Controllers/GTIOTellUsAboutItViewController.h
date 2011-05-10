@@ -8,7 +8,7 @@
 
 #import "GTIOTableViewController.h"
 #import "GTIOOpinionRequest.h"
-#import <TWTCommon/TWTPickerControl.h>
+#import <TWTPickerControl.h>
 
 @interface GTIOTellUsAboutItViewController : GTIOTableViewController <UITextViewDelegate, TWTPickerDelegate, TTTextEditorDelegate> {
 	GTIOOpinionRequest* _opinionRequest;
