@@ -26,6 +26,9 @@
 // Pull in Flurry
 #import "FlurryAPI.h"
 
+// Custom UINavigationBar Background Images
+#import "UINavigationController+Background.h"
+
 // Color and font macros
 #define kGTIOColorAAAAAA RGBCOLOR(170,170,170)
 #define kGTIOColorCCCCCC RGBCOLOR(204,204,204)
