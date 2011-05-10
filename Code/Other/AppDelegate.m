@@ -48,30 +48,30 @@ void uncaughtExceptionHandler(NSException *exception) {
 @synthesize window = _window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Initialize Flurry
-    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-    [FlurryAPI startSession:kGTIOFlurryAPIKey];
+	// Initialize Flurry
+	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+	[FlurryAPI startSession:kGTIOFlurryAPIKey];
     
 	[TTStyleSheet setGlobalStyleSheet:[[[GTIOStyleSheet alloc] init] autorelease]];
 	
-    TTNavigator* navigator = [TTNavigator navigator];
+	TTNavigator* navigator = [TTNavigator navigator];
 	navigator.persistenceMode = TTNavigatorPersistenceModeNone;
 	
 	[[TTURLRequestQueue mainQueue] setMaxContentLength:0];
 	
 	TTURLMap* map = navigator.URLMap;
 	
-    [map from:@"gtio://home" toSharedViewController:[GTIOLauncherViewController class]];
-    [map from:@"gtio://welcome" toModalViewController:[GTIOWelcomeViewController class]];
-    [map from:@"gtio://login" toModalViewController:[GTIOLoginViewController class]];
+	[map from:@"gtio://home" toSharedViewController:[GTIOLauncherViewController class]];
+	[map from:@"gtio://welcome" toModalViewController:[GTIOWelcomeViewController class]];
+	[map from:@"gtio://login" toModalViewController:[GTIOLoginViewController class]];
     
 	[map from:@"gtio://loginWithJanRain" toObject:[GTIOUser currentUser] selector:@selector(loginWithJanRain)];
-   	[map from:@"gtio://loginWithFacebook" toObject:[GTIOUser currentUser] selector:@selector(loginWithFacebook)];
+	[map from:@"gtio://loginWithFacebook" toObject:[GTIOUser currentUser] selector:@selector(loginWithFacebook)];
 	[map from:@"gtio://logout" toObject:[GTIOUser currentUser] selector:@selector(logout)];
 	
 	// External URL's
 	GTIOExternalURLHelper* externalURLHelper = [[GTIOExternalURLHelper alloc] init];
-	
+
 	// Convenience Helpers for SMS/E-mail
 	[map from:@"gtio://looks/(initWithOutfitID:)" toViewController:NSClassFromString(@"GTIOOutfitViewController")];
 	[map from:@"gtio://looks" toViewController:NSClassFromString(@"GTIOGiveAnOpinionTableViewController")];
