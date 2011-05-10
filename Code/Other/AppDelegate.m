@@ -226,6 +226,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 							nil];
 	[[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/status") queryParams:params delegate:self];
 	
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 	return YES;
 //    // Initialize RestKit
 //    // RKObjectManager* manager = [RKObjectManager objectManagerWithBaseURL:@"http://restkit.org"];
