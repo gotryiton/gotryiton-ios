@@ -8,7 +8,6 @@
 
 #import "GTIOLoginViewController.h"
 
-
 @implementation GTIOLoginViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
