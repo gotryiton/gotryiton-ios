@@ -7,6 +7,7 @@
 //
 
 #import "GTIOLoginViewController.h"
+#import "GTIOBarButtonItem.h"
 
 @implementation GTIOLoginViewController
 
@@ -60,9 +61,9 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)] autorelease];
+	[super viewDidLoad];
+	self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(dismiss)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"Title View" target:self action:@selector(dismiss) backButton:YES] autorelease];
 }
 
 - (void)viewDidUnload

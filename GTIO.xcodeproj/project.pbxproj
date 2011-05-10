@@ -775,6 +775,9 @@
 		A73397E61379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */; };
 		A73397E71379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */; };
 		A73397E81379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */; };
+		A73397EC1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */; };
+		A73397ED1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */; };
+		A73397EE1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */; };
 		A761159213798B65003F30A8 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = A761158513798B65003F30A8 /* back-button.png */; };
 		A761159313798B65003F30A8 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = A761158513798B65003F30A8 /* back-button.png */; };
 		A761159413798B65003F30A8 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = A761158513798B65003F30A8 /* back-button.png */; };
@@ -1034,9 +1037,6 @@
 		A7E3041E137988C90036F86D /* HelveticaRBC.otf in Resources */ = {isa = PBXBuildFile; fileRef = A7E302BB137988C90036F86D /* HelveticaRBC.otf */; };
 		A7E3041F137988C90036F86D /* HelveticaRBC.otf in Resources */ = {isa = PBXBuildFile; fileRef = A7E302BB137988C90036F86D /* HelveticaRBC.otf */; };
 		A7E30420137988C90036F86D /* HelveticaRBC.otf in Resources */ = {isa = PBXBuildFile; fileRef = A7E302BB137988C90036F86D /* HelveticaRBC.otf */; };
-		A7E30421137988C90036F86D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7E302BC137988C90036F86D /* Info.plist */; };
-		A7E30422137988C90036F86D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7E302BC137988C90036F86D /* Info.plist */; };
-		A7E30423137988C90036F86D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7E302BC137988C90036F86D /* Info.plist */; };
 		A7E30424137988C90036F86D /* add-another-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E302BF137988C90036F86D /* add-another-OFF.png */; };
 		A7E30425137988C90036F86D /* add-another-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E302BF137988C90036F86D /* add-another-OFF.png */; };
 		A7E30426137988C90036F86D /* add-another-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E302BF137988C90036F86D /* add-another-OFF.png */; };
@@ -2854,6 +2854,8 @@
 		A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableLinkedItemCell_Accessories.m; sourceTree = "<group>"; };
 		A73397811379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTTableViewDelegate+GTIOAdditions.h"; sourceTree = "<group>"; };
 		A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTTableViewDelegate+GTIOAdditions.m"; sourceTree = "<group>"; };
+		A73397EA1379A90D00F41C2A /* GTIOBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBarButtonItem.h; sourceTree = "<group>"; };
+		A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBarButtonItem.m; sourceTree = "<group>"; };
 		A761158513798B65003F30A8 /* back-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button.png"; sourceTree = "<group>"; };
 		A761158613798B65003F30A8 /* back-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button@2x.png"; sourceTree = "<group>"; };
 		A761158713798B65003F30A8 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
@@ -3008,7 +3010,6 @@
 		A7E302B9137988C90036F86D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainWindow.xib; sourceTree = "<group>"; };
 		A7E302BA137988C90036F86D /* Fette.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Fette.ttf; path = Resources/Fette.ttf; sourceTree = "<group>"; };
 		A7E302BB137988C90036F86D /* HelveticaRBC.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HelveticaRBC.otf; path = Resources/HelveticaRBC.otf; sourceTree = "<group>"; };
-		A7E302BC137988C90036F86D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 		A7E302BF137988C90036F86D /* add-another-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-another-OFF.png"; sourceTree = "<group>"; };
 		A7E302C0137988C90036F86D /* add-another-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-another-OFF@2x.png"; sourceTree = "<group>"; };
 		A7E302C1137988C90036F86D /* add-another-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-another-ON.png"; sourceTree = "<group>"; };
@@ -3601,7 +3602,6 @@
 				A7E302B5137988C90036F86D /* en.lproj */,
 				A7E302BA137988C90036F86D /* Fette.ttf */,
 				A7E302BB137988C90036F86D /* HelveticaRBC.otf */,
-				A7E302BC137988C90036F86D /* Info.plist */,
 				A7E302BD137988C90036F86D /* PLISTs */,
 				A7E302BE137988C90036F86D /* PNGs */,
 				A7E3040B137988C90036F86D /* XIBs */,
@@ -4256,6 +4256,8 @@
 		A733973D1379A7D000F41C2A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A73397EA1379A90D00F41C2A /* GTIOBarButtonItem.h */,
+				A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */,
 			);
 			name = Views;
 			path = Code/Views;
@@ -5585,7 +5587,6 @@
 				A7E30418137988C90036F86D /* MainWindow.xib in Resources */,
 				A7E3041B137988C90036F86D /* Fette.ttf in Resources */,
 				A7E3041E137988C90036F86D /* HelveticaRBC.otf in Resources */,
-				A7E30421137988C90036F86D /* Info.plist in Resources */,
 				A7E30424137988C90036F86D /* add-another-OFF.png in Resources */,
 				A7E30427137988C90036F86D /* add-another-OFF@2x.png in Resources */,
 				A7E3042A137988C90036F86D /* add-another-ON.png in Resources */,
@@ -6082,7 +6083,6 @@
 				A7E30419137988C90036F86D /* MainWindow.xib in Resources */,
 				A7E3041C137988C90036F86D /* Fette.ttf in Resources */,
 				A7E3041F137988C90036F86D /* HelveticaRBC.otf in Resources */,
-				A7E30422137988C90036F86D /* Info.plist in Resources */,
 				A7E30425137988C90036F86D /* add-another-OFF.png in Resources */,
 				A7E30428137988C90036F86D /* add-another-OFF@2x.png in Resources */,
 				A7E3042B137988C90036F86D /* add-another-ON.png in Resources */,
@@ -6582,7 +6582,6 @@
 				A7E3041A137988C90036F86D /* MainWindow.xib in Resources */,
 				A7E3041D137988C90036F86D /* Fette.ttf in Resources */,
 				A7E30420137988C90036F86D /* HelveticaRBC.otf in Resources */,
-				A7E30423137988C90036F86D /* Info.plist in Resources */,
 				A7E30426137988C90036F86D /* add-another-OFF.png in Resources */,
 				A7E30429137988C90036F86D /* add-another-OFF@2x.png in Resources */,
 				A7E3042C137988C90036F86D /* add-another-ON.png in Resources */,
@@ -7048,6 +7047,7 @@
 				A73397E01379A7D000F41C2A /* TTTableCell_Additions.m in Sources */,
 				A73397E31379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
 				A73397E61379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
+				A73397EC1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7181,6 +7181,7 @@
 				A73397E11379A7D000F41C2A /* TTTableCell_Additions.m in Sources */,
 				A73397E41379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
 				A73397E71379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
+				A73397ED1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7363,6 +7364,7 @@
 				A73397E21379A7D000F41C2A /* TTTableCell_Additions.m in Sources */,
 				A73397E51379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
 				A73397E81379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
+				A73397EE1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
