@@ -673,6 +673,108 @@
 		3FCBF22F1370824F0039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF22E1370824D0039D779 /* libfacebook_ios_sdk.a */; };
 		3FCBF233137082600039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF2321370825F0039D779 /* libfacebook_ios_sdk.a */; };
 		3FCBF2371370826F0039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */; };
+		A73397831379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
+		A73397841379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
+		A73397851379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
+		A73397861379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
+		A73397871379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
+		A73397881379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
+		A73397891379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */; };
+		A733978A1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */; };
+		A733978B1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */; };
+		A733978C1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397461379A7D000F41C2A /* GTIOBlurringOverlayView.m */; };
+		A733978D1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397461379A7D000F41C2A /* GTIOBlurringOverlayView.m */; };
+		A733978E1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397461379A7D000F41C2A /* GTIOBlurringOverlayView.m */; };
+		A733978F1379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397481379A7D000F41C2A /* GTIOBlurringToolbarView.m */; };
+		A73397901379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397481379A7D000F41C2A /* GTIOBlurringToolbarView.m */; };
+		A73397911379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397481379A7D000F41C2A /* GTIOBlurringToolbarView.m */; };
+		A73397921379A7D000F41C2A /* GTIOChangeItReasonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733974A1379A7D000F41C2A /* GTIOChangeItReasonsView.m */; };
+		A73397931379A7D000F41C2A /* GTIOChangeItReasonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733974A1379A7D000F41C2A /* GTIOChangeItReasonsView.m */; };
+		A73397941379A7D000F41C2A /* GTIOChangeItReasonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733974A1379A7D000F41C2A /* GTIOChangeItReasonsView.m */; };
+		A73397951379A7D000F41C2A /* GTIODraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733974C1379A7D000F41C2A /* GTIODraggableImageView.m */; };
+		A73397961379A7D000F41C2A /* GTIODraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733974C1379A7D000F41C2A /* GTIODraggableImageView.m */; };
+		A73397971379A7D000F41C2A /* GTIODraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733974C1379A7D000F41C2A /* GTIODraggableImageView.m */; };
+		A73397981379A7D000F41C2A /* GTIOHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733974E1379A7D000F41C2A /* GTIOHeaderView.m */; };
+		A73397991379A7D000F41C2A /* GTIOHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733974E1379A7D000F41C2A /* GTIOHeaderView.m */; };
+		A733979A1379A7D000F41C2A /* GTIOHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733974E1379A7D000F41C2A /* GTIOHeaderView.m */; };
+		A733979B1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397501379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m */; };
+		A733979C1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397501379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m */; };
+		A733979D1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397501379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m */; };
+		A733979E1379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397521379A7D000F41C2A /* GTIOMultiOutfitOverlay.m */; };
+		A733979F1379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397521379A7D000F41C2A /* GTIOMultiOutfitOverlay.m */; };
+		A73397A01379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397521379A7D000F41C2A /* GTIOMultiOutfitOverlay.m */; };
+		A73397A11379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397541379A7D000F41C2A /* GTIOOutfitHeaderView.m */; };
+		A73397A21379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397541379A7D000F41C2A /* GTIOOutfitHeaderView.m */; };
+		A73397A31379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397541379A7D000F41C2A /* GTIOOutfitHeaderView.m */; };
+		A73397A41379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397561379A7D000F41C2A /* GTIOOutfitPageView.m */; };
+		A73397A51379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397561379A7D000F41C2A /* GTIOOutfitPageView.m */; };
+		A73397A61379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397561379A7D000F41C2A /* GTIOOutfitPageView.m */; };
+		A73397A71379A7D000F41C2A /* GTIOOutfitReviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397581379A7D000F41C2A /* GTIOOutfitReviewTableCell.m */; };
+		A73397A81379A7D000F41C2A /* GTIOOutfitReviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397581379A7D000F41C2A /* GTIOOutfitReviewTableCell.m */; };
+		A73397A91379A7D000F41C2A /* GTIOOutfitReviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397581379A7D000F41C2A /* GTIOOutfitReviewTableCell.m */; };
+		A73397AA1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A733975A1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m */; };
+		A73397AB1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A733975A1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m */; };
+		A73397AC1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A733975A1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m */; };
+		A73397AD1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733975C1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m */; };
+		A73397AE1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733975C1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m */; };
+		A73397AF1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733975C1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m */; };
+		A73397B01379A7D000F41C2A /* GTIOOutfitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A733975E1379A7D000F41C2A /* GTIOOutfitTableViewCell.m */; };
+		A73397B11379A7D000F41C2A /* GTIOOutfitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A733975E1379A7D000F41C2A /* GTIOOutfitTableViewCell.m */; };
+		A73397B21379A7D000F41C2A /* GTIOOutfitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A733975E1379A7D000F41C2A /* GTIOOutfitTableViewCell.m */; };
+		A73397B31379A7D000F41C2A /* GTIOOutfitTableViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397601379A7D000F41C2A /* GTIOOutfitTableViewItem.m */; };
+		A73397B41379A7D000F41C2A /* GTIOOutfitTableViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397601379A7D000F41C2A /* GTIOOutfitTableViewItem.m */; };
+		A73397B51379A7D000F41C2A /* GTIOOutfitTableViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397601379A7D000F41C2A /* GTIOOutfitTableViewItem.m */; };
+		A73397B61379A7D000F41C2A /* GTIOOutfitTopControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397621379A7D000F41C2A /* GTIOOutfitTopControlsView.m */; };
+		A73397B71379A7D000F41C2A /* GTIOOutfitTopControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397621379A7D000F41C2A /* GTIOOutfitTopControlsView.m */; };
+		A73397B81379A7D000F41C2A /* GTIOOutfitTopControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397621379A7D000F41C2A /* GTIOOutfitTopControlsView.m */; };
+		A73397B91379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397641379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m */; };
+		A73397BA1379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397641379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m */; };
+		A73397BB1379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397641379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m */; };
+		A73397BC1379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397661379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m */; };
+		A73397BD1379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397661379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m */; };
+		A73397BE1379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397661379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m */; };
+		A73397BF1379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397681379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m */; };
+		A73397C01379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397681379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m */; };
+		A73397C11379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397681379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m */; };
+		A73397C21379A7D000F41C2A /* GTIOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733976A1379A7D000F41C2A /* GTIOScrollView.m */; };
+		A73397C31379A7D000F41C2A /* GTIOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733976A1379A7D000F41C2A /* GTIOScrollView.m */; };
+		A73397C41379A7D000F41C2A /* GTIOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733976A1379A7D000F41C2A /* GTIOScrollView.m */; };
+		A73397C51379A7D000F41C2A /* GTIOSectionedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A733976C1379A7D000F41C2A /* GTIOSectionedDataSource.m */; };
+		A73397C61379A7D000F41C2A /* GTIOSectionedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A733976C1379A7D000F41C2A /* GTIOSectionedDataSource.m */; };
+		A73397C71379A7D000F41C2A /* GTIOSectionedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A733976C1379A7D000F41C2A /* GTIOSectionedDataSource.m */; };
+		A73397C81379A7D000F41C2A /* GTIOTableImageControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A733976E1379A7D000F41C2A /* GTIOTableImageControlCell.m */; };
+		A73397C91379A7D000F41C2A /* GTIOTableImageControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A733976E1379A7D000F41C2A /* GTIOTableImageControlCell.m */; };
+		A73397CA1379A7D000F41C2A /* GTIOTableImageControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A733976E1379A7D000F41C2A /* GTIOTableImageControlCell.m */; };
+		A73397CB1379A7D000F41C2A /* GTIOTableImageControlItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397701379A7D000F41C2A /* GTIOTableImageControlItem.m */; };
+		A73397CC1379A7D000F41C2A /* GTIOTableImageControlItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397701379A7D000F41C2A /* GTIOTableImageControlItem.m */; };
+		A73397CD1379A7D000F41C2A /* GTIOTableImageControlItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397701379A7D000F41C2A /* GTIOTableImageControlItem.m */; };
+		A73397CE1379A7D000F41C2A /* GTIOTableItemCellWithQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397721379A7D000F41C2A /* GTIOTableItemCellWithQuote.m */; };
+		A73397CF1379A7D000F41C2A /* GTIOTableItemCellWithQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397721379A7D000F41C2A /* GTIOTableItemCellWithQuote.m */; };
+		A73397D01379A7D000F41C2A /* GTIOTableItemCellWithQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397721379A7D000F41C2A /* GTIOTableItemCellWithQuote.m */; };
+		A73397D11379A7D000F41C2A /* GTIOTableOutfitImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397741379A7D000F41C2A /* GTIOTableOutfitImageCell.m */; };
+		A73397D21379A7D000F41C2A /* GTIOTableOutfitImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397741379A7D000F41C2A /* GTIOTableOutfitImageCell.m */; };
+		A73397D31379A7D000F41C2A /* GTIOTableOutfitImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397741379A7D000F41C2A /* GTIOTableOutfitImageCell.m */; };
+		A73397D41379A7D000F41C2A /* GTIOTableStatsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397761379A7D000F41C2A /* GTIOTableStatsItem.m */; };
+		A73397D51379A7D000F41C2A /* GTIOTableStatsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397761379A7D000F41C2A /* GTIOTableStatsItem.m */; };
+		A73397D61379A7D000F41C2A /* GTIOTableStatsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397761379A7D000F41C2A /* GTIOTableStatsItem.m */; };
+		A73397D71379A7D000F41C2A /* GTIOUserReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397781379A7D000F41C2A /* GTIOUserReviewTableItem.m */; };
+		A73397D81379A7D000F41C2A /* GTIOUserReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397781379A7D000F41C2A /* GTIOUserReviewTableItem.m */; };
+		A73397D91379A7D000F41C2A /* GTIOUserReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397781379A7D000F41C2A /* GTIOUserReviewTableItem.m */; };
+		A73397DA1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977A1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m */; };
+		A73397DB1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977A1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m */; };
+		A73397DC1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977A1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m */; };
+		A73397DD1379A7D000F41C2A /* GTIOVerdictView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977C1379A7D000F41C2A /* GTIOVerdictView.m */; };
+		A73397DE1379A7D000F41C2A /* GTIOVerdictView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977C1379A7D000F41C2A /* GTIOVerdictView.m */; };
+		A73397DF1379A7D000F41C2A /* GTIOVerdictView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977C1379A7D000F41C2A /* GTIOVerdictView.m */; };
+		A73397E01379A7D000F41C2A /* TTTableCell_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977E1379A7D000F41C2A /* TTTableCell_Additions.m */; };
+		A73397E11379A7D000F41C2A /* TTTableCell_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977E1379A7D000F41C2A /* TTTableCell_Additions.m */; };
+		A73397E21379A7D000F41C2A /* TTTableCell_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977E1379A7D000F41C2A /* TTTableCell_Additions.m */; };
+		A73397E31379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */; };
+		A73397E41379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */; };
+		A73397E51379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */; };
+		A73397E61379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */; };
+		A73397E71379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */; };
+		A73397E81379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */; };
 		A761159213798B65003F30A8 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = A761158513798B65003F30A8 /* back-button.png */; };
 		A761159313798B65003F30A8 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = A761158513798B65003F30A8 /* back-button.png */; };
 		A761159413798B65003F30A8 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = A761158513798B65003F30A8 /* back-button.png */; };
@@ -914,108 +1016,6 @@
 		A7E3024A1379887F0036F86D /* UIImage+Manipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3013B1379887F0036F86D /* UIImage+Manipulation.m */; };
 		A7E3024B1379887F0036F86D /* UIImage+Manipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3013B1379887F0036F86D /* UIImage+Manipulation.m */; };
 		A7E3024C1379887F0036F86D /* UIImage+Manipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3013B1379887F0036F86D /* UIImage+Manipulation.m */; };
-		A7E3024D1379887F0036F86D /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3013E1379887F0036F86D /* CustomUISwitch.m */; };
-		A7E3024E1379887F0036F86D /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3013E1379887F0036F86D /* CustomUISwitch.m */; };
-		A7E3024F1379887F0036F86D /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3013E1379887F0036F86D /* CustomUISwitch.m */; };
-		A7E302501379887F0036F86D /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301401379887F0036F86D /* GTIOAboutMeView.m */; };
-		A7E302511379887F0036F86D /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301401379887F0036F86D /* GTIOAboutMeView.m */; };
-		A7E302521379887F0036F86D /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301401379887F0036F86D /* GTIOAboutMeView.m */; };
-		A7E302531379887F0036F86D /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301421379887F0036F86D /* GTIOBlurrableImageView.m */; };
-		A7E302541379887F0036F86D /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301421379887F0036F86D /* GTIOBlurrableImageView.m */; };
-		A7E302551379887F0036F86D /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301421379887F0036F86D /* GTIOBlurrableImageView.m */; };
-		A7E302561379887F0036F86D /* GTIOBlurringOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301441379887F0036F86D /* GTIOBlurringOverlayView.m */; };
-		A7E302571379887F0036F86D /* GTIOBlurringOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301441379887F0036F86D /* GTIOBlurringOverlayView.m */; };
-		A7E302581379887F0036F86D /* GTIOBlurringOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301441379887F0036F86D /* GTIOBlurringOverlayView.m */; };
-		A7E302591379887F0036F86D /* GTIOBlurringToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301461379887F0036F86D /* GTIOBlurringToolbarView.m */; };
-		A7E3025A1379887F0036F86D /* GTIOBlurringToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301461379887F0036F86D /* GTIOBlurringToolbarView.m */; };
-		A7E3025B1379887F0036F86D /* GTIOBlurringToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301461379887F0036F86D /* GTIOBlurringToolbarView.m */; };
-		A7E3025C1379887F0036F86D /* GTIOChangeItReasonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301481379887F0036F86D /* GTIOChangeItReasonsView.m */; };
-		A7E3025D1379887F0036F86D /* GTIOChangeItReasonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301481379887F0036F86D /* GTIOChangeItReasonsView.m */; };
-		A7E3025E1379887F0036F86D /* GTIOChangeItReasonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301481379887F0036F86D /* GTIOChangeItReasonsView.m */; };
-		A7E3025F1379887F0036F86D /* GTIODraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3014A1379887F0036F86D /* GTIODraggableImageView.m */; };
-		A7E302601379887F0036F86D /* GTIODraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3014A1379887F0036F86D /* GTIODraggableImageView.m */; };
-		A7E302611379887F0036F86D /* GTIODraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3014A1379887F0036F86D /* GTIODraggableImageView.m */; };
-		A7E302621379887F0036F86D /* GTIOHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3014C1379887F0036F86D /* GTIOHeaderView.m */; };
-		A7E302631379887F0036F86D /* GTIOHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3014C1379887F0036F86D /* GTIOHeaderView.m */; };
-		A7E302641379887F0036F86D /* GTIOHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3014C1379887F0036F86D /* GTIOHeaderView.m */; };
-		A7E302651379887F0036F86D /* GTIOMultiLineQuotedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3014E1379887F0036F86D /* GTIOMultiLineQuotedLabel.m */; };
-		A7E302661379887F0036F86D /* GTIOMultiLineQuotedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3014E1379887F0036F86D /* GTIOMultiLineQuotedLabel.m */; };
-		A7E302671379887F0036F86D /* GTIOMultiLineQuotedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3014E1379887F0036F86D /* GTIOMultiLineQuotedLabel.m */; };
-		A7E302681379887F0036F86D /* GTIOMultiOutfitOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301501379887F0036F86D /* GTIOMultiOutfitOverlay.m */; };
-		A7E302691379887F0036F86D /* GTIOMultiOutfitOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301501379887F0036F86D /* GTIOMultiOutfitOverlay.m */; };
-		A7E3026A1379887F0036F86D /* GTIOMultiOutfitOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301501379887F0036F86D /* GTIOMultiOutfitOverlay.m */; };
-		A7E3026B1379887F0036F86D /* GTIOOutfitHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301521379887F0036F86D /* GTIOOutfitHeaderView.m */; };
-		A7E3026C1379887F0036F86D /* GTIOOutfitHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301521379887F0036F86D /* GTIOOutfitHeaderView.m */; };
-		A7E3026D1379887F0036F86D /* GTIOOutfitHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301521379887F0036F86D /* GTIOOutfitHeaderView.m */; };
-		A7E3026E1379887F0036F86D /* GTIOOutfitPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301541379887F0036F86D /* GTIOOutfitPageView.m */; };
-		A7E3026F1379887F0036F86D /* GTIOOutfitPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301541379887F0036F86D /* GTIOOutfitPageView.m */; };
-		A7E302701379887F0036F86D /* GTIOOutfitPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301541379887F0036F86D /* GTIOOutfitPageView.m */; };
-		A7E302711379887F0036F86D /* GTIOOutfitReviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301561379887F0036F86D /* GTIOOutfitReviewTableCell.m */; };
-		A7E302721379887F0036F86D /* GTIOOutfitReviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301561379887F0036F86D /* GTIOOutfitReviewTableCell.m */; };
-		A7E302731379887F0036F86D /* GTIOOutfitReviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301561379887F0036F86D /* GTIOOutfitReviewTableCell.m */; };
-		A7E302741379887F0036F86D /* GTIOOutfitReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301581379887F0036F86D /* GTIOOutfitReviewTableItem.m */; };
-		A7E302751379887F0036F86D /* GTIOOutfitReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301581379887F0036F86D /* GTIOOutfitReviewTableItem.m */; };
-		A7E302761379887F0036F86D /* GTIOOutfitReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301581379887F0036F86D /* GTIOOutfitReviewTableItem.m */; };
-		A7E302771379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3015A1379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m */; };
-		A7E302781379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3015A1379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m */; };
-		A7E302791379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3015A1379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m */; };
-		A7E3027A1379887F0036F86D /* GTIOOutfitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3015C1379887F0036F86D /* GTIOOutfitTableViewCell.m */; };
-		A7E3027B1379887F0036F86D /* GTIOOutfitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3015C1379887F0036F86D /* GTIOOutfitTableViewCell.m */; };
-		A7E3027C1379887F0036F86D /* GTIOOutfitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3015C1379887F0036F86D /* GTIOOutfitTableViewCell.m */; };
-		A7E3027D1379887F0036F86D /* GTIOOutfitTableViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3015E1379887F0036F86D /* GTIOOutfitTableViewItem.m */; };
-		A7E3027E1379887F0036F86D /* GTIOOutfitTableViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3015E1379887F0036F86D /* GTIOOutfitTableViewItem.m */; };
-		A7E3027F1379887F0036F86D /* GTIOOutfitTableViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3015E1379887F0036F86D /* GTIOOutfitTableViewItem.m */; };
-		A7E302801379887F0036F86D /* GTIOOutfitTopControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301601379887F0036F86D /* GTIOOutfitTopControlsView.m */; };
-		A7E302811379887F0036F86D /* GTIOOutfitTopControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301601379887F0036F86D /* GTIOOutfitTopControlsView.m */; };
-		A7E302821379887F0036F86D /* GTIOOutfitTopControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301601379887F0036F86D /* GTIOOutfitTopControlsView.m */; };
-		A7E302831379887F0036F86D /* GTIOOutfitVerdictTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301621379887F0036F86D /* GTIOOutfitVerdictTableItem.m */; };
-		A7E302841379887F0036F86D /* GTIOOutfitVerdictTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301621379887F0036F86D /* GTIOOutfitVerdictTableItem.m */; };
-		A7E302851379887F0036F86D /* GTIOOutfitVerdictTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301621379887F0036F86D /* GTIOOutfitVerdictTableItem.m */; };
-		A7E302861379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301641379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m */; };
-		A7E302871379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301641379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m */; };
-		A7E302881379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301641379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m */; };
-		A7E302891379887F0036F86D /* GTIORoundedBottomCornerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301661379887F0036F86D /* GTIORoundedBottomCornerLabel.m */; };
-		A7E3028A1379887F0036F86D /* GTIORoundedBottomCornerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301661379887F0036F86D /* GTIORoundedBottomCornerLabel.m */; };
-		A7E3028B1379887F0036F86D /* GTIORoundedBottomCornerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301661379887F0036F86D /* GTIORoundedBottomCornerLabel.m */; };
-		A7E3028C1379887F0036F86D /* GTIOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301681379887F0036F86D /* GTIOScrollView.m */; };
-		A7E3028D1379887F0036F86D /* GTIOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301681379887F0036F86D /* GTIOScrollView.m */; };
-		A7E3028E1379887F0036F86D /* GTIOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301681379887F0036F86D /* GTIOScrollView.m */; };
-		A7E3028F1379887F0036F86D /* GTIOSectionedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3016A1379887F0036F86D /* GTIOSectionedDataSource.m */; };
-		A7E302901379887F0036F86D /* GTIOSectionedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3016A1379887F0036F86D /* GTIOSectionedDataSource.m */; };
-		A7E302911379887F0036F86D /* GTIOSectionedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3016A1379887F0036F86D /* GTIOSectionedDataSource.m */; };
-		A7E302921379887F0036F86D /* GTIOTableImageControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3016C1379887F0036F86D /* GTIOTableImageControlCell.m */; };
-		A7E302931379887F0036F86D /* GTIOTableImageControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3016C1379887F0036F86D /* GTIOTableImageControlCell.m */; };
-		A7E302941379887F0036F86D /* GTIOTableImageControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3016C1379887F0036F86D /* GTIOTableImageControlCell.m */; };
-		A7E302951379887F0036F86D /* GTIOTableImageControlItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3016E1379887F0036F86D /* GTIOTableImageControlItem.m */; };
-		A7E302961379887F0036F86D /* GTIOTableImageControlItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3016E1379887F0036F86D /* GTIOTableImageControlItem.m */; };
-		A7E302971379887F0036F86D /* GTIOTableImageControlItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3016E1379887F0036F86D /* GTIOTableImageControlItem.m */; };
-		A7E302981379887F0036F86D /* GTIOTableItemCellWithQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301701379887F0036F86D /* GTIOTableItemCellWithQuote.m */; };
-		A7E302991379887F0036F86D /* GTIOTableItemCellWithQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301701379887F0036F86D /* GTIOTableItemCellWithQuote.m */; };
-		A7E3029A1379887F0036F86D /* GTIOTableItemCellWithQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301701379887F0036F86D /* GTIOTableItemCellWithQuote.m */; };
-		A7E3029B1379887F0036F86D /* GTIOTableOutfitImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301721379887F0036F86D /* GTIOTableOutfitImageCell.m */; };
-		A7E3029C1379887F0036F86D /* GTIOTableOutfitImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301721379887F0036F86D /* GTIOTableOutfitImageCell.m */; };
-		A7E3029D1379887F0036F86D /* GTIOTableOutfitImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301721379887F0036F86D /* GTIOTableOutfitImageCell.m */; };
-		A7E3029E1379887F0036F86D /* GTIOTableStatsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301741379887F0036F86D /* GTIOTableStatsItem.m */; };
-		A7E3029F1379887F0036F86D /* GTIOTableStatsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301741379887F0036F86D /* GTIOTableStatsItem.m */; };
-		A7E302A01379887F0036F86D /* GTIOTableStatsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301741379887F0036F86D /* GTIOTableStatsItem.m */; };
-		A7E302A11379887F0036F86D /* GTIOUserReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301761379887F0036F86D /* GTIOUserReviewTableItem.m */; };
-		A7E302A21379887F0036F86D /* GTIOUserReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301761379887F0036F86D /* GTIOUserReviewTableItem.m */; };
-		A7E302A31379887F0036F86D /* GTIOUserReviewTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301761379887F0036F86D /* GTIOUserReviewTableItem.m */; };
-		A7E302A41379887F0036F86D /* GTIOUserReviewTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301781379887F0036F86D /* GTIOUserReviewTableItemCell.m */; };
-		A7E302A51379887F0036F86D /* GTIOUserReviewTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301781379887F0036F86D /* GTIOUserReviewTableItemCell.m */; };
-		A7E302A61379887F0036F86D /* GTIOUserReviewTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301781379887F0036F86D /* GTIOUserReviewTableItemCell.m */; };
-		A7E302A71379887F0036F86D /* GTIOVerdictView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3017A1379887F0036F86D /* GTIOVerdictView.m */; };
-		A7E302A81379887F0036F86D /* GTIOVerdictView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3017A1379887F0036F86D /* GTIOVerdictView.m */; };
-		A7E302A91379887F0036F86D /* GTIOVerdictView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3017A1379887F0036F86D /* GTIOVerdictView.m */; };
-		A7E302AA1379887F0036F86D /* TTTableCell_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3017C1379887F0036F86D /* TTTableCell_Additions.m */; };
-		A7E302AB1379887F0036F86D /* TTTableCell_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3017C1379887F0036F86D /* TTTableCell_Additions.m */; };
-		A7E302AC1379887F0036F86D /* TTTableCell_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3017C1379887F0036F86D /* TTTableCell_Additions.m */; };
-		A7E302AD1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3017E1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m */; };
-		A7E302AE1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3017E1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m */; };
-		A7E302AF1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3017E1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m */; };
-		A7E302B01379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301801379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m */; };
-		A7E302B11379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301801379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m */; };
-		A7E302B21379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301801379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m */; };
 		A7E3040F137988C90036F86D /* Application.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7E302B3137988C90036F86D /* Application.xcdatamodeld */; };
 		A7E30410137988C90036F86D /* Application.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7E302B3137988C90036F86D /* Application.xcdatamodeld */; };
 		A7E30411137988C90036F86D /* Application.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7E302B3137988C90036F86D /* Application.xcdatamodeld */; };
@@ -2786,6 +2786,74 @@
 		3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TWTCommon.xcodeproj; path = Libraries/TWTCommon/TWTCommon.xcodeproj; sourceTree = "<group>"; };
 		3FF536F613708E84001DEE26 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		3FF536F713708E84001DEE26 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		A733973F1379A7D000F41C2A /* CustomUISwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUISwitch.h; sourceTree = "<group>"; };
+		A73397401379A7D000F41C2A /* CustomUISwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUISwitch.m; sourceTree = "<group>"; };
+		A73397411379A7D000F41C2A /* GTIOAboutMeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAboutMeView.h; sourceTree = "<group>"; };
+		A73397421379A7D000F41C2A /* GTIOAboutMeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAboutMeView.m; sourceTree = "<group>"; };
+		A73397431379A7D000F41C2A /* GTIOBlurrableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurrableImageView.h; sourceTree = "<group>"; };
+		A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBlurrableImageView.m; sourceTree = "<group>"; };
+		A73397451379A7D000F41C2A /* GTIOBlurringOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurringOverlayView.h; sourceTree = "<group>"; };
+		A73397461379A7D000F41C2A /* GTIOBlurringOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBlurringOverlayView.m; sourceTree = "<group>"; };
+		A73397471379A7D000F41C2A /* GTIOBlurringToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurringToolbarView.h; sourceTree = "<group>"; };
+		A73397481379A7D000F41C2A /* GTIOBlurringToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBlurringToolbarView.m; sourceTree = "<group>"; };
+		A73397491379A7D000F41C2A /* GTIOChangeItReasonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOChangeItReasonsView.h; sourceTree = "<group>"; };
+		A733974A1379A7D000F41C2A /* GTIOChangeItReasonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOChangeItReasonsView.m; sourceTree = "<group>"; };
+		A733974B1379A7D000F41C2A /* GTIODraggableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIODraggableImageView.h; sourceTree = "<group>"; };
+		A733974C1379A7D000F41C2A /* GTIODraggableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIODraggableImageView.m; sourceTree = "<group>"; };
+		A733974D1379A7D000F41C2A /* GTIOHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOHeaderView.h; sourceTree = "<group>"; };
+		A733974E1379A7D000F41C2A /* GTIOHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOHeaderView.m; sourceTree = "<group>"; };
+		A733974F1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMultiLineQuotedLabel.h; sourceTree = "<group>"; };
+		A73397501379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMultiLineQuotedLabel.m; sourceTree = "<group>"; };
+		A73397511379A7D000F41C2A /* GTIOMultiOutfitOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMultiOutfitOverlay.h; sourceTree = "<group>"; };
+		A73397521379A7D000F41C2A /* GTIOMultiOutfitOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMultiOutfitOverlay.m; sourceTree = "<group>"; };
+		A73397531379A7D000F41C2A /* GTIOOutfitHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitHeaderView.h; sourceTree = "<group>"; };
+		A73397541379A7D000F41C2A /* GTIOOutfitHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitHeaderView.m; sourceTree = "<group>"; };
+		A73397551379A7D000F41C2A /* GTIOOutfitPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitPageView.h; sourceTree = "<group>"; };
+		A73397561379A7D000F41C2A /* GTIOOutfitPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitPageView.m; sourceTree = "<group>"; };
+		A73397571379A7D000F41C2A /* GTIOOutfitReviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitReviewTableCell.h; sourceTree = "<group>"; };
+		A73397581379A7D000F41C2A /* GTIOOutfitReviewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitReviewTableCell.m; sourceTree = "<group>"; };
+		A73397591379A7D000F41C2A /* GTIOOutfitReviewTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitReviewTableItem.h; sourceTree = "<group>"; };
+		A733975A1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitReviewTableItem.m; sourceTree = "<group>"; };
+		A733975B1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTableHeaderDragRefreshView.h; sourceTree = "<group>"; };
+		A733975C1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTableHeaderDragRefreshView.m; sourceTree = "<group>"; };
+		A733975D1379A7D000F41C2A /* GTIOOutfitTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTableViewCell.h; sourceTree = "<group>"; };
+		A733975E1379A7D000F41C2A /* GTIOOutfitTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTableViewCell.m; sourceTree = "<group>"; };
+		A733975F1379A7D000F41C2A /* GTIOOutfitTableViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTableViewItem.h; sourceTree = "<group>"; };
+		A73397601379A7D000F41C2A /* GTIOOutfitTableViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTableViewItem.m; sourceTree = "<group>"; };
+		A73397611379A7D000F41C2A /* GTIOOutfitTopControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTopControlsView.h; sourceTree = "<group>"; };
+		A73397621379A7D000F41C2A /* GTIOOutfitTopControlsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTopControlsView.m; sourceTree = "<group>"; };
+		A73397631379A7D000F41C2A /* GTIOOutfitVerdictTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitVerdictTableItem.h; sourceTree = "<group>"; };
+		A73397641379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitVerdictTableItem.m; sourceTree = "<group>"; };
+		A73397651379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitVerdictTableItemCell.h; sourceTree = "<group>"; };
+		A73397661379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitVerdictTableItemCell.m; sourceTree = "<group>"; };
+		A73397671379A7D000F41C2A /* GTIORoundedBottomCornerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIORoundedBottomCornerLabel.h; sourceTree = "<group>"; };
+		A73397681379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIORoundedBottomCornerLabel.m; sourceTree = "<group>"; };
+		A73397691379A7D000F41C2A /* GTIOScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOScrollView.h; sourceTree = "<group>"; };
+		A733976A1379A7D000F41C2A /* GTIOScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOScrollView.m; sourceTree = "<group>"; };
+		A733976B1379A7D000F41C2A /* GTIOSectionedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSectionedDataSource.h; sourceTree = "<group>"; };
+		A733976C1379A7D000F41C2A /* GTIOSectionedDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSectionedDataSource.m; sourceTree = "<group>"; };
+		A733976D1379A7D000F41C2A /* GTIOTableImageControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTableImageControlCell.h; sourceTree = "<group>"; };
+		A733976E1379A7D000F41C2A /* GTIOTableImageControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableImageControlCell.m; sourceTree = "<group>"; };
+		A733976F1379A7D000F41C2A /* GTIOTableImageControlItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTableImageControlItem.h; sourceTree = "<group>"; };
+		A73397701379A7D000F41C2A /* GTIOTableImageControlItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableImageControlItem.m; sourceTree = "<group>"; };
+		A73397711379A7D000F41C2A /* GTIOTableItemCellWithQuote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTableItemCellWithQuote.h; sourceTree = "<group>"; };
+		A73397721379A7D000F41C2A /* GTIOTableItemCellWithQuote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableItemCellWithQuote.m; sourceTree = "<group>"; };
+		A73397731379A7D000F41C2A /* GTIOTableOutfitImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTableOutfitImageCell.h; sourceTree = "<group>"; };
+		A73397741379A7D000F41C2A /* GTIOTableOutfitImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableOutfitImageCell.m; sourceTree = "<group>"; };
+		A73397751379A7D000F41C2A /* GTIOTableStatsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTableStatsItem.h; sourceTree = "<group>"; };
+		A73397761379A7D000F41C2A /* GTIOTableStatsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableStatsItem.m; sourceTree = "<group>"; };
+		A73397771379A7D000F41C2A /* GTIOUserReviewTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserReviewTableItem.h; sourceTree = "<group>"; };
+		A73397781379A7D000F41C2A /* GTIOUserReviewTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserReviewTableItem.m; sourceTree = "<group>"; };
+		A73397791379A7D000F41C2A /* GTIOUserReviewTableItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserReviewTableItemCell.h; sourceTree = "<group>"; };
+		A733977A1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserReviewTableItemCell.m; sourceTree = "<group>"; };
+		A733977B1379A7D000F41C2A /* GTIOVerdictView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOVerdictView.h; sourceTree = "<group>"; };
+		A733977C1379A7D000F41C2A /* GTIOVerdictView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOVerdictView.m; sourceTree = "<group>"; };
+		A733977D1379A7D000F41C2A /* TTTableCell_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableCell_Additions.h; sourceTree = "<group>"; };
+		A733977E1379A7D000F41C2A /* TTTableCell_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableCell_Additions.m; sourceTree = "<group>"; };
+		A733977F1379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableLinkedItemCell_Accessories.h; sourceTree = "<group>"; };
+		A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableLinkedItemCell_Accessories.m; sourceTree = "<group>"; };
+		A73397811379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTTableViewDelegate+GTIOAdditions.h"; sourceTree = "<group>"; };
+		A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTTableViewDelegate+GTIOAdditions.m"; sourceTree = "<group>"; };
 		A761158513798B65003F30A8 /* back-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button.png"; sourceTree = "<group>"; };
 		A761158613798B65003F30A8 /* back-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button@2x.png"; sourceTree = "<group>"; };
 		A761158713798B65003F30A8 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
@@ -2936,74 +3004,6 @@
 		A7E301391379887F0036F86D /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
 		A7E3013A1379887F0036F86D /* UIImage+Manipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Manipulation.h"; sourceTree = "<group>"; };
 		A7E3013B1379887F0036F86D /* UIImage+Manipulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Manipulation.m"; sourceTree = "<group>"; };
-		A7E3013D1379887F0036F86D /* CustomUISwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUISwitch.h; sourceTree = "<group>"; };
-		A7E3013E1379887F0036F86D /* CustomUISwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUISwitch.m; sourceTree = "<group>"; };
-		A7E3013F1379887F0036F86D /* GTIOAboutMeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAboutMeView.h; sourceTree = "<group>"; };
-		A7E301401379887F0036F86D /* GTIOAboutMeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAboutMeView.m; sourceTree = "<group>"; };
-		A7E301411379887F0036F86D /* GTIOBlurrableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurrableImageView.h; sourceTree = "<group>"; };
-		A7E301421379887F0036F86D /* GTIOBlurrableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBlurrableImageView.m; sourceTree = "<group>"; };
-		A7E301431379887F0036F86D /* GTIOBlurringOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurringOverlayView.h; sourceTree = "<group>"; };
-		A7E301441379887F0036F86D /* GTIOBlurringOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBlurringOverlayView.m; sourceTree = "<group>"; };
-		A7E301451379887F0036F86D /* GTIOBlurringToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurringToolbarView.h; sourceTree = "<group>"; };
-		A7E301461379887F0036F86D /* GTIOBlurringToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBlurringToolbarView.m; sourceTree = "<group>"; };
-		A7E301471379887F0036F86D /* GTIOChangeItReasonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOChangeItReasonsView.h; sourceTree = "<group>"; };
-		A7E301481379887F0036F86D /* GTIOChangeItReasonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOChangeItReasonsView.m; sourceTree = "<group>"; };
-		A7E301491379887F0036F86D /* GTIODraggableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIODraggableImageView.h; sourceTree = "<group>"; };
-		A7E3014A1379887F0036F86D /* GTIODraggableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIODraggableImageView.m; sourceTree = "<group>"; };
-		A7E3014B1379887F0036F86D /* GTIOHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOHeaderView.h; sourceTree = "<group>"; };
-		A7E3014C1379887F0036F86D /* GTIOHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOHeaderView.m; sourceTree = "<group>"; };
-		A7E3014D1379887F0036F86D /* GTIOMultiLineQuotedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMultiLineQuotedLabel.h; sourceTree = "<group>"; };
-		A7E3014E1379887F0036F86D /* GTIOMultiLineQuotedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMultiLineQuotedLabel.m; sourceTree = "<group>"; };
-		A7E3014F1379887F0036F86D /* GTIOMultiOutfitOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMultiOutfitOverlay.h; sourceTree = "<group>"; };
-		A7E301501379887F0036F86D /* GTIOMultiOutfitOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMultiOutfitOverlay.m; sourceTree = "<group>"; };
-		A7E301511379887F0036F86D /* GTIOOutfitHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitHeaderView.h; sourceTree = "<group>"; };
-		A7E301521379887F0036F86D /* GTIOOutfitHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitHeaderView.m; sourceTree = "<group>"; };
-		A7E301531379887F0036F86D /* GTIOOutfitPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitPageView.h; sourceTree = "<group>"; };
-		A7E301541379887F0036F86D /* GTIOOutfitPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitPageView.m; sourceTree = "<group>"; };
-		A7E301551379887F0036F86D /* GTIOOutfitReviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitReviewTableCell.h; sourceTree = "<group>"; };
-		A7E301561379887F0036F86D /* GTIOOutfitReviewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitReviewTableCell.m; sourceTree = "<group>"; };
-		A7E301571379887F0036F86D /* GTIOOutfitReviewTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitReviewTableItem.h; sourceTree = "<group>"; };
-		A7E301581379887F0036F86D /* GTIOOutfitReviewTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitReviewTableItem.m; sourceTree = "<group>"; };
-		A7E301591379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTableHeaderDragRefreshView.h; sourceTree = "<group>"; };
-		A7E3015A1379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTableHeaderDragRefreshView.m; sourceTree = "<group>"; };
-		A7E3015B1379887F0036F86D /* GTIOOutfitTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTableViewCell.h; sourceTree = "<group>"; };
-		A7E3015C1379887F0036F86D /* GTIOOutfitTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTableViewCell.m; sourceTree = "<group>"; };
-		A7E3015D1379887F0036F86D /* GTIOOutfitTableViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTableViewItem.h; sourceTree = "<group>"; };
-		A7E3015E1379887F0036F86D /* GTIOOutfitTableViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTableViewItem.m; sourceTree = "<group>"; };
-		A7E3015F1379887F0036F86D /* GTIOOutfitTopControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTopControlsView.h; sourceTree = "<group>"; };
-		A7E301601379887F0036F86D /* GTIOOutfitTopControlsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTopControlsView.m; sourceTree = "<group>"; };
-		A7E301611379887F0036F86D /* GTIOOutfitVerdictTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitVerdictTableItem.h; sourceTree = "<group>"; };
-		A7E301621379887F0036F86D /* GTIOOutfitVerdictTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitVerdictTableItem.m; sourceTree = "<group>"; };
-		A7E301631379887F0036F86D /* GTIOOutfitVerdictTableItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitVerdictTableItemCell.h; sourceTree = "<group>"; };
-		A7E301641379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitVerdictTableItemCell.m; sourceTree = "<group>"; };
-		A7E301651379887F0036F86D /* GTIORoundedBottomCornerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIORoundedBottomCornerLabel.h; sourceTree = "<group>"; };
-		A7E301661379887F0036F86D /* GTIORoundedBottomCornerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIORoundedBottomCornerLabel.m; sourceTree = "<group>"; };
-		A7E301671379887F0036F86D /* GTIOScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOScrollView.h; sourceTree = "<group>"; };
-		A7E301681379887F0036F86D /* GTIOScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOScrollView.m; sourceTree = "<group>"; };
-		A7E301691379887F0036F86D /* GTIOSectionedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSectionedDataSource.h; sourceTree = "<group>"; };
-		A7E3016A1379887F0036F86D /* GTIOSectionedDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSectionedDataSource.m; sourceTree = "<group>"; };
-		A7E3016B1379887F0036F86D /* GTIOTableImageControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTableImageControlCell.h; sourceTree = "<group>"; };
-		A7E3016C1379887F0036F86D /* GTIOTableImageControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableImageControlCell.m; sourceTree = "<group>"; };
-		A7E3016D1379887F0036F86D /* GTIOTableImageControlItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTableImageControlItem.h; sourceTree = "<group>"; };
-		A7E3016E1379887F0036F86D /* GTIOTableImageControlItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableImageControlItem.m; sourceTree = "<group>"; };
-		A7E3016F1379887F0036F86D /* GTIOTableItemCellWithQuote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTableItemCellWithQuote.h; sourceTree = "<group>"; };
-		A7E301701379887F0036F86D /* GTIOTableItemCellWithQuote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableItemCellWithQuote.m; sourceTree = "<group>"; };
-		A7E301711379887F0036F86D /* GTIOTableOutfitImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTableOutfitImageCell.h; sourceTree = "<group>"; };
-		A7E301721379887F0036F86D /* GTIOTableOutfitImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableOutfitImageCell.m; sourceTree = "<group>"; };
-		A7E301731379887F0036F86D /* GTIOTableStatsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTableStatsItem.h; sourceTree = "<group>"; };
-		A7E301741379887F0036F86D /* GTIOTableStatsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTableStatsItem.m; sourceTree = "<group>"; };
-		A7E301751379887F0036F86D /* GTIOUserReviewTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserReviewTableItem.h; sourceTree = "<group>"; };
-		A7E301761379887F0036F86D /* GTIOUserReviewTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserReviewTableItem.m; sourceTree = "<group>"; };
-		A7E301771379887F0036F86D /* GTIOUserReviewTableItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserReviewTableItemCell.h; sourceTree = "<group>"; };
-		A7E301781379887F0036F86D /* GTIOUserReviewTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserReviewTableItemCell.m; sourceTree = "<group>"; };
-		A7E301791379887F0036F86D /* GTIOVerdictView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOVerdictView.h; sourceTree = "<group>"; };
-		A7E3017A1379887F0036F86D /* GTIOVerdictView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOVerdictView.m; sourceTree = "<group>"; };
-		A7E3017B1379887F0036F86D /* TTTableCell_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableCell_Additions.h; sourceTree = "<group>"; };
-		A7E3017C1379887F0036F86D /* TTTableCell_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableCell_Additions.m; sourceTree = "<group>"; };
-		A7E3017D1379887F0036F86D /* TTTableLinkedItemCell_Accessories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableLinkedItemCell_Accessories.h; sourceTree = "<group>"; };
-		A7E3017E1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableLinkedItemCell_Accessories.m; sourceTree = "<group>"; };
-		A7E3017F1379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTTableViewDelegate+GTIOAdditions.h"; sourceTree = "<group>"; };
-		A7E301801379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTTableViewDelegate+GTIOAdditions.m"; sourceTree = "<group>"; };
 		A7E302B7137988C90036F86D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		A7E302B9137988C90036F86D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainWindow.xib; sourceTree = "<group>"; };
 		A7E302BA137988C90036F86D /* Fette.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Fette.ttf; path = Resources/Fette.ttf; sourceTree = "<group>"; };
@@ -3550,10 +3550,12 @@
 				A7E300AE1379887F0036F86D /* Classes */,
 				A7E300B91379887F0036F86D /* Controllers */,
 				A7E300C01379887F0036F86D /* Controllers (old) */,
+				A73397E91379A81400F41C2A /* Models */,
 				A7E300F11379887F0036F86D /* Models (old) */,
 				A7E301141379887F0036F86D /* Other */,
 				A7E3011D1379887F0036F86D /* Other (old) */,
-				A7E3013C1379887F0036F86D /* Views */,
+				A733973D1379A7D000F41C2A /* Views */,
+				A733973E1379A7D000F41C2A /* Views (old) */,
 			);
 			name = Code;
 			sourceTree = "<group>";
@@ -4251,6 +4253,98 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A733973D1379A7D000F41C2A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			path = Code/Views;
+			sourceTree = "<group>";
+		};
+		A733973E1379A7D000F41C2A /* Views (old) */ = {
+			isa = PBXGroup;
+			children = (
+				A733973F1379A7D000F41C2A /* CustomUISwitch.h */,
+				A73397401379A7D000F41C2A /* CustomUISwitch.m */,
+				A73397411379A7D000F41C2A /* GTIOAboutMeView.h */,
+				A73397421379A7D000F41C2A /* GTIOAboutMeView.m */,
+				A73397431379A7D000F41C2A /* GTIOBlurrableImageView.h */,
+				A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */,
+				A73397451379A7D000F41C2A /* GTIOBlurringOverlayView.h */,
+				A73397461379A7D000F41C2A /* GTIOBlurringOverlayView.m */,
+				A73397471379A7D000F41C2A /* GTIOBlurringToolbarView.h */,
+				A73397481379A7D000F41C2A /* GTIOBlurringToolbarView.m */,
+				A73397491379A7D000F41C2A /* GTIOChangeItReasonsView.h */,
+				A733974A1379A7D000F41C2A /* GTIOChangeItReasonsView.m */,
+				A733974B1379A7D000F41C2A /* GTIODraggableImageView.h */,
+				A733974C1379A7D000F41C2A /* GTIODraggableImageView.m */,
+				A733974D1379A7D000F41C2A /* GTIOHeaderView.h */,
+				A733974E1379A7D000F41C2A /* GTIOHeaderView.m */,
+				A733974F1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.h */,
+				A73397501379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m */,
+				A73397511379A7D000F41C2A /* GTIOMultiOutfitOverlay.h */,
+				A73397521379A7D000F41C2A /* GTIOMultiOutfitOverlay.m */,
+				A73397531379A7D000F41C2A /* GTIOOutfitHeaderView.h */,
+				A73397541379A7D000F41C2A /* GTIOOutfitHeaderView.m */,
+				A73397551379A7D000F41C2A /* GTIOOutfitPageView.h */,
+				A73397561379A7D000F41C2A /* GTIOOutfitPageView.m */,
+				A73397571379A7D000F41C2A /* GTIOOutfitReviewTableCell.h */,
+				A73397581379A7D000F41C2A /* GTIOOutfitReviewTableCell.m */,
+				A73397591379A7D000F41C2A /* GTIOOutfitReviewTableItem.h */,
+				A733975A1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m */,
+				A733975B1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.h */,
+				A733975C1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m */,
+				A733975D1379A7D000F41C2A /* GTIOOutfitTableViewCell.h */,
+				A733975E1379A7D000F41C2A /* GTIOOutfitTableViewCell.m */,
+				A733975F1379A7D000F41C2A /* GTIOOutfitTableViewItem.h */,
+				A73397601379A7D000F41C2A /* GTIOOutfitTableViewItem.m */,
+				A73397611379A7D000F41C2A /* GTIOOutfitTopControlsView.h */,
+				A73397621379A7D000F41C2A /* GTIOOutfitTopControlsView.m */,
+				A73397631379A7D000F41C2A /* GTIOOutfitVerdictTableItem.h */,
+				A73397641379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m */,
+				A73397651379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.h */,
+				A73397661379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m */,
+				A73397671379A7D000F41C2A /* GTIORoundedBottomCornerLabel.h */,
+				A73397681379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m */,
+				A73397691379A7D000F41C2A /* GTIOScrollView.h */,
+				A733976A1379A7D000F41C2A /* GTIOScrollView.m */,
+				A733976B1379A7D000F41C2A /* GTIOSectionedDataSource.h */,
+				A733976C1379A7D000F41C2A /* GTIOSectionedDataSource.m */,
+				A733976D1379A7D000F41C2A /* GTIOTableImageControlCell.h */,
+				A733976E1379A7D000F41C2A /* GTIOTableImageControlCell.m */,
+				A733976F1379A7D000F41C2A /* GTIOTableImageControlItem.h */,
+				A73397701379A7D000F41C2A /* GTIOTableImageControlItem.m */,
+				A73397711379A7D000F41C2A /* GTIOTableItemCellWithQuote.h */,
+				A73397721379A7D000F41C2A /* GTIOTableItemCellWithQuote.m */,
+				A73397731379A7D000F41C2A /* GTIOTableOutfitImageCell.h */,
+				A73397741379A7D000F41C2A /* GTIOTableOutfitImageCell.m */,
+				A73397751379A7D000F41C2A /* GTIOTableStatsItem.h */,
+				A73397761379A7D000F41C2A /* GTIOTableStatsItem.m */,
+				A73397771379A7D000F41C2A /* GTIOUserReviewTableItem.h */,
+				A73397781379A7D000F41C2A /* GTIOUserReviewTableItem.m */,
+				A73397791379A7D000F41C2A /* GTIOUserReviewTableItemCell.h */,
+				A733977A1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m */,
+				A733977B1379A7D000F41C2A /* GTIOVerdictView.h */,
+				A733977C1379A7D000F41C2A /* GTIOVerdictView.m */,
+				A733977D1379A7D000F41C2A /* TTTableCell_Additions.h */,
+				A733977E1379A7D000F41C2A /* TTTableCell_Additions.m */,
+				A733977F1379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.h */,
+				A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */,
+				A73397811379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.h */,
+				A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */,
+			);
+			name = "Views (old)";
+			path = Code/Views.old;
+			sourceTree = "<group>";
+		};
+		A73397E91379A81400F41C2A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			path = Code/Models;
+			sourceTree = SOURCE_ROOT;
+		};
 		A761158313798AFA003F30A8 /* v3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4470,82 +4564,6 @@
 			);
 			name = "Other (old)";
 			path = Code/Other.old;
-			sourceTree = "<group>";
-		};
-		A7E3013C1379887F0036F86D /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				A7E3013D1379887F0036F86D /* CustomUISwitch.h */,
-				A7E3013E1379887F0036F86D /* CustomUISwitch.m */,
-				A7E3013F1379887F0036F86D /* GTIOAboutMeView.h */,
-				A7E301401379887F0036F86D /* GTIOAboutMeView.m */,
-				A7E301411379887F0036F86D /* GTIOBlurrableImageView.h */,
-				A7E301421379887F0036F86D /* GTIOBlurrableImageView.m */,
-				A7E301431379887F0036F86D /* GTIOBlurringOverlayView.h */,
-				A7E301441379887F0036F86D /* GTIOBlurringOverlayView.m */,
-				A7E301451379887F0036F86D /* GTIOBlurringToolbarView.h */,
-				A7E301461379887F0036F86D /* GTIOBlurringToolbarView.m */,
-				A7E301471379887F0036F86D /* GTIOChangeItReasonsView.h */,
-				A7E301481379887F0036F86D /* GTIOChangeItReasonsView.m */,
-				A7E301491379887F0036F86D /* GTIODraggableImageView.h */,
-				A7E3014A1379887F0036F86D /* GTIODraggableImageView.m */,
-				A7E3014B1379887F0036F86D /* GTIOHeaderView.h */,
-				A7E3014C1379887F0036F86D /* GTIOHeaderView.m */,
-				A7E3014D1379887F0036F86D /* GTIOMultiLineQuotedLabel.h */,
-				A7E3014E1379887F0036F86D /* GTIOMultiLineQuotedLabel.m */,
-				A7E3014F1379887F0036F86D /* GTIOMultiOutfitOverlay.h */,
-				A7E301501379887F0036F86D /* GTIOMultiOutfitOverlay.m */,
-				A7E301511379887F0036F86D /* GTIOOutfitHeaderView.h */,
-				A7E301521379887F0036F86D /* GTIOOutfitHeaderView.m */,
-				A7E301531379887F0036F86D /* GTIOOutfitPageView.h */,
-				A7E301541379887F0036F86D /* GTIOOutfitPageView.m */,
-				A7E301551379887F0036F86D /* GTIOOutfitReviewTableCell.h */,
-				A7E301561379887F0036F86D /* GTIOOutfitReviewTableCell.m */,
-				A7E301571379887F0036F86D /* GTIOOutfitReviewTableItem.h */,
-				A7E301581379887F0036F86D /* GTIOOutfitReviewTableItem.m */,
-				A7E301591379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.h */,
-				A7E3015A1379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m */,
-				A7E3015B1379887F0036F86D /* GTIOOutfitTableViewCell.h */,
-				A7E3015C1379887F0036F86D /* GTIOOutfitTableViewCell.m */,
-				A7E3015D1379887F0036F86D /* GTIOOutfitTableViewItem.h */,
-				A7E3015E1379887F0036F86D /* GTIOOutfitTableViewItem.m */,
-				A7E3015F1379887F0036F86D /* GTIOOutfitTopControlsView.h */,
-				A7E301601379887F0036F86D /* GTIOOutfitTopControlsView.m */,
-				A7E301611379887F0036F86D /* GTIOOutfitVerdictTableItem.h */,
-				A7E301621379887F0036F86D /* GTIOOutfitVerdictTableItem.m */,
-				A7E301631379887F0036F86D /* GTIOOutfitVerdictTableItemCell.h */,
-				A7E301641379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m */,
-				A7E301651379887F0036F86D /* GTIORoundedBottomCornerLabel.h */,
-				A7E301661379887F0036F86D /* GTIORoundedBottomCornerLabel.m */,
-				A7E301671379887F0036F86D /* GTIOScrollView.h */,
-				A7E301681379887F0036F86D /* GTIOScrollView.m */,
-				A7E301691379887F0036F86D /* GTIOSectionedDataSource.h */,
-				A7E3016A1379887F0036F86D /* GTIOSectionedDataSource.m */,
-				A7E3016B1379887F0036F86D /* GTIOTableImageControlCell.h */,
-				A7E3016C1379887F0036F86D /* GTIOTableImageControlCell.m */,
-				A7E3016D1379887F0036F86D /* GTIOTableImageControlItem.h */,
-				A7E3016E1379887F0036F86D /* GTIOTableImageControlItem.m */,
-				A7E3016F1379887F0036F86D /* GTIOTableItemCellWithQuote.h */,
-				A7E301701379887F0036F86D /* GTIOTableItemCellWithQuote.m */,
-				A7E301711379887F0036F86D /* GTIOTableOutfitImageCell.h */,
-				A7E301721379887F0036F86D /* GTIOTableOutfitImageCell.m */,
-				A7E301731379887F0036F86D /* GTIOTableStatsItem.h */,
-				A7E301741379887F0036F86D /* GTIOTableStatsItem.m */,
-				A7E301751379887F0036F86D /* GTIOUserReviewTableItem.h */,
-				A7E301761379887F0036F86D /* GTIOUserReviewTableItem.m */,
-				A7E301771379887F0036F86D /* GTIOUserReviewTableItemCell.h */,
-				A7E301781379887F0036F86D /* GTIOUserReviewTableItemCell.m */,
-				A7E301791379887F0036F86D /* GTIOVerdictView.h */,
-				A7E3017A1379887F0036F86D /* GTIOVerdictView.m */,
-				A7E3017B1379887F0036F86D /* TTTableCell_Additions.h */,
-				A7E3017C1379887F0036F86D /* TTTableCell_Additions.m */,
-				A7E3017D1379887F0036F86D /* TTTableLinkedItemCell_Accessories.h */,
-				A7E3017E1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m */,
-				A7E3017F1379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.h */,
-				A7E301801379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m */,
-			);
-			name = Views;
-			path = Code/Views;
 			sourceTree = "<group>";
 		};
 		A7E302B5137988C90036F86D /* en.lproj */ = {
@@ -6993,43 +7011,43 @@
 				A7E302441379887F0036F86D /* TTViewController+GTIOAdditions.m in Sources */,
 				A7E302471379887F0036F86D /* UIDeviceHardware.m in Sources */,
 				A7E3024A1379887F0036F86D /* UIImage+Manipulation.m in Sources */,
-				A7E3024D1379887F0036F86D /* CustomUISwitch.m in Sources */,
-				A7E302501379887F0036F86D /* GTIOAboutMeView.m in Sources */,
-				A7E302531379887F0036F86D /* GTIOBlurrableImageView.m in Sources */,
-				A7E302561379887F0036F86D /* GTIOBlurringOverlayView.m in Sources */,
-				A7E302591379887F0036F86D /* GTIOBlurringToolbarView.m in Sources */,
-				A7E3025C1379887F0036F86D /* GTIOChangeItReasonsView.m in Sources */,
-				A7E3025F1379887F0036F86D /* GTIODraggableImageView.m in Sources */,
-				A7E302621379887F0036F86D /* GTIOHeaderView.m in Sources */,
-				A7E302651379887F0036F86D /* GTIOMultiLineQuotedLabel.m in Sources */,
-				A7E302681379887F0036F86D /* GTIOMultiOutfitOverlay.m in Sources */,
-				A7E3026B1379887F0036F86D /* GTIOOutfitHeaderView.m in Sources */,
-				A7E3026E1379887F0036F86D /* GTIOOutfitPageView.m in Sources */,
-				A7E302711379887F0036F86D /* GTIOOutfitReviewTableCell.m in Sources */,
-				A7E302741379887F0036F86D /* GTIOOutfitReviewTableItem.m in Sources */,
-				A7E302771379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */,
-				A7E3027A1379887F0036F86D /* GTIOOutfitTableViewCell.m in Sources */,
-				A7E3027D1379887F0036F86D /* GTIOOutfitTableViewItem.m in Sources */,
-				A7E302801379887F0036F86D /* GTIOOutfitTopControlsView.m in Sources */,
-				A7E302831379887F0036F86D /* GTIOOutfitVerdictTableItem.m in Sources */,
-				A7E302861379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m in Sources */,
-				A7E302891379887F0036F86D /* GTIORoundedBottomCornerLabel.m in Sources */,
-				A7E3028C1379887F0036F86D /* GTIOScrollView.m in Sources */,
-				A7E3028F1379887F0036F86D /* GTIOSectionedDataSource.m in Sources */,
-				A7E302921379887F0036F86D /* GTIOTableImageControlCell.m in Sources */,
-				A7E302951379887F0036F86D /* GTIOTableImageControlItem.m in Sources */,
-				A7E302981379887F0036F86D /* GTIOTableItemCellWithQuote.m in Sources */,
-				A7E3029B1379887F0036F86D /* GTIOTableOutfitImageCell.m in Sources */,
-				A7E3029E1379887F0036F86D /* GTIOTableStatsItem.m in Sources */,
-				A7E302A11379887F0036F86D /* GTIOUserReviewTableItem.m in Sources */,
-				A7E302A41379887F0036F86D /* GTIOUserReviewTableItemCell.m in Sources */,
-				A7E302A71379887F0036F86D /* GTIOVerdictView.m in Sources */,
-				A7E302AA1379887F0036F86D /* TTTableCell_Additions.m in Sources */,
-				A7E302AD1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m in Sources */,
-				A7E302B01379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 				A7E3040F137988C90036F86D /* Application.xcdatamodeld in Sources */,
 				A7E30412137988C90036F86D /* DataModel.xcdatamodeld in Sources */,
 				A7CBB41C1379978B0050C4D8 /* UINavigationController+Background.m in Sources */,
+				A73397831379A7D000F41C2A /* CustomUISwitch.m in Sources */,
+				A73397861379A7D000F41C2A /* GTIOAboutMeView.m in Sources */,
+				A73397891379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */,
+				A733978C1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */,
+				A733978F1379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */,
+				A73397921379A7D000F41C2A /* GTIOChangeItReasonsView.m in Sources */,
+				A73397951379A7D000F41C2A /* GTIODraggableImageView.m in Sources */,
+				A73397981379A7D000F41C2A /* GTIOHeaderView.m in Sources */,
+				A733979B1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m in Sources */,
+				A733979E1379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */,
+				A73397A11379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */,
+				A73397A41379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */,
+				A73397A71379A7D000F41C2A /* GTIOOutfitReviewTableCell.m in Sources */,
+				A73397AA1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m in Sources */,
+				A73397AD1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */,
+				A73397B01379A7D000F41C2A /* GTIOOutfitTableViewCell.m in Sources */,
+				A73397B31379A7D000F41C2A /* GTIOOutfitTableViewItem.m in Sources */,
+				A73397B61379A7D000F41C2A /* GTIOOutfitTopControlsView.m in Sources */,
+				A73397B91379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m in Sources */,
+				A73397BC1379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m in Sources */,
+				A73397BF1379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m in Sources */,
+				A73397C21379A7D000F41C2A /* GTIOScrollView.m in Sources */,
+				A73397C51379A7D000F41C2A /* GTIOSectionedDataSource.m in Sources */,
+				A73397C81379A7D000F41C2A /* GTIOTableImageControlCell.m in Sources */,
+				A73397CB1379A7D000F41C2A /* GTIOTableImageControlItem.m in Sources */,
+				A73397CE1379A7D000F41C2A /* GTIOTableItemCellWithQuote.m in Sources */,
+				A73397D11379A7D000F41C2A /* GTIOTableOutfitImageCell.m in Sources */,
+				A73397D41379A7D000F41C2A /* GTIOTableStatsItem.m in Sources */,
+				A73397D71379A7D000F41C2A /* GTIOUserReviewTableItem.m in Sources */,
+				A73397DA1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m in Sources */,
+				A73397DD1379A7D000F41C2A /* GTIOVerdictView.m in Sources */,
+				A73397E01379A7D000F41C2A /* TTTableCell_Additions.m in Sources */,
+				A73397E31379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
+				A73397E61379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7127,42 +7145,42 @@
 				A7E302451379887F0036F86D /* TTViewController+GTIOAdditions.m in Sources */,
 				A7E302481379887F0036F86D /* UIDeviceHardware.m in Sources */,
 				A7E3024B1379887F0036F86D /* UIImage+Manipulation.m in Sources */,
-				A7E3024E1379887F0036F86D /* CustomUISwitch.m in Sources */,
-				A7E302511379887F0036F86D /* GTIOAboutMeView.m in Sources */,
-				A7E302541379887F0036F86D /* GTIOBlurrableImageView.m in Sources */,
-				A7E302571379887F0036F86D /* GTIOBlurringOverlayView.m in Sources */,
-				A7E3025A1379887F0036F86D /* GTIOBlurringToolbarView.m in Sources */,
-				A7E3025D1379887F0036F86D /* GTIOChangeItReasonsView.m in Sources */,
-				A7E302601379887F0036F86D /* GTIODraggableImageView.m in Sources */,
-				A7E302631379887F0036F86D /* GTIOHeaderView.m in Sources */,
-				A7E302661379887F0036F86D /* GTIOMultiLineQuotedLabel.m in Sources */,
-				A7E302691379887F0036F86D /* GTIOMultiOutfitOverlay.m in Sources */,
-				A7E3026C1379887F0036F86D /* GTIOOutfitHeaderView.m in Sources */,
-				A7E3026F1379887F0036F86D /* GTIOOutfitPageView.m in Sources */,
-				A7E302721379887F0036F86D /* GTIOOutfitReviewTableCell.m in Sources */,
-				A7E302751379887F0036F86D /* GTIOOutfitReviewTableItem.m in Sources */,
-				A7E302781379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */,
-				A7E3027B1379887F0036F86D /* GTIOOutfitTableViewCell.m in Sources */,
-				A7E3027E1379887F0036F86D /* GTIOOutfitTableViewItem.m in Sources */,
-				A7E302811379887F0036F86D /* GTIOOutfitTopControlsView.m in Sources */,
-				A7E302841379887F0036F86D /* GTIOOutfitVerdictTableItem.m in Sources */,
-				A7E302871379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m in Sources */,
-				A7E3028A1379887F0036F86D /* GTIORoundedBottomCornerLabel.m in Sources */,
-				A7E3028D1379887F0036F86D /* GTIOScrollView.m in Sources */,
-				A7E302901379887F0036F86D /* GTIOSectionedDataSource.m in Sources */,
-				A7E302931379887F0036F86D /* GTIOTableImageControlCell.m in Sources */,
-				A7E302961379887F0036F86D /* GTIOTableImageControlItem.m in Sources */,
-				A7E302991379887F0036F86D /* GTIOTableItemCellWithQuote.m in Sources */,
-				A7E3029C1379887F0036F86D /* GTIOTableOutfitImageCell.m in Sources */,
-				A7E3029F1379887F0036F86D /* GTIOTableStatsItem.m in Sources */,
-				A7E302A21379887F0036F86D /* GTIOUserReviewTableItem.m in Sources */,
-				A7E302A51379887F0036F86D /* GTIOUserReviewTableItemCell.m in Sources */,
-				A7E302A81379887F0036F86D /* GTIOVerdictView.m in Sources */,
-				A7E302AB1379887F0036F86D /* TTTableCell_Additions.m in Sources */,
-				A7E302AE1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m in Sources */,
-				A7E302B11379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 				A7E30410137988C90036F86D /* Application.xcdatamodeld in Sources */,
 				A7E30413137988C90036F86D /* DataModel.xcdatamodeld in Sources */,
+				A73397841379A7D000F41C2A /* CustomUISwitch.m in Sources */,
+				A73397871379A7D000F41C2A /* GTIOAboutMeView.m in Sources */,
+				A733978A1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */,
+				A733978D1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */,
+				A73397901379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */,
+				A73397931379A7D000F41C2A /* GTIOChangeItReasonsView.m in Sources */,
+				A73397961379A7D000F41C2A /* GTIODraggableImageView.m in Sources */,
+				A73397991379A7D000F41C2A /* GTIOHeaderView.m in Sources */,
+				A733979C1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m in Sources */,
+				A733979F1379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */,
+				A73397A21379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */,
+				A73397A51379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */,
+				A73397A81379A7D000F41C2A /* GTIOOutfitReviewTableCell.m in Sources */,
+				A73397AB1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m in Sources */,
+				A73397AE1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */,
+				A73397B11379A7D000F41C2A /* GTIOOutfitTableViewCell.m in Sources */,
+				A73397B41379A7D000F41C2A /* GTIOOutfitTableViewItem.m in Sources */,
+				A73397B71379A7D000F41C2A /* GTIOOutfitTopControlsView.m in Sources */,
+				A73397BA1379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m in Sources */,
+				A73397BD1379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m in Sources */,
+				A73397C01379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m in Sources */,
+				A73397C31379A7D000F41C2A /* GTIOScrollView.m in Sources */,
+				A73397C61379A7D000F41C2A /* GTIOSectionedDataSource.m in Sources */,
+				A73397C91379A7D000F41C2A /* GTIOTableImageControlCell.m in Sources */,
+				A73397CC1379A7D000F41C2A /* GTIOTableImageControlItem.m in Sources */,
+				A73397CF1379A7D000F41C2A /* GTIOTableItemCellWithQuote.m in Sources */,
+				A73397D21379A7D000F41C2A /* GTIOTableOutfitImageCell.m in Sources */,
+				A73397D51379A7D000F41C2A /* GTIOTableStatsItem.m in Sources */,
+				A73397D81379A7D000F41C2A /* GTIOUserReviewTableItem.m in Sources */,
+				A73397DB1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m in Sources */,
+				A73397DE1379A7D000F41C2A /* GTIOVerdictView.m in Sources */,
+				A73397E11379A7D000F41C2A /* TTTableCell_Additions.m in Sources */,
+				A73397E41379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
+				A73397E71379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7309,42 +7327,42 @@
 				A7E302461379887F0036F86D /* TTViewController+GTIOAdditions.m in Sources */,
 				A7E302491379887F0036F86D /* UIDeviceHardware.m in Sources */,
 				A7E3024C1379887F0036F86D /* UIImage+Manipulation.m in Sources */,
-				A7E3024F1379887F0036F86D /* CustomUISwitch.m in Sources */,
-				A7E302521379887F0036F86D /* GTIOAboutMeView.m in Sources */,
-				A7E302551379887F0036F86D /* GTIOBlurrableImageView.m in Sources */,
-				A7E302581379887F0036F86D /* GTIOBlurringOverlayView.m in Sources */,
-				A7E3025B1379887F0036F86D /* GTIOBlurringToolbarView.m in Sources */,
-				A7E3025E1379887F0036F86D /* GTIOChangeItReasonsView.m in Sources */,
-				A7E302611379887F0036F86D /* GTIODraggableImageView.m in Sources */,
-				A7E302641379887F0036F86D /* GTIOHeaderView.m in Sources */,
-				A7E302671379887F0036F86D /* GTIOMultiLineQuotedLabel.m in Sources */,
-				A7E3026A1379887F0036F86D /* GTIOMultiOutfitOverlay.m in Sources */,
-				A7E3026D1379887F0036F86D /* GTIOOutfitHeaderView.m in Sources */,
-				A7E302701379887F0036F86D /* GTIOOutfitPageView.m in Sources */,
-				A7E302731379887F0036F86D /* GTIOOutfitReviewTableCell.m in Sources */,
-				A7E302761379887F0036F86D /* GTIOOutfitReviewTableItem.m in Sources */,
-				A7E302791379887F0036F86D /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */,
-				A7E3027C1379887F0036F86D /* GTIOOutfitTableViewCell.m in Sources */,
-				A7E3027F1379887F0036F86D /* GTIOOutfitTableViewItem.m in Sources */,
-				A7E302821379887F0036F86D /* GTIOOutfitTopControlsView.m in Sources */,
-				A7E302851379887F0036F86D /* GTIOOutfitVerdictTableItem.m in Sources */,
-				A7E302881379887F0036F86D /* GTIOOutfitVerdictTableItemCell.m in Sources */,
-				A7E3028B1379887F0036F86D /* GTIORoundedBottomCornerLabel.m in Sources */,
-				A7E3028E1379887F0036F86D /* GTIOScrollView.m in Sources */,
-				A7E302911379887F0036F86D /* GTIOSectionedDataSource.m in Sources */,
-				A7E302941379887F0036F86D /* GTIOTableImageControlCell.m in Sources */,
-				A7E302971379887F0036F86D /* GTIOTableImageControlItem.m in Sources */,
-				A7E3029A1379887F0036F86D /* GTIOTableItemCellWithQuote.m in Sources */,
-				A7E3029D1379887F0036F86D /* GTIOTableOutfitImageCell.m in Sources */,
-				A7E302A01379887F0036F86D /* GTIOTableStatsItem.m in Sources */,
-				A7E302A31379887F0036F86D /* GTIOUserReviewTableItem.m in Sources */,
-				A7E302A61379887F0036F86D /* GTIOUserReviewTableItemCell.m in Sources */,
-				A7E302A91379887F0036F86D /* GTIOVerdictView.m in Sources */,
-				A7E302AC1379887F0036F86D /* TTTableCell_Additions.m in Sources */,
-				A7E302AF1379887F0036F86D /* TTTableLinkedItemCell_Accessories.m in Sources */,
-				A7E302B21379887F0036F86D /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 				A7E30411137988C90036F86D /* Application.xcdatamodeld in Sources */,
 				A7E30414137988C90036F86D /* DataModel.xcdatamodeld in Sources */,
+				A73397851379A7D000F41C2A /* CustomUISwitch.m in Sources */,
+				A73397881379A7D000F41C2A /* GTIOAboutMeView.m in Sources */,
+				A733978B1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */,
+				A733978E1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */,
+				A73397911379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */,
+				A73397941379A7D000F41C2A /* GTIOChangeItReasonsView.m in Sources */,
+				A73397971379A7D000F41C2A /* GTIODraggableImageView.m in Sources */,
+				A733979A1379A7D000F41C2A /* GTIOHeaderView.m in Sources */,
+				A733979D1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m in Sources */,
+				A73397A01379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */,
+				A73397A31379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */,
+				A73397A61379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */,
+				A73397A91379A7D000F41C2A /* GTIOOutfitReviewTableCell.m in Sources */,
+				A73397AC1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m in Sources */,
+				A73397AF1379A7D000F41C2A /* GTIOOutfitTableHeaderDragRefreshView.m in Sources */,
+				A73397B21379A7D000F41C2A /* GTIOOutfitTableViewCell.m in Sources */,
+				A73397B51379A7D000F41C2A /* GTIOOutfitTableViewItem.m in Sources */,
+				A73397B81379A7D000F41C2A /* GTIOOutfitTopControlsView.m in Sources */,
+				A73397BB1379A7D000F41C2A /* GTIOOutfitVerdictTableItem.m in Sources */,
+				A73397BE1379A7D000F41C2A /* GTIOOutfitVerdictTableItemCell.m in Sources */,
+				A73397C11379A7D000F41C2A /* GTIORoundedBottomCornerLabel.m in Sources */,
+				A73397C41379A7D000F41C2A /* GTIOScrollView.m in Sources */,
+				A73397C71379A7D000F41C2A /* GTIOSectionedDataSource.m in Sources */,
+				A73397CA1379A7D000F41C2A /* GTIOTableImageControlCell.m in Sources */,
+				A73397CD1379A7D000F41C2A /* GTIOTableImageControlItem.m in Sources */,
+				A73397D01379A7D000F41C2A /* GTIOTableItemCellWithQuote.m in Sources */,
+				A73397D31379A7D000F41C2A /* GTIOTableOutfitImageCell.m in Sources */,
+				A73397D61379A7D000F41C2A /* GTIOTableStatsItem.m in Sources */,
+				A73397D91379A7D000F41C2A /* GTIOUserReviewTableItem.m in Sources */,
+				A73397DC1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m in Sources */,
+				A73397DF1379A7D000F41C2A /* GTIOVerdictView.m in Sources */,
+				A73397E21379A7D000F41C2A /* TTTableCell_Additions.m in Sources */,
+				A73397E51379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
+				A73397E81379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
