@@ -62,8 +62,9 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(dismiss)] autorelease];
-	self.navigationItem.rightBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"Title View" target:self action:@selector(dismiss) backButton:YES] autorelease];
+	GTIOBarButtonItem* cancelButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(dismiss)] autorelease];
+	[[self navigationItem] setLeftBarButtonItem:cancelButton];
+	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sign-in.png"]] autorelease];
 }
 
 - (void)viewDidUnload
