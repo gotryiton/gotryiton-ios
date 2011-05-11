@@ -33,6 +33,8 @@
 #import "GTIOAppStatusAlertButton.h"
 #import "Facebook.h"
 
+#import "GTIOGlobalVariableStore.h"
+
 @interface AppDelegate (Private)
 
 - (void)viewRemoteNotification:(NSDictionary*)aps;
@@ -134,12 +136,14 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"userStats", @"userStats")];
     [provider setMapping:profileMapping forKeyPath:@"user"];
     
-    RKObjectMapping* changeItReasonsMapping = [RKObjectMapping mappingForClass:[NSDictionary class]];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"changeItReasons")];
-    [provider setMapping:changeItReasonsMapping forKeyPath:@"global_changeitReasons"];
+    RKObjectMapping* changeItReasonsMapping = [RKObjectMapping mappingForClass:[GTIOChangeItReason class]];
+    [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"reasonID")];
+    [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"display", @"display")];
+    [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"text", @"text")];
+    [provider setMapping:changeItReasonsMapping forKeyPath:@"global_changeItReasons"];
     
-    RKObjectMapping* eventTypesMapping = [RKObjectMapping mappingForClass:[NSDictionary class]];
-    [eventTypesMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"eventTypes")];
+    RKObjectMapping* eventTypesMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
+    [eventTypesMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"eventType")];
     [provider setMapping:eventTypesMapping forKeyPath:@"global_eventTypes"];
     
     [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user" toKeyPath:@"user" objectMapping:profileMapping]];
@@ -330,6 +334,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 							versionString, @"iphoneAppVersion",
 							nil];
+    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
 	[[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/status") queryParams:params delegate:self];
 	
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
@@ -359,11 +364,19 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
-    NSLog(@"dictionary: %@", dictionary);
+//    NSLog(@"dictionary: %@", dictionary);
     GTIOAppStatusAlert* alert = [dictionary objectForKey:@"alert"];
     if (alert) {
 		[alert show];
 	}
+    NSArray* changeItReasons = [dictionary objectForKey:@"global_changeItReasons"];
+    if (changeItReasons) {
+        [GTIOGlobalVariableStore sharedStore].changeItReasons = changeItReasons;
+    }
+    NSArray* eventTypes = [[dictionary objectForKey:@"global_eventTypes"] valueForKey:@"eventType"];
+    if (eventTypes) {
+        [GTIOUser currentUser].eventTypes = eventTypes;
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {

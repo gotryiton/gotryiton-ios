@@ -82,7 +82,6 @@
 }
 
 - (void)modelsDidLoad:(NSArray*)models {
-	[self mapGlobalsFrom:models];
 	if (_isLoadingMore) {
 		NSArray* objects = [self objectsFromArray:models];
 		NSArray* newObjects = [[_objects arrayByAddingObjectsFromArray:objects] retain];

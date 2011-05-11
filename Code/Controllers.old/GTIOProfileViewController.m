@@ -194,7 +194,8 @@
 }
 
 - (void)createModel {
-	NSString* uid = (_isShowingCurrentUser ? [[GTIOUser currentUser] UID] : _userID);
+    GTIOUser* user = [GTIOUser currentUser];
+	NSString* uid = (_isShowingCurrentUser ? user.UID : _userID);
 	
 	if (uid == nil) {
 		self.dataSource = [GTIOProfileViewDataSource dataSourceWithObjects:nil];
@@ -210,7 +211,7 @@
 		[params setValue:@"1" forKey:@"limit"];
 	}
 	
-	TTListDataSource* ds = [GTIOProfileViewDataSource dataSourceWithObjects:nil];
+	GTIOProfileViewDataSource* ds = [GTIOProfileViewDataSource dataSourceWithObjects:nil];
 	ds.model = [[GTIOMapGlobalsTTModel alloc] initWithResourcePath:path
 															params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
 															method:RKRequestMethodPOST];
@@ -226,7 +227,7 @@
 - (void)didLoadModel:(BOOL)firstTime {
 	[super didLoadModel:firstTime];
 	
-	if ([[GTIOUser currentUser] isLoggedIn] || !_isShowingCurrentUser) {
+	if (([[GTIOUser currentUser] isLoggedIn] || !_isShowingCurrentUser) && [self.model isKindOfClass:[RKRequestTTModel class]]) {
 		GTIOProfile* profile = nil;
 		for (id object in [(RKRequestTTModel*)self.model objects]) {
 			if ([object isKindOfClass:[GTIOProfile class]]) {

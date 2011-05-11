@@ -175,6 +175,11 @@ static GTIOUser* gCurrentUser = nil;
 
 - (void)digestProfileInfo:(NSDictionary*)profileInfo {
 	if (profileInfo && [profileInfo isKindOfClass:[NSDictionary class]]) {
+        if ([[profileInfo valueForKey:@"response"] isEqualToString:@"error"]) {
+            NSLog(@"Error Logging In: %@", profileInfo);
+            return;
+        }
+        profileInfo = [profileInfo valueForKey:@"user"];
 		self.UID = [profileInfo objectForKey:@"uid"];
 		self.username = [profileInfo objectForKey:@"displayName"];
 		self.gender = [profileInfo objectForKey:@"gender"];

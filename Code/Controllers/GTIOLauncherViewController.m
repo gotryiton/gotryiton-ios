@@ -93,7 +93,9 @@
     TTOpenURL(reviewsURL);
 }
 - (IBAction)notificationButtonWasPressed {}
-- (IBAction)profileViewWasTouched {}
+- (IBAction)profileViewWasTouched {
+    TTOpenURL(@"gtio://profile");
+}
 
 - (IBAction)logoutButtonWasPressed {
     if ([[GTIOUser currentUser] isLoggedIn]) {
