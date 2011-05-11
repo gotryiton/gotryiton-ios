@@ -50,5 +50,10 @@
 	<array/>
 	<key>UTImportedTypeDeclarations</key>
 	<array/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Fette.ttf</string>
+		<string>HelveticaRBC.otf</string>
+	</array>
 </dict>
 </plist>
