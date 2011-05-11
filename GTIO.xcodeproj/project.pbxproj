@@ -835,6 +835,9 @@
 		A76208801379D53500DFBD66 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A762087F1379D53500DFBD66 /* CoreText.framework */; };
 		A76208821379D54400DFBD66 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76208811379D54400DFBD66 /* CoreText.framework */; };
 		A76208841379D55200DFBD66 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76208831379D55200DFBD66 /* CoreText.framework */; };
+		A764DD70137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */; };
+		A764DD71137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */; };
+		A764DD72137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */; };
 		A7CBB41C1379978B0050C4D8 /* UINavigationController+Background.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */; };
 		A7E301811379887F0036F86D /* GTIOAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B01379887F0036F86D /* GTIOAnalyticsTracker.m */; };
 		A7E301821379887F0036F86D /* GTIOAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B01379887F0036F86D /* GTIOAnalyticsTracker.m */; };
@@ -2427,6 +2430,13 @@
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = TWTCommon;
 		};
+		A7E0CE52137AF9AB00F420B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 253A080B12551D3000976E89;
+			remoteInfo = RestKitSupport;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -2901,6 +2911,8 @@
 		A762087F1379D53500DFBD66 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		A76208811379D54400DFBD66 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		A76208831379D55200DFBD66 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		A764DD6E137B11FA00422C4D /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
+		A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
 		A7CBB41A1379978B0050C4D8 /* UINavigationController+Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Background.h"; sourceTree = "<group>"; };
 		A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Background.m"; sourceTree = "<group>"; };
 		A7E300AF1379887F0036F86D /* GTIOAnalyticsTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAnalyticsTracker.h; sourceTree = "<group>"; };
@@ -3492,9 +3504,6 @@
 		2585187E135357C5005DCBA5 = {
 			isa = PBXGroup;
 			children = (
-				A76208831379D55200DFBD66 /* CoreText.framework */,
-				A76208811379D54400DFBD66 /* CoreText.framework */,
-				A762087F1379D53500DFBD66 /* CoreText.framework */,
 				258518AD135357DD005DCBA5 /* Code */,
 				258518AE135357E3005DCBA5 /* Specs */,
 				258518AC135357D0005DCBA5 /* Libraries */,
@@ -3517,6 +3526,9 @@
 		2585188C135357C5005DCBA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A76208831379D55200DFBD66 /* CoreText.framework */,
+				A76208811379D54400DFBD66 /* CoreText.framework */,
+				A762087F1379D53500DFBD66 /* CoreText.framework */,
 				3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */,
 				3FCBF2321370825F0039D779 /* libfacebook_ios_sdk.a */,
 				3FCBF22E1370824D0039D779 /* libfacebook_ios_sdk.a */,
@@ -4442,6 +4454,8 @@
 			children = (
 				A76207761379D37600DFBD66 /* TTTAttributedLabel.h */,
 				A76207771379D37600DFBD66 /* TTTAttributedLabel.m */,
+				A764DD6E137B11FA00422C4D /* NSAttributedString+Attributes.h */,
+				A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */,
 			);
 			name = TTTAttributedLabel;
 			path = Libraries/TTTAttributedLabel;
@@ -5151,6 +5165,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A7E0CE53137AF9AB00F420B4 /* PBXTargetDependency */,
 				A708E8421379795F002F1F62 /* PBXTargetDependency */,
 				3FCBF235137082690039D779 /* PBXTargetDependency */,
 				25D5C91313535D52007B6F14 /* PBXTargetDependency */,
@@ -7128,6 +7143,7 @@
 				A73397EC1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 				3FBAE217137ACCC5001BBC0E /* LoggerClient.m in Sources */,
 				A76208641379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
+				A764DD70137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7264,6 +7280,7 @@
 				A73397ED1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 				3FBAE218137ACCC5001BBC0E /* LoggerClient.m in Sources */,
 				A76208651379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
+				A764DD71137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7449,6 +7466,7 @@
 				A73397EE1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 				3FBAE219137ACCC5001BBC0E /* LoggerClient.m in Sources */,
 				A76208661379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
+				A764DD72137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7604,6 +7622,11 @@
 			isa = PBXTargetDependency;
 			name = TWTCommon;
 			targetProxy = A708E8411379795F002F1F62 /* PBXContainerItemProxy */;
+		};
+		A7E0CE53137AF9AB00F420B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKitSupport;
+			targetProxy = A7E0CE52137AF9AB00F420B4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
