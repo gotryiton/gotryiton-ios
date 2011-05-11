@@ -47,6 +47,46 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 @synthesize window = _window;
 
+- (void)setupRestKit {
+    RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
+    
+    RKObjectMappingProvider* provider = [[[RKObjectMappingProvider alloc] init] autorelease];
+    
+    RKObjectMapping* buttonMapping = [RKObjectMapping mappingForClass:[GTIOAppStatusAlertButton class]];
+    [buttonMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
+    [buttonMapping addAttributeMapping:RKObjectAttributeMappingMake(@"url", @"url")];
+    
+    RKObjectMapping* alertMapping = [RKObjectMapping mappingForClass:[GTIOAppStatusAlert class]];
+    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
+    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"message", @"message")];
+    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"cancelButtonTitle", @"cancelButtonTitle")];
+    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"alertID")];
+    [alertMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"buttons" toKeyPath:@"buttons" objectMapping:buttonMapping]];
+    [provider setMapping:alertMapping forKeyPath:@"alert"];
+    
+    
+    
+    
+    objectManager.mappingProvider = provider;
+    
+    //	RKObjectMapper* mapper = objectManager.mapper;
+    //	// Add our element to object mappings
+    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"outfits"];
+    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"outfit"];
+    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"recent"];
+    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"popular"];
+    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"search"];
+    //	[mapper registerClass:[GTIOProfile class] forElementNamed:@"user"];
+    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"reviewsOutfits"];
+    //	[mapper registerClass:[GTIOReview class] forElementNamed:@"reviews"];
+    //	[mapper registerClass:[GTIOReview class] forElementNamed:@"review"];
+    //	[mapper registerClass:[GTIOBadge class] forElementNamed:@"badges"];
+    //	[mapper registerClass:[GTIOChangeItReason class] forElementNamed:@"global_changeitReasons"];
+    //	[mapper registerClass:[GTIOVotingResultSet class] forElementNamed:@"votingResults"];
+    //	[mapper registerClass:[GTIOAppStatusAlert class] forElementNamed:@"alert"];
+    //	[mapper registerClass:[GTIOAppStatusAlertButton class] forElementNamed:@"buttons"];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Initialize Flurry
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
@@ -180,23 +220,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
 	
     // Initialize RestKit
-	RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
-	RKObjectMapper* mapper = objectManager.mapper;
-	// Add our element to object mappings
-	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"outfits"];
-	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"outfit"];
-	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"recent"];
-	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"popular"];
-	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"search"];
-	[mapper registerClass:[GTIOProfile class] forElementNamed:@"user"];
-	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"reviewsOutfits"];
-	[mapper registerClass:[GTIOReview class] forElementNamed:@"reviews"];
-	[mapper registerClass:[GTIOReview class] forElementNamed:@"review"];
-	[mapper registerClass:[GTIOBadge class] forElementNamed:@"badges"];
-	[mapper registerClass:[GTIOChangeItReason class] forElementNamed:@"global_changeitReasons"];
-	[mapper registerClass:[GTIOVotingResultSet class] forElementNamed:@"votingResults"];
-	[mapper registerClass:[GTIOAppStatusAlert class] forElementNamed:@"alert"];
-	[mapper registerClass:[GTIOAppStatusAlertButton class] forElementNamed:@"buttons"];
+    [self setupRestKit];
 	
 	// Track app load
 	TTOpenURL(@"gtio://analytics/trackAppDidFinishLaunching");
@@ -251,9 +275,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 //    
 //    return YES;
 }
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
-	if ([objects count] > 0 && [[objects objectAtIndex:0] isKindOfClass:[GTIOAppStatusAlert class]]) {
-		GTIOAppStatusAlert* alert = [objects objectAtIndex:0];
+
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
+    NSLog(@"dictionary: %@", dictionary);
+    GTIOAppStatusAlert* alert = [dictionary objectForKey:@"alert"];
+    if (alert) {
 		[alert show];
 	}
 }

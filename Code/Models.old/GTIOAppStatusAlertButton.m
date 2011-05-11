@@ -23,11 +23,4 @@
 	[super dealloc];
 }
 
-+ (NSDictionary*)elementToPropertyMappings {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"title", @"title",
-			@"url", @"url",
-			nil];
-}
-
 @end

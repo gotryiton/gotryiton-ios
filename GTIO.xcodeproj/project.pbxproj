@@ -132,6 +132,9 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		3FBAE217137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
+		3FBAE218137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
+		3FBAE219137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
 		3FCB815E136B03D000F78DBD /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCB815D136B03D000F78DBD /* libOCMock.a */; };
 		3FCBE9E9137063520039D779 /* libTWTCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE9E8137063520039D779 /* libTWTCommon.a */; };
 		3FCBE9ED137063640039D779 /* libTWTCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE9EC137063640039D779 /* libTWTCommon.a */; };
@@ -2573,6 +2576,9 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = Libraries/three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = Libraries/three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = Libraries/three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		3FBAE210137ACCC5001BBC0E /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
+		3FBAE211137ACCC5001BBC0E /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
+		3FBAE212137ACCC5001BBC0E /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
 		3FCB815D136B03D000F78DBD /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = Specs/Support/OCMock/libOCMock.a; sourceTree = "<group>"; };
 		3FCBE9E8137063520039D779 /* libTWTCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libTWTCommon.a; sourceTree = SOURCE_ROOT; };
 		3FCBE9EC137063640039D779 /* libTWTCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libTWTCommon.a; sourceTree = SOURCE_ROOT; };
@@ -3909,6 +3915,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		3FBAE20E137ACCC5001BBC0E /* NSLogger */ = {
+			isa = PBXGroup;
+			children = (
+				3FBAE210137ACCC5001BBC0E /* LoggerClient.h */,
+				3FBAE211137ACCC5001BBC0E /* LoggerClient.m */,
+				3FBAE212137ACCC5001BBC0E /* LoggerCommon.h */,
+			);
+			name = NSLogger;
+			path = Libraries/RestKit/Vendor/NSLogger;
+			sourceTree = SOURCE_ROOT;
+		};
 		3FCBEA02137065930039D779 /* JanRain */ = {
 			isa = PBXGroup;
 			children = (
@@ -4537,6 +4554,7 @@
 		A7E301141379887F0036F86D /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				3FBAE20E137ACCC5001BBC0E /* NSLogger */,
 				A7E301151379887F0036F86D /* AppDelegate.h */,
 				A7E301161379887F0036F86D /* AppDelegate.m */,
 				A7E301171379887F0036F86D /* GTIOEnvironment.h */,
@@ -7080,6 +7098,7 @@
 				A73397E31379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
 				A73397E61379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 				A73397EC1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
+				3FBAE217137ACCC5001BBC0E /* LoggerClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7214,6 +7233,7 @@
 				A73397E41379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
 				A73397E71379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 				A73397ED1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
+				3FBAE218137ACCC5001BBC0E /* LoggerClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7397,6 +7417,7 @@
 				A73397E51379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
 				A73397E81379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 				A73397EE1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
+				3FBAE219137ACCC5001BBC0E /* LoggerClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

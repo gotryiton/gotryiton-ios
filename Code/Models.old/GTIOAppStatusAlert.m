@@ -33,21 +33,6 @@
 	[super dealloc];
 }
 
-+ (NSDictionary*)elementToPropertyMappings {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"title", @"title",
-			@"message", @"message",
-			@"cancelButtonTitle", @"cancelButtonTitle",
-			@"alertID", @"id",
-			nil];
-}
-
-+ (NSDictionary*)elementToRelationshipMappings {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"buttons", @"buttons",
-			nil];
-}
-
 + (int)lastDisplayedAlert {
 	return [[[NSUserDefaults standardUserDefaults] valueForKey:@"LastDisplayedAlert"] intValue];
 }

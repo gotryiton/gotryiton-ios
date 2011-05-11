@@ -31,8 +31,8 @@
 		
 		RKObjectLoader* objectLoader = [[[RKObjectManager sharedManager] objectLoaderWithResourcePath:_resourcePath delegate:self] retain];
 		objectLoader.method = self.method;
-		objectLoader.objectClass = _objectClass;
-		objectLoader.keyPath = _keyPath;
+//		objectLoader.objectClass = _objectClass;
+//		objectLoader.keyPath = _keyPath;
 		
 		NSMutableDictionary* paramsForNextPage = [[self.params mutableCopy] autorelease];
 		[paramsForNextPage setObject:lastOutfit.timestamp forKey:@"lasttime"];
