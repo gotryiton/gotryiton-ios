@@ -28,8 +28,8 @@
 
 @implementation GTIOProfileViewController
 
-- (id)init {
-	if (self = [super init]) {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+	if (self = [super initWithNibName:nil bundle:nil]) {
 		self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"profile"
 														 image:TTSTYLEVAR(profileTabBarImage) 
 														   tag:0] autorelease];
@@ -44,7 +44,7 @@
 }
 
 - (id)initWithUserID:(NSString*)userID {
-	if (self = [super init]) {
+	if (self = [super initWithNibName:nil bundle:nil]) {
 		_userID = [userID retain];
 		_isShowingCurrentUser = [_userID isEqualToString:[GTIOUser currentUser].UID];
 		NSLog(@"Showing Current User: %d", _isShowingCurrentUser);
