@@ -2427,6 +2427,13 @@
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = TWTCommon;
 		};
+		A7E0CE52137AF9AB00F420B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 253A080B12551D3000976E89;
+			remoteInfo = RestKitSupport;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -5151,6 +5158,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A7E0CE53137AF9AB00F420B4 /* PBXTargetDependency */,
 				A708E8421379795F002F1F62 /* PBXTargetDependency */,
 				3FCBF235137082690039D779 /* PBXTargetDependency */,
 				25D5C91313535D52007B6F14 /* PBXTargetDependency */,
@@ -7604,6 +7612,11 @@
 			isa = PBXTargetDependency;
 			name = TWTCommon;
 			targetProxy = A708E8411379795F002F1F62 /* PBXContainerItemProxy */;
+		};
+		A7E0CE53137AF9AB00F420B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKitSupport;
+			targetProxy = A7E0CE52137AF9AB00F420B4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
