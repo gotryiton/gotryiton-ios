@@ -18,28 +18,28 @@
 
 @implementation GTIOMapGlobalsTTModel
 
-- (void)mapGlobalsFrom:(NSArray*)models {
-	
-	NSArray* reasons = nil;
-	for (NSDictionary* model in models) {
-		if ([model isKindOfClass:[NSDictionary class]]) {//[model respondsToSelector:@selector(valueForKey:)]
-			@try {
-				reasons = [model valueForKey:@"global_changeitReasons"];
-			}
-			@catch (NSException * e) {
-				NSLog(@"Failed to find any reasons: %@", e);
-			}
-			if (reasons) {
-				[GTIOGlobalVariableStore sharedStore].changeItReasons = reasons;
-				break;
-			}
-		}
-	}
-}
-
-- (void)modelsDidLoad:(NSArray*)models {
-	[self mapGlobalsFrom:models];
-	[super modelsDidLoad:models];
-}
+//- (void)mapGlobalsFrom:(NSArray*)models {
+//	
+//	NSArray* reasons = nil;
+//	for (NSDictionary* model in models) {
+//		if ([model isKindOfClass:[NSDictionary class]]) {//[model respondsToSelector:@selector(valueForKey:)]
+//			@try {
+//				reasons = [model valueForKey:@"global_changeitReasons"];
+//			}
+//			@catch (NSException * e) {
+//				NSLog(@"Failed to find any reasons: %@", e);
+//			}
+//			if (reasons) {
+//				[GTIOGlobalVariableStore sharedStore].changeItReasons = reasons;
+//				break;
+//			}
+//		}
+//	}
+//}
+//
+//- (void)modelsDidLoad:(NSArray*)models {
+//	[self mapGlobalsFrom:models];
+//	[super modelsDidLoad:models];
+//}
 
 @end

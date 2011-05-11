@@ -26,12 +26,4 @@
 	[super dealloc];
 }
 
-+ (NSDictionary*)elementToPropertyMappings {	
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"type", @"type",
-			@"since", @"since",
-			@"imgURL", @"imgURL",
-			nil];
-}
-
 @end

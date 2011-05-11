@@ -90,43 +90,6 @@ NSMutableArray* allOutfits;
 	return [allOutfits objectWithValue:oid forKey:@"outfitID"];
 }
 
-+ (NSDictionary*)elementToPropertyMappings {	
-	return [NSDictionary dictionaryWithKeysAndObjects:
-			@"outfitID", @"outfitID",
-			@"uid", @"uid",
-			@"name", @"name",
-			@"city", @"city",
-			@"state", @"state",
-			@"location", @"location",
-			@"timestamp", @"timestamp",
-			@"public", @"isPublic",
-			@"description", @"descriptionString",
-			@"event", @"event",
-			@"eventId", @"eventId",
-			@"url", @"url",
-			@"method", @"method",
-			@"isMulti", @"isMultipleOption",
-			@"photoCount", @"photoCount",
-			@"imgPath", @"imagePath",
-			@"mainImg", @"mainImageUrl",
-			@"iphoneThumb", @"iphoneThumbnailUrl",
-			@"smallThumb", @"smallThumbnailUrl",
-			// Reviews
-			@"userReview", @"userReview",
-			@"reviewCount", @"reviewCount",
-			@"user", @"user",
-			// Photos
-			@"isNew",@"isNew",
-			@"photos", @"photos",
-			nil];
-}
-
-+ (NSDictionary*)elementToRelationshipMappings {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"reviews", @"reviews",
-			@"results", @"votingResults", nil];
-}
-
 - (NSString*)sid {
 	return self.outfitID;
 }

@@ -68,28 +68,4 @@
 	[super dealloc];
 }
 
-+ (NSDictionary*)elementToPropertyMappings {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			 @"uid", @"uid",
-			 @"auth", @"auth",
-			 @"displayName", @"displayName",
-			 @"firstName", @"firstName",
-			 @"lastInitial", @"lastInitial",
-			 @"gender", @"gender",
-			 @"city", @"city",
-			 @"state", @"state",
-			 @"location", @"location",
-			 @"aboutMe", @"aboutMe",
-			 @"badgeURLs", @"badgeImageURLs",
-			 @"isAuthorizedUser", @"isAuthorizedUser",
-			 @"userStats", @"userStats", nil];
-}
-
-+ (NSDictionary*)elementToRelationshipMappings {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"outfits", @"outfits",
-			@"reviewsOutfits", @"reviewsOutfits",
-			@"badges", @"badges", nil];
-}
-
 @end

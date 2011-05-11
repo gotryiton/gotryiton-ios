@@ -54,22 +54,6 @@
 	[super dealloc];
 }
 
-+ (NSDictionary*)elementToPropertyMappings {
-	return [NSDictionary dictionaryWithKeysAndObjects:
-			@"reasons", @"reasons",
-			@"totalVotes", @"totalVotes",
-			@"userVote", @"userVoteString",
-			@"verdict", @"verdict",
-			@"voteRecorded", @"voteRecordedString",
-			@"wear0", @"wear0",
-			@"wear1", @"wear1",
-			@"wear2", @"wear2",
-			@"wear3", @"wear3",
-			@"wear4", @"wear4",
-			@"pending", @"pending",
-			@"winning", @"winningOutfit", nil];
-}
-
 - (void)setUserVoteString:(NSString *)str {
 	if ([str isKindOfClass:[NSString class]]) {
 		NSString* newValue = [str copy];

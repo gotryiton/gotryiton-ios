@@ -185,8 +185,8 @@ static GTIOUser* gCurrentUser = nil;
 		self.aboutMe = [profileInfo objectForKey:@"aboutMe"];
 		self.iphonePush = [[profileInfo objectForKey:@"iphonePush"] boolValue]; // comes back as string
 		self.services = [profileInfo objectForKey:@"service"];
-		
-		self.eventTypes = [profileInfo objectForKey:@"global_eventTypes"];
+        // TODO: this should come back with /status call now.
+//		self.eventTypes = [profileInfo objectForKey:@"global_eventTypes"];
 		
 		// Reauthentication requests do not include the token back
 		NSString* gtioToken = [profileInfo objectForKey:@"gtioToken"];

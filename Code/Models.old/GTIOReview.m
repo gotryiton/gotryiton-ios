@@ -43,22 +43,4 @@
 	[super dealloc];
 }
 
-
-+ (NSDictionary*)elementToPropertyMappings {	
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"outfitID", @"outfitId",
-			@"uid", @"uid",
-			@"reviewID", @"reviewId",
-			@"timestamp", @"timestamp",
-			@"text", @"text",
-			@"agreeVotes", @"agreeVotes",
-			@"flags", @"flags",
-			nil];
-}
-
-+ (NSDictionary*)elementToRelationshipMappings {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"user", @"user", nil];
-}
-
 @end

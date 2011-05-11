@@ -64,8 +64,92 @@ void uncaughtExceptionHandler(NSException *exception) {
     [alertMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"buttons" toKeyPath:@"buttons" objectMapping:buttonMapping]];
     [provider setMapping:alertMapping forKeyPath:@"alert"];
     
+    RKObjectMapping* reviewMapping = [RKObjectMapping mappingForClass:[GTIOReview class]];
+    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"outfitID", @"outfitId")];
+    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"uid", @"uid")];
+    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"reviewID", @"reviewId")];
+    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"timestamp", @"timestamp")];
+    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"text", @"text")];
+    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"agreeVotes", @"agreeVotes")];
+    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"flags", @"flags")];
     
+    RKObjectMapping* votingResultsMapping = [RKObjectMapping mappingForClass:[GTIOVotingResultSet class]];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"reasons", @"reasons")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"totalVotes", @"totalVotes")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"userVote", @"userVoteString")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"verdict", @"verdict")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"voteRecorded", @"voteRecordedString")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"wear0", @"wear0")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"wear1", @"wear1")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"wear2", @"wear2")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"wear3", @"wear3")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"wear4", @"wear4")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"pending", @"pending")];
+    [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"winning", @"winningOutfit")];
     
+    RKObjectMapping* outfitMapping = [RKObjectMapping mappingForClass:[GTIOOutfit class]];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"outfitID", @"outfitID")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"uid", @"uid")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"name", @"name")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"city", @"city")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"state", @"state")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"location", @"location")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"timestamp", @"timestamp")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"public", @"isPublic")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"description", @"descriptionString")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"event", @"event")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"eventId", @"eventId")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"url", @"url")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"method", @"method")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isMulti", @"isMultipleOption")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"photoCount", @"photoCount")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"imgPath", @"imagePath")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"mainImg", @"mainImageUrl")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"iphoneThumb", @"iphoneThumbnailUrl")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"smallThumb", @"smallThumbnailUrl")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"userReview", @"userReview")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"reviewCount", @"reviewCount")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user", @"user")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isNew",@"isNew")];
+    [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"photos", @"photos")];
+    
+    RKObjectMapping* badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
+    [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"type", @"type")];
+    [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"since", @"since")];
+    [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"imgURL", @"imgURL")];
+    
+    RKObjectMapping* profileMapping = [RKObjectMapping mappingForClass:[GTIOProfile class]];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"uid", @"uid")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"auth", @"auth")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"displayName", @"displayName")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"firstName", @"firstName")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"lastInitial", @"lastInitial")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"gender", @"gender")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"city", @"city")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"state", @"state")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"location", @"location")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"aboutMe", @"aboutMe")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"badgeURLs", @"badgeImageURLs")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isAuthorizedUser", @"isAuthorizedUser")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"userStats", @"userStats")];
+    [provider setMapping:profileMapping forKeyPath:@"user"];
+    
+    RKObjectMapping* changeItReasonsMapping = [RKObjectMapping mappingForClass:[NSDictionary class]];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"changeItReasons")];
+    [provider setMapping:changeItReasonsMapping forKeyPath:@"global_changeitReasons"];
+    
+    RKObjectMapping* eventTypesMapping = [RKObjectMapping mappingForClass:[NSDictionary class]];
+    [eventTypesMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"eventTypes")];
+    [provider setMapping:eventTypesMapping forKeyPath:@"global_eventTypes"];
+    
+    [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user" toKeyPath:@"user" objectMapping:profileMapping]];
+    
+    [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviews" toKeyPath:@"reviews" objectMapping:reviewMapping]];
+    [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"results" toKeyPath:@"votingResults" objectMapping:votingResultsMapping]];
+    
+    [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
+    [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviewsOutfits" toKeyPath:@"reviewsOutfits" objectMapping:outfitMapping]];
+    [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" objectMapping:badgeMapping]];
     
     objectManager.mappingProvider = provider;
     
@@ -83,8 +167,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     //	[mapper registerClass:[GTIOBadge class] forElementNamed:@"badges"];
     //	[mapper registerClass:[GTIOChangeItReason class] forElementNamed:@"global_changeitReasons"];
     //	[mapper registerClass:[GTIOVotingResultSet class] forElementNamed:@"votingResults"];
-    //	[mapper registerClass:[GTIOAppStatusAlert class] forElementNamed:@"alert"];
-    //	[mapper registerClass:[GTIOAppStatusAlertButton class] forElementNamed:@"buttons"];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
