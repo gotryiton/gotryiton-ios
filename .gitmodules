@@ -19,3 +19,6 @@
 [submodule "Libraries/facebook-ios-sdk"]
 	path = Libraries/facebook-ios-sdk
 	url = https://github.com/facebook/facebook-ios-sdk.git
+[submodule "Libraries/TTTAttributedLabel"]
+	path = Libraries/TTTAttributedLabel
+	url = git@github.com:twotoasters/TTTAttributedLabel.git
