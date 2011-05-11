@@ -138,7 +138,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"changeItReasons")];
     [provider setMapping:changeItReasonsMapping forKeyPath:@"global_changeitReasons"];
     
-    RKObjectMapping* eventTypesMapping = [RKObjectMapping mappingForClass:[NSDictionary class]];
+    RKObjectMapping* eventTypesMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
     [eventTypesMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"eventTypes")];
     [provider setMapping:eventTypesMapping forKeyPath:@"global_eventTypes"];
     
