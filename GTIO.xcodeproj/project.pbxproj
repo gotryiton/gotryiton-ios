@@ -2913,6 +2913,7 @@
 		A76208831379D55200DFBD66 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		A764DD6E137B11FA00422C4D /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
 		A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
+		A764DD73137B176C00422C4D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		A7CBB41A1379978B0050C4D8 /* UINavigationController+Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Background.h"; sourceTree = "<group>"; };
 		A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Background.m"; sourceTree = "<group>"; };
 		A7E300AF1379887F0036F86D /* GTIOAnalyticsTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAnalyticsTracker.h; sourceTree = "<group>"; };
@@ -4661,6 +4662,7 @@
 		A7E302BD137988C90036F86D /* PLISTs */ = {
 			isa = PBXGroup;
 			children = (
+				A764DD73137B176C00422C4D /* Info.plist */,
 			);
 			name = PLISTs;
 			path = Resources/PLISTs;
