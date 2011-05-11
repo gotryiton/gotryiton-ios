@@ -66,7 +66,17 @@
 	[super viewDidLoad];
 	GTIOBarButtonItem* cancelButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(dismiss)] autorelease];
 	[[self navigationItem] setLeftBarButtonItem:cancelButton];
-	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sign-in.png"]] autorelease];
+	
+	UILabel* titleLabel = [[UILabel new] autorelease];
+	[titleLabel setText:@"SIGN IN"];
+	[titleLabel setBackgroundColor:[UIColor clearColor]];
+	[titleLabel setTextAlignment:UITextAlignmentCenter];
+	[titleLabel setTextColor:[UIColor whiteColor]];
+	[titleLabel setFrame:CGRectMake(0,0,85,30)];
+	[titleLabel setFont:[UIFont fontWithName:@"Fette Engschrift" size:25]];
+	[titleLabel setShadowOffset:CGSizeMake(0, -1)];
+	[titleLabel setShadowColor:[UIColor colorWithRed:0.533 green:0.533 blue:0.533 alpha:1.0]];
+	self.navigationItem.titleView = titleLabel;
 	
 	NSString* text = @"by continuing you agree to our terms and conditions of use, privacy policy, legal terms, and community standards.";
 	NSMutableAttributedString* attributedText = [[NSMutableAttributedString alloc] initWithString:text];
