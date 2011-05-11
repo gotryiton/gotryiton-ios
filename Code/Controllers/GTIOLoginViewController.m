@@ -10,6 +10,7 @@
 #import "GTIOBarButtonItem.h"
 #import "TTTAttributedLabel.h"
 #import "NSAttributedString+Attributes.h"
+#import "GTIOTitleView.h"
 
 @implementation GTIOLoginViewController
 
@@ -76,7 +77,7 @@
 	[titleLabel setFont:[UIFont fontWithName:@"Fette Engschrift" size:25]];
 	[titleLabel setShadowOffset:CGSizeMake(0, -1)];
 	[titleLabel setShadowColor:[UIColor colorWithRed:0.533 green:0.533 blue:0.533 alpha:1.0]];
-	self.navigationItem.titleView = titleLabel;
+	self.navigationItem.titleView = [GTIOTitleView title:@"SIGN IN"];
 	
 	NSString* text = @"by continuing you agree to our terms and conditions of use, privacy policy, legal terms, and community standards.";
 	NSMutableAttributedString* attributedText = [[NSMutableAttributedString alloc] initWithString:text];

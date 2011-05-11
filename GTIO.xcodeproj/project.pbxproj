@@ -838,6 +838,9 @@
 		A764DD70137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */; };
 		A764DD71137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */; };
 		A764DD72137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */; };
+		A7B97375137B1FB2009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
+		A7B97376137B1FC1009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
+		A7B97377137B1FC1009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
 		A7CBB41C1379978B0050C4D8 /* UINavigationController+Background.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */; };
 		A7E301811379887F0036F86D /* GTIOAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B01379887F0036F86D /* GTIOAnalyticsTracker.m */; };
 		A7E301821379887F0036F86D /* GTIOAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B01379887F0036F86D /* GTIOAnalyticsTracker.m */; };
@@ -2914,6 +2917,8 @@
 		A764DD6E137B11FA00422C4D /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
 		A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
 		A764DD73137B176C00422C4D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = SOURCE_ROOT; };
+		A7B97373137B1FB2009531ED /* GTIOTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTitleView.h; sourceTree = "<group>"; };
+		A7B97374137B1FB2009531ED /* GTIOTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTitleView.m; sourceTree = "<group>"; };
 		A7CBB41A1379978B0050C4D8 /* UINavigationController+Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Background.h"; sourceTree = "<group>"; };
 		A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Background.m"; sourceTree = "<group>"; };
 		A7E300AF1379887F0036F86D /* GTIOAnalyticsTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAnalyticsTracker.h; sourceTree = "<group>"; };
@@ -4322,6 +4327,8 @@
 			children = (
 				A73397EA1379A90D00F41C2A /* GTIOBarButtonItem.h */,
 				A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */,
+				A7B97373137B1FB2009531ED /* GTIOTitleView.h */,
+				A7B97374137B1FB2009531ED /* GTIOTitleView.m */,
 			);
 			name = Views;
 			path = Code/Views;
@@ -7146,6 +7153,7 @@
 				3FBAE217137ACCC5001BBC0E /* LoggerClient.m in Sources */,
 				A76208641379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD70137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
+				A7B97375137B1FB2009531ED /* GTIOTitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7283,6 +7291,7 @@
 				3FBAE218137ACCC5001BBC0E /* LoggerClient.m in Sources */,
 				A76208651379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD71137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
+				A7B97376137B1FC1009531ED /* GTIOTitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7469,6 +7478,7 @@
 				3FBAE219137ACCC5001BBC0E /* LoggerClient.m in Sources */,
 				A76208661379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD72137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
+				A7B97377137B1FC1009531ED /* GTIOTitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
