@@ -47,4 +47,8 @@
 	return [super initWithCustomView:view];
 }
 
++ (id)homeBackButton {
+	
+}
+
 @end
