@@ -5,21 +5,24 @@
 //  Created by Blake Watters on 8/18/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
-
-#import "GTIOProfileViewController.h"
-#import "GTIOUser.h"
-#import "GTIOProfile.h"
-#import "GTIOOutfit.h"
-#import "GTIOReachabilityObserver.h"
 #import <RestKit/RestKit.h>
 #import <RestKit/Three20/Three20.h>
+
+#import "GTIOProfileViewController.h"
+
+#import "GTIOReachabilityObserver.h"
 #import "GTIOOutfitTableViewItem.h"
 #import "GTIOProfileViewDataSource.h"
 #import "GTIOTableStatsItem.h"
-#import "GTIOTitleView.h"
 #import "GTIOOutfitVerdictTableItem.h"
 #import "GTIOMapGlobalsTTModel.h"
 #import "GTIOBarButtonItem.h"
+
+#import "GTIOUser.h"
+#import "GTIOProfile.h"
+#import "GTIOOutfit.h"
+
+#import "GTIOTitleView.h"
 
 @interface GTIOProfileViewController (Private)
 - (void)registerForNotifications;
@@ -56,14 +59,6 @@
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
-	TT_RELEASE_SAFELY(_notLoggedInOverlay);
-	TT_RELEASE_SAFELY(_headerView);
-	TT_RELEASE_SAFELY(_nameLabel);
-	TT_RELEASE_SAFELY(_locationLabel);
-	TT_RELEASE_SAFELY(_bioContainerView);
-	TT_RELEASE_SAFELY(_bioLabel);
-	TT_RELEASE_SAFELY(_separatorLabel);
-	TT_RELEASE_SAFELY(_badgeImageViews);
 }
 
 - (void)loadView {
@@ -80,23 +75,12 @@
 	
 	_badgeImageViews = [NSMutableArray new];
 	
-	// Set custom header.
+	// Set Navigation Bar Title
 	self.navigationItem.titleView = [GTIOTitleView title:(_isShowingCurrentUser ? @"MY PROFILE" : @"PROFILE")];
 	
 	// Create header view.
-	_headerView = [[UIView alloc] initWithFrame:CGRectZero];
-	_headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"profile-background.png"]];
+	_headerView = [[GTIOProfileHeaderView alloc] init];
 	[self.view addSubview:_headerView];
-	_nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 250, 40)];
-	_nameLabel.backgroundColor = [UIColor clearColor];
-	_nameLabel.font = kGTIOFetteFontOfSize(36);
-	_nameLabel.textColor = kGTIOColorBrightPink;
-	[_headerView addSubview:_nameLabel];
-	_locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 50-6-1, 250, 20)];
-	_locationLabel.backgroundColor = [UIColor clearColor];
-	_locationLabel.font = [UIFont systemFontOfSize:15];
-	_locationLabel.textColor = kGTIOColorB2B2B2;
-	[_headerView addSubview:_locationLabel];
 	
 	_bioContainerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 71, 320, 36)];
 	_bioContainerView.backgroundColor = kGTIOColorE3E3E3;
@@ -107,7 +91,7 @@
 	
 	_separatorLabel = [[UIView alloc] initWithFrame:CGRectZero];
 	_separatorLabel.backgroundColor = kGTIOColorAAAAAA;
-	[_headerView addSubview:_separatorLabel];
+	//[_headerView addSubview:_separatorLabel];
 	
 	// Create not logged in view
 	_notLoggedInOverlay = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -135,56 +119,53 @@
 	TTOpenURL(@"gtio://profile/edit");
 }
 
-- (void)setupHeaderView:(GTIOProfile*)profile {
-	BOOL userHasBio = ![profile.aboutMe isWhitespaceAndNewlines]; //TODO: hook this up
-	NSString* bioString = profile.aboutMe;
-	
-	if (userHasBio) {
-		[_headerView addSubview:_bioContainerView];
-	} else {
-		[_bioContainerView removeFromSuperview];
-	}
-	
-	_nameLabel.text = [profile.displayName uppercaseString];
-	[_nameLabel setNeedsDisplay];
-	
-	_bioLabel.text = bioString;
-	[_bioLabel setNeedsDisplay];
-	_bioLabel.frame = CGRectMake(0, 0, 320, 200);
-	[_bioLabel sizeToFit];
-	
-	_bioLabel.frame = CGRectOffset(_bioLabel.frame, 0, 2);
-	_bioContainerView.frame = CGRectMake(_bioContainerView.frame.origin.x, _bioContainerView.frame.origin.y, 320, _bioLabel.height + 4);
-	
-	float headerViewBaseHeight = 71;
-	_headerView.frame = userHasBio ? CGRectMake(0, 0, 320, headerViewBaseHeight+_bioContainerView.height) : CGRectMake(0, 0, 320, headerViewBaseHeight);
-	
-	_separatorLabel.frame = CGRectMake(0, _headerView.bounds.size.height - 2, 320, 2);
-	[_headerView addSubview:_separatorLabel];
-	
-	_locationLabel.text = profile.location;
-	[_locationLabel setNeedsDisplay];
-	
-	self.tableView.frame = CGRectMake(0, _headerView.bounds.size.height, 320, self.view.bounds.size.height - _headerView.bounds.size.height);
-	
-	// Show badge images.
-	NSArray* badgeURLs = [profile.badges valueForKeyPath:@"imgURL"];
-	// Dispose of any old badge image views.
-	for (TTImageView* imageView in _badgeImageViews) {
-		[imageView removeFromSuperview];
-	}
-	[_badgeImageViews removeAllObjects];
-	int i = 0;
-	for (NSString* badgeURL in badgeURLs) {
-		TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(310 - 30 - (35*i), 10, 30, 30)] autorelease];
-		imageView.backgroundColor = [UIColor whiteColor];
-		[imageView setContentMode:UIViewContentModeScaleAspectFit];
-		imageView.urlPath = badgeURL;
-		[self.view addSubview:imageView];
-		[_badgeImageViews addObject:imageView];
-		i++;
-	}
-}
+//- (void)setupHeaderView:(GTIOProfile*)profile {
+//	BOOL userHasBio = ![profile.aboutMe isWhitespaceAndNewlines]; //TODO: hook this up
+//	NSString* bioString = profile.aboutMe;
+//	if (userHasBio) {
+//		//[_headerView addSubview:_bioContainerView];
+//	} else {
+//		//[_bioContainerView removeFromSuperview];
+//	}
+//	
+//	_nameLabel.text = [profile.displayName uppercaseString];
+//	[_nameLabel setNeedsDisplay];
+//	
+//	_bioLabel.text = bioString;
+//	[_bioLabel setNeedsDisplay];
+//	_bioLabel.frame = CGRectMake(0, 0, 320, 200);
+//	[_bioLabel sizeToFit];
+//	
+//	_bioLabel.frame = CGRectOffset(_bioLabel.frame, 0, 2);
+//	_bioContainerView.frame = CGRectMake(_bioContainerView.frame.origin.x, _bioContainerView.frame.origin.y, 320, _bioLabel.height + 4);
+//	
+//	float headerViewBaseHeight = 71;
+//	//_headerView.frame = userHasBio ? CGRectMake(0, 0, 320, headerViewBaseHeight+_bioContainerView.height) : CGRectMake(0, 0, 320, headerViewBaseHeight);
+//	
+//	//_separatorLabel.frame = CGRectMake(0, _headerView.bounds.size.height - 2, 320, 2);
+//	//[_headerView addSubview:_separatorLabel];
+//	
+//	
+//	//self.tableView.frame = CGRectMake(0, _headerView.bounds.size.height, 320, self.view.bounds.size.height - _headerView.bounds.size.height);
+//	
+//	// Show badge images.
+//	NSArray* badgeURLs = [profile.badges valueForKeyPath:@"imgURL"];
+//	// Dispose of any old badge image views.
+//	for (TTImageView* imageView in _badgeImageViews) {
+//		[imageView removeFromSuperview];
+//	}
+//	[_badgeImageViews removeAllObjects];
+//	int i = 0;
+//	for (NSString* badgeURL in badgeURLs) {
+//		TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(310 - 30 - (35*i), 10, 30, 30)] autorelease];
+//		imageView.backgroundColor = [UIColor whiteColor];
+//		[imageView setContentMode:UIViewContentModeScaleAspectFit];
+//		imageView.urlPath = badgeURL;
+//		[self.view addSubview:imageView];
+//		[_badgeImageViews addObject:imageView];
+//		i++;
+//	}
+//}
 
 - (void)createModel {
 	GTIOUser* user = [GTIOUser currentUser];
@@ -226,8 +207,8 @@
 				break;
 			}
 		}
-		
-		[self setupHeaderView:profile];
+		[_headerView displayProfile:profile];
+		//[self setupHeaderView:profile];
 		
 		[_notLoggedInOverlay removeFromSuperview];
 		NSMutableArray* items = [NSMutableArray arrayWithCapacity:3];
