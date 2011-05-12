@@ -42,6 +42,15 @@
 	_locationLabel.font = [UIFont systemFontOfSize:15];
 	_locationLabel.textColor = kGTIOColorB2B2B2;
 	[self addSubview:_locationLabel];
+	
+	_editProfileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[_editProfileButton setImage:[UIImage imageNamed:@"edit-OFF.png"] forState:UIControlStateNormal];
+	[_editProfileButton setImage:[UIImage imageNamed:@"edit-ON.png"] forState:UIControlStateHighlighted];
+	[_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5,35,20)];
+	[_editProfileButton addTarget:self action:@selector(editButtonHighlight) forControlEvents:UIControlEventTouchDown];
+	[_editProfileButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
+	[self addSubview:_editProfileButton];
+	
 	return self;
 }
 
@@ -59,6 +68,15 @@
 - (void)dealloc
 {
 	[super dealloc];
+}
+
+- (void)editButtonHighlight {
+	[_editProfileButton setHighlighted:YES];
+}
+
+- (void)editButtonAction {
+	[_editProfileButton setHighlighted:YES];
+	TTOpenURL(@"gtio://profile/edit");
 }
 
 @end

@@ -13,6 +13,7 @@
 	UIImageView* _fashionProfileBadge;
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
+	UIButton* _editProfileButton;
 }
 
 - (void)displayProfile:(GTIOProfile*)profile;

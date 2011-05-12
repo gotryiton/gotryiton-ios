@@ -78,9 +78,14 @@
 	// Set Navigation Bar Title
 	self.navigationItem.titleView = [GTIOTitleView title:(_isShowingCurrentUser ? @"MY PROFILE" : @"PROFILE")];
 	
-	// Create header view.
-	_headerView = [[GTIOProfileHeaderView alloc] init];
+	// Create Header View.
+	_headerView = [[GTIOProfileHeaderView alloc] initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,70)];
 	[self.view addSubview:_headerView];
+	// Setup Table
+	[self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:_headerView.frame]];
+	[self.tableView setExclusiveTouch:NO];
+//	self.tableView.frame = CGRectMake(0, _headerView.bounds.size.height, 320, self.view.bounds.size.height - _headerView.bounds.size.height);
+	
 	
 //	_bioContainerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 71, 320, 36)];
 //	_bioContainerView.backgroundColor = kGTIOColorE3E3E3;
