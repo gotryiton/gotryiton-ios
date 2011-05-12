@@ -229,7 +229,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Registered within the controller...
 	
 	// Profile view
-	[map from:@"gtio://profile" toModalViewController:NSClassFromString(@"GTIOProfileViewController")];	
+	[map from:@"gtio://profile" toViewController:NSClassFromString(@"GTIOProfileViewController")];	
 	[map from:@"gtio://profile/look/(initWithOutfitID:)" toViewController:NSClassFromString(@"GTIOOutfitViewController")];
 	
 	[map from:@"gtio://profile/new" toModalViewController:NSClassFromString(@"GTIOEditProfileViewController") selector:@selector(initWithNewProfile)];
