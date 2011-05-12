@@ -333,7 +333,7 @@
 - (void)modelDidFinishLoad:(id <TTModel>)model {
 	[self hideLoadingMore];
     
-    GTIOOutfitPageView* page = (GTIOOutfitPageView*)_scrollView.centerPage;
+    //    GTIOOutfitPageView* page = (GTIOOutfitPageView*)_scrollView.centerPage;
 //    if (self.outfit) {
 //    _scrollViewDataSource.moreToLoad = [_model hasMoreToLoad];
     [self updateIsLastPage];

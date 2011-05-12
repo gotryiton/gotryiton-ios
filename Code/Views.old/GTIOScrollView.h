@@ -33,5 +33,8 @@
 - (CGRect)frameOfPageAtIndex:(NSInteger)pageIndex;
 - (void)moveToPageAtIndex:(NSInteger)pageIndex resetEdges:(BOOL)resetEdges;
 - (UIEdgeInsets)zoomPageEdgesTo:(CGPoint)point;
+
+- (void)doneReloading;
+
 @end
 
