@@ -175,11 +175,13 @@ static GTIOUser* gCurrentUser = nil;
 
 - (void)digestProfileInfo:(NSDictionary*)profileInfo {
 	if (profileInfo && [profileInfo isKindOfClass:[NSDictionary class]]) {
-        if ([[profileInfo valueForKey:@"response"] isEqualToString:@"error"]) {
-            NSLog(@"Error Logging In: %@", profileInfo);
-            return;
-        }
-        profileInfo = [profileInfo valueForKey:@"user"];
+		if ([[profileInfo valueForKey:@"response"] isEqualToString:@"error"]) {
+				NSLog(@"Error Logging In: %@", profileInfo);
+				return;
+		}
+		if ([profileInfo valueForKey:@"user"]) {
+			profileInfo = [profileInfo valueForKey:@"user"];
+		}
 		self.UID = [profileInfo objectForKey:@"uid"];
 		self.username = [profileInfo objectForKey:@"displayName"];
 		self.gender = [profileInfo objectForKey:@"gender"];
@@ -190,8 +192,6 @@ static GTIOUser* gCurrentUser = nil;
 		self.aboutMe = [profileInfo objectForKey:@"aboutMe"];
 		self.iphonePush = [[profileInfo objectForKey:@"iphonePush"] boolValue]; // comes back as string
 		self.services = [profileInfo objectForKey:@"service"];
-        // TODO: this should come back with /status call now.
-//		self.eventTypes = [profileInfo objectForKey:@"global_eventTypes"];
 		
 		// Reauthentication requests do not include the token back
 		NSString* gtioToken = [profileInfo objectForKey:@"gtioToken"];
