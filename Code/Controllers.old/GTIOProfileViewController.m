@@ -21,7 +21,6 @@
 #import "GTIOMapGlobalsTTModel.h"
 
 @interface GTIOProfileViewController (Private)
-- (void)updateTabBarItemTitle;
 - (void)registerForNotifications;
 - (void)unregisterForNotifications;
 @end
@@ -30,11 +29,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nil bundle:nil]) {
-		self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"profile"
-														 image:TTSTYLEVAR(profileTabBarImage) 
-														   tag:0] autorelease];
-        self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"profile" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
-		[self updateTabBarItemTitle];
+		self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"profile" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
 		[self registerForNotifications];
 		
 		_isShowingCurrentUser = YES;
@@ -278,17 +273,7 @@
 	}
 }
 
-- (void)updateTabBarItemTitle {
-	GTIOUser* currentUser = [GTIOUser currentUser];
-	NSString* title = currentUser.isLoggedIn ? [currentUser.username lowercaseString] : @"profile";
-	if ([title length] > 14) {
-		title = @"my profile";
-	}
-	self.tabBarItem.title = title;
-}
-
 - (void)handleUserStateChangedNotification:(NSNotification*)notification {
-	[self updateTabBarItemTitle];
 	[self invalidateModel];
 }
 
