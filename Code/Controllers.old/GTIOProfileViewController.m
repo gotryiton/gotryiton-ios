@@ -16,7 +16,7 @@
 #import "GTIOOutfitTableViewItem.h"
 #import "GTIOProfileViewDataSource.h"
 #import "GTIOTableStatsItem.h"
-#import "GTIOHeaderView.h"
+#import "GTIOTitleView.h"
 #import "GTIOOutfitVerdictTableItem.h"
 #import "GTIOMapGlobalsTTModel.h"
 
@@ -81,7 +81,7 @@
 	_badgeImageViews = [NSMutableArray new];
 	
 	// Set custom header.
-	self.navigationItem.titleView = [GTIOHeaderView viewWithText:(_isShowingCurrentUser ? @"MY PROFILE" : @"PROFILE")];
+	self.navigationItem.titleView = [GTIOTitleView title:(_isShowingCurrentUser ? @"MY PROFILE" : @"PROFILE")];
 	
 	// Create header view.
 	_headerView = [[UIView alloc] initWithFrame:CGRectZero];
