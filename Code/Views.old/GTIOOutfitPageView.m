@@ -489,13 +489,13 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 	switch (_state) {
 		case GTIOOutfitViewStateFullDescription:
             TTOpenURL(@"gtio://analytics/trackDescriptionExpanded");
-            [self.superview setDragToRefresh:YES];
+            [(GTIOScrollView*)self.superview setDragToRefresh:YES];
 			_topControlsView.frame = CGRectMake(3, 3, 320, 280);
 			_overlay.alpha = 0;
 			[self showFullDescription:YES];
 			break;
 		case GTIOOutfitViewStateShowControls:
-            [self.superview setDragToRefresh:YES];
+            [(GTIOScrollView*)self.superview setDragToRefresh:YES];
 			_topControlsView.frame = CGRectMake(3, 3, 320, 50);
 			[self showFullDescription:NO];
 			_topControlsView.alpha = 1;
@@ -507,7 +507,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 		case GTIOOutfitViewStateFullscreen:
             TTOpenURL(@"gtio://analytics/trackFullscreen");
             _photosView.centerPage.userInteractionEnabled = NO;
-            [self.superview setDragToRefresh:NO];
+            [(GTIOScrollView*)self.superview setDragToRefresh:NO];
 			_topControlsView.alpha = 0;
 			_goLeftButton.alpha = 0;
 			_goRightButton.alpha = 0;

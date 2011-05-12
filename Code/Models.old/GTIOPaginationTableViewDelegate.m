@@ -12,6 +12,13 @@
 
 #define kTableViewEdgeInsets UIEdgeInsetsMake(8, 0, 0, 0)
 
+@interface TTTableHeaderDragRefreshView (private)
+
+- (void)setImageFlipped:(BOOL)flipped;
+- (void)showActivity:(BOOL)activity animated:(BOOL)animated;
+
+@end
+
 @implementation TTTableHeaderDragRefreshView (Overrides)
 
 - (NSString*)backgroundImageName {
@@ -75,16 +82,19 @@
 	switch (status) {
 		case TTTableHeaderDragRefreshReleaseToReload: {
 			_statusLabel.text = @"release to update...";
+            [self setImageFlipped:YES];
 			break;
 		}
 			
 		case TTTableHeaderDragRefreshPullToReload: {
 			_statusLabel.text = @"pull down to update...";
+            [self setImageFlipped:NO];
 			break;
 		}
 			
 		case TTTableHeaderDragRefreshLoading: {
 			_statusLabel.text = @"updating...";
+            [self setImageFlipped:YES];
 			break;
 		}
 			
@@ -146,16 +156,16 @@
 	[UIView commitAnimations];
 	
 	// Ensures loading bar doesn't show either.
-	[_headerView flipImageAnimated:NO];
+    [_headerView setImageFlipped:NO];
 	[_headerView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-	[_headerView showActivity:NO];
+	[_headerView showActivity:NO animated:YES];
 	_controller.tableView.contentInset = kTableViewEdgeInsets;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)modelDidStartLoad:(id<TTModel>)model {
-	[_headerView showActivity:YES];
-	
+	[_headerView showActivity:YES animated:YES];
+    
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:ttkDefaultFastTransitionDuration];
 	_controller.tableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 00.0f, 0.0f);
@@ -164,9 +174,9 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)modelDidFinishLoad:(id<TTModel>)model {
-	[_headerView flipImageAnimated:NO];
+	[_headerView setImageFlipped:NO];
 	[_headerView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-	[_headerView showActivity:NO];
+	[_headerView showActivity:NO animated:YES];
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:ttkDefaultTransitionDuration];
@@ -184,9 +194,9 @@
 }
 
 - (void)model:(id<TTModel>)model didFailLoadWithError:(NSError*)error {
-	[_headerView flipImageAnimated:NO];
+	[_headerView setImageFlipped:NO];
 	[_headerView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-	[_headerView showActivity:NO];
+	[_headerView showActivity:NO animated:YES];
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:ttkDefaultTransitionDuration];
@@ -198,9 +208,9 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)modelDidCancelLoad:(id<TTModel>)model {
-	[_headerView flipImageAnimated:NO];
+	[_headerView setImageFlipped:NO];
 	[_headerView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-	[_headerView showActivity:NO];
+	[_headerView showActivity:NO animated:YES];
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:ttkDefaultTransitionDuration];

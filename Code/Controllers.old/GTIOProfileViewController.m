@@ -202,7 +202,7 @@
 		[params setValue:@"1" forKey:@"limit"];
 	}
 	
-	GTIOProfileViewDataSource* ds = [GTIOProfileViewDataSource dataSourceWithObjects:nil];
+	GTIOProfileViewDataSource* ds = (GTIOProfileViewDataSource*)[GTIOProfileViewDataSource dataSourceWithObjects:nil];
 	ds.model = [[GTIOMapGlobalsTTModel alloc] initWithResourcePath:path
 															params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
 															method:RKRequestMethodPOST];
