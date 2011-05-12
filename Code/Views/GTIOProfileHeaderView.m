@@ -17,13 +17,27 @@
 	[self addSubview:background];
 	[background release];
 	
-	_nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 250, 40)];
+	_profilePictureImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
+	_profilePictureImageView.layer.cornerRadius = 5.0;
+	[_profilePictureImageView setFrame:CGRectMake(10,8,54,54)];
+	[self addSubview:_profilePictureImageView];
+		
+	UIImageView* profilePictureFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
+	[profilePictureFrame setFrame:CGRectMake(5,3,64,64)];
+	[self addSubview:profilePictureFrame];
+	
+	_fashionProfileBadge = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fash-badge-profile.png"]];
+	[_fashionProfileBadge setFrame:CGRectMake(0,2.5,48,48)];
+	[self addSubview:_fashionProfileBadge];
+	[_fashionProfileBadge setHidden:YES];
+
+	_nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 10, 250, 40)];
 	_nameLabel.backgroundColor = [UIColor clearColor];
 	_nameLabel.font = kGTIOFetteFontOfSize(36);
 	_nameLabel.textColor = [UIColor whiteColor];
 	[self addSubview:_nameLabel];
 	
-	_locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 50-6-1, 250, 20)];
+	_locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 43, 250, 20)];
 	_locationLabel.backgroundColor = [UIColor clearColor];
 	_locationLabel.font = [UIFont systemFontOfSize:15];
 	_locationLabel.textColor = kGTIOColorB2B2B2;
@@ -36,6 +50,10 @@
 	[_nameLabel setNeedsDisplay];
 	_locationLabel.text = profile.location;
 	[_locationLabel setNeedsDisplay];
+	CGRect badgeFrame = _fashionProfileBadge.frame;
+	CGFloat offsetX = [_nameLabel.text sizeWithFont:_nameLabel.font].width + _nameLabel.frame.origin.x;
+	[_fashionProfileBadge setFrame:CGRectMake(offsetX,badgeFrame.origin.y,badgeFrame.size.width,badgeFrame.size.height)];
+	[_fashionProfileBadge setHidden:NO];
 }
 
 - (void)dealloc

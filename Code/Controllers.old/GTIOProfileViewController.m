@@ -82,31 +82,31 @@
 	_headerView = [[GTIOProfileHeaderView alloc] init];
 	[self.view addSubview:_headerView];
 	
-	_bioContainerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 71, 320, 36)];
-	_bioContainerView.backgroundColor = kGTIOColorE3E3E3;
-	
-	_bioLabel = [[GTIOAboutMeView alloc] initWithFrame:CGRectZero];
-	_bioLabel.backgroundColor = kGTIOColorE3E3E3;
-	[_bioContainerView addSubview:_bioLabel];
-	
-	_separatorLabel = [[UIView alloc] initWithFrame:CGRectZero];
-	_separatorLabel.backgroundColor = kGTIOColorAAAAAA;
-	//[_headerView addSubview:_separatorLabel];
-	
-	// Create not logged in view
-	_notLoggedInOverlay = [[UIView alloc] initWithFrame:self.view.bounds];
-	_notLoggedInOverlay.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"profile-loggedout-background.png"]];
-	UIButton* signInButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[signInButton setImage:[UIImage imageNamed:@"login.png"] forState:UIControlStateNormal];
-	[signInButton sizeToFit];
-	signInButton.frame = CGRectOffset(signInButton.frame, floor((320-signInButton.bounds.size.width)/2), 264);
-	[signInButton addTarget:[GTIOUser currentUser] action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-	[_notLoggedInOverlay addSubview:signInButton];
-	
+//	_bioContainerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 71, 320, 36)];
+//	_bioContainerView.backgroundColor = kGTIOColorE3E3E3;
+//	
+//	_bioLabel = [[GTIOAboutMeView alloc] initWithFrame:CGRectZero];
+//	_bioLabel.backgroundColor = kGTIOColorE3E3E3;
+//	[_bioContainerView addSubview:_bioLabel];
+//	
+//	_separatorLabel = [[UIView alloc] initWithFrame:CGRectZero];
+//	_separatorLabel.backgroundColor = kGTIOColorAAAAAA;
+//	//[_headerView addSubview:_separatorLabel];
+//	
+//	// Create not logged in view
+//	_notLoggedInOverlay = [[UIView alloc] initWithFrame:self.view.bounds];
+//	_notLoggedInOverlay.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"profile-loggedout-background.png"]];
+//	UIButton* signInButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//	[signInButton setImage:[UIImage imageNamed:@"login.png"] forState:UIControlStateNormal];
+//	[signInButton sizeToFit];
+//	signInButton.frame = CGRectOffset(signInButton.frame, floor((320-signInButton.bounds.size.width)/2), 264);
+//	[signInButton addTarget:[GTIOUser currentUser] action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+//	[_notLoggedInOverlay addSubview:signInButton];
+//	
 	if (TTOSVersion() < 3.2) {
 		// Fix frames for pre 3.2 iOS versions
 		_notLoggedInOverlay.frame = CGRectMake(0, -50, 320, self.view.height);
-		signInButton.frame = CGRectMake(signInButton.frame.origin.x, signInButton.frame.origin.y + 50, signInButton.frame.size.width, signInButton.frame.size.height);
+		//signInButton.frame = CGRectMake(signInButton.frame.origin.x, signInButton.frame.origin.y + 50, signInButton.frame.size.width, signInButton.frame.size.height);
 	}
 }
 

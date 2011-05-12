@@ -9,6 +9,8 @@
 #import "GTIOProfile.h"
 
 @interface GTIOProfileHeaderView : UIView {
+	UIImageView* _profilePictureImageView;
+	UIImageView* _fashionProfileBadge;
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
 }
