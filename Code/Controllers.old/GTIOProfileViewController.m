@@ -74,11 +74,11 @@
 - (void)loadView {
 	[super loadView];
     
-    if (_isShowingCurrentUser) {
-        TTOpenURL(@"gtio://analytics/trackMyProfilePageView");
-    } else {
-        TTOpenURL(@"gtio://analytics/trackProfilePageView");
-    }
+	if (_isShowingCurrentUser) {
+			TTOpenURL(@"gtio://analytics/trackMyProfilePageView");
+	} else {
+			TTOpenURL(@"gtio://analytics/trackProfilePageView");
+	}
     
 	self.variableHeightRows = YES;
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -132,8 +132,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+	[super viewWillAppear:animated];
+	[self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)editButtonWasPressed:(id)sender {
@@ -174,8 +174,6 @@
 	
 	// Show badge images.
 	NSArray* badgeURLs = [profile.badges valueForKeyPath:@"imgURL"];
-//	NSArray* badgeURLs = [NSArray arrayWithObjects:@"http://www.pasadenaisd.org/rayburn/JROTC/UNITED%20STATES%20ARMY%20BADGES_files/PhysFitBadge.gif",
-//						  @"http://www.pimall.com/nais/images/badge_m133.jpg", nil];
 	// Dispose of any old badge image views.
 	for (TTImageView* imageView in _badgeImageViews) {
 		[imageView removeFromSuperview];
@@ -194,7 +192,7 @@
 }
 
 - (void)createModel {
-    GTIOUser* user = [GTIOUser currentUser];
+	GTIOUser* user = [GTIOUser currentUser];
 	NSString* uid = (_isShowingCurrentUser ? user.UID : _userID);
 	
 	if (uid == nil) {
@@ -203,9 +201,7 @@
 	}
 	
 	NSString* path = GTIORestResourcePath(@"/profile/");
-	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithKeysAndObjects:
-							@"uid", uid,
-							nil];
+	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithKeysAndObjects:@"uid", uid,nil];
 	if (_isShowingCurrentUser) {
 		[params setValue:@"true" forKey:@"requestOutfits"];
 		[params setValue:@"1" forKey:@"limit"];
@@ -302,37 +298,36 @@
 
 - (void)viewDidAppear:(BOOL)animated {	
 	static BOOL firstAppearance = YES;
-	
+
 	[super viewDidAppear:animated];
 		
 	if (YES == firstAppearance) {
 		firstAppearance = NO;
-		
+
 		GTIOUser* currentUser = [GTIOUser currentUser];
 		if (!currentUser.loggedIn && _isShowingCurrentUser) {
-			//[currentUser login];
-            TTOpenURL(@"gtio://login");
+			TTOpenURL(@"gtio://login");
 		}
 	}
 }
 
 - (void)registerForNotifications {
 	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(handleUserStateChangedNotification:) 
-												 name:kGTIOUserDidLoginNotificationName 
-											   object:nil];
+																					 selector:@selector(handleUserStateChangedNotification:) 
+																							 name:kGTIOUserDidLoginNotificationName 
+																						 object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(handleUserStateChangedNotification:) 
-												 name:kGTIOUserDidLogoutNotificationName 
-											   object:nil];
+																					 selector:@selector(handleUserStateChangedNotification:) 
+																							 name:kGTIOUserDidLogoutNotificationName 
+																						 object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(handleUserStateChangedNotification:) 
-												 name:kGTIOUserDidUpdateProfileNotificationName
-											   object:nil];
+																					 selector:@selector(handleUserStateChangedNotification:) 
+																							 name:kGTIOUserDidUpdateProfileNotificationName
+																						 object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(handleOutfitUpdatedNotification:)
-												 name:@"OutfitWasUpdatedNotification"
-											   object:nil];
+																					 selector:@selector(handleOutfitUpdatedNotification:)
+																							 name:@"OutfitWasUpdatedNotification"
+																						 object:nil];
 }
 
 - (void)unregisterForNotifications {
