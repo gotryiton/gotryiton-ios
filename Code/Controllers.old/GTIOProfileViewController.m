@@ -19,6 +19,7 @@
 #import "GTIOTitleView.h"
 #import "GTIOOutfitVerdictTableItem.h"
 #import "GTIOMapGlobalsTTModel.h"
+#import "GTIOBarButtonItem.h"
 
 @interface GTIOProfileViewController (Private)
 - (void)registerForNotifications;
@@ -29,7 +30,11 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nil bundle:nil]) {
-		self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"profile" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
+		[self.navigationItem setHidesBackButton:YES];
+		[self.navigationItem setLeftBarButtonItem:[GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(backAction)]];
+		
+		//self.navigationItem.backBarButtonItem = ;
+//		self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"profile" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
 		[self registerForNotifications];
 		
 		_isShowingCurrentUser = YES;
@@ -266,7 +271,8 @@
 	
 	// set edit button
 	if (_isShowingCurrentUser && [[GTIOUser currentUser] isLoggedIn]) {
-		UIBarButtonItem* item = [[[UIBarButtonItem alloc] initWithTitle:@"edit" style:UIBarButtonItemStyleDone target:self action:@selector(editButtonWasPressed:)] autorelease];
+		UIImage* editImage = [UIImage imageNamed:@"settingsBarButton.png"];
+		GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:editImage target:self action:@selector(editButtonWasPressed:)];
 		[self.navigationItem setRightBarButtonItem:item];
 	} else {
 		[self.navigationItem setRightBarButtonItem:nil];
@@ -317,6 +323,10 @@
 
 - (void)unregisterForNotifications {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)backAction {
+	[[self navigationController] popViewControllerAnimated:YES];
 }
 
 @end

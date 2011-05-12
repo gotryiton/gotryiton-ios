@@ -47,8 +47,43 @@
 	return [super initWithCustomView:view];
 }
 
-+ (id)homeBackButton {
-	
+- (id)initWithImage:(UIImage*)image target:(id)target action:(SEL)action {	
+	// Create Container View
+	UIView* view = [[UIView new] autorelease];
+	[view setFrame:CGRectMake(0, 0, [image size].width+15, 32)];		
+	// Create The Background Image
+	UIImage* bg = [[UIImage imageNamed:@"button.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:0];
+	// Create Button
+	UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+	[button setFrame:view.frame];
+	[button setBackgroundColor:[UIColor clearColor]];
+	[button setImage:image forState:UIControlStateNormal];
+	[button setBackgroundImage:bg forState:UIControlStateNormal];
+	[button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+	[view addSubview:button];
+	return [super initWithCustomView:view];
+}
+
++ (id)homeBackBarButtonWithTarget:(id)target action:(SEL)action {
+	// Create Container View
+	UIView* view = [[UIView new] autorelease];
+	[view setFrame:CGRectMake(0, 0, 45, 32)];		
+	// Create The Background Image
+	UIImage* bg = [[UIImage imageNamed:@"back-button.png"] stretchableImageWithLeftCapWidth:11 topCapHeight:0];
+	// Create Button
+	UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+	[button setFrame:view.frame];
+	[button setBackgroundColor:[UIColor clearColor]];
+	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	[button setBackgroundImage:bg forState:UIControlStateNormal];
+	[button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+	[view addSubview:button];
+	UIImageView* homeImage = [UIImageView new];
+	[homeImage setImage:[UIImage imageNamed:@"home-back.png"]];
+	[homeImage setFrame:CGRectMake(12, 7, 26, 17)];
+	[view addSubview:homeImage];
+	[homeImage release];
+	return [[[self alloc] initWithCustomView:view] autorelease];
 }
 
 @end

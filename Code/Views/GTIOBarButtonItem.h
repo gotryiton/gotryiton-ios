@@ -13,7 +13,9 @@
 
 - (id)initWithTitle:(NSString *)title target:(id)target action:(SEL)action;
 - (id)initWithTitle:(NSString *)title target:(id)target action:(SEL)action backButton:(BOOL)backButton;
-+ (id)homeBackButton;
+- (id)initWithImage:(UIImage*)image target:(id)target action:(SEL)action;
++ (id)homeBackBarButtonWithTarget:(id)target action:(SEL)action;
+
 
 
 @end
