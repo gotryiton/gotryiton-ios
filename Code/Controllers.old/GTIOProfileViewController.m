@@ -32,11 +32,7 @@
 	if (self = [super initWithNibName:nil bundle:nil]) {
 		[self.navigationItem setHidesBackButton:YES];
 		[self.navigationItem setLeftBarButtonItem:[GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(backAction)]];
-		
-		//self.navigationItem.backBarButtonItem = ;
-//		self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"profile" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
 		[self registerForNotifications];
-		
 		_isShowingCurrentUser = YES;
 	}
 	
@@ -48,7 +44,6 @@
 		_userID = [userID retain];
 		_isShowingCurrentUser = [_userID isEqualToString:[GTIOUser currentUser].UID];
 		NSLog(@"Showing Current User: %d", _isShowingCurrentUser);
-        self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"profile" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
 	}
 	return self;
 }

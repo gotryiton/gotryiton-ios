@@ -65,6 +65,9 @@
 }
 
 + (id)homeBackBarButtonWithTarget:(id)target action:(SEL)action {
+	// Unfortunately we cannot just do this via the initWithImage method above because
+	// the spacing on the image is not correct when using the button's setImage layout
+	
 	// Create Container View
 	UIView* view = [[UIView new] autorelease];
 	[view setFrame:CGRectMake(0, 0, 45, 32)];		
