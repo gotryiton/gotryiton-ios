@@ -5,24 +5,26 @@
 //  Created by Blake Watters on 8/18/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
+
+// Frameworks
 #import <RestKit/RestKit.h>
 #import <RestKit/Three20/Three20.h>
-
+// Superclass
 #import "GTIOProfileViewController.h"
-
-#import "GTIOReachabilityObserver.h"
-#import "GTIOOutfitTableViewItem.h"
+// Datasource
 #import "GTIOProfileViewDataSource.h"
-#import "GTIOTableStatsItem.h"
-#import "GTIOOutfitVerdictTableItem.h"
+// TTModel
 #import "GTIOMapGlobalsTTModel.h"
-#import "GTIOBarButtonItem.h"
-
+// Table Items
+#import "GTIOOutfitVerdictTableItem.h"
+#import "GTIOTableStatsItem.h"
+// Models
 #import "GTIOUser.h"
 #import "GTIOProfile.h"
 #import "GTIOOutfit.h"
-
+// Views
 #import "GTIOTitleView.h"
+#import "GTIOBarButtonItem.h"
 
 @interface GTIOProfileViewController (Private)
 - (void)registerForNotifications;
