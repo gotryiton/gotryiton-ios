@@ -31,10 +31,13 @@
 
 @implementation GTIOProfileViewController
 
+#pragma mark -
+#pragma mark Init and Dealloc
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nil bundle:nil]) {
 		[self.navigationItem setHidesBackButton:YES];
-		[self.navigationItem setLeftBarButtonItem:[GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(backAction)]];
+		[self.navigationItem setLeftBarButtonItem:[GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(backButtonAction)]];
 		[self registerForNotifications];
 		_isShowingCurrentUser = YES;
 	}
@@ -57,27 +60,26 @@
 	[super dealloc];
 }
 
-- (void)viewDidUnload {
-	[super viewDidUnload];
-}
+#pragma mark -
+#pragma mark View Controller Life Cycle
 
 - (void)loadView {
 	[super loadView];
-    
+
 	if (_isShowingCurrentUser) {
 			TTOpenURL(@"gtio://analytics/trackMyProfilePageView");
 	} else {
 			TTOpenURL(@"gtio://analytics/trackProfilePageView");
 	}
-    
+
 	self.variableHeightRows = YES;
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	
 	_badgeImageViews = [NSMutableArray new];
-	
+
 	// Set Navigation Bar Title
 	self.navigationItem.titleView = [GTIOTitleView title:(_isShowingCurrentUser ? @"MY PROFILE" : @"PROFILE")];
-	
+
 	// Create Header View.
 	_headerView = [[GTIOProfileHeaderView alloc] initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,70)];
 	[self.view addSubview:_headerView];
@@ -100,10 +102,23 @@
 	[self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
-- (void)editButtonWasPressed:(id)sender {
-	TTOpenURL(@"gtio://profile/edit");
+- (void)viewDidAppear:(BOOL)animated {	
+	static BOOL firstAppearance = YES;
+	
+	[super viewDidAppear:animated];
+	
+	if (YES == firstAppearance) {
+		firstAppearance = NO;
+		
+		GTIOUser* currentUser = [GTIOUser currentUser];
+		if (!currentUser.loggedIn && _isShowingCurrentUser) {
+			TTOpenURL(@"gtio://login");
+		}
+	}
 }
 
+#pragma mark -
+#pragma mark Profile View
 - (void)setupHeaderView:(GTIOProfile*)profile {
 	[_headerView displayProfile:profile];
 	
@@ -116,6 +131,20 @@
 	[self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0,0,0,height)]];
 	[self.tableView setExclusiveTouch:NO];
 }
+
+#pragma mark -
+#pragma mark Button Actions
+
+- (void)editButtonAction:(id)sender {
+	TTOpenURL(@"gtio://profile/edit");
+}
+
+- (void)backButtonAction {
+	[[self navigationController] popViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma mark Model Lifecycle
 
 - (void)createModel {
 	GTIOUser* user = [GTIOUser currentUser];
@@ -135,8 +164,8 @@
 	
 	GTIOProfileViewDataSource* ds = (GTIOProfileViewDataSource*)[GTIOProfileViewDataSource dataSourceWithObjects:nil];
 	ds.model = [[GTIOMapGlobalsTTModel alloc] initWithResourcePath:path
-															params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
-															method:RKRequestMethodPOST];
+																													params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
+																													method:RKRequestMethodPOST];
 	self.dataSource = ds;
 }
 
@@ -198,12 +227,15 @@
 	// set edit button
 	if (_isShowingCurrentUser && [[GTIOUser currentUser] isLoggedIn]) {
 		UIImage* editImage = [UIImage imageNamed:@"settingsBarButton.png"];
-		GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:editImage target:self action:@selector(editButtonWasPressed:)];
+		GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:editImage target:self action:@selector(editButtonAction:)];
 		[self.navigationItem setRightBarButtonItem:item];
 	} else {
 		[self.navigationItem setRightBarButtonItem:nil];
 	}
 }
+
+#pragma mark -
+#pragma mark State Change Notifications
 
 - (void)handleUserStateChangedNotification:(NSNotification*)notification {
 	[self invalidateModel];
@@ -211,21 +243,6 @@
 
 - (void)handleOutfitUpdatedNotification:(NSNotification*)notification {
 	[self invalidateModel];
-}
-
-- (void)viewDidAppear:(BOOL)animated {	
-	static BOOL firstAppearance = YES;
-
-	[super viewDidAppear:animated];
-		
-	if (YES == firstAppearance) {
-		firstAppearance = NO;
-
-		GTIOUser* currentUser = [GTIOUser currentUser];
-		if (!currentUser.loggedIn && _isShowingCurrentUser) {
-			TTOpenURL(@"gtio://login");
-		}
-	}
 }
 
 - (void)registerForNotifications {
@@ -249,10 +266,6 @@
 
 - (void)unregisterForNotifications {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)backAction {
-	[[self navigationController] popViewControllerAnimated:YES];
 }
 
 @end
