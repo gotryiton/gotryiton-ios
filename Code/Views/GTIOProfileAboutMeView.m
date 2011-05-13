@@ -120,7 +120,7 @@ static float const qFontSize = 42;
 	NSString* rQuoteText = @"”";
 	CGSize lSize = [lQuoteText sizeWithFont:qFont];
 	CGSize rSize = [rQuoteText sizeWithFont:qFont];
-	CGRect lQuoteRect = CGRectMake(quoteLeftOffset-1, quoteVerticalOffset-1, lSize.width, lSize.height);
+	CGRect lQuoteRect = CGRectMake(quoteLeftOffset-1, quoteVerticalOffset-3, lSize.width, lSize.height);
 	UIColor* quoteColor = [UIColor colorWithRed:.235 green:.235 blue:.235 alpha:1];
 	UIColor* textColor = [UIColor colorWithRed:.737 green:.737 blue:.737 alpha:1];
 	
@@ -216,7 +216,7 @@ static float const qFontSize = 42;
 		}
 	}
 	
-	CGRect rQuoteRect = CGRectMake(rQuoteLeftPosition+1, rQuoteOffset-1, rSize.width, rSize.height);
+	CGRect rQuoteRect = CGRectMake(rQuoteLeftPosition, rQuoteOffset-3, rSize.width, rSize.height);
 	[quoteColor set];
 	[rQuoteText drawInRect:rQuoteRect withFont:qFont];
 	
