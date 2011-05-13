@@ -135,6 +135,18 @@
 		3F59B4AF137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
 		3F59B4B0137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
 		3F59B4B1137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
+		3F82E872137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
+		3F82E873137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
+		3F82E874137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
+		3F82E877137D765E00F8FE1A /* GTIOBrowseList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E876137D765E00F8FE1A /* GTIOBrowseList.m */; };
+		3F82E878137D765E00F8FE1A /* GTIOBrowseList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E876137D765E00F8FE1A /* GTIOBrowseList.m */; };
+		3F82E879137D765E00F8FE1A /* GTIOBrowseList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E876137D765E00F8FE1A /* GTIOBrowseList.m */; };
+		3F82E87C137D828D00F8FE1A /* GTIOCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E87B137D828D00F8FE1A /* GTIOCategory.m */; };
+		3F82E87D137D828D00F8FE1A /* GTIOCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E87B137D828D00F8FE1A /* GTIOCategory.m */; };
+		3F82E87E137D828D00F8FE1A /* GTIOCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E87B137D828D00F8FE1A /* GTIOCategory.m */; };
+		3F82E881137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */; };
+		3F82E882137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */; };
+		3F82E883137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */; };
 		3FBAE217137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
 		3FBAE218137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
 		3FBAE219137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
@@ -2739,6 +2751,14 @@
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = Libraries/three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = Libraries/three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		3F59B4AE137C24650046FC09 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = Libraries/three20/src/Three20.bundle; sourceTree = "<group>"; };
+		3F82E870137D707D00F8FE1A /* GTIOBrowseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseTableViewController.h; sourceTree = "<group>"; };
+		3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseTableViewController.m; sourceTree = "<group>"; };
+		3F82E875137D765E00F8FE1A /* GTIOBrowseList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseList.h; sourceTree = "<group>"; };
+		3F82E876137D765E00F8FE1A /* GTIOBrowseList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseList.m; sourceTree = "<group>"; };
+		3F82E87A137D828D00F8FE1A /* GTIOCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCategory.h; sourceTree = "<group>"; };
+		3F82E87B137D828D00F8FE1A /* GTIOCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCategory.m; sourceTree = "<group>"; };
+		3F82E87F137D9D7800F8FE1A /* GTIOBrowseListTTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseListTTModel.h; sourceTree = "<group>"; };
+		3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseListTTModel.m; sourceTree = "<group>"; };
 		3FBAE210137ACCC5001BBC0E /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
 		3FBAE211137ACCC5001BBC0E /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		3FBAE212137ACCC5001BBC0E /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
@@ -5197,6 +5217,12 @@
 				A7E300B81379887F0036F86D /* GTIOUpdateUserRequest.m */,
 				A7CBB41A1379978B0050C4D8 /* UINavigationController+Background.h */,
 				A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */,
+				3F82E875137D765E00F8FE1A /* GTIOBrowseList.h */,
+				3F82E876137D765E00F8FE1A /* GTIOBrowseList.m */,
+				3F82E87A137D828D00F8FE1A /* GTIOCategory.h */,
+				3F82E87B137D828D00F8FE1A /* GTIOCategory.m */,
+				3F82E87F137D9D7800F8FE1A /* GTIOBrowseListTTModel.h */,
+				3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */,
 			);
 			name = Classes;
 			path = Code/Classes;
@@ -5211,6 +5237,8 @@
 				A7E300BD1379887F0036F86D /* GTIOLoginViewController.m */,
 				A7E300BE1379887F0036F86D /* GTIOWelcomeViewController.h */,
 				A7E300BF1379887F0036F86D /* GTIOWelcomeViewController.m */,
+				3F82E870137D707D00F8FE1A /* GTIOBrowseTableViewController.h */,
+				3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */,
 			);
 			name = Controllers;
 			path = Code/Controllers;
@@ -7557,6 +7585,10 @@
 				A764DD70137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
 				A7B97375137B1FB2009531ED /* GTIOTitleView.m in Sources */,
 				A7AEF96C137C46840034DAEF /* GTIOProfileHeaderView.m in Sources */,
+				3F82E872137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */,
+				3F82E877137D765E00F8FE1A /* GTIOBrowseList.m in Sources */,
+				3F82E87C137D828D00F8FE1A /* GTIOCategory.m in Sources */,
+				3F82E881137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7695,6 +7727,10 @@
 				A76208651379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD71137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
 				A7B97376137B1FC1009531ED /* GTIOTitleView.m in Sources */,
+				3F82E873137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */,
+				3F82E878137D765E00F8FE1A /* GTIOBrowseList.m in Sources */,
+				3F82E87D137D828D00F8FE1A /* GTIOCategory.m in Sources */,
+				3F82E882137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7882,6 +7918,10 @@
 				A76208661379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD72137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
 				A7B97377137B1FC1009531ED /* GTIOTitleView.m in Sources */,
+				3F82E874137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */,
+				3F82E879137D765E00F8FE1A /* GTIOBrowseList.m in Sources */,
+				3F82E87E137D828D00F8FE1A /* GTIOCategory.m in Sources */,
+				3F82E883137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
