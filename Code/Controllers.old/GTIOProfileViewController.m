@@ -43,7 +43,6 @@
 		[self registerForNotifications];
 		_isShowingCurrentUser = YES;
 	}
-	
 	return self;
 }
 
@@ -51,7 +50,6 @@
 	if (self = [super initWithNibName:nil bundle:nil]) {
 		_userID = [userID retain];
 		_isShowingCurrentUser = [_userID isEqualToString:[GTIOUser currentUser].UID];
-		NSLog(@"Showing Current User: %d", _isShowingCurrentUser);
 	}
 	return self;
 }
@@ -192,12 +190,8 @@
 		[_notLoggedInOverlay removeFromSuperview];
 		NSMutableArray* items = [NSMutableArray arrayWithCapacity:3];
 		
-		if ([profile.outfits count] > 0 && _isShowingCurrentUser) {
-			GTIOOutfit* outfit = [profile.outfits objectAtIndex:0];
-			[items addObject:[GTIOOutfitVerdictTableItem itemWithOutfit:outfit]];
-		} else {
-			[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-		}
+		TTTableTextItem* statsItem = [GTIOTableStatsItem itemWithText:(_isShowingCurrentUser ? @"my stats" : @"stats")];
+		[items addObject:statsItem];		
 		
 		NSString* looksURL = [NSString stringWithFormat:@"gtio://user_looks/%@", profile.uid];
 		TTTableTextItem* looksItem = [TTTableTextItem itemWithText:(_isShowingCurrentUser ? @"my looks" : @"looks") URL:looksURL];
@@ -207,8 +201,6 @@
 		TTTableTextItem* reviewsItem = [TTTableTextItem itemWithText:(_isShowingCurrentUser ? @"my reviews" : @"reviews") URL:reviewsURL];
 		[items addObject:reviewsItem];
 		
-		TTTableTextItem* statsItem = [GTIOTableStatsItem itemWithText:(_isShowingCurrentUser ? @"my stats" : @"stats")];
-		[items addObject:statsItem];
 		
 		for (NSDictionary* stat in profile.userStats) {
 			[items addObject:[GTIOIndividualStatItem itemWithText:[NSString stringWithFormat:@"%@", [stat valueForKey:@"value"]] caption:[stat valueForKey:@"name"]]];
