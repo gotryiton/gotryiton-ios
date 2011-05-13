@@ -8,13 +8,13 @@
 
 #import "GTIOTableViewController.h"
 #import "GTIOTopPaddedTableViewController.h"
-#import "GTIOAboutMeView.h"
+#import "GTIOProfileAboutMeView.h"
 #import "GTIOProfileHeaderView.h"
 
 @interface GTIOProfileViewController : GTIOTopPaddedTableViewController {
 	UIView* _notLoggedInOverlay;
 	GTIOProfileHeaderView* _headerView;
-	GTIOAboutMeView* _bioLabel;
+	GTIOProfileAboutMeView* _aboutMeView;
 	NSString* _userID;	
 	// ??
 	UIView* _bioContainerView;

@@ -90,9 +90,9 @@
 //	_bioContainerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 71, 320, 36)];
 //	_bioContainerView.backgroundColor = kGTIOColorE3E3E3;
 //	
-//	_bioLabel = [[GTIOAboutMeView alloc] initWithFrame:CGRectZero];
-//	_bioLabel.backgroundColor = kGTIOColorE3E3E3;
-//	[_bioContainerView addSubview:_bioLabel];
+	_aboutMeView = [[GTIOProfileAboutMeView alloc] initWithFrame:CGRectZero];
+	_aboutMeView.backgroundColor = kGTIOColorE3E3E3;
+	[self.view addSubview:_aboutMeView];
 //	
 //	_separatorLabel = [[UIView alloc] initWithFrame:CGRectZero];
 //	_separatorLabel.backgroundColor = kGTIOColorAAAAAA;
@@ -124,7 +124,18 @@
 	TTOpenURL(@"gtio://profile/edit");
 }
 
-//- (void)setupHeaderView:(GTIOProfile*)profile {
+- (void)setupHeaderView:(GTIOProfile*)profile {
+	[_headerView displayProfile:profile];
+	
+	_aboutMeView.text = profile.aboutMe;
+	[_aboutMeView setNeedsDisplay];
+	_aboutMeView.frame = CGRectMake(0, 70, 320, 200);
+	[_aboutMeView sizeToFit];
+	
+	CGFloat height = _headerView.frame.size.height + _aboutMeView.frame.size.height;
+	[self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0,0,0,height)]];
+	[self.tableView setExclusiveTouch:NO];
+}
 //	BOOL userHasBio = ![profile.aboutMe isWhitespaceAndNewlines]; //TODO: hook this up
 //	NSString* bioString = profile.aboutMe;
 //	if (userHasBio) {
@@ -212,8 +223,8 @@
 				break;
 			}
 		}
-		[_headerView displayProfile:profile];
-		//[self setupHeaderView:profile];
+		
+		[self setupHeaderView:profile];
 		
 		[_notLoggedInOverlay removeFromSuperview];
 		NSMutableArray* items = [NSMutableArray arrayWithCapacity:3];

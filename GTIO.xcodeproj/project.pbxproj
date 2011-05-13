@@ -682,9 +682,6 @@
 		A73397831379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
 		A73397841379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
 		A73397851379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
-		A73397861379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
-		A73397871379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
-		A73397881379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
 		A73397891379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */; };
 		A733978A1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */; };
 		A733978B1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */; };
@@ -795,6 +792,9 @@
 		A764DD72137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */; };
 		A7AEF96C137C46840034DAEF /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */; };
 		A7AEF96E137C51820034DAEF /* empty-profile-pic.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AEF96D137C51820034DAEF /* empty-profile-pic.png */; };
+		A7B8CF2D137D6E9900C0A857 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
+		A7B8CF2E137D6E9900C0A857 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
+		A7B8CF2F137D6E9900C0A857 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
 		A7B97375137B1FB2009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
 		A7B97376137B1FC1009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
 		A7B97377137B1FC1009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
@@ -2969,8 +2969,6 @@
 		3FF536F713708E84001DEE26 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		A733973F1379A7D000F41C2A /* CustomUISwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUISwitch.h; sourceTree = "<group>"; };
 		A73397401379A7D000F41C2A /* CustomUISwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUISwitch.m; sourceTree = "<group>"; };
-		A73397411379A7D000F41C2A /* GTIOAboutMeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAboutMeView.h; sourceTree = "<group>"; };
-		A73397421379A7D000F41C2A /* GTIOAboutMeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAboutMeView.m; sourceTree = "<group>"; };
 		A73397431379A7D000F41C2A /* GTIOBlurrableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurrableImageView.h; sourceTree = "<group>"; };
 		A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBlurrableImageView.m; sourceTree = "<group>"; };
 		A73397451379A7D000F41C2A /* GTIOBlurringOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurringOverlayView.h; sourceTree = "<group>"; };
@@ -3048,6 +3046,8 @@
 		A7AEF96A137C46840034DAEF /* GTIOProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileHeaderView.h; sourceTree = "<group>"; };
 		A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileHeaderView.m; sourceTree = "<group>"; };
 		A7AEF96D137C51820034DAEF /* empty-profile-pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty-profile-pic.png"; sourceTree = "<group>"; };
+		A7B8CF2B137D6E9900C0A857 /* GTIOProfileAboutMeView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GTIOProfileAboutMeView.h; sourceTree = "<group>"; };
+		A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileAboutMeView.m; sourceTree = "<group>"; };
 		A7B97373137B1FB2009531ED /* GTIOTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTitleView.h; sourceTree = "<group>"; };
 		A7B97374137B1FB2009531ED /* GTIOTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTitleView.m; sourceTree = "<group>"; };
 		A7C627A3137C2CFA00F89D4F /* back-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button.png"; sourceTree = "<group>"; };
@@ -4526,6 +4526,8 @@
 				A7B97374137B1FB2009531ED /* GTIOTitleView.m */,
 				A7AEF96A137C46840034DAEF /* GTIOProfileHeaderView.h */,
 				A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */,
+				A7B8CF2B137D6E9900C0A857 /* GTIOProfileAboutMeView.h */,
+				A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */,
 			);
 			name = Views;
 			path = Code/Views;
@@ -4536,8 +4538,6 @@
 			children = (
 				A733973F1379A7D000F41C2A /* CustomUISwitch.h */,
 				A73397401379A7D000F41C2A /* CustomUISwitch.m */,
-				A73397411379A7D000F41C2A /* GTIOAboutMeView.h */,
-				A73397421379A7D000F41C2A /* GTIOAboutMeView.m */,
 				A73397431379A7D000F41C2A /* GTIOBlurrableImageView.h */,
 				A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */,
 				A73397451379A7D000F41C2A /* GTIOBlurringOverlayView.h */,
@@ -7518,7 +7518,6 @@
 				A7E30412137988C90036F86D /* DataModel.xcdatamodeld in Sources */,
 				A7CBB41C1379978B0050C4D8 /* UINavigationController+Background.m in Sources */,
 				A73397831379A7D000F41C2A /* CustomUISwitch.m in Sources */,
-				A73397861379A7D000F41C2A /* GTIOAboutMeView.m in Sources */,
 				A73397891379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */,
 				A733978C1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */,
 				A733978F1379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */,
@@ -7557,6 +7556,7 @@
 				A764DD70137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
 				A7B97375137B1FB2009531ED /* GTIOTitleView.m in Sources */,
 				A7AEF96C137C46840034DAEF /* GTIOProfileHeaderView.m in Sources */,
+				A7B8CF2D137D6E9900C0A857 /* GTIOProfileAboutMeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7657,7 +7657,6 @@
 				A7E30410137988C90036F86D /* Application.xcdatamodeld in Sources */,
 				A7E30413137988C90036F86D /* DataModel.xcdatamodeld in Sources */,
 				A73397841379A7D000F41C2A /* CustomUISwitch.m in Sources */,
-				A73397871379A7D000F41C2A /* GTIOAboutMeView.m in Sources */,
 				A733978A1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */,
 				A733978D1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */,
 				A73397901379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */,
@@ -7695,6 +7694,7 @@
 				A76208651379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD71137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
 				A7B97376137B1FC1009531ED /* GTIOTitleView.m in Sources */,
+				A7B8CF2E137D6E9900C0A857 /* GTIOProfileAboutMeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7844,7 +7844,6 @@
 				A7E30411137988C90036F86D /* Application.xcdatamodeld in Sources */,
 				A7E30414137988C90036F86D /* DataModel.xcdatamodeld in Sources */,
 				A73397851379A7D000F41C2A /* CustomUISwitch.m in Sources */,
-				A73397881379A7D000F41C2A /* GTIOAboutMeView.m in Sources */,
 				A733978B1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */,
 				A733978E1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */,
 				A73397911379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */,
@@ -7882,6 +7881,7 @@
 				A76208661379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD72137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
 				A7B97377137B1FC1009531ED /* GTIOTitleView.m in Sources */,
+				A7B8CF2F137D6E9900C0A857 /* GTIOProfileAboutMeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,7 +6,7 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "GTIOAboutMeView.h"
+#import "GTIOProfileAboutMeView.h"
 #import <UIKit/UIStringDrawing.h>
 
 static float const lineLeftOffset = 10;
@@ -14,7 +14,7 @@ static float const quoteVerticalOffset = -2;
 static float const quoteLeftOffset = -2;
 static float const qFontSize = 42;
 
-@implementation GTIOAboutMeView
+@implementation GTIOProfileAboutMeView
 
 @synthesize text = _text;
 
