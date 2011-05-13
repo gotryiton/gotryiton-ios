@@ -32,6 +32,8 @@
 #import "GTIOAppStatusAlert.h"
 #import "GTIOAppStatusAlertButton.h"
 #import "Facebook.h"
+#import "GTIOBrowseList.h"
+#import "GTIOCategory.h"
 
 #import "GTIOGlobalVariableStore.h"
 
@@ -146,6 +148,24 @@ void uncaughtExceptionHandler(NSException *exception) {
     [eventTypesMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"eventType")];
     [provider setMapping:eventTypesMapping forKeyPath:@"global_eventTypes"];
     
+    RKObjectMapping* browseListMapping = [RKObjectMapping mappingForClass:[GTIOBrowseList class]];
+    [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
+    [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"subtitle", @"subtitle")];
+    [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"includeSearch", @"includeSearch")];
+    [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"searchText", @"searchText")];
+    [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"includeAlphaNav", @"includeAlphaNav")];
+    [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"searchApi", @"searchAPI")];
+    [provider setMapping:browseListMapping forKeyPath:@"list"];
+    
+    RKObjectMapping* categoryMapping = [RKObjectMapping mappingForClass:[GTIOCategory class]];
+    [categoryMapping addAttributeMapping:RKObjectAttributeMappingMake(@"name", @"name")];
+    [categoryMapping addAttributeMapping:RKObjectAttributeMappingMake(@"api", @"apiEndpoint")];
+    [categoryMapping addAttributeMapping:RKObjectAttributeMappingMake(@"iconSmall", @"iconSmallURL")];
+    [categoryMapping addAttributeMapping:RKObjectAttributeMappingMake(@"iconLarge", @"iconLargeURL")];
+    
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"categories" toKeyPath:@"categories" objectMapping:categoryMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
+    
     [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user" toKeyPath:@"user" objectMapping:profileMapping]];
     
     [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviews" toKeyPath:@"reviews" objectMapping:reviewMapping]];
@@ -156,21 +176,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" objectMapping:badgeMapping]];
     
     objectManager.mappingProvider = provider;
-    
-    //	RKObjectMapper* mapper = objectManager.mapper;
-    //	// Add our element to object mappings
-    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"outfits"];
-    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"outfit"];
-    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"recent"];
-    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"popular"];
-    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"search"];
-    //	[mapper registerClass:[GTIOProfile class] forElementNamed:@"user"];
-    //	[mapper registerClass:[GTIOOutfit class] forElementNamed:@"reviewsOutfits"];
-    //	[mapper registerClass:[GTIOReview class] forElementNamed:@"reviews"];
-    //	[mapper registerClass:[GTIOReview class] forElementNamed:@"review"];
-    //	[mapper registerClass:[GTIOBadge class] forElementNamed:@"badges"];
-    //	[mapper registerClass:[GTIOChangeItReason class] forElementNamed:@"global_changeitReasons"];
-    //	[mapper registerClass:[GTIOVotingResultSet class] forElementNamed:@"votingResults"];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -270,6 +275,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Map loading urls
 	[map from:@"gtio://loading" toObject:[GTIOLoadingOverlayManager sharedManager] selector:@selector(showLoading)];
 	[map from:@"gtio://stopLoading" toObject:[GTIOLoadingOverlayManager sharedManager] selector:@selector(stopLoading)];
+    
+    [map from:@"gtio://browse" toViewController:NSClassFromString(@"GTIOBrowseTableViewController")];
+    [map from:@"gtio://browse/(initWithAPIEndpoint:)" toViewController:NSClassFromString(@"GTIOBrowseTableViewController")];
+    [map from:@"gtio://browse/(initWithAPIEndpoint:)/(searchText:)" toViewController:NSClassFromString(@"GTIOBrowseTableViewController")];
 	
 	// All other links open the web controller
 	[map from:@"*" toViewController:[TTWebController class]];
@@ -338,6 +347,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/status") queryParams:params delegate:self];
 	
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    
 	return YES;
 //    // Initialize RestKit
 //    // RKObjectManager* manager = [RKObjectManager objectManagerWithBaseURL:@"http://restkit.org"];

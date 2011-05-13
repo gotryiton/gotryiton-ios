@@ -87,11 +87,16 @@
 }
 
 - (IBAction)todosButtonWasPressed {}
-- (IBAction)browseButtonWasPressed {}
+
+- (IBAction)browseButtonWasPressed {
+    TTOpenURL(@"gtio://browse");
+}
+
 - (IBAction)myReviewsButtonWasPressed {
     NSString* reviewsURL = [NSString stringWithFormat:@"gtio://user_reviews/%@", [GTIOUser currentUser].UID];
     TTOpenURL(reviewsURL);
 }
+
 - (IBAction)notificationButtonWasPressed {}
 - (IBAction)profileViewWasTouched {
     TTOpenURL(@"gtio://profile");
