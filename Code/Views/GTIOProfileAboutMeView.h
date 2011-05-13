@@ -10,7 +10,7 @@
 #import <Three20/Three20.h>
 
 
-@interface GTIOAboutMeView : UIView {
+@interface GTIOProfileAboutMeView : UIView {
 	UILabel* _leftQuoteLabel;
 	UILabel* _rightQuoteLabel;
 	NSMutableArray* _textLabels;

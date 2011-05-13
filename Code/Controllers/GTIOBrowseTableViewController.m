@@ -177,7 +177,7 @@
         }
         
         if (list.categories) {
-            NSMutableArray* categories = list.categories
+            NSMutableArray* categories = list.categories;
             
             // Setup Table View
             if ([list.includeAlphaNav boolValue]) {

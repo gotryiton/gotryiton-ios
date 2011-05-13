@@ -132,6 +132,9 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		3F56B13A137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
+		3F56B13B137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
+		3F56B13C137DC61300215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
 		3F59B4AF137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
 		3F59B4B0137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
 		3F59B4B1137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
@@ -694,7 +697,6 @@
 		A73397831379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
 		A73397841379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
 		A73397851379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
-		A73397861379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
 		A73397871379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
 		A73397881379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
 		A73397891379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */; };
@@ -3068,6 +3070,8 @@
 		A7AEF96A137C46840034DAEF /* GTIOProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileHeaderView.h; sourceTree = "<group>"; };
 		A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileHeaderView.m; sourceTree = "<group>"; };
 		A7AEF96D137C51820034DAEF /* empty-profile-pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty-profile-pic.png"; sourceTree = "<group>"; };
+		A7B8CF2B137D6E9900C0A857 /* GTIOProfileAboutMeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileAboutMeView.h; sourceTree = "<group>"; };
+		A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileAboutMeView.m; sourceTree = "<group>"; };
 		A7B97373137B1FB2009531ED /* GTIOTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTitleView.h; sourceTree = "<group>"; };
 		A7B97374137B1FB2009531ED /* GTIOTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTitleView.m; sourceTree = "<group>"; };
 		A7C627A3137C2CFA00F89D4F /* back-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button.png"; sourceTree = "<group>"; };
@@ -4546,6 +4550,8 @@
 				A7B97374137B1FB2009531ED /* GTIOTitleView.m */,
 				A7AEF96A137C46840034DAEF /* GTIOProfileHeaderView.h */,
 				A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */,
+				A7B8CF2B137D6E9900C0A857 /* GTIOProfileAboutMeView.h */,
+				A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */,
 			);
 			name = Views;
 			path = Code/Views;
@@ -7546,7 +7552,6 @@
 				A7E30412137988C90036F86D /* DataModel.xcdatamodeld in Sources */,
 				A7CBB41C1379978B0050C4D8 /* UINavigationController+Background.m in Sources */,
 				A73397831379A7D000F41C2A /* CustomUISwitch.m in Sources */,
-				A73397861379A7D000F41C2A /* GTIOAboutMeView.m in Sources */,
 				A73397891379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */,
 				A733978C1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */,
 				A733978F1379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */,
@@ -7589,6 +7594,7 @@
 				3F82E877137D765E00F8FE1A /* GTIOBrowseList.m in Sources */,
 				3F82E87C137D828D00F8FE1A /* GTIOCategory.m in Sources */,
 				3F82E881137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */,
+				3F56B13A137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7731,6 +7737,7 @@
 				3F82E878137D765E00F8FE1A /* GTIOBrowseList.m in Sources */,
 				3F82E87D137D828D00F8FE1A /* GTIOCategory.m in Sources */,
 				3F82E882137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */,
+				3F56B13B137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7922,6 +7929,7 @@
 				3F82E879137D765E00F8FE1A /* GTIOBrowseList.m in Sources */,
 				3F82E87E137D828D00F8FE1A /* GTIOCategory.m in Sources */,
 				3F82E883137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */,
+				3F56B13C137DC61300215418 /* GTIOProfileAboutMeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

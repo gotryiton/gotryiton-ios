@@ -12,7 +12,7 @@
 @implementation GTIOTitleView
 
 + (GTIOTitleView*)title:(NSString*)title {
-	self = [[super new] autorelease];
+	self = [[self new] autorelease];
 	[self setText:title];
 	[self setBackgroundColor:[UIColor clearColor]];
 	[self setTextAlignment:UITextAlignmentCenter];

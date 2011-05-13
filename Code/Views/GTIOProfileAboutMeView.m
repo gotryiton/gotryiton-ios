@@ -6,7 +6,7 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "GTIOAboutMeView.h"
+#import "GTIOProfileAboutMeView.h"
 #import <UIKit/UIStringDrawing.h>
 
 static float const lineLeftOffset = 10;
@@ -14,7 +14,7 @@ static float const quoteVerticalOffset = -2;
 static float const quoteLeftOffset = -2;
 static float const qFontSize = 42;
 
-@implementation GTIOAboutMeView
+@implementation GTIOProfileAboutMeView
 
 @synthesize text = _text;
 
@@ -107,9 +107,12 @@ static float const qFontSize = 42;
 }
 
 - (void)drawRect:(CGRect)rect {
-    if (nil == _text) {
-        return;
-    }
+	if (nil == _text) {
+		return;
+	}
+	
+	UIImage* bg = [[UIImage imageNamed:@"dark-bottom.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:1];
+	[bg drawInRect:rect];
     
 	UIFont* font = [UIFont boldSystemFontOfSize:13];
 	UIFont* qFont = [UIFont systemFontOfSize:qFontSize];
@@ -117,9 +120,11 @@ static float const qFontSize = 42;
 	NSString* rQuoteText = @"”";
 	CGSize lSize = [lQuoteText sizeWithFont:qFont];
 	CGSize rSize = [rQuoteText sizeWithFont:qFont];
-	CGRect lQuoteRect = CGRectMake(quoteLeftOffset-1, quoteVerticalOffset-1, lSize.width, lSize.height);
+	CGRect lQuoteRect = CGRectMake(quoteLeftOffset-1, quoteVerticalOffset-3, lSize.width, lSize.height);
+	UIColor* quoteColor = [UIColor colorWithRed:.235 green:.235 blue:.235 alpha:1];
+	UIColor* textColor = [UIColor colorWithRed:.737 green:.737 blue:.737 alpha:1];
 	
-	[[UIColor whiteColor] set];
+	[quoteColor set];
 	[lQuoteText drawInRect:lQuoteRect withFont:qFont];
 	
 	float rQuoteHorizontalOffset = quoteVerticalOffset*2 - 2;
@@ -139,10 +144,10 @@ static float const qFontSize = 42;
 	line1Text = [lines objectAtIndex:0];
 	[lines removeObjectAtIndex:0];
 	
-    NSString* obj = [lines componentsJoinedByString:@"\n"];
-    if (obj) {
-        [wordsNotInLine1 addObject:obj];
-    }
+	NSString* obj = [lines componentsJoinedByString:@"\n"];
+	if (obj) {
+		[wordsNotInLine1 addObject:obj];
+	}
 	[lines release];
 	
 	while (line1Size.width > line1MaxWidth) {
@@ -154,7 +159,7 @@ static float const qFontSize = 42;
 		line1Size = [line1Text sizeWithFont:font];
 	}
 	
-	[[UIColor darkGrayColor] set];
+	[textColor set];
 	
 	NSString* lastLineString = line1Text;
 	CGRect lastLineRect = CGRectMake(line1LeftOffset, lineVerticalOffset, line1Size.width, line1Size.height);
@@ -178,10 +183,10 @@ static float const qFontSize = 42;
 		[lines removeObjectAtIndex:0];
 		NSMutableArray* wordsNotInCurrentLine = [NSMutableArray array];
         
-        NSString* obj = [lines componentsJoinedByString:@"\n"];
-        if (obj) {
-            [wordsNotInCurrentLine addObject:obj];
-        }
+		NSString* obj = [lines componentsJoinedByString:@"\n"];
+		if (obj) {
+			[wordsNotInCurrentLine addObject:obj];
+		}
 		[lines release];
 		
 		float maxWidth = 320 - rSize.width - lineLeftOffset;
@@ -211,11 +216,11 @@ static float const qFontSize = 42;
 		}
 	}
 	
-	CGRect rQuoteRect = CGRectMake(rQuoteLeftPosition+1, rQuoteOffset-1, rSize.width, rSize.height);
-	[[UIColor whiteColor] set];
+	CGRect rQuoteRect = CGRectMake(rQuoteLeftPosition, rQuoteOffset-3, rSize.width, rSize.height);
+	[quoteColor set];
 	[rQuoteText drawInRect:rQuoteRect withFont:qFont];
 	
-	[[UIColor darkGrayColor] set];
+	[textColor set];
 	[lastLineString drawInRect:lastLineRect withFont:font];
 }
 
