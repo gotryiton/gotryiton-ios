@@ -107,9 +107,12 @@ static float const qFontSize = 42;
 }
 
 - (void)drawRect:(CGRect)rect {
-    if (nil == _text) {
-        return;
-    }
+	if (nil == _text) {
+		return;
+	}
+	
+	UIImage* bg = [[UIImage imageNamed:@"dark-bottom.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:1];
+	[bg drawInRect:rect];
     
 	UIFont* font = [UIFont boldSystemFontOfSize:13];
 	UIFont* qFont = [UIFont systemFontOfSize:qFontSize];
@@ -139,10 +142,10 @@ static float const qFontSize = 42;
 	line1Text = [lines objectAtIndex:0];
 	[lines removeObjectAtIndex:0];
 	
-    NSString* obj = [lines componentsJoinedByString:@"\n"];
-    if (obj) {
-        [wordsNotInLine1 addObject:obj];
-    }
+	NSString* obj = [lines componentsJoinedByString:@"\n"];
+	if (obj) {
+		[wordsNotInLine1 addObject:obj];
+	}
 	[lines release];
 	
 	while (line1Size.width > line1MaxWidth) {
@@ -178,10 +181,10 @@ static float const qFontSize = 42;
 		[lines removeObjectAtIndex:0];
 		NSMutableArray* wordsNotInCurrentLine = [NSMutableArray array];
         
-        NSString* obj = [lines componentsJoinedByString:@"\n"];
-        if (obj) {
-            [wordsNotInCurrentLine addObject:obj];
-        }
+		NSString* obj = [lines componentsJoinedByString:@"\n"];
+		if (obj) {
+			[wordsNotInCurrentLine addObject:obj];
+		}
 		[lines release];
 		
 		float maxWidth = 320 - rSize.width - lineLeftOffset;
