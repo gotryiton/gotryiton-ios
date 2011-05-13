@@ -17,6 +17,7 @@
     NSNumber* _includeAlphaNav;
     NSArray* _categories; // A browse list will either contain categories
     NSArray* _outfits;    // or it will contain outfits.
+    NSString* _searchAPI;
 }
 
 @property (nonatomic, retain) NSString* title;
@@ -26,5 +27,6 @@
 @property (nonatomic, retain) NSNumber* includeAlphaNav;
 @property (nonatomic, retain) NSArray* categories;
 @property (nonatomic, retain) NSArray* outfits;
+@property (nonatomic, retain) NSString* searchAPI;
 
 @end

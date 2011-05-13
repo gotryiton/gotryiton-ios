@@ -154,6 +154,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"includeSearch", @"includeSearch")];
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"searchText", @"searchText")];
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"includeAlphaNav", @"includeAlphaNav")];
+    [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"searchApi", @"searchAPI")];
     [provider setMapping:browseListMapping forKeyPath:@"list"];
     
     RKObjectMapping* categoryMapping = [RKObjectMapping mappingForClass:[GTIOCategory class]];
@@ -277,6 +278,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     [map from:@"gtio://browse" toViewController:NSClassFromString(@"GTIOBrowseTableViewController")];
     [map from:@"gtio://browse/(initWithAPIEndpoint:)" toViewController:NSClassFromString(@"GTIOBrowseTableViewController")];
+    [map from:@"gtio://browse/(initWithAPIEndpoint:)/(searchText:)" toViewController:NSClassFromString(@"GTIOBrowseTableViewController")];
 	
 	// All other links open the web controller
 	[map from:@"*" toViewController:[TTWebController class]];

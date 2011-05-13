@@ -18,6 +18,7 @@
 @synthesize includeAlphaNav = _includeAlphaNav;
 @synthesize categories = _categories;
 @synthesize outfits = _outfits;
+@synthesize searchAPI = _searchAPI;
 
 - (void)dealloc {
     [_title release];
@@ -27,12 +28,13 @@
     [_includeAlphaNav release];
     [_categories release];
     [_outfits release];
+    [_searchAPI release];
     [super dealloc];
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"<GTIOBrowseList title: %@ subtitle: %@ includeSearch: %@ searchText: %@ includeAlphaNav: %@"
-            @"categories: %@ num outfits: %d", _title, _subtitle, _includeSearch, _searchText, _includeAlphaNav,
+    return [NSString stringWithFormat:@"<GTIOBrowseList title: %@ subtitle: %@ includeSearch: %@ searchAPI: %@ searchText: %@ includeAlphaNav: %@"
+            @"categories: %@ num outfits: %d", _title, _subtitle, _includeSearch, _searchAPI, _searchText, _includeAlphaNav,
             [[_categories valueForKey:@"name"] componentsJoinedByString:@","], [_outfits count]];
 }
 

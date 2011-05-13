@@ -65,6 +65,7 @@
 @implementation GTIOBrowseTableViewController
 
 @synthesize apiEndpoint = _apiEndpoint;
+@synthesize queryText = _queryText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
@@ -84,12 +85,26 @@
     return self;
 }
 
+- (id)initWithAPIEndpoint:(NSString*)endpoint searchText:(NSString*)text {
+    if ((self = [self initWithAPIEndpoint:endpoint])) {
+        _queryText = [text retain];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [_searchBar release];
+    [_apiEndpoint release];
+    [_queryText release];
+    [super dealloc];
+}
+
 - (TTTableViewDelegate*)createDelegate {
     return [[[GTIOPaginationTableViewDelegate alloc] initWithController:self] autorelease];
 }
 
 - (void)createModel {
-	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:nil];
+	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_queryText, @"query", nil]; // note, query text is usually nil. only used if we are searching.
 	
     GTIOBrowseListTTModel* model = [[[GTIOBrowseListTTModel alloc] initWithResourcePath:_apiEndpoint
                                                                                  params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
@@ -131,16 +146,44 @@
     [self.tableView endUpdates];
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+    GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
+    if (model.list.searchAPI) {
+        NSString* url = [NSString stringWithFormat:@"gtio://browse/%@/%@",
+                         [model.list.searchAPI stringByReplacingOccurrencesOfString:@"/" withString:@"."],
+                         searchBar.text];
+        TTOpenURL(url);
+        
+    }
+}
+
 - (void)loadedList:(GTIOBrowseList*)list {
     // TODO: simplify/refactor this.
     if (list) {
         self.title = list.title;
+        // Search
+        if ([list.includeSearch boolValue]) {
+            if (nil == _searchBar) {
+                // create search bar
+                _searchBar = [[UISearchBar alloc] init];
+                [_searchBar sizeToFit];
+                _searchBar.delegate = self;
+            }
+            _searchBar.placeholder = list.searchText;
+            self.tableView.tableHeaderView = _searchBar;
+        } else {
+            self.tableView.tableHeaderView = nil;
+        }
         
         if (list.categories) {
+            NSMutableArray* categories = list.categories
+            
+            // Setup Table View
             if ([list.includeAlphaNav boolValue]) {
                 NSArray* sections = [@"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,#" componentsSeparatedByString:@","];
                 NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-                for (GTIOCategory* category in list.categories) {
+                for (GTIOCategory* category in categories) {
                     NSString* upcasedFirstCharacterOfName = [[category.name substringWithRange:NSMakeRange(0, 1)] uppercaseString];
                     if ([sections indexOfObject:upcasedFirstCharacterOfName] == NSNotFound) {
                         upcasedFirstCharacterOfName = @"#";
@@ -154,9 +197,15 @@
                     TTTableTextItem* item = [TTTableTextItem itemWithText:category.name URL:url];
                     [items addObject:item];
                 }
-                GTIOSectionedDataSourceWithIndexSidebar* ds = (GTIOSectionedDataSourceWithIndexSidebar*)[GTIOSectionedDataSourceWithIndexSidebar dataSourceWithItems:[NSMutableArray array] sections:[NSMutableArray array]];
+                GTIOSectionedDataSourceWithIndexSidebar* ds;
+                if ([self.dataSource isKindOfClass:[GTIOSectionedDataSourceWithIndexSidebar class]]) {
+                    ds = self.dataSource;
+                } else {
+                    ds = (GTIOSectionedDataSourceWithIndexSidebar*)[GTIOSectionedDataSourceWithIndexSidebar dataSourceWithItems:[NSMutableArray array] sections:[NSMutableArray array]];
+                }
                 for (NSString* key in sections) {
                     NSMutableArray* obj = [dict objectForKey:key];
+                    NSLog(@"OBJ: %@", obj);
                     if (obj) {
                         [ds.sections addObject:key];
                         [ds.items addObject:obj];
@@ -166,7 +215,7 @@
                 self.dataSource = ds;
             } else {
                 NSMutableArray* items = [NSMutableArray array];
-                for (GTIOCategory* category in list.categories) {
+                for (GTIOCategory* category in categories) {
                     NSString* url = [NSString stringWithFormat:@"gtio://browse/%@", [category.apiEndpoint stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
                     NSLog(@"URL: %@", url);
                     TTTableTextItem* item = [TTTableTextItem itemWithText:category.name URL:url];
@@ -206,12 +255,21 @@
 }
 
 - (void)didLoadModel:(BOOL)firstTime {
+    _searchBar.text = @"";
+    [_searchBar resignFirstResponder];
     if (firstTime) {
         NSLog(@"Loaded First Time!");
         GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
         [self loadedList:model.list];
     } else {
         [self didLoadMore];
+    }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
+    if (nil == model.list.searchAPI) {
+        // TODO: figure out how to perform local search
     }
 }
 

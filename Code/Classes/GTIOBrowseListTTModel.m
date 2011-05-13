@@ -36,6 +36,7 @@
 		_isLoading = YES;
 		[objectLoader send];
 	} else {
+        self.list = nil;
 		[super load:cachePolicy more:more];
 	}
 }
@@ -53,6 +54,7 @@
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
     NSLog(@"Dictionary: %@", dictionary);
+    _isLoading = NO;
     if (self.list) {
         // loaded more.
         NSLog(@"LoadedMore");
@@ -69,7 +71,6 @@
         _objects = newObjects;
         [self didFinishLoad];
     } else {
-        _isLoading = NO;
         _hasMoreToLoad = YES;
         [self saveLoadedTime];
         self.list = [dictionary objectForKey:@"list"];

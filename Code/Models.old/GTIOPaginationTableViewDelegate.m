@@ -10,7 +10,8 @@
 #import <Three20UI/TTTableHeaderDragRefreshView.h>
 #import "GTIOPaginatedTTModel.h"
 
-#define kTableViewEdgeInsets UIEdgeInsetsMake(8, 0, 0, 0)
+//#define kTableViewEdgeInsets UIEdgeInsetsMake(8, 0, 0, 0)
+#define kTableViewEdgeInsets UIEdgeInsetsMake(0, 0, 0, 0)
 
 @interface TTTableHeaderDragRefreshView (private)
 
@@ -32,77 +33,77 @@
 - (UIImageView*)bgImageView {
     return (UIImageView*)[self viewWithTag:99293];
 }
-
-- (id)initWithFrame:(CGRect)frame {
-	if(self = [super initWithFrame:frame]) {
-		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		
-		UIImageView* bg = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:[self backgroundImageName]]] autorelease];
-        bg.tag = 99293;
-		bg.frame = self.bounds;
-		bg.contentMode = UIViewContentModeBottom;
-		[self addSubview:bg];
-		self.backgroundColor = RGBCOLOR(240,240,240);
-		
-		_statusLabel = [[UILabel alloc]
-						initWithFrame:CGRectMake(0.0f, frame.size.height - 25.0f,
-												 frame.size.width, 20.0f )];
-		_statusLabel.autoresizingMask =
-		UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-		_statusLabel.font             = TTSTYLEVAR(tableRefreshHeaderStatusFont);
-		_statusLabel.textColor        = [UIColor darkGrayColor];
-		_statusLabel.shadowColor      = TTSTYLEVAR(tableRefreshHeaderTextShadowColor);
-		_statusLabel.shadowOffset     = TTSTYLEVAR(tableRefreshHeaderTextShadowOffset);
-		_statusLabel.backgroundColor  = [UIColor clearColor];
-		_statusLabel.textAlignment    = UITextAlignmentCenter;
-		[self setStatus:TTTableHeaderDragRefreshPullToReload];
-		[self addSubview:_statusLabel];
-		
-		_arrowImage = [[UIImageView alloc]
-					   initWithFrame:CGRectMake(149.0f, frame.size.height - 65.0f + 3,
-												23.0f, 41.0f)];
-		_arrowImage.contentMode       = UIViewContentModeScaleAspectFit;
-		_arrowImage.image             = [UIImage imageNamed:[self arrowImageName]];
-		[_arrowImage layer].transform = CATransform3DMakeRotation(M_PI, 0.0f, 0.0f, 1.0f);
-		[self addSubview:_arrowImage];
-		
-		_activityView = [[UIActivityIndicatorView alloc]
-						 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		_activityView.frame = CGRectMake( 150.0f, frame.size.height - 45.0f, 20.0f, 20.0f );
-		_activityView.hidesWhenStopped  = YES;
-		[self addSubview:_activityView];
-		
-        // TODO: this no longer exists and may mess up our drag refresh awesomeness?
-		// _isFlipped = NO;
-	}
-	return self;
-}
-
-- (void)setStatus:(TTTableHeaderDragRefreshStatus)status {
-	switch (status) {
-		case TTTableHeaderDragRefreshReleaseToReload: {
-			_statusLabel.text = @"release to update...";
-            [self setImageFlipped:YES];
-			break;
-		}
-			
-		case TTTableHeaderDragRefreshPullToReload: {
-			_statusLabel.text = @"pull down to update...";
-            [self setImageFlipped:NO];
-			break;
-		}
-			
-		case TTTableHeaderDragRefreshLoading: {
-			_statusLabel.text = @"updating...";
-            [self setImageFlipped:YES];
-			break;
-		}
-			
-		default: {
-			break;
-		}
-	}
-}
+//
+//- (id)initWithFrame:(CGRect)frame {
+//	if(self = [super initWithFrame:frame]) {
+//		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//		
+//		UIImageView* bg = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:[self backgroundImageName]]] autorelease];
+//        bg.tag = 99293;
+//		bg.frame = self.bounds;
+//		bg.contentMode = UIViewContentModeBottom;
+//		[self addSubview:bg];
+//		self.backgroundColor = RGBCOLOR(240,240,240);
+//		
+//		_statusLabel = [[UILabel alloc]
+//						initWithFrame:CGRectMake(0.0f, frame.size.height - 25.0f,
+//												 frame.size.width, 20.0f )];
+//		_statusLabel.autoresizingMask =
+//		UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+//		_statusLabel.font             = TTSTYLEVAR(tableRefreshHeaderStatusFont);
+//		_statusLabel.textColor        = [UIColor darkGrayColor];
+//		_statusLabel.shadowColor      = TTSTYLEVAR(tableRefreshHeaderTextShadowColor);
+//		_statusLabel.shadowOffset     = TTSTYLEVAR(tableRefreshHeaderTextShadowOffset);
+//		_statusLabel.backgroundColor  = [UIColor clearColor];
+//		_statusLabel.textAlignment    = UITextAlignmentCenter;
+//		[self setStatus:TTTableHeaderDragRefreshPullToReload];
+//		[self addSubview:_statusLabel];
+//		
+//		_arrowImage = [[UIImageView alloc]
+//					   initWithFrame:CGRectMake(149.0f, frame.size.height - 65.0f + 3,
+//												23.0f, 41.0f)];
+//		_arrowImage.contentMode       = UIViewContentModeScaleAspectFit;
+//		_arrowImage.image             = [UIImage imageNamed:[self arrowImageName]];
+//		[_arrowImage layer].transform = CATransform3DMakeRotation(M_PI, 0.0f, 0.0f, 1.0f);
+//		[self addSubview:_arrowImage];
+//		
+//		_activityView = [[UIActivityIndicatorView alloc]
+//						 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//		_activityView.frame = CGRectMake( 150.0f, frame.size.height - 45.0f, 20.0f, 20.0f );
+//		_activityView.hidesWhenStopped  = YES;
+//		[self addSubview:_activityView];
+//		
+//        // TODO: this no longer exists and may mess up our drag refresh awesomeness?
+//		// _isFlipped = NO;
+//	}
+//	return self;
+//}
+//
+//- (void)setStatus:(TTTableHeaderDragRefreshStatus)status {
+//	switch (status) {
+//		case TTTableHeaderDragRefreshReleaseToReload: {
+//			_statusLabel.text = @"release to update...";
+//            [self setImageFlipped:YES];
+//			break;
+//		}
+//			
+//		case TTTableHeaderDragRefreshPullToReload: {
+//			_statusLabel.text = @"pull down to update...";
+//            [self setImageFlipped:NO];
+//			break;
+//		}
+//			
+//		case TTTableHeaderDragRefreshLoading: {
+//			_statusLabel.text = @"updating...";
+//            [self setImageFlipped:YES];
+//			break;
+//		}
+//			
+//		default: {
+//			break;
+//		}
+//	}
+//}
 
 @end
 
@@ -154,69 +155,34 @@
 	[UIView beginAnimations:nil context:nil];
 	_loadingMoreView.frame = CGRectMake(0, _controller.tableView.superview.bounds.size.height+30, _controller.tableView.superview.width, 30);
 	[UIView commitAnimations];
-	
-	// Ensures loading bar doesn't show either.
-    [_headerView setImageFlipped:NO];
-	[_headerView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-	[_headerView showActivity:NO animated:YES];
-	_controller.tableView.contentInset = kTableViewEdgeInsets;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)modelDidStartLoad:(id<TTModel>)model {
-	[_headerView showActivity:YES animated:YES];
-    
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:ttkDefaultFastTransitionDuration];
-	_controller.tableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 00.0f, 0.0f);
-	[UIView commitAnimations];
-}
+//- (void)modelDidStartLoad:(id<TTModel>)model {
+//	[_headerView showActivity:YES animated:YES];
+//    
+//	[UIView beginAnimations:nil context:NULL];
+//	[UIView setAnimationDuration:ttkDefaultFastTransitionDuration];
+//	_controller.tableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 00.0f, 0.0f);
+//	[UIView commitAnimations];
+//}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)modelDidFinishLoad:(id<TTModel>)model {
-	[_headerView setImageFlipped:NO];
-	[_headerView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-	[_headerView showActivity:NO animated:YES];
-	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:ttkDefaultTransitionDuration];
-	_controller.tableView.contentInset = kTableViewEdgeInsets;
-	[UIView commitAnimations];
-	
-	if ([model respondsToSelector:@selector(loadedTime)]) {
-		NSDate* date = [model performSelector:@selector(loadedTime)];
-		[_headerView setUpdateDate:date];
-		
-	} else {
-		[_headerView setCurrentDate];
-	}
-	[self hideLoadMore];
+  	[self hideLoadMore];
+    [super modelDidFinishLoad:model];
 }
 
 - (void)model:(id<TTModel>)model didFailLoadWithError:(NSError*)error {
-	[_headerView setImageFlipped:NO];
-	[_headerView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-	[_headerView showActivity:NO animated:YES];
-	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:ttkDefaultTransitionDuration];
-	_controller.tableView.contentInset = kTableViewEdgeInsets;
-	[UIView commitAnimations];
 	[self hideLoadMore];
+    [super model:model didFailLoadWithError:error];
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)modelDidCancelLoad:(id<TTModel>)model {
-	[_headerView setImageFlipped:NO];
-	[_headerView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-	[_headerView showActivity:NO animated:YES];
-	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:ttkDefaultTransitionDuration];
-	_controller.tableView.contentInset = kTableViewEdgeInsets;
-	[UIView commitAnimations];
 	[self hideLoadMore];
+    [super modelDidCancelLoad:model];
 }
 
 @end

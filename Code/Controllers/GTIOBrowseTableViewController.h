@@ -10,10 +10,13 @@
 #import <RestKit/RestKit.h>
 #import "GTIOBrowseList.h"
 
-@interface GTIOBrowseTableViewController : TTTableViewController <RKObjectLoaderDelegate> {
+@interface GTIOBrowseTableViewController : TTTableViewController <RKObjectLoaderDelegate, UISearchBarDelegate> {
     NSString* _apiEndpoint; // default is /rest/v3/categories/ will be different for subcategories.
+    UISearchBar* _searchBar;
+    NSString* _queryText;
 }
 
 @property (nonatomic, retain) NSString* apiEndpoint;
+@property (nonatomic, retain) NSString* queryText;
 
 @end
