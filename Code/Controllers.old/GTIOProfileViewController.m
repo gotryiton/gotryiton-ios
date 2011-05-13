@@ -74,8 +74,6 @@
 
 	self.variableHeightRows = YES;
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-	
-	_badgeImageViews = [NSMutableArray new];
 
 	// Set Navigation Bar Title
 	self.navigationItem.titleView = [GTIOTitleView title:(_isShowingCurrentUser ? @"MY PROFILE" : @"PROFILE")];

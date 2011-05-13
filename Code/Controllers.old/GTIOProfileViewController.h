@@ -6,8 +6,10 @@
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
 
+// Superclass
 #import "GTIOTableViewController.h"
 #import "GTIOTopPaddedTableViewController.h"
+// Subviews
 #import "GTIOProfileAboutMeView.h"
 #import "GTIOProfileHeaderView.h"
 
@@ -16,13 +18,7 @@
 	GTIOProfileHeaderView* _headerView;
 	GTIOProfileAboutMeView* _aboutMeView;
 	NSString* _userID;	
-	// ??
-	UIView* _bioContainerView;
-	UILabel* _separatorLabel;
 	BOOL _isShowingCurrentUser;
-
-	
-	NSMutableArray* _badgeImageViews;
 }
 
 @end
