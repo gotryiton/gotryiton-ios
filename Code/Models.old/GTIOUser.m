@@ -9,7 +9,9 @@
 #import "GTIOUser.h"
 #import "JSON.h"
 #import "TTURLJSONResponse.h"
+#import "GTIOTitleView.h"
 #import "GTIOAnalyticsTracker.h"
+#import "GTIOJanrainAuthenticationController.h"
 
 // Constants (see GTIOEnvironment.m)
 extern NSString* const kGTIOJanRainEngageApplicationID;
@@ -135,11 +137,7 @@ static GTIOUser* gCurrentUser = nil;
 - (void)loginWithJanRain {
     [self didStartLogin];
 	if (NO == self.isLoggedIn) {
-		TTOpenURL(@"gtio://analytics/trackUserDidViewLogin");
-        JREngage* engage = [JREngage jrEngageWithAppId:kGTIOJanRainEngageApplicationID
-                            andTokenUrl:[self.authURL absoluteString]
-                                              delegate:self];
-        [engage showAuthenticationDialog];
+		[GTIOJanrainAuthenticationController showAuthenticationDialog];
 	}
 }
 
