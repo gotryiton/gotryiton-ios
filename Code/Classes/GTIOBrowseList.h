@@ -18,6 +18,7 @@
     NSArray* _categories; // A browse list will either contain categories
     NSArray* _outfits;    // or it will contain outfits.
     NSString* _searchAPI;
+    NSArray* _sortTabs;
 }
 
 @property (nonatomic, retain) NSString* title;
@@ -28,5 +29,6 @@
 @property (nonatomic, retain) NSArray* categories;
 @property (nonatomic, retain) NSArray* outfits;
 @property (nonatomic, retain) NSString* searchAPI;
+@property (nonatomic, retain) NSArray* sortTabs;
 
 @end

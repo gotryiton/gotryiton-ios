@@ -14,6 +14,7 @@
 #import "GTIOOutfitTableViewCell.h"
 #import "GTIOGiveAnOpinionTableViewDataSource.h"
 #import "GTIOPaginationTableViewDelegate.h"
+#import "GTIOSortTab.h"
 
 @interface GTIOBrowseListDataSource : TTListDataSource
 @end
@@ -53,11 +54,17 @@
 @implementation GTIOSectionedDataSourceWithIndexSidebar
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    return self.sections;
+    NSMutableArray* sectionsCopy = [[self.sections mutableCopy] autorelease];
+    [sectionsCopy insertObject:@"{search}" atIndex:0];
+    return sectionsCopy;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    return index;
+    if (index == 0) {
+        [tableView setContentOffset:CGPointMake(0, 0) animated:NO];
+        return -1;
+    }
+    return index-1;
 }
 
 @end
@@ -71,13 +78,13 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         self.apiEndpoint = GTIORestResourcePath(@"/categories");
         self.variableHeightRows = YES;
-        
+        self.autoresizesForKeyboard = YES;
     }
     return self;
 }
 
 - (id)initWithAPIEndpoint:(NSString*)endpoint {
-    if ((self = [super initWithNibName:nil bundle:nil])) {
+    if ((self = [self initWithNibName:nil bundle:nil])) {
         endpoint = [endpoint stringByReplacingOccurrencesOfString:@"." withString:@"/"];
         self.apiEndpoint = endpoint;
         NSLog(@"Endpoint: %@", endpoint);
@@ -152,7 +159,7 @@
     if (model.list.searchAPI) {
         NSString* url = [NSString stringWithFormat:@"gtio://browse/%@/%@",
                          [model.list.searchAPI stringByReplacingOccurrencesOfString:@"/" withString:@"."],
-                         searchBar.text];
+                         [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         TTOpenURL(url);
         
     }
@@ -171,13 +178,28 @@
                 _searchBar.delegate = self;
             }
             _searchBar.placeholder = list.searchText;
+            if ([list.includeAlphaNav boolValue]) {
+                [_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 35)];
+            } else {
+                [_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 0)];
+            }
             self.tableView.tableHeaderView = _searchBar;
         } else {
             self.tableView.tableHeaderView = nil;
         }
         
         if (list.categories) {
-            NSMutableArray* categories = list.categories;
+            // Load a category or subcategory list!
+            NSMutableArray* categories = [NSMutableArray array];
+            if (_searchBar.text && [_searchBar.text length] > 0) {
+                for (GTIOCategory* category in list.categories) {
+                    if ([[category.name uppercaseString] rangeOfString:[_searchBar.text uppercaseString]].length > 0) {
+                        [categories addObject:category];
+                    }
+                }
+            } else {
+                categories = [[list.categories mutableCopy] autorelease];
+            }
             
             // Setup Table View
             if ([list.includeAlphaNav boolValue]) {
@@ -200,6 +222,8 @@
                 GTIOSectionedDataSourceWithIndexSidebar* ds;
                 if ([self.dataSource isKindOfClass:[GTIOSectionedDataSourceWithIndexSidebar class]]) {
                     ds = self.dataSource;
+                    [ds.items removeAllObjects];
+                    [ds.sections removeAllObjects];
                 } else {
                     ds = (GTIOSectionedDataSourceWithIndexSidebar*)[GTIOSectionedDataSourceWithIndexSidebar dataSourceWithItems:[NSMutableArray array] sections:[NSMutableArray array]];
                 }
@@ -235,6 +259,29 @@
                 }
             }
         } else if (list.outfits) {
+            // Load an outfit list! (possibly with sort tabs)
+            if (list.sortTabs && [list.sortTabs count] > 0) {
+                // throw away the old tab bar, setup a new one.
+                [_sortTabBar removeFromSuperview];
+                [_sortTabBar release];
+                NSLog(@"Sort Tabs: %@", list.sortTabs);
+                _sortTabBar = [[TTTabBar alloc] initWithFrame:CGRectMake(0,0,320,30)];
+                NSMutableArray* items = [NSMutableArray array];
+                id selectedTab = [list.sortTabs objectAtIndex:0];
+                for (GTIOSortTab* tab in list.sortTabs) {
+                    [items addObject:[[[TTTabItem alloc] initWithTitle:tab.sortText] autorelease]];
+                    if ([tab.selected boolValue] == YES) {
+                        selectedTab = tab;
+                    }
+                }
+                [_sortTabBar setTabItems:items];
+                _sortTabBar.selectedTabIndex = [list.sortTabs indexOfObject:selectedTab];
+                _sortTabBar.delegate = self;
+                [self.view addSubview:_sortTabBar];
+                self.tableView.frame = CGRectMake(0,50,320,self.view.bounds.size.height - _sortTabBar.bounds.size.height);
+            } else {
+                self.tableView.frame = self.view.bounds;
+            }
             NSMutableArray* items = [NSMutableArray array];
             for (GTIOOutfit* outfit in list.outfits) {
                 GTIOOutfitTableViewItem* item = [GTIOOutfitTableViewItem itemWithOutfit:outfit];
@@ -255,8 +302,6 @@
 }
 
 - (void)didLoadModel:(BOOL)firstTime {
-    _searchBar.text = @"";
-    [_searchBar resignFirstResponder];
     if (firstTime) {
         NSLog(@"Loaded First Time!");
         GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
@@ -266,9 +311,19 @@
     }
 }
 
+- (void)tabBar:(TTTabBar*)tabBar tabSelected:(NSInteger)selectedIndex {
+    GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
+    GTIOSortTab* tab = [model.list.sortTabs objectAtIndex:selectedIndex];
+    [_apiEndpoint release];
+    _apiEndpoint = [tab.sortAPI retain];
+    [self invalidateModel];
+}
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     if (nil == model.list.searchAPI) {
+        [model didStartLoad];
+        [model didFinishLoad];
         // TODO: figure out how to perform local search
     }
 }

@@ -34,6 +34,7 @@
 #import "Facebook.h"
 #import "GTIOBrowseList.h"
 #import "GTIOCategory.h"
+#import "GTIOSortTab.h"
 
 #import "GTIOGlobalVariableStore.h"
 
@@ -163,8 +164,15 @@ void uncaughtExceptionHandler(NSException *exception) {
     [categoryMapping addAttributeMapping:RKObjectAttributeMappingMake(@"iconSmall", @"iconSmallURL")];
     [categoryMapping addAttributeMapping:RKObjectAttributeMappingMake(@"iconLarge", @"iconLargeURL")];
     
+    RKObjectMapping* sortTabMapping = [RKObjectMapping mappingForClass:[GTIOSortTab class]];
+    [sortTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"sortText", @"sortText")];
+    [sortTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"default", @"defaultTab")];
+    [sortTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"selected", @"selected")];
+    [sortTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"sortApi", @"sortAPI")];
+    
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"categories" toKeyPath:@"categories" objectMapping:categoryMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"sortTabs" toKeyPath:@"sortTabs" objectMapping:sortTabMapping]];
     
     [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user" toKeyPath:@"user" objectMapping:profileMapping]];
     
