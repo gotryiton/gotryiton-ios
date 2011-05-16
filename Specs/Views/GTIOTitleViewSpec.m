@@ -11,17 +11,24 @@
 #import "UIExpectation.h"
 #import "GTIOTitleView.h"
 
-@interface GTIOTitleViewSpec : NSObject <UISpec> {
-	
-}
-
+@interface GTIOTitleViewSpec : NSObject <UISpec> {}
 @end
 
 @implementation GTIOTitleViewSpec
 
-- (void)itInitWithTitle {
-	GTIOTitleView* titleView = [GTIOTitleView title:@"test"];
-	[expectThat(titleView.text) should:be(@"asdf")];
+- (void)itShouldInitWithTitle {
+	NSException* exception = nil;
+	GTIOTitleView* titleView = nil;
+	@try {
+		titleView = [GTIOTitleView title:@"test"];
+	}
+	@catch (NSException *e) {
+		exception = e;
+	}
+	@finally {
+		[expectThat(exception) should:be(nil)];
+	}
+	[expectThat(titleView.text) should:be(@"test")];
 }
 
 @end
