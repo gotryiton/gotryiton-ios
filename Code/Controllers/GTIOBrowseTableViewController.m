@@ -53,11 +53,17 @@
 @implementation GTIOSectionedDataSourceWithIndexSidebar
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    return self.sections;
+    NSMutableArray* sectionsCopy = [[self.sections mutableCopy] autorelease];
+    [sectionsCopy insertObject:@"{search}" atIndex:0];
+    return sectionsCopy;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    return index;
+    if (index == 0) {
+        [tableView setContentOffset:CGPointMake(0, 0) animated:NO];
+        return -1;
+    }
+    return index-1;
 }
 
 @end
@@ -71,13 +77,13 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         self.apiEndpoint = GTIORestResourcePath(@"/categories");
         self.variableHeightRows = YES;
-        
+        self.autoresizesForKeyboard = YES;
     }
     return self;
 }
 
 - (id)initWithAPIEndpoint:(NSString*)endpoint {
-    if ((self = [super initWithNibName:nil bundle:nil])) {
+    if ((self = [self initWithNibName:nil bundle:nil])) {
         endpoint = [endpoint stringByReplacingOccurrencesOfString:@"." withString:@"/"];
         self.apiEndpoint = endpoint;
         NSLog(@"Endpoint: %@", endpoint);
@@ -152,7 +158,7 @@
     if (model.list.searchAPI) {
         NSString* url = [NSString stringWithFormat:@"gtio://browse/%@/%@",
                          [model.list.searchAPI stringByReplacingOccurrencesOfString:@"/" withString:@"."],
-                         searchBar.text];
+                         [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         TTOpenURL(url);
         
     }
@@ -171,13 +177,27 @@
                 _searchBar.delegate = self;
             }
             _searchBar.placeholder = list.searchText;
+            if ([list.includeAlphaNav boolValue]) {
+                [_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 35)];
+            } else {
+                [_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 0)];
+            }
             self.tableView.tableHeaderView = _searchBar;
         } else {
             self.tableView.tableHeaderView = nil;
         }
         
         if (list.categories) {
-            NSMutableArray* categories = list.categories;
+            NSMutableArray* categories = [NSMutableArray array];
+            if (_searchBar.text && [_searchBar.text length] > 0) {
+                for (GTIOCategory* category in list.categories) {
+                    if ([[category.name uppercaseString] rangeOfString:[_searchBar.text uppercaseString]].length > 0) {
+                        [categories addObject:category];
+                    }
+                }
+            } else {
+                categories = [[list.categories mutableCopy] autorelease];
+            }
             
             // Setup Table View
             if ([list.includeAlphaNav boolValue]) {
@@ -200,6 +220,8 @@
                 GTIOSectionedDataSourceWithIndexSidebar* ds;
                 if ([self.dataSource isKindOfClass:[GTIOSectionedDataSourceWithIndexSidebar class]]) {
                     ds = self.dataSource;
+                    [ds.items removeAllObjects];
+                    [ds.sections removeAllObjects];
                 } else {
                     ds = (GTIOSectionedDataSourceWithIndexSidebar*)[GTIOSectionedDataSourceWithIndexSidebar dataSourceWithItems:[NSMutableArray array] sections:[NSMutableArray array]];
                 }
@@ -255,8 +277,6 @@
 }
 
 - (void)didLoadModel:(BOOL)firstTime {
-    _searchBar.text = @"";
-    [_searchBar resignFirstResponder];
     if (firstTime) {
         NSLog(@"Loaded First Time!");
         GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
@@ -269,6 +289,8 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     if (nil == model.list.searchAPI) {
+        [model didStartLoad];
+        [model didFinishLoad];
         // TODO: figure out how to perform local search
     }
 }
