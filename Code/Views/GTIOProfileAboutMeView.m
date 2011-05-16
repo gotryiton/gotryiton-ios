@@ -102,7 +102,7 @@ static float const qFontSize = 42;
 	
 //	CGRect rQuoteRect = CGRectMake(rQuoteLeftPosition, rQuoteOffset, rSize.width, rSize.height);
 	
-	
+	NSLog(@"size: width-%f x height-%f",size.width,lineVerticalOffset + lineHeight + 10);
 	return CGSizeMake(size.width, lineVerticalOffset + lineHeight + 10);
 }
 

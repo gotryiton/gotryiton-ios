@@ -698,6 +698,8 @@
 		3FF112291381786A0093764D /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */; };
 		A70F0E5413816085007B3C50 /* GTIOTitleViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F0E5313816085007B3C50 /* GTIOTitleViewSpec.m */; };
 		A70F0EB213818562007B3C50 /* GTIOBarButtonItemSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F0EB013817F0B007B3C50 /* GTIOBarButtonItemSpec.m */; };
+		A70F0EB513818A67007B3C50 /* GTIOProfileAboutMeViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F0EB313818A66007B3C50 /* GTIOProfileAboutMeViewSpec.m */; };
+		A70F0EB613818A67007B3C50 /* GTIOProfileHeaderViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F0EB413818A66007B3C50 /* GTIOProfileHeaderViewSpec.m */; };
 		A73397831379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
 		A73397841379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
 		A73397851379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
@@ -2994,6 +2996,8 @@
 		3FF536F713708E84001DEE26 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		A70F0E5313816085007B3C50 /* GTIOTitleViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOTitleViewSpec.m; path = Specs/Views/GTIOTitleViewSpec.m; sourceTree = "<group>"; };
 		A70F0EB013817F0B007B3C50 /* GTIOBarButtonItemSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOBarButtonItemSpec.m; path = Specs/Views/GTIOBarButtonItemSpec.m; sourceTree = "<group>"; };
+		A70F0EB313818A66007B3C50 /* GTIOProfileAboutMeViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOProfileAboutMeViewSpec.m; path = Specs/Views/GTIOProfileAboutMeViewSpec.m; sourceTree = "<group>"; };
+		A70F0EB413818A66007B3C50 /* GTIOProfileHeaderViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOProfileHeaderViewSpec.m; path = Specs/Views/GTIOProfileHeaderViewSpec.m; sourceTree = "<group>"; };
 		A733973F1379A7D000F41C2A /* CustomUISwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUISwitch.h; sourceTree = "<group>"; };
 		A73397401379A7D000F41C2A /* CustomUISwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUISwitch.m; sourceTree = "<group>"; };
 		A73397431379A7D000F41C2A /* GTIOBlurrableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurrableImageView.h; sourceTree = "<group>"; };
@@ -3868,8 +3872,10 @@
 		258518B4135358A6005DCBA5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A70F0E5313816085007B3C50 /* GTIOTitleViewSpec.m */,
 				A70F0EB013817F0B007B3C50 /* GTIOBarButtonItemSpec.m */,
+				A70F0E5313816085007B3C50 /* GTIOTitleViewSpec.m */,
+				A70F0EB413818A66007B3C50 /* GTIOProfileHeaderViewSpec.m */,
+				A70F0EB313818A66007B3C50 /* GTIOProfileAboutMeViewSpec.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -7755,6 +7761,8 @@
 				A70F0E5413816085007B3C50 /* GTIOTitleViewSpec.m in Sources */,
 				3FF11228138178690093764D /* GTIOProfileHeaderView.m in Sources */,
 				A70F0EB213818562007B3C50 /* GTIOBarButtonItemSpec.m in Sources */,
+				A70F0EB513818A67007B3C50 /* GTIOProfileAboutMeViewSpec.m in Sources */,
+				A70F0EB613818A67007B3C50 /* GTIOProfileHeaderViewSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
