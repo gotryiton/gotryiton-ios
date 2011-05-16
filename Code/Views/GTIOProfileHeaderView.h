@@ -16,6 +16,9 @@
 	UIButton* _editProfileButton;
 }
 
+@property (nonatomic, retain) UILabel* nameLabel;
+@property (nonatomic, retain) UILabel* locationLabel;
+
 - (void)displayProfile:(GTIOProfile*)profile;
 
 @end

@@ -14,6 +14,7 @@
 #import "GTIOOutfitTableViewCell.h"
 #import "GTIOGiveAnOpinionTableViewDataSource.h"
 #import "GTIOPaginationTableViewDelegate.h"
+#import "GTIOSortTab.h"
 
 @interface GTIOBrowseListDataSource : TTListDataSource
 @end
@@ -188,6 +189,7 @@
         }
         
         if (list.categories) {
+            // Load a category or subcategory list!
             NSMutableArray* categories = [NSMutableArray array];
             if (_searchBar.text && [_searchBar.text length] > 0) {
                 for (GTIOCategory* category in list.categories) {
@@ -257,6 +259,29 @@
                 }
             }
         } else if (list.outfits) {
+            // Load an outfit list! (possibly with sort tabs)
+            if (list.sortTabs && [list.sortTabs count] > 0) {
+                // throw away the old tab bar, setup a new one.
+                [_sortTabBar removeFromSuperview];
+                [_sortTabBar release];
+                NSLog(@"Sort Tabs: %@", list.sortTabs);
+                _sortTabBar = [[TTTabBar alloc] initWithFrame:CGRectMake(0,0,320,30)];
+                NSMutableArray* items = [NSMutableArray array];
+                id selectedTab = [list.sortTabs objectAtIndex:0];
+                for (GTIOSortTab* tab in list.sortTabs) {
+                    [items addObject:[[[TTTabItem alloc] initWithTitle:tab.sortText] autorelease]];
+                    if ([tab.selected boolValue] == YES) {
+                        selectedTab = tab;
+                    }
+                }
+                [_sortTabBar setTabItems:items];
+                _sortTabBar.selectedTabIndex = [list.sortTabs indexOfObject:selectedTab];
+                _sortTabBar.delegate = self;
+                [self.view addSubview:_sortTabBar];
+                self.tableView.frame = CGRectMake(0,50,320,self.view.bounds.size.height - _sortTabBar.bounds.size.height);
+            } else {
+                self.tableView.frame = self.view.bounds;
+            }
             NSMutableArray* items = [NSMutableArray array];
             for (GTIOOutfit* outfit in list.outfits) {
                 GTIOOutfitTableViewItem* item = [GTIOOutfitTableViewItem itemWithOutfit:outfit];
@@ -284,6 +309,14 @@
     } else {
         [self didLoadMore];
     }
+}
+
+- (void)tabBar:(TTTabBar*)tabBar tabSelected:(NSInteger)selectedIndex {
+    GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
+    GTIOSortTab* tab = [model.list.sortTabs objectAtIndex:selectedIndex];
+    [_apiEndpoint release];
+    _apiEndpoint = [tab.sortAPI retain];
+    [self invalidateModel];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {

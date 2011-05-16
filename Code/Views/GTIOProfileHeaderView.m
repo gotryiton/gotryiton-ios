@@ -11,6 +11,9 @@
 
 @implementation GTIOProfileHeaderView
 
+@synthesize nameLabel = _nameLabel;
+@synthesize locationLabel = _locationLabel;
+
 - (id)initWithFrame:(CGRect)frame {
 	self = [super initWithFrame:frame];
 	UIImageView* background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dark-top.png"]];
