@@ -16,6 +16,4 @@
 - (id)initWithImage:(UIImage*)image target:(id)target action:(SEL)action;
 + (id)homeBackBarButtonWithTarget:(id)target action:(SEL)action;
 
-
-
 @end
