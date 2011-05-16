@@ -16,6 +16,29 @@
 #import "GTIOPaginationTableViewDelegate.h"
 #import "GTIOSortTab.h"
 
+@interface GTIOTableImageItemCell : TTTableImageItemCell
+@end
+
+@implementation GTIOTableImageItemCell
+
+- (void)setObject:(id)obj {
+    [super setObject:obj];
+    self.textLabel.font = [UIFont systemFontOfSize:24];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (_imageView2.bounds.size.width > 0) {
+        self.textLabel.frame = CGRectMake(60, self.textLabel.frame.origin.y, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
+    }
+}
+
++ (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
+    return 50;
+}
+
+@end
+
 @interface GTIOBrowseListDataSource : TTListDataSource
 @end
 
@@ -32,6 +55,8 @@
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
 	if ([object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
 		return [GTIOOutfitTableViewCell class];	
+    } else if ([object isKindOfClass:[TTTableImageItem class]]) {
+        return [GTIOTableImageItemCell class];
 	} else {
 		return [super tableView:tableView cellClassForObject:object];
 	}
@@ -46,6 +71,17 @@
 @interface GTIOBrowseSectionedDataSource: TTSectionedDataSource
 @end
 @implementation GTIOBrowseSectionedDataSource
+
+- (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
+	if ([object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
+		return [GTIOOutfitTableViewCell class];	
+    } else if ([object isKindOfClass:[TTTableImageItem class]]) {
+        return [GTIOTableImageItemCell class];
+	} else {
+		return [super tableView:tableView cellClassForObject:object];
+	}
+}
+
 @end
 
 @interface GTIOSectionedDataSourceWithIndexSidebar : GTIOBrowseSectionedDataSource
@@ -174,6 +210,7 @@
             if (nil == _searchBar) {
                 // create search bar
                 _searchBar = [[UISearchBar alloc] init];
+                _searchBar.tintColor = RGBCOLOR(212,212,212);
                 [_searchBar sizeToFit];
                 _searchBar.delegate = self;
             }
@@ -216,7 +253,7 @@
                         [dict setObject:items forKey:upcasedFirstCharacterOfName];
                     }
                     NSString* url = [NSString stringWithFormat:@"gtio://browse/%@", [category.apiEndpoint stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
-                    TTTableTextItem* item = [TTTableTextItem itemWithText:category.name URL:url];
+                    TTTableTextItem* item = [TTTableImageItem itemWithText:category.name imageURL:category.iconSmallURL URL:url];
                     [items addObject:item];
                 }
                 GTIOSectionedDataSourceWithIndexSidebar* ds;
@@ -242,7 +279,7 @@
                 for (GTIOCategory* category in categories) {
                     NSString* url = [NSString stringWithFormat:@"gtio://browse/%@", [category.apiEndpoint stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
                     NSLog(@"URL: %@", url);
-                    TTTableTextItem* item = [TTTableTextItem itemWithText:category.name URL:url];
+                    TTTableTextItem* item = [TTTableImageItem itemWithText:category.name imageURL:category.iconSmallURL URL:url];
                     [items addObject:item];
                 }
                 
@@ -278,7 +315,7 @@
                 _sortTabBar.selectedTabIndex = [list.sortTabs indexOfObject:selectedTab];
                 _sortTabBar.delegate = self;
                 [self.view addSubview:_sortTabBar];
-                self.tableView.frame = CGRectMake(0,50,320,self.view.bounds.size.height - _sortTabBar.bounds.size.height);
+                self.tableView.frame = CGRectMake(0,_sortTabBar.bounds.size.height,320,self.view.bounds.size.height - _sortTabBar.bounds.size.height);
             } else {
                 self.tableView.frame = self.view.bounds;
             }
