@@ -694,6 +694,8 @@
 		3FCBF22F1370824F0039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF22E1370824D0039D779 /* libfacebook_ios_sdk.a */; };
 		3FCBF233137082600039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF2321370825F0039D779 /* libfacebook_ios_sdk.a */; };
 		3FCBF2371370826F0039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */; };
+		3FF11228138178690093764D /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */; };
+		3FF112291381786A0093764D /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */; };
 		A70F0E5413816085007B3C50 /* GTIOTitleViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F0E5313816085007B3C50 /* GTIOTitleViewSpec.m */; };
 		A73397831379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
 		A73397841379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
@@ -7745,6 +7747,7 @@
 				3F82E882137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */,
 				3F56B13B137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */,
 				A70F0E5413816085007B3C50 /* GTIOTitleViewSpec.m in Sources */,
+				3FF11228138178690093764D /* GTIOProfileHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7936,6 +7939,7 @@
 				3F82E87E137D828D00F8FE1A /* GTIOCategory.m in Sources */,
 				3F82E883137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */,
 				3F56B13C137DC61300215418 /* GTIOProfileAboutMeView.m in Sources */,
+				3FF112291381786A0093764D /* GTIOProfileHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8322,6 +8326,7 @@
 					Specs/Support/OCMock/Headers,
 					Libraries/RestKit/Build,
 					"Libraries/facebook-ios-sdk/src/",
+					Libraries/TWTCommon/Code/,
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -8352,6 +8357,7 @@
 					Specs/Support/OCMock/Headers,
 					Libraries/RestKit/Build,
 					"Libraries/facebook-ios-sdk/src/",
+					Libraries/TWTCommon/Code/,
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
