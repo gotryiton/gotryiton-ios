@@ -697,8 +697,6 @@
 		A73397831379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
 		A73397841379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
 		A73397851379A7D000F41C2A /* CustomUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397401379A7D000F41C2A /* CustomUISwitch.m */; };
-		A73397871379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
-		A73397881379A7D000F41C2A /* GTIOAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397421379A7D000F41C2A /* GTIOAboutMeView.m */; };
 		A73397891379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */; };
 		A733978A1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */; };
 		A733978B1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */; };
@@ -2993,8 +2991,6 @@
 		3FF536F713708E84001DEE26 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		A733973F1379A7D000F41C2A /* CustomUISwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUISwitch.h; sourceTree = "<group>"; };
 		A73397401379A7D000F41C2A /* CustomUISwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUISwitch.m; sourceTree = "<group>"; };
-		A73397411379A7D000F41C2A /* GTIOAboutMeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAboutMeView.h; sourceTree = "<group>"; };
-		A73397421379A7D000F41C2A /* GTIOAboutMeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAboutMeView.m; sourceTree = "<group>"; };
 		A73397431379A7D000F41C2A /* GTIOBlurrableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurrableImageView.h; sourceTree = "<group>"; };
 		A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBlurrableImageView.m; sourceTree = "<group>"; };
 		A73397451379A7D000F41C2A /* GTIOBlurringOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBlurringOverlayView.h; sourceTree = "<group>"; };
@@ -4564,8 +4560,6 @@
 			children = (
 				A733973F1379A7D000F41C2A /* CustomUISwitch.h */,
 				A73397401379A7D000F41C2A /* CustomUISwitch.m */,
-				A73397411379A7D000F41C2A /* GTIOAboutMeView.h */,
-				A73397421379A7D000F41C2A /* GTIOAboutMeView.m */,
 				A73397431379A7D000F41C2A /* GTIOBlurrableImageView.h */,
 				A73397441379A7D000F41C2A /* GTIOBlurrableImageView.m */,
 				A73397451379A7D000F41C2A /* GTIOBlurringOverlayView.h */,
@@ -7707,7 +7701,6 @@
 				A7E30410137988C90036F86D /* Application.xcdatamodeld in Sources */,
 				A7E30413137988C90036F86D /* DataModel.xcdatamodeld in Sources */,
 				A73397841379A7D000F41C2A /* CustomUISwitch.m in Sources */,
-				A73397871379A7D000F41C2A /* GTIOAboutMeView.m in Sources */,
 				A733978A1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */,
 				A733978D1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */,
 				A73397901379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */,
@@ -7899,7 +7892,6 @@
 				A7E30411137988C90036F86D /* Application.xcdatamodeld in Sources */,
 				A7E30414137988C90036F86D /* DataModel.xcdatamodeld in Sources */,
 				A73397851379A7D000F41C2A /* CustomUISwitch.m in Sources */,
-				A73397881379A7D000F41C2A /* GTIOAboutMeView.m in Sources */,
 				A733978B1379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */,
 				A733978E1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */,
 				A73397911379A7D000F41C2A /* GTIOBlurringToolbarView.m in Sources */,
