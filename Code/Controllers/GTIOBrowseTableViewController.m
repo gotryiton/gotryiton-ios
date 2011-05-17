@@ -369,9 +369,11 @@
 - (void)tabBar:(GTIOTabBar*)tabBar selectedTabAtIndex:(NSUInteger)index {
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     GTIOSortTab* tab = [model.list.sortTabs objectAtIndex:index];
-    [_apiEndpoint release];
-    _apiEndpoint = [tab.sortAPI retain];
-    [self invalidateModel];
+    if (tab) {
+        [_apiEndpoint release];
+        _apiEndpoint = [tab.sortAPI retain];
+        [self invalidateModel];
+    }
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {

@@ -33,7 +33,7 @@
             break;
         default:
             unselectedImageName = @"tabs-search-off.png";
-            selectedImageName = @"tabs-search-on.png";
+            selectedImageName = @"tabs-search-pink.png";
             // set images for center tab
             break;
     }
@@ -42,7 +42,7 @@
     [self setBackgroundImage:unselectedImage forState:UIControlStateNormal];
     [self setBackgroundImage:selectedImage forState:UIControlStateSelected];
     [self setBackgroundImage:selectedImage forState:UIControlStateHighlighted];
-    [self setBackgroundImage:unselectedImage forState:UIControlStateSelected|UIControlStateHighlighted];
+    [self setBackgroundImage:selectedImage forState:UIControlStateSelected|UIControlStateHighlighted];
 }
 
 @end
@@ -83,6 +83,9 @@
 
 - (void)tabPressed:(id)sender {
     NSUInteger index = [_tabs indexOfObject:sender];
+    if (index == _selectedTabIndex) {
+        return;
+    }
     self.selectedTabIndex = index;
     [_delegate tabBar:self selectedTabAtIndex:index];
 }
