@@ -33,77 +33,77 @@
 - (UIImageView*)bgImageView {
     return (UIImageView*)[self viewWithTag:99293];
 }
-//
-//- (id)initWithFrame:(CGRect)frame {
-//	if(self = [super initWithFrame:frame]) {
-//		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//		
-//		UIImageView* bg = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:[self backgroundImageName]]] autorelease];
-//        bg.tag = 99293;
-//		bg.frame = self.bounds;
-//		bg.contentMode = UIViewContentModeBottom;
-//		[self addSubview:bg];
-//		self.backgroundColor = RGBCOLOR(240,240,240);
-//		
-//		_statusLabel = [[UILabel alloc]
-//						initWithFrame:CGRectMake(0.0f, frame.size.height - 25.0f,
-//												 frame.size.width, 20.0f )];
-//		_statusLabel.autoresizingMask =
-//		UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-//		_statusLabel.font             = TTSTYLEVAR(tableRefreshHeaderStatusFont);
-//		_statusLabel.textColor        = [UIColor darkGrayColor];
-//		_statusLabel.shadowColor      = TTSTYLEVAR(tableRefreshHeaderTextShadowColor);
-//		_statusLabel.shadowOffset     = TTSTYLEVAR(tableRefreshHeaderTextShadowOffset);
-//		_statusLabel.backgroundColor  = [UIColor clearColor];
-//		_statusLabel.textAlignment    = UITextAlignmentCenter;
-//		[self setStatus:TTTableHeaderDragRefreshPullToReload];
-//		[self addSubview:_statusLabel];
-//		
-//		_arrowImage = [[UIImageView alloc]
-//					   initWithFrame:CGRectMake(149.0f, frame.size.height - 65.0f + 3,
-//												23.0f, 41.0f)];
-//		_arrowImage.contentMode       = UIViewContentModeScaleAspectFit;
-//		_arrowImage.image             = [UIImage imageNamed:[self arrowImageName]];
-//		[_arrowImage layer].transform = CATransform3DMakeRotation(M_PI, 0.0f, 0.0f, 1.0f);
-//		[self addSubview:_arrowImage];
-//		
-//		_activityView = [[UIActivityIndicatorView alloc]
-//						 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//		_activityView.frame = CGRectMake( 150.0f, frame.size.height - 45.0f, 20.0f, 20.0f );
-//		_activityView.hidesWhenStopped  = YES;
-//		[self addSubview:_activityView];
-//		
-//        // TODO: this no longer exists and may mess up our drag refresh awesomeness?
-//		// _isFlipped = NO;
-//	}
-//	return self;
-//}
-//
-//- (void)setStatus:(TTTableHeaderDragRefreshStatus)status {
-//	switch (status) {
-//		case TTTableHeaderDragRefreshReleaseToReload: {
-//			_statusLabel.text = @"release to update...";
-//            [self setImageFlipped:YES];
-//			break;
-//		}
-//			
-//		case TTTableHeaderDragRefreshPullToReload: {
-//			_statusLabel.text = @"pull down to update...";
-//            [self setImageFlipped:NO];
-//			break;
-//		}
-//			
-//		case TTTableHeaderDragRefreshLoading: {
-//			_statusLabel.text = @"updating...";
-//            [self setImageFlipped:YES];
-//			break;
-//		}
-//			
-//		default: {
-//			break;
-//		}
-//	}
-//}
+
+- (id)initWithFrame:(CGRect)frame {
+	if(self = [super initWithFrame:frame]) {
+		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+		
+		UIImageView* bg = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:[self backgroundImageName]]] autorelease];
+        bg.tag = 99293;
+		bg.frame = self.bounds;
+		bg.contentMode = UIViewContentModeBottom;
+		[self addSubview:bg];
+		self.backgroundColor = RGBCOLOR(240,240,240);
+		
+		_statusLabel = [[UILabel alloc]
+						initWithFrame:CGRectMake(0.0f, frame.size.height - 25.0f,
+												 frame.size.width, 20.0f )];
+		_statusLabel.autoresizingMask =
+		UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+		_statusLabel.font             = TTSTYLEVAR(tableRefreshHeaderStatusFont);
+		_statusLabel.textColor        = [UIColor darkGrayColor];
+		_statusLabel.shadowColor      = TTSTYLEVAR(tableRefreshHeaderTextShadowColor);
+		_statusLabel.shadowOffset     = TTSTYLEVAR(tableRefreshHeaderTextShadowOffset);
+		_statusLabel.backgroundColor  = [UIColor clearColor];
+		_statusLabel.textAlignment    = UITextAlignmentCenter;
+		[self setStatus:TTTableHeaderDragRefreshPullToReload];
+		[self addSubview:_statusLabel];
+		
+		_arrowImage = [[UIImageView alloc]
+					   initWithFrame:CGRectMake(149.0f, frame.size.height - 65.0f + 3,
+												23.0f, 41.0f)];
+		_arrowImage.contentMode       = UIViewContentModeScaleAspectFit;
+		_arrowImage.image             = [UIImage imageNamed:[self arrowImageName]];
+		[_arrowImage layer].transform = CATransform3DMakeRotation(M_PI, 0.0f, 0.0f, 1.0f);
+		[self addSubview:_arrowImage];
+		
+		_activityView = [[UIActivityIndicatorView alloc]
+						 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+		_activityView.frame = CGRectMake( 150.0f, frame.size.height - 45.0f, 20.0f, 20.0f );
+		_activityView.hidesWhenStopped  = YES;
+		[self addSubview:_activityView];
+		
+        // TODO: this no longer exists and may mess up our drag refresh awesomeness?
+		// _isFlipped = NO;
+	}
+	return self;
+}
+
+- (void)setStatus:(TTTableHeaderDragRefreshStatus)status {
+	switch (status) {
+		case TTTableHeaderDragRefreshReleaseToReload: {
+			_statusLabel.text = @"release to update...";
+            [self setImageFlipped:YES];
+			break;
+		}
+			
+		case TTTableHeaderDragRefreshPullToReload: {
+			_statusLabel.text = @"pull down to update...";
+            [self setImageFlipped:NO];
+			break;
+		}
+			
+		case TTTableHeaderDragRefreshLoading: {
+			_statusLabel.text = @"updating...";
+            [self setImageFlipped:YES];
+			break;
+		}
+			
+		default: {
+			break;
+		}
+	}
+}
 
 @end
 
@@ -124,6 +124,32 @@
 		
 	}
 	return self;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (![tableView.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+        return nil;
+    }
+    NSString* sectionTitle = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
+    UIView* view = [[[UIView alloc] initWithFrame:CGRectMake(0,5,320,20)] autorelease];
+    view.backgroundColor = RGBCOLOR(227,227,227);
+    UIView* separator = [[[UIView alloc] initWithFrame:CGRectMake(0,19,320,1)] autorelease];
+    separator.backgroundColor = RGBCOLOR(165,165,165);
+    [view addSubview:separator];
+    UILabel* label = [[[UILabel alloc] initWithFrame:CGRectMake(15,5,300,12)] autorelease];
+    label.font = [UIFont boldSystemFontOfSize:12];
+    label.backgroundColor = [UIColor clearColor];
+    if ([tableView.dataSource sectionIndexTitlesForTableView:tableView]) {
+        label.textColor = RGBCOLOR(95,95,95);
+    } else {
+        label.textColor = RGBCOLOR(169,169,169);
+    }
+    label.text = sectionTitle;
+    [view addSubview:label];
+    return view;
 }
 
 - (void)dealloc {

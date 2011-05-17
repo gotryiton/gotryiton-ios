@@ -63,5 +63,6 @@ TWTPickerControl* emailPickerForUser(GTIOUser* user);
 
 - (UIFont*)verdictLabelFont;
 - (UIFont*)reasonTextFont;
+- (TTStyle*)pinkAndGrayTabBar;
 
 @end

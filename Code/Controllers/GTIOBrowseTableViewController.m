@@ -39,6 +39,18 @@
 
 @end
 
+@interface GTIOTableImageNoDisclosureItemCell : GTIOTableImageItemCell
+@end
+@implementation GTIOTableImageNoDisclosureItemCell
+
+- (void)setObject:(id)obj {
+    [super setObject:obj];
+    self.accessoryType = UITableViewCellAccessoryNone;
+}
+
+@end
+
+
 @interface GTIOBrowseListDataSource : TTListDataSource
 @end
 
@@ -88,6 +100,14 @@
 @end
 
 @implementation GTIOSectionedDataSourceWithIndexSidebar
+
+- (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
+    if ([object isKindOfClass:[TTTableImageItem class]]) {
+        return [GTIOTableImageNoDisclosureItemCell class];
+	} else {
+		return [super tableView:tableView cellClassForObject:object];
+	}
+}
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     NSMutableArray* sectionsCopy = [[self.sections mutableCopy] autorelease];
@@ -215,6 +235,8 @@
                 _searchBar.delegate = self;
             }
             _searchBar.placeholder = list.searchText;
+            
+            // TODO: figure out if this will get us rejected and if we need to do something else to make this look right.
             if ([list.includeAlphaNav boolValue]) {
                 [_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 35)];
             } else {
@@ -302,18 +324,14 @@
                 [_sortTabBar removeFromSuperview];
                 [_sortTabBar release];
                 NSLog(@"Sort Tabs: %@", list.sortTabs);
-                _sortTabBar = [[TTTabBar alloc] initWithFrame:CGRectMake(0,0,320,30)];
-                NSMutableArray* items = [NSMutableArray array];
-                id selectedTab = [list.sortTabs objectAtIndex:0];
+                _sortTabBar = [[GTIOTabBar alloc] initWithFrame:CGRectMake(0,0,320,30)];
                 for (GTIOSortTab* tab in list.sortTabs) {
-                    [items addObject:[[[TTTabItem alloc] initWithTitle:tab.sortText] autorelease]];
                     if ([tab.selected boolValue] == YES) {
-                        selectedTab = tab;
+                        [_sortTabBar setSelectedTabIndex:[list.sortTabs indexOfObject:tab]];
                     }
                 }
-                [_sortTabBar setTabItems:items];
-                _sortTabBar.selectedTabIndex = [list.sortTabs indexOfObject:selectedTab];
                 _sortTabBar.delegate = self;
+                [_sortTabBar setTabNames:[list.sortTabs valueForKey:@"sortText"]];
                 [self.view addSubview:_sortTabBar];
                 self.tableView.frame = CGRectMake(0,_sortTabBar.bounds.size.height,320,self.view.bounds.size.height - _sortTabBar.bounds.size.height);
             } else {
@@ -348,9 +366,9 @@
     }
 }
 
-- (void)tabBar:(TTTabBar*)tabBar tabSelected:(NSInteger)selectedIndex {
+- (void)tabBar:(GTIOTabBar*)tabBar selectedTabAtIndex:(NSUInteger)index {
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
-    GTIOSortTab* tab = [model.list.sortTabs objectAtIndex:selectedIndex];
+    GTIOSortTab* tab = [model.list.sortTabs objectAtIndex:index];
     [_apiEndpoint release];
     _apiEndpoint = [tab.sortAPI retain];
     [self invalidateModel];

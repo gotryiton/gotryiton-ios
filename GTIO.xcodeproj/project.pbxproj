@@ -132,6 +132,9 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		3F55F12D1382C4BF006BCEE0 /* GTIOTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F55F12C1382C4BF006BCEE0 /* GTIOTabBar.m */; };
+		3F55F12E1382C4BF006BCEE0 /* GTIOTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F55F12C1382C4BF006BCEE0 /* GTIOTabBar.m */; };
+		3F55F12F1382C4BF006BCEE0 /* GTIOTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F55F12C1382C4BF006BCEE0 /* GTIOTabBar.m */; };
 		3F56B13A137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
 		3F56B13B137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
 		3F56B13C137DC61300215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
@@ -2761,6 +2764,8 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = Libraries/three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = Libraries/three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = Libraries/three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		3F55F12B1382C4BF006BCEE0 /* GTIOTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTabBar.h; sourceTree = "<group>"; };
+		3F55F12C1382C4BF006BCEE0 /* GTIOTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTabBar.m; sourceTree = "<group>"; };
 		3F59B4AE137C24650046FC09 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = Libraries/three20/src/Three20.bundle; sourceTree = "<group>"; };
 		3F82E870137D707D00F8FE1A /* GTIOBrowseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseTableViewController.h; sourceTree = "<group>"; };
 		3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseTableViewController.m; sourceTree = "<group>"; };
@@ -4571,6 +4576,8 @@
 				A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */,
 				A7B8CF2B137D6E9900C0A857 /* GTIOProfileAboutMeView.h */,
 				A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */,
+				3F55F12B1382C4BF006BCEE0 /* GTIOTabBar.h */,
+				3F55F12C1382C4BF006BCEE0 /* GTIOTabBar.m */,
 			);
 			name = Views;
 			path = Code/Views;
@@ -7628,6 +7635,7 @@
 				3F82E881137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */,
 				3F56B13A137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */,
 				3FBFC2EC1381ABBC00A47A1B /* GTIOSortTab.m in Sources */,
+				3F55F12D1382C4BF006BCEE0 /* GTIOTabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7776,6 +7784,7 @@
 				A70F0EB513818A67007B3C50 /* GTIOProfileAboutMeViewSpec.m in Sources */,
 				A70F0EB613818A67007B3C50 /* GTIOProfileHeaderViewSpec.m in Sources */,
 				3FBFC2ED1381ABBC00A47A1B /* GTIOSortTab.m in Sources */,
+				3F55F12E1382C4BF006BCEE0 /* GTIOTabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7969,6 +7978,7 @@
 				3F56B13C137DC61300215418 /* GTIOProfileAboutMeView.m in Sources */,
 				3FF112291381786A0093764D /* GTIOProfileHeaderView.m in Sources */,
 				3FBFC2EE1381ABBC00A47A1B /* GTIOSortTab.m in Sources */,
+				3F55F12F1382C4BF006BCEE0 /* GTIOTabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
