@@ -199,7 +199,7 @@
     [self.tableView beginUpdates];
     NSMutableArray* items = [[model.objects mutableCopy] autorelease];
     for (GTIOOutfitTableViewItem* item in ds.items) {
-        [items removeObject:item];
+        [items removeObject:item.outfit];
     }
     NSMutableArray* indexPaths = [NSMutableArray array];
     for (GTIOOutfit* outfit in items) {
