@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
-@interface GTIOEditProfilePictureViewController : UIViewController <RKObjectLoaderDelegate> {
-    
+@interface GTIOEditProfilePictureViewController : UIViewController <RKObjectLoaderDelegate, UIScrollViewDelegate> {
+	UIScrollView* _scrollview;
+	UISlider* _scrollSlider;
 }
 
 @end
