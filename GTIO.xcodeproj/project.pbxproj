@@ -3503,7 +3503,7 @@
 		A7E300B61379887F0036F86D /* GTIOOutfitViewScrollDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitViewScrollDataSource.m; sourceTree = "<group>"; };
 		A7E300B71379887F0036F86D /* GTIOUpdateUserRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUpdateUserRequest.h; sourceTree = "<group>"; };
 		A7E300B81379887F0036F86D /* GTIOUpdateUserRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUpdateUserRequest.m; sourceTree = "<group>"; };
-		A7E300BA1379887F0036F86D /* GTIOHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GTIOHomeViewController.h; sourceTree = "<group>"; };
+		A7E300BA1379887F0036F86D /* GTIOHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOHomeViewController.h; sourceTree = "<group>"; };
 		A7E300BB1379887F0036F86D /* GTIOHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOHomeViewController.m; sourceTree = "<group>"; };
 		A7E300BC1379887F0036F86D /* GTIOLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLoginViewController.h; sourceTree = "<group>"; };
 		A7E300BD1379887F0036F86D /* GTIOLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOLoginViewController.m; sourceTree = "<group>"; };
