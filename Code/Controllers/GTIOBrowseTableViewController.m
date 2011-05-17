@@ -136,6 +136,7 @@
         self.apiEndpoint = GTIORestResourcePath(@"/categories");
         self.variableHeightRows = YES;
         self.autoresizesForKeyboard = YES;
+        self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-list.png"] style:UIBarButtonItemStyleBordered target:nil action:nil] autorelease];
     }
     return self;
 }
@@ -385,6 +386,16 @@
         [model didStartLoad];
         [model didFinishLoad];
         // TODO: figure out how to perform local search
+    }
+}
+
+- (void)didSelectObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
+    if ([object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
+        GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:[self model] outfitIndex:indexPath.row];
+        [self.navigationController pushViewController:viewController animated:YES];
+        [viewController release];
+    } else {
+        [super didSelectObject:object atIndexPath:indexPath];
     }
 }
 

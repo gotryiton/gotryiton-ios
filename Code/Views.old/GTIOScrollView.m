@@ -61,23 +61,28 @@
 		self.lastPageIndex = _visiblePageIndex;
 	}
     _refreshView.frame = CGRectOffset(_refreshView.bounds, 0, -327 + _pageEdges.top);
-    if (![_refreshView isFlipped] && _pageEdges.top >= 50) {
-        [_refreshView flipImageAnimated:YES];
-        [_refreshView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-    } else if ([_refreshView isFlipped] && _pageEdges.top < 50) {
-        [_refreshView flipImageAnimated:YES];
-        if (UIEdgeInsetsEqualToEdgeInsets(_edgeInsets, UIEdgeInsetsZero)) {
-            // TODO: figure out a better way to tell if we are loading
-            [_refreshView setStatus:TTTableHeaderDragRefreshPullToReload];
-        }
-    }
+    
+    // TODO: fix
+//    if (![_refreshView isFlipped] && _pageEdges.top >= 50) {
+//        [_refreshView flipImageAnimated:YES];
+//        [_refreshView setStatus:TTTableHeaderDragRefreshReleaseToReload];
+//    } else if ([_refreshView isFlipped] && _pageEdges.top < 50) {
+//        [_refreshView flipImageAnimated:YES];
+//        if (UIEdgeInsetsEqualToEdgeInsets(_edgeInsets, UIEdgeInsetsZero)) {
+//            // TODO: figure out a better way to tell if we are loading
+//            [_refreshView setStatus:TTTableHeaderDragRefreshPullToReload];
+//        }
+//    }
     
 	[super layoutSubviews];
 }
 
 - (void)doneReloading {
     _edgeInsets = UIEdgeInsetsZero;
-    [_refreshView showActivity:NO];
+    
+    // TODO: fix
+    NSLog(@"Hide Activity");
+//    [_refreshView showActivity:NO];
 //    self.scrollEnabled = YES;
     [_refreshView setStatus:TTTableHeaderDragRefreshPullToReload];
     [[self viewWithTag:1234] removeFromSuperview];
@@ -91,7 +96,11 @@
     [overlayView release];
     _edgeInsets = UIEdgeInsetsMake(50,0,50,0);
 //    _pageEdges = _edgeInsets;
-    [_refreshView showActivity:YES];
+    
+    // TODO: fix
+    NSLog(@"Show Activity!");
+//    [_refreshView showActivity:YES];
+    
 //    self.scrollEnabled = NO;
     if ([self.delegate respondsToSelector:@selector(scrollView:shouldReloadPage:)]) {
         [self.delegate scrollView:self shouldReloadPage:self.centerPage];
@@ -99,7 +108,7 @@
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
-    NSLog(@"Touch Count:%d", [touches count]);
+//    NSLog(@"Touch Count:%d", [touches count]);
     if ([self viewWithTag:1234]) {
         return;
     }
@@ -158,7 +167,7 @@
 			top = _pageStartEdges.top + (edges.top - _touchStartEdges.top) * r;
 			bottom = _pageStartEdges.bottom + (edges.bottom - _touchStartEdges.bottom) * r;
             
-            NSLog(@"Page Edges: %@", NSStringFromUIEdgeInsets(_pageEdges));
+//            NSLog(@"Page Edges: %@", NSStringFromUIEdgeInsets(_pageEdges));
             
             if (top >= abs(_pageEdges.left) - 10) {
                 left = 0;

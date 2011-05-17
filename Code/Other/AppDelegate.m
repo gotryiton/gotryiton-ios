@@ -9,7 +9,7 @@
 #import <RestKit/RestKit.h>
 #import <Three20/Three20.h>
 #import "AppDelegate.h"
-#import "GTIOLauncherViewController.h"
+#import "GTIOHomeViewController.h"
 #import "GTIOWelcomeViewController.h"
 #import "GTIOLoginViewController.h"
 
@@ -92,6 +92,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"wear4", @"wear4")];
     [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"pending", @"pending")];
     [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"winning", @"winningOutfit")];
+    [provider setMapping:votingResultsMapping forKeyPath:@"votingResults"];
     
     RKObjectMapping* outfitMapping = [RKObjectMapping mappingForClass:[GTIOOutfit class]];
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"outfitID", @"outfitID")];
@@ -118,6 +119,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user", @"user")];
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isNew",@"isNew")];
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"photos", @"photos")];
+    [provider setMapping:outfitMapping forKeyPath:@"outfit"];
     
     RKObjectMapping* badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"type", @"type")];
@@ -210,7 +212,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	TTURLMap* map = navigator.URLMap;
 	
-	[map from:@"gtio://home" toSharedViewController:[GTIOLauncherViewController class]];
+	[map from:@"gtio://home" toSharedViewController:[GTIOHomeViewController class]];
 	[map from:@"gtio://welcome" toModalViewController:[GTIOWelcomeViewController class]];
 	[map from:@"gtio://login" toModalViewController:[GTIOLoginViewController class]];
     

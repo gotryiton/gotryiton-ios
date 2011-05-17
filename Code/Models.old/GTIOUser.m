@@ -79,7 +79,10 @@ static GTIOUser* gCurrentUser = nil;
 
 + (RKObjectLoader*)voteForOutfit:(NSString*)outfitID look:(NSInteger)look reasons:(NSArray*)reasons delegate:(NSObject<RKObjectLoaderDelegate>*)delegate {
 	NSString* vote = [NSString stringWithFormat:@"wear%d", look];
-	NSString* reasonsString = [NSString stringWithFormat:@"[%@]", [reasons componentsJoinedByString:@","]];
+	NSString* reasonsString = nil;
+    if (reasons) {
+        reasonsString = [NSString stringWithFormat:@"[%@]", [reasons componentsJoinedByString:@","]];
+    }
 	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 							vote, @"vote",
 							reasonsString, @"reasons", nil];
