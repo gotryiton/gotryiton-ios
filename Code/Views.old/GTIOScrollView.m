@@ -108,7 +108,7 @@
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
-    NSLog(@"Touch Count:%d", [touches count]);
+//    NSLog(@"Touch Count:%d", [touches count]);
     if ([self viewWithTag:1234]) {
         return;
     }
@@ -167,7 +167,7 @@
 			top = _pageStartEdges.top + (edges.top - _touchStartEdges.top) * r;
 			bottom = _pageStartEdges.bottom + (edges.bottom - _touchStartEdges.bottom) * r;
             
-            NSLog(@"Page Edges: %@", NSStringFromUIEdgeInsets(_pageEdges));
+//            NSLog(@"Page Edges: %@", NSStringFromUIEdgeInsets(_pageEdges));
             
             if (top >= abs(_pageEdges.left) - 10) {
                 left = 0;

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Three20/Three20.h>
 
-@interface GTIOLauncherViewController : UIViewController {
+@interface GTIOHomeViewController : UIViewController {
     IBOutlet UIView* _launcherView;
     IBOutlet UIButton* _notifications;
     IBOutlet UILabel* _usernameLabel;

@@ -6,10 +6,11 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "GTIOLauncherViewController.h"
+#import "GTIOHomeViewController.h"
 #import "TWTAlertViewDelegate.h"
+#import "GTIOBarButtonItem.h"
 
-@implementation GTIOLauncherViewController
+@implementation GTIOHomeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
