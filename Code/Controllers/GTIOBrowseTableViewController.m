@@ -15,6 +15,7 @@
 #import "GTIOGiveAnOpinionTableViewDataSource.h"
 #import "GTIOPaginationTableViewDelegate.h"
 #import "GTIOSortTab.h"
+#import "GTIOOutfitViewController.h"
 
 @interface GTIOTableImageItemCell : TTTableImageItemCell
 @end
@@ -248,6 +249,7 @@
         }
         
         if (list.categories) {
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             // Load a category or subcategory list!
             NSMutableArray* categories = [NSMutableArray array];
             if (_searchBar.text && [_searchBar.text length] > 0) {
@@ -318,6 +320,7 @@
                 }
             }
         } else if (list.outfits) {
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             // Load an outfit list! (possibly with sort tabs)
             if (list.sortTabs && [list.sortTabs count] > 0) {
                 // throw away the old tab bar, setup a new one.

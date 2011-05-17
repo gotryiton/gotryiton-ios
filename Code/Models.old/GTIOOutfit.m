@@ -36,6 +36,7 @@ NSMutableArray* allOutfits;
 @synthesize iphoneThumbnailUrl = _iphoneThumbnailUrl;
 @synthesize thumbnailImage = _thumbnailImage;
 @synthesize smallThumbnailUrl = _smallThumbnailUrl;
+@synthesize badges = _badges;
 // Reviews
 @synthesize reviewCount = _reviewCount;
 @synthesize user = _user;
@@ -79,6 +80,7 @@ NSMutableArray* allOutfits;
 	[_iphoneThumbnailUrl release];
 	[_thumbnailImage release];
 	[_smallThumbnailUrl release];
+    [_badges release];
 	[_reviewCount release];
 	[_user release];
 	[_isNew release];

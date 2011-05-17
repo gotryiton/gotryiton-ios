@@ -30,6 +30,7 @@
 	NSString* _iphoneThumbnailUrl;
 	UIImage*  _thumbnailImage;
 	NSString* _smallThumbnailUrl;
+    NSArray* _badges;
 	// Reviews
 	NSNumber* _reviewCount;
 	NSString* _user;
@@ -69,6 +70,7 @@
 @property (nonatomic, retain) NSString* iphoneThumbnailUrl;
 @property (nonatomic, retain) UIImage*  thumbnailImage;
 @property (nonatomic, retain) NSString* smallThumbnailUrl;
+@property (nonatomic, retain) NSArray* badges;
 // Reviews
 @property (nonatomic, retain) NSNumber* reviewCount;
 @property (nonatomic, retain) NSString* user;

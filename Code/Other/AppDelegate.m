@@ -178,6 +178,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviews" toKeyPath:@"reviews" objectMapping:reviewMapping]];
     [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"votingResults" toKeyPath:@"results" objectMapping:votingResultsMapping]];
+    [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" objectMapping:badgeMapping]];
     
     [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
     [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviewsOutfits" toKeyPath:@"reviewsOutfits" objectMapping:outfitMapping]];

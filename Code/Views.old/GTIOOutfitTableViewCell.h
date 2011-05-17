@@ -14,8 +14,8 @@
 	GTIOOutfitTableViewItem* _outfitTableItem;
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
-	UILabel* _forLabel;
 	UILabel* _eventLabel;
+    NSMutableArray* _badgeImageViews;
 }
 
 @end
