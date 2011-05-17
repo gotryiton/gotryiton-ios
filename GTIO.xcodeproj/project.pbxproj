@@ -1013,6 +1013,18 @@
 		A764DD70137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */; };
 		A764DD71137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */; };
 		A764DD72137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */; };
+		A765B4FF1382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A765B4FE1382F94300DD1610 /* GTIOEditProfilePictureViewController.m */; };
+		A765B5001382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A765B4FE1382F94300DD1610 /* GTIOEditProfilePictureViewController.m */; };
+		A765B5011382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A765B4FE1382F94300DD1610 /* GTIOEditProfilePictureViewController.m */; };
+		A765B509138302FE00DD1610 /* GTIOUserIconOption.m in Sources */ = {isa = PBXBuildFile; fileRef = A765B508138302FE00DD1610 /* GTIOUserIconOption.m */; };
+		A765B50A138302FE00DD1610 /* GTIOUserIconOption.m in Sources */ = {isa = PBXBuildFile; fileRef = A765B508138302FE00DD1610 /* GTIOUserIconOption.m */; };
+		A765B50B138302FE00DD1610 /* GTIOUserIconOption.m in Sources */ = {isa = PBXBuildFile; fileRef = A765B508138302FE00DD1610 /* GTIOUserIconOption.m */; };
+		A765B50E13830EB300DD1610 /* container.png in Resources */ = {isa = PBXBuildFile; fileRef = A765B50C13830EB300DD1610 /* container.png */; };
+		A765B50F13830EB300DD1610 /* container.png in Resources */ = {isa = PBXBuildFile; fileRef = A765B50C13830EB300DD1610 /* container.png */; };
+		A765B51013830EB300DD1610 /* container.png in Resources */ = {isa = PBXBuildFile; fileRef = A765B50C13830EB300DD1610 /* container.png */; };
+		A765B51113830EB300DD1610 /* container@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A765B50D13830EB300DD1610 /* container@2x.png */; };
+		A765B51213830EB300DD1610 /* container@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A765B50D13830EB300DD1610 /* container@2x.png */; };
+		A765B51313830EB300DD1610 /* container@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A765B50D13830EB300DD1610 /* container@2x.png */; };
 		A7AEF96C137C46840034DAEF /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */; };
 		A7B97375137B1FB2009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
 		A7B97376137B1FC1009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
@@ -3153,6 +3165,12 @@
 		A764DD6E137B11FA00422C4D /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
 		A764DD6F137B11FA00422C4D /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
 		A764DD73137B176C00422C4D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = SOURCE_ROOT; };
+		A765B4FD1382F94300DD1610 /* GTIOEditProfilePictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOEditProfilePictureViewController.h; sourceTree = "<group>"; };
+		A765B4FE1382F94300DD1610 /* GTIOEditProfilePictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOEditProfilePictureViewController.m; sourceTree = "<group>"; };
+		A765B507138302FE00DD1610 /* GTIOUserIconOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserIconOption.h; sourceTree = "<group>"; };
+		A765B508138302FE00DD1610 /* GTIOUserIconOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserIconOption.m; sourceTree = "<group>"; };
+		A765B50C13830EB300DD1610 /* container.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = container.png; sourceTree = "<group>"; };
+		A765B50D13830EB300DD1610 /* container@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "container@2x.png"; sourceTree = "<group>"; };
 		A7AEF96A137C46840034DAEF /* GTIOProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileHeaderView.h; sourceTree = "<group>"; };
 		A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileHeaderView.m; sourceTree = "<group>"; };
 		A7B8CF2B137D6E9900C0A857 /* GTIOProfileAboutMeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileAboutMeView.h; sourceTree = "<group>"; };
@@ -4666,6 +4684,8 @@
 			children = (
 				3FBFC2EA1381ABBC00A47A1B /* GTIOSortTab.h */,
 				3FBFC2EB1381ABBC00A47A1B /* GTIOSortTab.m */,
+				A765B507138302FE00DD1610 /* GTIOUserIconOption.h */,
+				A765B508138302FE00DD1610 /* GTIOUserIconOption.m */,
 			);
 			name = Models;
 			path = Code/Models;
@@ -4725,6 +4745,8 @@
 			children = (
 				A7403936137DCCF50052EF8C /* full-wallpaper.png */,
 				A7403937137DCCF50052EF8C /* full-wallpaper@2x.png */,
+				A765B50C13830EB300DD1610 /* container.png */,
+				A765B50D13830EB300DD1610 /* container@2x.png */,
 			);
 			path = layout;
 			sourceTree = "<group>";
@@ -5283,6 +5305,8 @@
 				3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */,
 				A70F09A01381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.h */,
 				A70F09A11381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m */,
+				A765B4FD1382F94300DD1610 /* GTIOEditProfilePictureViewController.h */,
+				A765B4FE1382F94300DD1610 /* GTIOEditProfilePictureViewController.m */,
 			);
 			name = Controllers;
 			path = Code/Controllers;
@@ -6393,6 +6417,8 @@
 				A7403A15137DCCF50052EF8C /* fb-container@2x.png in Resources */,
 				A7403A18137DCCF50052EF8C /* use-another-account.png in Resources */,
 				A7403A1B137DCCF50052EF8C /* use-another-account@2x.png in Resources */,
+				A765B50E13830EB300DD1610 /* container.png in Resources */,
+				A765B51113830EB300DD1610 /* container@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6939,6 +6965,8 @@
 				A7403A16137DCCF50052EF8C /* fb-container@2x.png in Resources */,
 				A7403A19137DCCF50052EF8C /* use-another-account.png in Resources */,
 				A7403A1C137DCCF50052EF8C /* use-another-account@2x.png in Resources */,
+				A765B50F13830EB300DD1610 /* container.png in Resources */,
+				A765B51213830EB300DD1610 /* container@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7488,6 +7516,8 @@
 				A7403A17137DCCF50052EF8C /* fb-container@2x.png in Resources */,
 				A7403A1A137DCCF50052EF8C /* use-another-account.png in Resources */,
 				A7403A1D137DCCF50052EF8C /* use-another-account@2x.png in Resources */,
+				A765B51013830EB300DD1610 /* container.png in Resources */,
+				A765B51313830EB300DD1610 /* container@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7636,6 +7666,8 @@
 				3F55F12D1382C4BF006BCEE0 /* GTIOTabBar.m in Sources */,
 				A70F09A21381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m in Sources */,
 				A73498C81382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
+				A765B4FF1382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */,
+				A765B509138302FE00DD1610 /* GTIOUserIconOption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7787,6 +7819,8 @@
 				3F55F12E1382C4BF006BCEE0 /* GTIOTabBar.m in Sources */,
 				A70F09A31381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m in Sources */,
 				A73498C91382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
+				A765B5001382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */,
+				A765B50A138302FE00DD1610 /* GTIOUserIconOption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7983,6 +8017,8 @@
 				3F55F12F1382C4BF006BCEE0 /* GTIOTabBar.m in Sources */,
 				A70F09A41381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m in Sources */,
 				A73498CA1382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
+				A765B5011382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */,
+				A765B50B138302FE00DD1610 /* GTIOUserIconOption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

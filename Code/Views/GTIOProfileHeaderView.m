@@ -24,6 +24,12 @@
 	_profilePictureImageView.layer.cornerRadius = 5.0;
 	[_profilePictureImageView setFrame:CGRectMake(10,8,54,54)];
 	[self addSubview:_profilePictureImageView];
+	
+	UIButton* profilePictureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[profilePictureButton setBackgroundColor:[UIColor clearColor]];
+	[profilePictureButton setFrame:_profilePictureImageView.frame];
+	[profilePictureButton addTarget:self action:@selector(profilePictureButtonAction) forControlEvents:UIControlEventTouchUpInside];
+	[self addSubview:profilePictureButton];
 		
 	UIImageView* profilePictureFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
 	[profilePictureFrame setFrame:CGRectMake(5,3,64,64)];
@@ -75,6 +81,10 @@
 
 - (void)editButtonHighlight {
 	[_editProfileButton setHighlighted:YES];
+}
+
+- (void)profilePictureButtonAction {
+	TTOpenURL(@"gtio://profile/edit/picture");
 }
 
 - (void)editButtonAction {

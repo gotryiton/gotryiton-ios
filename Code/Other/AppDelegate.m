@@ -35,6 +35,7 @@
 #import "GTIOBrowseList.h"
 #import "GTIOCategory.h"
 #import "GTIOSortTab.h"
+#import "GTIOUserIconOption.h"
 
 #import "GTIOGlobalVariableStore.h"
 
@@ -139,6 +140,14 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"userStats", @"userStats")];
     [provider setMapping:profileMapping forKeyPath:@"user"];
     
+		RKObjectMapping* userIconOptionMapping = [RKObjectMapping mappingForClass:[GTIOUserIconOption class]];
+		[userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"url",@"url")];
+		[userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"type",@"type")];
+		[userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"width",@"width")];
+		[userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"height",@"height")];
+		[userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"selected",@"selected")];
+		[provider setMapping:userIconOptionMapping forKeyPath:@"userIconOptions"];
+	
     RKObjectMapping* changeItReasonsMapping = [RKObjectMapping mappingForClass:[GTIOChangeItReason class]];
     [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"reasonID")];
     [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"display", @"display")];
@@ -248,6 +257,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	[map from:@"gtio://profile/new" toModalViewController:NSClassFromString(@"GTIOEditProfileViewController") selector:@selector(initWithNewProfile)];
 	[map from:@"gtio://profile/edit" toModalViewController:NSClassFromString(@"GTIOEditProfileViewController") selector:@selector(initWithEditProfile)];		
+	[map from:@"gtio://profile/edit/picture" toModalViewController:NSClassFromString(@"GTIOEditProfilePictureViewController")];
 	[map from:@"gtio://profile/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOProfileViewController")];
 	[map from:@"gtio://user_looks/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOUserOutfitsTableViewController")];
 	[map from:@"gtio://user_reviews/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOUserReviewsTableViewController")];
