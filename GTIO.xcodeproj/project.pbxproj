@@ -809,6 +809,9 @@
 		A73397EC1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */; };
 		A73397ED1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */; };
 		A73397EE1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */; };
+		A73498C81382DCD000872A1F /* GTIOSignInTermsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73498C71382DCD000872A1F /* GTIOSignInTermsView.m */; };
+		A73498C91382DCD000872A1F /* GTIOSignInTermsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73498C71382DCD000872A1F /* GTIOSignInTermsView.m */; };
+		A73498CA1382DCD000872A1F /* GTIOSignInTermsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73498C71382DCD000872A1F /* GTIOSignInTermsView.m */; };
 		A7403961137DCCF50052EF8C /* browse-brands.png in Resources */ = {isa = PBXBuildFile; fileRef = A740391E137DCCF50052EF8C /* browse-brands.png */; };
 		A7403962137DCCF50052EF8C /* browse-brands.png in Resources */ = {isa = PBXBuildFile; fileRef = A740391E137DCCF50052EF8C /* browse-brands.png */; };
 		A7403963137DCCF50052EF8C /* browse-brands.png in Resources */ = {isa = PBXBuildFile; fileRef = A740391E137DCCF50052EF8C /* browse-brands.png */; };
@@ -3078,6 +3081,8 @@
 		A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTTableViewDelegate+GTIOAdditions.m"; sourceTree = "<group>"; };
 		A73397EA1379A90D00F41C2A /* GTIOBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBarButtonItem.h; sourceTree = "<group>"; };
 		A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBarButtonItem.m; sourceTree = "<group>"; };
+		A73498C61382DCD000872A1F /* GTIOSignInTermsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSignInTermsView.h; sourceTree = "<group>"; };
+		A73498C71382DCD000872A1F /* GTIOSignInTermsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSignInTermsView.m; sourceTree = "<group>"; };
 		A740391E137DCCF50052EF8C /* browse-brands.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "browse-brands.png"; sourceTree = "<group>"; };
 		A740391F137DCCF50052EF8C /* browse-brands@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "browse-brands@2x.png"; sourceTree = "<group>"; };
 		A7403920137DCCF50052EF8C /* browse-events.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "browse-events.png"; sourceTree = "<group>"; };
@@ -4576,6 +4581,8 @@
 				A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */,
 				A7B8CF2B137D6E9900C0A857 /* GTIOProfileAboutMeView.h */,
 				A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */,
+				A73498C61382DCD000872A1F /* GTIOSignInTermsView.h */,
+				A73498C71382DCD000872A1F /* GTIOSignInTermsView.m */,
 			);
 			name = Views;
 			path = Code/Views;
@@ -7636,6 +7643,7 @@
 				3F56B13A137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */,
 				3FBFC2EC1381ABBC00A47A1B /* GTIOSortTab.m in Sources */,
 				A70F09A21381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m in Sources */,
+				A73498C81382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7785,6 +7793,7 @@
 				A70F0EB613818A67007B3C50 /* GTIOProfileHeaderViewSpec.m in Sources */,
 				3FBFC2ED1381ABBC00A47A1B /* GTIOSortTab.m in Sources */,
 				A70F09A31381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m in Sources */,
+				A73498C91382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7979,6 +7988,7 @@
 				3FF112291381786A0093764D /* GTIOProfileHeaderView.m in Sources */,
 				3FBFC2EE1381ABBC00A47A1B /* GTIOSortTab.m in Sources */,
 				A70F09A41381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m in Sources */,
+				A73498CA1382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

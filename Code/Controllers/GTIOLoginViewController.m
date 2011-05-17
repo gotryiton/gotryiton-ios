@@ -8,8 +8,7 @@
 
 #import "GTIOLoginViewController.h"
 #import "GTIOBarButtonItem.h"
-#import "TTTAttributedLabel.h"
-#import "NSAttributedString+Attributes.h"
+#import "GTIOSignInTermsView.h"
 #import "GTIOTitleView.h"
 
 @implementation GTIOLoginViewController
@@ -78,32 +77,10 @@
 	[titleLabel setShadowOffset:CGSizeMake(0, -1)];
 	[titleLabel setShadowColor:[UIColor colorWithRed:0.533 green:0.533 blue:0.533 alpha:1.0]];
 	self.navigationItem.titleView = [GTIOTitleView title:@"SIGN IN"];
-	
-	NSString* text = @"by continuing you agree to our terms and conditions of use, privacy policy, legal terms, and community standards.";
-	NSMutableAttributedString* attributedText = [[NSMutableAttributedString alloc] initWithString:text];
-
-	UIColor* normal = [UIColor colorWithRed:.243 green:.243 blue:.243 alpha:1];
-	UIColor* highlight = [UIColor colorWithRed:1 green:0 blue:.588 alpha:1];
-
-	[attributedText setTextColor:normal range:NSMakeRange(0, attributedText.length)];
-	[attributedText setTextColor:highlight range:NSMakeRange(31, 20)];
-	[attributedText setTextColor:highlight range:NSMakeRange(60, 14)];
-	[attributedText setTextColor:highlight range:NSMakeRange(76, 11)];
-	[attributedText setTextColor:highlight range:NSMakeRange(93, 19)];
-	[attributedText setTextIsUnderlined:YES range:NSMakeRange(31, 20)];		
-	[attributedText setTextIsUnderlined:YES range:NSMakeRange(60, 14)];		
-	[attributedText setTextIsUnderlined:YES range:NSMakeRange(76, 11)];		
-	[attributedText setTextIsUnderlined:YES range:NSMakeRange(93, 19)];
-	[attributedText setFont:[UIFont boldSystemFontOfSize:9]];
-	[attributedText setTextAlignment:kCTCenterTextAlignment lineBreakMode:kCTLineBreakByWordWrapping];
-	
-	TTTAttributedLabel* label = [TTTAttributedLabel new];
-	[label setFrame:CGRectMake(20, self.view.frame.size.height-100, 280, 100)];
-	[label setBackgroundColor:[UIColor clearColor]];
-	[label setNumberOfLines:2];
-	[label setText:attributedText];
-	[self.view addSubview:label];
-	[label release];
+	//[label setFrame:];
+	UIView* termsView = [GTIOSignInTermsView termsView];
+	[termsView setFrame:CGRectMake(20, self.view.frame.size.height-100, 280, 100)];
+	[self.view addSubview:termsView];
 }
 
 - (void)viewDidUnload

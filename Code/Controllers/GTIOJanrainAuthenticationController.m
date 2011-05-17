@@ -10,7 +10,7 @@
 #import "GTIOUser.h"
 #import "GTIOTitleView.h"
 #import "JREngage+CustomInterface.h"
-
+#import "GTIOSignInTermsView.h"
 @implementation GTIOJanrainAuthenticationController
 
 +(void)showAuthenticationDialog {
@@ -30,8 +30,12 @@
 	[header setFont:[UIFont boldSystemFontOfSize:12]];
 	[header setTextColor:[UIColor colorWithRed:0.506 green:0.506 blue:0.506 alpha:1]];
 	
-	NSArray* objects = [NSArray arrayWithObjects:backgroundImage,titleView,header,[UIColor clearColor],nil]; 
-	NSArray* keys = [NSArray arrayWithObjects:kJRAuthenticationBackgroundImageView,kJRProviderTableTitleView,kJRProviderTableHeaderView,kJRAuthenticationBackgroundColor,nil];
+	UIView* terms = [[UIView alloc] initWithFrame:CGRectMake(0,0,320,250)];
+	[terms setBackgroundColor:[UIColor clearColor]];
+	[terms addSubview:[GTIOSignInTermsView termsView]];
+	
+	NSArray* objects = [NSArray arrayWithObjects:backgroundImage,titleView,header,[UIColor clearColor],terms,nil]; 
+	NSArray* keys = [NSArray arrayWithObjects:kJRAuthenticationBackgroundImageView,kJRProviderTableTitleView,kJRProviderTableHeaderView,kJRAuthenticationBackgroundColor,kJRProviderTableSectionFooterView,nil];
 	NSDictionary* params = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[engage showAuthenticationDialogWithCustomInterface:params];	
 }
