@@ -9,6 +9,8 @@
 #import "GTIOPaginationTableViewDelegate.h"
 #import <Three20UI/TTTableHeaderDragRefreshView.h>
 #import "GTIOPaginatedTTModel.h"
+#import "GTIOOutfitTableViewItem.h"
+#import "GTIOOutfitViewController.h"
 
 //#define kTableViewEdgeInsets UIEdgeInsetsMake(8, 0, 0, 0)
 #define kTableViewEdgeInsets UIEdgeInsetsMake(0, 0, 0, 0)

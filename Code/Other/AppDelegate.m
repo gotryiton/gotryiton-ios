@@ -117,6 +117,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user", @"user")];
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isNew",@"isNew")];
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"photos", @"photos")];
+    [provider setMapping:outfitMapping forKeyPath:@"outfit"];
     
     RKObjectMapping* badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"type", @"type")];
