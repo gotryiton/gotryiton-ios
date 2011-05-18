@@ -24,6 +24,7 @@
         [self setTitleColor:gray forState:UIControlStateSelected];
         [self setTitleColor:gray forState:UIControlStateHighlighted];
         [self setTitleColor:gray forState:UIControlStateSelected|UIControlStateHighlighted];
+        self.titleLabel.font = kGTIOFetteFontOfSize(18);
     }
     return self;
 }
@@ -67,8 +68,7 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor grayColor];
-        // Initialization code
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tabs3-background.png"]];
     }
     return self;
 }
@@ -88,7 +88,9 @@
         GTIOTab* tab = [_tabs objectAtIndex:i];
         tab.frame = CGRectMake(floor(rect.origin.x + width * i), rect.origin.y, floor(width), rect.size.height);
         CGRect titleLabelFrame = tab.titleLabel.frame;
-        tab.titleEdgeInsets = UIEdgeInsetsMake(0,0,3,width - titleLabelFrame.size.width - 12);
+        if (tab.titleLabel.text) {
+            tab.titleEdgeInsets = UIEdgeInsetsMake(0,6,0,tab.frame.size.width - titleLabelFrame.size.width - 12);// - 12
+        }
     }
 }
 
@@ -114,6 +116,7 @@
     [names retain];
     [_tabNames release];
     _tabNames = names;
+    [self removeAllSubviews];
     [_tabs release];
     _tabs = [NSMutableArray new];
     
