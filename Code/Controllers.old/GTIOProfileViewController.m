@@ -164,7 +164,6 @@
 	ds.model = [[GTIOMapGlobalsTTModel alloc] initWithResourcePath:path
                                                             params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
 															method:RKRequestMethodGET];
-    NSLog(@"params = %@",params);
 	self.dataSource = ds;
 }
 
