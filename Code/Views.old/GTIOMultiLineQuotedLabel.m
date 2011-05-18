@@ -24,7 +24,7 @@
     CGSize size;
     
     float lineHeight = 16;
-    float xAlignment = 15;
+    float xAlignment = 12;
 	int maxLines = floor(rect.size.height/lineHeight);
 	
 	float maxWidth = rect.size.width - xAlignment - 10;
@@ -33,8 +33,7 @@
 	
     if (draw) {
         [kGTIOColorBrightPink set];
-        int xOffset = (TTOSVersion() >= 3.2 ? -2 : 0);
-        [@"“" drawAtPoint:CGPointMake(xOffset,-5) withFont:[UIFont systemFontOfSize:37]];
+        [@"“" drawAtPoint:CGPointMake(0,-5) withFont:[UIFont systemFontOfSize:37]];
     }
 	NSString* textLeftToWrite = _text;
 	for (int line = 0; line < maxLines; line++) {

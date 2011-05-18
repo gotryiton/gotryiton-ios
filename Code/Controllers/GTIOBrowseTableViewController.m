@@ -328,7 +328,7 @@
                 [_sortTabBar removeFromSuperview];
                 [_sortTabBar release];
                 NSLog(@"Sort Tabs: %@", list.sortTabs);
-                _sortTabBar = [[GTIOTabBar alloc] initWithFrame:CGRectMake(0,0,320,30)];
+                _sortTabBar = [[GTIOTabBar alloc] initWithFrame:CGRectMake(0,0,320,37)];
                 for (GTIOSortTab* tab in list.sortTabs) {
                     if ([tab.selected boolValue] == YES) {
                         [_sortTabBar setSelectedTabIndex:[list.sortTabs indexOfObject:tab]];

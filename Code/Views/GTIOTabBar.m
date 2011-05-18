@@ -17,28 +17,40 @@
 
 @implementation GTIOTab
 
+- (id)initWithFrame:(CGRect)frame {
+    if ((self = [super initWithFrame:frame])) {
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        UIColor* gray = RGBCOLOR(47,47,47);
+        [self setTitleColor:gray forState:UIControlStateSelected];
+        [self setTitleColor:gray forState:UIControlStateHighlighted];
+        [self setTitleColor:gray forState:UIControlStateSelected|UIControlStateHighlighted];
+        self.titleLabel.font = kGTIOFetteFontOfSize(18);
+    }
+    return self;
+}
+
 - (void)setRelativePosition:(NSInteger)pos {
     NSString* unselectedImageName;
     NSString* selectedImageName;
     switch (pos) {
         case -1:
-            unselectedImageName = @"tabs-recent-off.png";
-            selectedImageName = @"tabs-recent-on.png";
+            unselectedImageName = @"tabs3-1-off.png";
+            selectedImageName = @"tabs3-1-on.png";
             // set images for left tab
             break;
         case 0:
-            unselectedImageName = @"tabs-popular-off.png";
-            selectedImageName = @"tabs-popular-on.png";
+            unselectedImageName = @"tabs3-2-off.png";
+            selectedImageName = @"tabs3-2-on.png";
             // set images for right tab
             break;
         default:
-            unselectedImageName = @"tabs-search-off.png";
-            selectedImageName = @"tabs-search-pink.png";
+            unselectedImageName = @"tabs3-3-off.png";
+            selectedImageName = @"tabs3-3-on.png";
             // set images for center tab
             break;
     }
-    UIImage* unselectedImage = [[UIImage imageNamed:unselectedImageName] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    UIImage* selectedImage = [[UIImage imageNamed:selectedImageName] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+    UIImage* unselectedImage = [[UIImage imageNamed:unselectedImageName] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
+    UIImage* selectedImage = [[UIImage imageNamed:selectedImageName] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
     [self setBackgroundImage:unselectedImage forState:UIControlStateNormal];
     [self setBackgroundImage:selectedImage forState:UIControlStateSelected];
     [self setBackgroundImage:selectedImage forState:UIControlStateHighlighted];
@@ -56,8 +68,7 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor grayColor];
-        // Initialization code
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tabs3-background.png"]];
     }
     return self;
 }
@@ -70,14 +81,16 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    CGRect rect = CGRectInset(self.bounds, 5, 5);
+    CGRect rect = CGRectOffset(CGRectInset(self.bounds, 5, 3), 0, 3);
     float width = rect.size.width / [_tabs count];
     
     for (int i = 0;i < [_tabs count];i++) {
         GTIOTab* tab = [_tabs objectAtIndex:i];
-        tab.frame = CGRectMake(rect.origin.x + width * i, rect.origin.y, width, rect.size.height);
+        tab.frame = CGRectMake(floor(rect.origin.x + width * i), rect.origin.y, floor(width), rect.size.height);
         CGRect titleLabelFrame = tab.titleLabel.frame;
-        tab.titleEdgeInsets = UIEdgeInsetsMake(0,0,0,width - titleLabelFrame.size.width - 10);
+        if (tab.titleLabel.text) {
+            tab.titleEdgeInsets = UIEdgeInsetsMake(0,6,0,tab.frame.size.width - titleLabelFrame.size.width - 12);// - 12
+        }
     }
 }
 
@@ -103,6 +116,7 @@
     [names retain];
     [_tabNames release];
     _tabNames = names;
+    [self removeAllSubviews];
     [_tabs release];
     _tabs = [NSMutableArray new];
     

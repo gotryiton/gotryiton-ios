@@ -12,6 +12,7 @@
 @interface GTIOUserReviewTableItemCell : GTIOTableItemCellWithQuote {
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
+    UILabel* _scoreLabel;
 	GTIOUserReviewTableItem* _reviewItem;
 }
 

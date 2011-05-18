@@ -15,17 +15,17 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
 	if (self = [super initWithStyle:style reuseIdentifier:identifier]) {
 		_verdictTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_verdictTextLabel.font = kGTIOFontBoldHelveticaNeueOfSize(10);
+		_verdictTextLabel.font = kGTIOFontBoldHelveticaNeueOfSize(12);
 		_verdictTextLabel.text = @"VERDICT";
 		_verdictTextLabel.textColor = kGTIOColor9A9A9A;
 		_verdictTextLabel.backgroundColor = [UIColor clearColor];
 		[[self contentView] addSubview:_verdictTextLabel];
 		_verdictLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_verdictLabel.font = kGTIOFontHelveticaNeueOfSize(15);
+		_verdictLabel.font = kGTIOFontHelveticaNeueOfSize(12);
 		_verdictLabel.textColor = kGTIOColorED139A;
 		_verdictLabel.backgroundColor = [UIColor clearColor];
 		[[self contentView] addSubview:_verdictLabel];
-		self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell-my-outfits.png"]];
+		self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell-default.png"]];
 	}
 	return self;
 }
@@ -38,14 +38,10 @@
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-	_verdictTextLabel.frame = CGRectMake(95, 60, 200, 18);
-	_verdictLabel.frame = CGRectMake(95, 70, 200, 28);
-	[_verdictLabel setClipsToBounds:NO];
-	[self layoutQuote];
-	_leftQuoteLabel.frame = CGRectOffset(_leftQuoteLabel.frame, 6, 1);
-	_rightQuoteLabel.frame = CGRectOffset(_rightQuoteLabel.frame, 6, 1);
-	_quotedLabel.frame = CGRectOffset(_quotedLabel.frame, 6, 1);
-	_line2Label.frame = CGRectOffset(_line2Label.frame, 6, 1);
+    [_verdictLabel sizeToFit];
+    _verdictLabel.frame = CGRectOffset(_verdictLabel.bounds, self.width - _verdictLabel.width - 13, self.height - 28);
+    [_verdictTextLabel sizeToFit];
+    _verdictTextLabel.frame = CGRectOffset(_verdictLabel.bounds, self.width - _verdictLabel.width - 5 - _verdictTextLabel.width - 13, self.height - 28);
 }
 
 - (NSString*)thumbnailUrlPath {
