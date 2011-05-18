@@ -86,7 +86,7 @@
     
     for (int i = 0;i < [_tabs count];i++) {
         GTIOTab* tab = [_tabs objectAtIndex:i];
-        tab.frame = CGRectMake(floor(rect.origin.x + width * i), rect.origin.y, width, rect.size.height);
+        tab.frame = CGRectMake(floor(rect.origin.x + width * i), rect.origin.y, floor(width), rect.size.height);
         CGRect titleLabelFrame = tab.titleLabel.frame;
         tab.titleEdgeInsets = UIEdgeInsetsMake(0,0,3,width - titleLabelFrame.size.width - 12);
     }
