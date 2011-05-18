@@ -1776,12 +1776,6 @@
 		A7C62BF5137C2CFB00F89D4F /* cell-my-outfits@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628AC137C2CFB00F89D4F /* cell-my-outfits@2x.png */; };
 		A7C62BF6137C2CFB00F89D4F /* cell-my-outfits@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628AC137C2CFB00F89D4F /* cell-my-outfits@2x.png */; };
 		A7C62BF7137C2CFB00F89D4F /* cell-my-outfits@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628AC137C2CFB00F89D4F /* cell-my-outfits@2x.png */; };
-		A7C62BF8137C2CFB00F89D4F /* cell-my-reviews.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628AD137C2CFB00F89D4F /* cell-my-reviews.png */; };
-		A7C62BF9137C2CFB00F89D4F /* cell-my-reviews.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628AD137C2CFB00F89D4F /* cell-my-reviews.png */; };
-		A7C62BFA137C2CFB00F89D4F /* cell-my-reviews.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628AD137C2CFB00F89D4F /* cell-my-reviews.png */; };
-		A7C62BFB137C2CFB00F89D4F /* cell-my-reviews@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628AE137C2CFB00F89D4F /* cell-my-reviews@2x.png */; };
-		A7C62BFC137C2CFB00F89D4F /* cell-my-reviews@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628AE137C2CFB00F89D4F /* cell-my-reviews@2x.png */; };
-		A7C62BFD137C2CFB00F89D4F /* cell-my-reviews@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628AE137C2CFB00F89D4F /* cell-my-reviews@2x.png */; };
 		A7C62BFE137C2CFB00F89D4F /* outfit-pull-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628B0137C2CFB00F89D4F /* outfit-pull-arrow.png */; };
 		A7C62BFF137C2CFB00F89D4F /* outfit-pull-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628B0137C2CFB00F89D4F /* outfit-pull-arrow.png */; };
 		A7C62C00137C2CFB00F89D4F /* outfit-pull-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C628B0137C2CFB00F89D4F /* outfit-pull-arrow.png */; };
@@ -3468,8 +3462,6 @@
 		A7C628A7137C2CFB00F89D4F /* wear-it-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wear-it-off@2x.png"; sourceTree = "<group>"; };
 		A7C628AB137C2CFB00F89D4F /* cell-my-outfits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-my-outfits.png"; sourceTree = "<group>"; };
 		A7C628AC137C2CFB00F89D4F /* cell-my-outfits@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-my-outfits@2x.png"; sourceTree = "<group>"; };
-		A7C628AD137C2CFB00F89D4F /* cell-my-reviews.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-my-reviews.png"; sourceTree = "<group>"; };
-		A7C628AE137C2CFB00F89D4F /* cell-my-reviews@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-my-reviews@2x.png"; sourceTree = "<group>"; };
 		A7C628B0137C2CFB00F89D4F /* outfit-pull-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-pull-arrow.png"; sourceTree = "<group>"; };
 		A7C628B1137C2CFB00F89D4F /* outfit-pull-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-pull-arrow@2x.png"; sourceTree = "<group>"; };
 		A7C628B2137C2CFB00F89D4F /* outfit-pull-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-pull-background.png"; sourceTree = "<group>"; };
@@ -5261,8 +5253,6 @@
 			children = (
 				A7C628AB137C2CFB00F89D4F /* cell-my-outfits.png */,
 				A7C628AC137C2CFB00F89D4F /* cell-my-outfits@2x.png */,
-				A7C628AD137C2CFB00F89D4F /* cell-my-reviews.png */,
-				A7C628AE137C2CFB00F89D4F /* cell-my-reviews@2x.png */,
 			);
 			path = "outfit-cells";
 			sourceTree = "<group>";
@@ -6353,8 +6343,6 @@
 				A7C62BE9137C2CFB00F89D4F /* wear-it-off@2x.png in Resources */,
 				A7C62BF2137C2CFB00F89D4F /* cell-my-outfits.png in Resources */,
 				A7C62BF5137C2CFB00F89D4F /* cell-my-outfits@2x.png in Resources */,
-				A7C62BF8137C2CFB00F89D4F /* cell-my-reviews.png in Resources */,
-				A7C62BFB137C2CFB00F89D4F /* cell-my-reviews@2x.png in Resources */,
 				A7C62BFE137C2CFB00F89D4F /* outfit-pull-arrow.png in Resources */,
 				A7C62C01137C2CFB00F89D4F /* outfit-pull-arrow@2x.png in Resources */,
 				A7C62C04137C2CFB00F89D4F /* outfit-pull-background.png in Resources */,
@@ -6915,8 +6903,6 @@
 				A7C62BEA137C2CFB00F89D4F /* wear-it-off@2x.png in Resources */,
 				A7C62BF3137C2CFB00F89D4F /* cell-my-outfits.png in Resources */,
 				A7C62BF6137C2CFB00F89D4F /* cell-my-outfits@2x.png in Resources */,
-				A7C62BF9137C2CFB00F89D4F /* cell-my-reviews.png in Resources */,
-				A7C62BFC137C2CFB00F89D4F /* cell-my-reviews@2x.png in Resources */,
 				A7C62BFF137C2CFB00F89D4F /* outfit-pull-arrow.png in Resources */,
 				A7C62C02137C2CFB00F89D4F /* outfit-pull-arrow@2x.png in Resources */,
 				A7C62C05137C2CFB00F89D4F /* outfit-pull-background.png in Resources */,
@@ -7480,8 +7466,6 @@
 				A7C62BEB137C2CFB00F89D4F /* wear-it-off@2x.png in Resources */,
 				A7C62BF4137C2CFB00F89D4F /* cell-my-outfits.png in Resources */,
 				A7C62BF7137C2CFB00F89D4F /* cell-my-outfits@2x.png in Resources */,
-				A7C62BFA137C2CFB00F89D4F /* cell-my-reviews.png in Resources */,
-				A7C62BFD137C2CFB00F89D4F /* cell-my-reviews@2x.png in Resources */,
 				A7C62C00137C2CFB00F89D4F /* outfit-pull-arrow.png in Resources */,
 				A7C62C03137C2CFB00F89D4F /* outfit-pull-arrow@2x.png in Resources */,
 				A7C62C06137C2CFB00F89D4F /* outfit-pull-background.png in Resources */,

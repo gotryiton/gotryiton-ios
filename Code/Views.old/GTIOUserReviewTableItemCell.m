@@ -14,30 +14,47 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
 	if (self = [super initWithStyle:style reuseIdentifier:identifier]) {
 		_locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_locationLabel.font = kGTIOFontHelveticaNeueOfSize(13);
+		_locationLabel.font = kGTIOFontHelveticaNeueOfSize(10);
 		_locationLabel.textColor = kGTIOColor9A9A9A;
 		_locationLabel.backgroundColor = [UIColor clearColor];
 		[[self contentView] addSubview:_locationLabel];
+        
 		_nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_nameLabel.font = kGTIOFetteFontOfSize(20);
-		_nameLabel.textColor = kGTIOColor636363;
+		_nameLabel.font = kGTIOFetteFontOfSize(15);
+		_nameLabel.textColor = kGTIOColor646464;
 		_nameLabel.backgroundColor = [UIColor clearColor];
 		[[self contentView] addSubview:_nameLabel];
-		self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell-my-reviews.png"]];
+        
+        _scoreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _scoreLabel.font = kGTIOFontBoldHelveticaNeueOfSize(15);
+        _scoreLabel.textColor = kGTIOColorBrightPink;
+        _scoreLabel.backgroundColor = [UIColor clearColor];
+        [[self contentView] addSubview:_scoreLabel];
+        
+        self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell-my-reviews.png"]];
 	}
 	return self;
 }
 
 - (void)dealloc {
 	TT_RELEASE_SAFELY(_reviewItem);
+    TT_RELEASE_SAFELY(_scoreLabel);
+    TT_RELEASE_SAFELY(_nameLabel);
+    TT_RELEASE_SAFELY(_locationLabel);
 	[super dealloc];
 }
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-	_nameLabel.frame = CGRectMake(95, 55, 150, 28);
-	_locationLabel.frame = CGRectMake(95, 75, 200, 18);
-	[_locationLabel setClipsToBounds:NO];
+    
+    [_nameLabel sizeToFit];
+	_nameLabel.frame = CGRectMake(100, 75, MIN(_nameLabel.bounds.size.width, 100), _nameLabel.bounds.size.height);
+    
+    [_locationLabel sizeToFit];
+	_locationLabel.frame = CGRectMake(CGRectGetMaxX(_nameLabel.frame) + 5, 75, MIN(_locationLabel.bounds.size.width, 160-_nameLabel.bounds.size.width), 18);
+    
+    [_scoreLabel sizeToFit];
+    _scoreLabel.frame = CGRectMake(self.contentView.bounds.size.width - _scoreLabel.bounds.size.width - 16, 75, _scoreLabel.bounds.size.width, _scoreLabel.bounds.size.height);
 }
 
 - (NSString*)thumbnailUrlPath {
@@ -60,6 +77,8 @@
 	
 	_nameLabel.text = [item.outfit.name uppercaseString];
 	_locationLabel.text = item.outfit.location;
+    // TODO
+    _scoreLabel.text = @"+10";
 	
 	NSString* text = item.outfit.userReview;
 	if ([text length] > 35) {
