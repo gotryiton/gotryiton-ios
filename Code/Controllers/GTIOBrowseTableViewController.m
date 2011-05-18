@@ -360,6 +360,14 @@
     }
 }
 
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    // Note: This means that if the view is unloaded because we run out of memory,
+    // when it is recreated, we are called back with didLoadModel:YES instead of NO
+    // since we didn't really load more.
+    _flags.isModelDidLoadFirstTimeInvalid = YES;
+}
+
 - (void)didLoadModel:(BOOL)firstTime {
     if (firstTime) {
         NSLog(@"Loaded First Time!");
