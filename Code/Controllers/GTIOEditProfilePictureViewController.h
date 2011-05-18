@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "GTIOUserIconOption.h"
 
 @interface GTIOEditProfilePictureViewController : UIViewController <RKObjectLoaderDelegate, UIScrollViewDelegate> {
 	UIScrollView* _scrollView;
 	UISlider* _scrollSlider;
 	BOOL _slidingState;
+	GTIOUserIconOption* _facebookIconOption;
 }
 
 @end
