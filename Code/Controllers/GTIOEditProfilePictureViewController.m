@@ -7,7 +7,6 @@
 //
 
 #import "GTIOEditProfilePictureViewController.h"
-#import "GTIOUserIconOption.h"
 #import "GTIOBarButtonItem.h"
 #import "GTIOUser.h"
 
@@ -15,6 +14,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	self = [super initWithNibName:nil bundle:nil];
 	if (self) {
+		_facebookIconOption = nil;
+		_slidingState = NO;		
 		NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 														[[GTIOUser currentUser] token], @"gtioToken",
 														nil];
@@ -76,7 +77,10 @@
 	[_scrollSlider addTarget:self action:@selector(sliderEditEnd) forControlEvents:UIControlEventTouchUpInside];	 
 	[_scrollSlider addTarget:self action:@selector(sliderEditEnd) forControlEvents:UIControlEventTouchUpOutside];	 	   
 	[self.view addSubview:_scrollSlider];
-	_slidingState = NO;
+	UIButton* clearProfilePictureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[clearProfilePictureButton setImage:[UIImage imageNamed:@"clear-profile-picture-OFF.png"] forState:UIControlStateNormal];
+	[clearProfilePictureButton setFrame:CGRectMake(30,370,120,20)];
+	[self.view addSubview:clearProfilePictureButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
