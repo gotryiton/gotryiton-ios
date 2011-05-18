@@ -10,8 +10,9 @@
 
 
 @interface GTIOEditProfilePictureViewController : UIViewController <RKObjectLoaderDelegate, UIScrollViewDelegate> {
-	UIScrollView* _scrollview;
+	UIScrollView* _scrollView;
 	UISlider* _scrollSlider;
+	BOOL _slidingState;
 }
 
 @end

@@ -56,17 +56,27 @@
 	[choseFromLabel release];
 	[previewLabel release];
 	//	
-	_scrollview = [UIScrollView new];
-	[_scrollview setBounces:NO];
-	[_scrollview setDelegate:self];
-	[_scrollview setFrame:CGRectMake(10,70,300,110)];
-	[_scrollview setShowsHorizontalScrollIndicator:NO];
-	[_scrollview setShowsVerticalScrollIndicator:NO];
-	[self.view addSubview:_scrollview];
+	_scrollView = [UIScrollView new];
+	[_scrollView setBounces:NO];
+	[_scrollView setDelegate:self];
+	[_scrollView setFrame:CGRectMake(10,60,300,110)];
+	[_scrollView setShowsHorizontalScrollIndicator:NO];
+	[_scrollView setShowsVerticalScrollIndicator:NO];
+	[self.view addSubview:_scrollView];
 	_scrollSlider = [UISlider new];
-	[_scrollSlider setFrame:CGRectMake(10,190,300,25)];
+	[_scrollSlider setFrame:CGRectMake(10,175,200,25)];
 	[_scrollSlider setValue:0];
+	UIImage* trackImage = [[UIImage imageNamed:@"profile-picture-edit-scroll-under.png"] stretchableImageWithLeftCapWidth:2 topCapHeight:0];
+	UIImage* thumbImage = [UIImage imageNamed:@"profile-picture-edit-scroll-over.png"];
+	[_scrollSlider setMaximumTrackImage:trackImage forState:UIControlStateNormal];	
+	[_scrollSlider setMinimumTrackImage:trackImage forState:UIControlStateNormal];
+	[_scrollSlider setThumbImage:thumbImage forState:UIControlStateNormal];
+	[_scrollSlider addTarget:self action:@selector(sliderValueDidChange) forControlEvents:UIControlEventValueChanged];
+	[_scrollSlider addTarget:self action:@selector(sliderEditBegin) forControlEvents:UIControlEventTouchDown];
+	[_scrollSlider addTarget:self action:@selector(sliderEditEnd) forControlEvents:UIControlEventTouchUpInside];	 
+	[_scrollSlider addTarget:self action:@selector(sliderEditEnd) forControlEvents:UIControlEventTouchUpOutside];	 	   
 	[self.view addSubview:_scrollSlider];
+	_slidingState = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -87,10 +97,10 @@
 		TTImageView* image = [[TTImageView alloc] init];
 		[image setFrame:CGRectMake(i*110,0,110,110)];
 		image.urlPath = option.url;
-		[_scrollview addSubview:image];
+		[_scrollView addSubview:image];
 		i+=1;			
 	} 
-	[_scrollview setContentSize:CGSizeMake(i*110,110)];
+	[_scrollView setContentSize:CGSizeMake(i*110,110)];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
@@ -98,8 +108,23 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	NSLog(@"%f",scrollView.contentOffset.x/(scrollView.contentSize.width - scrollView.frame.size.width));
-	[_scrollSlider setValue:scrollView.contentOffset.x/(scrollView.contentSize.width - scrollView.frame.size.width)];
+	if (!_slidingState) {
+		[_scrollSlider setValue:scrollView.contentOffset.x/(scrollView.contentSize.width - scrollView.frame.size.width)];
+	}
+}
+
+- (void)sliderValueDidChange {
+	CGFloat newHorizontalContentOffset = _scrollSlider.value * _scrollView.contentSize.width;
+	CGRect newVisibleRect = CGRectMake(newHorizontalContentOffset,0,110,110);
+	[_scrollView scrollRectToVisible:newVisibleRect animated:NO];
+}
+
+- (void)sliderEditBegin {
+	_slidingState = YES;
+}
+
+- (void)sliderEditEnd {
+	_slidingState = NO;
 }
 
 @end
