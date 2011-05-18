@@ -14,22 +14,20 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
 	if (self = [super initWithStyle:style reuseIdentifier:identifier]) {
 		_nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_nameLabel.font = kGTIOFetteFontOfSize(22);
-		_nameLabel.textColor = [UIColor colorWithRed:0.388 green:0.388 blue:0.388 alpha:1.0];
+		_nameLabel.font = kGTIOFetteFontOfSize(24);
+		_nameLabel.textColor = kGTIOColor646464;
 		_nameLabel.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:_nameLabel];
 		
 		_locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_locationLabel.font = kGTIOFontHelveticaNeueOfSize(16);
-		_locationLabel.textColor = [UIColor colorWithRed:0.604 green:0.604 blue:0.604 alpha:1.0];
+		_locationLabel.font = kGTIOFontHelveticaNeueOfSize(14.5);
+		_locationLabel.textColor = kGTIOColorA5A5A5;
 		_locationLabel.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:_locationLabel];
 		
-        // TODO: badges?
-		
 		_eventLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_eventLabel.textColor = kGTIOColorBrightPink;
-		_eventLabel.font = kGTIOFontHelveticaNeueOfSize(14);
+		_eventLabel.font = kGTIOFontHelveticaNeueOfSize(15);
 		_eventLabel.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:_eventLabel];
 	}
@@ -49,18 +47,14 @@
 	[super layoutSubviews];
 	
 	[_nameLabel sizeToFit];
-	_nameLabel.frame = CGRectMake(100, 21, 195, _nameLabel.bounds.size.height);
+	_nameLabel.frame = CGRectMake(100, 23, MIN(_nameLabel.bounds.size.width, 195), _nameLabel.bounds.size.height);
 	
 	[_locationLabel sizeToFit];
-	if (TTOSVersion() >= 3.2) {
-		_locationLabel.frame = CGRectMake(100, 38, 210, _locationLabel.bounds.size.height);
-	} else {
-		_locationLabel.frame = CGRectMake(100, 41, 210, _locationLabel.bounds.size.height);
-	}
-	[_eventLabel sizeToFit];
-	_eventLabel.frame = CGRectOffset(_eventLabel.bounds, self.width - _eventLabel.width - 14, self.height - 28);
+    _locationLabel.frame = CGRectMake(100, 23+18, 210, _locationLabel.bounds.size.height);
     
-    [_nameLabel sizeToFit];
+	[_eventLabel sizeToFit];
+	_eventLabel.frame = CGRectOffset(_eventLabel.bounds, self.width - _eventLabel.width - 13, self.height - 30);
+    
     int i = 0;
     for (UIView* view in _badgeImageViews) {
         view.frame = CGRectMake(100+_nameLabel.width+5+i*(16+5), 2+_locationLabel.height, 16, 16);

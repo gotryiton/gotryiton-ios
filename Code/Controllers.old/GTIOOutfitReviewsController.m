@@ -261,16 +261,7 @@
 //	NSLog(@"Objects: %@", [(RKRequestTTModel*)self.model objects]);
 	NSMutableArray* items = [NSMutableArray array];
 	
-	NSArray* reviews = nil;
-	for (id object in [(RKRequestTTModel*)self.model objects]) {
-		if ([object isKindOfClass:[NSDictionary class]]) {
-			id val = [object valueForKey:@"reviews"];
-			if (val) {
-				reviews = val;
-				break;
-			}
-		}
-	}
+	NSArray* reviews = [(RKRequestTTModel*)self.model objects];
     
 	for (GTIOReview* review in reviews) {
 		[items addObject:[GTIOOutfitReviewTableItem itemWithReview:review]];

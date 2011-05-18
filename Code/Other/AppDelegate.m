@@ -71,13 +71,14 @@ void uncaughtExceptionHandler(NSException *exception) {
     [provider setMapping:alertMapping forKeyPath:@"alert"];
     
     RKObjectMapping* reviewMapping = [RKObjectMapping mappingForClass:[GTIOReview class]];
-    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"outfitID", @"outfitId")];
+    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"outfitId", @"outfitID")];
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"uid", @"uid")];
-    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"reviewID", @"reviewId")];
+    [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"reviewId", @"reviewID")];
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"timestamp", @"timestamp")];
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"text", @"text")];
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"agreeVotes", @"agreeVotes")];
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"flags", @"flags")];
+    [provider setMapping:reviewMapping forKeyPath:@"reviews"];
     
     RKObjectMapping* votingResultsMapping = [RKObjectMapping mappingForClass:[GTIOVotingResultSet class]];
     [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"reasons", @"reasons")];
@@ -142,13 +143,13 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"userStats", @"userStats")];
     [provider setMapping:profileMapping forKeyPath:@"user"];
     
-		RKObjectMapping* userIconOptionMapping = [RKObjectMapping mappingForClass:[GTIOUserIconOption class]];
-		[userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"url",@"url")];
-		[userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"type",@"type")];
-		[userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"width",@"width")];
-		[userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"height",@"height")];
-		[userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"selected",@"selected")];
-		[provider setMapping:userIconOptionMapping forKeyPath:@"userIconOptions"];
+    RKObjectMapping* userIconOptionMapping = [RKObjectMapping mappingForClass:[GTIOUserIconOption class]];
+    [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"url",@"url")];
+    [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"type",@"type")];
+    [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"width",@"width")];
+    [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"height",@"height")];
+    [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"selected",@"selected")];
+    [provider setMapping:userIconOptionMapping forKeyPath:@"userIconOptions"];
 	
     RKObjectMapping* changeItReasonsMapping = [RKObjectMapping mappingForClass:[GTIOChangeItReason class]];
     [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"reasonID")];
