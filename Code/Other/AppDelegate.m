@@ -186,6 +186,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"categories" toKeyPath:@"categories" objectMapping:categoryMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"sortTabs" toKeyPath:@"sortTabs" objectMapping:sortTabMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"stylists" toKeyPath:@"stylists" objectMapping:profileMapping]];
     
     [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user" toKeyPath:@"user" objectMapping:profileMapping]];
     
@@ -275,6 +276,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	[map from:@"gtio://getAnOpinion/photos/new" toObject:session selector:@selector(presentPhotoSourceActionSheetWithoutGuidelines)];
 	[map from:@"gtio://getAnOpinion/photos/edit/(editPhoto:)" toObject:session selector:@selector(editPhoto:)];
+    
+    [map from:@"gtio://stylists" toViewController:NSClassFromString(@"GTIOMyStylistsTableViewController")];
 	
 	// step1/next for the current next
 	// cancel will drop it anywhere

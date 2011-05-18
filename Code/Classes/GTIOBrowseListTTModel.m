@@ -49,6 +49,7 @@
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
+    // don't call super here.
     ;
 }
 

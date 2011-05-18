@@ -20,6 +20,7 @@
 @synthesize outfits = _outfits;
 @synthesize searchAPI = _searchAPI;
 @synthesize sortTabs = _sortTabs;
+@synthesize stylists = _stylists;
 
 - (void)dealloc {
     [_title release];
@@ -31,6 +32,7 @@
     [_outfits release];
     [_searchAPI release];
     [_sortTabs release];
+    [_stylists release];
     [super dealloc];
 }
 

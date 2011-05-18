@@ -153,6 +153,9 @@
 		3F82E881137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */; };
 		3F82E882137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */; };
 		3F82E883137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */; };
+		3F9EC686138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */; };
+		3F9EC687138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */; };
+		3F9EC688138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */; };
 		3FA6549E1384218400CC1106 /* tabs3-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654921384218400CC1106 /* tabs3-background.png */; };
 		3FA6549F1384218400CC1106 /* tabs3-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654921384218400CC1106 /* tabs3-background.png */; };
 		3FA654A01384218400CC1106 /* tabs3-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654921384218400CC1106 /* tabs3-background.png */; };
@@ -2831,6 +2834,8 @@
 		3F82E87B137D828D00F8FE1A /* GTIOCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCategory.m; sourceTree = "<group>"; };
 		3F82E87F137D9D7800F8FE1A /* GTIOBrowseListTTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseListTTModel.h; sourceTree = "<group>"; };
 		3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseListTTModel.m; sourceTree = "<group>"; };
+		3F9EC684138449C0008E816A /* GTIOMyStylistsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMyStylistsTableViewController.h; sourceTree = "<group>"; };
+		3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMyStylistsTableViewController.m; sourceTree = "<group>"; };
 		3FA654921384218400CC1106 /* tabs3-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-background.png"; sourceTree = "<group>"; };
 		3FA654931384218400CC1106 /* tabs3-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-background@2x.png"; sourceTree = "<group>"; };
 		3FA654941384218400CC1106 /* tabs3-1-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-1-on.png"; sourceTree = "<group>"; };
@@ -5391,6 +5396,8 @@
 				A70F09A11381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m */,
 				A765B4FD1382F94300DD1610 /* GTIOEditProfilePictureViewController.h */,
 				A765B4FE1382F94300DD1610 /* GTIOEditProfilePictureViewController.m */,
+				3F9EC684138449C0008E816A /* GTIOMyStylistsTableViewController.h */,
+				3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */,
 			);
 			name = Controllers;
 			path = Code/Controllers;
@@ -7796,6 +7803,7 @@
 				A73498C81382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
 				A765B4FF1382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */,
 				A765B509138302FE00DD1610 /* GTIOUserIconOption.m in Sources */,
+				3F9EC686138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7949,6 +7957,7 @@
 				A73498C91382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
 				A765B5001382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */,
 				A765B50A138302FE00DD1610 /* GTIOUserIconOption.m in Sources */,
+				3F9EC687138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8147,6 +8156,7 @@
 				A73498CA1382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
 				A765B5011382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */,
 				A765B50B138302FE00DD1610 /* GTIOUserIconOption.m in Sources */,
+				3F9EC688138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

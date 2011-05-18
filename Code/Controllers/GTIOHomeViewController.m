@@ -75,7 +75,9 @@
 
 #pragma mark - Actions
 
-- (IBAction)myStylistsButtonWasPressed {}
+- (IBAction)myStylistsButtonWasPressed {
+    TTOpenURL(@"gtio://stylists");
+}
 - (IBAction)featuredButtonWasPressed {}
 
 - (IBAction)myLooksButtonWasPressed {
