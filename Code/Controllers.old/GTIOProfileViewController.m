@@ -163,7 +163,8 @@
 	GTIOProfileViewDataSource* ds = (GTIOProfileViewDataSource*)[GTIOProfileViewDataSource dataSourceWithObjects:nil];
 	ds.model = [[GTIOMapGlobalsTTModel alloc] initWithResourcePath:path
                                                             params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
-															method:RKRequestMethodPOST];
+															method:RKRequestMethodGET];
+    NSLog(@"params = %@",params);
 	self.dataSource = ds;
 }
 
