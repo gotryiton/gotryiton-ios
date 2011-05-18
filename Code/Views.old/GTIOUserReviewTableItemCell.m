@@ -38,7 +38,6 @@
 	_nameLabel.frame = CGRectMake(95, 55, 150, 28);
 	_locationLabel.frame = CGRectMake(95, 75, 200, 18);
 	[_locationLabel setClipsToBounds:NO];
-	[self layoutQuote];
 }
 
 - (NSString*)thumbnailUrlPath {

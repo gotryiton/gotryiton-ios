@@ -25,7 +25,7 @@
 		_verdictLabel.textColor = kGTIOColorED139A;
 		_verdictLabel.backgroundColor = [UIColor clearColor];
 		[[self contentView] addSubview:_verdictLabel];
-		self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell-my-outfits.png"]];
+		self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell-default.png"]];
 	}
 	return self;
 }
@@ -41,11 +41,6 @@
 	_verdictTextLabel.frame = CGRectMake(95, 60, 200, 18);
 	_verdictLabel.frame = CGRectMake(95, 70, 200, 28);
 	[_verdictLabel setClipsToBounds:NO];
-	[self layoutQuote];
-	_leftQuoteLabel.frame = CGRectOffset(_leftQuoteLabel.frame, 6, 1);
-	_rightQuoteLabel.frame = CGRectOffset(_rightQuoteLabel.frame, 6, 1);
-	_quotedLabel.frame = CGRectOffset(_quotedLabel.frame, 6, 1);
-	_line2Label.frame = CGRectOffset(_line2Label.frame, 6, 1);
 }
 
 - (NSString*)thumbnailUrlPath {
