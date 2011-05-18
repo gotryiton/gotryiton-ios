@@ -162,8 +162,8 @@
 	
 	GTIOProfileViewDataSource* ds = (GTIOProfileViewDataSource*)[GTIOProfileViewDataSource dataSourceWithObjects:nil];
 	ds.model = [[GTIOMapGlobalsTTModel alloc] initWithResourcePath:path
-																													params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
-																													method:RKRequestMethodPOST];
+                                                            params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
+															method:RKRequestMethodPOST];
 	self.dataSource = ds;
 }
 
@@ -239,21 +239,21 @@
 
 - (void)registerForNotifications {
 	[[NSNotificationCenter defaultCenter] addObserver:self 
-																					 selector:@selector(handleUserStateChangedNotification:) 
-																							 name:kGTIOUserDidLoginNotificationName 
-																						 object:nil];
+                                             selector:@selector(handleUserStateChangedNotification:) 
+												 name:kGTIOUserDidLoginNotificationName 
+                                               object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self 
-																					 selector:@selector(handleUserStateChangedNotification:) 
-																							 name:kGTIOUserDidLogoutNotificationName 
-																						 object:nil];
+                                             selector:@selector(handleUserStateChangedNotification:) 
+												 name:kGTIOUserDidLogoutNotificationName 
+												 object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self 
-																					 selector:@selector(handleUserStateChangedNotification:) 
-																							 name:kGTIOUserDidUpdateProfileNotificationName
-																						 object:nil];
+											 selector:@selector(handleUserStateChangedNotification:) 
+												 name:kGTIOUserDidUpdateProfileNotificationName
+												 object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self
-																					 selector:@selector(handleOutfitUpdatedNotification:)
-																							 name:@"OutfitWasUpdatedNotification"
-																						 object:nil];
+                                             selector:@selector(handleOutfitUpdatedNotification:)
+                                                 name:@"OutfitWasUpdatedNotification"
+												 object:nil];
 }
 
 - (void)unregisterForNotifications {
