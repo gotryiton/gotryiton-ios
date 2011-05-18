@@ -10,7 +10,9 @@
 
 
 @interface GTIOMyStylistsTableViewController : TTTableViewController {
-    
+    UIBarButtonItem* _editButton;
+    UIBarButtonItem* _cancelButton;
+    UIBarButtonItem* _doneButton;
 }
 
 @end

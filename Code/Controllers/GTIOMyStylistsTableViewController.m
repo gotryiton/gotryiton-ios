@@ -13,6 +13,54 @@
 
 @implementation GTIOMyStylistsTableViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _cancelButton = [[UIBarButtonItem alloc] 
+                   initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                   target:self
+                   action:@selector(cancelButtonPressed:)];
+    _doneButton = [[UIBarButtonItem alloc] 
+                   initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                   target:self
+                   action:@selector(doneButtonPressed:)];
+    _editButton = [[UIBarButtonItem alloc] 
+									initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+									target:self
+									action:@selector(editButtonPressed:)];
+	
+	self.navigationItem.rightBarButtonItem = _editButton;
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    [_cancelButton release];
+    _cancelButton = nil;
+    [_doneButton release];
+    _doneButton = nil;
+    [_editButton release];
+    _editButton = nil;
+}
+
+- (void)cancelButtonPressed:(id)sender {
+    [self setEditing:NO animated:YES];
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    [self.navigationItem setRightBarButtonItem:_editButton animated:YES];
+    // TODO: revert any unsaved changes.
+}
+
+- (void)doneButtonPressed:(id)sender {
+    [self setEditing:NO animated:YES];
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    [self.navigationItem setRightBarButtonItem:_editButton animated:YES];
+    // TODO: save changes.
+}
+
+- (void)editButtonPressed:(id)sender {
+    [self setEditing:YES animated:YES];
+    [self.navigationItem setLeftBarButtonItem:_cancelButton animated:YES];
+    [self.navigationItem setRightBarButtonItem:_doneButton animated:YES];
+}
+
 - (void)createModel {
 	NSMutableDictionary* params = [NSMutableDictionary dictionary]; // note, query text is usually nil. only used if we are searching.
 	
