@@ -79,8 +79,9 @@
 - (IBAction)featuredButtonWasPressed {}
 
 - (IBAction)myLooksButtonWasPressed {
-    NSString* looksURL = [NSString stringWithFormat:@"gtio://user_looks/%@", [GTIOUser currentUser].UID];
-    TTOpenURL(looksURL);
+    NSString* apiURL = GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@/looks", [GTIOUser currentUser].UID]);
+    NSString* url = [NSString stringWithFormat:@"gtio://browse/%@", [apiURL stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
+    TTOpenURL(url);
 }
 
 - (IBAction)uploadButtonWasPressed {
@@ -94,8 +95,9 @@
 }
 
 - (IBAction)myReviewsButtonWasPressed {
-    NSString* reviewsURL = [NSString stringWithFormat:@"gtio://user_reviews/%@", [GTIOUser currentUser].UID];
-    TTOpenURL(reviewsURL);
+    NSString* apiURL = GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@/reviews", [GTIOUser currentUser].UID]);
+    NSString* url = [NSString stringWithFormat:@"gtio://browse/%@", [apiURL stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
+    TTOpenURL(url);
 }
 
 - (IBAction)notificationButtonWasPressed {}
