@@ -110,6 +110,7 @@
 	UIButton* clearProfilePictureButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[clearProfilePictureButton setImage:[UIImage imageNamed:@"clear-profile-picture-OFF.png"] forState:UIControlStateNormal];
 	[clearProfilePictureButton setFrame:CGRectMake(30,370,120,20)];
+    [clearProfilePictureButton addTarget:self action:@selector(clearButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:clearProfilePictureButton];
     _myLooksLabel = [UILabel new];
     [_myLooksLabel setFrame:CGRectMake(100,70,75,10)];
@@ -136,6 +137,7 @@
     [[previewBackground layer] setCornerRadius:5];
     [self.view addSubview:previewBackground];
     _previewImageView = [TTImageView new];
+    [_previewImageView setImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
     [_previewImageView setFrame:CGRectMake(44,269,56,56)];
     [self.view addSubview:_previewImageView];
     UIImageView* profileIconOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
@@ -247,6 +249,10 @@
     _currentSelection = [sender tag];
     NSLog(@"selecting option:%@",[_options objectAtIndex:_currentSelection]);
     [_previewImageView setUrlPath:[[_options objectAtIndex:_currentSelection] url]];
+}
+
+- (void)clearButtonAction {
+    [_previewImageView setImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
 }
 
 @end
