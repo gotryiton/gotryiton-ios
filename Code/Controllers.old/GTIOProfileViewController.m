@@ -155,10 +155,10 @@
 	
 	NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@", uid]);
 	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithKeysAndObjects:nil];
-	if (_isShowingCurrentUser) {
-		[params setValue:@"true" forKey:@"requestOutfits"];
-		[params setValue:@"1" forKey:@"limit"];
-	}
+//	if (_isShowingCurrentUser) {
+//		[params setValue:@"true" forKey:@"requestOutfits"];
+//		[params setValue:@"1" forKey:@"limit"];
+//	}
 	
 	GTIOProfileViewDataSource* ds = (GTIOProfileViewDataSource*)[GTIOProfileViewDataSource dataSourceWithObjects:nil];
 	ds.model = [[GTIOMapGlobalsTTModel alloc] initWithResourcePath:path
@@ -193,11 +193,15 @@
 		TTTableTextItem* statsItem = [GTIOTableStatsItem itemWithText:(_isShowingCurrentUser ? @"my stats" : @"stats")];
 		[items addObject:statsItem];		
 		
-		NSString* looksURL = [NSString stringWithFormat:@"gtio://user_looks/%@", profile.uid];
+//		NSString* looksURL = [NSString stringWithFormat:@"gtio://user_looks/%@", profile.uid];
+        NSString* looksApiURL = GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@/looks", profile.uid]);
+        NSString* looksURL = [NSString stringWithFormat:@"gtio://browse/%@", [looksApiURL stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
 		TTTableTextItem* looksItem = [TTTableTextItem itemWithText:(_isShowingCurrentUser ? @"my looks" : @"looks") URL:looksURL];
 		[items addObject:looksItem];
 		
-		NSString* reviewsURL = [NSString stringWithFormat:@"gtio://user_reviews/%@", profile.uid];
+//		NSString* reviewsURL = [NSString stringWithFormat:@"gtio://user_reviews/%@", profile.uid];
+        NSString* reviewsAPIURL = GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@/reviews", profile.uid]);
+        NSString* reviewsURL = [NSString stringWithFormat:@"gtio://browse/%@", [reviewsAPIURL stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
 		TTTableTextItem* reviewsItem = [TTTableTextItem itemWithText:(_isShowingCurrentUser ? @"my reviews" : @"reviews") URL:reviewsURL];
 		[items addObject:reviewsItem];
 		
