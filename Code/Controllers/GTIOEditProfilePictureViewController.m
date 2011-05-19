@@ -12,12 +12,23 @@
 
 @implementation GTIOEditProfilePictureViewController
 
+- (id)initWithName:(NSString*)name location:(NSString*)location {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        _profileName = name;
+        _profileLocation = location;
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	self = [super initWithNibName:nil bundle:nil];
 	if (self) {
 		_facebookIconOption = nil;
         _options = nil;
 		_slidingState = NO;		
+        _profileName = [[GTIOUser currentUser] username];
+        _profileLocation = [NSString stringWithFormat:@"%@, %@",[[GTIOUser currentUser] city],[[GTIOUser currentUser] state]];
 		NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 														[[GTIOUser currentUser] token], @"gtioToken",
 														nil];
@@ -28,6 +39,8 @@
 }
 
 - (void)dealloc {
+    [_options release];
+    _options = nil;
     [_scrollView release];
     _scrollView = nil;
     [_scrollSlider release];
@@ -42,6 +55,8 @@
 
 - (void)loadView {
 	[super loadView];
+    // Background Color
+    UIColor* grayColor = [UIColor colorWithRed:.898 green:.898 blue:.898 alpha:1.0];
 	// Background Image
 	UIImageView* backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"full-wallpaper.png"]];
 	[self.view addSubview:backgroundImageView];
@@ -110,8 +125,39 @@
     [self.view addSubview:_facebookLabel];
     _seperator = [UIView new];
     [_seperator setFrame:CGRectMake(90,60,0.5,100)];
-    [_seperator setBackgroundColor:[UIColor colorWithRed:.898 green:.898 blue:.898 alpha:1.0]];
+    [_seperator setBackgroundColor:grayColor];
     [self.view addSubview:_seperator];
+    //
+    UIView* previewBackground = [UIView new];
+    [previewBackground setFrame:CGRectMake(30,255,260,85)];
+    [previewBackground setBackgroundColor:grayColor];
+    [[previewBackground layer] setBorderColor:[grayColor CGColor]];
+    [[previewBackground layer] setBorderWidth:1];
+    [[previewBackground layer] setCornerRadius:5];
+    [self.view addSubview:previewBackground];
+    _previewImageView = [TTImageView new];
+    [_previewImageView setFrame:CGRectMake(44,269,56,56)];
+    [self.view addSubview:_previewImageView];
+    UIImageView* profileIconOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
+    [profileIconOverlay setFrame:CGRectMake(40,265,64,64)];
+    [self.view addSubview:profileIconOverlay];
+    //
+    UILabel* nameLabel = [UILabel new];
+    UILabel* locationLabel = [UILabel new];
+    [nameLabel      setBackgroundColor:[UIColor clearColor]];
+    [locationLabel  setBackgroundColor:[UIColor clearColor]];
+    [nameLabel      setFont:kGTIOFetteFontOfSize(32)];
+    [locationLabel  setFont:[UIFont systemFontOfSize:14]];
+    [nameLabel      setTextColor:kGTIOColorBrightPink];
+    [locationLabel  setTextColor:kGTIOColorAAAAAA];
+    [nameLabel      setFrame:CGRectMake(120,275,140,30)];
+    [locationLabel  setFrame:CGRectMake(120,300,140,20)];
+    [nameLabel      setText:_profileName];
+    [locationLabel  setText:_profileLocation];
+    [self.view      addSubview:nameLabel];
+    [self.view      addSubview:locationLabel];
+    [nameLabel      release];
+    [locationLabel  release];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -125,7 +171,7 @@
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
-	_options = [dictionary objectForKey:@"userIconOptions"];
+	_options = [[dictionary objectForKey:@"userIconOptions"] retain];
     [self performSelector:@selector(displayOptions)];
 }
 
@@ -140,6 +186,12 @@
             [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
             [[image layer] setBorderWidth:1];
             [self.view addSubview:image];
+            UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setFrame:image.frame];
+            [button setTag:[_options indexOfObject:option]];
+            [button setBackgroundColor:[UIColor clearColor]];
+            [button addTarget:self action:@selector(selectOption:) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:button];
         } else {
             TTImageView* image = [[TTImageView alloc] init];
             [image setFrame:CGRectMake(i*49+i*2.5,0,49,67)];
@@ -147,6 +199,12 @@
             [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
             [[image layer] setBorderWidth:1];
             [_scrollView addSubview:image];
+            UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setFrame:image.frame];
+            [button setTag:[_options indexOfObject:option]];
+            [button setBackgroundColor:[UIColor clearColor]];
+            [button addTarget:self action:@selector(selectOption:) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:button];
             i+=1;			
         }
 	}
@@ -183,6 +241,12 @@
 
 - (void)sliderEditEnd {
 	_slidingState = NO;
+}
+
+- (void)selectOption:(id)sender {
+    _currentSelection = [sender tag];
+    NSLog(@"selecting option:%@",[_options objectAtIndex:_currentSelection]);
+    [_previewImageView setUrlPath:[[_options objectAtIndex:_currentSelection] url]];
 }
 
 @end
