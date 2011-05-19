@@ -7,7 +7,7 @@
 //
 
 #import "GTIOProfileHeaderView.h"
-
+#import "GTIOUser.h"
 
 @implementation GTIOProfileHeaderView
 
@@ -59,12 +59,19 @@
 	[_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5,35,20)];
 	[_editProfileButton addTarget:self action:@selector(editButtonHighlight) forControlEvents:UIControlEventTouchDown];
 	[_editProfileButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [_editProfileButton setHidden:YES];
 	[self addSubview:_editProfileButton];
 	
 	return self;
 }
 
 - (void)displayProfile:(GTIOProfile*)profile {
+    if ([profile.uid isEqualToString:[GTIOUser currentUser].UID] && [[GTIOUser currentUser] isLoggedIn]) {
+        [_editProfileButton setHidden:NO];
+    } else {
+        [_editProfileButton setHidden:YES];
+    }
+
     [_profilePictureImageView setUrlPath:[profile profileIconURL]];
 	_nameLabel.text = [profile.displayName uppercaseString];
 	[_nameLabel setNeedsDisplay];
