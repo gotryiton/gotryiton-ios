@@ -12,7 +12,11 @@
 @interface GTIOEditProfilePictureViewController : UIViewController <RKObjectLoaderDelegate, UIScrollViewDelegate> {
 	UIScrollView* _scrollView;
 	UISlider* _scrollSlider;
+    UILabel* _myLooksLabel;
+    UILabel* _facebookLabel;
+    UIView* _seperator;
 	BOOL _slidingState;
+    NSArray* _options;
 	GTIOUserIconOption* _facebookIconOption;
 }
 

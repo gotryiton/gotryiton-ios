@@ -11,10 +11,12 @@
 #import "GTIOUser.h"
 
 @implementation GTIOEditProfilePictureViewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	self = [super initWithNibName:nil bundle:nil];
 	if (self) {
 		_facebookIconOption = nil;
+        _options = nil;
 		_slidingState = NO;		
 		NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 														[[GTIOUser currentUser] token], @"gtioToken",
@@ -24,6 +26,19 @@
 	}
 	return self;
 }
+
+- (void)dealloc {
+    [_scrollView release];
+    _scrollView = nil;
+    [_scrollSlider release];
+    _scrollSlider = nil;    
+    [_options release];
+    _options = nil;
+    [_facebookIconOption release];
+    _facebookIconOption = nil;
+    [super dealloc];
+}
+
 
 - (void)loadView {
 	[super loadView];
@@ -65,7 +80,7 @@
 	[_scrollView setShowsVerticalScrollIndicator:NO];
 	[self.view addSubview:_scrollView];
 	_scrollSlider = [UISlider new];
-	[_scrollSlider setFrame:CGRectMake(10,175,200,25)];
+	[_scrollSlider setFrame:CGRectMake(100,160,190,25)];
 	[_scrollSlider setValue:0];
 	UIImage* trackImage = [[UIImage imageNamed:@"profile-picture-edit-scroll-under.png"] stretchableImageWithLeftCapWidth:2 topCapHeight:0];
 	UIImage* thumbImage = [UIImage imageNamed:@"profile-picture-edit-scroll-over.png"];
@@ -81,6 +96,22 @@
 	[clearProfilePictureButton setImage:[UIImage imageNamed:@"clear-profile-picture-OFF.png"] forState:UIControlStateNormal];
 	[clearProfilePictureButton setFrame:CGRectMake(30,370,120,20)];
 	[self.view addSubview:clearProfilePictureButton];
+    _myLooksLabel = [UILabel new];
+    [_myLooksLabel setFrame:CGRectMake(100,70,75,10)];
+    [_myLooksLabel setText:@"my looks"];
+    [_myLooksLabel setTextColor:[UIColor colorWithRed:0.745 green:0.745 blue:0.745 alpha:1]];
+    [_myLooksLabel setFont:[UIFont boldSystemFontOfSize:10]];    
+    [self.view addSubview:_myLooksLabel];
+    _facebookLabel = [UILabel new];
+    [_facebookLabel setFrame:CGRectMake(30,70,50,10)];
+    [_facebookLabel setText:@"facebook"];
+    [_facebookLabel setTextColor:[UIColor colorWithRed:0 green:.541 blue:.773 alpha:1.0]];
+    [_facebookLabel setFont:[UIFont boldSystemFontOfSize:10]];
+    [self.view addSubview:_facebookLabel];
+    _seperator = [UIView new];
+    [_seperator setFrame:CGRectMake(90,60,0.5,100)];
+    [_seperator setBackgroundColor:[UIColor colorWithRed:.898 green:.898 blue:.898 alpha:1.0]];
+    [self.view addSubview:_seperator];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,17 +125,40 @@
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
-	//NSLog(@"dictionary: %@", dictionary);
-	NSArray* options = [dictionary objectForKey:@"userIconOptions"];
+	_options = [dictionary objectForKey:@"userIconOptions"];
+    [self performSelector:@selector(displayOptions)];
+}
+
+- (void)displayOptions {
 	int i = 0;
-	for (GTIOUserIconOption* option in options) {
-		TTImageView* image = [[TTImageView alloc] init];
-		[image setFrame:CGRectMake(i*110,0,110,110)];
-		image.urlPath = option.url;
-		[_scrollView addSubview:image];
-		i+=1;			
-	} 
-	[_scrollView setContentSize:CGSizeMake(i*110,110)];
+	for (GTIOUserIconOption* option in _options) {
+        if ([option.type isEqualToString:@"Facebook"]) {
+            _facebookIconOption = option;
+            TTImageView* image = [[TTImageView alloc] init];
+            [image setFrame:CGRectMake(30,90,48,48)];
+            image.urlPath = option.url;
+            [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
+            [[image layer] setBorderWidth:1];
+            [self.view addSubview:image];
+        } else {
+            TTImageView* image = [[TTImageView alloc] init];
+            [image setFrame:CGRectMake(i*49+i*2.5,0,49,67)];
+            image.urlPath = option.url;
+            [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
+            [[image layer] setBorderWidth:1];
+            [_scrollView addSubview:image];
+            i+=1;			
+        }
+	}
+	[_scrollView setContentSize:CGSizeMake(i*49+i*2.5,67)];
+    // Setup Frame For Scroll View
+    if (_facebookIconOption) {
+        [_scrollView setFrame:CGRectMake(100,90,190,67)];
+        [_scrollSlider setFrame:CGRectMake(100,155,190,25)];
+    } else {
+        [_scrollView setFrame:CGRectMake(30,90,260,67)];
+        [_scrollSlider setFrame:CGRectMake(30,155,260,25)];
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
