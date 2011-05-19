@@ -16,6 +16,8 @@
 
 - (id)initWithFrame:(CGRect)frame {
 	self = [super initWithFrame:frame];
+    _shouldAllowEditing = NO;
+    
 	UIImageView* background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dark-top.png"]];
 	[self addSubview:background];
 	[background release];
@@ -68,8 +70,10 @@
 - (void)displayProfile:(GTIOProfile*)profile {
     if ([profile.uid isEqualToString:[GTIOUser currentUser].UID] && [[GTIOUser currentUser] isLoggedIn]) {
         [_editProfileButton setHidden:NO];
+        _shouldAllowEditing = YES;
     } else {
         [_editProfileButton setHidden:YES];
+        _shouldAllowEditing = NO;        
     }
 
     [_profilePictureImageView setUrlPath:[profile profileIconURL]];
@@ -93,9 +97,11 @@
 }
 
 - (void)profilePictureButtonAction {
-    NSString* name = [_nameLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString* location = [_locationLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	TTOpenURL([NSString stringWithFormat:@"gtio://profile/edit/picture/%@/%@",name,location]);
+    if (_shouldAllowEditing) {
+        NSString* name = [_nameLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString* location = [_locationLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        TTOpenURL([NSString stringWithFormat:@"gtio://profile/edit/picture/%@/%@",name,location]);
+    }
 }
 
 - (void)editButtonAction {

@@ -14,6 +14,7 @@
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
 	UIButton* _editProfileButton;
+    bool _shouldAllowEditing;
 }
 
 @property (nonatomic, retain) UILabel* nameLabel;
