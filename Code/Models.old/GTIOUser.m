@@ -220,20 +220,17 @@ static GTIOUser* gCurrentUser = nil;
 }
 
 
-// TODO: THIS NEEDS TO GET REWRITTEN
-// CRASH can happen if the user adds a space after their first name
 - (NSString*)firstName {
-	NSArray* parts = [self.username componentsSeparatedByString:@" "];
-	if ([parts count] >= 1) {
-		return [parts objectAtIndex:0];
-	}
-	return @"";
+    NSArray* parts = [self.username componentsSeparatedByString:@" "];
+    return [parts objectAtIndex:0];
 }
 
 - (NSString*)lastInitial {
 	NSArray* parts = [self.username componentsSeparatedByString:@" "];
 	if ([parts count] >= 2) {
-		return [[parts objectAtIndex:1] substringToIndex:1];
+        if ([parts lastObject]) {
+            return [[parts lastObject] substringToIndex:1];
+        }
 	}
 	return @"";
 }
