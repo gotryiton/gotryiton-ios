@@ -194,7 +194,7 @@ static GTIOUser* gCurrentUser = nil;
 		self.email = [profileInfo objectForKey:@"email"];
         self.profileIconURL = [profileInfo objectForKey:@"profileIcon"];
 		self.emailAlertSetting = [NSNumber numberWithInt:[[profileInfo objectForKey:@"emailPreference"] intValue]]; // comes back as a string
-		self.aboutMe = [profileInfo objectForKey:@"aboutMe"];
+		self.aboutMe = [profileInfo objectForKey:@"about"];
 		self.iphonePush = [[profileInfo objectForKey:@"iphonePush"] boolValue]; // comes back as string
 		self.services = [profileInfo objectForKey:@"service"];
 		
