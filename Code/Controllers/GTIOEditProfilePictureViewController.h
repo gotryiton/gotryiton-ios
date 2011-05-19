@@ -10,18 +10,21 @@
 #import "GTIOUserIconOption.h"
 
 @interface GTIOEditProfilePictureViewController : UIViewController <RKObjectLoaderDelegate, UIScrollViewDelegate> {
+    // subviews
+    UIView* _seperator;
 	UIScrollView* _scrollView;
 	UISlider* _scrollSlider;
     UILabel* _myLooksLabel;
     UILabel* _facebookLabel;
-    UIView* _seperator;
-	BOOL _slidingState;
-    NSArray* _options;
-    int _currentSelection;
-	GTIOUserIconOption* _facebookIconOption;
     TTImageView* _previewImageView;
+    // ivars
+    BOOL _slidingState;
+    int _currentSelection;
     NSString* _profileName;
     NSString* _profileLocation;
+    NSArray* _options;
+    NSArray* _imageViews; 
+	GTIOUserIconOption* _facebookIconOption;
 }
 
 - (id)initWithName:(NSString*)name location:(NSString*)location;

@@ -41,6 +41,7 @@
 	[request.parameters setValue:user.state forKey:@"state"];
 	[request.parameters setValue:user.gender forKey:@"gender"];
 	[request.parameters setValue:user.email forKey:@"email"];
+    [request.parameters setValue:user.profileIconURL forKey:@"profileIcon"];
 	NSString* pref = [NSString stringWithFormat:@"%d", ([user.emailAlertSetting intValue])];
 	[request.parameters setValue:pref forKey:@"emailPreference"];
 	[request.parameters setValue:user.aboutMe forKey:@"aboutMe"];

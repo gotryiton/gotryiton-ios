@@ -137,7 +137,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"city", @"city")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"state", @"state")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"location", @"location")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"aboutMe", @"aboutMe")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"about", @"aboutMe")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"profileIcon", @"profileIconURL")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"badgeURLs", @"badgeImageURLs")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isAuthorizedUser", @"isAuthorizedUser")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"userStats", @"userStats")];

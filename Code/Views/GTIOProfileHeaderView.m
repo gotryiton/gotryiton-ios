@@ -20,7 +20,8 @@
 	[self addSubview:background];
 	[background release];
 	
-	_profilePictureImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
+    _profilePictureImageView = [TTImageView new];
+    [(UIImageView*)_profilePictureImageView setImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
 	_profilePictureImageView.layer.cornerRadius = 5.0;
 	[_profilePictureImageView setFrame:CGRectMake(10,8,54,54)];
 	[self addSubview:_profilePictureImageView];
@@ -64,6 +65,7 @@
 }
 
 - (void)displayProfile:(GTIOProfile*)profile {
+    [_profilePictureImageView setUrlPath:[profile profileIconURL]];
 	_nameLabel.text = [profile.displayName uppercaseString];
 	[_nameLabel setNeedsDisplay];
 	_locationLabel.text = profile.location;

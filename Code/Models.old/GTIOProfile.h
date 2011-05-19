@@ -20,7 +20,10 @@
 	NSString* _state;
 	NSString* _location;
 	NSString* _aboutMe;
+    NSString* _profileIconURL;
 	NSNumber* _isAuthorizedUser;
+    
+    
 	NSDictionary* _userStats;
 	NSArray* _badgeImageURLs;
 	
@@ -43,6 +46,7 @@
 @property (nonatomic, copy) NSString *state;
 @property (nonatomic, copy) NSString *location;
 @property (nonatomic, copy) NSString *aboutMe;
+@property (nonatomic, copy) NSString *profileIconURL;
 @property (nonatomic, retain) NSNumber *isAuthorizedUser;
 @property (nonatomic, copy) NSDictionary *userStats;
 

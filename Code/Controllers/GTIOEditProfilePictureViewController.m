@@ -7,6 +7,7 @@
 //
 
 #import "GTIOEditProfilePictureViewController.h"
+#import "GTIOUpdateUserRequest.h"
 #import "GTIOBarButtonItem.h"
 #import "GTIOUser.h"
 
@@ -15,8 +16,8 @@
 - (id)initWithName:(NSString*)name location:(NSString*)location {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        _profileName = name;
-        _profileLocation = location;
+        _profileName = [name copy];
+        _profileLocation = [location copy];
     }
     return self;
 }
@@ -27,8 +28,8 @@
 		_facebookIconOption = nil;
         _options = nil;
 		_slidingState = NO;		
-        _profileName = [[GTIOUser currentUser] username];
-        _profileLocation = [NSString stringWithFormat:@"%@, %@",[[GTIOUser currentUser] city],[[GTIOUser currentUser] state]];
+        _profileName = [[[GTIOUser currentUser] username] copy];
+        _profileLocation = [[NSString stringWithFormat:@"%@, %@",[[GTIOUser currentUser] city],[[GTIOUser currentUser] state]] copy];
 		NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 														[[GTIOUser currentUser] token], @"gtioToken",
 														nil];
@@ -39,19 +40,20 @@
 }
 
 - (void)dealloc {
-    [_options release];
-    _options = nil;
-    [_scrollView release];
-    _scrollView = nil;
-    [_scrollSlider release];
-    _scrollSlider = nil;    
-    [_options release];
-    _options = nil;
-    [_facebookIconOption release];
-    _facebookIconOption = nil;
+    // subviews
+    TT_RELEASE_SAFELY(_scrollView);
+    TT_RELEASE_SAFELY(_scrollSlider);
+    TT_RELEASE_SAFELY(_myLooksLabel);
+    TT_RELEASE_SAFELY(_facebookLabel);
+    TT_RELEASE_SAFELY(_seperator);
+    TT_RELEASE_SAFELY(_previewImageView);
+    // ivars
+    TT_RELEASE_SAFELY(_profileName);
+    TT_RELEASE_SAFELY(_profileLocation);
+    TT_RELEASE_SAFELY(_options);
+    TT_RELEASE_SAFELY(_imageViews);
     [super dealloc];
 }
-
 
 - (void)loadView {
 	[super loadView];
@@ -110,6 +112,7 @@
 	UIButton* clearProfilePictureButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[clearProfilePictureButton setImage:[UIImage imageNamed:@"clear-profile-picture-OFF.png"] forState:UIControlStateNormal];
 	[clearProfilePictureButton setFrame:CGRectMake(30,370,120,20)];
+    [clearProfilePictureButton addTarget:self action:@selector(clearButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:clearProfilePictureButton];
     _myLooksLabel = [UILabel new];
     [_myLooksLabel setFrame:CGRectMake(100,70,75,10)];
@@ -136,6 +139,8 @@
     [[previewBackground layer] setCornerRadius:5];
     [self.view addSubview:previewBackground];
     _previewImageView = [TTImageView new];
+    NSLog(@"currentURL=%@",[[GTIOUser currentUser] profileIconURL]);
+    _previewImageView.urlPath = [[GTIOUser currentUser] profileIconURL];
     [_previewImageView setFrame:CGRectMake(44,269,56,56)];
     [self.view addSubview:_previewImageView];
     UIImageView* profileIconOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
@@ -162,11 +167,50 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	GTIOBarButtonItem* cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonWasPressed:)];
+	GTIOBarButtonItem* cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonAction)];
 	self.navigationItem.leftBarButtonItem = cancelButton;
+    GTIOBarButtonItem* saveButton = [[GTIOBarButtonItem alloc] initWithTitle:@"save" target:self action:@selector(saveButtonAction)];
+    self.navigationItem.rightBarButtonItem = saveButton;
 }
 
-- (void)cancelButtonWasPressed:(id)sender {
+- (void)cancelButtonAction {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)saveButtonAction {
+    // Save Action
+    GTIOUser* user = [GTIOUser currentUser];
+    user.profileIconURL = _previewImageView.urlPath;
+    [[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];
+}
+
+- (void)updateFinished:(GTIOUpdateUserRequest*)updateRequest {
+	[updateRequest autorelease];
+	//[self hideLoading];
+	
+	TTURLRequest* request = updateRequest.request;
+	TTURLDataResponse* response = request.response;
+	
+	if (updateRequest.error) {
+		TTAlert([updateRequest.error localizedDescription]);
+		return;
+	}
+	
+	NSString* body = [[[NSString alloc] initWithData:response.data encoding:NSUTF8StringEncoding] autorelease];
+	NSDictionary* json = (NSDictionary*)[[[SBJsonParser new] autorelease] objectWithString:body];
+	NSLog(@"json response=%@",json);
+	if ([[json objectForKey:@"response"] isEqualToString:@"error"]) {
+		NSString* error = [json objectForKey:@"error"];
+		if ([error isKindOfClass:[NSNull class]]) {
+			TTAlert(@"Unknown Error");
+		} else {
+			TTAlert(error);
+		}
+		return;
+	}
+	
+	[[GTIOUser currentUser] digestProfileInfo:json];
+	
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -177,7 +221,11 @@
 
 - (void)displayOptions {
 	int i = 0;
+    NSMutableArray* imageViews = [NSMutableArray new];
 	for (GTIOUserIconOption* option in _options) {
+        if ([option.url isEqualToString:_previewImageView.urlPath]) {
+            _currentSelection = [_options indexOfObject:option];
+        }
         if ([option.type isEqualToString:@"Facebook"]) {
             _facebookIconOption = option;
             TTImageView* image = [[TTImageView alloc] init];
@@ -186,6 +234,7 @@
             [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
             [[image layer] setBorderWidth:1];
             [self.view addSubview:image];
+            [imageViews addObject:image];
             UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
             [button setFrame:image.frame];
             [button setTag:[_options indexOfObject:option]];
@@ -199,6 +248,7 @@
             [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
             [[image layer] setBorderWidth:1];
             [_scrollView addSubview:image];
+            [imageViews addObject:image];            
             UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
             [button setFrame:image.frame];
             [button setTag:[_options indexOfObject:option]];
@@ -208,14 +258,22 @@
             i+=1;			
         }
 	}
-	[_scrollView setContentSize:CGSizeMake(i*49+i*2.5,67)];
+    _imageViews = [imageViews retain];
+    [self performSelector:@selector(displayHighlight)];
     // Setup Frame For Scroll View
     if (_facebookIconOption) {
         [_scrollView setFrame:CGRectMake(100,90,190,67)];
         [_scrollSlider setFrame:CGRectMake(100,155,190,25)];
     } else {
+        [_seperator setHidden:YES];
+        [_facebookLabel setHidden:YES];
+        [_myLooksLabel setFrame:_facebookLabel.frame];        
         [_scrollView setFrame:CGRectMake(30,90,260,67)];
         [_scrollSlider setFrame:CGRectMake(30,155,260,25)];
+    }
+    [_scrollView setContentSize:CGSizeMake(i*49+i*2.5,67)];
+    if (_scrollView.contentSize.width <= _scrollView.frame.size.width) {
+        [_scrollSlider setHidden:YES];
     }
 }
 
@@ -247,6 +305,24 @@
     _currentSelection = [sender tag];
     NSLog(@"selecting option:%@",[_options objectAtIndex:_currentSelection]);
     [_previewImageView setUrlPath:[[_options objectAtIndex:_currentSelection] url]];
+    [self performSelector:@selector(clearHighlight)];
+    [self performSelector:@selector(displayHighlight)];
+}
+
+- (void)clearHighlight {
+    for (TTImageView* view in _imageViews) {
+        [[view layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
+        [[view layer] setBorderWidth:1];
+    }
+}
+
+- (void)displayHighlight {
+    [[[_imageViews objectAtIndex:_currentSelection] layer] setBorderColor:[kGTIOColorBrightPink CGColor]];
+    [[[_imageViews objectAtIndex:_currentSelection] layer] setBorderWidth:3];
+}
+
+- (void)clearButtonAction {
+    [_previewImageView setUrlPath:@"http://assets.gotryiton.com/img/profile-default.png"];
 }
 
 @end

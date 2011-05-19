@@ -25,6 +25,7 @@
 @synthesize state = _state;
 @synthesize location = _location;
 @synthesize aboutMe = _aboutMe;
+@synthesize profileIconURL = _profileIconURL;
 @synthesize isAuthorizedUser = _isAuthorizedUser;
 @synthesize userStats = _userStats;
 

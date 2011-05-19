@@ -48,6 +48,7 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize services = _services;
 @synthesize eventTypes = _eventTypes;
 @synthesize facebook = _facebook;
+@synthesize profileIconURL = _profileIconURL;
 
 + (GTIOUser*)currentUser {
 	if (nil == gCurrentUser) {
@@ -156,6 +157,8 @@ static GTIOUser* gCurrentUser = nil;
 	self.services = nil;
 	self.iphonePush = NO;
 	self.loggedIn = NO;
+    self.profileIconURL = nil;
+
 }
 
 - (void)logout {
@@ -189,8 +192,9 @@ static GTIOUser* gCurrentUser = nil;
 		self.city = [profileInfo objectForKey:@"city"];
 		self.state = [profileInfo objectForKey:@"state"];
 		self.email = [profileInfo objectForKey:@"email"];
+        self.profileIconURL = [profileInfo objectForKey:@"profileIcon"];
 		self.emailAlertSetting = [NSNumber numberWithInt:[[profileInfo objectForKey:@"emailPreference"] intValue]]; // comes back as a string
-		self.aboutMe = [profileInfo objectForKey:@"aboutMe"];
+		self.aboutMe = [profileInfo objectForKey:@"about"];
 		self.iphonePush = [[profileInfo objectForKey:@"iphonePush"] boolValue]; // comes back as string
 		self.services = [profileInfo objectForKey:@"service"];
 		
