@@ -153,8 +153,8 @@
 		return;
 	}
 	
-	NSString* path = GTIORestResourcePath(@"/profile/");
-	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithKeysAndObjects:@"uid", uid,nil];
+	NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@", uid]);
+	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithKeysAndObjects:nil];
 	if (_isShowingCurrentUser) {
 		[params setValue:@"true" forKey:@"requestOutfits"];
 		[params setValue:@"1" forKey:@"limit"];
