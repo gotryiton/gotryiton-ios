@@ -23,6 +23,7 @@
     NSString* _profileName;
     NSString* _profileLocation;
     NSArray* _options;
+    NSArray* _imageViews; 
 	GTIOUserIconOption* _facebookIconOption;
 }
 

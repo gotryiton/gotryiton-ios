@@ -51,6 +51,7 @@
     TT_RELEASE_SAFELY(_profileName);
     TT_RELEASE_SAFELY(_profileLocation);
     TT_RELEASE_SAFELY(_options);
+    TT_RELEASE_SAFELY(_imageViews);
     [super dealloc];
 }
 
@@ -178,12 +179,9 @@
 
 - (void)saveButtonAction {
     // Save Action
-    if (_currentSelection) {
-        GTIOUser* user = [GTIOUser currentUser];
-        user.profileIconURL = [[_options objectAtIndex:_currentSelection] url];
-        [[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];
-        //[self showLoading];
-    }
+    GTIOUser* user = [GTIOUser currentUser];
+    user.profileIconURL = _previewImageView.urlPath;
+    [[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];
 }
 
 - (void)updateFinished:(GTIOUpdateUserRequest*)updateRequest {
@@ -223,7 +221,11 @@
 
 - (void)displayOptions {
 	int i = 0;
+    NSMutableArray* imageViews = [NSMutableArray new];
 	for (GTIOUserIconOption* option in _options) {
+        if ([option.url isEqualToString:_previewImageView.urlPath]) {
+            _currentSelection = [_options indexOfObject:option];
+        }
         if ([option.type isEqualToString:@"Facebook"]) {
             _facebookIconOption = option;
             TTImageView* image = [[TTImageView alloc] init];
@@ -232,6 +234,7 @@
             [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
             [[image layer] setBorderWidth:1];
             [self.view addSubview:image];
+            [imageViews addObject:image];
             UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
             [button setFrame:image.frame];
             [button setTag:[_options indexOfObject:option]];
@@ -245,6 +248,7 @@
             [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
             [[image layer] setBorderWidth:1];
             [_scrollView addSubview:image];
+            [imageViews addObject:image];            
             UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
             [button setFrame:image.frame];
             [button setTag:[_options indexOfObject:option]];
@@ -254,6 +258,8 @@
             i+=1;			
         }
 	}
+    _imageViews = [imageViews retain];
+    [self performSelector:@selector(displayHighlight)];
 	[_scrollView setContentSize:CGSizeMake(i*49+i*2.5,67)];
     // Setup Frame For Scroll View
     if (_facebookIconOption) {
@@ -293,6 +299,20 @@
     _currentSelection = [sender tag];
     NSLog(@"selecting option:%@",[_options objectAtIndex:_currentSelection]);
     [_previewImageView setUrlPath:[[_options objectAtIndex:_currentSelection] url]];
+    [self performSelector:@selector(clearHighlight)];
+    [self performSelector:@selector(displayHighlight)];
+}
+
+- (void)clearHighlight {
+    for (TTImageView* view in _imageViews) {
+        [[view layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
+        [[view layer] setBorderWidth:1];
+    }
+}
+
+- (void)displayHighlight {
+    [[[_imageViews objectAtIndex:_currentSelection] layer] setBorderColor:[kGTIOColorBrightPink CGColor]];
+    [[[_imageViews objectAtIndex:_currentSelection] layer] setBorderWidth:3];
 }
 
 - (void)clearButtonAction {
