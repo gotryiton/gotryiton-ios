@@ -260,7 +260,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	[map from:@"gtio://profile/new" toModalViewController:NSClassFromString(@"GTIOEditProfileViewController") selector:@selector(initWithNewProfile)];
 	[map from:@"gtio://profile/edit" toModalViewController:NSClassFromString(@"GTIOEditProfileViewController") selector:@selector(initWithEditProfile)];		
-	[map from:@"gtio://profile/edit/picture" toModalViewController:NSClassFromString(@"GTIOEditProfilePictureViewController")];
+	[map from:@"gtio://profile/edit/picture/(initWithName:)/(location:)" toModalViewController:NSClassFromString(@"GTIOEditProfilePictureViewController")];
 	[map from:@"gtio://profile/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOProfileViewController")];
 	[map from:@"gtio://user_looks/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOUserOutfitsTableViewController")];
 	[map from:@"gtio://user_reviews/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOUserReviewsTableViewController")];

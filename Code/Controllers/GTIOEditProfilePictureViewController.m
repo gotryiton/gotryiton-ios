@@ -11,11 +11,24 @@
 #import "GTIOUser.h"
 
 @implementation GTIOEditProfilePictureViewController
+
+- (id)initWithName:(NSString*)name location:(NSString*)location {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        _profileName = name;
+        _profileLocation = location;
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	self = [super initWithNibName:nil bundle:nil];
 	if (self) {
 		_facebookIconOption = nil;
+        _options = nil;
 		_slidingState = NO;		
+        _profileName = [[GTIOUser currentUser] username];
+        _profileLocation = [NSString stringWithFormat:@"%@, %@",[[GTIOUser currentUser] city],[[GTIOUser currentUser] state]];
 		NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 														[[GTIOUser currentUser] token], @"gtioToken",
 														nil];
@@ -25,8 +38,25 @@
 	return self;
 }
 
+- (void)dealloc {
+    [_options release];
+    _options = nil;
+    [_scrollView release];
+    _scrollView = nil;
+    [_scrollSlider release];
+    _scrollSlider = nil;    
+    [_options release];
+    _options = nil;
+    [_facebookIconOption release];
+    _facebookIconOption = nil;
+    [super dealloc];
+}
+
+
 - (void)loadView {
 	[super loadView];
+    // Background Color
+    UIColor* grayColor = [UIColor colorWithRed:.898 green:.898 blue:.898 alpha:1.0];
 	// Background Image
 	UIImageView* backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"full-wallpaper.png"]];
 	[self.view addSubview:backgroundImageView];
@@ -65,7 +95,7 @@
 	[_scrollView setShowsVerticalScrollIndicator:NO];
 	[self.view addSubview:_scrollView];
 	_scrollSlider = [UISlider new];
-	[_scrollSlider setFrame:CGRectMake(10,175,200,25)];
+	[_scrollSlider setFrame:CGRectMake(100,160,190,25)];
 	[_scrollSlider setValue:0];
 	UIImage* trackImage = [[UIImage imageNamed:@"profile-picture-edit-scroll-under.png"] stretchableImageWithLeftCapWidth:2 topCapHeight:0];
 	UIImage* thumbImage = [UIImage imageNamed:@"profile-picture-edit-scroll-over.png"];
@@ -81,6 +111,53 @@
 	[clearProfilePictureButton setImage:[UIImage imageNamed:@"clear-profile-picture-OFF.png"] forState:UIControlStateNormal];
 	[clearProfilePictureButton setFrame:CGRectMake(30,370,120,20)];
 	[self.view addSubview:clearProfilePictureButton];
+    _myLooksLabel = [UILabel new];
+    [_myLooksLabel setFrame:CGRectMake(100,70,75,10)];
+    [_myLooksLabel setText:@"my looks"];
+    [_myLooksLabel setTextColor:[UIColor colorWithRed:0.745 green:0.745 blue:0.745 alpha:1]];
+    [_myLooksLabel setFont:[UIFont boldSystemFontOfSize:10]];    
+    [self.view addSubview:_myLooksLabel];
+    _facebookLabel = [UILabel new];
+    [_facebookLabel setFrame:CGRectMake(30,70,50,10)];
+    [_facebookLabel setText:@"facebook"];
+    [_facebookLabel setTextColor:[UIColor colorWithRed:0 green:.541 blue:.773 alpha:1.0]];
+    [_facebookLabel setFont:[UIFont boldSystemFontOfSize:10]];
+    [self.view addSubview:_facebookLabel];
+    _seperator = [UIView new];
+    [_seperator setFrame:CGRectMake(90,60,0.5,100)];
+    [_seperator setBackgroundColor:grayColor];
+    [self.view addSubview:_seperator];
+    //
+    UIView* previewBackground = [UIView new];
+    [previewBackground setFrame:CGRectMake(30,255,260,85)];
+    [previewBackground setBackgroundColor:grayColor];
+    [[previewBackground layer] setBorderColor:[grayColor CGColor]];
+    [[previewBackground layer] setBorderWidth:1];
+    [[previewBackground layer] setCornerRadius:5];
+    [self.view addSubview:previewBackground];
+    _previewImageView = [TTImageView new];
+    [_previewImageView setFrame:CGRectMake(44,269,56,56)];
+    [self.view addSubview:_previewImageView];
+    UIImageView* profileIconOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
+    [profileIconOverlay setFrame:CGRectMake(40,265,64,64)];
+    [self.view addSubview:profileIconOverlay];
+    //
+    UILabel* nameLabel = [UILabel new];
+    UILabel* locationLabel = [UILabel new];
+    [nameLabel      setBackgroundColor:[UIColor clearColor]];
+    [locationLabel  setBackgroundColor:[UIColor clearColor]];
+    [nameLabel      setFont:kGTIOFetteFontOfSize(32)];
+    [locationLabel  setFont:[UIFont systemFontOfSize:14]];
+    [nameLabel      setTextColor:kGTIOColorBrightPink];
+    [locationLabel  setTextColor:kGTIOColorAAAAAA];
+    [nameLabel      setFrame:CGRectMake(120,275,140,30)];
+    [locationLabel  setFrame:CGRectMake(120,300,140,20)];
+    [nameLabel      setText:_profileName];
+    [locationLabel  setText:_profileLocation];
+    [self.view      addSubview:nameLabel];
+    [self.view      addSubview:locationLabel];
+    [nameLabel      release];
+    [locationLabel  release];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,17 +171,52 @@
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
-	//NSLog(@"dictionary: %@", dictionary);
-	NSArray* options = [dictionary objectForKey:@"userIconOptions"];
+	_options = [[dictionary objectForKey:@"userIconOptions"] retain];
+    [self performSelector:@selector(displayOptions)];
+}
+
+- (void)displayOptions {
 	int i = 0;
-	for (GTIOUserIconOption* option in options) {
-		TTImageView* image = [[TTImageView alloc] init];
-		[image setFrame:CGRectMake(i*110,0,110,110)];
-		image.urlPath = option.url;
-		[_scrollView addSubview:image];
-		i+=1;			
-	} 
-	[_scrollView setContentSize:CGSizeMake(i*110,110)];
+	for (GTIOUserIconOption* option in _options) {
+        if ([option.type isEqualToString:@"Facebook"]) {
+            _facebookIconOption = option;
+            TTImageView* image = [[TTImageView alloc] init];
+            [image setFrame:CGRectMake(30,90,48,48)];
+            image.urlPath = option.url;
+            [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
+            [[image layer] setBorderWidth:1];
+            [self.view addSubview:image];
+            UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setFrame:image.frame];
+            [button setTag:[_options indexOfObject:option]];
+            [button setBackgroundColor:[UIColor clearColor]];
+            [button addTarget:self action:@selector(selectOption:) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:button];
+        } else {
+            TTImageView* image = [[TTImageView alloc] init];
+            [image setFrame:CGRectMake(i*49+i*2.5,0,49,67)];
+            image.urlPath = option.url;
+            [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
+            [[image layer] setBorderWidth:1];
+            [_scrollView addSubview:image];
+            UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setFrame:image.frame];
+            [button setTag:[_options indexOfObject:option]];
+            [button setBackgroundColor:[UIColor clearColor]];
+            [button addTarget:self action:@selector(selectOption:) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:button];
+            i+=1;			
+        }
+	}
+	[_scrollView setContentSize:CGSizeMake(i*49+i*2.5,67)];
+    // Setup Frame For Scroll View
+    if (_facebookIconOption) {
+        [_scrollView setFrame:CGRectMake(100,90,190,67)];
+        [_scrollSlider setFrame:CGRectMake(100,155,190,25)];
+    } else {
+        [_scrollView setFrame:CGRectMake(30,90,260,67)];
+        [_scrollSlider setFrame:CGRectMake(30,155,260,25)];
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
@@ -129,6 +241,12 @@
 
 - (void)sliderEditEnd {
 	_slidingState = NO;
+}
+
+- (void)selectOption:(id)sender {
+    _currentSelection = [sender tag];
+    NSLog(@"selecting option:%@",[_options objectAtIndex:_currentSelection]);
+    [_previewImageView setUrlPath:[[_options objectAtIndex:_currentSelection] url]];
 }
 
 @end

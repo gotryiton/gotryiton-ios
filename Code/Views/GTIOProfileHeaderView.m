@@ -84,7 +84,9 @@
 }
 
 - (void)profilePictureButtonAction {
-	TTOpenURL(@"gtio://profile/edit/picture");
+    NSString* name = [_nameLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString* location = [_locationLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	TTOpenURL([NSString stringWithFormat:@"gtio://profile/edit/picture/%@/%@",name,location]);
 }
 
 - (void)editButtonAction {

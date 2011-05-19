@@ -8420,7 +8420,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Specs/Support/OCMock\"",
-					"\"$(SRCROOT)/FlurryLib\"",
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8450,7 +8449,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Specs/Support/OCMock\"",
-					"\"$(SRCROOT)/FlurryLib\"",
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
