@@ -316,7 +316,7 @@
 }
 
 - (void)clearButtonAction {
-    [(UIImageView*)_previewImageView setImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
+    [_previewImageView setUrlPath:@"http://assets.gotryiton.com/img/profile-default.png"];
 }
 
 @end
