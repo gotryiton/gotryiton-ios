@@ -15,8 +15,8 @@
 - (id)initWithName:(NSString*)name location:(NSString*)location {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        _profileName = name;
-        _profileLocation = location;
+        _profileName = [name copy];
+        _profileLocation = [location copy];
     }
     return self;
 }
@@ -27,8 +27,8 @@
 		_facebookIconOption = nil;
         _options = nil;
 		_slidingState = NO;		
-        _profileName = [[GTIOUser currentUser] username];
-        _profileLocation = [NSString stringWithFormat:@"%@, %@",[[GTIOUser currentUser] city],[[GTIOUser currentUser] state]];
+        _profileName = [[[GTIOUser currentUser] username] copy];
+        _profileLocation = [[NSString stringWithFormat:@"%@, %@",[[GTIOUser currentUser] city],[[GTIOUser currentUser] state]] copy];
 		NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 														[[GTIOUser currentUser] token], @"gtioToken",
 														nil];
@@ -39,17 +39,19 @@
 }
 
 - (void)dealloc {
-    [_options release];
-    _options = nil;
-    [_scrollView release];
-    _scrollView = nil;
-    [_scrollSlider release];
-    _scrollSlider = nil;    
-    [_facebookIconOption release];
-    _facebookIconOption = nil;
+    // subviews
+    TT_RELEASE_SAFELY(_scrollView);
+    TT_RELEASE_SAFELY(_scrollSlider);
+    TT_RELEASE_SAFELY(_myLooksLabel);
+    TT_RELEASE_SAFELY(_facebookLabel);
+    TT_RELEASE_SAFELY(_seperator);
+    TT_RELEASE_SAFELY(_previewImageView);
+    // ivars
+    TT_RELEASE_SAFELY(_profileName);
+    TT_RELEASE_SAFELY(_profileLocation);
+    TT_RELEASE_SAFELY(_options);
     [super dealloc];
 }
-
 
 - (void)loadView {
 	[super loadView];
