@@ -219,6 +219,9 @@ static GTIOUser* gCurrentUser = nil;
 	}
 }
 
+
+// TODO: THIS NEEDS TO GET REWRITTEN
+// CRASH can happen if the user adds a space after their first name
 - (NSString*)firstName {
 	NSArray* parts = [self.username componentsSeparatedByString:@" "];
 	if ([parts count] >= 1) {

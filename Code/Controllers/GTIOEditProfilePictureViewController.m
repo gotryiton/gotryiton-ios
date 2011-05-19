@@ -115,19 +115,19 @@
     [clearProfilePictureButton addTarget:self action:@selector(clearButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:clearProfilePictureButton];
     _myLooksLabel = [UILabel new];
-    [_myLooksLabel setFrame:CGRectMake(100,70,75,10)];
+    [_myLooksLabel setFrame:CGRectMake(100,65,85,15)];
     [_myLooksLabel setText:@"my looks"];
     [_myLooksLabel setTextColor:[UIColor colorWithRed:0.745 green:0.745 blue:0.745 alpha:1]];
-    [_myLooksLabel setFont:[UIFont boldSystemFontOfSize:10]];    
+    [_myLooksLabel setFont:[UIFont boldSystemFontOfSize:12]];    
     [self.view addSubview:_myLooksLabel];
     _facebookLabel = [UILabel new];
-    [_facebookLabel setFrame:CGRectMake(30,70,50,10)];
+    [_facebookLabel setFrame:CGRectMake(30,65,60,15)];
     [_facebookLabel setText:@"facebook"];
     [_facebookLabel setTextColor:[UIColor colorWithRed:0 green:.541 blue:.773 alpha:1.0]];
-    [_facebookLabel setFont:[UIFont boldSystemFontOfSize:10]];
+    [_facebookLabel setFont:[UIFont boldSystemFontOfSize:12]];
     [self.view addSubview:_facebookLabel];
     _seperator = [UIView new];
-    [_seperator setFrame:CGRectMake(90,60,0.5,100)];
+    [_seperator setFrame:CGRectMake(90,60,1,100)];
     [_seperator setBackgroundColor:grayColor];
     [self.view addSubview:_seperator];
     //
