@@ -49,7 +49,9 @@
 - (id)initWithUserID:(NSString*)userID {
 	if (self = [super initWithNibName:nil bundle:nil]) {
 		_userID = [userID retain];
+        NSLog(@"currentUserID=%@, displayUserID:%@",[GTIOUser currentUser].UID,_userID);
 		_isShowingCurrentUser = [_userID isEqualToString:[GTIOUser currentUser].UID];
+        NSLog(@"is current user:%d",_isShowingCurrentUser);
 	}
 	return self;
 }
@@ -133,7 +135,7 @@
 #pragma mark -
 #pragma mark Button Actions
 
-- (void)editButtonAction:(id)sender {
+- (void)settingsButtonAction:(id)sender {
 	TTOpenURL(@"gtio://profile/edit");
 }
 
@@ -216,10 +218,10 @@
 		[self.view addSubview:_notLoggedInOverlay];
 	}
 	
-	// set edit button
+	// set settings button
 	if (_isShowingCurrentUser && [[GTIOUser currentUser] isLoggedIn]) {
-		UIImage* editImage = [UIImage imageNamed:@"settingsBarButton.png"];
-		GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:editImage target:self action:@selector(editButtonAction:)];
+		UIImage* settingsButtonImage = [UIImage imageNamed:@"settingsBarButton.png"];
+		GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)];
 		[self.navigationItem setRightBarButtonItem:item];
 	} else {
 		[self.navigationItem setRightBarButtonItem:nil];
