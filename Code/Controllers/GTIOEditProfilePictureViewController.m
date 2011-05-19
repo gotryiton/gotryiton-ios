@@ -45,8 +45,6 @@
     _scrollView = nil;
     [_scrollSlider release];
     _scrollSlider = nil;    
-    [_options release];
-    _options = nil;
     [_facebookIconOption release];
     _facebookIconOption = nil;
     [super dealloc];
