@@ -73,11 +73,10 @@
 
 - (void)createModel {
 	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-							_userID, @"uid",
 							@"true", @"requestReviews",
 							nil];
 	[GTIOUser paramsByAddingCurrentUserIdentifier:params];
-	GTIOPaginatedTTModel* model = [[GTIOPaginatedTTModel alloc] initWithResourcePath:GTIORestResourcePath(@"/profile/") params:params method:RKRequestMethodPOST];						
+	GTIOPaginatedTTModel* model = [[GTIOPaginatedTTModel alloc] initWithResourcePath:GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@", _userID]) params:params method:RKRequestMethodPOST];						
 	model.objectsKey = @"reviewsOutfits";
     TTListDataSource* ds = [TTListDataSource dataSourceWithObjects:nil];
     ds.model = model;
@@ -99,7 +98,7 @@
 			}
 		}
 		int i = 0;
-		for (GTIOOutfit* outfit in [model objects]) {
+		for (GTIOOutfit* outfit in profile.reviewsOutfits) {
 			[outfits addObject:[GTIOUserReviewTableItem itemWithOutfit:outfit index:i]];
 		}
 		TTListDataSource* dataSource = [GTIOUserReviewsTableViewDataSource dataSourceWithItems:outfits];

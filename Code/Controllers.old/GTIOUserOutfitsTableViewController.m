@@ -75,11 +75,10 @@
 
 - (void)createModel {
 	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-							_userID, @"uid",
 							@"true", @"requestOutfits",
 							nil];
 	params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-	GTIOPaginatedTTModel* model = [[GTIOPaginatedTTModel alloc] initWithResourcePath:GTIORestResourcePath(@"/profile/") params:params method:RKRequestMethodPOST];						
+	GTIOPaginatedTTModel* model = [[GTIOPaginatedTTModel alloc] initWithResourcePath:GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@", _userID]) params:params method:RKRequestMethodPOST];						
 	model.objectsKey = @"outfits";
     TTListDataSource* ds = [TTListDataSource dataSourceWithObjects:nil];
     ds.model = model;
