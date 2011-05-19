@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
-@interface GTIOVotingResultSet : RKObject {
+@interface GTIOVotingResultSet : NSObject {
 	NSArray* _reasons;
 	NSNumber* _totalVotes;
 	NSString* _userVoteString;

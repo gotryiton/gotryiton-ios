@@ -8,8 +8,7 @@
 
 #import <RestKit/RestKit.h>
 
-
-@interface GTIOProfile : RKObject {
+@interface GTIOProfile : NSObject {
 	NSString* _uid;
 	NSNumber* _auth;
 	NSString* _displayName;

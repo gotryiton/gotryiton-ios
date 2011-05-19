@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
-@interface GTIOBadge : RKObject {
+@interface GTIOBadge : NSObject {
 	NSString* _type;
 	NSNumber* _since;
 	NSString* _imgURL;

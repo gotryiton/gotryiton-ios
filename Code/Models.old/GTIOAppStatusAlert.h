@@ -10,7 +10,7 @@
 #import <RestKit/RestKit.h>
 
 
-@interface GTIOAppStatusAlert : RKObject <UIAlertViewDelegate> {
+@interface GTIOAppStatusAlert : NSObject <UIAlertViewDelegate> {
 	NSString* _title;
 	NSString* _message;
 	NSString* _cancelButtonTitle;

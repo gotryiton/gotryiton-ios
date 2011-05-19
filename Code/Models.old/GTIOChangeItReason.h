@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
-@interface GTIOChangeItReason : RKObject {
+@interface GTIOChangeItReason : NSObject {
 	NSNumber* _reasonID;
 	NSNumber* _display;
 	NSString* _text;

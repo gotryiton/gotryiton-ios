@@ -61,6 +61,11 @@
     [self.navigationItem setRightBarButtonItem:_doneButton animated:YES];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self invalidateModel];
+}
+
 - (void)createModel {
 	NSMutableDictionary* params = [NSMutableDictionary dictionary]; // note, query text is usually nil. only used if we are searching.
 	

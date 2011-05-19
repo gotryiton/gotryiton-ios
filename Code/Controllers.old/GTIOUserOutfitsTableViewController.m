@@ -68,7 +68,7 @@
 
 - (void)loadView {
 	[super loadView];
-	[self.tableView setSeparatorStyle:UITableViewCellSelectionStyleNone];
+	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	self.navigationItem.titleView = [GTIOHeaderView viewWithText:(_isShowingCurrentUser ? @"MY LOOKS" : @"LOOKS")];
 	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
 }

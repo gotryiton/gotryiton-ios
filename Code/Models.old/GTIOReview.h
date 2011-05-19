@@ -10,7 +10,7 @@
 #import <RestKit/RestKit.h>
 #import "GTIOProfile.h"
 
-@interface GTIOReview : RKObject {
+@interface GTIOReview : NSObject {
 	NSString* _outfitID;
 	NSString* _uid;
 	NSString* _reviewID;

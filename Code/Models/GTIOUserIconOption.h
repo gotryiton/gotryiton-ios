@@ -8,7 +8,7 @@
 
 #import <RestKit/RestKit.h>
 
-@interface GTIOUserIconOption : RKObject {
+@interface GTIOUserIconOption : NSObject {
 	NSString* _url;
 	NSString* _type;
 	NSNumber* _width;

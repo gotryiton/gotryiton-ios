@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
-@interface GTIOAppStatusAlertButton : RKObject {
+@interface GTIOAppStatusAlertButton : NSObject {
 	NSString* _title;
 	NSString* _url;
 }

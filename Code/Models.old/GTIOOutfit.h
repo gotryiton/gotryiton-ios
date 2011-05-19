@@ -9,7 +9,7 @@
 #import <Restkit/RestKit.h>
 #import "GTIOVotingResultSet.H"
 
-@interface GTIOOutfit : RKObject <TTScrollViewDataSource> {
+@interface GTIOOutfit : NSObject <TTScrollViewDataSource> {
 	NSString* _outfitID;
 	NSString* _uid;
 	NSString* _name;

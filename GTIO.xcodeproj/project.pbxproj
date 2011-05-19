@@ -8428,7 +8428,6 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					Libraries/three20/Build/Products/three20,
 					Specs/Support/OCMock/Headers,
-					Libraries/RestKit/Build,
 					"Libraries/facebook-ios-sdk/src/",
 					Libraries/TWTCommon/Code/,
 				);
@@ -8457,7 +8456,6 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					Libraries/three20/Build/Products/three20,
 					Specs/Support/OCMock/Headers,
-					Libraries/RestKit/Build,
 					"Libraries/facebook-ios-sdk/src/",
 					Libraries/TWTCommon/Code/,
 				);
