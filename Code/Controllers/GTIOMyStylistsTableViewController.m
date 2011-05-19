@@ -84,7 +84,7 @@
     NSLog(@"List: %@", list);
     if (list && list.stylists) {
         NSMutableArray* items = [NSMutableArray array];
-        [items addObject:[TTTableTextItem itemWithText:@"find stylists" URL:@"gtio://findStylists"]];
+        [items addObject:[TTTableTextItem itemWithText:@"find stylists" URL:@"gtio://stylists/add"]];
         
         for (GTIOProfile* stylist in list.stylists) {
             NSString* url = [NSString stringWithFormat:@"gtio://profile/%@", stylist.uid];

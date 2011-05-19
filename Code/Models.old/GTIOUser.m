@@ -119,7 +119,7 @@ static GTIOUser* gCurrentUser = nil;
 	TT_RELEASE_SAFELY(_deviceToken);
 	TT_RELEASE_SAFELY(_services);
 	TT_RELEASE_SAFELY(_eventTypes);
-
+    TT_RELEASE_SAFELY(_facebook);
 	[super dealloc];
 }
 
@@ -345,6 +345,7 @@ static GTIOUser* gCurrentUser = nil;
     RKRequest* request = [RKRequest requestWithURL:[NSURL URLWithString:url] delegate:self];
     request.method = RKRequestMethodPOST;
     request.params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken", nil];
+    
     [request send];
 }
 

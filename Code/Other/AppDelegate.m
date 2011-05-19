@@ -278,6 +278,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://getAnOpinion/photos/edit/(editPhoto:)" toObject:session selector:@selector(editPhoto:)];
     
     [map from:@"gtio://stylists" toViewController:NSClassFromString(@"GTIOMyStylistsTableViewController")];
+    [map from:@"gtio://stylists/add" toViewController:NSClassFromString(@"GTIOAddStylistsViewController")];
 	
 	// step1/next for the current next
 	// cancel will drop it anywhere
