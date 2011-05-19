@@ -55,6 +55,7 @@ extern NSString* const kGTIOUserDidEndLoginProcess;
 	NSString* _city;
 	NSString* _state;
 	NSString* _email;
+    NSString* _profileIconURL;
 	NSNumber* _emailAlertSetting;
 	NSString* _aboutMe;
 	BOOL _iphonePush;
@@ -82,6 +83,7 @@ extern NSString* const kGTIOUserDidEndLoginProcess;
 @property (nonatomic, copy) NSString* state;
 @property (nonatomic, copy) NSString* email;
 @property (nonatomic, copy) NSString* deviceToken;
+@property (nonatomic, copy) NSString* profileIconURL;
 
 /**
  * The list of services this account is associated with. Returned

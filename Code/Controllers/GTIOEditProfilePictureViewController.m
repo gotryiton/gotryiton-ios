@@ -7,6 +7,7 @@
 //
 
 #import "GTIOEditProfilePictureViewController.h"
+#import "GTIOUpdateUserRequest.h"
 #import "GTIOBarButtonItem.h"
 #import "GTIOUser.h"
 
@@ -137,7 +138,8 @@
     [[previewBackground layer] setCornerRadius:5];
     [self.view addSubview:previewBackground];
     _previewImageView = [TTImageView new];
-    [_previewImageView setImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
+    NSLog(@"currentURL=%@",[[GTIOUser currentUser] profileIconURL]);
+    _previewImageView.urlPath = [[GTIOUser currentUser] profileIconURL];
     [_previewImageView setFrame:CGRectMake(44,269,56,56)];
     [self.view addSubview:_previewImageView];
     UIImageView* profileIconOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
@@ -164,11 +166,53 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	GTIOBarButtonItem* cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonWasPressed:)];
+	GTIOBarButtonItem* cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonAction)];
 	self.navigationItem.leftBarButtonItem = cancelButton;
+    GTIOBarButtonItem* saveButton = [[GTIOBarButtonItem alloc] initWithTitle:@"save" target:self action:@selector(saveButtonAction)];
+    self.navigationItem.rightBarButtonItem = saveButton;
 }
 
-- (void)cancelButtonWasPressed:(id)sender {
+- (void)cancelButtonAction {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)saveButtonAction {
+    // Save Action
+    if (_currentSelection) {
+        GTIOUser* user = [GTIOUser currentUser];
+        user.profileIconURL = [[_options objectAtIndex:_currentSelection] url];
+        [[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];
+        //[self showLoading];
+    }
+}
+
+- (void)updateFinished:(GTIOUpdateUserRequest*)updateRequest {
+	[updateRequest autorelease];
+	//[self hideLoading];
+	
+	TTURLRequest* request = updateRequest.request;
+	TTURLDataResponse* response = request.response;
+	
+	if (updateRequest.error) {
+		TTAlert([updateRequest.error localizedDescription]);
+		return;
+	}
+	
+	NSString* body = [[[NSString alloc] initWithData:response.data encoding:NSUTF8StringEncoding] autorelease];
+	NSDictionary* json = (NSDictionary*)[[[SBJsonParser new] autorelease] objectWithString:body];
+	NSLog(@"json response=%@",json);
+	if ([[json objectForKey:@"response"] isEqualToString:@"error"]) {
+		NSString* error = [json objectForKey:@"error"];
+		if ([error isKindOfClass:[NSNull class]]) {
+			TTAlert(@"Unknown Error");
+		} else {
+			TTAlert(error);
+		}
+		return;
+	}
+	
+	[[GTIOUser currentUser] digestProfileInfo:json];
+	
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -252,7 +296,7 @@
 }
 
 - (void)clearButtonAction {
-    [_previewImageView setImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
+    [(UIImageView*)_previewImageView setImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
 }
 
 @end
