@@ -27,10 +27,11 @@
 	[header setFrame:CGRectMake(0,0,320,40)];
 	[header setTextAlignment:UITextAlignmentCenter];
 	[header setText:@"returning? use your existing account."];
+    [header setBackgroundColor:[UIColor clearColor]];
 	[header setFont:[UIFont boldSystemFontOfSize:12]];
 	[header setTextColor:[UIColor colorWithRed:0.506 green:0.506 blue:0.506 alpha:1]];
 	
-	UIView* terms = [[UIView alloc] initWithFrame:CGRectMake(0,0,320,250)];
+	UIView* terms = [[UIView alloc] initWithFrame:CGRectMake(0,0,320,50)];
 	[terms setBackgroundColor:[UIColor clearColor]];
 	[terms addSubview:[GTIOSignInTermsView termsView]];
 	
