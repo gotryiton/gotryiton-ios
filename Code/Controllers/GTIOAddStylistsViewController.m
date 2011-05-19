@@ -10,9 +10,7 @@
 #import <AddressBook/AddressBook.h>
 #import <RestKit/Three20/Three20.h>
 #import "GTIOBrowseList.h"
-
-// TODO: figure out how to get at this without all tthe warnings.
-@class RKParserRegistry;
+#import "NSObject_Additions.h"
 
 @interface GTIOSelectableTableItem : TTTableTextItem {
 @private
@@ -85,11 +83,6 @@
     [_emailsToInvite release];
     [_profileIDsToInvite release];
     [super dealloc];
-}
-
-- (id)jsonEncode:(id)obj {
-    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"application/json"];
-    return [parser stringFromObject:obj error:nil];
 }
 
 - (NSArray*)getEmailAddressesFromContacts {
@@ -205,7 +198,7 @@
             // and emailContacts = [emails].
             NSArray* emails = [self getEmailAddressesFromContacts];
             NSLog(@"Emails: %@", emails);
-            NSString* emailsAsJSON = [self jsonEncode:emails];
+            NSString* emailsAsJSON = [emails jsonEncode];
             params = [NSDictionary dictionaryWithObjectsAndKeys:emailsAsJSON, @"emailContacts", nil];
             params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     } else if (index == GTIOContactsTab) {
@@ -246,9 +239,9 @@
 
 - (void)doneButtonWasPressed:(id)sender {
     [self showLoading];
-    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/add") delegate:self];
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[self jsonEncode:_emailsToInvite], @"stylistEmails",
-                            [self jsonEncode:_profileIDsToInvite], @"stylistUids", nil];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/add") delegate:self];
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_emailsToInvite jsonEncode], @"stylistEmails",
+                            [_profileIDsToInvite jsonEncode], @"stylistUids", nil];
     loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     loader.method = RKRequestMethodPOST;
     [loader send];

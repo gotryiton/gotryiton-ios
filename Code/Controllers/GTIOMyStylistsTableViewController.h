@@ -13,6 +13,8 @@
     UIBarButtonItem* _editButton;
     UIBarButtonItem* _cancelButton;
     UIBarButtonItem* _doneButton;
+    NSMutableArray* _stylists;
+    NSMutableArray* _stylistsToDelete;
 }
 
 @end
