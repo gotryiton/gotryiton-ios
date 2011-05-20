@@ -29,8 +29,8 @@
 		_locationLabel.textAlignment = UITextAlignmentCenter;
 		[self addSubview:_locationLabel];
         // Badges
-        _badgeView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,40,40)];
-        _badgeView2 = [[UIImageView alloc] initWithFrame:CGRectMake(40,0,40,40)];
+        _badgeView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0,10,20,20)];
+        _badgeView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0,10,20,20)];
         [_badgeView1 setImage:[UIImage imageNamed:@"exampleBadgeImage1.png"]];
         [_badgeView2 setImage:[UIImage imageNamed:@"exampleBadgeImage2.png"]];
         [self addSubview:_badgeView1];
@@ -49,8 +49,20 @@
 }
 
 - (void)layoutSubviews {
-	_nameLabel.frame = CGRectMake(0, 4 - 2, self.width, self.height * 0.65);
+    // Layout Badges
+    // TODO: Once we have API integration we'll need to make this conditional based on number of badges
+    //       We can safely assume according to GTIO team that there will be 0-2 badges, and here we assume 
+    //       that badgeview1 is always the leftmost for the label calculations
+    CGFloat badgeTopPadding = 2.5;
+    CGFloat badgeLeftPadding = (self.width - 20);
+    _badgeView1.frame = CGRectMake(badgeLeftPadding-_badgeView1.frame.size.width,badgeTopPadding,20,20);
+    _badgeView2.frame = CGRectMake(badgeLeftPadding,badgeTopPadding,20,20);
+    // 
+    CGFloat nameLabelWidth = (_badgeView1.frame.origin.x - (self.width / 2)) * 2.0; // (Distance of left most badge to center times 2)
+    CGFloat nameLabelLeftPadding = (self.width - nameLabelWidth)/2.0;
+    _nameLabel.frame = CGRectMake(nameLabelLeftPadding, 4 - 2, nameLabelWidth, self.height * 0.65);
 	_locationLabel.frame = CGRectMake(0, self.height * 0.65 - 1, self.width, self.height * 0.35);
+
 }
 
 - (void)setName:(NSString*)name {
