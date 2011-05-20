@@ -150,6 +150,9 @@
 		3F59B4AF137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
 		3F59B4B0137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
 		3F59B4B1137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
+		3F73FA701386BA0800ADB25A /* GTIONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73FA6F1386BA0800ADB25A /* GTIONotification.m */; };
+		3F73FA711386BA0800ADB25A /* GTIONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73FA6F1386BA0800ADB25A /* GTIONotification.m */; };
+		3F73FA721386BA0800ADB25A /* GTIONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73FA6F1386BA0800ADB25A /* GTIONotification.m */; };
 		3F82E872137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
 		3F82E873137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
 		3F82E874137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
@@ -2848,6 +2851,8 @@
 		3F55F12B1382C4BF006BCEE0 /* GTIOTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTabBar.h; sourceTree = "<group>"; };
 		3F55F12C1382C4BF006BCEE0 /* GTIOTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTabBar.m; sourceTree = "<group>"; };
 		3F59B4AE137C24650046FC09 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = Libraries/three20/src/Three20.bundle; sourceTree = "<group>"; };
+		3F73FA6E1386BA0800ADB25A /* GTIONotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotification.h; sourceTree = "<group>"; };
+		3F73FA6F1386BA0800ADB25A /* GTIONotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotification.m; sourceTree = "<group>"; };
 		3F82E870137D707D00F8FE1A /* GTIOBrowseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseTableViewController.h; sourceTree = "<group>"; };
 		3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseTableViewController.m; sourceTree = "<group>"; };
 		3F82E875137D765E00F8FE1A /* GTIOBrowseList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseList.h; sourceTree = "<group>"; };
@@ -4813,6 +4818,8 @@
 				A765B508138302FE00DD1610 /* GTIOUserIconOption.m */,
 				3FA9BBD51386AA56002701F4 /* GTIOListSection.h */,
 				3FA9BBD61386AA56002701F4 /* GTIOListSection.m */,
+				3F73FA6E1386BA0800ADB25A /* GTIONotification.h */,
+				3F73FA6F1386BA0800ADB25A /* GTIONotification.m */,
 			);
 			name = Models;
 			path = Code/Models;
@@ -7855,14 +7862,15 @@
 				A73498C81382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
 				A765B4FF1382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */,
 				A765B509138302FE00DD1610 /* GTIOUserIconOption.m in Sources */,
-<<<<<<< Updated upstream
 				3F9EC686138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */,
 				3FFBE1DA13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */,
 				3FED55591385ACF2004743A2 /* NSObject_Additions.m in Sources */,
 				3FA9BBD71386AA56002701F4 /* GTIOListSection.m in Sources */,
-=======
+<<<<<<< HEAD
 				3D58A6AA1386AAFF00DE4B25 /* GTIOOutfitTitleView.m in Sources */,
->>>>>>> Stashed changes
+=======
+				3F73FA701386BA0800ADB25A /* GTIONotification.m in Sources */,
+>>>>>>> 9659bfa7292b16252b493479598b6f63e905f626
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8016,14 +8024,15 @@
 				A73498C91382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
 				A765B5001382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */,
 				A765B50A138302FE00DD1610 /* GTIOUserIconOption.m in Sources */,
-<<<<<<< Updated upstream
 				3F9EC687138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */,
 				3FFBE1DB13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */,
 				3FED555A1385ACF2004743A2 /* NSObject_Additions.m in Sources */,
 				3FA9BBD81386AA56002701F4 /* GTIOListSection.m in Sources */,
-=======
+<<<<<<< HEAD
 				3D58A6AB1386AAFF00DE4B25 /* GTIOOutfitTitleView.m in Sources */,
->>>>>>> Stashed changes
+=======
+				3F73FA711386BA0800ADB25A /* GTIONotification.m in Sources */,
+>>>>>>> 9659bfa7292b16252b493479598b6f63e905f626
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8222,14 +8231,15 @@
 				A73498CA1382DCD000872A1F /* GTIOSignInTermsView.m in Sources */,
 				A765B5011382F94300DD1610 /* GTIOEditProfilePictureViewController.m in Sources */,
 				A765B50B138302FE00DD1610 /* GTIOUserIconOption.m in Sources */,
-<<<<<<< Updated upstream
 				3F9EC688138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */,
 				3FFBE1DC13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */,
 				3FED555B1385ACF2004743A2 /* NSObject_Additions.m in Sources */,
 				3FA9BBD91386AA56002701F4 /* GTIOListSection.m in Sources */,
-=======
+<<<<<<< HEAD
 				3D58A6AC1386AAFF00DE4B25 /* GTIOOutfitTitleView.m in Sources */,
->>>>>>> Stashed changes
+=======
+				3F73FA721386BA0800ADB25A /* GTIONotification.m in Sources */,
+>>>>>>> 9659bfa7292b16252b493479598b6f63e905f626
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
