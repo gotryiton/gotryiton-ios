@@ -20,6 +20,7 @@
     NSString* _searchAPI;
     NSArray* _sortTabs;
     NSArray* _stylists;
+    NSArray* _sections;
 }
 
 @property (nonatomic, retain) NSString* title;
@@ -32,5 +33,6 @@
 @property (nonatomic, retain) NSString* searchAPI;
 @property (nonatomic, retain) NSArray* sortTabs;
 @property (nonatomic, retain) NSArray* stylists;
+@property (nonatomic, retain) NSArray* sections;
 
 @end

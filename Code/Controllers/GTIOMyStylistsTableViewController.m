@@ -58,6 +58,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"my stylists";
     _cancelButton = [[UIBarButtonItem alloc] 
                    initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                    target:self
@@ -104,7 +105,7 @@
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     [self.navigationItem setRightBarButtonItem:_editButton animated:YES];
     // Delete from Stylists to Delete
-    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/remove") delegate:self];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/remove") delegate:nil];
     id ids = [[_stylistsToDelete valueForKey:@"uid"] jsonEncode];
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:ids, @"stylistUids", nil];
     loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
@@ -159,7 +160,12 @@
     
     for (GTIOProfile* stylist in list.stylists) {
         NSString* url = [NSString stringWithFormat:@"gtio://profile/%@", stylist.uid];
-        TTTableTextItem* item = [TTTableTextItem itemWithText:stylist.displayName URL:url];
+        TTTableImageItem* item = [TTTableImageItem itemWithText:stylist.displayName imageURL:stylist.profileIconURL URL:url];
+        item.imageStyle = [TTImageStyle styleWithImageURL:nil
+                                             defaultImage:nil
+                                              contentMode:UIViewContentModeScaleAspectFit
+                                                     size:CGSizeMake(40,40)
+                                                     next:nil];
         [items addObject:item];
     }
     

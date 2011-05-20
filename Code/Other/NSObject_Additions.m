@@ -7,13 +7,11 @@
 //
 
 #import "NSObject_Additions.h"
-// TODO: figure out how to get at this without all tthe warnings.
-@class RKParserRegistry;
 
 @implementation NSObject (GTIOAdditions)
 
 - (id)jsonEncode {
-    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"application/json"];
+    id<RKParser> parser = [[NSClassFromString(@"RKParserRegistry") sharedRegistry] parserForMIMEType:@"application/json"];
     return [parser stringFromObject:self error:nil];
 }
 

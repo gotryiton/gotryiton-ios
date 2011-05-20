@@ -198,6 +198,9 @@
 		3FA654C71384230F00CC1106 /* tabs3-1-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654C31384230F00CC1106 /* tabs3-1-off@2x.png */; };
 		3FA654C81384230F00CC1106 /* tabs3-1-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654C31384230F00CC1106 /* tabs3-1-off@2x.png */; };
 		3FA654C91384230F00CC1106 /* tabs3-1-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654C31384230F00CC1106 /* tabs3-1-off@2x.png */; };
+		3FA9BBD71386AA56002701F4 /* GTIOListSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA9BBD61386AA56002701F4 /* GTIOListSection.m */; };
+		3FA9BBD81386AA56002701F4 /* GTIOListSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA9BBD61386AA56002701F4 /* GTIOListSection.m */; };
+		3FA9BBD91386AA56002701F4 /* GTIOListSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA9BBD61386AA56002701F4 /* GTIOListSection.m */; };
 		3FBAE217137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
 		3FBAE218137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
 		3FBAE219137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
@@ -2856,6 +2859,8 @@
 		3FA6549D1384218400CC1106 /* tabs3-3-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-3-on@2x.png"; sourceTree = "<group>"; };
 		3FA654C21384230F00CC1106 /* tabs3-1-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-1-off.png"; sourceTree = "<group>"; };
 		3FA654C31384230F00CC1106 /* tabs3-1-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-1-off@2x.png"; sourceTree = "<group>"; };
+		3FA9BBD51386AA56002701F4 /* GTIOListSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOListSection.h; sourceTree = "<group>"; };
+		3FA9BBD61386AA56002701F4 /* GTIOListSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOListSection.m; sourceTree = "<group>"; };
 		3FBAE210137ACCC5001BBC0E /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
 		3FBAE211137ACCC5001BBC0E /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		3FBAE212137ACCC5001BBC0E /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
@@ -4782,6 +4787,8 @@
 				3FBFC2EB1381ABBC00A47A1B /* GTIOSortTab.m */,
 				A765B507138302FE00DD1610 /* GTIOUserIconOption.h */,
 				A765B508138302FE00DD1610 /* GTIOUserIconOption.m */,
+				3FA9BBD51386AA56002701F4 /* GTIOListSection.h */,
+				3FA9BBD61386AA56002701F4 /* GTIOListSection.m */,
 			);
 			name = Models;
 			path = Code/Models;
@@ -7820,6 +7827,7 @@
 				3F9EC686138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */,
 				3FFBE1DA13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */,
 				3FED55591385ACF2004743A2 /* NSObject_Additions.m in Sources */,
+				3FA9BBD71386AA56002701F4 /* GTIOListSection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7976,6 +7984,7 @@
 				3F9EC687138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */,
 				3FFBE1DB13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */,
 				3FED555A1385ACF2004743A2 /* NSObject_Additions.m in Sources */,
+				3FA9BBD81386AA56002701F4 /* GTIOListSection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8177,6 +8186,7 @@
 				3F9EC688138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */,
 				3FFBE1DC13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */,
 				3FED555B1385ACF2004743A2 /* NSObject_Additions.m in Sources */,
+				3FA9BBD91386AA56002701F4 /* GTIOListSection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

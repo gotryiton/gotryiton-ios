@@ -11,8 +11,10 @@
 #import <RestKit/Three20/Three20.h>
 #import "GTIOBrowseList.h"
 #import "NSObject_Additions.h"
+#import "GTIOListSection.h"
+#import "GTIOProfile.h"
 
-@interface GTIOSelectableTableItem : TTTableTextItem {
+@interface GTIOSelectableTableItem : TTTableImageItem {
 @private
     BOOL _selected;
 }
@@ -27,7 +29,7 @@
 
 @end
 
-@interface GTIOSelectableTableCell : TTTableTextItemCell
+@interface GTIOSelectableTableCell : TTTableImageItemCell
 @end
 
 @implementation GTIOSelectableTableCell
@@ -49,6 +51,20 @@
 @interface GTIOAddStylistsListDataSource : TTListDataSource
 @end
 @implementation GTIOAddStylistsListDataSource
+
+- (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
+	if ([object isKindOfClass:[GTIOSelectableTableItem class]]) {
+        return [GTIOSelectableTableCell class];
+	} else {
+		return [super tableView:tableView cellClassForObject:object];
+	}
+}
+
+@end
+
+@interface GTIOAddStylistsSectionedDataSource : TTSectionedDataSource
+@end
+@implementation GTIOAddStylistsSectionedDataSource
 
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
 	if ([object isKindOfClass:[GTIOSelectableTableItem class]]) {
@@ -229,7 +245,31 @@
     RKRequestTTModel* model = (RKRequestTTModel*)self.model;
     if ([model isKindOfClass:[RKRequestTTModel class]]) {
         GTIOBrowseList* list = [model.objects objectWithClass:[GTIOBrowseList class]];
-        NSLog(@"List: %@", list);
+        NSArray* sections = list.sections;
+        NSLog(@"List: %@, sections: %@", list, sections);
+        NSMutableArray* sectionTitles = [NSMutableArray array];
+        NSMutableArray* sectionItems = [NSMutableArray array];
+        for (GTIOListSection* section in sections) {
+            [sectionTitles addObject:section.title];
+            NSMutableArray* items = [NSMutableArray array];
+            for (GTIOProfile* stylist in section.stylists) {
+                NSString* url = [NSString stringWithFormat:@"gtio://stylists/addProfileID/%@", stylist.uid];
+                GTIOSelectableTableItem* item = [GTIOSelectableTableItem itemWithText:stylist.displayName imageURL:stylist.profileIconURL URL:url];
+                item.imageStyle = [TTImageStyle styleWithImageURL:nil
+                                                     defaultImage:nil
+                                                      contentMode:UIViewContentModeScaleAspectFit
+                                                             size:CGSizeMake(40,40)
+                                                             next:nil];
+                if ([_profileIDsToInvite containsObject:stylist.uid]) {
+                    item.selected = YES;
+                }
+                [items addObject:item];
+            }
+            [sectionItems addObject:items];
+        }
+        GTIOAddStylistsSectionedDataSource* ds = (GTIOAddStylistsSectionedDataSource*)[GTIOAddStylistsSectionedDataSource dataSourceWithItems:sectionItems sections:sectionTitles];
+        ds.model = model;
+        self.dataSource = ds;
     }
 }
 

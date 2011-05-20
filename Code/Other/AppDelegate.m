@@ -36,6 +36,7 @@
 #import "GTIOCategory.h"
 #import "GTIOSortTab.h"
 #import "GTIOUserIconOption.h"
+#import "GTIOListSection.h"
 
 #import "GTIOGlobalVariableStore.h"
 
@@ -171,6 +172,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"searchApi", @"searchAPI")];
     [provider setMapping:browseListMapping forKeyPath:@"list"];
     
+    RKObjectMapping* sectionMapping = [RKObjectMapping mappingForClass:[GTIOListSection class]];
+    [sectionMapping mapAttributes:@"title", nil];
+    
     RKObjectMapping* categoryMapping = [RKObjectMapping mappingForClass:[GTIOCategory class]];
     [categoryMapping addAttributeMapping:RKObjectAttributeMappingMake(@"name", @"name")];
     [categoryMapping addAttributeMapping:RKObjectAttributeMappingMake(@"api", @"apiEndpoint")];
@@ -187,6 +191,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"sortTabs" toKeyPath:@"sortTabs" objectMapping:sortTabMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"stylists" toKeyPath:@"stylists" objectMapping:profileMapping]];
+    [browseListMapping mapRelationship:@"sections" withObjectMapping:sectionMapping];
+    
+    [sectionMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
     
     [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user" toKeyPath:@"user" objectMapping:profileMapping]];
     
