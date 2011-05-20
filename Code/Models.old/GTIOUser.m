@@ -29,6 +29,9 @@ NSString* const kGTIOUserDidUpdateProfileNotificationName = @"kUserProfileUpdate
 NSString* const kGTIOUserDidBeginLoginProcess = @"kGTIOUserDidBeginLoginProcess";
 NSString* const kGTIOUserDidEndLoginProcess = @"kGTIOUserDidEndLoginProcess";
 
+NSString* const kGTIONotificationsUpdatedNotificationName = @"kGTIONotificationsUpdatedNotification";
+NSString* const kGTIOToDoBadgeUpdatedNotificationName = @"kGTIOToDoBadgeUpdatedNotification";
+
 // Global current User instance
 static GTIOUser* gCurrentUser = nil;
 
@@ -49,6 +52,9 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize eventTypes = _eventTypes;
 @synthesize facebook = _facebook;
 @synthesize profileIconURL = _profileIconURL;
+
+@synthesize notifications = _notifications;
+@synthesize todosBadge = _todosBadge;
 
 + (GTIOUser*)currentUser {
 	if (nil == gCurrentUser) {
@@ -120,7 +126,23 @@ static GTIOUser* gCurrentUser = nil;
 	TT_RELEASE_SAFELY(_services);
 	TT_RELEASE_SAFELY(_eventTypes);
     TT_RELEASE_SAFELY(_facebook);
+    TT_RELEASE_SAFELY(_notifications);
+    TT_RELEASE_SAFELY(_todosBadge);
 	[super dealloc];
+}
+
+- (void)setNotifications:(NSArray*)notifications {
+    [notifications retain];
+    [_notifications release];
+    _notifications = notifications;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIONotificationsUpdatedNotificationName object:self];
+}
+
+- (void)setTodosBadge:(NSNumber*)number {
+    [number retain];
+    [_todosBadge release];
+    _todosBadge = number;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOToDoBadgeUpdatedNotificationName object:self];
 }
 
 - (void)didStartLogin {

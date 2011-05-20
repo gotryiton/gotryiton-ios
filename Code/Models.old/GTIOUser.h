@@ -44,6 +44,16 @@ NSString* const kGTIOUserDidUpdateProfileNotificationName;
 extern NSString* const kGTIOUserDidBeginLoginProcess;
 extern NSString* const kGTIOUserDidEndLoginProcess;
 
+/**
+ * Posted when the user's notifications are updated
+ */
+extern NSString* const kGTIONotificationsUpdatedNotificationName;
+
+/**
+ * Posted when the todo's badge is updated
+ */
+extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
+
 //////////////////////////////////////////////////////////////////////
 
 @interface GTIOUser : NSObject <JREngageDelegate, FBSessionDelegate> {
@@ -63,6 +73,10 @@ extern NSString* const kGTIOUserDidEndLoginProcess;
 	NSArray* _services;
 	NSArray* _eventTypes;
     
+    // Pulled from status API
+    NSArray* _notifications;
+    NSNumber* _todosBadge;
+    
     Facebook* _facebook;
 }
 
@@ -72,6 +86,9 @@ extern NSString* const kGTIOUserDidEndLoginProcess;
 @property (nonatomic, copy) NSString* token;
 @property (nonatomic, copy) NSString* UID;
 @property (nonatomic, copy) NSString* username;
+
+@property (nonatomic, retain) NSArray* notifications;
+@property (nonatomic, retain) NSNumber* todosBadge;
 
 @property (nonatomic, readonly) Facebook* facebook;
 
