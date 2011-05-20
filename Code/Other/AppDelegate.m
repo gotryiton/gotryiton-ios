@@ -37,6 +37,7 @@
 #import "GTIOSortTab.h"
 #import "GTIOUserIconOption.h"
 #import "GTIOListSection.h"
+#import "GTIONotification.h"
 
 #import "GTIOGlobalVariableStore.h"
 
@@ -186,6 +187,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     [sortTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"default", @"defaultTab")];
     [sortTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"selected", @"selected")];
     [sortTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"sortApi", @"sortAPI")];
+    
+    RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
+    [notificationMapping mapAttributes:@"text", @"url", nil];
+    [notificationMapping mapAttribute:@"id" toKeyPath:@"notificationID"];
     
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"categories" toKeyPath:@"categories" objectMapping:categoryMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
@@ -383,32 +388,14 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     
 	return YES;
-//    // Initialize RestKit
-//    // RKObjectManager* manager = [RKObjectManager objectManagerWithBaseURL:@"http://restkit.org"];
-//    
-//    // Initialize Three20
-//    TTNavigator* navigator = [TTNavigator navigator];
-//    [navigator setPersistenceMode:TTNavigatorPersistenceModeAll];
-//    TTURLMap* map = navigator.URLMap;
-//    [map from:@"gtio://home" toSharedViewController:[GTIOLauncherViewController class]];
-//    
-//    
-//    // Override point for customization after application launch.
-//    navigator.window = self.window;
-//    [self.window makeKeyAndVisible];
-//    
-//    if ([navigator restoreViewControllers] == nil) {
-//        TTOpenURL(@"gtio://home");
-//        // TODO: check to see if we are logged in.
-//        // Present login if we are not.
-//    }
-//    
-//    
-//    return YES;
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
-//    NSLog(@"dictionary: %@", dictionary);
+    NSLog(@"dictionary: %@", dictionary);
+    // Pull out todo's badge
+    // pull out notifications.
+    // set them on GTIO user and update home screen?
+    
     GTIOAppStatusAlert* alert = [dictionary objectForKey:@"alert"];
     if (alert) {
 		[alert show];
