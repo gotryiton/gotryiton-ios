@@ -258,7 +258,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://photoGuidelines" toViewController:NSClassFromString(@"GTIOPhotoGuidelinesViewController") transition:UIViewAnimationTransitionCurlDown];
 	
 	// Get an Opinion
-	[map from:@"gtio://getAnOpinion" toModalViewController:NSClassFromString(@"GTIOGetAnOpinionViewController")];
+	[map from:@"gtio://getAnOpinion" toSharedViewController:NSClassFromString(@"GTIOGetAnOpinionViewController")];
 	[map from:@"gtio://getAnOpinion/photosPreview" parent:@"gtio://getAnOpinion" toSharedViewController:NSClassFromString(@"GTIOPhotosPreviewViewController")];
 	[map from:@"gtio://getAnOpinion/tellUsAboutIt/multiplePhotos" parent:@"gtio://getAnOpinion/photosPreview" toSharedViewController:NSClassFromString(@"GTIOTellUsAboutItViewController")];
 	[map from:@"gtio://getAnOpinion/tellUsAboutIt" parent:@"gtio://getAnOpinion" toSharedViewController:NSClassFromString(@"GTIOTellUsAboutItViewController")];
