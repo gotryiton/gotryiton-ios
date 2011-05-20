@@ -29,11 +29,7 @@
 @property (nonatomic, readonly) BOOL flipped;
 @property (nonatomic, readonly) CGFloat zoomFactor;
 @property (nonatomic, readonly) CGFloat pageWidth;
-- (CGRect)frameOfPageAtIndex:(NSInteger)pageIndex;
-- (CGRect)frameOfPageAtIndex:(NSInteger)pageIndex;
 - (void)moveToPageAtIndex:(NSInteger)pageIndex resetEdges:(BOOL)resetEdges;
-- (UIEdgeInsets)zoomPageEdgesTo:(CGPoint)point;
-
 - (void)doneReloading;
 
 @end

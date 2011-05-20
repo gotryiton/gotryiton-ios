@@ -309,8 +309,4 @@
     }
 }
 
-- (void)moveToPageAtIndex:(NSInteger)pageIndex resetEdges:(BOOL)resetEdges {
-    [super moveToPageAtIndex:pageIndex resetEdges:resetEdges];
-}
-
 @end
