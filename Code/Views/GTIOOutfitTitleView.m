@@ -40,11 +40,10 @@
 }
 
 - (void)dealloc {
-//	TODO: WHY DOES THIS CRASH???!?!
-//	[_nameLabel release];
-//	_nameLabel = nil;
-	[_locationLabel release];
-	_locationLabel = nil;
+    TT_RELEASE_SAFELY(_nameLabel);
+    TT_RELEASE_SAFELY(_locationLabel);
+    TT_RELEASE_SAFELY(_badgeView1);
+    TT_RELEASE_SAFELY(_badgeView2);
 	[super dealloc];
 }
 
@@ -52,14 +51,14 @@
     // Layout Badges
     // TODO: Once we have API integration we'll need to make this conditional based on number of badges
     //       We can safely assume according to GTIO team that there will be 0-2 badges, and here we assume 
-    //       that badgeview1 is always the leftmost for the label calculations
+    //       that badgeview1 is always the leftmost for the label calculations -DRH
     CGFloat badgeTopPadding = 2.5;
     CGFloat badgeLeftPadding = (self.width - 20);
     _badgeView1.frame = CGRectMake(badgeLeftPadding-_badgeView1.frame.size.width,badgeTopPadding,20,20);
     _badgeView2.frame = CGRectMake(badgeLeftPadding,badgeTopPadding,20,20);
-    // 
-    CGFloat nameLabelWidth = (_badgeView1.frame.origin.x - (self.width / 2)) * 2.0; // (Distance of left most badge to center times 2)
-    CGFloat nameLabelLeftPadding = (self.width - nameLabelWidth)/2.0;
+    // Layout Labels Based on Badge Frames
+    CGFloat nameLabelWidth = (_badgeView1.frame.origin.x - (self.width / 2)) * 2.0;     // (Distance of left most badge to center times 2)
+    CGFloat nameLabelLeftPadding = (self.width - nameLabelWidth)/2.0;                   // Centered based on width
     _nameLabel.frame = CGRectMake(nameLabelLeftPadding, 4 - 2, nameLabelWidth, self.height * 0.65);
 	_locationLabel.frame = CGRectMake(0, self.height * 0.65 - 1, self.width, self.height * 0.35);
 
