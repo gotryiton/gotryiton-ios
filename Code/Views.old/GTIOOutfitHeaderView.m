@@ -14,18 +14,27 @@
 - (id)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
 		self.backgroundColor = [UIColor clearColor];
+        // Names
 		_nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_nameLabel.textColor = [UIColor whiteColor];
 		_nameLabel.font = kGTIOFetteFontOfSize(23);
 		_nameLabel.backgroundColor = [UIColor clearColor];
 		_nameLabel.textAlignment = UITextAlignmentCenter;
 		[self addSubview:_nameLabel];
+        // Locations
 		_locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_locationLabel.textColor = kGTIOColorBrightPink;
 		_locationLabel.font = kGTIOFontHelveticaNeueOfSize(13);
 		_locationLabel.backgroundColor = [UIColor clearColor];
 		_locationLabel.textAlignment = UITextAlignmentCenter;
 		[self addSubview:_locationLabel];
+        // Badges
+        _badgeView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,40,40)];
+        _badgeView2 = [[UIImageView alloc] initWithFrame:CGRectMake(40,0,40,40)];
+        [_badgeView1 setImage:[UIImage imageNamed:@"exampleBadgeImage1.png"]];
+        [_badgeView2 setImage:[UIImage imageNamed:@"exampleBadgeImage2.png"]];
+        [self addSubview:_badgeView1];
+        [self addSubview:_badgeView2];
 	}
 	return self;
 }
