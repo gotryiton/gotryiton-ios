@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "GTIOOutfitHeaderView.h"
+#import "GTIOOutfitTitleView.h"
 
 
-@implementation GTIOOutfitHeaderView
+@implementation GTIOOutfitTitleView
 
 - (id)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {

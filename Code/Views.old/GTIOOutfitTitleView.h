@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface GTIOOutfitHeaderView : UIView {
+@interface GTIOOutfitTitleView : UIView {
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
     UIImageView* _badgeView1;

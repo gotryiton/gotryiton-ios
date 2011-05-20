@@ -132,9 +132,6 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
-		3D58A6AA1386AAFF00DE4B25 /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D58A6A91386AAFF00DE4B25 /* GTIOOutfitTitleView.m */; };
-		3D58A6AB1386AAFF00DE4B25 /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D58A6A91386AAFF00DE4B25 /* GTIOOutfitTitleView.m */; };
-		3D58A6AC1386AAFF00DE4B25 /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D58A6A91386AAFF00DE4B25 /* GTIOOutfitTitleView.m */; };
 		3D58A6B01386B5F600DE4B25 /* exampleBadgeImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58A6AE1386B5F600DE4B25 /* exampleBadgeImage1.png */; };
 		3D58A6B11386B5F600DE4B25 /* exampleBadgeImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58A6AE1386B5F600DE4B25 /* exampleBadgeImage1.png */; };
 		3D58A6B21386B5F600DE4B25 /* exampleBadgeImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58A6AE1386B5F600DE4B25 /* exampleBadgeImage1.png */; };
@@ -803,9 +800,9 @@
 		A733979E1379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397521379A7D000F41C2A /* GTIOMultiOutfitOverlay.m */; };
 		A733979F1379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397521379A7D000F41C2A /* GTIOMultiOutfitOverlay.m */; };
 		A73397A01379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397521379A7D000F41C2A /* GTIOMultiOutfitOverlay.m */; };
-		A73397A11379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397541379A7D000F41C2A /* GTIOOutfitHeaderView.m */; };
-		A73397A21379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397541379A7D000F41C2A /* GTIOOutfitHeaderView.m */; };
-		A73397A31379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397541379A7D000F41C2A /* GTIOOutfitHeaderView.m */; };
+		A73397A11379A7D000F41C2A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397541379A7D000F41C2A /* GTIOOutfitTitleView.m */; };
+		A73397A21379A7D000F41C2A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397541379A7D000F41C2A /* GTIOOutfitTitleView.m */; };
+		A73397A31379A7D000F41C2A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397541379A7D000F41C2A /* GTIOOutfitTitleView.m */; };
 		A73397A41379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397561379A7D000F41C2A /* GTIOOutfitPageView.m */; };
 		A73397A51379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397561379A7D000F41C2A /* GTIOOutfitPageView.m */; };
 		A73397A61379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397561379A7D000F41C2A /* GTIOOutfitPageView.m */; };
@@ -2844,8 +2841,6 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = Libraries/three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = Libraries/three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = Libraries/three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
-		3D58A6A81386AAFF00DE4B25 /* GTIOOutfitTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTitleView.h; sourceTree = "<group>"; };
-		3D58A6A91386AAFF00DE4B25 /* GTIOOutfitTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTitleView.m; sourceTree = "<group>"; };
 		3D58A6AE1386B5F600DE4B25 /* exampleBadgeImage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exampleBadgeImage1.png; sourceTree = "<group>"; };
 		3D58A6AF1386B5F600DE4B25 /* exampleBadgeImage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exampleBadgeImage2.png; sourceTree = "<group>"; };
 		3F55F12B1382C4BF006BCEE0 /* GTIOTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTabBar.h; sourceTree = "<group>"; };
@@ -3138,8 +3133,8 @@
 		A73397501379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMultiLineQuotedLabel.m; sourceTree = "<group>"; };
 		A73397511379A7D000F41C2A /* GTIOMultiOutfitOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMultiOutfitOverlay.h; sourceTree = "<group>"; };
 		A73397521379A7D000F41C2A /* GTIOMultiOutfitOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMultiOutfitOverlay.m; sourceTree = "<group>"; };
-		A73397531379A7D000F41C2A /* GTIOOutfitHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitHeaderView.h; sourceTree = "<group>"; };
-		A73397541379A7D000F41C2A /* GTIOOutfitHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitHeaderView.m; sourceTree = "<group>"; };
+		A73397531379A7D000F41C2A /* GTIOOutfitTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GTIOOutfitTitleView.h; sourceTree = "<group>"; };
+		A73397541379A7D000F41C2A /* GTIOOutfitTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTitleView.m; sourceTree = "<group>"; };
 		A73397551379A7D000F41C2A /* GTIOOutfitPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitPageView.h; sourceTree = "<group>"; };
 		A73397561379A7D000F41C2A /* GTIOOutfitPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitPageView.m; sourceTree = "<group>"; };
 		A73397571379A7D000F41C2A /* GTIOOutfitReviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitReviewTableCell.h; sourceTree = "<group>"; };
@@ -4720,8 +4715,6 @@
 				A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */,
 				A7B97373137B1FB2009531ED /* GTIOTitleView.h */,
 				A7B97374137B1FB2009531ED /* GTIOTitleView.m */,
-				3D58A6A81386AAFF00DE4B25 /* GTIOOutfitTitleView.h */,
-				3D58A6A91386AAFF00DE4B25 /* GTIOOutfitTitleView.m */,
 				A7AEF96A137C46840034DAEF /* GTIOProfileHeaderView.h */,
 				A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */,
 				A7B8CF2B137D6E9900C0A857 /* GTIOProfileAboutMeView.h */,
@@ -4756,8 +4749,8 @@
 				A73397501379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m */,
 				A73397511379A7D000F41C2A /* GTIOMultiOutfitOverlay.h */,
 				A73397521379A7D000F41C2A /* GTIOMultiOutfitOverlay.m */,
-				A73397531379A7D000F41C2A /* GTIOOutfitHeaderView.h */,
-				A73397541379A7D000F41C2A /* GTIOOutfitHeaderView.m */,
+				A73397531379A7D000F41C2A /* GTIOOutfitTitleView.h */,
+				A73397541379A7D000F41C2A /* GTIOOutfitTitleView.m */,
 				A73397551379A7D000F41C2A /* GTIOOutfitPageView.h */,
 				A73397561379A7D000F41C2A /* GTIOOutfitPageView.m */,
 				A73397571379A7D000F41C2A /* GTIOOutfitReviewTableCell.h */,
@@ -7821,7 +7814,7 @@
 				A73397981379A7D000F41C2A /* GTIOHeaderView.m in Sources */,
 				A733979B1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m in Sources */,
 				A733979E1379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */,
-				A73397A11379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */,
+				A73397A11379A7D000F41C2A /* GTIOOutfitTitleView.m in Sources */,
 				A73397A41379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */,
 				A73397A71379A7D000F41C2A /* GTIOOutfitReviewTableCell.m in Sources */,
 				A73397AA1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m in Sources */,
@@ -7866,7 +7859,6 @@
 				3FFBE1DA13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */,
 				3FED55591385ACF2004743A2 /* NSObject_Additions.m in Sources */,
 				3FA9BBD71386AA56002701F4 /* GTIOListSection.m in Sources */,
-				3D58A6AA1386AAFF00DE4B25 /* GTIOOutfitTitleView.m in Sources */,
 				3F73FA701386BA0800ADB25A /* GTIONotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7975,7 +7967,7 @@
 				A73397991379A7D000F41C2A /* GTIOHeaderView.m in Sources */,
 				A733979C1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m in Sources */,
 				A733979F1379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */,
-				A73397A21379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */,
+				A73397A21379A7D000F41C2A /* GTIOOutfitTitleView.m in Sources */,
 				A73397A51379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */,
 				A73397A81379A7D000F41C2A /* GTIOOutfitReviewTableCell.m in Sources */,
 				A73397AB1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m in Sources */,
@@ -8025,7 +8017,6 @@
 				3FFBE1DB13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */,
 				3FED555A1385ACF2004743A2 /* NSObject_Additions.m in Sources */,
 				3FA9BBD81386AA56002701F4 /* GTIOListSection.m in Sources */,
-				3D58A6AB1386AAFF00DE4B25 /* GTIOOutfitTitleView.m in Sources */,
 				3F73FA711386BA0800ADB25A /* GTIONotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8184,7 +8175,7 @@
 				A733979A1379A7D000F41C2A /* GTIOHeaderView.m in Sources */,
 				A733979D1379A7D000F41C2A /* GTIOMultiLineQuotedLabel.m in Sources */,
 				A73397A01379A7D000F41C2A /* GTIOMultiOutfitOverlay.m in Sources */,
-				A73397A31379A7D000F41C2A /* GTIOOutfitHeaderView.m in Sources */,
+				A73397A31379A7D000F41C2A /* GTIOOutfitTitleView.m in Sources */,
 				A73397A61379A7D000F41C2A /* GTIOOutfitPageView.m in Sources */,
 				A73397A91379A7D000F41C2A /* GTIOOutfitReviewTableCell.m in Sources */,
 				A73397AC1379A7D000F41C2A /* GTIOOutfitReviewTableItem.m in Sources */,
@@ -8229,7 +8220,6 @@
 				3FFBE1DC13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */,
 				3FED555B1385ACF2004743A2 /* NSObject_Additions.m in Sources */,
 				3FA9BBD91386AA56002701F4 /* GTIOListSection.m in Sources */,
-				3D58A6AC1386AAFF00DE4B25 /* GTIOOutfitTitleView.m in Sources */,
 				3F73FA721386BA0800ADB25A /* GTIONotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
