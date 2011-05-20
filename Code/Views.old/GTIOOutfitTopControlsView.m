@@ -264,7 +264,7 @@
 	}
 	if (![[GTIOUser currentUser] isLoggedIn]) {
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotification:) name:kGTIOUserDidLoginNotificationName object:nil];
-		[[GTIOUser currentUser] login];
+		[[GTIOUser currentUser] loginWithFacebook];
 	} else {
 		TTOpenURL(@"gtio://loading");
 		NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:

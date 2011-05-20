@@ -179,10 +179,10 @@
 			return 3;
 		} else {
 			
-			[self setLookPart3];
+			[self performSelector:@selector(setLookPart3)];
 		}
 	} else {
-		[self fadeInExpand];
+		[self performSelector:@selector(fadeInExpand)];
 	}
 	return -1;
 }

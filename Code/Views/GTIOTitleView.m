@@ -11,18 +11,19 @@
 
 @implementation GTIOTitleView
 
-+ (GTIOTitleView*)title:(NSString*)title {
-	self = [[self new] autorelease];
-	[self setText:title];
-	[self setBackgroundColor:[UIColor clearColor]];
-	[self setTextAlignment:UITextAlignmentCenter];
-	[self setTextColor:[UIColor whiteColor]];
-	UIFont* font = [UIFont fontWithName:@"Fette Engschrift" size:25];
-	[self setFrame:CGRectMake(0,0,[title sizeWithFont:font].width,30)];
-	[self setFont:font];
-	[self setShadowOffset:CGSizeMake(0, -1)];
-	[self setShadowColor:[UIColor colorWithRed:0.533 green:0.533 blue:0.533 alpha:1.0]];
-	return self;
++(GTIOTitleView*)title:(NSString*)title {
+	GTIOTitleView* titleView = [[[UILabel alloc] init] autorelease];
+    if (titleView) {
+        [titleView setText:title];
+        [titleView setBackgroundColor:[UIColor clearColor]];
+        [titleView setTextAlignment:UITextAlignmentCenter];
+        [titleView setTextColor:[UIColor whiteColor]];
+        [titleView setFrame:CGRectMake(0,0,[title sizeWithFont:kGTIOFetteFontOfSize(25)].width,30)];
+        [titleView setFont:kGTIOFetteFontOfSize(25)];
+        [titleView setShadowOffset:CGSizeMake(0, -1)];
+        [titleView setShadowColor:kGTIOColor888888];
+    }
+	return titleView;
 }
 
 @end

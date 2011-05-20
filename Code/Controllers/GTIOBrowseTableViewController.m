@@ -16,7 +16,7 @@
 #import "GTIOPaginationTableViewDelegate.h"
 #import "GTIOSortTab.h"
 #import "GTIOOutfitViewController.h"
-
+#import <RestKit/RestKit.h>
 @interface GTIOTableImageItemCell : TTTableImageItemCell
 @end
 
@@ -240,9 +240,9 @@
             
             // TODO: figure out if this will get us rejected and if we need to do something else to make this look right.
             if ([list.includeAlphaNav boolValue]) {
-                [_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 35)];
+                [(UIScrollView*)_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 35)];
             } else {
-                [_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 0)];
+                [(UIScrollView*)_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 0)];
             }
             self.tableView.tableHeaderView = _searchBar;
         } else {
@@ -399,7 +399,7 @@
 
 - (void)didSelectObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
     if ([object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
-        GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:[self model] outfitIndex:indexPath.row];
+        GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:self.model outfitIndex:indexPath.row];
         [self.navigationController pushViewController:viewController animated:YES];
         [viewController release];
     } else {

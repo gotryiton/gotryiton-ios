@@ -7,10 +7,14 @@
 //
 
 #import "GTIOOutfitViewController.h"
-#import "GTIOOutfitPageView.h"
 #import <TWTActionSheetDelegate.h>
 #import <TWTAlertViewDelegate.h>
 #import "GTIOEditOutfitViewController.h"
+#import "GTIOOutfitPageView.h"
+
+@interface GTIOOutfitViewController (shouldReloadPage)
+- (void)scrollView:(GTIOScrollView*)scrollView shouldReloadPage:(GTIOOutfitPageView*)page;
+@end
 
 @implementation GTIOOutfitViewController
 

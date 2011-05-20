@@ -42,7 +42,7 @@
 	}
 	[[button titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
 	[[button titleLabel] setShadowOffset:CGSizeMake(0, -1)];
-	[[button titleLabel] setShadowColor:[UIColor colorWithRed:0.533 green:0.533 blue:0.533 alpha:1.0]];
+	[[button titleLabel] setShadowColor:kGTIOColor888888];
 	[view addSubview:button];
 	return [super initWithCustomView:view];
 }

@@ -93,4 +93,6 @@ extern CGRect const wear4of4Frame;
 
 - (void)setWillMoveInFromLeft:(BOOL)fromLeft;
 
+- (void)setOutfitWithoutMultiOverlay:(GTIOOutfit *)outfit;
+- (void)showFullDescription:(BOOL)show;
 @end

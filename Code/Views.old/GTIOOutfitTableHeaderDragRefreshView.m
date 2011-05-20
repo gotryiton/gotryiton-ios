@@ -8,6 +8,9 @@
 
 #import "GTIOOutfitTableHeaderDragRefreshView.h"
 
+@interface TTTableHeaderDragRefreshView (Overrides)
+- (UIImageView*)bgImageView;
+@end
 
 @implementation GTIOOutfitTableHeaderDragRefreshView
 

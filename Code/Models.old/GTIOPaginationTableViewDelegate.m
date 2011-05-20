@@ -15,11 +15,21 @@
 //#define kTableViewEdgeInsets UIEdgeInsetsMake(8, 0, 0, 0)
 #define kTableViewEdgeInsets UIEdgeInsetsMake(0, 0, 0, 0)
 
+@interface TTTableViewDragRefreshDelegate (TTModelDelegate)
+- (void)modelDidFinishLoad:(id<TTModel>)model;
+- (void)model:(id<TTModel>)model didFailLoadWithError:(NSError*)error;
+- (void)modelDidCancelLoad:(id<TTModel>)model;
+@end
+
 @interface TTTableHeaderDragRefreshView (private)
 
 - (void)setImageFlipped:(BOOL)flipped;
 - (void)showActivity:(BOOL)activity animated:(BOOL)animated;
 
+@end
+
+@interface TTTableHeaderDragRefreshView (Overrides)
+- (UIImageView*)bgImageView;
 @end
 
 @implementation TTTableHeaderDragRefreshView (Overrides)

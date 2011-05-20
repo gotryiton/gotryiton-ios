@@ -26,6 +26,10 @@
 
 @implementation GTIOScrollView
 
+@dynamic pinched;
+@dynamic pageWidth;
+@dynamic zoomFactor;
+@dynamic flipped;
 @synthesize dragToRefresh = _dragToRefresh;
 @synthesize lastPageIndex = _lastPageIndex;
 @synthesize shouldScroll = _shouldScroll;
@@ -227,7 +231,7 @@
   CGFloat zoom = 0.75 * self.pageWidth;
   CGFloat r = self.height / self.pageWidth;
 	
-  CGFloat xd = self.pageWidth/2 - point.x;
+  CGFloat xd = [self pageWidth]/2 - point.x;
   CGFloat yd = self.height/2 - point.y;
 	
   edges.left = (-zoom + xd);
@@ -272,7 +276,7 @@
         
         
         NSInteger realIndex = [self realPageIndex];
-        if (realIndex != _centerPageIndex || self.pinched) {
+        if (realIndex != _centerPageIndex) {
             [self moveToPageAtIndex:realIndex resetEdges:resetEdges];
         }
     }
@@ -303,6 +307,10 @@
             [_delegate scrollViewDidEndZooming:self];
         }
     }
+}
+
+- (void)moveToPageAtIndex:(NSInteger)pageIndex resetEdges:(BOOL)resetEdges {
+    [super moveToPageAtIndex:pageIndex resetEdges:resetEdges];
 }
 
 @end

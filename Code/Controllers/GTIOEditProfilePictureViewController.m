@@ -13,6 +13,9 @@
 
 @implementation GTIOEditProfilePictureViewController
 
+#pragma mark -
+#pragma mark NSObject
+
 - (id)initWithName:(NSString*)name location:(NSString*)location {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
@@ -27,14 +30,10 @@
 	if (self) {
 		_facebookIconOption = nil;
         _options = nil;
-		_slidingState = NO;		
+		_slidingState = NO;
+        // Name and Location Info For Preview
         _profileName = [[[GTIOUser currentUser] username] copy];
         _profileLocation = [[NSString stringWithFormat:@"%@, %@",[[GTIOUser currentUser] city],[[GTIOUser currentUser] state]] copy];
-		NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-														[[GTIOUser currentUser] token], @"gtioToken",
-														nil];
-    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-		[[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/user-icons") queryParams:params delegate:self];
 	}
 	return self;
 }
@@ -55,10 +54,11 @@
     [super dealloc];
 }
 
+#pragma mark -
+#pragma mark UIViewController Lifecycle
+
 - (void)loadView {
 	[super loadView];
-    // Background Color
-    UIColor* grayColor = [UIColor colorWithRed:.898 green:.898 blue:.898 alpha:1.0];
 	// Background Image
 	UIImageView* backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"full-wallpaper.png"]];
 	[self.view addSubview:backgroundImageView];
@@ -73,7 +73,7 @@
 	[self.view addSubview:bottomContainer];
 	[topContainer release];
 	[bottomContainer release];
-	// Labels
+	// Section Labels
 	UILabel* choseFromLabel = [UILabel new];
 	UILabel* previewLabel = [UILabel new];
 	[choseFromLabel setText:@"choose from"];
@@ -88,7 +88,7 @@
 	[self.view addSubview:previewLabel];	
 	[choseFromLabel release];
 	[previewLabel release];
-	//	
+	// Choose From Section
 	_scrollView = [UIScrollView new];
 	[_scrollView setBounces:NO];
 	[_scrollView setDelegate:self];
@@ -128,13 +128,13 @@
     [self.view addSubview:_facebookLabel];
     _seperator = [UIView new];
     [_seperator setFrame:CGRectMake(90,60,1,100)];
-    [_seperator setBackgroundColor:grayColor];
+    [_seperator setBackgroundColor:kGTIOColorE3E3E3];
     [self.view addSubview:_seperator];
-    //
+    // Preview Section
     UIView* previewBackground = [UIView new];
     [previewBackground setFrame:CGRectMake(30,255,260,85)];
-    [previewBackground setBackgroundColor:grayColor];
-    [[previewBackground layer] setBorderColor:[grayColor CGColor]];
+    [previewBackground setBackgroundColor:kGTIOColorE3E3E3];
+    [[previewBackground layer] setBorderColor:[kGTIOColorE3E3E3 CGColor]];
     [[previewBackground layer] setBorderWidth:1];
     [[previewBackground layer] setCornerRadius:5];
     [self.view addSubview:previewBackground];
@@ -146,78 +146,39 @@
     UIImageView* profileIconOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
     [profileIconOverlay setFrame:CGRectMake(40,265,64,64)];
     [self.view addSubview:profileIconOverlay];
-    //
-    UILabel* nameLabel = [UILabel new];
     UILabel* locationLabel = [UILabel new];
-    [nameLabel      setBackgroundColor:[UIColor clearColor]];
-    [locationLabel  setBackgroundColor:[UIColor clearColor]];
-    [nameLabel      setFont:kGTIOFetteFontOfSize(32)];
-    [locationLabel  setFont:[UIFont systemFontOfSize:14]];
-    [nameLabel      setTextColor:kGTIOColorBrightPink];
-    [locationLabel  setTextColor:kGTIOColorAAAAAA];
-    [nameLabel      setFrame:CGRectMake(120,275,140,30)];
-    [locationLabel  setFrame:CGRectMake(120,300,140,20)];
-    [nameLabel      setText:_profileName];
-    [locationLabel  setText:_profileLocation];
-    [self.view      addSubview:nameLabel];
-    [self.view      addSubview:locationLabel];
-    [nameLabel      release];
-    [locationLabel  release];
+    [locationLabel setBackgroundColor:[UIColor clearColor]];
+    [locationLabel setFont:[UIFont systemFontOfSize:14]];
+    [locationLabel setTextColor:kGTIOColorAAAAAA];
+    [locationLabel setFrame:CGRectMake(120,300,140,20)];
+    [locationLabel setText:_profileLocation];
+    [self.view addSubview:locationLabel];
+    [locationLabel release];
+    UILabel* nameLabel = [UILabel new];
+    [nameLabel setBackgroundColor:[UIColor clearColor]];
+    [nameLabel setFont:kGTIOFetteFontOfSize(32)];
+    [nameLabel setTextColor:kGTIOColorBrightPink];
+    [nameLabel setFrame:CGRectMake(120,275,140,30)];
+    [nameLabel setText:_profileName];
+    [self.view addSubview:nameLabel];
+    [nameLabel release];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    // Initiate Request for Profile Icons
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[[GTIOUser currentUser] token], @"gtioToken",nil];
+    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/user-icons") queryParams:params delegate:self];
+    // Setup Navigation Bar Items
 	GTIOBarButtonItem* cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonAction)];
 	self.navigationItem.leftBarButtonItem = cancelButton;
     GTIOBarButtonItem* saveButton = [[GTIOBarButtonItem alloc] initWithTitle:@"save" target:self action:@selector(saveButtonAction)];
     self.navigationItem.rightBarButtonItem = saveButton;
 }
 
-- (void)cancelButtonAction {
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-- (void)saveButtonAction {
-    // Save Action
-    GTIOUser* user = [GTIOUser currentUser];
-    user.profileIconURL = _previewImageView.urlPath;
-    [[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];
-}
-
-- (void)updateFinished:(GTIOUpdateUserRequest*)updateRequest {
-	[updateRequest autorelease];
-	//[self hideLoading];
-	
-	TTURLRequest* request = updateRequest.request;
-	TTURLDataResponse* response = request.response;
-	
-	if (updateRequest.error) {
-		TTAlert([updateRequest.error localizedDescription]);
-		return;
-	}
-	
-	NSString* body = [[[NSString alloc] initWithData:response.data encoding:NSUTF8StringEncoding] autorelease];
-	NSDictionary* json = (NSDictionary*)[[[SBJsonParser new] autorelease] objectWithString:body];
-	NSLog(@"json response=%@",json);
-	if ([[json objectForKey:@"response"] isEqualToString:@"error"]) {
-		NSString* error = [json objectForKey:@"error"];
-		if ([error isKindOfClass:[NSNull class]]) {
-			TTAlert(@"Unknown Error");
-		} else {
-			TTAlert(error);
-		}
-		return;
-	}
-	
-	[[GTIOUser currentUser] digestProfileInfo:json];
-	
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
-	_options = [[dictionary objectForKey:@"userIconOptions"] retain];
-    [self performSelector:@selector(displayOptions)];
-}
+#pragma mark -
+#pragma mark Rendering Profile Pic Picker
 
 - (void)displayOptions {
 	int i = 0;
@@ -277,15 +238,89 @@
     }
 }
 
+#pragma mark -
+#pragma mark Button Actions
+
+- (void)cancelButtonAction {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)saveButtonAction {
+    // Save Action
+    GTIOUser* user = [GTIOUser currentUser];
+    user.profileIconURL = _previewImageView.urlPath;
+    [[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];
+}
+
+- (void)clearButtonAction {
+    [_previewImageView setUrlPath:@"http://assets.gotryiton.com/img/profile-default.png"];
+}
+
+- (void)selectOption:(id)sender {
+    _currentSelection = [sender tag];
+    NSLog(@"selecting option:%@",[_options objectAtIndex:_currentSelection]);
+    [_previewImageView setUrlPath:[[_options objectAtIndex:_currentSelection] url]];
+    [self performSelector:@selector(clearHighlight)];
+    [self performSelector:@selector(displayHighlight)];
+}
+
+#pragma mark -
+#pragma mark GTIOUpdateUserRequest delegate
+
+- (void)updateFinished:(GTIOUpdateUserRequest*)updateRequest {
+	[updateRequest autorelease];
+	//[self hideLoading];
+	
+	TTURLRequest* request = updateRequest.request;
+	TTURLDataResponse* response = request.response;
+	
+	if (updateRequest.error) {
+		TTAlert([updateRequest.error localizedDescription]);
+		return;
+	}
+	
+	NSString* body = [[[NSString alloc] initWithData:response.data encoding:NSUTF8StringEncoding] autorelease];
+	NSDictionary* json = (NSDictionary*)[[[SBJsonParser new] autorelease] objectWithString:body];
+	NSLog(@"json response=%@",json);
+	if ([[json objectForKey:@"response"] isEqualToString:@"error"]) {
+		NSString* error = [json objectForKey:@"error"];
+		if ([error isKindOfClass:[NSNull class]]) {
+			TTAlert(@"Unknown Error");
+		} else {
+			TTAlert(error);
+		}
+		return;
+	}
+	
+	[[GTIOUser currentUser] digestProfileInfo:json];
+	
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma mark RKObjectLoader Delegate
+
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
+	_options = [[dictionary objectForKey:@"userIconOptions"] retain];
+    [self performSelector:@selector(displayOptions)];
+}
+
+
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
 	NSLog(@"Error:%@",[error localizedDescription]);
 }
+
+#pragma mark -
+#pragma mark UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	if (!_slidingState) {
 		[_scrollSlider setValue:scrollView.contentOffset.x/(scrollView.contentSize.width - scrollView.frame.size.width)];
 	}
 }
+
+#pragma mark -
+#pragma mark UISlider Delegate
 
 - (void)sliderValueDidChange {
 	CGFloat newHorizontalContentOffset = _scrollSlider.value * _scrollView.contentSize.width;
@@ -301,13 +336,8 @@
 	_slidingState = NO;
 }
 
-- (void)selectOption:(id)sender {
-    _currentSelection = [sender tag];
-    NSLog(@"selecting option:%@",[_options objectAtIndex:_currentSelection]);
-    [_previewImageView setUrlPath:[[_options objectAtIndex:_currentSelection] url]];
-    [self performSelector:@selector(clearHighlight)];
-    [self performSelector:@selector(displayHighlight)];
-}
+#pragma mark -
+#pragma mark Image Frames
 
 - (void)clearHighlight {
     for (TTImageView* view in _imageViews) {
@@ -321,8 +351,5 @@
     [[[_imageViews objectAtIndex:_currentSelection] layer] setBorderWidth:3];
 }
 
-- (void)clearButtonAction {
-    [_previewImageView setUrlPath:@"http://assets.gotryiton.com/img/profile-default.png"];
-}
 
 @end
