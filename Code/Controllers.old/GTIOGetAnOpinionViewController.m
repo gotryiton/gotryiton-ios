@@ -9,6 +9,7 @@
 #import "GTIOGetAnOpinionViewController.h"
 #import "GTIOUser.h"
 #import "GTIOOpinionRequestSession.h"
+#import "GTIOBarButtonItem.h"
 
 static int const kOverlayViewTag = 9999;
 
@@ -57,7 +58,8 @@ static int const kOverlayViewTag = 9999;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
+    [self.navigationItem setHidesBackButton:YES];
+    [self.navigationItem setLeftBarButtonItem:[GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(backButtonAction)]];
 	if ([[GTIOOpinionRequestSession globalSession].opinionRequest.photos count] > 0) {
 		if ([self.view viewWithTag:kOverlayViewTag] == nil) {
 			UIImageView* overlayView = [[UIImageView alloc] initWithImage:TTSTYLEVAR(getAnOpinionOverlayImage)];
@@ -69,6 +71,10 @@ static int const kOverlayViewTag = 9999;
 	} else {
 		[[self.view viewWithTag:kOverlayViewTag] removeFromSuperview];
 	}
+}
+
+- (void)backButtonAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

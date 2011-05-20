@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
-@interface GTIOOutfitHeaderView : UIView {
+@interface GTIOOutfitTitleView : UIView {
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
+    UIImageView* _badgeView1;
+    UIImageView* _badgeView2;
 }
 
 @property (nonatomic, copy) NSString* name;

@@ -97,7 +97,7 @@
 	[super loadView];
 	
 	// Set up header view.
-	_headerView = [[GTIOOutfitHeaderView alloc] initWithFrame:CGRectMake(85, 2, 150, 40)];
+	_headerView = [[GTIOOutfitTitleView alloc] initWithFrame:CGRectMake(85, 2, 250, 40)];
 	self.navigationItem.titleView = _headerView;
 	
 	UIBarButtonItem* profileButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"profile.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(openProfileButtonWasPressed:)] autorelease];

@@ -11,7 +11,7 @@
 #import "GTIOOutfitViewScrollDataSource.h"
 #import "GTIOOutfit.h"
 #import "GTIOScrollView.h"
-#import "GTIOOutfitHeaderView.h"
+#import "GTIOOutfitTitleView.h"
 
 typedef enum {
 	GTIOOutfitViewStateShowControls,
@@ -28,7 +28,7 @@ typedef enum {
 	int _outfitIndex;
 	GTIOOutfitViewState _state;
 	GTIOOutfitViewScrollDataSource* _scrollViewDataSource;
-	GTIOOutfitHeaderView* _headerView;
+	GTIOOutfitTitleView* _headerView;
    	UIImageView* _headerShadowView;
     
     RKObjectLoader* _loader;
