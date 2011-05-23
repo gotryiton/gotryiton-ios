@@ -580,9 +580,18 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)franklyLogin {
+    NSString *errorDesc = nil;
+    NSPropertyListFormat format;
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"userprofiledata" ofType:@"plist"];
+    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+    NSDictionary *data = (NSDictionary *)[NSPropertyListSerialization
+                                          propertyListFromData:plistXML
+                                          mutabilityOption:NSPropertyListMutableContainersAndLeaves
+                                          format:&format
+                                          errorDescription:&errorDesc];    
     GTIOUser* user = [GTIOUser currentUser];
-    user.username = @"Jeremy E.";
-    user.loggedIn = YES;
+    [user digestProfileInfo:data];
+	[user setLoggedIn:YES];
 }
 
 #endif

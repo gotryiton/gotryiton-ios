@@ -10,6 +10,7 @@
 #import "GTIOUpdateUserRequest.h"
 #import "GTIOBarButtonItem.h"
 #import "GTIOUser.h"
+#import "GTIOUserIconOptionDataSource.h"
 
 @implementation GTIOEditProfilePictureViewController
 
@@ -34,6 +35,7 @@
         // Name and Location Info For Preview
         _profileName = [[[GTIOUser currentUser] username] copy];
         _profileLocation = [[NSString stringWithFormat:@"%@, %@",[[GTIOUser currentUser] city],[[GTIOUser currentUser] state]] copy];
+        [self.view setAccessibilityLabel:@"edit profile picture"];
 	}
 	return self;
 }
@@ -166,10 +168,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    // Initiate Request for Profile Icons
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[[GTIOUser currentUser] token], @"gtioToken",nil];
-    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/user-icons") queryParams:params delegate:self];
+    // Send Request for icon options
+    [GTIOUserIconOptionDataSource iconOptionRequestWithDelegate:self];
     // Setup Navigation Bar Items
 	GTIOBarButtonItem* cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonAction)];
 	self.navigationItem.leftBarButtonItem = cancelButton;
@@ -301,6 +301,7 @@
 #pragma mark RKObjectLoader Delegate
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
+    NSLog(@"dictionary:%@",dictionary);
 	_options = [[dictionary objectForKey:@"userIconOptions"] retain];
     [self performSelector:@selector(displayOptions)];
 }

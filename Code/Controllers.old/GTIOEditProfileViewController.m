@@ -24,6 +24,7 @@
 												 selector:@selector(invalidateModel) 
 													 name:kGTIOUserDidUpdateProfileNotificationName 
 												   object:nil];
+        [self.view setAccessibilityLabel:@"edit profile"];
 	}
 	
 	return self;

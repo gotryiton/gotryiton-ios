@@ -95,6 +95,10 @@
 		// Fix frames for pre 3.2 iOS versions
 		_notLoggedInOverlay.frame = CGRectMake(0, -50, 320, self.view.height);
 	}
+    
+    // Set Accessibility Labels
+    [_aboutMeView setAccessibilityLabel:@"about me label"];
+    [_headerView setAccessibilityLabel:@"profile header view"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
