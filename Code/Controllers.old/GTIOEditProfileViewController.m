@@ -12,7 +12,7 @@
 #import <Three20Core/Three20Core+Additions.h>
 #import "GTIOUpdateUserRequest.h"
 #import "GTIOControlTableViewVarHeightDelegate.h"
-
+#import "GTIOBarButtonItem.h"
 @implementation GTIOEditProfileViewController
 
 @synthesize reverseGeocoder = _reverseGeocoder;
@@ -210,12 +210,14 @@
 		self.tableView.tableHeaderView = headerView;
 		self.tableView.sectionHeaderHeight = 0;
 	} else {
-		UIBarButtonItem* cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonWasPressed:)] autorelease];
+        GTIOBarButtonItem* cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonWasPressed:)];
 		self.navigationItem.leftBarButtonItem = cancelButton;
+        [cancelButton release];
 	}
-	
-	UIBarButtonItem* goButton = [[[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStyleBordered target:self action:@selector(goButtonWasPressed:)] autorelease];
+
+	GTIOBarButtonItem* goButton = [[GTIOBarButtonItem alloc] initWithTitle:@"save" target:self action:@selector(goButtonWasPressed:)];
 	self.navigationItem.rightBarButtonItem = goButton;
+    [goButton release];
 	
 	// Title Image
 	UIImage* titleImage = nil;
