@@ -367,7 +367,6 @@ static GTIOUser* gCurrentUser = nil;
     RKRequest* request = [RKRequest requestWithURL:[NSURL URLWithString:url] delegate:self];
     request.method = RKRequestMethodPOST;
     request.params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken", nil];
-    
     [request send];
 }
 

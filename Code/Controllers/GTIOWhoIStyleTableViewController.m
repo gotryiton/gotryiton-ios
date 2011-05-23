@@ -8,6 +8,8 @@
 
 #import "GTIOWhoIStyleTableViewController.h"
 #import "GTIOBrowseListTTModel.h"
+#import "GTIOListSection.h"
+#import "GTIOProfile.h"
 
 @implementation GTIOWhoIStyleTableViewController
 
@@ -28,10 +30,27 @@
 - (void)didLoadModel:(BOOL)firstTime {
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     NSLog(@"List: %@", model.list);
-    if (nil == model.list) {
-        // I don't style anyone
-        
+    NSMutableArray* sectionNames = [NSMutableArray array];
+    NSMutableArray* sections = [NSMutableArray array];
+    for (GTIOListSection* section in model.list.sections) {
+        [sectionNames addObject:section.title];
+        NSMutableArray* items  = [NSMutableArray array];
+        for (GTIOProfile* stylist in section.stylists) {
+            NSString* url = [NSString stringWithFormat:@"gtio://profile/%@", stylist.uid];
+            TTTableImageItem* item = [TTTableImageItem itemWithText:stylist.displayName imageURL:stylist.profileIconURL URL:url];
+            item.imageStyle = [TTImageStyle styleWithImageURL:nil
+                                                 defaultImage:nil
+                                                  contentMode:UIViewContentModeScaleAspectFit
+                                                         size:CGSizeMake(40,40)
+                                                         next:nil];
+            [items addObject:item];
+        }
+        [sections addObject:items];
     }
+    
+    TTSectionedDataSource* ds = [TTSectionedDataSource dataSourceWithItems:sections sections:sectionNames];
+    ds.model = self.model;
+    self.dataSource = ds;
 }
 
 

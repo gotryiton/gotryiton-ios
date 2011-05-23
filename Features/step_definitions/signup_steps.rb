@@ -11,6 +11,8 @@ Given /^I am on the "([^\"]*)"$/ do |screen_name|
   case screen_name
   when "Welcome Screen"
     open_url("gtio://welcome")
+  when "Profile Screen"
+    open_url("gtio://profile")
   end
 end
 

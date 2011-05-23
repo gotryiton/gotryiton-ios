@@ -63,7 +63,13 @@
 	[_editProfileButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [_editProfileButton setHidden:YES];
 	[self addSubview:_editProfileButton];
-	
+    
+	// Accessibility Label
+    [_nameLabel setAccessibilityLabel:@"name label"];
+    [_locationLabel setAccessibilityLabel:@"location label"];
+    [_editProfileButton setAccessibilityLabel:@"edit profile button"];
+    [_profilePictureImageView setAccessibilityLabel:@"profile picture view"];
+    [profilePictureButton setAccessibilityLabel:@"edit profile picture"];
 	return self;
 }
 
