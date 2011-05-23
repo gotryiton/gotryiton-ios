@@ -3,7 +3,7 @@ def relaunch_app
   # reduce simulator flakiness when relaunching the app. Use a timeout of 5 seconds to 
   # prevent us hanging around for ages waiting for the ping to fail if the app isn't running
   begin
-    Timeout::timeout(5) { press_home_on_simulator if frankly_ping }
+    Timeout::timeout(1) { press_home_on_simulator if frankly_ping }
   rescue Timeout::Error 
   end
 
