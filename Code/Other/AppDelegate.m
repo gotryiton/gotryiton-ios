@@ -200,7 +200,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"categories" toKeyPath:@"categories" objectMapping:categoryMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"sortTabs" toKeyPath:@"sortTabs" objectMapping:sortTabMapping]];
-    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"stylists" toKeyPath:@"stylists" objectMapping:profileMapping]];
+    // [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"stylists" toKeyPath:@"stylists" objectMapping:profileMapping]];
+    // TODO: make sure simon fixes this.
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"stlyists" toKeyPath:@"stylists" objectMapping:profileMapping]];
+    
     [browseListMapping mapRelationship:@"sections" withObjectMapping:sectionMapping];
     
     [sectionMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
