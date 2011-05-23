@@ -12,6 +12,7 @@
 #import "GTIOEditOutfitViewController.h"
 #import "GTIOOutfitPageView.h"
 
+
 @interface GTIOOutfitViewController (shouldReloadPage)
 - (void)scrollView:(GTIOScrollView*)scrollView shouldReloadPage:(GTIOOutfitPageView*)page;
 @end
@@ -119,6 +120,11 @@
     [self.view addSubview:_headerShadowView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to get custom background
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     GTIOOutfitPageView* page = (GTIOOutfitPageView*)_scrollView.centerPage;
@@ -127,6 +133,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to rest background
     [[[TTNavigator navigator].window findFirstResponderInView:self.view] resignFirstResponder];
 }
 

@@ -132,12 +132,24 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
-		3D58A6B01386B5F600DE4B25 /* exampleBadgeImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58A6AE1386B5F600DE4B25 /* exampleBadgeImage1.png */; };
-		3D58A6B11386B5F600DE4B25 /* exampleBadgeImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58A6AE1386B5F600DE4B25 /* exampleBadgeImage1.png */; };
-		3D58A6B21386B5F600DE4B25 /* exampleBadgeImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58A6AE1386B5F600DE4B25 /* exampleBadgeImage1.png */; };
-		3D58A6B31386B5F600DE4B25 /* exampleBadgeImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58A6AF1386B5F600DE4B25 /* exampleBadgeImage2.png */; };
-		3D58A6B41386B5F600DE4B25 /* exampleBadgeImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58A6AF1386B5F600DE4B25 /* exampleBadgeImage2.png */; };
-		3D58A6B51386B5F600DE4B25 /* exampleBadgeImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58A6AF1386B5F600DE4B25 /* exampleBadgeImage2.png */; };
+		3D05AF2A138AA5D40030D154 /* outfit-badge-fashionista.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF24138AA5D40030D154 /* outfit-badge-fashionista.png */; };
+		3D05AF2B138AA5D40030D154 /* outfit-badge-fashionista.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF24138AA5D40030D154 /* outfit-badge-fashionista.png */; };
+		3D05AF2C138AA5D40030D154 /* outfit-badge-fashionista.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF24138AA5D40030D154 /* outfit-badge-fashionista.png */; };
+		3D05AF2D138AA5D40030D154 /* outfit-badge-fashionista@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF25138AA5D40030D154 /* outfit-badge-fashionista@2x.png */; };
+		3D05AF2E138AA5D40030D154 /* outfit-badge-fashionista@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF25138AA5D40030D154 /* outfit-badge-fashionista@2x.png */; };
+		3D05AF2F138AA5D40030D154 /* outfit-badge-fashionista@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF25138AA5D40030D154 /* outfit-badge-fashionista@2x.png */; };
+		3D05AF30138AA5D40030D154 /* outfit-badge-model.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF26138AA5D40030D154 /* outfit-badge-model.png */; };
+		3D05AF31138AA5D40030D154 /* outfit-badge-model.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF26138AA5D40030D154 /* outfit-badge-model.png */; };
+		3D05AF32138AA5D40030D154 /* outfit-badge-model.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF26138AA5D40030D154 /* outfit-badge-model.png */; };
+		3D05AF33138AA5D40030D154 /* outfit-badge-model@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF27138AA5D40030D154 /* outfit-badge-model@2x.png */; };
+		3D05AF34138AA5D40030D154 /* outfit-badge-model@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF27138AA5D40030D154 /* outfit-badge-model@2x.png */; };
+		3D05AF35138AA5D40030D154 /* outfit-badge-model@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF27138AA5D40030D154 /* outfit-badge-model@2x.png */; };
+		3D05AF36138AA5D40030D154 /* outfit-navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF28138AA5D40030D154 /* outfit-navbar.png */; };
+		3D05AF37138AA5D40030D154 /* outfit-navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF28138AA5D40030D154 /* outfit-navbar.png */; };
+		3D05AF38138AA5D40030D154 /* outfit-navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF28138AA5D40030D154 /* outfit-navbar.png */; };
+		3D05AF39138AA5D40030D154 /* outfit-navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */; };
+		3D05AF3A138AA5D40030D154 /* outfit-navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */; };
+		3D05AF3B138AA5D40030D154 /* outfit-navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */; };
 		3DA635331386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */; };
 		3DA635341386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */; };
 		3DA635351386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */; };
@@ -2851,8 +2863,12 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = Libraries/three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = Libraries/three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = Libraries/three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
-		3D58A6AE1386B5F600DE4B25 /* exampleBadgeImage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exampleBadgeImage1.png; sourceTree = "<group>"; };
-		3D58A6AF1386B5F600DE4B25 /* exampleBadgeImage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exampleBadgeImage2.png; sourceTree = "<group>"; };
+		3D05AF24138AA5D40030D154 /* outfit-badge-fashionista.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-badge-fashionista.png"; sourceTree = "<group>"; };
+		3D05AF25138AA5D40030D154 /* outfit-badge-fashionista@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-badge-fashionista@2x.png"; sourceTree = "<group>"; };
+		3D05AF26138AA5D40030D154 /* outfit-badge-model.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-badge-model.png"; sourceTree = "<group>"; };
+		3D05AF27138AA5D40030D154 /* outfit-badge-model@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-badge-model@2x.png"; sourceTree = "<group>"; };
+		3D05AF28138AA5D40030D154 /* outfit-navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-navbar.png"; sourceTree = "<group>"; };
+		3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-navbar@2x.png"; sourceTree = "<group>"; };
 		3DA635311386E1A80081BE1A /* GTIOOutfitTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTitleView.h; sourceTree = "<group>"; };
 		3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTitleView.m; sourceTree = "<group>"; };
 		3DA6353C1386FBC80081BE1A /* UIQueryScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIQueryScrollView.h; sourceTree = "<group>"; };
@@ -4330,8 +4346,12 @@
 		3D58A6AD1386B5F600DE4B25 /* outfit */ = {
 			isa = PBXGroup;
 			children = (
-				3D58A6AE1386B5F600DE4B25 /* exampleBadgeImage1.png */,
-				3D58A6AF1386B5F600DE4B25 /* exampleBadgeImage2.png */,
+				3D05AF24138AA5D40030D154 /* outfit-badge-fashionista.png */,
+				3D05AF25138AA5D40030D154 /* outfit-badge-fashionista@2x.png */,
+				3D05AF26138AA5D40030D154 /* outfit-badge-model.png */,
+				3D05AF27138AA5D40030D154 /* outfit-badge-model@2x.png */,
+				3D05AF28138AA5D40030D154 /* outfit-navbar.png */,
+				3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */,
 			);
 			path = outfit;
 			sourceTree = "<group>";
@@ -6594,8 +6614,12 @@
 				3FA654BF1384218400CC1106 /* tabs3-3-on@2x.png in Resources */,
 				3FA654C41384230F00CC1106 /* tabs3-1-off.png in Resources */,
 				3FA654C71384230F00CC1106 /* tabs3-1-off@2x.png in Resources */,
-				3D58A6B01386B5F600DE4B25 /* exampleBadgeImage1.png in Resources */,
-				3D58A6B31386B5F600DE4B25 /* exampleBadgeImage2.png in Resources */,
+				3D05AF2A138AA5D40030D154 /* outfit-badge-fashionista.png in Resources */,
+				3D05AF2D138AA5D40030D154 /* outfit-badge-fashionista@2x.png in Resources */,
+				3D05AF30138AA5D40030D154 /* outfit-badge-model.png in Resources */,
+				3D05AF33138AA5D40030D154 /* outfit-badge-model@2x.png in Resources */,
+				3D05AF36138AA5D40030D154 /* outfit-navbar.png in Resources */,
+				3D05AF39138AA5D40030D154 /* outfit-navbar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7160,8 +7184,12 @@
 				3FA654C01384218400CC1106 /* tabs3-3-on@2x.png in Resources */,
 				3FA654C51384230F00CC1106 /* tabs3-1-off.png in Resources */,
 				3FA654C81384230F00CC1106 /* tabs3-1-off@2x.png in Resources */,
-				3D58A6B11386B5F600DE4B25 /* exampleBadgeImage1.png in Resources */,
-				3D58A6B41386B5F600DE4B25 /* exampleBadgeImage2.png in Resources */,
+				3D05AF2B138AA5D40030D154 /* outfit-badge-fashionista.png in Resources */,
+				3D05AF2E138AA5D40030D154 /* outfit-badge-fashionista@2x.png in Resources */,
+				3D05AF31138AA5D40030D154 /* outfit-badge-model.png in Resources */,
+				3D05AF34138AA5D40030D154 /* outfit-badge-model@2x.png in Resources */,
+				3D05AF37138AA5D40030D154 /* outfit-navbar.png in Resources */,
+				3D05AF3A138AA5D40030D154 /* outfit-navbar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7729,8 +7757,12 @@
 				3FA654C11384218400CC1106 /* tabs3-3-on@2x.png in Resources */,
 				3FA654C61384230F00CC1106 /* tabs3-1-off.png in Resources */,
 				3FA654C91384230F00CC1106 /* tabs3-1-off@2x.png in Resources */,
-				3D58A6B21386B5F600DE4B25 /* exampleBadgeImage1.png in Resources */,
-				3D58A6B51386B5F600DE4B25 /* exampleBadgeImage2.png in Resources */,
+				3D05AF2C138AA5D40030D154 /* outfit-badge-fashionista.png in Resources */,
+				3D05AF2F138AA5D40030D154 /* outfit-badge-fashionista@2x.png in Resources */,
+				3D05AF32138AA5D40030D154 /* outfit-badge-model.png in Resources */,
+				3D05AF35138AA5D40030D154 /* outfit-badge-model@2x.png in Resources */,
+				3D05AF38138AA5D40030D154 /* outfit-navbar.png in Resources */,
+				3D05AF3B138AA5D40030D154 /* outfit-navbar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

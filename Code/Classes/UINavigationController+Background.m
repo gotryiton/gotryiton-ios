@@ -11,11 +11,13 @@
 @implementation UINavigationBar (Background)
 
 - (void)drawRect:(CGRect)rect  
-{  
-	UIImage *image = [UIImage imageNamed:@"navbar.png"];  
-  
-	[image drawInRect:rect];  
-}  
-
+{
+    UIImage *image = [UIImage imageNamed:@"navbar.png"];  
+    NSLog(@"top view controller: %@",[TTNavigator globalNavigator].topViewController);
+    if ([[[TTNavigator globalNavigator].topViewController class] isEqual:NSClassFromString(@"GTIOOutfitViewController")]) {
+        image = [UIImage imageNamed:@"outfit-navbar.png"];
+    }
+	[image drawInRect:rect];
+}
 
 @end
