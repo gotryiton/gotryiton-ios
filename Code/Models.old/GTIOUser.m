@@ -12,6 +12,7 @@
 #import "GTIOTitleView.h"
 #import "GTIOAnalyticsTracker.h"
 #import "GTIOJanrainAuthenticationController.h"
+#import "NSObject_Additions.h"
 
 // Constants (see GTIOEnvironment.m)
 extern NSString* const kGTIOJanRainEngageApplicationID;
@@ -349,8 +350,7 @@ static GTIOUser* gCurrentUser = nil;
 #pragma mark RKRequestDelegate
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
-    NSLog(@"Profile Info: %@", [response bodyAsString]);
-    [self digestProfileInfo:[response bodyAsJSON]];
+    [self digestProfileInfo:[[response bodyAsString] jsonDecode]];
     [self didStopLogin];
 }
 

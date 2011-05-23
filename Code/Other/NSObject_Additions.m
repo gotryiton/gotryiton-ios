@@ -15,4 +15,9 @@
     return [parser stringFromObject:self error:nil];
 }
 
+- (id)jsonDecode {
+    id<RKParser> parser = [[NSClassFromString(@"RKParserRegistry") sharedRegistry] parserForMIMEType:@"application/json"];
+    return [parser objectFromString:self error:nil];
+}
+
 @end
