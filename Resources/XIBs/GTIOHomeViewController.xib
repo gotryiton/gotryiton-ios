@@ -63,6 +63,9 @@
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="1039515150"/>
 										<bool key="IBUIOpaque">NO</bool>
+										<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+											<string key="IBUIAccessibilityLabel">profile</string>
+										</object>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
@@ -237,6 +240,9 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="651598092"/>
 								<bool key="IBUIOpaque">NO</bool>
+								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+									<string key="IBUIAccessibilityLabel">todos</string>
+								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
@@ -603,8 +609,8 @@
 						<reference key="object" ref="861608220"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1039515150"/>
 							<reference ref="416116161"/>
+							<reference ref="1039515150"/>
 						</object>
 						<reference key="parent" ref="959430951"/>
 					</object>
