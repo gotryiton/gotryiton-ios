@@ -16,12 +16,27 @@ And I should see the "edit profile button"
 And I should see the "profile picture view"
 
 Scenario: 
-    Editing my profile
+    Editing Profile Validation
 Given I launch the app
 And I am logged in
 And I am on the "Profile Screen"
 And I press the "edit profile button" button
 And I should see the "edit profile"
+When I type "" into "first name field"
+And I touch the "Save Bar Button" bar button
+Then I should see an alert view titled "First Name is required"
+
+Scenario: 
+    Editing Profile
+Given I launch the app
+And I am logged in
+And I am on the "Profile Screen"
+And I press the "edit profile button" button
+And I should see the "edit profile"
+When I type "steve" into "first name field"
+And I touch the "Save Bar Button" bar button
+Then I should see an alert view titled "Updating User"
+
 
 Scenario: 
     Editing my profile

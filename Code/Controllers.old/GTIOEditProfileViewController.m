@@ -98,6 +98,7 @@
 	_firstNameField.text = user.firstName;
 	_firstNameField.delegate = self;
 	_firstNameField.returnKeyType = UIReturnKeyNext;
+    _firstNameField.accessibilityLabel = @"first name field";
 	
 	_lastInitialField = [[[UITextField alloc] initWithFrame:CGRectZero] autorelease];
 	_lastInitialField.placeholder = @"Last Initial ";
@@ -212,10 +213,12 @@
 	} else {
         GTIOBarButtonItem* cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonWasPressed:)];
 		self.navigationItem.leftBarButtonItem = cancelButton;
+        [cancelButton setAccessibilityLabel:@"Cancel Bar Button"];
         [cancelButton release];
 	}
 
 	GTIOBarButtonItem* goButton = [[GTIOBarButtonItem alloc] initWithTitle:@"save" target:self action:@selector(goButtonWasPressed:)];
+    [goButton setAccessibilityLabel:@"Save Bar Button"];
 	self.navigationItem.rightBarButtonItem = goButton;
     [goButton release];
 	
