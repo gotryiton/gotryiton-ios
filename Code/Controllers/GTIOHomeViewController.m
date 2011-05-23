@@ -99,7 +99,9 @@
     TTOpenURL(@"gtio://getAnOpinion");
 }
 
-- (IBAction)todosButtonWasPressed {}
+- (IBAction)todosButtonWasPressed {
+    TTOpenURL(@"gtio://todos");
+}
 
 - (IBAction)browseButtonWasPressed {
     TTOpenURL(@"gtio://browse");

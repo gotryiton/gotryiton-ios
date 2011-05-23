@@ -764,6 +764,12 @@
 		3FCBF22F1370824F0039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF22E1370824D0039D779 /* libfacebook_ios_sdk.a */; };
 		3FCBF233137082600039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF2321370825F0039D779 /* libfacebook_ios_sdk.a */; };
 		3FCBF2371370826F0039D779 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */; };
+		3FCF14C4138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF14C3138AB91D00C8B715 /* GTIOTodosTableViewController.m */; };
+		3FCF14C5138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF14C3138AB91D00C8B715 /* GTIOTodosTableViewController.m */; };
+		3FCF14C6138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF14C3138AB91D00C8B715 /* GTIOTodosTableViewController.m */; };
+		3FCF14C9138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF14C8138AC20C00C8B715 /* GTIOWhoIStyleTableViewController.m */; };
+		3FCF14CA138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF14C8138AC20C00C8B715 /* GTIOWhoIStyleTableViewController.m */; };
+		3FCF14CB138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF14C8138AC20C00C8B715 /* GTIOWhoIStyleTableViewController.m */; };
 		3FED55591385ACF2004743A2 /* NSObject_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED55581385ACF2004743A2 /* NSObject_Additions.m */; };
 		3FED555A1385ACF2004743A2 /* NSObject_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED55581385ACF2004743A2 /* NSObject_Additions.m */; };
 		3FED555B1385ACF2004743A2 /* NSObject_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED55581385ACF2004743A2 /* NSObject_Additions.m */; };
@@ -3111,6 +3117,10 @@
 		3FCBF22E1370824D0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
 		3FCBF2321370825F0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
 		3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
+		3FCF14C2138AB91D00C8B715 /* GTIOTodosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTodosTableViewController.h; sourceTree = "<group>"; };
+		3FCF14C3138AB91D00C8B715 /* GTIOTodosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTodosTableViewController.m; sourceTree = "<group>"; };
+		3FCF14C7138AC20C00C8B715 /* GTIOWhoIStyleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOWhoIStyleTableViewController.h; sourceTree = "<group>"; };
+		3FCF14C8138AC20C00C8B715 /* GTIOWhoIStyleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWhoIStyleTableViewController.m; sourceTree = "<group>"; };
 		3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TWTCommon.xcodeproj; path = Libraries/TWTCommon/TWTCommon.xcodeproj; sourceTree = "<group>"; };
 		3FED55571385ACF2004743A2 /* NSObject_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObject_Additions.h; sourceTree = "<group>"; };
 		3FED55581385ACF2004743A2 /* NSObject_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObject_Additions.m; sourceTree = "<group>"; };
@@ -5454,6 +5464,10 @@
 				3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */,
 				3FFBE1D813855F4F000C5CB5 /* GTIOAddStylistsViewController.h */,
 				3FFBE1D913855F4F000C5CB5 /* GTIOAddStylistsViewController.m */,
+				3FCF14C2138AB91D00C8B715 /* GTIOTodosTableViewController.h */,
+				3FCF14C3138AB91D00C8B715 /* GTIOTodosTableViewController.m */,
+				3FCF14C7138AC20C00C8B715 /* GTIOWhoIStyleTableViewController.h */,
+				3FCF14C8138AC20C00C8B715 /* GTIOWhoIStyleTableViewController.m */,
 			);
 			name = Controllers;
 			path = Code/Controllers;
@@ -7873,6 +7887,8 @@
 				3F73FA701386BA0800ADB25A /* GTIONotification.m in Sources */,
 				3DA635331386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */,
 				3F7E49611386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */,
+				3FCF14C4138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */,
+				3FCF14C9138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8032,6 +8048,8 @@
 				3F73FA711386BA0800ADB25A /* GTIONotification.m in Sources */,
 				3DA635341386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */,
 				3F7E49621386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */,
+				3FCF14C5138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */,
+				3FCF14CA138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8237,6 +8255,8 @@
 				3DA635351386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */,
 				3DA6353E1386FBC80081BE1A /* UIQueryScrollView.m in Sources */,
 				3F7E49631386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */,
+				3FCF14C6138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */,
+				3FCF14CB138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

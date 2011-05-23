@@ -323,6 +323,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     [map from:@"gtio://browse" toViewController:NSClassFromString(@"GTIOBrowseTableViewController")];
     [map from:@"gtio://browse/(initWithAPIEndpoint:)" toViewController:NSClassFromString(@"GTIOBrowseTableViewController")];
     [map from:@"gtio://browse/(initWithAPIEndpoint:)/(searchText:)" toViewController:NSClassFromString(@"GTIOBrowseTableViewController")];
+    
+    [map from:@"gtio://todos" toViewController:NSClassFromString(@"GTIOTodosTableViewController")];
+    [map from:@"gtio://whoIStyle" toViewController:NSClassFromString(@"GTIOWhoIStyleTableViewController")];
 	
 	// All other links open the web controller
 	[map from:@"*" toViewController:[TTWebController class]];

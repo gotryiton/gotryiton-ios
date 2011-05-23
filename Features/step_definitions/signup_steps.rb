@@ -14,6 +14,10 @@ Given /^I am on the "([^\"]*)"$/ do |screen_name|
   end
 end
 
+Given /^I touch the "([^\"]*)" button$/ do |button_name|
+  Given "I press the \"#{button_name}\" button"
+end
+
 Given /^I press the "([^\"]*)" button$/ do |button_name|
   check_element_exists("button accessibilityLabel:'#{button_name}'")
   touch("button accessibilityLabel:'#{button_name}'")
