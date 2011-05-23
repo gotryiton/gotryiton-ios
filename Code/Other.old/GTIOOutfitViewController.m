@@ -489,9 +489,9 @@
 	[loader send];
 }
 
-- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
-	NSLog(@"Response: %@", [response bodyAsJSON]);
-}
+//- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+//	NSLog(@"Response: %@", [response bodyAsJSON]);
+//}
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
     _loader = nil;

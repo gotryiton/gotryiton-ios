@@ -9,6 +9,7 @@
 #import "GTIOHomeViewController.h"
 #import "TWTAlertViewDelegate.h"
 #import "GTIOBarButtonItem.h"
+#import "GTIONotificationsOverlayViewController.h"
 
 @implementation GTIOHomeViewController
 
@@ -18,12 +19,15 @@
         // Custom initialization
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userStateChangedNotification:) name:kGTIOUserDidLoginNotificationName object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userStateChangedNotification:) name:kGTIOUserDidLogoutNotificationName object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationsUpdatedNotification:) name:kGTIONotificationsUpdatedNotificationName object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(todoBadgeUpdated:) name:kGTIOToDoBadgeUpdatedNotificationName object:nil];
     }
     return self;
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_notificationsController release];
     [super dealloc];
 }
 
@@ -36,12 +40,24 @@
     _loginLogoutButton.title = [GTIOUser currentUser].isLoggedIn ? @"Logout" : @"Login";
 }
 
+- (void)updateNotificationsButton {
+    NSString* title = [NSString stringWithFormat:@"%d new notifications", [[GTIOUser currentUser].notifications count]];
+    [_notificationsButton setTitle:title forState:UIControlStateNormal];
+}
+
+- (void)updateTodoBadge {
+    NSString* title = [NSString stringWithFormat:@"to-do's (%d)", [[GTIOUser currentUser].todosBadge intValue]];
+    [_todoButton setTitle:title forState:UIControlStateNormal];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self updateToolbar];
+    
+    [self updateNotificationsButton];
 }
 
 - (void)viewDidUnload {
@@ -95,7 +111,6 @@
     TTOpenURL(url);
 }
 
-- (IBAction)notificationButtonWasPressed {}
 - (IBAction)profileViewWasTouched {
     TTOpenURL(@"gtio://profile");
 }
@@ -116,6 +131,27 @@
 
 - (void)userStateChangedNotification:(NSNotification*)note {
     [self updateToolbar];
+}
+
+- (void)notificationsUpdatedNotification:(NSNotification*)note {
+    [self updateNotificationsButton];
+}
+
+- (void)todoBadgeUpdated:(NSNotification*)note {
+    [self updateTodoBadge];
+}
+
+#pragma mark - Notifications View / Button
+
+- (IBAction)notificationButtonWasPressed {
+    if (nil == _notificationsController) {
+        _notificationsController = [[GTIONotificationsOverlayViewController alloc] initWithStyle:UITableViewStylePlain];
+    } else {
+        [_notificationsController.tableView reloadData];
+    }
+    _notificationsController.view.frame = self.view.frame;
+    [_notificationsController viewWillAppear:YES];
+    [self.view addSubview:_notificationsController.view];
 }
 
 @end

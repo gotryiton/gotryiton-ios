@@ -164,6 +164,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     [eventTypesMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"eventType")];
     [provider setMapping:eventTypesMapping forKeyPath:@"global_eventTypes"];
     
+    RKObjectMapping* todosBadgeMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
+    [todosBadgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"count")];
+    [provider setMapping:todosBadgeMapping forKeyPath:@"todosBadge"];
+    
     RKObjectMapping* browseListMapping = [RKObjectMapping mappingForClass:[GTIOBrowseList class]];
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"subtitle", @"subtitle")];
@@ -191,6 +195,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
     [notificationMapping mapAttributes:@"text", @"url", nil];
     [notificationMapping mapAttribute:@"id" toKeyPath:@"notificationID"];
+    [provider setMapping:notificationMapping forKeyPath:@"notifications"];
     
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"categories" toKeyPath:@"categories" objectMapping:categoryMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
@@ -391,10 +396,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
-    NSLog(@"dictionary: %@", dictionary);
-    // Pull out todo's badge
-    // pull out notifications.
-    // set them on GTIO user and update home screen?
+//    NSLog(@"dictionary: %@", dictionary);
     
     GTIOAppStatusAlert* alert = [dictionary objectForKey:@"alert"];
     if (alert) {
@@ -408,6 +410,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (eventTypes) {
         [GTIOUser currentUser].eventTypes = eventTypes;
     }
+    
+    GTIOUser* user = [GTIOUser currentUser];
+    user.notifications = [dictionary objectForKey:@"notifications"];
+    user.todosBadge = [[dictionary objectForKey:@"todosBadge"] objectForKey:@"count"];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {

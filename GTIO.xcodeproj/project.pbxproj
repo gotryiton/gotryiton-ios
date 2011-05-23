@@ -154,6 +154,9 @@
 		3F73FA701386BA0800ADB25A /* GTIONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73FA6F1386BA0800ADB25A /* GTIONotification.m */; };
 		3F73FA711386BA0800ADB25A /* GTIONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73FA6F1386BA0800ADB25A /* GTIONotification.m */; };
 		3F73FA721386BA0800ADB25A /* GTIONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73FA6F1386BA0800ADB25A /* GTIONotification.m */; };
+		3F7E49611386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E49601386EF2C00A38A75 /* GTIONotificationsOverlayViewController.m */; };
+		3F7E49621386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E49601386EF2C00A38A75 /* GTIONotificationsOverlayViewController.m */; };
+		3F7E49631386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E49601386EF2C00A38A75 /* GTIONotificationsOverlayViewController.m */; };
 		3F82E872137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
 		3F82E873137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
 		3F82E874137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
@@ -2853,6 +2856,8 @@
 		3F59B4AE137C24650046FC09 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = Libraries/three20/src/Three20.bundle; sourceTree = "<group>"; };
 		3F73FA6E1386BA0800ADB25A /* GTIONotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotification.h; sourceTree = "<group>"; };
 		3F73FA6F1386BA0800ADB25A /* GTIONotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotification.m; sourceTree = "<group>"; };
+		3F7E495F1386EF2C00A38A75 /* GTIONotificationsOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotificationsOverlayViewController.h; sourceTree = "<group>"; };
+		3F7E49601386EF2C00A38A75 /* GTIONotificationsOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotificationsOverlayViewController.m; sourceTree = "<group>"; };
 		3F82E870137D707D00F8FE1A /* GTIOBrowseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseTableViewController.h; sourceTree = "<group>"; };
 		3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseTableViewController.m; sourceTree = "<group>"; };
 		3F82E875137D765E00F8FE1A /* GTIOBrowseList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseList.h; sourceTree = "<group>"; };
@@ -5431,6 +5436,8 @@
 		A7E300B91379887F0036F86D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3F7E495F1386EF2C00A38A75 /* GTIONotificationsOverlayViewController.h */,
+				3F7E49601386EF2C00A38A75 /* GTIONotificationsOverlayViewController.m */,
 				A7E300BA1379887F0036F86D /* GTIOHomeViewController.h */,
 				A7E300BB1379887F0036F86D /* GTIOHomeViewController.m */,
 				A7E300BC1379887F0036F86D /* GTIOLoginViewController.h */,
@@ -7865,6 +7872,7 @@
 				3FA9BBD71386AA56002701F4 /* GTIOListSection.m in Sources */,
 				3F73FA701386BA0800ADB25A /* GTIONotification.m in Sources */,
 				3DA635331386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */,
+				3F7E49611386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8023,6 +8031,7 @@
 				3FA9BBD81386AA56002701F4 /* GTIOListSection.m in Sources */,
 				3F73FA711386BA0800ADB25A /* GTIONotification.m in Sources */,
 				3DA635341386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */,
+				3F7E49621386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8227,6 +8236,7 @@
 				3F73FA721386BA0800ADB25A /* GTIONotification.m in Sources */,
 				3DA635351386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */,
 				3DA6353E1386FBC80081BE1A /* UIQueryScrollView.m in Sources */,
+				3F7E49631386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
