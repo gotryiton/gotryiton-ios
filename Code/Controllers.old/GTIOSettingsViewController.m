@@ -79,8 +79,8 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
                        [TTTableControlItem itemWithCaption:@"I become someone's stylist" control:_alertStylistAddSwitch],
                        [TTTableControlItem itemWithCaption:@"someone needs my advice" control:_alertStylistActivitySwitch],
                        [TTTableControlItem itemWithCaption:@"there's GO TRY IT ON news" control:_alertNewsletterSwitch],
-                       @"",
-					   [TTTableTextItem itemWithText:@"about us" URL:settingsURL],
+//                       @"",
+//					   [TTTableTextItem itemWithText:@"about us" URL:settingsURL],
 					   nil];
 }
 

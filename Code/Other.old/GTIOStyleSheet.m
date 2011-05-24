@@ -49,7 +49,7 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 }
 
 - (UIImage*)modalBackgroundImage {
-	return [UIImage imageNamed:@"modal_bg.png"];
+	return [UIImage imageNamed:@"full-wallpaper.png"];
 }
 
 - (UIImage*)rotateImage {
