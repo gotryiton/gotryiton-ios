@@ -19,6 +19,8 @@ Given /^I am on the "([^\"]*)"$/ do |screen_name|
     open_url("gtio://welcome")
   when "Profile Screen"
     open_url("gtio://profile")
+  when "Home Screen"
+    open_url("gtio://home")
   end
 end
 
