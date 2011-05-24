@@ -17,12 +17,16 @@ CGSize kMaxSize = {260,8000};
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 		self.contentView.backgroundColor = RGBACOLOR(255,255,255,0.3);
-		UIImage* bgImage = [[UIImage imageNamed:@"comment-bg.png"] stretchableImageWithLeftCapWidth:152 topCapHeight:39];
-		_bgImageView = [[UIImageView alloc] initWithImage:bgImage];
+        UIImage* areaBgImage = [[UIImage imageNamed:@"comment-area.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+		_areaBgImageView = [[UIImageView alloc] initWithImage:areaBgImage];
+		[self.contentView addSubview:_areaBgImageView];        
+        
+		UIImage* cellBgImage = [[UIImage imageNamed:@"comment-bg.png"] stretchableImageWithLeftCapWidth:152 topCapHeight:39];
+		_bgImageView = [[UIImageView alloc] initWithImage:cellBgImage];
 		[self.contentView addSubview:_bgImageView];
 		
         _reviewTextLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectZero];
-        _reviewTextLabel.backgroundColor = RGBCOLOR(245,245,245);
+        _reviewTextLabel.backgroundColor = [UIColor clearColor]; //RGBCOLOR(245,245,245);
         [self.contentView addSubview:_reviewTextLabel];
 		
 		_authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -33,12 +37,17 @@ CGSize kMaxSize = {260,8000};
         _authorButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         [self.contentView addSubview:_authorButton];
         [_authorButton addTarget:self action:@selector(authorButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        		
+        _authorProfilePictureImageView = [TTImageView new];
+        _authorProfilePictureImageView.frame = CGRectZero;
+        _authorProfilePictureImageView.urlPath = @"http://assets.gotryiton.com/img/profile-default.png";
+        [self.contentView addSubview:_authorProfilePictureImageView];
         
-        _authorCalloutImage = [[[UIImageView alloc] initWithImage:
-                                [UIImage imageNamed:@"profile-out.png"]]
-                               autorelease];
-        [self.contentView addSubview:_authorCalloutImage];
-		
+        _authorProfilePictureImageOverlay = [UIImageView new];
+        _authorProfilePictureImageOverlay.frame = CGRectZero;
+        _authorProfilePictureImageOverlay.image = [UIImage imageNamed:@"review-userpic-overlay.png"];
+        [self.contentView addSubview:_authorProfilePictureImageOverlay];        
+        
 		_agreeVotesLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_agreeVotesLabel.font = kGTIOFontBoldHelveticaNeueOfSize(15);
 		_agreeVotesLabel.backgroundColor = [UIColor clearColor];
@@ -109,46 +118,70 @@ CGSize kMaxSize = {260,8000};
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
+    // Background Images
 	_bgImageView.frame = CGRectMake(2, 3, self.contentView.size.width - 4, self.contentView.size.height);
+    _areaBgImageView.frame = CGRectMake(0, 0, self.contentView.size.width, self.contentView.size.height);
+    // Profile Picture
+    CGFloat commentBoxShadowLength = 2.5;
+    CGFloat commentBoxLeftMargin = 7;
+    CGFloat profilePictureMargin = 8;
+    _authorProfilePictureImageView.frame = CGRectMake(commentBoxLeftMargin+profilePictureMargin, self.height-25-commentBoxShadowLength-profilePictureMargin, 25, 25);
+    CGRect profilePictureFrame = _authorProfilePictureImageView.frame;
+    _authorProfilePictureImageOverlay.frame = CGRectMake(profilePictureFrame.origin.x-1, profilePictureFrame.origin.y-1, 27, 27);
+    // Review Text
 	CGSize textSize = [[self class] sizeForReviewText:[[_reviewTableItem review] text]];
 	_reviewTextLabel.frame = CGRectMake(12+2, 12+4, textSize.width, textSize.height);
-	
-	[_agreeVotesLabel sizeToFit];
-	
-	int width = 230;
+    
+    CGFloat bottomLabelVerticalMargin = 3;
+    CGFloat bottomLabelBaselineAdjustment = 8;
+    CGFloat bottomLabelHeight = 24;
+    CGFloat bottomLabelYOrigin = profilePictureFrame.origin.y+profilePictureFrame.size.height-bottomLabelHeight+bottomLabelBaselineAdjustment-bottomLabelVerticalMargin;
+	// Agree Votes Label
+    [_agreeVotesLabel sizeToFit];
+    CGFloat rightMargin = 10;
+    CGFloat rightButtonsLeftmargin = 9;
+    CGFloat bottomRightButtonWidth = 59;
+    CGFloat bottomRightButtonHeight = 24;
+    CGFloat bottomRightButtonVerticalMargin = 6;
+    CGFloat bottomRightButtonYOrigin = self.height - bottomRightButtonVerticalMargin - bottomRightButtonHeight;
+    CGFloat bottomLabelTextRightBorder = self.contentView.size.width - rightMargin - rightButtonsLeftmargin - bottomRightButtonWidth;
+
 	if ([[_reviewTableItem.review uid] isEqualToString:[[GTIOUser currentUser] UID]]) {
 		_agreeButton.frame = CGRectZero;
 		_flagButton.frame = CGRectZero;
-		_deleteButton.frame = CGRectMake(9+width, self.height - 30, 59, 24);
+		_deleteButton.frame = CGRectMake(bottomLabelTextRightBorder+rightButtonsLeftmargin, bottomRightButtonYOrigin, bottomRightButtonWidth, bottomRightButtonHeight);
 	} else {
-		_agreeButton.frame = CGRectMake(9+width, self.height - 30, 59, 24);
+		_agreeButton.frame = CGRectMake(bottomLabelTextRightBorder+rightButtonsLeftmargin, bottomRightButtonYOrigin, bottomRightButtonWidth, bottomRightButtonHeight);
 		_flagButton.frame = CGRectMake(self.contentView.frame.size.width-35, 12, 24, 24);
 		_deleteButton.frame = CGRectZero;
 	}
-	
-	_agreeVotesLabel.frame = CGRectMake(3+width-_agreeVotesLabel.width, self.height - 7 - 18, _agreeVotesLabel.width, 18);
-    
-    int maxWidthForAuthorContent = width - _agreeVotesLabel.width;
-    int maxWidthForAuthorLabel = maxWidthForAuthorContent - 20 - [_badgeImageViews count]*(26+5);
-    
-    _authorLabel.frame = CGRectMake(12+2, self.height - 7 - 18 + 1, maxWidthForAuthorLabel, 18);
-    [_authorLabel sizeToFit];
+    CGFloat agreeLabelWidth = _agreeVotesLabel.width;
+    CGFloat agreeLabelHeight = 24;
+    CGFloat agreeLabelYOrigin = bottomLabelYOrigin;
+	_agreeVotesLabel.frame = CGRectMake(3+bottomLabelTextRightBorder-_agreeVotesLabel.width, agreeLabelYOrigin, agreeLabelWidth, agreeLabelHeight);
+    // Badges
+    CGFloat badgeMargin = 4;
     
     int xBadgePosition = CGRectGetMaxX(_authorLabel.frame) + 5;
     for (TTImageView* imageView in _badgeImageViews) {
-        imageView.frame = CGRectMake(xBadgePosition, _authorLabel.frame.origin.y + 1, 13,13);
+        imageView.frame = CGRectMake(xBadgePosition, _authorLabel.frame.origin.y + badgeMargin, 13,13);
         xBadgePosition += 13+5;
-    }
+    }        
+    // Author Label
+    int maxWidthForAuthorContent = bottomLabelTextRightBorder - _agreeVotesLabel.width;
+    int maxWidthForAuthorLabel = maxWidthForAuthorContent - 20 - [_badgeImageViews count]*(26+5);
     
-    _authorCalloutImage.frame = CGRectMake(xBadgePosition,
-                                           self.height - 7 - 18,
-                                           18,
-                                           15);
-    int buttonWidth = xBadgePosition + 18 - CGRectGetMinX(_authorLabel.frame);
-    [self.contentView addSubview:_authorButton]; // Push button to top of stack. pops it over any badge image views.
-	_authorButton.frame = CGRectMake(_authorLabel.frame.origin.x, _authorLabel.frame.origin.y,
-                                     buttonWidth,
-                                     _authorLabel.frame.size.height);
+    CGFloat authorLabelHeight = 24;
+    CGFloat authorLabelVerticalMargin = 3;
+    CGFloat authorLabelBaselineAdjustment = 8;
+    CGFloat authorLabelHorizontalMargin = 5;    
+    CGSize authorStringSize = [_authorLabel.text sizeWithFont:_authorLabel.font 
+                                            constrainedToSize:CGSizeMake(maxWidthForAuthorLabel,authorLabelHeight)
+                                                lineBreakMode:_authorLabel.lineBreakMode];
+    CGFloat authorLabelYOrigin = profilePictureFrame.origin.y+profilePictureFrame.size.height-authorLabelHeight+authorLabelBaselineAdjustment-authorLabelVerticalMargin;
+    CGFloat authorLabelXOrigin = profilePictureFrame.origin.x+profilePictureFrame.size.width+authorLabelHorizontalMargin;
+    
+    _authorLabel.frame = CGRectMake(authorLabelXOrigin, authorLabelYOrigin, authorStringSize.width, authorLabelHeight);
 }	
 
 - (void)dealloc {
@@ -167,6 +200,9 @@ CGSize kMaxSize = {260,8000};
 	[super setObject:object];
 	GTIOReview* review = [_reviewTableItem review];
 	_authorLabel.text = [[[review user] displayName] uppercaseString];
+    if ([[review user] profileIconURL]) {
+        _authorProfilePictureImageView.urlPath = [[review user] profileIconURL];
+    }
     NSString* html = [NSString stringWithFormat:@"<span class='reviewTextStyle'>%@</span>", review.text];
     _reviewTextLabel.html = html;
 	_agreeVotesLabel.text = [NSString stringWithFormat:@"+%d",[[review agreeVotes] intValue]];

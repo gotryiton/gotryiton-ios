@@ -11,13 +11,15 @@
 @interface GTIOOutfitReviewTableCell : TTTableViewCell {
 	GTIOOutfitReviewTableItem* _reviewTableItem;
 	UIImageView* _bgImageView;
+    UIImageView* _areaBgImageView;
 	TTStyledTextLabel* _reviewTextLabel;
 	UILabel* _authorLabel;
 	UILabel* _agreeVotesLabel;
 	UIButton* _deleteButton;
 	UIButton* _agreeButton;
 	UIButton* _flagButton;
-    UIImageView* _authorCalloutImage;
+    TTImageView* _authorProfilePictureImageView;
+    UIImageView* _authorProfilePictureImageOverlay;
     UIButton* _authorButton;
     
     NSMutableArray* _badgeImageViews;

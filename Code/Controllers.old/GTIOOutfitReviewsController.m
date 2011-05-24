@@ -55,8 +55,10 @@
 }
 
 - (void)setupTableFooter {
-    UIView* footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320-12, 5)];
-    footer.backgroundColor = RGBACOLOR(255,255,255,0.3);
+    
+    UIImageView* footer = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320-12, 6)];
+    [footer setImage:[UIImage imageNamed:@"comment-area.png"]];
+    //footer.backgroundColor = [UIColor redColor];//RGBACOLOR(255,255,255,0.3);
     self.tableView.tableFooterView = footer;
     [footer release];
 }
@@ -83,6 +85,8 @@
 	self.tableView.frame = CGRectMake(6, 0, self.view.width - 12, self.view.height);
 	self.tableView.contentInset = UIEdgeInsetsMake(6, 0, 6, 0);
 	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    
+    // Review Table Background
 	
 	UIImageView* headerView;
 	int photoWidth = 62;
@@ -257,6 +261,7 @@
 
 - (void)didLoadModel:(BOOL)firstTime {
     [self setupTableFooter];
+
     
 //	NSLog(@"Objects: %@", [(RKRequestTTModel*)self.model objects]);
 	NSMutableArray* items = [NSMutableArray array];
