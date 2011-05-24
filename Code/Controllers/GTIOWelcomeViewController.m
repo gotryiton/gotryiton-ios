@@ -7,50 +7,93 @@
 //
 
 #import "GTIOWelcomeViewController.h"
-
+#import "GTIOBrowseListTTModel.h"
+#import "GTIOOutfit.h"
+#import "GTIOOutfitViewController.h"
 
 @implementation GTIOWelcomeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if (self = [super initWithNibName:@"GTIOWelcomeViewController" bundle:nibBundleOrNil]) {
+        
     }
-    return self;
-}
-
-- (void)dealloc {
-    [super dealloc];
-}
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
     
-    // Release any cached data, images, etc that aren't in use.
+    return self;
 }
 
 - (IBAction)loginButtonWasPressed {
     TTOpenURL(@"gtio://login");
 }
 
-#pragma mark - View lifecycle
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSLog(@"self.view: %@", self.view.subviews);
+    UIImage* image = [[UIImage imageNamed:@"welcome-button.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:12];
+    [_welcomeButton setBackgroundImage:image forState:UIControlStateNormal];
+}
+
+- (void)createModel {
+    GTIOBrowseListTTModel* model = [[[GTIOBrowseListTTModel alloc] initWithResourcePath:GTIORestResourcePath(@"/welcome-outfits")
+                                                                                params:[GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]]
+                                                                                method:RKRequestMethodPOST] autorelease];
+    self.model = model;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+- (void)modelDidStartLoad:(id<TTModel>)model {
+    [_spinner startAnimating];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void)modelDidFinishLoad:(id<TTModel>)aModel {
+    [_spinner stopAnimating];
+    GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)aModel;
+    GTIOBrowseList* list = model.list;
+    for (int i = 0; i < [list.outfits count]; i++) {
+        GTIOOutfit* outfit = [list.outfits objectAtIndex:i];
+        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
+        imageView.urlPath = outfit.iphoneThumbnailUrl;
+        UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"welcome-thumb-overlay.png"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(outfitButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        button.backgroundColor = [UIColor clearColor];
+        button.tag = i;
+        
+        int row = floor(i/5);
+        int column = i%5;
+//        NSLog(@"(%d,%d)", row, column);
+        int x = 61 * column;
+        int y = 80*row;
+        CGRect frame = CGRectMake(x,y,71,90);
+        
+        imageView.frame = CGRectInset(frame,10,10);
+        button.frame = frame;
+        [_outfitImagesView addSubview:imageView];
+        [_outfitImagesView addSubview:button];
+    }
+}
+
+- (void)model:(id<TTModel>)model didFailLoadWithError:(NSError*)error {
+    NSLog(@"Error: %@", error);
+    [_spinner stopAnimating];
+}
+
+- (void)modelDidCancelLoad:(id<TTModel>)model {
+    [_spinner stopAnimating];
+}
+
+- (void)outfitButtonTouched:(id)sender {
+    int index = [(UIView*)sender tag];
+    NSLog(@"index: %d", index);
+    
+    GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:self.model outfitIndex:index];
+    [self.navigationController pushViewController:viewController animated:YES];
+    [viewController release];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 @end
