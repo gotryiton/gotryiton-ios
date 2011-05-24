@@ -67,7 +67,6 @@
 	[_locationManager stopUpdatingLocation];
 	TT_RELEASE_SAFELY(_locationManager);
 	TT_RELEASE_SAFELY(_genderPicker);
-	TT_RELEASE_SAFELY(_emailAlertSettingPicker);
 	[_reverseGeocoder cancel];
 	TT_RELEASE_SAFELY(_reverseGeocoder);
 
@@ -76,7 +75,6 @@
 
 - (void)createModel {
 	TT_RELEASE_SAFELY(_genderPicker);
-	TT_RELEASE_SAFELY(_emailAlertSettingPicker);
 	
 	GTIOUser* user = [GTIOUser currentUser];
 	
@@ -145,9 +143,6 @@
 		_genderPicker.selection = [NSMutableArray arrayWithObject:[NSNumber numberWithInt:index]];
 	}
 	
-	_emailAlertSettingPicker = [emailPickerForUser(user) retain];
-	_emailAlertSettingPicker.delegate = self;
-	
 	_aboutMeTextView = [[[UITextView alloc] initWithFrame:CGRectMake(5, 5, 290, 100 + 30)] autorelease];
 	_aboutMeTextView.text = user.aboutMe;
 	_aboutMeTextView.textColor = [UIColor grayColor];
@@ -159,7 +154,6 @@
 						   [TTTableControlItem itemWithCaption:@"email:" control:_emailField],
 						   [TTTableControlItem itemWithCaption:@"first name:" control:_firstNameField],
 						   [TTTableControlItem itemWithCaption:@"last initial:" control:_lastInitialField],
-						   [TTTableControlItem itemWithCaption:@"email alerts:" control:_emailAlertSettingPicker],
 						   [TTTableControlItem itemWithCaption:@"city:" control:_cityField],
 						   [TTTableControlItem itemWithCaption:@"state:" control:_stateField],
 						   [TTTableControlItem itemWithCaption:@"gender:" control:_genderPicker],
@@ -340,7 +334,6 @@
 	user.city = _cityField.text;
 	user.state = _stateField.text;
 	user.gender = _genderPicker.textLabel.text;
-	user.emailAlertSetting = emailPickerChoiceAsNumber(_emailAlertSettingPicker);
 	user.aboutMe = _aboutMeTextView.text;
 	
 	[[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];

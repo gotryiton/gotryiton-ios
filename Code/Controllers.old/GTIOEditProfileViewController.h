@@ -18,7 +18,6 @@
 	UITextField* _cityField;
 	UITextField* _stateField;
 	TWTPickerControl* _genderPicker;
-	TWTPickerControl* _emailAlertSettingPicker;
 	UITextView* _aboutMeTextView;
 	
 	CLLocationManager* _locationManager;

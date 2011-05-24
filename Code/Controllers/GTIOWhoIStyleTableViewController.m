@@ -11,6 +11,7 @@
 #import "GTIOListSection.h"
 #import "GTIOProfile.h"
 #import "CustomUISwitch.h"
+#import "GTIOBarButtonItem.h"
 
 @class GTIOWhoIStyleTableItem;
 
@@ -147,6 +148,13 @@
 - (void)loadView {
     [super loadView];
     self.title = @"who i style";
+    UIImage* settingsButtonImage = [UIImage imageNamed:@"settingsBarButton.png"];
+    GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)];
+    [self.navigationItem setRightBarButtonItem:item];
+}
+
+- (void)settingsButtonAction:(id)sender {
+	TTOpenURL(@"gtio://settings");
 }
 
 - (void)createModel {

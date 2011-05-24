@@ -40,8 +40,11 @@ static GTIOUser* gCurrentUser = nil;
 @implementation GTIOUser
 
 @synthesize iphonePush = _iphonePush;
+@synthesize alertActivity = _alertActivity;
+@synthesize alertStylistActivity = _alertStylistActivity;
+@synthesize alertStylistAdd = _alertStylistAdd;
+@synthesize alertNewsletter = _alertNewsletter;
 @synthesize aboutMe = _aboutMe;
-@synthesize emailAlertSetting = _emailAlertSetting;
 @synthesize loggedIn = _loggedIn;
 @synthesize UID = _UID;
 @synthesize username = _username;
@@ -122,7 +125,6 @@ static GTIOUser* gCurrentUser = nil;
 	TT_RELEASE_SAFELY(_city);
 	TT_RELEASE_SAFELY(_state);
 	TT_RELEASE_SAFELY(_email);
-	TT_RELEASE_SAFELY(_emailAlertSetting);
 	TT_RELEASE_SAFELY(_aboutMe);
 	TT_RELEASE_SAFELY(_deviceToken);
 	TT_RELEASE_SAFELY(_services);
@@ -203,9 +205,12 @@ static GTIOUser* gCurrentUser = nil;
 	self.city = nil;
 	self.state = nil;
 	self.email = nil;
-	self.emailAlertSetting = nil;
 	self.services = nil;
 	self.iphonePush = NO;
+    self.alertActivity = NO;
+    self.alertStylistActivity = NO;
+    self.alertStylistAdd = NO;
+    self.alertNewsletter = NO;
 	self.loggedIn = NO;
     self.profileIconURL = nil;
     self.notifications = nil;
@@ -258,9 +263,13 @@ static GTIOUser* gCurrentUser = nil;
 		self.state = [profileInfo objectForKey:@"state"];
 		self.email = [profileInfo objectForKey:@"email"];
         self.profileIconURL = [profileInfo objectForKey:@"profileIcon"];
-		self.emailAlertSetting = [NSNumber numberWithInt:[[profileInfo objectForKey:@"emailPreference"] intValue]]; // comes back as a string
 		self.aboutMe = [profileInfo objectForKey:@"about"];
 		self.iphonePush = [[profileInfo objectForKey:@"iphonePush"] boolValue]; // comes back as string
+        self.alertActivity = [[profileInfo objectForKey:@"alertActivity"] boolValue];
+        self.alertStylistActivity = [[profileInfo objectForKey:@"alertStylistActivity"] boolValue];
+        self.alertStylistAdd = [[profileInfo objectForKey:@"alertStylistAdd"] boolValue];
+        self.alertNewsletter = [[profileInfo objectForKey:@"alertNewsletter"] boolValue];
+        
 		self.services = [profileInfo objectForKey:@"service"];
 		
 		// Reauthentication requests do not include the token back

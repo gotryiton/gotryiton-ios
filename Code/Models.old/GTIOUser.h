@@ -68,9 +68,13 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 	NSString* _state;
 	NSString* _email;
     NSString* _profileIconURL;
-	NSNumber* _emailAlertSetting;
 	NSString* _aboutMe;
 	BOOL _iphonePush;
+    BOOL _alertActivity;
+    BOOL _alertStylistActivity;
+    BOOL _alertStylistAdd;
+    BOOL _alertNewsletter;
+        
 	NSString* _deviceToken;
 	NSArray* _services;
 	NSArray* _eventTypes;
@@ -83,6 +87,10 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 }
 
 @property (nonatomic, assign) BOOL iphonePush;
+@property (nonatomic, assign) BOOL alertActivity;
+@property (nonatomic, assign) BOOL alertStylistActivity;
+@property (nonatomic, assign) BOOL alertStylistAdd;
+@property (nonatomic, assign) BOOL alertNewsletter;
 @property (nonatomic, copy) NSString *aboutMe;
 @property (nonatomic, assign, getter=isLoggedIn) BOOL loggedIn;
 @property (nonatomic, copy) NSString* token;
@@ -149,14 +157,6 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 
 // URL to the REST Service to logout;
 @property (nonatomic, readonly) NSURL* logoutURL;
-
-/*
- * Email Alerts: 
- * "outfit alerts only" = 2
- * "outfit alerts + site news" = 1 
- * "no emails" = 0
- */
-@property (nonatomic, retain) NSNumber* emailAlertSetting;
 
 /**
  * The current User of the application
