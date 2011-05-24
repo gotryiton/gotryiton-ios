@@ -11,6 +11,7 @@
 @interface GTIOOutfitReviewTableCell : TTTableViewCell {
 	GTIOOutfitReviewTableItem* _reviewTableItem;
 	UIImageView* _bgImageView;
+    UIImageView* _areaBgImageView;
 	TTStyledTextLabel* _reviewTextLabel;
 	UILabel* _authorLabel;
 	UILabel* _agreeVotesLabel;

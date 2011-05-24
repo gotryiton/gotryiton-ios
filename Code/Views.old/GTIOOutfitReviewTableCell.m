@@ -17,12 +17,16 @@ CGSize kMaxSize = {260,8000};
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 		self.contentView.backgroundColor = RGBACOLOR(255,255,255,0.3);
-		UIImage* bgImage = [[UIImage imageNamed:@"comment-bg.png"] stretchableImageWithLeftCapWidth:152 topCapHeight:39];
-		_bgImageView = [[UIImageView alloc] initWithImage:bgImage];
+        UIImage* areaBgImage = [[UIImage imageNamed:@"comment-area.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+		_areaBgImageView = [[UIImageView alloc] initWithImage:areaBgImage];
+		[self.contentView addSubview:_areaBgImageView];        
+        
+		UIImage* cellBgImage = [[UIImage imageNamed:@"comment-bg.png"] stretchableImageWithLeftCapWidth:152 topCapHeight:39];
+		_bgImageView = [[UIImageView alloc] initWithImage:cellBgImage];
 		[self.contentView addSubview:_bgImageView];
 		
         _reviewTextLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectZero];
-        _reviewTextLabel.backgroundColor = RGBCOLOR(245,245,245);
+        _reviewTextLabel.backgroundColor = [UIColor clearColor]; //RGBCOLOR(245,245,245);
         [self.contentView addSubview:_reviewTextLabel];
 		
 		_authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -110,6 +114,7 @@ CGSize kMaxSize = {260,8000};
 - (void)layoutSubviews {
 	[super layoutSubviews];
 	_bgImageView.frame = CGRectMake(2, 3, self.contentView.size.width - 4, self.contentView.size.height);
+    _areaBgImageView.frame = CGRectMake(0, 0, self.contentView.size.width, self.contentView.size.height);
 	CGSize textSize = [[self class] sizeForReviewText:[[_reviewTableItem review] text]];
 	_reviewTextLabel.frame = CGRectMake(12+2, 12+4, textSize.width, textSize.height);
 	
