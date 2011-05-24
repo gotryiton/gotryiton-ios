@@ -150,11 +150,11 @@
 		3D05AF39138AA5D40030D154 /* outfit-navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */; };
 		3D05AF3A138AA5D40030D154 /* outfit-navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */; };
 		3D05AF3B138AA5D40030D154 /* outfit-navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */; };
+		3D19280A138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */; };
+		3D19280B138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */; };
 		3D4CACAC138ABC0000A79EBA /* userprofiledata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */; };
 		3D4CACAD138ABC0000A79EBA /* userprofiledata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */; };
 		3D4CACB0138AD31000A79EBA /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */; };
-		3D4CACB5138AD58200A79EBA /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CACB4138AD58200A79EBA /* GTIOUserIconOptionDataSource.m */; };
-		3D4CACB6138AD58200A79EBA /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CACB4138AD58200A79EBA /* GTIOUserIconOptionDataSource.m */; };
 		3DA635331386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */; };
 		3DA635341386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */; };
 		3DA635351386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */; };
@@ -2874,11 +2874,11 @@
 		3D05AF27138AA5D40030D154 /* outfit-badge-model@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-badge-model@2x.png"; sourceTree = "<group>"; };
 		3D05AF28138AA5D40030D154 /* outfit-navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-navbar.png"; sourceTree = "<group>"; };
 		3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-navbar@2x.png"; sourceTree = "<group>"; };
+		3D192808138AE597008D3866 /* GTIOUserIconOptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOUserIconOptionDataSource.h; path = Specs/Support/GTIOUserIconOptionDataSource.h; sourceTree = "<group>"; };
+		3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOUserIconOptionDataSource.m; path = Specs/Support/GTIOUserIconOptionDataSource.m; sourceTree = "<group>"; };
 		3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userprofiledata.plist; sourceTree = "<group>"; };
 		3D4CACAE138AD31000A79EBA /* GTIOUserIconOptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserIconOptionDataSource.h; sourceTree = "<group>"; };
 		3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserIconOptionDataSource.m; sourceTree = "<group>"; };
-		3D4CACB3138AD58200A79EBA /* GTIOUserIconOptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserIconOptionDataSource.h; sourceTree = "<group>"; };
-		3D4CACB4138AD58200A79EBA /* GTIOUserIconOptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserIconOptionDataSource.m; sourceTree = "<group>"; };
 		3DA635311386E1A80081BE1A /* GTIOOutfitTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTitleView.h; sourceTree = "<group>"; };
 		3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTitleView.m; sourceTree = "<group>"; };
 		3DA6353C1386FBC80081BE1A /* UIQueryScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIQueryScrollView.h; sourceTree = "<group>"; };
@@ -4092,8 +4092,8 @@
 				25D5C976135368ED007B6F14 /* main.m */,
 				25D5C977135368ED007B6F14 /* UISpec+UISpecRunner.h */,
 				25D5C978135368ED007B6F14 /* UISpec+UISpecRunner.m */,
-				3D4CACB3138AD58200A79EBA /* GTIOUserIconOptionDataSource.h */,
-				3D4CACB4138AD58200A79EBA /* GTIOUserIconOptionDataSource.m */,
+				3D192808138AE597008D3866 /* GTIOUserIconOptionDataSource.h */,
+				3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -8107,9 +8107,9 @@
 				3F73FA711386BA0800ADB25A /* GTIONotification.m in Sources */,
 				3DA635341386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */,
 				3F7E49621386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */,
-				3D4CACB5138AD58200A79EBA /* GTIOUserIconOptionDataSource.m in Sources */,
 				3FCF14C5138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */,
 				3FCF14CA138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */,
+				3D19280A138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8315,9 +8315,9 @@
 				3DA635351386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */,
 				3DA6353E1386FBC80081BE1A /* UIQueryScrollView.m in Sources */,
 				3F7E49631386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */,
-				3D4CACB6138AD58200A79EBA /* GTIOUserIconOptionDataSource.m in Sources */,
 				3FCF14C6138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */,
 				3FCF14CB138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */,
+				3D19280B138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
