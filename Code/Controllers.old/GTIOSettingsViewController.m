@@ -52,33 +52,42 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 }
 
 - (void)createLoggedInModel {
-	TWTPickerControl* picker = emailPickerForUser([GTIOUser currentUser]);
-	[picker.toolbar setItems:[NSArray arrayWithObjects:picker.doneButton, nil]];
-	picker.delegate = self;
-	CustomUISwitch* mySwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
-	mySwitch.on = [GTIOUser currentUser].iphonePush;
-	mySwitch.delegate = self;
-	self.dataSource = [TTListDataSource dataSourceWithObjects:
-					   [TTTableControlItem itemWithCaption:@"push notifications" control:mySwitch],
-					   [TTTableControlItem itemWithCaption:@"email alerts" control:picker],
-					   [TTTableTextItem itemWithText:@"about us" URL:settingsURL],
+	_pushNotificationsSwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
+	_pushNotificationsSwitch.on = [GTIOUser currentUser].iphonePush;
+	_pushNotificationsSwitch.delegate = self;
+
+    _alertActivitySwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
+	_alertActivitySwitch.on = [GTIOUser currentUser].alertActivity;
+	_alertActivitySwitch.delegate = self;
+    
+    _alertStylistActivitySwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
+	_alertStylistActivitySwitch.on = [GTIOUser currentUser].alertStylistActivity;
+	_alertStylistActivitySwitch.delegate = self;
+    
+    _alertStylistAddSwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
+	_alertStylistAddSwitch.on = [GTIOUser currentUser].alertStylistAdd;
+	_alertStylistAddSwitch.delegate = self;
+    
+    _alertNewsletterSwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
+	_alertNewsletterSwitch.on = [GTIOUser currentUser].alertNewsletter;
+	_alertNewsletterSwitch.delegate = self;
+    
+	self.dataSource = [TTSectionedDataSource dataSourceWithObjects:@"",
+					   [TTTableControlItem itemWithCaption:@"push notifications" control:_pushNotificationsSwitch],
+                       (_pushNotificationsSwitch.on ? @"email + alert me when..." : @"email me when..."),
+                       [TTTableControlItem itemWithCaption:@"there's activity on my look" control:_alertActivitySwitch],
+                       [TTTableControlItem itemWithCaption:@"I become someone's stylist" control:_alertStylistAddSwitch],
+                       [TTTableControlItem itemWithCaption:@"someone needs my advice" control:_alertStylistActivitySwitch],
+                       [TTTableControlItem itemWithCaption:@"there's GO TRY IT ON news" control:_alertNewsletterSwitch],
+//                       @"",
+//					   [TTTableTextItem itemWithText:@"about us" URL:settingsURL],
 					   nil];
-	UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-	[button setImage:[UIImage imageNamed:@"logout.png"] forState:UIControlStateNormal];
-	[button addTarget:[GTIOUser currentUser] action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
-	[button sizeToFit];
-	self.tableView.tableFooterView = button;
 }
 
 - (void)createLoggedOutModel {
 	self.dataSource = [TTListDataSource dataSourceWithObjects:
 					   [TTTableTextItem itemWithText:@"about us" URL:settingsURL],
 					   nil];
-	UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-	[button setImage:[UIImage imageNamed:@"login.png"] forState:UIControlStateNormal];
-	[button addTarget:[GTIOUser currentUser] action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-	[button sizeToFit];
-	self.tableView.tableFooterView = button;
 }
 
 - (void)createModel {
@@ -96,25 +105,34 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 
 - (void)valueChangedInView:(CustomUISwitch*)view {
 	GTIOUser* user = [GTIOUser currentUser];
-	user.iphonePush = [view isOn];
-	[[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(callback:)] retain];
-}
-
-- (void)picker:(TWTPickerControl*)picker willHidePicker:(UIView*)pickerView {
-	GTIOUser* user = [GTIOUser currentUser];
-	user.emailAlertSetting = emailPickerChoiceAsNumber(picker);
-	[[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(callback:)] retain];
+    user.iphonePush = _pushNotificationsSwitch.on;
+	user.alertActivity = _alertActivitySwitch.on;
+    user.alertStylistActivity = _alertStylistActivitySwitch.on;
+    user.alertStylistAdd = _alertStylistAddSwitch.on;
+    user.alertNewsletter = _alertNewsletterSwitch.on;
+    
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            (user.iphonePush ? @"1" : @"0"), @"iphonePush",
+                            (user.alertActivity ? @"1" : @"0"), @"alertActivity",
+                            (user.alertStylistActivity ? @"1" : @"0"), @"alertStylistActivity",
+                            (user.alertStylistAdd ? @"1" : @"0"), @"alertStylistAdd",
+                            (user.alertNewsletter ? @"1" : @"0"), @"alertNewsletter",
+                            nil];
+    
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/user") delegate:nil];
+    loader.method = RKRequestMethodPOST;
+    loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    [loader send];
+    
+    if (_pushNotificationsSwitch == view) {
+        [self invalidateModel];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	[self invalidateModel];
 	self.tableView.backgroundColor = [UIColor clearColor];
-}
-
-- (void)callback:(GTIOUpdateUserRequest*)r {
-	NSLog(@"Request: %@", r);
-	[r release];
 }
 
 @end

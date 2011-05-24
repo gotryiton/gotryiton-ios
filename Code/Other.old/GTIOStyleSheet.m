@@ -22,29 +22,6 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 	return [NSNumber numberWithInt:choice];
 }
 
-TWTPickerControl* emailPickerForUser(GTIOUser* user) {
-	NSArray* emailComponent = [NSArray arrayWithObjects:@"no emails", @"outfit alerts + site news", @"outfit alerts only", nil];
-	TWTPickerControl* emailAlertSettingPicker = [[TWTPickerControl alloc] initWithFrame:CGRectMake(0, 0, 177, 30)];
-	emailAlertSettingPicker.dataSource = [[TWTPickerDataSource alloc] initWithRows:emailComponent];
-	emailAlertSettingPicker.textLabel.textAlignment = UITextAlignmentRight;
-	emailAlertSettingPicker.textLabel.textColor = TTSTYLEVAR(pinkColor);
-	emailAlertSettingPicker.font = [UIFont boldSystemFontOfSize:14];
-	emailAlertSettingPicker.toolbar.tintColor = TTSTYLEVAR(navigationBarTintColor);
-	[emailAlertSettingPicker updateToolbar];
-	emailAlertSettingPicker.doneButton.title = @"done";
-	emailAlertSettingPicker.nextButton.title = @"next";
-	emailAlertSettingPicker.placeholderText = @"select option";
-	NSString* choice = nil;
-	if (user.emailAlertSetting) {
-		choice = [emailComponent objectAtIndex:[user.emailAlertSetting intValue]];
-		if (choice) {
-			int index = [emailComponent indexOfObject:choice];
-			emailAlertSettingPicker.selection = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:index], nil];
-		}
-	}
-	return [emailAlertSettingPicker autorelease];
-}
-
 @interface TTBaseViewController (BarStyle)
 @end
 
@@ -72,7 +49,7 @@ TWTPickerControl* emailPickerForUser(GTIOUser* user) {
 }
 
 - (UIImage*)modalBackgroundImage {
-	return [UIImage imageNamed:@"modal_bg.png"];
+	return [UIImage imageNamed:@"full-wallpaper.png"];
 }
 
 - (UIImage*)rotateImage {
