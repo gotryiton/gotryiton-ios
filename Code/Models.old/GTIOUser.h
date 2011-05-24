@@ -56,6 +56,8 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 
 //////////////////////////////////////////////////////////////////////
 
+@class GTIONotification;
+
 @interface GTIOUser : NSObject <JREngageDelegate, FBSessionDelegate> {
 	BOOL _loggedIn;	
 	NSString* _token;
@@ -214,5 +216,9 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
  * Return the deviceToken URL encoded
  */
 - (NSString*)deviceTokenURLEncoded;
+
+- (void)markNotificationAsSeen:(GTIONotification*)note;
+-(BOOL)hasSeenNotification:(GTIONotification*)note;
+- (NSUInteger)numberOfUnseenNotifications;
 
 @end

@@ -41,7 +41,7 @@
 }
 
 - (void)updateNotificationsButton {
-    NSString* title = [NSString stringWithFormat:@"%d new notifications", [[GTIOUser currentUser].notifications count]];
+    NSString* title = [NSString stringWithFormat:@"%d new notifications", [[GTIOUser currentUser] numberOfUnseenNotifications]];
     [_notificationsButton setTitle:title forState:UIControlStateNormal];
 }
 
@@ -149,11 +149,14 @@
     if (nil == _notificationsController) {
         _notificationsController = [[GTIONotificationsOverlayViewController alloc] initWithStyle:UITableViewStylePlain];
     } else {
-        [_notificationsController.tableView reloadData];
+        [_notificationsController invalidateModel];
     }
-    _notificationsController.view.frame = self.view.frame;
-    [_notificationsController viewWillAppear:YES];
+    _notificationsController.view.frame = CGRectOffset(self.view.frame,0,480);
     [self.view addSubview:_notificationsController.view];
+    [_notificationsController viewWillAppear:YES];
+    [UIView beginAnimations:nil context:nil];
+    _notificationsController.view.frame = self.view.frame;
+    [UIView endAnimations];
 }
 
 @end

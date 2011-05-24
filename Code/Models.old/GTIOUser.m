@@ -13,6 +13,7 @@
 #import "GTIOAnalyticsTracker.h"
 #import "GTIOJanrainAuthenticationController.h"
 #import "NSObject_Additions.h"
+#import "GTIONotification.h"
 
 // Constants (see GTIOEnvironment.m)
 extern NSString* const kGTIOJanRainEngageApplicationID;
@@ -139,6 +140,32 @@ static GTIOUser* gCurrentUser = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIONotificationsUpdatedNotificationName object:self];
 }
 
+- (void)markNotificationAsSeen:(GTIONotification*)note {
+    NSMutableArray* seenIDs = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationIDs"] mutableCopy] autorelease];
+    if (nil == seenIDs) {
+        seenIDs = [NSMutableArray array];
+    }
+    [seenIDs addObject:note.notificationID];
+    [[NSUserDefaults standardUserDefaults] setObject:seenIDs forKey:@"notificationIDs"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIONotificationsUpdatedNotificationName object:self];
+}
+
+-(BOOL)hasSeenNotification:(GTIONotification*)note {
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationIDs"] containsObject:note.notificationID];
+}
+
+
+- (NSUInteger)numberOfUnseenNotifications {
+    NSUInteger count = 0;
+    for (GTIONotification* notification in self.notifications) {
+        if (![self hasSeenNotification:notification]) {
+            count++;
+        }
+    }
+    return count;
+}
+
 - (void)setTodosBadge:(NSNumber*)number {
     [number retain];
     [_todosBadge release];
@@ -181,7 +208,9 @@ static GTIOUser* gCurrentUser = nil;
 	self.iphonePush = NO;
 	self.loggedIn = NO;
     self.profileIconURL = nil;
-
+    self.notifications = nil;
+    self.todosBadge = nil;
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"notificationIDs"];
 }
 
 - (void)logout {
@@ -207,7 +236,20 @@ static GTIOUser* gCurrentUser = nil;
 				return;
 		}
 		if ([profileInfo valueForKey:@"user"]) {
-			profileInfo = [profileInfo valueForKey:@"user"];
+            
+            RKObjectMapper* mapper = [RKObjectMapper mapperWithObject:profileInfo mappingProvider:[RKObjectManager sharedManager].mappingProvider];
+            RKObjectMappingResult* result = [mapper performMapping];
+            NSArray* notifications = [[result asDictionary] objectForKey:@"notifications"];
+            if (notifications) {
+                self.notifications = notifications;
+            }
+            
+            NSString* badgeString = [profileInfo valueForKey:@"todosBadge"];
+            if (badgeString) {
+                self.todosBadge = [NSNumber numberWithInt:[badgeString intValue]];
+            }
+            
+            profileInfo = [profileInfo valueForKey:@"user"];
 		}
 		self.UID = [profileInfo objectForKey:@"uid"];
 		self.username = [profileInfo objectForKey:@"displayName"];
