@@ -37,16 +37,17 @@ When I type "steve" into "first name field"
 And I touch the "Save Bar Button" bar button
 Then I should see an alert view titled "Updating User"
 
-
 Scenario: 
-    Editing my profile
+    Editing my profile picture
 Given I launch the app
 And I am logged in
 And I am on the "Profile Screen"
 And I press the "edit profile picture" button
 And I should see the "edit profile picture"
-
-
+When I press the "Clear Profile Picture" button
+Then "preview image" should have a url "http://assets.gotryiton.com/img/profile-default.png"
+And I touch the "Save" bar button
+Then I should see an alert view titled "Updating User"
 
 
 
