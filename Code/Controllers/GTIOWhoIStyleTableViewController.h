@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol GTIOWhoIStyleTableItemDelegate;
 
-@interface GTIOWhoIStyleTableViewController : TTTableViewController {
+@interface GTIOWhoIStyleTableViewController : TTTableViewController <GTIOWhoIStyleTableItemDelegate> {
     
 }
 

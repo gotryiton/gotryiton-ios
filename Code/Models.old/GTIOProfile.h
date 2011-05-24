@@ -29,6 +29,10 @@
 	NSArray* _outfits;
 	NSArray* _reviewsOutfits;
 	NSArray* _badges;
+    
+    // People I Style:
+    NSNumber* _stylistRequestAlertsEnabled;
+    NSNumber* _activeStylist;
 }
 
 @property (nonatomic, copy) NSArray *badges;
@@ -48,5 +52,8 @@
 @property (nonatomic, copy) NSString *profileIconURL;
 @property (nonatomic, retain) NSNumber *isAuthorizedUser;
 @property (nonatomic, copy) NSDictionary *userStats;
+
+@property (nonatomic, retain) NSNumber* stylistRequestAlertsEnabled;
+@property (nonatomic, retain) NSNumber* activeStylist;
 
 @end

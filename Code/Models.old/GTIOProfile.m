@@ -28,6 +28,8 @@
 @synthesize profileIconURL = _profileIconURL;
 @synthesize isAuthorizedUser = _isAuthorizedUser;
 @synthesize userStats = _userStats;
+@synthesize stylistRequestAlertsEnabled = stylistRequestAlertsEnabled;
+@synthesize activeStylist = _activeStylist;
 
 - (void)dealloc {
 	[_uid release];
@@ -65,6 +67,11 @@
 
 	[_badges release];
 	_badges = nil;
+    
+    [_stylistRequestAlertsEnabled release];
+    _stylistRequestAlertsEnabled = nil;
+    [_activeStylist release];
+    _activeStylist = nil;
 
 	[super dealloc];
 }
