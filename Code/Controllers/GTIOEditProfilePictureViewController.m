@@ -115,6 +115,7 @@
 	[clearProfilePictureButton setImage:[UIImage imageNamed:@"clear-profile-picture-OFF.png"] forState:UIControlStateNormal];
 	[clearProfilePictureButton setFrame:CGRectMake(30,370,120,20)];
     [clearProfilePictureButton addTarget:self action:@selector(clearButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [clearProfilePictureButton setAccessibilityLabel:@"Clear Profile Picture"];
 	[self.view addSubview:clearProfilePictureButton];
     _myLooksLabel = [UILabel new];
     [_myLooksLabel setFrame:CGRectMake(100,65,85,15)];
@@ -144,6 +145,7 @@
     NSLog(@"currentURL=%@",[[GTIOUser currentUser] profileIconURL]);
     _previewImageView.urlPath = [[GTIOUser currentUser] profileIconURL];
     [_previewImageView setFrame:CGRectMake(44,269,56,56)];
+    [_previewImageView setAccessibilityLabel:@"preview image"];
     [self.view addSubview:_previewImageView];
     UIImageView* profileIconOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
     [profileIconOverlay setFrame:CGRectMake(40,265,64,64)];
@@ -173,8 +175,13 @@
     // Setup Navigation Bar Items
 	GTIOBarButtonItem* cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonAction)];
 	self.navigationItem.leftBarButtonItem = cancelButton;
+    [cancelButton setAccessibilityLabel:@"Cancel"];
     GTIOBarButtonItem* saveButton = [[GTIOBarButtonItem alloc] initWithTitle:@"save" target:self action:@selector(saveButtonAction)];
+    [saveButton setAccessibilityLabel:@"Save"];
     self.navigationItem.rightBarButtonItem = saveButton;
+    // Release buttons
+    [cancelButton release];
+    [saveButton release];
 }
 
 #pragma mark -

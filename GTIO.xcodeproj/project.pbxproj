@@ -152,6 +152,11 @@
 		3D05AF3B138AA5D40030D154 /* outfit-navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */; };
 		3D19280A138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */; };
 		3D19280B138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */; };
+		3D19280C138AEA51008D3866 /* UINavigationController+Background.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */; };
+		3D19280D138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300C81379887F0036F86D /* GTIOEditProfileViewController.m */; };
+		3D19280E138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300C81379887F0036F86D /* GTIOEditProfileViewController.m */; };
+		3D192811138AFD17008D3866 /* GTIOUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D192810138AFD17008D3866 /* GTIOUpdateUserRequest.m */; };
+		3D192812138AFD17008D3866 /* GTIOUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D192810138AFD17008D3866 /* GTIOUpdateUserRequest.m */; };
 		3D4CACAC138ABC0000A79EBA /* userprofiledata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */; };
 		3D4CACAD138ABC0000A79EBA /* userprofiledata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */; };
 		3D4CACB0138AD31000A79EBA /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */; };
@@ -2095,8 +2100,6 @@
 		A7E3018B1379887F0036F86D /* GTIOOutfitViewScrollDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B61379887F0036F86D /* GTIOOutfitViewScrollDataSource.m */; };
 		A7E3018C1379887F0036F86D /* GTIOOutfitViewScrollDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B61379887F0036F86D /* GTIOOutfitViewScrollDataSource.m */; };
 		A7E3018D1379887F0036F86D /* GTIOUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B81379887F0036F86D /* GTIOUpdateUserRequest.m */; };
-		A7E3018E1379887F0036F86D /* GTIOUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B81379887F0036F86D /* GTIOUpdateUserRequest.m */; };
-		A7E3018F1379887F0036F86D /* GTIOUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B81379887F0036F86D /* GTIOUpdateUserRequest.m */; };
 		A7E301901379887F0036F86D /* GTIOHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BB1379887F0036F86D /* GTIOHomeViewController.m */; };
 		A7E301911379887F0036F86D /* GTIOHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BB1379887F0036F86D /* GTIOHomeViewController.m */; };
 		A7E301921379887F0036F86D /* GTIOHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BB1379887F0036F86D /* GTIOHomeViewController.m */; };
@@ -2116,8 +2119,6 @@
 		A7E301A01379887F0036F86D /* GTIOEditOutfitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300C61379887F0036F86D /* GTIOEditOutfitViewController.m */; };
 		A7E301A11379887F0036F86D /* GTIOEditOutfitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300C61379887F0036F86D /* GTIOEditOutfitViewController.m */; };
 		A7E301A21379887F0036F86D /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300C81379887F0036F86D /* GTIOEditProfileViewController.m */; };
-		A7E301A31379887F0036F86D /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300C81379887F0036F86D /* GTIOEditProfileViewController.m */; };
-		A7E301A41379887F0036F86D /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300C81379887F0036F86D /* GTIOEditProfileViewController.m */; };
 		A7E301A51379887F0036F86D /* GTIOGetAnOpinionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300CA1379887F0036F86D /* GTIOGetAnOpinionViewController.m */; };
 		A7E301A61379887F0036F86D /* GTIOGetAnOpinionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300CA1379887F0036F86D /* GTIOGetAnOpinionViewController.m */; };
 		A7E301A71379887F0036F86D /* GTIOGetAnOpinionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300CA1379887F0036F86D /* GTIOGetAnOpinionViewController.m */; };
@@ -2894,6 +2895,8 @@
 		3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-navbar@2x.png"; sourceTree = "<group>"; };
 		3D192808138AE597008D3866 /* GTIOUserIconOptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOUserIconOptionDataSource.h; path = Specs/Support/GTIOUserIconOptionDataSource.h; sourceTree = "<group>"; };
 		3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOUserIconOptionDataSource.m; path = Specs/Support/GTIOUserIconOptionDataSource.m; sourceTree = "<group>"; };
+		3D19280F138AFD17008D3866 /* GTIOUpdateUserRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUpdateUserRequest.h; sourceTree = "<group>"; };
+		3D192810138AFD17008D3866 /* GTIOUpdateUserRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUpdateUserRequest.m; sourceTree = "<group>"; };
 		3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userprofiledata.plist; sourceTree = "<group>"; };
 		3D4CACAE138AD31000A79EBA /* GTIOUserIconOptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserIconOptionDataSource.h; sourceTree = "<group>"; };
 		3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserIconOptionDataSource.m; sourceTree = "<group>"; };
@@ -4118,6 +4121,8 @@
 				25D5C978135368ED007B6F14 /* UISpec+UISpecRunner.m */,
 				3D192808138AE597008D3866 /* GTIOUserIconOptionDataSource.h */,
 				3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */,
+				3D19280F138AFD17008D3866 /* GTIOUpdateUserRequest.h */,
+				3D192810138AFD17008D3866 /* GTIOUpdateUserRequest.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -8037,14 +8042,12 @@
 				A7E301851379887F0036F86D /* GTIOMessageComposer.m in Sources */,
 				A7E301881379887F0036F86D /* GTIOOpinionRequestSubmission.m in Sources */,
 				A7E3018B1379887F0036F86D /* GTIOOutfitViewScrollDataSource.m in Sources */,
-				A7E3018E1379887F0036F86D /* GTIOUpdateUserRequest.m in Sources */,
 				A7E301911379887F0036F86D /* GTIOHomeViewController.m in Sources */,
 				A7E301941379887F0036F86D /* GTIOLoginViewController.m in Sources */,
 				A7E301971379887F0036F86D /* GTIOWelcomeViewController.m in Sources */,
 				A7E3019A1379887F0036F86D /* GTIOAdditionalEmailsController.m in Sources */,
 				A7E3019D1379887F0036F86D /* GTIOContactViewController.m in Sources */,
 				A7E301A01379887F0036F86D /* GTIOEditOutfitViewController.m in Sources */,
-				A7E301A31379887F0036F86D /* GTIOEditProfileViewController.m in Sources */,
 				A7E301A61379887F0036F86D /* GTIOGetAnOpinionViewController.m in Sources */,
 				A7E301A91379887F0036F86D /* GTIOGetStartedViewController.m in Sources */,
 				A7E301AC1379887F0036F86D /* GTIOGiveAnOpinionTableViewController.m in Sources */,
@@ -8166,6 +8169,8 @@
 				3FCF14C5138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */,
 				3FCF14CA138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */,
 				3D19280A138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */,
+				3D19280D138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */,
+				3D192811138AFD17008D3866 /* GTIOUpdateUserRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8248,14 +8253,12 @@
 				A7E301861379887F0036F86D /* GTIOMessageComposer.m in Sources */,
 				A7E301891379887F0036F86D /* GTIOOpinionRequestSubmission.m in Sources */,
 				A7E3018C1379887F0036F86D /* GTIOOutfitViewScrollDataSource.m in Sources */,
-				A7E3018F1379887F0036F86D /* GTIOUpdateUserRequest.m in Sources */,
 				A7E301921379887F0036F86D /* GTIOHomeViewController.m in Sources */,
 				A7E301951379887F0036F86D /* GTIOLoginViewController.m in Sources */,
 				A7E301981379887F0036F86D /* GTIOWelcomeViewController.m in Sources */,
 				A7E3019B1379887F0036F86D /* GTIOAdditionalEmailsController.m in Sources */,
 				A7E3019E1379887F0036F86D /* GTIOContactViewController.m in Sources */,
 				A7E301A11379887F0036F86D /* GTIOEditOutfitViewController.m in Sources */,
-				A7E301A41379887F0036F86D /* GTIOEditProfileViewController.m in Sources */,
 				A7E301A71379887F0036F86D /* GTIOGetAnOpinionViewController.m in Sources */,
 				A7E301AA1379887F0036F86D /* GTIOGetStartedViewController.m in Sources */,
 				A7E301AD1379887F0036F86D /* GTIOGiveAnOpinionTableViewController.m in Sources */,
@@ -8374,6 +8377,9 @@
 				3FCF14C6138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */,
 				3FCF14CB138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */,
 				3D19280B138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */,
+				3D19280C138AEA51008D3866 /* UINavigationController+Background.m in Sources */,
+				3D19280E138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */,
+				3D192812138AFD17008D3866 /* GTIOUpdateUserRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

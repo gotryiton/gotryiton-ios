@@ -10,7 +10,7 @@ When the user logs in
 When I touch the "todos" button
 Then I should see "To-Do's"
 When I touch the "who i style" button
-Then I should see "Who I Style"
+Then I should see "who i style"
   
 Scenario:
   I want to view my I Style list from my profile
