@@ -46,7 +46,6 @@
                                                                                   style:UIBarButtonItemStyleBordered 
                                                                                  target:nil 
                                                                                  action:nil] autorelease];
-		
 	}
 	return self;
 }
@@ -96,6 +95,7 @@
 
 - (void)loadView {
 	[super loadView];
+    self.view.accessibilityLabel = @"Outfit Screen";
 	
 	// Set up header view.
 	_headerView = [[GTIOOutfitTitleView alloc] initWithFrame:CGRectMake(85, 2, 250, 40)];

@@ -137,6 +137,7 @@
         self.variableHeightRows = YES;
         self.autoresizesForKeyboard = YES;
         self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-list.png"] style:UIBarButtonItemStyleBordered target:nil action:nil] autorelease];
+        self.view.accessibilityLabel = @"Browse Screen";
     }
     return self;
 }
