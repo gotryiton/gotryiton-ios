@@ -47,10 +47,10 @@
 					<object class="IBUIButton" id="543786961">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{172, 253}, {128, 25}}</string>
+						<string key="NSFrame">{{182, 247}, {128, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="383768862"/>
+						<reference key="NSNextKeyView" ref="61673924"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
 							<string key="IBUIAccessibilityLabel">LOG IN / SIGN UP</string>
@@ -59,10 +59,14 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">15</double>
+							<string key="NSName">Helvetica</string>
+							<double key="NSSize">16</double>
 							<int key="NSfFlags">16</int>
 						</object>
+						<double key="IBUIContentEdgeInsets.top">0.0</double>
+						<double key="IBUIContentEdgeInsets.bottom">2</double>
+						<double key="IBUIContentEdgeInsets.left">0.0</double>
+						<double key="IBUIContentEdgeInsets.right">0.0</double>
 						<string key="IBUINormalTitle">sign in / sign up</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="921555721">
 							<int key="NSColorSpace">3</int>
@@ -78,7 +82,7 @@
 							<string key="NSResourceName">welcome-button.png</string>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="301697318">
+					<object class="IBUIImageView" id="250573062">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 116}</string>
@@ -93,7 +97,7 @@
 							<string key="NSResourceName">welcome-header.png</string>
 						</object>
 					</object>
-					<object class="IBUIActivityIndicatorView" id="474800216">
+					<object class="IBUIActivityIndicatorView" id="837210826">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{142, 365}, {37, 37}}</string>
@@ -104,17 +108,17 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIStyle">0</int>
 					</object>
-					<object class="IBUIView" id="383768862">
+					<object class="IBUIView" id="61673924">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{3, 287}, {310, 165}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="474800216"/>
+						<reference key="NSNextKeyView" ref="837210826"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace" id="926429296">
+							<object class="NSColorSpace" key="NSCustomColorSpace" id="436136760">
 								<int key="NSID">2</int>
 							</object>
 						</object>
@@ -124,11 +128,11 @@
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="301697318"/>
+				<reference key="NSNextKeyView" ref="250573062"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
-					<reference key="NSCustomColorSpace" ref="926429296"/>
+					<reference key="NSCustomColorSpace" ref="436136760"/>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
@@ -162,7 +166,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_outfitImagesView</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="383768862"/>
+						<reference key="destination" ref="61673924"/>
 					</object>
 					<int key="connectionID">12</int>
 				</object>
@@ -178,7 +182,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_spinner</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="474800216"/>
+						<reference key="destination" ref="837210826"/>
 					</object>
 					<int key="connectionID">17</int>
 				</object>
@@ -197,10 +201,10 @@
 						<reference key="object" ref="191373211"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="301697318"/>
+							<reference ref="250573062"/>
 							<reference ref="543786961"/>
-							<reference ref="383768862"/>
-							<reference ref="474800216"/>
+							<reference ref="61673924"/>
+							<reference ref="837210826"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -222,12 +226,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">9</int>
-						<reference key="object" ref="301697318"/>
+						<reference key="object" ref="250573062"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">10</int>
-						<reference key="object" ref="383768862"/>
+						<reference key="object" ref="61673924"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 						</object>
@@ -235,7 +239,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">16</int>
-						<reference key="object" ref="474800216"/>
+						<reference key="object" ref="837210826"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
