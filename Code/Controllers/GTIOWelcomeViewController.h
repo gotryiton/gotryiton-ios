@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 
-@interface GTIOWelcomeViewController : UIViewController {
-    
+@interface GTIOWelcomeViewController : TTModelViewController {
+    IBOutlet UIButton* _welcomeButton;
+    IBOutlet UIView* _outfitImagesView;
+    IBOutlet UIActivityIndicatorView* _spinner;
 }
 
 @end
