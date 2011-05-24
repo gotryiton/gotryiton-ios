@@ -18,7 +18,8 @@
 	UIButton* _deleteButton;
 	UIButton* _agreeButton;
 	UIButton* _flagButton;
-    UIImageView* _authorCalloutImage;
+    TTImageView* _authorProfilePictureImageView;
+    UIImageView* _authorProfilePictureImageOverlay;
     UIButton* _authorButton;
     
     NSMutableArray* _badgeImageViews;
