@@ -7,7 +7,8 @@
 //
 
 #import <Restkit/RestKit.h>
-#import "GTIOVotingResultSet.H"
+#import "GTIOVotingResultSet.h"
+#import "GTIOStylistRelationship.h"
 
 @interface GTIOOutfit : NSObject <TTScrollViewDataSource> {
 	NSString* _outfitID;
@@ -43,6 +44,8 @@
 	NSArray* _photos;
 	
 	GTIOVotingResultSet* _results;
+    
+    GTIOStylistRelationship* _stylistRelationship;
 }
 
 @property (nonatomic, retain) GTIOVotingResultSet *results;
@@ -79,6 +82,8 @@
 
 @property (nonatomic, readonly) NSString* firstName;
 @property (nonatomic, readonly) NSString* reviewCountString;
+
+@property (nonatomic, retain) GTIOStylistRelationship* stylistRelationship;
 
 + (GTIOOutfit*)outfitWithOutfitID:(NSString*)oid;
 

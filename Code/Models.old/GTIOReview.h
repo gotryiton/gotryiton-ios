@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 #import "GTIOProfile.h"
+#import "GTIOOutfit.h"
 
 @interface GTIOReview : NSObject {
 	NSString* _outfitID;
@@ -19,6 +20,7 @@
 	GTIOProfile* _user;
 	NSNumber* _agreeVotes;
 	NSNumber* _flags;
+    GTIOOutfit* _outfit;
 }
 
 @property (nonatomic, retain) NSNumber *agreeVotes;
@@ -29,5 +31,6 @@
 @property (nonatomic, retain) NSNumber *timestamp;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, retain) GTIOProfile *user;
+@property (nonatomic, retain) GTIOOutfit* outfit;
 
 @end

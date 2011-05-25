@@ -13,6 +13,7 @@
 	TTImageView* _thumbnail;
 	UIImageView* _thumbnailBackground;
 	UIImageView* _thumbnailOverlay;
+    UIImageView* _connectionImageView;
 }
 
 @end

@@ -17,6 +17,10 @@
 #import "GTIOSortTab.h"
 #import "GTIOOutfitViewController.h"
 #import <RestKit/RestKit.h>
+#import "GTIOReview.h"
+#import "GTIOUserReviewTableItem.h"
+#import "GTIOUserReviewTableItemCell.h"
+
 @interface GTIOTableImageItemCell : TTTableImageItemCell
 @end
 
@@ -66,7 +70,9 @@
 		return [GTIOOutfitTableViewCell class];	
     } else if ([object isKindOfClass:[TTTableImageItem class]]) {
         return [GTIOTableImageItemCell class];
-	} else {
+	} else if ([GTIOUserReviewTableItem class])  {
+        return [GTIOUserReviewTableItemCell class];
+    } else {
 		return [super tableView:tableView cellClassForObject:object];
 	}
 }
@@ -218,6 +224,62 @@
     }
 }
 
+- (void)setupTabs:(NSArray*)tabs {
+    if (tabs && [tabs count] > 0) {
+        // throw away the old tab bar, setup a new one.
+        [_sortTabBar removeFromSuperview];
+        [_sortTabBar release];
+        NSLog(@"Sort Tabs: %@", tabs);
+        _sortTabBar = [[GTIOTabBar alloc] initWithFrame:CGRectMake(0,0,320,37)];
+        [_sortTabBar setTabNames:[tabs valueForKey:@"sortText"]];
+        for (GTIOSortTab* tab in tabs) {
+            if ([tab.selected boolValue] == YES) {
+                [_sortTabBar setSelectedTabIndex:[tabs indexOfObject:tab]];
+            }
+        }
+        _sortTabBar.delegate = self;
+        [self.view addSubview:_sortTabBar];
+        self.tableView.frame = CGRectMake(0,_sortTabBar.bounds.size.height,320,self.view.bounds.size.height - _sortTabBar.bounds.size.height);
+        _topShadowImageView.frame = CGRectMake(0,_sortTabBar.bounds.size.height,320, 10);
+    } else {
+        self.tableView.frame = self.view.bounds;
+        _topShadowImageView.frame = CGRectMake(0,0,320, 10);
+    }
+}
+
+- (void)setupDataSourceForOutfits:(NSArray*)outfits {
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    // Offset the table view a bit to give it the proper top padding
+    [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
+    
+    // Load an outfit list! (possibly with sort tabs)
+    
+    
+    NSMutableArray* items = [NSMutableArray array];
+    for (GTIOOutfit* outfit in outfits) {
+        GTIOOutfitTableViewItem* item = [GTIOOutfitTableViewItem itemWithOutfit:outfit];
+        [items addObject:item];
+    }
+    TTListDataSource* ds = [GTIOBrowseListDataSource dataSourceWithItems:items];
+    ds.model = self.model;
+    self.dataSource = ds;
+}
+
+- (void)setupDataSourceForReviews:(NSArray*)reviews {
+    NSLog(@"Reviews: %@", reviews);
+    NSMutableArray* items = [NSMutableArray array];
+    for (GTIOReview* review in reviews) {
+        // Note: This allows us to use the old GTIOUserReviewTableItem... may want to refactor to make it more straight forward.
+        GTIOOutfit* outfit = review.outfit;
+        outfit.userReview = review.text;
+        GTIOUserReviewTableItem* item = [GTIOUserReviewTableItem itemWithOutfit:outfit];
+        [items addObject:item];
+    }
+    TTListDataSource* ds = [GTIOBrowseListDataSource dataSourceWithItems:items];
+    ds.model = self.model;
+    self.dataSource = ds;
+}
+
 - (void)loadedList:(GTIOBrowseList*)list {
     // TODO: simplify/refactor this.
     if (list) {
@@ -246,6 +308,7 @@
         
         if (list.categories) {
             self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
             // Load a category or subcategory list!
             NSMutableArray* categories = [NSMutableArray array];
             if (_searchBar.text && [_searchBar.text length] > 0) {
@@ -315,35 +378,17 @@
                     self.dataSource = ds;
                 }
             }
+            _topShadowImageView.frame = CGRectZero;
         } else if (list.outfits) {
-            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            // Load an outfit list! (possibly with sort tabs)
-            if (list.sortTabs && [list.sortTabs count] > 0) {
-                // throw away the old tab bar, setup a new one.
-                [_sortTabBar removeFromSuperview];
-                [_sortTabBar release];
-                NSLog(@"Sort Tabs: %@", list.sortTabs);
-                _sortTabBar = [[GTIOTabBar alloc] initWithFrame:CGRectMake(0,0,320,37)];
-                for (GTIOSortTab* tab in list.sortTabs) {
-                    if ([tab.selected boolValue] == YES) {
-                        [_sortTabBar setSelectedTabIndex:[list.sortTabs indexOfObject:tab]];
-                    }
-                }
-                _sortTabBar.delegate = self;
-                [_sortTabBar setTabNames:[list.sortTabs valueForKey:@"sortText"]];
-                [self.view addSubview:_sortTabBar];
-                self.tableView.frame = CGRectMake(0,_sortTabBar.bounds.size.height,320,self.view.bounds.size.height - _sortTabBar.bounds.size.height);
-            } else {
-                self.tableView.frame = self.view.bounds;
-            }
-            NSMutableArray* items = [NSMutableArray array];
-            for (GTIOOutfit* outfit in list.outfits) {
-                GTIOOutfitTableViewItem* item = [GTIOOutfitTableViewItem itemWithOutfit:outfit];
-                [items addObject:item];
-            }
-            TTListDataSource* ds = [GTIOBrowseListDataSource dataSourceWithItems:items];
-            ds.model = self.model;
-            self.dataSource = ds;
+            [self setupTabs:list.sortTabs];
+            [self setupDataSourceForOutfits:list.outfits];
+        } else if (list.myLooks) {
+            [self setupTabs:list.sortTabs];
+            // TODO: these should use a different type of cell!
+            [self setupDataSourceForOutfits:list.myLooks];
+        }else if (list.reviews) {
+            [self setupTabs:list.sortTabs];
+            [self setupDataSourceForReviews:list.reviews];
         } else {
             TTListDataSource* ds = [GTIOBrowseListDataSource dataSourceWithItems:[NSMutableArray array]];
             ds.model = self.model;
@@ -353,6 +398,13 @@
         // no list was loaded. hrm...
         [self fail];
     }
+}
+
+- (void)loadView {
+    [super loadView];
+    UIImage* topShadow = [UIImage imageNamed:@"list-top-shadow.png"];
+    _topShadowImageView = [[[UIImageView alloc] initWithImage:topShadow] autorelease];\
+    [self.view addSubview:_topShadowImageView];
 }
 
 - (void)viewDidUnload {

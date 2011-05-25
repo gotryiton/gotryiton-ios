@@ -27,7 +27,7 @@
         _badgeLabel.backgroundColor = [UIColor clearColor];
         _badgeLabel.textColor = [UIColor whiteColor];
         _badgeLabel.textAlignment = UITextAlignmentCenter;
-        _badgeLabel.font = [UIFont boldSystemFontOfSize:16];
+        _badgeLabel.font = kGTIOFontBoldHelveticaNeueOfSize(14);
         [self addSubview:_badgeLabel];
     }
     return self;
@@ -49,8 +49,8 @@
     [super layoutSubviews];
     if (_badgeLabel.text) {
         [_badgeLabel sizeToFit];
-        _badgeLabel.frame = CGRectMake(self.bounds.size.width - _badgeLabel.bounds.size.width - 15, -3, _badgeLabel.bounds.size.width, _badgeLabel.bounds.size.height);
-        _badgeBackgroundImage.frame = CGRectOffset(CGRectInset(_badgeLabel.frame,-10,-2), 0, 2);
+        _badgeLabel.frame = CGRectMake(self.bounds.size.width - _badgeLabel.bounds.size.width - 16, -1, _badgeLabel.bounds.size.width, _badgeLabel.bounds.size.height);
+        _badgeBackgroundImage.frame = CGRectOffset(CGRectInset(_badgeLabel.frame,-10,-3), 0, 1);
     } else {
         _badgeLabel.frame = CGRectZero;
         _badgeBackgroundImage.frame = CGRectZero;

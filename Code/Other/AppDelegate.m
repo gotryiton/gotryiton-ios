@@ -38,7 +38,7 @@
 #import "GTIOUserIconOption.h"
 #import "GTIOListSection.h"
 #import "GTIONotification.h"
-
+#import "GTIOStylistRelationship.h"
 #import "GTIOGlobalVariableStore.h"
 
 @interface AppDelegate (Private)
@@ -206,26 +206,34 @@ void uncaughtExceptionHandler(NSException *exception) {
     [notificationMapping mapAttribute:@"id" toKeyPath:@"notificationID"];
     [provider setMapping:notificationMapping forKeyPath:@"notifications"];
     
+    RKObjectMapping* stylistRelationshipMapping = [RKObjectMapping mappingForClass:[GTIOStylistRelationship class]];
+    [stylistRelationshipMapping mapAttributes:@"isMyStylist", @"isMyStylistIgnored", @"iStyle", @"iStyleIgnored", nil];
+    
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"categories" toKeyPath:@"categories" objectMapping:categoryMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"myLooks" toKeyPath:@"myLooks" objectMapping:outfitMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"sortTabs" toKeyPath:@"sortTabs" objectMapping:sortTabMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"tabs" toKeyPath:@"tabs" objectMapping:todoTabMapping]];
     
     [browseListMapping mapRelationship:@"sections" withObjectMapping:sectionMapping];
     [browseListMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
+    [browseListMapping mapRelationship:@"reviews" withObjectMapping:reviewMapping];
     
     [sectionMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
     [sectionMapping mapRelationship:@"outfits" withObjectMapping:outfitMapping];
     
     [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user" toKeyPath:@"user" objectMapping:profileMapping]];
+    [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfit" toKeyPath:@"outfit" objectMapping:outfitMapping]];
     
     [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviews" toKeyPath:@"reviews" objectMapping:reviewMapping]];
     [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"votingResults" toKeyPath:@"results" objectMapping:votingResultsMapping]];
     [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" objectMapping:badgeMapping]];
+    [outfitMapping mapRelationship:@"stylistRelationship" withObjectMapping:stylistRelationshipMapping];
     
     [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
     [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviewsOutfits" toKeyPath:@"reviewsOutfits" objectMapping:outfitMapping]];
     [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" objectMapping:badgeMapping]];
+    [profileMapping mapRelationship:@"stylistRelationship" withObjectMapping:stylistRelationshipMapping];
     
     objectManager.mappingProvider = provider;
 }

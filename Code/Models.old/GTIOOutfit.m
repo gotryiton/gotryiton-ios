@@ -43,6 +43,8 @@ NSMutableArray* allOutfits;
 // Photos
 @synthesize isNew = _isNew;	
 
+@synthesize stylistRelationship = _stylistRelationship;
+
 - (id)init {
 	if (self = [super init]) {
 		if (nil == allOutfits) {
@@ -84,6 +86,7 @@ NSMutableArray* allOutfits;
 	[_reviewCount release];
 	[_user release];
 	[_isNew release];
+    [_stylistRelationship release];
 
 	[super dealloc];
 }

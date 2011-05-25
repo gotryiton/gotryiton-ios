@@ -30,6 +30,7 @@
 @synthesize userStats = _userStats;
 @synthesize stylistRequestAlertsEnabled = stylistRequestAlertsEnabled;
 @synthesize activeStylist = _activeStylist;
+@synthesize stylistRelationship = _stylistRelationship;
 
 - (void)dealloc {
 	[_uid release];
@@ -72,6 +73,9 @@
     _stylistRequestAlertsEnabled = nil;
     [_activeStylist release];
     _activeStylist = nil;
+    
+    [_stylistRelationship release];
+    _stylistRelationship = nil;
 
 	[super dealloc];
 }

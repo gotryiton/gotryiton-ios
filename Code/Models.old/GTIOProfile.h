@@ -7,6 +7,7 @@
 //
 
 #import <RestKit/RestKit.h>
+#import "GTIOStylistRelationship.h"
 
 @interface GTIOProfile : NSObject {
 	NSString* _uid;
@@ -33,6 +34,8 @@
     // People I Style:
     NSNumber* _stylistRequestAlertsEnabled;
     NSNumber* _activeStylist;
+    
+    GTIOStylistRelationship* _stylistRelationship;
 }
 
 @property (nonatomic, copy) NSArray *badges;
@@ -55,5 +58,7 @@
 
 @property (nonatomic, retain) NSNumber* stylistRequestAlertsEnabled;
 @property (nonatomic, retain) NSNumber* activeStylist;
+
+@property (nonatomic, retain) GTIOStylistRelationship* stylistRelationship;
 
 @end

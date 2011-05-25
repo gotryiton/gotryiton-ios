@@ -19,6 +19,7 @@
 @synthesize timestamp = _timestamp;
 @synthesize text = _text;
 @synthesize user = _user;
+@synthesize outfit = _outfit;
 
 
 - (void)dealloc {
@@ -39,6 +40,8 @@
 	_agreeVotes = nil;
 	[_flags release];
 	_flags = nil;
+    [_outfit release];
+    _outfit = nil;
 
 	[super dealloc];
 }

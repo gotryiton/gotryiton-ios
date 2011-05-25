@@ -29,6 +29,9 @@
     self.title = @"To-Do's";
     UIBarButtonItem* whoIStyleItem = [[[UIBarButtonItem alloc] initWithTitle:@"who i style" style:UIBarButtonItemStyleBordered target:self action:@selector(whoIStyleButtonPressed:)] autorelease];
     self.navigationItem.rightBarButtonItem = whoIStyleItem;
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
 }
 
 - (void)whoIStyleButtonPressed:(id)sender {
@@ -82,8 +85,10 @@
         _sortTabBar.subtitle = tab.subtitle;
         
         self.tableView.frame = CGRectMake(0,_sortTabBar.bounds.size.height,320,self.view.bounds.size.height - _sortTabBar.bounds.size.height);
+        _topShadowImageView.frame = CGRectMake(0,_sortTabBar.bounds.size.height,320, 10);
     } else {
         self.tableView.frame = self.view.bounds;
+        _topShadowImageView.frame = CGRectMake(0,0,320, 10);
     }
     
     if (list.outfits) {

@@ -23,6 +23,8 @@
 @synthesize tabs = _tabs;
 @synthesize stylists = _stylists;
 @synthesize sections = _sections;
+@synthesize reviews = _reviews;
+@synthesize myLooks = _myLooks;
 
 - (void)dealloc {
     [_title release];
@@ -37,6 +39,8 @@
     [_tabs release];
     [_stylists release];
     [_sections release];
+    [_reviews release];
+    [_myLooks release];
     [super dealloc];
 }
 

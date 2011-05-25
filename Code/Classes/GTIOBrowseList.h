@@ -16,12 +16,14 @@
     NSString* _searchText;
     NSNumber* _includeAlphaNav;
     NSArray* _categories; // A browse list will either contain categories
-    NSArray* _outfits;    // or it will contain outfits.
+    NSArray* _outfits;    // or it will contain outfits. or reviews. or sections. or myLooks.
     NSString* _searchAPI;
     NSArray* _sortTabs;
     NSArray* _tabs;
     NSArray* _stylists;
     NSArray* _sections;
+    NSArray* _reviews;
+    NSArray* _myLooks;
 }
 
 @property (nonatomic, retain) NSString* title;
@@ -36,5 +38,7 @@
 @property (nonatomic, retain) NSArray* tabs;
 @property (nonatomic, retain) NSArray* stylists;
 @property (nonatomic, retain) NSArray* sections;
+@property (nonatomic, retain) NSArray* reviews;
+@property (nonatomic, retain) NSArray* myLooks;
 
 @end

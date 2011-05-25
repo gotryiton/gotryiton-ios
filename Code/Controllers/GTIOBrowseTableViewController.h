@@ -16,6 +16,7 @@
     UISearchBar* _searchBar;
     NSString* _queryText;
     GTIOTabBar* _sortTabBar;
+    UIImageView* _topShadowImageView;
 }
 
 @property (nonatomic, retain) NSString* apiEndpoint;
