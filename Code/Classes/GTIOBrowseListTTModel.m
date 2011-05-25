@@ -62,8 +62,7 @@
         GTIOBrowseList* list = [dictionary objectForKey:@"list"];
         NSArray* moreOutfits = list.outfits;
         
-        //TODO: this is the pagination limit. if it's not a full page, there are no more right?
-        if ([moreOutfits count] < 20) {
+        if ([moreOutfits count] < kGTIOPaginationLimit) {
             NSLog(@"Setting has more to load to NO. Only loaded %d outfits", [moreOutfits count]);
             _hasMoreToLoad = NO;
         }

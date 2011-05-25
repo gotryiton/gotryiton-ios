@@ -98,7 +98,7 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tabs3-background.png"]];
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"todo-tab-bg.png"]];
         _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subtitleLabel.clipsToBounds = YES;
         _subtitleLabel.backgroundColor = [UIColor clearColor];
@@ -122,7 +122,7 @@
     [super layoutSubviews];
     CGRect rect = CGRectOffset(CGRectInset(self.bounds, 5, 3), 0, 3);
     if (_subtitle) {
-        rect = CGRectOffset(CGRectInset(self.bounds, 5, 3+10), 0, 3-10);
+        rect = CGRectOffset(CGRectInset(self.bounds, 5, 3+8), 0, 3-8);
     }
     float width = rect.size.width / [_tabs count];
     
@@ -137,7 +137,7 @@
     _subtitleLabel.frame = CGRectZero;
     if (_subtitle) {
         [self addSubview:_subtitleLabel]; // Pop to the top.
-        _subtitleLabel.frame = CGRectMake(rect.origin.y, CGRectGetMaxY(rect), rect.size.width, 20);
+        _subtitleLabel.frame = CGRectMake(rect.origin.y, CGRectGetMaxY(rect)-3, rect.size.width, 16);
         _subtitleLabel.text = _subtitle;
     }
 }
@@ -148,11 +148,11 @@
     [_subtitle release];
     _subtitle = subtitle;
     if (hadSubtitle && !_subtitle) {
-        // reduce frame by 20 pixels
-        self.frame = CGRectOffset(CGRectInset(self.frame, 0, 10), 0, -10);
+        // reduce frame by 16 pixels
+        self.frame = CGRectOffset(CGRectInset(self.frame, 0, 8), 0, -8);
     } else if (!hadSubtitle && _subtitle) {
-        // increase frame by 20 pixels
-        self.frame = CGRectOffset(CGRectInset(self.frame, 0, -10), 0, 10);
+        // increase frame by 16 pixels
+        self.frame = CGRectOffset(CGRectInset(self.frame, 0, -8), 0, 8);
     }
 }
 

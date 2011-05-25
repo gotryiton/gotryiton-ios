@@ -249,11 +249,7 @@
 
 - (void)setupDataSourceForOutfits:(NSArray*)outfits {
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    // Offset the table view a bit to give it the proper top padding
     [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
-    
-    // Load an outfit list! (possibly with sort tabs)
-    
     
     NSMutableArray* items = [NSMutableArray array];
     for (GTIOOutfit* outfit in outfits) {
@@ -266,7 +262,9 @@
 }
 
 - (void)setupDataSourceForReviews:(NSArray*)reviews {
-    NSLog(@"Reviews: %@", reviews);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
+    
     NSMutableArray* items = [NSMutableArray array];
     for (GTIOReview* review in reviews) {
         // Note: This allows us to use the old GTIOUserReviewTableItem... may want to refactor to make it more straight forward.

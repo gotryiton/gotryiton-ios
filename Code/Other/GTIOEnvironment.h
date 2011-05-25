@@ -49,3 +49,5 @@ extern NSString* const kGTIOFacebookAppID;
 extern NSString* const kGTIOFlurryAPIKey;
 
 NSString* GTIORestResourcePath(NSString* string);
+
+extern NSUInteger const kGTIOPaginationLimit;

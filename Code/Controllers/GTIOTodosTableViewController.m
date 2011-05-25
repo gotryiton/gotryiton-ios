@@ -31,7 +31,6 @@
     self.navigationItem.rightBarButtonItem = whoIStyleItem;
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
 }
 
 - (void)whoIStyleButtonPressed:(id)sender {
@@ -92,6 +91,8 @@
     }
     
     if (list.outfits) {
+        [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
+        
         NSMutableArray* items = [NSMutableArray array];
         for (GTIOOutfit* outfit in list.outfits) {
             GTIOOutfitTableViewItem* item = [GTIOOutfitTableViewItem itemWithOutfit:outfit];
@@ -103,6 +104,9 @@
         self.dataSource = ds;
     } else {
         // sections.
+        _topShadowImageView.frame = CGRectZero;
+        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        
         NSMutableArray* sectionNames = [NSMutableArray array];
         NSMutableArray* sections = [NSMutableArray array];
         for (GTIOListSection* section in list.sections) {
@@ -115,6 +119,7 @@
             [sections addObject:items];
         }
         
+        // TODO: we need to style these sections, add the drop shadow and some padding to the top.
         TTSectionedDataSource* ds = [GTIOBrowseSectionedDataSource dataSourceWithItems:sections sections:sectionNames];
         ds.model = self.model;
         self.dataSource = ds;
