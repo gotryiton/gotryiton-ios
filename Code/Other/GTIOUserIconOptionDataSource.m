@@ -11,7 +11,7 @@
 
 @implementation GTIOUserIconOptionDataSource
 
-+ (id)iconOptionRequestWithDelegate:(id)delegate {
++ (void)iconOptionRequestWithDelegate:(id)delegate {
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[[GTIOUser currentUser] token], @"gtioToken",nil];
     params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/user-icons") queryParams:params delegate:delegate];

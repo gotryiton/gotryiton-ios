@@ -10,5 +10,5 @@
 
 
 @interface GTIOUserIconOptionDataSource : NSObject {}
-+ (id)iconOptionRequestWithDelegate:(id)delegate;
++ (void)iconOptionRequestWithDelegate:(id)delegate;
 @end
