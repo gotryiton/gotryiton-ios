@@ -73,6 +73,8 @@
 
 - (void)loadView {
 	[super loadView];
+    self.view.accessibilityLabel = @"Reviews Screen";
+
     _imageViews = [[NSMutableArray alloc] init];
     _buttons = [[NSMutableArray alloc] init];
     

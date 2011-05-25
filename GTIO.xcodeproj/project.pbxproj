@@ -150,6 +150,8 @@
 		3D05AF39138AA5D40030D154 /* outfit-navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */; };
 		3D05AF3A138AA5D40030D154 /* outfit-navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */; };
 		3D05AF3B138AA5D40030D154 /* outfit-navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */; };
+		3D13572A138C5794000A2D85 /* RKRequest+mock.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D135729138C5794000A2D85 /* RKRequest+mock.m */; };
+		3D13572B138C5794000A2D85 /* RKRequest+mock.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D135729138C5794000A2D85 /* RKRequest+mock.m */; };
 		3D19280A138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */; };
 		3D19280B138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */; };
 		3D19280C138AEA51008D3866 /* UINavigationController+Background.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */; };
@@ -157,6 +159,26 @@
 		3D19280E138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300C81379887F0036F86D /* GTIOEditProfileViewController.m */; };
 		3D192811138AFD17008D3866 /* GTIOUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D192810138AFD17008D3866 /* GTIOUpdateUserRequest.m */; };
 		3D192812138AFD17008D3866 /* GTIOUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D192810138AFD17008D3866 /* GTIOUpdateUserRequest.m */; };
+		3D37E952138D4DF900104342 /* my_looks.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37E94F138D4DF900104342 /* my_looks.json */; };
+		3D37E953138D4DF900104342 /* my_looks.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37E94F138D4DF900104342 /* my_looks.json */; };
+		3D37E955138D4DF900104342 /* recent.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37E950138D4DF900104342 /* recent.json */; };
+		3D37E956138D4DF900104342 /* recent.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37E950138D4DF900104342 /* recent.json */; };
+		3D37E9FF138D681600104342 /* GTIOBrowseListTTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */; };
+		3D37EA00138D681A00104342 /* GTIOBrowseListTTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */; };
+		3D37EA03138D7B4700104342 /* profile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37EA01138D7B4700104342 /* profile.json */; };
+		3D37EA04138D7B4700104342 /* profile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37EA01138D7B4700104342 /* profile.json */; };
+		3D37EA05138D7B4700104342 /* status.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37EA02138D7B4700104342 /* status.json */; };
+		3D37EA06138D7B4700104342 /* status.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37EA02138D7B4700104342 /* status.json */; };
+		3D37EA0A138D7C9200104342 /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */; };
+		3D37EA0B138D7C9300104342 /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */; };
+		3D37EA10138D7F2500104342 /* user_icons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37EA0E138D7F2500104342 /* user_icons.json */; };
+		3D37EA11138D7F2500104342 /* user_icons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37EA0E138D7F2500104342 /* user_icons.json */; };
+		3D37EA12138D7F2500104342 /* welcome_outfits.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37EA0F138D7F2500104342 /* welcome_outfits.json */; };
+		3D37EA13138D7F2500104342 /* welcome_outfits.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37EA0F138D7F2500104342 /* welcome_outfits.json */; };
+		3D37EA15138D83BB00104342 /* reviews.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37EA14138D83BB00104342 /* reviews.json */; };
+		3D37EA16138D83BB00104342 /* reviews.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37EA14138D83BB00104342 /* reviews.json */; };
+		3D37EA19138D85EF00104342 /* GTIOUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D37EA18138D85EF00104342 /* GTIOUpdateUserRequest.m */; };
+		3D37EA1A138D85EF00104342 /* GTIOUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D37EA18138D85EF00104342 /* GTIOUpdateUserRequest.m */; };
 		3D4CACAC138ABC0000A79EBA /* userprofiledata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */; };
 		3D4CACAD138ABC0000A79EBA /* userprofiledata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */; };
 		3D4CACB0138AD31000A79EBA /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */; };
@@ -3019,10 +3041,20 @@
 		3D05AF27138AA5D40030D154 /* outfit-badge-model@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-badge-model@2x.png"; sourceTree = "<group>"; };
 		3D05AF28138AA5D40030D154 /* outfit-navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-navbar.png"; sourceTree = "<group>"; };
 		3D05AF29138AA5D40030D154 /* outfit-navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "outfit-navbar@2x.png"; sourceTree = "<group>"; };
+		3D135729138C5794000A2D85 /* RKRequest+mock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKRequest+mock.m"; sourceTree = "<group>"; };
 		3D192808138AE597008D3866 /* GTIOUserIconOptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOUserIconOptionDataSource.h; path = Specs/Support/GTIOUserIconOptionDataSource.h; sourceTree = "<group>"; };
 		3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOUserIconOptionDataSource.m; path = Specs/Support/GTIOUserIconOptionDataSource.m; sourceTree = "<group>"; };
 		3D19280F138AFD17008D3866 /* GTIOUpdateUserRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUpdateUserRequest.h; sourceTree = "<group>"; };
 		3D192810138AFD17008D3866 /* GTIOUpdateUserRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUpdateUserRequest.m; sourceTree = "<group>"; };
+		3D37E94F138D4DF900104342 /* my_looks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = my_looks.json; sourceTree = "<group>"; };
+		3D37E950138D4DF900104342 /* recent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = recent.json; sourceTree = "<group>"; };
+		3D37EA01138D7B4700104342 /* profile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = profile.json; sourceTree = "<group>"; };
+		3D37EA02138D7B4700104342 /* status.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = status.json; sourceTree = "<group>"; };
+		3D37EA0E138D7F2500104342 /* user_icons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = user_icons.json; sourceTree = "<group>"; };
+		3D37EA0F138D7F2500104342 /* welcome_outfits.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = welcome_outfits.json; sourceTree = "<group>"; };
+		3D37EA14138D83BB00104342 /* reviews.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reviews.json; sourceTree = "<group>"; };
+		3D37EA17138D85EF00104342 /* GTIOUpdateUserRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOUpdateUserRequest.h; path = Specs/Support/GTIOUpdateUserRequest.h; sourceTree = "<group>"; };
+		3D37EA18138D85EF00104342 /* GTIOUpdateUserRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOUpdateUserRequest.m; path = Specs/Support/GTIOUpdateUserRequest.m; sourceTree = "<group>"; };
 		3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userprofiledata.plist; sourceTree = "<group>"; };
 		3D4CACAE138AD31000A79EBA /* GTIOUserIconOptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserIconOptionDataSource.h; sourceTree = "<group>"; };
 		3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserIconOptionDataSource.m; sourceTree = "<group>"; };
@@ -4289,6 +4321,8 @@
 				25D5C976135368ED007B6F14 /* main.m */,
 				25D5C977135368ED007B6F14 /* UISpec+UISpecRunner.h */,
 				25D5C978135368ED007B6F14 /* UISpec+UISpecRunner.m */,
+				3D37EA17138D85EF00104342 /* GTIOUpdateUserRequest.h */,
+				3D37EA18138D85EF00104342 /* GTIOUpdateUserRequest.m */,
 				3D192808138AE597008D3866 /* GTIOUserIconOptionDataSource.h */,
 				3D192809138AE597008D3866 /* GTIOUserIconOptionDataSource.m */,
 				3D19280F138AFD17008D3866 /* GTIOUpdateUserRequest.h */,
@@ -4559,6 +4593,13 @@
 			isa = PBXGroup;
 			children = (
 				3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */,
+				3D37EA01138D7B4700104342 /* profile.json */,
+				3D37EA02138D7B4700104342 /* status.json */,
+				3D37E94F138D4DF900104342 /* my_looks.json */,
+				3D37EA0E138D7F2500104342 /* user_icons.json */,
+				3D37EA0F138D7F2500104342 /* welcome_outfits.json */,
+				3D37E950138D4DF900104342 /* recent.json */,
+				3D37EA14138D83BB00104342 /* reviews.json */,
 			);
 			name = Fixtures;
 			path = Resources/Fixtures;
@@ -5876,6 +5917,7 @@
 				3FBAE20E137ACCC5001BBC0E /* NSLogger */,
 				A7E301151379887F0036F86D /* AppDelegate.h */,
 				A7E301161379887F0036F86D /* AppDelegate.m */,
+				3D135729138C5794000A2D85 /* RKRequest+mock.m */,
 				A7E301171379887F0036F86D /* GTIOEnvironment.h */,
 				A7E301181379887F0036F86D /* GTIOEnvironment.m */,
 				A7E301191379887F0036F86D /* JRSessionData_Overrides.h */,
@@ -7564,6 +7606,13 @@
 				3F1833D2138D755A0032CFAF /* edit-pink-ON@2x.png in Resources */,
 				3F1833DC138D8D8C0032CFAF /* todo-tab-bg.png in Resources */,
 				3F1833DF138D8D8C0032CFAF /* todo-tab-bg@2x.png in Resources */,
+				3D37E952138D4DF900104342 /* my_looks.json in Resources */,
+				3D37E955138D4DF900104342 /* recent.json in Resources */,
+				3D37EA03138D7B4700104342 /* profile.json in Resources */,
+				3D37EA05138D7B4700104342 /* status.json in Resources */,
+				3D37EA10138D7F2500104342 /* user_icons.json in Resources */,
+				3D37EA12138D7F2500104342 /* welcome_outfits.json in Resources */,
+				3D37EA15138D83BB00104342 /* reviews.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8184,6 +8233,13 @@
 				3F1833D3138D755A0032CFAF /* edit-pink-ON@2x.png in Resources */,
 				3F1833DD138D8D8C0032CFAF /* todo-tab-bg.png in Resources */,
 				3F1833E0138D8D8C0032CFAF /* todo-tab-bg@2x.png in Resources */,
+				3D37E953138D4DF900104342 /* my_looks.json in Resources */,
+				3D37E956138D4DF900104342 /* recent.json in Resources */,
+				3D37EA04138D7B4700104342 /* profile.json in Resources */,
+				3D37EA06138D7B4700104342 /* status.json in Resources */,
+				3D37EA11138D7F2500104342 /* user_icons.json in Resources */,
+				3D37EA13138D7F2500104342 /* welcome_outfits.json in Resources */,
+				3D37EA16138D83BB00104342 /* reviews.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8506,6 +8562,10 @@
 				3FCF14CA138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */,
 				3D19280A138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */,
 				3D19280D138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */,
+				3D13572A138C5794000A2D85 /* RKRequest+mock.m in Sources */,
+				3D37EA00138D681A00104342 /* GTIOBrowseListTTModel.m in Sources */,
+				3D37EA0A138D7C9200104342 /* GTIOUserIconOptionDataSource.m in Sources */,
+				3D37EA19138D85EF00104342 /* GTIOUpdateUserRequest.m in Sources */,
 				3D192811138AFD17008D3866 /* GTIOUpdateUserRequest.m in Sources */,
 				3F183340138D64850032CFAF /* GTIOStaticOutfitListModel.m in Sources */,
 				3F1833D7138D80030032CFAF /* GTIOStylistRelationship.m in Sources */,
@@ -8717,6 +8777,10 @@
 				3D19280B138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */,
 				3D19280C138AEA51008D3866 /* UINavigationController+Background.m in Sources */,
 				3D19280E138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */,
+				3D13572B138C5794000A2D85 /* RKRequest+mock.m in Sources */,
+				3D37E9FF138D681600104342 /* GTIOBrowseListTTModel.m in Sources */,
+				3D37EA0B138D7C9300104342 /* GTIOUserIconOptionDataSource.m in Sources */,
+				3D37EA1A138D85EF00104342 /* GTIOUpdateUserRequest.m in Sources */,
 				3D192812138AFD17008D3866 /* GTIOUpdateUserRequest.m in Sources */,
 				3F183341138D64850032CFAF /* GTIOStaticOutfitListModel.m in Sources */,
 				3F1833D8138D80030032CFAF /* GTIOStylistRelationship.m in Sources */,

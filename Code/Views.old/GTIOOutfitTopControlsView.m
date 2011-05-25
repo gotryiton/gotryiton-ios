@@ -19,6 +19,7 @@
         self.clipsToBounds = YES;
 		
 		_reviewsButtonSmall = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        _reviewsButtonSmall.accessibilityLabel = @"reviews";
 		[_reviewsButtonSmall addTarget:nil action:@selector(showReviewsButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
 		_reviewsButtonSmall.titleLabel.font = kGTIOFontBoldHelveticaNeueOfSize(18);
 		[self addSubview:_reviewsButtonSmall];

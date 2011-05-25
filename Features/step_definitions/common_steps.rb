@@ -21,7 +21,10 @@ Given /^I am on the "([^\"]*)"$/ do |screen_name|
     open_url("gtio://profile")
   when "Home Screen"
     open_url("gtio://home")
+  when "Outfit Screen"
+    open_url("gtio://looks/E6B67F6")    
   end
+  
 end
 
 Given /^I touch the "([^\"]*)" bar button$/ do |button_name|
