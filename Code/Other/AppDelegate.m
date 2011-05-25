@@ -203,6 +203,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"sortTabs" toKeyPath:@"sortTabs" objectMapping:sortTabMapping]];
     [browseListMapping mapRelationship:@"sections" withObjectMapping:sectionMapping];
+    [browseListMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
     
     [sectionMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
     

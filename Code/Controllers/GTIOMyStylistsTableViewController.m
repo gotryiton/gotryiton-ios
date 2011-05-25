@@ -11,6 +11,7 @@
 #import "GTIOBrowseList.h"
 #import "GTIOProfile.h"
 #import "NSObject_Additions.h"
+#import <TWTCommon/TWTAlertViewDelegate.h>
 
 @interface GTIOMyStylistsTableViewDelegate : TTTableViewDelegate
 @end
@@ -39,6 +40,20 @@
 @implementation GTIOMyStylistsListDataSource
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    TWTAlertViewDelegate* delegate = [[TWTAlertViewDelegate new] autorelease];
+    [delegate setTarget:self selector:@selector(finishDeleteForIndexPath:) object:[NSArray arrayWithObjects:tableView, indexPath, nil] forButtonIndex:1];
+    
+    TTTableTextItem* item = (TTTableTextItem*)[self tableView:tableView objectForRowAtIndexPath:indexPath];
+    GTIOProfile* profile = (GTIOProfile*)item.userInfo;
+    NSString* message = [NSString stringWithFormat:@"your outfits will no longer show in %@'s To-Do list, and they will not be notified when you upload.",profile.firstName];
+    
+    UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:@"remove personal stylist?" message:message delegate:delegate cancelButtonTitle:@"cancel" otherButtonTitles:@"remove", nil] autorelease];
+    [alert show];
+}
+
+- (void)finishDeleteForIndexPath:(NSArray*)arguments {
+    UITableView* tableView = [arguments objectAtIndex:0];
+    NSIndexPath* indexPath = [arguments objectAtIndex:1];
     [[(GTIOMyStylistsTableViewDelegate*)tableView.delegate controller] performSelector:@selector(markItemAtIndexPathForDeletion:) withObject:indexPath];
 	[tableView beginUpdates];
     [_items removeObjectAtIndex:indexPath.row];
@@ -130,7 +145,7 @@
 }
 
 - (void)createModel {
-	NSMutableDictionary* params = [NSMutableDictionary dictionary]; // note, query text is usually nil. only used if we are searching.
+	NSMutableDictionary* params = [NSMutableDictionary dictionary];
 	
     RKRequestTTModel* model = [[[RKRequestTTModel alloc] initWithResourcePath:GTIORestResourcePath(@"/stylists")
                                                                                  params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
@@ -161,6 +176,7 @@
     for (GTIOProfile* stylist in list.stylists) {
         NSString* url = [NSString stringWithFormat:@"gtio://profile/%@", stylist.uid];
         TTTableImageItem* item = [TTTableImageItem itemWithText:stylist.displayName imageURL:stylist.profileIconURL URL:url];
+        item.userInfo = stylist;
         item.imageStyle = [TTImageStyle styleWithImageURL:nil
                                              defaultImage:nil
                                               contentMode:UIViewContentModeScaleAspectFit
