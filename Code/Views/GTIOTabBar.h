@@ -37,6 +37,7 @@
 
 @interface GTIOTab : UIButton {
     UILabel* _badgeLabel;
+    UIImageView* _badgeBackgroundImage;
 }
 
 @property (nonatomic, retain) NSNumber* badge;

@@ -19,7 +19,15 @@
         [self setTitleColor:gray forState:UIControlStateSelected|UIControlStateHighlighted];
         self.titleLabel.font = kGTIOFetteFontOfSize(18);
         
+        UIImage* streachableImage = [[UIImage imageNamed:@"todos-badge.png"] stretchableImageWithLeftCapWidth:11 topCapHeight:12];
+        _badgeBackgroundImage = [[[UIImageView alloc] initWithImage:streachableImage] autorelease];
+        [self addSubview:_badgeBackgroundImage];
+        
         _badgeLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+        _badgeLabel.backgroundColor = [UIColor clearColor];
+        _badgeLabel.textColor = [UIColor whiteColor];
+        _badgeLabel.textAlignment = UITextAlignmentCenter;
+        _badgeLabel.font = [UIFont boldSystemFontOfSize:16];
         [self addSubview:_badgeLabel];
     }
     return self;
@@ -40,9 +48,12 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (_badgeLabel.text) {
-        _badgeLabel.frame = CGRectMake(self.bounds.size.width - 40, 0, 30, floor(self.bounds.size.height/1.5));
+        [_badgeLabel sizeToFit];
+        _badgeLabel.frame = CGRectMake(self.bounds.size.width - _badgeLabel.bounds.size.width - 15, -3, _badgeLabel.bounds.size.width, _badgeLabel.bounds.size.height);
+        _badgeBackgroundImage.frame = CGRectOffset(CGRectInset(_badgeLabel.frame,-10,-2), 0, 2);
     } else {
         _badgeLabel.frame = CGRectZero;
+        _badgeBackgroundImage.frame = CGRectZero;
     }
 }
 
