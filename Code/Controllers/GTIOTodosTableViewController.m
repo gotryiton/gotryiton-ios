@@ -7,7 +7,7 @@
 //
 
 #import "GTIOTodosTableViewController.h"
-
+#import "GTIOBrowseListTTModel.h"
 
 @implementation GTIOTodosTableViewController
 
@@ -20,6 +20,17 @@
 
 - (void)whoIStyleButtonPressed:(id)sender {
     TTOpenURL(@"gtio://whoIStyle");
+}
+
+- (void)createModel {
+    _queryText = nil;
+    _apiEndpoint = GTIORestResourcePath(@"/todos");
+    [super createModel];
+}
+
+- (void)loadedList:(GTIOBrowseList*)list {
+    NSLog(@"List: %@", list);
+    NSLog(@"Tabs: %@", list.sortTabs);
 }
 
 @end

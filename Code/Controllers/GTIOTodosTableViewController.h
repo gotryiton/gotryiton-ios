@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GTIOBrowseTableViewController.h"
 
-
-@interface GTIOTodosTableViewController : TTTableViewController {
+@interface GTIOTodosTableViewController : GTIOBrowseTableViewController {
     
 }
 
