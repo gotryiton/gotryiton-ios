@@ -8,6 +8,7 @@
 
 #import "GTIOOutfitViewScrollDataSource.h"
 #import "GTIOOutfitPageView.h"
+#import "GTIOReview.h"
 
 @implementation GTIOOutfitViewScrollDataSource
 
@@ -67,7 +68,14 @@
         page.isLastPage = YES;
         return page;
     }
-	page.outfit = [_model.objects objectAtIndex:pageIndex];
+    
+    // Guarding against models with reviews instead of outfits;
+    GTIOOutfit* outfit = (GTIOOutfit*)[_model.objects objectAtIndex:pageIndex];
+    if ([outfit isKindOfClass:[GTIOReview class]]) {
+        GTIOReview* review = (GTIOReview*)outfit;
+        outfit = review.outfit;
+    }
+	page.outfit = outfit;
     page.isFirstPage = (pageIndex == 0);
     page.isLastPage = (pageIndex == [_model.objects count] - 1);
     NSLog(@"is last page: %d", page.isLastPage);

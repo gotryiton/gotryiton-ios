@@ -30,7 +30,10 @@
 		objectLoader.method = self.method;
 		
 		NSMutableDictionary* paramsForNextPage = [[self.params mutableCopy] autorelease];
-		[paramsForNextPage setObject:lastOutfit.timestamp forKey:@"lasttime"];
+		
+        [paramsForNextPage setObject:lastOutfit.timestamp forKey:@"lasttime"];
+        [paramsForNextPage setObject:[NSString stringWithFormat:@"%d", [self.objects count]] forKey:@"offset"];
+        
 		objectLoader.params = paramsForNextPage;
 		
 		_isLoading = YES;
@@ -60,7 +63,14 @@
         // loaded more.
         NSLog(@"LoadedMore");
         GTIOBrowseList* list = [dictionary objectForKey:@"list"];
+        
         NSArray* moreOutfits = list.outfits;
+        if (nil == moreOutfits) {
+            moreOutfits = list.myLooks;
+        }
+        if (nil == moreOutfits) {
+            moreOutfits = list.reviews;
+        }
         
         if ([moreOutfits count] < kGTIOPaginationLimit) {
             NSLog(@"Setting has more to load to NO. Only loaded %d outfits", [moreOutfits count]);
@@ -78,6 +88,12 @@
         NSArray* models = self.list.categories;
         if (nil == models) {
             models = self.list.outfits;
+        }
+        if (nil == models) {
+            models = self.list.myLooks;
+        }
+        if (nil == models) {
+            models = self.list.reviews;
         }
         [models retain];
         

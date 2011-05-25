@@ -18,7 +18,7 @@
 	GTIOUserReviewTableItem* item = [[[self alloc] init] autorelease];
 	[item setOutfit:outfit];
 	item.index = -1;
-	item.URL = [NSString stringWithFormat:@"gtio://looks/%@", outfit.sid];
+	//item.URL = [NSString stringWithFormat:@"gtio://looks/%@", outfit.sid];
 	return item;
 }
 

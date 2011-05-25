@@ -11,6 +11,7 @@
 #import <TWTAlertViewDelegate.h>
 #import "GTIOEditOutfitViewController.h"
 #import "GTIOOutfitPageView.h"
+#import "GTIOReview.h"
 
 
 @interface GTIOOutfitViewController (shouldReloadPage)
@@ -318,7 +319,12 @@
     if (_outfitIndex >= [_model.objects count]) {
         return nil;
     }
-	return (GTIOOutfit*)[_model.objects objectAtIndex:_outfitIndex];
+	GTIOOutfit* outfit = (GTIOOutfit*)[_model.objects objectAtIndex:_outfitIndex];
+    if ([outfit isKindOfClass:[GTIOReview class]]) {
+        GTIOReview* review = (GTIOReview*)outfit;
+        outfit = review.outfit;
+    }
+    return outfit;
 }
 
 - (void)showLoadingMore {
@@ -336,7 +342,13 @@
 - (void)updateIsLastPage {
     for(GTIOOutfitPageView* page in [_scrollView valueForKey:@"_pages"]) {
         if ([page isKindOfClass:[GTIOOutfitPageView class]]) {
-            page.isLastPage = ([[(GTIOOutfit*)[[_model objects] lastObject] outfitID] isEqual:page.outfit.outfitID]);
+            GTIOOutfit* outfit = (GTIOOutfit*)[[_model objects] lastObject];
+            // guard against a review here as well.
+            if ([outfit isKindOfClass:[GTIOReview class]]) {
+                GTIOReview* review = (GTIOReview*)outfit;
+                outfit = review.outfit;
+            }
+            page.isLastPage = ([[outfit outfitID] isEqual:page.outfit.outfitID]);
         }
     }
 }

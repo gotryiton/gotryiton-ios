@@ -19,10 +19,6 @@
 	[item setOutfit:outfit];
 	item.index = -1;
 	
-    // TODO: looks screen doesn't seem to work at all right now.
-	//item.URL = [NSString stringWithFormat:@"gtio://looks/%@", outfit.sid];
-//	item.URL = [NSString stringWithFormat:@"gtio://profile/%@", outfit.uid];
-	
 	return item;
 }
 

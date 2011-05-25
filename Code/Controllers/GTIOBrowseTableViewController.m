@@ -203,10 +203,14 @@
         [items removeObject:item.outfit];
     }
     NSMutableArray* indexPaths = [NSMutableArray array];
-    for (GTIOOutfit* outfit in items) {
-        GTIOOutfitTableViewItem* item = [GTIOOutfitTableViewItem itemWithOutfit:outfit];
-        [ds.items addObject:item];
-        [indexPaths addObject:[NSIndexPath indexPathForRow:[ds.items indexOfObject:item] inSection:0]];
+    for (id object in items) {
+        if ([object isKindOfClass:[GTIOOutfit class]]) {
+            GTIOOutfit* outfit = (GTIOOutfit*)object;
+            GTIOOutfitTableViewItem* item = [GTIOOutfitTableViewItem itemWithOutfit:outfit];
+            [ds.items addObject:item];
+            [indexPaths addObject:[NSIndexPath indexPathForRow:[ds.items indexOfObject:item] inSection:0]];
+        }
+        // TODO: handle GTIOReview
     }
     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
     [self.tableView endUpdates];
@@ -270,6 +274,7 @@
         // Note: This allows us to use the old GTIOUserReviewTableItem... may want to refactor to make it more straight forward.
         GTIOOutfit* outfit = review.outfit;
         outfit.userReview = review.text;
+        outfit.timestamp = review.timestamp;
         GTIOUserReviewTableItem* item = [GTIOUserReviewTableItem itemWithOutfit:outfit];
         [items addObject:item];
     }
@@ -443,7 +448,8 @@
 }
 
 - (void)didSelectObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
-    if ([object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
+    if ([object isKindOfClass:[GTIOUserReviewTableItem class]] ||
+        [object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
         GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:self.model outfitIndex:indexPath.row];
         [self.navigationController pushViewController:viewController animated:YES];
         [viewController release];
