@@ -51,10 +51,6 @@
 
 @end
 
-
-@interface GTIOBrowseListDataSource : TTListDataSource
-@end
-
 @implementation GTIOBrowseListDataSource
 
 - (TTTableItem*)tableItemForObject:(id)object {
@@ -81,8 +77,6 @@
 
 @end
 
-@interface GTIOBrowseSectionedDataSource: TTSectionedDataSource
-@end
 @implementation GTIOBrowseSectionedDataSource
 
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 

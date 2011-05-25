@@ -13,10 +13,12 @@
 
 @synthesize title = _title;
 @synthesize stylists = _stylists;
+@synthesize outfits = _outfits;
 
 - (void)dealloc {
     [_title release];
     [_stylists release];
+    [_outfits release];
     [super dealloc];
 }
 

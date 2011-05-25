@@ -19,6 +19,7 @@
     NSArray* _outfits;    // or it will contain outfits.
     NSString* _searchAPI;
     NSArray* _sortTabs;
+    NSArray* _tabs;
     NSArray* _stylists;
     NSArray* _sections;
 }
@@ -32,6 +33,7 @@
 @property (nonatomic, retain) NSArray* outfits;
 @property (nonatomic, retain) NSString* searchAPI;
 @property (nonatomic, retain) NSArray* sortTabs;
+@property (nonatomic, retain) NSArray* tabs;
 @property (nonatomic, retain) NSArray* stylists;
 @property (nonatomic, retain) NSArray* sections;
 

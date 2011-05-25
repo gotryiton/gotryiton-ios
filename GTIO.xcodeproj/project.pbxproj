@@ -266,6 +266,9 @@
 		3DF68FEF138C18BF00D6950D /* thumb-overlay-single@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF68F8B138C18BF00D6950D /* thumb-overlay-single@2x.png */; };
 		3DF68FF0138C18BF00D6950D /* thumb-overlay-single@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF68F8B138C18BF00D6950D /* thumb-overlay-single@2x.png */; };
 		3DF68FF1138C18BF00D6950D /* thumb-overlay-single@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF68F8B138C18BF00D6950D /* thumb-overlay-single@2x.png */; };
+		3F18333F138D64850032CFAF /* GTIOStaticOutfitListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F18333E138D64850032CFAF /* GTIOStaticOutfitListModel.m */; };
+		3F183340138D64850032CFAF /* GTIOStaticOutfitListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F18333E138D64850032CFAF /* GTIOStaticOutfitListModel.m */; };
+		3F183341138D64850032CFAF /* GTIOStaticOutfitListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F18333E138D64850032CFAF /* GTIOStaticOutfitListModel.m */; };
 		3F506AA2138BFC030062D7D1 /* welcome-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F506A9C138BFC030062D7D1 /* welcome-button.png */; };
 		3F506AA3138BFC030062D7D1 /* welcome-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F506A9C138BFC030062D7D1 /* welcome-button.png */; };
 		3F506AA4138BFC030062D7D1 /* welcome-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F506A9C138BFC030062D7D1 /* welcome-button.png */; };
@@ -2944,6 +2947,8 @@
 		3DF68F89138C18BF00D6950D /* thumb-overlay-4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb-overlay-4@2x.png"; sourceTree = "<group>"; };
 		3DF68F8A138C18BF00D6950D /* thumb-overlay-single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb-overlay-single.png"; sourceTree = "<group>"; };
 		3DF68F8B138C18BF00D6950D /* thumb-overlay-single@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb-overlay-single@2x.png"; sourceTree = "<group>"; };
+		3F18333D138D64850032CFAF /* GTIOStaticOutfitListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOStaticOutfitListModel.h; sourceTree = "<group>"; };
+		3F18333E138D64850032CFAF /* GTIOStaticOutfitListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOStaticOutfitListModel.m; sourceTree = "<group>"; };
 		3F506A9C138BFC030062D7D1 /* welcome-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-button.png"; path = "welcome-assets/welcome-button.png"; sourceTree = "<group>"; };
 		3F506A9D138BFC030062D7D1 /* welcome-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-button@2x.png"; path = "welcome-assets/welcome-button@2x.png"; sourceTree = "<group>"; };
 		3F506A9E138BFC030062D7D1 /* welcome-header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-header.png"; path = "welcome-assets/welcome-header.png"; sourceTree = "<group>"; };
@@ -4966,6 +4971,8 @@
 				3FA9BBD61386AA56002701F4 /* GTIOListSection.m */,
 				3F73FA6E1386BA0800ADB25A /* GTIONotification.h */,
 				3F73FA6F1386BA0800ADB25A /* GTIONotification.m */,
+				3F18333D138D64850032CFAF /* GTIOStaticOutfitListModel.h */,
+				3F18333E138D64850032CFAF /* GTIOStaticOutfitListModel.m */,
 			);
 			name = Models;
 			path = Code/Models;
@@ -8009,6 +8016,7 @@
 				3D4CACB0138AD31000A79EBA /* GTIOUserIconOptionDataSource.m in Sources */,
 				3FCF14C4138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */,
 				3FCF14C9138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */,
+				3F18333F138D64850032CFAF /* GTIOStaticOutfitListModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8171,6 +8179,7 @@
 				3D19280A138AE597008D3866 /* GTIOUserIconOptionDataSource.m in Sources */,
 				3D19280D138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */,
 				3D192811138AFD17008D3866 /* GTIOUpdateUserRequest.m in Sources */,
+				3F183340138D64850032CFAF /* GTIOStaticOutfitListModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8380,6 +8389,7 @@
 				3D19280C138AEA51008D3866 /* UINavigationController+Background.m in Sources */,
 				3D19280E138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */,
 				3D192812138AFD17008D3866 /* GTIOUpdateUserRequest.m in Sources */,
+				3F183341138D64850032CFAF /* GTIOStaticOutfitListModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

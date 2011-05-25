@@ -22,3 +22,9 @@
 @property (nonatomic, retain) NSString* queryText;
 
 @end
+
+@interface GTIOBrowseListDataSource : TTListDataSource
+@end
+
+@interface GTIOBrowseSectionedDataSource: TTSectionedDataSource
+@end
