@@ -14,10 +14,16 @@
     NSNumber* _defaultTab;
     NSNumber* _selected;
     NSString* _sortAPI;
+    NSString* _subtitle;
+    NSNumber* _badgeNumber;
+    NSString* _title;
 }
 @property (nonatomic, retain) NSString* sortText;
 @property (nonatomic, retain) NSNumber* defaultTab;
 @property (nonatomic, retain) NSNumber* selected;
 @property (nonatomic, retain) NSString* sortAPI;
+@property (nonatomic, retain) NSString* subtitle;
+@property (nonatomic, retain) NSNumber* badgeNumber;
+@property (nonatomic, retain) NSString* title;
 
 @end

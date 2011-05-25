@@ -12,9 +12,11 @@
 @interface GTIOListSection : NSObject {
     NSString* _title;
     NSArray* _stylists;
+    NSArray* _outfits;
 }
 
 @property (nonatomic, retain) NSString* title;
 @property (nonatomic, retain) NSArray* stylists;
+@property (nonatomic, retain) NSArray* outfits;
 
 @end

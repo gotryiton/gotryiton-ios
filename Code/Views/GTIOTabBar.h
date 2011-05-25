@@ -21,10 +21,27 @@
     NSMutableArray* _tabs; // Subviews
     NSUInteger _selectedTabIndex;
     id _delegate;
+    NSString* _subtitle;
+    UILabel* _subtitleLabel;
 }
 
 @property (nonatomic, retain) NSArray* tabNames;
+@property (nonatomic, readonly) NSArray* tabs;
 @property (nonatomic, assign) id<GTIOTabBarDelegate> delegate;
 @property (nonatomic, assign) NSUInteger selectedTabIndex;
+@property (nonatomic, readonly) id selectedTab;
+@property (nonatomic, retain) NSString* subtitle; // Shows up under the tab bar. centered. white.
+
+@end
+
+
+@interface GTIOTab : UIButton {
+    UILabel* _badgeLabel;
+    UIImageView* _badgeBackgroundImage;
+}
+
+@property (nonatomic, retain) NSNumber* badge;
+
+- (void)setRelativePosition:(NSInteger)pos; // -1 for left, 0 for center, 1 for right;
 
 @end

@@ -194,6 +194,13 @@ void uncaughtExceptionHandler(NSException *exception) {
     [sortTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"selected", @"selected")];
     [sortTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"sortApi", @"sortAPI")];
     
+    RKObjectMapping* todoTabMapping = [RKObjectMapping mappingForClass:[GTIOSortTab class]];
+    [todoTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"default", @"defaultTab")];
+    [todoTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"selected", @"selected")];
+    [todoTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"api", @"sortAPI")];
+    [todoTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"subtitle", @"subtitle")];
+    [todoTabMapping mapAttributes:@"badgeNumber", @"title", nil];
+    
     RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
     [notificationMapping mapAttributes:@"text", @"url", nil];
     [notificationMapping mapAttribute:@"id" toKeyPath:@"notificationID"];
@@ -202,10 +209,13 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"categories" toKeyPath:@"categories" objectMapping:categoryMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"sortTabs" toKeyPath:@"sortTabs" objectMapping:sortTabMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"tabs" toKeyPath:@"tabs" objectMapping:todoTabMapping]];
+    
     [browseListMapping mapRelationship:@"sections" withObjectMapping:sectionMapping];
     [browseListMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
     
     [sectionMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
+    [sectionMapping mapRelationship:@"outfits" withObjectMapping:outfitMapping];
     
     [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user" toKeyPath:@"user" objectMapping:profileMapping]];
     

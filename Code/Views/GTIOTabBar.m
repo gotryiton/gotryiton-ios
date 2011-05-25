@@ -8,13 +8,6 @@
 
 #import "GTIOTabBar.h"
 
-@interface GTIOTab : UIButton {
-}
-
-- (void)setRelativePosition:(NSInteger)pos; // -1 for left, 0 for center, 1 for right;
-
-@end
-
 @implementation GTIOTab
 
 - (id)initWithFrame:(CGRect)frame {
@@ -25,8 +18,43 @@
         [self setTitleColor:gray forState:UIControlStateHighlighted];
         [self setTitleColor:gray forState:UIControlStateSelected|UIControlStateHighlighted];
         self.titleLabel.font = kGTIOFetteFontOfSize(18);
+        
+        UIImage* streachableImage = [[UIImage imageNamed:@"todos-badge.png"] stretchableImageWithLeftCapWidth:11 topCapHeight:12];
+        _badgeBackgroundImage = [[[UIImageView alloc] initWithImage:streachableImage] autorelease];
+        [self addSubview:_badgeBackgroundImage];
+        
+        _badgeLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+        _badgeLabel.backgroundColor = [UIColor clearColor];
+        _badgeLabel.textColor = [UIColor whiteColor];
+        _badgeLabel.textAlignment = UITextAlignmentCenter;
+        _badgeLabel.font = [UIFont boldSystemFontOfSize:16];
+        [self addSubview:_badgeLabel];
     }
     return self;
+}
+
+- (NSNumber*)badge {
+    return [NSNumber numberWithInt:[_badgeLabel.text intValue]];
+}
+
+- (void)setBadge:(NSNumber*)badge {
+    if ([badge intValue] > 0) {
+        _badgeLabel.text = [NSString stringWithFormat:@"%@", badge];
+    } else {
+        _badgeLabel.text = nil;
+    }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (_badgeLabel.text) {
+        [_badgeLabel sizeToFit];
+        _badgeLabel.frame = CGRectMake(self.bounds.size.width - _badgeLabel.bounds.size.width - 15, -3, _badgeLabel.bounds.size.width, _badgeLabel.bounds.size.height);
+        _badgeBackgroundImage.frame = CGRectOffset(CGRectInset(_badgeLabel.frame,-10,-2), 0, 2);
+    } else {
+        _badgeLabel.frame = CGRectZero;
+        _badgeBackgroundImage.frame = CGRectZero;
+    }
 }
 
 - (void)setRelativePosition:(NSInteger)pos {
@@ -62,13 +90,22 @@
 @implementation GTIOTabBar
 
 @synthesize tabNames = _tabNames;
+@synthesize tabs = _tabs;
 @synthesize delegate = _delegate;
 @synthesize selectedTabIndex = _selectedTabIndex;
+@synthesize subtitle = _subtitle;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tabs3-background.png"]];
+        _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _subtitleLabel.clipsToBounds = YES;
+        _subtitleLabel.backgroundColor = [UIColor clearColor];
+        _subtitleLabel.textColor = [UIColor whiteColor];
+        _subtitleLabel.textAlignment = UITextAlignmentCenter;
+        _subtitleLabel.font = [UIFont systemFontOfSize:12];
+        [self addSubview:_subtitleLabel];
     }
     return self;
 }
@@ -76,12 +113,17 @@
 - (void)dealloc {
     [_tabNames release];
     [_tabs release];
+    [_subtitle release];
+    [_subtitleLabel release];
     [super dealloc];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     CGRect rect = CGRectOffset(CGRectInset(self.bounds, 5, 3), 0, 3);
+    if (_subtitle) {
+        rect = CGRectOffset(CGRectInset(self.bounds, 5, 3+10), 0, 3-10);
+    }
     float width = rect.size.width / [_tabs count];
     
     for (int i = 0;i < [_tabs count];i++) {
@@ -91,6 +133,26 @@
         if (tab.titleLabel.text) {
             tab.titleEdgeInsets = UIEdgeInsetsMake(0,6,0,tab.frame.size.width - titleLabelFrame.size.width - 12);// - 12
         }
+    }
+    _subtitleLabel.frame = CGRectZero;
+    if (_subtitle) {
+        [self addSubview:_subtitleLabel]; // Pop to the top.
+        _subtitleLabel.frame = CGRectMake(rect.origin.y, CGRectGetMaxY(rect), rect.size.width, 20);
+        _subtitleLabel.text = _subtitle;
+    }
+}
+
+- (void)setSubtitle:(NSString*)subtitle {
+    BOOL hadSubtitle = (_subtitle != nil);
+    [subtitle retain];
+    [_subtitle release];
+    _subtitle = subtitle;
+    if (hadSubtitle && !_subtitle) {
+        // reduce frame by 20 pixels
+        self.frame = CGRectOffset(CGRectInset(self.frame, 0, 10), 0, -10);
+    } else if (!hadSubtitle && _subtitle) {
+        // increase frame by 20 pixels
+        self.frame = CGRectOffset(CGRectInset(self.frame, 0, -10), 0, 10);
     }
 }
 
@@ -110,6 +172,10 @@
     }
     GTIOTab* selectedTab = [_tabs objectAtIndex:_selectedTabIndex];
     [selectedTab setSelected:YES];
+}
+
+- (id)selectedTab {
+    return [_tabs objectAtIndex:_selectedTabIndex];
 }
 
 - (void)setTabNames:(NSArray*)names {
