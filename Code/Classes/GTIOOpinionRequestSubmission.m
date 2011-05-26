@@ -11,6 +11,7 @@
 #import "GTIOUser.h"
 #import "GTIOPhoto.h"
 #import "UIImage+Manipulation.h"
+#import <RestKit/ObjectMapping/RKErrorMessage.h>
 
 @implementation GTIOOpinionRequestSubmission
 
@@ -44,29 +45,18 @@
 }
 
 - (void)send {
-	GTIOUser* user = [GTIOUser currentUser];
-	NSString* URLString = [NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, GTIORestResourcePath(@"/upload/")];
-	_request = [TTURLRequest requestWithURL:URLString delegate:self];
-	_request.httpMethod = @"POST";
-	_request.response = [[[TTURLJSONResponse alloc] init] autorelease];
-	
-	NSString* privateValue = self.opinionRequest.isPrivate ? @"-1" : @"1";
-	NSString* facebookValue = self.opinionRequest.shareOnFacebook ? @"1" : @"0";
-	NSString* twitterValue = self.opinionRequest.shareOnTwitter ? @"1" : @"0";
-	
-	[_request.parameters setValue:user.token forKey:@"gtioToken"];
-	[_request.parameters setValue:self.opinionRequest.tellUsMoreAboutIt forKey:@"description"];
-	[_request.parameters setValue:[self.opinionRequest.whereYouAreGoing stringValue] forKey:@"event"];
-	[_request.parameters setValue:privateValue forKey:@"public"];
-	[_request.parameters setValue:facebookValue forKey:@"updateFacebook"];
-	[_request.parameters setValue:twitterValue forKey:@"updateTwitter"];
-	
-	if (_opinionRequest.shareWithContacts) {
-		[_request.parameters setValue:[self.opinionRequest.contactEmails componentsJoinedByString:@", "] forKey:@"shareEmails"];
-	}
-	
-	// Add the files & outfit details
-	NSArray* photos = self.opinionRequest.photos;
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/upload/") delegate:self];
+    
+	NSString* publicValue = self.opinionRequest.isPublic ? @"1" : @"0";
+	NSString* stylistsValue = self.opinionRequest.shareWithStylists ? @"1" : @"0";
+    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:publicValue, @"public",
+                          stylistsValue, @"shareWithStylists",
+                          self.opinionRequest.whereYouAreGoing, @"eventId",
+                          self.opinionRequest.tellUsMoreAboutIt, @"description", nil];
+    
+    RKParams* params = [RKParams paramsWithDictionary:[GTIOUser paramsByAddingCurrentUserIdentifier:dict]];
+    
+    NSArray* photos = self.opinionRequest.photos;
 	for (GTIOPhoto* photo in photos) {
 		NSUInteger number = [photos indexOfObject:photo] + 1;
 		NSString* fileParam = [NSString stringWithFormat:@"image%d", number];
@@ -77,36 +67,37 @@
 		float scaleFactor = 560.0/image.size.height;
 		UIImage* scaledImage = [image imageWithScale:scaleFactor];
 		
-		[_request.parameters setValue:scaledImage forKey:fileParam];
-		[_request.parameters setValue:photo.brandsYouAreWearing forKey:brandsParam];
+        RKParamsAttachment* attachment = [params setData:UIImageJPEGRepresentation(scaledImage, 1) forParam:fileParam];
+        attachment.MIMEType = @"image/jpeg";
+        attachment.fileName = [NSString stringWithFormat:@"%@.jpg", fileParam];
+        [params setValue:photo.brandsYouAreWearing forParam:brandsParam];;
 	}
-	
-	// Let's do this thing!
-	[_request send];
+    
+    loader.params = params;
+    loader.method = RKRequestMethodPOST;
+    [loader send];
 }
 
-- (void)requestDidFinishLoad:(TTURLRequest*)request {
-	TTURLJSONResponse* response = request.response;
-	NSDictionary* responseData = response.rootObject;
-//	GTIOUser* user = [GTIOUser currentUser];
-	
-	if ([[responseData objectForKey:@"response"] isEqualToString:@"error"]) {
-		NSString* errorMessage = [responseData objectForKey:@"error"];		
-		[_delegate submission:self didFailWithErrorMessage:errorMessage];
-	} else {		
-		_photosAdded = [[responseData objectForKey:@"photosAdded"] intValue];
-		_totalPhotos = [[responseData objectForKey:@"totalPhotos"] intValue];
-		_sid = [[responseData objectForKey:@"sid"] retain];
-		//NSString* URLString = [NSString stringWithFormat:@"%@/?page=profile&o=%@&gtioToken=%@", kGTIOBaseURLString, _sid, user.token];
-		NSString* URLString = [NSString stringWithFormat:@"gtio://profile/look/%@", _sid];
-		_outfitURL = [[NSURL URLWithString:URLString] retain];
-		
-		[_delegate submissionDidSucceed:self];
-	}
+- (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
+    [_delegate submission:self didFailWithErrorMessage:[error localizedDescription]];
 }
 
-- (void)request:(TTURLRequest*)request didFailLoadWithError:(NSError*)error {
-	[_delegate submission:self didFailWithErrorMessage:[error localizedDescription]];
+- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    NSLog(@"Response: %@", [response bodyAsString]);
+}
+
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)objectDictionary {
+    NSLog(@"Object Dictionary: %@", objectDictionary);
+    RKErrorMessage* error = [objectDictionary objectForKey:@"error"];
+    if (error) {
+        [_delegate submission:self didFailWithErrorMessage:[error errorMessage]];
+        return;
+    }
+    [self performSelector:@selector(informDelegateOfSuccessWithOutfit:) withObject:[objectDictionary objectForKey:@"outfit"] afterDelay:0.1];
+}
+
+- (void)informDelegateOfSuccessWithOutfit:(id)outfit {
+    [_delegate submissionDidSucceed:self withOutfit:outfit];
 }
 
 @end

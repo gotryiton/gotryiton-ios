@@ -7,6 +7,7 @@
 //
 
 #import <RestKit/RestKit.h>
+#import <RestKit/ObjectMapping/RKErrorMessage.h>
 #import <Three20/Three20.h>
 #import "AppDelegate.h"
 #import "GTIOHomeViewController.h"
@@ -200,6 +201,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     [todoTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"api", @"sortAPI")];
     [todoTabMapping addAttributeMapping:RKObjectAttributeMappingMake(@"subtitle", @"subtitle")];
     [todoTabMapping mapAttributes:@"badgeNumber", @"title", nil];
+    
+    RKObjectMapping* errorMapping = [RKObjectMapping mappingForClass:[RKErrorMessage class]];
+    [errorMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"errorMessage")];
+    [provider setMapping:errorMapping forKeyPath:@"error"];
     
     RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
     [notificationMapping mapAttributes:@"text", @"url", nil];

@@ -78,16 +78,16 @@
 		}
 		_tellUsMoreAboutItTextView.text = self.opinionRequest.tellUsMoreAboutIt;
 		
-		// Cancel button (only necessary when there is not a preview screen)
-		// TODO: This does not hold up! Could have only one photo if you delete the second photo out of the preview screen
-		// In this case you will be popped back to the root, but you cannot go back to preview screen
-		if (1 == [self.opinionRequest.photos count]) {
-			UIBarButtonItem* cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"cancel" 
-																			  style:UIBarButtonItemStyleBordered 
-																			 target:self 
-																			 action:@selector(cancelButtonWasTouched:)] autorelease];
-			self.navigationItem.leftBarButtonItem = cancelButton;
-		}
+//		// Cancel button (only necessary when there is not a preview screen)
+//		// TODO: This does not hold up! Could have only one photo if you delete the second photo out of the preview screen
+//		// In this case you will be popped back to the root, but you cannot go back to preview screen
+//		if (1 == [self.opinionRequest.photos count]) {
+//			UIBarButtonItem* cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"cancel" 
+//																			  style:UIBarButtonItemStyleBordered 
+//																			 target:self 
+//																			 action:@selector(cancelButtonWasTouched:)] autorelease];
+//			self.navigationItem.leftBarButtonItem = cancelButton;
+//		}
 	}
 	
 	return self;
