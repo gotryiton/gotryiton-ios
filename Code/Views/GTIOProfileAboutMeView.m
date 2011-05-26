@@ -3,7 +3,7 @@
 //  GoTryItOn
 //
 //  Created by Jeremy Ellison on 1/24/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Two Toasters. All rights reserved.
 //
 
 #import "GTIOProfileAboutMeView.h"

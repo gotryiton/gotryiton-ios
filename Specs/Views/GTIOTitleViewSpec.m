@@ -3,7 +3,7 @@
 //  GTIO
 //
 //  Created by Daniel Hammond on 5/16/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Two Toasters. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
