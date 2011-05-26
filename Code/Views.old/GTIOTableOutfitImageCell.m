@@ -63,8 +63,6 @@
     // Connection Icon
     if ([obj respondsToSelector:@selector(outfit)]) {
         GTIOOutfit* outfit = [obj performSelector:@selector(outfit)];
-        NSLog(@"outfit.stylistRelationship: %@", outfit.stylistRelationship);
-        NSLog(@"Image: %@", [outfit.stylistRelationship imageForConnection]);
         _connectionImageView.image = [outfit.stylistRelationship imageForConnection];
     }
     

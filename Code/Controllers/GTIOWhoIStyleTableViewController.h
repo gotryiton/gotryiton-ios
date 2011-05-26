@@ -8,7 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol GTIOWhoIStyleTableItemDelegate;
+@class GTIOWhoIStyleTableItem;
+
+@protocol GTIOWhoIStyleTableItemDelegate <NSObject>
+
+- (void)tableItem:(GTIOWhoIStyleTableItem*)item toggledAlertSwitch:(UISwitch*)alertSwitch;
+- (void)tableItem:(GTIOWhoIStyleTableItem*)item silenceButtonWasPressed:(id)sender;
+- (void)tableItem:(GTIOWhoIStyleTableItem*)item unSilenceButtonWasPressed:(id)sender;
+
+@end
 
 @interface GTIOWhoIStyleTableViewController : TTTableViewController <GTIOWhoIStyleTableItemDelegate> {
     

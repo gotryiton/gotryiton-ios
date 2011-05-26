@@ -12,16 +12,7 @@
 #import "GTIOProfile.h"
 #import "CustomUISwitch.h"
 #import "GTIOBarButtonItem.h"
-
-@class GTIOWhoIStyleTableItem;
-
-@protocol GTIOWhoIStyleTableItemDelegate <NSObject>
-
-- (void)tableItem:(GTIOWhoIStyleTableItem*)item toggledAlertSwitch:(UISwitch*)alertSwitch;
-- (void)tableItem:(GTIOWhoIStyleTableItem*)item silenceButtonWasPressed:(id)sender;
-- (void)tableItem:(GTIOWhoIStyleTableItem*)item unSilenceButtonWasPressed:(id)sender;
-
-@end
+#import "GTIODropShadowSectionTableViewDelegate.h"
 
 @interface GTIOWhoIStyleTableItem : TTTableImageItem {
     GTIOProfile* _profile;
@@ -151,6 +142,10 @@
     UIImage* settingsButtonImage = [UIImage imageNamed:@"settingsBarButton.png"];
     GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)];
     [self.navigationItem setRightBarButtonItem:item];
+}
+
+- (id)createDelegate {
+    return [[GTIODropShadowSectionTableViewDelegate new] autorelease];
 }
 
 - (void)settingsButtonAction:(id)sender {

@@ -13,7 +13,7 @@
 #import "GTIOOutfitTableViewItem.h"
 #import "GTIOOutfitTableViewCell.h"
 #import "GTIOGiveAnOpinionTableViewDataSource.h"
-#import "GTIOPaginationTableViewDelegate.h"
+#import "GTIODropShadowSectionTableViewDelegate.h"
 #import "GTIOSortTab.h"
 #import "GTIOOutfitViewController.h"
 #import <RestKit/RestKit.h>
@@ -166,7 +166,7 @@
 }
 
 - (TTTableViewDelegate*)createDelegate {
-    return [[[GTIOPaginationTableViewDelegate alloc] initWithController:self] autorelease];
+    return [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
 }
 
 - (void)createModel {
