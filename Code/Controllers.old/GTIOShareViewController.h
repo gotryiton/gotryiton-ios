@@ -13,13 +13,10 @@
 @interface GTIOShareViewController : GTIOTableViewController {
 	GTIOOpinionRequest* _opinionRequest;
 	UIButton* _createMyOutfitPageButton;
-	CustomUISwitch* _shareSwitch;
-	CustomUISwitch* _facebookSwitch;
-	CustomUISwitch* _twitterSwitch;
-	CustomUISwitch* _alertMeWithFeedbackSwitch;
-	CustomUISwitch* _keepThisLookPrivateSwitch;
+	CustomUISwitch* _shareWithCommunitySwitch;
+	CustomUISwitch* _shareWithStylistsSwitch;
 	
-	UILabel* _privateLabel;
+//	UILabel* _privateLabel;
 }
 
 @property (nonatomic, retain) GTIOOpinionRequest* opinionRequest;

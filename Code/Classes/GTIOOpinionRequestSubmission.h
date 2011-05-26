@@ -6,12 +6,11 @@
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
 
-#import <Three20/Three20.h>
 #import "GTIOOpinionRequest.h"
 
 @protocol GTIOOpinionRequestSubmissionDelegate;
 
-@interface GTIOOpinionRequestSubmission : NSObject <TTURLRequestDelegate> {
+@interface GTIOOpinionRequestSubmission : NSObject <RKObjectLoaderDelegate> {
 	GTIOOpinionRequest* _opinionRequest;
 	NSObject<GTIOOpinionRequestSubmissionDelegate>* _delegate;
 	TTURLRequest* _request;

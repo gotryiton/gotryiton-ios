@@ -12,11 +12,8 @@
 @implementation GTIOOpinionRequest
 
 @synthesize photos = _photos;
-@synthesize shareWithContacts = _shareWithContacts;
-@synthesize shareOnFacebook = _shareOnFacebook;
-@synthesize shareOnTwitter = _shareOnTwitter;
-@synthesize alertMeWithFeedback = _alertMeWithFeedback;
-@synthesize isPrivate = _isPrivate;
+@synthesize isPublic = _isPublic;
+@synthesize shareWithStylists = _shareWithStylists;
 @synthesize contactEmails = _contactEmails;
 @synthesize whereYouAreGoing = _whereYouAreGoing;
 @synthesize tellUsMoreAboutIt = _tellUsMoreAboutIt;
@@ -25,11 +22,8 @@
 	if (self = [super init]) {
 		_photos = [[NSMutableArray alloc] init];
 		_contactEmails = [[NSMutableArray alloc] init];
-		_shareWithContacts = NO;
-		_shareOnFacebook = NO;
-		_shareOnTwitter = NO;
-		_alertMeWithFeedback = NO;
-		_isPrivate = NO;
+		_isPublic = YES;
+		_shareWithStylists = YES;
 	}
 	return self;
 }
@@ -47,19 +41,15 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[coder encodeObject:_contactEmails forKey:@"contactEmails"];
-	[coder encodeBool:_shareWithContacts forKey:@"shareWithContacts"];
-	[coder encodeBool:_shareOnFacebook forKey:@"shareOnFacebook"];
-	[coder encodeBool:_shareOnTwitter forKey:@"shareOnTwitter"];
-	[coder encodeBool:_alertMeWithFeedback forKey:@"alertMeWithFeedback"];
+	[coder encodeBool:_isPublic forKey:@"isPublic"];
+	[coder encodeBool:_shareWithStylists forKey:@"shareWithStylists"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder {    	
     if (self = [self init]) {
         _contactEmails = [[coder decodeObjectForKey:@"contactEmails"] retain];
-		self.shareWithContacts = [coder decodeBoolForKey:@"shareWithContacts"];
-		self.shareOnFacebook = [coder decodeBoolForKey:@"shareOnFacebook"];
-		self.shareOnTwitter = [coder decodeBoolForKey:@"shareOnTwitter"];
-		self.alertMeWithFeedback = [coder decodeBoolForKey:@"alertMeWithFeedback"];
+		self.isPublic = [coder decodeBoolForKey:@"isPublic"];
+		self.shareWithStylists = [coder decodeBoolForKey:@"shareWithStylists"];
     }   
 	
     return self;
@@ -122,11 +112,9 @@
 
 - (NSDictionary*)infoDict {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            [self isPrivate] ? @"true" : @"false", @"private",
-            [self shareOnFacebook] ? @"true" : @"false", @"facebookShare",
+            [self isPublic] ? @"true" : @"false", @"public",
+            [self shareWithStylists] ? @"true" : @"false", @"shareWithStylists",
             [NSString stringWithFormat:@"%d", [[self photos] count]], @"photoCount",
-            [self shareOnTwitter] ? @"true" : @"false", @"shareOnTwitter",
-			[self shareWithContacts] ? @"true" : @"false", @"shareWithContacts",
 			[self wasBlurAppliedToAnyPhoto] ? @"true" : @"false", @"blurMask",
             nil];
 }

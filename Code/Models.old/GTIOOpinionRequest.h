@@ -10,22 +10,16 @@
 
 @interface GTIOOpinionRequest : NSObject <NSCoding> {
 	NSMutableArray* _photos; // GTIOPhoto
-	BOOL _shareWithContacts;
-	BOOL _shareOnFacebook;
-	BOOL _shareOnTwitter;
-	BOOL _alertMeWithFeedback;
-	BOOL _isPrivate;
+	BOOL _shareWithStylists;
+	BOOL _public;
 	NSMutableArray* _contactEmails;
 	NSNumber* _whereYouAreGoing;
 	NSString* _tellUsMoreAboutIt;
 }
 
 @property (nonatomic, copy)		NSMutableArray *photos;
-@property (nonatomic, assign)	BOOL shareWithContacts;
-@property (nonatomic, assign)	BOOL shareOnFacebook;
-@property (nonatomic, assign)	BOOL shareOnTwitter;
-@property (nonatomic, assign)	BOOL alertMeWithFeedback;
-@property (nonatomic, assign)	BOOL isPrivate;
+@property (nonatomic, assign)	BOOL isPublic;
+@property (nonatomic, assign)	BOOL shareWithStylists;
 @property (nonatomic, readonly)	NSMutableArray* contactEmails;
 @property (nonatomic, copy)		NSNumber* whereYouAreGoing;
 @property (nonatomic, copy)		NSString* tellUsMoreAboutIt;

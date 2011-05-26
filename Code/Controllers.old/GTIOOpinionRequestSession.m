@@ -14,6 +14,9 @@
 #import "GTIOPhotosPreviewViewController.h"
 #import "GTIOAnalyticsTracker.h"
 #import "UIDeviceHardware.h"
+#import "GTIOOutfit.h"
+#import "GTIOStaticOutfitListModel.h"
+#import "GTIOOutfitViewController.h"
 
 // Constants
 static NSUInteger kGTIOGetAnOpinionPhotoSourceActionSheetTag = 18001;
@@ -388,7 +391,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 
 #pragma mark GTIOOpinionRequestSubmissionDelegate
 
-- (void)submissionDidSucceed:(GTIOOpinionRequestSubmission*)submission {
+- (void)submissionDidSucceed:(GTIOOpinionRequestSubmission*)submission withOutfit:(GTIOOutfit*)outfit {
 	// Track the details (NOTE: must track details before removing photos!)
 	[[GTIOAnalyticsTracker sharedTracker] trackOpinionRequestSubmittedWithInfoDict:[_opinionRequest infoDict]];
 	
@@ -397,11 +400,16 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	
 	[[self.window viewWithTag:kGTIOActivityLabelTag] removeFromSuperview];
 	
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-	[self.navigationController dismissModalViewControllerAnimated:YES];
-//    TTOpenURL(@"gtio://profile");
-//    TTOpenURL(@"gtio://home");
+    UIViewController* homeController = TTOpenURL(@"gtio://home");
     
+    if (outfit) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+        GTIOStaticOutfitListModel* staticModel = [GTIOStaticOutfitListModel modelWithOutfits:[NSArray arrayWithObject:outfit]];
+        // manage showing outfits from a sectioned list.
+        GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:staticModel outfitIndex:0];
+        [homeController.navigationController pushViewController:viewController animated:YES];
+        [viewController release];
+    }
 //    TTOpenURL([NSString stringWithFormat:@"gtio://profile/look/%@", submission.outfitURL]);
 //	TTDINFO(@"Loading submitted URL: %@", submission.outfitURL);
 
