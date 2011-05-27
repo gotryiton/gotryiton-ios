@@ -52,7 +52,6 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
     if ((self = [super initWithStyle:style reuseIdentifier:identifier])) {
         [self.contentView setBackgroundColor:[UIColor clearColor]];
-        
         _backgroundImage = [UIImageView new];
         [_backgroundImage setImage:[UIImage imageNamed:@"istyle-bg.png"]];
         [_backgroundImage setFrame:self.contentView.frame];
@@ -180,7 +179,6 @@
     GTIOBrowseListTTModel* model = [[[GTIOBrowseListTTModel alloc] initWithResourcePath:path
                                                                                  params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
                                                                                  method:RKRequestMethodPOST] autorelease];
-    
     TTListDataSource* temporaryDataSource = [TTListDataSource dataSourceWithObjects:nil];
     temporaryDataSource.model = model;
     self.dataSource = temporaryDataSource;
