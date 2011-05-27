@@ -204,6 +204,9 @@
 		3D4CACAC138ABC0000A79EBA /* userprofiledata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */; };
 		3D4CACAD138ABC0000A79EBA /* userprofiledata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */; };
 		3D4CACB0138AD31000A79EBA /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */; };
+		3D71A72E13904010000208A5 /* JREngage-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D71A72D13904010000208A5 /* JREngage-Info.plist */; };
+		3D71A72F13904010000208A5 /* JREngage-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D71A72D13904010000208A5 /* JREngage-Info.plist */; };
+		3D71A73013904010000208A5 /* JREngage-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D71A72D13904010000208A5 /* JREngage-Info.plist */; };
 		3DA635331386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */; };
 		3DA635341386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */; };
 		3DA635351386E1A80081BE1A /* GTIOOutfitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */; };
@@ -3074,6 +3077,7 @@
 		3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userprofiledata.plist; sourceTree = "<group>"; };
 		3D4CACAE138AD31000A79EBA /* GTIOUserIconOptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserIconOptionDataSource.h; sourceTree = "<group>"; };
 		3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserIconOptionDataSource.m; sourceTree = "<group>"; };
+		3D71A72D13904010000208A5 /* JREngage-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "JREngage-Info.plist"; path = "Libraries/JanRain/JREngage/JREngage-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3DA635311386E1A80081BE1A /* GTIOOutfitTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTitleView.h; sourceTree = "<group>"; };
 		3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTitleView.m; sourceTree = "<group>"; };
 		3DA6353C1386FBC80081BE1A /* UIQueryScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIQueryScrollView.h; sourceTree = "<group>"; };
@@ -4833,6 +4837,7 @@
 		3FCBEA32137065AC0039D779 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3D71A72D13904010000208A5 /* JREngage-Info.plist */,
 				3FCBEA33137065AC0039D779 /* images */,
 				3FCBEA84137065AC0039D779 /* images-2x */,
 				3FCBEAD5137065AC0039D779 /* xibs */,
@@ -7037,6 +7042,7 @@
 				3D16361D138ED15B0069C3E5 /* icon-overlay-76@2x.png in Resources */,
 				3D163620138ED15B0069C3E5 /* profile-icon-overlay-110.png in Resources */,
 				3D163623138ED15B0069C3E5 /* profile-icon-overlay-110@2x.png in Resources */,
+				3D71A72E13904010000208A5 /* JREngage-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7669,6 +7675,7 @@
 				3D16361E138ED15B0069C3E5 /* icon-overlay-76@2x.png in Resources */,
 				3D163621138ED15B0069C3E5 /* profile-icon-overlay-110.png in Resources */,
 				3D163624138ED15B0069C3E5 /* profile-icon-overlay-110@2x.png in Resources */,
+				3D71A72F13904010000208A5 /* JREngage-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8304,6 +8311,7 @@
 				3D16361F138ED15B0069C3E5 /* icon-overlay-76@2x.png in Resources */,
 				3D163622138ED15B0069C3E5 /* profile-icon-overlay-110.png in Resources */,
 				3D163625138ED15B0069C3E5 /* profile-icon-overlay-110@2x.png in Resources */,
+				3D71A73013904010000208A5 /* JREngage-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

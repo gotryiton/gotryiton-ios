@@ -11,7 +11,7 @@
 #import "GTIOBrowseList.h"
 #import "GTIOProfile.h"
 #import "NSObject_Additions.h"
-#import <TWTCommon/TWTAlertViewDelegate.h>
+#import <TWTAlertViewDelegate.h>
 
 @interface GTIOMyStylistsTableViewDelegate : TTTableViewDelegate
 @end
