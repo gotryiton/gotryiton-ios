@@ -13,6 +13,7 @@
 #import "CustomUISwitch.h"
 #import "GTIOBarButtonItem.h"
 #import "GTIODropShadowSectionTableViewDelegate.h"
+#import "GTIOUserMiniProfileHeaderView.h"
 
 @interface GTIOWhoIStyleTableItem : TTTableImageItem {
     GTIOProfile* _profile;
@@ -37,8 +38,11 @@
 @end
 
 @interface GTIOWhoIStyleTableItemCell : TTTableImageItemCell {
+    GTIOUserMiniProfileHeaderView* _miniProfileHeaderView;
     UIButton* _silenceButton;
     UIButton* _unsilenceButton;
+    UIImageView* _backgroundImage;
+    UILabel* _nameLabel;
     CustomUISwitch* _alertSwitch;
 }
 @end
@@ -47,6 +51,16 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
     if ((self = [super initWithStyle:style reuseIdentifier:identifier])) {
+        [self.contentView setBackgroundColor:[UIColor clearColor]];
+        
+        _backgroundImage = [UIImageView new];
+        [_backgroundImage setImage:[UIImage imageNamed:@"istyle-bg.png"]];
+        [_backgroundImage setFrame:self.contentView.frame];
+        [self.contentView addSubview:_backgroundImage];
+
+        _miniProfileHeaderView = [GTIOUserMiniProfileHeaderView new];
+        [self.contentView addSubview:_miniProfileHeaderView];
+        
         _silenceButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_silenceButton addTarget:self action:@selector(silenceButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_silenceButton];
@@ -84,6 +98,8 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    [self.textLabel setFrame:CGRectZero];
+    _backgroundImage.frame = CGRectMake(12,10,self.contentView.frame.size.width-24,self.contentView.frame.size.height-10);
     [_alertSwitch sizeToFit];
     _alertSwitch.frame = CGRectOffset(_alertSwitch.bounds, 220, 10);
     _unsilenceButton.frame = CGRectMake(140,10,30,30);
@@ -94,6 +110,7 @@
     [super setObject:obj];
     GTIOWhoIStyleTableItem* item = (GTIOWhoIStyleTableItem*)_item;
     GTIOProfile* profile = item.profile;
+    [_miniProfileHeaderView displayProfile:profile];
     
     [_silenceButton setTitle:@"N" forState:UIControlStateNormal];
     [_unsilenceButton setTitle:@"Y" forState:UIControlStateNormal];
@@ -114,6 +131,11 @@
     }
     _alertSwitch.on = [profile.stylistRequestAlertsEnabled boolValue];
     self.accessoryType = UITableViewCellAccessoryNone;
+}
+
+
++ (CGFloat)tableView:(UITableView *)tableView rowHeightForObject:(id)object { 
+    return 92.5; 
 }
 
 @end
