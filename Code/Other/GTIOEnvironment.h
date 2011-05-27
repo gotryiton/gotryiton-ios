@@ -51,3 +51,6 @@ extern NSString* const kGTIOFlurryAPIKey;
 NSString* GTIORestResourcePath(NSString* string);
 
 extern NSUInteger const kGTIOPaginationLimit;
+
+
+RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute);

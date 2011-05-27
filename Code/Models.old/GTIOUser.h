@@ -69,11 +69,11 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 	NSString* _email;
     NSString* _profileIconURL;
 	NSString* _aboutMe;
-	BOOL _iphonePush;
-    BOOL _alertActivity;
-    BOOL _alertStylistActivity;
-    BOOL _alertStylistAdd;
-    BOOL _alertNewsletter;
+	NSNumber* _iphonePush;
+    NSNumber* _alertActivity;
+    NSNumber* _alertStylistActivity;
+    NSNumber* _alertStylistAdd;
+    NSNumber* _alertNewsletter;
         
 	NSString* _deviceToken;
 	NSArray* _services;
@@ -86,11 +86,11 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
     Facebook* _facebook;
 }
 
-@property (nonatomic, assign) BOOL iphonePush;
-@property (nonatomic, assign) BOOL alertActivity;
-@property (nonatomic, assign) BOOL alertStylistActivity;
-@property (nonatomic, assign) BOOL alertStylistAdd;
-@property (nonatomic, assign) BOOL alertNewsletter;
+@property (nonatomic, retain) NSNumber* iphonePush;
+@property (nonatomic, retain) NSNumber* alertActivity;
+@property (nonatomic, retain) NSNumber* alertStylistActivity;
+@property (nonatomic, retain) NSNumber* alertStylistAdd;
+@property (nonatomic, retain) NSNumber* alertNewsletter;
 @property (nonatomic, copy) NSString *aboutMe;
 @property (nonatomic, assign, getter=isLoggedIn) BOOL loggedIn;
 @property (nonatomic, copy) NSString* token;

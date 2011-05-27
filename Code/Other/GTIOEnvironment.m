@@ -45,3 +45,7 @@ NSString* GTIORestResourcePath(NSString* string) {
 }
 
 NSUInteger const kGTIOPaginationLimit = 20;
+
+RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute) {
+    return [RKObjectAttributeMapping mappingFromKeyPath:keyPath toKeyPath:attribute];
+}

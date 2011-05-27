@@ -110,6 +110,37 @@ static GTIOUser* gCurrentUser = nil;
     return loader;
 }
 
++ (RKObjectMapping*)userMapping {
+    RKObjectMapping* userMapping = [RKObjectMapping mappingForClass:[GTIOUser class]];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.uid", @"UID")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.displayName", @"username")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gender", @"gender")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.city", @"city")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.state", @"state")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.email", @"email")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.profileIcon", @"profileIconURL")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.about", @"aboutMe")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.iphonePush", @"iphonePush")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertActivity", @"alertActivity")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertStylistActivity", @"alertStylistActivity")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertStylistAdd", @"alertStylistAdd")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertNewsletter", @"alertNewsletter")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.services", @"services")]; // service?
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gtioToken", @"token")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
+    
+    // TODO: duplicated.
+    RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
+    [notificationMapping mapAttributes:@"text", @"url", nil];
+    [notificationMapping mapAttribute:@"id" toKeyPath:@"notificationID"];
+    
+    [userMapping mapRelationship:@"notifications" withObjectMapping:notificationMapping];
+    userMapping.setNilForMissingAttributes = NO;
+    userMapping.setNilForMissingRelationships = NO;
+    
+    return userMapping;
+}
+
 - (id)init {
 	if (self = [super init]) {
 		_loggedIn = NO;
@@ -132,6 +163,11 @@ static GTIOUser* gCurrentUser = nil;
     TT_RELEASE_SAFELY(_facebook);
     TT_RELEASE_SAFELY(_notifications);
     TT_RELEASE_SAFELY(_todosBadge);
+    TT_RELEASE_SAFELY(_iphonePush);
+    TT_RELEASE_SAFELY(_alertActivity);
+    TT_RELEASE_SAFELY(_alertStylistActivity);
+    TT_RELEASE_SAFELY(_alertStylistAdd);
+    TT_RELEASE_SAFELY(_alertNewsletter);
 	[super dealloc];
 }
 
@@ -199,18 +235,18 @@ static GTIOUser* gCurrentUser = nil;
 
 - (void)clearUserData {	
 	self.UID = nil;
-	self.token = nil;
+	[self clearToken];
 	self.username = nil;
 	self.gender = nil;
 	self.city = nil;
 	self.state = nil;
 	self.email = nil;
 	self.services = nil;
-	self.iphonePush = NO;
-    self.alertActivity = NO;
-    self.alertStylistActivity = NO;
-    self.alertStylistAdd = NO;
-    self.alertNewsletter = NO;
+	self.iphonePush = nil;
+    self.alertActivity = nil;
+    self.alertStylistActivity = nil;
+    self.alertStylistAdd = nil;
+    self.alertNewsletter = nil;
 	self.loggedIn = NO;
     self.profileIconURL = nil;
     self.notifications = nil;
@@ -219,78 +255,70 @@ static GTIOUser* gCurrentUser = nil;
 }
 
 - (void)logout {
-	TTURLRequest* request = [TTURLRequest requestWithURL:[self.logoutURL absoluteString] delegate:self];
-	request.response = [[[TTURLJSONResponse alloc] init] autorelease];
-	[request sendSynchronously];
+    NSString* path = [NSString stringWithFormat:@"%@?gtioToken=%@", GTIORestResourcePath(@"/logout"), self.token];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
+    
+    [loader sendSynchronously];
+    
 	[self clearUserData];
 }
 
 - (void)resumeSession {
 	if (self.token) {
-		TTURLRequest* request = [TTURLRequest requestWithURL:[self.loadProfileURL absoluteString] delegate:self];
-		request.cachePolicy = TTURLRequestCachePolicyNone;
-		request.response = [[[TTURLJSONResponse alloc] init] autorelease];
-		[request sendSynchronously];
+        RKObjectMapping* userMapping = [RKObjectMapping mappingForClass:[GTIOUser class]];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.uid", @"UID")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.displayName", @"username")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gender", @"gender")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.city", @"city")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.state", @"state")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.email", @"email")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.profileIcon", @"profileIconURL")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.about", @"aboutMe")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.iphonePush", @"iphonePush")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertActivity", @"alertActivity")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertStylistActivity", @"alertStylistActivity")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertStylistAdd", @"alertStylistAdd")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertNewsletter", @"alertNewsletter")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.services", @"services")]; // service?
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gtioToken", @"token")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
+        
+        NSString* path = [NSString stringWithFormat:@"%@?gtioToken=%@", GTIORestResourcePath(@"/user"), self.token];
+        RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
+        loader.targetObject = self;
+        loader.objectMapping = userMapping;
+        
+        [loader sendSynchronously];
+        
+        [self didStopLogin];
+        if (self.UID) {
+            self.loggedIn = YES;
+        } else {
+            [self clearUserData];
+        }
 	}
 }
 
 - (void)digestProfileInfo:(NSDictionary*)profileInfo {
-	if (profileInfo && [profileInfo isKindOfClass:[NSDictionary class]]) {
-		if ([[profileInfo valueForKey:@"response"] isEqualToString:@"error"]) {
-				NSLog(@"Error Logging In: %@", profileInfo);
-				return;
-		}
-		if ([profileInfo valueForKey:@"user"]) {
-            
-            RKObjectMapper* mapper = [RKObjectMapper mapperWithObject:profileInfo mappingProvider:[RKObjectManager sharedManager].mappingProvider];
-            RKObjectMappingResult* result = [mapper performMapping];
-            NSArray* notifications = [[result asDictionary] objectForKey:@"notifications"];
-            if (notifications) {
-                self.notifications = notifications;
-            }
-            
-            NSString* badgeString = [profileInfo valueForKey:@"todosBadge"];
-            if (badgeString) {
-                self.todosBadge = [NSNumber numberWithInt:[badgeString intValue]];
-            }
-            
-            profileInfo = [profileInfo valueForKey:@"user"];
-		}
-		self.UID = [profileInfo objectForKey:@"uid"];
-		self.username = [profileInfo objectForKey:@"displayName"];
-		self.gender = [profileInfo objectForKey:@"gender"];
-		self.city = [profileInfo objectForKey:@"city"];
-		self.state = [profileInfo objectForKey:@"state"];
-		self.email = [profileInfo objectForKey:@"email"];
-        self.profileIconURL = [profileInfo objectForKey:@"profileIcon"];
-		self.aboutMe = [profileInfo objectForKey:@"about"];
-		self.iphonePush = [[profileInfo objectForKey:@"iphonePush"] boolValue]; // comes back as string
-        self.alertActivity = [[profileInfo objectForKey:@"alertActivity"] boolValue];
-        self.alertStylistActivity = [[profileInfo objectForKey:@"alertStylistActivity"] boolValue];
-        self.alertStylistAdd = [[profileInfo objectForKey:@"alertStylistAdd"] boolValue];
-        self.alertNewsletter = [[profileInfo objectForKey:@"alertNewsletter"] boolValue];
-        
-		self.services = [profileInfo objectForKey:@"service"];
-		
-		// Reauthentication requests do not include the token back
-		NSString* gtioToken = [profileInfo objectForKey:@"gtioToken"];
-		if (gtioToken) {
-			self.token = gtioToken;
-		}		
-		
-		// Track new user logins
-		if ([[profileInfo objectForKey:@"isNewUser"] boolValue]) {
-			TTOpenURL(@"gtio://analytics/trackUserDidLoginForTheFirstTime");
-		}
-		
-		if ([[profileInfo objectForKey:@"requiredFinishProfile"] boolValue]) {
-			[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
-		} else {
-			self.loggedIn = YES;
-		}
-		
-		[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidUpdateProfileNotificationName object:self];
-	}
+    RKObjectMappingOperation* operation = [RKObjectMappingOperation mappingOperationFromObject:profileInfo toObject:self withObjectMapping:[GTIOUser userMapping]];
+    operation.objectFactory = [[RKObjectMapper new] autorelease];
+    NSError* error = nil;
+    if (![operation performMapping:&error]) {
+        NSLog(@"Error: %@", error);
+    }
+    
+    // TODO: clean this crap up.
+    if ([[profileInfo valueForKey:@"user.isNewUser"] boolValue]) {
+        TTOpenURL(@"gtio://analytics/trackUserDidLoginForTheFirstTime");
+    }
+    
+    if ([[profileInfo objectForKey:@"user.requiredFinishProfile"] boolValue]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
+    } else {
+        self.loggedIn = YES;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidUpdateProfileNotificationName object:self];
 }
 
 
@@ -307,12 +335,6 @@ static GTIOUser* gCurrentUser = nil;
         }
 	}
 	return @"";
-}
-
-- (void)requestDidFinishLoad:(TTURLRequest*)request {
-	TTURLJSONResponse* response = request.response;
-	NSDictionary* profileInfo = response.rootObject;
-	[self digestProfileInfo:profileInfo];
 }
 
 - (void)setLoggedIn:(BOOL)loggedIn {
@@ -334,9 +356,16 @@ static GTIOUser* gCurrentUser = nil;
 	return [[NSUserDefaults standardUserDefaults] objectForKey:kGTIOTokenUserDefaultsKey];
 }
 
+- (void)clearToken {
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kGTIOTokenUserDefaultsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)setToken:(NSString *)token {
-	[[NSUserDefaults standardUserDefaults] setObject:token forKey:kGTIOTokenUserDefaultsKey];
-	[[NSUserDefaults standardUserDefaults] synchronize];
+    if (nil != token) {
+        [[NSUserDefaults standardUserDefaults] setObject:token forKey:kGTIOTokenUserDefaultsKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (BOOL)isRegisteredWithFacebook {

@@ -208,7 +208,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
     [notificationMapping mapAttributes:@"text", @"url", nil];
-    [notificationMapping mapAttribute:@"id" toKeyPath:@"notificationID"];
+    [notificationMapping mapKeyPath:@"id" toAttribute:@"notificationID"];
     [provider setMapping:notificationMapping forKeyPath:@"notifications"];
     
     RKObjectMapping* stylistRelationshipMapping = [RKObjectMapping mappingForClass:[GTIOStylistRelationship class]];
@@ -424,8 +424,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
-//    NSLog(@"dictionary: %@", dictionary);
-    
     GTIOAppStatusAlert* alert = [dictionary objectForKey:@"alert"];
     if (alert) {
 		[alert show];
@@ -535,7 +533,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSLog(@"Sucessfully registered for push notifications. Device Token = %@", deviceTokenString);
 	
 	// By doing this in the background, we prevent a crash in the event that the app launches with a partially logged in user.
-	[user performSelector:@selector(resumeSession) withObject:nil afterDelay:1.0];
+//	[user performSelector:@selector(resumeSession) withObject:nil afterDelay:1.0];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -544,7 +542,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	user.deviceToken = nil;
 	
 	// By doing this in the background, we prevent a crash in the event that the app launches with a partially logged in user.
-	[user performSelector:@selector(resumeSession) withObject:nil afterDelay:1.0];
+//	[user performSelector:@selector(resumeSession) withObject:nil afterDelay:1.0];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {	

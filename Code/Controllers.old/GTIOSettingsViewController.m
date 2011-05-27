@@ -53,23 +53,23 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 
 - (void)createLoggedInModel {
 	_pushNotificationsSwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
-	_pushNotificationsSwitch.on = [GTIOUser currentUser].iphonePush;
+	_pushNotificationsSwitch.on = [[GTIOUser currentUser].iphonePush boolValue];
 	_pushNotificationsSwitch.delegate = self;
 
     _alertActivitySwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
-	_alertActivitySwitch.on = [GTIOUser currentUser].alertActivity;
+	_alertActivitySwitch.on = [[GTIOUser currentUser].alertActivity boolValue];
 	_alertActivitySwitch.delegate = self;
     
     _alertStylistActivitySwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
-	_alertStylistActivitySwitch.on = [GTIOUser currentUser].alertStylistActivity;
+	_alertStylistActivitySwitch.on = [[GTIOUser currentUser].alertStylistActivity boolValue];
 	_alertStylistActivitySwitch.delegate = self;
     
     _alertStylistAddSwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
-	_alertStylistAddSwitch.on = [GTIOUser currentUser].alertStylistAdd;
+	_alertStylistAddSwitch.on = [[GTIOUser currentUser].alertStylistAdd boolValue];
 	_alertStylistAddSwitch.delegate = self;
     
     _alertNewsletterSwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
-	_alertNewsletterSwitch.on = [GTIOUser currentUser].alertNewsletter;
+	_alertNewsletterSwitch.on = [[GTIOUser currentUser].alertNewsletter boolValue];
 	_alertNewsletterSwitch.delegate = self;
     
 	self.dataSource = [TTSectionedDataSource dataSourceWithObjects:@"",
@@ -105,18 +105,18 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 
 - (void)valueChangedInView:(CustomUISwitch*)view {
 	GTIOUser* user = [GTIOUser currentUser];
-    user.iphonePush = _pushNotificationsSwitch.on;
-	user.alertActivity = _alertActivitySwitch.on;
-    user.alertStylistActivity = _alertStylistActivitySwitch.on;
-    user.alertStylistAdd = _alertStylistAddSwitch.on;
-    user.alertNewsletter = _alertNewsletterSwitch.on;
+    user.iphonePush = [NSNumber numberWithBool:_pushNotificationsSwitch.on];
+	user.alertActivity = [NSNumber numberWithBool:_alertActivitySwitch.on];
+    user.alertStylistActivity = [NSNumber numberWithBool:_alertStylistActivitySwitch.on];
+    user.alertStylistAdd = [NSNumber numberWithBool:_alertStylistAddSwitch.on];
+    user.alertNewsletter = [NSNumber numberWithBool:_alertNewsletterSwitch.on];
     
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            (user.iphonePush ? @"1" : @"0"), @"iphonePush",
-                            (user.alertActivity ? @"1" : @"0"), @"alertActivity",
-                            (user.alertStylistActivity ? @"1" : @"0"), @"alertStylistActivity",
-                            (user.alertStylistAdd ? @"1" : @"0"), @"alertStylistAdd",
-                            (user.alertNewsletter ? @"1" : @"0"), @"alertNewsletter",
+                            user.iphonePush, @"iphonePush",
+                            user.alertActivity, @"alertActivity",
+                            user.alertStylistActivity, @"alertStylistActivity",
+                            user.alertStylistAdd, @"alertStylistAdd",
+                            user.alertNewsletter, @"alertNewsletter",
                             nil];
     
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/user") delegate:nil];
