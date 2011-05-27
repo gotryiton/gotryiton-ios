@@ -52,6 +52,17 @@
         NSLog(@"currentUserID=%@, displayUserID:%@",[GTIOUser currentUser].UID,_userID);
 		_isShowingCurrentUser = [_userID isEqualToString:[GTIOUser currentUser].UID];
         NSLog(@"is current user:%d",_isShowingCurrentUser);
+        if ([[TTNavigator navigator].topViewController title]) {
+            self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:[[TTNavigator navigator].topViewController title] 
+                                                                                       target:self 
+                                                                                       action:@selector(backButtonAction) 
+                                                                                   backButton:YES] autorelease]; 
+        } else {
+            self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"Back"
+                                                                                       target:self 
+                                                                                       action:@selector(backButtonAction) 
+                                                                                   backButton:YES] autorelease]; 
+        }
 	}
 	return self;
 }

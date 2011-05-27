@@ -74,6 +74,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"my stylists";
+    self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(backButtonAction)];
+    
     _cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Cancel" target:self action:@selector(cancelButtonPressed:)];
     _doneButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Done" target:self action:@selector(doneButtonPressed:)];
     _editButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Edit" target:self action:@selector(editButtonPressed:)];
@@ -179,6 +181,10 @@
     TTListDataSource* ds = [GTIOMyStylistsListDataSource dataSourceWithItems:items];
     ds.model = model;
     self.dataSource = ds;
+}
+
+- (void)backButtonAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
