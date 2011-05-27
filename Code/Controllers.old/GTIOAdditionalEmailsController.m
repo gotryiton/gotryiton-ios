@@ -14,12 +14,12 @@
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(shareTitleImage)] autorelease];		
 		self.navigationItem.leftBarButtonItem =
-			[[[UIBarButtonItem alloc] initWithTitle: TTLocalizedString(@"cancel", @"")
+			[[[GTIOBarButtonItem alloc] initWithTitle: TTLocalizedString(@"cancel", @"")
 											  style: UIBarButtonItemStylePlain												 
 											 target: self										
 											 action: @selector(cancel)] autorelease];
 		self.navigationItem.rightBarButtonItem =
-			[[[UIBarButtonItem alloc] initWithTitle: TTLocalizedString(@"done", @"")
+			[[[GTIOBarButtonItem alloc] initWithTitle: TTLocalizedString(@"done", @"")
 											  style: UIBarButtonItemStylePlain
 											 target: self
 											 action: @selector(post)] autorelease];

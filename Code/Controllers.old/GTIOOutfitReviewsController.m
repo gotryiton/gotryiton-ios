@@ -46,8 +46,8 @@
 		NSLog(@"Outfit: %@", _outfit);
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewDeletedNotification:) name:@"ReviewDeletedNotification" object:nil];
         
-        self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"back" 
-                                                                                  style:UIBarButtonItemStyleBordered 
+        self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
+                                                                                  
                                                                                  target:nil 
                                                                                  action:nil] autorelease];
 	}

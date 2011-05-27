@@ -69,7 +69,7 @@
 	
 	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(getAnOpinionOverlayTitleImage)] autorelease];
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
+	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
 	
 	_searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 37)];
 	_searchBarView.clipsToBounds = YES;

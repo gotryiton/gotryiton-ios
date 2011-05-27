@@ -74,18 +74,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"my stylists";
-    _cancelButton = [[UIBarButtonItem alloc] 
-                   initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                   target:self
-                   action:@selector(cancelButtonPressed:)];
-    _doneButton = [[UIBarButtonItem alloc] 
-                   initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                   target:self
-                   action:@selector(doneButtonPressed:)];
-    _editButton = [[UIBarButtonItem alloc] 
-									initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
-									target:self
-									action:@selector(editButtonPressed:)];
+    _cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Cancel" target:self action:@selector(cancelButtonPressed:)];
+    _doneButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Done" target:self action:@selector(doneButtonPressed:)];
+    _editButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Edit" target:self action:@selector(editButtonPressed:)];
 	
 	self.navigationItem.rightBarButtonItem = _editButton;
 }

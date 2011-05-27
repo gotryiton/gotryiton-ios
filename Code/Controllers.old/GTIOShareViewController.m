@@ -20,8 +20,8 @@
 		
 		// Navigation Item
 		self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(shareTitleImage)] autorelease];		
-		self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"back" 
-																				  style:UIBarButtonItemStyleBordered 
+		self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
+																				  
 																				 target:nil 
 																				 action:nil] autorelease];		
 		

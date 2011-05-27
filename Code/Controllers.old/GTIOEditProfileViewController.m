@@ -162,9 +162,9 @@
 	} else {
 		[_genderPicker.toolbar setItems:[NSArray arrayWithObjects:
 										 _genderPicker.doneButton,
-										 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
+										 [[[GTIOBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
 										 _genderPicker.titleView,
-										 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
+										 [[[GTIOBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
 										 nil]];
 		self.dataSource = [TTListDataSource dataSourceWithObjects:
 						   [TTTableControlItem itemWithCaption:@"email:" control:_emailField],

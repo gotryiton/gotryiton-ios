@@ -14,8 +14,8 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = invokeSupersequent(nibNameOrNil, nibBundleOrNil))) {
-        self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"back" 
-                                                                                  style:UIBarButtonItemStyleBordered 
+        self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
+                                                                                  
                                                                                  target:nil 
                                                                                  action:nil] autorelease];
     }

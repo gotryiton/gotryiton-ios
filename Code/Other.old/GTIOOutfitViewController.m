@@ -43,8 +43,8 @@
 
 		self.hidesBottomBarWhenPushed = YES;
         
-        self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"back" 
-                                                                                  style:UIBarButtonItemStyleBordered 
+        self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
+                                                                                  
                                                                                  target:nil 
                                                                                  action:nil] autorelease];
 	}
@@ -102,10 +102,10 @@
 	_headerView = [[GTIOOutfitTitleView alloc] initWithFrame:CGRectMake(85, 2, 250, 40)];
 	self.navigationItem.titleView = _headerView;
 	
-	UIBarButtonItem* profileButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"profile.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(openProfileButtonWasPressed:)] autorelease];
+	UIBarButtonItem* profileButton = [[[GTIOBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"profile.png"] target:self action:@selector(openProfileButtonWasPressed:)] autorelease];
 	self.navigationItem.rightBarButtonItem = profileButton;
 	
-	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
+	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
 	
 	_scrollView = [[GTIOScrollView alloc] initWithFrame:self.view.bounds];
 	_scrollView.delegate = self;

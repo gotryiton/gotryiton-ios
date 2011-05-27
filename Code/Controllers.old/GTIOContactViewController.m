@@ -121,7 +121,7 @@ static NSString* const kGTIOContactViewAdditionalEmailsURLString = @"gtio://getA
 		
 		// Navigation Item
 		self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(shareTitleImage)] autorelease];
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"done"
+		self.navigationItem.rightBarButtonItem = [[GTIOBarButtonItem alloc] initWithTitle:@"done"
 																				  style:UIBarButtonItemStyleDone
 																				 target:self 
 																				 action:@selector(doneButtonWasTouched:)];

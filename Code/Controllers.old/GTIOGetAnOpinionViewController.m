@@ -31,8 +31,8 @@ static int const kOverlayViewTag = 9999;
 	[self.navigationController setNavigationBarHidden:NO animated:NO];
 	
 	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(getAnOpinionOverlayTitleImage)] autorelease];
-	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"cancel" 
-																			  style:UIBarButtonItemStyleBordered 
+	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" 
+																			  
 																			 target:nil 
 																			 action:nil] autorelease];
 	

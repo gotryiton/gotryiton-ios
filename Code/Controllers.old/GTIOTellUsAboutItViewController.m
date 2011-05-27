@@ -24,12 +24,12 @@
 		
 		// Navigation Item
 		self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(tellUsAboutItTitleImage)] autorelease];		
-		self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"back" 
-																				  style:UIBarButtonItemStyleBordered 
+		self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
+																				  
 																				 target:nil 
 																				 action:nil] autorelease];
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"next" 
-																				   style:UIBarButtonItemStyleBordered 
+		self.navigationItem.rightBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"next" 
+																				   
 																				  target:self 
 																				  action:@selector(nextButtonWasTouched:)] autorelease];
 		
@@ -82,8 +82,8 @@
 //		// TODO: This does not hold up! Could have only one photo if you delete the second photo out of the preview screen
 //		// In this case you will be popped back to the root, but you cannot go back to preview screen
 //		if (1 == [self.opinionRequest.photos count]) {
-//			UIBarButtonItem* cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"cancel" 
-//																			  style:UIBarButtonItemStyleBordered 
+//			UIBarButtonItem* cancelButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" 
+//																			  
 //																			 target:self 
 //																			 action:@selector(cancelButtonWasTouched:)] autorelease];
 //			self.navigationItem.leftBarButtonItem = cancelButton;

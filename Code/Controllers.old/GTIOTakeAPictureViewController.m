@@ -55,26 +55,26 @@
 	[self.view insertSubview:bgImage atIndex:0];
 	
 	// Navigation Items
-	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"back" 
-																			  style:UIBarButtonItemStyleBordered 
+	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
+																			  
 																			 target:nil 
 																			 action:nil] autorelease];
 	
 	if (self.useDoneButton) {
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"done"
-																				  style:UIBarButtonItemStyleBordered 
+		self.navigationItem.rightBarButtonItem = [[GTIOBarButtonItem alloc] initWithTitle:@"done"
+																				  
 																				 target:self
 																				 action:@selector(nextButtonWasTouched:)];
 	} else {		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"next" 
-																				  style:UIBarButtonItemStyleBordered 
+		self.navigationItem.rightBarButtonItem = [[GTIOBarButtonItem alloc] initWithTitle:@"next" 
+																				  
 																				 target:self
 																				 action:@selector(nextButtonWasTouched:)];
 	}
 	
 	if (self.useCancelButton) {
-		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"cancel" 
-																				 style:UIBarButtonItemStyleBordered 
+		self.navigationItem.leftBarButtonItem = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" 
+																				 
 																				target:self 
 																				action:@selector(cancelButtonWasTouched:)];
 	}
@@ -84,17 +84,17 @@
 	[_toolbar setTintColor:RGBCOLOR(100,100,100)];
 	[self.view addSubview:_toolbar];
 	
-	UIBarButtonItem* fixedSpace = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+	UIBarButtonItem* fixedSpace = [[[GTIOBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
 	fixedSpace.width = 14;
-	UIBarButtonItem* rotate = [[[UIBarButtonItem alloc] initWithImage:TTSTYLEVAR(rotateImage) 
+	UIBarButtonItem* rotate = [[[GTIOBarButtonItem alloc] initWithImage:TTSTYLEVAR(rotateImage) 
 																style:UIBarButtonItemStylePlain 
 															   target:self 
 															   action:@selector(rotateButtonWasPressed:)] autorelease];
-	UIBarButtonItem* zoomIn = [[[UIBarButtonItem alloc] initWithImage:TTSTYLEVAR(zoomInImage) 
+	UIBarButtonItem* zoomIn = [[[GTIOBarButtonItem alloc] initWithImage:TTSTYLEVAR(zoomInImage) 
 																style:UIBarButtonItemStylePlain 
 															   target:self 
 															   action:@selector(zoomInButtonWasPressed:)] autorelease];
-	UIBarButtonItem* zoomOut = [[[UIBarButtonItem alloc] initWithImage:TTSTYLEVAR(zoomOutImage) 
+	UIBarButtonItem* zoomOut = [[[GTIOBarButtonItem alloc] initWithImage:TTSTYLEVAR(zoomOutImage) 
 																 style:UIBarButtonItemStylePlain 
 																target:self 
 																action:@selector(zoomOutButtonWasPressed:)] autorelease];
@@ -105,7 +105,7 @@
 	[_blurButton setImage:TTSTYLEVAR(blurButtonOnStateImage) forState:UIControlStateSelected];
 	[_blurButton addTarget:self action:@selector(toggleBlur:) forControlEvents:UIControlEventTouchUpInside];
 	[_blurButton sizeToFit];
-	UIBarButtonItem* blurItem = [[[UIBarButtonItem alloc] initWithCustomView:_blurButton] autorelease];
+	UIBarButtonItem* blurItem = [[[GTIOBarButtonItem alloc] initWithCustomView:_blurButton] autorelease];
 	
 	[_toolbar setItems:[NSArray arrayWithObjects:fixedSpace, fixedSpace, rotate, 
 						fixedSpace, zoomIn, fixedSpace, zoomOut, fixedSpace, 

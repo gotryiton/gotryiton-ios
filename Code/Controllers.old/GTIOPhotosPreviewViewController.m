@@ -24,13 +24,13 @@
 		
 		// Navigation Item
 		self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(step1TitleImage)] autorelease];		
-		self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"back" 
-																				  style:UIBarButtonItemStyleBordered 
+		self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
+																				  
 																				 target:nil 
 																				 action:nil] autorelease];
 		// Cancel button
-		UIBarButtonItem* cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"cancel" 
-																		  style:UIBarButtonItemStyleBordered 
+		UIBarButtonItem* cancelButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" 
+																		  
 																		 target:self 
 																		 action:@selector(cancelButtonWasTouched:)] autorelease];
 		self.navigationItem.leftBarButtonItem = cancelButton;

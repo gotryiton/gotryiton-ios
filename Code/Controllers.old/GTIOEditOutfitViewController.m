@@ -80,13 +80,13 @@
 	_tellUsMoreAboutItTextView.contentInset = UIEdgeInsetsMake(5, 0, 5, 0);
 	_tellUsMoreAboutItTextView.text = _outfit.descriptionString;
 	
-	UIBarButtonItem* cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"cancel"
-																	  style:UIBarButtonItemStyleBordered 
+	UIBarButtonItem* cancelButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel"
+																	  
 																	 target:self
 																	 action:@selector(cancelButtonWasPressed:)] autorelease];
 	self.navigationItem.leftBarButtonItem = cancelButton;
 	
-	UIBarButtonItem* saveButton = [[[UIBarButtonItem alloc] initWithTitle:@"save"
+	UIBarButtonItem* saveButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"save"
 																	style:UIBarButtonItemStyleDone
 																   target:self
 																   action:@selector(saveButtonWasPressed:)] autorelease];

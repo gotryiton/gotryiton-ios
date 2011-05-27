@@ -27,7 +27,7 @@
 - (void)loadView {
     [super loadView];
     self.title = @"To-Do's";
-    UIBarButtonItem* whoIStyleItem = [[[UIBarButtonItem alloc] initWithTitle:@"who i style" style:UIBarButtonItemStyleBordered target:self action:@selector(whoIStyleButtonPressed:)] autorelease];
+    GTIOBarButtonItem* whoIStyleItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"who i style" target:self action:@selector(whoIStyleButtonPressed:)] autorelease];
     self.navigationItem.rightBarButtonItem = whoIStyleItem;
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

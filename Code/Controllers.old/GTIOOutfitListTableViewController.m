@@ -12,7 +12,7 @@
 @implementation GTIOOutfitListTableViewController
 
 - (void)didSelectObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
-	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-list.png"] style:UIBarButtonItemStyleBordered target:nil action:nil] autorelease];
+	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-list.png"] target:nil action:nil] autorelease];
 	NSLog(@"URL: %@", [object URL]);
 	GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:(GTIOPaginatedTTModel*)self.model outfitIndex:indexPath.row];
 	[self.navigationController pushViewController:viewController animated:YES];

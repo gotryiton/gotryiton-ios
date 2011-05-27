@@ -28,6 +28,7 @@
 
 // Custom UINavigationBar Background Images
 #import "UINavigationController+Background.h"
+#import "GTIOBarButtonItem.h"
 
 // Color and font macros
 #define kGTIOColorAAAAAA RGBCOLOR(170,170,170)
