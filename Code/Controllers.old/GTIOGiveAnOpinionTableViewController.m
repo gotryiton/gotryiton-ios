@@ -49,9 +49,12 @@
     [self invalidateModel];
 }
 
-- (void)didReceiveMemoryWarning {
-    ;
-}
+// This was here for some unknown but apparently intentional reason, removed it to fix error where the give an opinion
+// displays a blank view after a memory warning occurs away from the screen and then you navigate back to it -DRH 5.17.2011
+//
+//- (void)didReceiveMemoryWarning {
+//    ;
+//}
 
 - (void)viewDidUnload {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
