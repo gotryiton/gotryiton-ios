@@ -708,14 +708,14 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 	NSNumber* count = [_outfit.results valueForKey:userVote];
 	count = [NSNumber numberWithInt:[count intValue] + 1];
 	[_outfit.results setValue:count forKey:userVote];
-	
-	[_verdictView hideAllViews];
-	
-	[UIView beginAnimations:nil context:nil];
-	[self updateVerdictViews];
-	[self updateVoteButtons];
-	[UIView commitAnimations];
-	
+	if (![_outfit.uid isEqual:[GTIOUser currentUser].UID]) {
+        [_verdictView hideAllViews];
+        
+        [UIView beginAnimations:nil context:nil];
+        [self updateVerdictViews];
+        [self updateVoteButtons];
+        [UIView commitAnimations];
+    }	
 	_voteRequest = [GTIOUser voteForOutfit:_outfit.outfitID look:look reasons:reasons delegate:self];
 }
 
