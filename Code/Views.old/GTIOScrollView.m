@@ -97,6 +97,7 @@
     
     // TODO: fix
     NSLog(@"Show Activity!");
+    [_refreshView setStatus:TTTableHeaderDragRefreshLoading];
 //    [_refreshView showActivity:YES];
     
 //    self.scrollEnabled = NO;
