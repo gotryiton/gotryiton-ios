@@ -247,24 +247,15 @@
 	if ([outfit.uid isEqual:[GTIOUser currentUser].UID]) {
 		subject = @"I need help with my outfit!";
 		body = [NSString stringWithFormat:@"Hey!\n\n"
-				@"I just uploaded an outfit to GO TRY IT ON and want to know what you think. \n\n"
+				@"I just uploaded an outfit to GO TRY IT ON and want to know what you think.\n\n"
 				@"%@\n\n"
-				@"You can vote and review to tell me how good I look... or set me straight.\n\n"
-				@"- %@\n\n"
-				@"p.s. have the iPhone app%%3f use this link: gtio:%%2f%%2flooks%%2f%@",
-				[outfit.url stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"],
-				[GTIOUser currentUser].firstName,
-				outfit.outfitID];
+				@"You can vote and review to tell me how good I look... or set me straight.\n\n",
+				[outfit.url stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"]];
 	} else {
 		subject = @"Check out this outfit!";
 		body = [NSString stringWithFormat:@"Hi!\n\n"
-				@"Have a look at this outfit on GO TRY IT ON:\n\n"
-				@"%@\n\n"
-				@"- %@\n\n"
-				@"p.s. have the iPhone app%%3f use this link: gtio:%%2f%%2flooks%%2f%@",
-				[outfit.url stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"],
-				[GTIOUser currentUser].firstName,
-				outfit.outfitID];
+				@"Have a look at this outfit on GO TRY IT ON: %@\n\n",
+				[outfit.url stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"]];
 	}
 	subject = [subject stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	body = [body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -275,17 +266,15 @@
 - (void)shareOutfitViaSMS:(GTIOOutfit*)outfit {
 	NSString* body;
 	if ([outfit.uid isEqual:[GTIOUser currentUser].UID]) {
-		body = [NSString stringWithFormat:@"Hey! I just uploaded an outfit to GO TRY IT ON and want to know what you think! %@ (iPhone app users: gtio:%%2F%%2Flooks%%2F%@)",
-						  [outfit.url stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"],
-						  outfit.outfitID];
+		body = [NSString stringWithFormat:@"Hey! I just uploaded an outfit to GO TRY IT ON and want to know what you think! %@",
+                [outfit.url stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"]];
 	} else {
-		body = [NSString stringWithFormat:@"Hi! You should check out this look on GO TRY IT ON: %@ (iPhone app users: gtio:%%2F%%2Flooks%%2F%@)",
-				[outfit.url stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"],
-				outfit.outfitID];
+		body = [NSString stringWithFormat:@"Hi! You should check out this look on GO TRY IT ON: %@",
+                [outfit.url stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"]];
 	}
-		body = [body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		NSString* url = [NSString stringWithFormat:@"gtio://messageComposer/textMessage/%@/%@", outfit.outfitID, body];
-		TTOpenURL(url);
+    body = [body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString* url = [NSString stringWithFormat:@"gtio://messageComposer/textMessage/%@/%@", outfit.outfitID, body];
+    TTOpenURL(url);
 }
 
 - (void)shareButtonWasPressed:(id)sender {
