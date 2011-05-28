@@ -5,6 +5,9 @@
 //  Created by Blake Watters on 9/8/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
+//  submits GTIOOpinionRequest
+//
+
 
 #import "GTIOOpinionRequestSubmission.h"
 #import "TTURLJSONResponse.h"

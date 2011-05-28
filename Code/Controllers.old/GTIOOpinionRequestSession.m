@@ -5,6 +5,8 @@
 //  Created by Blake Watters on 8/30/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
+//  walks the user through the submission process
+//
 
 #import "GTIOOpinionRequestSession.h"
 #import "GTIOPhoto.h"

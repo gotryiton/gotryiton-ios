@@ -8,7 +8,6 @@
 
 #import "GTIOUserIconOption.h"
 
-
 @implementation GTIOUserIconOption
 @synthesize url = _url;
 @synthesize type = _type;

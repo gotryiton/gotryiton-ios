@@ -5,6 +5,9 @@
 //  Created by Jeremy Ellison on 8/17/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
+//
+//  manages data to submit a look or looks to GTIO
+//
 
 #import "GTIOOpinionRequest.h"
 #import "GTIOPhoto.h"

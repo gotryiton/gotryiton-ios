@@ -13,7 +13,7 @@
 @interface GTIOOpinionRequestSubmission : NSObject <RKObjectLoaderDelegate> {
 	GTIOOpinionRequest* _opinionRequest;
 	NSObject<GTIOOpinionRequestSubmissionDelegate>* _delegate;
-	TTURLRequest* _request;
+	TTURLRequest* _request; // TODO : Remove this?
 	
 	NSURL* _outfitURL;
 	NSUInteger _photosAdded;
