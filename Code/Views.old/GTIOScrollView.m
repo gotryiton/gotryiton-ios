@@ -65,18 +65,12 @@
 		self.lastPageIndex = _visiblePageIndex;
 	}
     _refreshView.frame = CGRectOffset(_refreshView.bounds, 0, -327 + _pageEdges.top);
-    
-    // TODO: fix
-//    if (![_refreshView isFlipped] && _pageEdges.top >= 50) {
-//        [_refreshView flipImageAnimated:YES];
-//        [_refreshView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-//    } else if ([_refreshView isFlipped] && _pageEdges.top < 50) {
-//        [_refreshView flipImageAnimated:YES];
-//        if (UIEdgeInsetsEqualToEdgeInsets(_edgeInsets, UIEdgeInsetsZero)) {
-//            // TODO: figure out a better way to tell if we are loading
-//            [_refreshView setStatus:TTTableHeaderDragRefreshPullToReload];
-//        }
-//    }
+
+    if (_pageEdges.top >= 50) {
+        [_refreshView setStatus:TTTableHeaderDragRefreshReleaseToReload];
+    } else {
+        [_refreshView setStatus:TTTableHeaderDragRefreshPullToReload];
+    }
     
 	[super layoutSubviews];
 }
