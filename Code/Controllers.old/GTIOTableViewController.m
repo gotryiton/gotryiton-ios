@@ -12,7 +12,7 @@
 
 - (void)loadView {
 	[super loadView];
-	
+
 	// Show the Navigation Bar
 	[self.navigationController setNavigationBarHidden:NO];
 	

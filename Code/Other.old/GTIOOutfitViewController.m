@@ -96,18 +96,6 @@
 
 - (void)loadView {
 	[super loadView];
-    if ([[TTNavigator navigator].topViewController title]) {
-        self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:[[TTNavigator navigator].topViewController title] 
-                                                                                   target:self 
-                                                                                   action:@selector(backButtonAction) 
-                                                                               backButton:YES] autorelease]; 
-    } else {
-        self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"Back"
-                                                                                   target:self 
-                                                                                   action:@selector(backButtonAction) 
-                                                                               backButton:YES] autorelease]; 
-    }
-    
     self.view.accessibilityLabel = @"Outfit Screen";
 	
 	// Set up header view.
@@ -597,10 +585,6 @@
     NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/outfit/%@?%@", page.outfit.outfitID, [params URLEncodedString]]);
 	_loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:self];
 	[_loader send];
-}
-
-- (void)backButtonAction {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -81,8 +81,10 @@
         [_editProfileButton setHidden:YES];
         _shouldAllowEditing = NO;        
     }
-
-    [_profilePictureImageView setUrlPath:[profile profileIconURL]];
+    if ([profile profileIconURL]) {
+        [_profilePictureImageView setUrlPath:[profile profileIconURL]];
+    }
+    NSLog(@"profile icon url = %@",[profile profileIconURL]);
 	_nameLabel.text = [profile.displayName uppercaseString];
 	[_nameLabel setNeedsDisplay];
 	_locationLabel.text = profile.location;

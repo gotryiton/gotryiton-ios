@@ -39,7 +39,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nil bundle:nil]) {
 		[self.navigationItem setHidesBackButton:YES];
-		[self.navigationItem setLeftBarButtonItem:[GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(backButtonAction)]];
+        [self.navigationItem setLeftBarButtonItem:[GTIOBarButtonItem backButton]];
 		[self registerForNotifications];
 		_isShowingCurrentUser = YES;
 	}
@@ -52,17 +52,6 @@
         NSLog(@"currentUserID=%@, displayUserID:%@",[GTIOUser currentUser].UID,_userID);
 		_isShowingCurrentUser = [_userID isEqualToString:[GTIOUser currentUser].UID];
         NSLog(@"is current user:%d",_isShowingCurrentUser);
-        if ([[TTNavigator navigator].topViewController title]) {
-            self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:[[TTNavigator navigator].topViewController title] 
-                                                                                       target:self 
-                                                                                       action:@selector(backButtonAction) 
-                                                                                   backButton:YES] autorelease]; 
-        } else {
-            self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"Back"
-                                                                                       target:self 
-                                                                                       action:@selector(backButtonAction) 
-                                                                                   backButton:YES] autorelease]; 
-        }
 	}
 	return self;
 }
@@ -153,10 +142,6 @@
 
 - (void)settingsButtonAction:(id)sender {
 	TTOpenURL(@"gtio://settings");
-}
-
-- (void)backButtonAction {
-	[[self navigationController] popViewControllerAnimated:YES];
 }
 
 #pragma mark -

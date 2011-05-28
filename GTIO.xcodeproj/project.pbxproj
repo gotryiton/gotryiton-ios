@@ -204,6 +204,9 @@
 		3D4CACAC138ABC0000A79EBA /* userprofiledata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */; };
 		3D4CACAD138ABC0000A79EBA /* userprofiledata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */; };
 		3D4CACB0138AD31000A79EBA /* GTIOUserIconOptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */; };
+		3D5B01321390741200FD62F0 /* TTViewController+BackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B01311390741200FD62F0 /* TTViewController+BackButton.m */; };
+		3D5B01331390741200FD62F0 /* TTViewController+BackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B01311390741200FD62F0 /* TTViewController+BackButton.m */; };
+		3D5B01341390741200FD62F0 /* TTViewController+BackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B01311390741200FD62F0 /* TTViewController+BackButton.m */; };
 		3D71A72E13904010000208A5 /* JREngage-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D71A72D13904010000208A5 /* JREngage-Info.plist */; };
 		3D71A72F13904010000208A5 /* JREngage-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D71A72D13904010000208A5 /* JREngage-Info.plist */; };
 		3D71A73013904010000208A5 /* JREngage-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D71A72D13904010000208A5 /* JREngage-Info.plist */; };
@@ -3077,6 +3080,7 @@
 		3D4CACAB138ABC0000A79EBA /* userprofiledata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userprofiledata.plist; sourceTree = "<group>"; };
 		3D4CACAE138AD31000A79EBA /* GTIOUserIconOptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserIconOptionDataSource.h; sourceTree = "<group>"; };
 		3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserIconOptionDataSource.m; sourceTree = "<group>"; };
+		3D5B01311390741200FD62F0 /* TTViewController+BackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTViewController+BackButton.m"; sourceTree = "<group>"; };
 		3D71A72D13904010000208A5 /* JREngage-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "JREngage-Info.plist"; path = "Libraries/JanRain/JREngage/JREngage-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3DA635311386E1A80081BE1A /* GTIOOutfitTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTitleView.h; sourceTree = "<group>"; };
 		3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTitleView.m; sourceTree = "<group>"; };
@@ -5823,6 +5827,7 @@
 				3F82E87B137D828D00F8FE1A /* GTIOCategory.m */,
 				3F82E87F137D9D7800F8FE1A /* GTIOBrowseListTTModel.h */,
 				3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */,
+				3D5B01311390741200FD62F0 /* TTViewController+BackButton.m */,
 			);
 			name = Classes;
 			path = Code/Classes;
@@ -8474,6 +8479,7 @@
 				3F1833D6138D80030032CFAF /* GTIOStylistRelationship.m in Sources */,
 				3F437098138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */,
 				3D16360A138ECDFD0069C3E5 /* GTIOUserMiniProfileHeaderView.m in Sources */,
+				3D5B01321390741200FD62F0 /* TTViewController+BackButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8642,6 +8648,7 @@
 				3F1833D7138D80030032CFAF /* GTIOStylistRelationship.m in Sources */,
 				3F437099138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */,
 				3D16360B138ECDFD0069C3E5 /* GTIOUserMiniProfileHeaderView.m in Sources */,
+				3D5B01331390741200FD62F0 /* TTViewController+BackButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8856,6 +8863,7 @@
 				3F1833D8138D80030032CFAF /* GTIOStylistRelationship.m in Sources */,
 				3F43709A138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */,
 				3D16360C138ECDFD0069C3E5 /* GTIOUserMiniProfileHeaderView.m in Sources */,
+				3D5B01341390741200FD62F0 /* TTViewController+BackButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

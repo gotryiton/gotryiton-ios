@@ -74,7 +74,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"my stylists";
-    self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(backButtonAction)];
     
     _cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Cancel" target:self action:@selector(cancelButtonPressed:)];
     _doneButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Done" target:self action:@selector(doneButtonPressed:)];
@@ -101,7 +100,7 @@
 
 - (void)cancelButtonPressed:(id)sender {
     [self setEditing:NO animated:YES];
-    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:[GTIOBarButtonItem class] action:@selector(backButtonAction)];
     [self.navigationItem setRightBarButtonItem:_editButton animated:YES];
     // revert any unsaved changes.
     [(NSObject*)self.model performSelector:@selector(didFinishLoad) withObject:nil afterDelay:0.5];
@@ -110,7 +109,7 @@
 - (void)doneButtonPressed:(id)sender {
     NSLog(@"Stylists to delete: %@", _stylistsToDelete);
     [self setEditing:NO animated:YES];
-    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:[GTIOBarButtonItem class] action:@selector(backButtonAction)];
     [self.navigationItem setRightBarButtonItem:_editButton animated:YES];
     // Delete from Stylists to Delete
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/remove") delegate:nil];
@@ -181,10 +180,6 @@
     TTListDataSource* ds = [GTIOMyStylistsListDataSource dataSourceWithItems:items];
     ds.model = model;
     self.dataSource = ds;
-}
-
-- (void)backButtonAction {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

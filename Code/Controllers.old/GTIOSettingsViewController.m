@@ -46,7 +46,6 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 
 - (void)loadView {
 	[super loadView];
-	
 	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settings.png"]] autorelease];
 	TTOpenURL(@"gtio://analytics/trackUserDidViewSettings");
 }

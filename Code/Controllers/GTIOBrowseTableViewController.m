@@ -136,23 +136,6 @@
         self.apiEndpoint = GTIORestResourcePath(@"/categories");
         self.variableHeightRows = YES;
         self.autoresizesForKeyboard = YES;
-
-        if ([[[TTNavigator navigator].topViewController class] isEqual:NSClassFromString(@"GTIOHomeViewController")]) {
-            self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(backButtonAction)];
-        } else {
-            if ([[TTNavigator navigator].topViewController title]) {
-                self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:[[TTNavigator navigator].topViewController title] 
-                                                                                           target:self 
-                                                                                           action:@selector(backButtonAction) 
-                                                                                       backButton:YES] autorelease]; 
-            } else {
-                self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"Back"
-                                                                                           target:self 
-                                                                                           action:@selector(backButtonAction) 
-                                                                                       backButton:YES] autorelease]; 
-            }
-        }
-
         self.view.accessibilityLabel = @"Browse Screen";
     }
     return self;
@@ -472,10 +455,6 @@
     } else {
         [super didSelectObject:object atIndexPath:indexPath];
     }
-}
-
-- (void)backButtonAction {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

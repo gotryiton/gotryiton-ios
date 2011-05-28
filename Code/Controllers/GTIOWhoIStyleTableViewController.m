@@ -157,6 +157,11 @@
 
 @implementation GTIOWhoIStyleTableViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    return self;
+}
+
 - (void)loadView {
     [super loadView];
     self.title = @"who i style";

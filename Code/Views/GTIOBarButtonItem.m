@@ -89,4 +89,27 @@
 	return [[[self alloc] initWithCustomView:view] autorelease];
 }
 
++ (id)backButton {
+    UIViewController* previousViewController = [TTNavigator navigator].topViewController;
+    NSLog(@"all - %@",[[[TTNavigator navigator].topViewController navigationController] viewControllers]);
+    NSLog(@"previous:%@",[previousViewController class]);
+    if ([[previousViewController class] isEqual:NSClassFromString(@"GTIOHomeViewController")]) {
+        return [self homeBackBarButtonWithTarget:self action:@selector(backButtonAction)];
+    } else if ([previousViewController title]) {
+        return [[[self alloc] initWithTitle:[previousViewController title]
+                                     target:self
+                                     action:@selector(backButtonAction)
+                                 backButton:YES] autorelease];
+    } else {
+        return [[[self alloc] initWithTitle:@"Back"
+                                     target:self
+                                     action:@selector(backButtonAction)
+                                 backButton:YES] autorelease]; 
+    }    
+}
+
++ (void)backButtonAction {
+    [[[TTNavigator navigator].topViewController navigationController] popViewControllerAnimated:YES];
+}
+
 @end
