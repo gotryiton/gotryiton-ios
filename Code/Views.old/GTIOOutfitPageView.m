@@ -195,7 +195,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 	GTIOVotingResultSet* resultSet = _outfit.results;
 	[_verdictView setResultSet:resultSet];
 	
-	if (resultSet.userVoteString && _state != GTIOOutfitViewStateFullscreen) {
+	if ((resultSet.userVoteString || [_outfit.uid isEqual:[GTIOUser currentUser].UID]) && _state != GTIOOutfitViewStateFullscreen) {
 		_verdictView.alpha = 1;
 		_verdictView.frame = CGRectMake(0, self.height - 67, 320, 67);
 		_bottomControlsView.frame = CGRectOffset(CGRectMake(0, 356-45, 320, 60+35), 0, -60);
@@ -321,6 +321,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 	_wearItButton3.enabled = NO;
 	_wearItButton4.enabled = NO;
 	_changeItButton.enabled = NO;
+	
 	switch (_outfit.results.userVoteIndex) {
 		case 0:
 			[_changeItButton setImage:[_changeItButton imageForState:UIControlStateSelected] forState:UIControlStateDisabled];
@@ -708,14 +709,16 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 	NSNumber* count = [_outfit.results valueForKey:userVote];
 	count = [NSNumber numberWithInt:[count intValue] + 1];
 	[_outfit.results setValue:count forKey:userVote];
-	if (![_outfit.uid isEqual:[GTIOUser currentUser].UID]) {
-        [_verdictView hideAllViews];
-        
-        [UIView beginAnimations:nil context:nil];
-        [self updateVerdictViews];
-        [self updateVoteButtons];
-        [UIView commitAnimations];
-    }	
+	
+//	if (![_outfit.uid isEqual:[GTIOUser currentUser].UID]) {
+		[_verdictView hideAllViews];
+		[UIView beginAnimations:nil context:nil];
+		[self updateVerdictViews];
+		[UIView commitAnimations];
+//	}
+	[self updateVoteButtons];
+
+
 	_voteRequest = [GTIOUser voteForOutfit:_outfit.outfitID look:look reasons:reasons delegate:self];
 }
 
@@ -740,13 +743,16 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 }
 
 - (void)changeItButtonWasPressed:(id)sender {
-	if ([self isMultiLookOutfit]) {
-		[self voteForLook:0];
-	} else {
-		_changeItReasonsOverlay.backgroundColor = [UIColor clearColor];
-		_changeItReasonsOverlay.frame = CGRectOffset(changeItFrame, 0, 365);
-		_changeItReasonsOverlay.userInteractionEnabled = YES;
-		_changeItReasonsOverlay.exclusiveTouch = YES;
+    NSLog(@"outfit.uid=%@ user.uid=%@",_outfit.uid,[GTIOUser currentUser].UID);
+    if ([self isMultiLookOutfit]) {
+        [self voteForLook:0];
+    } else if ([_outfit.uid isEqual:[GTIOUser currentUser].UID]) {
+        [self voteForLook:0 reasons:nil];
+    } else {
+        _changeItReasonsOverlay.backgroundColor = [UIColor clearColor];
+        _changeItReasonsOverlay.frame = CGRectOffset(changeItFrame, 0, 365);
+        _changeItReasonsOverlay.userInteractionEnabled = YES;
+        _changeItReasonsOverlay.exclusiveTouch = YES;
 		
 		UIView* view = [[TTNavigator navigator] topViewController].view;
 		[view addSubview:_changeItReasonsOverlay];
@@ -755,7 +761,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 		if (_state == GTIOOutfitViewStateFullDescription) {
 			[self setState:GTIOOutfitViewStateShowControls animated:NO];
 		}
-		
+
 		_changeItReasonsOverlay.frame = CGRectMake(56, 76, 264, 340);
         _changeItButton.alpha = 0;
 		_wearItButton1.enabled = NO;
@@ -803,7 +809,12 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 	GTIOVotingResultSet* results = [objects objectWithClass:[GTIOVotingResultSet class]];
 	NSLog(@"Recorded user vote of: %@", results.userVoteString);
 	_outfit.results = results;
-	[_verdictView setResultSet:results];
+	// Don't show them a changed verdict if its their own outfit
+	if ([_outfit.uid isEqual:[GTIOUser currentUser].UID]) {
+		results.verdict = [[_verdictView resultSet] verdict];
+	}
+
+	[_verdictView setResultSet:results];			
 	[_verdictView animateInData];
 }
 
