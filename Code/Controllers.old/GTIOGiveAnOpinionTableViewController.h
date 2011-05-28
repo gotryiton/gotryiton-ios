@@ -25,5 +25,6 @@ typedef enum {
 	UITextField* _searchBarTextField;
 	UIView* _headerSeparator;
 	BOOL _isSearchVisible;
+    BOOL _loginStateChange;
 }
 @end

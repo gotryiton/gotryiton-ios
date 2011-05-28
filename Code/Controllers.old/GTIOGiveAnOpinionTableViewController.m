@@ -46,7 +46,7 @@
 }
 
 - (void)loginStateChanged:(NSNotification*)note {
-    [self invalidateModel];
+    _loginStateChange = YES;
 }
 
 // This was here for some unknown but apparently intentional reason, removed it to fix error where the give an opinion
@@ -148,6 +148,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    if (_loginStateChange) {
+        [self invalidateModel];
+        _loginStateChange = NO;
+    }
 }
 
 - (void)showSearchBar:(BOOL)show {
