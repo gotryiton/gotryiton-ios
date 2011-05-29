@@ -1,10 +1,11 @@
 //
-//  GTIOVotingResultSet.h
+//  GTIOVerdictView.h
 //  GoTryItOn
 //
 //  Created by Jeremy Ellison on 1/28/11.
 //  Copyright 2011 Two Toasters. All rights reserved.
 //
+/// GTIOVerdictView is a subview of [GTIOOutfitPageView](GTIOOutfitPageView) that displays a [GTIOVotingResultSet](GTIOVotingResultSet)
 
 #import <UIKit/UIKit.h>
 #import "GTIOVotingResultSet.h"
@@ -22,10 +23,11 @@
 	
 	UIActivityIndicatorView* _spinner;
 }
-
+/// The results
 @property (nonatomic, retain) GTIOVotingResultSet *resultSet;
-
+/// Hides the verdict view
 - (void)hideAllViews;
+/// animates in the data
 - (void)animateInData;
 
 @end

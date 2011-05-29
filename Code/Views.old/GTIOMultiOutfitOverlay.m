@@ -262,6 +262,7 @@
 	[UIView commitAnimations];
 }
 
+/// zooms out view after a delay
 - (void)zoomOutAfterDelay:(NSInteger)delay {
 	[self performSelector:@selector(zoomOut) withObject:nil afterDelay:delay];
 }

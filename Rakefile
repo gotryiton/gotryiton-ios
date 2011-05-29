@@ -66,3 +66,72 @@ task :specs => ['uispec:all']
 
 desc "Run all specs and features"
 task :default => ['uispec:all', 'features']
+
+desc "Generate documentation via appledoc"
+task :docs => 'docs:generate'
+
+# Documentation
+
+def apple_doc_command
+  "Libraries/appledoc/appledoc -t Libraries/appledoc/Templates -o Docs -p GTIO -c \"Two Toasters\" --company-id org.GTIO --warn-undocumented-object " +
+  "--warn-undocumented-member  --warn-empty-description  --warn-unknown-directive --warn-invalid-crossref --warn-missing-arg --no-repeat-first-par "
+end
+
+def run(command)
+  puts "Executing: `#{command}`"
+  system(command)
+  if $? != 0
+    puts "[!] Failed with exit code #{$?} while running: `#{command}`"
+    exit($?)
+  end
+end
+
+namespace :docs do
+  task :generate do
+    command = apple_doc_command << " --no-create-docset --keep-intermediate-files --create-html Code/"
+    run(command)
+    puts "Generated HTML documentationa at Docs/API/html"
+  end
+  
+  desc "Check that documentation can be built from the source code via appledoc successfully."
+  task :check do
+    command = apple_doc_command << " --no-create-html Code/"
+    run(command)
+    if $? != 0
+      puts "Documentation failed to generate with exit code #{$?}"
+      exit($?)
+    else
+      puts "Documentation processing with appledoc was successful."
+    end
+  end
+  
+  desc "Generate & install a docset into Xcode from the current sources"
+  task :install do
+    command = apple_doc_command << " --install-docset Code/"
+    run(command)
+  end
+  
+  desc "Build and upload the documentation set to the remote server"
+  task :upload do
+    version = ENV['VERSION'] || File.read("VERSION").chomp
+    puts "Generating RestKit docset for version #{version}..."
+    command = apple_doc_command <<
+            " --keep-intermediate-files" <<
+            " --docset-feed-name \"RestKit #{version} Documentation\"" <<
+            " --docset-feed-url http://restkit.org/api/%DOCSETATOMFILENAME" <<
+            " --docset-package-url http://restkit.org/api/%DOCSETPACKAGEFILENAME --publish-docset Code/"
+    run(command)
+    if $? == 0
+      puts "Uploading docset to restkit.org..."
+      command = "rsync -rvpPe ssh --delete Docs/API/html/ restkit.org:/var/www/public/restkit.org/public/api/#{version}"
+      run(command)
+      
+      if $? == 0
+        command = "rsync -rvpPe ssh Docs/API/publish/ restkit.org:/var/www/public/restkit.org/public/api/"
+        run(command)
+      end
+    end
+  end
+end
+
+

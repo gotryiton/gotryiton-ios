@@ -12,7 +12,7 @@
 // http://blog.logichigh.com/2008/06/05/uiimage-fix/
 
 #include "UIImage+Manipulation.h"
-#import "ImageHelper-ImageProcessing.h"
+#import "ImageHelper+ImageProcessing.h"
 
 CGFloat DegreesToRadians(CGFloat degrees) {
 	return degrees * M_PI / 180;

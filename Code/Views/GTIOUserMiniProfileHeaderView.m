@@ -60,17 +60,11 @@
 	//[_fashionProfileBadge setHidden:NO];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
 - (void)dealloc
 {
+	TT_RELEASE_SAFELY(_nameLabel);
+	TT_RELEASE_SAFELY(_locationLabel);
+	TT_RELEASE_SAFELY(_profilePictureImageView);
     [super dealloc];
 }
 

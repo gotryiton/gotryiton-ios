@@ -13,6 +13,7 @@
 @synthesize delegate = _delegate;
 @synthesize constrainingRect = _constrainingRect;
 
+/// Initialize with an image
 - (id)initWithImage:(UIImage*)image {
 	if (self = [super initWithImage:image]) {
 		_oldPoint = CGPointMake(-1, -1);

@@ -10,16 +10,17 @@
 
 @class GTIOWhoIStyleTableItem;
 
+/// GTIOWhoIStyleTableItemDelegate is a protocol that handles actions on the list of users the current user styles
 @protocol GTIOWhoIStyleTableItemDelegate <NSObject>
-
+/// sent when the current user toggles the alert switch
 - (void)tableItem:(GTIOWhoIStyleTableItem*)item toggledAlertSwitch:(UISwitch*)alertSwitch;
+/// sent when the silence button was pressed on a user
 - (void)tableItem:(GTIOWhoIStyleTableItem*)item silenceButtonWasPressed:(id)sender;
+/// sent when the unsilence button was pressed on a user
 - (void)tableItem:(GTIOWhoIStyleTableItem*)item unSilenceButtonWasPressed:(id)sender;
-
 @end
 
-@interface GTIOWhoIStyleTableViewController : TTTableViewController <GTIOWhoIStyleTableItemDelegate> {
-    
-}
+/// GTIOWhoIStyleTableViewController is subclass of TTTableViewController that displays the list of who the current user styles
+@interface GTIOWhoIStyleTableViewController : TTTableViewController <GTIOWhoIStyleTableItemDelegate> {}
 
 @end

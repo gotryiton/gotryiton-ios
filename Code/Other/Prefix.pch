@@ -26,8 +26,7 @@
 // Pull in Flurry
 #import "FlurryAPI.h"
 
-// Custom UINavigationBar Background Images
-#import "UINavigationController+Background.h"
+//
 #import "GTIOBarButtonItem.h"
 
 // Color and font macros

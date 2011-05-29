@@ -5,6 +5,7 @@
 //  Created by Daniel Hammond on 12/21/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
+/// I think this is no longer used; candidate for deletion
 
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>

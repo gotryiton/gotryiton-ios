@@ -1,12 +1,11 @@
 //
-//  UINavigationController+Background.m
+//  UINavigationBar+Background.m
 //  GTIO
 //
 //  Created by Daniel Hammond on 5/10/11.
 //  Copyright 2011 Two Toasters. All rights reserved.
 //
-
-#import "UINavigationController+Background.h"
+/// UINavigationController+Background overides the drawrect for the UINavigationBar to include a custom background image
 
 @implementation UINavigationBar (Background)
 

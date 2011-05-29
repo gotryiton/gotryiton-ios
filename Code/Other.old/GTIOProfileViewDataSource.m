@@ -13,7 +13,7 @@
 #import "GTIOTableStatsItem.h"
 #import "GTIOOutfitVerdictTableItem.h"
 #import "GTIOOutfitVerdictTableItemCell.h"
-
+/// GTIOTableTextCell is subclass of [TTTableTextItemCell](TTTableTextItemCell) that draws a 1px border on its bottom and sets a specific font
 @interface GTIOTableTextCell : TTTableTextItemCell {
 	UIView* _separator;
 }
@@ -53,7 +53,7 @@
 @end
 
 
-
+/// GTIOProfileViewDataSource is the data source for [GTIOProfileViewController](GTIOProfileViewController)
 @implementation GTIOProfileViewDataSource
 
 - (TTTableItem*)tableItemForObject:(id)object {

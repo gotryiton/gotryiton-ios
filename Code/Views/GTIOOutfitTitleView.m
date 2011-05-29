@@ -47,6 +47,10 @@
 	[super dealloc];
 }
 
+/** The location label and name label are centered in the view, then the width of the name label is determined by the number of badges that need to be displayed. 
+ _badgeView1 is assumed to always be the leftmost badge view by the dependent calculations
+*/
+
 - (void)layoutSubviews {
     // Layout Badges
     // TODO: Once we have API integration we'll need to make this conditional based on number of badges

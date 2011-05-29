@@ -5,7 +5,7 @@
 //  Created by Blake Watters on 10/4/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
-
+/// GTIOExternalURLHelper helps load the correct controller for externally launched URLs
 #import <Foundation/Foundation.h>
 
 @interface GTIOExternalURLHelper : NSObject {

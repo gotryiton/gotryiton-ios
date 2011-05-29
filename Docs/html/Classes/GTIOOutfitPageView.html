@@ -1,0 +1,1040 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>GTIOOutfitPageView Class Reference</title>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" />
+		<meta name="generator" content="appledoc 2.0.4 (build 701)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">GTIOOutfitPageView Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/currentPhoto">&nbsp;&nbsp;&nbsp;&nbsp;currentPhoto</option>
+	
+	<option value="//api/name/isFirstPage">&nbsp;&nbsp;&nbsp;&nbsp;isFirstPage</option>
+	
+	<option value="//api/name/isLastPage">&nbsp;&nbsp;&nbsp;&nbsp;isLastPage</option>
+	
+	<option value="//api/name/outfit">&nbsp;&nbsp;&nbsp;&nbsp;outfit</option>
+	
+	<option value="//api/name/outfitIndex">&nbsp;&nbsp;&nbsp;&nbsp;outfitIndex</option>
+	
+	<option value="//api/name/state">&nbsp;&nbsp;&nbsp;&nbsp;state</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/continueAfterHandlingTouch:forState:">&nbsp;&nbsp;&nbsp;&nbsp;- continueAfterHandlingTouch:forState:</option>
+	
+	<option value="//api/name/didAppear">&nbsp;&nbsp;&nbsp;&nbsp;- didAppear</option>
+	
+	<option value="//api/name/hasNextLook">&nbsp;&nbsp;&nbsp;&nbsp;- hasNextLook</option>
+	
+	<option value="//api/name/hasPreviousLook">&nbsp;&nbsp;&nbsp;&nbsp;- hasPreviousLook</option>
+	
+	<option value="//api/name/isMultiLookOutfit">&nbsp;&nbsp;&nbsp;&nbsp;- isMultiLookOutfit</option>
+	
+	<option value="//api/name/mayHaveDisappeared">&nbsp;&nbsp;&nbsp;&nbsp;- mayHaveDisappeared</option>
+	
+	<option value="//api/name/setOutfitWithoutMultiOverlay:">&nbsp;&nbsp;&nbsp;&nbsp;- setOutfitWithoutMultiOverlay:</option>
+	
+	<option value="//api/name/setState:animated:">&nbsp;&nbsp;&nbsp;&nbsp;- setState:animated:</option>
+	
+	<option value="//api/name/setWillMoveInFromLeft:">&nbsp;&nbsp;&nbsp;&nbsp;- setWillMoveInFromLeft:</option>
+	
+	<option value="//api/name/showFullDescription:">&nbsp;&nbsp;&nbsp;&nbsp;- showFullDescription:</option>
+	
+	<option value="//api/name/showNextLook">&nbsp;&nbsp;&nbsp;&nbsp;- showNextLook</option>
+	
+	<option value="//api/name/showPreviousLook">&nbsp;&nbsp;&nbsp;&nbsp;- showPreviousLook</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/currentPhoto">currentPhoto</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isFirstPage">isFirstPage</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isLastPage">isLastPage</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/outfit">outfit</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/outfitIndex">outfitIndex</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/state">state</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/continueAfterHandlingTouch:forState:">continueAfterHandlingTouch:forState:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didAppear">didAppear</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hasNextLook">hasNextLook</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hasPreviousLook">hasPreviousLook</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isMultiLookOutfit">isMultiLookOutfit</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/mayHaveDisappeared">mayHaveDisappeared</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setOutfitWithoutMultiOverlay:">setOutfitWithoutMultiOverlay:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setState:animated:">setState:animated:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setWillMoveInFromLeft:">setWillMoveInFromLeft:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showFullDescription:">showFullDescription:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showNextLook">showNextLook</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showPreviousLook">showPreviousLook</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="GTIOOutfitPageView Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">GTIOOutfitPageView Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">UIView</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">RKObjectLoaderDelegate<br />TTScrollViewDelegate</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">GTIOOutfitPageView.h<br />GTIOOutfitPageView.m</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p><a href="GTIOOutfitPageView.html">GTIOOutfitPageView</a> is a subview of <a href="GTIOOutfitPageViewController">GTIOOutfitPageViewController</a> that displays a single
+look and provides brand information, voting behavior, and multiple <a href="#//api/name/outfit">outfit</a> selection</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/state">&nbsp;&nbsp;state</a></code>
+		<span class="tooltip"><p>State of the view as defined in <a href="../Classes/GTIOOutfitViewController.html">GTIOOutfitViewController</a></p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isFirstPage">&nbsp;&nbsp;isFirstPage</a></code>
+		<span class="tooltip"><p>true if this is the first page in the set</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isLastPage">&nbsp;&nbsp;isLastPage</a></code>
+		<span class="tooltip"><p>true if this is the last page in the set</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/outfitIndex">&nbsp;&nbsp;outfitIndex</a></code>
+		<span class="tooltip"><p>index of the <a href="#//api/name/outfit">outfit</a> in the set</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/outfit">&nbsp;&nbsp;outfit</a></code>
+		<span class="tooltip"><p><a href="#//api/name/outfit">outfit</a> object</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/currentPhoto">&nbsp;&nbsp;currentPhoto</a></code>
+		<span class="tooltip"><p>dictionary representing the current <a href="#//api/name/outfit">outfit</a> photo information</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setState:animated:">&ndash;&nbsp;setState:animated:</a></code>
+		<span class="tooltip"><p>set the <a href="#//api/name/state">state</a> of the pageView, optionally animated</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/continueAfterHandlingTouch:forState:">&ndash;&nbsp;continueAfterHandlingTouch:forState:</a></code>
+		<span class="tooltip"><p>whether to continue passing on a touch event</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isMultiLookOutfit">&ndash;&nbsp;isMultiLookOutfit</a></code>
+		<span class="tooltip"><p>true if the <a href="#//api/name/outfit">outfit</a> has multiple looks</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/hasNextLook">&ndash;&nbsp;hasNextLook</a></code>
+		<span class="tooltip"><p>whether there is another look available further in the photos array</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/hasPreviousLook">&ndash;&nbsp;hasPreviousLook</a></code>
+		<span class="tooltip"><p>whether there is another look available earlier in the photos array</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/showNextLook">&ndash;&nbsp;showNextLook</a></code>
+		<span class="tooltip"><p>display the next look</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/showPreviousLook">&ndash;&nbsp;showPreviousLook</a></code>
+		<span class="tooltip"><p>display the previous look</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didAppear">&ndash;&nbsp;didAppear</a></code>
+		<span class="tooltip"><p>called by <a href="GTIOOutfitPageViewController">GTIOOutfitPageViewController</a> viewDidAppear: to get animation correct</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/mayHaveDisappeared">&ndash;&nbsp;mayHaveDisappeared</a></code>
+		<span class="tooltip"><p>prepares for reuse</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setWillMoveInFromLeft:">&ndash;&nbsp;setWillMoveInFromLeft:</a></code>
+		<span class="tooltip"><p>set whether or not the view will be animated in from left</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setOutfitWithoutMultiOverlay:">&ndash;&nbsp;setOutfitWithoutMultiOverlay:</a></code>
+		<span class="tooltip"><p>sets the <a href="#//api/name/outfit">outfit</a> property without displaying a multi overlay</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/showFullDescription:">&ndash;&nbsp;showFullDescription:</a></code>
+		<span class="tooltip"><p>hides arrows and displays the full description</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/currentPhoto" title="currentPhoto"></a>
+	<h3 class="subsubtitle method-title">currentPhoto</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>dictionary representing the current <a href="#//api/name/outfit">outfit</a> photo information</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSDictionary *currentPhoto</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isFirstPage" title="isFirstPage"></a>
+	<h3 class="subsubtitle method-title">isFirstPage</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>true if this is the first page in the set</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL isFirstPage</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isLastPage" title="isLastPage"></a>
+	<h3 class="subsubtitle method-title">isLastPage</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>true if this is the last page in the set</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL isLastPage</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/outfit" title="outfit"></a>
+	<h3 class="subsubtitle method-title">outfit</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p><a href="#//api/name/outfit">outfit</a> object</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) GTIOOutfit *outfit</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/outfitIndex" title="outfitIndex"></a>
+	<h3 class="subsubtitle method-title">outfitIndex</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>index of the <a href="#//api/name/outfit">outfit</a> in the set</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSInteger outfitIndex</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/state" title="state"></a>
+	<h3 class="subsubtitle method-title">state</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>State of the view as defined in <a href="../Classes/GTIOOutfitViewController.html">GTIOOutfitViewController</a></p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) GTIOOutfitViewState state</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/continueAfterHandlingTouch:forState:" title="continueAfterHandlingTouch:forState:"></a>
+	<h3 class="subsubtitle method-title">continueAfterHandlingTouch:forState:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>whether to continue passing on a touch event</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)continueAfterHandlingTouch:(UITouch *)<em>touch</em> forState:(GTIOOutfitViewState *)<em>state</em></code></div>
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Note that this method may actually modify the <a href="#//api/name/state">state</a> as it takes a reference, not a value.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/didAppear" title="didAppear"></a>
+	<h3 class="subsubtitle method-title">didAppear</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>called by <a href="GTIOOutfitPageViewController">GTIOOutfitPageViewController</a> viewDidAppear: to get animation correct</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)didAppear</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hasNextLook" title="hasNextLook"></a>
+	<h3 class="subsubtitle method-title">hasNextLook</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>whether there is another look available further in the photos array</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)hasNextLook</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hasPreviousLook" title="hasPreviousLook"></a>
+	<h3 class="subsubtitle method-title">hasPreviousLook</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>whether there is another look available earlier in the photos array</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)hasPreviousLook</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isMultiLookOutfit" title="isMultiLookOutfit"></a>
+	<h3 class="subsubtitle method-title">isMultiLookOutfit</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>true if the <a href="#//api/name/outfit">outfit</a> has multiple looks</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)isMultiLookOutfit</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/mayHaveDisappeared" title="mayHaveDisappeared"></a>
+	<h3 class="subsubtitle method-title">mayHaveDisappeared</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>prepares for reuse</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)mayHaveDisappeared</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setOutfitWithoutMultiOverlay:" title="setOutfitWithoutMultiOverlay:"></a>
+	<h3 class="subsubtitle method-title">setOutfitWithoutMultiOverlay:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>sets the <a href="#//api/name/outfit">outfit</a> property without displaying a multi overlay</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)setOutfitWithoutMultiOverlay:(GTIOOutfit *)<em>outfit</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setState:animated:" title="setState:animated:"></a>
+	<h3 class="subsubtitle method-title">setState:animated:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>set the <a href="#//api/name/state">state</a> of the pageView, optionally animated</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)setState:(GTIOOutfitViewState)<em>state</em> animated:(BOOL)<em>animated</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setWillMoveInFromLeft:" title="setWillMoveInFromLeft:"></a>
+	<h3 class="subsubtitle method-title">setWillMoveInFromLeft:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>set whether or not the view will be animated in from left</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)setWillMoveInFromLeft:(BOOL)<em>fromLeft</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/showFullDescription:" title="showFullDescription:"></a>
+	<h3 class="subsubtitle method-title">showFullDescription:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>hides arrows and displays the full description</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)showFullDescription:(BOOL)<em>show</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/showNextLook" title="showNextLook"></a>
+	<h3 class="subsubtitle method-title">showNextLook</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>display the next look</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)showNextLook</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/showPreviousLook" title="showPreviousLook"></a>
+	<h3 class="subsubtitle method-title">showPreviousLook</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>display the previous look</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)showPreviousLook</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">GTIOOutfitPageView.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2011 Two Toasters. All rights reserved. (Last updated: 2011-05-28)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.4 (build 701)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+		</script>
+	</body>
+</html>

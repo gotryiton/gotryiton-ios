@@ -5,6 +5,7 @@
 //  Created by Blake Watters on 9/3/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
+/// GTIOShareViewController is a view controller that shows sharing settings; i believe this is deprecated; candidate for deletion
 
 #import "GTIOTableViewController.h"
 #import "GTIOOpinionRequest.h"

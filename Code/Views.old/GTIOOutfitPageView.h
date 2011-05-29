@@ -5,6 +5,8 @@
 //  Created by Daniel Hammond on 12/27/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
+/// GTIOOutfitPageView is a subview of [GTIOOutfitPageViewController](GTIOOutfitPageViewController) that displays a single 
+/// look and provides brand information, voting behavior, and multiple outfit selection
 
 #import "GTIOOutfit.h"
 #import "GTIOOutfitTopControlsView.h"
@@ -69,30 +71,43 @@ extern CGRect const wear4of4Frame;
     
     RKObjectLoader* _voteRequest;
 }
-
+/// State of the view as defined in [GTIOOutfitViewController](GTIOOutfitViewController) 
 @property (nonatomic, assign) GTIOOutfitViewState state;
+/// true if this is the first page in the set
 @property (nonatomic, assign) BOOL isFirstPage;
+/// true if this is the last page in the set
 @property (nonatomic, assign) BOOL isLastPage;
-
+/// index of the outfit in the set
 @property (nonatomic, assign) NSInteger outfitIndex;
+/// outfit object
 @property (nonatomic, retain) GTIOOutfit *outfit;
+/// dictionary representing the current outfit photo information
 @property (nonatomic, readonly) NSDictionary* currentPhoto;
-
+/// set the state of the pageView, optionally animated
 - (void)setState:(GTIOOutfitViewState)state animated:(BOOL)animated;
-
-// Note that this method may actually modify the state as it takes a reference, not a value.
+/** whether to continue passing on a touch event
+*
+* Note that this method may actually modify the state as it takes a reference, not a value.
+*/
 - (BOOL)continueAfterHandlingTouch:(UITouch*)touch forState:(GTIOOutfitViewState*)state;
-
+/// true if the outfit has multiple looks
 - (BOOL)isMultiLookOutfit;
+/// whether there is another look available further in the photos array
 - (BOOL)hasNextLook;
+/// whether there is another look available earlier in the photos array
 - (BOOL)hasPreviousLook;
+/// display the next look
 - (void)showNextLook;
+/// display the previous look
 - (void)showPreviousLook;
+/// called by [GTIOOutfitPageViewController](GTIOOutfitPageViewController) viewDidAppear: to get animation correct
 - (void)didAppear;
+/// prepares for reuse
 - (void)mayHaveDisappeared;
-
+/// set whether or not the view will be animated in from left
 - (void)setWillMoveInFromLeft:(BOOL)fromLeft;
-
+/// sets the outfit property without displaying a multi overlay
 - (void)setOutfitWithoutMultiOverlay:(GTIOOutfit *)outfit;
+/// hides arrows and displays the full description
 - (void)showFullDescription:(BOOL)show;
 @end

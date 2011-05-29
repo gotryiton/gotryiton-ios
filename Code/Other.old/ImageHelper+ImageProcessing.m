@@ -4,7 +4,7 @@
  BSD License, Use at your own risk
  */
 
-#import "ImageHelper-ImageProcessing.h"
+#import "ImageHelper+ImageProcessing.h"
 
 @implementation ImageHelper (ImageProcessing)
 + (UIImage *) convolveImage:(UIImage *)image withBlurRadius: (int) radius

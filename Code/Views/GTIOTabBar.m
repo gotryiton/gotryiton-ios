@@ -87,6 +87,8 @@
 
 @end
 
+/// ======================================================================================
+
 @implementation GTIOTabBar
 
 @synthesize tabNames = _tabNames;

@@ -12,6 +12,7 @@
 
 @implementation GTIOChangeItReasonsView
 
+/// Initiate view with image
 - (id)initWithImage:(UIImage *)image {
 	if (self = [super initWithImage:image]) {
 		_headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -90,6 +91,7 @@
 	[super dealloc];
 }
 
+/// Reset change it selections to defaults
 - (void)resetChangeItSelections {
     for (int i = 0; i < [_buttons count]; i++) {
 		UIButton* button = [_buttons objectAtIndex:i];
@@ -101,10 +103,7 @@
 	}
 }
 
-- (NSArray*)changeItReasons {
-	return [GTIOGlobalVariableStore sharedStore].changeItReasons;
-}
-
+/// Accessor for the current selected reasons
 - (NSArray*)selectedChangeItReasons {
 	NSMutableArray* reasons = [NSMutableArray array];
 	for (int i = 0; i < [_buttons count]; i++) {
@@ -118,6 +117,12 @@
 	return reasons;
 }
 
+// Accessor for the global change it reasons
+- (NSArray*)changeItReasons {
+	return [GTIOGlobalVariableStore sharedStore].changeItReasons;
+}
+
+// Button action that toggles the corresponding reason
 - (void)toggle:(UIButton*)sender {
 	int index = [_buttons indexOfObject:sender];
 	sender.selected = !sender.selected;

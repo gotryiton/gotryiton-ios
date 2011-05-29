@@ -6,7 +6,7 @@
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
 
-#import "TTTableLinkedItemCell_Accessories.h"
+#import "TTTableLinkedItemCell+Accessories.h"
 
 
 @implementation TTTableLinkedItemCell (Accessories)

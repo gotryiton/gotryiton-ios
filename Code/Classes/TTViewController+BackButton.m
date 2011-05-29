@@ -5,7 +5,7 @@
 //  Created by Daniel Hammond on 5/27/11.
 //  Copyright 2011 Two Toasters, LLC. All rights reserved.
 //
-
+/// TTViewController+BackButton is a helper category that sets the correct GTIO Styled back button on TTViewControllers
 #import "GTIOBarButtonItem.h"
 
 @interface TTViewController (BackButton)

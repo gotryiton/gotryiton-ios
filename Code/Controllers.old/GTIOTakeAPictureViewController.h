@@ -5,6 +5,7 @@
 //  Created by Jeremy Ellison on 8/17/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
+/// GTIOTakeAPictureViewController is a TTViewController that handles taking a photo for a [GTIOOpinionRequest](GTIOOpinionRequest)
 
 #import <Three20/Three20.h>
 #import <Three20/Three20+Additions.h>

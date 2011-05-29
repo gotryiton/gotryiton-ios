@@ -5,6 +5,7 @@
 //  Created by Jeremy Ellison on 8/25/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
+/// GTIODraggableImageView is a subclass of [UIImageView](UIImageView) used by [GTIOBlurrableImageView](GTIOBlurrableImageView)
 
 #import <Foundation/Foundation.h>
 
@@ -22,11 +23,14 @@
 	NSMutableArray* _touches;
 }
 
+/// Delegate conforming to <[GTIODraggableImageViewDelegate](GTIODraggableImageViewDelegate)>
 @property (nonatomic, assign) NSObject<GTIODraggableImageViewDelegate>* delegate;
+/// Rect representing the bounds on the draggable image view's movement
 @property (nonatomic, assign) CGRect constrainingRect;
 
 @end
 
+/// GTIODraggableImageViewDelegate is the delegate protocol of [GTIODraggableImageView](GTIODraggableImageView)
 @protocol GTIODraggableImageViewDelegate
 @optional
 

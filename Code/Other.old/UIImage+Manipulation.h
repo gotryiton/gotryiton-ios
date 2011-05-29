@@ -5,8 +5,8 @@
 //  Created by Blake Watters on 8/17/10.
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
-// UKImage.h -- extra UIImage methods
-// by allen brunson  march 29 2009
+/// UKImage.h -- extra UIImage methods
+/// by allen brunson  march 29 2009
 
 #import <UIKit/UIKit.h>
 

@@ -179,7 +179,6 @@
 		3D163623138ED15B0069C3E5 /* profile-icon-overlay-110@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D163613138ED15B0069C3E5 /* profile-icon-overlay-110@2x.png */; };
 		3D163624138ED15B0069C3E5 /* profile-icon-overlay-110@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D163613138ED15B0069C3E5 /* profile-icon-overlay-110@2x.png */; };
 		3D163625138ED15B0069C3E5 /* profile-icon-overlay-110@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D163613138ED15B0069C3E5 /* profile-icon-overlay-110@2x.png */; };
-		3D19280C138AEA51008D3866 /* UINavigationController+Background.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */; };
 		3D19280D138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300C81379887F0036F86D /* GTIOEditProfileViewController.m */; };
 		3D19280E138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300C81379887F0036F86D /* GTIOEditProfileViewController.m */; };
 		3D37E952138D4DF900104342 /* my_looks.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D37E94F138D4DF900104342 /* my_looks.json */; };
@@ -207,6 +206,18 @@
 		3D5B01321390741200FD62F0 /* TTViewController+BackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B01311390741200FD62F0 /* TTViewController+BackButton.m */; };
 		3D5B01331390741200FD62F0 /* TTViewController+BackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B01311390741200FD62F0 /* TTViewController+BackButton.m */; };
 		3D5B01341390741200FD62F0 /* TTViewController+BackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B01311390741200FD62F0 /* TTViewController+BackButton.m */; };
+		3D6AD5891391D82700F3213A /* UINavigationBar+Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD5881391D82700F3213A /* UINavigationBar+Background.m */; };
+		3D6AD58A1391D82700F3213A /* UINavigationBar+Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD5881391D82700F3213A /* UINavigationBar+Background.m */; };
+		3D6AD58B1391D82700F3213A /* UINavigationBar+Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD5881391D82700F3213A /* UINavigationBar+Background.m */; };
+		3D6AD58E1391D88800F3213A /* ImageHelper+ImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD58D1391D88800F3213A /* ImageHelper+ImageProcessing.m */; };
+		3D6AD58F1391D88800F3213A /* ImageHelper+ImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD58D1391D88800F3213A /* ImageHelper+ImageProcessing.m */; };
+		3D6AD5901391D88800F3213A /* ImageHelper+ImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD58D1391D88800F3213A /* ImageHelper+ImageProcessing.m */; };
+		3D6AD5951391D8FA00F3213A /* TTTableCell+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD5921391D8FA00F3213A /* TTTableCell+Additions.m */; };
+		3D6AD5961391D8FA00F3213A /* TTTableCell+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD5921391D8FA00F3213A /* TTTableCell+Additions.m */; };
+		3D6AD5971391D8FA00F3213A /* TTTableCell+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD5921391D8FA00F3213A /* TTTableCell+Additions.m */; };
+		3D6AD5981391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD5941391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m */; };
+		3D6AD5991391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD5941391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m */; };
+		3D6AD59A1391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AD5941391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m */; };
 		3D71A72E13904010000208A5 /* JREngage-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D71A72D13904010000208A5 /* JREngage-Info.plist */; };
 		3D71A72F13904010000208A5 /* JREngage-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D71A72D13904010000208A5 /* JREngage-Info.plist */; };
 		3D71A73013904010000208A5 /* JREngage-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D71A72D13904010000208A5 /* JREngage-Info.plist */; };
@@ -1187,12 +1198,6 @@
 		A73397DD1379A7D000F41C2A /* GTIOVerdictView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977C1379A7D000F41C2A /* GTIOVerdictView.m */; };
 		A73397DE1379A7D000F41C2A /* GTIOVerdictView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977C1379A7D000F41C2A /* GTIOVerdictView.m */; };
 		A73397DF1379A7D000F41C2A /* GTIOVerdictView.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977C1379A7D000F41C2A /* GTIOVerdictView.m */; };
-		A73397E01379A7D000F41C2A /* TTTableCell_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977E1379A7D000F41C2A /* TTTableCell_Additions.m */; };
-		A73397E11379A7D000F41C2A /* TTTableCell_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977E1379A7D000F41C2A /* TTTableCell_Additions.m */; };
-		A73397E21379A7D000F41C2A /* TTTableCell_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A733977E1379A7D000F41C2A /* TTTableCell_Additions.m */; };
-		A73397E31379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */; };
-		A73397E41379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */; };
-		A73397E51379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */; };
 		A73397E61379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */; };
 		A73397E71379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */; };
 		A73397E81379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */; };
@@ -2264,7 +2269,6 @@
 		A7C62CE2137C2CFB00F89D4F /* zoomout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C62900137C2CFB00F89D4F /* zoomout@2x.png */; };
 		A7C62CE3137C2CFB00F89D4F /* zoomout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C62900137C2CFB00F89D4F /* zoomout@2x.png */; };
 		A7C62CE4137C2CFB00F89D4F /* zoomout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C62900137C2CFB00F89D4F /* zoomout@2x.png */; };
-		A7CBB41C1379978B0050C4D8 /* UINavigationController+Background.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */; };
 		A7E301811379887F0036F86D /* GTIOAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B01379887F0036F86D /* GTIOAnalyticsTracker.m */; };
 		A7E301821379887F0036F86D /* GTIOAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B01379887F0036F86D /* GTIOAnalyticsTracker.m */; };
 		A7E301831379887F0036F86D /* GTIOAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300B01379887F0036F86D /* GTIOAnalyticsTracker.m */; };
@@ -2443,9 +2447,6 @@
 		A7E302351379887F0036F86D /* GTIOStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3012D1379887F0036F86D /* GTIOStyleSheet.m */; };
 		A7E302361379887F0036F86D /* GTIOStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3012D1379887F0036F86D /* GTIOStyleSheet.m */; };
 		A7E302371379887F0036F86D /* GTIOStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3012D1379887F0036F86D /* GTIOStyleSheet.m */; };
-		A7E302381379887F0036F86D /* ImageHelper-ImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3012F1379887F0036F86D /* ImageHelper-ImageProcessing.m */; };
-		A7E302391379887F0036F86D /* ImageHelper-ImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3012F1379887F0036F86D /* ImageHelper-ImageProcessing.m */; };
-		A7E3023A1379887F0036F86D /* ImageHelper-ImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3012F1379887F0036F86D /* ImageHelper-ImageProcessing.m */; };
 		A7E3023B1379887F0036F86D /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301311379887F0036F86D /* ImageHelper.m */; };
 		A7E3023C1379887F0036F86D /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301311379887F0036F86D /* ImageHelper.m */; };
 		A7E3023D1379887F0036F86D /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301311379887F0036F86D /* ImageHelper.m */; };
@@ -3081,6 +3082,13 @@
 		3D4CACAE138AD31000A79EBA /* GTIOUserIconOptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserIconOptionDataSource.h; sourceTree = "<group>"; };
 		3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserIconOptionDataSource.m; sourceTree = "<group>"; };
 		3D5B01311390741200FD62F0 /* TTViewController+BackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTViewController+BackButton.m"; sourceTree = "<group>"; };
+		3D6AD5881391D82700F3213A /* UINavigationBar+Background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Background.m"; sourceTree = "<group>"; };
+		3D6AD58C1391D88800F3213A /* ImageHelper+ImageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ImageHelper+ImageProcessing.h"; sourceTree = "<group>"; };
+		3D6AD58D1391D88800F3213A /* ImageHelper+ImageProcessing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageHelper+ImageProcessing.m"; sourceTree = "<group>"; };
+		3D6AD5911391D8FA00F3213A /* TTTableCell+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTTableCell+Additions.h"; sourceTree = "<group>"; };
+		3D6AD5921391D8FA00F3213A /* TTTableCell+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTTableCell+Additions.m"; sourceTree = "<group>"; };
+		3D6AD5931391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTTableLinkedItemCell+Accessories.h"; sourceTree = "<group>"; };
+		3D6AD5941391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTTableLinkedItemCell+Accessories.m"; sourceTree = "<group>"; };
 		3D71A72D13904010000208A5 /* JREngage-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "JREngage-Info.plist"; path = "Libraries/JanRain/JREngage/JREngage-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3DA635311386E1A80081BE1A /* GTIOOutfitTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitTitleView.h; sourceTree = "<group>"; };
 		3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitTitleView.m; sourceTree = "<group>"; };
@@ -3506,10 +3514,6 @@
 		A733977A1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserReviewTableItemCell.m; sourceTree = "<group>"; };
 		A733977B1379A7D000F41C2A /* GTIOVerdictView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOVerdictView.h; sourceTree = "<group>"; };
 		A733977C1379A7D000F41C2A /* GTIOVerdictView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOVerdictView.m; sourceTree = "<group>"; };
-		A733977D1379A7D000F41C2A /* TTTableCell_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableCell_Additions.h; sourceTree = "<group>"; };
-		A733977E1379A7D000F41C2A /* TTTableCell_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableCell_Additions.m; sourceTree = "<group>"; };
-		A733977F1379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableLinkedItemCell_Accessories.h; sourceTree = "<group>"; };
-		A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableLinkedItemCell_Accessories.m; sourceTree = "<group>"; };
 		A73397811379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTTableViewDelegate+GTIOAdditions.h"; sourceTree = "<group>"; };
 		A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTTableViewDelegate+GTIOAdditions.m"; sourceTree = "<group>"; };
 		A73397EA1379A90D00F41C2A /* GTIOBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBarButtonItem.h; sourceTree = "<group>"; };
@@ -3883,8 +3887,6 @@
 		A7C628FE137C2CFB00F89D4F /* zoomin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zoomin@2x.png"; sourceTree = "<group>"; };
 		A7C628FF137C2CFB00F89D4F /* zoomout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomout.png; sourceTree = "<group>"; };
 		A7C62900137C2CFB00F89D4F /* zoomout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zoomout@2x.png"; sourceTree = "<group>"; };
-		A7CBB41A1379978B0050C4D8 /* UINavigationController+Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Background.h"; sourceTree = "<group>"; };
-		A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Background.m"; sourceTree = "<group>"; };
 		A7E300AF1379887F0036F86D /* GTIOAnalyticsTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAnalyticsTracker.h; sourceTree = "<group>"; };
 		A7E300B01379887F0036F86D /* GTIOAnalyticsTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAnalyticsTracker.m; sourceTree = "<group>"; };
 		A7E300B11379887F0036F86D /* GTIOMessageComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMessageComposer.h; sourceTree = "<group>"; };
@@ -4007,8 +4009,6 @@
 		A7E3012B1379887F0036F86D /* GTIOReachabilityObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOReachabilityObserver.m; sourceTree = "<group>"; };
 		A7E3012C1379887F0036F86D /* GTIOStyleSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOStyleSheet.h; sourceTree = "<group>"; };
 		A7E3012D1379887F0036F86D /* GTIOStyleSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOStyleSheet.m; sourceTree = "<group>"; };
-		A7E3012E1379887F0036F86D /* ImageHelper-ImageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ImageHelper-ImageProcessing.h"; sourceTree = "<group>"; };
-		A7E3012F1379887F0036F86D /* ImageHelper-ImageProcessing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageHelper-ImageProcessing.m"; sourceTree = "<group>"; };
 		A7E301301379887F0036F86D /* ImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageHelper.h; sourceTree = "<group>"; };
 		A7E301311379887F0036F86D /* ImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageHelper.m; sourceTree = "<group>"; };
 		A7E301321379887F0036F86D /* SupersequentImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupersequentImplementation.h; sourceTree = "<group>"; };
@@ -5246,10 +5246,10 @@
 				A733977A1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m */,
 				A733977B1379A7D000F41C2A /* GTIOVerdictView.h */,
 				A733977C1379A7D000F41C2A /* GTIOVerdictView.m */,
-				A733977D1379A7D000F41C2A /* TTTableCell_Additions.h */,
-				A733977E1379A7D000F41C2A /* TTTableCell_Additions.m */,
-				A733977F1379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.h */,
-				A73397801379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m */,
+				3D6AD5911391D8FA00F3213A /* TTTableCell+Additions.h */,
+				3D6AD5921391D8FA00F3213A /* TTTableCell+Additions.m */,
+				3D6AD5931391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.h */,
+				3D6AD5941391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m */,
 				A73397811379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.h */,
 				A73397821379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m */,
 			);
@@ -5819,8 +5819,7 @@
 				A7E300B61379887F0036F86D /* GTIOOutfitViewScrollDataSource.m */,
 				A7E300B71379887F0036F86D /* GTIOUpdateUserRequest.h */,
 				A7E300B81379887F0036F86D /* GTIOUpdateUserRequest.m */,
-				A7CBB41A1379978B0050C4D8 /* UINavigationController+Background.h */,
-				A7CBB41B1379978B0050C4D8 /* UINavigationController+Background.m */,
+				3D6AD5881391D82700F3213A /* UINavigationBar+Background.m */,
 				3F82E875137D765E00F8FE1A /* GTIOBrowseList.h */,
 				3F82E876137D765E00F8FE1A /* GTIOBrowseList.m */,
 				3F82E87A137D828D00F8FE1A /* GTIOCategory.h */,
@@ -6004,8 +6003,8 @@
 				A7E3012B1379887F0036F86D /* GTIOReachabilityObserver.m */,
 				A7E3012C1379887F0036F86D /* GTIOStyleSheet.h */,
 				A7E3012D1379887F0036F86D /* GTIOStyleSheet.m */,
-				A7E3012E1379887F0036F86D /* ImageHelper-ImageProcessing.h */,
-				A7E3012F1379887F0036F86D /* ImageHelper-ImageProcessing.m */,
+				3D6AD58C1391D88800F3213A /* ImageHelper+ImageProcessing.h */,
+				3D6AD58D1391D88800F3213A /* ImageHelper+ImageProcessing.m */,
 				A7E301301379887F0036F86D /* ImageHelper.h */,
 				A7E301311379887F0036F86D /* ImageHelper.m */,
 				A7E301321379887F0036F86D /* SupersequentImplementation.h */,
@@ -8407,7 +8406,6 @@
 				A7E3022F1379887F0036F86D /* GTIOProfileViewDataSource.m in Sources */,
 				A7E302321379887F0036F86D /* GTIOReachabilityObserver.m in Sources */,
 				A7E302351379887F0036F86D /* GTIOStyleSheet.m in Sources */,
-				A7E302381379887F0036F86D /* ImageHelper-ImageProcessing.m in Sources */,
 				A7E3023B1379887F0036F86D /* ImageHelper.m in Sources */,
 				A7E3023E1379887F0036F86D /* SupersequentImplementation.m in Sources */,
 				A7E302411379887F0036F86D /* TTURLJSONResponse.m in Sources */,
@@ -8416,7 +8414,6 @@
 				A7E3024A1379887F0036F86D /* UIImage+Manipulation.m in Sources */,
 				A7E3040F137988C90036F86D /* Application.xcdatamodeld in Sources */,
 				A7E30412137988C90036F86D /* DataModel.xcdatamodeld in Sources */,
-				A7CBB41C1379978B0050C4D8 /* UINavigationController+Background.m in Sources */,
 				A73397831379A7D000F41C2A /* CustomUISwitch.m in Sources */,
 				A73397891379A7D000F41C2A /* GTIOBlurrableImageView.m in Sources */,
 				A733978C1379A7D000F41C2A /* GTIOBlurringOverlayView.m in Sources */,
@@ -8446,8 +8443,6 @@
 				A73397D71379A7D000F41C2A /* GTIOUserReviewTableItem.m in Sources */,
 				A73397DA1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m in Sources */,
 				A73397DD1379A7D000F41C2A /* GTIOVerdictView.m in Sources */,
-				A73397E01379A7D000F41C2A /* TTTableCell_Additions.m in Sources */,
-				A73397E31379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
 				A73397E61379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 				A73397EC1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 				A76208641379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
@@ -8480,6 +8475,10 @@
 				3F437098138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */,
 				3D16360A138ECDFD0069C3E5 /* GTIOUserMiniProfileHeaderView.m in Sources */,
 				3D5B01321390741200FD62F0 /* TTViewController+BackButton.m in Sources */,
+				3D6AD5891391D82700F3213A /* UINavigationBar+Background.m in Sources */,
+				3D6AD58E1391D88800F3213A /* ImageHelper+ImageProcessing.m in Sources */,
+				3D6AD5951391D8FA00F3213A /* TTTableCell+Additions.m in Sources */,
+				3D6AD5981391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8567,7 +8566,6 @@
 				A7E302301379887F0036F86D /* GTIOProfileViewDataSource.m in Sources */,
 				A7E302331379887F0036F86D /* GTIOReachabilityObserver.m in Sources */,
 				A7E302361379887F0036F86D /* GTIOStyleSheet.m in Sources */,
-				A7E302391379887F0036F86D /* ImageHelper-ImageProcessing.m in Sources */,
 				A7E3023C1379887F0036F86D /* ImageHelper.m in Sources */,
 				A7E3023F1379887F0036F86D /* SupersequentImplementation.m in Sources */,
 				A7E302421379887F0036F86D /* TTURLJSONResponse.m in Sources */,
@@ -8605,8 +8603,6 @@
 				A73397D81379A7D000F41C2A /* GTIOUserReviewTableItem.m in Sources */,
 				A73397DB1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m in Sources */,
 				A73397DE1379A7D000F41C2A /* GTIOVerdictView.m in Sources */,
-				A73397E11379A7D000F41C2A /* TTTableCell_Additions.m in Sources */,
-				A73397E41379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
 				A73397E71379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 				A73397ED1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 				3FBAE218137ACCC5001BBC0E /* LoggerClient.m in Sources */,
@@ -8649,6 +8645,10 @@
 				3F437099138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */,
 				3D16360B138ECDFD0069C3E5 /* GTIOUserMiniProfileHeaderView.m in Sources */,
 				3D5B01331390741200FD62F0 /* TTViewController+BackButton.m in Sources */,
+				3D6AD58A1391D82700F3213A /* UINavigationBar+Background.m in Sources */,
+				3D6AD58F1391D88800F3213A /* ImageHelper+ImageProcessing.m in Sources */,
+				3D6AD5961391D8FA00F3213A /* TTTableCell+Additions.m in Sources */,
+				3D6AD5991391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8786,7 +8786,6 @@
 				A7E302311379887F0036F86D /* GTIOProfileViewDataSource.m in Sources */,
 				A7E302341379887F0036F86D /* GTIOReachabilityObserver.m in Sources */,
 				A7E302371379887F0036F86D /* GTIOStyleSheet.m in Sources */,
-				A7E3023A1379887F0036F86D /* ImageHelper-ImageProcessing.m in Sources */,
 				A7E3023D1379887F0036F86D /* ImageHelper.m in Sources */,
 				A7E302401379887F0036F86D /* SupersequentImplementation.m in Sources */,
 				A7E302431379887F0036F86D /* TTURLJSONResponse.m in Sources */,
@@ -8824,8 +8823,6 @@
 				A73397D91379A7D000F41C2A /* GTIOUserReviewTableItem.m in Sources */,
 				A73397DC1379A7D000F41C2A /* GTIOUserReviewTableItemCell.m in Sources */,
 				A73397DF1379A7D000F41C2A /* GTIOVerdictView.m in Sources */,
-				A73397E21379A7D000F41C2A /* TTTableCell_Additions.m in Sources */,
-				A73397E51379A7D000F41C2A /* TTTableLinkedItemCell_Accessories.m in Sources */,
 				A73397E81379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 				A73397EE1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 				3FBAE219137ACCC5001BBC0E /* LoggerClient.m in Sources */,
@@ -8854,7 +8851,6 @@
 				3F7E49631386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */,
 				3FCF14C6138AB91D00C8B715 /* GTIOTodosTableViewController.m in Sources */,
 				3FCF14CB138AC20D00C8B715 /* GTIOWhoIStyleTableViewController.m in Sources */,
-				3D19280C138AEA51008D3866 /* UINavigationController+Background.m in Sources */,
 				3D19280E138AFCF4008D3866 /* GTIOEditProfileViewController.m in Sources */,
 				3D13572B138C5794000A2D85 /* RKRequest+mock.m in Sources */,
 				3D37EA0B138D7C9300104342 /* GTIOUserIconOptionDataSource.m in Sources */,
@@ -8864,6 +8860,10 @@
 				3F43709A138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */,
 				3D16360C138ECDFD0069C3E5 /* GTIOUserMiniProfileHeaderView.m in Sources */,
 				3D5B01341390741200FD62F0 /* TTViewController+BackButton.m in Sources */,
+				3D6AD58B1391D82700F3213A /* UINavigationBar+Background.m in Sources */,
+				3D6AD5901391D88800F3213A /* ImageHelper+ImageProcessing.m in Sources */,
+				3D6AD5971391D8FA00F3213A /* TTTableCell+Additions.m in Sources */,
+				3D6AD59A1391D8FA00F3213A /* TTTableLinkedItemCell+Accessories.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

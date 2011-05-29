@@ -22,3 +22,6 @@
 [submodule "Libraries/TTTAttributedLabel"]
 	path = Libraries/TTTAttributedLabel
 	url = git@github.com:twotoasters/TTTAttributedLabel.git
+[submodule "Libraries/appledoc"]
+	path = Libraries/appledoc
+	url = https://github.com/tomaz/appledoc.git

@@ -5,9 +5,7 @@
 //  Created by Jeremy Ellison on 5/18/11.
 //  Copyright 2011 Two Toasters. All rights reserved.
 //
-
-#import <Foundation/Foundation.h>
-
+/// GTIOMyStylistsTableViewController is a TTTableViewController that displays the current user's stylists and provides editing controls
 
 @interface GTIOMyStylistsTableViewController : TTTableViewController {
     UIBarButtonItem* _editButton;

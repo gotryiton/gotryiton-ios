@@ -5,12 +5,15 @@
 //  Created by Daniel Hammond on 5/24/11.
 //  Copyright 2011 Two Toasters. All rights reserved.
 //
+/// RKRequest+mock Hijack's all asynchronous RKRequsts on the testing targets and tries to find fixtures for the resource path
+/// if it can't find a fixture then it just fires a normal RKRequest
 
 @interface RKRequest (mockrequest)
 - (NSString*)filePathForResourcePath:(NSString*)resourcePath;
 @end
 @implementation RKRequest (mockrequest)
 
+/// Attempt to hijack request
 - (void)fireAsynchronousRequest {
     NSString* baseURL = [kGTIOBaseURLString stringByAppendingString:GTIORestResourcePath(@"")];
     NSString* urlPath = [[[self URL] absoluteString] stringByReplacingOccurrencesOfString:baseURL withString:@""];  
@@ -53,7 +56,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:RKRequestSentNotification object:self userInfo:nil];
     }    
 }
-
+/// Defines the mappings of json files in Resources/Fixtures to resource paths, note that gtioToken/uniqueId attributes get turned into xxx 
 - (NSString*)filePathForResourcePath:(NSString*)resourcePath {
     NSDictionary* mappings = [NSDictionary dictionaryWithObjectsAndKeys:
                               @"my_looks",@"/profile/1CCD774/looks",

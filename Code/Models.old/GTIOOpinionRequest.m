@@ -6,7 +6,7 @@
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
 //
-//  manages data to submit a look or looks to GTIO
+//  manages data to submit a look or looks to GTIO see [GTIOOpinionRequestSession](GTIOOpinionRequestSession)
 //
 
 #import "GTIOOpinionRequest.h"

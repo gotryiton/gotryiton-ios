@@ -17,8 +17,9 @@
 	UIButton* _keepButton;
 	UIButton* _removeButton;
 }
-
+/// Button to keep overlay
 @property (nonatomic, readonly) UIButton* keepButton;
+/// Button to remove overlay
 @property (nonatomic, readonly) UIButton* removeButton;
 
 @end

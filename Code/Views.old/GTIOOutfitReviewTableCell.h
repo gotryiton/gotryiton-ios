@@ -5,7 +5,7 @@
 //  Created by Daniel Hammond on 1/28/11.
 //  Copyright 2011 Two Toasters. All rights reserved.
 //
-
+/// GTIOOutfitReviewTableCell is a subclass of TTTableViewCell for [GTIOOutfitReviewsController](GTIOOutfitReviewsController)
 #import "GTIOOutfitReviewTableItem.h"
 
 @interface GTIOOutfitReviewTableCell : TTTableViewCell {

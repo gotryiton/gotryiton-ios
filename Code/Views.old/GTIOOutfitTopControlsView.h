@@ -5,7 +5,7 @@
 //  Created by Jeremy Ellison on 1/25/11.
 //  Copyright 2011 Two Toasters. All rights reserved.
 //
-
+/// GTIOOutfitTopControlsView is a subview of the [GTIOOutfitPageView](GTIOOutfitPageView) that displays the top buttons for a given outfit
 #import <Foundation/Foundation.h>
 #import "GTIOOutfit.h"
 #import "GTIOMultiLineQuotedLabel.h"
@@ -30,7 +30,9 @@
 	BOOL _full;
 }
 
+/// the outfit being displayed
 @property (nonatomic, retain) GTIOOutfit *outfit;
+/// expands or contracts the description
 - (void)showFullDescription:(BOOL)full;
 
 @end

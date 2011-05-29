@@ -5,6 +5,7 @@
 //  Created by Jeremy Ellison on 1/17/11.
 //  Copyright 2011 Two Toasters. All rights reserved.
 //
+/// GTIOOutfitViewController is the main view controller in control of viewing an outfit through its [GTIOScrollView](GTIOScrollView) containing many [GTIOOutfitPageView](GTIOOutfitPageView)
 
 #import <Foundation/Foundation.h>
 #import "GTIOPaginatedTTModel.h"
@@ -33,15 +34,17 @@ typedef enum {
     
     RKObjectLoader* _loader;
 }
-
+/// current state of the view controller 
 @property (nonatomic, assign) GTIOOutfitViewState state;
+/// current outfit index 
 @property (nonatomic, assign) int outfitIndex;
+/// model containing outfits
 @property (nonatomic, retain) GTIOPaginatedTTModel *model;
-
+/// current outfit
 @property (nonatomic, readonly) GTIOOutfit* outfit;
-
+/// initialize view controller with outfit and index
 - (id)initWithModel:(GTIOPaginatedTTModel*)model outfitIndex:(int)index;
-
+/// called from the [GTIOEditOutfitViewController](GTIOEditOutfitViewController) to update outfit
 - (void)saveOutfit:(GTIOOutfit*)outfit withNewEventID:(NSNumber*)eventID description:(NSString*)description;
 
 @end

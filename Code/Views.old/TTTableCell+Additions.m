@@ -6,19 +6,14 @@
 //  Copyright 2010 Two Toasters. All rights reserved.
 //
 
-#import "TTTableCell_Additions.h"
+#import "TTTableCell+Additions.h"
 #import <Three20UI/Three20UI+Additions.h>
-
-@interface TTTableControlCell ()
-+ (BOOL)shouldSizeControlToFit:(UIControl*)control;
-@end
 
 static const CGFloat kControlPadding = 8;
 
 @implementation TTTableControlCell (Additions)
-
+/// returns no to fix the alignment of text controlls in grouped tables. 
 + (BOOL)shouldRespectControlPadding:(UIView*)view {
-	// This fixes the alignment of text controlls in grouped tables.
 	return NO;
 }
 

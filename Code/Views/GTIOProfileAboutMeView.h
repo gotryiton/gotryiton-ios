@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <Three20/Three20.h>
 
+/** GTIOAboutMeView is a custom view that displays text with stylized quotes above and below
+*/
 
 @interface GTIOProfileAboutMeView : UIView {
 	UILabel* _leftQuoteLabel;

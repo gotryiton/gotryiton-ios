@@ -12,7 +12,7 @@
 
 @synthesize keepButton = _keepButton;
 @synthesize removeButton = _removeButton;
-
+/// Initialize toolbar view with given frame
 - (id)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
 		UIImageView* backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blur-bg.png"]] autorelease];

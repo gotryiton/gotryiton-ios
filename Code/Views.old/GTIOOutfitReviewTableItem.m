@@ -12,7 +12,7 @@
 @implementation GTIOOutfitReviewTableItem
 
 @synthesize review = _review;
-
+/// initialize an item with a review
 + (id)itemWithReview:(GTIOReview*)review {
 	GTIOOutfitReviewTableItem* item = [[[self alloc] init] autorelease];
 	[item setReview:review];

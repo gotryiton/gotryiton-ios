@@ -5,6 +5,7 @@
 //  Created by Jeremy Ellison on 1/26/11.
 //  Copyright 2011 Two Toasters. All rights reserved.
 //
+/// GTIOOutfitReviewsController is a TTTableViewController that displays the reviews for an outfit and provides control to write new review
 
 #import <Foundation/Foundation.h>
 #import "GTIOOutfit.h"
@@ -17,7 +18,7 @@
     NSMutableArray* _buttons;
     BOOL _loading;
 }
-
+/// outfit object
 @property (nonatomic, retain) GTIOOutfit* outfit;
 
 @end

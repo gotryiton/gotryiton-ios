@@ -16,7 +16,7 @@
 // TTModel
 #import "GTIOMapGlobalsTTModel.h"
 // Table Items
-#import "GTIOOutfitVerdictTableItem.h"
+#import "GTIOOutfitVerdictTableItem.h" // TODO : why is this here? remove?
 #import "GTIOTableStatsItem.h"
 // Models
 #import "GTIOUser.h"

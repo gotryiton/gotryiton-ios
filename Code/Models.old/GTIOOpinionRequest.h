@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * GTIOOpinionRequest blah blah blah blah blah blah blah blah 
+ * blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
+ * blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+*/
+
 @interface GTIOOpinionRequest : NSObject <NSCoding> {
 	NSMutableArray* _photos; // GTIOPhoto
 	BOOL _shareWithStylists;

@@ -1,5 +1,5 @@
 //
-//  GTIOLauncherViewController.m
+//  GTIOHomeViewController.m
 //  GTIO
 //
 //  Created by Jeremy Ellison on 5/2/11.
