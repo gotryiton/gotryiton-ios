@@ -60,6 +60,7 @@ static GTIOUser* gCurrentUser = nil;
 
 @synthesize notifications = _notifications;
 @synthesize todosBadge = _todosBadge;
+@synthesize isFacebookConnected = _isFacebookConnected;
 
 + (GTIOUser*)currentUser {
 	if (nil == gCurrentUser) {
@@ -128,6 +129,7 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.services", @"services")]; // service?
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gtioToken", @"token")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isFacebookConnected", @"isFacebookConnected")];
     
     // TODO: duplicated.
     RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
@@ -168,6 +170,7 @@ static GTIOUser* gCurrentUser = nil;
     TT_RELEASE_SAFELY(_alertStylistActivity);
     TT_RELEASE_SAFELY(_alertStylistAdd);
     TT_RELEASE_SAFELY(_alertNewsletter);
+    TT_RELEASE_SAFELY(_isFacebookConnected);
 	[super dealloc];
 }
 

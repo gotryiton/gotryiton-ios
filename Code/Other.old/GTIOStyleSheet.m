@@ -305,4 +305,37 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
     return kGTIOFontHelveticaNeueOfSize(15);
 }
 
+- (TTStyle*)addAStylistTabStyle {
+    UIColor* border = kGTIOColorBrightPink;
+    return
+    [TTSolidFillStyle styleWithColor:[UIColor clearColor] next:
+     [TTFourBorderStyle styleWithTop:nil right:nil bottom:border left:nil width:2 next:nil]];
+}
+
+- (TTStyle*)addAStylistTab:(UIControlState)state {
+    TTShape* tabShape = [TTRoundedRectangleShape shapeWithTopLeft:4.5 topRight:4.5 bottomRight:0 bottomLeft:0];
+    UIEdgeInsets tabInsets = UIEdgeInsetsMake(14, 2, 2, 2);
+    UIEdgeInsets textInsets = UIEdgeInsetsMake(18, 2, 2, 2);
+    UIColor* mediumGray = RGBCOLOR(220,220,220);
+    UIColor* lightGray = RGBCOLOR(229,229,229);
+    UIColor* darkGray = RGBCOLOR(122,122,122);
+    UIFont* tabFont = kGTIOFetteFontOfSize(16);
+    if (state == UIControlStateSelected) {
+        return [TTShapeStyle styleWithShape:tabShape next:
+                [TTInsetStyle styleWithInset:tabInsets next:
+                 [TTSolidFillStyle styleWithColor:kGTIOColorBrightPink next:
+                  [TTBoxStyle styleWithPadding:textInsets next:
+                   [TTTextStyle styleWithFont:tabFont color:[UIColor whiteColor]
+                                textAlignment:UITextAlignmentCenter next:nil]]]]];
+    } else {
+        return [TTShapeStyle styleWithShape:tabShape next:
+                [TTInsetStyle styleWithInset:tabInsets next:
+                 [TTSolidFillStyle styleWithColor:lightGray next:
+                   [TTFourBorderStyle styleWithTop:mediumGray right:mediumGray bottom:nil left:mediumGray width:1 next:
+                    [TTBoxStyle styleWithPadding:textInsets next:
+                     [TTTextStyle styleWithFont:tabFont color:darkGray
+                                 textAlignment:UITextAlignmentCenter next:nil]]]]]];
+    }
+}
+
 @end

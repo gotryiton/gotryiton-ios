@@ -35,6 +35,8 @@
     NSNumber* _stylistRequestAlertsEnabled;
     NSNumber* _activeStylist;
     
+    NSString* _featuredText;
+    
     GTIOStylistRelationship* _stylistRelationship;
 }
 
@@ -60,5 +62,7 @@
 @property (nonatomic, retain) NSNumber* activeStylist;
 
 @property (nonatomic, retain) GTIOStylistRelationship* stylistRelationship;
+
+@property (nonatomic, copy) NSString* featuredText;
 
 @end

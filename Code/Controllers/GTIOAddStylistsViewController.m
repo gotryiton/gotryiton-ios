@@ -17,33 +17,97 @@
 @interface GTIOSelectableTableItem : TTTableImageItem {
 @private
     BOOL _selected;
+    NSString* _calloutURL;
+    NSString* _subtitle;
 }
 
 @property (nonatomic, assign) BOOL selected;
+@property (nonatomic, retain) NSString* calloutURL;
+@property (nonatomic, retain) NSString* subtitle;
 
 @end
 
 @implementation GTIOSelectableTableItem
 
 @synthesize selected = _selected;
+@synthesize calloutURL = _calloutURL;
+@synthesize subtitle = _subtitle;
+
+- (void)dealloc {
+    [_calloutURL release];
+    [_subtitle release];
+    [super dealloc];
+}
 
 @end
 
-@interface GTIOSelectableTableCell : TTTableImageItemCell
+@interface GTIOSelectableTableCell : TTTableImageItemCell {
+    UIImageView* _checkboxView;
+    UIButton* _calloutButton;
+    UILabel* _subtitleLabel;
+}
 @end
 
 @implementation GTIOSelectableTableCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
+    if ((self = [super initWithStyle:style reuseIdentifier:identifier])) {
+        _checkboxView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"add-checkbox-OFF.png"]];
+        [self.contentView addSubview:_checkboxView];
+        _calloutButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        [_calloutButton setImage:[UIImage imageNamed:@"add-view-profile.png"] forState:UIControlStateNormal];
+        [_calloutButton addTarget:self action:@selector(calloutButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_calloutButton];
+        // TODO: implement _subtitleLabel
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [_checkboxView release];
+    [_calloutButton release];
+    [_subtitleLabel release];
+    [super dealloc];
+}
+
++ (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
+	return 40;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _checkboxView.frame = CGRectMake(285,5,30,30);
+    if (_imageView2.image) {
+        _imageView2.frame = CGRectMake(5,5,30,30);
+        _imageView2.layer.borderColor = RGBCOLOR(218,218,218).CGColor;
+        _imageView2.layer.borderWidth = 1;
+        self.textLabel.frame = CGRectOffset(self.textLabel.frame, -20, 0);
+    }
+    [self.textLabel sizeToFit];
+    _calloutButton.frame = CGRectMake(CGRectGetMaxX(self.textLabel.frame)+5, 10, 21, 21);
+}
+
+- (void)calloutButtonWasPressed:(id)sender {
+    GTIOSelectableTableItem* item = (GTIOSelectableTableItem*)_item;
+    TTOpenURL(item.calloutURL);
+}
 
 - (void)setObject:(id)object {
     [super setObject:object];
     GTIOSelectableTableItem* item = (GTIOSelectableTableItem*)object;
     if (item.selected) {
-        self.contentView.backgroundColor = [UIColor grayColor];
+        _checkboxView.image = [UIImage imageNamed:@"add-checkbox-ON.png"];
     } else {
-        self.contentView.backgroundColor = [UIColor whiteColor];
+        _checkboxView.image = [UIImage imageNamed:@"add-checkbox-OFF.png"];
     }
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.accessoryType = UITableViewCellAccessoryNone;
+    self.textLabel.font = [UIFont systemFontOfSize:16];
+    if (item.calloutURL) {
+        [self.contentView addSubview:_calloutButton];
+    } else {
+        [_calloutButton removeFromSuperview];
+    }
 }
 
 @end
@@ -76,28 +140,59 @@
 
 @end
 
+@interface GTIOAddStylistTableViewDelegate : TTTableViewVarHeightDelegate
+@end
+
+@implementation GTIOAddStylistTableViewDelegate
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (NO == [tableView.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+		return nil;
+	}
+	
+	NSString* title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
+	if (title.length > 0) {
+		UILabel* label = [[UILabel alloc] init];
+		label.text = title;
+		label.font = [UIFont systemFontOfSize:12];
+		label.textColor = RGBCOLOR(147,147,147);
+		label.backgroundColor = [UIColor clearColor];
+		label.textAlignment = UITextAlignmentCenter;
+		[label sizeToFit];
+		
+		UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+        container.backgroundColor = RGBCOLOR(227,227,227);
+		[container addSubview:label];
+        label.frame = CGRectOffset(label.frame, 5, 2);
+		[label release];
+		
+		return container;
+	}
+	
+	return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20.0f;
+}
+
+@end
+
 @implementation GTIOAddStylistsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         _emailsToInvite = [NSMutableArray new];
         _profileIDsToInvite = [NSMutableArray new];
-        TTNavigator* navigator = [TTNavigator navigator];
-        TTURLMap* map = navigator.URLMap;
-        [map from:@"gtio://stylists/addEmailAddress/(addEmailAddress:)" toObject:self];
-        [map from:@"gtio://stylists/addProfileID/(addProfileID:)" toObject:self];
+        _customEmailAddresses = [NSMutableArray new];
     }
     return self;
 }
 
 - (void)dealloc {
-    TTNavigator* navigator = [TTNavigator navigator];
-    TTURLMap* map = navigator.URLMap;
-    
-    [map removeURL:@"gtio://stylists/addEmailAddress/(addEmailAddress:)"];
-    [map removeURL:@"gtio://stylists/addProfileID/(addProfileID:)"];
     [_emailsToInvite release];
     [_profileIDsToInvite release];
+    [_customEmailAddresses release];
     [super dealloc];
 }
 
@@ -128,31 +223,51 @@
 - (void)viewDidUnload {
     [_tabBar release];
     _tabBar = nil;
+    [_buttonView release];
+    _buttonView = nil;
     [_doneButton release];
     _doneButton = nil;
+    [_emailField release];
+    _emailField = nil;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"add stylists";
+    self.title = @"ADD STYLISTS";
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"full-wallpaper.png"]];
+    self.variableHeightRows = YES;
+    
+    _emailField = [[UITextField alloc] initWithFrame:CGRectZero];
+    _emailField.delegate = self;
+    _emailField.placeholder = @"type a friend's email address";
+    _emailField.returnKeyType = UIReturnKeyDone;
     
     _tabBar = [[TTTabBar alloc] initWithFrame:CGRectMake(0,0,320,50)];
+    _tabBar.backgroundColor = [UIColor clearColor];
+    _tabBar.style = TTSTYLEVAR(addAStylistTabStyle);
+    _tabBar.tabStyle = @"addAStylistTab:";
     [_tabBar setTabItems:[NSArray arrayWithObjects:
-                          [[[TTTabItem alloc] initWithTitle:@"Network"] autorelease],
-                          [[[TTTabItem alloc] initWithTitle:@"Contacts"] autorelease],
-                          [[[TTTabItem alloc] initWithTitle:@"Recomended"] autorelease],
+                          [[[TTTabItem alloc] initWithTitle:@"CONNECTIONS"] autorelease],
+                          [[[TTTabItem alloc] initWithTitle:@"CONTACTS"] autorelease],
+                          [[[TTTabItem alloc] initWithTitle:@"RECOMMENDED"] autorelease],
                           nil]];
     _tabBar.contentMode = UIViewContentModeScaleToFill;
     [_tabBar setDelegate:self];
     [self.view addSubview:_tabBar];
     
-    _doneButton = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
+    _buttonView = [[UIView alloc] initWithFrame:CGRectMake(0,self.view.height,320,66)];
+    _buttonView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"add-done-on.png"]];
+    _doneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
     [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
+    _doneButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [_doneButton addTarget:self action:@selector(doneButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _doneButton.frame = CGRectMake(30, self.view.bounds.size.height - 50, 320-60, 40);
-    [self.view addSubview:_doneButton];
+    _doneButton.frame = CGRectMake(13, 20, 320-26, 33);
+    [_buttonView addSubview:_doneButton];
+    [self.view addSubview:_buttonView];
     
-    self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.tableView.bounds.size.height - _tabBar.bounds.size.height - 60);
+    self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height);
 }
 
 - (void)showLoading {
@@ -167,40 +282,70 @@
 
 - (void)updateDoneButton {
     int sum = [_emailsToInvite count] + [_profileIDsToInvite count];
-    if (sum > 0) {
-        [_doneButton setTitle:[NSString stringWithFormat:@"Done - send %d stylist requests", sum] forState:UIControlStateNormal];
-    } else {
-        [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
+    [_doneButton setTitle:[NSString stringWithFormat:@"done - add %d stylist%@!", sum, (sum > 1 ? @"s" : @"")] forState:UIControlStateNormal];
+    
+    // Move done button on or off the screen
+    if (_buttonView.frame.origin.y >= self.view.bounds.size.height && sum > 0) {
+        [UIView beginAnimations:nil context:nil];
+        _buttonView.frame = CGRectMake(0, self.view.bounds.size.height - _buttonView.bounds.size.height, _buttonView.bounds.size.width, _buttonView.bounds.
+                                       size.height);
+        self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height - _buttonView.bounds.size.height + 15);
+        [UIView commitAnimations];
+    } else if (sum == 0 && _buttonView.frame.origin.y < self.view.bounds.size.height) {
+        [UIView beginAnimations:nil context:nil];
+        _buttonView.frame = CGRectMake(0, self.view.bounds.size.height, _buttonView.bounds.size.width, _buttonView.bounds.size.height);
+        self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height);
+        [UIView commitAnimations];
     }
 }
 
-- (void)addEmailAddress:(NSString*)address {
-    NSLog(@"Address: %@", address);
-    if ([_emailsToInvite containsObject:address]) {
-        [_emailsToInvite removeObject:address];
+- (void)selectedItem:(GTIOSelectableTableItem*)item {
+    NSLog(@"Item: %@", item);
+    item.selected = !item.selected;
+    id emailOrProfile = item.userInfo;
+    if ([emailOrProfile isKindOfClass:[GTIOProfile class]]) {
+        NSString* profileID = [(GTIOProfile*)emailOrProfile uid];
+        if (item.selected) {
+            if (![_profileIDsToInvite containsObject:profileID]){
+                [_profileIDsToInvite addObject:profileID];
+            }
+        } else {
+            [_profileIDsToInvite removeObject:profileID];
+        }
     } else {
-        [_emailsToInvite addObject:address];
+        if (item.selected) {
+            if (![_emailsToInvite containsObject:emailOrProfile]){
+                [_emailsToInvite addObject:emailOrProfile];
+            }
+        } else {
+            [_emailsToInvite removeObject:emailOrProfile];
+        }
     }
-    [self updateDoneButton];
-}
-
-- (void)addProfileID:(NSString*)profileID {
-    NSLog(@"Profile ID: %@", profileID);
-    if ([_profileIDsToInvite containsObject:profileID]) {
-        [_profileIDsToInvite removeObject:profileID];
-    } else {
-        [_profileIDsToInvite addObject:profileID];
-    }
+    NSLog(@"Emails: %@", _emailsToInvite);
+    NSLog(@"Profiles: %@", _profileIDsToInvite);
     [self updateDoneButton];
 }
 
 - (void)didSelectObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
     NSLog(@"Object: %@", object);
     if ([object isKindOfClass:[GTIOSelectableTableItem class]]) {
-        GTIOSelectableTableItem* item = (GTIOSelectableTableItem*)object;
-        item.selected = !item.selected;
         [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
+}
+
+- (id)createDelegate {
+    return [[[GTIOAddStylistTableViewDelegate alloc] initWithController:self] autorelease];
+}
+
+- (id)itemForEmailAddress:(NSString*)email {
+    GTIOSelectableTableItem* item = [GTIOSelectableTableItem itemWithText:email URL:nil];
+    item.delegate = self;
+    item.selector = @selector(selectedItem:);
+    item.userInfo = email;
+    if ([_emailsToInvite containsObject:email]) {
+        item.selected = YES;
+    }
+    return item;
 }
 
 - (void)createModel {
@@ -209,25 +354,30 @@
     NSString* apiEndpoint = nil;
     NSDictionary* params = nil;
     if (index == GTIONetworkTab) {
-            apiEndpoint = GTIORestResourcePath(@"/stylists/network");
-            NSArray* emails = [self getEmailAddressesFromContacts];
-            NSLog(@"Emails: %@", emails);
-            NSString* emailsAsJSON = [emails jsonEncode];
-            params = [NSDictionary dictionaryWithObjectsAndKeys:emailsAsJSON, @"emailContacts", nil];
-            params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+        apiEndpoint = GTIORestResourcePath(@"/stylists/network");
+        NSArray* emails = [self getEmailAddressesFromContacts];
+        NSLog(@"Emails: %@", emails);
+        NSString* emailsAsJSON = [emails jsonEncode];
+        params = [NSDictionary dictionaryWithObjectsAndKeys:emailsAsJSON, @"emailContacts", nil];
+        params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     } else if (index == GTIOContactsTab) {
-            NSArray* emailsAddresses = [self getEmailAddressesFromContacts];
-            NSMutableArray* items = [NSMutableArray arrayWithCapacity:[emailsAddresses count]];
-            for (NSString* email in emailsAddresses) {
-                NSString* url = [NSString stringWithFormat:@"gtio://stylists/addEmailAddress/%@", email];
-                GTIOSelectableTableItem* item = [GTIOSelectableTableItem itemWithText:email URL:url];
-                if ([_emailsToInvite containsObject:email]) {
-                    item.selected = YES;
-                }
-                [items addObject:item];
-            }
-            self.dataSource = [GTIOAddStylistsListDataSource dataSourceWithItems:items];
-            return;
+        NSMutableArray* section1 = [NSMutableArray arrayWithCapacity:[_customEmailAddresses count] + 1];
+        TTTableControlItem* item = [TTTableControlItem itemWithCaption:nil control:(UIControl*)_emailField];
+        [section1 addObject:item];
+        for (NSString* email in _customEmailAddresses) {
+            [section1 addObject:[self itemForEmailAddress:email]];
+        }
+        
+        
+        NSArray* emailsAddresses = [self getEmailAddressesFromContacts];
+        NSMutableArray* section2 = [NSMutableArray arrayWithCapacity:[emailsAddresses count]];
+        for (NSString* email in emailsAddresses) {
+            [section2 addObject:[self itemForEmailAddress:email]];
+        }
+        
+        self.dataSource = [GTIOAddStylistsSectionedDataSource dataSourceWithArrays:@"enter an email address", section1,
+                           @"choose from your phone contacts", section2, nil];
+        return;
     } else {
         apiEndpoint = GTIORestResourcePath(@"/stylists/recommended");
         params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
@@ -239,6 +389,10 @@
 }
 
 - (void)didLoadModel:(BOOL)firstTime {
+    // TODO:
+    // if we are on the connections tab, check the isFacebookConnected on gtiouser.
+    // TODO: 
+    // use featuredText for "% helpful".
     RKRequestTTModel* model = (RKRequestTTModel*)self.model;
     if ([model isKindOfClass:[RKRequestTTModel class]]) {
         GTIOBrowseList* list = [model.objects objectWithClass:[GTIOBrowseList class]];
@@ -250,8 +404,16 @@
             [sectionTitles addObject:section.title];
             NSMutableArray* items = [NSMutableArray array];
             for (GTIOProfile* stylist in section.stylists) {
-                NSString* url = [NSString stringWithFormat:@"gtio://stylists/addProfileID/%@", stylist.uid];
+                NSString* url = nil;
                 GTIOSelectableTableItem* item = [GTIOSelectableTableItem itemWithText:stylist.displayName imageURL:stylist.profileIconURL URL:url];
+                NSLog(@"Featured Text: %@", stylist.featuredText);
+                
+                item.subtitle = stylist.featuredText;
+                item.calloutURL = [NSString stringWithFormat:@"gtio://profile/%@", stylist.uid];;
+                
+                item.delegate = self;
+                item.selector = @selector(selectedItem:);
+                item.userInfo = stylist;
                 item.imageStyle = [TTImageStyle styleWithImageURL:nil
                                                      defaultImage:nil
                                                       contentMode:UIViewContentModeScaleAspectFit
@@ -263,6 +425,11 @@
                 [items addObject:item];
             }
             [sectionItems addObject:items];
+        }
+        if (_tabBar.selectedTabIndex == GTIONetworkTab && [[GTIOUser currentUser].isFacebookConnected boolValue] == NO) {
+            // ADD FB Login Item Section here.
+            [sectionTitles addObject:@"connect to Facebook"];
+            [sectionItems addObject:[NSArray array]];
         }
         GTIOAddStylistsSectionedDataSource* ds = (GTIOAddStylistsSectionedDataSource*)[GTIOAddStylistsSectionedDataSource dataSourceWithItems:sectionItems sections:sectionTitles];
         ds.model = model;
@@ -294,6 +461,30 @@
     NSLog(@"Objects: %@", objects);
     [self hideLoading];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (BOOL)textLooksLikeAnEmail:(NSString*)text {
+    return [text rangeOfString:@"@"].length == 1;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    NSString* text = [[textField.text copy] autorelease];
+    
+    if ([self textLooksLikeAnEmail:text]) {
+        textField.text = nil;
+        if (![_customEmailAddresses containsObject:text]) {
+            [_customEmailAddresses insertObject:text atIndex:0];
+            if (![_emailsToInvite containsObject:text]){
+                [_emailsToInvite addObject:text];
+            }
+        }
+        [self invalidateModel];
+    } else {
+        TTAlert(@"Please enter a valid email address");
+    }
+    
+    return NO;
 }
 
 @end

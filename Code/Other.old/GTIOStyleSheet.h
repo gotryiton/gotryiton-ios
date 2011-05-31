@@ -63,6 +63,7 @@ TWTPickerControl* emailPickerForUser(GTIOUser* user);
 
 - (UIFont*)verdictLabelFont;
 - (UIFont*)reasonTextFont;
+- (TTStyle*)addAStylistTabStyle;
 //- (TTStyle*)pinkAndGrayTabBar; deprecated?
 
 @end

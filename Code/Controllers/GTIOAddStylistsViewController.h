@@ -14,11 +14,14 @@ typedef enum {
     GTIORecomendedTab
 } GTIOAddStylistsTab;
 
-@interface GTIOAddStylistsViewController : TTTableViewController <TTTabDelegate, RKObjectLoaderDelegate> {
+@interface GTIOAddStylistsViewController : TTTableViewController <TTTabDelegate, RKObjectLoaderDelegate, UITextFieldDelegate> {
     TTTabBar* _tabBar;
+    UIView* _buttonView;
     UIButton* _doneButton;
     NSMutableArray* _emailsToInvite;
     NSMutableArray* _profileIDsToInvite;
+    UITextField* _emailField;
+    NSMutableArray* _customEmailAddresses;
 }
 
 @end

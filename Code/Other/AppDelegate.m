@@ -145,8 +145,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"badgeURLs", @"badgeImageURLs")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isAuthorizedUser", @"isAuthorizedUser")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"userStats", @"userStats")];
-        [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"activeStylist", @"activeStylist")];
-        [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"stylistAlertsEnabled", @"stylistRequestAlertsEnabled")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"featuredText", @"featuredText")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"activeStylist", @"activeStylist")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"stylistAlertsEnabled", @"stylistRequestAlertsEnabled")];
     [provider setMapping:profileMapping forKeyPath:@"user"];
     
     RKObjectMapping* userIconOptionMapping = [RKObjectMapping mappingForClass:[GTIOUserIconOption class]];

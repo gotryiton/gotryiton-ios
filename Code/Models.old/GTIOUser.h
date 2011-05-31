@@ -84,6 +84,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
     NSNumber* _todosBadge;
     
     Facebook* _facebook;
+    NSNumber* _isFacebookConnected;
 }
 
 @property (nonatomic, retain) NSNumber* iphonePush;
@@ -111,6 +112,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 @property (nonatomic, copy) NSString* email;
 @property (nonatomic, copy) NSString* deviceToken;
 @property (nonatomic, copy) NSString* profileIconURL;
+@property (nonatomic, retain) NSNumber* isFacebookConnected;
 
 /**
  * The list of services this account is associated with. Returned
