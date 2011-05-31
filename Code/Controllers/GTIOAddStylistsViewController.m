@@ -210,8 +210,6 @@
     NSDictionary* params = nil;
     if (index == GTIONetworkTab) {
             apiEndpoint = GTIORestResourcePath(@"/stylists/network");
-            // Params should be fbToken = <my fb token> if I have one
-            // and emailContacts = [emails].
             NSArray* emails = [self getEmailAddressesFromContacts];
             NSLog(@"Emails: %@", emails);
             NSString* emailsAsJSON = [emails jsonEncode];
@@ -231,9 +229,8 @@
             self.dataSource = [GTIOAddStylistsListDataSource dataSourceWithItems:items];
             return;
     } else {
-        // GTIORecomendedTab
-        // TODO
-        return;
+        apiEndpoint = GTIORestResourcePath(@"/stylists/recommended");
+        params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
     }
     RKRequestTTModel* model = [[[RKRequestTTModel alloc] initWithResourcePath:apiEndpoint params:params method:RKRequestMethodPOST] autorelease];
     GTIOAddStylistsListDataSource* ds = (GTIOAddStylistsListDataSource*)[GTIOAddStylistsListDataSource dataSourceWithObjects:nil];

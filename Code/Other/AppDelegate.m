@@ -206,6 +206,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     [errorMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"errorMessage")];
     [provider setMapping:errorMapping forKeyPath:@"error"];
     
+    RKObjectMapping* responseMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
+    [responseMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"response")];
+    [provider setMapping:responseMapping forKeyPath:@"response"];
+    
     RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
     [notificationMapping mapAttributes:@"text", @"url", nil];
     [notificationMapping mapKeyPath:@"id" toAttribute:@"notificationID"];
