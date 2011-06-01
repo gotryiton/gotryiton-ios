@@ -128,8 +128,8 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertNewsletter", @"alertNewsletter")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.services", @"services")]; // service?
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gtioToken", @"token")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.isFacebookConnected", @"isFacebookConnected")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
-    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isFacebookConnected", @"isFacebookConnected")];
     
     // TODO: duplicated.
     RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
@@ -284,6 +284,7 @@ static GTIOUser* gCurrentUser = nil;
         [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertNewsletter", @"alertNewsletter")];
         [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.services", @"services")]; // service?
         [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gtioToken", @"token")];
+        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.isFacebookConnected", @"isFacebookConnected")];
         [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
         
         NSString* path = [NSString stringWithFormat:@"%@?gtioToken=%@", GTIORestResourcePath(@"/user"), self.token];
@@ -449,7 +450,8 @@ static GTIOUser* gCurrentUser = nil;
     NSString* url = [NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, GTIORestResourcePath(@"/auth")];
     RKRequest* request = [RKRequest requestWithURL:[NSURL URLWithString:url] delegate:self];
     request.method = RKRequestMethodPOST;
-    request.params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken", nil];
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken", nil];
+    request.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     [request send];
 }
 

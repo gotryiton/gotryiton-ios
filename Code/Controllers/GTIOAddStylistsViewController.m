@@ -14,6 +14,81 @@
 #import "GTIOListSection.h"
 #import "GTIOProfile.h"
 
+@interface GTIOFacebookConnectTableItem : TTTableTextItem
+@end
+@implementation GTIOFacebookConnectTableItem
+@end
+
+@interface GTIOFacebookConnectTableItemCell : TTTableTextItemCell {
+    UIButton* _facebookButton;
+    UILabel* _titleLabel;
+    UILabel* _label1;
+    UILabel* _label2;
+}
+@end
+
+@implementation GTIOFacebookConnectTableItemCell
+
++ (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
+    return 175.0f;
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
+    if ((self = [super initWithStyle:style reuseIdentifier:identifier])) {
+        _facebookButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        [_facebookButton addTarget:self action:@selector(fbButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_facebookButton setImage:[UIImage imageNamed:@"add-fb.png"] forState:UIControlStateNormal];
+        [_facebookButton sizeToFit];
+        [self.contentView addSubview:_facebookButton];
+        
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _titleLabel.font = [UIFont boldSystemFontOfSize:14];
+        _titleLabel.textColor = RGBCOLOR(80,80,80);
+        _titleLabel.text = @"find your Facebook contacts!";
+        [self.contentView addSubview:_titleLabel];
+        
+        _label1 = [[UILabel alloc] initWithFrame:CGRectZero];
+        _label1.font = [UIFont systemFontOfSize:12];
+        _label1.textColor = RGBCOLOR(88,88,88);
+        _label1.text = @"you can sign in with Facebook and still remain completely anonymous if you like.";
+        _label1.numberOfLines = 2;
+        _label1.textAlignment = UITextAlignmentCenter;
+        [self.contentView addSubview:_label1];
+        
+        _label2 = [[UILabel alloc] initWithFrame:CGRectZero];
+        _label2.font = [UIFont systemFontOfSize:12];
+        _label2.textColor = RGBCOLOR(88,88,88);
+        _label2.text = @"...and we'll NEVER post to your wall or anything like that without your consent.";
+        _label2.numberOfLines = 2;
+        _label2.textAlignment = UITextAlignmentCenter;
+        [self.contentView addSubview:_label2];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [_facebookButton release];
+    [_titleLabel release];
+    [_label1 release];
+    [_label2 release];
+    [super dealloc];
+}
+
+- (void)fbButtonWasPressed:(id)sender {
+    [[GTIOUser currentUser] loginWithFacebook];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _facebookButton.frame = CGRectOffset(_facebookButton.bounds, floor((320-_facebookButton.bounds.size.width)/2), 40);
+    [_titleLabel sizeToFit];
+    _titleLabel.frame = CGRectOffset(_titleLabel.bounds, floor((320 - _titleLabel.bounds.size.width)/2), 15);
+    _label1.frame = CGRectMake((320-230)/2,90,230, 40);
+    _label2.frame = CGRectMake((320-230)/2,130,230, 40);
+}
+
+@end
+
 @interface GTIOSelectableTableItem : TTTableImageItem {
 @private
     BOOL _selected;
@@ -119,6 +194,8 @@
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
 	if ([object isKindOfClass:[GTIOSelectableTableItem class]]) {
         return [GTIOSelectableTableCell class];
+    } if ([object isKindOfClass:[GTIOFacebookConnectTableItem class]]) {
+        return [GTIOFacebookConnectTableItemCell class];
 	} else {
 		return [super tableView:tableView cellClassForObject:object];
 	}
@@ -133,6 +210,8 @@
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
 	if ([object isKindOfClass:[GTIOSelectableTableItem class]]) {
         return [GTIOSelectableTableCell class];
+	} if ([object isKindOfClass:[GTIOFacebookConnectTableItem class]]) {
+        return [GTIOFacebookConnectTableItemCell class];
 	} else {
 		return [super tableView:tableView cellClassForObject:object];
 	}
@@ -185,15 +264,22 @@
         _emailsToInvite = [NSMutableArray new];
         _profileIDsToInvite = [NSMutableArray new];
         _customEmailAddresses = [NSMutableArray new];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedIn:) name:kGTIOUserDidUpdateProfileNotificationName object:nil];
     }
     return self;
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_emailsToInvite release];
     [_profileIDsToInvite release];
     [_customEmailAddresses release];
     [super dealloc];
+}
+
+- (void)userLoggedIn:(NSNotification*)note {
+    [self invalidateModel];
 }
 
 - (NSArray*)getEmailAddressesFromContacts {
@@ -426,10 +512,11 @@
             }
             [sectionItems addObject:items];
         }
-        if (_tabBar.selectedTabIndex == GTIONetworkTab && [[GTIOUser currentUser].isFacebookConnected boolValue] == NO) {
+        GTIOUser* user = [GTIOUser currentUser];
+        if (_tabBar.selectedTabIndex == GTIONetworkTab && [user.isFacebookConnected boolValue] == NO) {
             // ADD FB Login Item Section here.
             [sectionTitles addObject:@"connect to Facebook"];
-            [sectionItems addObject:[NSArray array]];
+            [sectionItems addObject:[NSArray arrayWithObject:[[[GTIOFacebookConnectTableItem alloc] init] autorelease]]];
         }
         GTIOAddStylistsSectionedDataSource* ds = (GTIOAddStylistsSectionedDataSource*)[GTIOAddStylistsSectionedDataSource dataSourceWithItems:sectionItems sections:sectionTitles];
         ds.model = model;
