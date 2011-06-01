@@ -13,6 +13,7 @@
 #import "NSObject_Additions.h"
 #import "GTIOListSection.h"
 #import "GTIOProfile.h"
+#import "GTIOHeaderView.h"
 
 @interface GTIOFacebookConnectTableItem : TTTableTextItem
 @end
@@ -319,7 +320,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"ADD STYLISTS";
+    self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"ADD STYLISTS"];
+    
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"full-wallpaper.png"]];
     self.variableHeightRows = YES;
     
