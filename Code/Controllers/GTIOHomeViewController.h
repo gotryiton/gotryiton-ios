@@ -17,7 +17,6 @@
     IBOutlet UIView* _launcherView;
     IBOutlet UIButton* _notificationsButton;
     IBOutlet UILabel* _usernameLabel;
-    IBOutlet UIBarButtonItem* _loginLogoutButton;
     IBOutlet UIButton* _todoButton;
     
     GTIONotificationsOverlayViewController* _notificationsController;
@@ -40,7 +39,5 @@
 - (IBAction)notificationButtonWasPressed;
 /// Profile
 - (IBAction)profileViewWasTouched;
-/// Logout
-- (IBAction)logoutButtonWasPressed;
 
 @end

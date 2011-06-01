@@ -9,6 +9,7 @@
 #import "GTIOSettingsViewController.h"
 #import "GTIOUser.h"
 #import "GTIOUpdateUserRequest.h"
+#import "TWTAlertViewDelegate.h"
 
 static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 
@@ -48,6 +49,21 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 	[super loadView];
 	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settings.png"]] autorelease];
 	TTOpenURL(@"gtio://analytics/trackUserDidViewSettings");
+    UIBarButtonItem* signoutItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStyleBordered target:self action:@selector(signOutButtonWasPressed:)];
+    self.navigationItem.rightBarButtonItem = signoutItem;
+}
+
+- (void)logoutConfirmed {
+    [[GTIOUser currentUser] logout];
+    TTOpenURL(@"gtio://home");
+}
+
+- (void)signOutButtonWasPressed:(id)sender {
+    TWTAlertViewDelegate* delegate = [[TWTAlertViewDelegate new] autorelease];
+    [delegate setTarget:self selector:@selector(logoutConfirmed) object:nil forButtonIndex:1];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Logout" message:@"Are you sure?" delegate:delegate cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+    [alert show];
+    [alert release];
 }
 
 - (void)createLoggedInModel {

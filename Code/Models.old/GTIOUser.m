@@ -134,7 +134,7 @@ static GTIOUser* gCurrentUser = nil;
     // TODO: duplicated.
     RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
     [notificationMapping mapAttributes:@"text", @"url", nil];
-    [notificationMapping mapKeyPath:@"notificationID" toAttribute:@"id"];
+    [notificationMapping mapKeyPath:@"id" toAttribute:@"notificationID"];
     
     [userMapping mapRelationship:@"notifications" withObjectMapping:notificationMapping];
     userMapping.setNilForMissingAttributes = NO;

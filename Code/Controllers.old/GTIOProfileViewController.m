@@ -201,6 +201,11 @@
         NSString* reviewsURL = [NSString stringWithFormat:@"gtio://browse/%@", [reviewsAPIURL stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
 		TTTableTextItem* reviewsItem = [TTTableTextItem itemWithText:(_isShowingCurrentUser ? @"my reviews" : @"reviews") URL:reviewsURL];
 		[items addObject:reviewsItem];
+        
+        if (_isShowingCurrentUser) {
+            TTTableTextItem* reviewsItem = [TTTableTextItem itemWithText:@"my stylists" URL:@"gtio://stylists"];
+            [items addObject:reviewsItem];
+        }
 		
 		
 		for (NSDictionary* stat in profile.userStats) {

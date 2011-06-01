@@ -32,12 +32,15 @@
 }
 
 - (void)updateUserLabel {
-    _usernameLabel.text = [GTIOUser currentUser].username;
+    if ([GTIOUser currentUser].loggedIn) {
+        _usernameLabel.text = [GTIOUser currentUser].username;
+    } else {
+        _usernameLabel.text = @"my profile";
+    }
 }
 
 - (void)updateToolbar {
     [self updateUserLabel];
-    _loginLogoutButton.title = [GTIOUser currentUser].isLoggedIn ? @"Logout" : @"Login";
 }
 
 - (void)updateNotificationsButton {
@@ -114,16 +117,8 @@
 }
 
 - (IBAction)profileViewWasTouched {
-    TTOpenURL(@"gtio://profile");
-}
-
-- (IBAction)logoutButtonWasPressed {
     if ([[GTIOUser currentUser] isLoggedIn]) {
-        TWTAlertViewDelegate* delegate = [[TWTAlertViewDelegate new] autorelease];
-        [delegate setTarget:[GTIOUser currentUser] selector:@selector(logout) object:nil forButtonIndex:1];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Logout" message:@"Are you sure?" delegate:delegate cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
-        [alert show];
-        [alert release];
+        TTOpenURL(@"gtio://profile");
     } else {
         TTOpenURL(@"gtio://login");
     }
@@ -156,7 +151,7 @@
     [_notificationsController viewWillAppear:YES];
     [UIView beginAnimations:nil context:nil];
     _notificationsController.view.frame = self.view.frame;
-    [UIView endAnimations];
+    [UIView commitAnimations];
 }
 
 @end

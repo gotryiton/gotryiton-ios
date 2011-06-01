@@ -14,6 +14,7 @@
 #import "GTIOListSection.h"
 #import "GTIOStaticOutfitListModel.h"
 #import "GTIOOutfitViewController.h"
+#import "GTIOHeaderView.h"
 
 @implementation GTIOTodosTableViewController
 
@@ -26,9 +27,12 @@
 
 - (void)loadView {
     [super loadView];
-    self.title = @"To-Do's";
-    GTIOBarButtonItem* whoIStyleItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"who i style" target:self action:@selector(whoIStyleButtonPressed:)] autorelease];
-    self.navigationItem.rightBarButtonItem = whoIStyleItem;
+    self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"TO-DOs"];
+    
+    if ([GTIOUser currentUser].loggedIn) {
+        GTIOBarButtonItem* whoIStyleItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"who i style" target:self action:@selector(whoIStyleButtonPressed:)] autorelease];
+        self.navigationItem.rightBarButtonItem = whoIStyleItem;
+    }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
