@@ -13,6 +13,7 @@
     UIBarButtonItem* _doneButton;
     NSMutableArray* _stylists;
     NSMutableArray* _stylistsToDelete;
+    UIButton* _addMoreButton;
 }
 
 @end

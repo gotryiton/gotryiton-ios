@@ -16,7 +16,7 @@ typedef enum {
 
 @interface GTIOAddStylistsViewController : TTTableViewController <TTTabDelegate, RKObjectLoaderDelegate, UITextFieldDelegate> {
     TTTabBar* _tabBar;
-    UIView* _buttonView;
+    UIImageView* _buttonView;
     UIButton* _doneButton;
     NSMutableArray* _emailsToInvite;
     NSMutableArray* _profileIDsToInvite;

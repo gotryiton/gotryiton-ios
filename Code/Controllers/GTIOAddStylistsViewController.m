@@ -318,8 +318,8 @@
     _emailField = nil;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)loadView {
+    [super loadView];
     self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"ADD STYLISTS"];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"full-wallpaper.png"]];
@@ -343,8 +343,9 @@
     [_tabBar setDelegate:self];
     [self.view addSubview:_tabBar];
     
-    _buttonView = [[UIView alloc] initWithFrame:CGRectMake(0,self.view.height,320,66)];
-    _buttonView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"add-done-on.png"]];
+    _buttonView = [[UIImageView alloc] initWithFrame:CGRectMake(0,self.view.height,320,66)];
+    _buttonView.image = [UIImage imageNamed:@"add-done-ON.png"];
+    _buttonView.userInteractionEnabled = YES;
     _doneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
@@ -377,7 +378,7 @@
         [UIView beginAnimations:nil context:nil];
         _buttonView.frame = CGRectMake(0, self.view.bounds.size.height - _buttonView.bounds.size.height, _buttonView.bounds.size.width, _buttonView.bounds.
                                        size.height);
-        self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height - _buttonView.bounds.size.height + 15);
+        self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height - _buttonView.bounds.size.height + 6);
         [UIView commitAnimations];
     } else if (sum == 0 && _buttonView.frame.origin.y < self.view.bounds.size.height) {
         [UIView beginAnimations:nil context:nil];
