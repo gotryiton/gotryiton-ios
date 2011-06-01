@@ -91,7 +91,7 @@
     _locationLabel.frame = CGRectMake(82, 43, 210, 30);
     [_locationLabel sizeToFit];
     
-    _connectionImageView.frame = CGRectMake(280,42,24,23);
+    _connectionImageView.frame = CGRectMake(250,60,20,20);
     
     int i = 0;
     for (UIView* view in _badgeImageViews) {
