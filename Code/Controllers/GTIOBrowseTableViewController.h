@@ -18,6 +18,7 @@
     NSString* _queryText;
     GTIOTabBar* _sortTabBar;
     UIImageView* _topShadowImageView;
+    NSArray* _sortTabs;
 }
 /// Current api end point defaults to /rest/v3/categories/
 @property (nonatomic, retain) NSString* apiEndpoint;

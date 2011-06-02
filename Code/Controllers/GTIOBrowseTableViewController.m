@@ -161,6 +161,7 @@
     [_searchBar release];
     [_apiEndpoint release];
     [_queryText release];
+    [_sortTabs release];
     [super dealloc];
 }
 
@@ -228,6 +229,8 @@
 }
 
 - (void)setupTabs:(NSArray*)tabs {
+    [_sortTabs release];
+    _sortTabs = [tabs retain];
     if (tabs && [tabs count] > 0) {
         // throw away the old tab bar, setup a new one.
         [_sortTabBar removeFromSuperview];
@@ -429,7 +432,7 @@
 
 - (void)tabBar:(GTIOTabBar*)tabBar selectedTabAtIndex:(NSUInteger)index {
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
-    GTIOSortTab* tab = [model.list.sortTabs objectAtIndex:index];
+    GTIOSortTab* tab = [_sortTabs objectAtIndex:index];
     if (tab) {
         [_apiEndpoint release];
         _apiEndpoint = [tab.sortAPI retain];

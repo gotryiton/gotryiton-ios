@@ -53,6 +53,7 @@
     [_spinner stopAnimating];
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)aModel;
     GTIOBrowseList* list = model.list;
+    srand(time(NULL));
     for (int i = 0; i < [list.outfits count]; i++) {
         GTIOOutfit* outfit = [list.outfits objectAtIndex:i];
         TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
