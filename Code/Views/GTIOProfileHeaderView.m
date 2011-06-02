@@ -8,6 +8,8 @@
 
 #import "GTIOProfileHeaderView.h"
 #import "GTIOUser.h"
+#import "NSObject_Additions.h"
+#import "TWTActionSheetDelegate.h"
 
 @implementation GTIOProfileHeaderView
 
@@ -56,13 +58,12 @@
 	[self addSubview:_locationLabel];
 	
 	_editProfileButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[_editProfileButton setImage:[UIImage imageNamed:@"edit-OFF.png"] forState:UIControlStateNormal];
-	[_editProfileButton setImage:[UIImage imageNamed:@"edit-ON.png"] forState:UIControlStateHighlighted];
-	[_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5,35,20)];
 	[_editProfileButton addTarget:self action:@selector(editButtonHighlight) forControlEvents:UIControlEventTouchDown];
 	[_editProfileButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    [_editProfileButton setHidden:YES];
 	[self addSubview:_editProfileButton];
+    
+    _connectionImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(280,10,24,23)] autorelease];
+    [self addSubview:_connectionImageView];
     
 	// Accessibility Label
     [_nameLabel setAccessibilityLabel:@"name label"];
@@ -73,13 +74,45 @@
 	return self;
 }
 
+- (void)dealloc {
+    [_profile release];
+	[super dealloc];
+}
+
 - (void)displayProfile:(GTIOProfile*)profile {
+    [profile retain];
+    [_profile release];
+    _profile = profile;
+    
     if ([profile.uid isEqualToString:[GTIOUser currentUser].UID] && [[GTIOUser currentUser] isLoggedIn]) {
-        [_editProfileButton setHidden:NO];
+        [_connectionImageView setHidden:YES];
         _shouldAllowEditing = YES;
+        [_editProfileButton setImage:[UIImage imageNamed:@"edit-OFF.png"] forState:UIControlStateNormal];
+        [_editProfileButton setImage:[UIImage imageNamed:@"edit-ON.png"] forState:UIControlStateHighlighted];
+        [_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5,35,20)];
     } else {
-        [_editProfileButton setHidden:YES];
-        _shouldAllowEditing = NO;        
+        _shouldAllowEditing = NO;
+        [_connectionImageView setHidden:NO];
+        GTIOStylistRelationship* relationship = profile.stylistRelationship;
+        UIImage* image = [relationship imageForProfileConnection];
+        _connectionImageView.image = image;
+        if (relationship.iStyle) {
+            // edit
+            [_editProfileButton setImage:[UIImage imageNamed:@"edit-OFF.png"] forState:UIControlStateNormal];
+            [_editProfileButton setImage:[UIImage imageNamed:@"edit-ON.png"] forState:UIControlStateHighlighted];
+            [_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5,34,20)];
+        } else if (relationship.isMyStylist && !relationship.isMyStylistIgnored) {
+            // Remove
+            [_editProfileButton setImage:[UIImage imageNamed:@"remove-OFF.png"] forState:UIControlStateNormal];
+            [_editProfileButton setImage:[UIImage imageNamed:@"remove-ON.png"] forState:UIControlStateHighlighted];
+            [_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5-10,55,30)];
+        } else {
+            // add
+            [_editProfileButton setImage:[UIImage imageNamed:@"add-OFF.png"] forState:UIControlStateNormal];
+            [_editProfileButton setImage:[UIImage imageNamed:@"add-ON.png"] forState:UIControlStateHighlighted];
+            [_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5,34,20)];
+        }
+        
     }
     if ([profile profileIconURL]) {
         [_profilePictureImageView setUrlPath:[profile profileIconURL]];
@@ -95,11 +128,6 @@
 	[_fashionProfileBadge setHidden:NO];
 }
 
-- (void)dealloc
-{
-	[super dealloc];
-}
-
 - (void)editButtonHighlight {
 	[_editProfileButton setHighlighted:YES];
 }
@@ -112,9 +140,107 @@
     }
 }
 
+- (void)removeAsMyStylist {
+    _profile.stylistRelationship.isMyStylist = NO;
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/remove") delegate:self];
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[[NSArray arrayWithObject:_profile.uid] jsonEncode], @"stylistUids", nil];
+    loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    loader.method = RKRequestMethodPOST;
+    [loader send];
+}
+
+- (void)addAsMyStylist {
+    _profile.stylistRelationship.isMyStylist = YES;
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/add") delegate:self];
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            [[NSArray arrayWithObject:_profile.uid] jsonEncode], @"stylistUids", nil];
+    loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    loader.method = RKRequestMethodPOST;
+    [loader send];
+}
+
+- (void)presentActionSheetForRelationship:(GTIOStylistRelationship*)relationship {
+    NSString* title = [NSString stringWithFormat:@"edit connection with %@:", _profile.firstName];
+    TWTActionSheetDelegate* delegate = [TWTActionSheetDelegate actionSheetDelegate];
+    
+    NSString* button1Title;
+    NSString* button2Title;
+    NSString* button3Title;
+    
+    if (_profile.stylistRequestAlertsEnabled) {
+        button1Title = @"turn off alerts from them";
+//        [delegate setTarget:self selector:@selector(turnOffStylistAlerts) object:nil forButtonIndex:0];
+    } else {
+        button1Title = @"turn on alerts from them";
+//        [delegate setTarget:self selector:@selector(turnOnStylistAlerts) object:nil forButtonIndex:0];
+    }
+    
+    if (relationship.iStyleIgnored) {
+        button2Title = @"acknowledge their outfits";
+        // todo: action
+    } else {
+        button2Title = @"ignore their outfits";
+        // todo: action
+    }
+    
+    if (relationship.isMyStylist) {
+        button3Title = @"remove as my stylist";
+        // todo: action
+    } else {
+        button3Title = @"add as my stylist";
+        // todo: action
+    }
+    
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:delegate cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:button1Title, button2Title, button3Title, nil];
+    [actionSheet showInView:[TTNavigator navigator].window];
+    
+    // _profile.stylistRequestAlertsEnabled // determines if push alerts are on or off
+    
+    // Possible States:
+    // I Style Them, They do not style me
+    // I Style Them, They Style Me
+    // I Ignore them, they do not style me
+    // I Ignore them, they style me
+    
+    // alerts on/off toggles as well.
+    
+    // button 0:
+    // Toggle alerts
+    // button 1:
+    // toggle ignored
+    // button 2:
+    // make/remove as my stylist.
+    // button 3:
+    // cancel
+    
+    
+    // present action sheet that is dependant about our relationship. allow user to edit our relationship accordingly.
+}
+
 - (void)editButtonAction {
-	[_editProfileButton setHighlighted:YES];
-	TTOpenURL(@"gtio://profile/edit");
+    if (_shouldAllowEditing) {
+        [_editProfileButton setHighlighted:YES];
+        TTOpenURL(@"gtio://profile/edit");
+    } else {
+        GTIOStylistRelationship* relationship = _profile.stylistRelationship;
+        if (relationship.iStyle && !relationship.iStyleIgnored) {
+            [self presentActionSheetForRelationship:relationship];
+        } else if (relationship.isMyStylist && !relationship.isMyStylistIgnored) {
+            [self removeAsMyStylist];
+        } else {
+            [self addAsMyStylist];
+        }
+    }
+}
+
+
+- (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
+    NSLog(@"Error: %@", error);
+    [[[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
+    [self displayProfile:_profile];
 }
 
 @end

@@ -14,6 +14,7 @@ And I should see the "name label"
 And I should see the "location label"
 And I should see the "edit profile button"
 And I should see the "profile picture view"
+And I should see "VOTES RECEIVED"
 
 Scenario: 
     Editing Profile Validation

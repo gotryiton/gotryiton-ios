@@ -592,7 +592,6 @@
 		3FA9BBD81386AA56002701F4 /* GTIOListSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA9BBD61386AA56002701F4 /* GTIOListSection.m */; };
 		3FA9BBD91386AA56002701F4 /* GTIOListSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA9BBD61386AA56002701F4 /* GTIOListSection.m */; };
 		3FBAE218137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
-		3FBAE219137ACCC5001BBC0E /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAE211137ACCC5001BBC0E /* LoggerClient.m */; };
 		3FBFC2EC1381ABBC00A47A1B /* GTIOSortTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBFC2EB1381ABBC00A47A1B /* GTIOSortTab.m */; };
 		3FBFC2ED1381ABBC00A47A1B /* GTIOSortTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBFC2EB1381ABBC00A47A1B /* GTIOSortTab.m */; };
 		3FBFC2EE1381ABBC00A47A1B /* GTIOSortTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBFC2EB1381ABBC00A47A1B /* GTIOSortTab.m */; };
@@ -9009,7 +9008,6 @@
 				A73397DF1379A7D000F41C2A /* GTIOVerdictView.m in Sources */,
 				A73397E81379A7D000F41C2A /* TTTableViewDelegate+GTIOAdditions.m in Sources */,
 				A73397EE1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
-				3FBAE219137ACCC5001BBC0E /* LoggerClient.m in Sources */,
 				A76208661379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD72137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
 				A7B97377137B1FC1009531ED /* GTIOTitleView.m in Sources */,

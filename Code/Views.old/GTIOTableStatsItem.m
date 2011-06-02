@@ -16,7 +16,7 @@
 @implementation GTIOTableStatsCell
 
 + (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
-	return 44+30;
+	return 44;
 }
 
 - (void)layoutSubviews {

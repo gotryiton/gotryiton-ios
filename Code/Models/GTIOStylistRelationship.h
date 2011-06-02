@@ -23,5 +23,6 @@
 @property (nonatomic, assign) BOOL iStyleIgnored;
 /// returns the apropriate image given the relationship
 - (UIImage*)imageForConnection;
+- (UIImage*)imageForProfileConnection;// Appropriate for display on profile pages.
 
 @end

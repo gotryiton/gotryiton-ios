@@ -31,4 +31,17 @@
     return [UIImage imageNamed:@"connection-2.png"];
 }
 
+- (UIImage*)imageForProfileConnection {
+    if (_iStyleIgnored || (!_iStyle && !_isMyStylist)) {
+        return [UIImage imageNamed:@"connection-1-profile.png"];
+    }
+    if (_iStyle && _isMyStylist) {
+        return [UIImage imageNamed:@"connection-4-profile.png"];
+    }
+    if (_iStyle && !_isMyStylist) {
+        return [UIImage imageNamed:@"connection-3-profile.png"];
+    }
+    return [UIImage imageNamed:@"connection-2-profile.png"];
+}
+
 @end

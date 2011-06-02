@@ -130,6 +130,7 @@
     }
     _alertSwitch.on = [profile.stylistRequestAlertsEnabled boolValue];
     self.accessoryType = UITableViewCellAccessoryNone;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 
@@ -171,7 +172,7 @@
 }
 
 - (id)createDelegate {
-    return [[GTIODropShadowSectionTableViewDelegate new] autorelease];
+    return [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
 }
 
 - (void)settingsButtonAction:(id)sender {

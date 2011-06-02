@@ -11,13 +11,16 @@
 
 #import "GTIOProfile.h"
 
-@interface GTIOProfileHeaderView : UIView {
+@interface GTIOProfileHeaderView : UIView <RKObjectLoaderDelegate> {
 	TTImageView* _profilePictureImageView;
 	UIImageView* _fashionProfileBadge;
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
 	UIButton* _editProfileButton;
+    UIImageView* _connectionImageView;
     bool _shouldAllowEditing;
+    
+    GTIOProfile* _profile;
 }
 /// UILabel for name
 @property (nonatomic, retain) UILabel* nameLabel;

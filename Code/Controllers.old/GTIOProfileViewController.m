@@ -190,7 +190,11 @@
 		NSMutableArray* items = [NSMutableArray arrayWithCapacity:3];
 		
 		TTTableTextItem* statsItem = [GTIOTableStatsItem itemWithText:(_isShowingCurrentUser ? @"my stats" : @"stats")];
-		[items addObject:statsItem];		
+		[items addObject:statsItem];
+        for (NSDictionary* stat in profile.userStats) {
+			[items addObject:[GTIOIndividualStatItem itemWithText:[NSString stringWithFormat:@"%@", [stat valueForKey:@"value"]] caption:[stat valueForKey:@"name"]]];
+		}
+        
 		
         NSString* looksApiURL = GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@/looks", profile.uid]);
         NSString* looksURL = [NSString stringWithFormat:@"gtio://browse/%@", [looksApiURL stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
@@ -205,12 +209,10 @@
         if (_isShowingCurrentUser) {
             TTTableTextItem* reviewsItem = [TTTableTextItem itemWithText:@"my stylists" URL:@"gtio://stylists"];
             [items addObject:reviewsItem];
+        } else {
+            // NSLog(@"Stylists: %@", profile.stylists);
+            // Stylists grid.
         }
-		
-		
-		for (NSDictionary* stat in profile.userStats) {
-			[items addObject:[GTIOIndividualStatItem itemWithText:[NSString stringWithFormat:@"%@", [stat valueForKey:@"value"]] caption:[stat valueForKey:@"name"]]];
-		}
 		
 		TTListDataSource* dataSource = [GTIOProfileViewDataSource dataSourceWithItems:items];
 		dataSource.model = self.model;

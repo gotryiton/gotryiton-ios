@@ -140,15 +140,19 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"city", @"city")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"state", @"state")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"location", @"location")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"about", @"aboutMe")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"aboutMe", @"aboutMe")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"profileIcon", @"profileIconURL")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"badgeURLs", @"badgeImageURLs")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isAuthorizedUser", @"isAuthorizedUser")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"userStats", @"userStats")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"featuredText", @"featuredText")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"activeStylist", @"activeStylist")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"stylistAlertsEnabled", @"stylistRequestAlertsEnabled")];
     [provider setMapping:profileMapping forKeyPath:@"user"];
+    
+    RKObjectMapping* statMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
+    [statMapping mapAttributes:@"name", @"value", nil];
+    [profileMapping addRelationshipMapping:
+     [RKObjectRelationshipMapping mappingFromKeyPath:@"userStats" toKeyPath:@"userStats" objectMapping:statMapping]];
     
     RKObjectMapping* userIconOptionMapping = [RKObjectMapping mappingForClass:[GTIOUserIconOption class]];
     [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"url",@"url")];
