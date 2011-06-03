@@ -183,9 +183,7 @@
     float height = scrollView.contentSize.height;
     GTIOPaginatedTTModel* model = (GTIOPaginatedTTModel*)_controller.model;
     BOOL hasMoreToLoad = (BOOL)[model hasMoreToLoad];
-    NSLog(@"%f >= %f (loading: %d, hasMore: %d)", totalheight, height, _loading, hasMoreToLoad);
-	if ((totalheight >= height) && 
-//		scrollView.contentSize.height > scrollView.bounds.size.height &&
+	if ((totalheight >= height && height > 0) && 
 		!_loading &&
 		hasMoreToLoad) {
 		_loading = YES;

@@ -23,6 +23,9 @@
 - (void)load:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more {
 	if (more) {
 		GTIOOutfit* lastOutfit = [self.objects lastObject];
+        if (nil == lastOutfit) {
+            return;
+        }
 		NSLog(@"Load Next Page");
 		NSLog(@"Last Object: %@", lastOutfit.timestamp);
 		

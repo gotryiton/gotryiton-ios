@@ -20,6 +20,9 @@
 #import "GTIOReview.h"
 #import "GTIOUserReviewTableItem.h"
 #import "GTIOUserReviewTableItemCell.h"
+#import "GTIOBrowseListPresenter.h"
+#import "GTIOListSection.h"
+#import "GTIOStaticOutfitListModel.h"
 
 @interface GTIOTableImageItemCell : TTTableImageItemCell
 @end
@@ -158,6 +161,7 @@
 }
 
 - (void)dealloc {
+    [_presenter release];
     [_searchBar release];
     [_apiEndpoint release];
     [_queryText release];
@@ -179,32 +183,10 @@
     TTListDataSource* temporaryDataSource = [TTListDataSource dataSourceWithObjects:nil];
     temporaryDataSource.model = model;
     self.dataSource = temporaryDataSource;
-}
-
-- (void)didLoadMore {
-    NSLog(@"DidLoadMore");
-    GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
-    GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     
-    NSAssert(model.list.outfits || model.list.myLooks, @"Only know how to paginate lists of outfits currently.");
-    
-    [self.tableView beginUpdates];
-    NSMutableArray* items = [[model.objects mutableCopy] autorelease];
-    for (GTIOOutfitTableViewItem* item in ds.items) {
-        [items removeObject:item.outfit];
-    }
-    NSMutableArray* indexPaths = [NSMutableArray array];
-    for (id object in items) {
-        if ([object isKindOfClass:[GTIOOutfit class]]) {
-            GTIOOutfit* outfit = (GTIOOutfit*)object;
-            GTIOOutfitTableViewItem* item = [GTIOOutfitTableViewItem itemWithOutfit:outfit];
-            [ds.items addObject:item];
-            [indexPaths addObject:[NSIndexPath indexPathForRow:[ds.items indexOfObject:item] inSection:0]];
-        }
-        // TODO: handle GTIOReview
-    }
-    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
-    [self.tableView endUpdates];
+    // Recreate the delegate, since we updated the model because the delegate assigns itself as a delegate of the model.
+    self.tableView.delegate = nil;
+    [self performSelector:@selector(updateTableDelegate) withObject:nil];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -219,19 +201,22 @@
     }
 }
 
-- (void)setupTabs:(NSArray*)tabs {
+- (void)setupTabs {
     [_sortTabs release];
-    _sortTabs = [tabs retain];
-    if (tabs && [tabs count] > 0) {
-        // throw away the old tab bar, setup a new one.
+    _sortTabs = [_presenter.tabs retain];
+    if (_sortTabs && [_sortTabs count] > 0) {
         [_sortTabBar removeFromSuperview];
         [_sortTabBar release];
-        NSLog(@"Sort Tabs: %@", tabs);
         _sortTabBar = [[GTIOTabBar alloc] initWithFrame:CGRectMake(0,0,320,37)];
-        [_sortTabBar setTabNames:[tabs valueForKey:@"sortText"]];
-        for (GTIOSortTab* tab in tabs) {
+        [_sortTabBar setTabNames:_presenter.tabNames];
+        for (GTIOSortTab* tab in _sortTabs) {
+            int index = [_sortTabs indexOfObject:tab];
             if ([tab.selected boolValue] == YES) {
-                [_sortTabBar setSelectedTabIndex:[tabs indexOfObject:tab]];
+                [_sortTabBar setSelectedTabIndex:index];
+            }
+            GTIOTab* sortTab = [_sortTabBar.tabs objectAtIndex:index];
+            if ([tab respondsToSelector:@selector(badgeNumber)]) {
+                sortTab.badge = [tab badgeNumber];
             }
         }
         _sortTabBar.delegate = self;
@@ -246,8 +231,8 @@
 
 - (void)setupDataSourceForAlphabeticalCategoriesWithList:(GTIOBrowseList*)list andSearchText:(NSString*)text {
     GTIOSectionedDataSourceWithIndexSidebar* ds = (GTIOSectionedDataSourceWithIndexSidebar*)[GTIOSectionedDataSourceWithIndexSidebar dataSourceWithItems:[NSMutableArray array] sections:[NSMutableArray array]];
-    NSArray* sections = list.alphabeticalListKeys;
-    NSDictionary* dict = [list tableItemsGroupedAlphabeticallyWithFilterText:text];
+    NSArray* sections = _presenter.alphabeticalListKeys;
+    NSDictionary* dict = [_presenter tableItemsGroupedAlphabeticallyWithFilterText:text];
     for (NSString* key in sections) {
         NSMutableArray* obj = [dict objectForKey:key];
         if (obj) {
@@ -259,9 +244,14 @@
     self.dataSource = ds;
 }
 
-- (void)setupDataSourceWithList:(GTIOBrowseList*)list items:(NSMutableArray*)items {
-    if (list.subtitle) {
-        TTSectionedDataSource* ds = [GTIOBrowseSectionedDataSource dataSourceWithArrays:list.subtitle, items, nil];
+- (void)setupDataSourceWithItems:(NSMutableArray*)items {
+    BOOL requiresSectionedDataSource = [items count] > 0 && [[items objectAtIndex:0] isKindOfClass:[NSArray class]];
+    if (requiresSectionedDataSource) {
+        TTSectionedDataSource* ds = [GTIOBrowseSectionedDataSource dataSourceWithItems:items sections:_presenter.sectionNames];
+        ds.model = self.model;
+        self.dataSource = ds;
+    } else if (_presenter.subtitle) {
+        TTSectionedDataSource* ds = [GTIOBrowseSectionedDataSource dataSourceWithArrays:_presenter.subtitle, items, nil];
         ds.model = self.model;
         self.dataSource = ds;
     } else {
@@ -269,22 +259,60 @@
         ds.model = self.model;
         self.dataSource = ds;
     }
+    
+}
+
+- (void)didLoadMore {
+    NSLog(@"DidLoadMore");
+    GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
+    GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
+    
+    NSAssert(model.list.outfits || model.list.myLooks || model.list.reviews, @"Only know how to paginate lists of outfits currently.");
+    
+    [self.tableView beginUpdates];
+    NSMutableArray* indexPaths = [NSMutableArray array];
+    NSArray* tableItems;
+    if (model.list.reviews) {
+        NSMutableArray* reviews = [[model.objects mutableCopy] autorelease];
+        
+        for (GTIOOutfitTableViewItem* item in ds.items) {
+            [reviews removeObject:item.userInfo];
+        }
+        
+        tableItems = [_presenter tableItemsForReviews:reviews];
+        
+    } else {
+        NSMutableArray* outfits = [[model.objects mutableCopy] autorelease];
+        for (GTIOOutfitTableViewItem* item in ds.items) {
+            [outfits removeObject:item.outfit];
+        }
+        
+        tableItems = [_presenter tableItemsForOutfits:outfits];
+    }
+    for (id tableItem in tableItems) {
+        [ds.items addObject:tableItem];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:[ds.items indexOfObject:tableItem] inSection:0]];
+    }
+    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+    [self.tableView endUpdates];
 }
 
 - (void)loadedList:(GTIOBrowseList*)list {
     if (list) {
+        [_presenter release];
+        _presenter = [[GTIOBrowseListPresenter presenterWithList:list] retain];
+        
         self.title = list.title;
         
         if (nil == _searchBar) {
-            _searchBar = [list.searchBar retain];
+            _searchBar = [_presenter.searchBar retain];
             _searchBar.delegate = self;
             self.tableView.tableHeaderView = _searchBar;
         }
         
         [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
         
-        // TODO: this should be refactored into the list model.
-        [self setupTabs:list.sortTabs];
+        [self setupTabs];
         
         if (list.categories) {
             self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -296,11 +324,25 @@
                 return;
             }
         }
-        NSMutableArray* items = [[list.tableItems mutableCopy] autorelease];
-        [self setupDataSourceWithList:list items:items];
+        if (list.sections) {
+            _topShadowImageView.frame = CGRectZero;
+            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        }
+        NSMutableArray* items = [[_presenter.tableItems mutableCopy] autorelease];
+        [self setupDataSourceWithItems:items];
     } else {
         // no list was loaded. hrm...
         [self.model performSelector:@selector(didFailLoadWithError:) withObject:[NSError errorWithDomain:@"GTIO Error" code:0 userInfo:nil]];
+    }
+}
+
+- (void)didLoadModel:(BOOL)firstTime {
+    if (firstTime) {
+        NSLog(@"Loaded First Time!");
+        GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
+        [self loadedList:model.list];
+    } else {
+        [self didLoadMore];
     }
 }
 
@@ -320,16 +362,6 @@
     // When we reappear, we are called back with didLoadModel:YES instead of NO
     // since we didn't really load more. This causes us to think this is the 'firstTime', and call didLoadModel:YES
     _flags.isModelDidLoadFirstTimeInvalid = 1;
-}
-
-- (void)didLoadModel:(BOOL)firstTime {
-    if (firstTime) {
-        NSLog(@"Loaded First Time!");
-        GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
-        [self loadedList:model.list];
-    } else {
-        [self didLoadMore];
-    }
 }
 
 - (void)tabBar:(GTIOTabBar*)tabBar selectedTabAtIndex:(NSUInteger)index {
@@ -352,7 +384,15 @@
 } 
 
 - (void)didSelectObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
-    if ([object isKindOfClass:[GTIOUserReviewTableItem class]] ||
+    GTIOBrowseList* list = [(GTIOBrowseListTTModel*)self.model list];
+    if (list.sections) {
+        // manage showing outfits from a sectioned list.
+        GTIOListSection* section = [list.sections objectAtIndex:indexPath.section];
+        GTIOStaticOutfitListModel* staticModel = [GTIOStaticOutfitListModel modelWithOutfits:section.outfits];
+        GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:staticModel outfitIndex:indexPath.row];
+        [self.navigationController pushViewController:viewController animated:YES];
+        [viewController release];
+    } else if ([object isKindOfClass:[GTIOUserReviewTableItem class]] ||
         [object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
         GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:self.model outfitIndex:indexPath.row];
         [self.navigationController pushViewController:viewController animated:YES];

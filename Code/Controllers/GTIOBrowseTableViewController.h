@@ -11,6 +11,7 @@
 #import <RestKit/RestKit.h>
 #import "GTIOBrowseList.h"
 #import "GTIOTabBar.h"
+#import "GTIOBrowseListPresenter.h"
 
 @interface GTIOBrowseTableViewController : TTTableViewController <RKObjectLoaderDelegate, UISearchBarDelegate, GTIOTabBarDelegate> {
     NSString* _apiEndpoint; // default is /rest/v3/categories/ will be different for subcategories.
@@ -19,6 +20,7 @@
     GTIOTabBar* _sortTabBar;
     UIImageView* _topShadowImageView;
     NSArray* _sortTabs;
+    GTIOBrowseListPresenter* _presenter;
 }
 /// Current api end point defaults to /rest/v3/categories/
 @property (nonatomic, retain) NSString* apiEndpoint;

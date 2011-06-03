@@ -17,6 +17,9 @@
 #import "GTIOReview.h"
 #import "GTIOBrowseTableViewController.h"
 #import "GTIOPaginatedTTModel.h"
+#import "GTIOBrowseListPresenter.h"
+#import "GTIOListSection.h"
+#import "GTIOSortTab.h"
 
 @interface GTIOBrowseTableViewControllerSpec : NSObject <UISpec> {
     UIQuery* _app;
@@ -25,21 +28,21 @@
 
 @implementation GTIOBrowseTableViewControllerSpec
 
-- (void)before {
+//- (void)before {
 //    [[RKObjectManager sharedManager].client setBaseURL:@"http://10.0.1.8:4567"];
 //    
-    _app = [UIQuery withApplication];
-    [_app wait:1];
-    [[GTIOUser currentUser] setLoggedIn:YES];
-    [_app wait:1];
-    TTOpenURL(@"gtio://home");
-    [_app wait:1];
-}
-
-- (void)after {
-    [_app release];
-    _app = nil;
-}
+//    _app = [UIQuery withApplication];
+//    [_app wait:1];
+//    [[GTIOUser currentUser] setLoggedIn:YES];
+//    [_app wait:1];
+//    TTOpenURL(@"gtio://home");
+//    [_app wait:1];
+//}
+//
+//- (void)after {
+//    [_app release];
+//    _app = nil;
+//}
 //
 //- (void)itShouldShowAllCategories {
 //    // /rest/v3/categories
@@ -89,8 +92,9 @@
     category3.apiEndpoint = @"/api/endpoint/3";
     category3.iconSmallURL = @"http://bogus.url/3.jpg";
     list.categories = [NSArray arrayWithObjects:category1, category2, category3, nil];
+    GTIOBrowseListPresenter* presenter = [GTIOBrowseListPresenter presenterWithList:list];
     
-    NSArray* tableItems = list.tableItems;
+    NSArray* tableItems = presenter.tableItems;
     [expectThat([tableItems count]) should:be(3)];
     TTTableImageItem* item = [tableItems objectAtIndex:0];
     [expectThat(NSStringFromClass([item class])) should:be(NSStringFromClass([TTTableImageItem class]))];
@@ -114,8 +118,9 @@
     category3.apiEndpoint = @"/api/endpoint/3";
     category3.iconSmallURL = @"http://bogus.url/3.jpg";
     list.categories = [NSArray arrayWithObjects:category1, category2, category3, nil];
+    GTIOBrowseListPresenter* presenter = [GTIOBrowseListPresenter presenterWithList:list];
     
-    NSArray* tableItems = [list tableItemsWithSearchText:@"Category 2"];
+    NSArray* tableItems = [presenter tableItemsWithSearchText:@"Category 2"];
     [expectThat([tableItems count]) should:be(1)];
     TTTableImageItem* item = [tableItems objectAtIndex:0];
     [expectThat(NSStringFromClass([item class])) should:be(NSStringFromClass([TTTableImageItem class]))];
@@ -123,10 +128,10 @@
     [expectThat(item.imageURL) should:be(@"http://bogus.url/2.jpg")];
     [expectThat(item.URL) should:be(@"gtio://browse/.api.endpoint.2")];
     
-    tableItems = [list tableItemsWithSearchText:@""];
+    tableItems = [presenter tableItemsWithSearchText:@""];
     [expectThat([tableItems count]) should:be(3)];
     
-    tableItems = [list tableItemsWithSearchText:nil];
+    tableItems = [presenter tableItemsWithSearchText:nil];
     [expectThat([tableItems count]) should:be(3)];
 }
 
@@ -145,8 +150,9 @@
     category3.apiEndpoint = @"/api/endpoint/3";
     category3.iconSmallURL = @"http://bogus.url/3.jpg";
     list.categories = [NSArray arrayWithObjects:category1, category2, category3, nil];
+    GTIOBrowseListPresenter* presenter = [GTIOBrowseListPresenter presenterWithList:list];
     
-    NSDictionary* tableItems = list.tableItemsGroupedAlphabetically;
+    NSDictionary* tableItems = presenter.tableItemsGroupedAlphabetically;
     [expectThat([[tableItems objectForKey:@"A"] count]) should:be(1)];
     [expectThat([[tableItems objectForKey:@"#"] count]) should:be(2)];
     
@@ -156,7 +162,7 @@
     [expectThat(item.imageURL) should:be(@"http://bogus.url/1.jpg")];
     [expectThat(item.URL) should:be(@"gtio://browse/.api.endpoint.1")];
     
-    tableItems = [list tableItemsGroupedAlphabeticallyWithFilterText:@"2"];
+    tableItems = [presenter tableItemsGroupedAlphabeticallyWithFilterText:@"2"];
     [expectThat([tableItems objectForKey:@"A"]) should:be(nil)];
     [expectThat([[tableItems objectForKey:@"#"] count]) should:be(2)];
 }
@@ -168,8 +174,9 @@
     GTIOOutfit* outfit3 = [[GTIOOutfit new] autorelease];
     
     list.outfits = [NSArray arrayWithObjects:outfit1, outfit2, outfit3, nil];
+    GTIOBrowseListPresenter* presenter = [GTIOBrowseListPresenter presenterWithList:list];
     
-    NSArray* tableItems = list.tableItems;
+    NSArray* tableItems = presenter.tableItems;
     [expectThat([tableItems count]) should:be(3)];
     
     TTTableImageItem* item = [tableItems objectAtIndex:0];
@@ -184,8 +191,9 @@
     GTIOOutfit* outfit3 = [[GTIOOutfit new] autorelease];
     
     list.myLooks = [NSArray arrayWithObjects:outfit1, outfit2, outfit3, nil];
+    GTIOBrowseListPresenter* presenter = [GTIOBrowseListPresenter presenterWithList:list];
     
-    NSArray* tableItems = list.tableItems;
+    NSArray* tableItems = presenter.tableItems;
     [expectThat([tableItems count]) should:be(3)];
     
     TTTableImageItem* item = [tableItems objectAtIndex:0];
@@ -206,8 +214,9 @@
     review3.outfit = outfit3;
     
     list.reviews = [NSArray arrayWithObjects:review1, review2, review3, nil];
+    GTIOBrowseListPresenter* presenter = [GTIOBrowseListPresenter presenterWithList:list];
     
-    NSArray* tableItems = list.tableItems;
+    NSArray* tableItems = presenter.tableItems;
     [expectThat([tableItems count]) should:be(3)];
     
     TTTableImageItem* item = [tableItems objectAtIndex:0];
@@ -216,22 +225,76 @@
 
 - (void)itShouldCreateASearchBarIfRequired {
     GTIOBrowseList* list = [[GTIOBrowseList new] autorelease];
-    [expectThat(list.searchBar) should:be(nil)];
+    GTIOBrowseListPresenter* presenter = [GTIOBrowseListPresenter presenterWithList:list];
+    
+    [expectThat(presenter.searchBar) should:be(nil)];
      
     list.includeSearch = [NSNumber numberWithBool:YES];
     list.searchText = @"Placeholder Text";
     
-    UISearchBar* searchBar = list.searchBar;
+    UISearchBar* searchBar = presenter.searchBar;
     [expectThat(searchBar) shouldNot:be(nil)];
     [expectThat(searchBar.placeholder) should:be(@"Placeholder Text")];
 }
 
-- (void)itShouldBeAbleToLoadMoreOutfits {
-    GTIOBrowseTableViewController* controller = TTOpenURL(@"gtio://browse");
-    GTIOPaginatedTTModel* model = controller.model;
-    [model cancel];
+- (void)itShouldTurnTheBrowseListIntoSectionedTableItemsForAListOfSections {
+    GTIOBrowseList* list = [[GTIOBrowseList new] autorelease];
+    GTIOOutfit* outfit1 = [[GTIOOutfit new] autorelease];
+    GTIOOutfit* outfit2 = [[GTIOOutfit new] autorelease];
+    GTIOOutfit* outfit3 = [[GTIOOutfit new] autorelease];
+    GTIOListSection* section1 = [[GTIOListSection new] autorelease];
+    section1.title = @"section 1";
+    section1.outfits = [NSArray arrayWithObjects:outfit1, nil];
+    GTIOListSection* section2 = [[GTIOListSection new] autorelease];
+    section2.title = @"section 2";
+    section2.outfits = [NSArray arrayWithObjects:outfit2, outfit3, nil];
+    list.sections = [NSArray arrayWithObjects:
+                     section1,
+                     section2,
+                     nil];
+    GTIOBrowseListPresenter* presenter = [GTIOBrowseListPresenter presenterWithList:list];
     
-    [_app wait:10];
+    NSArray* expectedNames = [NSArray arrayWithObjects:@"section 1", @"section 2", nil];
+    [expectThat(presenter.sectionNames) should:be(expectedNames)];
+    NSArray* items = presenter.tableItems;
+    [expectThat([items count]) should:be(2)];
+    [expectThat([[items objectAtIndex:0] count]) should:be(1)];
+    [expectThat([[items objectAtIndex:1] count]) should:be(2)];
+}
+
+- (void)itShouldReturnTheTabsAndTabNamesForSortTabsAndRegularTabs {
+    {
+        GTIOBrowseList* list = [[GTIOBrowseList new] autorelease];
+        GTIOSortTab* tab1 = [[GTIOSortTab new] autorelease];
+        tab1.sortText = @"tab1";
+        GTIOSortTab* tab2 = [[GTIOSortTab new] autorelease];
+        tab2.sortText = @"tab2";
+        list.sortTabs = [NSArray arrayWithObjects:tab1, tab2, nil];
+        GTIOBrowseListPresenter* presenter = [GTIOBrowseListPresenter presenterWithList:list];
+        NSArray* expectedNames = [NSArray arrayWithObjects:@"tab1", @"tab2", nil];
+        [expectThat(presenter.tabNames) should:be(expectedNames)];
+    }
+    {
+        GTIOBrowseList* list = [[GTIOBrowseList new] autorelease];
+        GTIOSortTab* tab1 = [[GTIOSortTab new] autorelease];
+        tab1.title = @"tab1";
+        GTIOSortTab* tab2 = [[GTIOSortTab new] autorelease];
+        tab2.title = @"tab2";
+        list.tabs = [NSArray arrayWithObjects:tab1, tab2, nil];
+        GTIOBrowseListPresenter* presenter = [GTIOBrowseListPresenter presenterWithList:list];
+        NSArray* expectedNames = [NSArray arrayWithObjects:@"tab1", @"tab2", nil];
+        [expectThat(presenter.tabNames) should:be(expectedNames)];
+    }
+}
+
+- (void)itShouldBeAbleToLoadMoreOutfits {
+//    UIQuery* app = [UIQuery withApplication];
+//    [[GTIOUser currentUser] setLoggedIn:YES];
+//    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+//    GTIOBrowseTableViewController* controller = TTOpenURL(@"gtio://browse");
+//    [app wait:1];
+//    NSLog(@"Top View Controller: %@", [TTNavigator navigator].topViewController);
+//    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:10]];
 }
 
 - (void)itShouldBeAbleToLoadMoreMyLooks {
@@ -239,10 +302,6 @@
 }
 
 - (void)itShouldBeAbleToLoadMoreReviews {
-    
-}
-
-- (void)itShouldTurnTheBrowseListIntoSectionedTableItemsForAListOfSections {
     
 }
 
