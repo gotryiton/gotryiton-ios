@@ -150,7 +150,11 @@
 	} else if (specName) {
 		NSLog(@"[UISpecRunner] Running Spec classes inheriting from %s", specName);
 		Class class = NSClassFromString([NSString stringWithUTF8String:specName]);
-		[UISpec runSpecsInheritingFromClass:class afterDelay:seconds];
+        if (class) {
+            [UISpec runSpecsInheritingFromClass:class afterDelay:seconds];
+        } else {
+            [NSException raise:@"No Class Found" format:@"Class not found: '%@'", [NSString stringWithUTF8String:specName]];
+        }
 	} else {
 		[UISpec runSpecsAfterDelay:seconds];
 	}

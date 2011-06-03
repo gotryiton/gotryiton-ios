@@ -22,4 +22,7 @@
 /// Large Category Icon URL
 @property (nonatomic, retain) NSString* iconLargeURL;
 
+// API Endpoint, escaped by replacing / with .
+@property (nonatomic, readonly) NSString* escapedAPIEndpoint;
+
 @end

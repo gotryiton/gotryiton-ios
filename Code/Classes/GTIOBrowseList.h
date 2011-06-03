@@ -53,4 +53,18 @@
 /// collection of myLooks
 @property (nonatomic, retain) NSArray* myLooks;
 
+// A Collection of TTTableItems representing this list.
+// May be an array of arrays if they are in sections.
+@property (nonatomic, readonly) NSArray* tableItems;
+- (NSArray*)tableItemsWithSearchText:(NSString*)searchText;
+
+// A Search bar for use as the tableHeaderView of a table
+// or nil if search is not enabled on thsi list.
+@property (nonatomic, readonly) UISearchBar* searchBar;
+
+// Methods for grouped category lists.
+@property (nonatomic, readonly) NSArray* alphabeticalListKeys;
+@property (nonatomic, readonly) NSDictionary* tableItemsGroupedAlphabetically;
+- (NSDictionary*)tableItemsGroupedAlphabeticallyWithFilterText:(NSString*)text;
+
 @end

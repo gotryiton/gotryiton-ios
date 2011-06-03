@@ -24,4 +24,8 @@
     [super dealloc];
 }
 
+- (NSString*)escapedAPIEndpoint {
+    return [_apiEndpoint stringByReplacingOccurrencesOfString:@"/" withString:@"."];
+}
+
 @end

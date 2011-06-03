@@ -45,7 +45,7 @@
 }
 
 - (BOOL)hasMoreToLoad {
-    if (_list.outfits == nil) {
+    if (_list.outfits == nil && _list.myLooks == nil && _list.reviews == nil) {
         return NO;
     }
     return _hasMoreToLoad;

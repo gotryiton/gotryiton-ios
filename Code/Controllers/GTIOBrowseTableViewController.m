@@ -181,21 +181,12 @@
     self.dataSource = temporaryDataSource;
 }
 
-- (void)fail {
-    [self.model performSelector:@selector(didFailLoadWithError:) withObject:[NSError errorWithDomain:@"GTIO Error" code:0 userInfo:nil]];
-}
-
-- (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
-    [self fail];
-}
-- (void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader*)objectLoader {
-    [self fail];
-}
-
 - (void)didLoadMore {
     NSLog(@"DidLoadMore");
     GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
+    
+    NSAssert(model.list.outfits || model.list.myLooks, @"Only know how to paginate lists of outfits currently.");
     
     [self.tableView beginUpdates];
     NSMutableArray* items = [[model.objects mutableCopy] autorelease];
@@ -253,155 +244,63 @@
     }
 }
 
-- (void)setupDataSourceForOutfits:(NSArray*)outfits {
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
-    
-    NSMutableArray* items = [NSMutableArray array];
-    for (GTIOOutfit* outfit in outfits) {
-        GTIOOutfitTableViewItem* item = [GTIOOutfitTableViewItem itemWithOutfit:outfit];
-        [items addObject:item];
+- (void)setupDataSourceForAlphabeticalCategoriesWithList:(GTIOBrowseList*)list andSearchText:(NSString*)text {
+    GTIOSectionedDataSourceWithIndexSidebar* ds = (GTIOSectionedDataSourceWithIndexSidebar*)[GTIOSectionedDataSourceWithIndexSidebar dataSourceWithItems:[NSMutableArray array] sections:[NSMutableArray array]];
+    NSArray* sections = list.alphabeticalListKeys;
+    NSDictionary* dict = [list tableItemsGroupedAlphabeticallyWithFilterText:text];
+    for (NSString* key in sections) {
+        NSMutableArray* obj = [dict objectForKey:key];
+        if (obj) {
+            [ds.sections addObject:key];
+            [ds.items addObject:obj];
+        }
     }
-    TTListDataSource* ds = [GTIOBrowseListDataSource dataSourceWithItems:items];
     ds.model = self.model;
     self.dataSource = ds;
 }
 
-- (void)setupDataSourceForReviews:(NSArray*)reviews {
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
-    
-    NSMutableArray* items = [NSMutableArray array];
-    for (GTIOReview* review in reviews) {
-        // Note: This allows us to use the old GTIOUserReviewTableItem... may want to refactor to make it more straight forward.
-        GTIOOutfit* outfit = review.outfit;
-        outfit.userReview = review.text;
-        outfit.timestamp = review.timestamp;
-        GTIOUserReviewTableItem* item = [GTIOUserReviewTableItem itemWithOutfit:outfit];
-        [items addObject:item];
+- (void)setupDataSourceWithList:(GTIOBrowseList*)list items:(NSMutableArray*)items {
+    if (list.subtitle) {
+        TTSectionedDataSource* ds = [GTIOBrowseSectionedDataSource dataSourceWithArrays:list.subtitle, items, nil];
+        ds.model = self.model;
+        self.dataSource = ds;
+    } else {
+        TTListDataSource* ds = [GTIOBrowseListDataSource dataSourceWithItems:items];
+        ds.model = self.model;
+        self.dataSource = ds;
     }
-    TTListDataSource* ds = [GTIOBrowseListDataSource dataSourceWithItems:items];
-    ds.model = self.model;
-    self.dataSource = ds;
 }
 
 - (void)loadedList:(GTIOBrowseList*)list {
-    // TODO: simplify/refactor this.
     if (list) {
         self.title = list.title;
-        // Search
-        if ([list.includeSearch boolValue]) {
-            if (nil == _searchBar) {
-                // create search bar
-                _searchBar = [[UISearchBar alloc] init];
-                _searchBar.tintColor = RGBCOLOR(212,212,212);
-                [_searchBar sizeToFit];
-                _searchBar.delegate = self;
-            }
-            _searchBar.placeholder = list.searchText;
-            
-            // TODO: figure out if this will get us rejected and if we need to do something else to make this look right.
-            if ([list.includeAlphaNav boolValue]) {
-                [(UIScrollView*)_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 35)];
-            } else {
-                [(UIScrollView*)_searchBar setContentInset:UIEdgeInsetsMake(5, 0, 5, 0)];
-            }
+        
+        if (nil == _searchBar) {
+            _searchBar = [list.searchBar retain];
+            _searchBar.delegate = self;
             self.tableView.tableHeaderView = _searchBar;
-        } else {
-            self.tableView.tableHeaderView = nil;
         }
+        
+        [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
+        
+        // TODO: this should be refactored into the list model.
+        [self setupTabs:list.sortTabs];
         
         if (list.categories) {
             self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-            // Load a category or subcategory list!
-            NSMutableArray* categories = [NSMutableArray array];
-            if (_searchBar.text && [_searchBar.text length] > 0) {
-                for (GTIOCategory* category in list.categories) {
-                    if ([[category.name uppercaseString] rangeOfString:[_searchBar.text uppercaseString]].length > 0) {
-                        [categories addObject:category];
-                    }
-                }
-            } else {
-                categories = [[list.categories mutableCopy] autorelease];
-            }
-            
-            // Setup Table View
             if ([list.includeAlphaNav boolValue]) {
-                NSArray* sections = [@"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,#" componentsSeparatedByString:@","];
-                NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-                for (GTIOCategory* category in categories) {
-                    NSString* upcasedFirstCharacterOfName = [[category.name substringWithRange:NSMakeRange(0, 1)] uppercaseString];
-                    if ([sections indexOfObject:upcasedFirstCharacterOfName] == NSNotFound) {
-                        upcasedFirstCharacterOfName = @"#";
-                    }
-                    NSMutableArray* items = [dict objectForKey:upcasedFirstCharacterOfName];
-                    if (nil == items) {
-                        items = [NSMutableArray array];
-                        [dict setObject:items forKey:upcasedFirstCharacterOfName];
-                    }
-                    NSString* url = [NSString stringWithFormat:@"gtio://browse/%@", [category.apiEndpoint stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
-                    TTTableTextItem* item = [TTTableImageItem itemWithText:category.name imageURL:category.iconSmallURL URL:url];
-                    [items addObject:item];
-                }
-                GTIOSectionedDataSourceWithIndexSidebar* ds;
-                if ([self.dataSource isKindOfClass:[GTIOSectionedDataSourceWithIndexSidebar class]]) {
-                    ds = self.dataSource;
-                    [ds.items removeAllObjects];
-                    [ds.sections removeAllObjects];
-                } else {
-                    ds = (GTIOSectionedDataSourceWithIndexSidebar*)[GTIOSectionedDataSourceWithIndexSidebar dataSourceWithItems:[NSMutableArray array] sections:[NSMutableArray array]];
-                }
-                for (NSString* key in sections) {
-                    NSMutableArray* obj = [dict objectForKey:key];
-                    NSLog(@"OBJ: %@", obj);
-                    if (obj) {
-                        [ds.sections addObject:key];
-                        [ds.items addObject:obj];
-                    }
-                }
-                ds.model = self.model;
-                self.dataSource = ds;
-            } else {
-                NSMutableArray* items = [NSMutableArray array];
-                for (GTIOCategory* category in categories) {
-                    NSString* url = [NSString stringWithFormat:@"gtio://browse/%@", [category.apiEndpoint stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
-                    NSLog(@"URL: %@", url);
-                    TTTableTextItem* item = [TTTableImageItem itemWithText:category.name imageURL:category.iconSmallURL URL:url];
-                    [items addObject:item];
-                }
-                
-                // TODO: show search bar if used. 
-                
-                if (list.subtitle) {
-                    TTSectionedDataSource* ds = [GTIOBrowseSectionedDataSource dataSourceWithArrays:list.subtitle, items, nil];
-                    ds.model = self.model;
-                    self.dataSource = ds;
-                } else {
-                    TTListDataSource* ds = [GTIOBrowseListDataSource dataSourceWithItems:items];
-                    ds.model = self.model;
-                    self.dataSource = ds;
-                }
+                _topShadowImageView.frame = CGRectZero;
+                // Uses alphabetical indexes along the sidebar
+                [self setupDataSourceForAlphabeticalCategoriesWithList:list andSearchText:_searchBar.text];
+                return;
             }
-            _topShadowImageView.frame = CGRectZero;
-        } else if (list.outfits) {
-            [self setupTabs:list.sortTabs];
-            [self setupDataSourceForOutfits:list.outfits];
-        } else if (list.myLooks) {
-            [self setupTabs:list.sortTabs];
-            // TODO: these should use a different type of cell!
-            [self setupDataSourceForOutfits:list.myLooks];
-        }else if (list.reviews) {
-            [self setupTabs:list.sortTabs];
-            [self setupDataSourceForReviews:list.reviews];
-        } else {
-            TTListDataSource* ds = [GTIOBrowseListDataSource dataSourceWithItems:[NSMutableArray array]];
-            ds.model = self.model;
-            self.dataSource = ds;
         }
+        NSMutableArray* items = [[list.tableItems mutableCopy] autorelease];
+        [self setupDataSourceWithList:list items:items];
     } else {
         // no list was loaded. hrm...
-        [self fail];
+        [self.model performSelector:@selector(didFailLoadWithError:) withObject:[NSError errorWithDomain:@"GTIO Error" code:0 userInfo:nil]];
     }
 }
 
@@ -414,10 +313,13 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    // Note: This means that if the view is unloaded because we run out of memory,
-    // when it is recreated, we are called back with didLoadModel:YES instead of NO
-    // since we didn't really load more.
-    _flags.isModelDidLoadFirstTimeInvalid = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    // When we reappear, we are called back with didLoadModel:YES instead of NO
+    // since we didn't really load more. This causes us to think this is the 'firstTime', and call didLoadModel:YES
+    _flags.isModelDidLoadFirstTimeInvalid = 1;
 }
 
 - (void)didLoadModel:(BOOL)firstTime {
@@ -431,7 +333,6 @@
 }
 
 - (void)tabBar:(GTIOTabBar*)tabBar selectedTabAtIndex:(NSUInteger)index {
-    GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     GTIOSortTab* tab = [_sortTabs objectAtIndex:index];
     if (tab) {
         [_apiEndpoint release];
@@ -443,11 +344,12 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     if (nil == model.list.searchAPI) {
+        // Recreates the data source. Search bar is not recreated, and the data source is filtered.
+        // calling didStartLoad first ensures that 'firstTime' is true.
         [model didStartLoad];
         [model didFinishLoad];
-        // TODO: figure out how to perform local search
     }
-}
+} 
 
 - (void)didSelectObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
     if ([object isKindOfClass:[GTIOUserReviewTableItem class]] ||

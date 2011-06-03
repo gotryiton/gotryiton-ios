@@ -179,10 +179,15 @@
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
 	[super scrollViewDidScroll:scrollView];
 	
-	if ((scrollView.contentOffset.y + scrollView.bounds.size.height >= scrollView.contentSize.height) && 
-		scrollView.contentSize.height > scrollView.bounds.size.height &&
+    float totalheight = scrollView.contentOffset.y + scrollView.bounds.size.height;
+    float height = scrollView.contentSize.height;
+    GTIOPaginatedTTModel* model = (GTIOPaginatedTTModel*)_controller.model;
+    BOOL hasMoreToLoad = (BOOL)[model hasMoreToLoad];
+    NSLog(@"%f >= %f (loading: %d, hasMore: %d)", totalheight, height, _loading, hasMoreToLoad);
+	if ((totalheight >= height) && 
+//		scrollView.contentSize.height > scrollView.bounds.size.height &&
 		!_loading &&
-		(BOOL)[(GTIOPaginatedTTModel*)_controller.model hasMoreToLoad]) {
+		hasMoreToLoad) {
 		_loading = YES;
 		[self performSelector:@selector(loadMore) withObject:nil afterDelay:0.0];
 	}
