@@ -120,14 +120,14 @@
     return [NSMutableArray array];
 }
 
-- (NSArray*)tableItemsWithSearchText:(NSString*)searchText {
+- (NSMutableArray*)tableItemsWithSearchText:(NSString*)searchText {
     NSLog(@"Searching For Text: %@", searchText);
     if (_list.categories) {
         NSMutableArray* matchingCategories = [_list categoriesFilteredWithText:searchText];
         return [self tableItemsForCategories:matchingCategories];
     }
     NSAssert(NO, @"Don't know how to search anything but categories currently");
-    return [NSArray array];
+    return [NSMutableArray array];
 }
 
 - (UISearchBar*)searchBar {

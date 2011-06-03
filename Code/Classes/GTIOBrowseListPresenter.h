@@ -20,7 +20,7 @@
 // A Collection of TTTableItems representing this list.
 // May be an array of arrays if they are in sections.
 @property (nonatomic, readonly) NSMutableArray* tableItems;
-- (NSArray*)tableItemsWithSearchText:(NSString*)searchText;
+- (NSMutableArray*)tableItemsWithSearchText:(NSString*)searchText;
 @property (nonatomic, readonly) NSMutableArray* sectionNames;
 
 // A Search bar for use as the tableHeaderView of a table
@@ -32,7 +32,7 @@
 @property (nonatomic, readonly) NSDictionary* tableItemsGroupedAlphabetically;
 - (NSDictionary*)tableItemsGroupedAlphabeticallyWithFilterText:(NSString*)text;
 
-- (NSArray*)tableItemsForOutfits:(NSArray*)outfits;
+- (NSMutableArray*)tableItemsForOutfits:(NSArray*)outfits;
 - (NSMutableArray*)tableItemsForReviews:(NSArray*)reviews;
 
 // TODO: test these.

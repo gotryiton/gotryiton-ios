@@ -10,6 +10,5 @@
 
 
 @interface TTTableControlCell (Additions)
-/// ???
-+ (BOOL)shouldSizeControlToFit:(UIControl*)control;
+
 @end

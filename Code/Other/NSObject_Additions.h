@@ -14,3 +14,9 @@
 - (id)jsonEncode;
 
 @end
+
+@interface NSString (JSONDecode)
+
+- (id)jsonDecode;
+
+@end

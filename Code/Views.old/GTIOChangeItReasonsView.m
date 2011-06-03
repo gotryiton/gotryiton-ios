@@ -103,6 +103,11 @@
 	}
 }
 
+// Accessor for the global change it reasons
+- (NSArray*)changeItReasons {
+	return [GTIOGlobalVariableStore sharedStore].changeItReasons;
+}
+
 /// Accessor for the current selected reasons
 - (NSArray*)selectedChangeItReasons {
 	NSMutableArray* reasons = [NSMutableArray array];
@@ -115,11 +120,6 @@
 		}
 	}
 	return reasons;
-}
-
-// Accessor for the global change it reasons
-- (NSArray*)changeItReasons {
-	return [GTIOGlobalVariableStore sharedStore].changeItReasons;
 }
 
 // Button action that toggles the corresponding reason

@@ -29,6 +29,7 @@ static NSString * const iconNamesSocial[11] = { @"icon_%@_30x30.png",
 
 - (id)initWithName:(NSString*)name andDictionary:(NSDictionary*)dictionary;
 - (void)checkForIcons:(NSString**)a forProvider:(id)b;
+- (void)downloadAnyIcons:(id)iconsStillNeeded;
 
 @end
 

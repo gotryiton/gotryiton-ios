@@ -7,6 +7,7 @@
 //
 
 #import "GTIOOpinionRequest.h"
+#import "GTIOOutfit.h"
 
 @protocol GTIOOpinionRequestSubmissionDelegate;
 
@@ -72,7 +73,7 @@
 /**
  * Sent to the delegate when the opinion request was processed successfully by GTIO
  */
-- (void)submissionDidSucceed:(GTIOOpinionRequestSubmission*)submission;
+- (void)submissionDidSucceed:(GTIOOpinionRequestSubmission*)submission withOutfit:(GTIOOutfit*)outfit;
 
 /**
  * Sent to the delegate when the opinion request failed submission

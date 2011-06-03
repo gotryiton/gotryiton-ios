@@ -11,6 +11,12 @@
 
 static const CGFloat kControlPadding = 8;
 
+@interface TTTableControlCell (Private)
+
++ (BOOL)shouldSizeControlToFit:(UIControl*)control;
+
+@end
+
 @implementation TTTableControlCell (Additions)
 /// returns no to fix the alignment of text controlls in grouped tables. 
 + (BOOL)shouldRespectControlPadding:(UIView*)view {

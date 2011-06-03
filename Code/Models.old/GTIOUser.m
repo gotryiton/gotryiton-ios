@@ -37,6 +37,12 @@ NSString* const kGTIOToDoBadgeUpdatedNotificationName = @"kGTIOToDoBadgeUpdatedN
 // Global current User instance
 static GTIOUser* gCurrentUser = nil;
 
+@interface GTIOUser (Private)
+
+- (void)clearToken;
+
+@end
+
 @implementation GTIOUser
 
 @synthesize iphonePush = _iphonePush;

@@ -287,6 +287,7 @@
     }
 }
 
+// TODO: figure out how to test pagination
 - (void)itShouldBeAbleToLoadMoreOutfits {
 //    UIQuery* app = [UIQuery withApplication];
 //    [[GTIOUser currentUser] setLoggedIn:YES];
@@ -294,7 +295,6 @@
 //    GTIOBrowseTableViewController* controller = TTOpenURL(@"gtio://browse");
 //    [app wait:1];
 //    NSLog(@"Top View Controller: %@", [TTNavigator navigator].topViewController);
-//    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:10]];
 }
 
 - (void)itShouldBeAbleToLoadMoreMyLooks {

@@ -15,6 +15,10 @@
     return [parser stringFromObject:self error:nil];
 }
 
+@end
+
+@implementation NSString (JSONDecode)
+
 - (id)jsonDecode {
     id<RKParser> parser = [[NSClassFromString(@"RKParserRegistry") sharedRegistry] parserForMIMEType:@"application/json"];
     return [parser objectFromString:self error:nil];
