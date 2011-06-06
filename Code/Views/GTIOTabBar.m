@@ -133,7 +133,7 @@
         tab.frame = CGRectMake(floor(rect.origin.x + width * i), rect.origin.y, floor(width), rect.size.height);
         CGRect titleLabelFrame = tab.titleLabel.frame;
         if (tab.titleLabel.text) {
-            tab.titleEdgeInsets = UIEdgeInsetsMake(0,6,0,tab.frame.size.width - titleLabelFrame.size.width - 12);// - 12
+            tab.titleEdgeInsets = UIEdgeInsetsMake(0,6,2,tab.frame.size.width - titleLabelFrame.size.width - 12);// - 12
         }
     }
     _subtitleLabel.frame = CGRectZero;
@@ -191,7 +191,7 @@
     for (NSString* name in _tabNames) {
         // create tabs.
         GTIOTab* tab = [[[GTIOTab alloc] initWithFrame:CGRectZero] autorelease];
-        [tab setTitle:name forState:UIControlStateNormal];
+        [tab setTitle:[name uppercaseString] forState:UIControlStateNormal];
         [tab addTarget:self action:@selector(tabPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_tabs addObject:tab];
         // Round correct corners.

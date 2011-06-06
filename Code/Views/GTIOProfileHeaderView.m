@@ -89,7 +89,7 @@
         _shouldAllowEditing = YES;
         [_editProfileButton setImage:[UIImage imageNamed:@"edit-OFF.png"] forState:UIControlStateNormal];
         [_editProfileButton setImage:[UIImage imageNamed:@"edit-ON.png"] forState:UIControlStateHighlighted];
-        [_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5,35,20)];
+        [_editProfileButton setFrame:CGRectMake(320-45,45,35,20)];
     } else {
         _shouldAllowEditing = NO;
         [_connectionImageView setHidden:NO];
@@ -100,17 +100,17 @@
             // edit
             [_editProfileButton setImage:[UIImage imageNamed:@"edit-OFF.png"] forState:UIControlStateNormal];
             [_editProfileButton setImage:[UIImage imageNamed:@"edit-ON.png"] forState:UIControlStateHighlighted];
-            [_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5,34,20)];
+            [_editProfileButton setFrame:CGRectMake(320-45,45,35,20)];
         } else if (relationship.isMyStylist && !relationship.isMyStylistIgnored) {
             // Remove
             [_editProfileButton setImage:[UIImage imageNamed:@"remove-OFF.png"] forState:UIControlStateNormal];
             [_editProfileButton setImage:[UIImage imageNamed:@"remove-ON.png"] forState:UIControlStateHighlighted];
-            [_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5-10,55,30)];
+            [_editProfileButton setFrame:CGRectMake(320-65,45,55,20)];
         } else {
             // add
             [_editProfileButton setImage:[UIImage imageNamed:@"add-OFF.png"] forState:UIControlStateNormal];
             [_editProfileButton setImage:[UIImage imageNamed:@"add-ON.png"] forState:UIControlStateHighlighted];
-            [_editProfileButton setFrame:CGRectMake(320-35-7.5,70-20-5,34,20)];
+            [_editProfileButton setFrame:CGRectMake(320-45,45,35,20)];
         }
         
     }
@@ -140,6 +140,8 @@
     }
 }
 
+// TODO: these should probably be model methods on GTIOUser. removeAsMyStylist:(GTIOProfile*) with a delegate pattern.
+
 - (void)removeAsMyStylist {
     _profile.stylistRelationship.isMyStylist = NO;
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/remove") delegate:self];
@@ -159,6 +161,42 @@
     [loader send];
 }
 
+- (void)acknowledgeStylist {
+    _profile.stylistRelationship.iStyleIgnored = NO;
+    NSString* path = [NSString stringWithFormat:@"/i-style/activate/%@", _profile.uid];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(path) delegate:self];
+    loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+    loader.method = RKRequestMethodPOST;
+    [loader send];
+}
+
+- (void)ignoreStylist {
+    _profile.stylistRelationship.iStyleIgnored = YES;
+    NSString* path = [NSString stringWithFormat:@"/i-style/ignore/%@", _profile.uid];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(path) delegate:self];
+    loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+    loader.method = RKRequestMethodPOST;
+    [loader send];
+}
+
+- (void)turnOffStylistAlerts {
+    _profile.stylistRequestAlertsEnabled = [NSNumber numberWithBool:NO];
+    NSString* path = [NSString stringWithFormat:@"/i-style/quiet/%@", _profile.uid];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(path) delegate:self];
+    loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+    loader.method = RKRequestMethodPOST;
+    [loader send];
+}
+
+- (void)turnOnStylistAlerts {
+    _profile.stylistRequestAlertsEnabled = [NSNumber numberWithBool:YES];
+    NSString* path = [NSString stringWithFormat:@"/i-style/loud/%@", _profile.uid];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(path) delegate:self];
+    loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+    loader.method = RKRequestMethodPOST;
+    [loader send];
+}
+
 - (void)presentActionSheetForRelationship:(GTIOStylistRelationship*)relationship {
     NSString* title = [NSString stringWithFormat:@"edit connection with %@:", _profile.firstName];
     TWTActionSheetDelegate* delegate = [TWTActionSheetDelegate actionSheetDelegate];
@@ -167,54 +205,32 @@
     NSString* button2Title;
     NSString* button3Title;
     
-    if (_profile.stylistRequestAlertsEnabled) {
+    if ([_profile.stylistRequestAlertsEnabled boolValue]) {
         button1Title = @"turn off alerts from them";
-//        [delegate setTarget:self selector:@selector(turnOffStylistAlerts) object:nil forButtonIndex:0];
+        [delegate setTarget:self selector:@selector(turnOffStylistAlerts) object:nil forButtonIndex:0];
     } else {
         button1Title = @"turn on alerts from them";
-//        [delegate setTarget:self selector:@selector(turnOnStylistAlerts) object:nil forButtonIndex:0];
+        [delegate setTarget:self selector:@selector(turnOnStylistAlerts) object:nil forButtonIndex:0];
     }
     
     if (relationship.iStyleIgnored) {
         button2Title = @"acknowledge their outfits";
-        // todo: action
+        [delegate setTarget:self selector:@selector(acknowledgeStylist) object:nil forButtonIndex:1];
     } else {
         button2Title = @"ignore their outfits";
-        // todo: action
+        [delegate setTarget:self selector:@selector(ignoreStylist) object:nil forButtonIndex:1];
     }
     
     if (relationship.isMyStylist) {
         button3Title = @"remove as my stylist";
-        // todo: action
+        [delegate setTarget:self selector:@selector(removeAsMyStylist) object:nil forButtonIndex:2];
     } else {
         button3Title = @"add as my stylist";
-        // todo: action
+        [delegate setTarget:self selector:@selector(addAsMyStylist) object:nil forButtonIndex:2];
     }
     
     UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:delegate cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:button1Title, button2Title, button3Title, nil];
     [actionSheet showInView:[TTNavigator navigator].window];
-    
-    // _profile.stylistRequestAlertsEnabled // determines if push alerts are on or off
-    
-    // Possible States:
-    // I Style Them, They do not style me
-    // I Style Them, They Style Me
-    // I Ignore them, they do not style me
-    // I Ignore them, they style me
-    
-    // alerts on/off toggles as well.
-    
-    // button 0:
-    // Toggle alerts
-    // button 1:
-    // toggle ignored
-    // button 2:
-    // make/remove as my stylist.
-    // button 3:
-    // cancel
-    
-    
-    // present action sheet that is dependant about our relationship. allow user to edit our relationship accordingly.
 }
 
 - (void)editButtonAction {
@@ -223,7 +239,7 @@
         TTOpenURL(@"gtio://profile/edit");
     } else {
         GTIOStylistRelationship* relationship = _profile.stylistRelationship;
-        if (relationship.iStyle && !relationship.iStyleIgnored) {
+        if (relationship.iStyle) {
             [self presentActionSheetForRelationship:relationship];
         } else if (relationship.isMyStylist && !relationship.isMyStylistIgnored) {
             [self removeAsMyStylist];
