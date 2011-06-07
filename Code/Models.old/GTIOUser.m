@@ -9,7 +9,6 @@
 #import "GTIOUser.h"
 #import "JSON.h"
 #import "TTURLJSONResponse.h"
-#import "GTIOTitleView.h"
 #import "GTIOAnalyticsTracker.h"
 #import "GTIOJanrainAuthenticationController.h"
 #import "NSObject_Additions.h"

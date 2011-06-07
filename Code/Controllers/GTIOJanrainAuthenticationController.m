@@ -8,7 +8,7 @@
 
 #import "GTIOJanrainAuthenticationController.h"
 #import "GTIOUser.h"
-#import "GTIOTitleView.h"
+#import "GTIOHeaderView.h"
 #import "JREngage+CustomInterface.h"
 #import "GTIOSignInTermsView.h"
 @implementation GTIOJanrainAuthenticationController
@@ -21,16 +21,20 @@
 	JREngage* engage = [JREngage jrEngageWithAppId:kGTIOJanRainEngageApplicationID
 																		 andTokenUrl:[url absoluteString]
 																				delegate:[GTIOUser currentUser]];
-	GTIOTitleView* titleView = [GTIOTitleView title:@"SIGN IN"];
+	GTIOHeaderView* titleView = [GTIOHeaderView viewWithText:@"SIGN IN"];
 	UIImageView* backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"full-wallpaper.png"]];
-	UILabel* header = [[UILabel new] autorelease];
+    UIView* header = [[UIView new] autorelease];
 	[header setFrame:CGRectMake(0,0,320,40)];
-	[header setTextAlignment:UITextAlignmentCenter];
-	[header setText:@"returning? use your existing account."];
-    [header setBackgroundColor:[UIColor clearColor]];
-	[header setFont:[UIFont boldSystemFontOfSize:12]];
-	[header setTextColor:[UIColor colorWithRed:0.506 green:0.506 blue:0.506 alpha:1]];
-	
+    
+    UILabel* headerLabel = [[UILabel new] autorelease];
+	[headerLabel setTextAlignment:UITextAlignmentCenter];
+	[headerLabel setText:@"returning? use your existing account."];
+    [headerLabel setBackgroundColor:[UIColor clearColor]];
+	[headerLabel setFont:[UIFont boldSystemFontOfSize:12]];
+	[headerLabel setTextColor:[UIColor colorWithRed:0.506 green:0.506 blue:0.506 alpha:1]];
+	headerLabel.frame = CGRectMake(0,10,320,30);
+    [header addSubview:headerLabel];
+    
 	UIView* terms = [[UIView alloc] initWithFrame:CGRectMake(0,0,320,50)];
 	[terms setBackgroundColor:[UIColor clearColor]];
 	[terms addSubview:[GTIOSignInTermsView termsView]];

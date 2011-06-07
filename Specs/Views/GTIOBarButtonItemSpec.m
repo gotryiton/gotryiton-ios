@@ -9,7 +9,6 @@
 #import "GTIOBarButtonItem.h"
 #import "UISpec.h"
 #import "UIExpectation.h"
-#import "GTIOTitleView.h"
 
 @interface GTIOBarButtonItemSpec : NSObject <UISpec> {}
 @end

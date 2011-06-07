@@ -9,7 +9,7 @@
 #import "GTIOLoginViewController.h"
 #import "GTIOBarButtonItem.h"
 #import "GTIOSignInTermsView.h"
-#import "GTIOTitleView.h"
+#import "GTIOHeaderView.h"
 
 @implementation GTIOLoginViewController
 
@@ -66,17 +66,8 @@
 	[super viewDidLoad];
 	GTIOBarButtonItem* cancelButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(dismiss)] autorelease];
 	[[self navigationItem] setLeftBarButtonItem:cancelButton];
-	
-	UILabel* titleLabel = [[UILabel new] autorelease];
-	[titleLabel setText:@"SIGN IN"];
-	[titleLabel setBackgroundColor:[UIColor clearColor]];
-	[titleLabel setTextAlignment:UITextAlignmentCenter];
-	[titleLabel setTextColor:[UIColor whiteColor]];
-	[titleLabel setFrame:CGRectMake(0,0,85,30)];
-	[titleLabel setFont:[UIFont fontWithName:@"Fette Engschrift" size:25]];
-	[titleLabel setShadowOffset:CGSizeMake(0, -1)];
-	[titleLabel setShadowColor:[UIColor colorWithRed:0.533 green:0.533 blue:0.533 alpha:1.0]];
-	self.navigationItem.titleView = [GTIOTitleView title:@"SIGN IN"];
+    
+    self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"SIGN IN"];
 	//[label setFrame:];
 	UIView* termsView = [GTIOSignInTermsView termsView];
 	[termsView setFrame:CGRectMake(20, self.view.frame.size.height-100, 280, 100)];

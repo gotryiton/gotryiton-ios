@@ -1150,7 +1150,6 @@
 		A70F09A21381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F09A11381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m */; };
 		A70F09A31381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F09A11381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m */; };
 		A70F09A41381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F09A11381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m */; };
-		A70F0E5413816085007B3C50 /* GTIOTitleViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F0E5313816085007B3C50 /* GTIOTitleViewSpec.m */; };
 		A70F0EB213818562007B3C50 /* GTIOBarButtonItemSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F0EB013817F0B007B3C50 /* GTIOBarButtonItemSpec.m */; };
 		A70F0EB513818A67007B3C50 /* GTIOProfileAboutMeViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F0EB313818A66007B3C50 /* GTIOProfileAboutMeViewSpec.m */; };
 		A70F0EB613818A67007B3C50 /* GTIOProfileHeaderViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F0EB413818A66007B3C50 /* GTIOProfileHeaderViewSpec.m */; };
@@ -1473,9 +1472,6 @@
 		A765B51213830EB300DD1610 /* container@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A765B50D13830EB300DD1610 /* container@2x.png */; };
 		A765B51313830EB300DD1610 /* container@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A765B50D13830EB300DD1610 /* container@2x.png */; };
 		A7AEF96C137C46840034DAEF /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */; };
-		A7B97375137B1FB2009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
-		A7B97376137B1FC1009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
-		A7B97377137B1FC1009531ED /* GTIOTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B97374137B1FB2009531ED /* GTIOTitleView.m */; };
 		A7C62931137C2CFB00F89D4F /* add-another-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627B5137C2CFA00F89D4F /* add-another-OFF.png */; };
 		A7C62932137C2CFB00F89D4F /* add-another-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627B5137C2CFA00F89D4F /* add-another-OFF.png */; };
 		A7C62933137C2CFB00F89D4F /* add-another-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627B5137C2CFA00F89D4F /* add-another-OFF.png */; };
@@ -3532,7 +3528,6 @@
 		3FFBE1D913855F4F000C5CB5 /* GTIOAddStylistsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAddStylistsViewController.m; sourceTree = "<group>"; };
 		A70F09A01381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOJanrainAuthenticationController.h; sourceTree = "<group>"; };
 		A70F09A11381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOJanrainAuthenticationController.m; sourceTree = "<group>"; };
-		A70F0E5313816085007B3C50 /* GTIOTitleViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOTitleViewSpec.m; path = Specs/Views/GTIOTitleViewSpec.m; sourceTree = "<group>"; };
 		A70F0EB013817F0B007B3C50 /* GTIOBarButtonItemSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOBarButtonItemSpec.m; path = Specs/Views/GTIOBarButtonItemSpec.m; sourceTree = "<group>"; };
 		A70F0EB313818A66007B3C50 /* GTIOProfileAboutMeViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOProfileAboutMeViewSpec.m; path = Specs/Views/GTIOProfileAboutMeViewSpec.m; sourceTree = "<group>"; };
 		A70F0EB413818A66007B3C50 /* GTIOProfileHeaderViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOProfileHeaderViewSpec.m; path = Specs/Views/GTIOProfileHeaderViewSpec.m; sourceTree = "<group>"; };
@@ -3685,8 +3680,6 @@
 		A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileHeaderView.m; sourceTree = "<group>"; };
 		A7B8CF2B137D6E9900C0A857 /* GTIOProfileAboutMeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileAboutMeView.h; sourceTree = "<group>"; };
 		A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileAboutMeView.m; sourceTree = "<group>"; };
-		A7B97373137B1FB2009531ED /* GTIOTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTitleView.h; sourceTree = "<group>"; };
-		A7B97374137B1FB2009531ED /* GTIOTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTitleView.m; sourceTree = "<group>"; };
 		A7C627B5137C2CFA00F89D4F /* add-another-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-another-OFF.png"; sourceTree = "<group>"; };
 		A7C627B6137C2CFA00F89D4F /* add-another-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-another-OFF@2x.png"; sourceTree = "<group>"; };
 		A7C627B7137C2CFA00F89D4F /* add-another-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-another-ON.png"; sourceTree = "<group>"; };
@@ -4379,7 +4372,6 @@
 			isa = PBXGroup;
 			children = (
 				A70F0EB013817F0B007B3C50 /* GTIOBarButtonItemSpec.m */,
-				A70F0E5313816085007B3C50 /* GTIOTitleViewSpec.m */,
 				A70F0EB413818A66007B3C50 /* GTIOProfileHeaderViewSpec.m */,
 				A70F0EB313818A66007B3C50 /* GTIOProfileAboutMeViewSpec.m */,
 			);
@@ -5295,8 +5287,6 @@
 			children = (
 				A73397EA1379A90D00F41C2A /* GTIOBarButtonItem.h */,
 				A73397EB1379A90D00F41C2A /* GTIOBarButtonItem.m */,
-				A7B97373137B1FB2009531ED /* GTIOTitleView.h */,
-				A7B97374137B1FB2009531ED /* GTIOTitleView.m */,
 				A7AEF96A137C46840034DAEF /* GTIOProfileHeaderView.h */,
 				A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */,
 				3D163608138ECDFD0069C3E5 /* GTIOUserMiniProfileHeaderView.h */,
@@ -8622,7 +8612,6 @@
 				A73397EC1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 				A76208641379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD70137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
-				A7B97375137B1FB2009531ED /* GTIOTitleView.m in Sources */,
 				A7AEF96C137C46840034DAEF /* GTIOProfileHeaderView.m in Sources */,
 				3F82E872137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */,
 				3F82E877137D765E00F8FE1A /* GTIOBrowseList.m in Sources */,
@@ -8783,12 +8772,10 @@
 				A73397ED1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 				A76208651379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD71137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
-				A7B97376137B1FC1009531ED /* GTIOTitleView.m in Sources */,
 				3F82E878137D765E00F8FE1A /* GTIOBrowseList.m in Sources */,
 				3F82E87D137D828D00F8FE1A /* GTIOCategory.m in Sources */,
 				3F82E882137D9D7900F8FE1A /* GTIOBrowseListTTModel.m in Sources */,
 				3F56B13B137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */,
-				A70F0E5413816085007B3C50 /* GTIOTitleViewSpec.m in Sources */,
 				3FF11228138178690093764D /* GTIOProfileHeaderView.m in Sources */,
 				3FF11363138190300093764D /* GTIOBrowseTableViewControllerSpec.m in Sources */,
 				A70F0EB213818562007B3C50 /* GTIOBarButtonItemSpec.m in Sources */,
@@ -9003,7 +8990,6 @@
 				A73397EE1379A90D00F41C2A /* GTIOBarButtonItem.m in Sources */,
 				A76208661379D37700DFBD66 /* TTTAttributedLabel.m in Sources */,
 				A764DD72137B11FA00422C4D /* NSAttributedString+Attributes.m in Sources */,
-				A7B97377137B1FC1009531ED /* GTIOTitleView.m in Sources */,
 				3F82E874137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */,
 				3F82E879137D765E00F8FE1A /* GTIOBrowseList.m in Sources */,
 				3F82E87E137D828D00F8FE1A /* GTIOCategory.m in Sources */,

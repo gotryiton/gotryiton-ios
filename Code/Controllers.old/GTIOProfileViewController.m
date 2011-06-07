@@ -23,7 +23,7 @@
 #import "GTIOProfile.h"
 #import "GTIOOutfit.h"
 // Views
-#import "GTIOTitleView.h"
+#import "GTIOHeaderView.h"
 #import "GTIOBarButtonItem.h"
 
 @interface GTIOProfileViewController (Private)
@@ -78,7 +78,7 @@
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
 	// Set Navigation Bar Title
-	self.navigationItem.titleView = [GTIOTitleView title:(_isShowingCurrentUser ? @"MY PROFILE" : @"PROFILE")];
+	self.navigationItem.titleView = [GTIOHeaderView viewWithText:(_isShowingCurrentUser ? @"MY PROFILE" : @"PROFILE")];
 
 	// Create Header View.
 	_headerView = [[GTIOProfileHeaderView alloc] initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,70)];

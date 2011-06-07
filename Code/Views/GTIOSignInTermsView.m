@@ -8,10 +8,10 @@
 
 #import "GTIOSignInTermsView.h"
 
-static NSString* kGTIOTermsURL = @"http://m.gtio.com/terms";
-static NSString* kGTIOPrivacyURL = @"http://m.gtio.com/privacy";
-static NSString* kGTIOLegalURL = @"http://m.gtio.com/legal";
-static NSString* kGTIOStandardsURL = @"http://m.gtio.com/standards";
+static NSString* kGTIOTermsURL = @"http://gotryiton.com/terms";
+static NSString* kGTIOPrivacyURL = @"http://gotryiton.com/terms";
+static NSString* kGTIOLegalURL = @"http://gotryiton.com/terms";
+static NSString* kGTIOStandardsURL = @"http://gotryiton.com/community-standards";
 
 @interface TTTAttributedLabel (Private)
 - (NSTextCheckingResult*)linkAtPoint:(CGPoint)p;

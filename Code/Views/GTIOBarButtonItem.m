@@ -8,7 +8,6 @@
 
 #import "GTIOBarButtonItem.h"
 
-
 @implementation GTIOBarButtonItem
 
 - (id)initWithTitle:(NSString *)title target:(id)target action:(SEL)action {
@@ -98,7 +97,7 @@
                                      action:@selector(backButtonAction)
                                  backButton:YES] autorelease];
     } else {
-        return [[[self alloc] initWithTitle:@"Back"
+        return [[[self alloc] initWithTitle:@"back"
                                      target:self
                                      action:@selector(backButtonAction)
                                  backButton:YES] autorelease]; 
