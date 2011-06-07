@@ -216,7 +216,8 @@
 
 - (void)createModel {
 	NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/reviews/%@", _outfit.outfitID]);
-	RKRequestTTModel* model = [[[RKRequestTTModel alloc] initWithResourcePath:path] autorelease];
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
+	RKObjectLoaderTTModel* model = [RKObjectLoaderTTModel modelWithObjectLoader:objectLoader];
 	TTListDataSource* ds = [GTIOOutfitReviewsTableViewDataSource dataSourceWithObjects:nil];
 	ds.model = model;
 	self.dataSource = ds;
@@ -268,7 +269,7 @@
 //	NSLog(@"Objects: %@", [(RKRequestTTModel*)self.model objects]);
 	NSMutableArray* items = [NSMutableArray array];
 	
-	NSArray* reviews = [(RKRequestTTModel*)self.model objects];
+	NSArray* reviews = [(RKObjectLoaderTTModel*)self.model objects];
     
 	for (GTIOReview* review in reviews) {
 		[items addObject:[GTIOOutfitReviewTableItem itemWithReview:review]];

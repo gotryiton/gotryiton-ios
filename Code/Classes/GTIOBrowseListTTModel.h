@@ -11,7 +11,7 @@
 #import "GTIOBrowseList.h"
 
 
-@interface GTIOBrowseListTTModel : RKRequestTTModel {
+@interface GTIOBrowseListTTModel : RKObjectLoaderTTModel {
     GTIOBrowseList* _list;
     BOOL _hasMoreToLoad;
 }

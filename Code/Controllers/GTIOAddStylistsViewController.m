@@ -471,7 +471,12 @@
         apiEndpoint = GTIORestResourcePath(@"/stylists/recommended");
         params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
     }
-    RKRequestTTModel* model = [[[RKRequestTTModel alloc] initWithResourcePath:apiEndpoint params:params method:RKRequestMethodPOST] autorelease];
+    
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:apiEndpoint delegate:nil];
+    objectLoader.method = RKRequestMethodPOST;
+    objectLoader.params = params;
+    RKObjectLoaderTTModel* model = [RKObjectLoaderTTModel modelWithObjectLoader:objectLoader];
+    
     GTIOAddStylistsListDataSource* ds = (GTIOAddStylistsListDataSource*)[GTIOAddStylistsListDataSource dataSourceWithObjects:nil];
     ds.model = model;
     self.dataSource = ds;
@@ -482,8 +487,8 @@
     // if we are on the connections tab, check the isFacebookConnected on gtiouser.
     // TODO: 
     // use featuredText for "% helpful".
-    RKRequestTTModel* model = (RKRequestTTModel*)self.model;
-    if ([model isKindOfClass:[RKRequestTTModel class]]) {
+    RKObjectLoaderTTModel* model = (RKObjectLoaderTTModel*)self.model;
+    if ([model isKindOfClass:[RKObjectLoaderTTModel class]]) {
         GTIOBrowseList* list = [model.objects objectWithClass:[GTIOBrowseList class]];
         NSArray* sections = list.sections;
         NSLog(@"List: %@, sections: %@", list, sections);

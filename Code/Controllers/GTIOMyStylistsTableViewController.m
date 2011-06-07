@@ -277,9 +277,10 @@
 - (void)createModel {
 	NSMutableDictionary* params = [NSMutableDictionary dictionary];
 	
-    RKRequestTTModel* model = [[[RKRequestTTModel alloc] initWithResourcePath:GTIORestResourcePath(@"/stylists")
-                                                                                 params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
-                                                                                 method:RKRequestMethodPOST] autorelease];
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists") delegate:nil];
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    objectLoader.method = RKRequestMethodPOST;
+    RKObjectLoaderTTModel* model = [RKObjectLoaderTTModel modelWithObjectLoader:objectLoader];
     
     TTListDataSource* temporaryDataSource = [TTListDataSource dataSourceWithObjects:nil];
     temporaryDataSource.model = model;
@@ -291,7 +292,7 @@
 }
 
 - (void)didLoadModel:(BOOL)firstTime {
-    RKRequestTTModel* model = (RKRequestTTModel*)self.model;
+    RKObjectLoaderTTModel* model = (RKObjectLoaderTTModel*)self.model;
     
     GTIOBrowseList* list = [model.objects objectWithClass:[GTIOBrowseList class]];
     NSLog(@"List: %@", list);

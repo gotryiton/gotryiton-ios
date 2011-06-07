@@ -259,11 +259,12 @@
 			break;
 	}
 	
-	GTIOPaginatedTTModel* model = [[[GTIOPaginatedTTModel alloc] 
-				   initWithResourcePath:url
-				   params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
-				   method:RKRequestMethodPOST]
-				  autorelease];
+    
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:url delegate:nil];
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    objectLoader.method = RKRequestMethodPOST;
+    GTIOPaginatedTTModel* model = [GTIOPaginatedTTModel modelWithObjectLoader:objectLoader];
+    
 	NSString* outfitKey = nil;
 	switch (_state) {
 		case GTIOOpinionStateRecent:

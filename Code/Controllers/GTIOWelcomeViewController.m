@@ -34,9 +34,10 @@
 }
 
 - (void)createModel {
-    GTIOBrowseListTTModel* model = [[[GTIOBrowseListTTModel alloc] initWithResourcePath:GTIORestResourcePath(@"/welcome-outfits")
-                                                                                params:[GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]]
-                                                                                method:RKRequestMethodPOST] autorelease];
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/welcome-outfits") delegate:nil];
+    objectLoader.method = RKRequestMethodPOST;
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+    GTIOBrowseListTTModel* model = [GTIOBrowseListTTModel modelWithObjectLoader:objectLoader];
     self.model = model;
 }
 

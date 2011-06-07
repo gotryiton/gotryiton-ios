@@ -160,9 +160,11 @@
 	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithKeysAndObjects:nil];
 	
 	GTIOProfileViewDataSource* ds = (GTIOProfileViewDataSource*)[GTIOProfileViewDataSource dataSourceWithObjects:nil];
-	ds.model = [[GTIOMapGlobalsTTModel alloc] initWithResourcePath:path
-                                                            params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
-															method:RKRequestMethodGET];
+    
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
+    objectLoader.method = RKRequestMethodGET;
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    ds.model = [GTIOMapGlobalsTTModel modelWithObjectLoader:objectLoader];
 	self.dataSource = ds;
 }
 
@@ -175,9 +177,9 @@
 - (void)didLoadModel:(BOOL)firstTime {
 	[super didLoadModel:firstTime];
 	
-	if (([[GTIOUser currentUser] isLoggedIn] || !_isShowingCurrentUser) && [self.model isKindOfClass:[RKRequestTTModel class]]) {
+	if (([[GTIOUser currentUser] isLoggedIn] || !_isShowingCurrentUser) && [self.model isKindOfClass:[RKObjectLoaderTTModel class]]) {
 		GTIOProfile* profile = nil;
-		for (id object in [(RKRequestTTModel*)self.model objects]) {
+		for (id object in [(RKObjectLoaderTTModel*)self.model objects]) {
 			if ([object isKindOfClass:[GTIOProfile class]]) {
 				profile = object;
 				break;

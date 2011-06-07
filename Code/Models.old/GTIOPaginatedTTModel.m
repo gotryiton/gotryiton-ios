@@ -29,13 +29,14 @@
 		NSLog(@"Load Next Page");
 		NSLog(@"Last Object: %@", lastOutfit.timestamp);
 		
-		RKObjectLoader* objectLoader = [[[RKObjectManager sharedManager] objectLoaderWithResourcePath:_resourcePath delegate:self] retain];
-		objectLoader.method = self.method;
-//		objectLoader.objectClass = _objectClass;
-//		objectLoader.keyPath = _keyPath;
-		
-		NSMutableDictionary* paramsForNextPage = [[self.params mutableCopy] autorelease];
+		RKObjectLoader* objectLoader = [[[RKObjectManager sharedManager] objectLoaderWithResourcePath:_objectLoader.resourcePath delegate:self] retain];
+		objectLoader.method = _objectLoader.method;
+        
+		NSMutableDictionary* paramsForNextPage = [[_objectLoader.params mutableCopy] autorelease];
+        
+        // TODO: don't we want to set lasttime and count here?
 		[paramsForNextPage setObject:lastOutfit.timestamp forKey:@"lasttime"];
+        [paramsForNextPage setObject:[NSString stringWithFormat:@"%d", [self.objects count]] forKey:@"offset"];
 		objectLoader.params = paramsForNextPage;
 		
 		_isLoading = YES;

@@ -182,9 +182,12 @@
 - (void)createModel {
     NSString* path = GTIORestResourcePath(@"/i-style");
     NSDictionary* params = [NSDictionary dictionary];
-    GTIOBrowseListTTModel* model = [[[GTIOBrowseListTTModel alloc] initWithResourcePath:path
-                                                                                 params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
-                                                                                 method:RKRequestMethodPOST] autorelease];
+    
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
+    objectLoader.method = RKRequestMethodPOST;
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    GTIOBrowseListTTModel* model = [GTIOBrowseListTTModel modelWithObjectLoader:objectLoader];
+    
     TTListDataSource* temporaryDataSource = [TTListDataSource dataSourceWithObjects:nil];
     temporaryDataSource.model = model;
     self.dataSource = temporaryDataSource;

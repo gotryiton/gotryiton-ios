@@ -386,14 +386,14 @@ void uncaughtExceptionHandler(NSException *exception) {
 		NSURL* URL = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
 		if (NO == [[URL absoluteString] isEqualToString:@"gtio://external/launch"]) {
 			_launchURL = [URL retain];
-		}
+		} 
 	}
 	
 	// Bring the reachability observer online
 	[GTIOReachabilityObserver sharedObserver];
 	
 	// Register for Push Notifications
-	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
 	
     // Initialize RestKit
     [self setupRestKit];
@@ -542,7 +542,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSLog(@"Sucessfully registered for push notifications. Device Token = %@", deviceTokenString);
 	
 	// By doing this in the background, we prevent a crash in the event that the app launches with a partially logged in user.
-//	[user performSelector:@selector(resumeSession) withObject:nil afterDelay:1.0];
+	[user performSelector:@selector(resumeSession) withObject:nil afterDelay:1.0];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -551,7 +551,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	user.deviceToken = nil;
 	
 	// By doing this in the background, we prevent a crash in the event that the app launches with a partially logged in user.
-//	[user performSelector:@selector(resumeSession) withObject:nil afterDelay:1.0];
+	[user performSelector:@selector(resumeSession) withObject:nil afterDelay:1.0];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {	

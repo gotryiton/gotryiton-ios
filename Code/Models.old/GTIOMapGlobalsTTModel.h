@@ -10,7 +10,7 @@
 #import <RestKit/Three20/Three20.h>
 
 // TODO: this class goes away.
-@interface GTIOMapGlobalsTTModel : RKRequestTTModel {
+@interface GTIOMapGlobalsTTModel : RKObjectLoaderTTModel {
 
 }
 

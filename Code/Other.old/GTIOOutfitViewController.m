@@ -31,12 +31,15 @@
 		
         NSDictionary* params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
 		NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/outfit/%@?%@", outfitID, [params URLEncodedString]]);
-		self.model = [[[RKRequestTTModel alloc] initWithResourcePath:path] autorelease];
-        //917CD21
+        
+        RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
+		self.model = [RKObjectLoaderTTModel modelWithObjectLoader:objectLoader];
+        
 		_outfitIndex = 0;
 		_scrollViewDataSource = [[GTIOOutfitViewScrollDataSource alloc] init];
 		_scrollViewDataSource.model = _model;
         
+        //    TODO: WTF? why do we have a model and a loader?
 //		[_model load:TTURLRequestCachePolicyDefault more:NO];
         _loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:self];
         [_loader send];

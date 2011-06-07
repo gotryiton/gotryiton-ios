@@ -132,6 +132,7 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
                             user.alertStylistActivity, @"alertStylistActivity",
                             user.alertStylistAdd, @"alertStylistAdd",
                             user.alertNewsletter, @"alertNewsletter",
+                            user.deviceToken, @"deviceToken",
                             nil];
     
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/user") delegate:nil];

@@ -116,7 +116,7 @@
         return [self tableItemsForSections];
     }
     
-    NSAssert(NO, @"No table items found for list: %@", self);
+//    NSAssert(NO, @"No table items found for list: %@", self);
     return [NSMutableArray array];
 }
 

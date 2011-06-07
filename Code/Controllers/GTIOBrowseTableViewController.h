@@ -13,7 +13,7 @@
 #import "GTIOTabBar.h"
 #import "GTIOBrowseListPresenter.h"
 
-@interface GTIOBrowseTableViewController : TTTableViewController <RKObjectLoaderDelegate, UISearchBarDelegate, GTIOTabBarDelegate> {
+@interface GTIOBrowseTableViewController : TTTableViewController <UISearchBarDelegate, GTIOTabBarDelegate> {
     NSString* _apiEndpoint; // default is /rest/v3/categories/ will be different for subcategories.
     UISearchBar* _searchBar;
     NSString* _queryText;

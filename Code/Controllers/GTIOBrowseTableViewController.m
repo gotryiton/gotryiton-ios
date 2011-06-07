@@ -176,9 +176,10 @@
 - (void)createModel {
 	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_queryText, @"query", nil]; // note, query text is usually nil. only used if we are searching.
 	
-    GTIOBrowseListTTModel* model = [[[GTIOBrowseListTTModel alloc] initWithResourcePath:_apiEndpoint
-                                                                                 params:[GTIOUser paramsByAddingCurrentUserIdentifier:params]
-                                                                                 method:RKRequestMethodPOST] autorelease];
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:_apiEndpoint delegate:nil];
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    objectLoader.method = RKRequestMethodPOST;
+    GTIOBrowseListTTModel* model = [GTIOBrowseListTTModel modelWithObjectLoader:objectLoader];
     
     TTListDataSource* temporaryDataSource = [TTListDataSource dataSourceWithObjects:nil];
     temporaryDataSource.model = model;

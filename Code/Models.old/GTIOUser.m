@@ -180,6 +180,16 @@ static GTIOUser* gCurrentUser = nil;
 	[super dealloc];
 }
 
+- (void)setTodosBadge:(NSNumber*)number {
+    if ([number isKindOfClass:[NSString class]]) {
+        number = [NSNumber numberWithInt:[number intValue]];
+    }
+    [number retain];
+    [_todosBadge release];
+    _todosBadge = number;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOToDoBadgeUpdatedNotificationName object:self];
+}
+
 - (void)setNotifications:(NSArray*)notifications {
     [notifications retain];
     [_notifications release];
@@ -211,13 +221,6 @@ static GTIOUser* gCurrentUser = nil;
         }
     }
     return count;
-}
-
-- (void)setTodosBadge:(NSNumber*)number {
-    [number retain];
-    [_todosBadge release];
-    _todosBadge = number;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOToDoBadgeUpdatedNotificationName object:self];
 }
 
 - (void)didStartLogin {
@@ -274,26 +277,12 @@ static GTIOUser* gCurrentUser = nil;
 
 - (void)resumeSession {
 	if (self.token) {
-        RKObjectMapping* userMapping = [RKObjectMapping mappingForClass:[GTIOUser class]];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.uid", @"UID")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.displayName", @"username")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gender", @"gender")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.city", @"city")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.state", @"state")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.email", @"email")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.profileIcon", @"profileIconURL")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.about", @"aboutMe")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.iphonePush", @"iphonePush")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertActivity", @"alertActivity")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertStylistActivity", @"alertStylistActivity")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertStylistAdd", @"alertStylistAdd")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertNewsletter", @"alertNewsletter")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.services", @"services")]; // service?
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gtioToken", @"token")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.isFacebookConnected", @"isFacebookConnected")];
-        [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
+        RKObjectMapping* userMapping = [GTIOUser userMapping];
         
-        NSString* path = [NSString stringWithFormat:@"%@?gtioToken=%@", GTIORestResourcePath(@"/user"), self.token];
+        NSString* path = [NSString stringWithFormat:@"%@?gtioToken=%@", GTIORestResourcePath(@"/auth"), self.token];
+        if (self.deviceToken) {
+            path = [path stringByAppendingFormat:@"&deviceToken=%@", [self deviceTokenURLEncoded]];
+        }
         RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
         loader.targetObject = self;
         loader.objectMapping = userMapping;
@@ -456,7 +445,10 @@ static GTIOUser* gCurrentUser = nil;
     NSString* url = [NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, GTIORestResourcePath(@"/auth")];
     RKRequest* request = [RKRequest requestWithURL:[NSURL URLWithString:url] delegate:self];
     request.method = RKRequestMethodPOST;
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken", nil];
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken",
+                            [self deviceTokenURLEncoded], @"deviceToken", nil];
+    
+    \
     request.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     [request send];
 }

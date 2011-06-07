@@ -9,7 +9,7 @@
 #import "GTIOBrowseListTTModel.h"
 #import "GTIOOutfit.h"
 
-@interface RKRequestTTModel (Private)
+@interface RKObjectLoaderTTModel (Private)
 
 - (void)saveLoadedTime;
 
@@ -29,10 +29,10 @@
 		NSLog(@"Load Next Page");
 		NSLog(@"Last Object: %@", lastOutfit.timestamp);
 		
-		RKObjectLoader* objectLoader = [[[RKObjectManager sharedManager] objectLoaderWithResourcePath:_resourcePath delegate:self] retain];
-		objectLoader.method = self.method;
+		RKObjectLoader* objectLoader = [[[RKObjectManager sharedManager] objectLoaderWithResourcePath:_objectLoader.resourcePath delegate:self] retain];
+		objectLoader.method = _objectLoader.method;
 		
-		NSMutableDictionary* paramsForNextPage = [[self.params mutableCopy] autorelease];
+		NSMutableDictionary* paramsForNextPage = [[_objectLoader.params mutableCopy] autorelease];
 		
         [paramsForNextPage setObject:lastOutfit.timestamp forKey:@"lasttime"];
         [paramsForNextPage setObject:[NSString stringWithFormat:@"%d", [self.objects count]] forKey:@"offset"];
@@ -106,6 +106,13 @@
         _isLoaded = YES;
         [self didFinishLoad];
     }
+}
+
+- (BOOL)isOutdated {
+    if (nil == self.list) {
+        return YES;
+    }
+    return [super isOutdated];
 }
 
 @end

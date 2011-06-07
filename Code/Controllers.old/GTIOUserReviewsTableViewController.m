@@ -75,8 +75,12 @@
 	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 							@"true", @"requestReviews",
 							nil];
-	[GTIOUser paramsByAddingCurrentUserIdentifier:params];
-	GTIOPaginatedTTModel* model = [[GTIOPaginatedTTModel alloc] initWithResourcePath:GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@", _userID]) params:params method:RKRequestMethodPOST];						
+    
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@", _userID]) delegate:nil];
+    objectLoader.method = RKRequestMethodPOST;
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    GTIOPaginatedTTModel* model = [GTIOPaginatedTTModel modelWithObjectLoader:objectLoader];
+    
 	model.objectsKey = @"reviewsOutfits";
     TTListDataSource* ds = [TTListDataSource dataSourceWithObjects:nil];
     ds.model = model;
