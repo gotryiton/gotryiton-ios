@@ -11,6 +11,7 @@
 #import "GTIOBarButtonItem.h"
 #import "GTIOUser.h"
 #import "GTIOUserIconOptionDataSource.h"
+#import "GTIOHeaderView.h"
 
 @implementation GTIOEditProfilePictureViewController
 
@@ -61,6 +62,9 @@
 
 - (void)loadView {
 	[super loadView];
+    
+    self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"PROFILE PICTURE"];
+    
 	// Background Image
 	UIImageView* backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"full-wallpaper.png"]];
 	[self.view addSubview:backgroundImageView];
@@ -69,8 +73,8 @@
 	UIImage* stretchableContainer = [[UIImage imageNamed:@"container.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:12];
 	UIImageView* topContainer = [[UIImageView alloc] initWithImage:stretchableContainer];
 	UIImageView* bottomContainer = [[UIImageView alloc] initWithImage:stretchableContainer];
-	[topContainer setFrame:CGRectMake(9,10,302,190)];
-	[bottomContainer setFrame:CGRectMake(9,210,302,200)];
+	[topContainer setFrame:CGRectMake(9,10,302,186)];
+	[bottomContainer setFrame:CGRectMake(9,206,302,200)];
 	[self.view addSubview:topContainer];
 	[self.view addSubview:bottomContainer];
 	[topContainer release];
@@ -121,13 +125,13 @@
     [_myLooksLabel setFrame:CGRectMake(100,65,85,15)];
     [_myLooksLabel setText:@"my looks"];
     [_myLooksLabel setTextColor:[UIColor colorWithRed:0.745 green:0.745 blue:0.745 alpha:1]];
-    [_myLooksLabel setFont:[UIFont boldSystemFontOfSize:12]];    
+    [_myLooksLabel setFont:[UIFont boldSystemFontOfSize:11]];    
     [self.view addSubview:_myLooksLabel];
     _facebookLabel = [UILabel new];
     [_facebookLabel setFrame:CGRectMake(30,65,60,15)];
     [_facebookLabel setText:@"facebook"];
     [_facebookLabel setTextColor:[UIColor colorWithRed:0 green:.541 blue:.773 alpha:1.0]];
-    [_facebookLabel setFont:[UIFont boldSystemFontOfSize:12]];
+    [_facebookLabel setFont:[UIFont boldSystemFontOfSize:11]];
     [self.view addSubview:_facebookLabel];
     _seperator = [UIView new];
     [_seperator setFrame:CGRectMake(90,60,1,100)];
@@ -147,14 +151,14 @@
     [_previewImageView setFrame:CGRectMake(44,269,56,56)];
     [_previewImageView setAccessibilityLabel:@"preview image"];
     [self.view addSubview:_previewImageView];
-    UIImageView* profileIconOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
+    UIImageView* profileIconOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-overlay-110.png"]];
     [profileIconOverlay setFrame:CGRectMake(40,265,64,64)];
     [self.view addSubview:profileIconOverlay];
     UILabel* locationLabel = [UILabel new];
     [locationLabel setBackgroundColor:[UIColor clearColor]];
     [locationLabel setFont:[UIFont systemFontOfSize:14]];
     [locationLabel setTextColor:kGTIOColorAAAAAA];
-    [locationLabel setFrame:CGRectMake(120,300,140,20)];
+    [locationLabel setFrame:CGRectMake(115,302,160,20)];
     [locationLabel setText:_profileLocation];
     [self.view addSubview:locationLabel];
     [locationLabel release];
@@ -162,8 +166,8 @@
     [nameLabel setBackgroundColor:[UIColor clearColor]];
     [nameLabel setFont:kGTIOFetteFontOfSize(32)];
     [nameLabel setTextColor:kGTIOColorBrightPink];
-    [nameLabel setFrame:CGRectMake(120,275,140,30)];
-    [nameLabel setText:_profileName];
+    [nameLabel setFrame:CGRectMake(115,277,160,30)];
+    [nameLabel setText:[_profileName uppercaseString]];
     [self.view addSubview:nameLabel];
     [nameLabel release];
 }
@@ -193,8 +197,13 @@
 	for (GTIOUserIconOption* option in _options) {
         if ([option.url isEqualToString:_previewImageView.urlPath]) {
             _currentSelection = [_options indexOfObject:option];
+            if ([option.type isEqualToString:@"Default"]) {
+                _currentSelection = -1;
+            }
         }
-        if ([option.type isEqualToString:@"Facebook"]) {
+        if ([option.type isEqualToString:@"Default"]) {
+            continue;
+        } else if ([option.type isEqualToString:@"Facebook"]) {
             _facebookIconOption = option;
             TTImageView* image = [[TTImageView alloc] init];
             [image setFrame:CGRectMake(30,90,48,48)];
@@ -259,16 +268,18 @@
     [[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];
 }
 
-- (void)clearButtonAction {
-    [_previewImageView setUrlPath:@"http://assets.gotryiton.com/img/profile-default.png"];
-}
-
 - (void)selectOption:(id)sender {
     _currentSelection = [sender tag];
     NSLog(@"selecting option:%@",[_options objectAtIndex:_currentSelection]);
     [_previewImageView setUrlPath:[[_options objectAtIndex:_currentSelection] url]];
     [self performSelector:@selector(clearHighlight)];
     [self performSelector:@selector(displayHighlight)];
+}
+
+- (void)clearButtonAction {
+    _currentSelection = -1;
+    [self performSelector:@selector(clearHighlight)];
+    [_previewImageView setUrlPath:@"http://assets.gotryiton.com/img/profile-default.png"];
 }
 
 #pragma mark -
@@ -310,6 +321,9 @@
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
     NSLog(@"dictionary:%@",dictionary);
 	_options = [[dictionary objectForKey:@"userIconOptions"] retain];
+    for (GTIOUserIconOption* option in _options) {
+        NSLog(@"Option: %@ %@", option.type, option.url);
+    }
     [self performSelector:@selector(displayOptions)];
 }
 
@@ -355,6 +369,9 @@
 }
 
 - (void)displayHighlight {
+    if (-1 == _currentSelection) {
+        return;
+    }
     [[[_imageViews objectAtIndex:_currentSelection] layer] setBorderColor:[kGTIOColorBrightPink CGColor]];
     [[[_imageViews objectAtIndex:_currentSelection] layer] setBorderWidth:3];
 }
