@@ -540,6 +540,9 @@
 		3F906B491396A83E008EC414 /* mystylists-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F906B391396A83E008EC414 /* mystylists-bg@2x.png */; };
 		3F906B4A1396A83E008EC414 /* mystylists-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F906B391396A83E008EC414 /* mystylists-bg@2x.png */; };
 		3F906B4B1396A83E008EC414 /* mystylists-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F906B391396A83E008EC414 /* mystylists-bg@2x.png */; };
+		3F9083A6139EBB780039C8FE /* Icon-staging@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9083A4139EBAA40039C8FE /* Icon-staging@2x.png */; };
+		3F9083A8139EBB8E0039C8FE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9083A7139EBB8E0039C8FE /* Icon.png */; };
+		3F9083AA139EBB950039C8FE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9083A9139EBB950039C8FE /* Icon@2x.png */; };
 		3F9EC686138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */; };
 		3F9EC687138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */; };
 		3F9EC688138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */; };
@@ -3269,6 +3272,10 @@
 		3F906B371396A83E008EC414 /* add-stylists-ON@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-stylists-ON@2x.png"; sourceTree = "<group>"; };
 		3F906B381396A83E008EC414 /* mystylists-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mystylists-bg.png"; sourceTree = "<group>"; };
 		3F906B391396A83E008EC414 /* mystylists-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mystylists-bg@2x.png"; sourceTree = "<group>"; };
+		3F9083A2139EBA9C0039C8FE /* Icon-staging.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-staging.png"; sourceTree = "<group>"; };
+		3F9083A4139EBAA40039C8FE /* Icon-staging@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-staging@2x.png"; sourceTree = "<group>"; };
+		3F9083A7139EBB8E0039C8FE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		3F9083A9139EBB950039C8FE /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		3F9EC684138449C0008E816A /* GTIOMyStylistsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMyStylistsTableViewController.h; sourceTree = "<group>"; };
 		3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMyStylistsTableViewController.m; sourceTree = "<group>"; };
 		3FA654921384218400CC1106 /* tabs3-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-background.png"; sourceTree = "<group>"; };
@@ -4231,6 +4238,10 @@
 		2585187E135357C5005DCBA5 = {
 			isa = PBXGroup;
 			children = (
+				3F9083A9139EBB950039C8FE /* Icon@2x.png */,
+				3F9083A7139EBB8E0039C8FE /* Icon.png */,
+				3F9083A4139EBAA40039C8FE /* Icon-staging@2x.png */,
+				3F9083A2139EBA9C0039C8FE /* Icon-staging.png */,
 				258518AD135357DD005DCBA5 /* Code */,
 				258518AE135357E3005DCBA5 /* Specs */,
 				258518AC135357D0005DCBA5 /* Libraries */,
@@ -7204,6 +7215,9 @@
 				3F906B431396A83E008EC414 /* add-stylists-ON@2x.png in Resources */,
 				3F906B461396A83E008EC414 /* mystylists-bg.png in Resources */,
 				3F906B491396A83E008EC414 /* mystylists-bg@2x.png in Resources */,
+				3F9083A6139EBB780039C8FE /* Icon-staging@2x.png in Resources */,
+				3F9083A8139EBB8E0039C8FE /* Icon.png in Resources */,
+				3F9083AA139EBB950039C8FE /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9290,7 +9304,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A30BFC86-A263-4B23-A4C9-130AFD4BC7BF";
+				PROVISIONING_PROFILE = "D7B59B46-5D98-4778-8C2B-F91E61DFDF09";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -9321,7 +9335,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A30BFC86-A263-4B23-A4C9-130AFD4BC7BF";
+				PROVISIONING_PROFILE = "D7B59B46-5D98-4778-8C2B-F91E61DFDF09";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;

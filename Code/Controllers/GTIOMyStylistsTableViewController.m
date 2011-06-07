@@ -161,20 +161,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    TWTAlertViewDelegate* delegate = [[TWTAlertViewDelegate new] autorelease];
-    [delegate setTarget:self selector:@selector(finishDeleteForIndexPath:) object:[NSArray arrayWithObjects:tableView, indexPath, nil] forButtonIndex:1];
-    
-    TTTableTextItem* item = (TTTableTextItem*)[self tableView:tableView objectForRowAtIndexPath:indexPath];
-    GTIOProfile* profile = (GTIOProfile*)item.userInfo;
-    NSString* message = [NSString stringWithFormat:@"your outfits will no longer show in %@'s To-Do list, and they will not be notified when you upload.",profile.firstName];
-    
-    UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:@"remove personal stylist?" message:message delegate:delegate cancelButtonTitle:@"cancel" otherButtonTitles:@"remove", nil] autorelease];
-    [alert show];
-}
-
-- (void)finishDeleteForIndexPath:(NSArray*)arguments {
-    UITableView* tableView = [arguments objectAtIndex:0];
-    NSIndexPath* indexPath = [arguments objectAtIndex:1];
     [[(GTIOMyStylistsTableViewDelegate*)tableView.delegate controller] performSelector:@selector(markItemAtIndexPathForDeletion:) withObject:indexPath];
 	[tableView beginUpdates];
     [_items removeObjectAtIndex:indexPath.row];
@@ -198,9 +184,9 @@
     self.variableHeightRows = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    _cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Cancel" target:self action:@selector(cancelButtonPressed:)];
-    _doneButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Done" target:self action:@selector(doneButtonPressed:)];
-    _editButton = [[GTIOBarButtonItem alloc] initWithTitle:@"Edit" target:self action:@selector(editButtonPressed:)];
+    _cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonPressed:)];
+    _doneButton = [[GTIOBarButtonItem alloc] initWithTitle:@"done" target:self action:@selector(doneButtonPressed:)];
+    _editButton = [[GTIOBarButtonItem alloc] initWithTitle:@"edit" target:self action:@selector(editButtonPressed:)];
 	
 	self.navigationItem.rightBarButtonItem = _editButton;
     
