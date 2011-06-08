@@ -410,16 +410,24 @@
             [_emailsToInvite removeObject:emailOrProfile];
         }
     }
+    // Handles Reloading of the appropriate cells and selecting/deselecting matchhing cells.
+    NSMutableArray* indexPaths = [NSMutableArray array];
+    for (NSArray* items in [(TTSectionedDataSource*)self.dataSource items]) {
+        for (GTIOSelectableTableItem* tableItem in items) {
+            NSLog(@"Comparing: %@ == %@", item.userInfo, tableItem.userInfo);
+            if ([tableItem isKindOfClass:[GTIOSelectableTableItem class]] &&
+                [item.userInfo isEqual:tableItem.userInfo]) {
+                //                - (NSIndexPath*)tableView:(UITableView*)tableView indexPathForObject:(id)object
+                tableItem.selected = item.selected;
+                [indexPaths addObject:[self.dataSource tableView:self.tableView indexPathForObject:tableItem]];
+            }
+        }
+    }
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    
     NSLog(@"Emails: %@", _emailsToInvite);
     NSLog(@"Profiles: %@", _profileIDsToInvite);
     [self updateDoneButton];
-}
-
-- (void)didSelectObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
-    NSLog(@"Object: %@", object);
-    if ([object isKindOfClass:[GTIOSelectableTableItem class]]) {
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
 }
 
 - (id)createDelegate {
@@ -483,8 +491,6 @@
 }
 
 - (void)didLoadModel:(BOOL)firstTime {
-    // TODO:
-    // if we are on the connections tab, check the isFacebookConnected on gtiouser.
     // TODO: 
     // use featuredText for "% helpful".
     RKObjectLoaderTTModel* model = (RKObjectLoaderTTModel*)self.model;
@@ -566,12 +572,17 @@
     [textField resignFirstResponder];
     NSString* text = [[textField.text copy] autorelease];
     
+    if ([text isWhitespaceAndNewlines]) {
+        return NO;
+    }
+    
     if ([self textLooksLikeAnEmail:text]) {
         textField.text = nil;
         if (![_customEmailAddresses containsObject:text]) {
             [_customEmailAddresses insertObject:text atIndex:0];
             if (![_emailsToInvite containsObject:text]){
                 [_emailsToInvite addObject:text];
+                [self updateDoneButton];
             }
         }
         [self invalidateModel];

@@ -78,7 +78,8 @@
 	_nameLabel.text = [item.outfit.name uppercaseString];
 	_locationLabel.text = item.outfit.location;
     // TODO
-    _scoreLabel.text = @"+10";
+    
+    _scoreLabel.text = [NSString stringWithFormat:@"+%d", [item.outfit.userReviewAgreeVotes intValue]];
 	
 	NSString* text = item.outfit.userReview;
 	if ([text length] > 35) {

@@ -70,6 +70,7 @@
         GTIOOutfit* outfit = review.outfit;
         outfit.userReview = review.text;
         outfit.timestamp = review.timestamp;
+        outfit.userReviewAgreeVotes = review.agreeVotes;
         GTIOUserReviewTableItem* item = [GTIOUserReviewTableItem itemWithOutfit:outfit];
         item.userInfo = review;
         [items addObject:item];

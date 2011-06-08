@@ -84,4 +84,12 @@
 	[super dealloc];
 }
 
+- (BOOL)isEqual:(GTIOProfile*)profile {
+    if ([profile isKindOfClass:[GTIOProfile class]] &&
+        [self.uid isEqualToString:profile.uid]) {
+        return YES;
+    }
+    return NO;
+}
+
 @end

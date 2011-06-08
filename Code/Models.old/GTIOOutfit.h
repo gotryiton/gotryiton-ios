@@ -40,6 +40,7 @@
 	
 	NSArray* _reviews;
 	NSString* _userReview;
+    NSNumber* _userReviewAgreeVotes;
 	
 	NSArray* _photos;
 	
@@ -51,6 +52,7 @@
 @property (nonatomic, retain) GTIOVotingResultSet *results;
 @property (nonatomic, copy) NSArray *photos;
 @property (nonatomic, copy) NSString *userReview;
+@property (nonatomic, retain) NSNumber* userReviewAgreeVotes;
 @property (nonatomic, copy) NSArray *reviews;
 @property (nonatomic, readonly) NSString* sid;
 @property (nonatomic, retain) NSString* outfitID;
