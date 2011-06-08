@@ -48,6 +48,7 @@
         _featuredButton.alpha = 0;
         _browseButton.alpha = 0;
         _todoButton.alpha = 0;
+        _todosBadgeButton.alpha = 0;
         _uploadButton.hidden = NO;
         _featuredButton.hidden = NO;
         _browseButton.hidden = NO;
@@ -60,6 +61,7 @@
         _featuredButton.alpha = 1;
         _browseButton.alpha = 1;
         _todoButton.alpha = 1;
+        _todosBadgeButton.alpha = 1;
         [UIView commitAnimations];
     }
 }
