@@ -11,7 +11,9 @@
 #import "GTIOPaginationTableViewDelegate.h"
 
 @interface GTIODropShadowSectionTableViewDelegate : GTIOPaginationTableViewDelegate {
-    
+    CGFloat _footerHeight;
 }
+
+@property (nonatomic, assign) CGFloat footerHeight;
 
 @end

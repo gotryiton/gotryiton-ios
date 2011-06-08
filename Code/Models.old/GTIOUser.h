@@ -74,6 +74,9 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
     NSNumber* _alertStylistActivity;
     NSNumber* _alertStylistAdd;
     NSNumber* _alertNewsletter;
+    
+    NSString* _location;
+    NSString* _badges;
         
 	NSString* _deviceToken;
 	NSArray* _services;
@@ -102,6 +105,9 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 @property (nonatomic, retain) NSNumber* todosBadge;
 
 @property (nonatomic, readonly) Facebook* facebook;
+@property (nonatomic, readonly) NSString* displayName;
+@property (nonatomic, copy) NSString* location;
+@property (nonatomic, copy) NSString* badges;
 
 /**
  * Either 'male' or 'female'

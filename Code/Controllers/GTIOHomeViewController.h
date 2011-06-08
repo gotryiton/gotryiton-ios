@@ -12,12 +12,18 @@
 #import <UIKit/UIKit.h>
 #import <Three20/Three20.h>
 #import "GTIONotificationsOverlayViewController.h"
+#import "GTIOUserMiniProfileHeaderView.h"
 
 @interface GTIOHomeViewController : UIViewController {
-    IBOutlet UIView* _launcherView;
+    IBOutlet TTImageView* _profileThumbnailView;
     IBOutlet UIButton* _notificationsButton;
-    IBOutlet UILabel* _usernameLabel;
+    IBOutlet UIButton* _notificationsBadgeButton;
+    
     IBOutlet UIButton* _todoButton;
+    IBOutlet UIButton* _todosBadgeButton;
+    
+    UILabel* _nameLabel;
+    UILabel* _locationLabel;
     
     GTIONotificationsOverlayViewController* _notificationsController;
 }

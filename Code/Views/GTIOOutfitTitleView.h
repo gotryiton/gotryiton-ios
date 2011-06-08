@@ -14,12 +14,15 @@
 @interface GTIOOutfitTitleView : UIView {
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
-    UIImageView* _badgeView1;
-    UIImageView* _badgeView2;
+    TTImageView* _badgeView1;
+    TTImageView* _badgeView2;
 }
 /// Outfit Owner's name
 @property (nonatomic, copy) NSString* name;
 /// Outfit Owner's location
 @property (nonatomic, copy) NSString* location;
+
+// Outfit owner's GTIOBadges
+- (void)setBadges:(NSArray*)badges;
 
 @end

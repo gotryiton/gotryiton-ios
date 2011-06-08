@@ -10,7 +10,7 @@
     NSArray* _outfits;
 }
 /// Array of objects
-@property (nonatomic, readonly) NSArray* objects;
+@property (nonatomic, retain) NSArray* objects;
 /// Return a model initialized with an array of objects
 + (id)modelWithOutfits:(NSArray*)outfits;
 

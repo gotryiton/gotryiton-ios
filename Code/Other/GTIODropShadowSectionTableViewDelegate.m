@@ -11,8 +11,20 @@
 
 @implementation GTIODropShadowSectionTableViewDelegate
 
+@synthesize footerHeight = _footerHeight;
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 20.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return _footerHeight;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView* view = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,_footerHeight)] autorelease];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

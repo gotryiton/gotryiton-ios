@@ -29,10 +29,12 @@
 		_locationLabel.textAlignment = UITextAlignmentCenter;
 		[self addSubview:_locationLabel];
         // Badges
-        _badgeView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0,10,20,20)];
-        _badgeView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0,10,20,20)];
-        [_badgeView1 setImage:[UIImage imageNamed:@"outfit-badge-fashionista.png"]];
-        [_badgeView2 setImage:[UIImage imageNamed:@"outfit-badge-model.png"]];
+        _badgeView1 = [[TTImageView alloc] initWithFrame:CGRectMake(0,10,20,20)];
+        _badgeView2 = [[TTImageView alloc] initWithFrame:CGRectMake(0,10,20,20)];
+        _badgeView1.backgroundColor = [UIColor clearColor];
+        _badgeView2.backgroundColor = [UIColor clearColor];
+//        [_badgeView1 setImage:[UIImage imageNamed:@"outfit-badge-fashionista.png"]];
+//        [_badgeView2 setImage:[UIImage imageNamed:@"outfit-badge-model.png"]];
         [self addSubview:_badgeView1];
         [self addSubview:_badgeView2];
 	}
@@ -74,6 +76,21 @@
         _badgeView2.frame = CGRectMake(badgeLeftPadding-diff+badgeHorizontalPadding,badgeTopPadding,20,20);
     }
 
+}
+
+- (void)setBadges:(NSArray*)badges {
+    NSLog(@"Badges: %@", badges);
+    if ([badges count] > 0) {
+        _badgeView1.urlPath = [[badges objectAtIndex:0] imgURL];
+        if ([badges count] > 1) {
+            _badgeView1.urlPath = [[badges objectAtIndex:1] imgURL];
+        } else {
+            _badgeView2.urlPath = nil;
+        }
+    } else {
+        _badgeView1.urlPath = nil;
+        _badgeView2.urlPath = nil;
+    }
 }
 
 - (void)setName:(NSString*)name {

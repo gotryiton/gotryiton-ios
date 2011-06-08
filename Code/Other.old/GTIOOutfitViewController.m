@@ -195,6 +195,7 @@
 	
 	_headerView.name = [self.outfit.name uppercaseString];
 	_headerView.location = self.outfit.location;
+    [_headerView setBadges:self.outfit.badges];
 	[_headerView setNeedsDisplay];
 	
 	// Here we want to make the pages match. don't animate.

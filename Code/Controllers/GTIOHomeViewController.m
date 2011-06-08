@@ -32,10 +32,46 @@
 }
 
 - (void)updateUserLabel {
+    _profileThumbnailView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
+    if (nil == _nameLabel) {
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [self.view addSubview:_nameLabel];
+        [_nameLabel release];
+    }
+    if (nil == _locationLabel){
+        _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [self.view addSubview:_locationLabel];
+        [_locationLabel release];
+    }
     if ([GTIOUser currentUser].loggedIn) {
-        _usernameLabel.text = [GTIOUser currentUser].username;
+        _profileThumbnailView.urlPath = [GTIOUser currentUser].profileIconURL;
+        
+        _nameLabel.frame = CGRectZero;
+        _nameLabel.text = [[GTIOUser currentUser].username uppercaseString];
+        _nameLabel.font = kGTIOFetteFontOfSize(21);
+        _nameLabel.textColor = [UIColor whiteColor];
+        _nameLabel.backgroundColor = [UIColor clearColor];
+        [_nameLabel sizeToFit];
+        _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 49, 7);
+        
+        _locationLabel.frame = CGRectZero;
+        _locationLabel.text = [GTIOUser currentUser].location;
+        _locationLabel.font = [UIFont systemFontOfSize:12];
+        _locationLabel.textColor = RGBCOLOR(114,114,114);
+        [_locationLabel sizeToFit];
+        _locationLabel.frame = CGRectMake(50, 24, 200, _locationLabel.bounds.size.height);
+        _locationLabel.backgroundColor = [UIColor clearColor];
+        
     } else {
-        _usernameLabel.text = @"my profile";
+        _profileThumbnailView.urlPath = nil;
+        
+        _nameLabel.text = @"my profile";
+        _nameLabel.textColor = RGBCOLOR(185,185,185);
+        _nameLabel.font = [UIFont systemFontOfSize:16];
+        [_nameLabel sizeToFit];
+        _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 50, 12);
+        
+        _locationLabel.text = @"";
     }
 }
 
@@ -44,13 +80,28 @@
 }
 
 - (void)updateNotificationsButton {
-    NSString* title = [NSString stringWithFormat:@"%d new notifications", [[GTIOUser currentUser] numberOfUnseenNotifications]];
-    [_notificationsButton setTitle:title forState:UIControlStateNormal];
+    if ([[GTIOUser currentUser] numberOfUnseenNotifications] == 0) {
+        [_notificationsBadgeButton setTitle:@"" forState:UIControlStateNormal];
+        [_notificationsBadgeButton setSelected:NO];
+        [_notificationsButton setTitle:@"notifications" forState:UIControlStateNormal];
+    } else {
+        NSString* title = [NSString stringWithFormat:@"new notification%@", ([[GTIOUser currentUser] numberOfUnseenNotifications] == 1 ? @"" : @"s")];
+        [_notificationsButton setTitle:title forState:UIControlStateNormal];
+        [_notificationsBadgeButton setTitle:[NSString stringWithFormat:@"%d", [[GTIOUser currentUser] numberOfUnseenNotifications]] forState:UIControlStateNormal];
+        [_notificationsBadgeButton setSelected:YES];
+        
+    }
+    
 }
 
 - (void)updateTodoBadge {
-    NSString* title = [NSString stringWithFormat:@"to-do's (%d)", [[GTIOUser currentUser].todosBadge intValue]];
-    [_todoButton setTitle:title forState:UIControlStateNormal];
+    if ([[GTIOUser currentUser].todosBadge intValue] > 0) {
+        _todosBadgeButton.hidden = NO;
+    } else {
+        _todosBadgeButton.hidden = YES;
+    }
+    NSString* title = [NSString stringWithFormat:@"%d", [[GTIOUser currentUser].todosBadge intValue]];
+    [_todosBadgeButton setTitle:title forState:UIControlStateNormal];
 }
 
 #pragma mark - View lifecycle
@@ -76,7 +127,11 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    // HRM.. don't really want to do this if we are presenting a modal view controller
+    UINavigationController* navController = self.navigationController;
+    if (nil == navController.modalViewController) {
+        [navController setNavigationBarHidden:NO animated:animated];
+    }
 }
 
 

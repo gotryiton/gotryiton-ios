@@ -43,6 +43,7 @@
     UIButton* _unsilenceButton;
     UIImageView* _backgroundImage;
     UILabel* _nameLabel;
+    UILabel* _alertTextLabel;
     CustomUISwitch* _alertSwitch;
 }
 @end
@@ -60,23 +61,37 @@
         _miniProfileHeaderView = [GTIOUserMiniProfileHeaderView new];
         [self.contentView addSubview:_miniProfileHeaderView];
         
-        _silenceButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _silenceButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        [_silenceButton setImage:[UIImage imageNamed:@"ignore-OFF.png"] forState:UIControlStateNormal];
+        [_silenceButton setImage:[UIImage imageNamed:@"ignore-ON.png"] forState:UIControlStateHighlighted];
         [_silenceButton addTarget:self action:@selector(silenceButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_silenceButton];
         
-        _unsilenceButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _unsilenceButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        [_unsilenceButton setImage:[UIImage imageNamed:@"enable-OFF.png"] forState:UIControlStateNormal];
+        [_unsilenceButton setImage:[UIImage imageNamed:@"enable-ON.png"] forState:UIControlStateHighlighted];
         [_unsilenceButton addTarget:self action:@selector(unSilenceButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_unsilenceButton];
         
         _alertSwitch = [[CustomUISwitch alloc] initWithFrame:CGRectZero];
         [_alertSwitch addTarget:self action:@selector(alertSwitchToggled:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_alertSwitch];
+        
+        _alertTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _alertTextLabel.text = @"alerts";
+        _alertTextLabel.font = [UIFont boldSystemFontOfSize:14];
+        _alertTextLabel.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:_alertTextLabel];
     }
     return self;
 }
 
 - (void)dealloc {
+    [_miniProfileHeaderView release];
+    [_silenceButton release];
+    [_unsilenceButton release];
     [_alertSwitch release];
+    [_alertTextLabel release];
     [super dealloc];
 }
 
@@ -100,9 +115,11 @@
     [self.textLabel setFrame:CGRectZero];
     _backgroundImage.frame = CGRectMake(12,10,self.contentView.frame.size.width-24,self.contentView.frame.size.height-10);
     [_alertSwitch sizeToFit];
-    _alertSwitch.frame = CGRectOffset(_alertSwitch.bounds, 220, 10);
-    _unsilenceButton.frame = CGRectMake(140,10,30,30);
-    _silenceButton.frame = CGRectMake(180,10,30,30);
+    _alertTextLabel.frame = CGRectMake(25,65,50,20);
+    _alertSwitch.frame = CGRectOffset(_alertSwitch.bounds, 76, 63);
+    CGRect buttonRect = CGRectMake(252,67,48,20);
+    _unsilenceButton.frame = buttonRect;
+    _silenceButton.frame = buttonRect;
 }
 
 - (void)setObject:(id)obj {
@@ -111,22 +128,19 @@
     GTIOProfile* profile = item.profile;
     [_miniProfileHeaderView displayProfile:profile];
     
-    [_silenceButton setTitle:@"N" forState:UIControlStateNormal];
-    [_unsilenceButton setTitle:@"Y" forState:UIControlStateNormal];
-    
-    [_silenceButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [_silenceButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
-    [_unsilenceButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [_unsilenceButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+    [_silenceButton setTitle:@"ignore" forState:UIControlStateNormal];
+    [_unsilenceButton setTitle:@"enable" forState:UIControlStateNormal];
     
     if ([profile.activeStylist boolValue]) {
-        _silenceButton.selected = YES;
-        _unsilenceButton.selected = NO;
-        [self.contentView addSubview:_alertSwitch];
+        [_unsilenceButton removeFromSuperview];
+        [self.contentView addSubview:_silenceButton];
+        _alertSwitch.enabled = YES;
+        _alertTextLabel.textColor = RGBCOLOR(120,120,120);
     } else {
-        _silenceButton.selected = NO;
-        _unsilenceButton.selected = YES;
-        [_alertSwitch removeFromSuperview];
+        [_silenceButton removeFromSuperview];
+        [self.contentView addSubview:_unsilenceButton];
+        _alertSwitch.enabled = NO;
+        _alertTextLabel.textColor = RGBCOLOR(165,165,165);
     }
     _alertSwitch.on = [profile.stylistRequestAlertsEnabled boolValue];
     self.accessoryType = UITableViewCellAccessoryNone;
@@ -169,10 +183,13 @@
     UIImage* settingsButtonImage = [UIImage imageNamed:@"settingsBarButton.png"];
     GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)];
     [self.navigationItem setRightBarButtonItem:item];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (id)createDelegate {
-    return [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
+    GTIODropShadowSectionTableViewDelegate* delegate = [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
+    delegate.footerHeight = 10.0f;
+    return delegate;
 }
 
 - (void)settingsButtonAction:(id)sender {

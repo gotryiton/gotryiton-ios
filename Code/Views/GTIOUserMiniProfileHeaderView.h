@@ -10,9 +10,9 @@
 
 @interface GTIOUserMiniProfileHeaderView : UIView {
     TTImageView* _profilePictureImageView;
-	UIImageView* _fashionProfileBadge;
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
+    NSMutableArray* _badgeImageViews;
 }
 /// UILabel for the profile's name value
 @property (nonatomic, retain) UILabel* nameLabel;

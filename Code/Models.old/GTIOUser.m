@@ -13,6 +13,7 @@
 #import "GTIOJanrainAuthenticationController.h"
 #import "NSObject_Additions.h"
 #import "GTIONotification.h"
+#import "GTIOBadge.h"
 
 // Constants (see GTIOEnvironment.m)
 extern NSString* const kGTIOJanRainEngageApplicationID;
@@ -62,6 +63,8 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize eventTypes = _eventTypes;
 @synthesize facebook = _facebook;
 @synthesize profileIconURL = _profileIconURL;
+@synthesize location = _location;
+@synthesize badges = _badges;
 
 @synthesize notifications = _notifications;
 @synthesize todosBadge = _todosBadge;
@@ -134,7 +137,14 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.services", @"services")]; // service?
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gtioToken", @"token")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.isFacebookConnected", @"isFacebookConnected")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.location", @"location")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
+    
+    // TODO: duplicated
+    RKObjectMapping* badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
+    [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"type", @"type")];
+    [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"since", @"since")];
+    [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"imgURL", @"imgURL")];
     
     // TODO: duplicated.
     RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
@@ -142,6 +152,7 @@ static GTIOUser* gCurrentUser = nil;
     [notificationMapping mapKeyPath:@"id" toAttribute:@"notificationID"];
     
     [userMapping mapRelationship:@"notifications" withObjectMapping:notificationMapping];
+    [userMapping mapKeyPath:@"user.badges" toRelationship:@"badges" withObjectMapping:badgeMapping];
     userMapping.setNilForMissingAttributes = NO;
     userMapping.setNilForMissingRelationships = NO;
     
@@ -319,6 +330,9 @@ static GTIOUser* gCurrentUser = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidUpdateProfileNotificationName object:self];
 }
 
+- (NSString*)displayName {
+    return _username;
+}
 
 - (NSString*)firstName {
     NSArray* parts = [self.username componentsSeparatedByString:@" "];
