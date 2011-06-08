@@ -18,9 +18,17 @@
     IBOutlet TTImageView* _profileThumbnailView;
     IBOutlet UIButton* _notificationsButton;
     IBOutlet UIButton* _notificationsBadgeButton;
+    IBOutlet UIButton* _closeNotificationsButton;
     
+    IBOutlet UIButton* _uploadButton;
+    IBOutlet UIButton* _featuredButton;
+    IBOutlet UIButton* _browseButton;
     IBOutlet UIButton* _todoButton;
     IBOutlet UIButton* _todosBadgeButton;
+    
+    IBOutlet UIImageView* _backgroundImageView;
+    
+    IBOutlet UIView* _notificationsContainer;
     
     UILabel* _nameLabel;
     UILabel* _locationLabel;
@@ -43,6 +51,7 @@
 - (IBAction)myReviewsButtonWasPressed;
 /// Notification
 - (IBAction)notificationButtonWasPressed;
+- (IBAction)closeNotificationsButtonWasPressed;
 /// Profile
 - (IBAction)profileViewWasTouched;
 

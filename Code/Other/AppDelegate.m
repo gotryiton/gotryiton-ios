@@ -215,9 +215,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [responseMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"response")];
     [provider setMapping:responseMapping forKeyPath:@"response"];
     
-    RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
-    [notificationMapping mapAttributes:@"text", @"url", nil];
-    [notificationMapping mapKeyPath:@"id" toAttribute:@"notificationID"];
+    RKObjectMapping* notificationMapping = [GTIONotification notificationMapping];
     [provider setMapping:notificationMapping forKeyPath:@"notifications"];
     
     RKObjectMapping* stylistRelationshipMapping = [RKObjectMapping mappingForClass:[GTIOStylistRelationship class]];

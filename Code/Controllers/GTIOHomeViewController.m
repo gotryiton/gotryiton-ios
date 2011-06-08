@@ -31,16 +31,49 @@
     [super dealloc];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_backgroundImageView.hidden == YES) {
+        // begin fade in animations
+        _backgroundImageView.alpha = 0;
+        _backgroundImageView.hidden = NO;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:2];
+        [UIView setAnimationDelay:1];
+        [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+        _backgroundImageView.alpha = 1;
+        [UIView commitAnimations];
+        
+        _uploadButton.alpha = 0;
+        _featuredButton.alpha = 0;
+        _browseButton.alpha = 0;
+        _todoButton.alpha = 0;
+        _uploadButton.hidden = NO;
+        _featuredButton.hidden = NO;
+        _browseButton.hidden = NO;
+        _todoButton.hidden = NO;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:2];
+        [UIView setAnimationDelay:2];
+        [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+        _uploadButton.alpha = 1;
+        _featuredButton.alpha = 1;
+        _browseButton.alpha = 1;
+        _todoButton.alpha = 1;
+        [UIView commitAnimations];
+    }
+}
+
 - (void)updateUserLabel {
     _profileThumbnailView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
     if (nil == _nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.view addSubview:_nameLabel];
+        [self.view insertSubview:_nameLabel belowSubview:_notificationsContainer];
         [_nameLabel release];
     }
     if (nil == _locationLabel){
         _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.view addSubview:_locationLabel];
+        [self.view insertSubview:_locationLabel belowSubview:_notificationsContainer];
         [_locationLabel release];
     }
     if ([GTIOUser currentUser].loggedIn) {
@@ -75,10 +108,6 @@
     }
 }
 
-- (void)updateToolbar {
-    [self updateUserLabel];
-}
-
 - (void)updateNotificationsButton {
     if ([[GTIOUser currentUser] numberOfUnseenNotifications] == 0) {
         [_notificationsBadgeButton setTitle:@"" forState:UIControlStateNormal];
@@ -109,8 +138,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self updateToolbar];
-    
+    [self updateUserLabel];
     [self updateNotificationsButton];
 }
 
@@ -182,7 +210,7 @@
 #pragma mark - Notifications
 
 - (void)userStateChangedNotification:(NSNotification*)note {
-    [self updateToolbar];
+    [self updateUserLabel];
 }
 
 - (void)notificationsUpdatedNotification:(NSNotification*)note {
@@ -198,14 +226,26 @@
 - (IBAction)notificationButtonWasPressed {
     if (nil == _notificationsController) {
         _notificationsController = [[GTIONotificationsOverlayViewController alloc] initWithStyle:UITableViewStylePlain];
+        _notificationsController.view.frame = CGRectMake(0, _notificationsButton.bounds.size.height - 10, self.view.bounds.size.width, self.view.bounds.size.height - _notificationsButton.bounds.size.height + 15);
+        [_notificationsContainer addSubview:_notificationsController.view];
     } else {
         [_notificationsController invalidateModel];
     }
-    _notificationsController.view.frame = CGRectOffset(self.view.frame,0,480);
-    [self.view addSubview:_notificationsController.view];
     [_notificationsController viewWillAppear:YES];
     [UIView beginAnimations:nil context:nil];
-    _notificationsController.view.frame = self.view.frame;
+    _notificationsContainer.frame = CGRectMake(0,-5,320, 465);
+    _closeNotificationsButton.hidden = NO;
+    _notificationsButton.enabled = NO;
+    _notificationsBadgeButton.enabled = NO;
+    [UIView commitAnimations];
+}
+
+- (IBAction)closeNotificationsButtonWasPressed {
+    [UIView beginAnimations:nil context:nil];
+    _notificationsContainer.frame = CGRectMake(0,421,320, 465);
+    _closeNotificationsButton.hidden = YES;
+    _notificationsButton.enabled = YES;
+    _notificationsBadgeButton.enabled = YES;
     [UIView commitAnimations];
 }
 

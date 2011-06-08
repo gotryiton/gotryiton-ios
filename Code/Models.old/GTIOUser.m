@@ -146,10 +146,7 @@ static GTIOUser* gCurrentUser = nil;
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"since", @"since")];
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"imgURL", @"imgURL")];
     
-    // TODO: duplicated.
-    RKObjectMapping* notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
-    [notificationMapping mapAttributes:@"text", @"url", nil];
-    [notificationMapping mapKeyPath:@"id" toAttribute:@"notificationID"];
+    RKObjectMapping* notificationMapping = [GTIONotification notificationMapping];
     
     [userMapping mapRelationship:@"notifications" withObjectMapping:notificationMapping];
     [userMapping mapKeyPath:@"user.badges" toRelationship:@"badges" withObjectMapping:badgeMapping];

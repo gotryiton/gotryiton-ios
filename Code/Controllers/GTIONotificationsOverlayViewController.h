@@ -7,6 +7,7 @@
 //
 /// GTIONotificationsOverlayViewController is a tableviewcontroller that displays the current users new notifications as an overlay on the [GTIOHomeViewController](GTIOHomeViewController)
 
-@interface GTIONotificationsOverlayViewController : TTTableViewController {}
+@interface GTIONotificationsOverlayViewController : TTTableViewController {
+}
 
 @end

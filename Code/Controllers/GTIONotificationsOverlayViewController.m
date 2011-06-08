@@ -28,20 +28,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = RGBACOLOR(0,0,0,0.5);
-    int height = 75; //200
-    self.tableView.frame = CGRectMake(0,self.view.bounds.size.height - height, 320, height);
+    self.tableView.frame = self.view.bounds;
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    if ([touches count] == 1) {
-        [UIView beginAnimations:nil context:nil];
-        self.view.frame = CGRectOffset(self.view.frame, 0, 480);
-        [UIView commitAnimations];
-        [self.view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.6];
-    }
-}
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    if ([touches count] == 1) {
+//        [UIView beginAnimations:nil context:nil];
+//        self.view.frame = CGRectOffset(self.view.frame, 0, 480);
+//        [UIView commitAnimations];
+//        [self.view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.6];
+//    }
+//}
 
 - (void)createModel {
     NSArray* notifications = [GTIOUser currentUser].notifications;
