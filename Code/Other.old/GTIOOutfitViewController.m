@@ -97,10 +97,16 @@
     TT_RELEASE_SAFELY(_headerShadowView);
 }
 
+- (void)popViewController {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)loadView {
 	[super loadView];
     self.view.accessibilityLabel = @"Outfit Screen";
 	
+    self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem listBackBarButtonWithTarget:self action:@selector(popViewController)];
+    
 	// Set up header view.
 	_headerView = [[GTIOOutfitTitleView alloc] initWithFrame:CGRectMake(85, 2, 250, 40)];
 	self.navigationItem.titleView = _headerView;
@@ -188,6 +194,7 @@
     if (self.outfit == nil) {
         _headerView.name = @"";
         _headerView.location = @"";
+        [_headerView setBadges:nil];
         [_headerView setNeedsDisplay];
         // tell page to show empty.
         return;

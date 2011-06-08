@@ -63,6 +63,28 @@
 	return [super initWithCustomView:view];
 }
 
++ (id)listBackBarButtonWithTarget:(id)target action:(SEL)action {	
+	// Create Container View
+	UIView* view = [[UIView new] autorelease];
+	[view setFrame:CGRectMake(0, 0, 45, 32)];		
+	// Create The Background Image
+	UIImage* bg = [[UIImage imageNamed:@"back-button.png"] stretchableImageWithLeftCapWidth:11 topCapHeight:0];
+	// Create Button
+	UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+	[button setFrame:view.frame];
+	[button setBackgroundColor:[UIColor clearColor]];
+	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	[button setBackgroundImage:bg forState:UIControlStateNormal];
+	[button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+	[view addSubview:button];
+	UIImageView* homeImage = [UIImageView new];
+	[homeImage setImage:[UIImage imageNamed:@"back-list.png"]];
+	[homeImage setFrame:CGRectMake(12, 7, 26, 17)];
+	[view addSubview:homeImage];
+	[homeImage release];
+	return [[[self alloc] initWithCustomView:view] autorelease];
+}
+
 + (id)homeBackBarButtonWithTarget:(id)target action:(SEL)action {	
 	// Create Container View
 	UIView* view = [[UIView new] autorelease];

@@ -15,6 +15,7 @@
 /// returns button with the special styling for back buttons that return to the [GTIOHomeViewController](GTIOHomeViewController).
 /// This must be seperate from the initWithImage:target:action: method because the spacing is not correct with the home image
 + (id)homeBackBarButtonWithTarget:(id)target action:(SEL)action;
++ (id)listBackBarButtonWithTarget:(id)target action:(SEL)action;
 
 /// returns correctly styled backbutton based on the top view in the [TTNavigator](TTNavigator)
 + (id)backButton;
