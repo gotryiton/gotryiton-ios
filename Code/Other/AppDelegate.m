@@ -30,8 +30,6 @@
 #import "GTIOLoadingOverlayManager.h"
 #import "GTIOChangeItReason.h"
 #import "GTIOVotingResultSet.h"
-#import "GTIOAppStatusAlert.h"
-#import "GTIOAppStatusAlertButton.h"
 #import "Facebook.h"
 #import "GTIOBrowseList.h"
 #import "GTIOCategory.h"
@@ -60,18 +58,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
     
     RKObjectMappingProvider* provider = [[[RKObjectMappingProvider alloc] init] autorelease];
-    
-    RKObjectMapping* buttonMapping = [RKObjectMapping mappingForClass:[GTIOAppStatusAlertButton class]];
-    [buttonMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
-    [buttonMapping addAttributeMapping:RKObjectAttributeMappingMake(@"url", @"url")];
-    
-    RKObjectMapping* alertMapping = [RKObjectMapping mappingForClass:[GTIOAppStatusAlert class]];
-    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
-    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"message", @"message")];
-    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"cancelButtonTitle", @"cancelButtonTitle")];
-    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"alertID")];
-    [alertMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"buttons" toKeyPath:@"buttons" objectMapping:buttonMapping]];
-    [provider setMapping:alertMapping forKeyPath:@"alert"];
     
     RKObjectMapping* reviewMapping = [RKObjectMapping mappingForClass:[GTIOReview class]];
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"outfitId", @"outfitID")];
@@ -399,42 +385,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Track app load
 	TTOpenURL(@"gtio://analytics/trackAppDidFinishLaunching");
 	
-//	NSString *versionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
-//	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-//							versionString, @"iphoneAppVersion",
-//							nil];
-//    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-//	[[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/status") queryParams:params delegate:self];
-	
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     
 	return YES;
 }
-
-// TODO: move alert mapping and showing elsewhere.
-//- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
-//    GTIOAppStatusAlert* alert = [dictionary objectForKey:@"alert"];
-//    if (alert) {
-//		[alert show];
-//	}
-//    NSArray* changeItReasons = [dictionary objectForKey:@"global_changeItReasons"];
-//    if (changeItReasons) {
-//        [GTIOGlobalVariableStore sharedStore].changeItReasons = changeItReasons;
-//    }
-//    NSArray* eventTypes = [[dictionary objectForKey:@"global_eventTypes"] valueForKey:@"eventType"];
-//    if (eventTypes) {
-//        [GTIOUser currentUser].eventTypes = eventTypes;
-//    }
-//    
-//    GTIOUser* user = [GTIOUser currentUser];
-//    user.notifications = [dictionary objectForKey:@"notifications"];
-//    user.todosBadge = [[dictionary objectForKey:@"todosBadge"] objectForKey:@"count"];
-//}
-//
-//- (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
-//	// Fail silently?
-//	return;
-//}
 
 - (BOOL)application:(UIApplication*)application handleOpenURL:(NSURL*)URL {
 	// Special handling for the external launch URL: gtio://external/launch

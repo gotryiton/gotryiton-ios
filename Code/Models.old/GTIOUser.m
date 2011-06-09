@@ -14,6 +14,7 @@
 #import "NSObject_Additions.h"
 #import "GTIONotification.h"
 #import "GTIOBadge.h"
+#import "GTIOAppStatusAlertButton.h"
 
 // Constants (see GTIOEnvironment.m)
 extern NSString* const kGTIOJanRainEngageApplicationID;
@@ -50,6 +51,8 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize alertStylistActivity = _alertStylistActivity;
 @synthesize alertStylistAdd = _alertStylistAdd;
 @synthesize alertNewsletter = _alertNewsletter;
+@synthesize istyleCount = _istyleCount;
+@synthesize stylistsCount = _stylistsCount;
 @synthesize aboutMe = _aboutMe;
 @synthesize loggedIn = _loggedIn;
 @synthesize UID = _UID;
@@ -65,6 +68,7 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize profileIconURL = _profileIconURL;
 @synthesize location = _location;
 @synthesize badges = _badges;
+@synthesize alert = _alert;
 
 @synthesize notifications = _notifications;
 @synthesize todosBadge = _todosBadge;
@@ -138,6 +142,8 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.gtioToken", @"token")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.isFacebookConnected", @"isFacebookConnected")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.location", @"location")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.stylistsCount", @"stylistsCount")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.istyleCount", @"istyleCount")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
     
     // TODO: duplicated
@@ -148,12 +154,30 @@ static GTIOUser* gCurrentUser = nil;
     
     RKObjectMapping* notificationMapping = [GTIONotification notificationMapping];
     
+    RKObjectMapping* buttonMapping = [RKObjectMapping mappingForClass:[GTIOAppStatusAlertButton class]];
+    [buttonMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
+    [buttonMapping addAttributeMapping:RKObjectAttributeMappingMake(@"url", @"url")];
+    
+    RKObjectMapping* alertMapping = [RKObjectMapping mappingForClass:[GTIOAppStatusAlert class]];
+    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
+    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"message", @"message")];
+    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"cancelButtonTitle", @"cancelButtonTitle")];
+    [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"alertID")];
+    [alertMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"buttons" toKeyPath:@"buttons" objectMapping:buttonMapping]];
+    
+    [userMapping mapRelationship:@"alert" withObjectMapping:notificationMapping];
+    
     [userMapping mapRelationship:@"notifications" withObjectMapping:notificationMapping];
     [userMapping mapKeyPath:@"user.badges" toRelationship:@"badges" withObjectMapping:badgeMapping];
     userMapping.setNilForMissingAttributes = NO;
     userMapping.setNilForMissingRelationships = NO;
     
     return userMapping;
+}
+
++ (NSString*)appVersionString {
+	NSString *versionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
+    return versionString;
 }
 
 - (id)init {
@@ -183,6 +207,8 @@ static GTIOUser* gCurrentUser = nil;
     TT_RELEASE_SAFELY(_alertStylistActivity);
     TT_RELEASE_SAFELY(_alertStylistAdd);
     TT_RELEASE_SAFELY(_alertNewsletter);
+    TT_RELEASE_SAFELY(_stylistsCount);
+    TT_RELEASE_SAFELY(_istyleCount);
     TT_RELEASE_SAFELY(_isFacebookConnected);
 	[super dealloc];
 }
@@ -203,6 +229,13 @@ static GTIOUser* gCurrentUser = nil;
     [_notifications release];
     _notifications = notifications;
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIONotificationsUpdatedNotificationName object:self];
+}
+
+- (void)setAlert:(GTIOAppStatusAlert*)alert {
+    [alert retain];
+    [_alert release];
+    _alert = alert;
+    [_alert show];
 }
 
 - (void)markNotificationAsSeen:(GTIONotification*)note {
@@ -287,7 +320,7 @@ static GTIOUser* gCurrentUser = nil;
 	if (self.token) {
         RKObjectMapping* userMapping = [GTIOUser userMapping];
         
-        NSString* path = [NSString stringWithFormat:@"%@?gtioToken=%@", GTIORestResourcePath(@"/auth"), self.token];
+        NSString* path = [NSString stringWithFormat:@"%@?gtioToken=%@&iphoneAppVersion=%@", GTIORestResourcePath(@"/auth"), self.token, [GTIOUser appVersionString]];
         if (self.deviceToken) {
             path = [path stringByAppendingFormat:@"&deviceToken=%@", [self deviceTokenURLEncoded]];
         }
@@ -463,7 +496,8 @@ static GTIOUser* gCurrentUser = nil;
 - (void)fbDidLogin {
     NSString* url = GTIORestResourcePath(@"/auth");
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken",
-                            [self deviceTokenURLEncoded], @"deviceToken", nil];
+                            [self deviceTokenURLEncoded], @"deviceToken",
+                            [GTIOUser appVersionString], @"iphoneAppVersion", nil];
     
     RKObjectMapping* userMapping = [GTIOUser userMapping];
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:url delegate:self];

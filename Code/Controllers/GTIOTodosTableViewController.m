@@ -27,7 +27,7 @@
     [super loadView];
     self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"TO-DOs"];
     
-    if ([GTIOUser currentUser].loggedIn) {
+    if ([GTIOUser currentUser].loggedIn && [[GTIOUser currentUser].istyleCount intValue] > 0) {
         GTIOBarButtonItem* whoIStyleItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"who i style" target:self action:@selector(whoIStyleButtonPressed:)] autorelease];
         self.navigationItem.rightBarButtonItem = whoIStyleItem;
     }

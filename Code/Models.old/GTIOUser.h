@@ -9,6 +9,7 @@
 #import "JREngage.h"
 #import <RestKit/RestKit.h>
 #import "Facebook.h"
+#import "GTIOAppStatusAlert.h"
 
 //////////////////////////////////////////////////////////////////////
 // Notifications
@@ -74,9 +75,13 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
     NSNumber* _alertStylistActivity;
     NSNumber* _alertStylistAdd;
     NSNumber* _alertNewsletter;
+    NSNumber* _stylistsCount;
+    NSNumber* _istyleCount;
     
     NSString* _location;
     NSString* _badges;
+    
+    GTIOAppStatusAlert* _alert;
         
 	NSString* _deviceToken;
 	NSArray* _services;
@@ -95,6 +100,8 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 @property (nonatomic, retain) NSNumber* alertStylistActivity;
 @property (nonatomic, retain) NSNumber* alertStylistAdd;
 @property (nonatomic, retain) NSNumber* alertNewsletter;
+@property (nonatomic, retain) NSNumber* istyleCount;
+@property (nonatomic, retain) NSNumber* stylistsCount;
 @property (nonatomic, copy) NSString *aboutMe;
 @property (nonatomic, assign, getter=isLoggedIn) BOOL loggedIn;
 @property (nonatomic, copy) NSString* token;
@@ -108,6 +115,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 @property (nonatomic, readonly) NSString* displayName;
 @property (nonatomic, copy) NSString* location;
 @property (nonatomic, copy) NSString* badges;
+@property (nonatomic, retain) GTIOAppStatusAlert* alert;
 
 /**
  * Either 'male' or 'female'
