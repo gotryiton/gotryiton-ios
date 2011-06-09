@@ -390,69 +390,51 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Bring the reachability observer online
 	[GTIOReachabilityObserver sharedObserver];
 	
-	// Register for Push Notifications
-	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
-	
     // Initialize RestKit
     [self setupRestKit];
+    
+	// Register for Push Notifications
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
 	
 	// Track app load
 	TTOpenURL(@"gtio://analytics/trackAppDidFinishLaunching");
 	
-	// Load Profile data for User from Go Try It On
-	GTIOUser* user = [GTIOUser currentUser];
-	[user resumeSession];
-	
-    [[TTNavigator navigator] openURLAction:
-     [[TTURLAction actionWithURLPath:@"gtio://home"] applyAnimated:NO]];
-    if (![user isLoggedIn]) {
-        [[TTNavigator navigator] openURLAction:
-         [[TTURLAction actionWithURLPath:@"gtio://welcome"] applyAnimated:NO]];
-    }
-    
-	if (_launchURL) {
-		[[TTNavigator navigator] openURLAction:
-		 [[TTURLAction actionWithURLPath:[_launchURL absoluteString]] applyAnimated:NO]];
-		
-		[_launchURL release];
-		_launchURL = nil;
-	}
-	
-	NSString *versionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
-	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-							versionString, @"iphoneAppVersion",
-							nil];
-    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-	[[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/status") queryParams:params delegate:self];
+//	NSString *versionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
+//	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+//							versionString, @"iphoneAppVersion",
+//							nil];
+//    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+//	[[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/status") queryParams:params delegate:self];
 	
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     
 	return YES;
 }
 
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
-    GTIOAppStatusAlert* alert = [dictionary objectForKey:@"alert"];
-    if (alert) {
-		[alert show];
-	}
-    NSArray* changeItReasons = [dictionary objectForKey:@"global_changeItReasons"];
-    if (changeItReasons) {
-        [GTIOGlobalVariableStore sharedStore].changeItReasons = changeItReasons;
-    }
-    NSArray* eventTypes = [[dictionary objectForKey:@"global_eventTypes"] valueForKey:@"eventType"];
-    if (eventTypes) {
-        [GTIOUser currentUser].eventTypes = eventTypes;
-    }
-    
-    GTIOUser* user = [GTIOUser currentUser];
-    user.notifications = [dictionary objectForKey:@"notifications"];
-    user.todosBadge = [[dictionary objectForKey:@"todosBadge"] objectForKey:@"count"];
-}
-
-- (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
-	// Fail silently?
-	return;
-}
+// TODO: move alert mapping and showing elsewhere.
+//- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
+//    GTIOAppStatusAlert* alert = [dictionary objectForKey:@"alert"];
+//    if (alert) {
+//		[alert show];
+//	}
+//    NSArray* changeItReasons = [dictionary objectForKey:@"global_changeItReasons"];
+//    if (changeItReasons) {
+//        [GTIOGlobalVariableStore sharedStore].changeItReasons = changeItReasons;
+//    }
+//    NSArray* eventTypes = [[dictionary objectForKey:@"global_eventTypes"] valueForKey:@"eventType"];
+//    if (eventTypes) {
+//        [GTIOUser currentUser].eventTypes = eventTypes;
+//    }
+//    
+//    GTIOUser* user = [GTIOUser currentUser];
+//    user.notifications = [dictionary objectForKey:@"notifications"];
+//    user.todosBadge = [[dictionary objectForKey:@"todosBadge"] objectForKey:@"count"];
+//}
+//
+//- (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
+//	// Fail silently?
+//	return;
+//}
 
 - (BOOL)application:(UIApplication*)application handleOpenURL:(NSURL*)URL {
 	// Special handling for the external launch URL: gtio://external/launch
@@ -513,6 +495,28 @@ void uncaughtExceptionHandler(NSException *exception) {
 	_lastWentInactiveAt = [[NSDate date] retain];
 }
 
+- (void)handleLaunchURL {
+	if (_launchURL) {
+		[[TTNavigator navigator] openURLAction:
+		 [[TTURLAction actionWithURLPath:[_launchURL absoluteString]] applyAnimated:NO]];
+		
+		[_launchURL release];
+		_launchURL = nil;
+	}
+}
+
+- (void)resumeSession {
+    GTIOUser* user = [GTIOUser currentUser];
+    if (user.token) {
+        [user resumeSession];
+    } else {
+        [[TTNavigator navigator] openURLAction:[[TTURLAction actionWithURLPath:@"gtio://home"] applyAnimated:NO]];
+        [[TTNavigator navigator] openURLAction:[[TTURLAction actionWithURLPath:@"gtio://welcome"] applyAnimated:NO]];
+        [self handleLaunchURL];
+    }
+}
+
+
 #pragma mark User Login
 
 - (void)userDidLoginWithIncompleteProfile:(NSNotification*)notification {
@@ -527,6 +531,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     UIViewController* home = TTOpenURL(@"gtio://home");
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     [home dismissModalViewControllerAnimated:YES];
+    [self handleLaunchURL];
 }
 
 #pragma mark Push Notifications
@@ -538,9 +543,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	deviceTokenString = [deviceTokenString substringWithRange:range];
 	user.deviceToken = deviceTokenString;
 	NSLog(@"Sucessfully registered for push notifications. Device Token = %@", deviceTokenString);
-	
-	// By doing this in the background, we prevent a crash in the event that the app launches with a partially logged in user.
-	[user performSelector:@selector(resumeSession) withObject:nil afterDelay:1.0];
+    
+    [self resumeSession];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -548,8 +552,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	GTIOUser* user = [GTIOUser currentUser];
 	user.deviceToken = nil;
 	
-	// By doing this in the background, we prevent a crash in the event that the app launches with a partially logged in user.
-	[user performSelector:@selector(resumeSession) withObject:nil afterDelay:1.0];
+    [self resumeSession];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {	

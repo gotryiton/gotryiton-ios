@@ -39,7 +39,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nil bundle:nil]) {
 		[self.navigationItem setHidesBackButton:YES];
-        [self.navigationItem setLeftBarButtonItem:[GTIOBarButtonItem backButton]];
+        //        [self.navigationItem setLeftBarButtonItem:[GTIOBarButtonItem backButton]];
 		[self registerForNotifications];
 		_isShowingCurrentUser = YES;
 	}

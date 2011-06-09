@@ -12,6 +12,7 @@
 #import "GTIOEditOutfitViewController.h"
 #import "GTIOOutfitPageView.h"
 #import "GTIOReview.h"
+#import "GTIOHomeViewController.h"
 
 
 @interface GTIOOutfitViewController (shouldReloadPage)
@@ -105,7 +106,13 @@
 	[super loadView];
     self.view.accessibilityLabel = @"Outfit Screen";
 	
-    self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem listBackBarButtonWithTarget:self action:@selector(popViewController)];
+    NSArray* controllers = [(UINavigationController*)self.parentViewController viewControllers];
+    UIViewController* viewControllerAboveThisOne = [controllers objectAtIndex:[controllers indexOfObject:self] - 1];
+    if ([viewControllerAboveThisOne isKindOfClass:[GTIOHomeViewController class]]) {
+        self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(popViewController)];
+    } else {
+        self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem listBackBarButtonWithTarget:self action:@selector(popViewController)];
+    }
     
 	// Set up header view.
 	_headerView = [[GTIOOutfitTitleView alloc] initWithFrame:CGRectMake(85, 2, 250, 40)];

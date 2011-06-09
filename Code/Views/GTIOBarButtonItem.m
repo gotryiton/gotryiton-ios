@@ -85,7 +85,8 @@
 	return [[[self alloc] initWithCustomView:view] autorelease];
 }
 
-+ (id)homeBackBarButtonWithTarget:(id)target action:(SEL)action {	
++ (id)homeBackBarButtonWithTarget:(id)target action:(SEL)action {
+    return [[[self alloc] initWithTitle:@"home" target:target action:action backButton:YES] autorelease];
 	// Create Container View
 	UIView* view = [[UIView new] autorelease];
 	[view setFrame:CGRectMake(0, 0, 45, 32)];		

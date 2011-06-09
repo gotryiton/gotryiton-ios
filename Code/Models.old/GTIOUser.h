@@ -58,7 +58,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 
 @class GTIONotification;
 
-@interface GTIOUser : NSObject <JREngageDelegate, FBSessionDelegate> {
+@interface GTIOUser : NSObject <JREngageDelegate, FBSessionDelegate, RKObjectLoaderDelegate> {
 	BOOL _loggedIn;	
 	NSString* _token;
 	NSString* _UID;

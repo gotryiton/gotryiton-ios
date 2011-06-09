@@ -128,7 +128,7 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.state", @"state")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.email", @"email")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.profileIcon", @"profileIconURL")];
-    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.about", @"aboutMe")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.aboutMe", @"aboutMe")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.iphonePush", @"iphonePush")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertActivity", @"alertActivity")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.alertStylistActivity", @"alertStylistActivity")];
@@ -194,6 +194,7 @@ static GTIOUser* gCurrentUser = nil;
     [number retain];
     [_todosBadge release];
     _todosBadge = number;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [_todosBadge intValue];
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOToDoBadgeUpdatedNotificationName object:self];
 }
 
@@ -290,18 +291,11 @@ static GTIOUser* gCurrentUser = nil;
         if (self.deviceToken) {
             path = [path stringByAppendingFormat:@"&deviceToken=%@", [self deviceTokenURLEncoded]];
         }
-        RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
+        RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:self];
         loader.targetObject = self;
         loader.objectMapping = userMapping;
         
-        [loader sendSynchronously];
-        
-        [self didStopLogin];
-        if (self.UID) {
-            self.loggedIn = YES;
-        } else {
-            [self clearUserData];
-        }
+        [loader send];
 	}
 }
 
@@ -311,6 +305,11 @@ static GTIOUser* gCurrentUser = nil;
     NSError* error = nil;
     if (![operation performMapping:&error]) {
         NSLog(@"Error: %@", error);
+        [[[[UIAlertView alloc] initWithTitle:@"Error Logging In!" 
+                                     message:[error localizedDescription]
+                                    delegate:nil
+                           cancelButtonTitle:@"OK"
+                           otherButtonTitles:nil] autorelease] show];
     }
     
     // TODO: clean this crap up.
@@ -320,7 +319,7 @@ static GTIOUser* gCurrentUser = nil;
     
     if ([[profileInfo objectForKey:@"user.requiredFinishProfile"] boolValue]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
-    } else {
+    } else if ([GTIOUser currentUser].token != nil) {
         self.loggedIn = YES;
     }
     
@@ -438,12 +437,23 @@ static GTIOUser* gCurrentUser = nil;
 
 #pragma mark RKRequestDelegate
 
-- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
-    [self digestProfileInfo:[[response bodyAsString] jsonDecode]];
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
+    NSLog(@"Objects: %@", objects);
     [self didStopLogin];
+    if (self.UID) {
+        self.loggedIn = YES;
+    } else {
+        [self clearUserData];
+    }
 }
 
-- (void)request:(RKRequest*)request didFailLoadWithError:(NSError*)error {
+- (void)objectLoader:(RKObjectLoader*)loader didFailWithError:(NSError*)error {
+    [[[[UIAlertView alloc] initWithTitle:@"Error Logging In!" 
+                                 message:[error localizedDescription]
+                                delegate:nil
+                       cancelButtonTitle:@"OK"
+                       otherButtonTitles:nil] autorelease] show];
+    
     [self didStopLogin];
     [self clearUserData];
 }
@@ -451,16 +461,18 @@ static GTIOUser* gCurrentUser = nil;
 #pragma mark FBSessionDelegate
 
 - (void)fbDidLogin {
-    NSLog(@"Logged in: %@", [_facebook accessToken]);
-    NSString* url = [NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, GTIORestResourcePath(@"/auth")];
-    RKRequest* request = [RKRequest requestWithURL:[NSURL URLWithString:url] delegate:self];
-    request.method = RKRequestMethodPOST;
+    NSString* url = GTIORestResourcePath(@"/auth");
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken",
                             [self deviceTokenURLEncoded], @"deviceToken", nil];
     
-    \
-    request.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-    [request send];
+    RKObjectMapping* userMapping = [GTIOUser userMapping];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:url delegate:self];
+    loader.targetObject = self;
+    loader.params = params;
+    loader.method = RKRequestMethodPOST;
+    loader.objectMapping = userMapping;
+    
+    [loader send];
 }
 
 /**

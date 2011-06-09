@@ -63,6 +63,9 @@
         _todoButton.alpha = 1;
         _todosBadgeButton.alpha = 1;
         [UIView commitAnimations];
+    } else {
+        // Reload TODO's and notifications.
+        [[GTIOUser currentUser] resumeSession];
     }
 }
 
@@ -143,6 +146,7 @@
     // Do any additional setup after loading the view from its nib.
     [self updateUserLabel];
     [self updateNotificationsButton];
+    [self updateTodoBadge];
 }
 
 - (void)viewDidUnload {
@@ -241,6 +245,7 @@
     _notificationsButton.enabled = NO;
     _notificationsBadgeButton.enabled = NO;
     [UIView commitAnimations];
+    [_notificationsController viewDidAppear:YES];
 }
 
 - (IBAction)closeNotificationsButtonWasPressed {
