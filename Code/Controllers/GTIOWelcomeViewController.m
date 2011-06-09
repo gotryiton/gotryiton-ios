@@ -102,14 +102,26 @@
     [UIView commitAnimations];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 - (void)outfitButtonTouched:(id)sender {
     int index = [(UIView*)sender tag];
     NSLog(@"index: %d", index);
     
+//    GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:self.model outfitIndex:index];
+//    [self.navigationController pushViewController:viewController animated:YES];
+//    [viewController release];
+
+    // Matt V. For some reason wants this to pop back to the home controller.
+    // This provides a very strange UX that i believe will confuse users more than be useful.
     GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:self.model outfitIndex:index];
-    [self.navigationController pushViewController:viewController animated:YES];
+    [self dismissModalViewControllerAnimated:YES];
+    UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];
+    [home.navigationController pushViewController:viewController animated:YES];
     [viewController release];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 @end

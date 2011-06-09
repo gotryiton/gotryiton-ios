@@ -103,6 +103,7 @@
         _nameLabel.text = @"my profile";
         _nameLabel.textColor = RGBCOLOR(185,185,185);
         _nameLabel.font = [UIFont systemFontOfSize:16];
+        _nameLabel.backgroundColor = [UIColor clearColor];
         [_nameLabel sizeToFit];
         _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 50, 12);
         

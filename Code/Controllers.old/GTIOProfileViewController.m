@@ -162,7 +162,7 @@
 	GTIOProfileViewDataSource* ds = (GTIOProfileViewDataSource*)[GTIOProfileViewDataSource dataSourceWithObjects:nil];
     
     RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
-    objectLoader.method = RKRequestMethodGET;
+    objectLoader.method = RKRequestMethodPOST;
     objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     ds.model = [GTIOMapGlobalsTTModel modelWithObjectLoader:objectLoader];
 	self.dataSource = ds;

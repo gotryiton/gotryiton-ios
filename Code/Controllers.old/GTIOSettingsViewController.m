@@ -49,7 +49,7 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 	[super loadView];
 	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settings.png"]] autorelease];
 	TTOpenURL(@"gtio://analytics/trackUserDidViewSettings");
-    UIBarButtonItem* signoutItem = [[GTIOBarButtonItem alloc] initWithTitle:@"Sign Out" target:self action:@selector(signOutButtonWasPressed:)];
+    UIBarButtonItem* signoutItem = [[GTIOBarButtonItem alloc] initWithTitle:@"sign out" target:self action:@selector(signOutButtonWasPressed:)];
     self.navigationItem.rightBarButtonItem = signoutItem;
 }
 
@@ -61,7 +61,7 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 - (void)signOutButtonWasPressed:(id)sender {
     TWTAlertViewDelegate* delegate = [[TWTAlertViewDelegate new] autorelease];
     [delegate setTarget:self selector:@selector(logoutConfirmed) object:nil forButtonIndex:1];
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Logout" message:@"Are you sure?" delegate:delegate cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"sign out" message:@"are you sure?" delegate:delegate cancelButtonTitle:@"no" otherButtonTitles:@"yes", nil];
     [alert show];
     [alert release];
 }
