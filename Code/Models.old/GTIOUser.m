@@ -165,9 +165,7 @@ static GTIOUser* gCurrentUser = nil;
     [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"alertID")];
     [alertMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"buttons" toKeyPath:@"buttons" objectMapping:buttonMapping]];
     
-    [userMapping mapRelationship:@"alert" withObjectMapping:notificationMapping];
-    
-    [userMapping mapRelationship:@"notifications" withObjectMapping:notificationMapping];
+    [userMapping mapRelationship:@"alert" withObjectMapping:alertMapping];
     [userMapping mapKeyPath:@"user.badges" toRelationship:@"badges" withObjectMapping:badgeMapping];
     userMapping.setNilForMissingAttributes = NO;
     userMapping.setNilForMissingRelationships = NO;
