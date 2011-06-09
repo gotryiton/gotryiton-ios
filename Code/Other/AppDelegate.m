@@ -482,8 +482,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)userDidLogin:(NSNotification*)note {
-    UIViewController* home = TTOpenURL(@"gtio://home");
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+    UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];
+    if (nil == home.parentViewController) {
+        // If it's not on the stack, open it.
+        TTOpenURL(@"gtio://home");
+    }
+    // Dismiss the login modal view controller.
     [home dismissModalViewControllerAnimated:YES];
     [self handleLaunchURL];
 }

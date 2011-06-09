@@ -293,7 +293,7 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 }
 
 - (UIColor*)tableErrorTextColor {
-    return RGBCOLOR(221,221,221);
+    return RGBCOLOR(96,96,96);
 }
 
 - (UIFont*)errorTitleFont {

@@ -80,6 +80,7 @@
         imageView.alpha = 0;
         button.alpha = 0;
         float delay = (rand() / (float)((unsigned)RAND_MAX + 1))*2;
+        delay += 2;
         NSLog(@"Delay: %f", delay);
         [self performSelector:@selector(fadeIn:) withObject:[NSArray arrayWithObjects:imageView, button, nil] afterDelay:delay];
     }
