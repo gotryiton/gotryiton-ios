@@ -68,6 +68,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"agreeVotes", @"agreeVotes")];
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"flags", @"flags")];
     [provider setMapping:reviewMapping forKeyPath:@"reviews"];
+    [provider setMapping:reviewMapping forKeyPath:@"review"];
     
     RKObjectMapping* votingResultsMapping = [RKObjectMapping mappingForClass:[GTIOVotingResultSet class]];
     [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"reasons", @"reasons")];
@@ -147,16 +148,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"height",@"height")];
     [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"selected",@"selected")];
     [provider setMapping:userIconOptionMapping forKeyPath:@"userIconOptions"];
-	
-    RKObjectMapping* changeItReasonsMapping = [RKObjectMapping mappingForClass:[GTIOChangeItReason class]];
-    [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"reasonID")];
-    [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"display", @"display")];
-    [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"text", @"text")];
-    [provider setMapping:changeItReasonsMapping forKeyPath:@"global_changeItReasons"];
-    
-    RKObjectMapping* eventTypesMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
-    [eventTypesMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"eventType")];
-    [provider setMapping:eventTypesMapping forKeyPath:@"global_eventTypes"];
     
     RKObjectMapping* todosBadgeMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
     [todosBadgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"count")];

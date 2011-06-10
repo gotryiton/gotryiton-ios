@@ -96,7 +96,8 @@
 }
 
 - (NSArray*)whereYouAreGoingChoices {
-	return [[GTIOUser currentUser].eventTypes valueForKeyPath:@"type"];
+    GTIOUser* user = [GTIOUser currentUser];
+	return [user.eventTypes valueForKeyPath:@"type"];
 }
 
 - (NSNumber*)indexForEventType:(NSString*)type {

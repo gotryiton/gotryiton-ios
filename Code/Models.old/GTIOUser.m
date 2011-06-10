@@ -15,6 +15,8 @@
 #import "GTIONotification.h"
 #import "GTIOBadge.h"
 #import "GTIOAppStatusAlertButton.h"
+#import "GTIOGlobalVariableStore.h"
+#import "GTIOChangeItReason.h"
 
 // Constants (see GTIOEnvironment.m)
 extern NSString* const kGTIOJanRainEngageApplicationID;
@@ -153,6 +155,7 @@ static GTIOUser* gCurrentUser = nil;
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"imgURL", @"imgURL")];
     
     RKObjectMapping* notificationMapping = [GTIONotification notificationMapping];
+    [userMapping mapRelationship:@"notifications" withObjectMapping:notificationMapping];
     
     RKObjectMapping* buttonMapping = [RKObjectMapping mappingForClass:[GTIOAppStatusAlertButton class]];
     [buttonMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
@@ -164,6 +167,18 @@ static GTIOUser* gCurrentUser = nil;
     [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"cancelButtonTitle", @"cancelButtonTitle")];
     [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"alertID")];
     [alertMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"buttons" toKeyPath:@"buttons" objectMapping:buttonMapping]];
+    
+    RKObjectMapping* changeItReasonsMapping = [RKObjectMapping mappingForClass:[GTIOChangeItReason class]];
+    [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"reasonID")];
+    [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"display", @"display")];
+    [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"text", @"text")];
+    //[provider setMapping:changeItReasonsMapping forKeyPath:@"global_changeItReasons"];
+    [userMapping mapKeyPath:@"global_changeItReasons" toRelationship:@"changeItReasons" withObjectMapping:changeItReasonsMapping];
+    
+    RKObjectMapping* eventTypesMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
+    [eventTypesMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"eventType")];
+    //[provider setMapping:eventTypesMapping forKeyPath:@"global_eventTypes"];
+    [userMapping mapKeyPath:@"global_eventTypes" toRelationship:@"eventTypes" withObjectMapping:eventTypesMapping];
     
     [userMapping mapRelationship:@"alert" withObjectMapping:alertMapping];
     [userMapping mapKeyPath:@"user.badges" toRelationship:@"badges" withObjectMapping:badgeMapping];
@@ -209,6 +224,21 @@ static GTIOUser* gCurrentUser = nil;
     TT_RELEASE_SAFELY(_istyleCount);
     TT_RELEASE_SAFELY(_isFacebookConnected);
 	[super dealloc];
+}
+
+- (void)setEventTypes:(NSArray*)eventTypes {
+    eventTypes = [eventTypes valueForKey:@"eventType"];
+    [eventTypes retain];
+    [_eventTypes release];
+    _eventTypes = eventTypes;
+}
+
+- (NSArray*)changeItReasons {
+    return [GTIOGlobalVariableStore sharedStore].changeItReasons;
+}
+
+- (void)setChangeItReasons:(NSArray*)reasons {
+    [GTIOGlobalVariableStore sharedStore].changeItReasons = reasons;
 }
 
 - (void)setTodosBadge:(NSNumber*)number {
@@ -328,33 +358,6 @@ static GTIOUser* gCurrentUser = nil;
         
         [loader send];
 	}
-}
-
-- (void)digestProfileInfo:(NSDictionary*)profileInfo {
-    RKObjectMappingOperation* operation = [RKObjectMappingOperation mappingOperationFromObject:profileInfo toObject:self withObjectMapping:[GTIOUser userMapping]];
-    operation.objectFactory = [[RKObjectMapper new] autorelease];
-    NSError* error = nil;
-    if (![operation performMapping:&error]) {
-        NSLog(@"Error: %@", error);
-        [[[[UIAlertView alloc] initWithTitle:@"Error Logging In!" 
-                                     message:[error localizedDescription]
-                                    delegate:nil
-                           cancelButtonTitle:@"OK"
-                           otherButtonTitles:nil] autorelease] show];
-    }
-    
-    // TODO: clean this crap up.
-    if ([[profileInfo valueForKey:@"user.isNewUser"] boolValue]) {
-        TTOpenURL(@"gtio://analytics/trackUserDidLoginForTheFirstTime");
-    }
-    
-    if ([[profileInfo objectForKey:@"user.requiredFinishProfile"] boolValue]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
-    } else if ([GTIOUser currentUser].token != nil) {
-        self.loggedIn = YES;
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidUpdateProfileNotificationName object:self];
 }
 
 - (NSString*)displayName {

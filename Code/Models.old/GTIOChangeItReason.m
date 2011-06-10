@@ -23,14 +23,6 @@
 	[super dealloc];
 }
 
-+ (NSDictionary*)elementToPropertyMappings {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"reasonID", @"id",
-			@"display", @"display",
-			@"text", @"text",
-			nil];
-}
-
 - (NSString*)description {
 	return [NSString stringWithFormat:@"<GTIOChangeItReason: id: %d text: '%@' display: %d>", _reasonID, _text, _display];
 }

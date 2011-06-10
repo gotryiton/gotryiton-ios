@@ -138,6 +138,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
  * A list of possible event types and their ids. keys are 'id' and 'type'
  */
 @property (nonatomic, retain) NSArray* eventTypes;
+@property (nonatomic, retain) NSArray* changeItReasons;
 
 @property (nonatomic, readonly) NSString* firstName;
 @property (nonatomic, readonly) NSString* lastInitial;

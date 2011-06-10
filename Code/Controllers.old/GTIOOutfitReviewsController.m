@@ -41,7 +41,6 @@
 - (id)initWithOutfitID:(NSString*)outfitID {
 	if (self = [super initWithStyle:UITableViewStylePlain]) {
 		NSLog(@"OutfitID: %@", outfitID);
-//		self.outfitID = outfitID;
 		self.outfit = [GTIOOutfit outfitWithOutfitID:outfitID];
 		NSLog(@"Outfit: %@", _outfit);
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewDeletedNotification:) name:@"ReviewDeletedNotification" object:nil];
@@ -58,7 +57,6 @@
     
     UIImageView* footer = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320-12, 6)];
     [footer setImage:[UIImage imageNamed:@"comment-area.png"]];
-    //footer.backgroundColor = [UIColor redColor];//RGBACOLOR(255,255,255,0.3);
     self.tableView.tableFooterView = footer;
     [footer release];
 }
@@ -193,7 +191,6 @@
 
 - (CGRect)rectForOverlayView {
     return CGRectMake(0, _tableView.tableHeaderView.height, 320, _tableView.height - _tableView.tableHeaderView.height);
-//    return [_tableView frameWithKeyboardSubtracted:0];
 }
 
 - (void)showEmpty:(BOOL)show {
@@ -265,8 +262,6 @@
 - (void)didLoadModel:(BOOL)firstTime {
     [self setupTableFooter];
 
-    
-//	NSLog(@"Objects: %@", [(RKRequestTTModel*)self.model objects]);
 	NSMutableArray* items = [NSMutableArray array];
 	
 	NSArray* reviews = [(RKObjectLoaderTTModel*)self.model objects];
@@ -341,12 +336,7 @@
 	[dataSource.items removeObjectAtIndex:index];
 	NSArray* indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]];
     
-//    RKRequestTTModel* model = (RKRequestTTModel*)_model;
-//    NSMutableArray* objects = [[model.objects mutableCopy] autorelease];
-//    [objects removeObject:review];
-//    _outfit.reviews = objects;
     _outfit.reviewCount = [NSNumber numberWithInt:[_outfit.reviewCount intValue] - 1];
-//    [model setValue:objects forKey:@"_objects"];
     
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
     
@@ -357,13 +347,12 @@
     }
 }
 
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
-//	NSLog(@"Objects: %@", objects);
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
 	TTOpenURL(@"gtio://stopLoading");
-	if ([objects count] == 1) {
+    GTIOReview* review = [dictionary objectForKey:@"review"];
+	if (review) {
         TTOpenURL(@"gtio://analytics/trackReviewSubmitted");
         
-		GTIOReview* review = [objects objectAtIndex:0];
 		TTListDataSource* dataSource = (TTListDataSource*)self.dataSource;
 		
         NSLog(@"Number of Sections: %d", [self.tableView numberOfSections]);
@@ -372,12 +361,8 @@
 		GTIOOutfitReviewTableItem* item = [GTIOOutfitReviewTableItem itemWithReview:review];
         NSLog(@"Items: %@", dataSource.items);
 		[dataSource.items insertObject:item atIndex:0];
-//        RKRequestTTModel* model = (RKRequestTTModel*)_model;
-//        NSMutableArray* objects = [[model.objects valueForKey:@"reviews"] mutableCopy] autorelease];
-//        [objects insertObject:review atIndex:0];
-//        _outfit.reviews = objects;
+        
         _outfit.reviewCount = [NSNumber numberWithInt:[_outfit.reviewCount intValue]+1];
-//        [model setValue:objects forKey:@"_objects"];
 
         if ([dataSource.items count] == 1) {
             [self invalidateModel];
@@ -385,7 +370,16 @@
             [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
         }
         [self showEmpty:NO];
-	}
+	} else {
+        NSLog(@"Loaded: %@", dictionary);
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:@"There was an error submitting your review."
+                                                           delegate:nil 
+                                                  cancelButtonTitle:@"OK" 
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+    }
     _loading = NO;
 }
 
