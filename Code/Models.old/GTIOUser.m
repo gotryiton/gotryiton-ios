@@ -226,6 +226,33 @@ static GTIOUser* gCurrentUser = nil;
 	[super dealloc];
 }
 
+- (void)digestProfileInfo:(NSDictionary*)profileInfo {
+    RKObjectMappingOperation* operation = [RKObjectMappingOperation mappingOperationFromObject:profileInfo toObject:self withObjectMapping:[GTIOUser userMapping]];
+    operation.objectFactory = [[RKObjectMapper new] autorelease];
+    NSError* error = nil;
+    if (![operation performMapping:&error]) {
+        NSLog(@"Error: %@", error);
+        [[[[UIAlertView alloc] initWithTitle:@"Error Logging In!" 
+                                     message:[error localizedDescription]
+                                    delegate:nil
+                           cancelButtonTitle:@"OK"
+                           otherButtonTitles:nil] autorelease] show];
+    }
+    
+    // TODO: clean this crap up.
+    if ([[profileInfo valueForKey:@"user.isNewUser"] boolValue]) {
+        TTOpenURL(@"gtio://analytics/trackUserDidLoginForTheFirstTime");
+    }
+    
+    if ([[profileInfo objectForKey:@"user.requiredFinishProfile"] boolValue]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
+    } else if ([GTIOUser currentUser].token != nil) {
+        self.loggedIn = YES;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidUpdateProfileNotificationName object:self];
+}
+
 - (void)setEventTypes:(NSArray*)eventTypes {
     eventTypes = [eventTypes valueForKey:@"eventType"];
     [eventTypes retain];

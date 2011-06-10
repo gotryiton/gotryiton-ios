@@ -193,20 +193,22 @@
 
 - (void)displayOptions {
 	int i = 0;
+    _currentSelection = -1;
     NSMutableArray* imageViews = [NSMutableArray new];
+    float outfitPadding = 0;
 	for (GTIOUserIconOption* option in _options) {
-        if ([option.url isEqualToString:_previewImageView.urlPath]) {
+        if ([option.url isEqualToString:_previewImageView.urlPath] && ![option.type isEqualToString:@"Default"]) {
             _currentSelection = [_options indexOfObject:option];
-            if ([option.type isEqualToString:@"Default"]) {
-                _currentSelection = -1;
-            }
         }
+        float width = floor([option.width floatValue]/2.0f);
+        float height = floor([option.height floatValue]/2.0f);
         if ([option.type isEqualToString:@"Default"]) {
             continue;
         } else if ([option.type isEqualToString:@"Facebook"]) {
             _facebookIconOption = option;
             TTImageView* image = [[TTImageView alloc] init];
-            [image setFrame:CGRectMake(30,90,48,48)];
+//            [image setFrame:CGRectMake(30,90,48,48)];
+            [image setFrame:CGRectMake(30,90,width,height)];
             image.urlPath = option.url;
             [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
             [[image layer] setBorderWidth:1];
@@ -220,7 +222,8 @@
             [self.view addSubview:button];
         } else {
             TTImageView* image = [[TTImageView alloc] init];
-            [image setFrame:CGRectMake(i*49+i*2.5,0,49,67)];
+//            [image setFrame:CGRectMake(i*49+i*2.5,0,49,67)];
+            [image setFrame:CGRectMake(outfitPadding,0,width,height)];
             image.urlPath = option.url;
             [[image layer] setBorderColor:[[UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1] CGColor]];
             [[image layer] setBorderWidth:1];
@@ -232,7 +235,8 @@
             [button setBackgroundColor:[UIColor clearColor]];
             [button addTarget:self action:@selector(selectOption:) forControlEvents:UIControlEventTouchUpInside];
             [_scrollView addSubview:button];
-            i+=1;			
+            i+=1;
+            outfitPadding += width + 3;
         }
 	}
     _imageViews = [imageViews retain];
