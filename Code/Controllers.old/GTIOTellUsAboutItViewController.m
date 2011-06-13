@@ -34,7 +34,12 @@
 																				  action:@selector(nextButtonWasTouched:)] autorelease];
 		
 		// Controls
-		NSArray* components = [NSArray arrayWithObject:[self.opinionRequest whereYouAreGoingChoices]];
+        NSArray* components = nil;
+        if ([self.opinionRequest whereYouAreGoingChoices]) {
+            components = [NSArray arrayWithObject:[self.opinionRequest whereYouAreGoingChoices]];
+        } else {
+            NSLog(@"WARNING: where are you going choices were not loaded!");
+        }
 		_whereYouAreGoingPicker = [[TWTPickerControl alloc] initWithFrame:CGRectMake(0, 0, 177, 30)];
 		_whereYouAreGoingPicker.dataSource = [[TWTPickerDataSource alloc] initWithComponents:components];
 		_whereYouAreGoingPicker.textLabel.textAlignment = UITextAlignmentRight;

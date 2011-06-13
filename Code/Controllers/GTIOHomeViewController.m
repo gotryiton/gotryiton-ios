@@ -71,16 +71,6 @@
 
 - (void)updateUserLabel {
     _profileThumbnailView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
-    if (nil == _nameLabel) {
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.view insertSubview:_nameLabel belowSubview:_notificationsContainer];
-        [_nameLabel release];
-    }
-    if (nil == _locationLabel){
-        _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.view insertSubview:_locationLabel belowSubview:_notificationsContainer];
-        [_locationLabel release];
-    }
     if ([GTIOUser currentUser].loggedIn) {
         _profileThumbnailView.urlPath = [GTIOUser currentUser].profileIconURL;
         
@@ -144,6 +134,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.view insertSubview:_nameLabel belowSubview:_notificationsContainer];
+    _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.view insertSubview:_locationLabel belowSubview:_notificationsContainer];
+    
     [self updateUserLabel];
     [self updateNotificationsButton];
     [self updateTodoBadge];
@@ -151,6 +147,11 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
+    
+    [_nameLabel release];
+    _nameLabel = nil;
+    [_locationLabel release];
+    _locationLabel = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

@@ -79,7 +79,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
     NSNumber* _istyleCount;
     
     NSString* _location;
-    NSString* _badges;
+    NSArray* _badges;
     
     GTIOAppStatusAlert* _alert;
         
@@ -114,7 +114,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 @property (nonatomic, readonly) Facebook* facebook;
 @property (nonatomic, readonly) NSString* displayName;
 @property (nonatomic, copy) NSString* location;
-@property (nonatomic, copy) NSString* badges;
+@property (nonatomic, copy) NSArray* badges;
 @property (nonatomic, retain) GTIOAppStatusAlert* alert;
 
 /**
