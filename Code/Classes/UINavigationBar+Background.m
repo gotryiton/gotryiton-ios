@@ -13,7 +13,9 @@
 {
     UIImage *image = [UIImage imageNamed:@"navbar.png"];  
     NSLog(@"top view controller: %@",[TTNavigator globalNavigator].topViewController);
-    if ([[[TTNavigator globalNavigator].topViewController class] isEqual:NSClassFromString(@"GTIOOutfitViewController")]) {
+    if ([[[TTNavigator globalNavigator].topViewController class] isEqual:NSClassFromString(@"GTIOOutfitViewController")] ||
+        // sometimes we push the outfit view controller behind the welcome view.
+        [[[TTNavigator globalNavigator].topViewController class] isEqual:NSClassFromString(@"GTIOWelcomeViewController")]) {
         image = [UIImage imageNamed:@"outfit-navbar.png"];
     }
 	[image drawInRect:rect];
