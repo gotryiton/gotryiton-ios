@@ -12,11 +12,12 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        UIColor* gray = RGBCOLOR(47,47,47);
-        [self setTitleColor:gray forState:UIControlStateSelected];
-        [self setTitleColor:gray forState:UIControlStateHighlighted];
-        [self setTitleColor:gray forState:UIControlStateSelected|UIControlStateHighlighted];
+        UIColor* gray = RGBCOLOR(71,71,71);
+        UIColor* white = [UIColor whiteColor];
+        [self setTitleColor:gray forState:UIControlStateNormal];
+        [self setTitleColor:white forState:UIControlStateSelected];
+        [self setTitleColor:white forState:UIControlStateHighlighted];
+        [self setTitleColor:white forState:UIControlStateSelected|UIControlStateHighlighted];
         self.titleLabel.font = kGTIOFetteFontOfSize(18);
         
         UIImage* streachableImage = [[UIImage imageNamed:@"todos-badge.png"] stretchableImageWithLeftCapWidth:11 topCapHeight:12];
@@ -122,9 +123,9 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    CGRect rect = CGRectOffset(CGRectInset(self.bounds, 5, 3), 0, 3);
+    CGRect rect = CGRectOffset(CGRectInset(self.bounds, 5, 3), 0, 2);
     if (_subtitle) {
-        rect = CGRectOffset(CGRectInset(self.bounds, 5, 3+8), 0, 3-8);
+        rect = CGRectOffset(CGRectInset(self.bounds, 5, 3+8), 0, 2-8);
     }
     float width = rect.size.width / [_tabs count];
     
@@ -133,7 +134,7 @@
         tab.frame = CGRectMake(floor(rect.origin.x + width * i), rect.origin.y, floor(width), rect.size.height);
         CGRect titleLabelFrame = tab.titleLabel.frame;
         if (tab.titleLabel.text) {
-            tab.titleEdgeInsets = UIEdgeInsetsMake(0,6,2,tab.frame.size.width - titleLabelFrame.size.width - 12);// - 12
+            tab.titleEdgeInsets = UIEdgeInsetsMake(0,6-2,1,tab.frame.size.width - titleLabelFrame.size.width - 12+2);// - 12
         }
     }
     _subtitleLabel.frame = CGRectZero;

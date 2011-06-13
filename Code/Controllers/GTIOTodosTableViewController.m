@@ -25,7 +25,7 @@
 
 - (void)loadView {
     [super loadView];
-    self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"TO-DOs"];
+    self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"TO-DO'S"];
     
     if ([GTIOUser currentUser].loggedIn && [[GTIOUser currentUser].istyleCount intValue] > 0) {
         GTIOBarButtonItem* whoIStyleItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"who i style" target:self action:@selector(whoIStyleButtonPressed:)] autorelease];

@@ -17,20 +17,20 @@
 - (void)setup {
     _profilePictureImageView = [TTImageView new];
     _profilePictureImageView.layer.cornerRadius = 2.0;
-    [_profilePictureImageView setFrame:CGRectInset(CGRectMake(15,12,46,46), 4, 4)];
+    [_profilePictureImageView setFrame:CGRectInset(CGRectMake(15,15,46,46), 4, 4)];
     [self addSubview:_profilePictureImageView];
     
     UIImageView* profilePictureFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-overlay-76.png"]];
-    [profilePictureFrame setFrame:CGRectMake(15,12,46,46)];
+    [profilePictureFrame setFrame:CGRectMake(15,15,46,46)];
     [self addSubview:profilePictureFrame];
     
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 10, 250, 40)];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(67, 12, 250, 40)];
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.font = kGTIOFetteFontOfSize(21);
     _nameLabel.textColor = kGTIOColorBrightPink;
     [self addSubview:_nameLabel];
     
-    _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 37, 250, 20)];
+    _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(67, 38, 250, 20)];
     _locationLabel.backgroundColor = [UIColor clearColor];
     _locationLabel.font = [UIFont systemFontOfSize:12];
     _locationLabel.textColor = kGTIOColor888888;

@@ -79,9 +79,11 @@
         
         _alertTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _alertTextLabel.text = @"alerts";
-        _alertTextLabel.font = [UIFont boldSystemFontOfSize:14];
+        _alertTextLabel.font = [UIFont boldSystemFontOfSize:12];
         _alertTextLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_alertTextLabel];
+        
+        [_imageView2 removeFromSuperview];
     }
     return self;
 }
@@ -113,11 +115,11 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self.textLabel setFrame:CGRectZero];
-    _backgroundImage.frame = CGRectMake(12,10,self.contentView.frame.size.width-24,self.contentView.frame.size.height-10);
+    _backgroundImage.frame = CGRectMake(12,12,self.contentView.frame.size.width-24,self.contentView.frame.size.height-12);
     [_alertSwitch sizeToFit];
-    _alertTextLabel.frame = CGRectMake(25,65,50,20);
-    _alertSwitch.frame = CGRectOffset(_alertSwitch.bounds, 76, 63);
-    CGRect buttonRect = CGRectMake(252,67,48,20);
+    _alertTextLabel.frame = CGRectMake(26,67,50,20);
+    _alertSwitch.frame = CGRectOffset(_alertSwitch.bounds, 67, 65);
+    CGRect buttonRect = CGRectMake(252,69,48,20);
     _unsilenceButton.frame = buttonRect;
     _silenceButton.frame = buttonRect;
 }
@@ -149,7 +151,7 @@
 
 
 + (CGFloat)tableView:(UITableView *)tableView rowHeightForObject:(id)object { 
-    return 92.5; 
+    return 95; 
 }
 
 @end
@@ -188,7 +190,7 @@
 
 - (id)createDelegate {
     GTIODropShadowSectionTableViewDelegate* delegate = [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
-    delegate.footerHeight = 10.0f;
+    delegate.footerHeight = 12.0f;
     return delegate;
 }
 

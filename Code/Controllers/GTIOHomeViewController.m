@@ -31,6 +31,24 @@
     [super dealloc];
 }
 
+- (void)fadeInTodosBadge {
+    _todosBadgeButton.alpha = 1;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    
+    if (_backgroundImageView.hidden == YES) {
+        _todoButton.titleLabel.alpha = 0;
+        _uploadButton.titleLabel.alpha = 0;
+        _featuredButton.titleLabel.alpha = 0;
+        _browseButton.titleLabel.alpha = 0;
+        _todoButton.titleLabel.alpha = 0;
+        _todosBadgeButton.alpha = 0;
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (_backgroundImageView.hidden == YES) {
@@ -41,27 +59,20 @@
         [UIView setAnimationDuration:2];
         [UIView setAnimationDelay:1];
         [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(fadeInTodosBadge)];
         _backgroundImageView.alpha = 1;
         [UIView commitAnimations];
         
-        _uploadButton.alpha = 0;
-        _featuredButton.alpha = 0;
-        _browseButton.alpha = 0;
-        _todoButton.alpha = 0;
-        _todosBadgeButton.alpha = 0;
-        _uploadButton.hidden = NO;
-        _featuredButton.hidden = NO;
-        _browseButton.hidden = NO;
-        _todoButton.hidden = NO;
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:2];
         [UIView setAnimationDelay:2];
         [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-        _uploadButton.alpha = 1;
-        _featuredButton.alpha = 1;
-        _browseButton.alpha = 1;
-        _todoButton.alpha = 1;
-        _todosBadgeButton.alpha = 1;
+        _uploadButton.titleLabel.alpha = 1;
+        _featuredButton.titleLabel.alpha = 1;
+        _browseButton.titleLabel.alpha = 1;
+        _todoButton.titleLabel.alpha = 1;
+        _todoButton.titleLabel.alpha = 1;
         [UIView commitAnimations];
     } else {
         // Reload TODO's and notifications.
@@ -76,18 +87,18 @@
         
         _nameLabel.frame = CGRectZero;
         _nameLabel.text = [[GTIOUser currentUser].username uppercaseString];
-        _nameLabel.font = kGTIOFetteFontOfSize(21);
+        _nameLabel.font = kGTIOFetteFontOfSize(22);
         _nameLabel.textColor = [UIColor whiteColor];
         _nameLabel.backgroundColor = [UIColor clearColor];
         [_nameLabel sizeToFit];
-        _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 49, 7);
+        _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 45, 6);
         
         _locationLabel.frame = CGRectZero;
         _locationLabel.text = [GTIOUser currentUser].location;
-        _locationLabel.font = [UIFont systemFontOfSize:12];
-        _locationLabel.textColor = RGBCOLOR(114,114,114);
+        _locationLabel.font = [UIFont systemFontOfSize:13];
+        _locationLabel.textColor = RGBCOLOR(156,156,156);
         [_locationLabel sizeToFit];
-        _locationLabel.frame = CGRectMake(50, 24, 200, _locationLabel.bounds.size.height);
+        _locationLabel.frame = CGRectMake(45, 25, 200, _locationLabel.bounds.size.height);
         _locationLabel.backgroundColor = [UIColor clearColor];
         
     } else {
@@ -98,7 +109,7 @@
         _nameLabel.font = [UIFont systemFontOfSize:16];
         _nameLabel.backgroundColor = [UIColor clearColor];
         [_nameLabel sizeToFit];
-        _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 50, 12);
+        _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 45, 12);
         
         _locationLabel.text = @"";
     }
@@ -140,6 +151,9 @@
     _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.view insertSubview:_locationLabel belowSubview:_notificationsContainer];
     
+    _featuredButton.clipsToBounds = NO;
+    _featuredButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    
     [self updateUserLabel];
     [self updateNotificationsButton];
     [self updateTodoBadge];
@@ -168,12 +182,6 @@
     if (nil == navController.modalViewController) {
         [navController setNavigationBarHidden:NO animated:animated];
     }
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 #pragma mark - Actions

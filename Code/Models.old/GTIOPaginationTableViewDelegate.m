@@ -11,9 +11,12 @@
 #import "GTIOPaginatedTTModel.h"
 #import "GTIOOutfitTableViewItem.h"
 #import "GTIOOutfitViewController.h"
+#import "GTIOBrowseList.h"
+#import "GTIOBrowseListTTModel.h"
+#import "GTIOTodosTableViewController.h"
 
 //#define kTableViewEdgeInsets UIEdgeInsetsMake(8, 0, 0, 0)
-#define kTableViewEdgeInsets UIEdgeInsetsMake(0, 0, 0, 0)
+#define kTableViewEdgeInsets UIEdgeInsetsMake(0, 0, 0, 0);
 
 @interface TTTableViewDragRefreshDelegate (TTModelDelegate)
 - (void)modelDidFinishLoad:(id<TTModel>)model;
@@ -130,7 +133,7 @@
 		[_controller.tableView.superview addSubview:_loadingMoreView];
 		_headerView.backgroundColor = RGBCOLOR(240,240,240);
 		
-		_headerView.frame = CGRectMake(0, -_controller.tableView.bounds.size.height - 11,
+		_headerView.frame = CGRectMake(0, -_controller.tableView.bounds.size.height,
 										  _controller.tableView.width,
 										  _controller.tableView.bounds.size.height);
 		
@@ -208,22 +211,66 @@
 //	[UIView commitAnimations];
 //}
 
+- (void)setupContentInset {
+    GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)_controller.model;
+    if ([model isKindOfClass:[GTIOBrowseListTTModel class]]) {
+        GTIOBrowseList* list = model.list;
+    
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:ttkDefaultFastTransitionDuration];
+        
+        if (list.categories || list.sections) {
+            _controller.tableView.contentInset = UIEdgeInsetsMake(0,0,0,0);
+        } else {
+            _controller.tableView.contentInset = UIEdgeInsetsMake(4,0,4,0);
+            if ([_controller isKindOfClass:[GTIOTodosTableViewController class]]) {
+                _headerView.frame = CGRectMake(0, -464,
+                                               _controller.tableView.width,
+                                               300);
+            } else {
+                _headerView.frame = CGRectMake(0, -420,
+                                               _controller.tableView.width,
+                                               300);
+            }
+            [UIView commitAnimations];
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationDuration:ttkDefaultFastTransitionDuration];
+            if (CGPointEqualToPoint(_controller.tableView.contentOffset, CGPointZero)) {
+                _controller.tableView.contentOffset = CGPointMake(0,-4);
+            }
+        }
+        
+        [UIView commitAnimations];
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)modelDidFinishLoad:(id<TTModel>)model {
   	[self hideLoadMore];
-    [super modelDidFinishLoad:model];
+    [_headerView setStatus:TTTableHeaderDragRefreshPullToReload];
+    [self setupContentInset];
+    
+    if ([model respondsToSelector:@selector(loadedTime)]) {
+        NSDate* date = [model performSelector:@selector(loadedTime)];
+        [_headerView setUpdateDate:date];
+        
+    } else {
+        [_headerView setCurrentDate];
+    }
 }
 
 - (void)model:(id<TTModel>)model didFailLoadWithError:(NSError*)error {
 	[self hideLoadMore];
-    [super model:model didFailLoadWithError:error];
+    [_headerView setStatus:TTTableHeaderDragRefreshPullToReload];
+    [self setupContentInset];
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)modelDidCancelLoad:(id<TTModel>)model {
 	[self hideLoadMore];
-    [super modelDidCancelLoad:model];
+    [_headerView setStatus:TTTableHeaderDragRefreshPullToReload];
+    [self setupContentInset];
 }
 
 @end

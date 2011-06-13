@@ -23,6 +23,7 @@
 #import "GTIOBrowseListPresenter.h"
 #import "GTIOListSection.h"
 #import "GTIOStaticOutfitListModel.h"
+#import "GTIOHeaderView.h"
 
 @interface GTIOTableImageItemCell : TTTableImageItemCell
 @end
@@ -304,6 +305,7 @@
         _presenter = [[GTIOBrowseListPresenter presenterWithList:list] retain];
         
         self.title = list.title;
+        self.navigationItem.titleView = [GTIOHeaderView viewWithText:list.title];
         
         if (nil == _searchBar) {
             _searchBar = [_presenter.searchBar retain];
@@ -311,13 +313,15 @@
             self.tableView.tableHeaderView = _searchBar;
         }
         
-        [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
+        // TODO: figure out where to set this
+//        [self.tableView setContentInset:UIEdgeInsetsMake(8, 0, 0, 0)];
         
         [self setupTabs];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         if (list.categories) {
             self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+//            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
             if ([list.includeAlphaNav boolValue]) {
                 _topShadowImageView.frame = CGRectZero;
                 // Uses alphabetical indexes along the sidebar
@@ -327,7 +331,7 @@
         }
         if (list.sections) {
             _topShadowImageView.frame = CGRectZero;
-            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+//            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
         }
         NSMutableArray* items = [[_presenter.tableItems mutableCopy] autorelease];
         [self setupDataSourceWithItems:items];
