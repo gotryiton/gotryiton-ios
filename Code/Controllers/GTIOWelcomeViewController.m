@@ -54,7 +54,7 @@
     [_spinner stopAnimating];
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)aModel;
     GTIOBrowseList* list = model.list;
-    srand(time(NULL));
+    float delay = 0.0f;
     for (int i = 0; i < [list.outfits count]; i++) {
         GTIOOutfit* outfit = [list.outfits objectAtIndex:i];
         TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
@@ -67,7 +67,6 @@
         
         int row = floor(i/5);
         int column = i%5;
-//        NSLog(@"(%d,%d)", row, column);
         int x = 61 * column;
         int y = 80*row;
         CGRect frame = CGRectMake(x,y,71,90);
@@ -79,8 +78,7 @@
         
         imageView.alpha = 0;
         button.alpha = 0;
-        float delay = (rand() / (float)((unsigned)RAND_MAX + 1))*2;
-        delay += 2;
+        delay += 0.4f;
         NSLog(@"Delay: %f", delay);
         [self performSelector:@selector(fadeIn:) withObject:[NSArray arrayWithObjects:imageView, button, nil] afterDelay:delay];
     }
@@ -97,6 +95,7 @@
 
 - (void)fadeIn:(NSArray*)items {
     [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:2.0f];
     for (UIView* view in items) {
         view.alpha = 1;
     }
