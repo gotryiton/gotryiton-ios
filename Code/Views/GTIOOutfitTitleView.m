@@ -55,10 +55,12 @@
 */
 
 - (void)layoutSubviews {
-    // Layout Badges
-    // TODO: Once we have API integration we'll need to make this conditional based on number of badges
-    //       We can safely assume according to GTIO team that there will be 0-2 badges, and here we assume 
-    //       that badgeview1 is always the leftmost for the label frame calculations -DRH
+    [super layoutSubviews];
+    
+    // Center this label even if the left button is larger than the right one.
+    CGRect rect = CGRectMake(self.frame.origin.x, self.frame.origin.y, 320-(2*self.frame.origin.x), self.frame.size.height);
+    self.frame = rect;
+    
     CGFloat badgeTopPadding = 2.5;
     CGFloat badgeLeftPadding = (self.width - 20);
     CGFloat badgeHorizontalPadding = 2;
