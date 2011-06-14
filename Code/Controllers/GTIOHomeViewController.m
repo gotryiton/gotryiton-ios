@@ -189,7 +189,9 @@
 - (IBAction)myStylistsButtonWasPressed {
     TTOpenURL(@"gtio://stylists");
 }
-- (IBAction)featuredButtonWasPressed {}
+- (IBAction)featuredButtonWasPressed {
+    TTOpenURL(@"gtio://featured");
+}
 
 - (IBAction)myLooksButtonWasPressed {
     NSString* apiURL = GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@/looks", [GTIOUser currentUser].UID]);
@@ -240,6 +242,11 @@
 #pragma mark - Notifications View / Button
 
 - (IBAction)notificationButtonWasPressed {
+    if (_notificationsVisible) {
+        [self closeNotificationsButtonWasPressed];
+        return;
+    }
+    _notificationsVisible = YES;
     if (nil == _notificationsController) {
         _notificationsController = [[GTIONotificationsOverlayViewController alloc] initWithStyle:UITableViewStylePlain];
         _notificationsController.view.frame = CGRectMake(0, _notificationsButton.bounds.size.height - 10, self.view.bounds.size.width, self.view.bounds.size.height - _notificationsButton.bounds.size.height + 15);
@@ -251,18 +258,15 @@
     [UIView beginAnimations:nil context:nil];
     _notificationsContainer.frame = CGRectMake(0,-5,320, 465);
     _closeNotificationsButton.hidden = NO;
-    _notificationsButton.enabled = NO;
-    _notificationsBadgeButton.enabled = NO;
     [UIView commitAnimations];
     [_notificationsController viewDidAppear:YES];
 }
 
 - (IBAction)closeNotificationsButtonWasPressed {
+    _notificationsVisible = NO;
     [UIView beginAnimations:nil context:nil];
     _notificationsContainer.frame = CGRectMake(0,421,320, 465);
     _closeNotificationsButton.hidden = YES;
-    _notificationsButton.enabled = YES;
-    _notificationsBadgeButton.enabled = YES;
     [UIView commitAnimations];
 }
 

@@ -29,9 +29,6 @@
 //
 #import "GTIOBarButtonItem.h"
 
-// Disable RK Logging
-#define NDEBUG 1
-
 // Color and font macros
 #define kGTIOColorAAAAAA RGBCOLOR(170,170,170)
 #define kGTIOColorCCCCCC RGBCOLOR(204,204,204)

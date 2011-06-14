@@ -34,6 +34,7 @@
     UILabel* _locationLabel;
     
     GTIONotificationsOverlayViewController* _notificationsController;
+    BOOL _notificationsVisible;
 }
 /// My Stylists
 - (IBAction)myStylistsButtonWasPressed;

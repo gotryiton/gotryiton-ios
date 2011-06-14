@@ -81,15 +81,16 @@ static float leftQuoteInsetWidth = 4;
 	_quotedLabel.text = [_quote stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	CGSize size = [self sizeOfText:_quotedLabel.text];
 	
-	float widthInset = floor((totalWidth - size.width - 5)/2);
+	float widthInset = floor((totalWidth - size.width - 5)/2) - 2;
+    int heightOffset = 2;
 	if (size.height < 20) {
 		// 1 line
 		float maxWidth = totalWidth-2*widthInset;
 		CGSize size = [_quotedLabel sizeThatFits:CGSizeMake(maxWidth, 17)];
-		_quotedLabel.frame = CGRectMake(leftEdge+_leftQuoteLabel.frame.size.width-leftQuoteInsetWidth, 20, size.width, 17);
+		_quotedLabel.frame = CGRectMake(leftEdge+_leftQuoteLabel.frame.size.width-leftQuoteInsetWidth, 20+heightOffset, size.width, 17);
 		_line2Label.frame = CGRectZero;
-		_leftQuoteLabel.frame = CGRectMake(leftEdge-leftQuoteInsetWidth, 11, _leftQuoteLabel.frame.size.width, _leftQuoteLabel.frame.size.height);
-		_rightQuoteLabel.frame = CGRectMake(_quotedLabel.frame.origin.x + _quotedLabel.frame.size.width, 11, _rightQuoteLabel.frame.size.width, _rightQuoteLabel.frame.size.height);
+		_leftQuoteLabel.frame = CGRectMake(leftEdge-leftQuoteInsetWidth, 11+heightOffset, _leftQuoteLabel.frame.size.width, _leftQuoteLabel.frame.size.height);
+		_rightQuoteLabel.frame = CGRectMake(_quotedLabel.frame.origin.x + _quotedLabel.frame.size.width, 11+heightOffset, _rightQuoteLabel.frame.size.width, _rightQuoteLabel.frame.size.height);
 	} else {
 		NSString* line1Text = _quotedLabel.text;
 		NSMutableArray* line2Parts = [NSMutableArray array];
@@ -117,14 +118,15 @@ static float leftQuoteInsetWidth = 4;
 		_line2Label.text = [line2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 		
 		CGSize line1Size = [self sizeOfText:_quotedLabel.text];
-		_quotedLabel.frame = CGRectMake(leftEdge+_leftQuoteLabel.frame.size.width-leftQuoteInsetWidth, 15, line1Size.width, 17);
+		_quotedLabel.frame = CGRectMake(leftEdge+_leftQuoteLabel.frame.size.width-leftQuoteInsetWidth, 15+heightOffset, line1Size.width, 17);
 		
 		CGSize line2Size = [self sizeOfText:_line2Label.text];
-		_line2Label.frame = CGRectMake(leftEdge, 30, line2Size.width, 17);
+		_line2Label.frame = CGRectMake(leftEdge, 30+heightOffset, line2Size.width, 17);
 		
-		_leftQuoteLabel.frame = CGRectMake(leftEdge-leftQuoteInsetWidth, 7, _leftQuoteLabel.frame.size.width, _leftQuoteLabel.frame.size.height);
+		_leftQuoteLabel.frame = CGRectMake(leftEdge-leftQuoteInsetWidth, 7+heightOffset, _leftQuoteLabel.frame.size.width, _leftQuoteLabel.frame.size.height);
 		_rightQuoteLabel.frame = CGRectMake(_line2Label.frame.origin.x + _line2Label.frame.size.width -3,
-											_line2Label.frame.origin.y - 8,
+											_line2Label.frame.origin.y - 8
+                                            ,
 											_rightQuoteLabel.frame.size.width,
 											_rightQuoteLabel.frame.size.height);   
 	}

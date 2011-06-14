@@ -34,6 +34,7 @@
     NSMutableArray* _badgeImageViews;
     UIImageView* _backgroundImageView;
     UIImageView* _connectionImageView;
+    UIImageView* _borderImageView;
 }
 @end
 
@@ -46,14 +47,14 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
     if ((self = [super initWithStyle:style reuseIdentifier:identifier])) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_nameLabel.font = kGTIOFetteFontOfSize(24);
+		_nameLabel.font = kGTIOFetteFontOfSize(25);
 		_nameLabel.textColor = kGTIOColorBrightPink;
 		_nameLabel.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:_nameLabel];
 		
 		_locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_locationLabel.font = kGTIOFontHelveticaNeueOfSize(14.5);
-		_locationLabel.textColor = kGTIOColorA5A5A5;
+		_locationLabel.font = kGTIOFetteFontOfSize(12);
+		_locationLabel.textColor = RGBCOLOR(130,130,130);
 		_locationLabel.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:_locationLabel];
         
@@ -62,6 +63,9 @@
         
         _connectionImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
 		[[self contentView] addSubview:_connectionImageView];
+        
+        _borderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-overlay-110.png"]];
+		[[self contentView] addSubview:_borderImageView];
     }
     return self;
 }
@@ -78,24 +82,23 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    _backgroundImageView.frame = CGRectOffset(_backgroundImageView.bounds, 10, 10);
+    _backgroundImageView.frame = CGRectOffset(_backgroundImageView.bounds, 10, 10-5);
     
-    _imageView2.frame = CGRectMake(17,17, 56,56);
-    _imageView2.layer.borderColor = RGBCOLOR(74,74,74).CGColor;
-    _imageView2.layer.borderWidth = 1;
+    _imageView2.frame = CGRectMake(17,17-5, 56,56);
+    _borderImageView.frame = CGRectInset(_imageView2.frame, -4,-4);
     
-	_nameLabel.frame = CGRectMake(82, 23, 195, 30);
+	_nameLabel.frame = CGRectMake(82, 24-5, 195, 30);
     [_nameLabel sizeToFit];
 	
     
-    _locationLabel.frame = CGRectMake(82, 43, 210, 30);
+    _locationLabel.frame = CGRectMake(82, CGRectGetMaxY(_nameLabel.frame)+2, 210, 18);
     [_locationLabel sizeToFit];
     
-    _connectionImageView.frame = CGRectMake(250,60,20,20);
+    _connectionImageView.frame = CGRectMake(259,61,12,12);
     
     int i = 0;
     for (UIView* view in _badgeImageViews) {
-        view.frame = CGRectMake(100+_nameLabel.width+5+i*(16+5), 2+_locationLabel.height, 16, 16);
+        view.frame = CGRectMake(100+_nameLabel.width+5+i*(16+5), 2+_locationLabel.height-5, 16, 16);
         i++;
     }
 }
@@ -198,6 +201,7 @@
     _addMoreButton.frame = CGRectOffset(_addMoreButton.bounds, 0, self.view.bounds.size.height - _addMoreButton.bounds.size.height);
     [self.view addSubview:_addMoreButton];
     self.tableView.frame = CGRectMake(0,0,320,self.view.bounds.size.height - _addMoreButton.bounds.size.height + 6);
+    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 5, 0);
 }
 
 - (void)viewDidUnload {

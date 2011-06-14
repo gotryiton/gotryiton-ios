@@ -314,7 +314,7 @@
 								<string key="NSFrameSize">{320, 49}</string>
 								<reference key="NSSuperview" ref="149728511"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="945092329"/>
+								<reference key="NSNextKeyView" ref="916595027"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentVerticalAlignment">0</int>
@@ -344,7 +344,7 @@
 								<string key="NSFrame">{{2, 5}, {30, 33}}</string>
 								<reference key="NSSuperview" ref="149728511"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="916595027"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -385,7 +385,7 @@
 								<string key="NSFrame">{{291, 15}, {14, 14}}</string>
 								<reference key="NSSuperview" ref="149728511"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="945092329"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -730,15 +730,15 @@
 						<reference key="parent" ref="149728511"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">70</int>
-						<reference key="object" ref="916595027"/>
-						<reference key="parent" ref="149728511"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">59</int>
 						<reference key="object" ref="877689541"/>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Image View - home-thumb-overlay.png</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">70</int>
+						<reference key="object" ref="916595027"/>
+						<reference key="parent" ref="149728511"/>
 					</object>
 				</object>
 			</object>
@@ -773,6 +773,7 @@
 					<string>64.IBPluginDependency</string>
 					<string>68.IBPluginDependency</string>
 					<string>70.IBPluginDependency</string>
+					<string>70.IBUIButtonInspectorSelectedEdgeInsetMetadataKey</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -803,6 +804,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="2"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">

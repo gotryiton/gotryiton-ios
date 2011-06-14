@@ -44,4 +44,17 @@
     return [UIImage imageNamed:@"connection-2-profile.png"];
 }
 
+- (UIImage*)imageForFeaturedConnection {
+    if (_iStyleIgnored || (!_iStyle && !_isMyStylist)) {
+        return nil;
+    }
+    if (_iStyle && _isMyStylist) {
+        return [UIImage imageNamed:@"connection-4-featured.png"];
+    }
+    if (_iStyle && !_isMyStylist) {
+        return [UIImage imageNamed:@"connection-3-featured.png"];
+    }
+    return [UIImage imageNamed:@"connection-2-featured.png"];
+}
+
 @end

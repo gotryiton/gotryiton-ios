@@ -134,7 +134,6 @@
         [_calloutButton setImage:[UIImage imageNamed:@"add-view-profile.png"] forState:UIControlStateNormal];
         [_calloutButton addTarget:self action:@selector(calloutButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_calloutButton];
-        // TODO: implement _subtitleLabel
     }
     return self;
 }
@@ -329,6 +328,7 @@
     _emailField.delegate = self;
     _emailField.placeholder = @"type a friend's email address";
     _emailField.returnKeyType = UIReturnKeyDone;
+    _emailField.keyboardType = UIKeyboardTypeEmailAddress;
     
     _tabBar = [[TTTabBar alloc] initWithFrame:CGRectMake(0,0,320,50)];
     _tabBar.backgroundColor = [UIColor clearColor];
@@ -509,7 +509,7 @@
                 NSLog(@"Featured Text: %@", stylist.featuredText);
                 
                 item.subtitle = stylist.featuredText;
-                item.calloutURL = [NSString stringWithFormat:@"gtio://profile/%@", stylist.uid];;
+                item.calloutURL = [NSString stringWithFormat:@"gtio://profile/%@", stylist.uid];
                 
                 item.delegate = self;
                 item.selector = @selector(selectedItem:);

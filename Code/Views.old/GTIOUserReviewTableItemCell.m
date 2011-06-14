@@ -48,10 +48,10 @@
 	[super layoutSubviews];
     
     [_nameLabel sizeToFit];
-	_nameLabel.frame = CGRectMake(100, 75, MIN(_nameLabel.bounds.size.width, 100), _nameLabel.bounds.size.height);
+	_nameLabel.frame = CGRectMake(98, 78, MIN(_nameLabel.bounds.size.width, 100), _nameLabel.bounds.size.height);
     
     [_locationLabel sizeToFit];
-	_locationLabel.frame = CGRectMake(CGRectGetMaxX(_nameLabel.frame) + 5, 75, MIN(_locationLabel.bounds.size.width, 160-_nameLabel.bounds.size.width), 18);
+	_locationLabel.frame = CGRectMake(CGRectGetMaxX(_nameLabel.frame) + 5, 77, MIN(_locationLabel.bounds.size.width, 160-_nameLabel.bounds.size.width), 18);
     
     [_scoreLabel sizeToFit];
     _scoreLabel.frame = CGRectMake(self.contentView.bounds.size.width - _scoreLabel.bounds.size.width - 16, 75, _scoreLabel.bounds.size.width, _scoreLabel.bounds.size.height);

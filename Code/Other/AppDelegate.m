@@ -56,6 +56,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)setupRestKit {
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
+//    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
     
     RKObjectMappingProvider* provider = [[[RKObjectMappingProvider alloc] init] autorelease];
     
@@ -335,6 +336,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     [map from:@"gtio://todos" toViewController:NSClassFromString(@"GTIOTodosTableViewController")];
     [map from:@"gtio://whoIStyle" toViewController:NSClassFromString(@"GTIOWhoIStyleTableViewController")];
+    [map from:@"gtio://featured" toViewController:NSClassFromString(@"GTIOFeaturedViewController")];
 	
 	// All other links open the web controller
 	[map from:@"*" toViewController:[TTWebController class]];

@@ -23,7 +23,6 @@
 		[[self contentView] addSubview:_thumbnailBackground];
         
         _connectionImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-//        _connectionImageView.backgroundColor = [UIColor redColor];
 		[[self contentView] addSubview:_connectionImageView];
 	}
 	return self;
@@ -44,7 +43,7 @@
     [super layoutSubviews];
     self.contentView.frame = CGRectOffset(self.contentView.frame, -2, 0);
     [self.contentView addSubview:_connectionImageView];
-    _connectionImageView.frame = CGRectMake(280,42,24,23);
+    _connectionImageView.frame = CGRectMake(292,54,12,12);
 }
 
 - (NSString*)thumbnailUrlPath {

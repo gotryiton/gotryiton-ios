@@ -182,6 +182,7 @@ CGSize kMaxSize = {260,8000};
     CGFloat authorLabelXOrigin = profilePictureFrame.origin.x+profilePictureFrame.size.width+authorLabelHorizontalMargin;
     
     _authorLabel.frame = CGRectMake(authorLabelXOrigin+1, authorLabelYOrigin, authorStringSize.width, authorLabelHeight);
+    _authorButton.frame = _authorLabel.frame;
 }	
 
 - (void)dealloc {
