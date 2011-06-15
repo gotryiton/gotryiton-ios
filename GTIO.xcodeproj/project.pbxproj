@@ -616,6 +616,9 @@
 		3FC1E83B13A9239700646EEE /* review-corner-verified@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1E82B13A9239700646EEE /* review-corner-verified@2x.png */; };
 		3FC1E83C13A9239700646EEE /* review-corner-verified@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1E82B13A9239700646EEE /* review-corner-verified@2x.png */; };
 		3FC1E83D13A9239700646EEE /* review-corner-verified@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1E82B13A9239700646EEE /* review-corner-verified@2x.png */; };
+		3FC1E84013A928B500646EEE /* GTIOExtraProfileRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1E83F13A928B500646EEE /* GTIOExtraProfileRow.m */; };
+		3FC1E84113A928B500646EEE /* GTIOExtraProfileRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1E83F13A928B500646EEE /* GTIOExtraProfileRow.m */; };
+		3FC1E84213A928B500646EEE /* GTIOExtraProfileRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1E83F13A928B500646EEE /* GTIOExtraProfileRow.m */; };
 		3FCB815E136B03D000F78DBD /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCB815D136B03D000F78DBD /* libOCMock.a */; };
 		3FCBE9ED137063640039D779 /* libTWTCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE9EC137063640039D779 /* libTWTCommon.a */; };
 		3FCBE9F1137063710039D779 /* libTWTCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE9F0137063710039D779 /* libTWTCommon.a */; };
@@ -3459,6 +3462,8 @@
 		3FC1E82913A9239700646EEE /* profile-icon-overlay-verified-110@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-icon-overlay-verified-110@2x.png"; sourceTree = "<group>"; };
 		3FC1E82A13A9239700646EEE /* review-corner-verified.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "review-corner-verified.png"; sourceTree = "<group>"; };
 		3FC1E82B13A9239700646EEE /* review-corner-verified@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "review-corner-verified@2x.png"; sourceTree = "<group>"; };
+		3FC1E83E13A928B500646EEE /* GTIOExtraProfileRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOExtraProfileRow.h; sourceTree = "<group>"; };
+		3FC1E83F13A928B500646EEE /* GTIOExtraProfileRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOExtraProfileRow.m; sourceTree = "<group>"; };
 		3FCB815D136B03D000F78DBD /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = Specs/Support/OCMock/libOCMock.a; sourceTree = "<group>"; };
 		3FCBE9E8137063520039D779 /* libTWTCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libTWTCommon.a; sourceTree = SOURCE_ROOT; };
 		3FCBE9EC137063640039D779 /* libTWTCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libTWTCommon.a; sourceTree = SOURCE_ROOT; };
@@ -5680,6 +5685,8 @@
 				3F1833D5138D80030032CFAF /* GTIOStylistRelationship.m */,
 				3FFCBC7613A7F1920061A28A /* GTIOBannerAd.h */,
 				3FFCBC7713A7F1920061A28A /* GTIOBannerAd.m */,
+				3FC1E83E13A928B500646EEE /* GTIOExtraProfileRow.h */,
+				3FC1E83F13A928B500646EEE /* GTIOExtraProfileRow.m */,
 			);
 			name = Models;
 			path = Code/Models;
@@ -9090,6 +9097,7 @@
 				3FFCBC7313A7BDFC0061A28A /* GTIOFeaturedViewController.m in Sources */,
 				3FFCBC7813A7F1920061A28A /* GTIOBannerAd.m in Sources */,
 				3FC1E82213A9021100646EEE /* GTIOTopRightBarButton.m in Sources */,
+				3FC1E84013A928B500646EEE /* GTIOExtraProfileRow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9260,6 +9268,7 @@
 				3F6823B213993A1C00CCE67E /* GTIOBrowseListPresenter.m in Sources */,
 				3FFCBC7413A7BDFC0061A28A /* GTIOFeaturedViewController.m in Sources */,
 				3FC1E82313A9021100646EEE /* GTIOTopRightBarButton.m in Sources */,
+				3FC1E84113A928B500646EEE /* GTIOExtraProfileRow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9476,6 +9485,7 @@
 				3F6823B313993A1C00CCE67E /* GTIOBrowseListPresenter.m in Sources */,
 				3FFCBC7513A7BDFC0061A28A /* GTIOFeaturedViewController.m in Sources */,
 				3FC1E82413A9021100646EEE /* GTIOTopRightBarButton.m in Sources */,
+				3FC1E84213A928B500646EEE /* GTIOExtraProfileRow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

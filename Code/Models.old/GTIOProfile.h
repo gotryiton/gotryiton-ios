@@ -8,6 +8,7 @@
 
 #import <RestKit/RestKit.h>
 #import "GTIOStylistRelationship.h"
+#import "GTIOExtraProfileRow.h"
 
 @interface GTIOProfile : NSObject {
 	NSString* _uid;
@@ -39,6 +40,8 @@
     
     GTIOStylistRelationship* _stylistRelationship;
     NSNumber* _isBranded;
+    
+    GTIOExtraProfileRow* _extraProfileRow;
 }
 
 @property (nonatomic, copy) NSArray *badges;
@@ -66,5 +69,6 @@
 
 @property (nonatomic, copy) NSString* featuredText;
 @property (nonatomic, retain) NSNumber* isBranded;
+@property (nonatomic, retain) GTIOExtraProfileRow* extraProfileRow;
 
 @end

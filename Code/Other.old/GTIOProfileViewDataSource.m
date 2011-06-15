@@ -16,6 +16,7 @@
 /// GTIOTableTextCell is subclass of [TTTableTextItemCell](TTTableTextItemCell) that draws a 1px border on its bottom and sets a specific font
 @interface GTIOTableTextCell : TTTableTextItemCell {
 	UIView* _separator;
+    UIView* _separator2;
 }
 
 @end
@@ -24,7 +25,11 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-		_separator = [[UIView alloc] initWithFrame:CGRectZero];
+		_separator2 = [[UIView alloc] initWithFrame:CGRectZero];
+		_separator2.backgroundColor = kGTIOColorCCCCCC;
+		[self addSubview:_separator2];
+        
+        _separator = [[UIView alloc] initWithFrame:CGRectZero];
 		_separator.backgroundColor = kGTIOColorCCCCCC;
 		[self addSubview:_separator];
 	}
@@ -32,7 +37,8 @@
 }
 
 - (void)dealloc {
-	[_separator release];
+    [_separator release];
+	[_separator2 release];
 	[super dealloc];
 }
 
@@ -42,12 +48,27 @@
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-	_separator.frame = CGRectMake(0, self.bounds.size.height - 1, 320, 1);
+    _separator.frame = CGRectMake(0,0, 320, 1);
+	_separator2.frame = CGRectMake(0, self.bounds.size.height, 320, 1);
 }
 
 - (void)setObject:(id)obj {
 	[super setObject:obj];
 	self.textLabel.font = kGTIOFontHelveticaNeueOfSize(20);
+}
+
+@end
+
+@implementation GTIOPinkTableTextItem
+@end
+
+@interface GTIOPinkTableTextItemCell : GTIOTableTextCell
+@end
+@implementation GTIOPinkTableTextItemCell
+
+- (void)setObject:(id)obj {
+	[super setObject:obj];
+	self.textLabel.textColor = kGTIOColorBrightPink;
 }
 
 @end
@@ -67,8 +88,9 @@
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
 	if ([object isKindOfClass:[GTIOOutfitVerdictTableItem class]]) {
 		return [GTIOOutfitVerdictTableItemCell class];
-	}
-	if ([object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
+	} else if ([object isKindOfClass:[GTIOPinkTableTextItem class]]) {
+        return [GTIOPinkTableTextItemCell class];
+    } else if ([object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
 		return [GTIOOutfitTableViewCell class];	
 	} else if ([object isKindOfClass:[GTIOTableStatsItem class]]) {
 		return [GTIOTableStatsCell class];

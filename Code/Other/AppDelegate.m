@@ -41,6 +41,7 @@
 #import "GTIOGlobalVariableStore.h"
 #import "GTIOBannerAd.h"
 #import "GTIOTopRightBarButton.h"
+#import "GTIOExtraProfileRow.h"
 
 @interface AppDelegate (Private)
 
@@ -81,6 +82,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     RKObjectMapping* topRightButtonMapping = [RKObjectMapping mappingForClass:[GTIOTopRightBarButton class]];
     [topRightButtonMapping mapAttributes:@"text", @"url", nil];
     [provider setMapping:topRightButtonMapping forKeyPath:@"topRightBtn"];
+    
+    RKObjectMapping* extraProfileRowMapping = [RKObjectMapping mappingForClass:[GTIOExtraProfileRow class]];
+    [extraProfileRowMapping mapAttributes:@"text", @"api", nil];
     
     RKObjectMapping* votingResultsMapping = [RKObjectMapping mappingForClass:[GTIOVotingResultSet class]];
     [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"reasons", @"reasons")];
@@ -228,6 +232,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviewsOutfits" toKeyPath:@"reviewsOutfits" objectMapping:outfitMapping]];
     [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" objectMapping:badgeMapping]];
     [profileMapping mapRelationship:@"stylistRelationship" withObjectMapping:stylistRelationshipMapping];
+    [profileMapping mapRelationship:@"extraProfileRow" withObjectMapping:extraProfileRowMapping];
     
     objectManager.mappingProvider = provider;
 }

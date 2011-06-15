@@ -33,9 +33,11 @@
 @synthesize stylistRelationship = _stylistRelationship;
 @synthesize featuredText = _featuredText;
 @synthesize isBranded = _isBranded;
+@synthesize extraProfileRow = _extraProfileRow;
 
 - (void)dealloc {
     TT_RELEASE_SAFELY(_isBranded);
+    TT_RELEASE_SAFELY(_extraProfileRow);
 	[_uid release];
 	_uid = nil;
 	[_auth release];

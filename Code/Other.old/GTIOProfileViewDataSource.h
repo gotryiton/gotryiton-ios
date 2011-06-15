@@ -13,3 +13,6 @@
 }
 
 @end
+
+@interface GTIOPinkTableTextItem : TTTableTextItem
+@end

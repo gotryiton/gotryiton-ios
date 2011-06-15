@@ -249,11 +249,17 @@
 		[_notLoggedInOverlay removeFromSuperview];
 		NSMutableArray* items = [NSMutableArray arrayWithCapacity:3];
 		
-		TTTableTextItem* statsItem = [GTIOTableStatsItem itemWithText:(_isShowingCurrentUser ? @"my stats" : @"stats")];
-		[items addObject:statsItem];
+//		TTTableTextItem* statsItem = [GTIOTableStatsItem itemWithText:(_isShowingCurrentUser ? @"my stats" : @"stats")];
+//		[items addObject:statsItem];
         for (NSDictionary* stat in profile.userStats) {
 			[items addObject:[GTIOIndividualStatItem itemWithText:[NSString stringWithFormat:@"%@", [stat valueForKey:@"value"]] caption:[stat valueForKey:@"name"]]];
 		}
+        
+        if (profile.extraProfileRow) {
+            NSString* url = [NSString stringWithFormat:@"gtio://browse/%@", [profile.extraProfileRow.api stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
+            TTTableTextItem* looksItem = [GTIOPinkTableTextItem itemWithText:profile.extraProfileRow.text URL:url];
+            [items addObject:looksItem];
+        }
         
 		
         NSString* looksApiURL = GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@/looks", profile.uid]);
