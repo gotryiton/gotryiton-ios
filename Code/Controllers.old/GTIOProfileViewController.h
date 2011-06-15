@@ -13,11 +13,14 @@
 // Subviews
 #import "GTIOProfileAboutMeView.h"
 #import "GTIOProfileHeaderView.h"
+#import "GTIOTopRightBarButton.h"
 
 @interface GTIOProfileViewController : GTIOTopPaddedTableViewController {
 	UIView* _notLoggedInOverlay;
 	GTIOProfileHeaderView* _headerView;
+    UIView* _bannerAdView;
 	GTIOProfileAboutMeView* _aboutMeView;
+    GTIOTopRightBarButton* _topRightButton;
 	NSString* _userID;	
 	BOOL _isShowingCurrentUser;
 }

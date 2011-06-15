@@ -38,6 +38,7 @@
     NSString* _featuredText;
     
     GTIOStylistRelationship* _stylistRelationship;
+    NSNumber* _isBranded;
 }
 
 @property (nonatomic, copy) NSArray *badges;
@@ -64,5 +65,6 @@
 @property (nonatomic, retain) GTIOStylistRelationship* stylistRelationship;
 
 @property (nonatomic, copy) NSString* featuredText;
+@property (nonatomic, retain) NSNumber* isBranded;
 
 @end

@@ -16,6 +16,7 @@
 @interface GTIOBrowseTableViewController : TTTableViewController <UISearchBarDelegate, GTIOTabBarDelegate> {
     NSString* _apiEndpoint; // default is /rest/v3/categories/ will be different for subcategories.
     UISearchBar* _searchBar;
+    UIView* _bannerAd;
     NSString* _queryText;
     GTIOTabBar* _sortTabBar;
     UIImageView* _topShadowImageView;

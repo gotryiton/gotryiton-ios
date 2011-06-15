@@ -21,8 +21,12 @@
     _shouldAllowEditing = NO;
     
 	UIImageView* background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dark-top.png"]];
+    background.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 	[self addSubview:background];
 	[background release];
+    
+    _backgroundOverlay = [[UIImageView alloc] initWithImage:nil];
+	[self addSubview:_backgroundOverlay];
 	
     _profilePictureImageView = [TTImageView new];
     [(UIImageView*)_profilePictureImageView setImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
@@ -36,9 +40,9 @@
 	[profilePictureButton addTarget:self action:@selector(profilePictureButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	[self addSubview:profilePictureButton];
 		
-	UIImageView* profilePictureFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
-	[profilePictureFrame setFrame:CGRectMake(5,3,64,64)];
-	[self addSubview:profilePictureFrame];
+	_profilePictureFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
+	[_profilePictureFrame setFrame:CGRectMake(5,3,64,64)];
+	[self addSubview:_profilePictureFrame];
 	
 	_fashionProfileBadge = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fash-badge-profile.png"]];
 	[_fashionProfileBadge setFrame:CGRectMake(0,2.5,48,48)];
@@ -76,6 +80,8 @@
 
 - (void)dealloc {
     [_profile release];
+    [_profilePictureFrame release];
+    [_backgroundOverlay release];
 	[super dealloc];
 }
 
@@ -126,6 +132,20 @@
 	CGFloat offsetX = [_nameLabel.text sizeWithFont:_nameLabel.font].width + _nameLabel.frame.origin.x;
 	[_fashionProfileBadge setFrame:CGRectMake(offsetX,badgeFrame.origin.y,badgeFrame.size.width,badgeFrame.size.height)];
 	[_fashionProfileBadge setHidden:NO];
+    
+    if ([[profile isBranded] boolValue]) {
+        self.frame = CGRectMake(0,self.frame.origin.y,self.bounds.size.width,85);
+        _profilePictureFrame.image = [UIImage imageNamed:@"profile-icon-overlay-verified-110.png"];
+        [_profilePictureFrame setFrame:CGRectMake(5,3,64,80)];
+        _backgroundOverlay.image = [UIImage imageNamed:@"dark-top-verified-overlay"];
+        _editProfileButton.frame = CGRectOffset(_editProfileButton.frame, 0, 15);
+    } else {
+        self.frame = CGRectMake(0,self.frame.origin.y,self.bounds.size.width,70);
+        _profilePictureFrame.image = [UIImage imageNamed:@"profile-icon-overlay-110.png"];
+        [_profilePictureFrame setFrame:CGRectMake(5,3,64,64)];
+        [_backgroundOverlay release];
+        _backgroundOverlay.image = nil;
+    }
 }
 
 - (void)editButtonHighlight {

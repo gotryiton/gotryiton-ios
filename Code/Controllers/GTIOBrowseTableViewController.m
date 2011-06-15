@@ -164,6 +164,7 @@
 - (void)dealloc {
     [_presenter release];
     [_searchBar release];
+    [_bannerAd release];
     [_apiEndpoint release];
     [_queryText release];
     [_sortTabs release];
@@ -203,13 +204,33 @@
     }
 }
 
-- (void)setupTabs {
+- (void)rightBarButtonItemPressed:(id)sender {
+    if (_presenter.list.topRightButton.url) {
+        TTOpenURL(_presenter.list.topRightButton.url);
+    }
+}
+
+- (void)setupRightBarButtonItem {
+    if (_presenter.list.topRightButton.text) {
+        self.navigationItem.rightBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:_presenter.list.topRightButton.text target:self action:@selector(rightBarButtonItemPressed:)] autorelease];
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
+- (void)setupTabsAndBannerAd {
     [_sortTabs release];
     _sortTabs = [_presenter.tabs retain];
+    
+    [_bannerAd release];
+    _bannerAd = [_presenter.bannerAd retain];
+    [self.view addSubview:_bannerAd];
+    float adHeight = _bannerAd.bounds.size.height;
+    
     if (_sortTabs && [_sortTabs count] > 0) {
         [_sortTabBar removeFromSuperview];
         [_sortTabBar release];
-        _sortTabBar = [[GTIOTabBar alloc] initWithFrame:CGRectMake(0,0,320,37)];
+        _sortTabBar = [[GTIOTabBar alloc] initWithFrame:CGRectMake(0,adHeight,320,37)];
         [_sortTabBar setTabNames:_presenter.tabNames];
         for (GTIOSortTab* tab in _sortTabs) {
             int index = [_sortTabs indexOfObject:tab];
@@ -223,10 +244,11 @@
         }
         _sortTabBar.delegate = self;
         [self.view addSubview:_sortTabBar];
-        self.tableView.frame = CGRectMake(0,_sortTabBar.bounds.size.height,320,self.view.bounds.size.height - _sortTabBar.bounds.size.height);
+        float yOffset = CGRectGetMaxY(_sortTabBar.frame);
+        self.tableView.frame = CGRectMake(0,yOffset,320,self.view.bounds.size.height - yOffset);
         _topShadowImageView.frame = CGRectMake(0,_sortTabBar.bounds.size.height,320, 10);
     } else {
-        self.tableView.frame = self.view.bounds;
+        self.tableView.frame = CGRectMake(0,adHeight,self.view.bounds.size.width, self.view.bounds.size.height - adHeight);
         _topShadowImageView.frame = CGRectMake(0,0,320, 10);
     }
 }
@@ -313,7 +335,8 @@
             self.tableView.tableHeaderView = _searchBar;
         }
         
-        [self setupTabs];
+        [self setupTabsAndBannerAd];
+        [self setupRightBarButtonItem];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         if (list.categories) {

@@ -22,9 +22,11 @@
 #import "GTIOUser.h"
 #import "GTIOProfile.h"
 #import "GTIOOutfit.h"
+#import "GTIOBannerAd.h"
 // Views
 #import "GTIOHeaderView.h"
 #import "GTIOBarButtonItem.h"
+#import <TWTCommon/TWTURLButton.h>
 
 @interface GTIOProfileViewController (Private)
 - (void)registerForNotifications;
@@ -58,7 +60,9 @@
 
 - (void)dealloc {
 	[self unregisterForNotifications];
+    [_topRightButton release];
 	[_userID release];
+    [_bannerAdView release];
 	[super dealloc];
 }
 
@@ -83,9 +87,6 @@
 	// Create Header View.
 	_headerView = [[GTIOProfileHeaderView alloc] initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,70)];
 	[self.view addSubview:_headerView];
-	// Setup Table
-	[self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:_headerView.frame]];
-	[self.tableView setExclusiveTouch:NO];
 
 	_aboutMeView = [[GTIOProfileAboutMeView alloc] initWithFrame:CGRectZero];
 	_aboutMeView.backgroundColor = kGTIOColorE3E3E3;
@@ -124,17 +125,45 @@
 
 #pragma mark -
 #pragma mark Profile View
-- (void)setupHeaderView:(GTIOProfile*)profile {
+
+- (void)setupHeaderView:(GTIOProfile*)profile withAd:(GTIOBannerAd*)bannerAd {
+    [_bannerAdView removeFromSuperview];
+    [_bannerAdView release];
+    _bannerAdView = nil;
+    if(bannerAd) {
+        TWTURLButton* button = [TWTURLButton buttonWithType:UIButtonTypeCustom];
+        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0,
+                                                                               0,
+                                                                               [bannerAd.width floatValue]/2,
+                                                                               [bannerAd.height floatValue]/2)];
+        imageView.exclusiveTouch = NO;
+        imageView.userInteractionEnabled = YES;
+        button.frame = imageView.bounds;
+        [imageView addSubview:button];
+        [imageView autorelease];
+        button.clickUrl = bannerAd.clickUrl;
+        
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2){
+            imageView.urlPath = bannerAd.bannerImageUrlLarge;
+        } else {
+            imageView.urlPath = bannerAd.bannerImageUrlSmall;
+        }
+        _bannerAdView = [imageView retain];
+        [self.view addSubview:_bannerAdView];
+    }
+    float bannerHeight = CGRectGetMaxY(_bannerAdView.frame);
+    
 	[_headerView displayProfile:profile];
-	
+	_headerView.frame = CGRectMake(0,bannerHeight,320, _headerView.bounds.size.height);
+    
 	_aboutMeView.text = profile.aboutMe;
 	[_aboutMeView setNeedsDisplay];
-	_aboutMeView.frame = CGRectMake(0, 70, 320, 200);
+	_aboutMeView.frame = CGRectMake(0,_headerView.bounds.size.height + bannerHeight, 320, 200);
 	[_aboutMeView sizeToFit];
 	
-	CGFloat height = _headerView.frame.size.height + _aboutMeView.frame.size.height;
-	[self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0,0,0,height)]];
-	[self.tableView setExclusiveTouch:NO];
+	CGFloat height = CGRectGetMaxY(_aboutMeView.frame);
+    
+    self.tableView.frame = CGRectMake(0,height,320, self.view.bounds.size.height - height);
 }
 
 #pragma mark -
@@ -174,19 +203,48 @@
 	[self showError:YES];
 }
 
+- (void)rightBarButtonItemPressed:(id)sender {
+    if (_topRightButton.url) {
+        TTOpenURL(_topRightButton.url);
+    }
+}
+
 - (void)didLoadModel:(BOOL)firstTime {
 	[super didLoadModel:firstTime];
 	
+    // set settings button
+	if (_isShowingCurrentUser && [[GTIOUser currentUser] isLoggedIn]) {
+		UIImage* settingsButtonImage = [UIImage imageNamed:@"settingsBarButton.png"];
+		GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)];
+		[self.navigationItem setRightBarButtonItem:item];
+	} else {
+		[self.navigationItem setRightBarButtonItem:nil];
+	}
+    
 	if (([[GTIOUser currentUser] isLoggedIn] || !_isShowingCurrentUser) && [self.model isKindOfClass:[RKObjectLoaderTTModel class]]) {
+        NSLog(@"Objects: %@", [(RKObjectLoaderTTModel*)self.model objects]);
+        
 		GTIOProfile* profile = nil;
+        GTIOBannerAd* bannerAd = nil;
+        [_topRightButton release];
+        _topRightButton = nil;
 		for (id object in [(RKObjectLoaderTTModel*)self.model objects]) {
 			if ([object isKindOfClass:[GTIOProfile class]]) {
 				profile = object;
-				break;
+			}
+            if ([object isKindOfClass:[GTIOBannerAd class]]) {
+				bannerAd = object;
+			}
+            if ([object isKindOfClass:[GTIOTopRightBarButton class]]) {
+				_topRightButton = [object retain];
 			}
 		}
+        
+        if (_topRightButton) {
+            self.navigationItem.rightBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:_topRightButton.text target:self action:@selector(rightBarButtonItemPressed:)] autorelease];
+        }
 		
-		[self setupHeaderView:profile];
+		[self setupHeaderView:profile withAd:bannerAd];
 		
 		[_notLoggedInOverlay removeFromSuperview];
 		NSMutableArray* items = [NSMutableArray arrayWithCapacity:3];
@@ -209,8 +267,8 @@
 		[items addObject:reviewsItem];
         
         if (_isShowingCurrentUser) {
-            TTTableTextItem* reviewsItem = [TTTableTextItem itemWithText:@"my stylists" URL:@"gtio://stylists"];
-            [items addObject:reviewsItem];
+            TTTableTextItem* stylistsItem = [TTTableTextItem itemWithText:@"my stylists" URL:@"gtio://stylists"];
+            [items addObject:stylistsItem];
         } else {
             // NSLog(@"Stylists: %@", profile.stylists);
             // Stylists grid.
@@ -224,15 +282,6 @@
 		dataSource.model = self.model;
 		self.dataSource = dataSource;
 		[self.view addSubview:_notLoggedInOverlay];
-	}
-	
-	// set settings button
-	if (_isShowingCurrentUser && [[GTIOUser currentUser] isLoggedIn]) {
-		UIImage* settingsButtonImage = [UIImage imageNamed:@"settingsBarButton.png"];
-		GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)];
-		[self.navigationItem setRightBarButtonItem:item];
-	} else {
-		[self.navigationItem setRightBarButtonItem:nil];
 	}
 }
 

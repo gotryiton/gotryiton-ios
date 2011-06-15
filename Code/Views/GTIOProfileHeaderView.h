@@ -20,6 +20,9 @@
     UIImageView* _connectionImageView;
     bool _shouldAllowEditing;
     
+    UIImageView* _profilePictureFrame;
+    UIImageView* _backgroundOverlay;
+    
     GTIOProfile* _profile;
 }
 /// UILabel for name

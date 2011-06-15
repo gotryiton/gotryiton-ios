@@ -39,6 +39,8 @@
 #import "GTIONotification.h"
 #import "GTIOStylistRelationship.h"
 #import "GTIOGlobalVariableStore.h"
+#import "GTIOBannerAd.h"
+#import "GTIOTopRightBarButton.h"
 
 @interface AppDelegate (Private)
 
@@ -56,7 +58,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)setupRestKit {
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
-//    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
+    RKLogConfigureByName("RestKit/*", RKLogLevelError);
+    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
     
     RKObjectMappingProvider* provider = [[[RKObjectMappingProvider alloc] init] autorelease];
     
@@ -70,6 +73,14 @@ void uncaughtExceptionHandler(NSException *exception) {
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"flags", @"flags")];
     [provider setMapping:reviewMapping forKeyPath:@"reviews"];
     [provider setMapping:reviewMapping forKeyPath:@"review"];
+    
+    RKObjectMapping* adMapping = [RKObjectMapping mappingForClass:[GTIOBannerAd class]];
+    [adMapping mapAttributes:@"height", @"width", @"clickUrl", @"bannerImageUrlLarge", @"bannerImageUrlSmall", nil];
+    [provider setMapping:adMapping forKeyPath:@"bannerAd"];
+    
+    RKObjectMapping* topRightButtonMapping = [RKObjectMapping mappingForClass:[GTIOTopRightBarButton class]];
+    [topRightButtonMapping mapAttributes:@"text", @"url", nil];
+    [provider setMapping:topRightButtonMapping forKeyPath:@"topRightBtn"];
     
     RKObjectMapping* votingResultsMapping = [RKObjectMapping mappingForClass:[GTIOVotingResultSet class]];
     [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"reasons", @"reasons")];
@@ -119,21 +130,11 @@ void uncaughtExceptionHandler(NSException *exception) {
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"imgURL", @"imgURL")];
     
     RKObjectMapping* profileMapping = [RKObjectMapping mappingForClass:[GTIOProfile class]];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"uid", @"uid")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"auth", @"auth")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"displayName", @"displayName")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"firstName", @"firstName")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"lastInitial", @"lastInitial")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"gender", @"gender")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"city", @"city")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"state", @"state")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"location", @"location")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"aboutMe", @"aboutMe")];
+    [profileMapping mapAttributes:@"uid", @"auth", @"displayName", @"firstName", @"gender", @"city", @"state", @"location", @"aboutMe",
+                                  @"isAuthorizedUser", @"featuredText", @"activeStylist", nil];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isBrand", @"isBranded")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"profileIcon", @"profileIconURL")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"badgeURLs", @"badgeImageURLs")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isAuthorizedUser", @"isAuthorizedUser")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"featuredText", @"featuredText")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"activeStylist", @"activeStylist")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"stylistAlertsEnabled", @"stylistRequestAlertsEnabled")];
     [provider setMapping:profileMapping forKeyPath:@"user"];
     
@@ -161,6 +162,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"searchText", @"searchText")];
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"includeAlphaNav", @"includeAlphaNav")];
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"searchApi", @"searchAPI")];
+    
     [provider setMapping:browseListMapping forKeyPath:@"list"];
     
     RKObjectMapping* sectionMapping = [RKObjectMapping mappingForClass:[GTIOListSection class]];
@@ -204,6 +206,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"myLooks" toKeyPath:@"myLooks" objectMapping:outfitMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"sortTabs" toKeyPath:@"sortTabs" objectMapping:sortTabMapping]];
     [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"tabs" toKeyPath:@"tabs" objectMapping:todoTabMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"bannerAd" toKeyPath:@"bannerAd" objectMapping:adMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"topRightBtn" toKeyPath:@"topRightButton" objectMapping:topRightButtonMapping]];
     
     [browseListMapping mapRelationship:@"sections" withObjectMapping:sectionMapping];
     [browseListMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];

@@ -15,6 +15,8 @@
 
 + (id)presenterWithList:(GTIOBrowseList*)list;
 
+@property (nonatomic, readonly) GTIOBrowseList* list;
+
 @property (nonatomic, readonly) NSString* subtitle;
 
 // A Collection of TTTableItems representing this list.
@@ -26,6 +28,8 @@
 // A Search bar for use as the tableHeaderView of a table
 // or nil if search is not enabled on thsi list.
 @property (nonatomic, readonly) UISearchBar* searchBar;
+
+@property (nonatomic, readonly) UIView* bannerAd;
 
 // Methods for grouped category lists.
 @property (nonatomic, readonly) NSArray* alphabeticalListKeys;

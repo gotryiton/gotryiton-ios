@@ -25,6 +25,8 @@
 @synthesize sections = _sections;
 @synthesize reviews = _reviews;
 @synthesize myLooks = _myLooks;
+@synthesize bannerAd = _bannerAd;
+@synthesize topRightButton = _topRightButton;
 
 - (void)dealloc {
     [_title release];
@@ -41,6 +43,8 @@
     [_sections release];
     [_reviews release];
     [_myLooks release];
+    [_bannerAd release];
+    [_topRightButton release];
     [super dealloc];
 }
 

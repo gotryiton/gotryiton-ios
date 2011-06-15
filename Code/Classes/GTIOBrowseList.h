@@ -7,6 +7,8 @@
 //
 /// GTIOBrowseList is a list of either categories, reviews, sections, or myLooks
 #import <Foundation/Foundation.h>
+#import "GTIOBannerAd.h"
+#import "GTIOTopRightBarButton.h"
 
 @interface GTIOBrowseList : NSObject {
     NSString* _title;
@@ -23,6 +25,8 @@
     NSArray* _sections;
     NSArray* _reviews;
     NSArray* _myLooks;
+    GTIOBannerAd* _bannerAd;
+    GTIOTopRightBarButton* _topRightButton;
 }
 /// title of list
 @property (nonatomic, retain) NSString* title;
@@ -52,6 +56,9 @@
 @property (nonatomic, retain) NSArray* reviews;
 /// collection of myLooks
 @property (nonatomic, retain) NSArray* myLooks;
+
+@property (nonatomic, retain) GTIOBannerAd* bannerAd;
+@property (nonatomic, retain) GTIOTopRightBarButton* topRightButton;
 
 - (NSMutableArray*)categoriesFilteredWithText:(NSString*)text;
 
