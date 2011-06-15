@@ -2,73 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>user</key>
-	<dict>
-		<key>aboutMe</key>
-		<string>Hello</string>
-		<key>auth</key>
-		<true/>
-		<key>badges</key>
-		<array>
-			<dict>
-				<key>imgURL</key>
-				<string>http://assets.gotryiton.com/img/badges/fashionista_54_54.png</string>
-				<key>since</key>
-				<integer>1276811123</integer>
-				<key>type</key>
-				<string>fashionista</string>
-			</dict>
-		</array>
-		<key>city</key>
-		<string>Chapel Hill</string>
-		<key>displayName</key>
-		<string>danny H.</string>
-		<key>email</key>
-		<string>d.aniel@twotoasters.com</string>
-		<key>emailPreference</key>
-		<string>1</string>
-		<key>firstName</key>
-		<string>danny</string>
-		<key>gender</key>
-		<string>M</string>
-		<key>gtioToken</key>
-		<string>dd661e6cf0dd3551beedc43003be072a</string>
-		<key>iphonePush</key>
-		<string>0</string>
-		<key>isNewUser</key>
-		<false/>
-		<key>lastInitial</key>
-		<string>H</string>
-		<key>location</key>
-		<string>Chapel Hill, NC</string>
-		<key>requiredFinishProfile</key>
-		<false/>
-		<key>rpxIdentifier</key>
-		<string>http://www.facebook.com/profile.php?id=100001365751074</string>
-		<key>service</key>
-		<array>
-			<string>Facebook</string>
-		</array>
-		<key>state</key>
-		<string>NC</string>
-		<key>uid</key>
-		<string>1CCD774</string>
-		<key>userStats</key>
-		<array>
-			<dict>
-				<key>name</key>
-				<string>LOOKS UPLOADED</string>
-				<key>value</key>
-				<integer>43</integer>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>VOTES RECEIVED</string>
-				<key>value</key>
-				<integer>98</integer>
-			</dict>
-		</array>
-	</dict>
 	<key>global_eventTypes</key>
 	<array>
 		<dict>
@@ -132,5 +65,72 @@
 			<string>something else</string>
 		</dict>
 	</array>
+	<key>user</key>
+	<dict>
+		<key>aboutMe</key>
+		<string>Hello</string>
+		<key>auth</key>
+		<true/>
+		<key>badges</key>
+		<array>
+			<dict>
+				<key>imgURL</key>
+				<string>http://assets.gotryiton.com/img/badges/fashionista_54_54.png</string>
+				<key>since</key>
+				<integer>1276811123</integer>
+				<key>type</key>
+				<string>fashionista</string>
+			</dict>
+		</array>
+		<key>city</key>
+		<string>Chapel Hill</string>
+		<key>displayName</key>
+		<string>danny H.</string>
+		<key>email</key>
+		<string>d.aniel@twotoasters.com</string>
+		<key>emailPreference</key>
+		<string>1</string>
+		<key>firstName</key>
+		<string>danny</string>
+		<key>gender</key>
+		<string>M</string>
+		<key>gtioToken</key>
+		<string>dd661e6cf0dd3551beedc43003be072a</string>
+		<key>iphonePush</key>
+		<string>0</string>
+		<key>isNewUser</key>
+		<false/>
+		<key>lastInitial</key>
+		<string>H</string>
+		<key>location</key>
+		<string>Chapel Hill, NC</string>
+		<key>showAlmostDoneScreen</key>
+		<false/>
+		<key>rpxIdentifier</key>
+		<string>http://www.facebook.com/profile.php?id=100001365751074</string>
+		<key>service</key>
+		<array>
+			<string>Facebook</string>
+		</array>
+		<key>state</key>
+		<string>NC</string>
+		<key>uid</key>
+		<string>1CCD774</string>
+		<key>userStats</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>LOOKS UPLOADED</string>
+				<key>value</key>
+				<integer>43</integer>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>VOTES RECEIVED</string>
+				<key>value</key>
+				<integer>98</integer>
+			</dict>
+		</array>
+	</dict>
 </dict>
 </plist>

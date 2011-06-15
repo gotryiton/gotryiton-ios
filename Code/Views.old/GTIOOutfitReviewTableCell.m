@@ -77,7 +77,13 @@ CGSize kMaxSize = {260,8000};
 		[_flagButton setBackgroundImage:[UIImage imageNamed:@"report.png"] forState:UIControlStateNormal];
 		[_flagButton setBackgroundImage:[UIImage imageNamed:@"report-ON.png"] forState:UIControlStateHighlighted];
 		[self.contentView addSubview:_flagButton];
+        
+        _brandButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        UIImage* image = [UIImage imageNamed:@"review-corner-verified.png"];
+		[_brandButton setBackgroundImage:image forState:UIControlStateNormal];
+		[self.contentView addSubview:_brandButton];
 		
+        [_brandButton addTarget:self action:@selector(viewProfile) forControlEvents:UIControlEventTouchUpInside];
 		[_flagButton addTarget:self action:@selector(flagButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
 		[_agreeButton addTarget:self action:@selector(agreeButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
 		[_deleteButton addTarget:self action:@selector(deleteButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -118,6 +124,10 @@ CGSize kMaxSize = {260,8000};
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
+    _brandButton.frame = CGRectMake(self.contentView.width - 50,
+                                    7,
+                                    44,
+                                    44);
     // Background Images
 	_bgImageView.frame = CGRectMake(2, 3, self.contentView.size.width - 4, self.contentView.size.height);
     _areaBgImageView.frame = CGRectMake(0, 0, self.contentView.size.width, self.contentView.size.height);
@@ -186,6 +196,7 @@ CGSize kMaxSize = {260,8000};
 }	
 
 - (void)dealloc {
+    TT_RELEASE_SAFELY(_brandButton);
 	TT_RELEASE_SAFELY(_bgImageView);
 	TT_RELEASE_SAFELY(_reviewTableItem);
 	TT_RELEASE_SAFELY(_authorLabel);
@@ -225,7 +236,20 @@ CGSize kMaxSize = {260,8000};
         [self.contentView addSubview:imageView];
     }
     
+    if ([review.user.isBranded boolValue]) {
+        [_flagButton removeFromSuperview];
+        [self.contentView addSubview:_brandButton];
+    } else {
+        [self.contentView addSubview:_flagButton];
+        [_brandButton removeFromSuperview];
+    }
+    
     [self setNeedsLayout];
+}
+
+- (void)viewProfile {
+    GTIOReview* review = [_reviewTableItem review];
+    TTOpenURL([NSString stringWithFormat:@"gtio://profile/%@", review.uid]);
 }
 
 - (void)agreeButtonWasPressed:(id)sender {

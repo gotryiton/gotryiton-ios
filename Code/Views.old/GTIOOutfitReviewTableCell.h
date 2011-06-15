@@ -18,6 +18,7 @@
 	UIButton* _deleteButton;
 	UIButton* _agreeButton;
 	UIButton* _flagButton;
+    UIButton* _brandButton;
     TTImageView* _authorProfilePictureImageView;
     UIImageView* _authorProfilePictureImageOverlay;
     UIButton* _authorButton;

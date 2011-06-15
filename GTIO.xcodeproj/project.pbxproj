@@ -1145,7 +1145,7 @@
 		3FCBECE9137068BB0039D779 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECE8137068BB0039D779 /* AddressBook.framework */; };
 		3FCBECEB137068C60039D779 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECEA137068C50039D779 /* AddressBook.framework */; };
 		3FCBECED137068D90039D779 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECEC137068D90039D779 /* AddressBookUI.framework */; };
-		3FCBECEF137068E30039D779 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECEE137068E30039D779 /* MessageUI.framework */; };
+		3FCBECEF137068E30039D779 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECEE137068E30039D779 /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3FCBECF3137069150039D779 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECF2137069150039D779 /* CoreLocation.framework */; };
 		3FCBECF5137069200039D779 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECF4137069200039D779 /* MapKit.framework */; };
 		3FCBECF71370693F0039D779 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECF61370693F0039D779 /* AddressBookUI.framework */; };
@@ -4270,8 +4270,8 @@
 		A7E3010B1379887F0036F86D /* GTIOProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfile.m; sourceTree = "<group>"; };
 		A7E3010C1379887F0036F86D /* GTIOReview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOReview.h; sourceTree = "<group>"; };
 		A7E3010D1379887F0036F86D /* GTIOReview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOReview.m; sourceTree = "<group>"; };
-		A7E3010E1379887F0036F86D /* GTIOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUser.h; sourceTree = "<group>"; };
-		A7E3010F1379887F0036F86D /* GTIOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUser.m; sourceTree = "<group>"; };
+		A7E3010E1379887F0036F86D /* GTIOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GTIOUser.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		A7E3010F1379887F0036F86D /* GTIOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GTIOUser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A7E301101379887F0036F86D /* GTIOVotingResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOVotingResultSet.h; sourceTree = "<group>"; };
 		A7E301111379887F0036F86D /* GTIOVotingResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOVotingResultSet.m; sourceTree = "<group>"; };
 		A7E301121379887F0036F86D /* RKObjectLoader_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKObjectLoader_Additions.h; sourceTree = "<group>"; };
@@ -9743,6 +9743,7 @@
 					Libraries/RestKit/Build,
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -9774,6 +9775,7 @@
 					Libraries/RestKit/Build,
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

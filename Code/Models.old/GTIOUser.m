@@ -71,6 +71,7 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize location = _location;
 @synthesize badges = _badges;
 @synthesize alert = _alert;
+@synthesize showAlmostDoneScreen = _showAlmostDoneScreen;
 
 @synthesize notifications = _notifications;
 @synthesize todosBadge = _todosBadge;
@@ -146,6 +147,7 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.location", @"location")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.stylistsCount", @"stylistsCount")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.istyleCount", @"istyleCount")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.showAlmostDoneScreen", @"showAlmostDoneScreen")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
     
     // TODO: duplicated
@@ -202,6 +204,7 @@ static GTIOUser* gCurrentUser = nil;
 }
 
 - (void)dealloc {
+    TT_RELEASE_SAFELY(_showAlmostDoneScreen);
 	TT_RELEASE_SAFELY(_UID);
 	TT_RELEASE_SAFELY(_username);
 	TT_RELEASE_SAFELY(_gender);
@@ -244,7 +247,7 @@ static GTIOUser* gCurrentUser = nil;
         TTOpenURL(@"gtio://analytics/trackUserDidLoginForTheFirstTime");
     }
     
-    if ([[profileInfo objectForKey:@"user.requiredFinishProfile"] boolValue]) {
+    if ([[profileInfo objectForKey:@"user.showAlmostDoneScreen"] boolValue]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
     } else if ([GTIOUser currentUser].token != nil) {
         self.loggedIn = YES;

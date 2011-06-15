@@ -29,6 +29,9 @@
 //
 #import "GTIOBarButtonItem.h"
 
+// Dissable JR mail compose stuff
+#define OVERRIDE_INCLUDE_EMAIL_SMS 0
+
 // Color and font macros
 #define kGTIOColorAAAAAA RGBCOLOR(170,170,170)
 #define kGTIOColorCCCCCC RGBCOLOR(204,204,204)
