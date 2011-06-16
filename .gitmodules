@@ -15,7 +15,7 @@
 	url = git@github.com:twotoasters/TWTCommon.git
 [submodule "Libraries/JanRain"]
 	path = Libraries/JanRain
-	url = https://github.com/janrain/engage.iphone.git
+	url = git@github.com:twotoasters/authenticate.iphone.git
 [submodule "Libraries/facebook-ios-sdk"]
 	path = Libraries/facebook-ios-sdk
 	url = https://github.com/facebook/facebook-ios-sdk.git
