@@ -12,7 +12,7 @@
 #import "GTIOUserReviewTableItem.h"
 #import "GTIOReview.h"
 #import "GTIOListSection.h"
-#import <TWTCommon/TWTURLButton.h>
+#import <TWTURLButton.h>
 
 @implementation GTIOBrowseListPresenter
 

@@ -26,7 +26,7 @@
 // Views
 #import "GTIOHeaderView.h"
 #import "GTIOBarButtonItem.h"
-#import <TWTCommon/TWTURLButton.h>
+#import <TWTURLButton.h>
 
 @interface GTIOProfileViewController (Private)
 - (void)registerForNotifications;
@@ -222,8 +222,6 @@
 	}
     
 	if (([[GTIOUser currentUser] isLoggedIn] || !_isShowingCurrentUser) && [self.model isKindOfClass:[RKObjectLoaderTTModel class]]) {
-        NSLog(@"Objects: %@", [(RKObjectLoaderTTModel*)self.model objects]);
-        
 		GTIOProfile* profile = nil;
         GTIOBannerAd* bannerAd = nil;
         [_topRightButton release];
@@ -276,8 +274,9 @@
             TTTableTextItem* stylistsItem = [TTTableTextItem itemWithText:@"my stylists" URL:@"gtio://stylists"];
             [items addObject:stylistsItem];
         } else {
-            // NSLog(@"Stylists: %@", profile.stylists);
             // Stylists grid.
+            GTIOStylistBadgesTableViewItem* item = [GTIOStylistBadgesTableViewItem itemWithStylists:profile.stylists];
+            [items addObject:item];
         }
 		
 		TTListDataSource* dataSource = [GTIOProfileViewDataSource dataSourceWithItems:items];

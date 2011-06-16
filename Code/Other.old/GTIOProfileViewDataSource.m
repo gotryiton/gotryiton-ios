@@ -13,6 +13,9 @@
 #import "GTIOTableStatsItem.h"
 #import "GTIOOutfitVerdictTableItem.h"
 #import "GTIOOutfitVerdictTableItemCell.h"
+#import "GTIOProfile.h"
+#import <TWTURLButton.h>
+
 /// GTIOTableTextCell is subclass of [TTTableTextItemCell](TTTableTextItemCell) that draws a 1px border on its bottom and sets a specific font
 @interface GTIOTableTextCell : TTTableTextItemCell {
 	UIView* _separator;
@@ -73,6 +76,152 @@
 
 @end
 
+@interface GTIOStylistBadge : UIView {
+    TWTURLButton* _button;
+    TTImageView* _profileImageView;
+    UIImageView* _profileImageOverlay;
+    UILabel* _nameLabel;
+    UILabel* _locationLabel;
+    NSArray* _badgeImageViews;
+    UIImageView* _connectionIcon;
+}
+
++ (id)badgeForStylist:(GTIOProfile*)profile;
+- (id)initWithStylist:(GTIOProfile*)profile;
+
+@end
+
+@implementation GTIOStylistBadge
+
++ (id)badgeForStylist:(GTIOProfile*)profile {
+    return [[[GTIOStylistBadge alloc] initWithStylist:profile] autorelease];
+}
+
+- (id)initWithStylist:(GTIOProfile*)profile {
+    if ((self = [self init])) {
+        _button = [[[TWTURLButton alloc] initWithFrame:CGRectZero] retain];
+        [_button setImage:[UIImage imageNamed:@"profile-stylist-card.png"] forState:UIControlStateNormal];
+        [_button setImage:[UIImage imageNamed:@"profile-stylist-card.png"] forState:UIControlStateHighlighted];
+        _button.clickUrl = [NSString stringWithFormat:@"gtio://profile/%@", profile.uid];
+        [self addSubview:_button];
+        
+        _profileImageView = [[TTImageView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_profileImageView];
+        
+        _profileImageOverlay = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _profileImageOverlay.image = [UIImage imageNamed:@"icon-overlay-110.png"];
+        [self addSubview:_profileImageOverlay];
+        
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _nameLabel.textColor = kGTIOColorBrightPink;
+        _nameLabel.font = kGTIOFetteFontOfSize(18);
+        _nameLabel.adjustsFontSizeToFitWidth = YES;
+        _nameLabel.minimumFontSize = 14;
+        [self addSubview:_nameLabel];
+        _nameLabel.text = profile.displayName;
+        
+        _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _locationLabel.textColor = RGBCOLOR(130,130,130);
+        _locationLabel.font = kGTIOFontHelveticaNeueOfSize(9);
+        _locationLabel.adjustsFontSizeToFitWidth = YES;
+        _locationLabel.minimumFontSize = 8;
+        [self addSubview:_locationLabel];
+        _locationLabel.text = profile.location;
+        
+        _connectionIcon = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_connectionIcon];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [_button release];
+    [_profileImageView release];
+    [_profileImageOverlay release];
+    [_nameLabel release];
+    [_locationLabel release];
+    [_badgeImageViews release];
+    [_connectionIcon release];
+    [super dealloc];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _button.frame = self.bounds;
+    _profileImageOverlay.frame = CGRectMake(4,4,44,44);
+    
+    // TODO: size this to fit badges!
+    _nameLabel.frame = CGRectMake(55,15,60,15);
+    [_nameLabel sizeToFit];
+    _nameLabel.frame = CGRectMake(55,15,MIN(_nameLabel.bounds.size.width, 60),15);
+    
+    _locationLabel.frame = CGRectMake(55,30,80,10);
+}
+
+@end
+
+@implementation GTIOStylistBadgesTableViewItem
+
+@synthesize stylists = _stylists;
+
++ (id)itemWithStylists:(NSArray*)stylists {
+    GTIOStylistBadgesTableViewItem* item = [[[self alloc] init] autorelease];
+    item.stylists = stylists;
+    return item;
+}
+
+@end
+
+@interface GTIOStylistBadgesTableViewItemCell : TTTableViewCell {
+    NSMutableArray* _stylistBadges;
+}
+@end
+
+@implementation GTIOStylistBadgesTableViewItemCell
+
++ (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(GTIOStylistBadgesTableViewItem*)object {
+	return 40 + (ceil([object.stylists count]/2.0f) * 60);
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.contentView.backgroundColor = [UIColor redColor];
+    float y = 40;
+    for (int i = 0; i < [_stylistBadges count]; i++) {
+        UIView* badge = [_stylistBadges objectAtIndex:i];
+        
+        int evenOrOdd = i%2;
+        float x = (evenOrOdd * 156) + 8;
+        
+        badge.frame = CGRectMake(x, y, 148, 52);
+        if (evenOrOdd == 1) {
+            y += 60;
+        }
+    }
+    
+}
+
+- (void)setObject:(id)obj {
+    [super setObject:obj];
+    GTIOStylistBadgesTableViewItem* item = (GTIOStylistBadgesTableViewItem*)obj;
+    // stylists = item.stylists
+    
+    for (UIView* view in _stylistBadges) {
+        [view removeFromSuperview];
+    }
+    [_stylistBadges release];
+    _stylistBadges = [NSMutableArray new];
+    
+    for (GTIOProfile* profile in item.stylists) {
+        GTIOStylistBadge* badge = [GTIOStylistBadge badgeForStylist:profile];
+        [self.contentView addSubview:badge];
+        [_stylistBadges addObject:badge];
+    }
+}
+
+@end
+
 
 /// GTIOProfileViewDataSource is the data source for [GTIOProfileViewController](GTIOProfileViewController)
 @implementation GTIOProfileViewDataSource
@@ -86,7 +235,9 @@
 }
 
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
-	if ([object isKindOfClass:[GTIOOutfitVerdictTableItem class]]) {
+	if ([object isKindOfClass:[GTIOStylistBadgesTableViewItem class]]) {
+        return [GTIOStylistBadgesTableViewItemCell class];  
+    } else if ([object isKindOfClass:[GTIOOutfitVerdictTableItem class]]) {
 		return [GTIOOutfitVerdictTableItemCell class];
 	} else if ([object isKindOfClass:[GTIOPinkTableTextItem class]]) {
         return [GTIOPinkTableTextItemCell class];

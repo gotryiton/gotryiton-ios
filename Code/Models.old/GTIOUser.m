@@ -503,8 +503,11 @@ static GTIOUser* gCurrentUser = nil;
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
     NSLog(@"Objects: %@", objects);
+    //NSLog(@"Log: %@", [objectLoader.response bodyAsString]);
     [self didStopLogin];
-    if (self.UID) {
+    if ([self.showAlmostDoneScreen boolValue]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
+    } else if (self.UID) {
         self.loggedIn = YES;
     } else {
         [self clearUserData];

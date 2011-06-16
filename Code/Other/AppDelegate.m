@@ -233,6 +233,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" objectMapping:badgeMapping]];
     [profileMapping mapRelationship:@"stylistRelationship" withObjectMapping:stylistRelationshipMapping];
     [profileMapping mapRelationship:@"extraProfileRow" withObjectMapping:extraProfileRowMapping];
+    [profileMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
     
     objectManager.mappingProvider = provider;
 }

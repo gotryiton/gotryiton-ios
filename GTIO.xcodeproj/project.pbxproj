@@ -4449,7 +4449,6 @@
 		2585187E135357C5005DCBA5 = {
 			isa = PBXGroup;
 			children = (
-				3FC1E81E13A8F72700646EEE /* libTWTCommon.a */,
 				3F9083A9139EBB950039C8FE /* Icon@2x.png */,
 				3F9083A7139EBB8E0039C8FE /* Icon.png */,
 				3F9083A4139EBAA40039C8FE /* Icon-staging@2x.png */,
@@ -4476,6 +4475,7 @@
 		2585188C135357C5005DCBA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3FC1E81E13A8F72700646EEE /* libTWTCommon.a */,
 				A76208831379D55200DFBD66 /* CoreText.framework */,
 				A76208811379D54400DFBD66 /* CoreText.framework */,
 				A762087F1379D53500DFBD66 /* CoreText.framework */,

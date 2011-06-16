@@ -16,3 +16,12 @@
 
 @interface GTIOPinkTableTextItem : TTTableTextItem
 @end
+
+@interface GTIOStylistBadgesTableViewItem : TTTableItem {
+    NSArray* _stylists;
+}
+@property (nonatomic, retain) NSArray* stylists;
+
++ (id)itemWithStylists:(NSArray*)stylists;
+
+@end
