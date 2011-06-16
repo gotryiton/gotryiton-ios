@@ -44,10 +44,10 @@
 	[_profilePictureFrame setFrame:CGRectMake(5,3,64,64)];
 	[self addSubview:_profilePictureFrame];
 	
-	_fashionProfileBadge = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fash-badge-profile.png"]];
-	[_fashionProfileBadge setFrame:CGRectMake(0,2.5,48,48)];
-	[self addSubview:_fashionProfileBadge];
-	[_fashionProfileBadge setHidden:YES];
+//	_fashionProfileBadge = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fash-badge-profile.png"]];
+//	[_fashionProfileBadge setFrame:CGRectMake(0,2.5,48,48)];
+//	[self addSubview:_fashionProfileBadge];
+//	[_fashionProfileBadge setHidden:YES];
 
 	_nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 10, 250, 40)];
 	_nameLabel.backgroundColor = [UIColor clearColor];
@@ -61,7 +61,7 @@
 	_locationLabel.textColor = kGTIOColorB2B2B2;
 	[self addSubview:_locationLabel];
 	
-	_editProfileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	_editProfileButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
 	[_editProfileButton addTarget:self action:@selector(editButtonHighlight) forControlEvents:UIControlEventTouchDown];
 	[_editProfileButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	[self addSubview:_editProfileButton];
@@ -79,6 +79,7 @@
 }
 
 - (void)dealloc {
+    [_editProfileButton release];
     [_profile release];
     [_profilePictureFrame release];
     [_backgroundOverlay release];
@@ -128,23 +129,27 @@
 	[_nameLabel setNeedsDisplay];
 	_locationLabel.text = profile.location;
 	[_locationLabel setNeedsDisplay];
-	CGRect badgeFrame = _fashionProfileBadge.frame;
-	CGFloat offsetX = [_nameLabel.text sizeWithFont:_nameLabel.font].width + _nameLabel.frame.origin.x;
-	[_fashionProfileBadge setFrame:CGRectMake(offsetX,badgeFrame.origin.y,badgeFrame.size.width,badgeFrame.size.height)];
-	[_fashionProfileBadge setHidden:NO];
+
+    
+    //	CGRect badgeFrame = _fashionProfileBadge.frame;
+    
+    // TODO: real badges here.
+//	CGFloat offsetX = [_nameLabel.text sizeWithFont:_nameLabel.font].width + _nameLabel.frame.origin.x;
+//	[_fashionProfileBadge setFrame:CGRectMake(offsetX,badgeFrame.origin.y,badgeFrame.size.width,badgeFrame.size.height)];
+//	[_fashionProfileBadge setHidden:NO];
     
     if ([[profile isBranded] boolValue]) {
         self.frame = CGRectMake(0,self.frame.origin.y,self.bounds.size.width,85);
         _profilePictureFrame.image = [UIImage imageNamed:@"profile-icon-overlay-verified-110.png"];
         [_profilePictureFrame setFrame:CGRectMake(5,3,64,80)];
+        [self addSubview:_backgroundOverlay];
         _backgroundOverlay.image = [UIImage imageNamed:@"dark-top-verified-overlay"];
         _editProfileButton.frame = CGRectOffset(_editProfileButton.frame, 0, 15);
     } else {
         self.frame = CGRectMake(0,self.frame.origin.y,self.bounds.size.width,70);
         _profilePictureFrame.image = [UIImage imageNamed:@"profile-icon-overlay-110.png"];
         [_profilePictureFrame setFrame:CGRectMake(5,3,64,64)];
-        [_backgroundOverlay release];
-        _backgroundOverlay.image = nil;
+        [_backgroundOverlay removeFromSuperview];
     }
 }
 

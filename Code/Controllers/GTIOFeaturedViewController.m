@@ -160,7 +160,7 @@
         }
     }
     
-    _backgroundImageView.frame = CGRectOffset(self.bounds, 0, _titleView.bounds.size.height);
+    _backgroundImageView.frame = CGRectOffset(_backgroundImageView.bounds, 0, _titleView.bounds.size.height);
     _bottomImageView.frame = CGRectOffset(_bottomImageView.bounds, 0, self.bounds.size.height - _bottomImageView.bounds.size.height);
 }
 

@@ -15,6 +15,7 @@
 #import "GTIOOutfitVerdictTableItemCell.h"
 #import "GTIOProfile.h"
 #import <TWTURLButton.h>
+#import "GTIOBadge.h"
 
 /// GTIOTableTextCell is subclass of [TTTableTextItemCell](TTTableTextItemCell) that draws a 1px border on its bottom and sets a specific font
 @interface GTIOTableTextCell : TTTableTextItemCell {
@@ -82,7 +83,7 @@
     UIImageView* _profileImageOverlay;
     UILabel* _nameLabel;
     UILabel* _locationLabel;
-    NSArray* _badgeImageViews;
+    NSMutableArray* _badgeImageViews;
     UIImageView* _connectionIcon;
 }
 
@@ -99,13 +100,14 @@
 
 - (id)initWithStylist:(GTIOProfile*)profile {
     if ((self = [self init])) {
-        _button = [[[TWTURLButton alloc] initWithFrame:CGRectZero] retain];
+        _button = [[TWTURLButton alloc] initWithFrame:CGRectZero];
         [_button setImage:[UIImage imageNamed:@"profile-stylist-card.png"] forState:UIControlStateNormal];
         [_button setImage:[UIImage imageNamed:@"profile-stylist-card.png"] forState:UIControlStateHighlighted];
         _button.clickUrl = [NSString stringWithFormat:@"gtio://profile/%@", profile.uid];
         [self addSubview:_button];
         
         _profileImageView = [[TTImageView alloc] initWithFrame:CGRectZero];
+        _profileImageView.urlPath = profile.profileIconURL;
         [self addSubview:_profileImageView];
         
         _profileImageOverlay = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -117,6 +119,7 @@
         _nameLabel.font = kGTIOFetteFontOfSize(18);
         _nameLabel.adjustsFontSizeToFitWidth = YES;
         _nameLabel.minimumFontSize = 14;
+        _nameLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_nameLabel];
         _nameLabel.text = profile.displayName;
         
@@ -125,11 +128,25 @@
         _locationLabel.font = kGTIOFontHelveticaNeueOfSize(9);
         _locationLabel.adjustsFontSizeToFitWidth = YES;
         _locationLabel.minimumFontSize = 8;
+        _locationLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_locationLabel];
         _locationLabel.text = profile.location;
         
         _connectionIcon = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _connectionIcon.image = [profile.stylistRelationship imageForConnection];
         [self addSubview:_connectionIcon];
+        
+        for (UIView* view in _badgeImageViews) {
+            [view removeFromSuperview];
+        }
+        [_badgeImageViews release];
+        _badgeImageViews = [NSMutableArray new];
+        for (GTIOBadge* badge in profile.badges) {
+            TTImageView* badgeView = [[[TTImageView alloc] initWithFrame:CGRectZero] autorelease];
+            badgeView.urlPath = badge.imgURL;
+            [self addSubview:badgeView];
+            [_badgeImageViews addObject:badgeView];
+        }
     }
     return self;
 }
@@ -149,12 +166,20 @@
     [super layoutSubviews];
     _button.frame = self.bounds;
     _profileImageOverlay.frame = CGRectMake(4,4,44,44);
+    _profileImageView.frame = CGRectInset(_profileImageOverlay.frame,3,3);
     
-    // TODO: size this to fit badges!
+    int numBadges = [_badgeImageViews count];
     _nameLabel.frame = CGRectMake(55,15,60,15);
     [_nameLabel sizeToFit];
-    _nameLabel.frame = CGRectMake(55,15,MIN(_nameLabel.bounds.size.width, 60),15);
+    _nameLabel.frame = CGRectMake(55,15,MIN(_nameLabel.bounds.size.width, 60-(15*numBadges)),15);
+    float badgeX = CGRectGetMaxX(_nameLabel.frame) + 3;
+    for (UIView* badgeView in _badgeImageViews) {
+        badgeView.frame = CGRectMake(badgeX, 15, 12, 12);
+        badgeX += 15;
+    }
     
+    
+    _connectionIcon.frame = CGRectMake(self.bounds.size.width - 20,3,17,16);
     _locationLabel.frame = CGRectMake(55,30,80,10);
 }
 
@@ -186,7 +211,11 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.contentView.backgroundColor = [UIColor redColor];
+    self.textLabel.text = @"stylists";
+    self.textLabel.frame = CGRectMake(10,1,300,39);
+    self.textLabel.font = kGTIOFontHelveticaNeueOfSize(20);
+    self.textLabel.textColor = TTSTYLEVAR(textColor);
+    
     float y = 40;
     for (int i = 0; i < [_stylistBadges count]; i++) {
         UIView* badge = [_stylistBadges objectAtIndex:i];
