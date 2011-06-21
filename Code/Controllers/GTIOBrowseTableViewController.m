@@ -171,6 +171,49 @@
     [super dealloc];
 }
 
+- (void)reloadButtonWasPressed:(id)sender {
+    [self invalidateModel];
+}
+
+- (void)showEmpty:(BOOL)show {
+    if (show) {
+        
+        NSString* title = _presenter.titleForEmptyList;
+        UILabel* titleLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0,170,320,20)] autorelease];
+        titleLabel.font = kGTIOFontHelveticaNeueOfSize(15);
+        titleLabel.textColor = RGBCOLOR(130,130,130);
+        titleLabel.text = title;
+        titleLabel.textAlignment = UITextAlignmentCenter;
+        
+        UIImage* image = [UIImage imageNamed:@"empty-list.png"];
+        UIImageView* imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
+        imageView.frame = CGRectMake(floor(320 - imageView.frame.size.width) / 2,75,imageView.frame.size.width, imageView.frame.size.height);
+        
+        UIButton* reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage* off = [UIImage imageNamed:@"list-refresh-OFF.png"];
+        UIImage* on = [UIImage imageNamed:@"list-refresh-ON.png"];
+        [reloadButton setImage:off forState:UIControlStateNormal];
+        [reloadButton setImage:on forState:UIControlStateHighlighted];
+        reloadButton.frame = CGRectMake((320-120)/2,248,120,58);
+        [reloadButton addTarget:self action:@selector(reloadButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIView* emptyView = [[[UIView alloc] initWithFrame:self.tableView.frame] autorelease];
+        emptyView.backgroundColor = [UIColor clearColor];
+        
+        [emptyView addSubview:titleLabel];
+        [emptyView addSubview:imageView];
+        [emptyView addSubview:reloadButton];
+        
+        self.emptyView = emptyView;
+        
+        _tableView.dataSource = nil;
+        [_tableView reloadData];
+        
+    } else {
+        self.emptyView = nil;
+    }
+}
+
 - (TTTableViewDelegate*)createDelegate {
     return [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
 }
@@ -271,9 +314,19 @@
 - (void)setupDataSourceWithItems:(NSMutableArray*)items {
     BOOL requiresSectionedDataSource = [items count] > 0 && [[items objectAtIndex:0] isKindOfClass:[NSArray class]];
     if (requiresSectionedDataSource) {
-        TTSectionedDataSource* ds = [GTIOBrowseSectionedDataSource dataSourceWithItems:items sections:_presenter.sectionNames];
-        ds.model = self.model;
-        self.dataSource = ds;
+        int count = 0;
+        for (NSArray* a in items) {
+            count += [a count];
+        }
+        if (count > 0) {
+            TTSectionedDataSource* ds = [GTIOBrowseSectionedDataSource dataSourceWithItems:items sections:_presenter.sectionNames];
+            ds.model = self.model;
+            self.dataSource = ds;
+        } else {
+            TTListDataSource* ds = [GTIOBrowseListDataSource dataSourceWithItems:[NSArray array]];
+            ds.model = self.model;
+            self.dataSource = ds;
+        }
     } else if (_presenter.subtitle) {
         TTSectionedDataSource* ds = [GTIOBrowseSectionedDataSource dataSourceWithArrays:_presenter.subtitle, items, nil];
         ds.model = self.model;

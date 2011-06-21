@@ -226,4 +226,18 @@
     return [_list.tabs valueForKey:@"title"];
 }
 
+- (NSString*)titleForEmptyList {
+    NSString* title = @"nothing here";
+    if (self.list) {
+        if (self.list.categories) {
+            title = @"no categories found!";
+        } else if (self.list.reviews) {
+            title = @"no reviews found!";
+        } else {
+            title = @"no looks found!";
+        }
+    }
+    return title;
+}
+
 @end

@@ -43,4 +43,6 @@
 @property (nonatomic, readonly) NSArray* tabs;
 @property (nonatomic, readonly) NSArray* tabNames;
 
+@property (nonatomic, readonly) NSString* titleForEmptyList;
+
 @end
