@@ -200,8 +200,8 @@
         if ([option.url isEqualToString:_previewImageView.urlPath] && ![option.type isEqualToString:@"Default"]) {
             _currentSelection = [_options indexOfObject:option];
         }
-        float width = floor([option.width floatValue]/2.0f);
-        float height = floor([option.height floatValue]/2.0f);
+        float width = 50;//floor([option.width floatValue]/2.0f);
+        float height = 50;//floor([option.height floatValue]/2.0f);
         if ([option.type isEqualToString:@"Default"]) {
             continue;
         } else if ([option.type isEqualToString:@"Facebook"]) {

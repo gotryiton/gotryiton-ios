@@ -275,8 +275,10 @@
             [items addObject:stylistsItem];
         } else {
             // Stylists grid.
-            GTIOStylistBadgesTableViewItem* item = [GTIOStylistBadgesTableViewItem itemWithStylists:profile.stylists];
-            [items addObject:item];
+            if ([profile.stylists count] > 0) {
+                GTIOStylistBadgesTableViewItem* item = [GTIOStylistBadgesTableViewItem itemWithStylists:profile.stylists];
+                [items addObject:item];
+            }
         }
 		
 		TTListDataSource* dataSource = [GTIOProfileViewDataSource dataSourceWithItems:items];
