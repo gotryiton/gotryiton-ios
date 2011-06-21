@@ -9,6 +9,7 @@
 #import "GTIOShareViewController.h"
 #import "GTIOSectionedDataSource.h"
 #import "GTIOTableImageControlItem.h"
+#import <RestKit/Three20/Three20.h>
 
 @interface GTIOShareTableViewVarHeightDelegate : TTTableViewVarHeightDelegate
 @end
@@ -79,7 +80,6 @@
 		[containerView release];
 		
 		_shareWithCommunitySwitch = [[CustomUISwitch alloc] initWithFrame:CGRectZero];
-		_shareWithStylistsSwitch = [[CustomUISwitch alloc] initWithFrame:CGRectZero];
 		
 		[[TTNavigator navigator].URLMap from:@"gtio://share/addContacts" toObject:self selector:@selector(addContactWasTouched)];
 	}
@@ -91,7 +91,6 @@
 	[[TTNavigator navigator].URLMap removeURL:@"gtio://share/addContacts"];
 	TT_RELEASE_SAFELY(_opinionRequest);
 	TT_RELEASE_SAFELY(_shareWithCommunitySwitch);
-	TT_RELEASE_SAFELY(_shareWithStylistsSwitch);
 	[super dealloc];
 }
 
@@ -110,10 +109,31 @@
     return [[[GTIOShareTableViewVarHeightDelegate alloc] initWithController:self] autorelease];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self invalidateModel];
+}
 
 - (void)createModel {
-    GTIOUser* user = [GTIOUser currentUser];
-    NSLog(@"Thumbs: %@", user.stylistsQuickLook.thumbs);
+    
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/quick-look") delegate:nil];
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+    objectLoader.method = RKRequestMethodPOST;
+    RKObjectLoaderTTModel* model = [RKObjectLoaderTTModel modelWithObjectLoader:objectLoader];
+    
+    GTIOSectionedDataSource* ds = (GTIOSectionedDataSource*)[GTIOSectionedDataSource dataSourceWithObjects:nil];
+    ds.model = model;
+    self.dataSource = ds;
+    
+}
+
+- (void)didLoadModel:(BOOL)firstTime {
+    GTIOStylistsQuickLook* stylistsQuickLook = nil;
+    for (id obj in [(RKObjectLoaderTTModel*)self.model objects]) {
+        if ([obj isKindOfClass:[GTIOStylistsQuickLook class]]) {
+            stylistsQuickLook = obj;
+        }
+    }
     
 	NSMutableArray* secondSection = [NSMutableArray arrayWithObjects:
 									[GTIOTableImageControlItem itemWithCaption:@"GO TRY IT ON community" image:nil control:_shareWithCommunitySwitch],
@@ -121,9 +141,9 @@
 	NSMutableArray* firstSection = [NSMutableArray array];
     
     NSString* sectionText;
-    if (user.stylistsQuickLook) {
+    if (stylistsQuickLook) {
         GTIOPersonalStylistsItem* personalStylistsItem = [[[GTIOPersonalStylistsItem alloc] init] autorelease];
-        personalStylistsItem.stylistsQuickLook = user.stylistsQuickLook;
+        personalStylistsItem.stylistsQuickLook = stylistsQuickLook;
         [firstSection addObject:personalStylistsItem];
         [firstSection addObject:[TTTableTextItem itemWithText:@"edit my stylists" URL:@"gtio://stylists/edit"]];
         sectionText = @"share with:";
@@ -146,7 +166,6 @@
 	TTOpenURL(@"gtio://analytics/trackUserDidTouchCreateMyOutfitPage");
 	
 	// Write the settings back to the opinion request
-	self.opinionRequest.shareWithStylists = _shareWithStylistsSwitch.isOn;
 	self.opinionRequest.isPublic = _shareWithCommunitySwitch.isOn;
 		
 	// Ask the session to submit the request

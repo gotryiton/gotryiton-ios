@@ -55,25 +55,32 @@
         // begin fade in animations
         _backgroundImageView.alpha = 0;
         _backgroundImageView.hidden = NO;
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:2];
-        [UIView setAnimationDelay:1];
-        [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(fadeInTodosBadge)];
+        if (!_animatedInThisLaunch) {
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:2];
+            [UIView setAnimationDelay:1];
+            [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+            [UIView setAnimationDelegate:self];
+            [UIView setAnimationDidStopSelector:@selector(fadeInTodosBadge)];
+        }
         _backgroundImageView.alpha = 1;
-        [UIView commitAnimations];
+        if (!_animatedInThisLaunch) {
+            [UIView commitAnimations];
         
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:2];
-        [UIView setAnimationDelay:2];
-        [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:2];
+            [UIView setAnimationDelay:2];
+            [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+        }
         _uploadButton.titleLabel.alpha = 1;
         _featuredButton.titleLabel.alpha = 1;
         _browseButton.titleLabel.alpha = 1;
         _todoButton.titleLabel.alpha = 1;
         _todoButton.titleLabel.alpha = 1;
-        [UIView commitAnimations];
+        if (!_animatedInThisLaunch) {
+            [UIView commitAnimations];
+            _animatedInThisLaunch = YES;
+        }
     } else {
         // Reload TODO's and notifications.
         [[GTIOUser currentUser] resumeSession];

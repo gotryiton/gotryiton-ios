@@ -35,6 +35,7 @@
     
     GTIONotificationsOverlayViewController* _notificationsController;
     BOOL _notificationsVisible;
+    BOOL _animatedInThisLaunch;
 }
 /// My Stylists
 - (IBAction)myStylistsButtonWasPressed;

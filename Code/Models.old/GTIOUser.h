@@ -10,7 +10,6 @@
 #import <RestKit/RestKit.h>
 #import "Facebook.h"
 #import "GTIOAppStatusAlert.h"
-#import "GTIOStylistsQuickLook.h"
 
 //////////////////////////////////////////////////////////////////////
 // Notifications
@@ -95,7 +94,6 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
     Facebook* _facebook;
     NSNumber* _isFacebookConnected;
     NSNumber* _showAlmostDoneScreen;
-    GTIOStylistsQuickLook* _stylistsQuickLook;
 }
 
 @property (nonatomic, retain) NSNumber* iphonePush;
@@ -120,7 +118,6 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 @property (nonatomic, copy) NSArray* badges;
 @property (nonatomic, retain) GTIOAppStatusAlert* alert;
 @property (nonatomic, retain) NSNumber* showAlmostDoneScreen;
-@property (nonatomic, retain) GTIOStylistsQuickLook* stylistsQuickLook;
 
 /**
  * Either 'male' or 'female'

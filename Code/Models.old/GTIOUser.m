@@ -72,7 +72,6 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize badges = _badges;
 @synthesize alert = _alert;
 @synthesize showAlmostDoneScreen = _showAlmostDoneScreen;
-@synthesize stylistsQuickLook = _stylistsQuickLook;
 
 @synthesize notifications = _notifications;
 @synthesize todosBadge = _todosBadge;
@@ -171,10 +170,6 @@ static GTIOUser* gCurrentUser = nil;
     [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"alertID")];
     [alertMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"buttons" toKeyPath:@"buttons" objectMapping:buttonMapping]];
     
-    RKObjectMapping* stylistsQuickLookMapping = [RKObjectMapping mappingForClass:[GTIOStylistsQuickLook class]];
-    [stylistsQuickLookMapping mapAttributes:@"thumbs", @"text", nil];
-    [userMapping mapKeyPath:@"user.stylistsQuickLook" toRelationship:@"stylistsQuickLook" withObjectMapping:stylistsQuickLookMapping];
-    
     RKObjectMapping* changeItReasonsMapping = [RKObjectMapping mappingForClass:[GTIOChangeItReason class]];
     [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"reasonID")];
     [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"display", @"display")];
@@ -231,7 +226,6 @@ static GTIOUser* gCurrentUser = nil;
     TT_RELEASE_SAFELY(_stylistsCount);
     TT_RELEASE_SAFELY(_istyleCount);
     TT_RELEASE_SAFELY(_isFacebookConnected);
-    TT_RELEASE_SAFELY(_stylistsQuickLook);
 	[super dealloc];
 }
 
@@ -383,9 +377,6 @@ static GTIOUser* gCurrentUser = nil;
 - (void)resumeSession {
 	if (self.token) {
         RKObjectMapping* userMapping = [GTIOUser userMapping];
-        
-        // Reset stylists quick look, it won't get cleared out if it gets set back to nil.
-        self.stylistsQuickLook = nil;
         
         NSString* path = [NSString stringWithFormat:@"%@?gtioToken=%@&iphoneAppVersion=%@", GTIORestResourcePath(@"/auth"), self.token, [GTIOUser appVersionString]];
         if (self.deviceToken) {

@@ -15,7 +15,6 @@
 	GTIOOpinionRequest* _opinionRequest;
 	UIButton* _createMyOutfitPageButton;
 	CustomUISwitch* _shareWithCommunitySwitch;
-	CustomUISwitch* _shareWithStylistsSwitch;
 	
 //	UILabel* _privateLabel;
 }
