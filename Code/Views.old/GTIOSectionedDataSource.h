@@ -8,9 +8,18 @@
 /// GTIOSectionedDataSource is a TTSectionedDataSource that links the [GTIOTableImageControlItem](GTIOTableImageControlItem) to the [GTIOTableImageControlCell](GTIOTableImageControlCell)
 
 #import <Three20/Three20.h>
+#import "GTIOStylistsQuickLook.h"
 
 @interface GTIOSectionedDataSource : TTSectionedDataSource {
 
 }
+
+@end
+
+@interface GTIOPersonalStylistsItem : TTTableItem {
+    GTIOStylistsQuickLook* _stylistsQuickLook;
+}
+
+@property (nonatomic, retain) GTIOStylistsQuickLook* stylistsQuickLook;
 
 @end

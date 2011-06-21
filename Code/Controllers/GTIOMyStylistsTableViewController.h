@@ -14,6 +14,7 @@
     NSMutableArray* _stylists;
     NSMutableArray* _stylistsToDelete;
     UIButton* _addMoreButton;
+    BOOL _startInEditingState;
 }
 
 @end

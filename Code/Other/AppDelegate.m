@@ -254,7 +254,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	[map from:@"gtio://home" toSharedViewController:[GTIOHomeViewController class]];
 	[map from:@"gtio://welcome" toModalViewController:[GTIOWelcomeViewController class]];
-	[map from:@"gtio://login" toModalViewController:[GTIOLoginViewController class]];
+	[map from:@"gtio://login" toViewController:[GTIOLoginViewController class]];
     
 	[map from:@"gtio://loginWithJanRain" toObject:[GTIOUser currentUser] selector:@selector(loginWithJanRain)];
 	[map from:@"gtio://loginWithFacebook" toObject:[GTIOUser currentUser] selector:@selector(loginWithFacebook)];
@@ -315,6 +315,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://getAnOpinion/photos/edit/(editPhoto:)" toObject:session selector:@selector(editPhoto:)];
     
     [map from:@"gtio://stylists" toViewController:NSClassFromString(@"GTIOMyStylistsTableViewController")];
+    [map from:@"gtio://stylists/edit" toViewController:NSClassFromString(@"GTIOMyStylistsTableViewController") selector:@selector(initWithEditEnabled)];
     [map from:@"gtio://stylists/add" toViewController:NSClassFromString(@"GTIOAddStylistsViewController")];
 	
 	// step1/next for the current next
@@ -490,8 +491,6 @@ void uncaughtExceptionHandler(NSException *exception) {
         // If it's not on the stack, open it.
         TTOpenURL(@"gtio://home");
     }
-    // Dismiss the login modal view controller.
-    [home dismissModalViewControllerAnimated:YES];
     [self handleLaunchURL];
 }
 

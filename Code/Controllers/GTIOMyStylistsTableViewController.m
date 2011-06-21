@@ -14,6 +14,7 @@
 #import <TWTAlertViewDelegate.h>
 #import "GTIOHeaderView.h"
 #import "GTIOBadge.h"
+#import "GTIOHomeViewController.h"
 
 @interface GTIOMyStylistTableItem : TTTableImageItem {
 @private
@@ -98,7 +99,7 @@
     
     int i = 0;
     for (UIView* view in _badgeImageViews) {
-        view.frame = CGRectMake(100+_nameLabel.width+5+i*(16+5), 2+_locationLabel.height-5, 16, 16);
+        view.frame = CGRectMake(CGRectGetMaxX(_nameLabel.frame)+5+i*(16+5), 21, 16, 16);
         i++;
     }
 }
@@ -124,7 +125,7 @@
         TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0,0,16,16)];
         imageView.backgroundColor = [UIColor clearColor];
         imageView.urlPath = badge.imgURL;
-        [self addSubview:imageView];
+        [self.contentView addSubview:imageView];
         [_badgeImageViews addObject:imageView];
     }
     
@@ -175,6 +176,13 @@
 
 @implementation GTIOMyStylistsTableViewController
 
+- (id)initWithEditEnabled {
+    if ((self = [self initWithStyle:UITableViewStylePlain])) {
+        _startInEditingState = YES;
+    }
+    return self;
+}
+
 - (void)dealloc {
     [_stylistsToDelete release];
     [_stylists release];
@@ -224,7 +232,12 @@
 
 - (void)cancelButtonPressed:(id)sender {
     [self setEditing:NO animated:YES];
-    self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:[GTIOBarButtonItem class] action:@selector(backButtonAction)];
+    
+    if ([self.parentViewController isKindOfClass:[GTIOHomeViewController class]]) {
+        self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:[GTIOBarButtonItem class] action:@selector(backButtonAction)];
+    } else {
+        self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem backButton];
+    }
     [self.navigationItem setRightBarButtonItem:_editButton animated:YES];
     // revert any unsaved changes.
     [(NSObject*)self.model performSelector:@selector(didFinishLoad) withObject:nil afterDelay:0.5];
@@ -233,7 +246,11 @@
 - (void)doneButtonPressed:(id)sender {
     NSLog(@"Stylists to delete: %@", _stylistsToDelete);
     [self setEditing:NO animated:YES];
-    self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:[GTIOBarButtonItem class] action:@selector(backButtonAction)];
+    if ([self.parentViewController isKindOfClass:[GTIOHomeViewController class]]) {
+        self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:[GTIOBarButtonItem class] action:@selector(backButtonAction)];
+    } else {
+        self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem backButton];
+    }
     [self.navigationItem setRightBarButtonItem:_editButton animated:YES];
     // Delete from Stylists to Delete
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/remove") delegate:nil];
@@ -310,6 +327,11 @@
     TTListDataSource* ds = [GTIOMyStylistsListDataSource dataSourceWithItems:items];
     ds.model = model;
     self.dataSource = ds;
+    
+    if (_startInEditingState) {
+        _startInEditingState = NO;
+        [self editButtonPressed:nil];
+    }
 }
 
 @end

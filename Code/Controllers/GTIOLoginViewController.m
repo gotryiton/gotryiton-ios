@@ -27,10 +27,6 @@
     [super dealloc];
 }
 
-- (void)dismiss {
-    [self dismissModalViewControllerAnimated:YES];
-}
-
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -47,10 +43,6 @@
     }
 }
 
-- (void)loginEndedNotification:(NSNotification*)note {
-    [[self.view viewWithTag:999] removeFromSuperview];
-}
-
 - (IBAction)facebookButtonWasPressed:(id)sender {
     TTOpenURL(@"gtio://loginWithFacebook");
 }
@@ -63,6 +55,16 @@
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)dismiss {
+    [self popViewController];
+    //[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)loginEndedNotification:(NSNotification*)note {
+    [[self.view viewWithTag:999] removeFromSuperview];
+    [self dismiss];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
@@ -72,7 +74,7 @@
     self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"SIGN IN"];
     
 	UIView* termsView = [GTIOSignInTermsView termsView];
-	[termsView setFrame:CGRectMake(20, self.view.frame.size.height-100, 280, 100)];
+	[termsView setFrame:CGRectMake(20, self.view.frame.size.height-80, 280, 100)];
 	[self.view addSubview:termsView];
 }
 

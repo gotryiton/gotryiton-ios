@@ -10,6 +10,41 @@
 #import "GTIOSectionedDataSource.h"
 #import "GTIOTableImageControlItem.h"
 
+@interface GTIOShareTableViewVarHeightDelegate : TTTableViewVarHeightDelegate
+@end
+
+@implementation GTIOShareTableViewVarHeightDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (![tableView.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+        return 0.0f;
+    }
+    NSString* title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
+    if (title && ![title isWhitespaceAndNewlines]) {
+        return 45.0f;
+    }
+    return 0.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (![tableView.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+        return nil;
+    }
+    NSString* title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
+    UIView* header = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,40)] autorelease];
+    header.backgroundColor = [UIColor clearColor];
+    UILabel* label = [[[UILabel alloc] initWithFrame:CGRectMake(20,10,300,30)] autorelease];
+    [header addSubview:label];
+    label.text = title;
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = RGBCOLOR(128,128,128);
+    label.font = [UIFont systemFontOfSize:18];
+    return header;
+}
+
+
+@end
+
 @implementation GTIOShareViewController
 
 @synthesize opinionRequest = _opinionRequest;
@@ -62,6 +97,7 @@
 
 - (void)loadView {
 	[super loadView];
+    self.variableHeightRows = YES;
 	
 	TTOpenURL(@"gtio://analytics/trackUserDidViewContacts");
 }
@@ -70,21 +106,36 @@
     ;
 }
 
+- (id<UITableViewDelegate>)createDelegate {
+    return [[[GTIOShareTableViewVarHeightDelegate alloc] initWithController:self] autorelease];
+}
+
+
 - (void)createModel {
-	NSMutableArray* firstSection = [NSMutableArray arrayWithObjects:
-									[GTIOTableImageControlItem itemWithCaption:@"share with community" image:nil control:_shareWithCommunitySwitch],
+    GTIOUser* user = [GTIOUser currentUser];
+    NSLog(@"Thumbs: %@", user.stylistsQuickLook.thumbs);
+    
+	NSMutableArray* secondSection = [NSMutableArray arrayWithObjects:
+									[GTIOTableImageControlItem itemWithCaption:@"GO TRY IT ON community" image:nil control:_shareWithCommunitySwitch],
 									nil];	
-	NSMutableArray* secondSection = [NSMutableArray array];
+	NSMutableArray* firstSection = [NSMutableArray array];
     
-	
-    TTStyledText* styledText = [TTStyledText textFromXHTML:@"add personal stylists"];
-    
-	[secondSection addObject:[GTIOTableImageControlItem itemWithCaption:@"send to my stylists" image:nil control:_shareWithStylistsSwitch]];
-    [secondSection addObject:[TTTableStyledTextItem itemWithText:styledText URL:@"gtio://stylists/add"]];
+    NSString* sectionText;
+    if (user.stylistsQuickLook) {
+        GTIOPersonalStylistsItem* personalStylistsItem = [[[GTIOPersonalStylistsItem alloc] init] autorelease];
+        personalStylistsItem.stylistsQuickLook = user.stylistsQuickLook;
+        [firstSection addObject:personalStylistsItem];
+        [firstSection addObject:[TTTableTextItem itemWithText:@"edit my stylists" URL:@"gtio://stylists/edit"]];
+        sectionText = @"share with:";
+    } else {
+        [firstSection addObject:[TTTableTextItem itemWithText:@"add your personal stylists!" URL:@"gtio://stylists/add"]];
+        sectionText = @"share:";
+    }
 	
 	// Data Source
+    
 	self.dataSource = [GTIOSectionedDataSource dataSourceWithArrays:
-					   @"",
+					   sectionText,
 					   firstSection,
 					   @"",
 					   secondSection,

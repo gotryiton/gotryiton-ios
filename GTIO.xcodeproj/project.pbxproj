@@ -1261,6 +1261,9 @@
 		3FD92273139FFD7C00521E82 /* notify-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FD9226F139FFD7900521E82 /* notify-close@2x.png */; };
 		3FD92274139FFD7C00521E82 /* notify-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FD9226F139FFD7900521E82 /* notify-close@2x.png */; };
 		3FD92275139FFD7C00521E82 /* notify-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FD9226F139FFD7900521E82 /* notify-close@2x.png */; };
+		3FE5F22013AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */; };
+		3FE5F22113AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */; };
+		3FE5F22213AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */; };
 		3FED55591385ACF2004743A2 /* NSObject_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED55581385ACF2004743A2 /* NSObject_Additions.m */; };
 		3FED555A1385ACF2004743A2 /* NSObject_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED55581385ACF2004743A2 /* NSObject_Additions.m */; };
 		3FED555B1385ACF2004743A2 /* NSObject_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED55581385ACF2004743A2 /* NSObject_Additions.m */; };
@@ -3722,6 +3725,8 @@
 		3FD92261139FEA3F00521E82 /* notify-bubble-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notify-bubble-OFF@2x.png"; sourceTree = "<group>"; };
 		3FD9226E139FFD7400521E82 /* notify-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notify-close.png"; sourceTree = "<group>"; };
 		3FD9226F139FFD7900521E82 /* notify-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notify-close@2x.png"; sourceTree = "<group>"; };
+		3FE5F21E13AF9D17002B3746 /* GTIOStylistsQuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOStylistsQuickLook.h; sourceTree = "<group>"; };
+		3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOStylistsQuickLook.m; sourceTree = "<group>"; };
 		3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TWTCommon.xcodeproj; path = Libraries/TWTCommon/TWTCommon.xcodeproj; sourceTree = "<group>"; };
 		3FED55571385ACF2004743A2 /* NSObject_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObject_Additions.h; sourceTree = "<group>"; };
 		3FED55581385ACF2004743A2 /* NSObject_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObject_Additions.m; sourceTree = "<group>"; };
@@ -5687,6 +5692,8 @@
 				3FFCBC7713A7F1920061A28A /* GTIOBannerAd.m */,
 				3FC1E83E13A928B500646EEE /* GTIOExtraProfileRow.h */,
 				3FC1E83F13A928B500646EEE /* GTIOExtraProfileRow.m */,
+				3FE5F21E13AF9D17002B3746 /* GTIOStylistsQuickLook.h */,
+				3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */,
 			);
 			name = Models;
 			path = Code/Models;
@@ -9098,6 +9105,7 @@
 				3FFCBC7813A7F1920061A28A /* GTIOBannerAd.m in Sources */,
 				3FC1E82213A9021100646EEE /* GTIOTopRightBarButton.m in Sources */,
 				3FC1E84013A928B500646EEE /* GTIOExtraProfileRow.m in Sources */,
+				3FE5F22013AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9269,6 +9277,7 @@
 				3FFCBC7413A7BDFC0061A28A /* GTIOFeaturedViewController.m in Sources */,
 				3FC1E82313A9021100646EEE /* GTIOTopRightBarButton.m in Sources */,
 				3FC1E84113A928B500646EEE /* GTIOExtraProfileRow.m in Sources */,
+				3FE5F22113AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9486,6 +9495,7 @@
 				3FFCBC7513A7BDFC0061A28A /* GTIOFeaturedViewController.m in Sources */,
 				3FC1E82413A9021100646EEE /* GTIOTopRightBarButton.m in Sources */,
 				3FC1E84213A928B500646EEE /* GTIOExtraProfileRow.m in Sources */,
+				3FE5F22213AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
