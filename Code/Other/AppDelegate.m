@@ -468,6 +468,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (user.token) {
         [user resumeSession];
     } else {
+        // This doesn't actually log us in, it just loads the globals.
+        // This was sort of overlooked when we removed the /status call.
+        [user resumeSession];
         [[TTNavigator navigator] openURLAction:[[TTURLAction actionWithURLPath:@"gtio://home"] applyAnimated:NO]];
         [[TTNavigator navigator] openURLAction:[[TTURLAction actionWithURLPath:@"gtio://welcome"] applyAnimated:NO]];
         [self handleLaunchURL];

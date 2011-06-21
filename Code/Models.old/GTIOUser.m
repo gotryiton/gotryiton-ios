@@ -375,19 +375,17 @@ static GTIOUser* gCurrentUser = nil;
 }
 
 - (void)resumeSession {
-	if (self.token) {
-        RKObjectMapping* userMapping = [GTIOUser userMapping];
-        
-        NSString* path = [NSString stringWithFormat:@"%@?gtioToken=%@&iphoneAppVersion=%@", GTIORestResourcePath(@"/auth"), self.token, [GTIOUser appVersionString]];
-        if (self.deviceToken) {
-            path = [path stringByAppendingFormat:@"&deviceToken=%@", [self deviceTokenURLEncoded]];
-        }
-        RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:self];
-        loader.targetObject = self;
-        loader.objectMapping = userMapping;
-        
-        [loader send];
-	}
+    RKObjectMapping* userMapping = [GTIOUser userMapping];
+    
+    NSString* path = [NSString stringWithFormat:@"%@?iphoneAppVersion=%@&gtioToken=%@", GTIORestResourcePath(@"/auth"), [GTIOUser appVersionString], self.token];
+    if (self.deviceToken) {
+        path = [path stringByAppendingFormat:@"&deviceToken=%@", [self deviceTokenURLEncoded]];
+    }
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:self];
+    loader.targetObject = self;
+    loader.objectMapping = userMapping;
+    
+    [loader send];
 }
 
 - (NSString*)displayName {
