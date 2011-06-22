@@ -247,7 +247,8 @@ static GTIOUser* gCurrentUser = nil;
         TTOpenURL(@"gtio://analytics/trackUserDidLoginForTheFirstTime");
     }
     
-    if ([[profileInfo objectForKey:@"user.showAlmostDoneScreen"] boolValue]) {
+    id show = [profileInfo objectForKey:@"user.showAlmostDoneScreen"];
+    if ([show boolValue]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
     } else if ([GTIOUser currentUser].token != nil) {
         self.loggedIn = YES;
@@ -503,10 +504,12 @@ static GTIOUser* gCurrentUser = nil;
     NSLog(@"Objects: %@", objects);
     //NSLog(@"Log: %@", [objectLoader.response bodyAsString]);
     [self didStopLogin];
-    if ([self.showAlmostDoneScreen boolValue]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
-    } else if (self.UID) {
+    
+    if (self.UID) {
         self.loggedIn = YES;
+        if ([self.showAlmostDoneScreen boolValue]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
+        }
     } else {
         [self clearUserData];
     }

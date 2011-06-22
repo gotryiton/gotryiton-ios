@@ -161,6 +161,9 @@
     if (_shouldAllowEditing) {
         NSString* name = [_nameLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString* location = [_locationLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if ([location length] == 0) {
+            location = @" ";
+        }
         TTOpenURL([NSString stringWithFormat:@"gtio://profile/edit/picture/%@/%@",name,location]);
     }
 }

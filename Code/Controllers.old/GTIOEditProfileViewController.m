@@ -17,13 +17,14 @@
 
 @synthesize reverseGeocoder = _reverseGeocoder;
 
-- (id)init {
-	if (self = [super init]) {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		self.tableViewStyle = UITableViewStyleGrouped;
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(invalidateModel) 
 													 name:kGTIOUserDidUpdateProfileNotificationName 
 												   object:nil];
+        _isNew = [[GTIOUser currentUser].showAlmostDoneScreen boolValue];
         [self.view setAccessibilityLabel:@"edit profile"];
 	}
 	
@@ -204,6 +205,7 @@
 		headerView.textAlignment = UITextAlignmentCenter;
 		self.tableView.tableHeaderView = headerView;
 		self.tableView.sectionHeaderHeight = 0;
+        self.navigationItem.leftBarButtonItem = nil;
 	} else {
         GTIOBarButtonItem* cancelButton = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" target:self action:@selector(cancelButtonWasPressed:)];
 		self.navigationItem.leftBarButtonItem = cancelButton;
