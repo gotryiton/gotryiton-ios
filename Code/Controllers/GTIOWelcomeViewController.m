@@ -26,7 +26,6 @@
     [self dismissModalViewControllerAnimated:YES];
     UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];
     [home.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
 }
 
 - (void)viewDidLoad {
