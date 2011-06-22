@@ -10,12 +10,12 @@
 @implementation UINavigationBar (Background)
 
 - (void)drawRect:(CGRect)rect  
-{
+{   
+    NSLog(@"title: %@", self.topItem.title);
     UIImage *image = [UIImage imageNamed:@"navbar.png"];  
-    NSLog(@"top view controller: %@",[TTNavigator globalNavigator].topViewController);
-    if ([[[TTNavigator globalNavigator].topViewController class] isEqual:NSClassFromString(@"GTIOOutfitViewController")] ||
-        // sometimes we push the outfit view controller behind the welcome view.
-        [[[TTNavigator globalNavigator].topViewController class] isEqual:NSClassFromString(@"GTIOWelcomeViewController")]) {
+    TTBaseNavigator* navigator = [TTNavigator globalNavigator];
+    NSLog(@"top view controller: %@",[(TTNavigationController*)navigator.rootViewController viewControllers]);
+    if ([[[(TTNavigationController*)navigator.rootViewController viewControllers] lastObject] isKindOfClass:NSClassFromString(@"GTIOOutfitViewController")]) {
         image = [UIImage imageNamed:@"outfit-navbar.png"];
     }
 	[image drawInRect:rect];

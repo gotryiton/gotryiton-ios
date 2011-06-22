@@ -147,6 +147,8 @@
     [super viewDidAppear:animated];
     GTIOOutfitPageView* page = (GTIOOutfitPageView*)_scrollView.centerPage;
     [page didAppear];
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

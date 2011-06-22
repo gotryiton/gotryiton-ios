@@ -17,7 +17,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStartedNotification:) name:kGTIOUserDidBeginLoginProcess object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginEndedNotification:) name:kGTIOUserDidEndLoginProcess object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStopped:) name:kGTIOUserDidEndLoginProcess object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loggedInNotification:) name:kGTIOUserDidLoginNotificationName object:nil];
     }
     return self;
 }
@@ -60,8 +61,11 @@
     //[self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)loginEndedNotification:(NSNotification*)note {
+- (void)loginStopped:(NSNotification*)note {
     [[self.view viewWithTag:999] removeFromSuperview];
+}
+
+- (void)loggedInNotification:(NSNotification*)note {
     [self dismiss];
 }
 
@@ -74,7 +78,7 @@
     self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"SIGN IN"];
     
 	UIView* termsView = [GTIOSignInTermsView termsView];
-	[termsView setFrame:CGRectMake(20, self.view.frame.size.height-80, 280, 100)];
+	[termsView setFrame:CGRectMake(20, self.view.frame.size.height-50, 280, 100)];
 	[self.view addSubview:termsView];
 }
 
