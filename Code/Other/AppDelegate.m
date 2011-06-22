@@ -42,6 +42,7 @@
 #import "GTIOBannerAd.h"
 #import "GTIOTopRightBarButton.h"
 #import "GTIOExtraProfileRow.h"
+#import "GTIOStylistsQuickLook.h"
 
 @interface AppDelegate (Private)
 
@@ -168,6 +169,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"searchApi", @"searchAPI")];
     
     [provider setMapping:browseListMapping forKeyPath:@"list"];
+    
+    RKObjectMapping* stylistsQuickLookMapping = [RKObjectMapping mappingForClass:[GTIOStylistsQuickLook class]];
+    [stylistsQuickLookMapping mapAttributes:@"thumbs", @"text", nil];
+    [provider setMapping:stylistsQuickLookMapping forKeyPath:@"user.stylistsQuickLook"];
     
     RKObjectMapping* sectionMapping = [RKObjectMapping mappingForClass:[GTIOListSection class]];
     [sectionMapping mapAttributes:@"title", nil];
