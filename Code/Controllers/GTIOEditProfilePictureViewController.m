@@ -246,18 +246,21 @@
     [_scrollView setFrame:CGRectMake(100,90,190,67)];
     [_scrollSlider setFrame:CGRectMake(100,155,190,25)];
     
+    [_connectToFacebookButton removeFromSuperview];
+    _connectToFacebookButton = nil;
+    [_connectToFacebookImageView removeFromSuperview];
+    _connectToFacebookImageView = nil;
+    
     if (!_facebookIconOption) {
         // show connect to facebook;
-        UIButton* connectToFacebookButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        connectToFacebookButton.frame = CGRectMake(30,90,50,50);
-        [connectToFacebookButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:connectToFacebookButton];
-    } else {
-//        [_seperator setHidden:YES];
-//        [_facebookLabel setHidden:YES];
-//        [_myLooksLabel setFrame:_facebookLabel.frame];        
-//        [_scrollView setFrame:CGRectMake(30,90,260,67)];
-//        [_scrollSlider setFrame:CGRectMake(30,155,260,25)];
+        _connectToFacebookImageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fb-empty.png"]] autorelease];
+        _connectToFacebookImageView.frame = CGRectMake(30,90,50,50);
+        [self.view addSubview:_connectToFacebookImageView];
+        _connectToFacebookButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_connectToFacebookButton setImage:[UIImage imageNamed:@"fb-connect-small.png"] forState:UIControlStateNormal];
+        _connectToFacebookButton.frame = CGRectMake(28,150,53,16);
+        [_connectToFacebookButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_connectToFacebookButton];
     }
     [_scrollView setContentSize:CGSizeMake(i*49+i*2.5,67)];
     if (_scrollView.contentSize.width <= _scrollView.frame.size.width) {

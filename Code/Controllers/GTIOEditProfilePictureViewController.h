@@ -25,6 +25,9 @@
     NSArray* _options;
     NSArray* _imageViews; 
 	GTIOUserIconOption* _facebookIconOption;
+    
+    UIButton* _connectToFacebookButton;
+    UIImageView* _connectToFacebookImageView;
 }
 /// Initializes a new view controller with a given user name and location
 - (id)initWithName:(NSString*)name location:(NSString*)location;
