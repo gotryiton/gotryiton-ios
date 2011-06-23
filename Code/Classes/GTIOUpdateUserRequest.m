@@ -45,6 +45,7 @@
 	[request.parameters setValue:user.aboutMe forKey:@"aboutMe"];
 	NSString* pushSetting = user.iphonePush ? @"1" : @"0";
 	[request.parameters setValue:pushSetting forKey:@"iphonePush"];
+    [request.parameters setValue:[user.bornIn stringValue] forKey:@"bornIn"];
 	[request.parameters setValue:[user deviceTokenURLEncoded] forKey:@"deviceToken"];
 	
 	NSLog(@"User Params: %@", request.parameters);

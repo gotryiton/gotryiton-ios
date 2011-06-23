@@ -11,6 +11,7 @@
 #import <TWTPickerControl.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "CustomUISwitch.h"
 
 @interface GTIOEditProfileViewController : TTTableViewController <UITextFieldDelegate, TWTPickerDelegate, CLLocationManagerDelegate, MKReverseGeocoderDelegate, UITextViewDelegate> {
 	UITextField* _emailField;
@@ -19,6 +20,8 @@
 	UITextField* _cityField;
 	UITextField* _stateField;
 	TWTPickerControl* _genderPicker;
+    TWTPickerControl* _bornInPicker;
+    CustomUISwitch* _useFacebookProfileIconSwitch;
 	UITextView* _aboutMeTextView;
 	
 	CLLocationManager* _locationManager;

@@ -14,7 +14,9 @@
 	TTTableControlItem* item = [self.controller.dataSource tableView:tableView objectForRowAtIndexPath:indexPath];
 	if ([item isKindOfClass:[TTTableControlItem class]]) {
 		[item.control becomeFirstResponder];
-	}
+	} else {
+        return indexPath;
+    }
 	
 	return nil;
 }

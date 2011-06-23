@@ -13,6 +13,132 @@
 #import "GTIOUpdateUserRequest.h"
 #import "GTIOControlTableViewVarHeightDelegate.h"
 #import "GTIOBarButtonItem.h"
+
+@interface GTIOEditProfileTableImageItem : TTTableImageItem
+@end
+@implementation GTIOEditProfileTableImageItem
+@end
+
+@interface GTIOEditProfileTableImageItemCell : TTTableImageItemCell {
+    UIImageView* _overlayImageView;
+}
+@end
+
+@implementation GTIOEditProfileTableImageItemCell
+
++ (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
+    return 70;
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
+    if ((self = [super initWithStyle:style reuseIdentifier:identifier])) {
+        _overlayImageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-overlay-110.png"]] autorelease];
+        [self.contentView addSubview:_overlayImageView];
+        self.selectionStyle = UITableViewCellSelectionStyleGray;
+    }
+    return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _imageView2.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
+    _imageView2.frame = CGRectMake(10,10,50,50);
+    _overlayImageView.frame = CGRectMake(7,7,56,56);
+    self.textLabel.frame = CGRectMake(70,47,150,15);
+}
+
+@end
+
+@interface GTIOProfileImageTableControlItem : TTTableControlItem {
+    NSString* _imageURL;
+}
+@property (nonatomic, readonly) NSString* imageURL;
++ (id)itemWithCaption:(NSString*)caption imageURL:(NSString*)imageURL control:(UIControl*)control;
+@end
+
+@implementation GTIOProfileImageTableControlItem
+
+@synthesize imageURL = _imageURL;
+
+- (id)initWithCaption:(NSString*)caption imageURL:(NSString*)imageURL control:(UIControl*)control {
+    if ((self = [super init])) {
+        self.caption = caption;
+        self.control = control;
+        _imageURL = [imageURL copy];
+    }
+    return self;
+}
+
++ (id)itemWithCaption:(NSString*)caption imageURL:(NSString*)imageURL control:(UIControl*)control {
+    return [[[self alloc] initWithCaption:caption imageURL:imageURL control:control] autorelease];
+}
+
+- (void)dealloc {
+    [_imageURL release];
+    [super dealloc];
+}
+
+@end
+
+@interface GTIOProfileImageTableControlItemCell : TTTableControlCell {
+    TTImageView* _profileImageView;
+    UIImageView* _overlayImageView;
+}
+@end
+
+@implementation GTIOProfileImageTableControlItemCell
+
++ (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
+    return 70;
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
+    if ((self = [super initWithStyle:style reuseIdentifier:identifier])) {
+        _profileImageView = [[[TTImageView alloc] initWithFrame:CGRectZero] autorelease];
+        [self.contentView addSubview:_profileImageView];
+        
+        _overlayImageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-overlay-110.png"]] autorelease];
+        [self.contentView addSubview:_overlayImageView];
+        self.selectionStyle = UITableViewCellSelectionStyleGray;
+    }
+    return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _profileImageView.frame = CGRectMake(10,10,50,50);
+    _overlayImageView.frame = CGRectMake(7,7,56,56);
+    self.textLabel.numberOfLines = 2;
+    self.textLabel.frame = CGRectMake(70,25,110,40);
+    _control.frame = CGRectOffset(_control.frame, 0, 13);
+}
+
+- (void)setObject:(id)object {
+    [super setObject:object];
+    if (object) {
+        GTIOProfileImageTableControlItem* item = (GTIOProfileImageTableControlItem*)object;
+        _profileImageView.urlPath = item.imageURL;
+    }
+}
+
+@end
+
+@interface GTIOEditProfileListDataSource : TTListDataSource
+@end
+@implementation GTIOEditProfileListDataSource
+
+- (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object {
+    if ([object isKindOfClass:[GTIOEditProfileTableImageItem class]]) {
+        return [GTIOEditProfileTableImageItemCell class];
+    } else if ([object isKindOfClass:[GTIOProfileImageTableControlItem class]]) {
+        return [GTIOProfileImageTableControlItemCell class];
+    }
+    return [super tableView:tableView cellClassForObject:object];
+}
+
+@end
+
+
 @implementation GTIOEditProfileViewController
 
 @synthesize reverseGeocoder = _reverseGeocoder;
@@ -25,7 +151,7 @@
 													 name:kGTIOUserDidUpdateProfileNotificationName 
 												   object:nil];
         _isNew = [[GTIOUser currentUser].showAlmostDoneScreen boolValue];
-        [self.view setAccessibilityLabel:@"edit profile"];
+        //[self.view setAccessibilityLabel:@"edit profile"];
 	}
 	
 	return self;
@@ -70,6 +196,8 @@
 	TT_RELEASE_SAFELY(_genderPicker);
 	[_reverseGeocoder cancel];
 	TT_RELEASE_SAFELY(_reverseGeocoder);
+    TT_RELEASE_SAFELY(_bornInPicker);
+    TT_RELEASE_SAFELY(_useFacebookProfileIconSwitch);
 
 	[super dealloc];
 }
@@ -79,6 +207,10 @@
 	
 	GTIOUser* user = [GTIOUser currentUser];
 	
+    [_useFacebookProfileIconSwitch release];
+    _useFacebookProfileIconSwitch = [[CustomUISwitch alloc] initWithFrame:CGRectZero];
+	_useFacebookProfileIconSwitch.on = YES;
+    
 	_emailField = [[[UITextField alloc] initWithFrame:CGRectZero] autorelease];
 	_emailField.placeholder = @"user@domain.com ";
 	_emailField.textAlignment = UITextAlignmentRight;
@@ -128,6 +260,7 @@
 	[_stateField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
 	
 	NSArray* component = [NSArray arrayWithObjects:@"F", @"M", nil];
+    [_genderPicker release];
 	_genderPicker = [[TWTPickerControl alloc] initWithFrame:CGRectMake(0, 0, 213, 30)];
 	_genderPicker.dataSource = [[TWTPickerDataSource alloc ] initWithRows:component];
 	_genderPicker.textLabel.textAlignment = UITextAlignmentRight;
@@ -143,6 +276,33 @@
 		int index = [component indexOfObject:user.gender];
 		_genderPicker.selection = [NSMutableArray arrayWithObject:[NSNumber numberWithInt:index]];
 	}
+    
+    NSMutableArray* years = [NSMutableArray array];
+    NSCalendar *currentCalendar = [NSCalendar currentCalendar];
+    NSDateComponents* dateComponents = [currentCalendar components:NSYearCalendarUnit fromDate:[NSDate date]];
+    int year = [dateComponents year];
+    for (int i = year - 13;i >= year-100;i--) {
+        [years addObject:[NSString stringWithFormat:@"%d",i]];
+    }
+    [_bornInPicker release];
+    _bornInPicker = [[TWTPickerControl alloc] initWithFrame:CGRectMake(0, 0, 213, 30)];
+	_bornInPicker.dataSource = [[TWTPickerDataSource alloc ] initWithRows:years];
+	_bornInPicker.textLabel.textAlignment = UITextAlignmentRight;
+	_bornInPicker.textLabel.textColor = TTSTYLEVAR(pinkColor);
+	_bornInPicker.font = [UIFont boldSystemFontOfSize:14];
+	_bornInPicker.delegate = self;
+	_bornInPicker.placeholderText = @"select year";
+	_bornInPicker.toolbar.tintColor = TTSTYLEVAR(navigationBarTintColor);
+	[_bornInPicker updateToolbar];
+	_bornInPicker.doneButton.title = @"done";
+	_bornInPicker.nextButton.title = @"next";
+    NSString* bornInString = [NSString stringWithFormat:@"%d", [user.bornIn intValue]];
+	if ([years containsObject:bornInString]) {
+		int index = [years indexOfObject:bornInString];
+		_bornInPicker.selection = [NSMutableArray arrayWithObject:[NSNumber numberWithInt:index]];
+	}
+
+        
 	
 	_aboutMeTextView = [[[UITextView alloc] initWithFrame:CGRectMake(5, 5, 290, 100 + 30)] autorelease];
 	_aboutMeTextView.text = user.aboutMe;
@@ -151,30 +311,44 @@
 	_aboutMeTextView.delegate = self;
 	
 	if (!_isNew) {
-		self.dataSource = [TTListDataSource dataSourceWithObjects:
-						   [TTTableControlItem itemWithCaption:@"email:" control:_emailField],
-						   [TTTableControlItem itemWithCaption:@"first name:" control:_firstNameField],
-						   [TTTableControlItem itemWithCaption:@"last initial:" control:_lastInitialField],
-						   [TTTableControlItem itemWithCaption:@"city:" control:_cityField],
-						   [TTTableControlItem itemWithCaption:@"state:" control:_stateField],
-						   [TTTableControlItem itemWithCaption:@"gender:" control:_genderPicker],
-						   [TTTableControlItem itemWithCaption:@"about me:" control:(UIControl*)_aboutMeTextView],
+        NSString* name = [user.username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString* location = [user.location stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if ([location length] == 0) {
+            location = @" ";
+        }
+        NSString* editProfilePictureURL = [NSString stringWithFormat:@"gtio://profile/edit/picture/%@/%@",name,location];
+		self.dataSource = [GTIOEditProfileListDataSource dataSourceWithObjects:
+                           [GTIOEditProfileTableImageItem itemWithText:@"edit profile picture" imageURL:user.profileIconURL URL:editProfilePictureURL],
+						   [TTTableControlItem itemWithCaption:@"email" control:_emailField],
+						   [TTTableControlItem itemWithCaption:@"first name" control:_firstNameField],
+						   [TTTableControlItem itemWithCaption:@"last initial" control:_lastInitialField],
+						   [TTTableControlItem itemWithCaption:@"city" control:_cityField],
+						   [TTTableControlItem itemWithCaption:@"state" control:_stateField],
+						   [TTTableControlItem itemWithCaption:@"gender" control:_genderPicker],
+                           [TTTableControlItem itemWithCaption:@"year born" control:_bornInPicker],
+						   [TTTableControlItem itemWithCaption:@"about me" control:(UIControl*)_aboutMeTextView],
 						   nil];
 	} else {
-		[_genderPicker.toolbar setItems:[NSArray arrayWithObjects:
-										 _genderPicker.doneButton,
+		[_bornInPicker.toolbar setItems:[NSArray arrayWithObjects:
+										 _bornInPicker.doneButton,
 										 [[[GTIOBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-										 _genderPicker.titleView,
+										 _bornInPicker.titleView,
 										 [[[GTIOBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
 										 nil]];
-		self.dataSource = [TTListDataSource dataSourceWithObjects:
-						   [TTTableControlItem itemWithCaption:@"email:" control:_emailField],
-						   [TTTableControlItem itemWithCaption:@"first name:" control:_firstNameField],
-						   [TTTableControlItem itemWithCaption:@"last initial:" control:_lastInitialField],
-						   [TTTableControlItem itemWithCaption:@"city:" control:_cityField],
-						   [TTTableControlItem itemWithCaption:@"state:" control:_stateField],
-						   [TTTableControlItem itemWithCaption:@"gender:" control:_genderPicker],
-						   nil];
+        NSMutableArray* objects = [NSMutableArray arrayWithObjects:
+                                   [TTTableControlItem itemWithCaption:@"email" control:_emailField],
+                                   [TTTableControlItem itemWithCaption:@"first name" control:_firstNameField],
+                                   [TTTableControlItem itemWithCaption:@"last initial" control:_lastInitialField],
+                                   [TTTableControlItem itemWithCaption:@"city" control:_cityField],
+                                   [TTTableControlItem itemWithCaption:@"state" control:_stateField],
+                                   [TTTableControlItem itemWithCaption:@"gender" control:_genderPicker],
+                                   [TTTableControlItem itemWithCaption:@"year born" control:_bornInPicker],
+                                   nil];
+        if ([user.isFacebookConnected boolValue] && user.profileIconURL) {
+            TTTableControlItem* item = [GTIOProfileImageTableControlItem itemWithCaption:@"use Facebook profile picture" imageURL:user.profileIconURL control:_useFacebookProfileIconSwitch];
+            [objects insertObject:item atIndex:0];
+        }
+		self.dataSource = [GTIOEditProfileListDataSource dataSourceWithItems:objects];
 		_aboutMeTextView = nil;
 	}
 }
@@ -337,6 +511,10 @@
 	user.state = _stateField.text;
 	user.gender = _genderPicker.textLabel.text;
 	user.aboutMe = _aboutMeTextView.text;
+    user.bornIn = [NSNumber numberWithInt:[_bornInPicker.textLabel.text intValue]];
+    if (_useFacebookProfileIconSwitch.on == NO) {
+        user.profileIconURL = @"";
+    }
 	
 	[[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];
 	[self dismissKeyboard];

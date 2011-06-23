@@ -76,6 +76,7 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize notifications = _notifications;
 @synthesize todosBadge = _todosBadge;
 @synthesize isFacebookConnected = _isFacebookConnected;
+@synthesize bornIn = _bornIn;
 
 + (GTIOUser*)currentUser {
 	if (nil == gCurrentUser) {
@@ -148,6 +149,7 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.stylistsCount", @"stylistsCount")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.istyleCount", @"istyleCount")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.showAlmostDoneScreen", @"showAlmostDoneScreen")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.bornIn", @"bornIn")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
     
     // TODO: duplicated
@@ -226,6 +228,7 @@ static GTIOUser* gCurrentUser = nil;
     TT_RELEASE_SAFELY(_stylistsCount);
     TT_RELEASE_SAFELY(_istyleCount);
     TT_RELEASE_SAFELY(_isFacebookConnected);
+    TT_RELEASE_SAFELY(_bornIn);
 	[super dealloc];
 }
 

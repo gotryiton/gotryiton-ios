@@ -36,7 +36,7 @@
         // Name and Location Info For Preview
         _profileName = [[[GTIOUser currentUser] username] copy];
         _profileLocation = [[NSString stringWithFormat:@"%@, %@",[[GTIOUser currentUser] city],[[GTIOUser currentUser] state]] copy];
-        [self.view setAccessibilityLabel:@"edit profile picture"];
+        //[self.view setAccessibilityLabel:@"edit profile picture"];
 	}
 	return self;
 }
@@ -146,6 +146,7 @@
     [[previewBackground layer] setCornerRadius:5];
     [self.view addSubview:previewBackground];
     _previewImageView = [TTImageView new];
+    _previewImageView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
     NSLog(@"currentURL=%@",[[GTIOUser currentUser] profileIconURL]);
     _previewImageView.urlPath = [[GTIOUser currentUser] profileIconURL];
     [_previewImageView setFrame:CGRectMake(44,269,56,56)];

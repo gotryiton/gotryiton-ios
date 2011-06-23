@@ -29,6 +29,7 @@
 	[self addSubview:_backgroundOverlay];
 	
     _profilePictureImageView = [TTImageView new];
+    _profilePictureImageView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
     [(UIImageView*)_profilePictureImageView setImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
 	_profilePictureImageView.layer.cornerRadius = 5.0;
 	[_profilePictureImageView setFrame:CGRectMake(10,8,54,54)];

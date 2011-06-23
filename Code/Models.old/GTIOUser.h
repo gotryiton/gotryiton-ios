@@ -94,6 +94,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
     Facebook* _facebook;
     NSNumber* _isFacebookConnected;
     NSNumber* _showAlmostDoneScreen;
+    NSNumber* _bornIn;
 }
 
 @property (nonatomic, retain) NSNumber* iphonePush;
@@ -118,6 +119,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 @property (nonatomic, copy) NSArray* badges;
 @property (nonatomic, retain) GTIOAppStatusAlert* alert;
 @property (nonatomic, retain) NSNumber* showAlmostDoneScreen;
+@property (nonatomic, retain) NSNumber* bornIn;
 
 /**
  * Either 'male' or 'female'
