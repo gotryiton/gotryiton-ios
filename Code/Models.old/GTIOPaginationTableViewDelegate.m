@@ -53,6 +53,8 @@
 	if(self = [super initWithFrame:frame]) {
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		
+        [self removeAllSubviews];
+        
 		UIImageView* bg = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:[self backgroundImageName]]] autorelease];
         bg.tag = 99293;
 		bg.frame = self.bounds;
@@ -216,31 +218,23 @@
     if ([model isKindOfClass:[GTIOBrowseListTTModel class]]) {
         GTIOBrowseList* list = model.list;
     
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:ttkDefaultFastTransitionDuration];
+//        [UIView beginAnimations:nil context:NULL];
+//        [UIView setAnimationDuration:ttkDefaultFastTransitionDuration];
         
         if (list.categories || list.sections) {
             _controller.tableView.contentInset = UIEdgeInsetsMake(0,0,0,0);
         } else {
             _controller.tableView.contentInset = UIEdgeInsetsMake(4,0,4,0);
-            if ([_controller isKindOfClass:[GTIOTodosTableViewController class]]) {
-                _headerView.frame = CGRectMake(0, -464,
-                                               _controller.tableView.width,
-                                               300);
-            } else {
-                _headerView.frame = CGRectMake(0, -420,
-                                               _controller.tableView.width,
-                                               300);
-            }
-            [UIView commitAnimations];
-            [UIView beginAnimations:nil context:NULL];
+            _headerView.frame = CGRectOffset(_headerView.frame, 0, -4);
+//            [UIView commitAnimations];
+//            [UIView beginAnimations:nil context:NULL];
             [UIView setAnimationDuration:ttkDefaultFastTransitionDuration];
             if (CGPointEqualToPoint(_controller.tableView.contentOffset, CGPointZero)) {
                 _controller.tableView.contentOffset = CGPointMake(0,-4);
             }
         }
         
-        [UIView commitAnimations];
+//        [UIView commitAnimations];
     }
 }
 

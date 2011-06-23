@@ -231,6 +231,8 @@
     self.dataSource = temporaryDataSource;
     
     // Recreate the delegate, since we updated the model because the delegate assigns itself as a delegate of the model.
+    TTTableViewDragRefreshDelegate* del = (TTTableViewDragRefreshDelegate*)self.tableView.delegate;
+    [del.headerView removeFromSuperview];
     self.tableView.delegate = nil;
     [self performSelector:@selector(updateTableDelegate) withObject:nil];
 }
@@ -279,6 +281,7 @@
             int index = [_sortTabs indexOfObject:tab];
             if ([tab.selected boolValue] == YES) {
                 [_sortTabBar setSelectedTabIndex:index];
+                _sortTabBar.subtitle = tab.subtitle;
             }
             GTIOTab* sortTab = [_sortTabBar.tabs objectAtIndex:index];
             if ([tab respondsToSelector:@selector(badgeNumber)]) {

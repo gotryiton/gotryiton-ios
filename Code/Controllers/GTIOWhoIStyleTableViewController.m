@@ -181,7 +181,7 @@
 
 - (void)loadView {
     [super loadView];
-    self.title = @"who i style";
+    self.title = @"who I style";
     UIImage* settingsButtonImage = [UIImage imageNamed:@"settingsBarButton.png"];
     GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)];
     [self.navigationItem setRightBarButtonItem:item];
