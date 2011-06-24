@@ -92,6 +92,7 @@ static float leftQuoteInsetWidth = 4;
 		_leftQuoteLabel.frame = CGRectMake(leftEdge-leftQuoteInsetWidth, 11+heightOffset, _leftQuoteLabel.frame.size.width, _leftQuoteLabel.frame.size.height);
 		_rightQuoteLabel.frame = CGRectMake(_quotedLabel.frame.origin.x + _quotedLabel.frame.size.width, 11+heightOffset, _rightQuoteLabel.frame.size.width, _rightQuoteLabel.frame.size.height);
 	} else {
+        // 2 lines
 		NSString* line1Text = _quotedLabel.text;
 		NSMutableArray* line2Parts = [NSMutableArray array];
 		while ([self sizeOfText:line1Text].height > 20) {
@@ -124,7 +125,7 @@ static float leftQuoteInsetWidth = 4;
 		_line2Label.frame = CGRectMake(leftEdge, 30+heightOffset, line2Size.width, 17);
 		
 		_leftQuoteLabel.frame = CGRectMake(leftEdge-leftQuoteInsetWidth, 7+heightOffset, _leftQuoteLabel.frame.size.width, _leftQuoteLabel.frame.size.height);
-		_rightQuoteLabel.frame = CGRectMake(_line2Label.frame.origin.x + _line2Label.frame.size.width -3,
+		_rightQuoteLabel.frame = CGRectMake(_line2Label.frame.origin.x + _line2Label.frame.size.width -1,
 											_line2Label.frame.origin.y - 8
                                             ,
 											_rightQuoteLabel.frame.size.width,

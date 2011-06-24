@@ -9,6 +9,7 @@
 #import "GTIOBrowseListPresenter.h"
 #import "GTIOCategory.h"
 #import "GTIOOutfitTableViewItem.h"
+#import "GTIOOutfitVerdictTableItem.h"
 #import "GTIOUserReviewTableItem.h"
 #import "GTIOReview.h"
 #import "GTIOListSection.h"
@@ -60,7 +61,7 @@
 - (NSMutableArray*)tableItemsForMyLooks:(NSArray*)outfits {
     NSMutableArray* items = [NSMutableArray array];
     for (GTIOOutfit* outfit in outfits) {
-        GTIOOutfitTableViewItem* item = [GTIOOutfitTableViewItem itemWithOutfit:outfit];
+        GTIOOutfitTableViewItem* item = [GTIOOutfitVerdictTableItem itemWithOutfit:outfit];
         [items addObject:item];
     }
     return items;
@@ -111,7 +112,7 @@
     }
     if (_list.myLooks) {
         // TODO: these should use a different type of cell!
-        return [self tableItemsForOutfits:_list.myLooks];
+        return [self tableItemsForMyLooks:_list.myLooks];
     }
     if (_list.reviews) {
         return [self tableItemsForReviews:_list.reviews];

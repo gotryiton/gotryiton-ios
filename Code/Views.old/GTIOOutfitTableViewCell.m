@@ -47,10 +47,10 @@
 	[super layoutSubviews];
 	
 	[_nameLabel sizeToFit];
-	_nameLabel.frame = CGRectMake(100, 23, MIN(_nameLabel.bounds.size.width, 195), _nameLabel.bounds.size.height);
+	_nameLabel.frame = CGRectMake(100, 23-3, MIN(_nameLabel.bounds.size.width, 195), _nameLabel.bounds.size.height);
 	
 	[_locationLabel sizeToFit];
-    _locationLabel.frame = CGRectMake(100, 23+18, 210, _locationLabel.bounds.size.height);
+    _locationLabel.frame = CGRectMake(100, 23+18+2, 210, _locationLabel.bounds.size.height);
     
 	[_eventLabel sizeToFit];
 	_eventLabel.frame = CGRectOffset(_eventLabel.bounds, self.width - _eventLabel.width - 13, self.height - 30);

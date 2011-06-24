@@ -124,15 +124,31 @@
 }
 
 - (void)updateNotificationsButton {
-    if ([[GTIOUser currentUser] numberOfUnseenNotifications] == 0) {
+    if (![[GTIOUser currentUser] isLoggedIn]) {
         [_notificationsBadgeButton setTitle:@"" forState:UIControlStateNormal];
         [_notificationsBadgeButton setSelected:NO];
         [_notificationsButton setTitle:@"notifications" forState:UIControlStateNormal];
+        _notificationsButton.enabled = YES;
+        _notificationsBadgeButton.enabled = YES;
+    } else if ([[GTIOUser currentUser].notifications count] == 0) {
+        [_notificationsBadgeButton setTitle:@"" forState:UIControlStateNormal];
+        [_notificationsBadgeButton setSelected:NO];
+        [_notificationsButton setTitle:@"" forState:UIControlStateNormal];
+        _notificationsButton.enabled = NO;
+        _notificationsBadgeButton.enabled = NO;
+    } else if ([[GTIOUser currentUser] numberOfUnseenNotifications] == 0) {
+        [_notificationsBadgeButton setTitle:@"" forState:UIControlStateNormal];
+        [_notificationsBadgeButton setSelected:NO];
+        [_notificationsButton setTitle:@"notifications" forState:UIControlStateNormal];
+        _notificationsButton.enabled = YES;
+        _notificationsBadgeButton.enabled = YES;
     } else {
         NSString* title = [NSString stringWithFormat:@"new notification%@", ([[GTIOUser currentUser] numberOfUnseenNotifications] == 1 ? @"" : @"s")];
         [_notificationsButton setTitle:title forState:UIControlStateNormal];
         [_notificationsBadgeButton setTitle:[NSString stringWithFormat:@"%d", [[GTIOUser currentUser] numberOfUnseenNotifications]] forState:UIControlStateNormal];
         [_notificationsBadgeButton setSelected:YES];
+        _notificationsButton.enabled = YES;
+        _notificationsBadgeButton.enabled = YES;
         
     }
     
@@ -237,6 +253,8 @@
 
 - (void)userStateChangedNotification:(NSNotification*)note {
     [self updateUserLabel];
+    [self updateNotificationsButton];
+    [self updateTodoBadge];
 }
 
 - (void)notificationsUpdatedNotification:(NSNotification*)note {

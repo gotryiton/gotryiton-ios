@@ -497,9 +497,6 @@
 		3F56B13A137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
 		3F56B13B137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
 		3F56B13C137DC61300215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
-		3F59B4AF137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
-		3F59B4B0137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
-		3F59B4B1137C24650046FC09 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F59B4AE137C24650046FC09 /* Three20.bundle */; };
 		3F62278813986E3500111FAA /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
 		3F6823B113993A1C00CCE67E /* GTIOBrowseListPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6823B013993A1C00CCE67E /* GTIOBrowseListPresenter.m */; };
 		3F6823B213993A1C00CCE67E /* GTIOBrowseListPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6823B013993A1C00CCE67E /* GTIOBrowseListPresenter.m */; };
@@ -558,18 +555,6 @@
 		3FA654A71384218400CC1106 /* tabs3-1-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654951384218400CC1106 /* tabs3-1-on@2x.png */; };
 		3FA654A81384218400CC1106 /* tabs3-1-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654951384218400CC1106 /* tabs3-1-on@2x.png */; };
 		3FA654A91384218400CC1106 /* tabs3-1-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654951384218400CC1106 /* tabs3-1-on@2x.png */; };
-		3FA654AA1384218400CC1106 /* tabs3-2-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654961384218400CC1106 /* tabs3-2-off.png */; };
-		3FA654AB1384218400CC1106 /* tabs3-2-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654961384218400CC1106 /* tabs3-2-off.png */; };
-		3FA654AC1384218400CC1106 /* tabs3-2-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654961384218400CC1106 /* tabs3-2-off.png */; };
-		3FA654AD1384218400CC1106 /* tabs3-2-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654971384218400CC1106 /* tabs3-2-off@2x.png */; };
-		3FA654AE1384218400CC1106 /* tabs3-2-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654971384218400CC1106 /* tabs3-2-off@2x.png */; };
-		3FA654AF1384218400CC1106 /* tabs3-2-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654971384218400CC1106 /* tabs3-2-off@2x.png */; };
-		3FA654B01384218400CC1106 /* tabs3-2-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654981384218400CC1106 /* tabs3-2-on.png */; };
-		3FA654B11384218400CC1106 /* tabs3-2-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654981384218400CC1106 /* tabs3-2-on.png */; };
-		3FA654B21384218400CC1106 /* tabs3-2-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654981384218400CC1106 /* tabs3-2-on.png */; };
-		3FA654B31384218400CC1106 /* tabs3-2-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654991384218400CC1106 /* tabs3-2-on@2x.png */; };
-		3FA654B41384218400CC1106 /* tabs3-2-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654991384218400CC1106 /* tabs3-2-on@2x.png */; };
-		3FA654B51384218400CC1106 /* tabs3-2-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654991384218400CC1106 /* tabs3-2-on@2x.png */; };
 		3FA654B61384218400CC1106 /* tabs3-3-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA6549A1384218400CC1106 /* tabs3-3-off.png */; };
 		3FA654B71384218400CC1106 /* tabs3-3-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA6549A1384218400CC1106 /* tabs3-3-off.png */; };
 		3FA654B81384218400CC1106 /* tabs3-3-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA6549A1384218400CC1106 /* tabs3-3-off.png */; };
@@ -1273,6 +1258,21 @@
 		3FDCD46013B28F7E0001311A /* fb-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD45613B28F7E0001311A /* fb-empty@2x.png */; };
 		3FDCD46113B28F7E0001311A /* fb-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD45613B28F7E0001311A /* fb-empty@2x.png */; };
 		3FDCD46213B28F7E0001311A /* fb-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD45613B28F7E0001311A /* fb-empty@2x.png */; };
+		3FDCD46413B4E3BE0001311A /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46313B4E3BD0001311A /* Three20.bundle */; };
+		3FDCD46513B4E3BE0001311A /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46313B4E3BD0001311A /* Three20.bundle */; };
+		3FDCD46613B4E3BE0001311A /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46313B4E3BD0001311A /* Three20.bundle */; };
+		3FDCD46B13B505A80001311A /* tabs3-2-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46713B505A80001311A /* tabs3-2-off.png */; };
+		3FDCD46C13B505A80001311A /* tabs3-2-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46713B505A80001311A /* tabs3-2-off.png */; };
+		3FDCD46D13B505A80001311A /* tabs3-2-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46713B505A80001311A /* tabs3-2-off.png */; };
+		3FDCD46E13B505A80001311A /* tabs3-2-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46813B505A80001311A /* tabs3-2-off@2x.png */; };
+		3FDCD46F13B505A80001311A /* tabs3-2-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46813B505A80001311A /* tabs3-2-off@2x.png */; };
+		3FDCD47013B505A80001311A /* tabs3-2-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46813B505A80001311A /* tabs3-2-off@2x.png */; };
+		3FDCD47113B505A80001311A /* tabs3-2-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46913B505A80001311A /* tabs3-2-on.png */; };
+		3FDCD47213B505A80001311A /* tabs3-2-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46913B505A80001311A /* tabs3-2-on.png */; };
+		3FDCD47313B505A80001311A /* tabs3-2-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46913B505A80001311A /* tabs3-2-on.png */; };
+		3FDCD47413B505A80001311A /* tabs3-2-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46A13B505A80001311A /* tabs3-2-on@2x.png */; };
+		3FDCD47513B505A80001311A /* tabs3-2-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46A13B505A80001311A /* tabs3-2-on@2x.png */; };
+		3FDCD47613B505A80001311A /* tabs3-2-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46A13B505A80001311A /* tabs3-2-on@2x.png */; };
 		3FE5F22013AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */; };
 		3FE5F22113AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */; };
 		3FE5F22213AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */; };
@@ -3437,7 +3437,6 @@
 		3F506AA1138BFC030062D7D1 /* welcome-thumb-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-thumb-overlay@2x.png"; path = "welcome-assets/welcome-thumb-overlay@2x.png"; sourceTree = "<group>"; };
 		3F55F12B1382C4BF006BCEE0 /* GTIOTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTabBar.h; sourceTree = "<group>"; };
 		3F55F12C1382C4BF006BCEE0 /* GTIOTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTabBar.m; sourceTree = "<group>"; };
-		3F59B4AE137C24650046FC09 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = Libraries/three20/src/Three20.bundle; sourceTree = "<group>"; };
 		3F62278613986D2D00111FAA /* GTIOBrowseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseSpec.m; sourceTree = "<group>"; };
 		3F6823AF13993A1C00CCE67E /* GTIOBrowseListPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseListPresenter.h; sourceTree = "<group>"; };
 		3F6823B013993A1C00CCE67E /* GTIOBrowseListPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseListPresenter.m; sourceTree = "<group>"; };
@@ -3469,10 +3468,6 @@
 		3FA654931384218400CC1106 /* tabs3-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-background@2x.png"; sourceTree = "<group>"; };
 		3FA654941384218400CC1106 /* tabs3-1-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-1-on.png"; sourceTree = "<group>"; };
 		3FA654951384218400CC1106 /* tabs3-1-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-1-on@2x.png"; sourceTree = "<group>"; };
-		3FA654961384218400CC1106 /* tabs3-2-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-off.png"; sourceTree = "<group>"; };
-		3FA654971384218400CC1106 /* tabs3-2-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-off@2x.png"; sourceTree = "<group>"; };
-		3FA654981384218400CC1106 /* tabs3-2-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-on.png"; sourceTree = "<group>"; };
-		3FA654991384218400CC1106 /* tabs3-2-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-on@2x.png"; sourceTree = "<group>"; };
 		3FA6549A1384218400CC1106 /* tabs3-3-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-3-off.png"; sourceTree = "<group>"; };
 		3FA6549B1384218400CC1106 /* tabs3-3-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-3-off@2x.png"; sourceTree = "<group>"; };
 		3FA6549C1384218400CC1106 /* tabs3-3-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-3-on.png"; sourceTree = "<group>"; };
@@ -3759,6 +3754,11 @@
 		3FDCD45413B28F7E0001311A /* fb-connect-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-connect-small@2x.png"; sourceTree = "<group>"; };
 		3FDCD45513B28F7E0001311A /* fb-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-empty.png"; sourceTree = "<group>"; };
 		3FDCD45613B28F7E0001311A /* fb-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-empty@2x.png"; sourceTree = "<group>"; };
+		3FDCD46313B4E3BD0001311A /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = Resources/Three20.bundle; sourceTree = "<group>"; };
+		3FDCD46713B505A80001311A /* tabs3-2-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-off.png"; sourceTree = "<group>"; };
+		3FDCD46813B505A80001311A /* tabs3-2-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-off@2x.png"; sourceTree = "<group>"; };
+		3FDCD46913B505A80001311A /* tabs3-2-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-on.png"; sourceTree = "<group>"; };
+		3FDCD46A13B505A80001311A /* tabs3-2-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-on@2x.png"; sourceTree = "<group>"; };
 		3FE5F21E13AF9D17002B3746 /* GTIOStylistsQuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOStylistsQuickLook.h; sourceTree = "<group>"; };
 		3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOStylistsQuickLook.m; sourceTree = "<group>"; };
 		3FE5F22413B0EDC1002B3746 /* empty-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty-list.png"; sourceTree = "<group>"; };
@@ -4649,10 +4649,10 @@
 		258518B6135358CD005DCBA5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3FDCD46313B4E3BD0001311A /* Three20.bundle */,
 				3D4CACAA138ABC0000A79EBA /* Fixtures */,
 				A740391C137DCCF50052EF8C /* PNGs */,
 				A7C627B4137C2CFA00F89D4F /* PNGs (old) */,
-				3F59B4AE137C24650046FC09 /* Three20.bundle */,
 				A7E302B3137988C90036F86D /* Application.xcdatamodeld */,
 				A7E302B4137988C90036F86D /* DataModel.xcdatamodeld */,
 				A7E302B5137988C90036F86D /* en.lproj */,
@@ -5158,6 +5158,10 @@
 		3FA654911384218400CC1106 /* 3.0-tabs-blank */ = {
 			isa = PBXGroup;
 			children = (
+				3FDCD46713B505A80001311A /* tabs3-2-off.png */,
+				3FDCD46813B505A80001311A /* tabs3-2-off@2x.png */,
+				3FDCD46913B505A80001311A /* tabs3-2-on.png */,
+				3FDCD46A13B505A80001311A /* tabs3-2-on@2x.png */,
 				3F1833D9138D8D8C0032CFAF /* todo-tab-bg.png */,
 				3F1833DA138D8D8C0032CFAF /* todo-tab-bg@2x.png */,
 				3FA654921384218400CC1106 /* tabs3-background.png */,
@@ -5166,10 +5170,6 @@
 				3FA654C31384230F00CC1106 /* tabs3-1-off@2x.png */,
 				3FA654941384218400CC1106 /* tabs3-1-on.png */,
 				3FA654951384218400CC1106 /* tabs3-1-on@2x.png */,
-				3FA654961384218400CC1106 /* tabs3-2-off.png */,
-				3FA654971384218400CC1106 /* tabs3-2-off@2x.png */,
-				3FA654981384218400CC1106 /* tabs3-2-on.png */,
-				3FA654991384218400CC1106 /* tabs3-2-on@2x.png */,
 				3FA6549A1384218400CC1106 /* tabs3-3-off.png */,
 				3FA6549B1384218400CC1106 /* tabs3-3-off@2x.png */,
 				3FA6549C1384218400CC1106 /* tabs3-3-on.png */,
@@ -7093,7 +7093,6 @@
 				A7E307D8137988C90036F86D /* GTIOHomeViewController.xib in Resources */,
 				A7E307DB137988C90036F86D /* GTIOLoginViewController.xib in Resources */,
 				A7E307DE137988C90036F86D /* GTIOWelcomeViewController.xib in Resources */,
-				3F59B4AF137C24650046FC09 /* Three20.bundle in Resources */,
 				A7C62931137C2CFB00F89D4F /* add-another-OFF.png in Resources */,
 				A7C62934137C2CFB00F89D4F /* add-another-OFF@2x.png in Resources */,
 				A7C62937137C2CFB00F89D4F /* add-another-ON.png in Resources */,
@@ -7443,10 +7442,6 @@
 				3FA654A11384218400CC1106 /* tabs3-background@2x.png in Resources */,
 				3FA654A41384218400CC1106 /* tabs3-1-on.png in Resources */,
 				3FA654A71384218400CC1106 /* tabs3-1-on@2x.png in Resources */,
-				3FA654AA1384218400CC1106 /* tabs3-2-off.png in Resources */,
-				3FA654AD1384218400CC1106 /* tabs3-2-off@2x.png in Resources */,
-				3FA654B01384218400CC1106 /* tabs3-2-on.png in Resources */,
-				3FA654B31384218400CC1106 /* tabs3-2-on@2x.png in Resources */,
 				3FA654B61384218400CC1106 /* tabs3-3-off.png in Resources */,
 				3FA654B91384218400CC1106 /* tabs3-3-off@2x.png in Resources */,
 				3FA654BC1384218400CC1106 /* tabs3-3-on.png in Resources */,
@@ -7641,6 +7636,11 @@
 				3FDCD45A13B28F7E0001311A /* fb-connect-small@2x.png in Resources */,
 				3FDCD45D13B28F7E0001311A /* fb-empty.png in Resources */,
 				3FDCD46013B28F7E0001311A /* fb-empty@2x.png in Resources */,
+				3FDCD46413B4E3BE0001311A /* Three20.bundle in Resources */,
+				3FDCD46B13B505A80001311A /* tabs3-2-off.png in Resources */,
+				3FDCD46E13B505A80001311A /* tabs3-2-off@2x.png in Resources */,
+				3FDCD47113B505A80001311A /* tabs3-2-on.png in Resources */,
+				3FDCD47413B505A80001311A /* tabs3-2-on@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7809,7 +7809,6 @@
 				A7E307D9137988C90036F86D /* GTIOHomeViewController.xib in Resources */,
 				A7E307DC137988C90036F86D /* GTIOLoginViewController.xib in Resources */,
 				A7E307DF137988C90036F86D /* GTIOWelcomeViewController.xib in Resources */,
-				3F59B4B0137C24650046FC09 /* Three20.bundle in Resources */,
 				A7C62932137C2CFB00F89D4F /* add-another-OFF.png in Resources */,
 				A7C62935137C2CFB00F89D4F /* add-another-OFF@2x.png in Resources */,
 				A7C62938137C2CFB00F89D4F /* add-another-ON.png in Resources */,
@@ -8163,10 +8162,6 @@
 				3FA654A21384218400CC1106 /* tabs3-background@2x.png in Resources */,
 				3FA654A51384218400CC1106 /* tabs3-1-on.png in Resources */,
 				3FA654A81384218400CC1106 /* tabs3-1-on@2x.png in Resources */,
-				3FA654AB1384218400CC1106 /* tabs3-2-off.png in Resources */,
-				3FA654AE1384218400CC1106 /* tabs3-2-off@2x.png in Resources */,
-				3FA654B11384218400CC1106 /* tabs3-2-on.png in Resources */,
-				3FA654B41384218400CC1106 /* tabs3-2-on@2x.png in Resources */,
 				3FA654B71384218400CC1106 /* tabs3-3-off.png in Resources */,
 				3FA654BA1384218400CC1106 /* tabs3-3-off@2x.png in Resources */,
 				3FA654BD1384218400CC1106 /* tabs3-3-on.png in Resources */,
@@ -8336,6 +8331,11 @@
 				3FDCD45B13B28F7E0001311A /* fb-connect-small@2x.png in Resources */,
 				3FDCD45E13B28F7E0001311A /* fb-empty.png in Resources */,
 				3FDCD46113B28F7E0001311A /* fb-empty@2x.png in Resources */,
+				3FDCD46513B4E3BE0001311A /* Three20.bundle in Resources */,
+				3FDCD46C13B505A80001311A /* tabs3-2-off.png in Resources */,
+				3FDCD46F13B505A80001311A /* tabs3-2-off@2x.png in Resources */,
+				3FDCD47213B505A80001311A /* tabs3-2-on.png in Resources */,
+				3FDCD47513B505A80001311A /* tabs3-2-on@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8507,7 +8507,6 @@
 				A7E307DA137988C90036F86D /* GTIOHomeViewController.xib in Resources */,
 				A7E307DD137988C90036F86D /* GTIOLoginViewController.xib in Resources */,
 				A7E307E0137988C90036F86D /* GTIOWelcomeViewController.xib in Resources */,
-				3F59B4B1137C24650046FC09 /* Three20.bundle in Resources */,
 				A7C62933137C2CFB00F89D4F /* add-another-OFF.png in Resources */,
 				A7C62936137C2CFB00F89D4F /* add-another-OFF@2x.png in Resources */,
 				A7C62939137C2CFB00F89D4F /* add-another-ON.png in Resources */,
@@ -8861,10 +8860,6 @@
 				3FA654A31384218400CC1106 /* tabs3-background@2x.png in Resources */,
 				3FA654A61384218400CC1106 /* tabs3-1-on.png in Resources */,
 				3FA654A91384218400CC1106 /* tabs3-1-on@2x.png in Resources */,
-				3FA654AC1384218400CC1106 /* tabs3-2-off.png in Resources */,
-				3FA654AF1384218400CC1106 /* tabs3-2-off@2x.png in Resources */,
-				3FA654B21384218400CC1106 /* tabs3-2-on.png in Resources */,
-				3FA654B51384218400CC1106 /* tabs3-2-on@2x.png in Resources */,
 				3FA654B81384218400CC1106 /* tabs3-3-off.png in Resources */,
 				3FA654BB1384218400CC1106 /* tabs3-3-off@2x.png in Resources */,
 				3FA654BE1384218400CC1106 /* tabs3-3-on.png in Resources */,
@@ -9034,6 +9029,11 @@
 				3FDCD45C13B28F7E0001311A /* fb-connect-small@2x.png in Resources */,
 				3FDCD45F13B28F7E0001311A /* fb-empty.png in Resources */,
 				3FDCD46213B28F7E0001311A /* fb-empty@2x.png in Resources */,
+				3FDCD46613B4E3BE0001311A /* Three20.bundle in Resources */,
+				3FDCD46D13B505A80001311A /* tabs3-2-off.png in Resources */,
+				3FDCD47013B505A80001311A /* tabs3-2-off@2x.png in Resources */,
+				3FDCD47313B505A80001311A /* tabs3-2-on.png in Resources */,
+				3FDCD47613B505A80001311A /* tabs3-2-on@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,8 @@
 #import "GTIOOutfit.h"
 #import "GTIOOutfitTableViewItem.h"
 #import "GTIOOutfitTableViewCell.h"
+#import "GTIOOutfitVerdictTableItem.h"
+#import "GTIOOutfitVerdictTableItemCell.h"
 #import "GTIOGiveAnOpinionTableViewDataSource.h"
 #import "GTIODropShadowSectionTableViewDelegate.h"
 #import "GTIOSortTab.h"
@@ -70,7 +72,9 @@
 }
 
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
-	if ([object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
+    if ([object isKindOfClass:[GTIOOutfitVerdictTableItem class]]) {
+        return [GTIOOutfitVerdictTableItemCell class];
+    } else if ([object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
 		return [GTIOOutfitTableViewCell class];	
     } else if ([object isKindOfClass:[TTTableImageItem class]]) {
         return [GTIOTableImageItemCell class];
@@ -366,8 +370,11 @@
         for (GTIOOutfitTableViewItem* item in ds.items) {
             [outfits removeObject:item.outfit];
         }
-        
-        tableItems = [_presenter tableItemsForOutfits:outfits];
+        if (model.list.myLooks) {
+            tableItems = [_presenter tableItemsForMyLooks:outfits];
+        } else {
+            tableItems = [_presenter tableItemsForOutfits:outfits];
+        }
     }
     for (id tableItem in tableItems) {
         [ds.items addObject:tableItem];
@@ -382,8 +389,9 @@
         [_presenter release];
         _presenter = [[GTIOBrowseListPresenter presenterWithList:list] retain];
         
+        NSString* title = [list.title uppercaseString];
         self.title = list.title;
-        self.navigationItem.titleView = [GTIOHeaderView viewWithText:list.title];
+        self.navigationItem.titleView = [GTIOHeaderView viewWithText:title];
         
         if (nil == _searchBar) {
             _searchBar = [_presenter.searchBar retain];

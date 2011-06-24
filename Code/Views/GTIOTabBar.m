@@ -65,17 +65,14 @@
         case -1:
             unselectedImageName = @"tabs3-1-off.png";
             selectedImageName = @"tabs3-1-on.png";
-            // set images for left tab
             break;
         case 0:
             unselectedImageName = @"tabs3-2-off.png";
             selectedImageName = @"tabs3-2-on.png";
-            // set images for right tab
             break;
         default:
             unselectedImageName = @"tabs3-3-off.png";
             selectedImageName = @"tabs3-3-on.png";
-            // set images for center tab
             break;
     }
     UIImage* unselectedImage = [[UIImage imageNamed:unselectedImageName] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
@@ -134,7 +131,7 @@
         tab.frame = CGRectMake(floor(rect.origin.x + width * i), rect.origin.y, floor(width), rect.size.height);
         CGRect titleLabelFrame = tab.titleLabel.frame;
         if (tab.titleLabel.text) {
-            tab.titleEdgeInsets = UIEdgeInsetsMake(0,6-2,1,tab.frame.size.width - titleLabelFrame.size.width - 12+2);// - 12
+            tab.titleEdgeInsets = UIEdgeInsetsMake(1,4,1,tab.frame.size.width - titleLabelFrame.size.width - 12+2);
         }
     }
     _subtitleLabel.frame = CGRectZero;
