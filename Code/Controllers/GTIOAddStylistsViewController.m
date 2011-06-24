@@ -303,7 +303,8 @@
     
     CFRelease(people);
     CFRelease(addressBook);
-    return arrayOfEmails;
+    
+    return [arrayOfEmails sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 - (void)viewDidUnload {

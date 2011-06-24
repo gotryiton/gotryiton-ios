@@ -27,12 +27,17 @@
     [super loadView];
     self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"TO-DO'S"];
     
-    if ([GTIOUser currentUser].loggedIn && [[GTIOUser currentUser].istyleCount intValue] > 0) {
+    GTIOUser* user = [GTIOUser currentUser];
+    if (user.loggedIn && [user.istyleCount intValue] > 0) {
         GTIOBarButtonItem* whoIStyleItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"who i style" target:self action:@selector(whoIStyleButtonPressed:)] autorelease];
         self.navigationItem.rightBarButtonItem = whoIStyleItem;
     }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+- (void)setupRightBarButtonItem {
+    ; // Override. always show "who i style" or nothing.
 }
 
 - (void)whoIStyleButtonPressed:(id)sender {

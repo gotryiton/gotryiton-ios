@@ -24,7 +24,7 @@
     CGSize size;
     
     float lineHeight = 16;
-    float xAlignment = 12;
+    float xAlignment = 14;
 	int maxLines = floor(rect.size.height/lineHeight);
 	
 	float maxWidth = rect.size.width - xAlignment - 10;
@@ -74,10 +74,10 @@
    			CGSize s = [thisLine sizeWithFont:font];
             if (draw) {
                 [kGTIOColorBrightPink set];
-                [@"”" drawAtPoint:CGPointMake(xAlignment+s.width,line*lineHeight-5) withFont:[UIFont systemFontOfSize:37]];
+                [@"”" drawAtPoint:CGPointMake(xAlignment-2+s.width,line*lineHeight-5) withFont:[UIFont systemFontOfSize:37]];
             }
             CGSize quoteSize = [@"”" sizeWithFont:[UIFont systemFontOfSize:37]];
-            size = CGSizeMake(xAlignment+s.width+quoteSize.width,line*lineHeight+lineHeight);
+            size = CGSizeMake(xAlignment-2+s.width+quoteSize.width,line*lineHeight+lineHeight);
 			break;
 		}
 	}

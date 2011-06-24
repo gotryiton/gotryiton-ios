@@ -145,6 +145,8 @@
         self.variableHeightRows = YES;
         self.autoresizesForKeyboard = YES;
         self.view.accessibilityLabel = @"Browse Screen";
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreshActivated:) name:@"DragRefreshTableReload" object:nil];
     }
     return self;
 }
@@ -166,6 +168,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_presenter release];
     [_searchBar release];
     [_bannerAd release];
@@ -175,7 +178,12 @@
     [super dealloc];
 }
 
+- (void)pullToRefreshActivated:(NSNotification*)note {
+    _flags.isModelDidLoadFirstTimeInvalid = 1;
+}
+
 - (void)reloadButtonWasPressed:(id)sender {
+    _flags.isModelDidLoadFirstTimeInvalid = 1;
     [self invalidateModel];
 }
 
