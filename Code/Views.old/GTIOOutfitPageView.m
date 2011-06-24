@@ -171,7 +171,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 - (void)updateLooksLabels {
 	NSString* brands = [self.currentPhoto objectForKey:@"brands"];
 	_brandsLabel.text = [brands uppercaseString];
-	if ([brands isWhitespaceAndNewlines]) {
+	if (brands == nil || [brands isWhitespaceAndNewlines]) {
 		_brandsView.alpha = 0;
 		_brandInfoButton.alpha = 0;
 	} else {

@@ -73,7 +73,9 @@
         RKParamsAttachment* attachment = [params setData:UIImageJPEGRepresentation(scaledImage, 1) forParam:fileParam];
         attachment.MIMEType = @"image/jpeg";
         attachment.fileName = [NSString stringWithFormat:@"%@.jpg", fileParam];
-        [params setValue:photo.brandsYouAreWearing forParam:brandsParam];;
+        if (photo.brandsYouAreWearing) {
+            [params setValue:photo.brandsYouAreWearing forParam:brandsParam];
+        }
 	}
     
     loader.params = params;
