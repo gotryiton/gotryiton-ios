@@ -37,7 +37,7 @@
 
 - (void)loginStartedNotification:(NSNotification*)note {
     if (nil == [self.view viewWithTag:999]) {
-        TTActivityLabel* activityLabel = [[TTActivityLabel alloc] initWithFrame:self.view.bounds style:TTActivityLabelStyleBlackBox text:NSLocalizedString(@"logging in...", @"Logging in loading text")];
+        TTActivityLabel* activityLabel = [[TTActivityLabel alloc] initWithFrame:self.view.bounds style:TTActivityLabelStyleBlackBox text:NSLocalizedString(@"signing in...", @"Logging in loading text")];
         activityLabel.tag = 999;
         [self.view addSubview:activityLabel];
         [activityLabel release];
