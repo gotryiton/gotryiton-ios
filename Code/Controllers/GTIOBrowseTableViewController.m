@@ -227,7 +227,9 @@
 }
 
 - (TTTableViewDelegate*)createDelegate {
-    return [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
+    GTIODropShadowSectionTableViewDelegate* delegate = [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
+//        delegate.footerHeight = 5.0f;
+    return delegate;
 }
 
 - (void)createModel {
@@ -236,6 +238,7 @@
     RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:_apiEndpoint delegate:nil];
     objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     objectLoader.method = RKRequestMethodPOST;
+    objectLoader.cacheTimeoutInterval = 60*5; // 5 minutes
     GTIOBrowseListTTModel* model = [GTIOBrowseListTTModel modelWithObjectLoader:objectLoader];
     
     TTListDataSource* temporaryDataSource = [TTListDataSource dataSourceWithObjects:nil];

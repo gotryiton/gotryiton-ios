@@ -50,6 +50,11 @@
          <EnvironmentVariable
             key = "NSZombieEnabled"
             value = "1"
+            isEnabled = "NO">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "GTIO_ENVIRONMENT"
+            value = "GTIO_ENVIRONMENT_PRODUCTION"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

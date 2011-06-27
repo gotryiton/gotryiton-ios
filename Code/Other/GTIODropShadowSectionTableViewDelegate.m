@@ -14,10 +14,13 @@
 @synthesize footerHeight = _footerHeight;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20.0f;
+    return 25.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (tableView.numberOfSections > 1) {
+        return 5;
+    }
     return _footerHeight;
 }
 
@@ -45,8 +48,13 @@
     UIImageView* topShadowImageView = [[[UIImageView alloc] initWithImage:topShadow] autorelease];
     [header addSubview:topShadowImageView];
     topShadowImageView.backgroundColor = [UIColor clearColor];
-    topShadowImageView.frame = CGRectMake(0, header.bounds.size.height, 320, 20);
-    return header;
+    topShadowImageView.frame = CGRectMake(0, 20, 320, 20);
+    
+    UIView* clearView = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,25)] autorelease];
+    clearView.backgroundColor = [UIColor clearColor];
+    [clearView addSubview:header];
+    
+    return clearView;
 }
 
 @end

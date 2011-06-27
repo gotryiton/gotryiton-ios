@@ -31,6 +31,8 @@
 		
 		RKObjectLoader* objectLoader = [[[RKObjectManager sharedManager] objectLoaderWithResourcePath:_objectLoader.resourcePath delegate:self] retain];
 		objectLoader.method = _objectLoader.method;
+        objectLoader.cachePolicy = _objectLoader.cachePolicy;
+        objectLoader.cacheTimeoutInterval = _objectLoader.cacheTimeoutInterval;
 		
 		NSMutableDictionary* paramsForNextPage = [[_objectLoader.params mutableCopy] autorelease];
 		
