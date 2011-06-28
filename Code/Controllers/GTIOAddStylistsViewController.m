@@ -484,6 +484,7 @@
     RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:apiEndpoint delegate:nil];
     objectLoader.method = RKRequestMethodPOST;
     objectLoader.params = params;
+    objectLoader.cacheTimeoutInterval = 5*60;
     RKObjectLoaderTTModel* model = [RKObjectLoaderTTModel modelWithObjectLoader:objectLoader];
     
     GTIOAddStylistsListDataSource* ds = (GTIOAddStylistsListDataSource*)[GTIOAddStylistsListDataSource dataSourceWithObjects:nil];
