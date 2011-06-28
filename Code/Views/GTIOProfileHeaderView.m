@@ -44,7 +44,7 @@
 	[self addSubview:profilePictureButton];
 		
 	_profilePictureFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
-	[_profilePictureFrame setFrame:CGRectMake(5,3,64,64)];
+	[_profilePictureFrame setFrame:CGRectMake(3,3,65,65)];
 	[self addSubview:_profilePictureFrame];
     
 	_nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(72, 9, 250, 40)];
@@ -150,14 +150,14 @@
     if ([[profile isBranded] boolValue]) {
         self.frame = CGRectMake(0,self.frame.origin.y,self.bounds.size.width,85);
         _profilePictureFrame.image = [UIImage imageNamed:@"profile-icon-overlay-verified-110.png"];
-        [_profilePictureFrame setFrame:CGRectMake(5,3,64,80)];
+        [_profilePictureFrame setFrame:CGRectMake(4,4,63,80)];
         [self addSubview:_backgroundOverlay];
         _backgroundOverlay.image = [UIImage imageNamed:@"dark-top-verified-overlay"];
         _editProfileButton.frame = CGRectOffset(_editProfileButton.frame, 0, 15);
     } else {
         self.frame = CGRectMake(0,self.frame.origin.y,self.bounds.size.width,70);
         _profilePictureFrame.image = [UIImage imageNamed:@"profile-icon-overlay-110.png"];
-        [_profilePictureFrame setFrame:CGRectMake(5,3,64,64)];
+        [_profilePictureFrame setFrame:CGRectMake(4,4,63,63)];
         [_backgroundOverlay removeFromSuperview];
     }
 }

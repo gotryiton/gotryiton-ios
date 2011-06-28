@@ -54,6 +54,7 @@
 	[super layoutSubviews];
     _separator.frame = CGRectMake(0,0, 320, 1);
 	_separator2.frame = CGRectMake(0, self.bounds.size.height, 320, 1);
+    self.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)setObject:(id)obj {

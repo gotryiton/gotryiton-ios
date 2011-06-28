@@ -24,6 +24,8 @@
 	
 	[self.textLabel sizeToFit];
 	self.textLabel.frame = CGRectMake(self.textLabel.frame.origin.x, 0, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
+    
+    self.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)setObject:(id)obj {
@@ -50,6 +52,8 @@
 	
 	self.detailTextLabel.frame = CGRectMake(210, 0, 100, 18);
 	self.detailTextLabel.textAlignment = UITextAlignmentRight;
+    
+    self.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)setObject:(id)obj {

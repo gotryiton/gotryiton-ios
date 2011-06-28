@@ -121,6 +121,12 @@
     // Set Accessibility Labels
     [_aboutMeView setAccessibilityLabel:@"about me label"];
     [_headerView setAccessibilityLabel:@"profile header view"];
+    
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"shadow-wallpaper.png"]];
+    UIView* white = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320, 150)] autorelease];
+    white.backgroundColor = [UIColor whiteColor];
+    [self.view insertSubview:white atIndex:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
