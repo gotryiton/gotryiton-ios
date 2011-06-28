@@ -16,14 +16,14 @@
 @implementation GTIOTableStatsCell
 
 + (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
-	return 44;
+	return 30;
 }
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
 	
 	[self.textLabel sizeToFit];
-	self.textLabel.frame = CGRectMake(self.textLabel.frame.origin.x, 10, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
+	self.textLabel.frame = CGRectMake(self.textLabel.frame.origin.x, 0, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
 }
 
 - (void)setObject:(id)obj {

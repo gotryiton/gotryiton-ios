@@ -13,7 +13,6 @@
 
 @interface GTIOProfileHeaderView : UIView <RKObjectLoaderDelegate> {
 	TTImageView* _profilePictureImageView;
-	UIImageView* _fashionProfileBadge;
 	UILabel* _nameLabel;
 	UILabel* _locationLabel;
 	UIButton* _editProfileButton;
@@ -24,6 +23,7 @@
     UIImageView* _backgroundOverlay;
     
     GTIOProfile* _profile;
+    NSMutableArray* _badgeImageViews;
 }
 /// UILabel for name
 @property (nonatomic, retain) UILabel* nameLabel;

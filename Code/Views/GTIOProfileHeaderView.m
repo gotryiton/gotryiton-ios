@@ -11,6 +11,7 @@
 #import "NSObject_Additions.h"
 #import "TWTActionSheetDelegate.h"
 #import <TWTAlertViewDelegate.h>
+#import "GTIOBadge.h"
 
 @implementation GTIOProfileHeaderView
 
@@ -33,7 +34,7 @@
     _profilePictureImageView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
     [(UIImageView*)_profilePictureImageView setImage:[UIImage imageNamed:@"empty-profile-pic.png"]];
 	_profilePictureImageView.layer.cornerRadius = 5.0;
-	[_profilePictureImageView setFrame:CGRectMake(10,8,54,54)];
+	[_profilePictureImageView setFrame:CGRectMake(8,8,55,55)];
 	[self addSubview:_profilePictureImageView];
 	
 	UIButton* profilePictureButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -45,19 +46,14 @@
 	_profilePictureFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-icon-overlay-110.png"]];
 	[_profilePictureFrame setFrame:CGRectMake(5,3,64,64)];
 	[self addSubview:_profilePictureFrame];
-	
-//	_fashionProfileBadge = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fash-badge-profile.png"]];
-//	[_fashionProfileBadge setFrame:CGRectMake(0,2.5,48,48)];
-//	[self addSubview:_fashionProfileBadge];
-//	[_fashionProfileBadge setHidden:YES];
-
-	_nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 10, 250, 40)];
+    
+	_nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(72, 9, 250, 40)];
 	_nameLabel.backgroundColor = [UIColor clearColor];
 	_nameLabel.font = kGTIOFetteFontOfSize(36);
 	_nameLabel.textColor = [UIColor whiteColor];
 	[self addSubview:_nameLabel];
 	
-	_locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 43, 250, 20)];
+	_locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(72.5, 42, 250, 20)];
 	_locationLabel.backgroundColor = [UIColor clearColor];
 	_locationLabel.font = [UIFont systemFontOfSize:15];
 	_locationLabel.textColor = kGTIOColorB2B2B2;
@@ -68,7 +64,7 @@
 	[_editProfileButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	[self addSubview:_editProfileButton];
     
-    _connectionImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(280,10,24,23)] autorelease];
+    _connectionImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(280-3,10,24,23)] autorelease];
     [self addSubview:_connectionImageView];
     
 	// Accessibility Label
@@ -81,6 +77,7 @@
 }
 
 - (void)dealloc {
+    [_badgeImageViews release];
     [_editProfileButton release];
     [_profile release];
     [_profilePictureFrame release];
@@ -92,13 +89,13 @@
     [profile retain];
     [_profile release];
     _profile = profile;
-    
+        
     if ([profile.uid isEqualToString:[GTIOUser currentUser].UID] && [[GTIOUser currentUser] isLoggedIn]) {
         [_connectionImageView setHidden:YES];
         _shouldAllowEditing = YES;
         [_editProfileButton setImage:[UIImage imageNamed:@"edit-OFF.png"] forState:UIControlStateNormal];
         [_editProfileButton setImage:[UIImage imageNamed:@"edit-ON.png"] forState:UIControlStateHighlighted];
-        [_editProfileButton setFrame:CGRectMake(320-45,45,35,20)];
+        [_editProfileButton setFrame:CGRectMake(320-45-3,45,35,20)];
     } else {
         _shouldAllowEditing = NO;
         [_connectionImageView setHidden:NO];
@@ -109,17 +106,17 @@
             // edit
             [_editProfileButton setImage:[UIImage imageNamed:@"edit-OFF.png"] forState:UIControlStateNormal];
             [_editProfileButton setImage:[UIImage imageNamed:@"edit-ON.png"] forState:UIControlStateHighlighted];
-            [_editProfileButton setFrame:CGRectMake(320-45,45,35,20)];
+            [_editProfileButton setFrame:CGRectMake(320-45-3,45,35,20)];
         } else if (relationship.isMyStylist && !relationship.isMyStylistIgnored) {
             // Remove
             [_editProfileButton setImage:[UIImage imageNamed:@"remove-OFF.png"] forState:UIControlStateNormal];
             [_editProfileButton setImage:[UIImage imageNamed:@"remove-ON.png"] forState:UIControlStateHighlighted];
-            [_editProfileButton setFrame:CGRectMake(320-65,45,55,20)];
+            [_editProfileButton setFrame:CGRectMake(320-65-3,45,55,20)];
         } else {
             // add
             [_editProfileButton setImage:[UIImage imageNamed:@"add-OFF.png"] forState:UIControlStateNormal];
             [_editProfileButton setImage:[UIImage imageNamed:@"add-ON.png"] forState:UIControlStateHighlighted];
-            [_editProfileButton setFrame:CGRectMake(320-45,45,35,20)];
+            [_editProfileButton setFrame:CGRectMake(320-45-3,45,35,20)];
         }
         
     }
@@ -131,14 +128,24 @@
 	[_nameLabel setNeedsDisplay];
 	_locationLabel.text = profile.location;
 	[_locationLabel setNeedsDisplay];
+    
+    for (UIView* view in _badgeImageViews) {
+        [view removeFromSuperview];
+    }
+    [_badgeImageViews release];
+    _badgeImageViews = [NSMutableArray new];
+    
+    float x = [_nameLabel.text sizeWithFont:_nameLabel.font].width + _nameLabel.frame.origin.x;
+    float y = 2;
+    for (GTIOBadge* badge in profile.badges) {
+        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(x,y,48,48)] autorelease];
+        x += 34;
+        imageView.backgroundColor = [UIColor clearColor];
+        imageView.urlPath = badge.imgURL;
+        [self addSubview:imageView];
+        [_badgeImageViews addObject:imageView];
+    }
 
-    
-    //	CGRect badgeFrame = _fashionProfileBadge.frame;
-    
-    // TODO: real badges here.
-//	CGFloat offsetX = [_nameLabel.text sizeWithFont:_nameLabel.font].width + _nameLabel.frame.origin.x;
-//	[_fashionProfileBadge setFrame:CGRectMake(offsetX,badgeFrame.origin.y,badgeFrame.size.width,badgeFrame.size.height)];
-//	[_fashionProfileBadge setHidden:NO];
     
     if ([[profile isBranded] boolValue]) {
         self.frame = CGRectMake(0,self.frame.origin.y,self.bounds.size.width,85);

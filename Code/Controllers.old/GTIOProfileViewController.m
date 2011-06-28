@@ -33,6 +33,23 @@
 - (void)unregisterForNotifications;
 @end
 
+@interface GTIOProfileTableViewDelegate : TTTableViewVarHeightDelegate
+@end
+
+@implementation GTIOProfileTableViewDelegate
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+//    return 412;
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+//    UIView* view = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shadow-wallpaper.png"]] autorelease];
+//    view.backgroundColor = [UIColor clearColor];
+//    return view;
+//}
+
+@end
+
 @implementation GTIOProfileViewController
 
 #pragma mark -
@@ -64,6 +81,10 @@
 	[_userID release];
     [_bannerAdView release];
 	[super dealloc];
+}
+
+- (id)createDelegate {
+    return [[[GTIOProfileTableViewDelegate alloc] initWithController:self] autorelease];
 }
 
 #pragma mark -
@@ -246,8 +267,10 @@
 		[_notLoggedInOverlay removeFromSuperview];
 		NSMutableArray* items = [NSMutableArray arrayWithCapacity:3];
 		
-//		TTTableTextItem* statsItem = [GTIOTableStatsItem itemWithText:(_isShowingCurrentUser ? @"my stats" : @"stats")];
-//		[items addObject:statsItem];
+        if (_isShowingCurrentUser) {
+            TTTableTextItem* statsItem = [GTIOTableStatsItem itemWithText:@"stats"];
+            [items addObject:statsItem];
+        }
         for (NSDictionary* stat in profile.userStats) {
 			[items addObject:[GTIOIndividualStatItem itemWithText:[NSString stringWithFormat:@"%@", [stat valueForKey:@"value"]] caption:[stat valueForKey:@"name"]]];
 		}
