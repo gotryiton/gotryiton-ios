@@ -19,6 +19,10 @@ static float const qFontSize = 42;
 @synthesize text = _text;
 
 - (CGSize)sizeThatFits:(CGSize)size {
+    if (_text == nil || [_text isWhitespaceAndNewlines]) {
+        return CGSizeMake(0,0);
+    }
+    
 	UIFont* font = [UIFont boldSystemFontOfSize:13];
 	UIFont* qFont = [UIFont systemFontOfSize:qFontSize];
 	NSString* lQuoteText = @"“";
@@ -102,8 +106,8 @@ static float const qFontSize = 42;
 	
 //	CGRect rQuoteRect = CGRectMake(rQuoteLeftPosition, rQuoteOffset, rSize.width, rSize.height);
 	
-	NSLog(@"size: width-%f x height-%f",size.width,lineVerticalOffset + lineHeight + 10);
-	return CGSizeMake(size.width, lineVerticalOffset + lineHeight + 10);
+	NSLog(@"size: width-%f x height-%f",size.width,lineVerticalOffset + lineHeight + 5);
+	return CGSizeMake(size.width, lineVerticalOffset + lineHeight + 5);
 }
 
 - (void)drawRect:(CGRect)rect {

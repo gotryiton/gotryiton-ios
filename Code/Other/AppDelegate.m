@@ -460,8 +460,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)handleLaunchURL {
 	if (_launchURL) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
 		[[TTNavigator navigator] openURLAction:
-		 [[TTURLAction actionWithURLPath:[_launchURL absoluteString]] applyAnimated:NO]];
+		 [[TTURLAction actionWithURLPath:[_launchURL absoluteString]] applyAnimated:YES]];
 		
 		[_launchURL release];
 		_launchURL = nil;

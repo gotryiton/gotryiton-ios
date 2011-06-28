@@ -32,12 +32,14 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string>com.twotoasters.gtio</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb134143416622354</string>
 				<string>fb126454074038555</string>
+				<string>gtio</string>
 			</array>
 		</dict>
 	</array>

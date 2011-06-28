@@ -104,7 +104,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    [self invalidateModel];
 	[self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
