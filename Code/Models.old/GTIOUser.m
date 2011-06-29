@@ -72,7 +72,7 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize badges = _badges;
 @synthesize alert = _alert;
 @synthesize showAlmostDoneScreen = _showAlmostDoneScreen;
-
+@synthesize auth = _auth;
 @synthesize notifications = _notifications;
 @synthesize todosBadge = _todosBadge;
 @synthesize isFacebookConnected = _isFacebookConnected;
@@ -150,6 +150,7 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.istyleCount", @"istyleCount")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.showAlmostDoneScreen", @"showAlmostDoneScreen")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.bornIn", @"bornIn")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.auth", @"auth")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
     
     // TODO: duplicated
@@ -229,6 +230,7 @@ static GTIOUser* gCurrentUser = nil;
     TT_RELEASE_SAFELY(_istyleCount);
     TT_RELEASE_SAFELY(_isFacebookConnected);
     TT_RELEASE_SAFELY(_bornIn);
+    TT_RELEASE_SAFELY(_auth);
 	[super dealloc];
 }
 
@@ -501,6 +503,10 @@ static GTIOUser* gCurrentUser = nil;
 	return [NSURL URLWithString:authURL];
 }
 
+- (void)handleLoginFailedButTokenNotInvalid {
+    self.loggedIn = YES;
+}
+
 #pragma mark RKRequestDelegate
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
@@ -513,20 +519,26 @@ static GTIOUser* gCurrentUser = nil;
         if ([self.showAlmostDoneScreen boolValue]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
         }
+    } else if ([self.auth boolValue] == false) {
+        [self didStopLogin];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLogoutNotificationName object:self];
     } else {
-        [self clearUserData];
+        // unknown state.
+        [self handleLoginFailedButTokenNotInvalid];
     }
 }
 
 - (void)objectLoader:(RKObjectLoader*)loader didFailWithError:(NSError*)error {
-    [[[[UIAlertView alloc] initWithTitle:@"Error Signing In!" 
+    [[[[UIAlertView alloc] initWithTitle:@"Error!" 
                                  message:[error localizedDescription]
                                 delegate:nil
                        cancelButtonTitle:@"OK"
                        otherButtonTitles:nil] autorelease] show];
     
     [self didStopLogin];
-    [self clearUserData];
+//    [self clearUserData];
+//    self.loggedIn = YES;
+    [self handleLoginFailedButTokenNotInvalid];
 }
 
 #pragma mark FBSessionDelegate

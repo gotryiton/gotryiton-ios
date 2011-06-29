@@ -369,6 +369,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 												 name:kGTIOUserDidLoginWithIncompleteProfileNotificationName 
 											   object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin:) name:kGTIOUserDidLoginNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout:) name:kGTIOUserDidLogoutNotificationName object:nil];
 	
 	// Handle Launch Options
 	if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]) {
@@ -499,6 +500,15 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (nil == home.parentViewController) {
         // If it's not on the stack, open it.
         TTOpenURL(@"gtio://home");
+    }
+    [self handleLaunchURL];
+}
+
+- (void)userDidLogout:(NSNotification*)note {
+    UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];
+    if (nil == home.parentViewController) {
+        TTOpenURL(@"gtio://home");
+        TTOpenURL(@"gtio://welcome");
     }
     [self handleLaunchURL];
 }
