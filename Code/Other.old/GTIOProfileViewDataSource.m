@@ -248,6 +248,8 @@
         [self.contentView addSubview:badge];
         [_stylistBadges addObject:badge];
     }
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 @end

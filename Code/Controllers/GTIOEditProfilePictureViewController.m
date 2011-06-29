@@ -263,7 +263,7 @@
         [_connectToFacebookButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_connectToFacebookButton];
     }
-    [_scrollView setContentSize:CGSizeMake(i*49+i*2.5,67)];
+    [_scrollView setContentSize:CGSizeMake(outfitPadding,67)];
     if (_scrollView.contentSize.width <= _scrollView.frame.size.width) {
         [_scrollSlider setHidden:YES];
     }
