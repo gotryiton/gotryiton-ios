@@ -64,7 +64,7 @@
 	[_editProfileButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	[self addSubview:_editProfileButton];
     
-    _connectionImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(280-3,10,24,23)] autorelease];
+    _connectionImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(280+3,10,24,23)] autorelease];
     [self addSubview:_connectionImageView];
     
 	// Accessibility Label
@@ -95,7 +95,7 @@
         _shouldAllowEditing = YES;
         [_editProfileButton setImage:[UIImage imageNamed:@"edit-OFF.png"] forState:UIControlStateNormal];
         [_editProfileButton setImage:[UIImage imageNamed:@"edit-ON.png"] forState:UIControlStateHighlighted];
-        [_editProfileButton setFrame:CGRectMake(320-45-3,45,35,20)];
+        [_editProfileButton setFrame:CGRectMake(320-45+3,45,35,20)];
     } else {
         _shouldAllowEditing = NO;
         [_connectionImageView setHidden:NO];
@@ -106,17 +106,17 @@
             // edit
             [_editProfileButton setImage:[UIImage imageNamed:@"edit-OFF.png"] forState:UIControlStateNormal];
             [_editProfileButton setImage:[UIImage imageNamed:@"edit-ON.png"] forState:UIControlStateHighlighted];
-            [_editProfileButton setFrame:CGRectMake(320-45-3,45,35,20)];
+            [_editProfileButton setFrame:CGRectMake(320-45+3,45,35,20)];
         } else if (relationship.isMyStylist && !relationship.isMyStylistIgnored) {
             // Remove
             [_editProfileButton setImage:[UIImage imageNamed:@"remove-OFF.png"] forState:UIControlStateNormal];
             [_editProfileButton setImage:[UIImage imageNamed:@"remove-ON.png"] forState:UIControlStateHighlighted];
-            [_editProfileButton setFrame:CGRectMake(320-65-3,45,55,20)];
+            [_editProfileButton setFrame:CGRectMake(320-65+3,45,55,20)];
         } else {
             // add
             [_editProfileButton setImage:[UIImage imageNamed:@"add-OFF.png"] forState:UIControlStateNormal];
             [_editProfileButton setImage:[UIImage imageNamed:@"add-ON.png"] forState:UIControlStateHighlighted];
-            [_editProfileButton setFrame:CGRectMake(320-45-3,45,35,20)];
+            [_editProfileButton setFrame:CGRectMake(320-45+3,45,35,20)];
         }
         
     }

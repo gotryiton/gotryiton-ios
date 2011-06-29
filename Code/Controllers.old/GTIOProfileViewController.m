@@ -38,15 +38,17 @@
 
 @implementation GTIOProfileTableViewDelegate
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-//    return 412;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//    UIView* view = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shadow-wallpaper.png"]] autorelease];
-//    view.backgroundColor = [UIColor clearColor];
-//    return view;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView* superView = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,1)] autorelease];
+    UIView* view = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shadow-wallpaper.png"]] autorelease];
+    view.backgroundColor = [UIColor clearColor];
+    [superView addSubview:view];
+    return superView;
+}
 
 @end
 
@@ -121,12 +123,6 @@
     // Set Accessibility Labels
     [_aboutMeView setAccessibilityLabel:@"about me label"];
     [_headerView setAccessibilityLabel:@"profile header view"];
-    
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"shadow-wallpaper.png"]];
-    UIView* white = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320, 150)] autorelease];
-    white.backgroundColor = [UIColor whiteColor];
-    [self.view insertSubview:white atIndex:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -156,6 +152,7 @@
     [_bannerAdView removeFromSuperview];
     [_bannerAdView release];
     _bannerAdView = nil;
+    float bannerHeight = 0;
     if(bannerAd) {
         TWTURLButton* button = [TWTURLButton buttonWithType:UIButtonTypeCustom];
         TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0,
@@ -176,8 +173,8 @@
         }
         _bannerAdView = [imageView retain];
         [self.view addSubview:_bannerAdView];
+        bannerHeight = CGRectGetMaxY(_bannerAdView.frame);
     }
-    float bannerHeight = CGRectGetMaxY(_bannerAdView.frame);
     
 	[_headerView displayProfile:profile];
 	_headerView.frame = CGRectMake(0,bannerHeight,320, _headerView.bounds.size.height);
