@@ -122,7 +122,7 @@
         _nameLabel.minimumFontSize = 14;
         _nameLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_nameLabel];
-        _nameLabel.text = profile.displayName;
+        _nameLabel.text = [profile.displayName uppercaseString];
         
         _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _locationLabel.textColor = RGBCOLOR(130,130,130);
@@ -170,9 +170,9 @@
     _profileImageView.frame = CGRectInset(_profileImageOverlay.frame,3,3);
     
     int numBadges = [_badgeImageViews count];
-    _nameLabel.frame = CGRectMake(55,15,60,15);
+    _nameLabel.frame = CGRectMake(55,12,60,20);
     [_nameLabel sizeToFit];
-    _nameLabel.frame = CGRectMake(55,15,MIN(_nameLabel.bounds.size.width, 60-(15*numBadges)),15);
+    _nameLabel.frame = CGRectMake(55,12,MIN(_nameLabel.bounds.size.width, 60-(15*numBadges)),20);
     float badgeX = CGRectGetMaxX(_nameLabel.frame) + 3;
     for (UIView* badgeView in _badgeImageViews) {
         badgeView.frame = CGRectMake(badgeX, 15, 12, 12);

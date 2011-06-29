@@ -50,6 +50,7 @@
 	_nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(72, 9, 250, 40)];
 	_nameLabel.backgroundColor = [UIColor clearColor];
 	_nameLabel.font = kGTIOFetteFontOfSize(36);
+    _nameLabel.minimumFontSize = 24;
 	_nameLabel.textColor = [UIColor whiteColor];
 	[self addSubview:_nameLabel];
 	
@@ -125,7 +126,6 @@
     }
     NSLog(@"profile icon url = %@",[profile profileIconURL]);
 	_nameLabel.text = [profile.displayName uppercaseString];
-	[_nameLabel setNeedsDisplay];
 	_locationLabel.text = profile.location;
 	[_locationLabel setNeedsDisplay];
     
@@ -135,11 +135,17 @@
     [_badgeImageViews release];
     _badgeImageViews = [NSMutableArray new];
     
-    float x = [_nameLabel.text sizeWithFont:_nameLabel.font].width + _nameLabel.frame.origin.x;
+    int numberOfBadges = [profile.badges count];
+    float badgeWidthIncludingPadding = 34;
+    float maxNameLabelWidth = 210 - (badgeWidthIncludingPadding*numberOfBadges);
+    float width = [_nameLabel.text sizeWithFont:_nameLabel.font].width;
+    _nameLabel.frame = CGRectMake(72, 9, MIN(width, maxNameLabelWidth), 40);
+    [_nameLabel setNeedsDisplay];
+    float x = CGRectGetMaxX(_nameLabel.frame);
     float y = 2;
     for (GTIOBadge* badge in profile.badges) {
         TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(x,y,48,48)] autorelease];
-        x += 34;
+        x += badgeWidthIncludingPadding;
         imageView.backgroundColor = [UIColor clearColor];
         imageView.urlPath = badge.imgURL;
         [self addSubview:imageView];
@@ -148,7 +154,7 @@
 
     
     if ([[profile isBranded] boolValue]) {
-        self.frame = CGRectMake(0,self.frame.origin.y,self.bounds.size.width,85);
+        self.frame = CGRectMake(0,self.frame.origin.y,self.bounds.size.width,88);
         _profilePictureFrame.image = [UIImage imageNamed:@"profile-icon-overlay-verified-110.png"];
         [_profilePictureFrame setFrame:CGRectMake(4,4,63,80)];
         [self addSubview:_backgroundOverlay];
