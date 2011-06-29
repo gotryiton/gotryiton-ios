@@ -187,7 +187,7 @@ static GTIOUser* gCurrentUser = nil;
     
     [userMapping mapRelationship:@"alert" withObjectMapping:alertMapping];
     [userMapping mapKeyPath:@"user.badges" toRelationship:@"badges" withObjectMapping:badgeMapping];
-    userMapping.setNilForMissingAttributes = NO;
+    userMapping.setDefaultValueForMissingAttributes = NO;
     userMapping.setNilForMissingRelationships = NO;
     
     return userMapping;
