@@ -10,19 +10,14 @@
 #import "GTIOUser.h"
 #import "GTIOOpinionRequestSession.h"
 #import "GTIOBarButtonItem.h"
+#import "GTIOHeaderView.h"
 
 static int const kOverlayViewTag = 9999;
 
 @implementation GTIOGetAnOpinionViewController
 
-- (id)init {
-	if (self = [super init]) {
-		self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"get an opinion" 
-														 image:TTSTYLEVAR(getAnOpinionTabBarImage) 
-														   tag:0] autorelease];
-	}
-	
-	return self;
+- (void)setupTitleView {
+    self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"UPLOAD"];
 }
 
 - (void)loadView {
@@ -30,7 +25,7 @@ static int const kOverlayViewTag = 9999;
 	
 	[self.navigationController setNavigationBarHidden:NO animated:NO];
 
-	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(getAnOpinionOverlayTitleImage)] autorelease];
+	[self setupTitleView];
 	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel"
 																			 target:nil 
 																			 action:nil] autorelease];
@@ -39,7 +34,7 @@ static int const kOverlayViewTag = 9999;
 	[backgroundImageButton setImage:TTSTYLEVAR(stepsBackgroundImage) forState:UIControlStateNormal];
 	[backgroundImageButton setImage:TTSTYLEVAR(stepsBackgroundImage) forState:UIControlStateHighlighted];
 	[backgroundImageButton addTarget:self action:@selector(getStartedButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-	backgroundImageButton.frame = CGRectOffset(TTScreenBounds(), 0, -20 - 44); // Status Bar + Navigation Bar
+	backgroundImageButton.frame = self.view.bounds;
 	[self.view addSubview:backgroundImageButton];
 	
 	UIButton* getStartedButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -47,7 +42,7 @@ static int const kOverlayViewTag = 9999;
 	[getStartedButton setImage:TTSTYLEVAR(getStartedButtonImageHighlighted) forState:UIControlStateHighlighted];
 	[getStartedButton sizeToFit];
 	[getStartedButton addTarget:self action:@selector(getStartedButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-	getStartedButton.frame = CGRectMake(10, 310, 300, 50);
+	getStartedButton.frame = CGRectMake(8, 361, 304, 48);
 	[self.view addSubview:getStartedButton];		
 }
 
@@ -64,8 +59,10 @@ static int const kOverlayViewTag = 9999;
 			overlayView.tag = kOverlayViewTag;
 			[self.view addSubview:overlayView];			
 			[overlayView release];
+            self.navigationItem.titleView = nil;
 		}
 	} else {
+        [self setupTitleView];
 		[[self.view viewWithTag:kOverlayViewTag] removeFromSuperview];
 	}
 }

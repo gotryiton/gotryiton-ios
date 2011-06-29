@@ -45,7 +45,7 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 }
 
 - (UIImage*)stepsBackgroundImage {
-	return [UIImage imageNamed:@"steps.png"];
+	return [UIImage imageNamed:@"upload-intro.png"];
 }
 
 - (UIImage*)modalBackgroundImage {
@@ -154,11 +154,11 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 }
 
 - (UIImage*)getStartedButtonImageNormal {
-	return [UIImage imageNamed:@"getanopionion_getstarted_button.png"];
+	return [UIImage imageNamed:@"upload-get-started-OFF.png"];
 }
 
 - (UIImage*)getStartedButtonImageHighlighted {
-	return [UIImage imageNamed:@"getanopionion_getstarted_button_active.png"];
+	return [UIImage imageNamed:@"upload-get-started-ON.png"];
 }
 
 - (UIFont*)tableHeaderPlainFont {
@@ -182,11 +182,11 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 }
 
 - (UIImage*)createMyOutfitPageButtonImageNormal {
-	return [UIImage imageNamed:@"getanopionion_createmyoutfit_button.png"];
+	return [UIImage imageNamed:@"upload-create-my-outfit-OFF.png"];
 }
 
 - (UIImage*)createMyOutfitPageButtonImageHighlighted {
-	return [UIImage imageNamed:@"getanopionion_createmyoutfit_button_active.png"];
+	return [UIImage imageNamed:@"upload-create-my-outfit-ON.png"];
 }
 
 - (TTStyle*)greyText {

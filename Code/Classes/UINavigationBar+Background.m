@@ -7,6 +7,8 @@
 //
 /// UINavigationController+Background overides the drawrect for the UINavigationBar to include a custom background image
 
+#import "SupersequentImplementation.h"
+
 @implementation UINavigationBar (Background)
 
 - (void)drawRect:(CGRect)rect  
@@ -15,7 +17,16 @@
     UIImage *image = [UIImage imageNamed:@"navbar.png"];  
     TTBaseNavigator* navigator = [TTNavigator globalNavigator];
     NSLog(@"top view controller: %@",[(TTNavigationController*)navigator.rootViewController viewControllers]);
-    if ([[[(TTNavigationController*)navigator.rootViewController viewControllers] lastObject] isKindOfClass:NSClassFromString(@"GTIOOutfitViewController")]) {
+    UIViewController* viewController = [[(TTNavigationController*)navigator.rootViewController viewControllers] lastObject];
+    NSLog(@"Modal View Controller: %@", viewController.modalViewController);
+    while (viewController.modalViewController) {
+        viewController = viewController.modalViewController;
+    }
+    if ([viewController  isKindOfClass:NSClassFromString(@"UIImagePickerController")]) {
+        invokeSupersequent(rect);
+        return;
+    }
+    if ([viewController isKindOfClass:NSClassFromString(@"GTIOOutfitViewController")]) {
         image = [UIImage imageNamed:@"outfit-navbar.png"];
     }
 	[image drawInRect:rect];

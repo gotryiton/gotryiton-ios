@@ -17,6 +17,8 @@
 	view.textColor = [UIColor whiteColor];
 	view.font = kGTIOFetteFontOfSize(24);
 	view.backgroundColor = [UIColor clearColor];
+    view.shadowColor = RGBCOLOR(136,136,136);
+    view.shadowOffset = CGSizeMake(0,-1);
 	[view sizeToFit];
 	return view;
 }
