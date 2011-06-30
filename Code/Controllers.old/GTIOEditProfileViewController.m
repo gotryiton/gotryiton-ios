@@ -522,6 +522,15 @@
 	[self showLoading];
 }
 
+- (void)dismiss {
+    if(_isNew) {
+        [self dismissModalViewControllerAnimated:NO];
+        TTOpenURL(@"gtio://pushStylists");
+    } else {
+        [self dismissModalViewControllerAnimated:YES];
+    }
+}
+
 - (void)updateFinished:(GTIOUpdateUserRequest*)updateRequest {
 	[updateRequest autorelease];
 	[self hideLoading];
@@ -549,12 +558,12 @@
 	
 	[[GTIOUser currentUser] digestProfileInfo:json];
 	
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismiss];
 }
 
 - (void)cancelButtonWasPressed:(id)sender {
 	[self dismissKeyboard];
-	[self dismissModalViewControllerAnimated:YES];
+    [self dismiss];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {

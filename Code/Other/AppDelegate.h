@@ -11,6 +11,7 @@
 @interface AppDelegate : NSObject <UIApplicationDelegate, RKObjectLoaderDelegate> {
     NSURL* _launchURL;
 	NSDate* _lastWentInactiveAt;
+    BOOL _showStylistPush;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

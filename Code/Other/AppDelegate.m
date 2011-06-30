@@ -43,6 +43,7 @@
 #import "GTIOTopRightBarButton.h"
 #import "GTIOExtraProfileRow.h"
 #import "GTIOStylistsQuickLook.h"
+#import "GTIOPushPersonalStylistsViewController.h"
 
 @interface AppDelegate (Private)
 
@@ -62,7 +63,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
     RKLogConfigureByName("RestKit/*", RKLogLevelError);
-//    RKLogConfigureByName("RestKit/Network/*", RKLogLevelTrace);
+    RKLogConfigureByName("RestKit/Network/*", RKLogLevelTrace);
     
     RKObjectMappingProvider* provider = [[[RKObjectMappingProvider alloc] init] autorelease];
     
@@ -323,6 +324,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [map from:@"gtio://stylists" toViewController:NSClassFromString(@"GTIOMyStylistsTableViewController")];
     [map from:@"gtio://stylists/edit" toViewController:NSClassFromString(@"GTIOMyStylistsTableViewController") selector:@selector(initWithEditEnabled)];
     [map from:@"gtio://stylists/add" toViewController:NSClassFromString(@"GTIOAddStylistsViewController")];
+    [map from:@"gtio://pushStylists" toModalViewController:[GTIOPushPersonalStylistsViewController class]];
 	
 	// step1/next for the current next
 	// cancel will drop it anywhere
@@ -371,6 +373,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 											   object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin:) name:kGTIOUserDidLoginNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout:) name:kGTIOUserDidLogoutNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidStartLogin:) name:kGTIOUserDidBeginLoginProcess object:nil];
 	
 	// Handle Launch Options
 	if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]) {
@@ -476,6 +479,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (user.token) {
         [user resumeSession];
     } else {
+        _showStylistPush = YES;
         // This doesn't actually log us in, it just loads the globals.
         // This was sort of overlooked when we removed the /status call.
         [user resumeSession];
@@ -488,7 +492,17 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 #pragma mark User Login
 
+- (void)userDidStartLogin:(NSNotification*)note {
+    _showStylistPush = YES;
+}
+
 - (void)userDidLoginWithIncompleteProfile:(NSNotification*)notification {
+    _showStylistPush = NO;
+    UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];
+    if (nil == home.parentViewController) {
+        // If it's not on the stack, open it.
+        TTOpenURL(@"gtio://home");
+    }
     // Wait for other navigations to finish
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
   	// Trigger display of the 'Almost Done' screen
@@ -501,6 +515,11 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (nil == home.parentViewController) {
         // If it's not on the stack, open it.
         TTOpenURL(@"gtio://home");
+    }
+    if (_showStylistPush) {
+        // Wait for other navigations to finish
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+        TTOpenURL(@"gtio://pushStylists");
     }
     [self handleLaunchURL];
 }

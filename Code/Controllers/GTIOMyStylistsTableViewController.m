@@ -334,4 +334,16 @@
     }
 }
 
+- (void)showEmpty:(BOOL)show {
+    if (show) {
+        UIView* emptyView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+        UIImageView* imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pspush.png"]] autorelease];
+        [emptyView addSubview:imageView];
+        emptyView.clipsToBounds = YES;
+        self.emptyView = emptyView;
+    } else {
+        self.emptyView = nil;
+    }
+}
+
 @end

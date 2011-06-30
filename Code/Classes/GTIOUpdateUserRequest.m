@@ -58,6 +58,7 @@
 
 - (void)requestDidFinishLoad:(TTURLRequest*)request {
 	NSLog(@"User Name: %@", [GTIOUser currentUser].username);
+//    NSLog(@"Response :%@", [[[NSString alloc] initWithData:[(TTURLDataResponse*)request.response data] encoding:NSUTF8StringEncoding] autorelease]);
 	[_delegate performSelector:_selector withObject:self];
 }
 

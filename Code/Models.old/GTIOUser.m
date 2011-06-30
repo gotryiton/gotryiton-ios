@@ -515,10 +515,10 @@ static GTIOUser* gCurrentUser = nil;
     [self didStopLogin];
     
     if (self.UID) {
-        self.loggedIn = YES;
         if ([self.showAlmostDoneScreen boolValue]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginWithIncompleteProfileNotificationName object:self];
         }
+        self.loggedIn = YES;
     } else if ([self.auth boolValue] == false) {
         [self didStopLogin];
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLogoutNotificationName object:self];
