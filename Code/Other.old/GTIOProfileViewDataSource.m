@@ -112,7 +112,7 @@
         [self addSubview:_profileImageView];
         
         _profileImageOverlay = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _profileImageOverlay.image = [UIImage imageNamed:@"icon-overlay-110.png"];
+        _profileImageOverlay.image = [UIImage imageNamed:@"icon-overlay-76.png"];
         [self addSubview:_profileImageOverlay];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];

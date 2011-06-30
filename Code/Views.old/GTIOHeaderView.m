@@ -24,7 +24,7 @@
 }
 
 - (void)drawTextInRect:(CGRect)rect {
-	[super drawTextInRect:CGRectOffset(rect, 0, 2)];
+	[super drawTextInRect:CGRectOffset(rect, 0, 2-1)];
 }
 
 @end

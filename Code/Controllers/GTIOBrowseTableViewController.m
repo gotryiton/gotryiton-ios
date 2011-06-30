@@ -232,13 +232,17 @@
     return delegate;
 }
 
-- (void)createModel {
-	NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_queryText, @"query", nil]; // note, query text is usually nil. only used if we are searching.
-	
+- (RKObjectLoader*)objectLoader {
     RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:_apiEndpoint delegate:nil];
-    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_queryText, @"query", nil]; // note, query text is usually nil. only used if we are searching.
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
     objectLoader.method = RKRequestMethodPOST;
     objectLoader.cacheTimeoutInterval = 60*5; // 5 minutes
+    return objectLoader;
+}
+
+- (void)createModel {
+    RKObjectLoader* objectLoader = [self objectLoader];
     GTIOBrowseListTTModel* model = [GTIOBrowseListTTModel modelWithObjectLoader:objectLoader];
     
     TTListDataSource* temporaryDataSource = [TTListDataSource dataSourceWithObjects:nil];

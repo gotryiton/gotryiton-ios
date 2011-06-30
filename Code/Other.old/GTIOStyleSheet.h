@@ -40,8 +40,6 @@ TWTPickerControl* emailPickerForUser(GTIOUser* user);
 @property (nonatomic, readonly) UIColor* patternedPhotoBackgroundColor;
 @property (nonatomic, readonly) UIImage* blurButtonOffStateImage;
 @property (nonatomic, readonly) UIImage* blurButtonOnStateImage;
-@property (nonatomic, readonly) UIImage* newProfileHeaderImage;
-@property (nonatomic, readonly) UIImage* editProfileHeaderImage;
 @property (nonatomic, readonly) UIImage* getStartedButtonImageNormal;
 @property (nonatomic, readonly) UIImage* getStartedButtonImageHighlighted;
 @property (nonatomic, readonly) UIImage* tellUsAboutItTitleImage;

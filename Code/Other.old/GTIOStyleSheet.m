@@ -93,10 +93,6 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 	return [UIImage imageNamed:@"get.png"];
 }
 
-- (UIImage*)getAnOpinionTitleImage {
-	return [UIImage imageNamed:@"get-an-opinion.png"];
-}
-
 - (UIImage*)getAnOpinionOverlayTitleImage {
 	return [UIImage imageNamed:@"GET-header.png"];
 }
@@ -143,14 +139,6 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 
 - (UIImage*)blurButtonOnStateImage {
 	return [UIImage imageNamed:@"blur-on.png"];
-}
-
-- (UIImage*)newProfileHeaderImage {
-	return [UIImage imageNamed:@"new-profile.png"];
-}
-
-- (UIImage*)editProfileHeaderImage {
-	return [UIImage imageNamed:@"edit-profile.png"];
 }
 
 - (UIImage*)getStartedButtonImageNormal {

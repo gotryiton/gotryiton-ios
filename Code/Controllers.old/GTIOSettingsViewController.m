@@ -10,6 +10,7 @@
 #import "GTIOUser.h"
 #import "GTIOUpdateUserRequest.h"
 #import "TWTAlertViewDelegate.h"
+#import "GTIOHeaderView.h"
 
 static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 
@@ -47,7 +48,7 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 
 - (void)loadView {
 	[super loadView];
-	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settings.png"]] autorelease];
+	self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"SETTINGS"];
 	TTOpenURL(@"gtio://analytics/trackUserDidViewSettings");
     UIBarButtonItem* signoutItem = [[GTIOBarButtonItem alloc] initWithTitle:@"sign out" target:self action:@selector(signOutButtonWasPressed:)];
     self.navigationItem.rightBarButtonItem = signoutItem;

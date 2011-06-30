@@ -44,8 +44,15 @@
     TTOpenURL(@"gtio://whoIStyle");
 }
 
+- (RKObjectLoader*)objectLoader {
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:_apiEndpoint delegate:nil];
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+    objectLoader.method = RKRequestMethodPOST;
+//    objectLoader.cacheTimeoutInterval = 60*5; // 5 minutes
+    return objectLoader;
+}
+
 - (void)createModel {
-    _queryText = nil;
     [super createModel];
 }
 

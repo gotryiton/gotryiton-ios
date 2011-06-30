@@ -14,6 +14,7 @@
 #import "GTIOBarButtonItem.h"
 #import "GTIODropShadowSectionTableViewDelegate.h"
 #import "GTIOUserMiniProfileHeaderView.h"
+#import "GTIOHeaderView.h"
 
 @interface GTIOWhoIStyleTableItem : TTTableImageItem {
     GTIOProfile* _profile;
@@ -183,6 +184,7 @@
 - (void)loadView {
     [super loadView];
     self.title = @"who I style";
+    self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"who I style"];
     UIImage* settingsButtonImage = [UIImage imageNamed:@"settingsBarButton.png"];
     GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)];
     [self.navigationItem setRightBarButtonItem:item];

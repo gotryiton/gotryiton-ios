@@ -61,7 +61,7 @@
 	_whereYouAreGoingPicker.font = [UIFont boldSystemFontOfSize:14];
 	_whereYouAreGoingPicker.placeholderText = @"select option";
 	_whereYouAreGoingPicker.toolbar.tintColor = TTSTYLEVAR(navigationBarTintColor);
-	UIImageView* titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"something-like.png"]] autorelease];
+	UIImageView* titleView = [GTIOHeaderView viewWithText:@"SOMETHING LIKE"];
 	_whereYouAreGoingPicker.titleView = titleView;
 	_whereYouAreGoingPicker.doneButton.title = @"done";
 	_whereYouAreGoingPicker.nextButton.title = @"next";

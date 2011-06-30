@@ -13,6 +13,7 @@
 #import "GTIOUpdateUserRequest.h"
 #import "GTIOControlTableViewVarHeightDelegate.h"
 #import "GTIOBarButtonItem.h"
+#import "GTIOHeaderView.h"
 
 @interface GTIOEditProfileTableImageItem : TTTableImageItem
 @end
@@ -393,13 +394,13 @@
     [goButton release];
 	
 	// Title Image
-	UIImage* titleImage = nil;
+	NSString* title = nil;
 	if (_isNew) {
-		titleImage = TTSTYLEVAR(newProfileHeaderImage);
+		title = @"NEW PROFILE";
 	} else {
-		titleImage = TTSTYLEVAR(editProfileHeaderImage);
+		title = @"EDIT PROFILE";
 	}
-	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:titleImage] autorelease];
+	self.navigationItem.titleView = [GTIOHeaderView viewWithText:title];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
