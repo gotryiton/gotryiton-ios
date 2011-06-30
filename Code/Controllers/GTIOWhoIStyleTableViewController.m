@@ -115,6 +115,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self.textLabel setFrame:CGRectZero];
+    self.contentView.frame = CGRectOffset(self.contentView.frame, 0, -5);
     _backgroundImage.frame = CGRectMake(12,12,self.contentView.frame.size.width-24,self.contentView.frame.size.height-12);
     [_alertSwitch sizeToFit];
     _alertTextLabel.frame = CGRectMake(26,67,50,20);
@@ -190,7 +191,7 @@
 
 - (id)createDelegate {
     GTIODropShadowSectionTableViewDelegate* delegate = [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
-    delegate.footerHeight = 12.0f;
+    delegate.footerHeight = 8.0f;
     return delegate;
 }
 

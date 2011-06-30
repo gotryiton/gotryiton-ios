@@ -18,7 +18,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (tableView.numberOfSections > 1) {
+    if (tableView.numberOfSections > 1 && _footerHeight == 0) {
         return 5;
     }
     return _footerHeight;

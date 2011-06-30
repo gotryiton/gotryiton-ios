@@ -19,7 +19,7 @@
 	NSString* const kGTIOEnvironmentName = @"development";
 	NSString* const kGTIOBaseURLString = @"http://www.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
-    NSString* const kGTIOFlurryAPIKey = @"CJ5AC5DU3YPZ3YJ6E7ES";
+    NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString* const kGTIOFacebookAppID = @"134143416622354";
 #endif 
 
@@ -27,7 +27,7 @@
 	NSString* const kGTIOEnvironmentName = @"staging";
 	NSString* const kGTIOBaseURLString = @"http://iphonedev.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
-    NSString* const kGTIOFlurryAPIKey = @"CJ5AC5DU3YPZ3YJ6E7ES";
+    NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString* const kGTIOFacebookAppID = @"134143416622354";
 #endif
 
