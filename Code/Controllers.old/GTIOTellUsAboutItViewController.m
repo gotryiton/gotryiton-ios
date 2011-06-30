@@ -14,6 +14,8 @@
 #import <TTSectionedDataSource+TWTAdditions.h>
 #import "GTIOControlTableViewVarHeightDelegate.h"
 
+@class GTIOGetAnOpinionViewController;
+
 @implementation GTIOTellUsAboutItViewController
 
 @synthesize opinionRequest = _opinionRequest;
@@ -83,16 +85,11 @@
 		}
 		_tellUsMoreAboutItTextView.text = self.opinionRequest.tellUsMoreAboutIt;
 		
-//		// Cancel button (only necessary when there is not a preview screen)
-//		// TODO: This does not hold up! Could have only one photo if you delete the second photo out of the preview screen
-//		// In this case you will be popped back to the root, but you cannot go back to preview screen
-//		if (1 == [self.opinionRequest.photos count]) {
-//			UIBarButtonItem* cancelButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" 
-//																			  
-//																			 target:self 
-//																			 action:@selector(cancelButtonWasTouched:)] autorelease];
-//			self.navigationItem.leftBarButtonItem = cancelButton;
-//		}
+        UIBarButtonItem* cancelButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" 
+                                                                          
+                                                                         target:self 
+                                                                         action:@selector(cancelButtonWasTouched:)] autorelease];
+        self.navigationItem.leftBarButtonItem = cancelButton;
 	}
 	
 	return self;
@@ -215,8 +212,13 @@
 }
 
 - (void)cancelButtonWasTouched:(id)sender {
-	[self.opinionRequest.photos removeAllObjects];
-	[self.navigationController popToRootViewControllerAnimated:YES];
+    // if we are poping back to the 1. take a picture view
+    // then don't remove all objects.
+    UIViewController* vc = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers indexOfObject:self] - 1];
+    if ([vc isKindOfClass:[GTIOGetAnOpinionViewController class]]) {
+        [self.opinionRequest.photos removeAllObjects];
+    }
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)picker:(TWTPickerControl*)picker nextButtonWasTouched:(id)sender {

@@ -74,16 +74,16 @@ void uncaughtExceptionHandler(NSException *exception) {
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"text", @"text")];
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"agreeVotes", @"agreeVotes")];
     [reviewMapping addAttributeMapping:RKObjectAttributeMappingMake(@"flags", @"flags")];
-    [provider setMapping:reviewMapping forKeyPath:@"reviews"];
-    [provider setMapping:reviewMapping forKeyPath:@"review"];
+    [provider setObjectMapping:reviewMapping forKeyPath:@"reviews"];
+    [provider setObjectMapping:reviewMapping forKeyPath:@"review"];
     
     RKObjectMapping* adMapping = [RKObjectMapping mappingForClass:[GTIOBannerAd class]];
     [adMapping mapAttributes:@"height", @"width", @"clickUrl", @"bannerImageUrlLarge", @"bannerImageUrlSmall", nil];
-    [provider setMapping:adMapping forKeyPath:@"bannerAd"];
+    [provider setObjectMapping:adMapping forKeyPath:@"bannerAd"];
     
     RKObjectMapping* topRightButtonMapping = [RKObjectMapping mappingForClass:[GTIOTopRightBarButton class]];
     [topRightButtonMapping mapAttributes:@"text", @"url", nil];
-    [provider setMapping:topRightButtonMapping forKeyPath:@"topRightBtn"];
+    [provider setObjectMapping:topRightButtonMapping forKeyPath:@"topRightBtn"];
     
     RKObjectMapping* extraProfileRowMapping = [RKObjectMapping mappingForClass:[GTIOExtraProfileRow class]];
     [extraProfileRowMapping mapAttributes:@"text", @"api", nil];
@@ -101,7 +101,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"wear4", @"wear4")];
     [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"pending", @"pending")];
     [votingResultsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"winning", @"winningOutfit")];
-    [provider setMapping:votingResultsMapping forKeyPath:@"votingResults"];
+    [provider setObjectMapping:votingResultsMapping forKeyPath:@"votingResults"];
     
     RKObjectMapping* outfitMapping = [RKObjectMapping mappingForClass:[GTIOOutfit class]];
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"outfitID", @"outfitID")];
@@ -128,7 +128,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user", @"user")];
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isNew",@"isNew")];
     [outfitMapping addAttributeMapping:RKObjectAttributeMappingMake(@"photos", @"photos")];
-    [provider setMapping:outfitMapping forKeyPath:@"outfit"];
+    [provider setObjectMapping:outfitMapping forKeyPath:@"outfit"];
     
     RKObjectMapping* badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"type", @"type")];
@@ -142,7 +142,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"profileIcon", @"profileIconURL")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"badgeURLs", @"badgeImageURLs")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"stylistAlertsEnabled", @"stylistRequestAlertsEnabled")];
-    [provider setMapping:profileMapping forKeyPath:@"user"];
+    [provider setObjectMapping:profileMapping forKeyPath:@"user"];
     
     RKObjectMapping* statMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
     [statMapping mapAttributes:@"name", @"value", nil];
@@ -155,11 +155,11 @@ void uncaughtExceptionHandler(NSException *exception) {
     [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"width",@"width")];
     [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"height",@"height")];
     [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"selected",@"selected")];
-    [provider setMapping:userIconOptionMapping forKeyPath:@"userIconOptions"];
+    [provider setObjectMapping:userIconOptionMapping forKeyPath:@"userIconOptions"];
     
     RKObjectMapping* todosBadgeMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
     [todosBadgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"count")];
-    [provider setMapping:todosBadgeMapping forKeyPath:@"todosBadge"];
+    [provider setObjectMapping:todosBadgeMapping forKeyPath:@"todosBadge"];
     
     RKObjectMapping* browseListMapping = [RKObjectMapping mappingForClass:[GTIOBrowseList class]];
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
@@ -169,11 +169,11 @@ void uncaughtExceptionHandler(NSException *exception) {
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"includeAlphaNav", @"includeAlphaNav")];
     [browseListMapping addAttributeMapping:RKObjectAttributeMappingMake(@"searchApi", @"searchAPI")];
     
-    [provider setMapping:browseListMapping forKeyPath:@"list"];
+    [provider setObjectMapping:browseListMapping forKeyPath:@"list"];
     
     RKObjectMapping* stylistsQuickLookMapping = [RKObjectMapping mappingForClass:[GTIOStylistsQuickLook class]];
     [stylistsQuickLookMapping mapAttributes:@"thumbs", @"text", nil];
-    [provider setMapping:stylistsQuickLookMapping forKeyPath:@"user.stylistsQuickLook"];
+    [provider setObjectMapping:stylistsQuickLookMapping forKeyPath:@"user.stylistsQuickLook"];
     
     RKObjectMapping* sectionMapping = [RKObjectMapping mappingForClass:[GTIOListSection class]];
     [sectionMapping mapAttributes:@"title", nil];
@@ -199,14 +199,14 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     RKObjectMapping* errorMapping = [RKObjectMapping mappingForClass:[RKErrorMessage class]];
     [errorMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"errorMessage")];
-    [provider setMapping:errorMapping forKeyPath:@"error"];
+    [provider setObjectMapping:errorMapping forKeyPath:@"error"];
     
     RKObjectMapping* responseMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
     [responseMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"response")];
-    [provider setMapping:responseMapping forKeyPath:@"response"];
+    [provider setObjectMapping:responseMapping forKeyPath:@"response"];
     
     RKObjectMapping* notificationMapping = [GTIONotification notificationMapping];
-    [provider setMapping:notificationMapping forKeyPath:@"notifications"];
+    [provider setObjectMapping:notificationMapping forKeyPath:@"notifications"];
     
     RKObjectMapping* stylistRelationshipMapping = [RKObjectMapping mappingForClass:[GTIOStylistRelationship class]];
     [stylistRelationshipMapping mapAttributes:@"isMyStylist", @"isMyStylistIgnored", @"iStyle", @"iStyleIgnored", nil];
