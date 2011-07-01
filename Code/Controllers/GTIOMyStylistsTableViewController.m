@@ -336,11 +336,22 @@
 
 - (void)showEmpty:(BOOL)show {
     if (show) {
-        UIView* emptyView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
         UIImageView* imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pspush.png"]] autorelease];
-        [emptyView addSubview:imageView];
-        emptyView.clipsToBounds = YES;
-        self.emptyView = emptyView;
+        
+        UIButton* invisibleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        invisibleButton.frame = imageView.bounds;
+        [invisibleButton addTarget:self action:@selector(addButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [imageView addSubview:invisibleButton];
+        
+        UIButton* addButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        [addButton setImage:[UIImage imageNamed:@"pspush-add-button-OFF.png"] forState:UIControlStateNormal];
+        [addButton setImage:[UIImage imageNamed:@"pspush-add-button-ON.png"] forState:UIControlStateHighlighted];
+        [addButton addTarget:self action:@selector(addButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        addButton.frame = CGRectMake(8,self.view.bounds.size.height - 54, 304, 48);
+        [imageView addSubview:addButton];
+        self.emptyView = imageView;
+        [self.view addSubview:imageView];
+        imageView.frame = self.view.bounds;
     } else {
         self.emptyView = nil;
     }

@@ -52,5 +52,8 @@ NSString* GTIORestResourcePath(NSString* string);
 
 extern NSUInteger const kGTIOPaginationLimit;
 
+// Logging
+extern NSUInteger const kGTIONetworkLogLevel;
+
 
 RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute);
