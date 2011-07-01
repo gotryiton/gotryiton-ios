@@ -598,7 +598,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Let's assume that they will give us a tturl to open for now.
 	NSString* url = [[aps objectForKey:@"loc-args"] objectForKey:@"url"];
 	if (url) {
-		TTOpenURL(@"gtio://home");
 		TTOpenURL(url);
 	}
 }

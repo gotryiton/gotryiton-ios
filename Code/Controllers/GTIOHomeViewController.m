@@ -273,16 +273,14 @@
         return;
     }
     _notificationsVisible = YES;
-    if (nil == _notificationsController) {
-        _notificationsController = [[GTIONotificationsOverlayViewController alloc] initWithStyle:UITableViewStylePlain];
-        _notificationsController.view.frame = CGRectMake(0, _notificationsButton.bounds.size.height - 10, self.view.bounds.size.width, self.view.bounds.size.height - _notificationsButton.bounds.size.height + 15);
-        [_notificationsContainer addSubview:_notificationsController.view];
-    } else {
-        [_notificationsController invalidateModel];
-    }
+    _notificationsController = [[GTIONotificationsOverlayViewController alloc] initWithStyle:UITableViewStylePlain];
+    _notificationsController.view.frame = CGRectMake(0, _notificationsButton.bounds.size.height - 10, self.view.bounds.size.width, self.view.bounds.size.height - _notificationsButton.bounds.size.height + 15);
+    [_notificationsContainer addSubview:_notificationsController.view];
+        
     [_notificationsController viewWillAppear:YES];
     [UIView beginAnimations:nil context:nil];
     _notificationsContainer.frame = CGRectMake(0,-5,320, 465);
+    _notificationsController.view.frame = CGRectMake(0,39,320,426);
     _closeNotificationsButton.hidden = NO;
     [UIView commitAnimations];
     [_notificationsController viewDidAppear:YES];
@@ -294,6 +292,9 @@
     _notificationsContainer.frame = CGRectMake(0,421,320, 465);
     _closeNotificationsButton.hidden = YES;
     [UIView commitAnimations];
+    [_notificationsController.view removeFromSuperview];
+    [_notificationsController release];
+    _notificationsController = nil;
 }
 
 @end

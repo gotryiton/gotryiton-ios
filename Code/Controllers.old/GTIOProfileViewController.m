@@ -157,8 +157,8 @@
         TWTURLButton* button = [TWTURLButton buttonWithType:UIButtonTypeCustom];
         TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0,
                                                                                0,
-                                                                               [bannerAd.width floatValue]/2,
-                                                                               [bannerAd.height floatValue]/2)];
+                                                                               320,
+                                                                               50)];
         imageView.exclusiveTouch = NO;
         imageView.userInteractionEnabled = YES;
         button.frame = imageView.bounds;

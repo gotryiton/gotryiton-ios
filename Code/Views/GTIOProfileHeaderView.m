@@ -121,6 +121,11 @@
         }
         
     }
+    
+    // Make the tap target for this button larger
+    _editProfileButton.frame = CGRectInset(_editProfileButton.frame, -20, -100);
+    _editProfileButton.contentEdgeInsets = UIEdgeInsetsMake(50,10,50,10);
+    
     if ([profile profileIconURL]) {
         [_profilePictureImageView setUrlPath:[profile profileIconURL]];
     }

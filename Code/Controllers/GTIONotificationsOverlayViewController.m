@@ -30,7 +30,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         self.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-        _mySeparatorView = [[[UIView alloc] initWithFrame:CGRectMake(0,-1,0,1)] autorelease];
+        _mySeparatorView = [[[UIView alloc] initWithFrame:CGRectMake(0,0,0,1)] autorelease];
         _mySeparatorView.backgroundColor = RGBCOLOR(225,225,225);
         _mySeparatorView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
         [self.backgroundView addSubview:_mySeparatorView];

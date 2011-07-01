@@ -4445,6 +4445,7 @@
 		3F8E235E13BCEECC00BBD2EE /* pspush@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pspush@2x.png"; sourceTree = "<group>"; };
 		3F8E237F13BCF29B00BBD2EE /* GTIOPushPersonalStylistsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPushPersonalStylistsViewController.h; sourceTree = "<group>"; };
 		3F8E238013BCF29B00BBD2EE /* GTIOPushPersonalStylistsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPushPersonalStylistsViewController.m; sourceTree = "<group>"; };
+		3F8E238D13BE188500BBD2EE /* Info_Staging.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info_Staging.plist; path = Resources/Info_Staging.plist; sourceTree = "<group>"; };
 		3F906B341396A83E008EC414 /* add-stylists-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-stylists-OFF.png"; sourceTree = "<group>"; };
 		3F906B351396A83E008EC414 /* add-stylists-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-stylists-OFF@2x.png"; sourceTree = "<group>"; };
 		3F906B361396A83E008EC414 /* add-stylists-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-stylists-ON.png"; sourceTree = "<group>"; };
@@ -5648,6 +5649,7 @@
 		258518B6135358CD005DCBA5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3F8E238D13BE188500BBD2EE /* Info_Staging.plist */,
 				3FDCD46313B4E3BD0001311A /* Three20.bundle */,
 				3D4CACAA138ABC0000A79EBA /* Fixtures */,
 				A740391C137DCCF50052EF8C /* PNGs */,

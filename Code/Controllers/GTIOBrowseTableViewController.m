@@ -289,7 +289,7 @@
     [_bannerAd release];
     _bannerAd = [_presenter.bannerAd retain];
     [self.view addSubview:_bannerAd];
-    float adHeight = _bannerAd.bounds.size.height;
+    float adHeight = (_bannerAd ? _bannerAd.bounds.size.height : 0);
     
     if (_sortTabs && [_sortTabs count] > 0) {
         [_sortTabBar removeFromSuperview];
