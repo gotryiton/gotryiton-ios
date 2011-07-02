@@ -40,6 +40,7 @@
 - (void)trackUserDidViewShare;
 
 // Other Screens
+- (void)trackUserDidViewWelcomeScreen;
 - (void)trackUserDidViewHomepage;
 - (void)trackUserDidViewSettings;
 - (void)trackUserDidViewLogin;

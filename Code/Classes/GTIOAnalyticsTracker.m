@@ -18,7 +18,6 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 	if (nil == gSharedTracker) {
 		gSharedTracker = [[GTIOAnalyticsTracker alloc] init];
 	}
-	
 	return gSharedTracker;
 }
 
@@ -28,6 +27,21 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 	[self performSelector:selector];
 }
 
+#pragma mark Event Logging Methods
+
+- (void)logEvent:(NSString*)eventName {
+    NSDictionary* parameters = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSNumber numberWithBool:[[GTIOUser currentUser] isLoggedIn]],kUserLoggedInParameterName,
+                                nil];
+    [FlurryAPI logEvent:eventName withParameters:parameters];
+}
+
+- (void)logEvent:(NSString*)eventName withParameters:(NSDictionary*)params {
+    NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithDictionary:params];
+    [parameters setObject:[NSNumber numberWithBool:[[GTIOUser currentUser] isLoggedIn]] forKey:kUserLoggedInParameterName];
+    [FlurryAPI logEvent:eventName withParameters:parameters];
+}
+
 #pragma mark Application Lifecycle
 
 - (NSString*)applicationVersionString {
@@ -35,99 +49,103 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 }
 
 - (void)trackAppDidFinishLaunching {
-    [FlurryAPI logEvent:kAppDidFinishLaunchingEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kAppDidFinishLaunchingEventName];
 }
 
 - (void)trackAppDidBecomeActive {
-    [FlurryAPI logEvent:kAppDidBecomeActiveEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kAppDidBecomeActiveEventName];
 }
 
 #pragma mark User Authentication
 
 - (void)trackUserDidLoginForTheFirstTime {
     [FlurryAPI setUserID:[GTIOUser currentUser].UID];
-    [FlurryAPI logEvent:kUserDidRegisterOniPhoneEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidRegisterOniPhoneEventName];
 }
 
 - (void)trackUserDidLogin {
     [FlurryAPI setUserID:[GTIOUser currentUser].UID];
-    [FlurryAPI logEvent:kUserDidLoginOniPhoneEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidLoginOniPhoneEventName];
 }
 
 - (void)trackUserDidLogout {
-    [FlurryAPI logEvent:kUserDidLogoutOniPhoneEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidLogoutOniPhoneEventName];
 }
 
 #pragma mark Opinion Request
 
 - (void)trackUserDidViewGetStarted {
-    [FlurryAPI logEvent:kUserDidViewGetStartedEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewGetStartedEventName];
 }
 
 - (void)trackUserDidViewTellUsAboutIt {
-    [FlurryAPI logEvent:kUserDidViewTellUsAboutItEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewTellUsAboutItEventName];
 }
 
 - (void)trackUserDidViewShare {
-    [FlurryAPI logEvent:kUserDidViewShareEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewShareEventName];
 }
 
 #pragma mark Other Screens
 
+- (void)trackUserDidViewWelcomeScreen {
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewWelcomeScreenEventName];
+}
+
 - (void)trackUserDidViewHomepage {
-    [FlurryAPI logEvent:kUserDidViewHomepageEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewHomepageEventName];
 }
 
 - (void)trackUserDidViewSettings {
-    [FlurryAPI logEvent:kUserDidViewSettingsTabEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewSettingsTabEventName];
 }
 
 - (void)trackUserDidViewLogin {
-    [FlurryAPI logEvent:kUserDidViewLoginEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewLoginEventName];
 }
 
 - (void)trackUserDidViewContacts {
-    [FlurryAPI logEvent:kUserDidViewAddFromContactsEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewAddFromContactsEventName];
 }
 
 - (void)trackUserDidViewPhotoGuidelines {
-    [FlurryAPI logEvent:kUserDidViewPhotoGuidelinesEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewPhotoGuidelinesEventName];
 }
 
 #pragma mark User Actions
 - (void)trackUserDidApplyBlurMask {
-    [FlurryAPI logEvent:kUserDidApplyBlurMaskEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidApplyBlurMaskEventName];
 }
 
 - (void)trackUserDidTouchCreateMyOutfitPage {
-    [FlurryAPI logEvent:kUserDidTouchCreateMyOutfitPageEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidTouchCreateMyOutfitPageEventName];
 }
 
 - (void)trackUserDidAddContact {
-    [FlurryAPI logEvent:kUserDidAddContactEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidAddContactEventName];
 }
 
 - (void)trackUserDidRemoveContact {
-    [FlurryAPI logEvent:kUserDidRemoveContactEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidRemoveContactEventName];
 }
 
 - (void)trackUserDidTouchGiveAnOpinionFromHomepage {
-    [FlurryAPI logEvent:kUserDidTouchGiveAnOpinionFromHomePageEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidTouchGiveAnOpinionFromHomePageEventName];
 }
 
 - (void)trackUserDidTouchGetAnOpinionFromHomepage {
-    [FlurryAPI logEvent:kUserDiDTouchGetAnOpinionFromHomePageEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDiDTouchGetAnOpinionFromHomePageEventName];
 }
 
 - (void)trackOpinionRequestSubmittedWithInfoDict:(NSDictionary*)info {
-    [FlurryAPI logEvent:kUserDidSubmitOutfitWithParametersEventName withParameters:info];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidSubmitOutfitWithParametersEventName withParameters:info];
 }
 
 #pragma mark Page Views
 
 - (void)trackViewControllerDidAppear:(Class)class {
     NSDictionary* info = [NSDictionary dictionaryWithObject:NSStringFromClass(class) forKey:@"ControllerClass"];
-    [FlurryAPI logEvent:kControllerDidAppearEventName withParameters:info];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kControllerDidAppearEventName withParameters:info];
 }
 
 #pragma mark Simon's Aditions
@@ -135,94 +153,94 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 
 - (void)trackOutfitPageView {
     
-    [FlurryAPI logEvent:kOutfitPageView];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitPageView];
 }
 
 - (void)trackReviewSubmitted {
-    [FlurryAPI logEvent:kReviewSubmitted];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kReviewSubmitted];
 }
 
 - (void)trackShareViaSMS {
-    [FlurryAPI logEvent:kOutfitShareSMS];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitShareSMS];
 }
 
 - (void)trackShareViaEmail {
-    [FlurryAPI logEvent:kOutfitShareEmail];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitShareEmail];
 }
 
 - (void)trackVote:(NSDictionary*)info {
-    [FlurryAPI logEvent:kVoteSubmitted withParameters:info];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kVoteSubmitted withParameters:info];
 }
 
 - (void)trackRecentListPageView {
-    [FlurryAPI logEvent:kRecentListPageView];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kRecentListPageView];
 }
 
 
 - (void)trackPopularListPageView {
-    [FlurryAPI logEvent:kPopularListPageView];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kPopularListPageView];
 }
 
 - (void)trackSearchListPageViewWithQuery:(NSString*)query {
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
                             query, @"query", nil];
-    [FlurryAPI logEvent:kSearch withParameters:params];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kSearch withParameters:params];
 }
 
 - (void)trackProfilePageView {
-    [FlurryAPI logEvent:kProfilePageView];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kProfilePageView];
 }
 
 - (void)trackMyProfilePageView {
-    [FlurryAPI logEvent:kMyProfilePageView];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kMyProfilePageView];
 }
 
 - (void)trackListRefresh {
-    [FlurryAPI logEvent:kAnyListRefresh];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kAnyListRefresh];
 }
 
 - (void)trackOutfitRefresh {
-    [FlurryAPI logEvent:kOutfitRefresh];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitRefresh];
 }
 
 - (void)trackDescriptionExpanded {
-    [FlurryAPI logEvent:kOutfitDescriptionExpand];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitDescriptionExpand];
 }
 
 - (void)trackFullscreen {
-    [FlurryAPI logEvent:kOutfitFullScreen];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitFullScreen];
 }
 
 - (void)trackWhyChangeSubmitted {
-    [FlurryAPI logEvent:kWhyChangeSubmitted];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kWhyChangeSubmitted];
 }
 
 - (void)trackWhyChangeSkipped {
-    [FlurryAPI logEvent:kWhyChangeSkipped];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kWhyChangeSkipped];
 }
 
 - (void)trackOutfitEditButtonPressed {
-    [FlurryAPI logEvent:kOutfitEdit];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitEdit];
 }
 
 - (void)trackOutfitDeleteButtonPressed {
-    [FlurryAPI logEvent:kOutfitDelete];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitDelete];
 }
 
 - (void)trackMakeOutfitPublicWasPressed {
-    [FlurryAPI logEvent:kOutfitPublic];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitPublic];
 }
 
 - (void)trackMakeOutfitPrivateWasPressed {
-    [FlurryAPI logEvent:kOutfitPrivate];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitPrivate];
 }
 
 - (void)trackFlagReview {
-    [FlurryAPI logEvent:kReviewFlag];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kReviewFlag];
 }
 
 - (void)trackAgreeWithReview {
-    [FlurryAPI logEvent:kReviewAgree];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kReviewAgree];
 }
 
 @end

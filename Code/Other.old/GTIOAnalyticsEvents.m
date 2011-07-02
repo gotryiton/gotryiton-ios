@@ -17,6 +17,7 @@ NSString* const kUserDidLogoutOniPhoneEventName = @"User - Logout";
 NSString* const kUserDidViewGetStartedEventName = @"Upload - getStarted";
 NSString* const kUserDidViewTellUsAboutItEventName = @"Upload - Step2";
 NSString* const kUserDidViewShareEventName = @"Upload - Step3";
+NSString* const kUserDidViewWelcomeScreenEventName = @"Page - Welcome";
 NSString* const kUserDidViewHomepageEventName = @"Page - Homepage";
 NSString* const kUserDidViewSettingsTabEventName = @"Page - Settings";
 NSString* const kUserDidViewLoginEventName = @"Page - Login";
@@ -56,3 +57,5 @@ NSString* const kOutfitShareEmail = @"Outfit Share - Email";
 NSString* const kReviewSubmitted = @"Review";
 NSString* const kReviewFlag = @"Review - flagged";
 NSString* const kReviewAgree = @"Review - agree";
+
+NSString* const kUserLoggedInParameterName = @"Logged In";

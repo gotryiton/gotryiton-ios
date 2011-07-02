@@ -14,6 +14,7 @@ NSString* const kUserDidLogoutOniPhoneEventName;
 NSString* const kUserDidViewGetStartedEventName;
 NSString* const kUserDidViewTellUsAboutItEventName;
 NSString* const kUserDidViewShareEventName;
+NSString* const kUserDidViewWelcomeScreenEventName;
 NSString* const kUserDidViewHomepageEventName;
 NSString* const kUserDidViewSettingsTabEventName;
 NSString* const kUserDidViewLoginEventName;
@@ -64,3 +65,5 @@ NSString* const kReviewSubmitted;  //DONE
 
 NSString* const kReviewFlag;
 NSString* const kReviewAgree;
+
+NSString* const kUserLoggedInParameterName;
