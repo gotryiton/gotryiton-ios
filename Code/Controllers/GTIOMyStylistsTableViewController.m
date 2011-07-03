@@ -264,6 +264,8 @@
 
 - (void)editButtonPressed:(id)sender {
     [self setEditing:YES animated:YES];
+    GTIOAnalyticsEvent(kEditStylistsEventName);
+
     [self.navigationItem setLeftBarButtonItem:_cancelButton animated:YES];
     [self.navigationItem setRightBarButtonItem:_doneButton animated:YES];
 }
@@ -275,6 +277,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self invalidateModel];
+    GTIOAnalyticsEvent(kMyStylistsEventName);
 }
 
 - (id)createDelegate {
@@ -337,6 +340,8 @@
 - (void)showEmpty:(BOOL)show {
     if (show) {
         UIImageView* imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pspush.png"]] autorelease];
+        
+        GTIOAnalyticsEvent(kStylistsIntroEventName);
         
         UIButton* invisibleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         invisibleButton.frame = imageView.bounds;

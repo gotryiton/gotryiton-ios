@@ -49,7 +49,7 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 - (void)loadView {
 	[super loadView];
 	self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"SETTINGS"];
-	TTOpenURL(@"gtio://analytics/trackUserDidViewSettings");
+    GTIOAnalyticsEvent(kUserDidViewSettingsEventName);
     UIBarButtonItem* signoutItem = [[GTIOBarButtonItem alloc] initWithTitle:@"sign out" target:self action:@selector(signOutButtonWasPressed:)];
     self.navigationItem.rightBarButtonItem = signoutItem;
 }

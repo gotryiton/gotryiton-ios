@@ -145,7 +145,7 @@
         self.variableHeightRows = YES;
         self.autoresizesForKeyboard = YES;
         self.view.accessibilityLabel = @"Browse Screen";
-        
+        GTIOAnalyticsEvent(kBrowseEventName);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreshActivated:) name:@"DragRefreshTableReload" object:nil];
     }
     return self;
@@ -155,6 +155,14 @@
     if ((self = [self initWithNibName:nil bundle:nil])) {
         endpoint = [endpoint stringByReplacingOccurrencesOfString:@"." withString:@"/"];
         self.apiEndpoint = endpoint;
+
+        // Checking if the api endpoint contains /looks or /reviews for analytics
+        if([endpoint rangeOfString:@"/looks"].location != NSNotFound) {
+            GTIOAnalyticsEvent(kProfileLooksEventName);
+        } else if ([endpoint rangeOfString:@"/reviews"].location != NSNotFound) {
+            GTIOAnalyticsEvent(kProfileReviewsEventName);
+        }
+
         NSLog(@"Endpoint: %@", endpoint);
     }
     return self;
@@ -469,6 +477,13 @@
 - (void)tabBar:(GTIOTabBar*)tabBar selectedTabAtIndex:(NSUInteger)index {
     GTIOSortTab* tab = [_sortTabs objectAtIndex:index];
     if (tab) {
+        // Analytics
+        if ([tab.title isEqualToString:@"community"]) {
+            GTIOAnalyticsEvent(kCommunityTodosEventName);
+        } else if ([tab.title isEqualToString:@"completed"]) {
+            GTIOAnalyticsEvent(kCompletedTodosEventName);
+        }
+        // Switch Endpoint
         [_apiEndpoint release];
         _apiEndpoint = [tab.sortAPI retain];
         [self invalidateModel];

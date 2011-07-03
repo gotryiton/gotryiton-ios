@@ -345,6 +345,7 @@ static GTIOUser* gCurrentUser = nil;
 
 - (void)loginWithJanRain {
     [self didStartLogin];
+    TTOpenURL(@"gtio://analytics/trackUserDidViewLoginOtherProviders");
 	if (NO == self.isLoggedIn) {
 		[GTIOJanrainAuthenticationController showAuthenticationDialog];
 	}

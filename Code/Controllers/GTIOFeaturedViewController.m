@@ -266,6 +266,11 @@
     self.navigationItem.rightBarButtonItem = myStylistsButton;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    GTIOAnalyticsEvent(kFeaturedStylistsPageEventName);
+}
+
 - (void)viewDidUnload {
     [super viewDidUnload];
     [_scrollView release];

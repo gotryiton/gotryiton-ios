@@ -38,6 +38,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    GTIOAnalyticsEvent(kUserDidViewHomepageEventName);
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
     if (_backgroundImageView.hidden == YES) {

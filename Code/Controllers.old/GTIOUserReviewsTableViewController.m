@@ -71,6 +71,13 @@
 	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (_isShowingCurrentUser) {
+        GTIOAnalyticsEvent(kMyReviewsEventName);
+    }
+}
+
 - (void)createModel {
 	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 							@"true", @"requestReviews",

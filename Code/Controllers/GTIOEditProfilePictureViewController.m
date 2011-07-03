@@ -175,6 +175,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    // Analytics 
+    GTIOAnalyticsEvent(kUserEditProfilePictureEventName);
     // Send Request for icon options
     [GTIOUserIconOptionDataSource iconOptionRequestWithDelegate:self];
     // Setup Navigation Bar Items

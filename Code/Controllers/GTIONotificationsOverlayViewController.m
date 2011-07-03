@@ -122,6 +122,11 @@
     self.tableView.tableFooterView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list-top-shadow.png"]] autorelease];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    GTIOAnalyticsEvent(kNotificationsPageEventName);
+}
+
 - (void)createModel {
     if ([[GTIOUser currentUser] isLoggedIn]) {
         NSArray* notifications = [GTIOUser currentUser].notifications;
@@ -137,7 +142,6 @@
     } else {
         self.dataSource = [GTIOWelcomeDataSource dataSourceWithObjects:[GTIONotificationTableItem itemWithText:@"sign in to see your notifications" URL:@"gtio://login"], nil];;
     }
-        
 }
 
 @end

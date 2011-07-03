@@ -95,12 +95,6 @@
 - (void)loadView {
 	[super loadView];
 
-	if (_isShowingCurrentUser) {
-			TTOpenURL(@"gtio://analytics/trackMyProfilePageView");
-	} else {
-			TTOpenURL(@"gtio://analytics/trackProfilePageView");
-	}
-
 	self.variableHeightRows = YES;
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
@@ -127,6 +121,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    if (_isShowingCurrentUser) {
+		GTIOAnalyticsEvent(kUserDidViewMyProfilePageEventName);
+	} else {
+        GTIOAnalyticsEvent(kUserDidViewProfilePageEventName);
+	}
 	[self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 

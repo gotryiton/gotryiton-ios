@@ -139,6 +139,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to get custom background
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
@@ -221,7 +222,7 @@
 }
 
 - (void)scrollView:(TTScrollView*)scrollView didMoveToPageAtIndex:(NSInteger)pageIndex {
-    TTOpenURL(@"gtio://analytics/trackOutfitPageView");
+    GTIOAnalyticsEvent(kOutfitPageView);
 	_outfitIndex = pageIndex;
 	[self updateView];
 }
@@ -589,7 +590,7 @@
 }
 
 - (void)scrollView:(GTIOScrollView*)scrollView shouldReloadPage:(GTIOOutfitPageView*)page {
-    TTOpenURL(@"gtio://analytics/trackOutfitRefresh");
+    GTIOAnalyticsEvent(kOutfitRefreshEventName);
     NSLog(@"Reload page: %@", page);
     NSDictionary* params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
     NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/outfit/%@?%@", page.outfit.outfitID, [params URLEncodedString]]);
