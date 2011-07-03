@@ -44,6 +44,7 @@
 - (void)trackUserDidViewHomepage;
 - (void)trackUserDidViewSettings;
 - (void)trackUserDidViewLogin;
+- (void)trackUserDidViewLoginOtherProviders;
 - (void)trackUserDidViewContacts;
 - (void)trackUserDidViewPhotoGuidelines;
 

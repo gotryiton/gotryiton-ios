@@ -335,6 +335,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Analytics Tracking
 	GTIOAnalyticsTracker* tracker = [GTIOAnalyticsTracker sharedTracker];
 	[map from:@"gtio://analytics/(dispatchEventWithName:)" toObject:tracker];
+    
 	
 	// Message composer
 	GTIOMessageComposer* messageComposer = [[GTIOMessageComposer alloc] init];

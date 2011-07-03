@@ -9,6 +9,12 @@
 
 #include "GTIOAnalyticsEvents.h"
 
+UIViewController* GTIOAnalyticsEvent(NSString* name) {
+    return TTOpenURL([NSString stringWithFormat:@"gtio://analytics/%@",
+            [name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]);
+}
+
+
 NSString* const kAppDidFinishLaunchingEventName = @"App - Launched";
 NSString* const kAppDidBecomeActiveEventName = @"App - Became Active";
 NSString* const kUserDidRegisterOniPhoneEventName = @"User - Registed";
@@ -19,8 +25,9 @@ NSString* const kUserDidViewTellUsAboutItEventName = @"Upload - Step2";
 NSString* const kUserDidViewShareEventName = @"Upload - Step3";
 NSString* const kUserDidViewWelcomeScreenEventName = @"Page - Welcome";
 NSString* const kUserDidViewHomepageEventName = @"Page - Homepage";
-NSString* const kUserDidViewSettingsTabEventName = @"Page - Settings";
+NSString* const kUserDidViewSettingsEventName = @"Page - Settings";
 NSString* const kUserDidViewLoginEventName = @"Page - Login";
+NSString* const kUserDidViewLoginOtherProvidersEventName = @"Page - Login Other Providers";
 NSString* const kUserDidViewAddFromContactsEventName = @"Upload - addContacts";
 NSString* const kUserDidViewPhotoGuidelinesEventName = @"Upload - photoGuidelines";
 NSString* const kUserDidApplyBlurMaskEventName = @"Upload - blurMask";
@@ -32,19 +39,16 @@ NSString* const kUserDiDTouchGetAnOpinionFromHomePageEventName = @"Page - Homepa
 NSString* const kUserDidSubmitOutfitWithParametersEventName = @"Upload - Successful Upload";
 NSString* const kControllerDidAppearEventName = @"Page - General Controller View";
 
-
-
-
 NSString* const kOutfitPageView = @"Page - Outfit";
 NSString* const kRecentListPageView = @"Page - Recent";
 NSString* const kPopularListPageView = @"Page - Popular";
-NSString* const kProfilePageView = @"Page - Profile";
-NSString* const kMyProfilePageView = @"Page - My Profile";
+NSString* const kUserDidViewProfilePageEventName = @"Page - Profile";
+NSString* const kUserDidViewMyProfilePageEventName = @"Page - My Profile";
 NSString* const kSearch = @"Search";
 NSString* const kAnyListRefresh = @"Page - List - Refresh";
-NSString* const kOutfitRefresh = @"Page - Outfit - Refresh";
-NSString* const kOutfitDescriptionExpand = @"Page - Outfit - Expand Description";
-NSString* const kOutfitFullScreen= @"Page - Outfit - Full Screen";
+NSString* const kOutfitRefreshEventName = @"Page - Outfit - Refresh";
+NSString* const kOutfitDescriptionExpandedEventName = @"Page - Outfit - Expand Description";
+NSString* const kOutfitFullScreenEventName= @"Page - Outfit - Full Screen";
 NSString* const kVoteSubmitted = @"Vote";
 NSString* const kWhyChangeSubmitted = @"Why Change";
 NSString* const kWhyChangeSkipped = @"Why Change Skip";
@@ -59,3 +63,26 @@ NSString* const kReviewFlag = @"Review - flagged";
 NSString* const kReviewAgree = @"Review - agree";
 
 NSString* const kUserLoggedInParameterName = @"Logged In";
+
+NSString* const kUserSignUpAlmostDoneEventName = @"Page - Almost Done";
+NSString* const kUserEditProfileEventName = @"Page - Edit Profile";
+NSString* const kUserEditProfilePictureEventName = @"Page - Edit Profile Icon";
+NSString* const kMyLooksEventName = @"Page - My Looks";
+NSString* const kMyReviewsEventName = @"Page - My Reviews";
+NSString* const kMyStylistsEventName = @"Page - My Stylists";
+NSString* const kAddStylistsEventName = @"Page - Add Stylists";
+NSString* const kEditStylistsEventName = @"Page - Edit Stylists";
+NSString* const kAddContactsStylistsEventName = @"Page - Add Stylists (Contacts)";
+NSString* const kAddRecommendedStylistsEventName = @"Page - Add Stylists (Recommended)";
+NSString* const kNotificationsPageEventName = @"Page - Notifications";
+NSString* const kFeaturedStylistsPageEventName = @"Page = Featured Stylists";
+NSString* const kProfileLooksEventName = @"Page - Profile Looks";
+NSString* const kProfileReviewsEventName = @"Page - Profile Reviews";
+NSString* const kTodosPageEventName = @"Page - Todos";
+NSString* const kCommunityTodosEventName = @"Page - Community Todos";
+NSString* const kCompletedTodosEventName = @"Page - Completed Todos";
+NSString* const kWhoIStyleEventName = @"Page - Who I Style";
+NSString* const kBrowseEventName = @"Page - Browse";
+NSString* const kStylistsIntroEventName = @"Page - Stylists Intro";
+NSString* const kUploadGetStartedEventName = @"Page - Upload Get Started";
+NSString* const kUploadStepTwoEventName = @"Page - Upload Step 2";

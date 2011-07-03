@@ -23,13 +23,17 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 
 - (void)dispatchEventWithName:(NSString*)eventName {
 	TTDINFO(@"URL dispatching analytics event: %@", eventName);
-	SEL selector = NSSelectorFromString(eventName);
-	[self performSelector:selector];
+    if ([self respondsToSelector:NSSelectorFromString(eventName)]) {
+        [self performSelector:NSSelectorFromString(eventName)];
+    } else {
+        [self logEvent:eventName];
+    }
 }
 
 #pragma mark Event Logging Methods
 
 - (void)logEvent:(NSString*)eventName {
+    NSLog(@"ANALYTICS LOGGING EVENT ==== %@",eventName);
     NSDictionary* parameters = [NSDictionary dictionaryWithObjectsAndKeys:
                                 [NSNumber numberWithBool:[[GTIOUser currentUser] isLoggedIn]],kUserLoggedInParameterName,
                                 nil];
@@ -88,18 +92,6 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 
 #pragma mark Other Screens
 
-- (void)trackUserDidViewWelcomeScreen {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewWelcomeScreenEventName];
-}
-
-- (void)trackUserDidViewHomepage {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewHomepageEventName];
-}
-
-- (void)trackUserDidViewSettings {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewSettingsTabEventName];
-}
-
 - (void)trackUserDidViewLogin {
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewLoginEventName];
 }
@@ -151,11 +143,6 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 #pragma mark Simon's Aditions
 //	TTOpenURL(@"gtio://analytics/trackReviewSubmitted");
 
-- (void)trackOutfitPageView {
-    
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitPageView];
-}
-
 - (void)trackReviewSubmitted {
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kReviewSubmitted];
 }
@@ -187,28 +174,8 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kSearch withParameters:params];
 }
 
-- (void)trackProfilePageView {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kProfilePageView];
-}
-
-- (void)trackMyProfilePageView {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kMyProfilePageView];
-}
-
 - (void)trackListRefresh {
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kAnyListRefresh];
-}
-
-- (void)trackOutfitRefresh {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitRefresh];
-}
-
-- (void)trackDescriptionExpanded {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitDescriptionExpand];
-}
-
-- (void)trackFullscreen {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitFullScreen];
 }
 
 - (void)trackWhyChangeSubmitted {
