@@ -284,6 +284,7 @@
 
 - (void)saveButtonAction {
     // Save Action
+    GTIOAnalyticsEvent(kUserEditedProfileIconEventName);
     GTIOUser* user = [GTIOUser currentUser];
     user.profileIconURL = _previewImageView.urlPath;
     [[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];

@@ -14,6 +14,7 @@
 #import "GTIOListSection.h"
 #import "GTIOProfile.h"
 #import "GTIOHeaderView.h"
+#import "GTIOAnalyticsTracker.h"
 
 @interface GTIOFacebookConnectTableItem : TTTableTextItem
 @end
@@ -546,6 +547,7 @@
 
 - (void)doneButtonWasPressed:(id)sender {
     [self showLoading];
+    [[GTIOAnalyticsTracker sharedTracker] trackUserDidAddStylists:[NSNumber numberWithInt:([_emailsToInvite count] + [_profileIDsToInvite count])]];
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/add") delegate:self];
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_emailsToInvite jsonEncode], @"stylistEmails",
                             [_profileIDsToInvite jsonEncode], @"stylistUids", nil];

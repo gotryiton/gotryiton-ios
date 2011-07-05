@@ -91,8 +91,6 @@
 @synthesize opinionRequest = _opinionRequest;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	TTOpenURL(@"gtio://analytics/trackUserDidRemoveContact");
-	
 	[self removeItemAtIndexPath:indexPath andSectionIfEmpty:YES];
 	[self.opinionRequest.contactEmails removeObjectAtIndex:indexPath.row];
 	[tableView reloadData];
@@ -268,9 +266,7 @@ static NSString* const kGTIOContactViewAdditionalEmailsURLString = @"gtio://getA
 			[alertView release];
 			
 			return NO;
-		} else {
-			TTOpenURL(@"gtio://analytics/trackUserDidAddContact");
-			
+		} else {			
 			[self.opinionRequest.contactEmails addObjectsFromArray:contacts];
 			[self invalidateModel];
 		}				

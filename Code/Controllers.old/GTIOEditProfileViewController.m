@@ -512,6 +512,8 @@
 		return;
 	}
 	
+    GTIOAnalyticsEvent(kUserEditedProfileEventName);
+    
 	GTIOUser* user = [GTIOUser currentUser];
 	
 	// update properties

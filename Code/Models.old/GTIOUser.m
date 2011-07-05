@@ -545,6 +545,7 @@ static GTIOUser* gCurrentUser = nil;
 #pragma mark FBSessionDelegate
 
 - (void)fbDidLogin {
+    GTIOAnalyticsEvent(kUserAddedFacebook);
     NSString* url = GTIORestResourcePath(@"/auth");
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken",
                             [self deviceTokenURLEncoded], @"deviceToken",

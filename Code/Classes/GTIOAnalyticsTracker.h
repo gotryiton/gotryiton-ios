@@ -21,6 +21,11 @@
  */
 + (GTIOAnalyticsTracker*)sharedTracker;
 
+- (void)logEvent:(NSString*)eventName;
+- (void)logEvent:(NSString*)eventName withParameters:(NSDictionary*)params;
+
+- (void)trackUserDidAddStylists:(NSNumber*)count;
+
 // Application Lifecycle
 - (void)trackAppDidFinishLaunching;
 - (void)trackAppDidBecomeActive;
@@ -53,7 +58,6 @@
  */
 - (void)trackUserDidApplyBlurMask;
 - (void)trackUserDidTouchCreateMyOutfitPage;
-- (void)trackUserDidAddContact;
 - (void)trackUserDidRemoveContact;
 - (void)trackUserDidTouchGiveAnOpinionFromHomepage;
 - (void)trackUserDidTouchGetAnOpinionFromHomepage;

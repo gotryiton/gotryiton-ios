@@ -34,10 +34,10 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 
 - (void)logEvent:(NSString*)eventName {
     NSLog(@"ANALYTICS LOGGING EVENT ==== %@",eventName);
-    NSDictionary* parameters = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSNumber numberWithBool:[[GTIOUser currentUser] isLoggedIn]],kUserLoggedInParameterName,
-                                nil];
-//    [FlurryAPI logEvent:eventName withParameters:parameters];
+//    NSDictionary* parameters = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                [NSNumber numberWithBool:[[GTIOUser currentUser] isLoggedIn]],kUserLoggedInParameterName,
+//                                nil];
+//    [FlurryAPI logEvent:eventName withParameters:[NSDictionary dictionary]];
     TTAlert(eventName);
 }
 
@@ -97,29 +97,21 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewLoginEventName];
 }
 
-- (void)trackUserDidViewContacts {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewAddFromContactsEventName];
-}
-
 - (void)trackUserDidViewPhotoGuidelines {
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewPhotoGuidelinesEventName];
 }
 
 #pragma mark User Actions
+- (void)trackUserDidAddStylists:(NSNumber*)count {
+    [self logEvent:kUserAddedStylistsEventName withParameters:[NSDictionary dictionaryWithObject:count forKey:@"count"]];
+}
+
 - (void)trackUserDidApplyBlurMask {
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidApplyBlurMaskEventName];
 }
 
 - (void)trackUserDidTouchCreateMyOutfitPage {
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidTouchCreateMyOutfitPageEventName];
-}
-
-- (void)trackUserDidAddContact {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidAddContactEventName];
-}
-
-- (void)trackUserDidRemoveContact {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidRemoveContactEventName];
 }
 
 - (void)trackUserDidTouchGiveAnOpinionFromHomepage {
@@ -212,3 +204,14 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+

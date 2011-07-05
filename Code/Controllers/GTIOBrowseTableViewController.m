@@ -259,6 +259,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
+    GTIOAnalyticsEvent(kSearch);
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     if (model.list.searchAPI) {
         NSString* url = [NSString stringWithFormat:@"gtio://browse/%@/%@",
