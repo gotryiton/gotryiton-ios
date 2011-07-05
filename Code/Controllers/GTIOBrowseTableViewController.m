@@ -235,7 +235,7 @@
 - (RKObjectLoader*)objectLoader {
     RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:_apiEndpoint delegate:nil];
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_queryText, @"query", nil]; // note, query text is usually nil. only used if we are searching.
-    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     objectLoader.method = RKRequestMethodPOST;
     objectLoader.cacheTimeoutInterval = 60*5; // 5 minutes
     return objectLoader;

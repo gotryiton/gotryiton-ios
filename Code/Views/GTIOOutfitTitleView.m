@@ -86,7 +86,7 @@
     if ([badges count] > 0) {
         _badgeView1.urlPath = [(GTIOBadge*)[badges objectAtIndex:0] imgURL];
         if ([badges count] > 1) {
-            _badgeView1.urlPath = [(GTIOBadge*)[badges objectAtIndex:1] imgURL];
+            _badgeView2.urlPath = [(GTIOBadge*)[badges objectAtIndex:1] imgURL];
         } else {
             _badgeView2.urlPath = nil;
         }

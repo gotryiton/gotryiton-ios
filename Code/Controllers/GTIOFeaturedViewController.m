@@ -272,7 +272,11 @@
 }
 
 - (void)stylistsButtonWasPressed:(id)sender {
-    TTOpenURL(@"gtio://stylists");
+    if ([GTIOUser currentUser].loggedIn) {
+       TTOpenURL(@"gtio://stylists");
+    } else {
+        TTOpenURL(@"gtio://login");
+    }
 }
 
 - (void)createModel {
