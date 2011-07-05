@@ -95,6 +95,13 @@
 	return self;
 }
 
+- (void)loadView {
+    [super loadView];
+    UIImage* topShadow = [UIImage imageNamed:@"list-top-shadow.png"];
+    UIView* topShadowImageView = [[[UIImageView alloc] initWithImage:topShadow] autorelease];
+    [self.view addSubview:topShadowImageView];
+}
+
 - (id<UITableViewDelegate>)createDelegate {
 	return [[[GTIOControlTableViewVarHeightDelegate alloc] initWithController:self] autorelease];
 }

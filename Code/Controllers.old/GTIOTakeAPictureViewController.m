@@ -143,6 +143,10 @@
 	[_scrollView addSubview:_blurrableImageView];
 	[imageBorder addSubview:_scrollView];
 	
+    UIImage* topShadow = [UIImage imageNamed:@"list-top-shadow.png"];
+    UIView* topShadowImageView = [[[UIImageView alloc] initWithImage:topShadow] autorelease];
+    [self.view addSubview:topShadowImageView];
+    
 	if (_photo) {
 		[self loadPhoto:_photo];
 	}

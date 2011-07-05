@@ -7,6 +7,7 @@
 //
 
 #import "GTIOPhotoGuidelinesViewController.h"
+#import "GTIOHeaderView.h"
 
 @implementation GTIOPhotoGuidelinesViewController
 
@@ -17,13 +18,13 @@
 	
 	self.navigationItem.hidesBackButton = YES;
 	
-	self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(photoGuidelinesHeaderImage)] autorelease];
+	self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"PHOTO GUIDELINES"];
 	
 	UIButton* backgroundImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[backgroundImageButton setImage:TTSTYLEVAR(photoGuidelinesBackgroundImage) forState:UIControlStateNormal];
 	[backgroundImageButton setImage:TTSTYLEVAR(photoGuidelinesBackgroundImage) forState:UIControlStateHighlighted];
 	[backgroundImageButton addTarget:self action:@selector(okButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-	backgroundImageButton.frame = CGRectOffset(TTScreenBounds(), 0, -56); // Status Bar + Navigation Bar
+	backgroundImageButton.frame = self.view.bounds;
 	[self.view addSubview:backgroundImageButton];
 	
 	UIButton* okButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -31,7 +32,7 @@
 	[okButton setImage:TTSTYLEVAR(photoGuidelinesButtonImageHighlighted) forState:UIControlStateHighlighted];
 	[okButton sizeToFit];
 	[okButton addTarget:self action:@selector(okButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-	okButton.frame = CGRectMake(6, 311, 307, 50);
+	okButton.frame = CGRectMake(8, self.view.bounds.size.height - 48 - 6, 304, 48);
 	[self.view addSubview:okButton];		
 }
 

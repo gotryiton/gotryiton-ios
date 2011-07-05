@@ -97,7 +97,11 @@
 - (void)loadView {
 	[super loadView];
     self.variableHeightRows = YES;
-	
+    
+    UIImage* topShadow = [UIImage imageNamed:@"list-top-shadow.png"];
+    UIView* topShadowImageView = [[[UIImageView alloc] initWithImage:topShadow] autorelease];
+    [self.view addSubview:topShadowImageView];
+    
 	TTOpenURL(@"gtio://analytics/trackUserDidViewContacts");
 }
 

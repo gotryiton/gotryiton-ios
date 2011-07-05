@@ -146,7 +146,7 @@
     float width = [_nameLabel.text sizeWithFont:_nameLabel.font].width;
     _nameLabel.frame = CGRectMake(72, 9, MIN(width, maxNameLabelWidth), 40);
     [_nameLabel setNeedsDisplay];
-    float x = CGRectGetMaxX(_nameLabel.frame) - 9;
+    float x = CGRectGetMaxX(_nameLabel.frame) - 4;
     float y = 2;
     for (GTIOBadge* badge in profile.badges) {
         TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(x,y,48,48)] autorelease];

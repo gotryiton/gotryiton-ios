@@ -216,10 +216,6 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 	return [UIImage imageNamed:@"guidelines.png"];
 }
 
-- (UIImage*)photoGuidelinesHeaderImage {
-	return [UIImage imageNamed:@"header.png"];
-}
-
 - (TTStyle*)pinkQuote {
 	return [TTTextStyle styleWithFont:kGTIOFontHelveticaRBCOfSize(13) color:kGTIOColorBrightPink textAlignment:UITextAlignmentCenter next:nil];
 }

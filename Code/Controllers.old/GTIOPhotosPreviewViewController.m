@@ -71,6 +71,10 @@
 		[self.view addSubview:photoPreviewButton];
 		[_photoPreviews addObject:photoPreviewButton];
 	}
+    
+    UIImage* topShadow = [UIImage imageNamed:@"list-top-shadow.png"];
+    UIView* topShadowImageView = [[[UIImageView alloc] initWithImage:topShadow] autorelease];
+    [self.view addSubview:topShadowImageView];
 }
 
 - (void)viewDidUnload {
