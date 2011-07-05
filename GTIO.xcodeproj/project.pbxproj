@@ -3404,7 +3404,6 @@
 		A7E301901379887F0036F86D /* GTIOHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BB1379887F0036F86D /* GTIOHomeViewController.m */; };
 		A7E301911379887F0036F86D /* GTIOHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BB1379887F0036F86D /* GTIOHomeViewController.m */; };
 		A7E301921379887F0036F86D /* GTIOHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BB1379887F0036F86D /* GTIOHomeViewController.m */; };
-		A7E301931379887F0036F86D /* GTIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BD1379887F0036F86D /* GTIOLoginViewController.m */; };
 		A7E301941379887F0036F86D /* GTIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BD1379887F0036F86D /* GTIOLoginViewController.m */; };
 		A7E301951379887F0036F86D /* GTIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BD1379887F0036F86D /* GTIOLoginViewController.m */; };
 		A7E301961379887F0036F86D /* GTIOWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BF1379887F0036F86D /* GTIOWelcomeViewController.m */; };
@@ -10833,7 +10832,6 @@
 				A7E3018A1379887F0036F86D /* GTIOOutfitViewScrollDataSource.m in Sources */,
 				A7E3018D1379887F0036F86D /* GTIOUpdateUserRequest.m in Sources */,
 				A7E301901379887F0036F86D /* GTIOHomeViewController.m in Sources */,
-				A7E301931379887F0036F86D /* GTIOLoginViewController.m in Sources */,
 				A7E301961379887F0036F86D /* GTIOWelcomeViewController.m in Sources */,
 				A7E301991379887F0036F86D /* GTIOAdditionalEmailsController.m in Sources */,
 				A7E3019C1379887F0036F86D /* GTIOContactViewController.m in Sources */,

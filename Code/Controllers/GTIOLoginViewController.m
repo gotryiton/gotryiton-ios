@@ -19,6 +19,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStartedNotification:) name:kGTIOUserDidBeginLoginProcess object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStopped:) name:kGTIOUserDidEndLoginProcess object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loggedInNotification:) name:kGTIOUserDidLoginNotificationName object:nil];
+        
+        self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem backButton];
     }
     return self;
 }
@@ -73,7 +75,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [GTIOBarButtonItem homeBackBarButtonWithTarget:self action:@selector(popViewController)];    
     
     self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"SIGN IN"];
     

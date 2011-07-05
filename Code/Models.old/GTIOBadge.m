@@ -14,6 +14,7 @@
 @synthesize type = _type;
 @synthesize since = _since;
 @synthesize imgURL = _imgURL;
+@synthesize outfitBadgeURL = _outfitBadgeURL;
 
 - (void)dealloc {
 	[_type release];
@@ -22,8 +23,17 @@
 	_since = nil;
 	[_imgURL release];
 	_imgURL = nil;
+    [_outfitBadgeURL release];
+    _outfitBadgeURL = nil;
 
 	[super dealloc];
+}
+
+- (NSString*)outfitBadgeURL {
+    if (_outfitBadgeURL && ![_outfitBadgeURL isWhitespaceAndNewlines]) {
+        return _outfitBadgeURL;
+    }
+    return _imgURL;
 }
 
 @end

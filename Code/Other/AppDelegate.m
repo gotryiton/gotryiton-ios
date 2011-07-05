@@ -135,6 +135,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"type", @"type")];
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"since", @"since")];
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"imgURL", @"imgURL")];
+    [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"outfitBadgeURL", @"outfitBadgeURL")];
     
     RKObjectMapping* profileMapping = [RKObjectMapping mappingForClass:[GTIOProfile class]];
     [profileMapping mapAttributes:@"uid", @"auth", @"displayName", @"firstName", @"gender", @"city", @"state", @"location", @"aboutMe",

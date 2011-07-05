@@ -13,10 +13,12 @@
 	NSString* _type;
 	NSNumber* _since;
 	NSString* _imgURL;
+    NSString* _outfitBadgeURL;
 }
 
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, retain) NSNumber *since;
 @property (nonatomic, copy) NSString *imgURL;
+@property (nonatomic, copy) NSString* outfitBadgeURL;
 
 @end
