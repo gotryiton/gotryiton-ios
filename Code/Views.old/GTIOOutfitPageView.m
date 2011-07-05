@@ -789,9 +789,9 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 	[UIView commitAnimations];
     NSArray* reasons = [_changeItReasonsOverlay selectedChangeItReasons];
     if ([reasons count] == 0) {
-        TTOpenURL(@"gtio://analytics/trackWhyChangeSkipped");
+        GTIOAnalyticsEvent(kWhyChangeSkipped);
     } else {
-        TTOpenURL(@"gtio://analytics/trackWhyChangeSubmitted");
+        GTIOAnalyticsEvent(kWhyChangeSubmitted);
     }
 	[self voteForLook:0 reasons:reasons];
 }

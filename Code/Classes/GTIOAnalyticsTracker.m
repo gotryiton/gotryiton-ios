@@ -72,49 +72,9 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidLogoutOniPhoneEventName];
 }
 
-#pragma mark Opinion Request
-
-- (void)trackUserDidViewGetStarted {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewGetStartedEventName];
-}
-
-- (void)trackUserDidViewTellUsAboutIt {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewTellUsAboutItEventName];
-}
-
-- (void)trackUserDidViewShare {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewShareEventName];
-}
-
-#pragma mark Other Screens
-
-- (void)trackUserDidViewLogin {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewLoginEventName];
-}
-
-- (void)trackUserDidViewPhotoGuidelines {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidViewPhotoGuidelinesEventName];
-}
-
 #pragma mark User Actions
 - (void)trackUserDidAddStylists:(NSNumber*)count {
     [self logEvent:kUserAddedStylistsEventName withParameters:[NSDictionary dictionaryWithObject:count forKey:@"count"]];
-}
-
-- (void)trackUserDidApplyBlurMask {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidApplyBlurMaskEventName];
-}
-
-- (void)trackUserDidTouchCreateMyOutfitPage {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidTouchCreateMyOutfitPageEventName];
-}
-
-- (void)trackUserDidTouchGiveAnOpinionFromHomepage {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidTouchGiveAnOpinionFromHomePageEventName];
-}
-
-- (void)trackUserDidTouchGetAnOpinionFromHomepage {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDiDTouchGetAnOpinionFromHomePageEventName];
 }
 
 - (void)trackOpinionRequestSubmittedWithInfoDict:(NSDictionary*)info {
@@ -129,73 +89,15 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 }
 
 #pragma mark Simon's Aditions
-//	TTOpenURL(@"gtio://analytics/trackReviewSubmitted");
-
-- (void)trackReviewSubmitted {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kReviewSubmitted];
-}
-
-- (void)trackShareViaSMS {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitShareSMS];
-}
-
-- (void)trackShareViaEmail {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitShareEmail];
-}
 
 - (void)trackVote:(NSDictionary*)info {
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kVoteSubmitted withParameters:info];
-}
-
-- (void)trackRecentListPageView {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kRecentListPageView];
-}
-
-
-- (void)trackPopularListPageView {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kPopularListPageView];
 }
 
 - (void)trackSearchListPageViewWithQuery:(NSString*)query {
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
                             query, @"query", nil];
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kSearch withParameters:params];
-}
-
-- (void)trackListRefresh {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kAnyListRefresh];
-}
-
-- (void)trackWhyChangeSubmitted {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kWhyChangeSubmitted];
-}
-
-- (void)trackWhyChangeSkipped {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kWhyChangeSkipped];
-}
-
-- (void)trackOutfitEditButtonPressed {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitEdit];
-}
-
-- (void)trackOutfitDeleteButtonPressed {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitDelete];
-}
-
-- (void)trackMakeOutfitPublicWasPressed {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitPublic];
-}
-
-- (void)trackMakeOutfitPrivateWasPressed {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kOutfitPrivate];
-}
-
-- (void)trackFlagReview {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kReviewFlag];
-}
-
-- (void)trackAgreeWithReview {
-    [[GTIOAnalyticsTracker sharedTracker] logEvent:kReviewAgree];
 }
 
 @end

@@ -246,12 +246,12 @@
 	switch (_state) {
 		case GTIOOpinionStateRecent:
 			url = GTIORestResourcePath(@"/lists/recent/");
-            TTOpenURL(@"gtio://analytics/trackRecentListPageView");
+            GTIOAnalyticsEvent(kRecentListPageView);
 			break;
 		case GTIOOpinionStatePopular:
 			url = GTIORestResourcePath(@"/lists/popular/");
-            TTOpenURL(@"gtio://analytics/trackPopularListPageView");
-			break;
+            GTIOAnalyticsEvent(kPopularListPageView);
+            break;
 		case GTIOOpinionStateSearch:
 			[params setObject:_searchBarTextField.text forKey:@"q"];
 			url = GTIORestResourcePath(@"/lists/search/");

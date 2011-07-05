@@ -10,70 +10,49 @@
 
 /**
  * URL dispatchable analytics tracker. This wraps
- * the Google Analytics interface to provide page & event tracking
+ * the flurry api interface to provide page & event tracking
  */
-@interface GTIOAnalyticsTracker : NSObject {
-
-}
+@interface GTIOAnalyticsTracker : NSObject {}
 
 /**
  * Return the shared tracker instance
  */
 + (GTIOAnalyticsTracker*)sharedTracker;
 
+/**
+ * Called when a /analytics/eventName url is opened
+ */
+- (void)dispatchEventWithName:(NSString*)eventName;
+
+/**
+ * Fire off flurry event with name (global parameters are added)
+ */
 - (void)logEvent:(NSString*)eventName;
+
+/**
+ * Fire off flurry event with name and parameters
+ */
 - (void)logEvent:(NSString*)eventName withParameters:(NSDictionary*)params;
 
-- (void)trackUserDidAddStylists:(NSNumber*)count;
-
-// Application Lifecycle
+#pragma mark Application Lifecycle
+- (NSString*)applicationVersionString;
 - (void)trackAppDidFinishLaunching;
 - (void)trackAppDidBecomeActive;
 
-// User Authentication
+#pragma mark User Authentication
 - (void)trackUserDidLoginForTheFirstTime;
 - (void)trackUserDidLogin;
 - (void)trackUserDidLogout;
 
-/**
- * User Navigation
- */
-
-// Opinion Request
-- (void)trackUserDidViewGetStarted;
-- (void)trackUserDidViewTellUsAboutIt;
-- (void)trackUserDidViewShare;
-
-// Other Screens
-- (void)trackUserDidViewWelcomeScreen;
-- (void)trackUserDidViewHomepage;
-- (void)trackUserDidViewSettings;
-- (void)trackUserDidViewLogin;
-- (void)trackUserDidViewLoginOtherProviders;
-- (void)trackUserDidViewContacts;
-- (void)trackUserDidViewPhotoGuidelines;
-
-/**
- * User Actions
- */
-- (void)trackUserDidApplyBlurMask;
-- (void)trackUserDidTouchCreateMyOutfitPage;
-- (void)trackUserDidRemoveContact;
-- (void)trackUserDidTouchGiveAnOpinionFromHomepage;
-- (void)trackUserDidTouchGetAnOpinionFromHomepage;
-
-/**
- * Track the successful submission of an opinion request to GTIO. This
- * action uses a special string for the label to pass information about
- * the configured settings on the opinion request. See the 
- * GTIOOpinionRequest infoDict method for more info
- */
+#pragma mark User Actions
+- (void)trackUserDidAddStylists:(NSNumber*)count;
 - (void)trackOpinionRequestSubmittedWithInfoDict:(NSDictionary*)info;
 
+#pragma mark Page Views
 - (void)trackViewControllerDidAppear:(Class)class;
 
+#pragma mark Simon's Aditions
 - (void)trackVote:(NSDictionary*)info;
-
 - (void)trackSearchListPageViewWithQuery:(NSString*)query;
 
 @end

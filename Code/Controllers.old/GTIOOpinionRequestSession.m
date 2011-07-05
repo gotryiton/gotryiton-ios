@@ -143,7 +143,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 #pragma mark Actions
 
 - (void)showTellUsAboutItView {
-	TTOpenURL(@"gtio://analytics/trackUserDidViewTellUsAboutIt");
+    GTIOAnalyticsEvent(kUserDidViewTellUsAboutItEventName);
 	NSDictionary* query = [NSDictionary dictionaryWithObject:_opinionRequest forKey:@"opinionRequest"];
 	[[TTNavigator navigator] openURLAction:
 	 [[[TTURLAction actionWithURLPath:@"gtio://getAnOpinion/tellUsAboutIt"] applyQuery:query] applyAnimated:YES]];
