@@ -100,3 +100,7 @@ NSString* const kUploadStepTwoEventName = @"Page - Upload Step 2";
 NSString* const kBrandedProfileEventName = @"Page - Profile ";
 NSString* const kBrandedProfileLooksEventName = @"Page - Profile Looks ";
 NSString* const kBrandedProfileReviewsEventName = @"Page - Profile Reviews ";
+NSString* const kCategoryPageEventNamePrefix = @"Page - Category ";
+NSString* const kOutfitListPageEventNamePrefix = @"Page - Outfit List ";
+NSString* const kUnknownEventName = @"Unknown";
+NSString* const kGTIOListRefreshEventName = @"Page - List - Refresh";

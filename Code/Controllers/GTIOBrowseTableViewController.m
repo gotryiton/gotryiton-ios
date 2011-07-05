@@ -145,7 +145,6 @@
         self.variableHeightRows = YES;
         self.autoresizesForKeyboard = YES;
         self.view.accessibilityLabel = @"Browse Screen";
-        GTIOAnalyticsEvent(kBrowseEventName);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreshActivated:) name:@"DragRefreshTableReload" object:nil];
     }
     return self;
@@ -179,10 +178,12 @@
 }
 
 - (void)pullToRefreshActivated:(NSNotification*)note {
+    GTIOAnalyticsEvent(kGTIOListRefreshEventName);
     _flags.isModelDidLoadFirstTimeInvalid = 1;
 }
 
 - (void)reloadButtonWasPressed:(id)sender {
+    GTIOAnalyticsEvent(kGTIOListRefreshEventName);    
     _flags.isModelDidLoadFirstTimeInvalid = 1;
     [self invalidateModel];
 }
@@ -405,6 +406,20 @@
         _presenter = [[GTIOBrowseListPresenter presenterWithList:list] retain];
         
         NSString* title = [list.title uppercaseString];
+
+        // Analytics
+        if (title) {
+            if ([title isEqualToString:@"BROWSE"]) {
+                GTIOAnalyticsEvent(kBrowseEventName);
+            } else if ([title isEqualToString:@"TO-DO'S"] || [title isEqualToString:@"COMPLETED"]) {
+                ; //special cases to avoid duplicate events
+            } else if (list.categories) {
+                GTIOAnalyticsEvent([kCategoryPageEventNamePrefix stringByAppendingString:title]);
+            } else {
+                GTIOAnalyticsEvent([kOutfitListPageEventNamePrefix stringByAppendingString:title]);
+            }
+        }
+
         self.title = list.title;
         self.navigationItem.titleView = [GTIOHeaderView viewWithText:title];
         

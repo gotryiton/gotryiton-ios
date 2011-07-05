@@ -99,3 +99,7 @@ extern NSString* const kUploadStepTwoEventName;
 extern NSString* const kBrandedProfileEventName;
 extern NSString* const kBrandedProfileLooksEventName;
 extern NSString* const kBrandedProfileReviewsEventName;
+extern NSString* const kCategoryPageEventNamePrefix;
+extern NSString* const kOutfitListPageEventNamePrefix;
+extern NSString* const kUnknownEventName;
+extern NSString* const kGTIOListRefreshEventName;

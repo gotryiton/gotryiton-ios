@@ -52,7 +52,6 @@ static int const kOverlayViewTag = 9999;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    GTIOAnalyticsEvent(kUploadGetStartedEventName);
 	if ([[GTIOOpinionRequestSession globalSession].opinionRequest.photos count] > 0) {
 		if ([self.view viewWithTag:kOverlayViewTag] == nil) {
 			UIImageView* overlayView = [[UIImageView alloc] initWithImage:TTSTYLEVAR(getAnOpinionOverlayImage)];

@@ -150,7 +150,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 }
 
 - (void)start {
-	TTOpenURL(@"gtio://analytics/trackUserDidViewGetStarted");
+    GTIOAnalyticsEvent(kUploadGetStartedEventName);
 	GTIOUser* currentUser = [GTIOUser currentUser];
 	if (currentUser.isLoggedIn) {
 		[_opinionRequest release];
