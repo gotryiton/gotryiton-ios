@@ -33,12 +33,7 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 #pragma mark Event Logging Methods
 
 - (void)logEvent:(NSString*)eventName {
-    NSLog(@"ANALYTICS LOGGING EVENT ==== %@",eventName);
-//    NSDictionary* parameters = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                [NSNumber numberWithBool:[[GTIOUser currentUser] isLoggedIn]],kUserLoggedInParameterName,
-//                                nil];
-//    [FlurryAPI logEvent:eventName withParameters:[NSDictionary dictionary]];
-    TTAlert(eventName);
+    [self logEvent:eventName withParameters:[NSDictionary dictionary]];
 }
 
 - (void)logEvent:(NSString*)eventName withParameters:(NSDictionary*)params {
