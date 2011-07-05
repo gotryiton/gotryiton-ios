@@ -155,14 +155,6 @@
     if ((self = [self initWithNibName:nil bundle:nil])) {
         endpoint = [endpoint stringByReplacingOccurrencesOfString:@"." withString:@"/"];
         self.apiEndpoint = endpoint;
-
-        // Checking if the api endpoint contains /looks or /reviews for analytics
-        if([endpoint rangeOfString:@"/looks"].location != NSNotFound) {
-            GTIOAnalyticsEvent(kProfileLooksEventName);
-        } else if ([endpoint rangeOfString:@"/reviews"].location != NSNotFound) {
-            GTIOAnalyticsEvent(kProfileReviewsEventName);
-        }
-
         NSLog(@"Endpoint: %@", endpoint);
     }
     return self;

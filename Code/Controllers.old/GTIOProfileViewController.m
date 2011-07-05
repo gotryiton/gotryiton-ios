@@ -246,10 +246,16 @@
 	if (([[GTIOUser currentUser] isLoggedIn] || !_isShowingCurrentUser) && [self.model isKindOfClass:[RKObjectLoaderTTModel class]]) {
 		GTIOProfile* profile = nil;
         GTIOBannerAd* bannerAd = nil;
+        _isBrandedProfileView = NO;
         [_topRightButton release];
         _topRightButton = nil;
 		for (id object in [(RKObjectLoaderTTModel*)self.model objects]) {
 			if ([object isKindOfClass:[GTIOProfile class]]) {
+                if ([(GTIOProfile*)object isBranded]) {
+                    _isBrandedProfileView = YES;
+                    // Analytics for brands
+                    GTIOAnalyticsEvent(GTIOAnalyticsBrandedProfileEventNameFor([(GTIOProfile*)object displayName]));
+                }
 				profile = object;
 			}
             if ([object isKindOfClass:[GTIOBannerAd class]]) {
@@ -314,6 +320,23 @@
 		self.dataSource = dataSource;
 		[self.view addSubview:_notLoggedInOverlay];
 	}
+}
+
+- (void)didSelectObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
+    // Handle Analytics here, since this is the only place we still know whether or not it was branded
+    if ([[object text] isEqualToString:@"looks"]) {
+        if (_isBrandedProfileView) {
+            GTIOAnalyticsEvent(GTIOAnalyticsBrandedProfileLooksEventNameFor([[_headerView nameLabel] text]));
+        } else {
+            GTIOAnalyticsEvent(kProfileLooksEventName);
+        }
+    } else if ([[object text] isEqualToString:@"reviews"]) {
+        if (_isBrandedProfileView) {
+            GTIOAnalyticsEvent(GTIOAnalyticsBrandedProfileReviewsEventNameFor([[_headerView nameLabel] text]));
+        } else {
+            GTIOAnalyticsEvent(kProfileReviewsEventName);
+        }
+    }
 }
 
 #pragma mark -

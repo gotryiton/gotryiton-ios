@@ -23,6 +23,7 @@
     GTIOTopRightBarButton* _topRightButton;
 	NSString* _userID;	
 	BOOL _isShowingCurrentUser;
+    BOOL _isBrandedProfileView;
 }
 
 @end

@@ -14,6 +14,17 @@ UIViewController* GTIOAnalyticsEvent(NSString* name) {
             [name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]);
 }
 
+NSString* GTIOAnalyticsBrandedProfileEventNameFor(NSString* name) {
+    return [kBrandedProfileEventName stringByAppendingString:name];
+}
+
+NSString* GTIOAnalyticsBrandedProfileLooksEventNameFor(NSString* name) {
+    return [kBrandedProfileLooksEventName stringByAppendingString:name];
+}
+
+NSString* GTIOAnalyticsBrandedProfileReviewsEventNameFor(NSString* name) {
+    return [kBrandedProfileReviewsEventName stringByAppendingString:name];
+}
 
 NSString* const kAppDidFinishLaunchingEventName = @"App - Launched";
 NSString* const kAppDidBecomeActiveEventName = @"App - Became Active";
@@ -86,3 +97,6 @@ NSString* const kBrowseEventName = @"Page - Browse";
 NSString* const kStylistsIntroEventName = @"Page - Stylists Intro";
 NSString* const kUploadGetStartedEventName = @"Page - Upload Get Started";
 NSString* const kUploadStepTwoEventName = @"Page - Upload Step 2";
+NSString* const kBrandedProfileEventName = @"Page - Profile ";
+NSString* const kBrandedProfileLooksEventName = @"Page - Profile Looks ";
+NSString* const kBrandedProfileReviewsEventName = @"Page - Profile Reviews ";

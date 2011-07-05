@@ -8,6 +8,10 @@
 
 UIViewController* GTIOAnalyticsEvent(NSString* name);
 
+NSString* GTIOAnalyticsBrandedProfileEventNameFor(NSString* name);
+NSString* GTIOAnalyticsBrandedProfileLooksEventNameFor(NSString* name);
+NSString* GTIOAnalyticsBrandedProfileReviewsEventNameFor(NSString* name);
+
 extern NSString* const kAppDidFinishLaunchingEventName;
 extern NSString* const kAppDidBecomeActiveEventName;
 extern NSString* const kUserDidRegisterOniPhoneEventName;
@@ -92,3 +96,6 @@ extern NSString* const kBrowseEventName;
 extern NSString* const kStylistsIntroEventName;
 extern NSString* const kUploadGetStartedEventName;
 extern NSString* const kUploadStepTwoEventName;
+extern NSString* const kBrandedProfileEventName;
+extern NSString* const kBrandedProfileLooksEventName;
+extern NSString* const kBrandedProfileReviewsEventName;
