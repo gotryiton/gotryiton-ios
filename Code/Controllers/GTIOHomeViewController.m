@@ -145,7 +145,8 @@
     } else {
         NSString* title = [NSString stringWithFormat:@"new notification%@", ([[GTIOUser currentUser] numberOfUnseenNotifications] == 1 ? @"" : @"s")];
         [_notificationsButton setTitle:title forState:UIControlStateNormal];
-        [_notificationsBadgeButton setTitle:[NSString stringWithFormat:@"%d", [[GTIOUser currentUser] numberOfUnseenNotifications]] forState:UIControlStateNormal];
+        NSString* badgeTitle = [NSString stringWithFormat:@"%d", [[GTIOUser currentUser] numberOfUnseenNotifications]];
+        [_notificationsBadgeButton setTitle:badgeTitle forState:UIControlStateNormal];
         [_notificationsBadgeButton setSelected:YES];
         _notificationsButton.enabled = YES;
         _notificationsBadgeButton.enabled = YES;
@@ -162,6 +163,12 @@
     }
     NSString* title = [NSString stringWithFormat:@"%d", [[GTIOUser currentUser].todosBadge intValue]];
     [_todosBadgeButton setTitle:title forState:UIControlStateNormal];
+    _todosBadgeButton.frame = CGRectMake(251, 150, 23 + (([title length] - 1) * 6), 24);
+    
+    UIImage* image = [UIImage imageNamed:@"todos-badge.png"];
+    UIImage* bgImage = [image stretchableImageWithLeftCapWidth:12 topCapHeight:12];
+    [_todosBadgeButton setBackgroundImage:bgImage forState:UIControlStateNormal];
+    _todosBadgeButton.contentEdgeInsets = UIEdgeInsetsMake(-2,1,2,0);
 }
 
 #pragma mark - View lifecycle

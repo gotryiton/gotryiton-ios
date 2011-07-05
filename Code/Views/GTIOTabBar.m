@@ -51,7 +51,8 @@
     if (_badgeLabel.text) {
         [_badgeLabel sizeToFit];
         _badgeLabel.frame = CGRectMake(self.bounds.size.width - _badgeLabel.bounds.size.width - 16, -1, _badgeLabel.bounds.size.width, _badgeLabel.bounds.size.height);
-        _badgeBackgroundImage.frame = CGRectOffset(CGRectInset(_badgeLabel.frame,-10,-3), 0, 1);
+        _badgeBackgroundImage.frame = CGRectMake(0,0, 23 + (([_badgeLabel.text length] - 1) * 6), 24);
+        _badgeBackgroundImage.center = CGPointMake(_badgeLabel.center.x, _badgeLabel.center.y + 2);
     } else {
         _badgeLabel.frame = CGRectZero;
         _badgeBackgroundImage.frame = CGRectZero;
