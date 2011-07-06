@@ -19,7 +19,7 @@
     NSLog(@"top view controller: %@",[(TTNavigationController*)navigator.rootViewController viewControllers]);
     UIViewController* viewController = [[(TTNavigationController*)navigator.rootViewController viewControllers] lastObject];
     NSLog(@"Modal View Controller: %@", viewController.modalViewController);
-    while (viewController.modalViewController) {
+    while (viewController.modalViewController && ![viewController isKindOfClass:NSClassFromString(@"GTIOOutfitViewController")]) {
         viewController = viewController.modalViewController;
     }
     if ([viewController  isKindOfClass:NSClassFromString(@"UIImagePickerController")]) {

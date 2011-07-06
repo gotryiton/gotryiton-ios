@@ -64,10 +64,10 @@
     }
     [_badgeImageViews release];
     _badgeImageViews = [NSMutableArray new];
-    offsetX += 10;
+    offsetX += 4;
     for (GTIOBadge* badge in profile.badges) {
-        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(offsetX,20,16,16)];
-        offsetX += 10;
+        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(offsetX,18,24,24)];
+        offsetX += 23;
         imageView.backgroundColor = [UIColor clearColor];
         imageView.urlPath = badge.imgURL;
         [self addSubview:imageView];

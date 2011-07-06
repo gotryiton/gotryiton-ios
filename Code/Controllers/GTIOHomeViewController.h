@@ -12,7 +12,6 @@
 #import <UIKit/UIKit.h>
 #import <Three20/Three20.h>
 #import "GTIONotificationsOverlayViewController.h"
-#import "GTIOUserMiniProfileHeaderView.h"
 
 @interface GTIOHomeViewController : UIViewController {
     IBOutlet TTImageView* _profileThumbnailView;

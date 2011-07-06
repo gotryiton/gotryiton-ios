@@ -50,20 +50,21 @@
 @implementation GTIOSettingsTableViewDelegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    NSString* text = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
-    if (text && ![text isWhitespaceAndNewlines]) {
-        UIView* section = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,20)] autorelease];
-        UILabel* label = [[[UILabel alloc] initWithFrame:CGRectMake(20,8,300,20)] autorelease];
-        label.text = text;
-        label.textColor = RGBCOLOR(128,128,128);
-        label.font = [UIFont boldSystemFontOfSize:14];
-        label.backgroundColor = [UIColor clearColor];
-        [section addSubview:label];
-        
-        return section;
-    } else {
-        return nil;
+    if ([tableView.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+        NSString* text = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
+        if (text && ![text isWhitespaceAndNewlines]) {
+            UIView* section = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,20)] autorelease];
+            UILabel* label = [[[UILabel alloc] initWithFrame:CGRectMake(20,8,300,20)] autorelease];
+            label.text = text;
+            label.textColor = RGBCOLOR(128,128,128);
+            label.font = [UIFont boldSystemFontOfSize:14];
+            label.backgroundColor = [UIColor clearColor];
+            [section addSubview:label];
+            
+            return section;
+        }
     }
+    return nil;
 }
 
 @end

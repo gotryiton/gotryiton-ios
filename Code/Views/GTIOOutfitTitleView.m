@@ -62,8 +62,8 @@
     self.frame = rect;
     
     CGFloat badgeTopPadding = 2.5;
-    CGFloat badgeLeftPadding = (self.width - 20);
-    CGFloat badgeHorizontalPadding = 2;
+    CGFloat badgeLeftPadding = (self.width - 20) + 1;
+    CGFloat badgeHorizontalPadding = 3;
     _badgeView1.frame = CGRectMake(badgeLeftPadding-_badgeView1.frame.size.width,badgeTopPadding,20,20);
     _badgeView2.frame = CGRectMake(badgeLeftPadding+badgeHorizontalPadding,badgeTopPadding,20,20);
     // Layout Labels Based on Badge Frames

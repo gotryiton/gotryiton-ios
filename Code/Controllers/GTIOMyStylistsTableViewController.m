@@ -54,7 +54,7 @@
 		[self.contentView addSubview:_nameLabel];
 		
 		_locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_locationLabel.font = kGTIOFetteFontOfSize(12);
+		_locationLabel.font = kGTIOFontHelveticaNeueOfSize(13);
 		_locationLabel.textColor = RGBCOLOR(130,130,130);
 		_locationLabel.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:_locationLabel];
@@ -85,21 +85,21 @@
     
     _backgroundImageView.frame = CGRectOffset(_backgroundImageView.bounds, 10, 10-5);
     
-    _imageView2.frame = CGRectMake(17,17-5, 56,56);
+    _imageView2.frame = CGRectMake(17+0.5,17-5+0.5, 56,56);
     _borderImageView.frame = CGRectInset(_imageView2.frame, -4,-4);
     
-	_nameLabel.frame = CGRectMake(82, 24-5, 195, 30);
+	_nameLabel.frame = CGRectMake(82+4, 24-5+1.5, 195, 30);
     [_nameLabel sizeToFit];
 	
     
-    _locationLabel.frame = CGRectMake(82, CGRectGetMaxY(_nameLabel.frame)+2, 210, 18);
+    _locationLabel.frame = CGRectMake(82+4, CGRectGetMaxY(_nameLabel.frame)+2+2, 210, 18);
     [_locationLabel sizeToFit];
     
-    _connectionImageView.frame = CGRectMake(259,61,12,12);
+    _connectionImageView.frame = CGRectMake(255,57,17,16);
     
     int i = 0;
     for (UIView* view in _badgeImageViews) {
-        view.frame = CGRectMake(CGRectGetMaxX(_nameLabel.frame)+5+i*(16+5), 21, 16, 16);
+        view.frame = CGRectMake(CGRectGetMaxX(_nameLabel.frame)+4+(i*23), 19, 24, 24);
         i++;
     }
 }
@@ -209,8 +209,12 @@
     [_addMoreButton sizeToFit];
     _addMoreButton.frame = CGRectOffset(_addMoreButton.bounds, 0, self.view.bounds.size.height - _addMoreButton.bounds.size.height);
     [self.view addSubview:_addMoreButton];
-    self.tableView.frame = CGRectMake(0,0,320,self.view.bounds.size.height - _addMoreButton.bounds.size.height + 6);
-    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 5, 0);
+    self.tableView.frame = CGRectMake(2,0,320,self.view.bounds.size.height - _addMoreButton.bounds.size.height + 6);
+    self.tableView.contentInset = UIEdgeInsetsMake(7, 0, 7, 0);
+    
+    UIImage* topShadow = [UIImage imageNamed:@"list-top-shadow.png"];
+    UIView* topShadowImageView = [[[UIImageView alloc] initWithImage:topShadow] autorelease];
+    [self.view addSubview:topShadowImageView];
 }
 
 - (void)viewDidUnload {
