@@ -184,6 +184,7 @@
     } else {
         [_calloutButton removeFromSuperview];
     }
+    [self setNeedsLayout];
 }
 
 @end
@@ -338,7 +339,7 @@
     _tabBar.tabStyle = @"addAStylistTab:";
     [_tabBar setTabItems:[NSArray arrayWithObjects:
                           [[[TTTabItem alloc] initWithTitle:@"CONNECTIONS"] autorelease],
-                          [[[TTTabItem alloc] initWithTitle:@"CONTACTS"] autorelease],
+                          [[[TTTabItem alloc] initWithTitle:@"INVITE"] autorelease],
                           [[[TTTabItem alloc] initWithTitle:@"RECOMMENDED"] autorelease],
                           nil]];
     _tabBar.contentMode = UIViewContentModeScaleToFill;

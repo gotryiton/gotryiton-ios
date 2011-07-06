@@ -192,7 +192,13 @@ CGSize kMaxSize = {260,8000};
     CGFloat authorLabelXOrigin = profilePictureFrame.origin.x+profilePictureFrame.size.width+authorLabelHorizontalMargin;
     
     _authorLabel.frame = CGRectMake(authorLabelXOrigin+1, authorLabelYOrigin, authorStringSize.width, authorLabelHeight);
-    _authorButton.frame = _authorLabel.frame;
+    
+    
+    CGPoint origin = _authorProfilePictureImageOverlay.origin;
+    CGFloat height = _authorProfilePictureImageOverlay.bounds.size.height;
+    CGFloat width = xBadgePosition - origin.x;
+    _authorButton.frame = CGRectMake(origin.x, origin.y, width, height);
+    [self addSubview:_authorButton];
 }	
 
 - (void)dealloc {

@@ -12,6 +12,62 @@
 #import "TWTAlertViewDelegate.h"
 #import "GTIOHeaderView.h"
 
+@interface GTIOSettingsTableControlItem : TTTableControlItem
+@end
+@implementation GTIOSettingsTableControlItem
+@end
+
+@interface GTIOSettingsTableControlItemCell : TTTableControlCell
+@end
+
+@implementation GTIOSettingsTableControlItemCell
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.textLabel.font = [UIFont boldSystemFontOfSize:12];
+}
+
+@end
+
+
+@interface GTIOSettingsDataSource : TTSectionedDataSource
+@end
+
+@implementation GTIOSettingsDataSource
+
+- (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
+	if ([object isKindOfClass:[GTIOSettingsTableControlItem class]]) {
+        return [GTIOSettingsTableControlItemCell class];
+    } else {
+		return [super tableView:tableView cellClassForObject:object];
+	}
+}
+
+@end
+
+@interface GTIOSettingsTableViewDelegate : TTTableViewDelegate
+@end
+@implementation GTIOSettingsTableViewDelegate
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSString* text = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
+    if (text && ![text isWhitespaceAndNewlines]) {
+        UIView* section = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,20)] autorelease];
+        UILabel* label = [[[UILabel alloc] initWithFrame:CGRectMake(20,8,300,20)] autorelease];
+        label.text = text;
+        label.textColor = RGBCOLOR(128,128,128);
+        label.font = [UIFont boldSystemFontOfSize:14];
+        label.backgroundColor = [UIColor clearColor];
+        [section addSubview:label];
+        
+        return section;
+    } else {
+        return nil;
+    }
+}
+
+@end
+
 static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 
 @interface GTIOSettingsViewController (Private)
@@ -67,6 +123,10 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
     [alert release];
 }
 
+- (id)createDelegate {
+    return [[[GTIOSettingsTableViewDelegate alloc] initWithController:self] autorelease];
+}
+
 - (void)createLoggedInModel {
 	_pushNotificationsSwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
 	_pushNotificationsSwitch.on = [[GTIOUser currentUser].iphonePush boolValue];
@@ -88,15 +148,13 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 	_alertNewsletterSwitch.on = [[GTIOUser currentUser].alertNewsletter boolValue];
 	_alertNewsletterSwitch.delegate = self;
     
-	self.dataSource = [TTSectionedDataSource dataSourceWithObjects:@"",
+	self.dataSource = [GTIOSettingsDataSource dataSourceWithObjects:@"",
 					   [TTTableControlItem itemWithCaption:@"push notifications" control:_pushNotificationsSwitch],
                        (_pushNotificationsSwitch.on ? @"email + alert me when..." : @"email me when..."),
-                       [TTTableControlItem itemWithCaption:@"there's activity on my look" control:_alertActivitySwitch],
-                       [TTTableControlItem itemWithCaption:@"I become someone's stylist" control:_alertStylistAddSwitch],
-                       [TTTableControlItem itemWithCaption:@"someone needs my advice" control:_alertStylistActivitySwitch],
-                       [TTTableControlItem itemWithCaption:@"there's GO TRY IT ON news" control:_alertNewsletterSwitch],
-//                       @"",
-//					   [TTTableTextItem itemWithText:@"about us" URL:settingsURL],
+                       [GTIOSettingsTableControlItem itemWithCaption:@"there's activity on my look" control:_alertActivitySwitch],
+                       [GTIOSettingsTableControlItem itemWithCaption:@"I become someone's stylist" control:_alertStylistAddSwitch],
+                       [GTIOSettingsTableControlItem itemWithCaption:@"someone needs my advice" control:_alertStylistActivitySwitch],
+                       [GTIOSettingsTableControlItem itemWithCaption:@"there's GO TRY IT ON news" control:_alertNewsletterSwitch],
 					   nil];
 }
 
