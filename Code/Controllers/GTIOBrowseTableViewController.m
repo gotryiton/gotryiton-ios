@@ -229,7 +229,6 @@
 
 - (TTTableViewDelegate*)createDelegate {
     GTIODropShadowSectionTableViewDelegate* delegate = [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
-//        delegate.footerHeight = 5.0f;
     return delegate;
 }
 
@@ -360,7 +359,15 @@
         ds.model = self.model;
         self.dataSource = ds;
     }
-    
+    if (_presenter.list.categories) {
+        UIView* superView = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,1)] autorelease];
+        UIView* view = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shadow-wallpaper.png"]] autorelease];
+        view.backgroundColor = [UIColor clearColor];
+        [superView addSubview:view];
+        self.tableView.tableFooterView = superView;
+    } else {
+        self.tableView.tableFooterView = nil;
+    }
 }
 
 - (void)didLoadMore {

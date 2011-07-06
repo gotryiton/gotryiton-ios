@@ -57,7 +57,7 @@
     
     int i = 0;
     for (UIView* view in _badgeImageViews) {
-        view.frame = CGRectMake(100+_nameLabel.width+5+i*(16+5), 2+_locationLabel.height, 16, 16);
+        view.frame = CGRectMake(99+_nameLabel.width+(i*23), 18, 24, 24);
         i++;
     }
 }
@@ -90,7 +90,7 @@
     [_badgeImageViews release];
     _badgeImageViews = [NSMutableArray new];
     for (GTIOBadge* badge in _outfitTableItem.outfit.badges) {
-        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0,0,16,16)];
+        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0,0,24,24)];
         imageView.backgroundColor = [UIColor clearColor];
         imageView.urlPath = badge.imgURL;
         [self addSubview:imageView];
