@@ -107,3 +107,6 @@ NSString* const kUserIgnoredStylistEventName = @"Action - Ignore Stylee";
 NSString* const kUserEditedProfileEventName = @"Edit Profile";
 NSString* const kUserEditedProfileIconEventName = @"Edit Profile Icon";
 NSString* const kUserAddedFacebook = @"User - Added Facebook";
+
+NSString* const kSwipeDownOnHomeScreen = @"Page - Home Screen View Thumbnails";
+NSString* const kSwipeUpOnHomeScreen = @"Page - Home Screen Hide Thumbnails";

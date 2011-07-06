@@ -184,12 +184,21 @@
     _uploadButton.titleLabel.alpha = 1 - sqrt(scrollPercentage);
     _featuredButton.titleLabel.alpha = 1 - sqrt(scrollPercentage);
     _browseButton.titleLabel.alpha = 1 - sqrt(scrollPercentage);
+    
+    _looksFromOurCommunity.alpha = sqrt(scrollPercentage);
+    
 }
 
 - (void)snapScrollView:(UIScrollView*)scrollView {
     float scrollDistance = scrollView.contentSize.height - scrollView.bounds.size.height;
     int topOrBottom = (scrollDistance/2 < scrollView.contentOffset.y ? 1 : 0);
     [scrollView setContentOffset:CGPointMake(0,scrollDistance*topOrBottom) animated:YES];
+    
+    if (topOrBottom == 0) {
+        GTIOAnalyticsEvent(kSwipeUpOnHomeScreen);
+    } else {
+        GTIOAnalyticsEvent(kSwipeDownOnHomeScreen);
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -219,6 +228,16 @@
     float delay = 0.0f;
     float maxHeight = 0;
     // this is duplicated on the welcome screen. should probably be refactored.
+    
+    [_looksFromOurCommunity removeFromSuperview];
+    _looksFromOurCommunity = [[[UILabel alloc] initWithFrame:CGRectMake(10, _thumbnailContainer.frame.origin.y - 20, 320, 20)] autorelease];
+    _looksFromOurCommunity.text = @"looks from our community";
+    _looksFromOurCommunity.font = kGTIOFontBoldHelveticaNeueOfSize(12);
+    _looksFromOurCommunity.backgroundColor = [UIColor clearColor];
+    _looksFromOurCommunity.textColor = RGBCOLOR(210,210,210);
+    _looksFromOurCommunity.alpha = 0;
+    [_scrollView addSubview:_looksFromOurCommunity];
+    
     for (int i = 0; i < [list.outfits count]; i++) {
         GTIOOutfit* outfit = [list.outfits objectAtIndex:i];
         TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
@@ -252,6 +271,9 @@
 }
 
 - (void)outfitButtonTouched:(id)sender {
+    if (_scrollView.contentOffset.y <= 1) {
+        return;
+    }
     int index = [(UIView*)sender tag];
     NSLog(@"index: %d", index);
     GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:_model outfitIndex:index];
@@ -322,28 +344,31 @@
 
 #pragma mark - Actions
 
-- (IBAction)myStylistsButtonWasPressed {
-    TTOpenURL(@"gtio://stylists");
-}
 - (IBAction)featuredButtonWasPressed {
+    if (_scrollView.contentOffset.y >= 1) {
+        return;
+    }
     TTOpenURL(@"gtio://featured");
 }
 
-- (IBAction)myLooksButtonWasPressed {
-    NSString* apiURL = GTIORestResourcePath([NSString stringWithFormat:@"/profile/%@/looks", [GTIOUser currentUser].UID]);
-    NSString* url = [NSString stringWithFormat:@"gtio://browse/%@", [apiURL stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
-    TTOpenURL(url);
-}
-
 - (IBAction)uploadButtonWasPressed {
+    if (_scrollView.contentOffset.y >= 1) {
+        return;
+    }
     TTOpenURL(@"gtio://getAnOpinion");
 }
 
 - (IBAction)todosButtonWasPressed {
+    if (_scrollView.contentOffset.y >= 1) {
+        return;
+    }
     TTOpenURL(@"gtio://todos");
 }
 
 - (IBAction)browseButtonWasPressed {
+    if (_scrollView.contentOffset.y >= 1) {
+        return;
+    }
     TTOpenURL(@"gtio://browse");
 }
 

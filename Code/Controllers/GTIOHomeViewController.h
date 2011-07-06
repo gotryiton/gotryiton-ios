@@ -31,6 +31,7 @@
     
     IBOutlet UIScrollView* _scrollView;
     IBOutlet UIView* _thumbnailContainer;
+    UILabel* _looksFromOurCommunity;
     
     GTIOBrowseListTTModel* _model;
     
@@ -41,12 +42,8 @@
     BOOL _notificationsVisible;
     BOOL _animatedInThisLaunch;
 }
-/// My Stylists
-- (IBAction)myStylistsButtonWasPressed;
 /// Featured
 - (IBAction)featuredButtonWasPressed;
-/// My Looks
-- (IBAction)myLooksButtonWasPressed;
 /// Upload
 - (IBAction)uploadButtonWasPressed;
 /// To-Do's

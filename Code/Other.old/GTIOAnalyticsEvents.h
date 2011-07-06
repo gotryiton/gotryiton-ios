@@ -1,3 +1,4 @@
+
 //
 //  GTIOAnalyticsEvents.h
 //  GoTryItOn
@@ -106,3 +107,6 @@ extern NSString* const kUserIgnoredStylistEventName;
 extern NSString* const kUserEditedProfileEventName;
 extern NSString* const kUserEditedProfileIconEventName;
 extern NSString* const kUserAddedFacebook;
+
+extern NSString* const kSwipeUpOnHomeScreen;
+extern NSString* const kSwipeDownOnHomeScreen;
