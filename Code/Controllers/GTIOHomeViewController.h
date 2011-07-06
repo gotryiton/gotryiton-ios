@@ -12,8 +12,9 @@
 #import <UIKit/UIKit.h>
 #import <Three20/Three20.h>
 #import "GTIONotificationsOverlayViewController.h"
+#import "GTIOBrowseListTTModel.h"
 
-@interface GTIOHomeViewController : UIViewController {
+@interface GTIOHomeViewController : UIViewController <TTModelDelegate> {
     IBOutlet TTImageView* _profileThumbnailView;
     IBOutlet UIButton* _notificationsButton;
     IBOutlet UIButton* _notificationsBadgeButton;
@@ -26,8 +27,12 @@
     IBOutlet UIButton* _todosBadgeButton;
     
     IBOutlet UIImageView* _backgroundImageView;
-    
     IBOutlet UIView* _notificationsContainer;
+    
+    IBOutlet UIScrollView* _scrollView;
+    IBOutlet UIView* _thumbnailContainer;
+    
+    GTIOBrowseListTTModel* _model;
     
     UILabel* _nameLabel;
     UILabel* _locationLabel;

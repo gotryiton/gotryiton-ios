@@ -22,8 +22,6 @@ static int const kOverlayViewTag = 9999;
 
 - (void)loadView {
 	[super loadView];
-	
-	[self.navigationController setNavigationBarHidden:NO animated:NO];
 
 	[self setupTitleView];
 	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel"

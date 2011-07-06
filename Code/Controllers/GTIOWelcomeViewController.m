@@ -58,6 +58,7 @@
     [_spinner stopAnimating];
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)aModel;
     GTIOBrowseList* list = model.list;
+    // this is duplicated on the home screen. should probably be refactored.
     float delay = 0.0f;
     for (int i = 0; i < [list.outfits count]; i++) {
         GTIOOutfit* outfit = [list.outfits objectAtIndex:i];

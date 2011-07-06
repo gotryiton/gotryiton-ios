@@ -10,6 +10,8 @@
 #import "TWTAlertViewDelegate.h"
 #import "GTIOBarButtonItem.h"
 #import "GTIONotificationsOverlayViewController.h"
+#import "GTIOOutfit.h"
+#import "GTIOOutfitViewController.h"
 
 @implementation GTIOHomeViewController
 
@@ -46,7 +48,6 @@
         _uploadButton.titleLabel.alpha = 0;
         _featuredButton.titleLabel.alpha = 0;
         _browseButton.titleLabel.alpha = 0;
-        _todoButton.titleLabel.alpha = 0;
         _todosBadgeButton.alpha = 0;
     }
 }
@@ -124,19 +125,20 @@
     }
 }
 
+- (void)updateScrollView {
+    BOOL noNotifications = CGRectEqualToRect(_notificationsContainer.frame, CGRectZero);
+    int thumbnailContainerOffset = (noNotifications ? 380 : 370) - 8;
+    _thumbnailContainer.frame = CGRectMake(2,thumbnailContainerOffset, 314, _thumbnailContainer.bounds.size.height);
+    int maxY = CGRectGetMaxY(_thumbnailContainer.frame);
+    _scrollView.contentSize = CGSizeMake(320,noNotifications ? maxY : maxY + 36);
+}
+
 - (void)updateNotificationsButton {
-    if (![[GTIOUser currentUser] isLoggedIn]) {
-        [_notificationsBadgeButton setTitle:@"" forState:UIControlStateNormal];
-        [_notificationsBadgeButton setSelected:NO];
-        [_notificationsButton setTitle:@"notifications" forState:UIControlStateNormal];
-        _notificationsButton.enabled = YES;
-        _notificationsBadgeButton.enabled = YES;
-    } else if ([[GTIOUser currentUser].notifications count] == 0) {
-        [_notificationsBadgeButton setTitle:@"" forState:UIControlStateNormal];
-        [_notificationsBadgeButton setSelected:NO];
-        [_notificationsButton setTitle:@"" forState:UIControlStateNormal];
-        _notificationsButton.enabled = NO;
-        _notificationsBadgeButton.enabled = NO;
+    if (!_notificationsVisible) {
+        _notificationsContainer.frame = CGRectMake(0,420,320,465);
+    }
+    if (![[GTIOUser currentUser] isLoggedIn] || [[GTIOUser currentUser].notifications count] == 0) {
+        _notificationsContainer.frame = CGRectZero;
     } else if ([[GTIOUser currentUser] numberOfUnseenNotifications] == 0) {
         [_notificationsBadgeButton setTitle:@"" forState:UIControlStateNormal];
         [_notificationsBadgeButton setSelected:NO];
@@ -151,9 +153,8 @@
         [_notificationsBadgeButton setSelected:YES];
         _notificationsButton.enabled = YES;
         _notificationsBadgeButton.enabled = YES;
-        
     }
-    
+    [self updateScrollView];
 }
 
 - (void)updateTodoBadge {
@@ -164,12 +165,113 @@
     }
     NSString* title = [NSString stringWithFormat:@"%d", [[GTIOUser currentUser].todosBadge intValue]];
     [_todosBadgeButton setTitle:title forState:UIControlStateNormal];
-    _todosBadgeButton.frame = CGRectMake(251, 150, 23 + (([title length] - 1) * 6), 24);
+    _todosBadgeButton.frame = CGRectMake(251, 106, 23 + (([title length] - 1) * 6), 24);
     
     UIImage* image = [UIImage imageNamed:@"todos-badge.png"];
     UIImage* bgImage = [image stretchableImageWithLeftCapWidth:12 topCapHeight:12];
     [_todosBadgeButton setBackgroundImage:bgImage forState:UIControlStateNormal];
     _todosBadgeButton.contentEdgeInsets = UIEdgeInsetsMake(-2,1,2,0);
+}
+
+#pragma mark - Scroll View
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    float scrollDistance = scrollView.contentSize.height - scrollView.bounds.size.height;
+    float scrollPercentage = scrollView.contentOffset.y / scrollDistance;
+    
+    _backgroundImageView.alpha = 1 - sqrt(scrollPercentage);
+    _todoButton.titleLabel.alpha = 1 - sqrt(scrollPercentage);
+    _uploadButton.titleLabel.alpha = 1 - sqrt(scrollPercentage);
+    _featuredButton.titleLabel.alpha = 1 - sqrt(scrollPercentage);
+    _browseButton.titleLabel.alpha = 1 - sqrt(scrollPercentage);
+}
+
+- (void)snapScrollView:(UIScrollView*)scrollView {
+    float scrollDistance = scrollView.contentSize.height - scrollView.bounds.size.height;
+    int topOrBottom = (scrollDistance/2 < scrollView.contentOffset.y ? 1 : 0);
+    [scrollView setContentOffset:CGPointMake(0,scrollDistance*topOrBottom) animated:YES];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self snapScrollView:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self snapScrollView:scrollView];
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    return NO;
+}
+
+- (void)loadOutfits {
+    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/todos/community") delegate:nil];
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+    _model = [[GTIOBrowseListTTModel modelWithObjectLoader:objectLoader] retain];
+    [_model.delegates addObject:self];
+    [_model load:TTURLRequestCachePolicyNone more:NO];
+}
+
+- (void)modelDidFinishLoad:(id<TTModel>)model {
+    GTIOBrowseList* list = _model.list;
+    float delay = 0.0f;
+    float maxHeight = 0;
+    // this is duplicated on the welcome screen. should probably be refactored.
+    for (int i = 0; i < [list.outfits count]; i++) {
+        GTIOOutfit* outfit = [list.outfits objectAtIndex:i];
+        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
+        imageView.urlPath = outfit.iphoneThumbnailUrl;
+        UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"welcome-thumb-overlay.png"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(outfitButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        button.backgroundColor = [UIColor clearColor];
+        button.tag = i;
+        
+        int row = floor(i/5);
+        int column = i%5;
+        int x = 61 * column;
+        int y = 80*row;
+        CGRect frame = CGRectMake(x,y,71,90);
+        maxHeight = CGRectGetMaxY(frame)+3;
+        
+        imageView.frame = CGRectInset(frame,10,10);
+        button.frame = frame;
+        [_thumbnailContainer addSubview:imageView];
+        [_thumbnailContainer addSubview:button];
+        
+        imageView.alpha = 0;
+        button.alpha = 0;
+        delay += 0.1f;
+        NSLog(@"Delay: %f", delay);
+        [self performSelector:@selector(fadeIn:) withObject:[NSArray arrayWithObjects:imageView, button, nil] afterDelay:delay];
+    }
+    _thumbnailContainer.frame = CGRectMake(0,0,320,maxHeight);
+    [self updateScrollView];
+}
+
+- (void)outfitButtonTouched:(id)sender {
+    int index = [(UIView*)sender tag];
+    NSLog(@"index: %d", index);
+    GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:_model outfitIndex:index];
+    [self.navigationController pushViewController:viewController animated:YES];
+    [viewController release];
+}
+
+- (void)fadeIn:(NSArray*)items {
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:2.0f];
+    for (UIView* view in items) {
+        view.alpha = 1;
+    }
+    [UIView commitAnimations];
+}
+
+- (void)model:(id<TTModel>)model didFailLoadWithError:(NSError*)error {
+    NSLog(@"Error: %@", error);
+    _thumbnailContainer.frame = CGRectZero;
+    [self updateScrollView];
 }
 
 #pragma mark - View lifecycle
@@ -189,6 +291,8 @@
     [self updateUserLabel];
     [self updateNotificationsButton];
     [self updateTodoBadge];
+    
+    [self loadOutfits];
 }
 
 - (void)viewDidUnload {

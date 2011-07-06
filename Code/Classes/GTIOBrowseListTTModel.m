@@ -35,6 +35,9 @@
         objectLoader.cacheTimeoutInterval = _objectLoader.cacheTimeoutInterval;
 		
 		NSMutableDictionary* paramsForNextPage = [[_objectLoader.params mutableCopy] autorelease];
+        if (nil == paramsForNextPage) {
+            paramsForNextPage = [NSMutableDictionary dictionary];
+        }
 		
         [paramsForNextPage setObject:lastOutfit.timestamp forKey:@"lasttime"];
         [paramsForNextPage setObject:[NSString stringWithFormat:@"%d", [self.objects count]] forKey:@"offset"];
