@@ -14,6 +14,7 @@
 #import "GTIOListSection.h"
 #import "GTIOProfile.h"
 #import "GTIOHeaderView.h"
+#import "GTIOAnalyticsTracker.h"
 
 @interface GTIOFacebookConnectTableItem : TTTableTextItem
 @end
@@ -452,6 +453,7 @@
     NSString* apiEndpoint = nil;
     NSDictionary* params = nil;
     if (index == GTIONetworkTab) {
+        GTIOAnalyticsEvent(kAddStylistsEventName);
         apiEndpoint = GTIORestResourcePath(@"/stylists/network");
         NSArray* emails = [self getEmailAddressesFromContacts];
         NSLog(@"Emails: %@", emails);
@@ -459,24 +461,23 @@
         params = [NSDictionary dictionaryWithObjectsAndKeys:emailsAsJSON, @"emailContacts", nil];
         params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     } else if (index == GTIOContactsTab) {
+        GTIOAnalyticsEvent(kAddContactsStylistsEventName);
         NSMutableArray* section1 = [NSMutableArray arrayWithCapacity:[_customEmailAddresses count] + 1];
         TTTableControlItem* item = [TTTableControlItem itemWithCaption:nil control:(UIControl*)_emailField];
         [section1 addObject:item];
         for (NSString* email in _customEmailAddresses) {
             [section1 addObject:[self itemForEmailAddress:email]];
         }
-        
-        
         NSArray* emailsAddresses = [self getEmailAddressesFromContacts];
         NSMutableArray* section2 = [NSMutableArray arrayWithCapacity:[emailsAddresses count]];
         for (NSString* email in emailsAddresses) {
             [section2 addObject:[self itemForEmailAddress:email]];
-        }
-        
+        }        
         self.dataSource = [GTIOAddStylistsSectionedDataSource dataSourceWithArrays:@"enter an email address", section1,
                            @"choose from your phone contacts", section2, nil];
         return;
     } else {
+        GTIOAnalyticsEvent(kAddRecommendedStylistsEventName);
         apiEndpoint = GTIORestResourcePath(@"/stylists/recommended");
         params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
     }
@@ -546,6 +547,7 @@
 
 - (void)doneButtonWasPressed:(id)sender {
     [self showLoading];
+    [[GTIOAnalyticsTracker sharedTracker] trackUserDidAddStylists:[NSNumber numberWithInt:([_emailsToInvite count] + [_profileIDsToInvite count])]];
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/add") delegate:self];
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_emailsToInvite jsonEncode], @"stylistEmails",
                             [_profileIDsToInvite jsonEncode], @"stylistUids", nil];

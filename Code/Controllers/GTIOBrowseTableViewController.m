@@ -145,7 +145,6 @@
         self.variableHeightRows = YES;
         self.autoresizesForKeyboard = YES;
         self.view.accessibilityLabel = @"Browse Screen";
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreshActivated:) name:@"DragRefreshTableReload" object:nil];
     }
     return self;
@@ -179,10 +178,12 @@
 }
 
 - (void)pullToRefreshActivated:(NSNotification*)note {
+    GTIOAnalyticsEvent(kGTIOListRefreshEventName);
     _flags.isModelDidLoadFirstTimeInvalid = 1;
 }
 
 - (void)reloadButtonWasPressed:(id)sender {
+    GTIOAnalyticsEvent(kGTIOListRefreshEventName);    
     _flags.isModelDidLoadFirstTimeInvalid = 1;
     [self invalidateModel];
 }
@@ -258,6 +259,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
+    GTIOAnalyticsEvent(kSearch);
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     if (model.list.searchAPI) {
         NSString* url = [NSString stringWithFormat:@"gtio://browse/%@/%@",
@@ -405,6 +407,20 @@
         _presenter = [[GTIOBrowseListPresenter presenterWithList:list] retain];
         
         NSString* title = [list.title uppercaseString];
+
+        // Analytics
+        if (title) {
+            if ([title isEqualToString:@"BROWSE"]) {
+                GTIOAnalyticsEvent(kBrowseEventName);
+            } else if ([title isEqualToString:@"TO-DO'S"] || [title isEqualToString:@"COMPLETED"]) {
+                ; //special cases to avoid duplicate events
+            } else if (list.categories) {
+                GTIOAnalyticsEvent([kCategoryPageEventNamePrefix stringByAppendingString:title]);
+            } else {
+                GTIOAnalyticsEvent([kOutfitListPageEventNamePrefix stringByAppendingString:title]);
+            }
+        }
+
         self.title = list.title;
         self.navigationItem.titleView = [GTIOHeaderView viewWithText:title];
         
@@ -469,6 +485,13 @@
 - (void)tabBar:(GTIOTabBar*)tabBar selectedTabAtIndex:(NSUInteger)index {
     GTIOSortTab* tab = [_sortTabs objectAtIndex:index];
     if (tab) {
+        // Analytics
+        if ([tab.title isEqualToString:@"community"]) {
+            GTIOAnalyticsEvent(kCommunityTodosEventName);
+        } else if ([tab.title isEqualToString:@"completed"]) {
+            GTIOAnalyticsEvent(kCompletedTodosEventName);
+        }
+        // Switch Endpoint
         [_apiEndpoint release];
         _apiEndpoint = [tab.sortAPI retain];
         [self invalidateModel];

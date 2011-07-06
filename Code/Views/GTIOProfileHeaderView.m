@@ -12,6 +12,7 @@
 #import "TWTActionSheetDelegate.h"
 #import <TWTAlertViewDelegate.h>
 #import "GTIOBadge.h"
+#import "GTIOAnalyticsTracker.h"
 
 @implementation GTIOProfileHeaderView
 
@@ -191,6 +192,7 @@
 // TODO: these should probably be model methods on GTIOUser. removeAsMyStylist:(GTIOProfile*) with a delegate pattern.
 
 - (void)removeAsMyStylist {
+
     TWTAlertViewDelegate* delegate = [[[TWTAlertViewDelegate alloc] init] autorelease];
 	[delegate setTarget:self selector:@selector(removeAsMyStylistConfirmed) object:nil forButtonIndex:1];
     NSString* message = [NSString stringWithFormat:
@@ -201,6 +203,7 @@
 	[alert release];
 }
 - (void)removeAsMyStylistConfirmed {
+    GTIOAnalyticsEvent(kUserDeletedStylistEventName);    
     _profile.stylistRelationship.isMyStylist = NO;
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/remove") delegate:self];
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[[NSArray arrayWithObject:_profile.uid] jsonEncode], @"stylistUids", nil];
@@ -210,6 +213,7 @@
 }
 
 - (void)addAsMyStylist {
+    [[GTIOAnalyticsTracker sharedTracker] trackUserDidAddStylists:[NSNumber numberWithInt:1]];
     TWTAlertViewDelegate* delegate = [[[TWTAlertViewDelegate alloc] init] autorelease];
 	[delegate setTarget:self selector:@selector(addAsMyStylistConfirmed) object:nil forButtonIndex:1];
     NSString* message = [NSString stringWithFormat:
@@ -240,6 +244,7 @@
 }
 
 - (void)ignoreStylist {
+    GTIOAnalyticsEvent(kUserIgnoredStylistEventName);
     _profile.stylistRelationship.iStyleIgnored = YES;
     NSString* path = [NSString stringWithFormat:@"/i-style/ignore/%@", _profile.uid];
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(path) delegate:self];

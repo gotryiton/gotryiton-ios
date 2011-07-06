@@ -489,7 +489,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 	
 	switch (_state) {
 		case GTIOOutfitViewStateFullDescription:
-            TTOpenURL(@"gtio://analytics/trackDescriptionExpanded");
+            GTIOAnalyticsEvent(kOutfitDescriptionExpandedEventName);
             [(GTIOScrollView*)self.superview setDragToRefresh:YES];
 			_topControlsView.frame = CGRectMake(3, 3, 320, 280);
 			_overlay.alpha = 0;
@@ -506,7 +506,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 			_changeItReasonsOverlay.alpha = 1;
 			break;
 		case GTIOOutfitViewStateFullscreen:
-            TTOpenURL(@"gtio://analytics/trackFullscreen");
+            GTIOAnalyticsEvent(kOutfitFullScreenEventName);
             _photosView.centerPage.userInteractionEnabled = NO;
             [(GTIOScrollView*)self.superview setDragToRefresh:NO];
 			_topControlsView.alpha = 0;
@@ -789,9 +789,9 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 	[UIView commitAnimations];
     NSArray* reasons = [_changeItReasonsOverlay selectedChangeItReasons];
     if ([reasons count] == 0) {
-        TTOpenURL(@"gtio://analytics/trackWhyChangeSkipped");
+        GTIOAnalyticsEvent(kWhyChangeSkipped);
     } else {
-        TTOpenURL(@"gtio://analytics/trackWhyChangeSubmitted");
+        GTIOAnalyticsEvent(kWhyChangeSubmitted);
     }
 	[self voteForLook:0 reasons:reasons];
 }

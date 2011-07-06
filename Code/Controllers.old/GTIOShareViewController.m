@@ -167,7 +167,7 @@
 }
 
 - (void)createMyOutfitButtonWasTouched:(id)sender {
-	TTOpenURL(@"gtio://analytics/trackUserDidTouchCreateMyOutfitPage");
+    GTIOAnalyticsEvent(kUserDidTouchCreateMyOutfitPageEventName);
 	
 	// Write the settings back to the opinion request
 	self.opinionRequest.isPublic = _shareWithCommunitySwitch.isOn;

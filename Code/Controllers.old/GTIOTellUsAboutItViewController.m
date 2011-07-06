@@ -86,12 +86,10 @@
 		_tellUsMoreAboutItTextView.text = self.opinionRequest.tellUsMoreAboutIt;
 		
         UIBarButtonItem* cancelButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" 
-                                                                          
-                                                                         target:self 
-                                                                         action:@selector(cancelButtonWasTouched:)] autorelease];
+                                                                           target:self 
+                                                                           action:@selector(cancelButtonWasTouched:)] autorelease];
         self.navigationItem.leftBarButtonItem = cancelButton;
 	}
-	
 	return self;
 }
 
@@ -100,6 +98,11 @@
     UIImage* topShadow = [UIImage imageNamed:@"list-top-shadow.png"];
     UIView* topShadowImageView = [[[UIImageView alloc] initWithImage:topShadow] autorelease];
     [self.view addSubview:topShadowImageView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    GTIOAnalyticsEvent(kUploadStepTwoEventName);
 }
 
 - (id<UITableViewDelegate>)createDelegate {

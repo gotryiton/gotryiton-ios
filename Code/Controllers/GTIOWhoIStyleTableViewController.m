@@ -190,6 +190,11 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    GTIOAnalyticsEvent(kWhoIStyleEventName);
+}
+
 - (id)createDelegate {
     GTIODropShadowSectionTableViewDelegate* delegate = [[[GTIODropShadowSectionTableViewDelegate alloc] initWithController:self] autorelease];
     delegate.footerHeight = 8.0f;

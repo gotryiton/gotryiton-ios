@@ -253,7 +253,7 @@ CGSize kMaxSize = {260,8000};
 }
 
 - (void)agreeButtonWasPressed:(id)sender {
-    TTOpenURL(@"gtio://analytics/trackAgreeWithReview");
+    GTIOAnalyticsEvent(kReviewAgree);
 	_agreeButton.enabled = NO;
 	GTIOReview* review = [_reviewTableItem review];
 	NSString* path = [NSString stringWithFormat:@"/review/%@/", review.outfitID];
@@ -268,7 +268,7 @@ CGSize kMaxSize = {260,8000};
 }
 
 - (void)flagConfirmed {
-    TTOpenURL(@"gtio://analytics/trackFlagReview");
+    GTIOAnalyticsEvent(kReviewFlag);
 	_flagButton.enabled = NO;
 	GTIOReview* review = [_reviewTableItem review];
 	NSString* path = [NSString stringWithFormat:@"/review/%@/", review.outfitID];

@@ -13,8 +13,8 @@
 
 - (void)loadView {
 	[super loadView];
-	
-	TTOpenURL(@"gtio://analytics/trackUserDidViewPhotoGuidelines");
+    
+	GTIOAnalyticsEvent(kUserDidViewPhotoGuidelinesEventName);
 	
 	self.navigationItem.hidesBackButton = YES;
 	

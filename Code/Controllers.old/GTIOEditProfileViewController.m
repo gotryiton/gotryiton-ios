@@ -403,6 +403,15 @@
 	self.navigationItem.titleView = [GTIOHeaderView viewWithText:title];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (_isNew) {
+        GTIOAnalyticsEvent(kUserSignUpAlmostDoneEventName);
+    } else {
+        GTIOAnalyticsEvent(kUserEditProfileEventName);
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	[self startGeocodingIfNecessary];
@@ -503,6 +512,8 @@
 		return;
 	}
 	
+    GTIOAnalyticsEvent(kUserEditedProfileEventName);
+    
 	GTIOUser* user = [GTIOUser currentUser];
 	
 	// update properties

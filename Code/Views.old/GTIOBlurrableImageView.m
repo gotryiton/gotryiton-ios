@@ -102,7 +102,7 @@
 #pragma mark Actions
 
 - (void)commitBlur {	
-	TTOpenURL(@"gtio://analytics/trackUserDidApplyBlurMask");
+    GTIOAnalyticsEvent(kUserDidApplyBlurMaskEventName);
 	
 	CGRect blurRect = _draggableImageView.frame;
 	// Allow the delegate to adjust the blur rect

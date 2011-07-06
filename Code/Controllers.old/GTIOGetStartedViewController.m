@@ -42,19 +42,18 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-	TTOpenURL(@"gtio://analytics/trackUserDidViewHomepage");
+	GTIOAnalyticsEvent(kUserDidViewHomepageEventName);
 }
 
 - (void)getButtonWasPressed:(id)sender {
-	TTOpenURL(@"gtio://analytics/trackUserDidTouchGetAnOpinionFromHomepage");
+    GTIOAnalyticsEvent(kUserDiDTouchGetAnOpinionFromHomePageEventName);
 	
 	UITabBarController* controller = (UITabBarController*) TTOpenURL(@"gtio://tabbar");
 	[controller setSelectedIndex:0];
 }
 
 - (void)giveButtonWasPressed:(id)sender {
-	TTOpenURL(@"gtio://analytics/trackUserDidTouchGiveAnOpinionFromHomepage");
+    GTIOAnalyticsEvent(kUserDidTouchGiveAnOpinionFromHomePageEventName);
 	
 	UITabBarController* controller = (UITabBarController*) TTOpenURL(@"gtio://tabbar");
 	[controller setSelectedIndex:1];	

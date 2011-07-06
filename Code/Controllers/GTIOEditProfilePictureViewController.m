@@ -175,6 +175,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    // Analytics 
+    GTIOAnalyticsEvent(kUserEditProfilePictureEventName);
     // Send Request for icon options
     [GTIOUserIconOptionDataSource iconOptionRequestWithDelegate:self];
     // Setup Navigation Bar Items
@@ -282,6 +284,7 @@
 
 - (void)saveButtonAction {
     // Save Action
+    GTIOAnalyticsEvent(kUserEditedProfileIconEventName);
     GTIOUser* user = [GTIOUser currentUser];
     user.profileIconURL = _previewImageView.urlPath;
     [[GTIOUpdateUserRequest updateUser:user delegate:self selector:@selector(updateFinished:)] retain];

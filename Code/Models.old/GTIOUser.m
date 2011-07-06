@@ -345,6 +345,7 @@ static GTIOUser* gCurrentUser = nil;
 
 - (void)loginWithJanRain {
     [self didStartLogin];
+    TTOpenURL(@"gtio://analytics/trackUserDidViewLoginOtherProviders");
 	if (NO == self.isLoggedIn) {
 		[GTIOJanrainAuthenticationController showAuthenticationDialog];
 	}
@@ -544,6 +545,7 @@ static GTIOUser* gCurrentUser = nil;
 #pragma mark FBSessionDelegate
 
 - (void)fbDidLogin {
+    GTIOAnalyticsEvent(kUserAddedFacebook);
     NSString* url = GTIORestResourcePath(@"/auth");
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken",
                             [self deviceTokenURLEncoded], @"deviceToken",

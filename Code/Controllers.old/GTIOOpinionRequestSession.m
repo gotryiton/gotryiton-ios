@@ -143,14 +143,14 @@ static GTIOOpinionRequestSession* globalSession = nil;
 #pragma mark Actions
 
 - (void)showTellUsAboutItView {
-	TTOpenURL(@"gtio://analytics/trackUserDidViewTellUsAboutIt");
+    GTIOAnalyticsEvent(kUserDidViewTellUsAboutItEventName);
 	NSDictionary* query = [NSDictionary dictionaryWithObject:_opinionRequest forKey:@"opinionRequest"];
 	[[TTNavigator navigator] openURLAction:
 	 [[[TTURLAction actionWithURLPath:@"gtio://getAnOpinion/tellUsAboutIt"] applyQuery:query] applyAnimated:YES]];
 }
 
 - (void)start {
-	TTOpenURL(@"gtio://analytics/trackUserDidViewGetStarted");
+    GTIOAnalyticsEvent(kUploadGetStartedEventName);
 	GTIOUser* currentUser = [GTIOUser currentUser];
 	if (currentUser.isLoggedIn) {
 		[_opinionRequest release];

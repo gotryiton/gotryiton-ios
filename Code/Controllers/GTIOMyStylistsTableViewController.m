@@ -166,6 +166,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [[(GTIOMyStylistsTableViewDelegate*)tableView.delegate controller] performSelector:@selector(markItemAtIndexPathForDeletion:) withObject:indexPath];
+    GTIOAnalyticsEvent(kUserDeletedStylistEventName);
 	[tableView beginUpdates];
     [_items removeObjectAtIndex:indexPath.row];
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -264,6 +265,8 @@
 
 - (void)editButtonPressed:(id)sender {
     [self setEditing:YES animated:YES];
+    GTIOAnalyticsEvent(kEditStylistsEventName);
+
     [self.navigationItem setLeftBarButtonItem:_cancelButton animated:YES];
     [self.navigationItem setRightBarButtonItem:_doneButton animated:YES];
 }
@@ -275,6 +278,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self invalidateModel];
+    GTIOAnalyticsEvent(kMyStylistsEventName);
 }
 
 - (id)createDelegate {
@@ -337,6 +341,8 @@
 - (void)showEmpty:(BOOL)show {
     if (show) {
         UIImageView* imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pspush.png"]] autorelease];
+        
+        GTIOAnalyticsEvent(kStylistsIntroEventName);
         
         UIButton* invisibleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         invisibleButton.frame = imageView.bounds;

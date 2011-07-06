@@ -283,7 +283,7 @@
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
 	TTOpenURL(@"gtio://stopLoading");
-    TTOpenURL(@"gtio://analytics/trackReviewSubmitted");
+    GTIOAnalyticsEvent(kReviewSubmitted);
     
 	_reviewTextArea.text = @"";
 	[(GTIOOutfitPageView*)self.superview showFullDescription:NO];

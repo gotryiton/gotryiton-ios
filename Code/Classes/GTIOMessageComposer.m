@@ -60,6 +60,7 @@
 		NSString* message = [NSString stringWithFormat:@"mail failed to send: %@", [error localizedDescription]];
 		[self showAlertWithTitle:@"whoops!" message:message];
 	} else {
+        GTIOAnalyticsEvent(kOutfitShareEmail);
         TTOpenURL(@"gtio://analytics/trackShareViaEmail");
     }
 	
@@ -70,7 +71,7 @@
 	if (MessageComposeResultFailed == result) {
 		[self showAlertWithTitle:@"whoops!" message:@"text failed to send. sorry!"];
 	} else {
-        TTOpenURL(@"gtio://analytics/trackShareViaSMS");
+        GTIOAnalyticsEvent(kOutfitShareSMS);
     }
 	
 	[controller dismissModalViewControllerAnimated:YES];

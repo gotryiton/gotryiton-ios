@@ -18,14 +18,28 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 	if (nil == gSharedTracker) {
 		gSharedTracker = [[GTIOAnalyticsTracker alloc] init];
 	}
-	
 	return gSharedTracker;
 }
 
 - (void)dispatchEventWithName:(NSString*)eventName {
 	TTDINFO(@"URL dispatching analytics event: %@", eventName);
-	SEL selector = NSSelectorFromString(eventName);
-	[self performSelector:selector];
+    if ([self respondsToSelector:NSSelectorFromString(eventName)]) {
+        [self performSelector:NSSelectorFromString(eventName)];
+    } else {
+        [self logEvent:eventName];
+    }
+}
+
+#pragma mark Event Logging Methods
+
+- (void)logEvent:(NSString*)eventName {
+    [self logEvent:eventName withParameters:[NSDictionary dictionary]];
+}
+
+- (void)logEvent:(NSString*)eventName withParameters:(NSDictionary*)params {
+    NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithDictionary:params];
+    [parameters setObject:[NSNumber numberWithBool:[[GTIOUser currentUser] isLoggedIn]] forKey:kUserLoggedInParameterName];
+    [FlurryAPI logEvent:eventName withParameters:parameters];
 }
 
 #pragma mark Application Lifecycle
@@ -35,194 +49,66 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 }
 
 - (void)trackAppDidFinishLaunching {
-    [FlurryAPI logEvent:kAppDidFinishLaunchingEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kAppDidFinishLaunchingEventName];
 }
 
 - (void)trackAppDidBecomeActive {
-    [FlurryAPI logEvent:kAppDidBecomeActiveEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kAppDidBecomeActiveEventName];
 }
 
 #pragma mark User Authentication
 
 - (void)trackUserDidLoginForTheFirstTime {
     [FlurryAPI setUserID:[GTIOUser currentUser].UID];
-    [FlurryAPI logEvent:kUserDidRegisterOniPhoneEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidRegisterOniPhoneEventName];
 }
 
 - (void)trackUserDidLogin {
     [FlurryAPI setUserID:[GTIOUser currentUser].UID];
-    [FlurryAPI logEvent:kUserDidLoginOniPhoneEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidLoginOniPhoneEventName];
 }
 
 - (void)trackUserDidLogout {
-    [FlurryAPI logEvent:kUserDidLogoutOniPhoneEventName];
-}
-
-#pragma mark Opinion Request
-
-- (void)trackUserDidViewGetStarted {
-    [FlurryAPI logEvent:kUserDidViewGetStartedEventName];
-}
-
-- (void)trackUserDidViewTellUsAboutIt {
-    [FlurryAPI logEvent:kUserDidViewTellUsAboutItEventName];
-}
-
-- (void)trackUserDidViewShare {
-    [FlurryAPI logEvent:kUserDidViewShareEventName];
-}
-
-#pragma mark Other Screens
-
-- (void)trackUserDidViewHomepage {
-    [FlurryAPI logEvent:kUserDidViewHomepageEventName];
-}
-
-- (void)trackUserDidViewSettings {
-    [FlurryAPI logEvent:kUserDidViewSettingsTabEventName];
-}
-
-- (void)trackUserDidViewLogin {
-    [FlurryAPI logEvent:kUserDidViewLoginEventName];
-}
-
-- (void)trackUserDidViewContacts {
-    [FlurryAPI logEvent:kUserDidViewAddFromContactsEventName];
-}
-
-- (void)trackUserDidViewPhotoGuidelines {
-    [FlurryAPI logEvent:kUserDidViewPhotoGuidelinesEventName];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidLogoutOniPhoneEventName];
 }
 
 #pragma mark User Actions
-- (void)trackUserDidApplyBlurMask {
-    [FlurryAPI logEvent:kUserDidApplyBlurMaskEventName];
-}
-
-- (void)trackUserDidTouchCreateMyOutfitPage {
-    [FlurryAPI logEvent:kUserDidTouchCreateMyOutfitPageEventName];
-}
-
-- (void)trackUserDidAddContact {
-    [FlurryAPI logEvent:kUserDidAddContactEventName];
-}
-
-- (void)trackUserDidRemoveContact {
-    [FlurryAPI logEvent:kUserDidRemoveContactEventName];
-}
-
-- (void)trackUserDidTouchGiveAnOpinionFromHomepage {
-    [FlurryAPI logEvent:kUserDidTouchGiveAnOpinionFromHomePageEventName];
-}
-
-- (void)trackUserDidTouchGetAnOpinionFromHomepage {
-    [FlurryAPI logEvent:kUserDiDTouchGetAnOpinionFromHomePageEventName];
+- (void)trackUserDidAddStylists:(NSNumber*)count {
+    [self logEvent:kUserAddedStylistsEventName withParameters:[NSDictionary dictionaryWithObject:count forKey:@"count"]];
 }
 
 - (void)trackOpinionRequestSubmittedWithInfoDict:(NSDictionary*)info {
-    [FlurryAPI logEvent:kUserDidSubmitOutfitWithParametersEventName withParameters:info];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidSubmitOutfitWithParametersEventName withParameters:info];
 }
 
 #pragma mark Page Views
 
 - (void)trackViewControllerDidAppear:(Class)class {
     NSDictionary* info = [NSDictionary dictionaryWithObject:NSStringFromClass(class) forKey:@"ControllerClass"];
-    [FlurryAPI logEvent:kControllerDidAppearEventName withParameters:info];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kControllerDidAppearEventName withParameters:info];
 }
 
 #pragma mark Simon's Aditions
-//	TTOpenURL(@"gtio://analytics/trackReviewSubmitted");
-
-- (void)trackOutfitPageView {
-    
-    [FlurryAPI logEvent:kOutfitPageView];
-}
-
-- (void)trackReviewSubmitted {
-    [FlurryAPI logEvent:kReviewSubmitted];
-}
-
-- (void)trackShareViaSMS {
-    [FlurryAPI logEvent:kOutfitShareSMS];
-}
-
-- (void)trackShareViaEmail {
-    [FlurryAPI logEvent:kOutfitShareEmail];
-}
 
 - (void)trackVote:(NSDictionary*)info {
-    [FlurryAPI logEvent:kVoteSubmitted withParameters:info];
-}
-
-- (void)trackRecentListPageView {
-    [FlurryAPI logEvent:kRecentListPageView];
-}
-
-
-- (void)trackPopularListPageView {
-    [FlurryAPI logEvent:kPopularListPageView];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kVoteSubmitted withParameters:info];
 }
 
 - (void)trackSearchListPageViewWithQuery:(NSString*)query {
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
                             query, @"query", nil];
-    [FlurryAPI logEvent:kSearch withParameters:params];
-}
-
-- (void)trackProfilePageView {
-    [FlurryAPI logEvent:kProfilePageView];
-}
-
-- (void)trackMyProfilePageView {
-    [FlurryAPI logEvent:kMyProfilePageView];
-}
-
-- (void)trackListRefresh {
-    [FlurryAPI logEvent:kAnyListRefresh];
-}
-
-- (void)trackOutfitRefresh {
-    [FlurryAPI logEvent:kOutfitRefresh];
-}
-
-- (void)trackDescriptionExpanded {
-    [FlurryAPI logEvent:kOutfitDescriptionExpand];
-}
-
-- (void)trackFullscreen {
-    [FlurryAPI logEvent:kOutfitFullScreen];
-}
-
-- (void)trackWhyChangeSubmitted {
-    [FlurryAPI logEvent:kWhyChangeSubmitted];
-}
-
-- (void)trackWhyChangeSkipped {
-    [FlurryAPI logEvent:kWhyChangeSkipped];
-}
-
-- (void)trackOutfitEditButtonPressed {
-    [FlurryAPI logEvent:kOutfitEdit];
-}
-
-- (void)trackOutfitDeleteButtonPressed {
-    [FlurryAPI logEvent:kOutfitDelete];
-}
-
-- (void)trackMakeOutfitPublicWasPressed {
-    [FlurryAPI logEvent:kOutfitPublic];
-}
-
-- (void)trackMakeOutfitPrivateWasPressed {
-    [FlurryAPI logEvent:kOutfitPrivate];
-}
-
-- (void)trackFlagReview {
-    [FlurryAPI logEvent:kReviewFlag];
-}
-
-- (void)trackAgreeWithReview {
-    [FlurryAPI logEvent:kReviewAgree];
+    [[GTIOAnalyticsTracker sharedTracker] logEvent:kSearch withParameters:params];
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+

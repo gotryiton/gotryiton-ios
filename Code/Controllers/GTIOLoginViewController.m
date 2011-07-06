@@ -91,6 +91,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    TTOpenURL(@"gtio://analytics/trackUserDidViewLogin");
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 

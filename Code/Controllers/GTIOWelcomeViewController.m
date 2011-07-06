@@ -46,6 +46,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    GTIOAnalyticsEvent(kUserDidViewWelcomeScreenEventName);
     [self.navigationController setNavigationBarHidden:YES];
 }
 

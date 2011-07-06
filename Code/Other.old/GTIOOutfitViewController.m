@@ -139,6 +139,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to get custom background
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
@@ -221,7 +222,7 @@
 }
 
 - (void)scrollView:(TTScrollView*)scrollView didMoveToPageAtIndex:(NSInteger)pageIndex {
-    TTOpenURL(@"gtio://analytics/trackOutfitPageView");
+    GTIOAnalyticsEvent(kOutfitPageView);
 	_outfitIndex = pageIndex;
 	[self updateView];
 }
@@ -426,7 +427,7 @@
 }
 
 - (void)editOutfit:(GTIOOutfit*)outfit {
-    TTOpenURL(@"gtio://analytics/trackOutfitEditButtonPressed");
+    GTIOAnalyticsEvent(kOutfitEdit);
 	GTIOEditOutfitViewController* controller = [[GTIOEditOutfitViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:controller];
 	controller.outfit = outfit;
@@ -451,7 +452,7 @@
 }
 
 - (void)makeOutfitPrivateConfirmed:(GTIOOutfit*)outfit {
-    TTOpenURL(@"gtio://analytics/trackMakeOutfitPrivateWasPressed");
+    GTIOAnalyticsEvent(kOutfitPrivate);
 	NSString* path = [NSString stringWithFormat:@"/tools/%@", outfit.outfitID];
 	NSDictionary* dict = [NSDictionary dictionaryWithObject:@"private" forKey:@"action"];
 	dict = [GTIOUser paramsByAddingCurrentUserIdentifier:dict];
@@ -474,7 +475,7 @@
 }
 
 - (void)makeOutfitPublicConfirmed:(GTIOOutfit*)outfit {
-    TTOpenURL(@"gtio://analytics/trackMakeOutfitPublicWasPressed");
+    GTIOAnalyticsEvent(kOutfitPublic);
 	NSString* path = [NSString stringWithFormat:@"/tools/%@", outfit.outfitID];
 	NSDictionary* dict = [NSDictionary dictionaryWithObject:@"public" forKey:@"action"];
 	dict = [GTIOUser paramsByAddingCurrentUserIdentifier:dict];
@@ -508,7 +509,7 @@
 	[alert release];
 }
 - (void)deleteConfirmed:(GTIOOutfit*)outfit {
-    TTOpenURL(@"gtio://analytics/trackMakeOutfitPrivateWasPressed");
+    GTIOAnalyticsEvent(kOutfitPrivate);
 	NSString* path = [NSString stringWithFormat:@"/tools/%@", outfit.outfitID];
 	NSDictionary* dict = [NSDictionary dictionaryWithObject:@"delete" forKey:@"action"];
 	dict = [GTIOUser paramsByAddingCurrentUserIdentifier:dict];
@@ -589,7 +590,7 @@
 }
 
 - (void)scrollView:(GTIOScrollView*)scrollView shouldReloadPage:(GTIOOutfitPageView*)page {
-    TTOpenURL(@"gtio://analytics/trackOutfitRefresh");
+    GTIOAnalyticsEvent(kOutfitRefreshEventName);
     NSLog(@"Reload page: %@", page);
     NSDictionary* params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
     NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/outfit/%@?%@", page.outfit.outfitID, [params URLEncodedString]]);

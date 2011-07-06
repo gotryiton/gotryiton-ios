@@ -14,7 +14,7 @@
 @implementation GTIOJanrainAuthenticationController
 
 +(void)showAuthenticationDialog {
-	TTOpenURL(@"gtio://analytics/trackUserDidViewLogin");	
+    GTIOAnalyticsEvent(kUserDidViewLoginEventName);
 	NSString* authURL = [NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, GTIORestResourcePath(@"/auth/")];
 	NSURL* url = [NSURL URLWithString:authURL];
 	

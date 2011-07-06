@@ -16,6 +16,7 @@
 
 #import "GTIOStyleSheet.h"
 #import "GTIOEnvironment.h"
+#import "GTIOAnalyticsEvents.h"
 
 // Pull in Three20
 #import <Three20/Three20.h>
