@@ -13,6 +13,12 @@
 #import "GTIOOutfit.h"
 #import "GTIOOutfitViewController.h"
 
+@interface GTIOHomeViewController (Private)
+- (void)loadOutfits;
+- (void)snapScrollView:(UIScrollView*)scrollView;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+@end
+
 @implementation GTIOHomeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -31,6 +37,7 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_notificationsController release];
+    [_lastLoadedAt release];
     [super dealloc];
 }
 
@@ -50,6 +57,8 @@
         _browseButton.titleLabel.alpha = 0;
         _todosBadgeButton.alpha = 0;
     }
+    
+    [self loadOutfits];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -75,11 +84,12 @@
             [UIView setAnimationDelay:2];
             [UIView setAnimationCurve:UIViewAnimationCurveLinear];
         }
-        _uploadButton.titleLabel.alpha = 1;
-        _featuredButton.titleLabel.alpha = 1;
-        _browseButton.titleLabel.alpha = 1;
-        _todoButton.titleLabel.alpha = 1;
-        _todoButton.titleLabel.alpha = 1;
+        [self scrollViewDidScroll:_scrollView];
+//        _uploadButton.titleLabel.alpha = 1;
+//        _featuredButton.titleLabel.alpha = 1;
+//        _browseButton.titleLabel.alpha = 1;
+//        _todoButton.titleLabel.alpha = 1;
+//        _todoButton.titleLabel.alpha = 1;
         if (!_animatedInThisLaunch) {
             [UIView commitAnimations];
             _animatedInThisLaunch = YES;
@@ -128,9 +138,38 @@
 - (void)updateScrollView {
     BOOL noNotifications = CGRectEqualToRect(_notificationsContainer.frame, CGRectZero);
     int thumbnailContainerOffset = (noNotifications ? 380 : 370) - 8;
-    _thumbnailContainer.frame = CGRectMake(2,thumbnailContainerOffset, 314, _thumbnailContainer.bounds.size.height);
+    
+    [_loadingView removeFromSuperview];
+    [_loadingView release];
+    _loadingView = nil;
+    
+    if ([_model isLoading]) {
+        UIActivityIndicatorView* spinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] autorelease];
+        [spinner sizeToFit];
+        spinner.center = CGPointMake(20,20);
+        [spinner startAnimating];
+        
+        _loadingView = [spinner retain];
+        
+        _thumbnailContainer.frame = CGRectMake(2,thumbnailContainerOffset, 314, 253);//320);
+        [_thumbnailContainer addSubview:_loadingView];
+    } else {
+        _thumbnailContainer.frame = CGRectMake(2,thumbnailContainerOffset, 314, _thumbnailContainer.bounds.size.height);
+    }
+    
+    [_looksFromOurCommunity sizeToFit];
+    _looksFromOurCommunity.frame = CGRectMake(11, _thumbnailContainer.frame.origin.y - 13, 300, _looksFromOurCommunity.bounds.size.height);
+    
     int maxY = CGRectGetMaxY(_thumbnailContainer.frame);
     _scrollView.contentSize = CGSizeMake(320,noNotifications ? maxY : maxY + 36);
+    
+    if (_thumbnailsVisible && _viewJustLoaded) {
+        _viewJustLoaded = NO;
+        [_scrollView setContentOffset:CGPointMake(0,_scrollView.contentSize.height - _scrollView.bounds.size.height) animated:NO];
+    }
+    
+    [self scrollViewDidScroll:_scrollView];
+    [self snapScrollView:_scrollView];
 }
 
 - (void)updateNotificationsButton {
@@ -154,7 +193,6 @@
         _notificationsButton.enabled = YES;
         _notificationsBadgeButton.enabled = YES;
     }
-    [self updateScrollView];
 }
 
 - (void)updateTodoBadge {
@@ -178,6 +216,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     float scrollDistance = scrollView.contentSize.height - scrollView.bounds.size.height;
     float scrollPercentage = scrollView.contentOffset.y / scrollDistance;
+    scrollPercentage = MAX(scrollPercentage, 0);
     
     _backgroundImageView.alpha = 1 - sqrt(scrollPercentage);
     _todoButton.titleLabel.alpha = 1 - sqrt(scrollPercentage);
@@ -186,6 +225,7 @@
     _browseButton.titleLabel.alpha = 1 - sqrt(scrollPercentage);
     
     _looksFromOurCommunity.alpha = sqrt(scrollPercentage);
+    _loadingView.alpha = sqrt(scrollPercentage);
     
 }
 
@@ -195,8 +235,10 @@
     [scrollView setContentOffset:CGPointMake(0,scrollDistance*topOrBottom) animated:YES];
     
     if (topOrBottom == 0) {
+        _thumbnailsVisible = NO;
         GTIOAnalyticsEvent(kSwipeUpOnHomeScreen);
     } else {
+        _thumbnailsVisible = YES;
         GTIOAnalyticsEvent(kSwipeDownOnHomeScreen);
     }
 }
@@ -216,27 +258,29 @@
 }
 
 - (void)loadOutfits {
-    RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/todos/community") delegate:nil];
-    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
-    _model = [[GTIOBrowseListTTModel modelWithObjectLoader:objectLoader] retain];
-    [_model.delegates addObject:self];
-    [_model load:TTURLRequestCachePolicyNone more:NO];
+    if (nil == _lastLoadedAt ||
+        [_lastLoadedAt timeIntervalSinceNow] < -(5*60)) {
+        RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/todos/community") delegate:nil];
+        objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+        _model = [[GTIOBrowseListTTModel modelWithObjectLoader:objectLoader] retain];
+        [_model.delegates addObject:self];
+        [_model load:TTURLRequestCachePolicyNone more:NO];
+    }
+}
+
+- (void)modelDidStartLoad:(id<TTModel>)model {
+    [_thumbnailContainer removeAllSubviews];
+    // show spinner
+    [self updateScrollView];
 }
 
 - (void)modelDidFinishLoad:(id<TTModel>)model {
+    _lastLoadedAt = [NSDate new];
+    
     GTIOBrowseList* list = _model.list;
     float delay = 0.0f;
     float maxHeight = 0;
     // this is duplicated on the welcome screen. should probably be refactored.
-    
-    [_looksFromOurCommunity removeFromSuperview];
-    _looksFromOurCommunity = [[[UILabel alloc] initWithFrame:CGRectMake(10, _thumbnailContainer.frame.origin.y - 20, 320, 20)] autorelease];
-    _looksFromOurCommunity.text = @"looks from our community";
-    _looksFromOurCommunity.font = kGTIOFontBoldHelveticaNeueOfSize(12);
-    _looksFromOurCommunity.backgroundColor = [UIColor clearColor];
-    _looksFromOurCommunity.textColor = RGBCOLOR(210,210,210);
-    _looksFromOurCommunity.alpha = 0;
-    [_scrollView addSubview:_looksFromOurCommunity];
     
     for (int i = 0; i < [list.outfits count]; i++) {
         GTIOOutfit* outfit = [list.outfits objectAtIndex:i];
@@ -314,7 +358,23 @@
     [self updateNotificationsButton];
     [self updateTodoBadge];
     
-    [self loadOutfits];
+    if (_notificationsVisible) {
+        [self notificationButtonWasPressed];
+    }
+    
+    [_lastLoadedAt release];
+    _lastLoadedAt = nil;
+    
+    
+    _looksFromOurCommunity = [[UILabel alloc] initWithFrame:CGRectZero];
+    _looksFromOurCommunity.text = @"looks from our community";
+    _looksFromOurCommunity.font = kGTIOFontBoldHelveticaNeueOfSize(12);
+    _looksFromOurCommunity.backgroundColor = [UIColor clearColor];
+    _looksFromOurCommunity.textColor = RGBCOLOR(210,210,210);
+    _looksFromOurCommunity.alpha = 0;
+    [_scrollView addSubview:_looksFromOurCommunity];
+    
+    _viewJustLoaded = YES;
 }
 
 - (void)viewDidUnload {
@@ -324,8 +384,8 @@
     _nameLabel = nil;
     [_locationLabel release];
     _locationLabel = nil;
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [_looksFromOurCommunity release];
+    _looksFromOurCommunity = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

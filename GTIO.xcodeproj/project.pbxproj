@@ -2311,6 +2311,7 @@
 		3FF11228138178690093764D /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */; };
 		3FF112291381786A0093764D /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AEF96B137C46840034DAEF /* GTIOProfileHeaderView.m */; };
 		3FF11363138190300093764D /* GTIOBrowseTableViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF11362138190300093764D /* GTIOBrowseTableViewControllerSpec.m */; };
+		3FF661C813C6513E0003D120 /* GTIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BD1379887F0036F86D /* GTIOLoginViewController.m */; };
 		3FFBE1DA13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFBE1D913855F4F000C5CB5 /* GTIOAddStylistsViewController.m */; };
 		3FFBE1DB13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFBE1D913855F4F000C5CB5 /* GTIOAddStylistsViewController.m */; };
 		3FFBE1DC13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFBE1D913855F4F000C5CB5 /* GTIOAddStylistsViewController.m */; };
@@ -10953,6 +10954,7 @@
 				3FC1E84013A928B500646EEE /* GTIOExtraProfileRow.m in Sources */,
 				3FE5F22013AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */,
 				3F8E238113BCF29B00BBD2EE /* GTIOPushPersonalStylistsViewController.m in Sources */,
+				3FF661C813C6513E0003D120 /* GTIOLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

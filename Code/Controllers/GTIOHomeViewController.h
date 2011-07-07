@@ -41,6 +41,11 @@
     GTIONotificationsOverlayViewController* _notificationsController;
     BOOL _notificationsVisible;
     BOOL _animatedInThisLaunch;
+    
+    NSDate* _lastLoadedAt;
+    UIView* _loadingView;
+    BOOL _thumbnailsVisible;
+    BOOL _viewJustLoaded;
 }
 /// Featured
 - (IBAction)featuredButtonWasPressed;

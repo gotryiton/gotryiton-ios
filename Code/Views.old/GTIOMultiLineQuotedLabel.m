@@ -47,11 +47,11 @@
 			NSMutableArray* components = [[[thisLine componentsSeparatedByString:@" "] mutableCopy] autorelease];
 			if ([components count] == 1) {
 				NSMutableString* endPart = [NSMutableString string];
-				while ([[NSString stringWithFormat:@"%@-", thisLine] sizeWithFont:font].width > maxWidthForLine) {
+				while ([[NSString stringWithFormat:@"%@-", thisLine] sizeWithFont:font].width + 10 > maxWidthForLine) {
                     int index = [thisLine length] - 1;
 					NSString* character = [thisLine substringFromIndex:index];
 					[endPart insertString:character atIndex:0];
-					thisLine = [thisLine substringToIndex:[thisLine length] - 1];
+					thisLine = [thisLine substringToIndex:index];
 				}
 				[partsLeft insertObject:endPart atIndex:0];
 				thisLine = [NSString stringWithFormat:@"%@-", thisLine];
