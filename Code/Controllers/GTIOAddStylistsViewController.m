@@ -153,7 +153,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     _checkboxView.frame = CGRectMake(285,5,30,30);
-    if (_imageView2.image) {
+    if (_imageView2.urlPath) {
         _imageView2.frame = CGRectMake(5,5,30,30);
         _imageView2.layer.borderColor = RGBCOLOR(218,218,218).CGColor;
         _imageView2.layer.borderWidth = 1;

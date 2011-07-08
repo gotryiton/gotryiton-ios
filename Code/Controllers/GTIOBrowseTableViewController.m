@@ -39,13 +39,16 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    if (_imageView2.urlPath) {
+        _imageView2.frame = CGRectMake(5,5,37,37);
+    }
     if (_imageView2.bounds.size.width > 0) {
-        self.textLabel.frame = CGRectMake(60, self.textLabel.frame.origin.y, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
+        self.textLabel.frame = CGRectMake(46, self.textLabel.frame.origin.y, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
     }
 }
 
 + (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
-    return 50;
+    return 47;
 }
 
 @end
@@ -419,6 +422,10 @@
         if (title) {
             if ([title isEqualToString:@"BROWSE"]) {
                 GTIOAnalyticsEvent(kBrowseEventName);
+            } else if ([title isEqualToString:@"MY LOOKS"]) {
+                GTIOAnalyticsEvent(kMyLooksEventName);
+            } else if ([title isEqualToString:@"MY REVIEWS"]) {
+                GTIOAnalyticsEvent(kMyReviewsEventName);
             } else if ([title isEqualToString:@"TO-DO'S"] || [title isEqualToString:@"COMPLETED"]) {
                 ; //special cases to avoid duplicate events
             } else if (list.categories) {

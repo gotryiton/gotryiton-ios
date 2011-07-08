@@ -247,6 +247,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
 	// Initialize Flurry
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	[FlurryAPI startSession:kGTIOFlurryAPIKey];
@@ -309,8 +310,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://profile/edit" toModalViewController:NSClassFromString(@"GTIOEditProfileViewController") selector:@selector(initWithEditProfile)];		
 	[map from:@"gtio://profile/edit/picture/(initWithName:)/(location:)" toModalViewController:NSClassFromString(@"GTIOEditProfilePictureViewController")];
 	[map from:@"gtio://profile/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOProfileViewController")];
-	[map from:@"gtio://user_looks/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOUserOutfitsTableViewController")];
-	[map from:@"gtio://user_reviews/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOUserReviewsTableViewController")];
 	
 	// Get an Opinion session
 	GTIOOpinionRequestSession* session = [GTIOOpinionRequestSession globalSession];

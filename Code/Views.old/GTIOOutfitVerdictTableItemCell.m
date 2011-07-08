@@ -41,7 +41,7 @@
     [_verdictLabel sizeToFit];
     _verdictLabel.frame = CGRectOffset(_verdictLabel.bounds, self.width - _verdictLabel.width - 13, self.height - 28);
     [_verdictTextLabel sizeToFit];
-    _verdictTextLabel.frame = CGRectOffset(_verdictLabel.bounds, self.width - _verdictLabel.width - 5 - _verdictTextLabel.width - 13, self.height - 28);
+    _verdictTextLabel.frame = CGRectOffset(_verdictTextLabel.bounds, self.width - _verdictLabel.width - 5 - _verdictTextLabel.width - 13, self.height - 28);
 }
 
 - (NSString*)thumbnailUrlPath {

@@ -646,8 +646,6 @@
 		3F86F11C13B8CA50005063FE /* GTIOTakeAPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300E61379887F0036F86D /* GTIOTakeAPictureViewController.m */; };
 		3F86F11D13B8CA50005063FE /* GTIOTellUsAboutItViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300E81379887F0036F86D /* GTIOTellUsAboutItViewController.m */; };
 		3F86F11E13B8CA50005063FE /* GTIOTopPaddedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EA1379887F0036F86D /* GTIOTopPaddedTableViewController.m */; };
-		3F86F11F13B8CA50005063FE /* GTIOUserOutfitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EC1379887F0036F86D /* GTIOUserOutfitsTableViewController.m */; };
-		3F86F12013B8CA50005063FE /* GTIOUserReviewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EE1379887F0036F86D /* GTIOUserReviewsTableViewController.m */; };
 		3F86F12113B8CA50005063FE /* UIViewController_Flurry.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300F01379887F0036F86D /* UIViewController_Flurry.m */; };
 		3F86F12213B8CA50005063FE /* GTIOAppStatusAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300F31379887F0036F86D /* GTIOAppStatusAlert.m */; };
 		3F86F12313B8CA50005063FE /* GTIOAppStatusAlertButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300F51379887F0036F86D /* GTIOAppStatusAlertButton.m */; };
@@ -3463,12 +3461,6 @@
 		A7E301D51379887F0036F86D /* GTIOTopPaddedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EA1379887F0036F86D /* GTIOTopPaddedTableViewController.m */; };
 		A7E301D61379887F0036F86D /* GTIOTopPaddedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EA1379887F0036F86D /* GTIOTopPaddedTableViewController.m */; };
 		A7E301D71379887F0036F86D /* GTIOTopPaddedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EA1379887F0036F86D /* GTIOTopPaddedTableViewController.m */; };
-		A7E301D81379887F0036F86D /* GTIOUserOutfitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EC1379887F0036F86D /* GTIOUserOutfitsTableViewController.m */; };
-		A7E301D91379887F0036F86D /* GTIOUserOutfitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EC1379887F0036F86D /* GTIOUserOutfitsTableViewController.m */; };
-		A7E301DA1379887F0036F86D /* GTIOUserOutfitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EC1379887F0036F86D /* GTIOUserOutfitsTableViewController.m */; };
-		A7E301DB1379887F0036F86D /* GTIOUserReviewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EE1379887F0036F86D /* GTIOUserReviewsTableViewController.m */; };
-		A7E301DC1379887F0036F86D /* GTIOUserReviewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EE1379887F0036F86D /* GTIOUserReviewsTableViewController.m */; };
-		A7E301DD1379887F0036F86D /* GTIOUserReviewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300EE1379887F0036F86D /* GTIOUserReviewsTableViewController.m */; };
 		A7E301DE1379887F0036F86D /* UIViewController_Flurry.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300F01379887F0036F86D /* UIViewController_Flurry.m */; };
 		A7E301DF1379887F0036F86D /* UIViewController_Flurry.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300F01379887F0036F86D /* UIViewController_Flurry.m */; };
 		A7E301E01379887F0036F86D /* UIViewController_Flurry.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300F01379887F0036F86D /* UIViewController_Flurry.m */; };
@@ -5232,10 +5224,6 @@
 		A7E300E81379887F0036F86D /* GTIOTellUsAboutItViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTellUsAboutItViewController.m; sourceTree = "<group>"; };
 		A7E300E91379887F0036F86D /* GTIOTopPaddedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTopPaddedTableViewController.h; sourceTree = "<group>"; };
 		A7E300EA1379887F0036F86D /* GTIOTopPaddedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTopPaddedTableViewController.m; sourceTree = "<group>"; };
-		A7E300EB1379887F0036F86D /* GTIOUserOutfitsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserOutfitsTableViewController.h; sourceTree = "<group>"; };
-		A7E300EC1379887F0036F86D /* GTIOUserOutfitsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserOutfitsTableViewController.m; sourceTree = "<group>"; };
-		A7E300ED1379887F0036F86D /* GTIOUserReviewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUserReviewsTableViewController.h; sourceTree = "<group>"; };
-		A7E300EE1379887F0036F86D /* GTIOUserReviewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUserReviewsTableViewController.m; sourceTree = "<group>"; };
 		A7E300EF1379887F0036F86D /* UIViewController_Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewController_Flurry.h; sourceTree = "<group>"; };
 		A7E300F01379887F0036F86D /* UIViewController_Flurry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewController_Flurry.m; sourceTree = "<group>"; };
 		A7E300F21379887F0036F86D /* GTIOAppStatusAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAppStatusAlert.h; sourceTree = "<group>"; };
@@ -7434,10 +7422,6 @@
 				A7E300E81379887F0036F86D /* GTIOTellUsAboutItViewController.m */,
 				A7E300E91379887F0036F86D /* GTIOTopPaddedTableViewController.h */,
 				A7E300EA1379887F0036F86D /* GTIOTopPaddedTableViewController.m */,
-				A7E300EB1379887F0036F86D /* GTIOUserOutfitsTableViewController.h */,
-				A7E300EC1379887F0036F86D /* GTIOUserOutfitsTableViewController.m */,
-				A7E300ED1379887F0036F86D /* GTIOUserReviewsTableViewController.h */,
-				A7E300EE1379887F0036F86D /* GTIOUserReviewsTableViewController.m */,
 				A7E300EF1379887F0036F86D /* UIViewController_Flurry.h */,
 				A7E300F01379887F0036F86D /* UIViewController_Flurry.m */,
 			);
@@ -10843,8 +10827,6 @@
 				A7E301CF1379887F0036F86D /* GTIOTakeAPictureViewController.m in Sources */,
 				A7E301D21379887F0036F86D /* GTIOTellUsAboutItViewController.m in Sources */,
 				A7E301D51379887F0036F86D /* GTIOTopPaddedTableViewController.m in Sources */,
-				A7E301D81379887F0036F86D /* GTIOUserOutfitsTableViewController.m in Sources */,
-				A7E301DB1379887F0036F86D /* GTIOUserReviewsTableViewController.m in Sources */,
 				A7E301DE1379887F0036F86D /* UIViewController_Flurry.m in Sources */,
 				A7E301E11379887F0036F86D /* GTIOAppStatusAlert.m in Sources */,
 				A7E301E41379887F0036F86D /* GTIOAppStatusAlertButton.m in Sources */,
@@ -11011,8 +10993,6 @@
 				A7E301D01379887F0036F86D /* GTIOTakeAPictureViewController.m in Sources */,
 				A7E301D31379887F0036F86D /* GTIOTellUsAboutItViewController.m in Sources */,
 				A7E301D61379887F0036F86D /* GTIOTopPaddedTableViewController.m in Sources */,
-				A7E301D91379887F0036F86D /* GTIOUserOutfitsTableViewController.m in Sources */,
-				A7E301DC1379887F0036F86D /* GTIOUserReviewsTableViewController.m in Sources */,
 				A7E301DF1379887F0036F86D /* UIViewController_Flurry.m in Sources */,
 				A7E301E21379887F0036F86D /* GTIOAppStatusAlert.m in Sources */,
 				A7E301E51379887F0036F86D /* GTIOAppStatusAlertButton.m in Sources */,
@@ -11233,8 +11213,6 @@
 				A7E301D11379887F0036F86D /* GTIOTakeAPictureViewController.m in Sources */,
 				A7E301D41379887F0036F86D /* GTIOTellUsAboutItViewController.m in Sources */,
 				A7E301D71379887F0036F86D /* GTIOTopPaddedTableViewController.m in Sources */,
-				A7E301DA1379887F0036F86D /* GTIOUserOutfitsTableViewController.m in Sources */,
-				A7E301DD1379887F0036F86D /* GTIOUserReviewsTableViewController.m in Sources */,
 				A7E301E01379887F0036F86D /* UIViewController_Flurry.m in Sources */,
 				A7E301E31379887F0036F86D /* GTIOAppStatusAlert.m in Sources */,
 				A7E301E61379887F0036F86D /* GTIOAppStatusAlertButton.m in Sources */,
@@ -11402,8 +11380,6 @@
 				3F86F11C13B8CA50005063FE /* GTIOTakeAPictureViewController.m in Sources */,
 				3F86F11D13B8CA50005063FE /* GTIOTellUsAboutItViewController.m in Sources */,
 				3F86F11E13B8CA50005063FE /* GTIOTopPaddedTableViewController.m in Sources */,
-				3F86F11F13B8CA50005063FE /* GTIOUserOutfitsTableViewController.m in Sources */,
-				3F86F12013B8CA50005063FE /* GTIOUserReviewsTableViewController.m in Sources */,
 				3F86F12113B8CA50005063FE /* UIViewController_Flurry.m in Sources */,
 				3F86F12213B8CA50005063FE /* GTIOAppStatusAlert.m in Sources */,
 				3F86F12313B8CA50005063FE /* GTIOAppStatusAlertButton.m in Sources */,
@@ -11832,7 +11808,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A30BFC86-A263-4B23-A4C9-130AFD4BC7BF";
+				PROVISIONING_PROFILE = "17FBB495-501F-4E30-8B4E-103EC66225B3";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -11865,7 +11841,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A30BFC86-A263-4B23-A4C9-130AFD4BC7BF";
+				PROVISIONING_PROFILE = "17FBB495-501F-4E30-8B4E-103EC66225B3";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;

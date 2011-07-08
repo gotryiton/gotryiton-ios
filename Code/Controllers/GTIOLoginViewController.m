@@ -51,6 +51,7 @@
 }
 
 - (IBAction)otherProvidersButtonWasPressed:(id)sender {
+    GTIOAnalyticsEvent(kUserDidViewLoginOtherProvidersEventName);
     TTOpenURL(@"gtio://loginWithJanRain");
 }
 

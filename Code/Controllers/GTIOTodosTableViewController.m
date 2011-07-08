@@ -57,6 +57,10 @@
 }
 
 - (void)showEmpty:(BOOL)show {
+    if ([[(GTIOTab*)_sortTabBar.selectedTab titleLabel].text isEqualToString:@"COMPLETED"]) {
+        [super showEmpty:show];
+        return;
+    }
     if (show) {
         NSLog(@"Show empty:%d iStyleCount: %@", show, [GTIOUser currentUser].istyleCount);
         

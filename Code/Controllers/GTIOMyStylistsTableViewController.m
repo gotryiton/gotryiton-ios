@@ -92,14 +92,14 @@
     [_nameLabel sizeToFit];
 	
     
-    _locationLabel.frame = CGRectMake(82+4, CGRectGetMaxY(_nameLabel.frame)+2+2, 210, 18);
+    _locationLabel.frame = CGRectMake(82+4, CGRectGetMaxY(_nameLabel.frame)+2+2 - 5, 210, 18);
     [_locationLabel sizeToFit];
     
     _connectionImageView.frame = CGRectMake(255,57,17,16);
     
     int i = 0;
     for (UIView* view in _badgeImageViews) {
-        view.frame = CGRectMake(CGRectGetMaxX(_nameLabel.frame)+4+(i*23), 19, 24, 24);
+        view.frame = CGRectMake(CGRectGetMaxX(_nameLabel.frame)+2+(i*23), 19, 24, 24);
         i++;
     }
 }
@@ -202,19 +202,23 @@
 	
 	self.navigationItem.rightBarButtonItem = _editButton;
     
-    _addMoreButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    [_addMoreButton setImage:[UIImage imageNamed:@"add-stylists-OFF.png"] forState:UIControlStateNormal];
-    [_addMoreButton setImage:[UIImage imageNamed:@"add-stylists-ON.png"] forState:UIControlStateHighlighted];
-    [_addMoreButton addTarget:self action:@selector(addButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_addMoreButton sizeToFit];
-    _addMoreButton.frame = CGRectOffset(_addMoreButton.bounds, 0, self.view.bounds.size.height - _addMoreButton.bounds.size.height);
-    [self.view addSubview:_addMoreButton];
-    self.tableView.frame = CGRectMake(2,0,320,self.view.bounds.size.height - _addMoreButton.bounds.size.height + 6);
-    self.tableView.contentInset = UIEdgeInsetsMake(7, 0, 7, 0);
-    
     UIImage* topShadow = [UIImage imageNamed:@"list-top-shadow.png"];
     UIView* topShadowImageView = [[[UIImageView alloc] initWithImage:topShadow] autorelease];
     [self.view addSubview:topShadowImageView];
+}
+
+- (void)setupAddMoreButton {
+    if (nil == _addMoreButton) {
+        _addMoreButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        [_addMoreButton setImage:[UIImage imageNamed:@"add-stylists-OFF.png"] forState:UIControlStateNormal];
+        [_addMoreButton setImage:[UIImage imageNamed:@"add-stylists-ON.png"] forState:UIControlStateHighlighted];
+        [_addMoreButton addTarget:self action:@selector(addButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_addMoreButton sizeToFit];
+        _addMoreButton.frame = CGRectOffset(_addMoreButton.bounds, 0, self.view.bounds.size.height - _addMoreButton.bounds.size.height);
+        [self.view addSubview:_addMoreButton];
+        self.tableView.frame = CGRectMake(2,0,320,self.view.bounds.size.height - _addMoreButton.bounds.size.height + 6);
+        self.tableView.contentInset = UIEdgeInsetsMake(7, 0, 7, 0);
+    }
 }
 
 - (void)viewDidUnload {
@@ -307,6 +311,8 @@
 }
 
 - (void)didLoadModel:(BOOL)firstTime {
+    [self setupAddMoreButton];
+    
     RKObjectLoaderTTModel* model = (RKObjectLoaderTTModel*)self.model;
     
     GTIOBrowseList* list = [model.objects objectWithClass:[GTIOBrowseList class]];
@@ -362,8 +368,11 @@
         self.emptyView = imageView;
         [self.view addSubview:imageView];
         imageView.frame = self.view.bounds;
+        
+        self.navigationItem.rightBarButtonItem = nil;
     } else {
         self.emptyView = nil;
+        self.navigationItem.rightBarButtonItem = _editButton;
     }
 }
 

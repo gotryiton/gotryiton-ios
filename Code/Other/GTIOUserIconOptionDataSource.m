@@ -14,7 +14,10 @@
 + (void)iconOptionRequestWithDelegate:(id)delegate {
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[[GTIOUser currentUser] token], @"gtioToken",nil];
     params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/user-icons") queryParams:params delegate:delegate];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/user-icons") delegate:delegate];
+    loader.params = params;
+    loader.method = RKRequestMethodPOST;
+    [loader send];
 }
 
 @end

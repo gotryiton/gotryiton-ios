@@ -456,6 +456,7 @@
 
 - (void)notificationsUpdatedNotification:(NSNotification*)note {
     [self updateNotificationsButton];
+    [self updateScrollView];
 }
 
 - (void)todoBadgeUpdated:(NSNotification*)note {
