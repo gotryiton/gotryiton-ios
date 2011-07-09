@@ -57,3 +57,5 @@ extern NSUInteger const kGTIONetworkLogLevel;
 
 
 RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute);
+
+void GTIOErrorMessage(NSError* error);

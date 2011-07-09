@@ -576,13 +576,7 @@
     _loader = nil;
 //	TTOpenURL(@"gtio://stopLoading");
 	NSLog(@"Error: %@", error);
-	UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-														message:[error localizedDescription]
-													   delegate:nil 
-											  cancelButtonTitle:@"OK" 
-											  otherButtonTitles:nil];
-	[alertView show];
-	[alertView release];
+    GTIOErrorMessage(error);
     
     if (objectLoader.method != RKRequestMethodPOST) {
         [_scrollView doneReloading];

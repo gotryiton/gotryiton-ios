@@ -550,7 +550,7 @@
 	TTURLDataResponse* response = request.response;
 	
 	if (updateRequest.error) {
-		TTAlert([updateRequest.error localizedDescription]);
+		GTIOErrorMessage(updateRequest.error);
 		return;
 	}
 	

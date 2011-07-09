@@ -821,13 +821,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
     _voteRequest = nil;
 	[_verdictView animateInData];
-	UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-														message:[error localizedDescription]
-													   delegate:nil 
-											  cancelButtonTitle:@"OK" 
-											  otherButtonTitles:nil];
-	[alertView show];
-	[alertView release];
+    GTIOErrorMessage(error);
 }
 
 @end

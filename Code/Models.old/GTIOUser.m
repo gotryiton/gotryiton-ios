@@ -240,11 +240,7 @@ static GTIOUser* gCurrentUser = nil;
     NSError* error = nil;
     if (![operation performMapping:&error]) {
         NSLog(@"Error: %@", error);
-        [[[[UIAlertView alloc] initWithTitle:@"Error Signing In!" 
-                                     message:[error localizedDescription]
-                                    delegate:nil
-                           cancelButtonTitle:@"OK"
-                           otherButtonTitles:nil] autorelease] show];
+        GTIOErrorMessage(error);
     }
     
     // TODO: clean this crap up.
@@ -530,12 +526,7 @@ static GTIOUser* gCurrentUser = nil;
 }
 
 - (void)objectLoader:(RKObjectLoader*)loader didFailWithError:(NSError*)error {
-    [[[[UIAlertView alloc] initWithTitle:@"Error!" 
-                                 message:[error localizedDescription]
-                                delegate:nil
-                       cancelButtonTitle:@"OK"
-                       otherButtonTitles:nil] autorelease] show];
-    
+    GTIOErrorMessage(error);    
     [self didStopLogin];
 //    [self clearUserData];
 //    self.loggedIn = YES;

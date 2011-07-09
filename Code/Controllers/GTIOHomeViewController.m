@@ -259,9 +259,12 @@
 
 - (void)loadOutfits {
     if (nil == _lastLoadedAt ||
-        [_lastLoadedAt timeIntervalSinceNow] < -(5*60)) {
-        RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/todos/community") delegate:nil];
+        [_lastLoadedAt timeIntervalSinceNow] < -(2*60)) {
+        RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/home-outfits") delegate:nil];
         objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
+        objectLoader.method = RKRequestMethodPOST;
+        [_model cancel];
+        [_model release];
         _model = [[GTIOBrowseListTTModel modelWithObjectLoader:objectLoader] retain];
         [_model.delegates addObject:self];
         [_model load:TTURLRequestCachePolicyNone more:NO];

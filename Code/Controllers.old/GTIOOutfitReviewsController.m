@@ -386,13 +386,7 @@
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
 	TTOpenURL(@"gtio://stopLoading");
     _loading = NO;
-	UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-														message:[error localizedDescription]
-													   delegate:nil 
-											  cancelButtonTitle:@"OK" 
-											  otherButtonTitles:nil];
-	[alertView show];
-	[alertView release];
+    GTIOErrorMessage(error);
 }
 
 @end
