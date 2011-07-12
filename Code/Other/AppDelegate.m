@@ -62,7 +62,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)setupRestKit {
     
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
-    RKLogConfigureByName("RestKit/*", RKLogLevelError);
+    RKLogConfigureByName("RestKit/*", kGTIONetworkLogLevel);
     RKLogConfigureByName("RestKit/Network/*", kGTIONetworkLogLevel);
     
     RKObjectMappingProvider* provider = [[[RKObjectMappingProvider alloc] init] autorelease];

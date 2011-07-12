@@ -37,11 +37,14 @@
         _profileName = [[[GTIOUser currentUser] username] copy];
         _profileLocation = [[NSString stringWithFormat:@"%@, %@",[[GTIOUser currentUser] city],[[GTIOUser currentUser] state]] copy];
         //[self.view setAccessibilityLabel:@"edit profile picture"];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userUpdated:) name:kGTIOUserDidUpdateProfileNotificationName object:nil];
 	}
 	return self;
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     // subviews
     TT_RELEASE_SAFELY(_scrollView);
     TT_RELEASE_SAFELY(_scrollSlider);
@@ -171,6 +174,10 @@
     [nameLabel setText:[_profileName uppercaseString]];
     [self.view addSubview:nameLabel];
     [nameLabel release];
+}
+
+- (void)userUpdated:(NSNotification*)note {
+    [GTIOUserIconOptionDataSource iconOptionRequestWithDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

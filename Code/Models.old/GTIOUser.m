@@ -517,6 +517,7 @@ static GTIOUser* gCurrentUser = nil;
         // unknown state.
         [self handleLoginFailedButTokenNotInvalid];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidUpdateProfileNotificationName object:self];
 }
 
 - (void)objectLoader:(RKObjectLoader*)loader didFailWithError:(NSError*)error {
@@ -533,8 +534,9 @@ static GTIOUser* gCurrentUser = nil;
     GTIOAnalyticsEvent(kUserAddedFacebook);
     NSString* url = GTIORestResourcePath(@"/auth");
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken",
-                            [self deviceTokenURLEncoded], @"deviceToken",
+//                            [self deviceTokenURLEncoded], @"deviceToken",
                             [GTIOUser appVersionString], @"iphoneAppVersion", nil];
+    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     
     RKObjectMapping* userMapping = [GTIOUser userMapping];
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:url delegate:self];
