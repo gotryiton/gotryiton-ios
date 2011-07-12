@@ -54,8 +54,8 @@ RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSStri
 }
 
 void GTIOErrorMessage(NSError* error) {
-    if ([[error domain] isEqualToString:RKRestKitErrorDomain] &&
-        error.code != RKRequestBaseURLOfflineError) {
+    RKReachabilityObserver* observer = [RKObjectManager sharedManager].client.baseURLReachabilityObserver;
+    if (![observer isNetworkReachable]) {
         [[[[UIAlertView alloc] initWithTitle:@"" message:@"no internet connection found!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
     } else {
         [[[[UIAlertView alloc] initWithTitle:@"" message:@"GO TRY IT ON central isn't responding right now." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];

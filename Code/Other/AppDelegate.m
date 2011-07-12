@@ -247,7 +247,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
 	// Initialize Flurry
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	[FlurryAPI startSession:kGTIOFlurryAPIKey];
@@ -497,19 +496,19 @@ void uncaughtExceptionHandler(NSException *exception) {
     _showStylistPush = YES;
 }
 
-- (void)userDidLoginWithIncompleteProfile:(NSNotification*)notification {
-    _showStylistPush = NO;
-    UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];
-    if (nil == home.parentViewController) {
-        // If it's not on the stack, open it.
-        TTOpenURL(@"gtio://home");
-    }
-    // Wait for other navigations to finish
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
-  	// Trigger display of the 'Almost Done' screen
-	[[TTNavigator navigator] openURLAction:
-	 [[TTURLAction actionWithURLPath:@"gtio://profile/new"] applyAnimated:YES]];
-}
+//- (void)userDidLoginWithIncompleteProfile:(NSNotification*)notification {
+//    _showStylistPush = NO;
+//    UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];
+//    if (nil == home.parentViewController) {
+//        // If it's not on the stack, open it.
+//        TTOpenURL(@"gtio://home");
+//    }
+//    // Wait for other navigations to finish
+//    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+//  	// Trigger display of the 'Almost Done' screen
+//	[[TTNavigator navigator] openURLAction:
+//	 [[TTURLAction actionWithURLPath:@"gtio://profile/new"] applyAnimated:YES]];
+//}
 
 - (void)userDidLogin:(NSNotification*)note {
     UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];
@@ -517,10 +516,14 @@ void uncaughtExceptionHandler(NSException *exception) {
         // If it's not on the stack, open it.
         TTOpenURL(@"gtio://home");
     }
-    if (_showStylistPush) {
+    GTIOUser* user = [GTIOUser currentUser];
+    if (_showStylistPush && ![user.showAlmostDoneScreen boolValue]) {
         // Wait for other navigations to finish
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
         TTOpenURL(@"gtio://pushStylists");
+    } else if ([user.showAlmostDoneScreen boolValue]) {
+         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+         TTOpenURL(@"gtio://profile/new");
     }
     [self handleLaunchURL];
 }

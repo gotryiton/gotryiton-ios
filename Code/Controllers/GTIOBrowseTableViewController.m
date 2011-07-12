@@ -532,7 +532,8 @@
         [self.navigationController pushViewController:viewController animated:YES];
         [viewController release];
     } else if ([object isKindOfClass:[GTIOUserReviewTableItem class]] ||
-        [object isKindOfClass:[GTIOOutfitTableViewItem class]]) {
+               [object isKindOfClass:[GTIOOutfitTableViewItem class]] ||
+               [object isKindOfClass:[GTIOOutfitVerdictTableItem class]]) {
         GTIOOutfitViewController* viewController = [[GTIOOutfitViewController alloc] initWithModel:self.model outfitIndex:indexPath.row];
         [self.navigationController pushViewController:viewController animated:YES];
         [viewController release];
