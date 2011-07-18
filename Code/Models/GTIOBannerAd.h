@@ -13,14 +13,14 @@
     NSString* _bannerImageUrlLarge;
     NSString* _bannerImageUrlSmall;
     NSString* _clickUrl;
-    NSString* _width;
-    NSString* _height;
+    NSNumber* _width;
+    NSNumber* _height;
 }
 
 @property (nonatomic, copy) NSString* bannerImageUrlLarge;
 @property (nonatomic, copy) NSString* bannerImageUrlSmall;
 @property (nonatomic, copy) NSString* clickUrl;
-@property (nonatomic, copy) NSString* width;
-@property (nonatomic, copy) NSString* height;
+@property (nonatomic, copy) NSNumber* width;
+@property (nonatomic, copy) NSNumber* height;
 
 @end
