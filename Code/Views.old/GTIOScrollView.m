@@ -166,15 +166,16 @@
 			top = _pageStartEdges.top + (edges.top - _touchStartEdges.top) * r;
 			bottom = _pageStartEdges.bottom + (edges.bottom - _touchStartEdges.bottom) * r;
             
-//            NSLog(@"Page Edges: %@", NSStringFromUIEdgeInsets(_pageEdges));
-            
-            if (top >= abs(_pageEdges.left) - 10) {
+            // ensures we can only scroll one direction at a time.
+            if (fabs(_pageEdges.top) >= fabs(_pageEdges.left)) {
                 left = 0;
                 right = 0;
             } else {
                 top = 0;
                 bottom = 0;
             }
+            
+            // ensures we can't scroll up.
             if (top < 0) {
                 top = 0;
                 bottom = 0;
@@ -303,5 +304,23 @@
         }
     }
 }
+
+// Failed attempt at gravity. May Revisit.
+//- (CGFloat)resist:(CGFloat)x1 to:(CGFloat)x2 max:(CGFloat)max resistance:(CGFloat)resistance {
+//    // The closer we get to the maximum, the less we are allowed to increment
+//    CGFloat rl = (1 - (fabs(x2) / max)) * resistance;
+//    if (rl < 0) rl = 0.01;
+//    if (rl > 1) rl = 0.09;
+//    return x1 + ((x2 - x1) * rl);
+//}
+//
+//- (UIEdgeInsets)resistPageEdges:(UIEdgeInsets)edges {
+//    UIEdgeInsets newEdges = [super resistPageEdges:edges];
+//    CGFloat top = [self resist:_pageEdges.top to:newEdges.top max:150 resistance:0.05];
+//    CGFloat bottom = [self resist:_pageEdges.bottom to:newEdges.bottom max:150 resistance:0.05];
+////    top = MIN(top, 95);
+////    bottom = MIN(bottom, 95);
+//    return UIEdgeInsetsMake(top, newEdges.left, bottom, newEdges.right);
+//}
 
 @end
