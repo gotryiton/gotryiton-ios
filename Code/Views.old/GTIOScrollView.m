@@ -167,12 +167,15 @@
 			bottom = _pageStartEdges.bottom + (edges.bottom - _touchStartEdges.bottom) * r;
             
             // ensures we can only scroll one direction at a time.
-            if (fabs(_pageEdges.top) >= fabs(_pageEdges.left)) {
+            if (fabs(top) > fabs(_pageEdges.left) + 2) {
                 left = 0;
                 right = 0;
-            } else {
+            } else if (fabs(top) < fabs(_pageEdges.left) - 2 && top < 2) {
                 top = 0;
                 bottom = 0;
+            } else {
+                left = 0;
+                right = 0;
             }
             
             // ensures we can't scroll up.
