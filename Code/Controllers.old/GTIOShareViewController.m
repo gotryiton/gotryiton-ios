@@ -149,7 +149,7 @@
         GTIOPersonalStylistsItem* personalStylistsItem = [[[GTIOPersonalStylistsItem alloc] init] autorelease];
         personalStylistsItem.stylistsQuickLook = stylistsQuickLook;
         [firstSection addObject:personalStylistsItem];
-        [firstSection addObject:[TTTableTextItem itemWithText:@"edit my stylists" URL:@"gtio://stylists/edit"]];
+        [firstSection addObject:[TTTableTextItem itemWithText:@"edit my stylists" URL:@"gtio://stylists"]];
         sectionText = @"share with:";
     } else {
         [firstSection addObject:[TTTableTextItem itemWithText:@"add your personal stylists!" URL:@"gtio://stylists/add"]];

@@ -63,6 +63,7 @@
     for (int i = 0; i < [list.outfits count]; i++) {
         GTIOOutfit* outfit = [list.outfits objectAtIndex:i];
         TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
+        imageView.backgroundColor = [UIColor whiteColor];
         imageView.urlPath = outfit.iphoneThumbnailUrl;
         UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:@"welcome-thumb-overlay.png"] forState:UIControlStateNormal];
