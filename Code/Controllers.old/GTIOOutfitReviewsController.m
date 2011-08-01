@@ -28,6 +28,10 @@
 }
 @end
 
+@interface GTIOOutfitReviewsController (Private)
+- (void)closeButtonWasPressed:(id)sender;
+@end
+
 @implementation GTIOOutfitReviewsController
 
 @synthesize outfit = _outfit;
@@ -66,6 +70,7 @@
 	TT_RELEASE_SAFELY(_placeholder);
     TT_RELEASE_SAFELY(_imageViews);
     TT_RELEASE_SAFELY(_buttons);
+    TT_RELEASE_SAFELY(_closeButton);
 	[super viewDidUnload];
 }
 
@@ -177,12 +182,14 @@
 	[wrapperView addSubview:headerView];
 	headerView.userInteractionEnabled = YES;
 	
-	UIButton* closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[closeButton setImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal];
-//	[closeButton addTarget:nil action:@selector(closeButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton addTarget:self action:@selector(closeButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-	closeButton.frame = CGRectMake(275, 6,27,27);
-	[headerView addSubview:closeButton];
+	_closeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+	[_closeButton setImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal];
+    [_closeButton addTarget:self action:@selector(closeButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+	_closeButton.frame = CGRectMake(275, 6,27,27);
+    _closeButton.contentEdgeInsets = UIEdgeInsetsMake(20,6,20,20);
+    _closeButton.frame = UIEdgeInsetsInsetRect(_closeButton.frame, UIEdgeInsetsMake(-20,-6,-20,-20));
+	[headerView addSubview:_closeButton];
+    headerView.clipsToBounds = NO;
 	
 	self.tableView.tableHeaderView = wrapperView;
 	[wrapperView release];
@@ -243,6 +250,8 @@
         TTImageView* fullsizeImage = (TTImageView*)[self.view viewWithTag:99999];
         if (fullsizeImage) {
             [fullsizeImage removeFromSuperview];
+        } else if([_closeButton pointInside:[touch locationInView:_closeButton] withEvent:event]) {
+            [self closeButtonWasPressed:_closeButton];
         } else if (![_editor pointInside:[touch locationInView:_editor] withEvent:event]
                    && !_loading) {
             if ([_editor isFirstResponder]) {

@@ -13,6 +13,7 @@
 @interface GTIOOutfitReviewsController : TTTableViewController <TTTextEditorDelegate, RKObjectLoaderDelegate> {
 	GTIOOutfit* _outfit;
 	TTTextEditor* _editor;
+    UIButton* _closeButton;
 	UILabel* _placeholder;
     NSMutableArray* _imageViews;
     NSMutableArray* _buttons;
