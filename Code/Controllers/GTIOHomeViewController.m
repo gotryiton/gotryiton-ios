@@ -487,15 +487,20 @@
     [_notificationsController viewDidAppear:YES];
 }
 
+- (void)disposeOfNotificationsController:(NSString*)animationID {
+    [_notificationsController.view removeFromSuperview];
+    [_notificationsController release];
+    _notificationsController = nil;
+}
+
 - (IBAction)closeNotificationsButtonWasPressed {
     _notificationsVisible = NO;
     [UIView beginAnimations:nil context:nil];
     _notificationsContainer.frame = CGRectMake(0,421,320, 465);
     _closeNotificationsButton.hidden = YES;
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(disposeOfNotificationsController:)];
     [UIView commitAnimations];
-    [_notificationsController.view removeFromSuperview];
-    [_notificationsController release];
-    _notificationsController = nil;
 }
 
 @end
