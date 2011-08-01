@@ -112,6 +112,7 @@
         return;
     }
     [super touchesBegan:touches withEvent:event];
+    _directionLock = 0;
 }
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
@@ -119,6 +120,7 @@
     if (_pageEdges.top >= 50 && self.dragToRefresh == YES) {
         [self startReloading];
     }
+    _directionLock = 0;
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent *)event {
@@ -167,15 +169,19 @@
 			bottom = _pageStartEdges.bottom + (edges.bottom - _touchStartEdges.bottom) * r;
             
             // ensures we can only scroll one direction at a time.
-            if (fabs(top) > fabs(_pageEdges.left) + 2) {
+            if (_directionLock == 0) {
+                if (fabsf(top) > fabs(_pageEdges.left)) {
+                    _directionLock = 1;
+                } else {
+                    _directionLock = -1;
+                }
+            }
+            if (_directionLock == 1) {
                 left = 0;
                 right = 0;
-            } else if (fabs(top) < fabs(_pageEdges.left) - 2 && top < 2) {
+            } else if (_directionLock == -1) {
                 top = 0;
                 bottom = 0;
-            } else {
-                left = 0;
-                right = 0;
             }
             
             // ensures we can't scroll up.
