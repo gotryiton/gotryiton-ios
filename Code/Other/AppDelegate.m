@@ -441,6 +441,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 		NSTimeInterval refreshInterval = 60*15;
 		
 		if (interval >= refreshInterval) {
+            // Refresh notofications and todos.
+            [[GTIOUser currentUser] resumeSession];
+            
 			UIViewController* rootController = [[[[TTNavigator navigator] topViewController].navigationController viewControllers] objectAtIndex:0];
 			NSLog(@"Root Controller: %@", rootController);
 			if ([rootController isKindOfClass:NSClassFromString(@"GTIOEditProfileViewController")]) {
