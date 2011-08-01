@@ -112,23 +112,59 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 		
 		_overlay = [[GTIOMultiOutfitOverlay alloc] initWithFrame:CGRectZero];
 		_overlay.expandedFrame = self.bounds;
-		[self addSubview:_overlay];
+        [self addSubview:_overlay];
+        
+        UISwipeGestureRecognizer* rightSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(overlaySwiped:)] autorelease];
+        rightSwipeRecognizer.cancelsTouchesInView = NO;
+        rightSwipeRecognizer.delaysTouchesBegan = YES;
+        rightSwipeRecognizer.delegate = self;
+        [_overlay addGestureRecognizer:rightSwipeRecognizer];
+        
+        UISwipeGestureRecognizer* leftSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(overlaySwiped:)] autorelease];
+        leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+        leftSwipeRecognizer.cancelsTouchesInView = NO;
+        leftSwipeRecognizer.delaysTouchesBegan = YES;
+        leftSwipeRecognizer.delegate = self;
+        [_overlay addGestureRecognizer:leftSwipeRecognizer];
 		
 		_changeItReasonsOverlay = [[GTIOChangeItReasonsView alloc] initWithImage:[UIImage imageNamed:@"change-questions-bg.png"]];
 		[_changeItReasonsOverlay setContentMode:UIViewContentModeBottomRight];
 		_changeItReasonsOverlay.clipsToBounds = YES;
 		
 		[self setState:GTIOOutfitViewStateShowControls animated:NO];
-        
-        // Dissable this because it is not working properly
-//        _overlayView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"default-outfit.png"]];
-//        _overlayView.frame = self.bounds;
-//        UIActivityIndicatorView* spinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
-//        spinner.center = _overlayView.center;
-//        [_overlayView addSubview:spinner];
-//        [spinner startAnimating];
 	}
 	return self;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UISwipeGestureRecognizer *)recognizer {
+    int currentPage = _photosView.centerPageIndex;
+    int modifier = 0;
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        modifier = 1;
+    } else {
+        modifier = -1;
+    }
+    int page = currentPage + modifier;
+    if (page >= 0 && page < _photosView.numberOfPages) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)overlaySwiped:(UISwipeGestureRecognizer*)recognizer {
+    int currentPage = _photosView.centerPageIndex;
+    int modifier = 0;
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        modifier = 1;
+    } else {
+        modifier = -1;
+    }
+    int page = currentPage + modifier;
+    if (page >= 0 && page < _photosView.numberOfPages) {
+        _skipSetLook = YES;
+        [_overlay setLookPart2:page animated:YES];
+        [_photosView setCenterPageIndex:page];
+    }
 }
 
 - (void)dealloc {
@@ -349,7 +385,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 }
 
 - (void)showLoadingMoreOverlay {
-    [self addSubview:_overlayView];
+    [self addSubview:_overlay];
     [self addSubview:_goLeftButton];
     _goRightButton.alpha = 0;
 }
