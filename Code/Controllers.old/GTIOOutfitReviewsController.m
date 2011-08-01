@@ -71,6 +71,8 @@
     TT_RELEASE_SAFELY(_imageViews);
     TT_RELEASE_SAFELY(_buttons);
     TT_RELEASE_SAFELY(_closeButton);
+    TT_RELEASE_SAFELY(_keyboardOverlayButton1);
+    TT_RELEASE_SAFELY(_keyboardOverlayButton2);
 	[super viewDidUnload];
 }
 
@@ -194,6 +196,27 @@
 	self.tableView.tableHeaderView = wrapperView;
 	[wrapperView release];
 	[headerView release];
+    
+    _keyboardOverlayButton1 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _keyboardOverlayButton1.frame = self.view.bounds;
+    [_keyboardOverlayButton1 addTarget:self action:@selector(dismissKeyboard:event:) forControlEvents:UIControlEventTouchUpInside];
+    _keyboardOverlayButton2 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _keyboardOverlayButton2.frame = CGRectOffset(self.view.bounds, 0, headerView.bounds.size.height);
+    [_keyboardOverlayButton2 addTarget:self action:@selector(dismissKeyboard:event:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)dismissKeyboard:(id)sender event:(UIEvent*)event {
+    [_editor resignFirstResponder];
+}
+
+- (void)textEditorDidBeginEditing:(TTTextEditor*)textEditor {
+    [_editor.superview insertSubview:_keyboardOverlayButton1 belowSubview:_editor];
+    [self.view addSubview:_keyboardOverlayButton2];
+}
+
+- (void)textEditorDidEndEditing:(TTTextEditor*)textEditor {
+    [_keyboardOverlayButton1 removeFromSuperview];
+    [_keyboardOverlayButton2 removeFromSuperview];
 }
 
 - (CGRect)rectForOverlayView {

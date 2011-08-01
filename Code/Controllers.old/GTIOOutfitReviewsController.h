@@ -17,6 +17,8 @@
 	UILabel* _placeholder;
     NSMutableArray* _imageViews;
     NSMutableArray* _buttons;
+    UIButton* _keyboardOverlayButton1;
+    UIButton* _keyboardOverlayButton2;
     BOOL _loading;
 }
 /// outfit object
