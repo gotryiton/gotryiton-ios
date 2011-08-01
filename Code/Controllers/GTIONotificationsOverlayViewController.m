@@ -61,9 +61,7 @@
     }
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    self.textLabel.numberOfLines = 1;
-    self.textLabel.font = [UIFont systemFontOfSize:12];
-    self.textLabel.minimumFontSize = 10;
+    self.textLabel.numberOfLines = 0;
 }
 
 @end
