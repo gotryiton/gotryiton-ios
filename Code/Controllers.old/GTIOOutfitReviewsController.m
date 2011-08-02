@@ -258,12 +258,15 @@
         }
     }
     NSString* photo = [[_outfit.photos objectAtIndex:indexOfTappedOutfit] valueForKey:@"mainImg"];
-    TTImageView* fullsizeImage = [[TTImageView alloc] initWithFrame:self.view.bounds];
-    fullsizeImage.tag = 99999;
+    UIView* backgroundView = [[[UIView alloc] initWithFrame:self.view.bounds] autorelease];
+    backgroundView.backgroundColor = [UIColor blackColor];
+    backgroundView.tag = 99999;
+    TTImageView* fullsizeImage = [[[TTImageView alloc] initWithFrame:self.view.bounds] autorelease];
+    fullsizeImage.contentMode = UIViewContentModeScaleAspectFit;
     fullsizeImage.defaultImage = [UIImage imageNamed:@"default-outfit.png"];
     fullsizeImage.urlPath = photo;
-    [self.view addSubview:fullsizeImage];
-    [fullsizeImage release];
+    [backgroundView addSubview:fullsizeImage];
+    [self.view addSubview:backgroundView];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
