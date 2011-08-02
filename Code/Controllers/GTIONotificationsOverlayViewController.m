@@ -62,6 +62,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.textLabel.numberOfLines = 0;
+//    self.textLabel.text = @"This notification will span at least three lines. That means I need it to be longer than it is now. I might need it to be even longer than this. Who knows?!";
 }
 
 @end
