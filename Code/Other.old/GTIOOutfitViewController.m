@@ -13,6 +13,7 @@
 #import "GTIOOutfitPageView.h"
 #import "GTIOReview.h"
 #import "GTIOHomeViewController.h"
+#import "GTIOStaticOutfitListModel.h"
 
 
 @interface GTIOOutfitViewController (shouldReloadPage)
@@ -33,15 +34,10 @@
         NSDictionary* params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
 		NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/outfit/%@?%@", outfitID, [params URLEncodedString]]);
         
-        RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
-		self.model = [RKObjectLoaderTTModel modelWithObjectLoader:objectLoader];
-        
 		_outfitIndex = 0;
 		_scrollViewDataSource = [[GTIOOutfitViewScrollDataSource alloc] init];
 		_scrollViewDataSource.model = _model;
         
-        //    TODO: WTF? why do we have a model and a loader?
-//		[_model load:TTURLRequestCachePolicyDefault more:NO];
         _loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:self];
         [_loader send];
 
@@ -72,14 +68,23 @@
 - (void)dealloc {
     [_loader cancel];
     _loader = nil;
-    
-	[_model.delegates removeObject:self];
-	[_model release];
-	_model = nil;
 	
 	[_scrollViewDataSource release];
 	_scrollViewDataSource = nil;
-
+    
+    [_scrollView release];
+    _scrollView = nil;
+    
+    [_model cancel];
+	[_model.delegates removeObject:self];
+	[_model release];
+	_model = nil;
+    
+    _loader.delegate = nil;
+    [_loader cancel];
+    
+    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self.model];
+    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
 
 	[super dealloc];
 }
@@ -519,15 +524,17 @@
 	[loader send];
 }
 
-//- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
-//	NSLog(@"Response: %@", [response bodyAsJSON]);
-//}
-
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
+    [self retain];
     _loader = nil;
 //	TTOpenURL(@"gtio://stopLoading");
 	NSLog(@"loaded: objects: %@", objects);
 	GTIOOutfit* outfit = [objects objectWithClass:[GTIOOutfit class]];
+    if (nil == self.model) {
+        NSLog(@"Blah");
+        self.model = [GTIOStaticOutfitListModel modelWithOutfits:[NSArray arrayWithObject:outfit]];
+    }
+    
 	if (outfit) {
 		if (![_model.objects isKindOfClass:[NSMutableArray array]]) {
 			// Prevents accidental non-mutable arrays in here.
@@ -570,6 +577,7 @@
         [_scrollView doneReloading];
         [page setOutfitWithoutMultiOverlay:outfit];
     }
+    [self release];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
