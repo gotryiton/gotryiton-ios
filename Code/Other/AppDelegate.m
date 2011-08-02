@@ -443,6 +443,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 		if (interval >= refreshInterval) {
             // Refresh notofications and todos.
             [[GTIOUser currentUser] resumeSession];
+            TTOpenURL(@"gtio://home");
             
 			UIViewController* rootController = [[[[TTNavigator navigator] topViewController].navigationController viewControllers] objectAtIndex:0];
 			NSLog(@"Root Controller: %@", rootController);
