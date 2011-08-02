@@ -194,6 +194,14 @@
 - (void)showEmpty:(BOOL)show {
     if (show) {
         
+        if (_searchBar) {
+            // If we are searching (Brands) don't show any empty overlay, just show a blank screen.
+            _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            _tableView.dataSource = [TTListDataSource dataSourceWithObjects:nil];
+            [_tableView reloadData];
+            return;
+        }
+        
         NSString* title = _presenter.titleForEmptyList;
         UILabel* titleLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0,170,320,20)] autorelease];
         titleLabel.font = kGTIOFontHelveticaNeueOfSize(15);
