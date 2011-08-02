@@ -18,6 +18,7 @@
     
     // TODO: this actually doesn't work at all. fix or remove.
     UIEdgeInsets _edgeInsets;
+    BOOL _reloading;
     
     int _directionLock;
 }

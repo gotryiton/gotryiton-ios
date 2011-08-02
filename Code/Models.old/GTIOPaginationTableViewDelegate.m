@@ -86,7 +86,7 @@
 		
 		_activityView = [[UIActivityIndicatorView alloc]
 						 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		_activityView.frame = CGRectMake( 150.0f, frame.size.height - 45.0f, 20.0f, 20.0f );
+		_activityView.frame = CGRectMake( 115.0f, frame.size.height - 22.0f, 16.0f, 16.0f );
 		_activityView.hidesWhenStopped  = YES;
 		[self addSubview:_activityView];
 		
@@ -97,6 +97,7 @@
 }
 
 - (void)setStatus:(TTTableHeaderDragRefreshStatus)status {
+    [_activityView stopAnimating];
 	switch (status) {
 		case TTTableHeaderDragRefreshReleaseToReload: {
 			_statusLabel.text = @"release to update...";
@@ -111,7 +112,8 @@
 		}
 			
 		case TTTableHeaderDragRefreshLoading: {
-			_statusLabel.text = @"updating...";
+            [_activityView startAnimating];
+			_statusLabel.text = @"      updating...";
             [self setImageFlipped:YES];
 			break;
 		}

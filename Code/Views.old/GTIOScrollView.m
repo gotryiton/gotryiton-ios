@@ -10,6 +10,8 @@
 #import "GTIOOutfitTableHeaderDragRefreshView.h"
 #import "GTIOOutfitPageView.h"
 
+static int const dragRefreshDistance = 72;
+
 @interface TTScrollView (Private)
 
 - (UIEdgeInsets)stretchTouchEdges:(UIEdgeInsets)edges toPoint:(CGPoint)point;
@@ -21,6 +23,9 @@
 - (BOOL)canZoom;
 - (CGFloat)overflowForFrame:(CGRect)frame;
 - (NSInteger)realPageIndex;
+- (UIEdgeInsets)pageEdgesForAnimation;
+- (void)stopAnimation:(BOOL)resetEdges;
+- (void)startAnimationTo:(UIEdgeInsets)edges duration:(NSTimeInterval)duration;
 
 @end
 
@@ -66,9 +71,10 @@
 	}
     _refreshView.frame = CGRectOffset(_refreshView.bounds, 0, -327 + _pageEdges.top);
 
-    if (_pageEdges.top >= 50) {
+    if (_pageEdges.top >= dragRefreshDistance && 
+        !_reloading) {
         [_refreshView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-    } else {
+    } else if (!_reloading) {
         [_refreshView setStatus:TTTableHeaderDragRefreshPullToReload];
     }
     
@@ -76,34 +82,30 @@
 }
 
 - (void)doneReloading {
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]];
+    _reloading = NO;
     _edgeInsets = UIEdgeInsetsZero;
-    
-    // TODO: fix
-    NSLog(@"Hide Activity");
-//    [_refreshView showActivity:NO];
-//    self.scrollEnabled = YES;
-    [_refreshView setStatus:TTTableHeaderDragRefreshPullToReload];
-    [[self viewWithTag:1234] removeFromSuperview];
+    [self stopAnimation:NO];
+    UIEdgeInsets edges = [self pageEdgesForAnimation];
+    [self startAnimationTo:edges duration:0.3];
 }
 
 - (void)startReloading {
-    UIView* overlayView = [[TTActivityLabel alloc] initWithFrame:self.bounds style:TTActivityLabelStyleBlackBox text:@"loading..."];
-    overlayView.userInteractionEnabled = NO;
-    overlayView.tag = 1234;
-    [self addSubview:overlayView];
-    [overlayView release];
-    _edgeInsets = UIEdgeInsetsMake(50,0,50,0);
-//    _pageEdges = _edgeInsets;
-    
-    // TODO: fix
+    _edgeInsets = UIEdgeInsetsMake(dragRefreshDistance,0,dragRefreshDistance,0);
     NSLog(@"Show Activity!");
+    _reloading = YES;
     [_refreshView setStatus:TTTableHeaderDragRefreshLoading];
-//    [_refreshView showActivity:YES];
     
 //    self.scrollEnabled = NO;
     if ([self.delegate respondsToSelector:@selector(scrollView:shouldReloadPage:)]) {
         [self.delegate scrollView:self shouldReloadPage:self.centerPage];
     }
+}
+
+- (UIEdgeInsets)pageEdgesForAnimation {
+    UIEdgeInsets edges;
+    edges = [super pageEdgesForAnimation];
+    return UIEdgeInsetsMake(edges.top + _edgeInsets.top, edges.left + _edgeInsets.left, edges.bottom + _edgeInsets.bottom, edges.right + _edgeInsets.right);
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
@@ -116,10 +118,10 @@
 }
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-    [super touchesEnded:touches withEvent:event];
-    if (_pageEdges.top >= 50 && self.dragToRefresh == YES) {
+    if (_pageEdges.top >= dragRefreshDistance && self.dragToRefresh == YES) {
         [self startReloading];
     }
+    [super touchesEnded:touches withEvent:event];
     _directionLock = 0;
 }
 
