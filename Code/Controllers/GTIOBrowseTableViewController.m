@@ -194,8 +194,9 @@
 - (void)showEmpty:(BOOL)show {
     if (show) {
         
-        if (_searchBar) {
-            // If we are searching (Brands) don't show any empty overlay, just show a blank screen.
+        if (_searchBar && 
+            (nil == _presenter.list.searchAPI)) {
+            // If we are searching locally (Brands) don't show any empty overlay, just show a blank screen.
             _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             _tableView.dataSource = [TTListDataSource dataSourceWithObjects:nil];
             [_tableView reloadData];
