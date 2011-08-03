@@ -46,7 +46,7 @@ static int const dragRefreshDistance = 72;
 
 - (id)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
-		self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+        self.backgroundColor = [UIColor blackColor];
 		_shouldScroll = YES;
 	}
 	return self;

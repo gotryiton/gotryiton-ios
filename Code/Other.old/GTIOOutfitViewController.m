@@ -138,7 +138,7 @@
 	// Trigger neccesary UI updates.
 	self.state = _state;
     
-    _headerShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header-shadow.png"]];
+    _headerShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list-top-shadow.png"]];
     [self.view addSubview:_headerShadowView];
 }
 
