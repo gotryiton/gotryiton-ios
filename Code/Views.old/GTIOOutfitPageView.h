@@ -30,7 +30,7 @@ extern CGRect const wear3of4Frame;
 extern CGRect const wear4of4Frame;
 
 
-@interface GTIOOutfitPageView : UIView <TTScrollViewDelegate, RKObjectLoaderDelegate> {
+@interface GTIOOutfitPageView : UIView <TTScrollViewDelegate, RKObjectLoaderDelegate, UIGestureRecognizerDelegate> {
 	GTIOOutfit* _outfit;
     BOOL _isFirstPage;
     BOOL _isLastPage;

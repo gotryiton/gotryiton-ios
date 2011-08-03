@@ -439,8 +439,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 		NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:_lastWentInactiveAt];
 		NSLog(@"Inactive for: %f seconds", interval);
 		NSTimeInterval refreshInterval = 60*15;
-		
+
 		if (interval >= refreshInterval) {
+			// Refresh notifications and todos.
+			[[GTIOUser currentUser] resumeSession];
+			TTOpenURL(@"gtio://home");
+            
 			UIViewController* rootController = [[[[TTNavigator navigator] topViewController].navigationController viewControllers] objectAtIndex:0];
 			NSLog(@"Root Controller: %@", rootController);
 			if ([rootController isKindOfClass:NSClassFromString(@"GTIOEditProfileViewController")]) {
@@ -453,7 +457,7 @@ void uncaughtExceptionHandler(NSException *exception) {
                 [(TTModelViewController*)rootController invalidateModel];
 			}
 		}
-		
+
 		[_lastWentInactiveAt release];
 		_lastWentInactiveAt = nil;
 	}

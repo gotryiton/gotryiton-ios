@@ -538,6 +538,14 @@
 		3F56B13A137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
 		3F56B13B137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
 		3F56B13C137DC61300215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
+		3F5D621213E8783100DC5912 /* navbar-my-stylists.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621013E8783100DC5912 /* navbar-my-stylists.png */; };
+		3F5D621313E8783100DC5912 /* navbar-my-stylists.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621013E8783100DC5912 /* navbar-my-stylists.png */; };
+		3F5D621413E8783100DC5912 /* navbar-my-stylists.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621013E8783100DC5912 /* navbar-my-stylists.png */; };
+		3F5D621513E8783100DC5912 /* navbar-my-stylists.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621013E8783100DC5912 /* navbar-my-stylists.png */; };
+		3F5D621613E8783100DC5912 /* navbar-my-stylists@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621113E8783100DC5912 /* navbar-my-stylists@2x.png */; };
+		3F5D621713E8783100DC5912 /* navbar-my-stylists@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621113E8783100DC5912 /* navbar-my-stylists@2x.png */; };
+		3F5D621813E8783100DC5912 /* navbar-my-stylists@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621113E8783100DC5912 /* navbar-my-stylists@2x.png */; };
+		3F5D621913E8783100DC5912 /* navbar-my-stylists@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621113E8783100DC5912 /* navbar-my-stylists@2x.png */; };
 		3F6088A613C3825700C1C43A /* overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6088A413C3825700C1C43A /* overlay@2x.png */; };
 		3F6088A713C3825700C1C43A /* overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6088A413C3825700C1C43A /* overlay@2x.png */; };
 		3F6088A813C3825700C1C43A /* overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6088A413C3825700C1C43A /* overlay@2x.png */; };
@@ -4073,7 +4081,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		25851889135357C5005DCBA5 /* GTIO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTIO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		25851889135357C5005DCBA5 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2585188D135357C5005DCBA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2585188F135357C5005DCBA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		25851891135357C5005DCBA5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -4391,6 +4399,8 @@
 		3F506AA1138BFC030062D7D1 /* welcome-thumb-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-thumb-overlay@2x.png"; path = "welcome-assets/welcome-thumb-overlay@2x.png"; sourceTree = "<group>"; };
 		3F55F12B1382C4BF006BCEE0 /* GTIOTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTabBar.h; sourceTree = "<group>"; };
 		3F55F12C1382C4BF006BCEE0 /* GTIOTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTabBar.m; sourceTree = "<group>"; };
+		3F5D621013E8783100DC5912 /* navbar-my-stylists.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-my-stylists.png"; sourceTree = "<group>"; };
+		3F5D621113E8783100DC5912 /* navbar-my-stylists@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-my-stylists@2x.png"; sourceTree = "<group>"; };
 		3F6088A413C3825700C1C43A /* overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay@2x.png"; sourceTree = "<group>"; };
 		3F6088A513C3825700C1C43A /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
 		3F6088AF13C382A300C1C43A /* guidelines-OK-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guidelines-OK-on.png"; sourceTree = "<group>"; };
@@ -5487,7 +5497,7 @@
 		2585188A135357C5005DCBA5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				25851889135357C5005DCBA5 /* GTIO.app */,
+				25851889135357C5005DCBA5 /* Go Try It On.app */,
 				25D5C97413536855007B6F14 /* Specs.app */,
 				25D5C9B713536D8F007B6F14 /* Features.app */,
 				3F86F47713B8CA50005063FE /* GTIO Staging.app */,
@@ -6821,6 +6831,8 @@
 		A740391C137DCCF50052EF8C /* PNGs */ = {
 			isa = PBXGroup;
 			children = (
+				3F5D621013E8783100DC5912 /* navbar-my-stylists.png */,
+				3F5D621113E8783100DC5912 /* navbar-my-stylists@2x.png */,
 				3F6088AE13C382A300C1C43A /* upload-guidelines */,
 				3F6088A413C3825700C1C43A /* overlay@2x.png */,
 				3F6088A513C3825700C1C43A /* overlay.png */,
@@ -7587,9 +7599,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		25851888135357C5005DCBA5 /* GTIO */ = {
+		25851888135357C5005DCBA5 /* Go Try It On */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 258518A9135357C5005DCBA5 /* Build configuration list for PBXNativeTarget "GTIO" */;
+			buildConfigurationList = 258518A9135357C5005DCBA5 /* Build configuration list for PBXNativeTarget "Go Try It On" */;
 			buildPhases = (
 				25851885135357C5005DCBA5 /* Sources */,
 				25851886135357C5005DCBA5 /* Frameworks */,
@@ -7609,9 +7621,9 @@
 				320A5A189C235877202780D1 /* PBXTargetDependency */,
 				320CC833B8AF0ACFD35E6221 /* PBXTargetDependency */,
 			);
-			name = GTIO;
+			name = "Go Try It On";
 			productName = GTIO;
-			productReference = 25851889135357C5005DCBA5 /* GTIO.app */;
+			productReference = 25851889135357C5005DCBA5 /* Go Try It On.app */;
 			productType = "com.apple.product-type.application";
 		};
 		25D5C93F13536855007B6F14 /* Specs */ = {
@@ -7760,7 +7772,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				25851888135357C5005DCBA5 /* GTIO */,
+				25851888135357C5005DCBA5 /* Go Try It On */,
 				25D5C93F13536855007B6F14 /* Specs */,
 				25D5C98313536D8F007B6F14 /* Features */,
 				3F86F0D913B8CA50005063FE /* GTIO copy */,
@@ -8676,6 +8688,8 @@
 				3F6088C113C382A300C1C43A /* guidelines-OK@2x.png in Resources */,
 				3F6088C513C382A300C1C43A /* guidelines.png in Resources */,
 				3F6088C913C382A300C1C43A /* guidelines@2x.png in Resources */,
+				3F5D621213E8783100DC5912 /* navbar-my-stylists.png in Resources */,
+				3F5D621613E8783100DC5912 /* navbar-my-stylists@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9366,6 +9380,8 @@
 				3F6088C213C382A300C1C43A /* guidelines-OK@2x.png in Resources */,
 				3F6088C613C382A300C1C43A /* guidelines.png in Resources */,
 				3F6088CA13C382A300C1C43A /* guidelines@2x.png in Resources */,
+				3F5D621313E8783100DC5912 /* navbar-my-stylists.png in Resources */,
+				3F5D621713E8783100DC5912 /* navbar-my-stylists@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10059,6 +10075,8 @@
 				3F6088C313C382A300C1C43A /* guidelines-OK@2x.png in Resources */,
 				3F6088C713C382A300C1C43A /* guidelines.png in Resources */,
 				3F6088CB13C382A300C1C43A /* guidelines@2x.png in Resources */,
+				3F5D621413E8783100DC5912 /* navbar-my-stylists.png in Resources */,
+				3F5D621813E8783100DC5912 /* navbar-my-stylists@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10770,6 +10788,8 @@
 				3F6088C413C382A300C1C43A /* guidelines-OK@2x.png in Resources */,
 				3F6088C813C382A300C1C43A /* guidelines.png in Resources */,
 				3F6088CC13C382A300C1C43A /* guidelines@2x.png in Resources */,
+				3F5D621513E8783100DC5912 /* navbar-my-stylists.png in Resources */,
+				3F5D621913E8783100DC5912 /* navbar-my-stylists@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11781,7 +11801,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: GO TRY IT ON";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -11808,7 +11828,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "CF3DF4AC-C2A1-4FF1-B196-E67180F332E8";
+				PROVISIONING_PROFILE = "EA6C1D19-8006-4C0E-B707-38F60CB3C30B";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -11818,7 +11838,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: GO TRY IT ON";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
@@ -11841,7 +11861,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "CF3DF4AC-C2A1-4FF1-B196-E67180F332E8";
+				PROVISIONING_PROFILE = "EA6C1D19-8006-4C0E-B707-38F60CB3C30B";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
@@ -12066,7 +12086,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		258518A9135357C5005DCBA5 /* Build configuration list for PBXNativeTarget "GTIO" */ = {
+		258518A9135357C5005DCBA5 /* Build configuration list for PBXNativeTarget "Go Try It On" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				258518AA135357C5005DCBA5 /* Debug */,

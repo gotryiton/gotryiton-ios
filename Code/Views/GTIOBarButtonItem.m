@@ -127,6 +127,14 @@
     }    
 }
 
++ (id)myStylistsButtonWithTarget:(id)target action:(SEL)action {
+	UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"navbar-my-stylists.png"] forState:UIControlStateNormal];
+    [button sizeToFit];
+	[button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+	return [[[self alloc] initWithCustomView:button] autorelease];
+}
+
 + (void)backButtonAction {
     [[[TTNavigator navigator].topViewController navigationController] popViewControllerAnimated:YES];
 }

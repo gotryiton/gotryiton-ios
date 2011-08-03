@@ -10,6 +10,8 @@
 #import "GTIOOutfitTableHeaderDragRefreshView.h"
 #import "GTIOOutfitPageView.h"
 
+static int const dragRefreshDistance = 72;
+
 @interface TTScrollView (Private)
 
 - (UIEdgeInsets)stretchTouchEdges:(UIEdgeInsets)edges toPoint:(CGPoint)point;
@@ -21,6 +23,9 @@
 - (BOOL)canZoom;
 - (CGFloat)overflowForFrame:(CGRect)frame;
 - (NSInteger)realPageIndex;
+- (UIEdgeInsets)pageEdgesForAnimation;
+- (void)stopAnimation:(BOOL)resetEdges;
+- (void)startAnimationTo:(UIEdgeInsets)edges duration:(NSTimeInterval)duration;
 
 @end
 
@@ -66,9 +71,10 @@
 	}
     _refreshView.frame = CGRectOffset(_refreshView.bounds, 0, -327 + _pageEdges.top);
 
-    if (_pageEdges.top >= 50) {
+    if (_pageEdges.top >= dragRefreshDistance && 
+        !_reloading) {
         [_refreshView setStatus:TTTableHeaderDragRefreshReleaseToReload];
-    } else {
+    } else if (!_reloading) {
         [_refreshView setStatus:TTTableHeaderDragRefreshPullToReload];
     }
     
@@ -76,34 +82,30 @@
 }
 
 - (void)doneReloading {
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]];
+    _reloading = NO;
     _edgeInsets = UIEdgeInsetsZero;
-    
-    // TODO: fix
-    NSLog(@"Hide Activity");
-//    [_refreshView showActivity:NO];
-//    self.scrollEnabled = YES;
-    [_refreshView setStatus:TTTableHeaderDragRefreshPullToReload];
-    [[self viewWithTag:1234] removeFromSuperview];
+    [self stopAnimation:NO];
+    UIEdgeInsets edges = [self pageEdgesForAnimation];
+    [self startAnimationTo:edges duration:0.3];
 }
 
 - (void)startReloading {
-    UIView* overlayView = [[TTActivityLabel alloc] initWithFrame:self.bounds style:TTActivityLabelStyleBlackBox text:@"loading..."];
-    overlayView.userInteractionEnabled = NO;
-    overlayView.tag = 1234;
-    [self addSubview:overlayView];
-    [overlayView release];
-    _edgeInsets = UIEdgeInsetsMake(50,0,50,0);
-//    _pageEdges = _edgeInsets;
-    
-    // TODO: fix
+    _edgeInsets = UIEdgeInsetsMake(dragRefreshDistance,0,dragRefreshDistance,0);
     NSLog(@"Show Activity!");
+    _reloading = YES;
     [_refreshView setStatus:TTTableHeaderDragRefreshLoading];
-//    [_refreshView showActivity:YES];
     
 //    self.scrollEnabled = NO;
     if ([self.delegate respondsToSelector:@selector(scrollView:shouldReloadPage:)]) {
         [self.delegate scrollView:self shouldReloadPage:self.centerPage];
     }
+}
+
+- (UIEdgeInsets)pageEdgesForAnimation {
+    UIEdgeInsets edges;
+    edges = [super pageEdgesForAnimation];
+    return UIEdgeInsetsMake(edges.top + _edgeInsets.top, edges.left + _edgeInsets.left, edges.bottom + _edgeInsets.bottom, edges.right + _edgeInsets.right);
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
@@ -112,13 +114,15 @@
         return;
     }
     [super touchesBegan:touches withEvent:event];
+    _directionLock = 0;
 }
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-    [super touchesEnded:touches withEvent:event];
-    if (_pageEdges.top >= 50 && self.dragToRefresh == YES) {
+    if (_pageEdges.top >= dragRefreshDistance && self.dragToRefresh == YES) {
         [self startReloading];
     }
+    [super touchesEnded:touches withEvent:event];
+    _directionLock = 0;
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent *)event {
@@ -162,28 +166,39 @@
         
         // This is the piece of code that enables drag to refresh:
 		if (_dragToRefresh && scrollView.zoomed == NO) {
-			CGFloat r = 1;
-			top = _pageStartEdges.top + (edges.top - _touchStartEdges.top) * r;
-			bottom = _pageStartEdges.bottom + (edges.bottom - _touchStartEdges.bottom) * r;
+			CGFloat r = 0.5;
+            CGFloat offsetTop = (edges.top - _touchStartEdges.top);
+            CGFloat offsetBottom = (edges.bottom - _touchStartEdges.bottom);
             
-//            NSLog(@"Page Edges: %@", NSStringFromUIEdgeInsets(_pageEdges));
+			top = _pageStartEdges.top + offsetTop * r;
+			bottom = _pageStartEdges.bottom + offsetBottom * r;
             
-            if (top >= abs(_pageEdges.left) - 10) {
+            // ensures we can only scroll one direction at a time.
+            if (_directionLock == 0) {
+                if (fabsf(top) > fabs(_pageEdges.left)) {
+                    _directionLock = 1;
+                } else {
+                    _directionLock = -1;
+                }
+            }
+            if (_directionLock == 1) {
                 left = 0;
                 right = 0;
-            } else {
+            } else if (_directionLock == -1) {
                 top = 0;
                 bottom = 0;
             }
+            
+            // ensures we can't scroll up.
             if (top < 0) {
                 top = 0;
                 bottom = 0;
             }
             // Gravity substitute.
-            if (top > 95) {
-                top=95;
-                bottom=95;
-            }
+//            if (top > 95) {
+//                top=95;
+//                bottom=95;
+//            }
 		}
 		
 		UIEdgeInsets newEdges = UIEdgeInsetsMake(top, left, bottom, right);
@@ -303,5 +318,23 @@
         }
     }
 }
+
+// Failed attempt at gravity. May Revisit.
+//- (CGFloat)resist:(CGFloat)x1 to:(CGFloat)x2 max:(CGFloat)max resistance:(CGFloat)resistance {
+//    // The closer we get to the maximum, the less we are allowed to increment
+//    CGFloat rl = (1 - (fabs(x2) / max)) * resistance;
+//    if (rl < 0) rl = 0.01;
+//    if (rl > 1) rl = 0.09;
+//    return x1 + ((x2 - x1) * rl);
+//}
+//
+//- (UIEdgeInsets)resistPageEdges:(UIEdgeInsets)edges {
+//    UIEdgeInsets newEdges = [super resistPageEdges:edges];
+//    CGFloat top = [self resist:_pageEdges.top to:newEdges.top max:150 resistance:0.05];
+//    CGFloat bottom = [self resist:_pageEdges.bottom to:newEdges.bottom max:150 resistance:0.05];
+////    top = MIN(top, 95);
+////    bottom = MIN(bottom, 95);
+//    return UIEdgeInsetsMake(top, newEdges.left, bottom, newEdges.right);
+//}
 
 @end

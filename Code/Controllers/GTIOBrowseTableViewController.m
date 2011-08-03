@@ -194,6 +194,15 @@
 - (void)showEmpty:(BOOL)show {
     if (show) {
         
+        if (_searchBar && 
+            (nil == _presenter.list.searchAPI)) {
+            // If we are searching locally (Brands) don't show any empty overlay, just show a blank screen.
+            _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            _tableView.dataSource = [TTListDataSource dataSourceWithObjects:nil];
+            [_tableView reloadData];
+            return;
+        }
+        
         NSString* title = _presenter.titleForEmptyList;
         UILabel* titleLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0,170,320,20)] autorelease];
         titleLabel.font = kGTIOFontHelveticaNeueOfSize(15);
@@ -379,6 +388,13 @@
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     
     NSAssert(model.list.outfits || model.list.myLooks || model.list.reviews, @"Only know how to paginate lists of outfits currently.");
+    if (model.list.outfits) {
+        model.list.outfits = model.objects;
+    } else if (model.list.myLooks) {
+        model.list.myLooks = model.objects;
+    } else if (model.list.reviews) {
+        model.list.reviews = model.objects;
+    }
     
     [self.tableView beginUpdates];
     NSMutableArray* indexPaths = [NSMutableArray array];

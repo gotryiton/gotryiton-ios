@@ -25,7 +25,15 @@
 }
 @end
 
+static float const kNotificationLabelWidth = 260;
+
 @implementation GTIONotificationTableItemCell
+
++ (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
+    GTIONotificationTableItem* item = (GTIONotificationTableItem*)object;
+    CGSize size = [item.text sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:CGSizeMake(kNotificationLabelWidth, 9999)];
+    return MAX(40,size.height + 20);
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
@@ -41,19 +49,22 @@
 - (void)layoutSubviews {
     self.textLabel.font = [UIFont systemFontOfSize:13];
     [super layoutSubviews];
+    float width = kNotificationLabelWidth;
+    float height = self.textLabel.bounds.size.height;
     if (nil == _imageView2.urlPath) {
         _imageView2.frame = CGRectZero;
-        self.textLabel.frame = CGRectMake(8, floor((self.contentView.bounds.size.height - 42) / 2), 300 - 8
-                                          , 42);
+        self.textLabel.frame = CGRectMake(8, floor((self.contentView.bounds.size.height - height) / 2), width
+                                          , height);
     } else {
         _imageView2.frame = CGRectMake(8, floor((self.contentView.bounds.size.height - 21) / 2), 21, 21);
-        self.textLabel.frame = CGRectMake(8+21+8, floor((self.contentView.bounds.size.height - 42) / 2), 300 - 8 - 21 - 8, 42);
+        self.textLabel.frame = CGRectMake(8+21+8, floor((self.contentView.bounds.size.height - height) / 2), width, height);
     }
 }
 
 - (void)setObject:(id)obj {
     [super setObject:obj];
     GTIONotificationTableItem* item = (GTIONotificationTableItem*)obj;
+    
     if ([item unseen]) {
         self.backgroundView.backgroundColor = RGBCOLOR(255,252,218);
     } else {
@@ -95,6 +106,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userStateChangedNotification:) name:kGTIOUserDidLoginNotificationName object:nil];
+        self.variableHeightRows = YES;
     }
     return self;
 }
@@ -134,6 +146,7 @@
             GTIONotificationTableItem* item = [GTIONotificationTableItem itemWithText:notification.text imageURL:notification.notificationIcon URL:notification.url];
             item.unseen = ![[GTIOUser currentUser] hasSeenNotification:notification];
             item.userInfo = notification;
+//            item.text = @"This notification will span at least three lines. That means I need it to be longer than it is now. I might need it to be even longer than this. Who knows?!";
             [items addObject:item];
         }
         self.dataSource = [GTIOWelcomeDataSource dataSourceWithItems:items];

@@ -88,9 +88,6 @@
         
         self.emptyView = emptyView;
         
-//        _tableView.dataSource = nil;
-//        [_tableView reloadData];
-        
     } else {
         self.emptyView = nil;
     }
@@ -103,7 +100,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-	[self invalidateModel];
 }
 
 @end

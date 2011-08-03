@@ -28,6 +28,10 @@
 }
 @end
 
+@interface GTIOOutfitReviewsController (Private)
+- (void)closeButtonWasPressed:(id)sender;
+@end
+
 @implementation GTIOOutfitReviewsController
 
 @synthesize outfit = _outfit;
@@ -66,6 +70,9 @@
 	TT_RELEASE_SAFELY(_placeholder);
     TT_RELEASE_SAFELY(_imageViews);
     TT_RELEASE_SAFELY(_buttons);
+    TT_RELEASE_SAFELY(_closeButton);
+    TT_RELEASE_SAFELY(_keyboardOverlayButton1);
+    TT_RELEASE_SAFELY(_keyboardOverlayButton2);
 	[super viewDidUnload];
 }
 
@@ -177,16 +184,39 @@
 	[wrapperView addSubview:headerView];
 	headerView.userInteractionEnabled = YES;
 	
-	UIButton* closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[closeButton setImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal];
-//	[closeButton addTarget:nil action:@selector(closeButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton addTarget:self action:@selector(closeButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-	closeButton.frame = CGRectMake(275, 6,27,27);
-	[headerView addSubview:closeButton];
+	_closeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+	[_closeButton setImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal];
+    [_closeButton addTarget:self action:@selector(closeButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+	_closeButton.frame = CGRectMake(275, 6,27,27);
+    _closeButton.contentEdgeInsets = UIEdgeInsetsMake(20,6,20,20);
+    _closeButton.frame = UIEdgeInsetsInsetRect(_closeButton.frame, UIEdgeInsetsMake(-20,-6,-20,-20));
+	[headerView addSubview:_closeButton];
+    headerView.clipsToBounds = NO;
 	
 	self.tableView.tableHeaderView = wrapperView;
 	[wrapperView release];
 	[headerView release];
+    
+    _keyboardOverlayButton1 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _keyboardOverlayButton1.frame = self.view.bounds;
+    [_keyboardOverlayButton1 addTarget:self action:@selector(dismissKeyboard:event:) forControlEvents:UIControlEventTouchUpInside];
+    _keyboardOverlayButton2 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _keyboardOverlayButton2.frame = CGRectOffset(self.view.bounds, 0, headerView.bounds.size.height);
+    [_keyboardOverlayButton2 addTarget:self action:@selector(dismissKeyboard:event:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)dismissKeyboard:(id)sender event:(UIEvent*)event {
+    [_editor resignFirstResponder];
+}
+
+- (void)textEditorDidBeginEditing:(TTTextEditor*)textEditor {
+    [_editor.superview insertSubview:_keyboardOverlayButton1 belowSubview:_editor];
+    [self.view addSubview:_keyboardOverlayButton2];
+}
+
+- (void)textEditorDidEndEditing:(TTTextEditor*)textEditor {
+    [_keyboardOverlayButton1 removeFromSuperview];
+    [_keyboardOverlayButton2 removeFromSuperview];
 }
 
 - (CGRect)rectForOverlayView {
@@ -228,12 +258,15 @@
         }
     }
     NSString* photo = [[_outfit.photos objectAtIndex:indexOfTappedOutfit] valueForKey:@"mainImg"];
-    TTImageView* fullsizeImage = [[TTImageView alloc] initWithFrame:self.view.bounds];
-    fullsizeImage.tag = 99999;
+    UIView* backgroundView = [[[UIView alloc] initWithFrame:self.view.bounds] autorelease];
+    backgroundView.backgroundColor = [UIColor blackColor];
+    backgroundView.tag = 99999;
+    TTImageView* fullsizeImage = [[[TTImageView alloc] initWithFrame:self.view.bounds] autorelease];
+    fullsizeImage.contentMode = UIViewContentModeScaleAspectFit;
     fullsizeImage.defaultImage = [UIImage imageNamed:@"default-outfit.png"];
     fullsizeImage.urlPath = photo;
-    [self.view addSubview:fullsizeImage];
-    [fullsizeImage release];
+    [backgroundView addSubview:fullsizeImage];
+    [self.view addSubview:backgroundView];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -243,6 +276,8 @@
         TTImageView* fullsizeImage = (TTImageView*)[self.view viewWithTag:99999];
         if (fullsizeImage) {
             [fullsizeImage removeFromSuperview];
+        } else if([_closeButton pointInside:[touch locationInView:_closeButton] withEvent:event]) {
+            [self closeButtonWasPressed:_closeButton];
         } else if (![_editor pointInside:[touch locationInView:_editor] withEvent:event]
                    && !_loading) {
             if ([_editor isFirstResponder]) {

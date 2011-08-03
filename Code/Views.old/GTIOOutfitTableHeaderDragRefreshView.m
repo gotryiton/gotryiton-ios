@@ -31,6 +31,8 @@
         _statusLabel.frame = CGRectMake(0.0f, floor(frame.size.height - 24.0f),
                                         floor(frame.size.width), 20.0f );
         _statusLabel.shadowOffset = CGSizeMake(0, 0);
+        
+        _activityView.frame = CGRectMake( 114.0f, frame.size.height - 23.0f, 18.0f, 18.0f );
     }
     return self;
 }

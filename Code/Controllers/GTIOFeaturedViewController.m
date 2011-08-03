@@ -260,9 +260,7 @@
     _scrollView = [[GTIOFeaturedScrollView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_scrollView];
     
-    UIBarButtonItem* myStylistsButton = [[[GTIOBarButtonItem alloc] initWithTitle:@"my stylists"
-                                                                     target:self
-                                                                     action:@selector(stylistsButtonWasPressed:)] autorelease];
+    UIBarButtonItem* myStylistsButton = [GTIOBarButtonItem myStylistsButtonWithTarget:self action:@selector(stylistsButtonWasPressed:)];
     self.navigationItem.rightBarButtonItem = myStylistsButton;
 }
 

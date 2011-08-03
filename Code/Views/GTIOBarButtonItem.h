@@ -20,6 +20,8 @@
 /// returns correctly styled backbutton based on the top view in the [TTNavigator](TTNavigator)
 + (id)backButton;
 
++ (id)myStylistsButtonWithTarget:(id)target action:(SEL)action;
+
 ///class level helper that pops the [TTNavigator](TTNavigator) top view controller
 + (void)backButtonAction;
 
