@@ -25,6 +25,8 @@
 	TTPhotoView* _look2;
 	TTPhotoView* _look3;
 	TTPhotoView* _look4;
+    
+    NSTimer* _zoomOutTimer;
 }
 /// Outfit being displayed
 @property (nonatomic, retain) GTIOOutfit *outfit;
@@ -47,5 +49,7 @@
 - (void)draggedWithLeftOffset:(double)offset;
 /// sets selected outfit without resetting the overlay
 - (void)setOutfitWithoutResettingOverlay:(GTIOOutfit *)outfit;
+// Sets the look for the expanded overlay without changing anything else (zooming out or anythign)
+- (void)setLookExpanded:(NSInteger)lookIndex;
 
 @end

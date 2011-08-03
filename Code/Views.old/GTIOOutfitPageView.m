@@ -162,8 +162,9 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
     int page = currentPage + modifier;
     if (page >= 0 && page < _photosView.numberOfPages) {
         _skipSetLook = YES;
-        [_overlay setLookPart2:page animated:YES];
+        [_overlay setLookExpanded:page];
         [_photosView setCenterPageIndex:page];
+        [_overlay zoomOutAfterDelay:2];
     }
 }
 

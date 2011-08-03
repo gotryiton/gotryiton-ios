@@ -74,6 +74,10 @@
 	
 	[_look4 release];
 	_look4 = nil;
+    
+    [_zoomOutTimer invalidate];
+    [_zoomOutTimer release];
+    _zoomOutTimer = nil;
 
 	[super dealloc];
 }
@@ -230,8 +234,20 @@
 		[UIView commitAnimations];
 		// Note: I Would normally use an animation callback here, but sometimes the frame doesn't change
 		// and the animation returns immediately. this makes for wonky animations.
+        
 		[self performSelector:@selector(setLookPart3) withObject:nil afterDelay:0.3];
 	}
+}
+
+- (void)setLookExpanded:(NSInteger)lookIndex {
+    [UIView beginAnimations:@"SetLookPart2Animation" context:nil];
+    [UIView setAnimationDuration:0.2];
+    
+    CGRect newFrame = [self expandedFrameForPhotoAtIndex:lookIndex includeBorder:YES];
+    _selectionView.frame = newFrame;
+    _lookIndex = lookIndex; 
+
+    [UIView commitAnimations];
 }
 
 - (void)setLookAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
@@ -264,7 +280,19 @@
 
 /// zooms out view after a delay
 - (void)zoomOutAfterDelay:(NSInteger)delay {
-	[self performSelector:@selector(zoomOut) withObject:nil afterDelay:delay];
+	//[self performSelector:@selector(zoomOut) withObject:nil afterDelay:delay];
+    if (_zoomOutTimer) {
+        [_zoomOutTimer invalidate];
+        [_zoomOutTimer release];
+        _zoomOutTimer = nil;
+    }
+    _zoomOutTimer = [[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(zoomOutTimerFired:) userInfo:nil repeats:NO] retain];
+}
+
+- (void)zoomOutTimerFired:(NSTimer*)timer {
+    [_zoomOutTimer release];
+    _zoomOutTimer = nil;
+    [self zoomOut];
 }
 
 - (void)draggedWithLeftOffset:(double)offset {
