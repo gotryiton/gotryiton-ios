@@ -388,6 +388,13 @@
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     
     NSAssert(model.list.outfits || model.list.myLooks || model.list.reviews, @"Only know how to paginate lists of outfits currently.");
+    if (model.list.outfits) {
+        model.list.outfits = model.objects;
+    } else if (model.list.myLooks) {
+        model.list.myLooks = model.objects;
+    } else if (model.list.reviews) {
+        model.list.reviews = model.objects;
+    }
     
     [self.tableView beginUpdates];
     NSMutableArray* indexPaths = [NSMutableArray array];
