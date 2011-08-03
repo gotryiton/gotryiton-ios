@@ -74,4 +74,6 @@
 @property (nonatomic, retain) NSNumber* isBranded;
 @property (nonatomic, retain) GTIOExtraProfileRow* extraProfileRow;
 
+@property (nonatomic, readonly) NSString* genderPronoun;
+
 @end

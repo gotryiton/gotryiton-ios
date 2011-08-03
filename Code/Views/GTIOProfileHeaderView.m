@@ -197,7 +197,7 @@
 	[delegate setTarget:self selector:@selector(removeAsMyStylistConfirmed) object:nil forButtonIndex:1];
     NSString* message = [NSString stringWithFormat:
                          @"your outfits will no longer show in %@'s To-Do list, and %@ will not be notified when you upload.",
-                         _profile.firstName, ([_profile.gender isEqualToString:@"male"] ? @"he" : @"she")];
+                         _profile.firstName, _profile.genderPronoun];
 	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"remove personal stylist?" message:message delegate:delegate cancelButtonTitle:@"cancel" otherButtonTitles:@"remove", nil];
 	[alert show];
 	[alert release];
@@ -218,7 +218,7 @@
 	[delegate setTarget:self selector:@selector(addAsMyStylistConfirmed) object:nil forButtonIndex:1];
     NSString* message = [NSString stringWithFormat:
                          @"your outfits will show up in %@'s To-Do list, and %@ may be notified every time you upload.",
-                         _profile.firstName, ([_profile.gender isEqualToString:@"male"] ? @"he" : @"she")];
+                         _profile.firstName, _profile.genderPronoun];
 	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"add as personal stylist?" message:message delegate:delegate cancelButtonTitle:@"cancel" otherButtonTitles:@"add", nil];
 	[alert show];
 	[alert release];

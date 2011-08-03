@@ -98,4 +98,10 @@
     return NO;
 }
 
+- (NSString*)genderPronoun {
+    if ([self.gender isEqualToString:@"male"]) return @"he";
+    if ([self.gender isEqualToString:@"female"]) return @"she";
+    return @"they";
+}
+
 @end
