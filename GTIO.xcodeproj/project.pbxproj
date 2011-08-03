@@ -4081,7 +4081,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		25851889135357C5005DCBA5 /* GTIO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTIO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		25851889135357C5005DCBA5 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2585188D135357C5005DCBA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2585188F135357C5005DCBA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		25851891135357C5005DCBA5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -5497,7 +5497,7 @@
 		2585188A135357C5005DCBA5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				25851889135357C5005DCBA5 /* GTIO.app */,
+				25851889135357C5005DCBA5 /* Go Try It On.app */,
 				25D5C97413536855007B6F14 /* Specs.app */,
 				25D5C9B713536D8F007B6F14 /* Features.app */,
 				3F86F47713B8CA50005063FE /* GTIO Staging.app */,
@@ -7599,9 +7599,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		25851888135357C5005DCBA5 /* GTIO */ = {
+		25851888135357C5005DCBA5 /* Go Try It On */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 258518A9135357C5005DCBA5 /* Build configuration list for PBXNativeTarget "GTIO" */;
+			buildConfigurationList = 258518A9135357C5005DCBA5 /* Build configuration list for PBXNativeTarget "Go Try It On" */;
 			buildPhases = (
 				25851885135357C5005DCBA5 /* Sources */,
 				25851886135357C5005DCBA5 /* Frameworks */,
@@ -7621,9 +7621,9 @@
 				320A5A189C235877202780D1 /* PBXTargetDependency */,
 				320CC833B8AF0ACFD35E6221 /* PBXTargetDependency */,
 			);
-			name = GTIO;
+			name = "Go Try It On";
 			productName = GTIO;
-			productReference = 25851889135357C5005DCBA5 /* GTIO.app */;
+			productReference = 25851889135357C5005DCBA5 /* Go Try It On.app */;
 			productType = "com.apple.product-type.application";
 		};
 		25D5C93F13536855007B6F14 /* Specs */ = {
@@ -7772,7 +7772,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				25851888135357C5005DCBA5 /* GTIO */,
+				25851888135357C5005DCBA5 /* Go Try It On */,
 				25D5C93F13536855007B6F14 /* Specs */,
 				25D5C98313536D8F007B6F14 /* Features */,
 				3F86F0D913B8CA50005063FE /* GTIO copy */,
@@ -12086,7 +12086,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		258518A9135357C5005DCBA5 /* Build configuration list for PBXNativeTarget "GTIO" */ = {
+		258518A9135357C5005DCBA5 /* Build configuration list for PBXNativeTarget "Go Try It On" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				258518AA135357C5005DCBA5 /* Debug */,

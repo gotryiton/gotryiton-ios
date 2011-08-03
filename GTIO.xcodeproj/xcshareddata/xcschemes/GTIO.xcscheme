@@ -15,7 +15,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "25851888135357C5005DCBA5"
                BuildableName = "GTIO.app"
-               BlueprintName = "GTIO"
+               BlueprintName = "Go Try It On"
                ReferencedContainer = "container:GTIO.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,7 +42,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "25851888135357C5005DCBA5"
             BuildableName = "GTIO.app"
-            BlueprintName = "GTIO"
+            BlueprintName = "Go Try It On"
             ReferencedContainer = "container:GTIO.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -73,7 +73,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "25851888135357C5005DCBA5"
             BuildableName = "GTIO.app"
-            BlueprintName = "GTIO"
+            BlueprintName = "Go Try It On"
             ReferencedContainer = "container:GTIO.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
