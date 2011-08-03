@@ -166,9 +166,12 @@ static int const dragRefreshDistance = 72;
         
         // This is the piece of code that enables drag to refresh:
 		if (_dragToRefresh && scrollView.zoomed == NO) {
-			CGFloat r = 1;
-			top = _pageStartEdges.top + (edges.top - _touchStartEdges.top) * r;
-			bottom = _pageStartEdges.bottom + (edges.bottom - _touchStartEdges.bottom) * r;
+			CGFloat r = 0.5;
+            CGFloat offsetTop = (edges.top - _touchStartEdges.top);
+            CGFloat offsetBottom = (edges.bottom - _touchStartEdges.bottom);
+            
+			top = _pageStartEdges.top + offsetTop * r;
+			bottom = _pageStartEdges.bottom + offsetBottom * r;
             
             // ensures we can only scroll one direction at a time.
             if (_directionLock == 0) {
@@ -192,10 +195,10 @@ static int const dragRefreshDistance = 72;
                 bottom = 0;
             }
             // Gravity substitute.
-            if (top > 95) {
-                top=95;
-                bottom=95;
-            }
+//            if (top > 95) {
+//                top=95;
+//                bottom=95;
+//            }
 		}
 		
 		UIEdgeInsets newEdges = UIEdgeInsetsMake(top, left, bottom, right);
