@@ -49,7 +49,7 @@
 - (void)draggedWithLeftOffset:(double)offset;
 /// sets selected outfit without resetting the overlay
 - (void)setOutfitWithoutResettingOverlay:(GTIOOutfit *)outfit;
-// Sets the look for the expanded overlay without changing anything else (zooming out or anythign)
+// Sets the look for the expanded overlay without changing anything else (zooming out or anything)
 - (void)setLookExpanded:(NSInteger)lookIndex;
 
 @end
