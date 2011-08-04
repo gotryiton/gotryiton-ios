@@ -460,6 +460,7 @@
 
 - (void)notificationsUpdatedNotification:(NSNotification*)note {
     [self updateNotificationsButton];
+    [_notificationsController invalidateModel];
     [self updateScrollView];
 }
 
