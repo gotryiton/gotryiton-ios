@@ -34,13 +34,9 @@
 	[headerLabel setTextColor:[UIColor colorWithRed:0.506 green:0.506 blue:0.506 alpha:1]];
 	headerLabel.frame = CGRectMake(0,10,320,30);
     [header addSubview:headerLabel];
-    
-	UIView* terms = [[UIView alloc] initWithFrame:CGRectMake(0,0,320,50)];
-	[terms setBackgroundColor:[UIColor clearColor]];
-	[terms addSubview:[GTIOSignInTermsView termsView]];
 	
-	NSArray* objects = [NSArray arrayWithObjects:backgroundImage,titleView,header,[UIColor clearColor],terms,nil]; 
-	NSArray* keys = [NSArray arrayWithObjects:kJRAuthenticationBackgroundImageView,kJRProviderTableTitleView,kJRProviderTableHeaderView,kJRAuthenticationBackgroundColor,kJRProviderTableSectionFooterView,nil];
+	NSArray* objects = [NSArray arrayWithObjects:backgroundImage,titleView,header,[UIColor clearColor],nil]; 
+	NSArray* keys = [NSArray arrayWithObjects:kJRAuthenticationBackgroundImageView,kJRProviderTableTitleView,kJRProviderTableHeaderView,kJRAuthenticationBackgroundColor,nil];
 	NSDictionary* params = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[engage showAuthenticationDialogWithCustomInterface:params];	
 }
