@@ -323,6 +323,9 @@
 }
 
 - (void)didSelectObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
+    if ([object isKindOfClass:[GTIOStylistBadgesTableViewItem class]]) {
+        return;
+    }
     // Handle Analytics here, since this is the only place we still know whether or not it was branded
     if ([[object text] isEqualToString:@"looks"]) {
         if (_isBrandedProfileView) {

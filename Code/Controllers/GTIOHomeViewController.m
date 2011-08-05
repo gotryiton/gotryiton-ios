@@ -493,6 +493,7 @@
     [_notificationsController.view removeFromSuperview];
     [_notificationsController release];
     _notificationsController = nil;
+    [self notificationsUpdatedNotification:nil];
 }
 
 - (IBAction)closeNotificationsButtonWasPressed {

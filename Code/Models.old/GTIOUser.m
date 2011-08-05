@@ -300,10 +300,12 @@ static GTIOUser* gCurrentUser = nil;
     if (nil == seenIDs) {
         seenIDs = [NSMutableArray array];
     }
-    [seenIDs addObject:note.notificationID];
-    [[NSUserDefaults standardUserDefaults] setObject:seenIDs forKey:@"notificationIDs"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIONotificationsUpdatedNotificationName object:self];
+    if (![seenIDs containsObject:note.notificationID]) {
+        [seenIDs addObject:note.notificationID];
+        [[NSUserDefaults standardUserDefaults] setObject:seenIDs forKey:@"notificationIDs"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIONotificationsUpdatedNotificationName object:self];
+    }
 }
 
 -(BOOL)hasSeenNotification:(GTIONotification*)note {

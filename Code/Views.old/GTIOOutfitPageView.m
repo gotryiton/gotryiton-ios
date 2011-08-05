@@ -169,7 +169,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 }
 
 - (void)dealloc {
-    [_voteRequest cancel];
+    _voteRequest.delegate = nil;
     
 	[_draggingTimer invalidate];
 	_draggingTimer = nil;

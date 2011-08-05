@@ -57,6 +57,13 @@ static float const qFontSize = 42;
 	
 	while (line1Size.width > line1MaxWidth) {
 		NSMutableArray* parts = [[[line1Text componentsSeparatedByString:@" "] mutableCopy] autorelease];
+        if ([parts count] == 1) {
+            int length = [line1Text length];
+            int half = length / 2;
+            NSString* part1 = [line1Text substringWithRange:NSMakeRange(0,half)];
+            NSString* part2 = [line1Text substringWithRange:NSMakeRange(half+1,length-half-1)];
+            parts = [NSMutableArray arrayWithObjects:part1,part2, nil];
+        }
 		NSString* lastPart = [parts lastObject];
 		[parts removeLastObject];
 		line1Text = [parts componentsJoinedByString:@" "];
@@ -76,7 +83,7 @@ static float const qFontSize = 42;
 		[lines removeObjectAtIndex:0];
 		NSMutableArray* wordsNotInCurrentLine = [NSMutableArray array];
         NSString* obj = [lines componentsJoinedByString:@"\n"];
-        if (obj) {
+        if (obj && [obj length] > 0) {
             [wordsNotInCurrentLine addObject:obj];
         }
 		[lines release];
@@ -89,6 +96,13 @@ static float const qFontSize = 42;
 			CGSize lineSize = [currentLine sizeWithFont:font];
 			while (lineSize.width > maxWidth) {
 				NSMutableArray* parts = [[[currentLine componentsSeparatedByString:@" "] mutableCopy] autorelease];
+                if ([parts count] == 1) {
+                    int length = [currentLine length];
+                    int half = length / 2;
+                    NSString* part1 = [currentLine substringWithRange:NSMakeRange(0,half)];
+                    NSString* part2 = [currentLine substringWithRange:NSMakeRange(half+1,length-half-1)];
+                    parts = [NSMutableArray arrayWithObjects:part1,part2, nil];
+                }
 				NSString* lastPart = [parts lastObject];
 				[parts removeLastObject];
 				currentLine = [parts componentsJoinedByString:@" "];
@@ -156,6 +170,13 @@ static float const qFontSize = 42;
 	
 	while (line1Size.width > line1MaxWidth) {
 		NSMutableArray* parts = [[[line1Text componentsSeparatedByString:@" "] mutableCopy] autorelease];
+        if ([parts count] == 1) {
+            int length = [line1Text length];
+            int half = length / 2;
+            NSString* part1 = [line1Text substringWithRange:NSMakeRange(0,half)];
+            NSString* part2 = [line1Text substringWithRange:NSMakeRange(half+1,length-half-1)];
+            parts = [NSMutableArray arrayWithObjects:part1,part2, nil];
+        }
 		NSString* lastPart = [parts lastObject];
 		[parts removeLastObject];
 		line1Text = [parts componentsJoinedByString:@" "];
@@ -201,6 +222,13 @@ static float const qFontSize = 42;
 			CGSize lineSize = [currentLine sizeWithFont:font];
 			while (lineSize.width > maxWidth) {
 				NSMutableArray* parts = [[[currentLine componentsSeparatedByString:@" "] mutableCopy] autorelease];
+                if ([parts count] == 1) {
+                    int length = [currentLine length];
+                    int half = length / 2;
+                    NSString* part1 = [currentLine substringWithRange:NSMakeRange(0,half)];
+                    NSString* part2 = [currentLine substringWithRange:NSMakeRange(half+1,length-half-1)];
+                    parts = [NSMutableArray arrayWithObjects:part1,part2, nil];
+                }
 				NSString* lastPart = [parts lastObject];
 				[parts removeLastObject];
 				currentLine = [parts componentsJoinedByString:@" "];
