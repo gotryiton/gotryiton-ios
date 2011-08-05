@@ -68,6 +68,9 @@
         if ([[GTIOUser currentUser].istyleCount intValue] == 0 ) {
             image = [UIImage imageNamed:@"todos-empty-no-stylists.png"];
         }
+        if ([[(GTIOTab*)_sortTabBar.selectedTab titleLabel].text isEqualToString:@"COMMUNITY"]) {
+            image = [UIImage imageNamed:@"todos-community-empty-no-stylists"];
+        }
         
         UIImageView* imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
         imageView.frame = CGRectMake(floor(320 - imageView.frame.size.width) / 2,43,imageView.frame.size.width, imageView.frame.size.height);
