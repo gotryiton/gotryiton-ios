@@ -25,7 +25,7 @@
 }
 @end
 
-static float const kNotificationLabelWidth = 260;
+static float const kNotificationLabelWidth = 250;
 
 @implementation GTIONotificationTableItemCell
 
