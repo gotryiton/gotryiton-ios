@@ -61,7 +61,7 @@ static float const qFontSize = 42;
             int length = [line1Text length];
             int half = length / 2;
             NSString* part1 = [line1Text substringWithRange:NSMakeRange(0,half)];
-            NSString* part2 = [line1Text substringWithRange:NSMakeRange(half+1,length-half-1)];
+            NSString* part2 = [line1Text substringWithRange:NSMakeRange(half,length-half)];
             parts = [NSMutableArray arrayWithObjects:part1,part2, nil];
         }
 		NSString* lastPart = [parts lastObject];
@@ -100,7 +100,7 @@ static float const qFontSize = 42;
                     int length = [currentLine length];
                     int half = length / 2;
                     NSString* part1 = [currentLine substringWithRange:NSMakeRange(0,half)];
-                    NSString* part2 = [currentLine substringWithRange:NSMakeRange(half+1,length-half-1)];
+                    NSString* part2 = [currentLine substringWithRange:NSMakeRange(half,length-half)];
                     parts = [NSMutableArray arrayWithObjects:part1,part2, nil];
                 }
 				NSString* lastPart = [parts lastObject];
@@ -174,7 +174,7 @@ static float const qFontSize = 42;
             int length = [line1Text length];
             int half = length / 2;
             NSString* part1 = [line1Text substringWithRange:NSMakeRange(0,half)];
-            NSString* part2 = [line1Text substringWithRange:NSMakeRange(half+1,length-half-1)];
+            NSString* part2 = [line1Text substringWithRange:NSMakeRange(half,length-half)];
             parts = [NSMutableArray arrayWithObjects:part1,part2, nil];
         }
 		NSString* lastPart = [parts lastObject];
@@ -226,7 +226,7 @@ static float const qFontSize = 42;
                     int length = [currentLine length];
                     int half = length / 2;
                     NSString* part1 = [currentLine substringWithRange:NSMakeRange(0,half)];
-                    NSString* part2 = [currentLine substringWithRange:NSMakeRange(half+1,length-half-1)];
+                    NSString* part2 = [currentLine substringWithRange:NSMakeRange(half,length-half)];
                     parts = [NSMutableArray arrayWithObjects:part1,part2, nil];
                 }
 				NSString* lastPart = [parts lastObject];

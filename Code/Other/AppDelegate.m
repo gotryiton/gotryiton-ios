@@ -247,8 +247,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [GTIOUser currentUser].token = @"f694fe39e88dd601afa86920b00771b5";
-    
 	// Initialize Flurry
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	[FlurryAPI startSession:kGTIOFlurryAPIKey];
