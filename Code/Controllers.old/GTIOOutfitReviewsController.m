@@ -356,7 +356,11 @@
             [self postReview];
         }
 	}
-	[_editor resignFirstResponder];
+    [_editor resignFirstResponder];
+    // It is unclear why I need to call this here, but if I don't it does not get called when
+    // you submit reviews that are more than one line.
+    [self textEditorDidEndEditing:_editor];
+    
 	return NO;
 }
 
