@@ -277,6 +277,8 @@
 		loader.method = RKRequestMethodPOST;
 		[loader send];
 		// save review
+        // Post the voted notification (even though we only reviewed)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOOutfitVoteNotification object:_outfit.outfitID];
 	}
 	return NO;
 }

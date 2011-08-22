@@ -341,6 +341,8 @@
     _editor.text = @"";
     [self textEditorDidChange:_editor];
     [loader send];
+    // Post the voted notification (even though we only reviewed)
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOOutfitVoteNotification object:_outfit.outfitID];
 }
 
 - (void)loginNotification:(NSNotification*)note {
