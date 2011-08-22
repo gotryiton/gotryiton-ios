@@ -64,6 +64,12 @@
     ;
 }
 
+- (void)setObjects:(NSArray*)objects {
+    [objects retain];
+    [_objects release];
+    _objects = objects;
+}
+
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
     NSLog(@"Dictionary: %@", dictionary);
     _isLoading = NO;

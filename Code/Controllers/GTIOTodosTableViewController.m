@@ -78,9 +78,13 @@
             
             NSIndexPath* ip = [NSIndexPath indexPathForRow:[ds.items indexOfObject:itemToDelete] inSection:0];
             [ds.items removeObject:itemToDelete];
+            
             NSMutableArray* outfits = [[[[(GTIOBrowseListTTModel*)ds.model list] outfits] mutableCopy] autorelease];
             [outfits removeObjectAtIndex:ip.row];
             [[(GTIOBrowseListTTModel*)ds.model list] setOutfits:outfits];
+            
+            [ds.model setObjects:outfits];
+            
             [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:ip] withRowAnimation:UITableViewRowAnimationNone];
             
             [self.tableView endUpdates];
