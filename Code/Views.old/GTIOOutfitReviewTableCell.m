@@ -171,12 +171,7 @@ CGSize kMaxSize = {260,8000};
 	_agreeVotesLabel.frame = CGRectMake(3+bottomLabelTextRightBorder-_agreeVotesLabel.width, agreeLabelYOrigin, agreeLabelWidth, agreeLabelHeight);
     // Badges
     CGFloat badgeMargin = 4;
-    
-    int xBadgePosition = CGRectGetMaxX(_authorLabel.frame) + 5;
-    for (TTImageView* imageView in _badgeImageViews) {
-        imageView.frame = CGRectMake(xBadgePosition, _authorLabel.frame.origin.y + badgeMargin, 13,13);
-        xBadgePosition += 13+5;
-    }        
+         
     // Author Label
     int maxWidthForAuthorContent = bottomLabelTextRightBorder - _agreeVotesLabel.width;
     int maxWidthForAuthorLabel = maxWidthForAuthorContent - 20 - [_badgeImageViews count]*(26+5);
@@ -192,7 +187,11 @@ CGSize kMaxSize = {260,8000};
     CGFloat authorLabelXOrigin = profilePictureFrame.origin.x+profilePictureFrame.size.width+authorLabelHorizontalMargin;
     
     _authorLabel.frame = CGRectMake(authorLabelXOrigin+1, authorLabelYOrigin, authorStringSize.width, authorLabelHeight);
-    
+    int xBadgePosition = CGRectGetMaxX(_authorLabel.frame) + 5;
+    for (TTImageView* imageView in _badgeImageViews) {
+        imageView.frame = CGRectMake(xBadgePosition, _authorLabel.frame.origin.y + badgeMargin, 13,13);
+        xBadgePosition += 13+5;
+    } 
     
     CGPoint origin = _authorProfilePictureImageOverlay.origin;
     CGFloat height = _authorProfilePictureImageOverlay.bounds.size.height;
