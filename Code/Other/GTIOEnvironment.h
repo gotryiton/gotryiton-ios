@@ -52,6 +52,8 @@ NSString* GTIORestResourcePath(NSString* string);
 
 extern NSUInteger const kGTIOPaginationLimit;
 
+extern NSString* const kGTIOOutfitVoteNotification;
+
 // Logging
 extern NSUInteger const kGTIONetworkLogLevel;
 

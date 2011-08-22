@@ -49,6 +49,8 @@ NSString* GTIORestResourcePath(NSString* string) {
 
 NSUInteger const kGTIOPaginationLimit = 20;
 
+NSString* const kGTIOOutfitVoteNotification = @"kGTIOOutfitVoteNotification";
+
 RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute) {
     return [RKObjectAttributeMapping mappingFromKeyPath:keyPath toKeyPath:attribute];
 }

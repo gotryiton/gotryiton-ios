@@ -124,6 +124,7 @@ static GTIOUser* gCurrentUser = nil;
 	loader.method = RKRequestMethodPOST;
 	loader.params = params;
 	[loader send];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOOutfitVoteNotification object:outfitID];
     return loader;
 }
 

@@ -19,8 +19,14 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         self.apiEndpoint = GTIORestResourcePath(@"/todos");
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userVotedNotification:) name:kGTIOOutfitVoteNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
 }
 
 - (void)loadView {
@@ -54,6 +60,32 @@
 
 - (void)createModel {
     [super createModel];
+}
+
+- (void)userVotedNotification:(NSNotification*)note {
+    if ([self.dataSource isKindOfClass:[GTIOBrowseListDataSource class]]) {
+        GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
+        NSString* outfitID = (NSString*)note.object;
+        GTIOOutfitTableViewItem* itemToDelete = nil;
+        for (GTIOOutfitTableViewItem* item in ds.items) {
+            if([item.outfit.outfitID isEqualToString:outfitID]) {
+                itemToDelete = item;
+                break;
+            }
+        }
+        if (itemToDelete) {
+            [self.tableView beginUpdates];
+            
+            NSIndexPath* ip = [NSIndexPath indexPathForRow:[ds.items indexOfObject:itemToDelete] inSection:0];
+            [ds.items removeObject:itemToDelete];
+            NSMutableArray* outfits = [[[[(GTIOBrowseListTTModel*)ds.model list] outfits] mutableCopy] autorelease];
+            [outfits removeObjectAtIndex:ip.row];
+            [[(GTIOBrowseListTTModel*)ds.model list] setOutfits:outfits];
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:ip] withRowAnimation:UITableViewRowAnimationNone];
+            
+            [self.tableView endUpdates];
+        }
+    }
 }
 
 - (void)showEmpty:(BOOL)show {
