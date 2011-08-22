@@ -92,14 +92,14 @@
     [_nameLabel sizeToFit];
 	_nameLabel.frame = CGRectMake(_nameLabel.frame.origin.x,
                                   _nameLabel.frame.origin.y,
-                                  195,
+                                  MIN(170,_nameLabel.frame.size.width),
                                   _nameLabel.frame.size.height);
     
     _locationLabel.frame = CGRectMake(82+4, CGRectGetMaxY(_nameLabel.frame)+2+2 - 5, 170, 18);
     [_locationLabel sizeToFit];
     _locationLabel.frame = CGRectMake(_locationLabel.frame.origin.x,
                                       _locationLabel.frame.origin.y,
-                                      170,
+                                      MIN(170,_locationLabel.frame.size.width),
                                       _locationLabel.frame.size.height);
     
     _connectionImageView.frame = CGRectMake(255,57,17,16);
