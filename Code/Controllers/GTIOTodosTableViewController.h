@@ -9,6 +9,8 @@
 
 #import "GTIOBrowseTableViewController.h"
 
-@interface GTIOTodosTableViewController : GTIOBrowseTableViewController {}
+@interface GTIOTodosTableViewController : GTIOBrowseTableViewController {
+    NSMutableArray* _itemsToDelete;
+}
 
 @end

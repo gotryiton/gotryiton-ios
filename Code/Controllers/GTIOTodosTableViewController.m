@@ -20,12 +20,14 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         self.apiEndpoint = GTIORestResourcePath(@"/todos");
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userVotedNotification:) name:kGTIOOutfitVoteNotification object:nil];
+        _itemsToDelete = [NSMutableArray new];
     }
     return self;
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_itemsToDelete release];
     [super dealloc];
 }
 
@@ -74,22 +76,34 @@
             }
         }
         if (itemToDelete) {
-            [self.tableView beginUpdates];
-            
-            NSIndexPath* ip = [NSIndexPath indexPathForRow:[ds.items indexOfObject:itemToDelete] inSection:0];
-            [ds.items removeObject:itemToDelete];
-            
-            NSMutableArray* outfits = [[[[(GTIOBrowseListTTModel*)ds.model list] outfits] mutableCopy] autorelease];
-            [outfits removeObjectAtIndex:ip.row];
-            [[(GTIOBrowseListTTModel*)ds.model list] setOutfits:outfits];
-            
-            [ds.model setObjects:outfits];
-            
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:ip] withRowAnimation:UITableViewRowAnimationNone];
-            
-            [self.tableView endUpdates];
+            [_itemsToDelete addObject:itemToDelete];
         }
     }
+}
+
+- (void)deleteItems {
+    GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
+    [self.tableView beginUpdates];
+    NSMutableArray* indexPaths = [NSMutableArray array];
+    for (GTIOOutfitTableViewItem* itemToDelete in _itemsToDelete) {
+        // Collect all index paths first
+        NSIndexPath* ip = [NSIndexPath indexPathForRow:[ds.items indexOfObject:itemToDelete] inSection:0];
+        [indexPaths addObject:ip];
+    }
+    for (GTIOOutfitTableViewItem* itemToDelete in _itemsToDelete) {
+        // Now remove items, once we have all the index paths
+        int row = [ds.items indexOfObject:itemToDelete];
+        [ds.items removeObject:itemToDelete];
+        
+        NSMutableArray* outfits = [[[[(GTIOBrowseListTTModel*)ds.model list] outfits] mutableCopy] autorelease];
+        [outfits removeObjectAtIndex:row];
+        [[(GTIOBrowseListTTModel*)ds.model list] setOutfits:outfits];
+        [ds.model setObjects:outfits];
+    }
+    // Now remove the rows at the index paths we found before.
+    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
+    [_itemsToDelete removeAllObjects];
 }
 
 - (void)showEmpty:(BOOL)show {
@@ -135,6 +149,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     GTIOAnalyticsEvent(kTodosPageEventName);
+    [self deleteItems];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
