@@ -521,7 +521,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         TTOpenURL(@"gtio://home");
     }
     GTIOUser* user = [GTIOUser currentUser];
-    if (_showStylistPush && ![user.showAlmostDoneScreen boolValue]) {
+    if ([user.stylistsCount intValue] == 0 && _showStylistPush && ![user.showAlmostDoneScreen boolValue]) {
         // Wait for other navigations to finish
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
         TTOpenURL(@"gtio://pushStylists");
