@@ -324,7 +324,7 @@
 						   [TTTableControlItem itemWithCaption:@"first name" control:_firstNameField],
 						   [TTTableControlItem itemWithCaption:@"last initial" control:_lastInitialField],
 						   [TTTableControlItem itemWithCaption:@"city" control:_cityField],
-						   [TTTableControlItem itemWithCaption:@"state" control:_stateField],
+						   [TTTableControlItem itemWithCaption:@"state or country" control:_stateField],
 						   [TTTableControlItem itemWithCaption:@"gender" control:_genderPicker],
                            [TTTableControlItem itemWithCaption:@"year born" control:_bornInPicker],
 						   [TTTableControlItem itemWithCaption:@"about me" control:(UIControl*)_aboutMeTextView],
@@ -341,7 +341,7 @@
                                    [TTTableControlItem itemWithCaption:@"first name" control:_firstNameField],
                                    [TTTableControlItem itemWithCaption:@"last initial" control:_lastInitialField],
                                    [TTTableControlItem itemWithCaption:@"city" control:_cityField],
-                                   [TTTableControlItem itemWithCaption:@"state" control:_stateField],
+                                   [TTTableControlItem itemWithCaption:@"state or country" control:_stateField],
                                    [TTTableControlItem itemWithCaption:@"gender" control:_genderPicker],
                                    [TTTableControlItem itemWithCaption:@"year born" control:_bornInPicker],
                                    nil];
@@ -488,10 +488,6 @@
 	if (_lastInitialField.text == nil ||
 		[_lastInitialField.text isWhitespaceAndNewlines]) {
 		[errors addObject:@"Last Initial is required"];
-	}
-	if (_cityField.text == nil ||
-		[_cityField.text isWhitespaceAndNewlines]) {
-		[errors addObject:@"City is required"];
 	}
 	if (_stateField.text == nil ||
 		[_stateField.text isWhitespaceAndNewlines]) {
