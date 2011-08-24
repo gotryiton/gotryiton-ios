@@ -20,6 +20,7 @@
 @synthesize contactEmails = _contactEmails;
 @synthesize whereYouAreGoing = _whereYouAreGoing;
 @synthesize tellUsMoreAboutIt = _tellUsMoreAboutIt;
+@synthesize location = _location;
 
 - (id)init {
 	if (self = [super init]) {

@@ -19,6 +19,7 @@
 #import "GTIOOutfit.h"
 #import "GTIOStaticOutfitListModel.h"
 #import "GTIOOutfitViewController.h"
+#import <ImageIO/ImageIO.h>
 
 // Constants
 static NSUInteger kGTIOGetAnOpinionPhotoSourceActionSheetTag = 18001;
@@ -72,13 +73,21 @@ static GTIOOpinionRequestSession* globalSession = nil;
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(resetSession)
 													 name:kGTIOUserDidLogoutNotificationName
-												   object:nil];		
+												   object:nil];
+        _locationManager = [[CLLocationManager alloc] init];
+		if ([_locationManager respondsToSelector:@selector(setPurpose:)]) {
+			_locationManager.purpose = @"To geotag your looks.";
+		}
+		_locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+		_locationManager.delegate = self;
 	}
 	
 	return self;
 }
 
 - (void)dealloc {
+    [_locationManager stopUpdatingLocation];
+    [_locationManager release];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[_opinionRequest release];
 
@@ -190,6 +199,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 
 // Cancels out the Take a Picture modal
 - (void)cancel {
+    [_locationManager stopUpdatingLocation];
 	GTIOTakeAPictureViewController* viewController = (GTIOTakeAPictureViewController*) [TTNavigator navigator].topViewController;
 	[_opinionRequest.photos removeObject:viewController.photo];
 	[self.navigationController dismissModalViewControllerAnimated:YES];
@@ -201,6 +211,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 }
 
 - (void)submit {
+    [_locationManager stopUpdatingLocation];
 	TTActivityLabel* label = [[[TTActivityLabel alloc] initWithFrame:TTScreenBounds() style:TTActivityLabelStyleBlackBox text:@"loading..."] autorelease];
 	label.tag = kGTIOActivityLabelTag;
 	[self.window addSubview:label];
@@ -289,6 +300,8 @@ static GTIOOpinionRequestSession* globalSession = nil;
 #pragma mark UIActionSheetDelegate
 
 - (void)photoSourceActionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [_locationManager startUpdatingLocation];
+    
 	if (actionSheet.cancelButtonIndex == buttonIndex) {
 		return;
 	}
@@ -331,6 +344,15 @@ static GTIOOpinionRequestSession* globalSession = nil;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	// Scale the image appropriately
 	UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    /* Analize EXIF Data */
+    CGImageRef imageRef = [image CGImage];
+    CGImageSourceRef source = CGImageSourceCreateWithData(UIImageJPEGRepresentation(image, 1.0), NULL);
+    NSDictionary* metadata = CGImageSourceCopyPropertiesAtIndex(source,0, NULL);
+    
+    NSLog(@"Dict: %@", metadata);
+    /* end */
+    
 	UIImageOrientation originalOrientation = image.imageOrientation;
 	
 	/**
@@ -438,6 +460,10 @@ static GTIOOpinionRequestSession* globalSession = nil;
 
 - (void)popToRootViewController {
 	[self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    _opinionRequest.location = newLocation;
 }
 
 @end

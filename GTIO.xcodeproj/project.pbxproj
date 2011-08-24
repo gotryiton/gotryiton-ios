@@ -538,6 +538,8 @@
 		3F56B13A137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
 		3F56B13B137DC61200215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
 		3F56B13C137DC61300215418 /* GTIOProfileAboutMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8CF2C137D6E9900C0A857 /* GTIOProfileAboutMeView.m */; };
+		3F5CA5431405703D00406841 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5CA5421405703D00406841 /* ImageIO.framework */; };
+		3F5CA5451405704B00406841 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5CA5441405704B00406841 /* ImageIO.framework */; };
 		3F5D621213E8783100DC5912 /* navbar-my-stylists.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621013E8783100DC5912 /* navbar-my-stylists.png */; };
 		3F5D621313E8783100DC5912 /* navbar-my-stylists.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621013E8783100DC5912 /* navbar-my-stylists.png */; };
 		3F5D621413E8783100DC5912 /* navbar-my-stylists.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5D621013E8783100DC5912 /* navbar-my-stylists.png */; };
@@ -4403,6 +4405,8 @@
 		3F506AA1138BFC030062D7D1 /* welcome-thumb-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-thumb-overlay@2x.png"; path = "welcome-assets/welcome-thumb-overlay@2x.png"; sourceTree = "<group>"; };
 		3F55F12B1382C4BF006BCEE0 /* GTIOTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTabBar.h; sourceTree = "<group>"; };
 		3F55F12C1382C4BF006BCEE0 /* GTIOTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTabBar.m; sourceTree = "<group>"; };
+		3F5CA5421405703D00406841 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		3F5CA5441405704B00406841 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3F5D621013E8783100DC5912 /* navbar-my-stylists.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-my-stylists.png"; sourceTree = "<group>"; };
 		3F5D621113E8783100DC5912 /* navbar-my-stylists@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-my-stylists@2x.png"; sourceTree = "<group>"; };
 		3F6088A413C3825700C1C43A /* overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay@2x.png"; sourceTree = "<group>"; };
@@ -5331,6 +5335,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F5CA5451405704B00406841 /* ImageIO.framework in Frameworks */,
 				3FC1E81F13A8F72700646EEE /* libTWTCommon.a in Frameworks */,
 				A76208801379D53500DFBD66 /* CoreText.framework in Frameworks */,
 				3FCBF2371370826F0039D779 /* libfacebook_ios_sdk.a in Frameworks */,
@@ -5447,6 +5452,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F5CA5431405703D00406841 /* ImageIO.framework in Frameworks */,
 				3F86F18E13B8CA50005063FE /* libTWTCommon.a in Frameworks */,
 				3F86F18F13B8CA50005063FE /* CoreText.framework in Frameworks */,
 				3F86F19013B8CA50005063FE /* libfacebook_ios_sdk.a in Frameworks */,
@@ -5487,6 +5493,8 @@
 		2585187E135357C5005DCBA5 = {
 			isa = PBXGroup;
 			children = (
+				3F5CA5441405704B00406841 /* ImageIO.framework */,
+				3F5CA5421405703D00406841 /* ImageIO.framework */,
 				3F9083A9139EBB950039C8FE /* Icon@2x.png */,
 				3F9083A7139EBB8E0039C8FE /* Icon.png */,
 				3F9083A4139EBAA40039C8FE /* Icon-staging@2x.png */,

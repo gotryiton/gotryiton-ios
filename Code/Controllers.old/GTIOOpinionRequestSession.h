@@ -10,9 +10,12 @@
 #import "GTIOOpinionRequest.h"
 #import "GTIOTakeAPictureViewController.h"
 #import "GTIOOpinionRequestSubmission.h"
-@interface GTIOOpinionRequestSession : NSObject <UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, GTIOOpinionRequestSubmissionDelegate> {
+@interface GTIOOpinionRequestSession : NSObject <UIImagePickerControllerDelegate, UIActionSheetDelegate, 
+                                                 UINavigationControllerDelegate, GTIOOpinionRequestSubmissionDelegate,
+                                                 CLLocationManagerDelegate> {
 	GTIOOpinionRequest* _opinionRequest;
 	NSUInteger _cancelButtonIndex;
+    CLLocationManager* _locationManager;
 }
 
 // TODO: Should be read-only...

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 /**
  * GTIOOpinionRequest blah blah blah blah blah blah blah blah 
@@ -21,6 +22,7 @@
 	NSMutableArray* _contactEmails;
 	NSNumber* _whereYouAreGoing;
 	NSString* _tellUsMoreAboutIt;
+    CLLocation* _location;
 }
 
 @property (nonatomic, copy)		NSMutableArray *photos;
@@ -29,6 +31,7 @@
 @property (nonatomic, readonly)	NSMutableArray* contactEmails;
 @property (nonatomic, copy)		NSNumber* whereYouAreGoing;
 @property (nonatomic, copy)		NSString* tellUsMoreAboutIt;
+@property (nonatomic, retain)   CLLocation* location;
 
 /**
  * Return an array of valid choices for "where you're going"

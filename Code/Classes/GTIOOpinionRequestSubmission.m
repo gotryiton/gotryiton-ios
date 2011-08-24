@@ -52,10 +52,14 @@
     
 	NSString* publicValue = self.opinionRequest.isPublic ? @"1" : @"0";
 	NSString* stylistsValue = self.opinionRequest.shareWithStylists ? @"1" : @"0";
+    NSString* latitude = [NSString stringWithFormat:@"%f", self.opinionRequest.location.coordinate.latitude];
+    NSString* longitude = [NSString stringWithFormat:@"%f", self.opinionRequest.location.coordinate.longitude];
     NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:publicValue, @"public",
                           stylistsValue, @"shareWithStylists",
                           self.opinionRequest.whereYouAreGoing, @"eventId",
-                          self.opinionRequest.tellUsMoreAboutIt, @"description", nil];
+                          self.opinionRequest.tellUsMoreAboutIt, @"description",
+                          latitude, @"latitude", 
+                          longitude, @"longitude", nil];
     
     RKParams* params = [RKParams paramsWithDictionary:[GTIOUser paramsByAddingCurrentUserIdentifier:dict]];
     
