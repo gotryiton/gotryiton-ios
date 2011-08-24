@@ -20,14 +20,14 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         self.apiEndpoint = GTIORestResourcePath(@"/todos");
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userVotedNotification:) name:kGTIOOutfitVoteNotification object:nil];
-        _itemsToDelete = [NSMutableArray new];
+        _indexPathsToDelete = [NSMutableArray new];
     }
     return self;
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [_itemsToDelete release];
+    [_indexPathsToDelete release];
     [super dealloc];
 }
 
@@ -76,7 +76,8 @@
             }
         }
         if (itemToDelete) {
-            [_itemsToDelete addObject:itemToDelete];
+            NSIndexPath* ip = [NSIndexPath indexPathForRow:[ds.items indexOfObject:itemToDelete] inSection:0];
+            [_indexPathsToDelete addObject:ip];
         }
     }
 }
@@ -85,15 +86,12 @@
     GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
     [self.tableView beginUpdates];
     NSMutableArray* indexPaths = [NSMutableArray array];
-    for (GTIOOutfitTableViewItem* itemToDelete in _itemsToDelete) {
+    for (NSIndexPath* ip in _indexPathsToDelete) {
         // Collect all index paths first
-        NSIndexPath* ip = [NSIndexPath indexPathForRow:[ds.items indexOfObject:itemToDelete] inSection:0];
         [indexPaths addObject:ip];
-    }
-    for (GTIOOutfitTableViewItem* itemToDelete in _itemsToDelete) {
         // Now remove items, once we have all the index paths
-        int row = [ds.items indexOfObject:itemToDelete];
-        [ds.items removeObject:itemToDelete];
+        int row = ip.row;
+        [ds.items removeObjectAtIndex:row];
         
         NSMutableArray* outfits = [[[[(GTIOBrowseListTTModel*)ds.model list] outfits] mutableCopy] autorelease];
         [outfits removeObjectAtIndex:row];
@@ -103,7 +101,7 @@
     // Now remove the rows at the index paths we found before.
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView endUpdates];
-    [_itemsToDelete removeAllObjects];
+    [_indexPathsToDelete removeAllObjects];
 }
 
 - (void)showEmpty:(BOOL)show {
