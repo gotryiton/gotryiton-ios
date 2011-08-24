@@ -420,9 +420,9 @@ void uncaughtExceptionHandler(NSException *exception) {
         return [facebook handleOpenURL:URL];
     } else {
 		if (![URL isEqual:_launchURL]) {
-			[[TTNavigator navigator] openURLAction:
-			 [TTURLAction actionWithURLPath:URL.absoluteString]];
-			
+            [[TTNavigator navigator] performSelector:@selector(openURLAction:)
+                                          withObject:[[TTURLAction actionWithURLPath:URL.absoluteString] applyAnimated:YES]
+                                          afterDelay:0.5];
 			return YES;
 		}
 	}		
