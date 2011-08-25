@@ -66,27 +66,23 @@
 }
 
 - (void)dealloc {
-    [_loader cancel];
-    _loader = nil;
-	
-	[_scrollViewDataSource release];
-	_scrollViewDataSource = nil;
-    
-    [_scrollView release];
-    _scrollView = nil;
-    
-    [_model cancel];
-	[_model.delegates removeObject:self];
-	[_model release];
-	_model = nil;
-    
     _loader.delegate = nil;
     [_loader cancel];
-    
-    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self.model];
+    _loader = nil;
+	[_scrollViewDataSource release];
+	_scrollViewDataSource = nil;
+    [_scrollView release];
+    _scrollView = nil;
+    //    [_model cancel];
+////	[_model.delegates removeObject:self];
+	[_model release];
+	_model = nil;
     [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
+    [super dealloc];
+}
 
-	[super dealloc];
+- (void)release {
+    [super release];
 }
 
 - (void)setModel:(GTIOPaginatedTTModel *)model {
@@ -527,7 +523,6 @@
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
     [self retain];
     _loader = nil;
-//	TTOpenURL(@"gtio://stopLoading");
 	NSLog(@"loaded: objects: %@", objects);
 	GTIOOutfit* outfit = [objects objectWithClass:[GTIOOutfit class]];
     if (nil == self.model) {

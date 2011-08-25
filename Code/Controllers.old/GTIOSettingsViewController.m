@@ -11,6 +11,7 @@
 #import "GTIOUpdateUserRequest.h"
 #import "TWTAlertViewDelegate.h"
 #import "GTIOHeaderView.h"
+#import "GTIOSignInTermsView.h"
 
 @interface GTIOSettingsTableControlItem : TTTableControlItem
 @end
@@ -109,6 +110,8 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
     GTIOAnalyticsEvent(kUserDidViewSettingsEventName);
     UIBarButtonItem* signoutItem = [[GTIOBarButtonItem alloc] initWithTitle:@"sign out" target:self action:@selector(signOutButtonWasPressed:)];
     self.navigationItem.rightBarButtonItem = signoutItem;
+    self.tableView.tableFooterView = [GTIOSupportInfoView supportView];
+    
 }
 
 - (void)logoutConfirmed {

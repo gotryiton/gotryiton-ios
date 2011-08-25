@@ -77,6 +77,7 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize todosBadge = _todosBadge;
 @synthesize isFacebookConnected = _isFacebookConnected;
 @synthesize bornIn = _bornIn;
+@synthesize stylistsQuickLook = _stylistsQuickLook;
 
 + (GTIOUser*)currentUser {
 	if (nil == gCurrentUser) {
@@ -558,6 +559,9 @@ static GTIOUser* gCurrentUser = nil;
     [self didStopLogin];
     [self clearUserData];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidCancelLoginNotificationName object:self];	
+    if (cancelled == NO) {
+        TTAlert(@"Login Failed");
+    }
 }
 
 /**

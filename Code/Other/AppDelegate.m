@@ -45,6 +45,23 @@
 #import "GTIOStylistsQuickLook.h"
 #import "GTIOPushPersonalStylistsViewController.h"
 
+@interface NSURLRequest(anyssl)
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host;
+@end
+@implementation NSURLRequest(anyssl)
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host {
+    // Accept all certs so that facebook login works.
+    if ([host rangeOfString:@"facebook.com"].location != NSNotFound) {
+        return YES;
+    }
+    // JanRain can't seem to load anything either (on pre 3.2 devices).
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 3.2) {
+        return YES;
+    }
+    return NO;
+}
+@end
+
 @interface AppDelegate (Private)
 
 - (void)viewRemoteNotification:(NSDictionary*)aps;
@@ -357,6 +374,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [map from:@"gtio://whoIStyle" toViewController:NSClassFromString(@"GTIOWhoIStyleTableViewController")];
     [map from:@"gtio://featured" toViewController:NSClassFromString(@"GTIOFeaturedViewController")];
 	
+    
 	// All other links open the web controller
 	[map from:@"*" toViewController:[TTWebController class]];
 	
@@ -395,6 +413,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     
 	// Register for Push Notifications
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+    // Sometimes the callback isn't getting called. Resume manually...
+    [self resumeSession];
 	
 	// Track app load
 	TTOpenURL(@"gtio://analytics/trackAppDidFinishLaunching");
@@ -499,20 +519,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)userDidStartLogin:(NSNotification*)note {
     _showStylistPush = YES;
 }
-
-//- (void)userDidLoginWithIncompleteProfile:(NSNotification*)notification {
-//    _showStylistPush = NO;
-//    UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];
-//    if (nil == home.parentViewController) {
-//        // If it's not on the stack, open it.
-//        TTOpenURL(@"gtio://home");
-//    }
-//    // Wait for other navigations to finish
-//    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
-//  	// Trigger display of the 'Almost Done' screen
-//	[[TTNavigator navigator] openURLAction:
-//	 [[TTURLAction actionWithURLPath:@"gtio://profile/new"] applyAnimated:YES]];
-//}
 
 - (void)userDidLogin:(NSNotification*)note {
     UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2585188E135357C5005DCBA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188D135357C5005DCBA5 /* UIKit.framework */; };
-		25851890135357C5005DCBA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188F135357C5005DCBA5 /* Foundation.framework */; };
+		2585188E135357C5005DCBA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188D135357C5005DCBA5 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		25851890135357C5005DCBA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188F135357C5005DCBA5 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		25851892135357C5005DCBA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25851891135357C5005DCBA5 /* CoreGraphics.framework */; };
 		25851894135357C5005DCBA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25851893135357C5005DCBA5 /* CoreData.framework */; };
 		25D5C93113536729007B6F14 /* libRestKitCoreData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92B13536729007B6F14 /* libRestKitCoreData.a */; };
@@ -791,8 +791,8 @@
 		3F86F1A613B8CA50005063FE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
 		3F86F1A713B8CA50005063FE /* libThree20Network.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A5A189C235877202780D4 /* libThree20Network.a */; };
 		3F86F1A813B8CA50005063FE /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
-		3F86F1A913B8CA50005063FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188D135357C5005DCBA5 /* UIKit.framework */; };
-		3F86F1AA13B8CA50005063FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188F135357C5005DCBA5 /* Foundation.framework */; };
+		3F86F1A913B8CA50005063FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188D135357C5005DCBA5 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3F86F1AA13B8CA50005063FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188F135357C5005DCBA5 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3F86F1AB13B8CA50005063FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25851891135357C5005DCBA5 /* CoreGraphics.framework */; };
 		3F86F1AE13B8CA50005063FE /* button_black_135x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FCBEA35137065AC0039D779 /* button_black_135x40.png */; };
 		3F86F1AF13B8CA50005063FE /* button_black_280x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FCBEA36137065AC0039D779 /* button_black_280x40.png */; };

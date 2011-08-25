@@ -7,12 +7,19 @@
 //
 /// GTIOSignInTermsView is a subview that displays a short stylized string stating the user is agreeing to the terms and conditions by continuing
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "TTTAttributedLabel.h"
 #import "NSAttributedString+Attributes.h"
 
-@interface GTIOSignInTermsView : TTTAttributedLabel {}
+@interface GTIOSignInTermsView : UIView {}
 
 /// Returns a correctly styled and isntantiated terms view
 + (id)termsView;
+
+@end
+
+@interface GTIOSupportInfoView : UIView {}
+
++ (id)supportView;
 
 @end

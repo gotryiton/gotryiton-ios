@@ -114,18 +114,21 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 		_overlay.expandedFrame = self.bounds;
         [self addSubview:_overlay];
         
-        UISwipeGestureRecognizer* rightSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(overlaySwiped:)] autorelease];
-        rightSwipeRecognizer.cancelsTouchesInView = NO;
-        rightSwipeRecognizer.delaysTouchesBegan = YES;
-        rightSwipeRecognizer.delegate = self;
-        [_overlay addGestureRecognizer:rightSwipeRecognizer];
-        
-        UISwipeGestureRecognizer* leftSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(overlaySwiped:)] autorelease];
-        leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-        leftSwipeRecognizer.cancelsTouchesInView = NO;
-        leftSwipeRecognizer.delaysTouchesBegan = YES;
-        leftSwipeRecognizer.delegate = self;
-        [_overlay addGestureRecognizer:leftSwipeRecognizer];
+        if (NSClassFromString(@"UISwipeGestureRecognizer") && [[[NSClassFromString(@"UISwipeGestureRecognizer") new] autorelease] respondsToSelector:@selector(setDelegate:)]) {
+            // Note, switpe gestures will not work on pre 3.2 devices.
+            UISwipeGestureRecognizer* rightSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(overlaySwiped:)] autorelease];
+            rightSwipeRecognizer.cancelsTouchesInView = NO;
+            rightSwipeRecognizer.delaysTouchesBegan = YES;
+            rightSwipeRecognizer.delegate = self;
+            [_overlay addGestureRecognizer:rightSwipeRecognizer];
+            
+            UISwipeGestureRecognizer* leftSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(overlaySwiped:)] autorelease];
+            leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+            leftSwipeRecognizer.cancelsTouchesInView = NO;
+            leftSwipeRecognizer.delaysTouchesBegan = YES;
+            leftSwipeRecognizer.delegate = self;
+            [_overlay addGestureRecognizer:leftSwipeRecognizer];
+        }
 		
 		_changeItReasonsOverlay = [[GTIOChangeItReasonsView alloc] initWithImage:[UIImage imageNamed:@"change-questions-bg.png"]];
 		[_changeItReasonsOverlay setContentMode:UIViewContentModeBottomRight];
