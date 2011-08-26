@@ -23,6 +23,7 @@
 #import "GTIOProfile.h"
 #import "GTIOOutfit.h"
 #import "GTIOBannerAd.h"
+#import "GTIOStylistsQuickLook.h"
 // Views
 #import "GTIOHeaderView.h"
 #import "GTIOBarButtonItem.h"
@@ -301,7 +302,8 @@
 		[items addObject:reviewsItem];
         
         if (_isShowingCurrentUser) {
-            TTTableTextItem* stylistsItem = [TTTableTextItem itemWithText:@"my stylists" URL:@"gtio://stylists"];
+            GTIOMyStylistsTableItem* stylistsItem = [GTIOMyStylistsTableItem itemWithText:@"my stylists" URL:@"gtio://stylists"];
+            stylistsItem.stylistsQuickLook = [GTIOUser currentUser].stylistsQuickLook;
             [items addObject:stylistsItem];
         } else {
             // Stylists grid.

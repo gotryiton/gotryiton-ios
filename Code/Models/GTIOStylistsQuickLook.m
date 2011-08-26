@@ -19,4 +19,10 @@
     [super dealloc];
 }
 
++ (RKObjectMapping*)qlMapping {
+    RKObjectMapping* stylistsQuickLookMapping = [RKObjectMapping mappingForClass:[GTIOStylistsQuickLook class]];
+    [stylistsQuickLookMapping mapAttributes:@"thumbs", @"text", nil];
+    return stylistsQuickLookMapping;
+}
+
 @end

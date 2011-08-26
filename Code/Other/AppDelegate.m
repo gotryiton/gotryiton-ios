@@ -190,8 +190,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     [provider setObjectMapping:browseListMapping forKeyPath:@"list"];
     
-    RKObjectMapping* stylistsQuickLookMapping = [RKObjectMapping mappingForClass:[GTIOStylistsQuickLook class]];
-    [stylistsQuickLookMapping mapAttributes:@"thumbs", @"text", nil];
+    RKObjectMapping* stylistsQuickLookMapping = [GTIOStylistsQuickLook qlMapping];
     [provider setObjectMapping:stylistsQuickLookMapping forKeyPath:@"user.stylistsQuickLook"];
     
     RKObjectMapping* sectionMapping = [RKObjectMapping mappingForClass:[GTIOListSection class]];

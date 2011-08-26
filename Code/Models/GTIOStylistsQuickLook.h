@@ -17,4 +17,6 @@
 @property (nonatomic, retain) NSArray* thumbs;
 @property (nonatomic, retain) NSString* text;
 
++ (RKObjectMapping*)qlMapping;
+
 @end

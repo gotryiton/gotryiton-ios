@@ -75,9 +75,6 @@ static GTIOOpinionRequestSession* globalSession = nil;
 													 name:kGTIOUserDidLogoutNotificationName
 												   object:nil];
         _locationManager = [[CLLocationManager alloc] init];
-		if ([_locationManager respondsToSelector:@selector(setPurpose:)]) {
-			_locationManager.purpose = @"To geotag your looks.";
-		}
 		_locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
 		_locationManager.delegate = self;
 	}

@@ -25,3 +25,9 @@
 + (id)itemWithStylists:(NSArray*)stylists;
 
 @end
+
+@interface GTIOMyStylistsTableItem : TTTableTextItem {
+    GTIOStylistsQuickLook* _stylistsQuickLook;
+}
+@property (nonatomic, retain) GTIOStylistsQuickLook* stylistsQuickLook;
+@end

@@ -9,6 +9,7 @@
 #import "JREngage.h"
 #import <RestKit/RestKit.h>
 #import "Facebook.h"
+#import "GTIOStylistsQuickLook.h"
 #import "GTIOAppStatusAlert.h"
 
 //////////////////////////////////////////////////////////////////////
@@ -96,6 +97,8 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
     NSNumber* _showAlmostDoneScreen;
     NSNumber* _bornIn;
     NSNumber* _auth;
+    
+    GTIOStylistsQuickLook* _stylistsQuickLook;
 }
 
 @property (nonatomic, retain) NSNumber* iphonePush;
@@ -111,6 +114,8 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 @property (nonatomic, copy) NSString* UID;
 @property (nonatomic, copy) NSString* username;
 @property (nonatomic, copy) NSNumber* auth;
+
+@property (nonatomic, retain) GTIOStylistsQuickLook* stylistsQuickLook;
 
 @property (nonatomic, retain) NSArray* notifications;
 @property (nonatomic, retain) NSNumber* todosBadge;

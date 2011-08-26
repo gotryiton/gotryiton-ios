@@ -154,6 +154,7 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.bornIn", @"bornIn")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.auth", @"auth")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
+    [userMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user.stylistsQuickLook" toKeyPath:@"stylistsQuickLook" objectMapping:[GTIOStylistsQuickLook qlMapping]]];
     
     // TODO: duplicated
     RKObjectMapping* badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
@@ -509,6 +510,7 @@ static GTIOUser* gCurrentUser = nil;
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
     NSLog(@"Objects: %@", objects);
+    NSLog(@"Quick Look: %@", self.stylistsQuickLook);
     //NSLog(@"Log: %@", [objectLoader.response bodyAsString]);
     [self didStopLogin];
     

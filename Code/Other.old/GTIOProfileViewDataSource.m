@@ -78,6 +78,96 @@
 
 @end
 
+@implementation GTIOMyStylistsTableItem
+
+@synthesize stylistsQuickLook = _stylistsQuickLook;
+
+@end
+
+@interface GTIOMyStylistsTableItemCell : GTIOTableTextCell {
+    NSMutableArray* _thumbnailImageViews;
+}
+@end
+
+@implementation GTIOMyStylistsTableItemCell
+
++ (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
+    GTIOMyStylistsTableItem* item = (GTIOMyStylistsTableItem*)object;
+    int thumbCount = item.stylistsQuickLook.thumbs.count;
+    int numLines = ceil(thumbCount / 7.0);
+    return 40 + (numLines * 43) + 4;
+//    return 85;
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [_thumbnailImageViews release];
+    [super dealloc];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.textLabel.frame = CGRectMake(10,10,200,20);
+    
+    // This is a hack to move the accessory view.
+    // It may break at some point in the future.
+    UIView* defaultAccessoryView = nil;
+    for (UIView* subview in self.subviews) {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            defaultAccessoryView = subview;
+            break;
+        }
+    }
+    CGRect r = defaultAccessoryView.frame;
+    r.origin.y = 20 - (self.contentView.bounds.size.height / 2);
+    defaultAccessoryView.frame = r;
+    
+    float xOffset = 13;
+    float yPos = 40;
+    
+    for (TTImageView* imgView in _thumbnailImageViews) {
+        imgView.frame = CGRectMake(xOffset, yPos, 35, 35);
+        xOffset += 43;
+        if (xOffset > (43*(7-1)+15)) {
+            xOffset = 13;
+            yPos += 43;
+        }
+    }
+    
+}
+
+- (void)setObject:(id)obj {
+    [super setObject:obj];
+    GTIOMyStylistsTableItem* item = (GTIOMyStylistsTableItem*)obj;
+    
+    
+    for (TTImageView* imgView in _thumbnailImageViews) {
+        [imgView removeFromSuperview];
+    }
+    [_thumbnailImageViews release];
+    _thumbnailImageViews = [NSMutableArray new];
+    for (NSString* thumbURL in item.stylistsQuickLook.thumbs) {
+        TTImageView* imgView = [[[TTImageView alloc] initWithFrame:CGRectZero] autorelease];
+        imgView.urlPath = thumbURL;
+        
+        imgView.layer.borderWidth = 1;
+        imgView.layer.cornerRadius = 1;
+        imgView.layer.borderColor = RGBCOLOR(217,217,217).CGColor;
+        
+        [self.contentView addSubview:imgView];
+        [_thumbnailImageViews addObject:imgView];
+    }
+}
+
+@end
+
 @interface GTIOStylistBadge : UIView {
     TWTURLButton* _button;
     TTImageView* _profileImageView;
@@ -269,6 +359,8 @@
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object { 
 	if ([object isKindOfClass:[GTIOStylistBadgesTableViewItem class]]) {
         return [GTIOStylistBadgesTableViewItemCell class];  
+    } else if ([object isKindOfClass:[GTIOMyStylistsTableItem class]]) {
+        return [GTIOMyStylistsTableItemCell class];
     } else if ([object isKindOfClass:[GTIOOutfitVerdictTableItem class]]) {
 		return [GTIOOutfitVerdictTableItemCell class];
 	} else if ([object isKindOfClass:[GTIOPinkTableTextItem class]]) {
