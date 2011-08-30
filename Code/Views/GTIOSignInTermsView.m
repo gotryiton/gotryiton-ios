@@ -46,13 +46,13 @@ static NSString* kGTIOStandardsURL = @"http://gotryiton.com/community-standards"
 	
     UIView* view = [[[UIView alloc] initWithFrame:CGRectMake(20, 115, 280, 100)] autorelease];
     
-    TTTAttributedLabel* termsLabel = [[TTTAttributedLabel new] autorelease];
+    TTTAttributedLabel* termsLabel = [[self new] autorelease];
 	[termsLabel setFrame:CGRectMake(0, 0, 280, 20)];
 	[termsLabel setBackgroundColor:[UIColor clearColor]];
 	[termsLabel setNumberOfLines:0];
 	[termsLabel setText:attributedText];
     
-    TTTAttributedLabel* termsLabel2 = [[TTTAttributedLabel new] autorelease];
+    TTTAttributedLabel* termsLabel2 = [[self new] autorelease];
 	[termsLabel2 setFrame:CGRectMake(0, 14, 280, 20)];
 	[termsLabel2 setBackgroundColor:[UIColor clearColor]];
 	[termsLabel2 setNumberOfLines:0];
@@ -85,7 +85,8 @@ static NSString* kGTIOStandardsURL = @"http://gotryiton.com/community-standards"
     
     if (result) {
         NSLog(@"Opening: %@", [result.URL absoluteString]);
-        TTOpenURL([result.URL absoluteString]);
+        //TTOpenURL([result.URL absoluteString]);
+        [[UIApplication sharedApplication] openURL:result.URL];
     }
 }
 
@@ -118,13 +119,13 @@ static NSString* kGTIOStandardsURL = @"http://gotryiton.com/community-standards"
 	
     UIView* view = [[[UIView alloc] initWithFrame:CGRectMake(20, 115, 280, 100)] autorelease];
     
-    TTTAttributedLabel* termsLabel = [[TTTAttributedLabel new] autorelease];
+    TTTAttributedLabel* termsLabel = [[self new] autorelease];
 	[termsLabel setFrame:CGRectMake(0, 0, 280, 20)];
 	[termsLabel setBackgroundColor:[UIColor clearColor]];
 	[termsLabel setNumberOfLines:0];
 	[termsLabel setText:attributedText];
     
-    TTTAttributedLabel* termsLabel2 = [[TTTAttributedLabel new] autorelease];
+    TTTAttributedLabel* termsLabel2 = [[self new] autorelease];
 	[termsLabel2 setFrame:CGRectMake(0, 14, 280, 20)];
 	[termsLabel2 setBackgroundColor:[UIColor clearColor]];
 	[termsLabel2 setNumberOfLines:0];

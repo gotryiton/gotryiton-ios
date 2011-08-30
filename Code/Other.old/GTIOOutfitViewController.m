@@ -74,7 +74,7 @@
     [_scrollView release];
     _scrollView = nil;
     //    [_model cancel];
-////	[_model.delegates removeObject:self];
+	[_model.delegates removeObject:self];
 	[_model release];
 	_model = nil;
     [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];

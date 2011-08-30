@@ -77,7 +77,9 @@
         }
         if (itemToDelete) {
             NSIndexPath* ip = [NSIndexPath indexPathForRow:[ds.items indexOfObject:itemToDelete] inSection:0];
-            [_indexPathsToDelete addObject:ip];
+            if (![_indexPathsToDelete containsObject:ip]) {
+                [_indexPathsToDelete addObject:ip];
+            }
         }
     }
 }
@@ -86,18 +88,21 @@
     GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
     [self.tableView beginUpdates];
     NSMutableArray* indexPaths = [NSMutableArray array];
+    
+    NSMutableArray* newItems = [[ds.items mutableCopy] autorelease];
+    NSMutableArray* newOutfits = [[[[(GTIOBrowseListTTModel*)ds.model list] outfits] mutableCopy] autorelease];
     for (NSIndexPath* ip in _indexPathsToDelete) {
         // Collect all index paths first
         [indexPaths addObject:ip];
         // Now remove items, once we have all the index paths
         int row = ip.row;
-        [ds.items removeObjectAtIndex:row];
-        
+//        [ds.items removeObjectAtIndex:row];
+        [newItems removeObject:[ds.items objectAtIndex:row]];
         NSMutableArray* outfits = [[[[(GTIOBrowseListTTModel*)ds.model list] outfits] mutableCopy] autorelease];
-        [outfits removeObjectAtIndex:row];
-        [[(GTIOBrowseListTTModel*)ds.model list] setOutfits:outfits];
-        [ds.model setObjects:outfits];
+        [newOutfits removeObject:[outfits objectAtIndex:row]];
     }
+    [ds setItems:newItems];
+    [(GTIOBrowseListTTModel*)ds.model setObjects:newOutfits];
     // Now remove the rows at the index paths we found before.
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView endUpdates];

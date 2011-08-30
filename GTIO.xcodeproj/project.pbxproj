@@ -1462,6 +1462,7 @@
 		3F86F47113B8CA50005063FE /* tabs3-2-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46A13B505A80001311A /* tabs3-2-on@2x.png */; };
 		3F86F47213B8CA50005063FE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F634B8013B51B8B00B6253E /* Default.png */; };
 		3F86F47313B8CA50005063FE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F634B8113B51B8B00B6253E /* Default@2x.png */; };
+		3F8A66D71408296E00A9DC62 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F8A66D61408296E00A9DC62 /* Entitlements.plist */; };
 		3F8E232713BCD80F00BBD2EE /* todos-empty-no-looks.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F8E232313BCD80F00BBD2EE /* todos-empty-no-looks.png */; };
 		3F8E232813BCD80F00BBD2EE /* todos-empty-no-looks.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F8E232313BCD80F00BBD2EE /* todos-empty-no-looks.png */; };
 		3F8E232913BCD80F00BBD2EE /* todos-empty-no-looks.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F8E232313BCD80F00BBD2EE /* todos-empty-no-looks.png */; };
@@ -4435,6 +4436,7 @@
 		3F82E87F137D9D7800F8FE1A /* GTIOBrowseListTTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseListTTModel.h; sourceTree = "<group>"; };
 		3F82E880137D9D7900F8FE1A /* GTIOBrowseListTTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseListTTModel.m; sourceTree = "<group>"; };
 		3F86F47713B8CA50005063FE /* GTIO Staging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GTIO Staging.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F8A66D61408296E00A9DC62 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		3F8E232313BCD80F00BBD2EE /* todos-empty-no-looks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todos-empty-no-looks.png"; sourceTree = "<group>"; };
 		3F8E232413BCD80F00BBD2EE /* todos-empty-no-looks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todos-empty-no-looks@2x.png"; sourceTree = "<group>"; };
 		3F8E232513BCD80F00BBD2EE /* todos-empty-no-stylists.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todos-empty-no-stylists.png"; sourceTree = "<group>"; };
@@ -5493,6 +5495,7 @@
 		2585187E135357C5005DCBA5 = {
 			isa = PBXGroup;
 			children = (
+				3F8A66D61408296E00A9DC62 /* Entitlements.plist */,
 				3F5CA5441405704B00406841 /* ImageIO.framework */,
 				3F5CA5421405703D00406841 /* ImageIO.framework */,
 				3F9083A9139EBB950039C8FE /* Icon@2x.png */,
@@ -8708,6 +8711,7 @@
 				3F5D621613E8783100DC5912 /* navbar-my-stylists@2x.png in Resources */,
 				3FC7E0A513EC4021005EEA7B /* todos-community-empty-no-stylists.png in Resources */,
 				3FC7E0A713EC4021005EEA7B /* todos-community-empty-no-stylists@2x.png in Resources */,
+				3F8A66D71408296E00A9DC62 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11821,7 +11825,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: GO TRY IT ON";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -11848,7 +11852,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9663EA5A-9E75-4E7A-91EA-B0A5053FF53E";
+				PROVISIONING_PROFILE = "DBEF2ABB-78CF-45BC-A656-BB954B62C736";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -11858,7 +11862,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: GO TRY IT ON";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
@@ -11881,7 +11885,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9663EA5A-9E75-4E7A-91EA-B0A5053FF53E";
+				PROVISIONING_PROFILE = "DBEF2ABB-78CF-45BC-A656-BB954B62C736";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;

@@ -25,7 +25,7 @@
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Release">
+      buildConfiguration = "Debug">
       <Testables>
       </Testables>
    </TestAction>
@@ -36,7 +36,7 @@
       displayScale = "1.00"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release">
+      buildConfiguration = "Debug">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -62,7 +62,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release">
+      buildConfiguration = "Debug">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"

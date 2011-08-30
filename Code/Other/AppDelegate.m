@@ -412,7 +412,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
 	// Register for Push Notifications
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
-    // Sometimes the callback isn't getting called. Resume manually...
+    // Sometimes the callback isn't getting called. Resume manually... HRM... NOT WORKING ON IOS4...
     [self resumeSession];
 	
 	// Track app load
@@ -556,7 +556,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	user.deviceToken = deviceTokenString;
 	NSLog(@"Sucessfully registered for push notifications. Device Token = %@", deviceTokenString);
     
-    [self resumeSession];
+    [user resumeSession];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -564,7 +564,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	GTIOUser* user = [GTIOUser currentUser];
 	user.deviceToken = nil;
 	
-    [self resumeSession];
+    [user resumeSession];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {	

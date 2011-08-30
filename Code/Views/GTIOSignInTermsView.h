@@ -11,14 +11,14 @@
 #import "TTTAttributedLabel.h"
 #import "NSAttributedString+Attributes.h"
 
-@interface GTIOSignInTermsView : UIView {}
+@interface GTIOSignInTermsView : TTTAttributedLabel {}
 
 /// Returns a correctly styled and isntantiated terms view
 + (id)termsView;
 
 @end
 
-@interface GTIOSupportInfoView : UIView {}
+@interface GTIOSupportInfoView : TTTAttributedLabel {}
 
 + (id)supportView;
 
