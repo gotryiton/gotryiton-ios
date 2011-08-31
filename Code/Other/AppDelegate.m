@@ -403,6 +403,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 			_launchURL = [URL retain];
 		} 
 	}
+//    _launchURL = [[NSURL URLWithString:@"gtio://looks/F180C6D"] retain];
 	
 	// Bring the reachability observer online
 	[GTIOReachabilityObserver sharedObserver];
@@ -457,7 +458,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 	if (_lastWentInactiveAt) {
 		NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:_lastWentInactiveAt];
 		NSLog(@"Inactive for: %f seconds", interval);
-		NSTimeInterval refreshInterval = 60*15;
+        
+        #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
+		NSTimeInterval refreshInterval = 30;
+        #else
+        NSTimeInterval refreshInterval = 60*15;
+        #endif
 
 		if (interval >= refreshInterval) {
 			// Refresh notifications and todos.
@@ -486,11 +492,22 @@ void uncaughtExceptionHandler(NSException *exception) {
 	_lastWentInactiveAt = [[NSDate date] retain];
 }
 
+- (void)openNotificationUrl:(NSString*)url {
+    UIViewController* vc = [[TTNavigator navigator] viewControllerForURL:url];
+    // Trigger view load. for some reason this is not happening.
+    vc.view;
+    UIViewController* tvc = [[TTNavigator navigator] topViewController];
+    // wait until we hit the home screen..
+    while ([tvc isKindOfClass:NSClassFromString(@"GTIOLaunchingViewController")]) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        tvc = [[TTNavigator navigator] topViewController];
+    }
+    [tvc.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)handleLaunchURL {
 	if (_launchURL) {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-		[[TTNavigator navigator] openURLAction:
-		 [[TTURLAction actionWithURLPath:[_launchURL absoluteString]] applyAnimated:YES]];
+        [self openNotificationUrl:[_launchURL absoluteString]];
 		
 		[_launchURL release];
 		_launchURL = nil;
@@ -534,6 +551,7 @@ void uncaughtExceptionHandler(NSException *exception) {
          [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
          TTOpenURL(@"gtio://profile/new");
     }
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     [self handleLaunchURL];
 }
 
@@ -543,6 +561,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         TTOpenURL(@"gtio://home");
         TTOpenURL(@"gtio://welcome");
     }
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     [self handleLaunchURL];
 }
 
@@ -611,7 +630,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Let's assume that they will give us a tturl to open for now.
 	NSString* url = [[aps objectForKey:@"loc-args"] objectForKey:@"url"];
 	if (url) {
-		TTOpenURL(url);
+        [self openNotificationUrl:url];
 	}
 }
 #ifdef FRANK

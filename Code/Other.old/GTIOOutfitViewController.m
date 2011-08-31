@@ -105,6 +105,7 @@
 
 - (void)loadView {
 	[super loadView];
+    
     self.view.accessibilityLabel = @"Outfit Screen";
 	
     NSArray* controllers = [(UINavigationController*)self.parentViewController viewControllers];
@@ -140,9 +141,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.view;
     
-    [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to get custom background
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+//    [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to get custom background
+//    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

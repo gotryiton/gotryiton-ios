@@ -12,8 +12,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "CustomUISwitch.h"
+#import "GTIOTableViewController.h"
 
-@interface GTIOEditProfileViewController : TTTableViewController <UITextFieldDelegate, TWTPickerDelegate, CLLocationManagerDelegate, MKReverseGeocoderDelegate, UITextViewDelegate> {
+@interface GTIOEditProfileViewController : GTIOTableViewController <UITextFieldDelegate, TWTPickerDelegate, CLLocationManagerDelegate, MKReverseGeocoderDelegate, UITextViewDelegate> {
 	UITextField* _emailField;
 	UITextField* _firstNameField;
 	UITextField* _lastInitialField;

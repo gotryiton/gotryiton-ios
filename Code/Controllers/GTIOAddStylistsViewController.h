@@ -7,6 +7,7 @@
 //
 /// GTIOAddStylistsViewController is a view controller responsible for viewing new stylist potentials and adding them
 #import <Foundation/Foundation.h>
+#import "GTIOTableViewController.h"
 
 typedef enum {
     GTIONetworkTab = 0,
@@ -14,7 +15,7 @@ typedef enum {
     GTIORecomendedTab
 } GTIOAddStylistsTab;
 
-@interface GTIOAddStylistsViewController : TTTableViewController <TTTabDelegate, RKObjectLoaderDelegate, UITextFieldDelegate> {
+@interface GTIOAddStylistsViewController : GTIOTableViewController <TTTabDelegate, RKObjectLoaderDelegate, UITextFieldDelegate> {
     TTTabBar* _tabBar;
     UIImageView* _buttonView;
     UIButton* _doneButton;

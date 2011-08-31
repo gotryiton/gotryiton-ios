@@ -12,7 +12,7 @@
 #import "GTIOOutfit.h"
 #import "GTIOOutfitViewController.h"
 
-@interface GTIOEditOutfitViewController : GTIOTableViewController <TWTPickerDelegate, UITextViewDelegate> {
+@interface GTIOEditOutfitViewController : GTIOConcreteBackgroundTableViewController <TWTPickerDelegate, UITextViewDelegate> {
 	GTIOOutfit* _outfit;
 	TWTPickerControl* _whereYouAreGoingPicker;
 	UITextView* _tellUsMoreAboutItTextView;

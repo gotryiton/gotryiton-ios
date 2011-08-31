@@ -12,7 +12,7 @@
 #import "GTIOOpinionRequest.h"
 #import <TWTPickerControl.h>
 
-@interface GTIOTellUsAboutItViewController : GTIOTableViewController <UITextViewDelegate, TWTPickerDelegate, TTTextEditorDelegate> {
+@interface GTIOTellUsAboutItViewController : GTIOConcreteBackgroundTableViewController <UITextViewDelegate, TWTPickerDelegate, TTTextEditorDelegate> {
 	GTIOOpinionRequest* _opinionRequest;
 	TWTPickerControl* _whereYouAreGoingPicker;
 	TTTextEditor* _tellUsMoreAboutItTextView;

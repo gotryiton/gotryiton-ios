@@ -511,6 +511,8 @@
 		3F23E94B13BB765F00348711 /* upload-intro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F23E93513BB765F00348711 /* upload-intro@2x.png */; };
 		3F23E94C13BB765F00348711 /* upload-intro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F23E93513BB765F00348711 /* upload-intro@2x.png */; };
 		3F23E94D13BB765F00348711 /* upload-intro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F23E93513BB765F00348711 /* upload-intro@2x.png */; };
+		3F330787140E7033000625EA /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F330786140E7033000625EA /* GTIOViewController.m */; };
+		3F330788140E7033000625EA /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F330786140E7033000625EA /* GTIOViewController.m */; };
 		3F437098138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F437097138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m */; };
 		3F437099138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F437097138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m */; };
 		3F43709A138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F437097138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m */; };
@@ -4396,6 +4398,8 @@
 		3F23E93313BB765F00348711 /* upload-get-started-ON@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload-get-started-ON@2x.png"; sourceTree = "<group>"; };
 		3F23E93413BB765F00348711 /* upload-intro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload-intro.png"; sourceTree = "<group>"; };
 		3F23E93513BB765F00348711 /* upload-intro@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload-intro@2x.png"; sourceTree = "<group>"; };
+		3F330785140E7033000625EA /* GTIOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOViewController.h; sourceTree = "<group>"; };
+		3F330786140E7033000625EA /* GTIOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOViewController.m; sourceTree = "<group>"; };
 		3F437096138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIODropShadowSectionTableViewDelegate.h; sourceTree = "<group>"; };
 		3F437097138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIODropShadowSectionTableViewDelegate.m; sourceTree = "<group>"; };
 		3F506A9C138BFC030062D7D1 /* welcome-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-button.png"; path = "welcome-assets/welcome-button.png"; sourceTree = "<group>"; };
@@ -7403,6 +7407,8 @@
 				3FFCBC7213A7BDFC0061A28A /* GTIOFeaturedViewController.m */,
 				3F8E237F13BCF29B00BBD2EE /* GTIOPushPersonalStylistsViewController.h */,
 				3F8E238013BCF29B00BBD2EE /* GTIOPushPersonalStylistsViewController.m */,
+				3F330785140E7033000625EA /* GTIOViewController.h */,
+				3F330786140E7033000625EA /* GTIOViewController.m */,
 			);
 			name = Controllers;
 			path = Code/Controllers;
@@ -10981,6 +10987,7 @@
 				3FE5F22013AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */,
 				3F8E238113BCF29B00BBD2EE /* GTIOPushPersonalStylistsViewController.m in Sources */,
 				3FF661C813C6513E0003D120 /* GTIOLoginViewController.m in Sources */,
+				3F330787140E7033000625EA /* GTIOViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11533,6 +11540,7 @@
 				3F86F18B13B8CA50005063FE /* GTIOExtraProfileRow.m in Sources */,
 				3F86F18C13B8CA50005063FE /* GTIOStylistsQuickLook.m in Sources */,
 				3F8E238413BCF29B00BBD2EE /* GTIOPushPersonalStylistsViewController.m in Sources */,
+				3F330788140E7033000625EA /* GTIOViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12057,7 +12065,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "B3370934-07F5-4213-BD57-C8D9AC68CBB6";
+				PROVISIONING_PROFILE = "CE05FE63-C88D-437A-9E11-F20BC4954D8A";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -12091,7 +12099,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "B3370934-07F5-4213-BD57-C8D9AC68CBB6";
+				PROVISIONING_PROFILE = "CE05FE63-C88D-437A-9E11-F20BC4954D8A";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;

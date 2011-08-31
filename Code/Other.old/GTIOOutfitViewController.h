@@ -8,6 +8,7 @@
 /// GTIOOutfitViewController is the main view controller in control of viewing an outfit through its [GTIOScrollView](GTIOScrollView) containing many [GTIOOutfitPageView](GTIOOutfitPageView)
 
 #import <Foundation/Foundation.h>
+#import "GTIOViewController.h"
 #import "GTIOPaginatedTTModel.h"
 #import "GTIOOutfitViewScrollDataSource.h"
 #import "GTIOOutfit.h"
@@ -22,8 +23,8 @@ typedef enum {
 //	GTIOOutfitViewStateHasVerdict
 } GTIOOutfitViewState;
 
-// Note: I inherit from TTViewController, not TTModelViewController because I do not create my own model, I am provided one.
-@interface GTIOOutfitViewController : TTViewController <TTModelDelegate, TTScrollViewDelegate, RKObjectLoaderDelegate> {
+// Note: I inherit from GTIOViewController, not TTModelViewController because I do not create my own model, I am provided one.
+@interface GTIOOutfitViewController : GTIOViewController <TTModelDelegate, TTScrollViewDelegate, RKObjectLoaderDelegate> {
 	GTIOScrollView* _scrollView;
 	GTIOPaginatedTTModel* _model;
 	int _outfitIndex;

@@ -13,7 +13,7 @@
 #import "GTIOTableViewController.h"
 #import "GTIOOpinionRequest.h"
 
-@interface GTIOContactViewController : GTIOTableViewController <ABPeoplePickerNavigationControllerDelegate, TTPostControllerDelegate> {
+@interface GTIOContactViewController : GTIOConcreteBackgroundTableViewController <ABPeoplePickerNavigationControllerDelegate, TTPostControllerDelegate> {
 	GTIOOpinionRequest* _opinionRequest;
 }
 /// GTIO Opinion request

@@ -107,6 +107,10 @@
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView endUpdates];
     [_indexPathsToDelete removeAllObjects];
+    
+    if ([ds.items count] == 0) {
+        [self invalidateModel];
+    }
 }
 
 - (void)showEmpty:(BOOL)show {

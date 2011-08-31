@@ -11,7 +11,7 @@
 #import "CustomUISwitch.h"
 #import <TWTPickerControl.h>
 
-@interface GTIOSettingsViewController : GTIOTableViewController <TWTPickerDelegate, CustomUISwitchDelegate> {
+@interface GTIOSettingsViewController : GTIOConcreteBackgroundTableViewController <TWTPickerDelegate, CustomUISwitchDelegate> {
     CustomUISwitch* _pushNotificationsSwitch;
     CustomUISwitch* _alertActivitySwitch;
     CustomUISwitch* _alertStylistActivitySwitch;

@@ -10,9 +10,19 @@
 
 @implementation GTIOTableViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO animated:animated];
+    [super viewWillAppear:animated];
+}
+
+@end
+
+@implementation GTIOConcreteBackgroundTableViewController
+
 - (void)loadView {
 	[super loadView];
-
+    
 	// Show the Navigation Bar
 	[self.navigationController setNavigationBarHidden:NO];
 	

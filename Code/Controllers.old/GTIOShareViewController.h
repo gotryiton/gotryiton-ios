@@ -11,7 +11,7 @@
 #import "GTIOOpinionRequest.h"
 #import "CustomUISwitch.h"
 
-@interface GTIOShareViewController : GTIOTableViewController {
+@interface GTIOShareViewController : GTIOConcreteBackgroundTableViewController {
 	GTIOOpinionRequest* _opinionRequest;
 	UIButton* _createMyOutfitPageButton;
 	CustomUISwitch* _shareWithCommunitySwitch;

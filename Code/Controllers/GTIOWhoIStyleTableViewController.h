@@ -20,7 +20,9 @@
 - (void)tableItem:(GTIOWhoIStyleTableItem*)item unSilenceButtonWasPressed:(id)sender;
 @end
 
+#import "GTIOTableViewController.h"
+
 /// GTIOWhoIStyleTableViewController is subclass of TTTableViewController that displays the list of who the current user styles
-@interface GTIOWhoIStyleTableViewController : TTTableViewController <GTIOWhoIStyleTableItemDelegate> {}
+@interface GTIOWhoIStyleTableViewController : GTIOTableViewController <GTIOWhoIStyleTableItemDelegate> {}
 
 @end

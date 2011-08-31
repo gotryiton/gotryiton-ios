@@ -7,7 +7,9 @@
 //
 /// GTIOMyStylistsTableViewController is a TTTableViewController that displays the current user's stylists and provides editing controls
 
-@interface GTIOMyStylistsTableViewController : TTTableViewController {
+#import "GTIOTableViewController.h"
+
+@interface GTIOMyStylistsTableViewController : GTIOTableViewController {
     UIBarButtonItem* _editButton;
     UIBarButtonItem* _cancelButton;
     UIBarButtonItem* _doneButton;
