@@ -493,6 +493,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)openNotificationUrl:(NSString*)url {
+    // Don't try and pop the stack while we are pushing another one on.
+    if (_lastWentInactiveAt) {
+        [_lastWentInactiveAt release];
+        _lastWentInactiveAt = nil;
+    }
     UIViewController* vc = [[TTNavigator navigator] viewControllerForURL:url];
     // Trigger view load. for some reason this is not happening.
     vc.view;

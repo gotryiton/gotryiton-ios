@@ -143,8 +143,8 @@
     [super viewWillAppear:animated];
     self.view;
     
-//    [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to get custom background
-//    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to get custom background
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -109,7 +109,8 @@
     [_indexPathsToDelete removeAllObjects];
     
     if ([ds.items count] == 0) {
-        [self invalidateModel];
+        // don't invalidate model, just show empty
+        [self invalidateView];
     }
 }
 

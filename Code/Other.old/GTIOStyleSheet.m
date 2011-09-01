@@ -65,7 +65,7 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 }
 
 - (UIColor*)pinkColor {
-	return RGBCOLOR(255,26,166);
+	return kGTIOColorBrightPink;
 }
 
 - (UIColor*)greyTextColor {

@@ -15,6 +15,24 @@
 #import "GTIOBarButtonItem.h"
 #import "GTIOHeaderView.h"
 
+@interface GTIOPinkControlItem : TTTableControlItem
+@end
+@implementation GTIOPinkControlItem
+@end
+
+@interface GTIOPinkControlItemCell : TTTableControlCell {
+}
+@end
+
+@implementation GTIOPinkControlItemCell
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.textLabel.textColor = TTSTYLEVAR(pinkColor);
+}
+
+@end
+
 @interface GTIOEditProfileTableImageItem : TTTableImageItem
 @end
 @implementation GTIOEditProfileTableImageItem
@@ -129,7 +147,9 @@
 @implementation GTIOEditProfileListDataSource
 
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id)object {
-    if ([object isKindOfClass:[GTIOEditProfileTableImageItem class]]) {
+    if ([object isKindOfClass:[GTIOPinkControlItem class]]) {
+        return [GTIOPinkControlItemCell class];
+    } else if ([object isKindOfClass:[GTIOEditProfileTableImageItem class]]) {
         return [GTIOEditProfileTableImageItemCell class];
     } else if ([object isKindOfClass:[GTIOProfileImageTableControlItem class]]) {
         return [GTIOProfileImageTableControlItemCell class];
@@ -212,8 +232,8 @@
     _useFacebookProfileIconSwitch = [[CustomUISwitch alloc] initWithFrame:CGRectZero];
 	_useFacebookProfileIconSwitch.on = YES;
     
-	_emailField = [[[UITextField alloc] initWithFrame:CGRectZero] autorelease];
-	_emailField.placeholder = @"user@domain.com ";
+	_emailField = [[[GTIOPlaceholderTextField alloc] initWithFrame:CGRectZero] autorelease];
+	_emailField.customPlaceholder = @"user@domain.com";
 	_emailField.textAlignment = UITextAlignmentRight;
 	_emailField.textColor = TTSTYLEVAR(greyTextColor);
 	_emailField.font = [UIFont systemFontOfSize:14];
@@ -222,8 +242,8 @@
 	_emailField.keyboardType = UIKeyboardTypeEmailAddress;
 	_emailField.returnKeyType = UIReturnKeyNext;
 	
-	_firstNameField = [[[UITextField alloc] initWithFrame:CGRectZero] autorelease];
-	_firstNameField.placeholder = @"First Name ";
+	_firstNameField = [[[GTIOPlaceholderTextField alloc] initWithFrame:CGRectZero] autorelease];
+	_firstNameField.customPlaceholder = @"First Name";
 	_firstNameField.textAlignment = UITextAlignmentRight;
 	_firstNameField.textColor = TTSTYLEVAR(greyTextColor);
 	_firstNameField.font = [UIFont systemFontOfSize:14];
@@ -232,8 +252,8 @@
 	_firstNameField.returnKeyType = UIReturnKeyNext;
     _firstNameField.accessibilityLabel = @"first name field";
 	
-	_lastInitialField = [[[UITextField alloc] initWithFrame:CGRectZero] autorelease];
-	_lastInitialField.placeholder = @"Last Initial ";
+	_lastInitialField = [[[GTIOPlaceholderTextField alloc] initWithFrame:CGRectZero] autorelease];
+	_lastInitialField.customPlaceholder = @"Last Initial";
 	_lastInitialField.textAlignment = UITextAlignmentRight;
 	_lastInitialField.textColor = TTSTYLEVAR(greyTextColor);
 	_lastInitialField.font = [UIFont systemFontOfSize:14];
@@ -241,8 +261,8 @@
 	_lastInitialField.delegate = self;
 	_lastInitialField.returnKeyType = UIReturnKeyNext;
 	
-	_cityField = [[[UITextField alloc] initWithFrame:CGRectZero] autorelease];
-	_cityField.placeholder = @"City ";
+	_cityField = [[[GTIOPlaceholderTextField alloc] initWithFrame:CGRectZero] autorelease];
+	_cityField.customPlaceholder = @"New York";
 	_cityField.textAlignment = UITextAlignmentRight;
 	_cityField.textColor = TTSTYLEVAR(greyTextColor);
 	_cityField.font = [UIFont systemFontOfSize:14];
@@ -250,8 +270,8 @@
 	_cityField.delegate = self;
 	_cityField.returnKeyType = UIReturnKeyNext;
 	
-	_stateField = [[[UITextField alloc] initWithFrame:CGRectZero] autorelease];
-	_stateField.placeholder = @"State ";
+	_stateField = [[[GTIOPlaceholderTextField alloc] initWithFrame:CGRectZero] autorelease];
+	_stateField.customPlaceholder = @"NY";
 	_stateField.textAlignment = UITextAlignmentRight;
 	_stateField.textColor = TTSTYLEVAR(greyTextColor);
 	_stateField.font = [UIFont systemFontOfSize:14];
@@ -305,8 +325,9 @@
 
         
 	
-	_aboutMeTextView = [[[UITextView alloc] initWithFrame:CGRectMake(5, 5, 290, 100 + 30)] autorelease];
+	_aboutMeTextView = [[[GTIOPlaceholderTextView alloc] initWithFrame:CGRectMake(5, 5, 290, 100 + 30)] autorelease];
 	_aboutMeTextView.text = user.aboutMe;
+    _aboutMeTextView.customPlaceholder = @"Tell us about your personal style!";
 	_aboutMeTextView.textColor = [UIColor grayColor];
 	_aboutMeTextView.font = [UIFont systemFontOfSize:14];
 	_aboutMeTextView.delegate = self;
@@ -320,12 +341,12 @@
         NSString* editProfilePictureURL = [NSString stringWithFormat:@"gtio://profile/edit/picture/%@/%@",name,location];
 		self.dataSource = [GTIOEditProfileListDataSource dataSourceWithObjects:
                            [GTIOEditProfileTableImageItem itemWithText:@"edit profile picture" imageURL:user.profileIconURL URL:editProfilePictureURL],
-						   [TTTableControlItem itemWithCaption:@"email" control:_emailField],
-						   [TTTableControlItem itemWithCaption:@"first name" control:_firstNameField],
-						   [TTTableControlItem itemWithCaption:@"last initial" control:_lastInitialField],
+						   [GTIOPinkControlItem itemWithCaption:@"email" control:_emailField],
+						   [GTIOPinkControlItem itemWithCaption:@"first name" control:_firstNameField],
+						   [GTIOPinkControlItem itemWithCaption:@"last initial" control:_lastInitialField],
 						   [TTTableControlItem itemWithCaption:@"city" control:_cityField],
-						   [TTTableControlItem itemWithCaption:@"state or country" control:_stateField],
-						   [TTTableControlItem itemWithCaption:@"gender" control:_genderPicker],
+						   [GTIOPinkControlItem itemWithCaption:@"state or country" control:_stateField],
+						   [GTIOPinkControlItem itemWithCaption:@"gender" control:_genderPicker],
                            [TTTableControlItem itemWithCaption:@"year born" control:_bornInPicker],
 						   [TTTableControlItem itemWithCaption:@"about me" control:(UIControl*)_aboutMeTextView],
 						   nil];
@@ -337,12 +358,12 @@
 										 [[[GTIOBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
 										 nil]];
         NSMutableArray* objects = [NSMutableArray arrayWithObjects:
-                                   [TTTableControlItem itemWithCaption:@"email" control:_emailField],
-                                   [TTTableControlItem itemWithCaption:@"first name" control:_firstNameField],
-                                   [TTTableControlItem itemWithCaption:@"last initial" control:_lastInitialField],
+                                   [GTIOPinkControlItem itemWithCaption:@"email" control:_emailField],
+                                   [GTIOPinkControlItem itemWithCaption:@"first name" control:_firstNameField],
+                                   [GTIOPinkControlItem itemWithCaption:@"last initial" control:_lastInitialField],
                                    [TTTableControlItem itemWithCaption:@"city" control:_cityField],
-                                   [TTTableControlItem itemWithCaption:@"state or country" control:_stateField],
-                                   [TTTableControlItem itemWithCaption:@"gender" control:_genderPicker],
+                                   [GTIOPinkControlItem itemWithCaption:@"state or country" control:_stateField],
+                                   [GTIOPinkControlItem itemWithCaption:@"gender" control:_genderPicker],
                                    [TTTableControlItem itemWithCaption:@"year born" control:_bornInPicker],
                                    nil];
         if ([user.isFacebookConnected boolValue] && user.profileIconURL) {
@@ -590,6 +611,10 @@
 		_stateField.text == nil) {
 		_stateField.text = placemark.administrativeArea;
 	}
+    
+    if (placemark.administrativeArea && !placemark.locality) {
+      	_cityField.customPlaceholder = @"";
+    }
 	
 	self.reverseGeocoder = nil;
 }

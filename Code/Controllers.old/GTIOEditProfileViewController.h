@@ -13,17 +13,18 @@
 #import <MapKit/MapKit.h>
 #import "CustomUISwitch.h"
 #import "GTIOTableViewController.h"
+#import "GTIOPlaceholderTextField.h"
 
 @interface GTIOEditProfileViewController : GTIOTableViewController <UITextFieldDelegate, TWTPickerDelegate, CLLocationManagerDelegate, MKReverseGeocoderDelegate, UITextViewDelegate> {
-	UITextField* _emailField;
-	UITextField* _firstNameField;
-	UITextField* _lastInitialField;
-	UITextField* _cityField;
-	UITextField* _stateField;
+	GTIOPlaceholderTextField* _emailField;
+	GTIOPlaceholderTextField* _firstNameField;
+	GTIOPlaceholderTextField* _lastInitialField;
+	GTIOPlaceholderTextField* _cityField;
+	GTIOPlaceholderTextField* _stateField;
 	TWTPickerControl* _genderPicker;
     TWTPickerControl* _bornInPicker;
     CustomUISwitch* _useFacebookProfileIconSwitch;
-	UITextView* _aboutMeTextView;
+	GTIOPlaceholderTextView* _aboutMeTextView;
 	
 	CLLocationManager* _locationManager;
 	MKReverseGeocoder* _reverseGeocoder;
