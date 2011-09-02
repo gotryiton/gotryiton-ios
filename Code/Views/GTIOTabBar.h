@@ -51,7 +51,7 @@
 /// Index of the currently selected tab
 @property (nonatomic, assign) NSUInteger selectedTabIndex;
 /// Reference of the selected [GTIOTab](GTIOTab) object
-@property (nonatomic, readonly) id selectedTab;
+@property (nonatomic, readonly) GTIOTab* selectedTab;
 /// Subtitle string that is displayed below the tab bar, centered, in white
 @property (nonatomic, retain) NSString* subtitle;
 

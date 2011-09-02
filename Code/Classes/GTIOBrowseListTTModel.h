@@ -20,4 +20,6 @@
 /// True if there are more objects available to load
 @property (nonatomic, assign) BOOL hasMoreToLoad;
 
+- (void)setObjects:(NSArray*)objects;
+
 @end

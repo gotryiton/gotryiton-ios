@@ -85,6 +85,9 @@
 }
 
 - (void)deleteItems {
+    if ([_indexPathsToDelete count] == 0) {
+        return;
+    }
     GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
     [self.tableView beginUpdates];
     NSMutableArray* indexPaths = [NSMutableArray array];
@@ -102,7 +105,14 @@
     }
     [ds setItems:newItems];
     [(GTIOBrowseListTTModel*)ds.model setObjects:newOutfits];
-    [[(GTIOBrowseListTTModel*)ds.model list] setOutfits:newOutfits];
+    
+    // Update tab badge and other badges.
+    if (_sortTabBar.selectedTab.badge) {
+        NSNumber* badge = [NSNumber numberWithInt:[_sortTabBar.selectedTab.badge intValue] - [_indexPathsToDelete count]];
+        _sortTabBar.selectedTab.badge = badge;
+        [GTIOUser currentUser].todosBadge = badge;
+    }
+    
     // Now remove the rows at the index paths we found before.
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView endUpdates];

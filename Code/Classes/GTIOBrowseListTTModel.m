@@ -68,6 +68,16 @@
     [objects retain];
     [_objects release];
     _objects = objects;
+    // update list objects too.
+    if (self.list.categories) {
+        self.list.categories = objects;
+    } else if (self.list.outfits) {
+        self.list.outfits = objects;
+    } else if (self.list.myLooks) {
+        self.list.myLooks = objects;
+    } else if(self.list.reviews) {
+        self.list.reviews = objects;
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {

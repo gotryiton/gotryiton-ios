@@ -508,9 +508,13 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+}
+
+- (void)didReceiveMemoryWarning {
     // When we reappear, we are called back with didLoadModel:YES instead of NO
     // since we didn't really load more. This causes us to think this is the 'firstTime', and call didLoadModel:YES
     _flags.isModelDidLoadFirstTimeInvalid = 1;
+    [super didReceiveMemoryWarning];
 }
 
 - (void)tabBar:(GTIOTabBar*)tabBar selectedTabAtIndex:(NSUInteger)index {

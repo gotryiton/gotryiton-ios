@@ -175,7 +175,7 @@
     [selectedTab setSelected:YES];
 }
 
-- (id)selectedTab {
+- (GTIOTab*)selectedTab {
     return [_tabs objectAtIndex:_selectedTabIndex];
 }
 
