@@ -74,6 +74,8 @@
             [UIView setAnimationCurve:UIViewAnimationCurveLinear];
             [UIView setAnimationDelegate:self];
             [UIView setAnimationDidStopSelector:@selector(fadeInTodosBadge)];
+        } else {
+            [self fadeInTodosBadge];
         }
         _backgroundImageView.alpha = 1;
         if (!_animatedInThisLaunch) {

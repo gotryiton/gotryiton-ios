@@ -44,6 +44,7 @@
     } else {
         _badgeLabel.text = nil;
     }
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews {
