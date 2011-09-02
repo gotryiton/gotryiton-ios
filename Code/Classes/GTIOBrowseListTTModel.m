@@ -20,6 +20,21 @@
 @synthesize list = _list;
 @synthesize hasMoreToLoad = _hasMoreToLoad;
 
+- (void)addPaginationParams:(NSMutableDictionary*)paramsForNextPage {
+    BOOL delegateImplemenationCalled = NO;
+    for (id delegate in _delegates) {
+        if ([delegate respondsToSelector:@selector(addPaginationParamsForModel:toDict:)]) {
+            [delegate addPaginationParamsForModel:self toDict:paramsForNextPage];
+            delegateImplemenationCalled = YES;
+        }
+    }
+    if (NO == delegateImplemenationCalled) {
+        GTIOOutfit* lastOutfit = [self.objects lastObject];
+        [paramsForNextPage setObject:lastOutfit.timestamp forKey:@"lasttime"];
+        [paramsForNextPage setObject:[NSString stringWithFormat:@"%d", [self.objects count]] forKey:@"offset"];
+    }
+}
+
 - (void)load:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more {
 	if (more) {
 		GTIOOutfit* lastOutfit = [self.objects lastObject];
@@ -39,8 +54,7 @@
             paramsForNextPage = [NSMutableDictionary dictionary];
         }
 		
-        [paramsForNextPage setObject:lastOutfit.timestamp forKey:@"lasttime"];
-        [paramsForNextPage setObject:[NSString stringWithFormat:@"%d", [self.objects count]] forKey:@"offset"];
+        [self addPaginationParams:paramsForNextPage];
         
 		objectLoader.params = paramsForNextPage;
 		

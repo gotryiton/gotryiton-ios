@@ -44,6 +44,11 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
+- (void)addPaginationParamsForModel:(GTIOBrowseListTTModel*)model toDict:(NSMutableDictionary*)paramsForNextPage {
+    // Offset is not correct here, because we may have voted on items. Do the math!
+    [paramsForNextPage setObject:[NSString stringWithFormat:@"%d", [model.objects count] - [_indexPathsToDelete count]] forKey:@"offset"];
+}
+
 - (void)setupRightBarButtonItem {
     ; // Override. always show "who i style" or nothing.
 }
@@ -66,17 +71,20 @@
 
 - (void)userVotedNotification:(NSNotification*)note {
     if ([self.dataSource isKindOfClass:[GTIOBrowseListDataSource class]]) {
-        GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
         NSString* outfitID = (NSString*)note.object;
-        GTIOOutfitTableViewItem* itemToDelete = nil;
-        for (GTIOOutfitTableViewItem* item in ds.items) {
-            if([item.outfit.outfitID isEqualToString:outfitID]) {
-                itemToDelete = item;
+        GTIOOutfit* outfitToDelete = nil;
+        
+        // don't go off of items, go off of index.
+        GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
+        
+        for (GTIOOutfit* outfit in model.objects) {
+            if([outfit.outfitID isEqualToString:outfitID]) {
+                outfitToDelete = outfit;
                 break;
             }
         }
-        if (itemToDelete) {
-            NSIndexPath* ip = [NSIndexPath indexPathForRow:[ds.items indexOfObject:itemToDelete] inSection:0];
+        if (outfitToDelete) {
+            NSIndexPath* ip = [NSIndexPath indexPathForRow:[model.objects indexOfObject:outfitToDelete] inSection:0];
             if (![_indexPathsToDelete containsObject:ip]) {
                 [_indexPathsToDelete addObject:ip];
             }
