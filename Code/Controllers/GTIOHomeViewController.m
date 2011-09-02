@@ -85,11 +85,6 @@
             [UIView setAnimationCurve:UIViewAnimationCurveLinear];
         }
         [self scrollViewDidScroll:_scrollView];
-//        _uploadButton.titleLabel.alpha = 1;
-//        _featuredButton.titleLabel.alpha = 1;
-//        _browseButton.titleLabel.alpha = 1;
-//        _todoButton.titleLabel.alpha = 1;
-//        _todoButton.titleLabel.alpha = 1;
         if (!_animatedInThisLaunch) {
             [UIView commitAnimations];
             _animatedInThisLaunch = YES;

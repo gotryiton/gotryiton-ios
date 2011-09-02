@@ -85,6 +85,7 @@
 }
 
 - (void)deleteItems {
+    return; // Stub out deletion of TODO's.
     GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
     [self.tableView beginUpdates];
     NSMutableArray* indexPaths = [NSMutableArray array];
@@ -92,14 +93,13 @@
     NSMutableArray* newItems = [[ds.items mutableCopy] autorelease];
     NSMutableArray* newOutfits = [[[[(GTIOBrowseListTTModel*)ds.model list] outfits] mutableCopy] autorelease];
     for (NSIndexPath* ip in _indexPathsToDelete) {
-        // Collect all index paths first
+        // Collect all index paths
         [indexPaths addObject:ip];
-        // Now remove items, once we have all the index paths
+        // Now remove items
         int row = ip.row;
-//        [ds.items removeObjectAtIndex:row];
-        [newItems removeObject:[ds.items objectAtIndex:row]];
-        NSMutableArray* outfits = [[[[(GTIOBrowseListTTModel*)ds.model list] outfits] mutableCopy] autorelease];
-        [newOutfits removeObject:[outfits objectAtIndex:row]];
+        GTIOOutfitTableViewItem* item = [ds.items objectAtIndex:row];
+        [newItems removeObject:item];
+        [newOutfits removeObject:item.outfit];
     }
     [ds setItems:newItems];
     [(GTIOBrowseListTTModel*)ds.model setObjects:newOutfits];

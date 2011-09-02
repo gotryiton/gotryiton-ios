@@ -35,6 +35,7 @@
 - (void)setObject:(id)obj {
     [super setObject:obj];
     self.textLabel.font = [UIFont systemFontOfSize:24];
+    self.selectionStyle = UITableViewCellSelectionStyleGray;
 }
 
 - (void)layoutSubviews {
