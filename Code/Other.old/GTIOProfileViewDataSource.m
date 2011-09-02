@@ -60,6 +60,7 @@
 - (void)setObject:(id)obj {
 	[super setObject:obj];
 	self.textLabel.font = kGTIOFontHelveticaNeueOfSize(20);
+    self.selectionStyle = UITableViewCellSelectionStyleGray;
 }
 
 @end
@@ -164,6 +165,7 @@
         [self.contentView addSubview:imgView];
         [_thumbnailImageViews addObject:imgView];
     }
+    self.selectionStyle = UITableViewCellSelectionStyleGray;
 }
 
 @end
