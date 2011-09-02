@@ -85,7 +85,6 @@
 }
 
 - (void)deleteItems {
-    return; // Stub out deletion of TODO's.
     GTIOBrowseListDataSource* ds = (GTIOBrowseListDataSource*)self.dataSource;
     [self.tableView beginUpdates];
     NSMutableArray* indexPaths = [NSMutableArray array];
@@ -103,6 +102,7 @@
     }
     [ds setItems:newItems];
     [(GTIOBrowseListTTModel*)ds.model setObjects:newOutfits];
+    [[(GTIOBrowseListTTModel*)ds.model list] setOutfits:newOutfits];
     // Now remove the rows at the index paths we found before.
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView endUpdates];
