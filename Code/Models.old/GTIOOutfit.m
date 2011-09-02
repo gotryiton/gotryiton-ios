@@ -142,4 +142,15 @@ NSMutableArray* allOutfits;
     return [NSString stringWithFormat:@"%@", _reviewCount];
 }
 
+- (BOOL)isEqual:(id)obj {
+    if ([obj isKindOfClass:[GTIOOutfit class]]) {
+        if ([self.outfitID isEqualToString:[(GTIOOutfit*)obj outfitID]]) {
+            return YES;
+        } else {
+            return NO;
+        }
+    }
+    return [super isEqual:obj];
+}
+
 @end
