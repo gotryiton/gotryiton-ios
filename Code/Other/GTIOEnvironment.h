@@ -57,6 +57,8 @@ extern NSString* const kGTIOOutfitVoteNotification;
 // Logging
 extern NSUInteger const kGTIONetworkLogLevel;
 
+extern NSUInteger const kGTIOLogLevel;
+
 
 RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute);
 

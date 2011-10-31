@@ -79,8 +79,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)setupRestKit {
     
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
-    RKLogConfigureByName("RestKit/*", kGTIONetworkLogLevel);
-    RKLogConfigureByName("RestKit/Network/*", kGTIONetworkLogLevel);
+//    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
+//    RKLogConfigureByName("RestKit/Network/*", kGTIONetworkLogLevel);
+    
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace);
     
     RKObjectMappingProvider* provider = [[[RKObjectMappingProvider alloc] init] autorelease];
     
@@ -160,7 +162,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isBrand", @"isBranded")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"profileIcon", @"profileIconURL")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"badgeURLs", @"badgeImageURLs")];
-    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"stylistAlertsEnabled", @"stylistRequestAlertsEnabled")];
+    [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"stylistRelationship.iStyleAlerts", @"stylistRequestAlertsEnabled")];
     [provider setObjectMapping:profileMapping forKeyPath:@"user"];
     
     RKObjectMapping* statMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
