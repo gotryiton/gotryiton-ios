@@ -21,7 +21,8 @@
 	NSString* const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString* const kGTIOFacebookAppID = @"134143416622354";
-    NSUInteger const kGTIONetworkLogLevel = RKLogLevelDebug;
+    NSUInteger const kGTIONetworkLogLevel = RKLogLevelTrace;
+    NSUInteger const kGTIOLogLevel = RKLogLevelDebug;
 #endif 
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
@@ -30,7 +31,8 @@
 	NSString* const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString* const kGTIOFacebookAppID = @"134143416622354";
-    NSUInteger const kGTIONetworkLogLevel = RKLogLevelDebug;
+    NSUInteger const kGTIONetworkLogLevel = RKLogLevelTrace;
+    NSUInteger const kGTIOLogLevel = RKLogLevelDebug;
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
@@ -40,6 +42,7 @@
     NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString* const kGTIOFacebookAppID = @"126454074038555";
     NSUInteger const kGTIONetworkLogLevel = RKLogLevelError;
+    NSUInteger const kGTIOLogLevel = RKLogLevelError;
 #endif
 
 NSString* GTIORestResourcePath(NSString* string) {
