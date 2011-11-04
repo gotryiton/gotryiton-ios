@@ -154,7 +154,7 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.bornIn", @"bornIn")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.auth", @"auth")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
-    [userMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user.stylistsQuickLook" toKeyPath:@"stylistsQuickLook" objectMapping:[GTIOStylistsQuickLook qlMapping]]];
+    [userMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user.stylistsQuickLook" toKeyPath:@"stylistsQuickLook" withMapping:[GTIOStylistsQuickLook qlMapping]]];
     
     // TODO: duplicated
     RKObjectMapping* badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
@@ -163,7 +163,7 @@ static GTIOUser* gCurrentUser = nil;
     [badgeMapping addAttributeMapping:RKObjectAttributeMappingMake(@"imgURL", @"imgURL")];
     
     RKObjectMapping* notificationMapping = [GTIONotification notificationMapping];
-    [userMapping mapRelationship:@"notifications" withObjectMapping:notificationMapping];
+    [userMapping mapRelationship:@"notifications" withMapping:notificationMapping];
     
     RKObjectMapping* buttonMapping = [RKObjectMapping mappingForClass:[GTIOAppStatusAlertButton class]];
     [buttonMapping addAttributeMapping:RKObjectAttributeMappingMake(@"title", @"title")];
@@ -174,22 +174,22 @@ static GTIOUser* gCurrentUser = nil;
     [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"message", @"message")];
     [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"cancelButtonTitle", @"cancelButtonTitle")];
     [alertMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"alertID")];
-    [alertMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"buttons" toKeyPath:@"buttons" objectMapping:buttonMapping]];
+    [alertMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"buttons" toKeyPath:@"buttons" withMapping:buttonMapping]];
     
     RKObjectMapping* changeItReasonsMapping = [RKObjectMapping mappingForClass:[GTIOChangeItReason class]];
     [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"id", @"reasonID")];
     [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"display", @"display")];
     [changeItReasonsMapping addAttributeMapping:RKObjectAttributeMappingMake(@"text", @"text")];
     //[provider setMapping:changeItReasonsMapping forKeyPath:@"global_changeItReasons"];
-    [userMapping mapKeyPath:@"global_changeItReasons" toRelationship:@"changeItReasons" withObjectMapping:changeItReasonsMapping];
+    [userMapping mapKeyPath:@"global_changeItReasons" toRelationship:@"changeItReasons" withMapping:changeItReasonsMapping];
     
     RKObjectMapping* eventTypesMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
     [eventTypesMapping addAttributeMapping:RKObjectAttributeMappingMake(@"", @"eventType")];
     //[provider setMapping:eventTypesMapping forKeyPath:@"global_eventTypes"];
-    [userMapping mapKeyPath:@"global_eventTypes" toRelationship:@"eventTypes" withObjectMapping:eventTypesMapping];
+    [userMapping mapKeyPath:@"global_eventTypes" toRelationship:@"eventTypes" withMapping:eventTypesMapping];
     
-    [userMapping mapRelationship:@"alert" withObjectMapping:alertMapping];
-    [userMapping mapKeyPath:@"user.badges" toRelationship:@"badges" withObjectMapping:badgeMapping];
+    [userMapping mapRelationship:@"alert" withMapping:alertMapping];
+    [userMapping mapKeyPath:@"user.badges" toRelationship:@"badges" withMapping:badgeMapping];
     userMapping.setDefaultValueForMissingAttributes = NO;
     userMapping.setNilForMissingRelationships = NO;
     
@@ -238,8 +238,8 @@ static GTIOUser* gCurrentUser = nil;
 }
 
 - (void)digestProfileInfo:(NSDictionary*)profileInfo {
-    RKObjectMappingOperation* operation = [RKObjectMappingOperation mappingOperationFromObject:profileInfo toObject:self withObjectMapping:[GTIOUser userMapping]];
-    operation.objectFactory = [[RKObjectMapper new] autorelease];
+    RKObjectMappingOperation* operation = [RKObjectMappingOperation mappingOperationFromObject:profileInfo toObject:self withMapping:[GTIOUser userMapping]];
+//    operation.objectFactory = [[RKObjectMapper new] autorelease];
     NSError* error = nil;
     if (![operation performMapping:&error]) {
         NSLog(@"Error: %@", error);

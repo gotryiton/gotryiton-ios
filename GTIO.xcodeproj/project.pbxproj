@@ -3977,6 +3977,13 @@
 			remoteGlobalIDString = 25BD43BD1340315800DBACDD;
 			remoteInfo = "RestKitXMLParser+Libxml";
 		};
+		3F47EC40146446A200179E68 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 20808DBD13DE8CDC000A156A;
+			remoteInfo = "RestKitJSONParser+NXJSON";
+		};
 		3F86F0DB13B8CA50005063FE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */;
@@ -5684,6 +5691,7 @@
 				25D5C81213535ACD007B6F14 /* libRestKitNetwork.a */,
 				25D5C81413535ACD007B6F14 /* libRestKitObjectMapping.a */,
 				25D5C81613535ACD007B6F14 /* libRestKitSupport.a */,
+				3F47EC41146446A200179E68 /* libRestKitJSONParserNXJSON.a */,
 				25D5C81813535ACD007B6F14 /* libRestKitJSONParserYAJL.a */,
 				25D5C81A13535ACD007B6F14 /* libRestKitJSONParserSBJSON.a */,
 				3F22EE031371F08A0000FCA9 /* libRestKitJSONParserJSONKit.a */,
@@ -7864,7 +7872,7 @@
 		25D5C82413535ACD007B6F14 /* UISpec.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = UISpec.app;
+			path = RestKitSpecs.app;
 			remoteRef = 25D5C82313535ACD007B6F14 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -7992,6 +8000,13 @@
 			fileType = archive.ar;
 			path = libRestKitXMLParserLibxml.a;
 			remoteRef = 3F22EE041371F08A0000FCA9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3F47EC41146446A200179E68 /* libRestKitJSONParserNXJSON.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKitJSONParserNXJSON.a;
+			remoteRef = 3F47EC40146446A200179E68 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3FCBF22B1370820B0039D779 /* libfacebook_ios_sdk.a */ = {
