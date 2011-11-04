@@ -42,7 +42,12 @@
 		[self addSubview:_look3];
 		_look4 = [[TTImageView alloc] initWithFrame:CGRectZero];
 		[self addSubview:_look4];
-		
+        
+        [_look1 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
+        [_look2 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
+        [_look3 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
+        [_look4 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
+        
 		_textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_textLabel.backgroundColor = [UIColor clearColor];
 		_textLabel.textColor = [UIColor whiteColor];

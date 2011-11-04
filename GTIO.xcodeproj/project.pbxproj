@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13D1749C14643DBE00E951C2 /* thumb-review-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749A14643DBE00E951C2 /* thumb-review-empty.png */; };
+		13D1749D14643DBE00E951C2 /* thumb-review-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749A14643DBE00E951C2 /* thumb-review-empty.png */; };
+		13D1749E14643DBE00E951C2 /* thumb-review-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749B14643DBE00E951C2 /* thumb-review-empty@2x.png */; };
+		13D1749F14643DBE00E951C2 /* thumb-review-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749B14643DBE00E951C2 /* thumb-review-empty@2x.png */; };
 		2585188E135357C5005DCBA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188D135357C5005DCBA5 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		25851890135357C5005DCBA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188F135357C5005DCBA5 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		25851892135357C5005DCBA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25851891135357C5005DCBA5 /* CoreGraphics.framework */; };
@@ -4092,6 +4096,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13D1749A14643DBE00E951C2 /* thumb-review-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb-review-empty.png"; sourceTree = "<group>"; };
+		13D1749B14643DBE00E951C2 /* thumb-review-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb-review-empty@2x.png"; sourceTree = "<group>"; };
 		25851889135357C5005DCBA5 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2585188D135357C5005DCBA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2585188F135357C5005DCBA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -6005,6 +6011,8 @@
 		3D58A6AD1386B5F600DE4B25 /* outfit */ = {
 			isa = PBXGroup;
 			children = (
+				13D1749A14643DBE00E951C2 /* thumb-review-empty.png */,
+				13D1749B14643DBE00E951C2 /* thumb-review-empty@2x.png */,
 				3D05AF24138AA5D40030D154 /* outfit-badge-fashionista.png */,
 				3D05AF25138AA5D40030D154 /* outfit-badge-fashionista@2x.png */,
 				3D05AF26138AA5D40030D154 /* outfit-badge-model.png */,
@@ -8724,6 +8732,8 @@
 				3FC7E0A513EC4021005EEA7B /* todos-community-empty-no-stylists.png in Resources */,
 				3FC7E0A713EC4021005EEA7B /* todos-community-empty-no-stylists@2x.png in Resources */,
 				3F8A66D71408296E00A9DC62 /* Entitlements.plist in Resources */,
+				13D1749C14643DBE00E951C2 /* thumb-review-empty.png in Resources */,
+				13D1749E14643DBE00E951C2 /* thumb-review-empty@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10826,6 +10836,8 @@
 				3F5D621913E8783100DC5912 /* navbar-my-stylists@2x.png in Resources */,
 				3FC7E0A613EC4021005EEA7B /* todos-community-empty-no-stylists.png in Resources */,
 				3FC7E0A813EC4021005EEA7B /* todos-community-empty-no-stylists@2x.png in Resources */,
+				13D1749D14643DBE00E951C2 /* thumb-review-empty.png in Resources */,
+				13D1749F14643DBE00E951C2 /* thumb-review-empty@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12045,7 +12057,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Duncan Lewis (585NPZ9785)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Duncan Lewis (585NPZ9785)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -12073,7 +12086,8 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "ED067210-A4F7-438C-9BCF-B90E4F4A9140";
+				PROVISIONING_PROFILE = "2B8BA221-164B-46E9-8123-097A914B64A7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2B8BA221-164B-46E9-8123-097A914B64A7";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -12083,7 +12097,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Duncan Lewis (585NPZ9785)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Duncan Lewis (585NPZ9785)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
@@ -12107,7 +12122,8 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "ED067210-A4F7-438C-9BCF-B90E4F4A9140";
+				PROVISIONING_PROFILE = "2B8BA221-164B-46E9-8123-097A914B64A7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2B8BA221-164B-46E9-8123-097A914B64A7";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;

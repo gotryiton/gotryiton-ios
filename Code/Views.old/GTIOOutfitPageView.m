@@ -172,6 +172,7 @@ CGRect const wear4of4Frame = {{190, 0}, {66, 51}};
 }
 
 - (void)dealloc {
+    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
     _voteRequest.delegate = nil;
     
 	[_draggingTimer invalidate];
