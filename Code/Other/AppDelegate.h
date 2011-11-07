@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOExternalURLHelper.h"
+#import "GTIOMessageComposer.h"
 
 @interface AppDelegate : NSObject <UIApplicationDelegate, RKObjectLoaderDelegate> {
     NSURL* _launchURL;
 	NSDate* _lastWentInactiveAt;
     BOOL _showStylistPush;
+    GTIOExternalURLHelper* _externalURLHelper;
+    GTIOMessageComposer* _messageComposer;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

@@ -19,9 +19,7 @@
 #import "GTIOOpinionRequestSession.h"
 #import "GTIOStyleSheet.h"
 #import "GTIOUser.h"
-#import "GTIOExternalURLHelper.h"
 #import "GTIOAnalyticsTracker.h"
-#import "GTIOMessageComposer.h"
 #import "GTIOReachabilityObserver.h"
 #import "GTIOOutfit.h"
 #import "GTIOProfile.h"
@@ -167,7 +165,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     RKObjectMapping* statMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]];
     [statMapping mapAttributes:@"name", @"value", nil];
     [profileMapping addRelationshipMapping:
-     [RKObjectRelationshipMapping mappingFromKeyPath:@"userStats" toKeyPath:@"userStats" objectMapping:statMapping]];
+     [RKObjectRelationshipMapping mappingFromKeyPath:@"userStats" toKeyPath:@"userStats" withMapping:statMapping]];
     
     RKObjectMapping* userIconOptionMapping = [RKObjectMapping mappingForClass:[GTIOUserIconOption class]];
     [userIconOptionMapping addAttributeMapping:RKObjectAttributeMappingMake(@"url",@"url")];
@@ -230,35 +228,35 @@ void uncaughtExceptionHandler(NSException *exception) {
     RKObjectMapping* stylistRelationshipMapping = [RKObjectMapping mappingForClass:[GTIOStylistRelationship class]];
     [stylistRelationshipMapping mapAttributes:@"isMyStylist", @"isMyStylistIgnored", @"iStyle", @"iStyleIgnored", nil];
     
-    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"categories" toKeyPath:@"categories" objectMapping:categoryMapping]];
-    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
-    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"myLooks" toKeyPath:@"myLooks" objectMapping:outfitMapping]];
-    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"sortTabs" toKeyPath:@"sortTabs" objectMapping:sortTabMapping]];
-    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"tabs" toKeyPath:@"tabs" objectMapping:todoTabMapping]];
-    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"bannerAd" toKeyPath:@"bannerAd" objectMapping:adMapping]];
-    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"topRightBtn" toKeyPath:@"topRightButton" objectMapping:topRightButtonMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"categories" toKeyPath:@"categories" withMapping:categoryMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" withMapping:outfitMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"myLooks" toKeyPath:@"myLooks" withMapping:outfitMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"sortTabs" toKeyPath:@"sortTabs" withMapping:sortTabMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"tabs" toKeyPath:@"tabs" withMapping:todoTabMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"bannerAd" toKeyPath:@"bannerAd" withMapping:adMapping]];
+    [browseListMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"topRightBtn" toKeyPath:@"topRightButton" withMapping:topRightButtonMapping]];
     
-    [browseListMapping mapRelationship:@"sections" withObjectMapping:sectionMapping];
-    [browseListMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
-    [browseListMapping mapRelationship:@"reviews" withObjectMapping:reviewMapping];
+    [browseListMapping mapRelationship:@"sections" withMapping:sectionMapping];
+    [browseListMapping mapRelationship:@"stylists" withMapping:profileMapping];
+    [browseListMapping mapRelationship:@"reviews" withMapping:reviewMapping];
     
-    [sectionMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
-    [sectionMapping mapRelationship:@"outfits" withObjectMapping:outfitMapping];
+    [sectionMapping mapRelationship:@"stylists" withMapping:profileMapping];
+    [sectionMapping mapRelationship:@"outfits" withMapping:outfitMapping];
     
-    [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user" toKeyPath:@"user" objectMapping:profileMapping]];
-    [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfit" toKeyPath:@"outfit" objectMapping:outfitMapping]];
+    [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user" toKeyPath:@"user" withMapping:profileMapping]];
+    [reviewMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfit" toKeyPath:@"outfit" withMapping:outfitMapping]];
     
-    [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviews" toKeyPath:@"reviews" objectMapping:reviewMapping]];
-    [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"votingResults" toKeyPath:@"results" objectMapping:votingResultsMapping]];
-    [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" objectMapping:badgeMapping]];
-    [outfitMapping mapRelationship:@"stylistRelationship" withObjectMapping:stylistRelationshipMapping];
+    [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviews" toKeyPath:@"reviews" withMapping:reviewMapping]];
+    [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"votingResults" toKeyPath:@"results" withMapping:votingResultsMapping]];
+    [outfitMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" withMapping:badgeMapping]];
+    [outfitMapping mapRelationship:@"stylistRelationship" withMapping:stylistRelationshipMapping];
     
-    [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" objectMapping:outfitMapping]];
-    [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviewsOutfits" toKeyPath:@"reviewsOutfits" objectMapping:outfitMapping]];
-    [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" objectMapping:badgeMapping]];
-    [profileMapping mapRelationship:@"stylistRelationship" withObjectMapping:stylistRelationshipMapping];
-    [profileMapping mapRelationship:@"extraProfileRow" withObjectMapping:extraProfileRowMapping];
-    [profileMapping mapRelationship:@"stylists" withObjectMapping:profileMapping];
+    [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"outfits" toKeyPath:@"outfits" withMapping:outfitMapping]];
+    [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"reviewsOutfits" toKeyPath:@"reviewsOutfits" withMapping:outfitMapping]];
+    [profileMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"badges" toKeyPath:@"badges" withMapping:badgeMapping]];
+    [profileMapping mapRelationship:@"stylistRelationship" withMapping:stylistRelationshipMapping];
+    [profileMapping mapRelationship:@"extraProfileRow" withMapping:extraProfileRowMapping];
+    [profileMapping mapRelationship:@"stylists" withMapping:profileMapping];
     
     objectManager.mappingProvider = provider;
 }
@@ -286,19 +284,19 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://logout" toObject:[GTIOUser currentUser] selector:@selector(logout)];
 	
 	// External URL's
-	GTIOExternalURLHelper* externalURLHelper = [[GTIOExternalURLHelper alloc] init];
+	_externalURLHelper = [[GTIOExternalURLHelper alloc] init];
 
 	// Convenience Helpers for SMS/E-mail
 	[map from:@"gtio://looks/(initWithOutfitID:)" toViewController:NSClassFromString(@"GTIOOutfitViewController")];
 	[map from:@"gtio://looks" toViewController:NSClassFromString(@"GTIOGiveAnOpinionTableViewController")];
 	
 	// Main external URL's. Not very pretty.
-	[map from:@"gtio://external/showOutfitOnProfileTab/(showOutfitOnProfileTab:)" toObject:externalURLHelper];	
-	[map from:@"gtio://external/showOutfitOnGiveAnOpinionTab/(showOutfitOnGiveAnOpinionTab:)" toObject:externalURLHelper];
-	[map from:@"gtio://external/ensureLogin/showProfileTab" toObject:externalURLHelper selector:@selector(showOutfitOnProfileTab:)];
-	[map from:@"gtio://external/ensureLogin/showOutfitOnProfileTab/(requireLoginAndShowOutfitOnProfileTab:)" toObject:externalURLHelper];
-	[map from:@"gtio://external/ensureLogin/showGiveAnOpinionTab" toObject:externalURLHelper selector:@selector(showOutfitOnGiveAnOpinionTab:)];
-	[map from:@"gtio://external/ensureLogin/showOutfitOnGiveAnOpinionTab/(requireLoginAndShowOutfitOnGiveAnOpinionTab:)" toObject:externalURLHelper];
+	[map from:@"gtio://external/showOutfitOnProfileTab/(showOutfitOnProfileTab:)" toObject:_externalURLHelper];	
+	[map from:@"gtio://external/showOutfitOnGiveAnOpinionTab/(showOutfitOnGiveAnOpinionTab:)" toObject:_externalURLHelper];
+	[map from:@"gtio://external/ensureLogin/showProfileTab" toObject:_externalURLHelper selector:@selector(showOutfitOnProfileTab:)];
+	[map from:@"gtio://external/ensureLogin/showOutfitOnProfileTab/(requireLoginAndShowOutfitOnProfileTab:)" toObject:_externalURLHelper];
+	[map from:@"gtio://external/ensureLogin/showGiveAnOpinionTab" toObject:_externalURLHelper selector:@selector(showOutfitOnGiveAnOpinionTab:)];
+	[map from:@"gtio://external/ensureLogin/showOutfitOnGiveAnOpinionTab/(requireLoginAndShowOutfitOnGiveAnOpinionTab:)" toObject:_externalURLHelper];
 	
 	[map from:@"gtio://launching" toSharedViewController:NSClassFromString(@"GTIOLaunchingViewController")];
 	[map from:@"gtio://settings" toSharedViewController:NSClassFromString(@"GTIOSettingsViewController")];
@@ -353,9 +351,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     
 	
 	// Message composer
-	GTIOMessageComposer* messageComposer = [[GTIOMessageComposer alloc] init];
-	[map from:@"gtio://messageComposer/email/(emailComposerWithOutfitID:)/(subject:)/(body:)" toModalViewController:messageComposer];
-	[map from:@"gtio://messageComposer/textMessage/(textMessageComposerWithOutfitID:)/(body:)" toModalViewController:messageComposer];
+	_messageComposer = [[GTIOMessageComposer alloc] init];
+	[map from:@"gtio://messageComposer/email/(emailComposerWithOutfitID:)/(subject:)/(body:)" toModalViewController:_messageComposer];
+	[map from:@"gtio://messageComposer/textMessage/(textMessageComposerWithOutfitID:)/(body:)" toModalViewController:_messageComposer];
     
 	//[map from:@"gtio://popViewController" toObject:session selector:@selector(popViewController)];
 	[map from:@"gtio://popToRootViewController" toObject:session selector:@selector(popToRootViewController)];
@@ -452,6 +450,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    [_externalURLHelper release];
+    [_messageComposer release];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

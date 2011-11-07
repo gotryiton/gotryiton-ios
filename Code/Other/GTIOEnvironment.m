@@ -59,7 +59,7 @@ RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSStri
 }
 
 void GTIOErrorMessage(NSError* error) {
-    RKReachabilityObserver* observer = [RKObjectManager sharedManager].client.baseURLReachabilityObserver;
+    RKReachabilityObserver* observer = [RKObjectManager sharedManager].client.reachabilityObserver;
     if (![observer isNetworkReachable]) {
         [[[[UIAlertView alloc] initWithTitle:@"" message:@"no internet connection found!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
     } else {
