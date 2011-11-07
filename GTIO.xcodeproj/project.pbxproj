@@ -7982,7 +7982,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Duncan Lewis (585NPZ9785)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Duncan Lewis (585NPZ9785)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -8001,7 +8002,7 @@
 					Libraries/RestKit/Build,
 				);
 				INFOPLIST_FILE = Resources/Info_Staging.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)\\\"",
@@ -8010,7 +8011,8 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "ED067210-A4F7-438C-9BCF-B90E4F4A9140";
+				PROVISIONING_PROFILE = "5ED8C76B-BAB9-4A5E-A6E9-9D9A51F115CF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5ED8C76B-BAB9-4A5E-A6E9-9D9A51F115CF";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -8020,7 +8022,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Duncan Lewis (585NPZ9785)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
@@ -8035,7 +8037,7 @@
 					Libraries/RestKit/Build,
 				);
 				INFOPLIST_FILE = Resources/Info_Staging.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)\\\"",
@@ -8044,7 +8046,7 @@
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "ED067210-A4F7-438C-9BCF-B90E4F4A9140";
+				PROVISIONING_PROFILE = "5ED8C76B-BAB9-4A5E-A6E9-9D9A51F115CF";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
