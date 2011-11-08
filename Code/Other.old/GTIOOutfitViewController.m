@@ -47,6 +47,7 @@
                                                                                   
                                                                                  target:nil 
                                                                                  action:nil] autorelease];
+        
 	}
 	return self;
 }
@@ -124,6 +125,10 @@
 	self.navigationItem.rightBarButtonItem = profileButton;
 	
 	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
+    
+    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {        
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"outfit-navbar.png"] forBarMetrics:UIBarMetricsDefault];
+    }
 	
 	_scrollView = [[GTIOScrollView alloc] initWithFrame:self.view.bounds];
 	_scrollView.delegate = self;
@@ -159,6 +164,10 @@
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to rest background
     [[[TTNavigator navigator].window findFirstResponderInView:self.view] resignFirstResponder];
+    
+    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {        
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
+    }
 }
 
 - (void)goLeftButtonWasPressed:(id)sender {
