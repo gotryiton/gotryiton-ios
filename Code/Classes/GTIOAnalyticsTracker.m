@@ -39,7 +39,7 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 - (void)logEvent:(NSString*)eventName withParameters:(NSDictionary*)params {
     NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithDictionary:params];
     [parameters setObject:[NSNumber numberWithBool:[[GTIOUser currentUser] isLoggedIn]] forKey:kUserLoggedInParameterName];
-    [FlurryAPI logEvent:eventName withParameters:parameters];
+    [FlurryAnalytics logEvent:eventName withParameters:parameters];
 }
 
 #pragma mark Application Lifecycle
@@ -59,12 +59,12 @@ static GTIOAnalyticsTracker* gSharedTracker = nil;
 #pragma mark User Authentication
 
 - (void)trackUserDidLoginForTheFirstTime {
-    [FlurryAPI setUserID:[GTIOUser currentUser].UID];
+    [FlurryAnalytics setUserID:[GTIOUser currentUser].UID];
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidRegisterOniPhoneEventName];
 }
 
 - (void)trackUserDidLogin {
-    [FlurryAPI setUserID:[GTIOUser currentUser].UID];
+    [FlurryAnalytics setUserID:[GTIOUser currentUser].UID];
     [[GTIOAnalyticsTracker sharedTracker] logEvent:kUserDidLoginOniPhoneEventName];
 }
 

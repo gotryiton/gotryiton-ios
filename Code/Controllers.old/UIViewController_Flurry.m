@@ -33,7 +33,7 @@
 
 - (id)init {
     if ((self = invokeSupersequentNoParameters())) {
-        [FlurryAPI logAllPageViews:self];
+        [FlurryAnalytics logAllPageViews:self];
 
     }
     return self;
@@ -45,7 +45,7 @@
 
 - (id)init {
     if ((self = invokeSupersequentNoParameters())) {
-        [FlurryAPI logAllPageViews:self];
+        [FlurryAnalytics logAllPageViews:self];
     }
     return self;
 }

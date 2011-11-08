@@ -67,7 +67,7 @@
 @end
 
 void uncaughtExceptionHandler(NSException *exception) {
-    [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];
+    [FlurryAnalytics logError:@"Uncaught" message:@"Crash!" exception:exception];
 }
 
 @implementation AppDelegate
@@ -264,7 +264,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Initialize Flurry
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-	[FlurryAPI startSession:kGTIOFlurryAPIKey];
+	[FlurryAnalytics startSession:kGTIOFlurryAPIKey];
     
 	[TTStyleSheet setGlobalStyleSheet:[[[GTIOStyleSheet alloc] init] autorelease]];
 	

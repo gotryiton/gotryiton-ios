@@ -118,7 +118,6 @@
 		3F06ED251395403500FC245F /* add-tab-recommended-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F06ED071395403500FC245F /* add-tab-recommended-ON@2x.png */; };
 		3F06ED261395403500FC245F /* add-view-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F06ED081395403500FC245F /* add-view-profile.png */; };
 		3F06ED271395403500FC245F /* add-view-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F06ED091395403500FC245F /* add-view-profile@2x.png */; };
-		3F165DB413B8D752004E6BC0 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E307E7137989380036F86D /* libFlurry.a */; };
 		3F18333F138D64850032CFAF /* GTIOStaticOutfitListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F18333E138D64850032CFAF /* GTIOStaticOutfitListModel.m */; };
 		3F18334F138D685F0032CFAF /* enable-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F183343138D685F0032CFAF /* enable-OFF.png */; };
 		3F183352138D685F0032CFAF /* enable-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F183344138D685F0032CFAF /* enable-OFF@2x.png */; };
@@ -218,6 +217,8 @@
 		3F634B8513B51B8B00B6253E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F634B8113B51B8B00B6253E /* Default@2x.png */; };
 		3F6823B113993A1C00CCE67E /* GTIOBrowseListPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6823B013993A1C00CCE67E /* GTIOBrowseListPresenter.m */; };
 		3F73FA701386BA0800ADB25A /* GTIONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73FA6F1386BA0800ADB25A /* GTIONotification.m */; };
+		3F77329B14697F4500F35813 /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F77329A14697F4500F35813 /* libFlurryAnalytics.a */; };
+		3F77329C14697F4500F35813 /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F77329A14697F4500F35813 /* libFlurryAnalytics.a */; };
 		3F7E49611386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E49601386EF2C00A38A75 /* GTIONotificationsOverlayViewController.m */; };
 		3F82E872137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
 		3F82E877137D765E00F8FE1A /* GTIOBrowseList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E876137D765E00F8FE1A /* GTIOBrowseList.m */; };
@@ -1809,7 +1810,6 @@
 		A7E307D8137988C90036F86D /* GTIOHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E3040C137988C90036F86D /* GTIOHomeViewController.xib */; };
 		A7E307DB137988C90036F86D /* GTIOLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E3040D137988C90036F86D /* GTIOLoginViewController.xib */; };
 		A7E307DE137988C90036F86D /* GTIOWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E3040E137988C90036F86D /* GTIOWelcomeViewController.xib */; };
-		A7E307E8137989380036F86D /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E307E7137989380036F86D /* libFlurry.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1931,20 +1931,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 255B7588133BABBF00ED76AD;
 			remoteInfo = RestKit;
-		};
-		25D5CA8313537374007B6F14 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 25D5CA7A13537374007B6F14 /* UISpec.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C76EB5D20F74586B00EF8398;
-			remoteInfo = UISpec;
-		};
-		25D5CA8513537374007B6F14 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 25D5CA7A13537374007B6F14 /* UISpec.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C7D4F29310BDA39C00B00019;
-			remoteInfo = Specs;
 		};
 		3201088596B4756681693702 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2301,7 +2287,6 @@
 		25D5CA3713536EA1007B6F14 /* StaticResourcesRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticResourcesRoute.m; sourceTree = "<group>"; };
 		25D5CA3813536EA1007B6F14 /* UISpecCommandReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISpecCommandReceiver.h; sourceTree = "<group>"; };
 		25D5CA3913536EA1007B6F14 /* UISpecCommandReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISpecCommandReceiver.m; sourceTree = "<group>"; };
-		25D5CA7A13537374007B6F14 /* UISpec.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UISpec.xcodeproj; path = Libraries/UISpec/xcode/UISpec/UISpec.xcodeproj; sourceTree = "<group>"; };
 		25D5CA8713537385007B6F14 /* libUISpec.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libUISpec.a; sourceTree = SOURCE_ROOT; };
 		3201088596B4756681693700 /* Three20UICommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UICommon.xcodeproj; path = Libraries/three20/src/Three20UICommon/Three20UICommon.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320A2827FEC940B25BC42C60 /* Three20Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Core.xcodeproj; path = Libraries/three20/src/Three20Core/Three20Core.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -2500,6 +2485,8 @@
 		3F6823B013993A1C00CCE67E /* GTIOBrowseListPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrowseListPresenter.m; sourceTree = "<group>"; };
 		3F73FA6E1386BA0800ADB25A /* GTIONotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotification.h; sourceTree = "<group>"; };
 		3F73FA6F1386BA0800ADB25A /* GTIONotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotification.m; sourceTree = "<group>"; };
+		3F77329914697F4500F35813 /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
+		3F77329A14697F4500F35813 /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		3F7E495F1386EF2C00A38A75 /* GTIONotificationsOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotificationsOverlayViewController.h; sourceTree = "<group>"; };
 		3F7E49601386EF2C00A38A75 /* GTIONotificationsOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotificationsOverlayViewController.m; sourceTree = "<group>"; };
 		3F82E870137D707D00F8FE1A /* GTIOBrowseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrowseTableViewController.h; sourceTree = "<group>"; };
@@ -3400,11 +3387,6 @@
 		A7E3040C137988C90036F86D /* GTIOHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTIOHomeViewController.xib; sourceTree = "<group>"; };
 		A7E3040D137988C90036F86D /* GTIOLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTIOLoginViewController.xib; sourceTree = "<group>"; };
 		A7E3040E137988C90036F86D /* GTIOWelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTIOWelcomeViewController.xib; sourceTree = "<group>"; };
-		A7E307E3137989380036F86D /* FlurryAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdDelegate.h; sourceTree = "<group>"; };
-		A7E307E4137989380036F86D /* FlurryAPI+AppCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FlurryAPI+AppCircle.h"; sourceTree = "<group>"; };
-		A7E307E5137989380036F86D /* FlurryOffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryOffer.h; sourceTree = "<group>"; };
-		A7E307E6137989380036F86D /* FlurryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAPI.h; sourceTree = "<group>"; };
-		A7E307E7137989380036F86D /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3443,7 +3425,7 @@
 				2585188E135357C5005DCBA5 /* UIKit.framework in Frameworks */,
 				25851890135357C5005DCBA5 /* Foundation.framework in Frameworks */,
 				25851892135357C5005DCBA5 /* CoreGraphics.framework in Frameworks */,
-				A7E307E8137989380036F86D /* libFlurry.a in Frameworks */,
+				3F77329B14697F4500F35813 /* libFlurryAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3482,7 +3464,7 @@
 				3F86F1A913B8CA50005063FE /* UIKit.framework in Frameworks */,
 				3F86F1AA13B8CA50005063FE /* Foundation.framework in Frameworks */,
 				3F86F1AB13B8CA50005063FE /* CoreGraphics.framework in Frameworks */,
-				3F165DB413B8D752004E6BC0 /* libFlurry.a in Frameworks */,
+				3F77329C14697F4500F35813 /* libFlurryAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3583,7 +3565,6 @@
 				3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */,
 				3FCBF2231370820B0039D779 /* facebook-ios-sdk.xcodeproj */,
 				3FCBEA02137065930039D779 /* JanRain */,
-				25D5CA7A13537374007B6F14 /* UISpec.xcodeproj */,
 				25D5C9B913536EA1007B6F14 /* frank_static_resources.bundle */,
 				25D5C9BA13536EA1007B6F14 /* lib */,
 				25D5CA1F13536EA1007B6F14 /* src */,
@@ -3880,15 +3861,6 @@
 			);
 			name = src;
 			path = Libraries/Frank/src;
-			sourceTree = "<group>";
-		};
-		25D5CA7B13537374007B6F14 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				25D5CA8413537374007B6F14 /* libUISpec.a */,
-				25D5CA8613537374007B6F14 /* Specs.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		3201088596B4756681693703 /* Products */ = {
@@ -5599,22 +5571,11 @@
 		A7E307E1137989380036F86D /* FlurryLib */ = {
 			isa = PBXGroup;
 			children = (
-				A7E307E2137989380036F86D /* AppCircle */,
-				A7E307E6137989380036F86D /* FlurryAPI.h */,
-				A7E307E7137989380036F86D /* libFlurry.a */,
+				3F77329914697F4500F35813 /* FlurryAnalytics.h */,
+				3F77329A14697F4500F35813 /* libFlurryAnalytics.a */,
 			);
 			name = FlurryLib;
 			path = Libraries/FlurryLib;
-			sourceTree = "<group>";
-		};
-		A7E307E2137989380036F86D /* AppCircle */ = {
-			isa = PBXGroup;
-			children = (
-				A7E307E3137989380036F86D /* FlurryAdDelegate.h */,
-				A7E307E4137989380036F86D /* FlurryAPI+AppCircle.h */,
-				A7E307E5137989380036F86D /* FlurryOffer.h */,
-			);
-			path = AppCircle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -5732,10 +5693,6 @@
 				{
 					ProductGroup = 3FE8B3F81372F03F00514FE5 /* Products */;
 					ProjectRef = 3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */;
-				},
-				{
-					ProductGroup = 25D5CA7B13537374007B6F14 /* Products */;
-					ProjectRef = 25D5CA7A13537374007B6F14 /* UISpec.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -5857,20 +5814,6 @@
 			fileType = wrapper.cfbundle;
 			path = UINavigatorUnitTests.octest;
 			remoteRef = 25D5C8B313535B5E007B6F14 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		25D5CA8413537374007B6F14 /* libUISpec.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libUISpec.a;
-			remoteRef = 25D5CA8313537374007B6F14 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		25D5CA8613537374007B6F14 /* Specs.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Specs.app;
-			remoteRef = 25D5CA8513537374007B6F14 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3201088596B4756681693704 /* libThree20UICommon.a */ = {

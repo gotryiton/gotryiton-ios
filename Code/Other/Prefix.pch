@@ -25,7 +25,7 @@
 #import "TTViewController+GTIOAdditions.h"
 
 // Pull in Flurry
-#import "FlurryAPI.h"
+#import "FlurryAnalytics.h"
 
 //
 #import "GTIOBarButtonItem.h"
