@@ -29,11 +29,13 @@
         _personalStylistLabel.text = @"personal stylists";
         _personalStylistLabel.textColor = RGBCOLOR(128,128,128);
         _personalStylistLabel.font = [UIFont boldSystemFontOfSize:16];
+        _personalStylistLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_personalStylistLabel];
         
         _aditionalTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _aditionalTextLabel.textColor = RGBCOLOR(128,128,128);
         _aditionalTextLabel.font = [UIFont systemFontOfSize:16];
+        _aditionalTextLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_aditionalTextLabel];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;

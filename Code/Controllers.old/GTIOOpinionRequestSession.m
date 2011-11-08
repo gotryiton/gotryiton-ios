@@ -245,6 +245,11 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	UIImagePickerController* imagePickerController = [[UIImagePickerController alloc] init];
 	imagePickerController.sourceType = sourceType;
 	imagePickerController.delegate = self;
+    
+    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {
+        [imagePickerController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    }
+    
 	[self.topViewController presentModalViewController:imagePickerController animated:YES];
 	[imagePickerController release];
 }

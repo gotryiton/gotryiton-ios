@@ -79,7 +79,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
 //    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
 //    RKLogConfigureByName("RestKit/Network/*", kGTIONetworkLogLevel);
-    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace);
+//    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace);
     
     RKObjectMappingProvider* provider = [[[RKObjectMappingProvider alloc] init] autorelease];
     
@@ -270,6 +270,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	TTNavigator* navigator = [TTNavigator navigator];
 	navigator.persistenceMode = TTNavigatorPersistenceModeNone;
+    
+    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
+    }
 	
 	[[TTURLRequestQueue mainQueue] setMaxContentLength:0];
 	

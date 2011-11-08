@@ -67,6 +67,7 @@
         _tellUsAboutItPlaceholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 275, 35)];
         _tellUsAboutItPlaceholderLabel.textColor = [UIColor lightGrayColor];
         _tellUsAboutItPlaceholderLabel.font = [UIFont italicSystemFontOfSize:14];
+        _tellUsAboutItPlaceholderLabel.backgroundColor = [UIColor clearColor];
         _tellUsAboutItPlaceholderLabel.numberOfLines = 2;
         _tellUsAboutItPlaceholderLabel.text = @"e.g. I'm going for a bohemian style that is chic but not too much...";
         [_tellUsMoreAboutItTextView addSubview:_tellUsAboutItPlaceholderLabel];
@@ -119,6 +120,7 @@
 	TTTextEditor* textView = [[TTTextEditor alloc] init];
 	textView.delegate = self;
 	textView.textColor = TTSTYLEVAR(greyTextColor);
+    textView.backgroundColor = [UIColor clearColor];
 	textView.font = [UIFont systemFontOfSize:14];
 	[textView setShowsExtraLine:YES];
 	textView.text = photo.brandsYouAreWearing;    
@@ -165,6 +167,7 @@
         _brandsPlaceholderTextLabel.textColor = [UIColor lightGrayColor];
         _brandsPlaceholderTextLabel.font = [UIFont italicSystemFontOfSize:14];
         _brandsPlaceholderTextLabel.numberOfLines = 1;
+        _brandsPlaceholderTextLabel.backgroundColor = [UIColor clearColor];
         _brandsPlaceholderTextLabel.text = @"Anthropologie, Top Shop, Zara";
         [brandsTextView addSubview:_brandsPlaceholderTextLabel];
         [_brandsPlaceholderTextLabel release];
