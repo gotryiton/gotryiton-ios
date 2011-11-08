@@ -107,9 +107,12 @@
         [indexPaths addObject:ip];
         // Now remove items
         int row = ip.row;
-        GTIOOutfitTableViewItem* item = [ds.items objectAtIndex:row]; // Pretty sure this is the cause of the TODO crashes, but I can't prove it. JBE.
-        [newItems removeObject:item];
-        [newOutfits removeObject:item.outfit];
+        // Guard against TODO's crash. Don't allow removing an out of bounds object.
+        if ([ds.items count] > row) {
+            GTIOOutfitTableViewItem* item = [ds.items objectAtIndex:row];
+            [newItems removeObject:item];
+            [newOutfits removeObject:item.outfit];
+        }
     }
     [ds setItems:newItems];
     [(GTIOBrowseListTTModel*)ds.model setObjects:newOutfits];

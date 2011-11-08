@@ -66,6 +66,7 @@
 }
 
 - (void)dealloc {
+    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
     _loader.delegate = nil;
     [_loader cancel];
     _loader = nil;
@@ -77,7 +78,6 @@
 	[_model.delegates removeObject:self];
 	[_model release];
 	_model = nil;
-    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
     [super dealloc];
 }
 
