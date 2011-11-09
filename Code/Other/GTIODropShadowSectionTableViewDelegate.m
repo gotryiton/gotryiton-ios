@@ -14,7 +14,11 @@
 @synthesize footerHeight = _footerHeight;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 25.0f;
+    if(nil != [self tableView:tableView viewForHeaderInSection:section]) {
+        return 25.0f;
+    } else {
+        return 0;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
