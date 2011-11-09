@@ -44,7 +44,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3.1.2.1</string>
+	<string>3.1.2.3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
@@ -62,7 +62,7 @@
 	<array/>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
-		<string>ld: warning: directory not found for option '-L"/Users/jeremy/twotoasters/GTIOv3/Libraries/FlurryLib"'
+		<string>ld: warning: directory not found for option &apos;-L&quot;/Users/jeremy/twotoasters/GTIOv3/Libraries/FlurryLib&quot;&apos;
 </string>
 	</array>
 </dict>

@@ -1381,6 +1381,10 @@
 		3FE5F23313B0EDC1002B3746 /* list-refresh-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F22713B0EDC1002B3746 /* list-refresh-OFF@2x.png */; };
 		3FE5F23613B0EDC1002B3746 /* list-refresh-ON.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F22813B0EDC1002B3746 /* list-refresh-ON.png */; };
 		3FE5F23913B0EDC1002B3746 /* list-refresh-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F22913B0EDC1002B3746 /* list-refresh-ON@2x.png */; };
+		3FED45DF146AF45C00B8587F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FED45DB146AF45C00B8587F /* libTestFlight.a */; };
+		3FED45E0146AF45C00B8587F /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3FED45DC146AF45C00B8587F /* README.txt */; };
+		3FED45E1146AF45C00B8587F /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3FED45DD146AF45C00B8587F /* release_notes.txt */; };
+		3FED45EF146AF7E600B8587F /* Crittercism_v2_9_27.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FED45E4146AF7E600B8587F /* Crittercism_v2_9_27.a */; };
 		3FED55591385ACF2004743A2 /* NSObject_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED55581385ACF2004743A2 /* NSObject_Additions.m */; };
 		3FF661C813C6513E0003D120 /* GTIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BD1379887F0036F86D /* GTIOLoginViewController.m */; };
 		3FFBE1DA13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFBE1D913855F4F000C5CB5 /* GTIOAddStylistsViewController.m */; };
@@ -1813,20 +1817,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		136B4F0D1469772500782D0B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 320A5A189C235877202780D0 /* Three20Network.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 662D81EF12630516005851C2;
-			remoteInfo = "Three20Network-Xcode3.2.5";
-		};
-		136B4F0F1469772500782D0B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 320A5A189C235877202780D0 /* Three20Network.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 662D81B2126304EB005851C2;
-			remoteInfo = "Three20NetworkUnitTests-Xcode3.2.5";
-		};
 		13A71C06146468CD00D2F678 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
@@ -2127,6 +2117,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
 			remoteInfo = Three20Style;
+		};
+		3FB7B5EC1469D227007C3BED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 320A5A189C235877202780D0 /* Three20Network.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 662D81EF12630516005851C2;
+			remoteInfo = "Three20Network-Xcode3.2.5";
+		};
+		3FB7B5EE1469D227007C3BED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 320A5A189C235877202780D0 /* Three20Network.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 662D81B2126304EB005851C2;
+			remoteInfo = "Three20NetworkUnitTests-Xcode3.2.5";
 		};
 		3FC1E81C13A8F71600646EEE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2852,6 +2856,22 @@
 		3FE5F22813B0EDC1002B3746 /* list-refresh-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-refresh-ON.png"; sourceTree = "<group>"; };
 		3FE5F22913B0EDC1002B3746 /* list-refresh-ON@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-refresh-ON@2x.png"; sourceTree = "<group>"; };
 		3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TWTCommon.xcodeproj; path = Libraries/TWTCommon/TWTCommon.xcodeproj; sourceTree = "<group>"; };
+		3FED45DB146AF45C00B8587F /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		3FED45DC146AF45C00B8587F /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		3FED45DD146AF45C00B8587F /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		3FED45DE146AF45C00B8587F /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		3FED45E3146AF7E600B8587F /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
+		3FED45E4146AF7E600B8587F /* Crittercism_v2_9_27.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = Crittercism_v2_9_27.a; sourceTree = "<group>"; };
+		3FED45E5146AF7E600B8587F /* CrittercismAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismAboutViewController.h; sourceTree = "<group>"; };
+		3FED45E6146AF7E600B8587F /* CrittercismAddCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismAddCommentViewController.h; sourceTree = "<group>"; };
+		3FED45E7146AF7E600B8587F /* CrittercismAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismAddViewController.h; sourceTree = "<group>"; };
+		3FED45E8146AF7E600B8587F /* CrittercismDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismDescriptionViewController.h; sourceTree = "<group>"; };
+		3FED45E9146AF7E600B8587F /* CrittercismJSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismJSONKit.h; sourceTree = "<group>"; };
+		3FED45EA146AF7E600B8587F /* CrittercismNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismNavigationView.h; sourceTree = "<group>"; };
+		3FED45EB146AF7E600B8587F /* CrittercismReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismReachability.h; sourceTree = "<group>"; };
+		3FED45EC146AF7E600B8587F /* CrittercismRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismRootViewController.h; sourceTree = "<group>"; };
+		3FED45ED146AF7E600B8587F /* CrittercismUIAlertPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismUIAlertPrompt.h; sourceTree = "<group>"; };
+		3FED45EE146AF7E600B8587F /* CrittercismViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismViewController.h; sourceTree = "<group>"; };
 		3FED55571385ACF2004743A2 /* NSObject_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObject_Additions.h; sourceTree = "<group>"; };
 		3FED55581385ACF2004743A2 /* NSObject_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObject_Additions.m; sourceTree = "<group>"; };
 		3FF11362138190300093764D /* GTIOBrowseTableViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOBrowseTableViewControllerSpec.m; path = Specs/Controllers/GTIOBrowseTableViewControllerSpec.m; sourceTree = "<group>"; };
@@ -3440,6 +3460,7 @@
 				25851890135357C5005DCBA5 /* Foundation.framework in Frameworks */,
 				25851892135357C5005DCBA5 /* CoreGraphics.framework in Frameworks */,
 				3F77329B14697F4500F35813 /* libFlurryAnalytics.a in Frameworks */,
+				3FED45EF146AF7E600B8587F /* Crittercism_v2_9_27.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3479,6 +3500,7 @@
 				3F86F1AA13B8CA50005063FE /* Foundation.framework in Frameworks */,
 				3F86F1AB13B8CA50005063FE /* CoreGraphics.framework in Frameworks */,
 				3F77329C14697F4500F35813 /* libFlurryAnalytics.a in Frameworks */,
+				3FED45DF146AF45C00B8587F /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3574,6 +3596,8 @@
 		258518AC135357D0005DCBA5 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				3FED45E2146AF7E600B8587F /* CrittercismSDK-crashreporting-only */,
+				3FED45DA146AF45C00B8587F /* TestFlightSDK0.7.2 (1) */,
 				A76206EF1379D37500DFBD66 /* TTTAttributedLabel */,
 				A7E307E1137989380036F86D /* FlurryLib */,
 				3FE8B3F71372F03F00514FE5 /* TWTCommon.xcodeproj */,
@@ -3899,9 +3923,9 @@
 			isa = PBXGroup;
 			children = (
 				320A5A189C235877202780D4 /* libThree20Network.a */,
-				136B4F0E1469772500782D0B /* libThree20Network-Xcode3.2.5.a */,
+				3FB7B5ED1469D227007C3BED /* libThree20Network-Xcode3.2.5.a */,
 				25D5C8A813535B5E007B6F14 /* NetworkUnitTests.octest */,
-				136B4F101469772500782D0B /* NetworkUnitTests-Xcode3.2.5.octest */,
+				3FB7B5EF1469D227007C3BED /* NetworkUnitTests-Xcode3.2.5.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4692,6 +4716,36 @@
 				3FE8B3FC1372F03F00514FE5 /* libTWTCommon.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3FED45DA146AF45C00B8587F /* TestFlightSDK0.7.2 (1) */ = {
+			isa = PBXGroup;
+			children = (
+				3FED45DB146AF45C00B8587F /* libTestFlight.a */,
+				3FED45DC146AF45C00B8587F /* README.txt */,
+				3FED45DD146AF45C00B8587F /* release_notes.txt */,
+				3FED45DE146AF45C00B8587F /* TestFlight.h */,
+			);
+			path = "TestFlightSDK0.7.2 (1)";
+			sourceTree = "<group>";
+		};
+		3FED45E2146AF7E600B8587F /* CrittercismSDK-crashreporting-only */ = {
+			isa = PBXGroup;
+			children = (
+				3FED45E3146AF7E600B8587F /* Crittercism.h */,
+				3FED45E4146AF7E600B8587F /* Crittercism_v2_9_27.a */,
+				3FED45E5146AF7E600B8587F /* CrittercismAboutViewController.h */,
+				3FED45E6146AF7E600B8587F /* CrittercismAddCommentViewController.h */,
+				3FED45E7146AF7E600B8587F /* CrittercismAddViewController.h */,
+				3FED45E8146AF7E600B8587F /* CrittercismDescriptionViewController.h */,
+				3FED45E9146AF7E600B8587F /* CrittercismJSONKit.h */,
+				3FED45EA146AF7E600B8587F /* CrittercismNavigationView.h */,
+				3FED45EB146AF7E600B8587F /* CrittercismReachability.h */,
+				3FED45EC146AF7E600B8587F /* CrittercismRootViewController.h */,
+				3FED45ED146AF7E600B8587F /* CrittercismUIAlertPrompt.h */,
+				3FED45EE146AF7E600B8587F /* CrittercismViewController.h */,
+			);
+			path = "CrittercismSDK-crashreporting-only";
 			sourceTree = "<group>";
 		};
 		3FFCBC4813A7BDAE0061A28A /* featured-assets */ = {
@@ -5720,20 +5774,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		136B4F0E1469772500782D0B /* libThree20Network-Xcode3.2.5.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libThree20Network-Xcode3.2.5.a";
-			remoteRef = 136B4F0D1469772500782D0B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		136B4F101469772500782D0B /* NetworkUnitTests-Xcode3.2.5.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "NetworkUnitTests-Xcode3.2.5.octest";
-			remoteRef = 136B4F0F1469772500782D0B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		13A71C07146468CD00D2F678 /* libRestKitJSONParserNXJSON.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -5907,6 +5947,20 @@
 			fileType = archive.ar;
 			path = libRestKitXMLParserLibxml.a;
 			remoteRef = 3F22EE041371F08A0000FCA9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3FB7B5ED1469D227007C3BED /* libThree20Network-Xcode3.2.5.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libThree20Network-Xcode3.2.5.a";
+			remoteRef = 3FB7B5EC1469D227007C3BED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3FB7B5EF1469D227007C3BED /* NetworkUnitTests-Xcode3.2.5.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "NetworkUnitTests-Xcode3.2.5.octest";
+			remoteRef = 3FB7B5EE1469D227007C3BED /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3FCBF22B1370820B0039D779 /* libfacebook_ios_sdk.a */ = {
@@ -7358,6 +7412,8 @@
 				3FC7E0A813EC4021005EEA7B /* todos-community-empty-no-stylists@2x.png in Resources */,
 				13D1749D14643DBE00E951C2 /* thumb-review-empty.png in Resources */,
 				13D1749F14643DBE00E951C2 /* thumb-review-empty@2x.png in Resources */,
+				3FED45E0146AF45C00B8587F /* README.txt in Resources */,
+				3FED45E1146AF45C00B8587F /* release_notes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7912,6 +7968,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Specs/Support/OCMock\"",
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
+					"\"$(SRCROOT)/CrittercismSDK-crashreporting-only\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
@@ -7943,6 +8000,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Specs/Support/OCMock\"",
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
+					"\"$(SRCROOT)/CrittercismSDK-crashreporting-only\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
@@ -7955,8 +8013,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Duncan Lewis (585NPZ9785)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Duncan Lewis (585NPZ9785)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -7981,10 +8038,10 @@
 					"\\\"$(SRCROOT)/Specs/Support/OCMock\\\"",
 					"\\\"$(SRCROOT)/Libraries/FlurryLib\\\"",
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
+					"\"$(SRCROOT)/TestFlightSDK0.7.2 (1)\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "5ED8C76B-BAB9-4A5E-A6E9-9D9A51F115CF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5ED8C76B-BAB9-4A5E-A6E9-9D9A51F115CF";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
@@ -7995,8 +8052,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Duncan Lewis (585NPZ9785)";
-				COPY_PHASE_STRIP = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "GTIO_ENVIRONMENT=2";
@@ -8016,9 +8073,10 @@
 					"\\\"$(SRCROOT)/Specs/Support/OCMock\\\"",
 					"\\\"$(SRCROOT)/Libraries/FlurryLib\\\"",
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
+					"\"$(SRCROOT)/TestFlightSDK0.7.2 (1)\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "5ED8C76B-BAB9-4A5E-A6E9-9D9A51F115CF";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
