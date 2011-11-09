@@ -254,7 +254,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20.0f;
+    if(nil != [self tableView:tableView viewForHeaderInSection:section]) {
+        return 20.0f;
+    } else {
+        return 0;
+    }
 }
 
 @end

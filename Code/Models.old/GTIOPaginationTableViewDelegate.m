@@ -146,7 +146,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20;
+    if(nil != [self tableView:tableView viewForHeaderInSection:section]) {
+        return 20;
+    } else {
+        return 0;
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (![tableView.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
