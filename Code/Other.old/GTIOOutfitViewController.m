@@ -125,10 +125,6 @@
 	self.navigationItem.rightBarButtonItem = profileButton;
 	
 	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
-    
-    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {        
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"outfit-navbar.png"] forBarMetrics:UIBarMetricsDefault];
-    }
 	
 	_scrollView = [[GTIOScrollView alloc] initWithFrame:self.view.bounds];
 	_scrollView.delegate = self;
@@ -150,6 +146,10 @@
     
     [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to get custom background
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    
+    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {        
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"outfit-navbar.png"] forBarMetrics:UIBarMetricsDefault];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
