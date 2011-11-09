@@ -34,6 +34,8 @@ typedef enum {
    	UIImageView* _headerShadowView;
     
     RKObjectLoader* _loader;
+    
+    UINavigationController* _ourNavigationController; // Used to fix the navigation bar after we dissappear.
 }
 /// current state of the view controller 
 @property (nonatomic, assign) GTIOOutfitViewState state;

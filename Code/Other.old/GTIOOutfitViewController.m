@@ -163,9 +163,16 @@
     [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to rest background
     [[[TTNavigator navigator].window findFirstResponderInView:self.view] resignFirstResponder];
     
-    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {        
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
+    _ourNavigationController = self.navigationController;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {
+        NSLog(@"Navigation Controller: %@", self.navigationController.navigationBar);
+        [_ourNavigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
     }
+    _ourNavigationController = nil;
+    [super viewDidDisappear:animated];
 }
 
 - (void)goLeftButtonWasPressed:(id)sender {
