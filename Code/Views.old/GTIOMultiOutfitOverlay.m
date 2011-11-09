@@ -159,10 +159,10 @@
 - (void)setOutfit:(GTIOOutfit *)outfit {
 	[self setOutfitWithoutResettingOverlay:outfit];
     
-//    [_look1 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
-//    [_look2 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
-//    [_look3 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
-//    [_look4 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
+    [_look1 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
+    [_look2 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
+    [_look3 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
+    [_look4 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
 	
 	_lookIndex = 0;
 	_look1.urlPath = [[[_outfit photos] objectAtIndex:0] valueForKey:@"multiThumb"];
