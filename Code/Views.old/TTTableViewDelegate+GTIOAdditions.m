@@ -11,7 +11,11 @@
 @implementation TTTableViewDelegate (GTIOAdditions)
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	return 35;
+    if(nil != [self tableView:tableView viewForHeaderInSection:section]) {
+        return 35;
+    } else {
+        return 0;
+    }
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
