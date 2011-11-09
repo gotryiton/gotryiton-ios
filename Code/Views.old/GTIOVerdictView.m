@@ -113,10 +113,12 @@ CGRect labelFrameFromButtonFrame(CGRect buttonFrame) {
 		_reasonLabel.text = nil;
 	}
 	
-	NSString* text = [NSString stringWithFormat:@"VERDICT %@", [_resultSet.verdict uppercaseString]];
-	CGSize size = [text sizeWithFont:TTSTYLEVAR(verdictLabelFont)];
+//	NSString* text = [NSString stringWithFormat:@"VERDICT %@", [_resultSet.verdict uppercaseString]];
+//	CGSize size = [text sizeWithFont:TTSTYLEVAR(verdictLabelFont)];
+    
 	NSString* html = [NSString stringWithFormat:@"<span class='verdictLabelStyle'>VERDICT </span><span class='verdictTextStyle'>%@</span>", [_resultSet.verdict uppercaseString]];
 	_verdictLabel.html = html;
+    CGSize size = [html sizeWithFont:TTSTYLEVAR(verdictLabelFont)];
 	_verdictLabel.frame = CGRectMake(0, 0, size.width+1, size.height);
 	
 	for (UILabel* label in [NSArray arrayWithObjects:_wear1CountLabel, _wear2CountLabel, _wear3CountLabel, _wear4CountLabel, _changeItCountLabel, nil]) {
