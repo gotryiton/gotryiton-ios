@@ -115,6 +115,7 @@ CGRect labelFrameFromButtonFrame(CGRect buttonFrame) {
 	
 	NSString* text = [NSString stringWithFormat:@"VERDICT %@", [_resultSet.verdict uppercaseString]];
 	CGSize size = [text sizeWithFont:TTSTYLEVAR(verdictLabelFont)];
+    
 	NSString* html = [NSString stringWithFormat:@"<span class='verdictLabelStyle'>VERDICT </span><span class='verdictTextStyle'>%@</span>", [_resultSet.verdict uppercaseString]];
 	_verdictLabel.html = html;
 	_verdictLabel.frame = CGRectMake(0, 0, size.width+1, size.height);
