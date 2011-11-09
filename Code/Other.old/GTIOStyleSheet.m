@@ -239,11 +239,11 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 }
 
 - (UIFont*)verdictLabelFont {
-	return kGTIOFontHelveticaNeueOfSize(14.5);
+	return kGTIOFontBoldHelveticaNeueOfSize(14);
 }
 
 - (TTStyle*)verdictLabelStyle {
-	TTTextStyle* style = [TTTextStyle styleWithFont:kGTIOFontBoldHelveticaNeueOfSize(14) color:[UIColor whiteColor] next:nil];
+	TTTextStyle* style = [TTTextStyle styleWithFont:[self verdictLabelFont] color:[UIColor whiteColor] next:nil];
 	return style;
 }
 
