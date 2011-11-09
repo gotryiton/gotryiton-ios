@@ -57,7 +57,7 @@ NSMutableArray* allOutfits;
 }
 
 - (void)dealloc {
-	[allOutfits removeObject:self];
+	[allOutfits removeObjectIdenticalTo:self];
 	
 	[_results release];
 	[_photos release];
@@ -94,6 +94,7 @@ NSMutableArray* allOutfits;
 }
 
 + (GTIOOutfit*)outfitWithOutfitID:(NSString*)oid {
+    NSLog(@"Outfit IDs: %@", [allOutfits valueForKeyPath:@"outfitID"]);
 	return [allOutfits objectWithValue:oid forKey:@"outfitID"];
 }
 

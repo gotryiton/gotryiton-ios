@@ -58,11 +58,30 @@ RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSStri
     return [RKObjectAttributeMapping mappingFromKeyPath:keyPath toKeyPath:attribute];
 }
 
+UIAlertView* errorAlertView = nil;
+
+@interface GTIOErrorDelegate : NSObject
+@end
+
+@implementation GTIOErrorDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    errorAlertView = nil;
+    [self autorelease];
+}
+
+@end
+
 void GTIOErrorMessage(NSError* error) {
+    if (errorAlertView) {
+        // Already showing connection failure alert, don't show again.
+        return;
+    }
     RKReachabilityObserver* observer = [RKObjectManager sharedManager].client.reachabilityObserver;
     if (![observer isNetworkReachable]) {
-        [[[[UIAlertView alloc] initWithTitle:@"" message:@"no internet connection found!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+        errorAlertView = [[[UIAlertView alloc] initWithTitle:@"" message:@"no internet connection found!" delegate:[GTIOErrorDelegate new] cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
     } else {
-        [[[[UIAlertView alloc] initWithTitle:@"" message:@"GO TRY IT ON central isn't responding right now." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+        errorAlertView = [[[UIAlertView alloc] initWithTitle:@"" message:@"GO TRY IT ON central isn't responding right now." delegate:[GTIOErrorDelegate new] cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
     }
+    [errorAlertView show];
 }

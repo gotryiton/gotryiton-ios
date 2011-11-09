@@ -42,6 +42,8 @@
 #import "GTIOExtraProfileRow.h"
 #import "GTIOStylistsQuickLook.h"
 #import "GTIOPushPersonalStylistsViewController.h"
+#import "TestFlight.h"
+#import "Crittercism.h"
 
 @interface NSURLRequest(anyssl)
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host;
@@ -262,8 +264,19 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
+    [TestFlight takeOff:@"25547739e2554e6dbe9fd5bbb3e0f6db_NzcwMg"];
+    #else
+    [Crittercism initWithAppID: @"4ebabf0eddf5206d3a0001e4"
+                        andKey:@"4ebabf0eddf5206d3a0001e4h9zr6giv"
+                     andSecret:@"puwfoyudx1oci7lsajbghwb5ekjq08g2"
+         andMainViewController:nil];
+
+    #endif
+    
 	// Initialize Flurry
-	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    // Don't use flurry's exception handling anymore. use crittercism or testflight.
+//	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	[FlurryAnalytics startSession:kGTIOFlurryAPIKey];
     
 	[TTStyleSheet setGlobalStyleSheet:[[[GTIOStyleSheet alloc] init] autorelease]];
@@ -553,7 +566,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         TTOpenURL(@"gtio://home");
     }
     GTIOUser* user = [GTIOUser currentUser];
-    if ([user.stylistsCount intValue] == 0 && _showStylistPush && ![user.showAlmostDoneScreen boolValue]) {
+    if (user.stylistsCount != nil && [user.stylistsCount intValue] == 0 && _showStylistPush && ![user.showAlmostDoneScreen boolValue]) {
         // Wait for other navigations to finish
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
         TTOpenURL(@"gtio://pushStylists");
