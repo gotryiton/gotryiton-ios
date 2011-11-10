@@ -217,6 +217,10 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	[submission send];
 }
 
+- (void)hideLoading {
+	[[self.window viewWithTag:kGTIOActivityLabelTag] removeFromSuperview];
+}
+
 - (void)shareWithContacts {
 	TTOpenURL(@"gtio://analytics/trackUserDidViewContacts");
 	NSDictionary* query = [NSDictionary dictionaryWithObject:self.opinionRequest forKey:@"opinionRequest"];
@@ -424,7 +428,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	// Remove the photos
 	[_opinionRequest.photos removeAllObjects];
 	
-	[[self.window viewWithTag:kGTIOActivityLabelTag] removeFromSuperview];
+    [self hideLoading];
 	
     UIViewController* homeController = TTOpenURL(@"gtio://home");
     
@@ -446,7 +450,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 }
 
 - (void)submission:(GTIOOpinionRequestSubmission*)submission didFailWithErrorMessage:(NSString*)errorMessage {
-	[[self.window viewWithTag:kGTIOActivityLabelTag] removeFromSuperview];
+    [self hideLoading];
 	UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Rats! An error occurred" 
 														message:errorMessage
 													   delegate:nil 

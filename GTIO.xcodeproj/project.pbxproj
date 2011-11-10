@@ -1374,6 +1374,8 @@
 		3FDCD46E13B505A80001311A /* tabs3-2-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46813B505A80001311A /* tabs3-2-off@2x.png */; };
 		3FDCD47113B505A80001311A /* tabs3-2-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46913B505A80001311A /* tabs3-2-on.png */; };
 		3FDCD47413B505A80001311A /* tabs3-2-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCD46A13B505A80001311A /* tabs3-2-on@2x.png */; };
+		3FDE8C41146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDE8C40146C756C002A2840 /* GTIOSpinnerImageView.m */; };
+		3FDE8C42146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDE8C40146C756C002A2840 /* GTIOSpinnerImageView.m */; };
 		3FE5F22013AF9D17002B3746 /* GTIOStylistsQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */; };
 		3FE5F22A13B0EDC1002B3746 /* empty-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F22413B0EDC1002B3746 /* empty-list.png */; };
 		3FE5F22D13B0EDC1002B3746 /* empty-list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F22513B0EDC1002B3746 /* empty-list@2x.png */; };
@@ -2847,6 +2849,8 @@
 		3FDCD46813B505A80001311A /* tabs3-2-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-off@2x.png"; sourceTree = "<group>"; };
 		3FDCD46913B505A80001311A /* tabs3-2-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-on.png"; sourceTree = "<group>"; };
 		3FDCD46A13B505A80001311A /* tabs3-2-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-2-on@2x.png"; sourceTree = "<group>"; };
+		3FDE8C3F146C756C002A2840 /* GTIOSpinnerImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSpinnerImageView.h; sourceTree = "<group>"; };
+		3FDE8C40146C756C002A2840 /* GTIOSpinnerImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSpinnerImageView.m; sourceTree = "<group>"; };
 		3FE5F21E13AF9D17002B3746 /* GTIOStylistsQuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOStylistsQuickLook.h; sourceTree = "<group>"; };
 		3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOStylistsQuickLook.m; sourceTree = "<group>"; };
 		3FE5F22413B0EDC1002B3746 /* empty-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty-list.png"; sourceTree = "<group>"; };
@@ -4784,6 +4788,8 @@
 				3DA635321386E1A80081BE1A /* GTIOOutfitTitleView.m */,
 				3F219A75140FC3690035AE25 /* GTIOPlaceholderTextField.h */,
 				3F219A76140FC3690035AE25 /* GTIOPlaceholderTextField.m */,
+				3FDE8C3F146C756C002A2840 /* GTIOSpinnerImageView.h */,
+				3FDE8C40146C756C002A2840 /* GTIOSpinnerImageView.m */,
 			);
 			name = Views;
 			path = Code/Views;
@@ -7583,6 +7589,7 @@
 				3FF661C813C6513E0003D120 /* GTIOLoginViewController.m in Sources */,
 				3F330787140E7033000625EA /* GTIOViewController.m in Sources */,
 				3F219A77140FC3690035AE25 /* GTIOPlaceholderTextField.m in Sources */,
+				3FDE8C41146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7749,6 +7756,7 @@
 				3F8E238413BCF29B00BBD2EE /* GTIOPushPersonalStylistsViewController.m in Sources */,
 				3F330788140E7033000625EA /* GTIOViewController.m in Sources */,
 				3F219A78140FC3690035AE25 /* GTIOPlaceholderTextField.m in Sources */,
+				3FDE8C42146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8013,7 +8021,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -8041,7 +8049,7 @@
 					"\"$(SRCROOT)/TestFlightSDK0.7.2 (1)\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5ED8C76B-BAB9-4A5E-A6E9-9D9A51F115CF";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -8051,7 +8059,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
@@ -8075,7 +8083,7 @@
 					"\"$(SRCROOT)/TestFlightSDK0.7.2 (1)\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5ED8C76B-BAB9-4A5E-A6E9-9D9A51F115CF";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;

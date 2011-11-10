@@ -67,10 +67,8 @@
 }
 
 - (void)dealloc {
-    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
     _loader.delegate = nil;
-    [_loader cancel];
-    _loader = nil;
+    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
 	[_scrollViewDataSource release];
 	_scrollViewDataSource = nil;
     [_scrollView release];
