@@ -105,6 +105,7 @@
 		for (NSDictionary* photo in _outfit.photos) {
             CGRect frame = CGRectMake(offset + i * photoWidth, 6, photoWidth, photoHeight);
 			TTImageView* photoView = [[TTImageView alloc] initWithFrame:frame];
+            [photoView setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
 			photoView.urlPath = [photo valueForKey:@"multiThumb"];
 			[headerView addSubview:photoView];
             [_imageViews addObject:photoView];
