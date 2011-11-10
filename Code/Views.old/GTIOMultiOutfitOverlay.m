@@ -43,11 +43,6 @@
 		_look4 = [[TTImageView alloc] initWithFrame:CGRectZero];
 		[self addSubview:_look4];
         
-        [_look1 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
-        [_look2 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
-        [_look3 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
-        [_look4 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
-        
 		_textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_textLabel.backgroundColor = [UIColor clearColor];
 		_textLabel.textColor = [UIColor whiteColor];
@@ -158,11 +153,6 @@
 
 - (void)setOutfit:(GTIOOutfit *)outfit {
 	[self setOutfitWithoutResettingOverlay:outfit];
-    
-    [_look1 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
-    [_look2 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
-    [_look3 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
-    [_look4 setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
 	
 	_lookIndex = 0;
 	_look1.urlPath = [[[_outfit photos] objectAtIndex:0] valueForKey:@"multiThumb"];
