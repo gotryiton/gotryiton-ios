@@ -131,6 +131,7 @@
 		headerView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,320-12,96)];
         CGRect frame = CGRectMake(6, 6, photoWidth, photoHeight);
 		TTImageView* photoView = [[TTImageView alloc] initWithFrame:frame];
+        [photoView setDefaultImage:[UIImage imageNamed:@"thumb-review-empty.png"]];
 		
 		NSDictionary* photo = [_outfit.photos objectAtIndex:0];
 		photoView.urlPath = [photo valueForKey:@"multiThumb"];
