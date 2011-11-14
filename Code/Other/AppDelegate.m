@@ -42,6 +42,7 @@
 #import "GTIOExtraProfileRow.h"
 #import "GTIOStylistsQuickLook.h"
 #import "GTIOPushPersonalStylistsViewController.h"
+#import "GTIOProfileCreatedAddStylistsViewController.h"
 #import "TestFlight.h"
 #import "Crittercism.h"
 
@@ -79,7 +80,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)setupRestKit {
     
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
-//    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
+    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
 //    RKLogConfigureByName("RestKit/Network/*", kGTIONetworkLogLevel);
 //    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace);
     
@@ -341,6 +342,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://profile/edit" toModalViewController:NSClassFromString(@"GTIOEditProfileViewController") selector:@selector(initWithEditProfile)];		
 	[map from:@"gtio://profile/edit/picture/(initWithName:)/(location:)" toModalViewController:NSClassFromString(@"GTIOEditProfilePictureViewController")];
 	[map from:@"gtio://profile/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOProfileViewController")];
+    [map from:@"gtio://profile/new/addStylists" toModalViewController:[GTIOProfileCreatedAddStylistsViewController class]];
 	
 	// Get an Opinion session
 	GTIOOpinionRequestSession* session = [GTIOOpinionRequestSession globalSession];
@@ -569,7 +571,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (user.stylistsCount != nil && [user.stylistsCount intValue] == 0 && _showStylistPush && ![user.showAlmostDoneScreen boolValue]) {
         // Wait for other navigations to finish
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
-        TTOpenURL(@"gtio://pushStylists");
+//        TTOpenURL(@"gtio://pushStylists");
+        NSLog(@"OPEN NEW SCREEN");
+        TTOpenURL(@"gtio://profile/new/addStylists");
+        
     } else if ([user.showAlmostDoneScreen boolValue]) {
          [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
          TTOpenURL(@"gtio://profile/new");

@@ -553,7 +553,7 @@
 - (void)dismiss {
     if(_isNew) {
         [self dismissModalViewControllerAnimated:NO];
-        TTOpenURL(@"gtio://pushStylists");
+        TTOpenURL(@"gtio://profile/new/addStylists");
     } else {
         [self dismissModalViewControllerAnimated:YES];
     }
