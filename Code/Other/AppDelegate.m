@@ -525,6 +525,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
     // Trigger view load. for some reason this is not happening.
     vc.view;
+    // By adding this wait, i've fixed the issue where if the app was returning to the home screen
+    // and we were being opened via a URL, it would show a navigation bar for the view but no view (over the home screen).
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     [[[TTNavigator navigator] topViewController].navigationController pushViewController:vc animated:YES];
 }
 
