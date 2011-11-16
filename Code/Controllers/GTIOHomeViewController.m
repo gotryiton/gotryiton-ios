@@ -227,11 +227,11 @@
 }
 
 - (void)snapScrollView:(UIScrollView*)scrollView {
-    float scrollDistance = scrollView.contentSize.height - scrollView.bounds.size.height;
-    int topOrBottom = (scrollDistance/2 < scrollView.contentOffset.y ? 1 : 0);
-    [scrollView setContentOffset:CGPointMake(0,scrollDistance*topOrBottom) animated:YES];
+    float scrollDistance = 200;
+    bool top = (scrollDistance < scrollView.contentOffset.y ? false : true);
     
-    if (topOrBottom == 0) {
+    if (top) {
+        [scrollView setContentOffset:CGPointMake(0,0) animated:YES];
         _thumbnailsVisible = NO;
         GTIOAnalyticsEvent(kSwipeUpOnHomeScreen);
     } else {
@@ -270,6 +270,7 @@
 
 - (void)modelDidStartLoad:(id<TTModel>)model {
     [_thumbnailContainer removeAllSubviews];
+    _currentlyDisplayedOutfitsIndex = -1;
     // show spinner
     [self updateScrollView];
 }
@@ -283,18 +284,7 @@
     NSArray* outfits = _model.objects;
     // this is duplicated on the welcome screen. should probably be refactored.
     
-    [_thumbnailContainer removeAllSubviews];
     for (int i = 0; i < [outfits count]; i++) {
-        GTIOOutfit* outfit = [outfits objectAtIndex:i];
-        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
-        imageView.backgroundColor = [UIColor whiteColor];
-        imageView.urlPath = outfit.iphoneThumbnailUrl;
-        UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"welcome-thumb-overlay.png"] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(outfitButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        button.backgroundColor = [UIColor clearColor];
-        button.tag = i;
-        
         int row = floor(i/5);
         int column = i%5;
         int x = 61 * column;
@@ -302,24 +292,45 @@
         CGRect frame = CGRectMake(x,y,71,90);
         maxHeight = CGRectGetMaxY(frame)+3;
         
-        imageView.frame = CGRectInset(frame,10,10);
-        button.frame = frame;
-        [_thumbnailContainer addSubview:imageView];
-        [_thumbnailContainer addSubview:button];
+        if (i > _currentlyDisplayedOutfitsIndex) {
+            GTIOOutfit* outfit = [outfits objectAtIndex:i];
+            TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
+            imageView.backgroundColor = [UIColor whiteColor];
+            imageView.urlPath = outfit.iphoneThumbnailUrl;
+            UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setImage:[UIImage imageNamed:@"welcome-thumb-overlay.png"] forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(outfitButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+            button.backgroundColor = [UIColor clearColor];
+            button.tag = i;
         
-        imageView.alpha = 0;
-        button.alpha = 0;
-        delay += 0.1f;
-        NSLog(@"Delay: %f", delay);
-        [self performSelector:@selector(fadeIn:) withObject:[NSArray arrayWithObjects:imageView, button, nil] afterDelay:delay];
+            imageView.frame = CGRectInset(frame,10,10);
+            button.frame = frame;
+            [_thumbnailContainer addSubview:imageView];
+            [_thumbnailContainer addSubview:button];
+        
+            imageView.alpha = 0;
+            button.alpha = 0;
+            delay += 0.1f;
+            NSLog(@"Delay: %f", delay);
+            [self performSelector:@selector(fadeIn:) withObject:[NSArray arrayWithObjects:imageView, button, nil] afterDelay:delay];
+        }
     }
+    _currentlyDisplayedOutfitsIndex = [outfits count] - 1;
+    
+    if (_model.hasMoreToLoad) {
+        _loadMoreButton.frame = CGRectMake(0, maxHeight, 320, 50);
+        maxHeight += 50;
+        [_thumbnailContainer addSubview:_loadMoreButton];
+    } else {
+        [_loadMoreButton removeFromSuperview];
+    }
+    
     _thumbnailContainer.frame = CGRectMake(0,0,320,maxHeight);
     [self updateScrollView];
-    
-    [self loadMoreThumbnails];
 }
 
 - (void)loadMoreThumbnails {
+    // todo: remove load button. show spinner?
     [_model load:TTURLRequestCachePolicyNone more:YES];
 }
 
@@ -384,6 +395,10 @@
     [_scrollView addSubview:_looksFromOurCommunity];
     
     _viewJustLoaded = YES;
+    
+    _loadMoreButton = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
+    [_loadMoreButton setTitle:@"Load More Outfits..." forState:UIControlStateNormal];
+    [_loadMoreButton addTarget:self action:@selector(loadMoreThumbnails) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidUnload {
@@ -395,6 +410,8 @@
     _locationLabel = nil;
     [_looksFromOurCommunity release];
     _looksFromOurCommunity = nil;
+    [_loadMoreButton release];
+    _loadMoreButton = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

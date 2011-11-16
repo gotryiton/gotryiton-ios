@@ -31,6 +31,9 @@
     
     IBOutlet UIScrollView* _scrollView;
     IBOutlet UIView* _thumbnailContainer;
+    UIButton* _loadMoreButton;
+    int _currentlyDisplayedOutfitsIndex;
+    
     UILabel* _looksFromOurCommunity;
     
     GTIOBrowseListTTModel* _model;
@@ -43,6 +46,7 @@
     BOOL _animatedInThisLaunch;
     
     NSDate* _lastLoadedAt;
+    
     UIView* _loadingView;
     BOOL _thumbnailsVisible;
     BOOL _viewJustLoaded;
