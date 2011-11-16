@@ -48,7 +48,7 @@
 }
 
 - (void)send {
-    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/upload/") delegate:self];
+    _loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/upload/") delegate:self];
     
 	NSString* publicValue = self.opinionRequest.isPublic ? @"1" : @"0";
 	NSString* stylistsValue = self.opinionRequest.shareWithStylists ? @"1" : @"0";
@@ -82,9 +82,15 @@
         }
 	}
     
-    loader.params = params;
-    loader.method = RKRequestMethodPOST;
-    [loader send];
+    _loader.params = params;
+    _loader.method = RKRequestMethodPOST;
+    [_loader send];
+}
+
+- (void)cancel {
+    _loader.delegate = nil;
+    _delegate = nil;
+    [_loader cancel];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {

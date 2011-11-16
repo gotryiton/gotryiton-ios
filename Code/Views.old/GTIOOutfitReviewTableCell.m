@@ -111,8 +111,10 @@ CGSize kMaxSize = {260,8000};
         
     }
 //    NSLog(@"Text: %@", text);
-    
-	return [text sizeWithFont:kGTIOFontHelveticaRBCOfSize(15) constrainedToSize:kMaxSize lineBreakMode:UILineBreakModeWordWrap];
+    CGSize size = [text sizeWithFont:kGTIOFontHelveticaRBCOfSize(15) constrainedToSize:kMaxSize lineBreakMode:UILineBreakModeWordWrap];
+    // For some reason, as of iOS 5, we had to start adding a little padding here to get the text not to get cut off.
+    size.width = size.width + 5;
+	return size;
 }
 
 + (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
