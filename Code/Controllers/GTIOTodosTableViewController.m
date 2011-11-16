@@ -178,6 +178,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     GTIOAnalyticsEvent(kTodosPageEventName);
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     [self deleteItems];
 }
 

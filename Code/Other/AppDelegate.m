@@ -361,7 +361,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// cancel will drop it anywhere
 	// TODO: tellUsAboutIt (step2), takeAPicture (step1), share (step3). Considering centralizing navigation into the session to decouple controllers
 	[map from:@"gtio://getAnOpinion/submit" toObject:session selector:@selector(submit)];
-    [map from:@"gtio://getAnOpinion/hideLoading" toObject:session selector:@selector(hideLoading)];
+    [map from:@"gtio://getAnOpinion/cancelUpload" toObject:session selector:@selector(cancelUpload)];
 	
 	// Analytics Tracking
 	GTIOAnalyticsTracker* tracker = [GTIOAnalyticsTracker sharedTracker];
@@ -487,7 +487,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 		if (interval >= refreshInterval) {
 			// Refresh notifications and todos.
 			[[GTIOUser currentUser] resumeSession];
-            TTOpenURL(@"gtio://getAnOpinion/hideLoading"); // if we were in the middle of an upload, hide loading.
+            TTOpenURL(@"gtio://getAnOpinion/cancelUpload"); // if we were in the middle of an upload, hide loading.
 			TTOpenURL(@"gtio://home");
             
 			UIViewController* rootController = [[[[TTNavigator navigator] topViewController].navigationController viewControllers] objectAtIndex:0];
@@ -525,6 +525,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
     // Trigger view load. for some reason this is not happening.
     vc.view;
+    // By adding this wait, i've fixed the issue where if the app was returning to the home screen
+    // and we were being opened via a URL, it would show a navigation bar for the view but no view (over the home screen).
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     [[[TTNavigator navigator] topViewController].navigationController pushViewController:vc animated:YES];
 }
 
@@ -572,6 +575,9 @@ void uncaughtExceptionHandler(NSException *exception) {
         TTOpenURL(@"gtio://home");
     }
     GTIOUser* user = [GTIOUser currentUser];
+    #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
+        [Crittercism setUsername:user.UID];
+    #endif
     if (user.stylistsCount != nil && [user.stylistsCount intValue] == 0 && _showStylistPush && ![user.showAlmostDoneScreen boolValue]) {
         // Wait for other navigations to finish
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];

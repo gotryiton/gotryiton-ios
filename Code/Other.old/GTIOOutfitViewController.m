@@ -166,8 +166,10 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {
-        NSLog(@"Navigation Controller: %@", self.navigationController.navigationBar);
-        [_ourNavigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
+        if (![[[TTNavigator navigator] topViewController] isKindOfClass:[GTIOOutfitViewController class]]) {
+            NSLog(@"Navigation Controller: %@", self.navigationController.navigationBar);
+            [_ourNavigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
+        }
     }
     _ourNavigationController = nil;
     [super viewDidDisappear:animated];

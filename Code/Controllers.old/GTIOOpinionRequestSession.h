@@ -14,6 +14,7 @@
                                                  UINavigationControllerDelegate, GTIOOpinionRequestSubmissionDelegate,
                                                  CLLocationManagerDelegate> {
 	GTIOOpinionRequest* _opinionRequest;
+    GTIOOpinionRequestSubmission* _submission;
 	NSUInteger _cancelButtonIndex;
     CLLocationManager* _locationManager;
 }

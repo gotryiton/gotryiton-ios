@@ -13,6 +13,7 @@
 
 @interface GTIOOpinionRequestSubmission : NSObject <RKObjectLoaderDelegate> {
 	GTIOOpinionRequest* _opinionRequest;
+    RKObjectLoader* _loader;
 	NSObject<GTIOOpinionRequestSubmissionDelegate>* _delegate;
 	TTURLRequest* _request; // TODO : Remove this?
 	
@@ -63,6 +64,11 @@
  * Send the request to GTIO
  */
 - (void)send;
+
+/**
+ * Canceles the request.
+ */
+- (void)cancel;
 
 @end
 

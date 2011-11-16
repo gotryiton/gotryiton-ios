@@ -108,7 +108,7 @@ CGRect labelFrameFromButtonFrame(CGRect buttonFrame) {
 		CGSize size = [text sizeWithFont:TTSTYLEVAR(reasonTextFont)];
 		NSString* html = [NSString stringWithFormat:@"<span class='reasonTextStyle'>%@</span>", reason];
 		_reasonLabel.html = html;
-		_reasonLabel.frame = CGRectMake(0, 0, size.width + (TTOSVersion() >= 3.2 ? 1 : 2), size.height);
+		_reasonLabel.frame = CGRectMake(0, 0, size.width + 3, size.height);
 	} else {
 		_reasonLabel.text = nil;
 	}
