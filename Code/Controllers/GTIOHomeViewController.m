@@ -280,10 +280,12 @@
     GTIOBrowseList* list = _model.list;
     float delay = 0.0f;
     float maxHeight = 0;
+    NSArray* outfits = _model.objects;
     // this is duplicated on the welcome screen. should probably be refactored.
     
-    for (int i = 0; i < [list.outfits count]; i++) {
-        GTIOOutfit* outfit = [list.outfits objectAtIndex:i];
+    [_thumbnailContainer removeAllSubviews];
+    for (int i = 0; i < [outfits count]; i++) {
+        GTIOOutfit* outfit = [outfits objectAtIndex:i];
         TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
         imageView.backgroundColor = [UIColor whiteColor];
         imageView.urlPath = outfit.iphoneThumbnailUrl;
@@ -313,6 +315,12 @@
     }
     _thumbnailContainer.frame = CGRectMake(0,0,320,maxHeight);
     [self updateScrollView];
+    
+    [self loadMoreThumbnails];
+}
+
+- (void)loadMoreThumbnails {
+    [_model load:TTURLRequestCachePolicyNone more:YES];
 }
 
 - (void)outfitButtonTouched:(id)sender {
