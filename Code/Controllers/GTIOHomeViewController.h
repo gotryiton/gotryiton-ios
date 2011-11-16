@@ -14,6 +14,12 @@
 #import "GTIONotificationsOverlayViewController.h"
 #import "GTIOBrowseListTTModel.h"
 
+@interface GTIOLoadMoreThumbnailsView : UIView {
+    UILabel* _textLabel;
+    UIImageView* _arrowImageView;
+}
+@end
+
 @interface GTIOHomeViewController : UIViewController <TTModelDelegate> {
     IBOutlet TTImageView* _profileThumbnailView;
     IBOutlet UIButton* _notificationsButton;
@@ -31,7 +37,7 @@
     
     IBOutlet UIScrollView* _scrollView;
     IBOutlet UIView* _thumbnailContainer;
-    UIButton* _loadMoreButton;
+    GTIOLoadMoreThumbnailsView* _loadMoreView;
     int _currentlyDisplayedOutfitsIndex;
     
     UILabel* _looksFromOurCommunity;
@@ -47,7 +53,7 @@
     
     NSDate* _lastLoadedAt;
     
-    UIView* _loadingView;
+    UIActivityIndicatorView* _loadingView;
     BOOL _thumbnailsVisible;
     BOOL _viewJustLoaded;
 }

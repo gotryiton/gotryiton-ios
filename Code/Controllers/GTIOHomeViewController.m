@@ -13,8 +13,49 @@
 #import "GTIOOutfit.h"
 #import "GTIOOutfitViewController.h"
 
+static float const dragOffsetReloadDistance = 40.0f;
+
+@implementation GTIOLoadMoreThumbnailsView
+
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"home-pull-widget-bg.png"]];
+        _textLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)] autorelease];
+        _textLabel.textAlignment = UITextAlignmentCenter;
+        _textLabel.backgroundColor = [UIColor clearColor];
+        _textLabel.font = kGTIOFontHelveticaNeueOfSize(14);
+        _textLabel.textColor = kGTIOColor5A5A5A;
+        _textLabel.text = @"more looks";
+        [self addSubview:_textLabel];
+        
+        _arrowImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 26, 30)] autorelease];
+        _arrowImageView.center = CGPointMake(320/2, 30);
+        _arrowImageView.image = [UIImage imageNamed:@"home-pull-widget-arrow.png"];
+        [self addSubview:_arrowImageView];
+    }
+    return self;
+}
+
+- (void)setDragOffset:(float)offset {
+    [UIView beginAnimations:nil context:nil];
+    if (dragOffsetReloadDistance > offset) {
+        _textLabel.text = @"more looks";
+        // orient arrow pointing up
+        _arrowImageView.transform = CGAffineTransformIdentity;
+    } else {
+        _textLabel.text = @"release to load";
+        // orient arrow pointing down
+        _arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
+    }
+    [UIView commitAnimations];
+}
+
+@end
+
 @interface GTIOHomeViewController (Private)
 - (void)loadOutfits;
+- (void)loadMoreThumbnails;
 - (void)snapScrollView:(UIScrollView*)scrollView;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 @end
@@ -136,17 +177,8 @@
     BOOL noNotifications = CGRectEqualToRect(_notificationsContainer.frame, CGRectZero);
     int thumbnailContainerOffset = (noNotifications ? 380 : 370) - 8;
     
-    [_loadingView removeFromSuperview];
-    [_loadingView release];
-    _loadingView = nil;
-    
     if ([_model isLoading]) {
-        UIActivityIndicatorView* spinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] autorelease];
-        [spinner sizeToFit];
-        spinner.center = CGPointMake(20,20);
-        [spinner startAnimating];
-        
-        _loadingView = [spinner retain];
+        [_loadingView startAnimating];
         
         _thumbnailContainer.frame = CGRectMake(2,thumbnailContainerOffset, 314, 253);//320);
         [_thumbnailContainer addSubview:_loadingView];
@@ -224,25 +256,41 @@
     _looksFromOurCommunity.alpha = sqrt(scrollPercentage);
     _loadingView.alpha = sqrt(scrollPercentage);
     
+    // Pull Up To Load More
+    float distancePastBottomInPixels = scrollView.contentOffset.y - scrollDistance;
+    [_loadMoreView setDragOffset:distancePastBottomInPixels];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    // Pull Up To Load More
+    float scrollDistance = scrollView.contentSize.height - scrollView.bounds.size.height;
+    NSLog(@"Scroll Distance: %f", scrollView);
+    NSLog(@"Y Offset: %f", scrollView.contentOffset.y);
+    float distancePastBottomInPixels = scrollView.contentOffset.y - scrollDistance;
+    NSLog(@"Distance past bottom: %f", distancePastBottomInPixels);
+    if (distancePastBottomInPixels > dragOffsetReloadDistance) {
+        [self loadMoreThumbnails];
+    }
+    
+    if (!decelerate) {
+        [self snapScrollView:scrollView];
+    }
 }
 
 - (void)snapScrollView:(UIScrollView*)scrollView {
-    float scrollDistance = 200;
-    bool top = (scrollDistance < scrollView.contentOffset.y ? false : true);
+    float scrollDistance = scrollView.contentSize.height - scrollView.bounds.size.height;
+    int topOrBottom = (scrollDistance/2 < scrollView.contentOffset.y ? 1 : 0);
+    if (topOrBottom == 1 && [_model isLoadingMore]) {
+        topOrBottom += scrollView.contentInset.bottom;
+    }
+    [scrollView setContentOffset:CGPointMake(0,scrollDistance*topOrBottom) animated:YES];
     
-    if (top) {
-        [scrollView setContentOffset:CGPointMake(0,0) animated:YES];
+    if (topOrBottom == 0) {
         _thumbnailsVisible = NO;
         GTIOAnalyticsEvent(kSwipeUpOnHomeScreen);
     } else {
         _thumbnailsVisible = YES;
         GTIOAnalyticsEvent(kSwipeDownOnHomeScreen);
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (!decelerate) {
-        [self snapScrollView:scrollView];
     }
 }
 
@@ -255,8 +303,7 @@
 }
 
 - (void)loadOutfits {
-    if (nil == _lastLoadedAt ||
-        [_lastLoadedAt timeIntervalSinceNow] < -(2*60)) {
+    if (nil == _lastLoadedAt || [_lastLoadedAt timeIntervalSinceNow] < -(10*60)) {
         RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/home-outfits") delegate:nil];
         objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
         objectLoader.method = RKRequestMethodPOST;
@@ -276,53 +323,52 @@
 }
 
 - (void)modelDidFinishLoad:(id<TTModel>)model {
+    [_lastLoadedAt release];
     _lastLoadedAt = [NSDate new];
     
-    GTIOBrowseList* list = _model.list;
     float delay = 0.0f;
     float maxHeight = 0;
     NSArray* outfits = _model.objects;
     // this is duplicated on the welcome screen. should probably be refactored.
     
-    for (int i = 0; i < [outfits count]; i++) {
-        int row = floor(i/5);
-        int column = i%5;
+    for (int i = _currentlyDisplayedOutfitsIndex+1; i < [outfits count]; i++) {
+        int j = i-(_currentlyDisplayedOutfitsIndex+1);
+        int row = floor(j/5);
+        int column = j%5;
         int x = 61 * column;
         int y = 80*row;
         CGRect frame = CGRectMake(x,y,71,90);
         maxHeight = CGRectGetMaxY(frame)+3;
         
-        if (i > _currentlyDisplayedOutfitsIndex) {
-            GTIOOutfit* outfit = [outfits objectAtIndex:i];
-            TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
-            imageView.backgroundColor = [UIColor whiteColor];
-            imageView.urlPath = outfit.iphoneThumbnailUrl;
-            UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setImage:[UIImage imageNamed:@"welcome-thumb-overlay.png"] forState:UIControlStateNormal];
-            [button addTarget:self action:@selector(outfitButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-            button.backgroundColor = [UIColor clearColor];
-            button.tag = i;
-        
-            imageView.frame = CGRectInset(frame,10,10);
-            button.frame = frame;
-            [_thumbnailContainer addSubview:imageView];
-            [_thumbnailContainer addSubview:button];
-        
-            imageView.alpha = 0;
-            button.alpha = 0;
-            delay += 0.1f;
-            NSLog(@"Delay: %f", delay);
-            [self performSelector:@selector(fadeIn:) withObject:[NSArray arrayWithObjects:imageView, button, nil] afterDelay:delay];
-        }
+        GTIOOutfit* outfit = [outfits objectAtIndex:i];
+        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,71,90)] autorelease];
+        imageView.backgroundColor = [UIColor whiteColor];
+        imageView.urlPath = outfit.iphoneThumbnailUrl;
+        UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"welcome-thumb-overlay.png"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(outfitButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        button.backgroundColor = [UIColor clearColor];
+        button.tag = i;
+    
+        imageView.frame = CGRectInset(frame,10,10);
+        button.frame = frame;
+        [_thumbnailContainer addSubview:imageView];
+        [_thumbnailContainer addSubview:button];
+    
+        imageView.alpha = 0;
+        button.alpha = 0;
+        delay += 0.1f;
+        NSLog(@"Delay: %f", delay);
+        [self performSelector:@selector(fadeIn:) withObject:[NSArray arrayWithObjects:imageView, button, nil] afterDelay:delay];
     }
     _currentlyDisplayedOutfitsIndex = [outfits count] - 1;
     
     if (_model.hasMoreToLoad) {
-        _loadMoreButton.frame = CGRectMake(0, maxHeight, 320, 50);
-        maxHeight += 50;
-        [_thumbnailContainer addSubview:_loadMoreButton];
+//        maxHeight += 20;
+        _loadMoreView.frame = CGRectMake(0, maxHeight-10, _loadMoreView.bounds.size.width, _loadMoreView.bounds.size.height);
+        [_thumbnailContainer addSubview:_loadMoreView];
     } else {
-        [_loadMoreButton removeFromSuperview];
+        [_loadMoreView removeFromSuperview];
     }
     
     _thumbnailContainer.frame = CGRectMake(0,0,320,maxHeight);
@@ -330,8 +376,30 @@
 }
 
 - (void)loadMoreThumbnails {
-    // todo: remove load button. show spinner?
+    if (!_model.hasMoreToLoad) {
+        return;
+    }
     [_model load:TTURLRequestCachePolicyNone more:YES];
+    [_scrollView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
+    
+    [_loadingView startAnimating];
+    
+    [UIView beginAnimations:@"Hide Thumbnails" context:nil];
+    
+    for (UIView* view in _thumbnailContainer.subviews) {
+        if (view != _loadingView &&
+            view != _loadMoreView) {
+            view.alpha = 0;
+        }
+    }
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    [UIView commitAnimations];
+}
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context {
+    [_thumbnailContainer removeAllSubviews];
+    [_thumbnailContainer addSubview:_loadingView];
+    [_thumbnailContainer addSubview:_loadMoreView];
 }
 
 - (void)outfitButtonTouched:(id)sender {
@@ -396,9 +464,13 @@
     
     _viewJustLoaded = YES;
     
-    _loadMoreButton = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
-    [_loadMoreButton setTitle:@"Load More Outfits..." forState:UIControlStateNormal];
-    [_loadMoreButton addTarget:self action:@selector(loadMoreThumbnails) forControlEvents:UIControlEventTouchUpInside];
+    _loadMoreView = [[GTIOLoadMoreThumbnailsView alloc] initWithFrame:CGRectMake(0, 0, 320, 335)];
+    
+    _loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [_loadingView sizeToFit];
+    _loadingView.center = CGPointMake(20,20);
+    _loadingView.hidesWhenStopped = YES;
+    [_thumbnailContainer addSubview:_loadingView];
 }
 
 - (void)viewDidUnload {
@@ -410,8 +482,10 @@
     _locationLabel = nil;
     [_looksFromOurCommunity release];
     _looksFromOurCommunity = nil;
-    [_loadMoreButton release];
-    _loadMoreButton = nil;
+    [_loadMoreView release];
+    _loadMoreView = nil;
+    [_loadingView release];
+    _loadingView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
