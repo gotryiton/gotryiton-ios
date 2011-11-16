@@ -117,7 +117,7 @@ static float const kNotificationLabelWidth = 250;
 }
 
 - (void)userStateChangedNotification:(NSNotification*)note {
-    [self invalidateModel];
+    //[self invalidateModel];
 }
 
 - (void)viewDidLoad {

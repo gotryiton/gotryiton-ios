@@ -7,6 +7,7 @@
 //
 
 #import "GTIOOutfit.h"
+#import "GTIOSpinnerImageView.h"
 
 NSMutableArray* allOutfits;
 
@@ -115,12 +116,12 @@ NSMutableArray* allOutfits;
 
 - (UIView*)scrollView:(TTScrollView*)scrollView pageAtIndex:(NSInteger)pageIndex {
 	UIView* view = [scrollView dequeueReusablePage];
-    TTImageView* imgView = (TTImageView*)[view viewWithTag:99999];
+    GTIOSpinnerImageView* imgView = (GTIOSpinnerImageView*)[view viewWithTag:99999];
 	if (nil == view) {
         view = [[[UIView alloc] initWithFrame:scrollView.bounds] autorelease];
         view.clipsToBounds = NO;
         scrollView.clipsToBounds = NO;
-		imgView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,-7,320,427)] autorelease];
+		imgView = [[[GTIOSpinnerImageView alloc] initWithFrame:CGRectMake(0,-7,320,427)] autorelease];
         [imgView setContentMode:UIViewContentModeScaleToFill];
 		imgView.defaultImage = [UIImage imageNamed:@"default-outfit.png"];
         imgView.tag = 99999;

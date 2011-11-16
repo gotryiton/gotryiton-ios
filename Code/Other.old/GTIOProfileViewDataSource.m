@@ -236,6 +236,7 @@
         _badgeImageViews = [NSMutableArray new];
         for (GTIOBadge* badge in profile.badges) {
             TTImageView* badgeView = [[[TTImageView alloc] initWithFrame:CGRectZero] autorelease];
+            badgeView.backgroundColor = [UIColor clearColor];
             badgeView.urlPath = badge.imgURL;
             [self addSubview:badgeView];
             [_badgeImageViews addObject:badgeView];

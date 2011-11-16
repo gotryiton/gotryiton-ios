@@ -213,8 +213,20 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	label.tag = kGTIOActivityLabelTag;
 	[self.window addSubview:label];
 	
-	GTIOOpinionRequestSubmission* submission = [[GTIOOpinionRequestSubmission alloc] initWithOpinionRequest:self.opinionRequest delegate:self];
-	[submission send];
+	_submission = [[GTIOOpinionRequestSubmission alloc] initWithOpinionRequest:self.opinionRequest delegate:self];
+	[_submission send];
+}
+
+- (void)hideLoading {
+	[[self.window viewWithTag:kGTIOActivityLabelTag] removeFromSuperview];
+}
+
+- (void)cancelUpload {
+    [self hideLoading];
+    [_submission cancel];
+    [_submission release];
+    _submission = nil;
+    [_opinionRequest.photos removeAllObjects];
 }
 
 - (void)shareWithContacts {
@@ -424,7 +436,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	// Remove the photos
 	[_opinionRequest.photos removeAllObjects];
 	
-	[[self.window viewWithTag:kGTIOActivityLabelTag] removeFromSuperview];
+    [self hideLoading];
 	
     UIViewController* homeController = TTOpenURL(@"gtio://home");
     
@@ -439,21 +451,23 @@ static GTIOOpinionRequestSession* globalSession = nil;
 //    TTOpenURL([NSString stringWithFormat:@"gtio://profile/look/%@", submission.outfitURL]);
 //	TTDINFO(@"Loading submitted URL: %@", submission.outfitURL);
 
-	[submission release];
+	[_submission release];
+    _submission = nil;
 	
 	// Persist the settings for next time
 	[self persistOpinionRequestToUserDefaults];		
 }
 
 - (void)submission:(GTIOOpinionRequestSubmission*)submission didFailWithErrorMessage:(NSString*)errorMessage {
-	[[self.window viewWithTag:kGTIOActivityLabelTag] removeFromSuperview];
+    [self hideLoading];
 	UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Rats! An error occurred" 
 														message:errorMessage
 													   delegate:nil 
 											  cancelButtonTitle:@"OK" 
 											  otherButtonTitles:nil];
 	[alertView show];
-	[submission release];
+	[_submission release];
+    _submission = nil;
 }
 
 - (void)popViewController {
