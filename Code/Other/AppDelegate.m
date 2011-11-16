@@ -80,7 +80,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)setupRestKit {
     
     RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kGTIOBaseURLString];
-    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
+//    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
 //    RKLogConfigureByName("RestKit/Network/*", kGTIONetworkLogLevel);
 //    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace);
     
@@ -343,7 +343,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://profile/edit/picture/(initWithName:)/(location:)" toModalViewController:NSClassFromString(@"GTIOEditProfilePictureViewController")];
 	[map from:@"gtio://profile/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOProfileViewController")];
     [map from:@"gtio://profile/new/addStylists" toModalViewController:[GTIOProfileCreatedAddStylistsViewController class]];
-	
+    [map from:@"gtio://profile/new/addStylists/skip" toModalViewController:[GTIOProfileCreatedAddStylistsViewController class] selector:@selector(skipButtonAction)];
+     
 	// Get an Opinion session
 	GTIOOpinionRequestSession* session = [GTIOOpinionRequestSession globalSession];
 	[map from:@"gtio://getAnOpinion/start" toObject:session selector:@selector(start)];

@@ -6,9 +6,29 @@
 //  Copyright (c) 2011 Two Toasters, LLC. All rights reserved.
 //
 
+#import <RestKit/RestKit.h>
+#import "TTTAttributedLabel.h"
+#import "NSAttributedString+Attributes.h"
+#import <AddressBook/AddressBook.h>
 #import "GTIOViewController.h"
+#import "NSObject_Additions.h"
+#import "GTIOBrowseList.h"
+#import "GTIOProfile.h"
 
-@interface GTIOProfileCreatedAddStylistsViewController : GTIOViewController {
+
+@interface GTIOProfileCreatedAddStylistsViewController : GTIOViewController<RKObjectLoaderDelegate> {
+
+    GTIOBrowseList* _stylists;
+    
+    NSMutableArray* _stylistsToAdd;
+    
+    UIScrollView* _scrollView;
+    UIImageView* _addStylistContainer;
+    UILabel* _addStylistsLabel;
+    UILabel* _connectWithStylistsLabel;
+    UIButton* _doneButton;
+    
+    TTActivityLabel* _loadingStylistsLabel;
     
 }
 
