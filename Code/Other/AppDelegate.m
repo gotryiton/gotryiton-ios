@@ -44,6 +44,7 @@
 #import "GTIOPushPersonalStylistsViewController.h"
 #import "TestFlight.h"
 #import "Crittercism.h"
+#import "GTIOInternalURLHelper.h"
 
 @interface NSURLRequest(anyssl)
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host;
@@ -302,6 +303,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	// External URL's
 	_externalURLHelper = [[GTIOExternalURLHelper alloc] init];
+    GTIOInternalURLHelper* internalURLHelper = [[GTIOInternalURLHelper alloc] init];
+    
+    [map from:@"gtio://myProfile/myLooks" toObject:internalURLHelper selector:@selector(showMyLooks)];
+    [map from:@"gtio://myProfile/myReviews" toObject:internalURLHelper selector:@selector(showMyReviews)];
 
 	// Convenience Helpers for SMS/E-mail
 	[map from:@"gtio://looks/(initWithOutfitID:)" toViewController:NSClassFromString(@"GTIOOutfitViewController")];
@@ -387,6 +392,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     [map from:@"gtio://browse/(initWithAPIEndpoint:)/(searchText:)" toViewController:NSClassFromString(@"GTIOBrowseTableViewController")];
     
     [map from:@"gtio://todos" toViewController:NSClassFromString(@"GTIOTodosTableViewController")];
+    [map from:@"gtio://todos/(initWithAPIEndpoint:)" toViewController:NSClassFromString(@"GTIOTodosTableViewController")];
+    
     [map from:@"gtio://whoIStyle" toViewController:NSClassFromString(@"GTIOWhoIStyleTableViewController")];
     [map from:@"gtio://featured" toViewController:NSClassFromString(@"GTIOFeaturedViewController")];
 	

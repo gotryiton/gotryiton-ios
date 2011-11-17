@@ -158,6 +158,8 @@
 		3F1833D6138D80030032CFAF /* GTIOStylistRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1833D5138D80030032CFAF /* GTIOStylistRelationship.m */; };
 		3F1833DB138D8D8C0032CFAF /* todo-tab-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1833D9138D8D8C0032CFAF /* todo-tab-bg.png */; };
 		3F1833DE138D8D8C0032CFAF /* todo-tab-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1833DA138D8D8C0032CFAF /* todo-tab-bg@2x.png */; };
+		3F1A7DEB1475861E0019F538 /* GTIOInternalURLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A7DEA1475861E0019F538 /* GTIOInternalURLHelper.m */; };
+		3F1A7DEC1475861E0019F538 /* GTIOInternalURLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A7DEA1475861E0019F538 /* GTIOInternalURLHelper.m */; };
 		3F219A77140FC3690035AE25 /* GTIOPlaceholderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F219A76140FC3690035AE25 /* GTIOPlaceholderTextField.m */; };
 		3F219A78140FC3690035AE25 /* GTIOPlaceholderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F219A76140FC3690035AE25 /* GTIOPlaceholderTextField.m */; };
 		3F23E91F13BB75AE00348711 /* upload-create-my-outfit-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F23E91B13BB75AD00348711 /* upload-create-my-outfit-OFF.png */; };
@@ -2470,6 +2472,8 @@
 		3F1833D5138D80030032CFAF /* GTIOStylistRelationship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOStylistRelationship.m; sourceTree = "<group>"; };
 		3F1833D9138D8D8C0032CFAF /* todo-tab-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo-tab-bg.png"; sourceTree = "<group>"; };
 		3F1833DA138D8D8C0032CFAF /* todo-tab-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo-tab-bg@2x.png"; sourceTree = "<group>"; };
+		3F1A7DE91475861E0019F538 /* GTIOInternalURLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInternalURLHelper.h; sourceTree = "<group>"; };
+		3F1A7DEA1475861E0019F538 /* GTIOInternalURLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInternalURLHelper.m; sourceTree = "<group>"; };
 		3F219A75140FC3690035AE25 /* GTIOPlaceholderTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPlaceholderTextField.h; sourceTree = "<group>"; };
 		3F219A76140FC3690035AE25 /* GTIOPlaceholderTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPlaceholderTextField.m; sourceTree = "<group>"; };
 		3F23E91B13BB75AD00348711 /* upload-create-my-outfit-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload-create-my-outfit-OFF.png"; sourceTree = "<group>"; };
@@ -5595,6 +5599,8 @@
 				3D4CACAF138AD31000A79EBA /* GTIOUserIconOptionDataSource.m */,
 				3F437096138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.h */,
 				3F437097138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m */,
+				3F1A7DE91475861E0019F538 /* GTIOInternalURLHelper.h */,
+				3F1A7DEA1475861E0019F538 /* GTIOInternalURLHelper.m */,
 			);
 			name = Other;
 			path = Code/Other;
@@ -7622,6 +7628,7 @@
 				3F330787140E7033000625EA /* GTIOViewController.m in Sources */,
 				3F219A77140FC3690035AE25 /* GTIOPlaceholderTextField.m in Sources */,
 				3FDE8C41146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */,
+				3F1A7DEB1475861E0019F538 /* GTIOInternalURLHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7789,6 +7796,7 @@
 				3F330788140E7033000625EA /* GTIOViewController.m in Sources */,
 				3F219A78140FC3690035AE25 /* GTIOPlaceholderTextField.m in Sources */,
 				3FDE8C42146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */,
+				3F1A7DEC1475861E0019F538 /* GTIOInternalURLHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
