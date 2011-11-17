@@ -11,18 +11,21 @@
 
 typedef enum {
     GTIONetworkTab = 0,
-    GTIOContactsTab,
-    GTIORecomendedTab
+    GTIORecomendedTab,
+    GTIOInviteTab
 } GTIOAddStylistsTab;
 
 @interface GTIOAddStylistsViewController : GTIOTableViewController <TTTabDelegate, RKObjectLoaderDelegate, UITextFieldDelegate> {
     TTTabBar* _tabBar;
-    UIImageView* _buttonView;
-    UIButton* _doneButton;
+//    UIImageView* _buttonView;
+    GTIOBarButtonItem* _doneButton;
+//    UIButton* _doneButton;
     NSMutableArray* _emailsToInvite;
     NSMutableArray* _profileIDsToInvite;
     UITextField* _emailField;
     NSMutableArray* _customEmailAddresses;
+    
+    UIView* _inviteOverlay;
 }
 
 @end
