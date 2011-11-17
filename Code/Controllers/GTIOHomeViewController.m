@@ -500,6 +500,13 @@ static float const dragOffsetReloadDistance = 40.0f;
     if (nil == navController.modalViewController) {
         [navController setNavigationBarHidden:NO animated:animated];
     }
+    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {
+        if (![[[TTNavigator navigator] topViewController] isKindOfClass:[GTIOOutfitViewController class]] &&
+            ![[[TTNavigator navigator] topViewController] isKindOfClass:[GTIOHomeViewController class]]) {
+            NSLog(@"Navigation Controller: %@", self.navigationController.navigationBar);
+            [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
+        }
+    }
 }
 
 #pragma mark - Actions

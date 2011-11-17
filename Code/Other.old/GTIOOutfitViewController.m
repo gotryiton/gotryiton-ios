@@ -145,7 +145,7 @@
     [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to get custom background
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
-    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {        
+    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"outfit-navbar.png"] forBarMetrics:UIBarMetricsDefault];
     }
 }
@@ -162,15 +162,17 @@
     [[[TTNavigator navigator].window findFirstResponderInView:self.view] resignFirstResponder];
     
     _ourNavigationController = self.navigationController;
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
+    
     if([[UINavigationBar class] respondsToSelector:@selector(appearance)]) {
-        if (![[[TTNavigator navigator] topViewController] isKindOfClass:[GTIOOutfitViewController class]]) {
+        if (![[[TTNavigator navigator] topViewController] isKindOfClass:[GTIOOutfitViewController class]] &&
+            ![[[TTNavigator navigator] topViewController] isKindOfClass:[GTIOHomeViewController class]]) {
             NSLog(@"Navigation Controller: %@", self.navigationController.navigationBar);
             [_ourNavigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
         }
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
     _ourNavigationController = nil;
     [super viewDidDisappear:animated];
 }

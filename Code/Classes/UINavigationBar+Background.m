@@ -16,8 +16,10 @@
     NSLog(@"title: %@", self.topItem.title);
     UIImage *image = [UIImage imageNamed:@"navbar.png"];  
     TTBaseNavigator* navigator = [TTNavigator globalNavigator];
-    NSLog(@"top view controller: %@",[(TTNavigationController*)navigator.rootViewController viewControllers]);
-    UIViewController* viewController = [[(TTNavigationController*)navigator.rootViewController viewControllers] lastObject];
+    TTNavigationController* navigationController = (TTNavigationController*)navigator.rootViewController;
+    NSLog(@"top view controller: %@", [navigationController viewControllers]);
+    UIViewController* viewController = [[navigationController viewControllers] lastObject];
+    NSLog(@"Visible: %@", navigationController.visibleViewController);
     NSLog(@"Modal View Controller: %@", viewController.modalViewController);
     while (viewController.modalViewController && ![viewController isKindOfClass:NSClassFromString(@"GTIOOutfitViewController")]) {
         viewController = viewController.modalViewController;
@@ -26,7 +28,8 @@
         invokeSupersequent(rect);
         return;
     }
-    if ([viewController isKindOfClass:NSClassFromString(@"GTIOOutfitViewController")]) {
+    if ([viewController isKindOfClass:NSClassFromString(@"GTIOOutfitViewController")] ||
+        [viewController isKindOfClass:NSClassFromString(@"GTIOHomeViewController")]) {
         image = [UIImage imageNamed:@"outfit-navbar.png"];
     }
 	[image drawInRect:rect];
