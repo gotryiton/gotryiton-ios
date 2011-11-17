@@ -111,14 +111,33 @@
 
 - (void)doneButtonAction {
     NSLog(@"Done button pressed");
+
+    [[GTIOLoadingOverlayManager sharedManager] showLoading];
+    
+    [[GTIOAnalyticsTracker sharedTracker] trackUserDidAddStylists:[NSNumber numberWithInt:([_stylistsToAdd count])]];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/add") delegate:self];
+    
+    NSMutableArray* stylistUIDs = [NSMutableArray array];
+    for(GTIOProfile* stylist in _stylistsToAdd) {
+        [stylistUIDs addObject:stylist.uid];
+    }
+    
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            [stylistUIDs jsonEncode], @"stylistUids",
+                            @"1", @"quick-add", nil];
+    loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    loader.method = RKRequestMethodPOST;
+    [loader send];
 }
 
 - (void)editButtonAction {
-    
+    NSLog(@"Edit button action");
+    TTOpenURL(@"gtio://profile/new");
 }
 
 - (void)skipButtonAction {
     NSLog(@"Skip button!");
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)stylistSelected:(UIButton*)button {
@@ -145,13 +164,15 @@
 
 - (void)updateDoneButton {
     int sum = [_stylistsToAdd count];
-    [_doneButton setTitle:[NSString stringWithFormat:@"done - add %d stylist%@!", sum, (sum > 1 ? @"s" : @"")] forState:UIControlStateNormal];
+    
+    if(sum == 0) {
+        [_doneButton setTitle:@"done" forState:UIControlStateNormal];
+    } else {
+        [_doneButton setTitle:[NSString stringWithFormat:@"done - add %d stylist%@!", sum, (sum > 1 ? @"s" : @"")] forState:UIControlStateNormal];
+    }
 }
 
 - (void)displayStylists {
-    
-    _loadingStylistsLabel.isAnimating = NO;
-    [_loadingStylistsLabel removeFromSuperview];
     
     if(nil == _stylists) {
         // TODO display some error text?
@@ -267,18 +288,40 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     NSLog(@"Loaded objects: %@", objects);
     
-    NSLog(@"Object at index 1: %@", [objects objectAtIndex:1]);
-    _stylists = [[objects objectAtIndex:1] retain];
-    
-    [self displayStylists];
+    if([objectLoader.resourcePath isEqualToString:GTIORestResourcePath(@"/stylists/add")]) {
+        [[GTIOLoadingOverlayManager sharedManager] stopLoading];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    } else {
+        
+        NSLog(@"Object at index 1: %@", [objects objectAtIndex:1]);
+        _stylists = [[objects objectAtIndex:1] retain];
+        
+        _loadingStylistsLabel.isAnimating = NO;
+        [_loadingStylistsLabel removeFromSuperview];
+        
+        [self displayStylists];
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Did fail load with error");
     
+    if([objectLoader.resourcePath isEqualToString:GTIORestResourcePath(@"/stylists/add")]) {
+        [self hideLoading];
+        GTIOErrorMessage(error);
+    } else {
+        _loadingStylistsLabel.isAnimating = NO;
+        [_loadingStylistsLabel removeFromSuperview];
+    }
 }
 
 #pragma mark - View lifecycle
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    // the only option is the skip button, so dont even check the url
+    [self skipButtonAction];
+}
 
 - (void)loadView {
     [super loadView];
@@ -294,6 +337,7 @@
     
     UIImageView* userHeaderBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outfit-navbar.png"]];
     [userHeaderBackground setFrame:CGRectMake(0, 0, 320, 44)];
+    [userHeaderBackground setUserInteractionEnabled:YES];
     
     UIImageView* thumbOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home-thumb-overlay.png"]];
     [thumbOverlay setFrame:CGRectMake(1, 1, 42, 42)];
@@ -320,6 +364,32 @@
     userLocationLabel.frame = CGRectMake(45, 25, 200, userLocationLabel.bounds.size.height);
     userLocationLabel.backgroundColor = [UIColor clearColor];
     
+    //extracted from the bar button item
+    
+    // Calculate Size of Text
+    NSString* title = @"edit";
+	CGSize textSize = [title sizeWithFont:[UIFont boldSystemFontOfSize:12.0]];
+	// Create Container View
+	UIView* view = [[UIView new] autorelease];
+	[view setFrame:CGRectMake(260, 5, textSize.width+30, 32)];
+    [view setUserInteractionEnabled:YES];
+	// Create The Background Image
+	UIImage* bg = [[UIImage imageNamed:@"button.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:0];
+	// Create Button
+	UIButton* editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[editButton setFrame:view.frame];
+	[editButton setBackgroundColor:[UIColor clearColor]];
+	[editButton setTitle:title forState:UIControlStateNormal];
+	[editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	[editButton setBackgroundImage:bg forState:UIControlStateNormal];
+	[editButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
+
+	[[editButton titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
+	[[editButton titleLabel] setShadowOffset:CGSizeMake(0, -1)];
+	[[editButton titleLabel] setShadowColor:kGTIOColor888888];
+
+    [userHeaderBackground addSubview:editButton];
+    
     [userHeaderBackground addSubview:thumbOverlay];
     [userHeaderBackground addSubview:profileThumbnailView];
     [userHeaderBackground addSubview:userNameLabel];
@@ -344,7 +414,6 @@
     
     [_scrollView addSubview:congratsBanner];
     TT_RELEASE_SAFELY(congratsBanner);
-    
     
     
     _addStylistContainer = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"fb-container.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]];
@@ -394,10 +463,18 @@
     [dict setValue:(id)kGTIOColorB4B4B4.CGColor forKey:(NSString*)kCTForegroundColorAttributeName];
     skipLabel.linkAttributes = dict;
     
-    [skipLabel addLinkToURL:[NSURL URLWithString:@"http://www.google.com"] withRange:NSMakeRange(0, 14)];
+    [skipLabel addLinkToURL:[NSURL URLWithString:@"gtio://profile/new/addStylists/skip"] withRange:NSMakeRange(0, 14)];
     skipLabel.userInteractionEnabled = YES;
+    [skipLabel setDelegate:self];
     
     [_addStylistContainer addSubview:skipLabel];
+    
+    UIImageView* skipIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-created-skip-chevron.png"]];
+    [skipIcon setFrame:CGRectMake(274, 91, 9, 13)];
+    [skipIcon setBackgroundColor:[UIColor clearColor]];
+    
+    [_addStylistContainer addSubview:skipIcon];
+    TT_RELEASE_SAFELY(skipIcon);
     
     [_scrollView addSubview:_addStylistContainer];
     
@@ -438,16 +515,11 @@
     
 }
 
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

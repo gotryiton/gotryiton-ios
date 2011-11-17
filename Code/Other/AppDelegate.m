@@ -343,7 +343,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://profile/edit/picture/(initWithName:)/(location:)" toModalViewController:NSClassFromString(@"GTIOEditProfilePictureViewController")];
 	[map from:@"gtio://profile/(initWithUserID:)" toViewController:NSClassFromString(@"GTIOProfileViewController")];
     [map from:@"gtio://profile/new/addStylists" toModalViewController:[GTIOProfileCreatedAddStylistsViewController class]];
-    [map from:@"gtio://profile/new/addStylists/skip" toModalViewController:[GTIOProfileCreatedAddStylistsViewController class] selector:@selector(skipButtonAction)];
      
 	// Get an Opinion session
 	GTIOOpinionRequestSession* session = [GTIOOpinionRequestSession globalSession];
@@ -585,7 +584,6 @@ void uncaughtExceptionHandler(NSException *exception) {
         // Wait for other navigations to finish
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
 //        TTOpenURL(@"gtio://pushStylists");
-        NSLog(@"OPEN NEW SCREEN");
         TTOpenURL(@"gtio://profile/new/addStylists");
         
     } else if ([user.showAlmostDoneScreen boolValue]) {

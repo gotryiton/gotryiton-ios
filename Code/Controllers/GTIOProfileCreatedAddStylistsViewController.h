@@ -14,9 +14,11 @@
 #import "NSObject_Additions.h"
 #import "GTIOBrowseList.h"
 #import "GTIOProfile.h"
+#import "GTIOLoadingOverlayManager.h"
+#import "GTIOAnalyticsTracker.h"
+#import "GTIOBarButtonItem.h"
 
-
-@interface GTIOProfileCreatedAddStylistsViewController : GTIOViewController<RKObjectLoaderDelegate> {
+@interface GTIOProfileCreatedAddStylistsViewController : GTIOViewController<RKObjectLoaderDelegate, TTTAttributedLabelDelegate> {
 
     GTIOBrowseList* _stylists;
     
