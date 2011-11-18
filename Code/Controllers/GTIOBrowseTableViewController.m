@@ -537,7 +537,7 @@
     GTIOBrowseListTTModel* model = (GTIOBrowseListTTModel*)self.model;
     if (nil == model.list.searchAPI) {
         // Recreates the data source. Search bar is not recreated, and the data source is filtered.
-        // calling didStartLoad first ensures that 'firstTime' is true.
+        // calling didStartLoad first ensures that 'firstTime' is true. 
         [model didStartLoad];
         [model didFinishLoad];
     }

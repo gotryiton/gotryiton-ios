@@ -7,6 +7,7 @@
 //
 
 #import "GTIOTableViewController.h"
+#import "GTIOHeaderView.h"
 
 @implementation GTIOTableViewController
 

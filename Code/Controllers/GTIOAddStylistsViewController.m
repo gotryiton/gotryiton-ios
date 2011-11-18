@@ -650,15 +650,31 @@
 - (void)facebookInviteWasPressed:(id)sender {
     NSLog(@"facebook invite pressed!");
     
+    TTOpenURL(@"gtio://stylists/invite/facebook");
+    
 }
 
 - (void)smsInviteWasPressed:(id)sender {
     NSLog(@"sms invite pressed!");
+
+    NSString* message = [NSString stringWithFormat:@"you should check out GO TRY IT ON - if you join I can send my outfits to you instantly for advice! http://gotryiton.com/%@", [GTIOUser currentUser].UID];
+    NSString* textMessageURL = [NSString stringWithFormat:@"gtio://messageComposer/textMessage/0/%@", message];
+    
+    GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
+    [self.navigationController presentModalViewController:[composer textMessageComposerWithOutfitID:@"0" body:message] animated:YES];
+
+//    TTOpenURL(textMessageURL);
     
 }
 
 - (void)emailInviteWasPressed:(id)sender {
     NSLog(@"email invite pressed!");
+    
+    NSString* message = [NSString stringWithFormat:@"you should check out GO TRY IT ON - if you join I can send my outfits to you instantly for advice! http://gotryiton.com/%@", [GTIOUser currentUser].UID];
+    NSString* textMessageURL = [NSString stringWithFormat:@"gtio://messageComposer/textMessage/0/%@", message];
+    
+    GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
+    [self.navigationController presentModalViewController:[composer emailComposerWithOutfitID:@"0" subject:@"by my personal stylist?" body:message] animated:YES];
     
 }
 

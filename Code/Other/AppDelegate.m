@@ -43,6 +43,7 @@
 #import "GTIOStylistsQuickLook.h"
 #import "GTIOPushPersonalStylistsViewController.h"
 #import "GTIOProfileCreatedAddStylistsViewController.h"
+#import "GTIOFacebookInviteTableViewController.h"
 #import "TestFlight.h"
 #import "Crittercism.h"
 
@@ -158,7 +159,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     RKObjectMapping* profileMapping = [RKObjectMapping mappingForClass:[GTIOProfile class]];
     [profileMapping mapAttributes:@"uid", @"auth", @"displayName", @"firstName", @"gender", @"city", @"state", @"location", @"aboutMe",
-                                  @"isAuthorizedUser", @"featuredText", @"activeStylist", nil];
+                                  @"isAuthorizedUser", @"featuredText", @"activeStylist", @"facebookId", nil];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isBrand", @"isBranded")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"profileIcon", @"profileIconURL")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"badgeURLs", @"badgeImageURLs")];
@@ -357,6 +358,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [map from:@"gtio://stylists" toViewController:NSClassFromString(@"GTIOMyStylistsTableViewController")];
     [map from:@"gtio://stylists/edit" toViewController:NSClassFromString(@"GTIOMyStylistsTableViewController") selector:@selector(initWithEditEnabled)];
     [map from:@"gtio://stylists/add" toViewController:NSClassFromString(@"GTIOAddStylistsViewController")];
+    [map from:@"gtio://stylists/invite/facebook" toModalViewController:[GTIOFacebookInviteTableViewController class]];
     [map from:@"gtio://pushStylists" toModalViewController:[GTIOPushPersonalStylistsViewController class]];
 	
 	// step1/next for the current next

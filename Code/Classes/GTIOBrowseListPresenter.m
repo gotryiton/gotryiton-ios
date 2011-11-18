@@ -153,31 +153,6 @@
     return nil;
 }
 
-- (UIView*)bannerAd {
-    if (_list.bannerAd) {
-        TWTURLButton* button = [TWTURLButton buttonWithType:UIButtonTypeCustom];
-        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0,
-                                                                               0,
-                                                                               [_list.bannerAd.width floatValue]/2,
-                                                                               [_list.bannerAd.height floatValue]/2)];
-        imageView.exclusiveTouch = NO;
-        imageView.userInteractionEnabled = YES;
-        button.frame = imageView.bounds;
-        [imageView addSubview:button];
-        [imageView autorelease];
-        button.clickUrl = _list.bannerAd.clickUrl;
-        
-        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2){
-            imageView.urlPath = _list.bannerAd.bannerImageUrlLarge;
-        } else {
-            imageView.urlPath = _list.bannerAd.bannerImageUrlSmall;
-        }
-        
-        return imageView;
-    }
-    return nil;
-}
-
 - (NSArray*)alphabeticalListKeys {
     NSArray* sections = [@"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,#" componentsSeparatedByString:@","];
     return sections;

@@ -8,6 +8,9 @@
 /// GTIOAddStylistsViewController is a view controller responsible for viewing new stylist potentials and adding them
 #import <Foundation/Foundation.h>
 #import "GTIOTableViewController.h"
+#import "GTIOMessageComposer.h"
+
+#import "GTIOBrowseTableViewController.h"
 
 typedef enum {
     GTIONetworkTab = 0,

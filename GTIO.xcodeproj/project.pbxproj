@@ -59,6 +59,8 @@
 		13E7CCD1147171380093B8D2 /* profile-created-skip-chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCCA147171380093B8D2 /* profile-created-skip-chevron.png */; };
 		13E7CCD2147171380093B8D2 /* profile-created-skip-chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCCB147171380093B8D2 /* profile-created-skip-chevron@2x.png */; };
 		13E7CCD3147171380093B8D2 /* profile-created-skip-chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCCB147171380093B8D2 /* profile-created-skip-chevron@2x.png */; };
+		13EEDDFF1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13EEDDFE1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m */; };
+		13EEDE001476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13EEDDFE1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m */; };
 		2585188E135357C5005DCBA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188D135357C5005DCBA5 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		25851890135357C5005DCBA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188F135357C5005DCBA5 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		25851892135357C5005DCBA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25851891135357C5005DCBA5 /* CoreGraphics.framework */; };
@@ -2241,6 +2243,8 @@
 		13E7CCC9147171380093B8D2 /* profile-created-congratulations@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-created-congratulations@2x.png"; sourceTree = "<group>"; };
 		13E7CCCA147171380093B8D2 /* profile-created-skip-chevron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-created-skip-chevron.png"; sourceTree = "<group>"; };
 		13E7CCCB147171380093B8D2 /* profile-created-skip-chevron@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-created-skip-chevron@2x.png"; sourceTree = "<group>"; };
+		13EEDDFD1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFacebookInviteTableViewController.h; sourceTree = "<group>"; };
+		13EEDDFE1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFacebookInviteTableViewController.m; sourceTree = "<group>"; };
 		25851889135357C5005DCBA5 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2585188D135357C5005DCBA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2585188F135357C5005DCBA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -5553,6 +5557,8 @@
 				3F330786140E7033000625EA /* GTIOViewController.m */,
 				13B38E4E146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.h */,
 				13B38E4F146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m */,
+				13EEDDFD1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.h */,
+				13EEDDFE1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m */,
 			);
 			name = Controllers;
 			path = Code/Controllers;
@@ -7736,6 +7742,7 @@
 				13B38E50146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m in Sources */,
 				3FDE8C41146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */,
 				13BBBCF9147A9C030069D69A /* GTIOAddStylistButton.m in Sources */,
+				13EEDDFF1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7905,6 +7912,7 @@
 				13B38E51146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m in Sources */,
 				3FDE8C42146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */,
 				13BBBCFA147A9C030069D69A /* GTIOAddStylistButton.m in Sources */,
+				13EEDE001476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

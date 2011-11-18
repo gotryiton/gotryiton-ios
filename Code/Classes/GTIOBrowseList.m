@@ -68,4 +68,18 @@
     return [[self.categories mutableCopy] autorelease];
 }
 
+- (NSMutableArray*)stylistsFilteredWithText:(NSString*)text {
+    if (text && [text length] > 0) {
+        NSMutableArray* matchingStylists = [NSMutableArray array];
+        for (GTIOProfile* profile in self.stylists) {
+            if ([[profile.displayName uppercaseString] rangeOfString:[text uppercaseString]].length > 0) {
+                NSLog(@"Matched against stylist name: %@", profile.displayName);
+                [matchingStylists addObject:profile];
+            }
+        }
+        return matchingStylists;
+    }
+    return [[self.stylists mutableCopy] autorelease];
+}
+
 @end
