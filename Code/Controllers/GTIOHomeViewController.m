@@ -317,7 +317,7 @@ static float const dragOffsetReloadDistance = 40.0f;
 
 - (void)modelDidStartLoad:(id<TTModel>)model {
     [_thumbnailContainer removeAllSubviews];
-    _currentlyDisplayedOutfitsIndex = -1;
+    _numberOfOutfitsDisplayed = 0;
     // show spinner
     [self updateScrollView];
 }
@@ -331,8 +331,8 @@ static float const dragOffsetReloadDistance = 40.0f;
     NSArray* outfits = _model.objects;
     // this is duplicated on the welcome screen. should probably be refactored.
     
-    for (int i = _currentlyDisplayedOutfitsIndex+1; i < [outfits count]; i++) {
-        int j = i-(_currentlyDisplayedOutfitsIndex+1);
+    for (int i = _numberOfOutfitsDisplayed; i < [outfits count]; i++) {
+        int j = i - _numberOfOutfitsDisplayed;
         int row = floor(j/5);
         int column = j%5;
         int x = 61 * column;
@@ -361,7 +361,7 @@ static float const dragOffsetReloadDistance = 40.0f;
         NSLog(@"Delay: %f", delay);
         [self performSelector:@selector(fadeIn:) withObject:[NSArray arrayWithObjects:imageView, button, nil] afterDelay:delay];
     }
-    _currentlyDisplayedOutfitsIndex = [outfits count] - 1;
+    _numberOfOutfitsDisplayed = [outfits count];
     
     if (_model.hasMoreToLoad) {
 //        maxHeight += 20;

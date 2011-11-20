@@ -38,7 +38,7 @@
     IBOutlet UIScrollView* _scrollView;
     IBOutlet UIView* _thumbnailContainer;
     GTIOLoadMoreThumbnailsView* _loadMoreView;
-    int _currentlyDisplayedOutfitsIndex;
+    int _numberOfOutfitsDisplayed;
     
     UILabel* _looksFromOurCommunity;
     
