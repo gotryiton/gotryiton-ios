@@ -242,27 +242,27 @@
 
 - (void)loadView {
     [super loadView];
-    
+
     UIImageView* bgImage = [[UIImageView alloc] initWithImage:TTSTYLEVAR(modalBackgroundImage)];
     bgImage.frame = CGRectMake(0, 0, 320, self.view.frame.size.height - 58);
     [bgImage setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
-    
+
     [self.view addSubview:bgImage];
     TT_RELEASE_SAFELY(bgImage);
-    
+
     // user header view
-    
+
     UIImageView* userHeaderBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"outfit-navbar.png"]];
     [userHeaderBackground setFrame:CGRectMake(0, 0, 320, 44)];
     [userHeaderBackground setUserInteractionEnabled:YES];
-    
+
     UIImageView* thumbOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home-thumb-overlay.png"]];
     [thumbOverlay setFrame:CGRectMake(1, 1, 42, 42)];
-    
+
     TTImageView* profileThumbnailView = [[TTImageView alloc] initWithFrame:CGRectMake(5, 5, 34, 34)];
     profileThumbnailView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
     profileThumbnailView.urlPath = [GTIOUser currentUser].profileIconURL;
-    
+
     UILabel* userNameLabel = [[UILabel alloc] init];
     userNameLabel.frame = CGRectZero;
     userNameLabel.text = [[GTIOUser currentUser].username uppercaseString];
@@ -271,7 +271,7 @@
     userNameLabel.backgroundColor = [UIColor clearColor];
     [userNameLabel sizeToFit];
     userNameLabel.frame = CGRectOffset(userNameLabel.bounds, 45, 6);
-    
+
     UILabel* userLocationLabel = [[UILabel alloc] init];
     userLocationLabel.frame = CGRectZero;
     userLocationLabel.text = [GTIOUser currentUser].location;
@@ -280,64 +280,64 @@
     [userLocationLabel sizeToFit];
     userLocationLabel.frame = CGRectMake(45, 25, 200, userLocationLabel.bounds.size.height);
     userLocationLabel.backgroundColor = [UIColor clearColor];
-    
+
     //extracted from the bar button item
-    
+
     // Calculate Size of Text
     NSString* title = @"edit";
-	CGSize textSize = [title sizeWithFont:[UIFont boldSystemFontOfSize:12.0]];
-	// Create Container View
-	UIView* view = [[UIView new] autorelease];
-	[view setFrame:CGRectMake(260, 5, textSize.width+30, 32)];
+    CGSize textSize = [title sizeWithFont:[UIFont boldSystemFontOfSize:12.0]];
+    // Create Container View
+    UIView* view = [[UIView new] autorelease];
+    [view setFrame:CGRectMake(260, 5, textSize.width+30, 32)];
     [view setUserInteractionEnabled:YES];
-	// Create The Background Image
-	UIImage* bg = [[UIImage imageNamed:@"button.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:0];
-	// Create Button
-	UIButton* editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[editButton setFrame:view.frame];
-	[editButton setBackgroundColor:[UIColor clearColor]];
-	[editButton setTitle:title forState:UIControlStateNormal];
-	[editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[editButton setBackgroundImage:bg forState:UIControlStateNormal];
-	[editButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    // Create The Background Image
+    UIImage* bg = [[UIImage imageNamed:@"button.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:0];
+    // Create Button
+    UIButton* editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [editButton setFrame:view.frame];
+    [editButton setBackgroundColor:[UIColor clearColor]];
+    [editButton setTitle:title forState:UIControlStateNormal];
+    [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [editButton setBackgroundImage:bg forState:UIControlStateNormal];
+    [editButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
 
-	[[editButton titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
-	[[editButton titleLabel] setShadowOffset:CGSizeMake(0, -1)];
-	[[editButton titleLabel] setShadowColor:kGTIOColor888888];
+    [[editButton titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
+    [[editButton titleLabel] setShadowOffset:CGSizeMake(0, -1)];
+    [[editButton titleLabel] setShadowColor:kGTIOColor888888];
 
     [userHeaderBackground addSubview:editButton];
-    
+
     [userHeaderBackground addSubview:thumbOverlay];
     [userHeaderBackground addSubview:profileThumbnailView];
     [userHeaderBackground addSubview:userNameLabel];
     [userHeaderBackground addSubview:userLocationLabel];
     [self.view addSubview:userHeaderBackground];
-    
+
     TT_RELEASE_SAFELY(thumbOverlay);
     TT_RELEASE_SAFELY(profileThumbnailView);
     TT_RELEASE_SAFELY(userNameLabel);
     TT_RELEASE_SAFELY(userLocationLabel);
     TT_RELEASE_SAFELY(userHeaderBackground);
-    
+
     // scroll view
-    
+
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height - 58)];
     [_scrollView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
     [_scrollView setBackgroundColor:[UIColor clearColor]];
-    
+
     UIImageView* congratsBanner = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-created-congratulations.png"]];
     [congratsBanner setFrame:CGRectMake(16, 0, 287, 51)];
     [congratsBanner setBackgroundColor:[UIColor clearColor]];
-    
+
     [_scrollView addSubview:congratsBanner];
     TT_RELEASE_SAFELY(congratsBanner);
-    
-    
+
+
     _addStylistContainer = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"fb-container.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]];
     [_addStylistContainer setFrame:CGRectMake(9, 62, 302, 290)];
     [_addStylistContainer setBackgroundColor:[UIColor clearColor]];
     [_addStylistContainer setUserInteractionEnabled:YES];
-    
+
     _addStylistsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _addStylistsLabel.font = kGTIOFontBoldHelveticaNeueOfSize(18);
     _addStylistsLabel.textColor = kGTIOColorED139A;
@@ -348,7 +348,7 @@
     _addStylistsLabel.alpha = 0;
                                  
     [_addStylistContainer addSubview:_addStylistsLabel];
-    
+
     _connectWithStylistsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _connectWithStylistsLabel.numberOfLines = 2;
     _connectWithStylistsLabel.font = kGTIOFontHelveticaNeueOfSize(13);
@@ -358,53 +358,53 @@
     _connectWithStylistsLabel.backgroundColor = [UIColor clearColor];
     _connectWithStylistsLabel.textAlignment = UITextAlignmentCenter;
     _connectWithStylistsLabel.alpha = 0;
-    
+
     [_addStylistContainer addSubview:_connectWithStylistsLabel];
-    
+
 
     NSString* skipText = @"skip this step";
 
     NSMutableAttributedString* attributedSkipText = [[NSMutableAttributedString alloc] initWithString:skipText];
-    
+
     [attributedSkipText setTextColor:kGTIOColorB4B4B4 range:NSMakeRange(0, attributedSkipText.length)];
-	[attributedSkipText setFont:kGTIOFontHelveticaNeueOfSize(12)];
-	[attributedSkipText setTextAlignment:kCTCenterTextAlignment lineBreakMode:kCTLineBreakByWordWrapping];
+    [attributedSkipText setFont:kGTIOFontHelveticaNeueOfSize(12)];
+    [attributedSkipText setTextAlignment:kCTCenterTextAlignment lineBreakMode:kCTLineBreakByWordWrapping];
     
     TTTAttributedLabel* skipLabel = [[TTTAttributedLabel new] autorelease];
-	[skipLabel setFrame:CGRectMake(191, 90, 80, 28)];
-	[skipLabel setBackgroundColor:[UIColor clearColor]];
-	[skipLabel setNumberOfLines:0];
-	[skipLabel setText:attributedSkipText];
-    
+    [skipLabel setFrame:CGRectMake(191, 90, 80, 28)];
+    [skipLabel setBackgroundColor:[UIColor clearColor]];
+    [skipLabel setNumberOfLines:0];
+    [skipLabel setText:attributedSkipText];
+
     NSMutableDictionary* dict = [[skipLabel.linkAttributes mutableCopy] autorelease];
     [dict setValue:(id)kGTIOColorB4B4B4.CGColor forKey:(NSString*)kCTForegroundColorAttributeName];
     skipLabel.linkAttributes = dict;
-    
+
     [skipLabel addLinkToURL:[NSURL URLWithString:@"gtio://profile/new/addStylists/skip"] withRange:NSMakeRange(0, 14)];
     skipLabel.userInteractionEnabled = YES;
     [skipLabel setDelegate:self];
-    
+
     [_addStylistContainer addSubview:skipLabel];
-    
+
     UIImageView* skipIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-created-skip-chevron.png"]];
     [skipIcon setFrame:CGRectMake(274, 91, 9, 13)];
     [skipIcon setBackgroundColor:[UIColor clearColor]];
-    
+
     [_addStylistContainer addSubview:skipIcon];
     TT_RELEASE_SAFELY(skipIcon);
-    
+
     [_scrollView addSubview:_addStylistContainer];
-    
+
     [self.view addSubview:_scrollView];
     [_scrollView setContentSize:CGSizeMake(320, 62 + _addStylistContainer.height + 10)];
-    
+
     // bottom
-    
+
     UIImageView* buttonView = [[UIImageView alloc] initWithFrame:CGRectMake(0,self.view.frame.size.height - 66,320,66)];
     buttonView.image = [UIImage imageNamed:@"add-done-ON.png"];
     buttonView.userInteractionEnabled = YES;
     [buttonView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
-    
+
     _doneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
@@ -412,12 +412,12 @@
     _doneButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [_doneButton addTarget:self action:@selector(doneButtonAction) forControlEvents:UIControlEventTouchUpInside];
     _doneButton.frame = CGRectMake(13, 20, 320-26, 33);
-    
+
     [buttonView addSubview:_doneButton];
     [self.view addSubview:buttonView];
-    
+
     TT_RELEASE_SAFELY(buttonView);
-    
+
     [self requestStylists];
     
 }
