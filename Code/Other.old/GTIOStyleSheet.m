@@ -161,6 +161,10 @@ NSNumber* emailPickerChoiceAsNumber(TWTPickerControl* picker) {
 	return [UIFont boldSystemFontOfSize:14];
 }
 
+- (UIFont*)facebookInviteTableFont {
+    return [UIFont systemFontOfSize:14];
+}
+
 - (UIImage*)facebookTableCellImage {
 	return [UIImage imageNamed:@"facebook.png"];
 }

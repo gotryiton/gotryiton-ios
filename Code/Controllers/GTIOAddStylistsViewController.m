@@ -16,6 +16,10 @@
 #import "GTIOHeaderView.h"
 #import "GTIOAnalyticsTracker.h"
 
+NSString* kGTIOInviteSMSPath = @"/stylists/invite/sms";
+NSString* kGTIOInviteEmailPath = @"/stylists/invite/email";
+NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
+
 @interface GTIOFacebookConnectTableItem : TTTableTextItem
 @end
 @implementation GTIOFacebookConnectTableItem
@@ -650,32 +654,81 @@
 - (void)facebookInviteWasPressed:(id)sender {
     NSLog(@"facebook invite pressed!");
     
-    TTOpenURL(@"gtio://stylists/invite/facebook");
+    NSDictionary* params = [NSDictionary dictionary];
+    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     
+    [[RKClient sharedClient] post:GTIORestResourcePath(kGTIOInviteFacebookPath) params:params delegate:self];
+    
+    [self showLoading];
 }
 
 - (void)smsInviteWasPressed:(id)sender {
     NSLog(@"sms invite pressed!");
 
-    NSString* message = [NSString stringWithFormat:@"you should check out GO TRY IT ON - if you join I can send my outfits to you instantly for advice! http://gotryiton.com/%@", [GTIOUser currentUser].UID];
-    NSString* textMessageURL = [NSString stringWithFormat:@"gtio://messageComposer/textMessage/0/%@", message];
+    NSDictionary* params = [NSDictionary dictionary];
+    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     
-    GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
-    [self.navigationController presentModalViewController:[composer textMessageComposerWithOutfitID:@"0" body:message] animated:YES];
-
-//    TTOpenURL(textMessageURL);
+    [[RKClient sharedClient] post:GTIORestResourcePath(kGTIOInviteSMSPath) params:params delegate:self];
     
+    [self showLoading];
 }
 
 - (void)emailInviteWasPressed:(id)sender {
     NSLog(@"email invite pressed!");
     
-    NSString* message = [NSString stringWithFormat:@"you should check out GO TRY IT ON - if you join I can send my outfits to you instantly for advice! http://gotryiton.com/%@", [GTIOUser currentUser].UID];
-    NSString* textMessageURL = [NSString stringWithFormat:@"gtio://messageComposer/textMessage/0/%@", message];
+    NSDictionary* params = [NSDictionary dictionary];
+    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     
-    GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
-    [self.navigationController presentModalViewController:[composer emailComposerWithOutfitID:@"0" subject:@"by my personal stylist?" body:message] animated:YES];
+    [[RKClient sharedClient] post:GTIORestResourcePath(kGTIOInviteEmailPath) params:params delegate:self];
     
+    [self showLoading];
+}
+
+#pragma mark - RKRequestDelegate methods
+
+- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {
+    
+    NSError* error = nil;
+    NSDictionary* body = [response parsedBody:&error];
+    
+    [self hideLoading];
+    
+    NSLog(@"resource path: %@", request.resourcePath);
+    
+    if([request.resourcePath rangeOfString:kGTIOInviteSMSPath].location != NSNotFound) {
+        
+        NSString* text = [body valueForKey:@"text"];
+        
+        GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
+        // TODO: outfit id not used in composer creation method - ask jeremy if should be removed
+        [self.navigationController presentModalViewController:[composer textMessageComposerWithOutfitID:@"" body:text] animated:YES]; 
+//        [composer release];
+    } else if([request.resourcePath rangeOfString:kGTIOInviteEmailPath].location != NSNotFound) {
+        
+        NSString* text = [body valueForKey:@"text"];
+        NSString* subject = [body valueForKey:@"subject"];
+        
+        GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
+        // TODO: again, the outfit id is irrelevant
+        [self.navigationController presentModalViewController:[composer emailComposerWithOutfitID:@"" subject:subject body:text] animated:YES];
+//        [composer release];
+    } else if([request.resourcePath rangeOfString:kGTIOInviteFacebookPath].location != NSNotFound) {
+        
+        //grab title and url 
+        NSString* title = [body valueForKey:@"text"];
+        NSString* url = [body valueForKey:@"url"];
+        
+        GTIOFacebookInviteTableViewController* controller = [[GTIOFacebookInviteTableViewController alloc] initWithInviteTitle:title imageURL:url];
+        [self.navigationController pushViewController:controller animated:YES];
+        [controller release];
+    }
+    
+}
+
+- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
+    NSLog(@"Error: %@", error);
+    [self hideLoading];
+    GTIOErrorMessage(error);
 }
 
 #pragma mark - RKObjectLoaderDelegate methods

@@ -358,7 +358,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     [map from:@"gtio://stylists" toViewController:NSClassFromString(@"GTIOMyStylistsTableViewController")];
     [map from:@"gtio://stylists/edit" toViewController:NSClassFromString(@"GTIOMyStylistsTableViewController") selector:@selector(initWithEditEnabled)];
     [map from:@"gtio://stylists/add" toViewController:NSClassFromString(@"GTIOAddStylistsViewController")];
-    [map from:@"gtio://stylists/invite/facebook" toModalViewController:[GTIOFacebookInviteTableViewController class]];
     [map from:@"gtio://pushStylists" toModalViewController:[GTIOPushPersonalStylistsViewController class]];
 	
 	// step1/next for the current next

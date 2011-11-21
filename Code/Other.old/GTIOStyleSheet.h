@@ -60,6 +60,7 @@ TWTPickerControl* emailPickerForUser(GTIOUser* user);
 @property (nonatomic, readonly) UIImage* photoGuidelinesHeaderImage;
 
 - (UIFont*)verdictLabelFont;
+- (UIFont*)facebookInviteTableFont;
 - (UIFont*)reasonTextFont;
 - (TTStyle*)addAStylistTabStyle;
 //- (TTStyle*)pinkAndGrayTabBar; deprecated?
