@@ -355,6 +355,20 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
     _doneButton = [[GTIOBarButtonItem alloc] initPinkButtonWithTitle:@"done" target:self action:@selector(doneButtonWasPressed:) backButton:NO];
     self.navigationItem.rightBarButtonItem = _doneButton;
     
+    // OLD done button code for sliding button - keep in case they want to transition back
+//    _buttonView = [[UIImageView alloc] initWithFrame:CGRectMake(0,self.view.height,320,66)];
+//    _buttonView.image = [UIImage imageNamed:@"add-done-ON.png"];
+//    _buttonView.userInteractionEnabled = YES;
+//    _doneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+//    [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
+//    [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
+//    _doneButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+//    [_doneButton addTarget:self action:@selector(doneButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    _doneButton.frame = CGRectMake(13, 20, 320-26, 33);
+//    [_buttonView addSubview:_doneButton];
+//    [self.view addSubview:_buttonView];
+    
     self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height);
 }
 
@@ -372,12 +386,13 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
     int sum = [_emailsToInvite count] + [_profileIDsToInvite count];
     
     //re-making the button because you can't change the title of a custom GTIOBarButtonItem
-    TT_RELEASE_SAFELY(_doneButton);
+    if (_doneButton) {
+        TT_RELEASE_SAFELY(_doneButton);
+    }
     _doneButton = [[GTIOBarButtonItem alloc] initPinkButtonWithTitle:[NSString stringWithFormat:@"done%@", (sum > 0 ? [NSString stringWithFormat:@" (%d)", sum] : @"")] target:self action:@selector(doneButtonWasPressed:) backButton:NO];
     self.navigationItem.rightBarButtonItem = _doneButton;
     
-    
-    
+    // OLD done button code for sliding button - keep in case they want to transition back
 //    [_doneButton setTitle:[NSString stringWithFormat:@"done%@", (sum > 0 ? [NSString stringWithFormat:@" (%d)", sum] : @"")] forState:UIControlStateNormal];
     
     // Move done button on or off the screen
@@ -542,19 +557,6 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
         
         [self.view addSubview:_inviteOverlay];
         
-//        NSMutableArray* section1 = [NSMutableArray arrayWithCapacity:[_customEmailAddresses count] + 1];
-//        TTTableControlItem* item = [TTTableControlItem itemWithCaption:nil control:(UIControl*)_emailField];
-//        [section1 addObject:item];
-//        for (NSString* email in _customEmailAddresses) {
-//            [section1 addObject:[self itemForEmailAddress:email]];
-//        }
-//        NSArray* emailsAddresses = [self getEmailAddressesFromContacts];
-//        NSMutableArray* section2 = [NSMutableArray arrayWithCapacity:[emailsAddresses count]];
-//        for (NSString* email in emailsAddresses) {
-//            [section2 addObject:[self itemForEmailAddress:email]];
-//        }        
-//        self.dataSource = [GTIOAddStylistsSectionedDataSource dataSourceWithArrays:@"enter an email address", section1,
-//                           @"choose from your phone contacts", section2, nil];
         return;
     } else {
         GTIOAnalyticsEvent(kAddRecommendedStylistsEventName);
