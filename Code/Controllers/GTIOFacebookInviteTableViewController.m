@@ -153,6 +153,11 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
 #pragma mark - TTTableView methods
 
 - (void)createModel {
+    
+    if([GTIOUser currentUser].facebook == nil) {
+        [[GTIOUser currentUser] loginWithFacebook];
+    }
+    
     NSString* apiEndpoint = GTIORestResourcePath(kGTIOFacebookInviteAPIEndpoint);
     NSDictionary* params = [NSDictionary dictionary];
     params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
