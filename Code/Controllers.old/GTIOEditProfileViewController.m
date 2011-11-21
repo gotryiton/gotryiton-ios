@@ -285,7 +285,7 @@
 	_genderPicker = [[TWTPickerControl alloc] initWithFrame:CGRectMake(0, 0, 213, 30)];
 	_genderPicker.dataSource = [[TWTPickerDataSource alloc ] initWithRows:component];
 	_genderPicker.textLabel.textAlignment = UITextAlignmentRight;
-	_genderPicker.textLabel.textColor = TTSTYLEVAR(pinkColor);
+	_genderPicker.textLabel.textColor = TTSTYLEVAR(greyTextColor);
 	_genderPicker.font = [UIFont boldSystemFontOfSize:14];
 	_genderPicker.delegate = self;
 	_genderPicker.placeholderText = @"select option";
@@ -346,7 +346,7 @@
 						   [GTIOPinkControlItem itemWithCaption:@"last initial" control:_lastInitialField],
 						   [TTTableControlItem itemWithCaption:@"city" control:_cityField],
 						   [GTIOPinkControlItem itemWithCaption:@"state or country" control:_stateField],
-						   [GTIOPinkControlItem itemWithCaption:@"gender" control:_genderPicker],
+						   [TTTableControlItem itemWithCaption:@"gender" control:_genderPicker],
                            [TTTableControlItem itemWithCaption:@"year born" control:_bornInPicker],
 						   [TTTableControlItem itemWithCaption:@"about me" control:(UIControl*)_aboutMeTextView],
 						   nil];
@@ -363,7 +363,7 @@
                                    [GTIOPinkControlItem itemWithCaption:@"last initial" control:_lastInitialField],
                                    [TTTableControlItem itemWithCaption:@"city" control:_cityField],
                                    [GTIOPinkControlItem itemWithCaption:@"state or country" control:_stateField],
-                                   [GTIOPinkControlItem itemWithCaption:@"gender" control:_genderPicker],
+                                   [TTTableControlItem itemWithCaption:@"gender" control:_genderPicker],
                                    [TTTableControlItem itemWithCaption:@"year born" control:_bornInPicker],
                                    nil];
         if ([user.isFacebookConnected boolValue] && user.profileIconURL) {
@@ -514,16 +514,18 @@
 		[_stateField.text isWhitespaceAndNewlines]) {
 		[errors addObject:@"State is required"];
 	}
-	NSString* gender = nil;
-	if ([_genderPicker.textLabel.text isEqualToString:@"M"]) {
-		gender = @"male";
-	} else if ([_genderPicker.textLabel.text isEqualToString:@"F"]) {
-		gender = @"female";
-	}
-	if (![gender isEqualToString:@"male"] &&
-		![gender isEqualToString:@"female"]) {
-		[errors addObject:@"Gender is required"];
-	}
+    
+    // They current don't want gender as a required field - keep the code incase they change their mind
+//	NSString* gender = nil;
+//	if ([_genderPicker.textLabel.text isEqualToString:@"M"]) {
+//		gender = @"male";
+//	} else if ([_genderPicker.textLabel.text isEqualToString:@"F"]) {
+//		gender = @"female";
+//	}
+//	if (![gender isEqualToString:@"male"] &&
+//		![gender isEqualToString:@"female"]) {
+//		[errors addObject:@"Gender is required"];
+//	}
 	if ([errors count] > 0) {
 		TTAlert([errors componentsJoinedByString:@"\n"]);
 		return;
@@ -553,7 +555,7 @@
 - (void)dismiss {
     if(_isNew) {
         [self dismissModalViewControllerAnimated:NO];
-        TTOpenURL(@"gtio://pushStylists");
+        TTOpenURL(@"gtio://profile/new/addStylists");
     } else {
         [self dismissModalViewControllerAnimated:YES];
     }
