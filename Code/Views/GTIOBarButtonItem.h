@@ -28,6 +28,9 @@
 /// init normal button (not a back button arrow) with GTIO styling and given title, target, and action
 - (id)initWithTitle:(NSString *)title target:(id)target action:(SEL)action;
 
+/// init a pink button with GTIO styling and title, target, and action
+- (id)initPinkButtonWithTitle:(NSString *)title target:(id)target action:(SEL)action backButton:(BOOL)backButton;
+
 /// init button with GTIO styling and given title, target, action, and boolean flag as to whether or not it is a back button
 - (id)initWithTitle:(NSString *)title target:(id)target action:(SEL)action backButton:(BOOL)backButton;
 

@@ -15,6 +15,7 @@
     if (self) {
         _stylists = nil;
         _stylistsToAdd = [NSMutableArray new];
+        [GTIOUser currentUser].showAlmostDoneScreen = [NSNumber numberWithBool:NO];
     }
     return self;
 }
@@ -50,7 +51,7 @@
 }
 
 - (void)editButtonAction {
-    TTOpenURL(@"gtio://profile/new");
+    TTOpenURL(@"gtio://profile/edit");
 }
 
 - (void)skipButtonAction {

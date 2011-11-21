@@ -35,6 +35,7 @@
 @synthesize isBranded = _isBranded;
 @synthesize extraProfileRow = _extraProfileRow;
 @synthesize stylists = _stylists;
+@synthesize facebookId = _facebookId;
 
 - (void)dealloc {
     TT_RELEASE_SAFELY(_isBranded);
@@ -87,6 +88,9 @@
     [_featuredText release];
     _featuredText = nil;
 
+    [_facebookId release];
+    _facebookId = nil;
+    
 	[super dealloc];
 }
 

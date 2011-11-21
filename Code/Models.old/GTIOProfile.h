@@ -24,6 +24,9 @@
     NSString* _profileIconURL;
 	NSNumber* _isAuthorizedUser;
     
+    // 3.3 added facebook identifer
+    NSString* _facebookId;
+    
     
 	NSArray* _userStats;
 	NSArray* _badgeImageURLs;
@@ -75,5 +78,7 @@
 @property (nonatomic, retain) GTIOExtraProfileRow* extraProfileRow;
 
 @property (nonatomic, readonly) NSString* genderPronoun;
+
+@property (nonatomic, copy) NSString* facebookId;
 
 @end

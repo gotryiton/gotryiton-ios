@@ -43,6 +43,7 @@
 #import "GTIOStylistsQuickLook.h"
 #import "GTIOPushPersonalStylistsViewController.h"
 #import "GTIOProfileCreatedAddStylistsViewController.h"
+#import "GTIOFacebookInviteTableViewController.h"
 #import "TestFlight.h"
 #import "Crittercism.h"
 #import "GTIOInternalURLHelper.h"
@@ -159,7 +160,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     RKObjectMapping* profileMapping = [RKObjectMapping mappingForClass:[GTIOProfile class]];
     [profileMapping mapAttributes:@"uid", @"auth", @"displayName", @"firstName", @"gender", @"city", @"state", @"location", @"aboutMe",
-                                  @"isAuthorizedUser", @"featuredText", @"activeStylist", nil];
+                                  @"isAuthorizedUser", @"featuredText", @"activeStylist", @"facebookId", nil];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isBrand", @"isBranded")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"profileIcon", @"profileIconURL")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"badgeURLs", @"badgeImageURLs")];

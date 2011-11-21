@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "GTIOBannerAd.h"
 #import "GTIOTopRightBarButton.h"
+#import "GTIOProfile.h"
 
 @interface GTIOBrowseList : NSObject {
     NSString* _title;
@@ -61,5 +62,6 @@
 @property (nonatomic, retain) GTIOTopRightBarButton* topRightButton;
 
 - (NSMutableArray*)categoriesFilteredWithText:(NSString*)text;
+- (NSMutableArray*)stylistsFilteredWithText:(NSString*)text;
 
 @end

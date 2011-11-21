@@ -16,6 +16,10 @@
 #import "GTIOHeaderView.h"
 #import "GTIOAnalyticsTracker.h"
 
+NSString* kGTIOInviteSMSPath = @"/stylists/invite/sms";
+NSString* kGTIOInviteEmailPath = @"/stylists/invite/email";
+NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
+
 @interface GTIOFacebookConnectTableItem : TTTableTextItem
 @end
 @implementation GTIOFacebookConnectTableItem
@@ -316,8 +320,6 @@
 - (void)viewDidUnload {
     [_tabBar release];
     _tabBar = nil;
-    [_buttonView release];
-    _buttonView = nil;
     [_doneButton release];
     _doneButton = nil;
     [_emailField release];
@@ -343,25 +345,29 @@
     _tabBar.tabStyle = @"addAStylistTab:";
     [_tabBar setTabItems:[NSArray arrayWithObjects:
                           [[[TTTabItem alloc] initWithTitle:@"CONNECTIONS"] autorelease],
-                          [[[TTTabItem alloc] initWithTitle:@"INVITE"] autorelease],
                           [[[TTTabItem alloc] initWithTitle:@"RECOMMENDED"] autorelease],
+                          [[[TTTabItem alloc] initWithTitle:@"INVITE"] autorelease],
                           nil]];
     _tabBar.contentMode = UIViewContentModeScaleToFill;
     [_tabBar setDelegate:self];
     [self.view addSubview:_tabBar];
     
-    _buttonView = [[UIImageView alloc] initWithFrame:CGRectMake(0,self.view.height,320,66)];
-    _buttonView.image = [UIImage imageNamed:@"add-done-ON.png"];
-    _buttonView.userInteractionEnabled = YES;
-    _doneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
-    [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
-    _doneButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-    [_doneButton addTarget:self action:@selector(doneButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _doneButton.frame = CGRectMake(13, 20, 320-26, 33);
-    [_buttonView addSubview:_doneButton];
-    [self.view addSubview:_buttonView];
+    _doneButton = [[GTIOBarButtonItem alloc] initPinkButtonWithTitle:@"done" target:self action:@selector(doneButtonWasPressed:) backButton:NO];
+    self.navigationItem.rightBarButtonItem = _doneButton;
+    
+    // OLD done button code for sliding button - keep in case they want to transition back
+//    _buttonView = [[UIImageView alloc] initWithFrame:CGRectMake(0,self.view.height,320,66)];
+//    _buttonView.image = [UIImage imageNamed:@"add-done-ON.png"];
+//    _buttonView.userInteractionEnabled = YES;
+//    _doneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+//    [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
+//    [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
+//    _doneButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+//    [_doneButton addTarget:self action:@selector(doneButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    _doneButton.frame = CGRectMake(13, 20, 320-26, 33);
+//    [_buttonView addSubview:_doneButton];
+//    [self.view addSubview:_buttonView];
     
     self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height);
 }
@@ -378,21 +384,30 @@
 
 - (void)updateDoneButton {
     int sum = [_emailsToInvite count] + [_profileIDsToInvite count];
-    [_doneButton setTitle:[NSString stringWithFormat:@"done - add %d stylist%@!", sum, (sum > 1 ? @"s" : @"")] forState:UIControlStateNormal];
+    
+    //re-making the button because you can't change the title of a custom GTIOBarButtonItem
+    if (_doneButton) {
+        TT_RELEASE_SAFELY(_doneButton);
+    }
+    _doneButton = [[GTIOBarButtonItem alloc] initPinkButtonWithTitle:[NSString stringWithFormat:@"done%@", (sum > 0 ? [NSString stringWithFormat:@" (%d)", sum] : @"")] target:self action:@selector(doneButtonWasPressed:) backButton:NO];
+    self.navigationItem.rightBarButtonItem = _doneButton;
+    
+    // OLD done button code for sliding button - keep in case they want to transition back
+//    [_doneButton setTitle:[NSString stringWithFormat:@"done%@", (sum > 0 ? [NSString stringWithFormat:@" (%d)", sum] : @"")] forState:UIControlStateNormal];
     
     // Move done button on or off the screen
-    if (_buttonView.frame.origin.y >= self.view.bounds.size.height && sum > 0) {
-        [UIView beginAnimations:nil context:nil];
-        _buttonView.frame = CGRectMake(0, self.view.bounds.size.height - _buttonView.bounds.size.height, _buttonView.bounds.size.width, _buttonView.bounds.
-                                       size.height);
-        self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height - _buttonView.bounds.size.height + 6);
-        [UIView commitAnimations];
-    } else if (sum == 0 && _buttonView.frame.origin.y < self.view.bounds.size.height) {
-        [UIView beginAnimations:nil context:nil];
-        _buttonView.frame = CGRectMake(0, self.view.bounds.size.height, _buttonView.bounds.size.width, _buttonView.bounds.size.height);
-        self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height);
-        [UIView commitAnimations];
-    }
+//    if (_buttonView.frame.origin.y >= self.view.bounds.size.height && sum > 0) {
+//        [UIView beginAnimations:nil context:nil];
+//        _buttonView.frame = CGRectMake(0, self.view.bounds.size.height - _buttonView.bounds.size.height, _buttonView.bounds.size.width, _buttonView.bounds.
+//                                       size.height);
+//        self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height - _buttonView.bounds.size.height + 6);
+//        [UIView commitAnimations];
+//    } else if (sum == 0 && _buttonView.frame.origin.y < self.view.bounds.size.height) {
+//        [UIView beginAnimations:nil context:nil];
+//        _buttonView.frame = CGRectMake(0, self.view.bounds.size.height, _buttonView.bounds.size.width, _buttonView.bounds.size.height);
+//        self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height);
+//        [UIView commitAnimations];
+//    }
 }
 
 - (void)selectedItem:(GTIOSelectableTableItem*)item {
@@ -453,6 +468,11 @@
 }
 
 - (void)createModel {
+    if(nil != _inviteOverlay) {
+        [_inviteOverlay removeFromSuperview];
+        TT_RELEASE_SAFELY(_inviteOverlay);
+    }
+    
     // Depending on tab, load a different API Endpoint
     NSUInteger index = _tabBar.selectedTabIndex;
     NSString* apiEndpoint = nil;
@@ -465,21 +485,78 @@
         NSString* emailsAsJSON = [emails jsonEncode];
         params = [NSDictionary dictionaryWithObjectsAndKeys:emailsAsJSON, @"emailContacts", nil];
         params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-    } else if (index == GTIOContactsTab) {
+    } else if (index == GTIOInviteTab) {
         GTIOAnalyticsEvent(kAddContactsStylistsEventName);
-        NSMutableArray* section1 = [NSMutableArray arrayWithCapacity:[_customEmailAddresses count] + 1];
-        TTTableControlItem* item = [TTTableControlItem itemWithCaption:nil control:(UIControl*)_emailField];
-        [section1 addObject:item];
-        for (NSString* email in _customEmailAddresses) {
-            [section1 addObject:[self itemForEmailAddress:email]];
-        }
-        NSArray* emailsAddresses = [self getEmailAddressesFromContacts];
-        NSMutableArray* section2 = [NSMutableArray arrayWithCapacity:[emailsAddresses count]];
-        for (NSString* email in emailsAddresses) {
-            [section2 addObject:[self itemForEmailAddress:email]];
-        }        
-        self.dataSource = [GTIOAddStylistsSectionedDataSource dataSourceWithArrays:@"enter an email address", section1,
-                           @"choose from your phone contacts", section2, nil];
+
+        NSLog(@"On the invite tab");
+        
+        self.dataSource = [TTSectionedDataSource dataSourceWithArrays:nil];
+        
+        _inviteOverlay = [[UIView alloc] initWithFrame:self.tableView.frame];
+        
+        UIImageView* inviteBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"invite-bg.png"]];
+        [inviteBackground setFrame:CGRectMake(0, 0, _inviteOverlay.width, _inviteOverlay.height)];
+        
+        //facebook
+        UIButton* facebookInviteButton = [[UIButton alloc] initWithFrame:CGRectMake(23, 158, 90, 90)];
+        [facebookInviteButton setBackgroundImage:[UIImage imageNamed:@"invite-fb-OFF.png"] forState:UIControlStateNormal];
+        [facebookInviteButton setBackgroundImage:[UIImage imageNamed:@"invite-fb-ON.png"] forState:UIControlStateHighlighted];
+        [facebookInviteButton addTarget:self action:@selector(facebookInviteWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        //sms
+        UIButton* smsInviteButton = [[UIButton alloc] initWithFrame:CGRectMake(115, 158, 90, 90)];
+        [smsInviteButton setBackgroundImage:[UIImage imageNamed:@"invite-sms-OFF.png"] forState:UIControlStateNormal];
+        [smsInviteButton setBackgroundImage:[UIImage imageNamed:@"invite-sms-ON.png"] forState:UIControlStateHighlighted];
+        [smsInviteButton addTarget:self action:@selector(smsInviteWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        //email
+        UIButton* emailInviteButton = [[UIButton alloc] initWithFrame:CGRectMake(207, 158, 90, 90)];
+        [emailInviteButton setBackgroundImage:[UIImage imageNamed:@"invite-email-OFF.png"] forState:UIControlStateNormal];
+        [emailInviteButton setBackgroundImage:[UIImage imageNamed:@"invite-email-ON.png"] forState:UIControlStateHighlighted];
+        [emailInviteButton addTarget:self action:@selector(emailInviteWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        //labels
+        UILabel* facebookLabel = [[UILabel alloc] initWithFrame:CGRectMake(23, 244, 90, 20)];
+        [facebookLabel setBackgroundColor:[UIColor clearColor]];
+        [facebookLabel setTextAlignment:UITextAlignmentCenter];
+        [facebookLabel setFont:kGTIOFontBoldHelveticaNeueOfSize(12)];
+        [facebookLabel setTextColor:kGTIOColorB4B4B4];
+        [facebookLabel setText:@"facebook"];
+        
+        UILabel* smsLabel = [[UILabel alloc] initWithFrame:CGRectMake(115, 244, 90, 20)];
+        [smsLabel setBackgroundColor:[UIColor clearColor]];
+        [smsLabel setTextAlignment:UITextAlignmentCenter];
+        [smsLabel setFont:kGTIOFontBoldHelveticaNeueOfSize(12)];
+        [smsLabel setTextColor:kGTIOColorB4B4B4];
+        [smsLabel setText:@"sms"];
+        
+        UILabel* emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(207, 244, 90, 20)];        
+        [emailLabel setBackgroundColor:[UIColor clearColor]];
+        [emailLabel setTextAlignment:UITextAlignmentCenter];
+        [emailLabel setFont:kGTIOFontBoldHelveticaNeueOfSize(12)];
+        [emailLabel setTextColor:kGTIOColorB4B4B4];
+        [emailLabel setText:@"email"];
+        
+        [_inviteOverlay addSubview:inviteBackground];
+        [_inviteOverlay addSubview:facebookInviteButton];
+        [_inviteOverlay addSubview:smsInviteButton];
+        [_inviteOverlay addSubview:emailInviteButton];
+        
+        [_inviteOverlay addSubview:facebookLabel];
+        [_inviteOverlay addSubview:smsLabel];
+        [_inviteOverlay addSubview:emailLabel];
+        
+        [inviteBackground release];
+        [facebookInviteButton release];
+        [smsInviteButton release];
+        [emailInviteButton release];
+        
+        [facebookLabel release];
+        [smsLabel release];
+        [emailLabel release];
+        
+        [self.view addSubview:_inviteOverlay];
+        
         return;
     } else {
         GTIOAnalyticsEvent(kAddRecommendedStylistsEventName);
@@ -550,6 +627,8 @@
     [self invalidateModel];
 }
 
+#pragma mark - Button Action Methods
+
 - (void)doneButtonWasPressed:(id)sender {
     [self showLoading];
     [[GTIOAnalyticsTracker sharedTracker] trackUserDidAddStylists:[NSNumber numberWithInt:([_emailsToInvite count] + [_profileIDsToInvite count])]];
@@ -560,6 +639,86 @@
     loader.method = RKRequestMethodPOST;
     [loader send];
 }
+
+- (void)facebookInviteWasPressed:(id)sender {
+    NSLog(@"facebook invite pressed!");
+    
+    NSDictionary* params = [NSDictionary dictionary];
+    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    
+    [[RKClient sharedClient] post:GTIORestResourcePath(kGTIOInviteFacebookPath) params:params delegate:self];
+    
+    [self showLoading];
+}
+
+- (void)smsInviteWasPressed:(id)sender {
+    NSLog(@"sms invite pressed!");
+
+    NSDictionary* params = [NSDictionary dictionary];
+    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    
+    [[RKClient sharedClient] post:GTIORestResourcePath(kGTIOInviteSMSPath) params:params delegate:self];
+    
+    [self showLoading];
+}
+
+- (void)emailInviteWasPressed:(id)sender {
+    NSLog(@"email invite pressed!");
+    
+    NSDictionary* params = [NSDictionary dictionary];
+    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    
+    [[RKClient sharedClient] post:GTIORestResourcePath(kGTIOInviteEmailPath) params:params delegate:self];
+    
+    [self showLoading];
+}
+
+#pragma mark - RKRequestDelegate methods
+
+- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {
+    
+    NSError* error = nil;
+    NSDictionary* body = [response parsedBody:&error];
+    
+    [self hideLoading];
+    
+    NSLog(@"resource path: %@", request.resourcePath);
+    
+    if([request.resourcePath rangeOfString:kGTIOInviteSMSPath].location != NSNotFound) {
+        
+        NSString* text = [body valueForKey:@"text"];
+        
+        GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
+        // TODO: outfit id not used in composer creation method - ask jeremy if should be removed
+        [self.navigationController presentModalViewController:[composer textMessageComposerWithOutfitID:@"" body:text] animated:YES]; 
+    } else if([request.resourcePath rangeOfString:kGTIOInviteEmailPath].location != NSNotFound) {
+        
+        NSString* text = [body valueForKey:@"text"];
+        NSString* subject = [body valueForKey:@"subject"];
+        
+        GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
+        // TODO: again, the outfit id is irrelevant
+        [self.navigationController presentModalViewController:[composer emailComposerWithOutfitID:@"" subject:subject body:text] animated:YES];
+    } else if([request.resourcePath rangeOfString:kGTIOInviteFacebookPath].location != NSNotFound) {
+        
+        //grab title and url 
+        NSString* title = [body valueForKey:@"text"];
+        NSString* url = [body valueForKey:@"url"];
+        
+        GTIOFacebookInviteTableViewController* controller = [[GTIOFacebookInviteTableViewController alloc] initWithInviteTitle:title imageURL:url];
+        [self.navigationController pushViewController:controller animated:YES];
+        [controller release];
+    }
+    
+}
+
+- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
+    NSLog(@"Error: %@", error);
+    [self hideLoading];
+    GTIOErrorMessage(error);
+}
+
+#pragma mark - RKObjectLoaderDelegate methods
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
     NSLog(@"Error: %@", error);
