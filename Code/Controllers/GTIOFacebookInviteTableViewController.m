@@ -23,6 +23,7 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
     if(self) {
         self.text = profile.displayName;
         self.imageURL = profile.profileIconURL;
+        self.profile = profile;
     }
     return self;
 }
@@ -39,7 +40,8 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self) {
-
+        self.selectionStyle = UITableViewCellSelectionStyleGray;
+        
         _imageBackground = [UIView new];
         [_imageBackground setFrame:self.imageView2.frame];
         [_imageBackground setBackgroundColor:kGTIOColorE3E3E3];
