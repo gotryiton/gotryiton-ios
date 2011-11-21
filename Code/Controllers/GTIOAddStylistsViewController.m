@@ -643,12 +643,16 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
 - (void)facebookInviteWasPressed:(id)sender {
     NSLog(@"facebook invite pressed!");
     
-    NSDictionary* params = [NSDictionary dictionary];
-    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-    
-    [[RKClient sharedClient] post:GTIORestResourcePath(kGTIOInviteFacebookPath) params:params delegate:self];
-    
-    [self showLoading];
+    if(![[GTIOUser currentUser] resumeFacebookSession] || [[GTIOUser currentUser].isFacebookConnected boolValue] == NO) {
+        [[GTIOUser currentUser] loginWithFacebook];
+    } else {
+        NSDictionary* params = [NSDictionary dictionary];
+        params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+        
+        [[RKClient sharedClient] post:GTIORestResourcePath(kGTIOInviteFacebookPath) params:params delegate:self];
+        
+        [self showLoading];
+    }
 }
 
 - (void)smsInviteWasPressed:(id)sender {
