@@ -250,8 +250,6 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
 - (void)loadView {
     [super loadView];
     self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"FACEBOOK INVITE"];
-    
-    
 }
 
 #pragma mark - Search Bar stuff
@@ -274,8 +272,6 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
 - (NSMutableArray*)tableItemsForStylists:(NSArray*)stylists {
     NSMutableArray* items = [NSMutableArray array];
     for (GTIOProfile* profile in stylists) {
-//        NSString* url = [NSString stringWithFormat:@"gtio://browse/%@", [category.apiEndpoint stringByReplacingOccurrencesOfString:@"/" withString:@"."]];
-        
         GTIOFacebookInviteTableItem* item = [[[GTIOFacebookInviteTableItem alloc] initWithProfile:profile] autorelease];
         [items addObject:item];
     }

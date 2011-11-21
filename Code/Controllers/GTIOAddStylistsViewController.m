@@ -702,7 +702,6 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
         GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
         // TODO: outfit id not used in composer creation method - ask jeremy if should be removed
         [self.navigationController presentModalViewController:[composer textMessageComposerWithOutfitID:@"" body:text] animated:YES]; 
-//        [composer release];
     } else if([request.resourcePath rangeOfString:kGTIOInviteEmailPath].location != NSNotFound) {
         
         NSString* text = [body valueForKey:@"text"];
@@ -711,7 +710,6 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
         GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
         // TODO: again, the outfit id is irrelevant
         [self.navigationController presentModalViewController:[composer emailComposerWithOutfitID:@"" subject:subject body:text] animated:YES];
-//        [composer release];
     } else if([request.resourcePath rangeOfString:kGTIOInviteFacebookPath].location != NSNotFound) {
         
         //grab title and url 
