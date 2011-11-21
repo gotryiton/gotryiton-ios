@@ -146,13 +146,26 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
         
         self.facebookTitle = title;
         self.facebookImageURL = imageURL;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginDidEnd) name:kGTIOUserDidEndLoginProcess object:nil];
     }
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
+}
+
 #pragma mark - TTTableView methods
 
+- (void)loginDidEnd {
+    // just logged in with facebook, reload table
+    [self invalidateModel];
+}
+
 - (void)createModel {
+    
     NSString* apiEndpoint = GTIORestResourcePath(kGTIOFacebookInviteAPIEndpoint);
     NSDictionary* params = [NSDictionary dictionary];
     params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];

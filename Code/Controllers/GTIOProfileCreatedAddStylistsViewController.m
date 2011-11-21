@@ -55,7 +55,7 @@
 }
 
 - (void)skipButtonAction {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES];
 }
 
 - (void)stylistSelected:(UIButton*)button {
@@ -208,7 +208,7 @@
     
     if([objectLoader.resourcePath isEqualToString:GTIORestResourcePath(@"/stylists/add")]) {
         [[GTIOLoadingOverlayManager sharedManager] stopLoading];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES];
         
     } else {
         
