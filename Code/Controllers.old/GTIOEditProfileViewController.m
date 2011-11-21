@@ -514,6 +514,8 @@
 		[_stateField.text isWhitespaceAndNewlines]) {
 		[errors addObject:@"State is required"];
 	}
+    
+    // They current don't want gender as a required field - keep the code incase they change their mind
 //	NSString* gender = nil;
 //	if ([_genderPicker.textLabel.text isEqualToString:@"M"]) {
 //		gender = @"male";

@@ -17,6 +17,7 @@
 #import "GTIOLoadingOverlayManager.h"
 #import "GTIOAnalyticsTracker.h"
 #import "GTIOBarButtonItem.h"
+#import "GTIOAddStylistButton.h"
 
 @interface GTIOProfileCreatedAddStylistsViewController : GTIOViewController<RKObjectLoaderDelegate, TTTAttributedLabelDelegate> {
 

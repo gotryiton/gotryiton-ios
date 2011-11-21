@@ -8,85 +8,6 @@
 
 #import "GTIOProfileCreatedAddStylistsViewController.h"
 
-@interface GTIOAddStylistButton : UIButton {
-    BOOL _selected;
-    UIImage* _checkBoxImage;
-    UIImageView* _checkboxView;
-}
-
-- (id)initWithTitle:(NSString*)title subtitle:(NSString *)subtitle imageURL:(NSString*)imageURL;
-
-@property (nonatomic,assign) BOOL selected;
-@property (nonatomic,retain) UIImageView* checkboxView;
-
-@property (nonatomic,retain) GTIOProfile* profile;
-
-@end
-
-@implementation GTIOAddStylistButton
-
-@synthesize selected = _selected;
-@synthesize checkboxView = _checkboxView;
-@synthesize profile;
-
-- (id)initWithTitle:(NSString *)title subtitle:(NSString *)subtitle imageURL:(NSString *)imageURL {
-    self = [super init];
-    if(self) {
-        self.selected = YES;
-        
-        UIImage* checkBoxImage = [UIImage imageNamed:@"add-checkbox-ON.png"];
-        self.checkboxView = [[UIImageView alloc] initWithImage:checkBoxImage];
-        
-        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(5, 5, 30, 30)];
-        imageView.urlPath = imageURL;
-        imageView.layer.borderColor = RGBCOLOR(218,218,218).CGColor;
-        imageView.layer.borderWidth = 1;
-        
-        UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        titleLabel.font = kGTIOFontHelveticaNeueOfSize(15);
-        titleLabel.textColor = kGTIOColor797979;
-        titleLabel.text = title;
-        titleLabel.backgroundColor = [UIColor clearColor];
-        [titleLabel sizeToFit];
-        titleLabel.frame = CGRectMake(40, 5, titleLabel.width, titleLabel.height);
-        
-        UILabel* subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        subtitleLabel.font = kGTIOFontHelveticaNeueOfSize(10);
-        subtitleLabel.textColor = kGTIOColorAFAFAF;
-        subtitleLabel.text = subtitle;
-        subtitleLabel.backgroundColor = [UIColor clearColor];
-        [subtitleLabel sizeToFit];
-        subtitleLabel.frame = CGRectMake(40, 20, subtitleLabel.width, subtitleLabel.height);
-        
-        [self addSubview:imageView];
-        [self addSubview:titleLabel];
-        [self addSubview:subtitleLabel];
-        [self addSubview:_checkboxView];
-        
-        TT_RELEASE_SAFELY(imageView);
-        TT_RELEASE_SAFELY(titleLabel);
-        TT_RELEASE_SAFELY(subtitleLabel);
-    }
-    return self;
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];        
-    
-    _checkboxView.frame = CGRectMake(self.frame.size.width - 5 - 30,5,30,30);
-}
-
-- (void)dealloc {
-    TT_RELEASE_SAFELY(_checkboxView);
-    [super dealloc];
-}
-
-@end
-
-@interface GTIOAddStylistButton(Private)
-- (void)updateDoneButton;
-@end
-
 @implementation GTIOProfileCreatedAddStylistsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -110,8 +31,6 @@
 }
 
 - (void)doneButtonAction {
-    NSLog(@"Done button pressed");
-
     [[GTIOLoadingOverlayManager sharedManager] showLoading];
     
     [[GTIOAnalyticsTracker sharedTracker] trackUserDidAddStylists:[NSNumber numberWithInt:([_stylistsToAdd count])]];
@@ -131,12 +50,10 @@
 }
 
 - (void)editButtonAction {
-    NSLog(@"Edit button action");
     TTOpenURL(@"gtio://profile/new");
 }
 
 - (void)skipButtonAction {
-    NSLog(@"Skip button!");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -502,16 +419,6 @@
     TT_RELEASE_SAFELY(buttonView);
     
     [self requestStylists];
-    
-//    UIButton* bottomButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 66, 320, 66)];
-//    [bottomButton setBackgroundImage:[UIImage imageNamed:@"add-done-ON.png"] forState:UIControlStateNormal];
-//    [bottomButton setBackgroundImage:[UIImage imageNamed:@"add-done-OFF.png"] forState:UIControlStateHighlighted];
-//    [bottomButton addTarget:self action:@selector(doneButtonAction) forControlEvents:UIControlEventTouchUpInside];
-//    [bottomButton setBackgroundColor:[UIColor clearColor]];
-//    [bottomButton setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
-//
-//    [self.view addSubview:bottomButton];
-//    TT_RELEASE_SAFELY(bottomButton);
     
 }
 

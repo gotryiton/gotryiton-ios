@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		13B38E50146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B38E4F146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m */; };
 		13B38E51146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B38E4F146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m */; };
+		13BBBCF9147A9C030069D69A /* GTIOAddStylistButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BBBCF8147A9C030069D69A /* GTIOAddStylistButton.m */; };
+		13BBBCFA147A9C030069D69A /* GTIOAddStylistButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BBBCF8147A9C030069D69A /* GTIOAddStylistButton.m */; };
 		13D1749C14643DBE00E951C2 /* thumb-review-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749A14643DBE00E951C2 /* thumb-review-empty.png */; };
 		13D1749D14643DBE00E951C2 /* thumb-review-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749A14643DBE00E951C2 /* thumb-review-empty.png */; };
 		13D1749E14643DBE00E951C2 /* thumb-review-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749B14643DBE00E951C2 /* thumb-review-empty@2x.png */; };
@@ -2177,6 +2179,8 @@
 /* Begin PBXFileReference section */
 		13B38E4E146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileCreatedAddStylistsViewController.h; sourceTree = "<group>"; };
 		13B38E4F146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileCreatedAddStylistsViewController.m; sourceTree = "<group>"; };
+		13BBBCF7147A9C030069D69A /* GTIOAddStylistButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAddStylistButton.h; sourceTree = "<group>"; };
+		13BBBCF8147A9C030069D69A /* GTIOAddStylistButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAddStylistButton.m; sourceTree = "<group>"; };
 		13D1749A14643DBE00E951C2 /* thumb-review-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb-review-empty.png"; sourceTree = "<group>"; };
 		13D1749B14643DBE00E951C2 /* thumb-review-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb-review-empty@2x.png"; sourceTree = "<group>"; };
 		13E7CCC8147171380093B8D2 /* profile-created-congratulations.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-created-congratulations.png"; sourceTree = "<group>"; };
@@ -4806,6 +4810,8 @@
 				3F219A76140FC3690035AE25 /* GTIOPlaceholderTextField.m */,
 				3FDE8C3F146C756C002A2840 /* GTIOSpinnerImageView.h */,
 				3FDE8C40146C756C002A2840 /* GTIOSpinnerImageView.m */,
+				13BBBCF7147A9C030069D69A /* GTIOAddStylistButton.h */,
+				13BBBCF8147A9C030069D69A /* GTIOAddStylistButton.m */,
 			);
 			name = Views;
 			path = Code/Views;
@@ -7621,6 +7627,7 @@
 				3F219A77140FC3690035AE25 /* GTIOPlaceholderTextField.m in Sources */,
 				13B38E50146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m in Sources */,
 				3FDE8C41146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */,
+				13BBBCF9147A9C030069D69A /* GTIOAddStylistButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7789,6 +7796,7 @@
 				3F219A78140FC3690035AE25 /* GTIOPlaceholderTextField.m in Sources */,
 				13B38E51146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m in Sources */,
 				3FDE8C42146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */,
+				13BBBCFA147A9C030069D69A /* GTIOAddStylistButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
