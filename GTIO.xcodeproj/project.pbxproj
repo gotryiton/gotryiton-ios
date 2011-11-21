@@ -7,10 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13B38E50146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B38E4F146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m */; };
+		13B38E51146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B38E4F146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m */; };
+		13BBBCF9147A9C030069D69A /* GTIOAddStylistButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BBBCF8147A9C030069D69A /* GTIOAddStylistButton.m */; };
+		13BBBCFA147A9C030069D69A /* GTIOAddStylistButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BBBCF8147A9C030069D69A /* GTIOAddStylistButton.m */; };
 		13D1749C14643DBE00E951C2 /* thumb-review-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749A14643DBE00E951C2 /* thumb-review-empty.png */; };
 		13D1749D14643DBE00E951C2 /* thumb-review-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749A14643DBE00E951C2 /* thumb-review-empty.png */; };
 		13D1749E14643DBE00E951C2 /* thumb-review-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749B14643DBE00E951C2 /* thumb-review-empty@2x.png */; };
 		13D1749F14643DBE00E951C2 /* thumb-review-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D1749B14643DBE00E951C2 /* thumb-review-empty@2x.png */; };
+		13E7CCCC147171380093B8D2 /* profile-created-congratulations.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCC8147171380093B8D2 /* profile-created-congratulations.png */; };
+		13E7CCCD147171380093B8D2 /* profile-created-congratulations.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCC8147171380093B8D2 /* profile-created-congratulations.png */; };
+		13E7CCCE147171380093B8D2 /* profile-created-congratulations@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCC9147171380093B8D2 /* profile-created-congratulations@2x.png */; };
+		13E7CCCF147171380093B8D2 /* profile-created-congratulations@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCC9147171380093B8D2 /* profile-created-congratulations@2x.png */; };
+		13E7CCD0147171380093B8D2 /* profile-created-skip-chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCCA147171380093B8D2 /* profile-created-skip-chevron.png */; };
+		13E7CCD1147171380093B8D2 /* profile-created-skip-chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCCA147171380093B8D2 /* profile-created-skip-chevron.png */; };
+		13E7CCD2147171380093B8D2 /* profile-created-skip-chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCCB147171380093B8D2 /* profile-created-skip-chevron@2x.png */; };
+		13E7CCD3147171380093B8D2 /* profile-created-skip-chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E7CCCB147171380093B8D2 /* profile-created-skip-chevron@2x.png */; };
 		2585188E135357C5005DCBA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188D135357C5005DCBA5 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		25851890135357C5005DCBA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2585188F135357C5005DCBA5 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		25851892135357C5005DCBA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25851891135357C5005DCBA5 /* CoreGraphics.framework */; };
@@ -2165,8 +2177,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13B38E4E146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileCreatedAddStylistsViewController.h; sourceTree = "<group>"; };
+		13B38E4F146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileCreatedAddStylistsViewController.m; sourceTree = "<group>"; };
+		13BBBCF7147A9C030069D69A /* GTIOAddStylistButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAddStylistButton.h; sourceTree = "<group>"; };
+		13BBBCF8147A9C030069D69A /* GTIOAddStylistButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAddStylistButton.m; sourceTree = "<group>"; };
 		13D1749A14643DBE00E951C2 /* thumb-review-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb-review-empty.png"; sourceTree = "<group>"; };
 		13D1749B14643DBE00E951C2 /* thumb-review-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb-review-empty@2x.png"; sourceTree = "<group>"; };
+		13E7CCC8147171380093B8D2 /* profile-created-congratulations.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-created-congratulations.png"; sourceTree = "<group>"; };
+		13E7CCC9147171380093B8D2 /* profile-created-congratulations@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-created-congratulations@2x.png"; sourceTree = "<group>"; };
+		13E7CCCA147171380093B8D2 /* profile-created-skip-chevron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-created-skip-chevron.png"; sourceTree = "<group>"; };
+		13E7CCCB147171380093B8D2 /* profile-created-skip-chevron@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-created-skip-chevron@2x.png"; sourceTree = "<group>"; };
 		25851889135357C5005DCBA5 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2585188D135357C5005DCBA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2585188F135357C5005DCBA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -4790,6 +4810,8 @@
 				3F219A76140FC3690035AE25 /* GTIOPlaceholderTextField.m */,
 				3FDE8C3F146C756C002A2840 /* GTIOSpinnerImageView.h */,
 				3FDE8C40146C756C002A2840 /* GTIOSpinnerImageView.m */,
+				13BBBCF7147A9C030069D69A /* GTIOAddStylistButton.h */,
+				13BBBCF8147A9C030069D69A /* GTIOAddStylistButton.m */,
 			);
 			name = Views;
 			path = Code/Views;
@@ -5020,6 +5042,10 @@
 				A7403955137DCCF50052EF8C /* remove-ON@2x.png */,
 				A7403956137DCCF50052EF8C /* settingsBarButton.png */,
 				A7403957137DCCF50052EF8C /* settingsBarButton@2x.png */,
+				13E7CCC8147171380093B8D2 /* profile-created-congratulations.png */,
+				13E7CCC9147171380093B8D2 /* profile-created-congratulations@2x.png */,
+				13E7CCCA147171380093B8D2 /* profile-created-skip-chevron.png */,
+				13E7CCCB147171380093B8D2 /* profile-created-skip-chevron@2x.png */,
 			);
 			path = profile;
 			sourceTree = "<group>";
@@ -5453,6 +5479,8 @@
 				3F8E238013BCF29B00BBD2EE /* GTIOPushPersonalStylistsViewController.m */,
 				3F330785140E7033000625EA /* GTIOViewController.h */,
 				3F330786140E7033000625EA /* GTIOViewController.m */,
+				13B38E4E146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.h */,
+				13B38E4F146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m */,
 			);
 			name = Controllers;
 			path = Code/Controllers;
@@ -6701,6 +6729,10 @@
 				3F8A66D71408296E00A9DC62 /* Entitlements.plist in Resources */,
 				13D1749C14643DBE00E951C2 /* thumb-review-empty.png in Resources */,
 				13D1749E14643DBE00E951C2 /* thumb-review-empty@2x.png in Resources */,
+				13E7CCCC147171380093B8D2 /* profile-created-congratulations.png in Resources */,
+				13E7CCCE147171380093B8D2 /* profile-created-congratulations@2x.png in Resources */,
+				13E7CCD0147171380093B8D2 /* profile-created-skip-chevron.png in Resources */,
+				13E7CCD2147171380093B8D2 /* profile-created-skip-chevron@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7420,6 +7452,10 @@
 				13D1749F14643DBE00E951C2 /* thumb-review-empty@2x.png in Resources */,
 				3FED45E0146AF45C00B8587F /* README.txt in Resources */,
 				3FED45E1146AF45C00B8587F /* release_notes.txt in Resources */,
+				13E7CCCD147171380093B8D2 /* profile-created-congratulations.png in Resources */,
+				13E7CCCF147171380093B8D2 /* profile-created-congratulations@2x.png in Resources */,
+				13E7CCD1147171380093B8D2 /* profile-created-skip-chevron.png in Resources */,
+				13E7CCD3147171380093B8D2 /* profile-created-skip-chevron@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7589,7 +7625,9 @@
 				3FF661C813C6513E0003D120 /* GTIOLoginViewController.m in Sources */,
 				3F330787140E7033000625EA /* GTIOViewController.m in Sources */,
 				3F219A77140FC3690035AE25 /* GTIOPlaceholderTextField.m in Sources */,
+				13B38E50146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m in Sources */,
 				3FDE8C41146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */,
+				13BBBCF9147A9C030069D69A /* GTIOAddStylistButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7756,7 +7794,9 @@
 				3F8E238413BCF29B00BBD2EE /* GTIOPushPersonalStylistsViewController.m in Sources */,
 				3F330788140E7033000625EA /* GTIOViewController.m in Sources */,
 				3F219A78140FC3690035AE25 /* GTIOPlaceholderTextField.m in Sources */,
+				13B38E51146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m in Sources */,
 				3FDE8C42146C756C002A2840 /* GTIOSpinnerImageView.m in Sources */,
+				13BBBCFA147A9C030069D69A /* GTIOAddStylistButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
