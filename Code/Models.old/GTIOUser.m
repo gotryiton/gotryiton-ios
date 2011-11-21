@@ -341,6 +341,13 @@ static GTIOUser* gCurrentUser = nil;
     [_facebook authorize:permissions delegate:self];
 }
 
+- (BOOL)resumeFacebookSession {
+    _facebook = [[Facebook alloc] initWithAppId:kGTIOFacebookAppID];
+    _facebook.accessToken = [[NSUserDefaults standardUserDefaults] valueForKey:kGTIOFacebookAuthToken];
+    _facebook.expirationDate = [[NSUserDefaults standardUserDefaults] valueForKey:kGTIOFacebookExpirationToken];
+    return [_facebook isSessionValid];
+}
+
 - (void)loginWithJanRain {
     [self didStartLogin];
     TTOpenURL(@"gtio://analytics/trackUserDidViewLoginOtherProviders");
@@ -539,6 +546,10 @@ static GTIOUser* gCurrentUser = nil;
 - (void)fbDidLogin {
     GTIOAnalyticsEvent(kUserAddedFacebook);
     NSString* url = GTIORestResourcePath(@"/auth");
+    
+    [[NSUserDefaults standardUserDefaults] setValue:[_facebook accessToken] forKey:kGTIOFacebookAuthToken];
+    [[NSUserDefaults standardUserDefaults] setValue:[_facebook expirationDate] forKey:kGTIOFacebookExpirationToken];
+    
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken",
 //                            [self deviceTokenURLEncoded], @"deviceToken",
                             [GTIOUser appVersionString], @"iphoneAppVersion", nil];

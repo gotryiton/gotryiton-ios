@@ -215,6 +215,11 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 - (void)loginWithFacebook;
 
 /**
+ * Reload the facebook object, return isSessionValid
+ */
+- (BOOL)resumeFacebookSession; 
+
+/**
  * Begin the login process using JanRain Engage
  */
 - (void)loginWithJanRain;

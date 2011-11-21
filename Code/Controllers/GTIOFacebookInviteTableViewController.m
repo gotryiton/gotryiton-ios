@@ -154,7 +154,7 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
 
 - (void)createModel {
     
-    if([GTIOUser currentUser].facebook == nil) {
+    if(![[GTIOUser currentUser] resumeFacebookSession]) {
         [[GTIOUser currentUser] loginWithFacebook];
     }
     
