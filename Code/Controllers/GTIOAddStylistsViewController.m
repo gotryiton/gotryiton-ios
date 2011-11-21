@@ -355,19 +355,6 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
     _doneButton = [[GTIOBarButtonItem alloc] initPinkButtonWithTitle:@"done" target:self action:@selector(doneButtonWasPressed:) backButton:NO];
     self.navigationItem.rightBarButtonItem = _doneButton;
     
-//    _buttonView = [[UIImageView alloc] initWithFrame:CGRectMake(0,self.view.height,320,66)];
-//    _buttonView.image = [UIImage imageNamed:@"add-done-ON.png"];
-//    _buttonView.userInteractionEnabled = YES;
-//    _doneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-//    [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
-//    [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
-//    _doneButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-//    [_doneButton addTarget:self action:@selector(doneButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    _doneButton.frame = CGRectMake(13, 20, 320-26, 33);
-//    [_buttonView addSubview:_doneButton];
-//    [self.view addSubview:_buttonView];
-    
     self.tableView.frame = CGRectMake(0, _tabBar.bounds.size.height, self.tableView.bounds.size.width, self.view.bounds.size.height - _tabBar.bounds.size.height);
 }
 
