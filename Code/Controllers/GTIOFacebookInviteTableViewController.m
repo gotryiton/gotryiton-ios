@@ -179,12 +179,11 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
     
     NSLog(@"facebook id: %@", item.profile.facebookId);
     
+    NSLog(@"stuff: %@, %@", self.facebookTitle, self.facebookImageURL);
+    
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    kGTIOFacebookAppID, @"app_id",
-                                   @"http://developers.facebook.com/docs/reference/dialogs/", @"link",
-                                   @"http://fbrell.com/f8.jpg", @"picture",
-                                   @"by my Personal Stylist!", @"caption",
-                                   @"When you join GO TRY IT ON, I can send you my looks instantly and get your style advice!", @"description",
+                                   self.facebookImageURL, @"link",
                                    item.profile.facebookId, @"to",
                                    nil];
     
