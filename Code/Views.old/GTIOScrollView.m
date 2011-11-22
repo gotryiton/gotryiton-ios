@@ -204,6 +204,7 @@ static int const dragRefreshDistance = 72;
 		UIEdgeInsets newEdges = UIEdgeInsetsMake(top, left, bottom, right);
 		UIEdgeInsets pageEdges = [self resistPageEdges:newEdges];
 		
+        NSLog(@"*********Scroll View: %@", scrollView);
 		if (![self edgesAreZoomed:pageEdges] || self.canZoom) {
 			
             // This is teh piece of code that doesn't let you scroll the top view while the bottom is zoomed.
@@ -213,18 +214,21 @@ static int const dragRefreshDistance = 72;
 			}
 			
 			if (pageEdges.left < 0 && scrollView.centerPageIndex + 1 < scrollView.numberOfPages) {
+                NSLog(@"Left = 0");
 				pageEdges.right = pageEdges.right - pageEdges.left;
 				pageEdges.left = 0;
 			}
 			if (pageEdges.left > 0 && scrollView.centerPageIndex  > 0) {
 				pageEdges.right = pageEdges.right - pageEdges.left;
 				pageEdges.left = 0;
+                NSLog(@"Left = 0.0");
 			}
 			if ((!self.zoomed && !_shouldScroll) || // Single outfit view
 				(!self.zoomed && pageEdges.left < 0 && self.centerPageIndex >= (self.numberOfPages - 1) && !scrollView) || // Scrolling Right. Internal scroll view.
 				(!self.zoomed && pageEdges.left > 0 && self.centerPageIndex == 0 && !scrollView)) { // Scrolling Left. Internal scroll view.
 				pageEdges.right = pageEdges.right - pageEdges.left;
 				pageEdges.left = 0;
+                NSLog(@"Left = 0.0.0");
 			}
 			// end shenanagins.
         //}   

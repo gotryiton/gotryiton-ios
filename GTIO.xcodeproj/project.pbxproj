@@ -1138,6 +1138,7 @@
 		3FA654C41384230F00CC1106 /* tabs3-1-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654C21384230F00CC1106 /* tabs3-1-off.png */; };
 		3FA654C71384230F00CC1106 /* tabs3-1-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654C31384230F00CC1106 /* tabs3-1-off@2x.png */; };
 		3FA9BBD71386AA56002701F4 /* GTIOListSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA9BBD61386AA56002701F4 /* GTIOListSection.m */; };
+		3FBA2F55147C340800DFD625 /* libCrittercism_v3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBA2F3B147C340800DFD625 /* libCrittercism_v3.a */; };
 		3FBFC2EC1381ABBC00A47A1B /* GTIOSortTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBFC2EB1381ABBC00A47A1B /* GTIOSortTab.m */; };
 		3FC1E81F13A8F72700646EEE /* libTWTCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC1E81E13A8F72700646EEE /* libTWTCommon.a */; };
 		3FC1E82213A9021100646EEE /* GTIOTopRightBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1E82113A9021100646EEE /* GTIOTopRightBarButton.m */; };
@@ -1386,7 +1387,6 @@
 		3FED45DF146AF45C00B8587F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FED45DB146AF45C00B8587F /* libTestFlight.a */; };
 		3FED45E0146AF45C00B8587F /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3FED45DC146AF45C00B8587F /* README.txt */; };
 		3FED45E1146AF45C00B8587F /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3FED45DD146AF45C00B8587F /* release_notes.txt */; };
-		3FED45EF146AF7E600B8587F /* Crittercism_v2_9_27.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FED45E4146AF7E600B8587F /* Crittercism_v2_9_27.a */; };
 		3FED55591385ACF2004743A2 /* NSObject_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED55581385ACF2004743A2 /* NSObject_Additions.m */; };
 		3FF661C813C6513E0003D120 /* GTIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BD1379887F0036F86D /* GTIOLoginViewController.m */; };
 		3FFBE1DA13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFBE1D913855F4F000C5CB5 /* GTIOAddStylistsViewController.m */; };
@@ -2564,6 +2564,36 @@
 		3FA654C31384230F00CC1106 /* tabs3-1-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs3-1-off@2x.png"; sourceTree = "<group>"; };
 		3FA9BBD51386AA56002701F4 /* GTIOListSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOListSection.h; sourceTree = "<group>"; };
 		3FA9BBD61386AA56002701F4 /* GTIOListSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOListSection.m; sourceTree = "<group>"; };
+		3FBA2F37147C340800DFD625 /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
+		3FBA2F38147C340800DFD625 /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
+		3FBA2F39147C340800DFD625 /* CrittercismJSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismJSONKit.h; sourceTree = "<group>"; };
+		3FBA2F3A147C340800DFD625 /* CrittercismReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismReachability.h; sourceTree = "<group>"; };
+		3FBA2F3B147C340800DFD625 /* libCrittercism_v3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism_v3.a; sourceTree = "<group>"; };
+		3FBA2F3C147C340800DFD625 /* PLCrashAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashAsync.h; sourceTree = "<group>"; };
+		3FBA2F3D147C340800DFD625 /* PLCrashAsyncImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashAsyncImage.h; sourceTree = "<group>"; };
+		3FBA2F3E147C340800DFD625 /* PLCrashAsyncSignalInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashAsyncSignalInfo.h; sourceTree = "<group>"; };
+		3FBA2F3F147C340800DFD625 /* PLCrashFrameWalker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashFrameWalker.h; sourceTree = "<group>"; };
+		3FBA2F40147C340800DFD625 /* PLCrashFrameWalker_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashFrameWalker_arm.h; sourceTree = "<group>"; };
+		3FBA2F41147C340800DFD625 /* PLCrashFrameWalker_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashFrameWalker_i386.h; sourceTree = "<group>"; };
+		3FBA2F42147C340800DFD625 /* PLCrashFrameWalker_ppc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashFrameWalker_ppc.h; sourceTree = "<group>"; };
+		3FBA2F43147C340800DFD625 /* PLCrashFrameWalker_x86_64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashFrameWalker_x86_64.h; sourceTree = "<group>"; };
+		3FBA2F44147C340800DFD625 /* PLCrashLogWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashLogWriter.h; sourceTree = "<group>"; };
+		3FBA2F45147C340800DFD625 /* PLCrashLogWriterEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashLogWriterEncoding.h; sourceTree = "<group>"; };
+		3FBA2F46147C340800DFD625 /* PLCrashReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReport.h; sourceTree = "<group>"; };
+		3FBA2F47147C340800DFD625 /* PLCrashReportApplicationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportApplicationInfo.h; sourceTree = "<group>"; };
+		3FBA2F48147C340800DFD625 /* PLCrashReportBinaryImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportBinaryImageInfo.h; sourceTree = "<group>"; };
+		3FBA2F49147C340800DFD625 /* PLCrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReporter.h; sourceTree = "<group>"; };
+		3FBA2F4A147C340800DFD625 /* PLCrashReportExceptionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportExceptionInfo.h; sourceTree = "<group>"; };
+		3FBA2F4B147C340800DFD625 /* PLCrashReportFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportFormatter.h; sourceTree = "<group>"; };
+		3FBA2F4C147C340800DFD625 /* PLCrashReportMachineInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportMachineInfo.h; sourceTree = "<group>"; };
+		3FBA2F4D147C340800DFD625 /* PLCrashReportProcessInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportProcessInfo.h; sourceTree = "<group>"; };
+		3FBA2F4E147C340800DFD625 /* PLCrashReportProcessorInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportProcessorInfo.h; sourceTree = "<group>"; };
+		3FBA2F4F147C340800DFD625 /* PLCrashReportSignalInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportSignalInfo.h; sourceTree = "<group>"; };
+		3FBA2F50147C340800DFD625 /* PLCrashReportSystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportSystemInfo.h; sourceTree = "<group>"; };
+		3FBA2F51147C340800DFD625 /* PLCrashReportTextFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportTextFormatter.h; sourceTree = "<group>"; };
+		3FBA2F52147C340800DFD625 /* PLCrashReportThreadInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReportThreadInfo.h; sourceTree = "<group>"; };
+		3FBA2F53147C340800DFD625 /* PLCrashSignalHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashSignalHandler.h; sourceTree = "<group>"; };
+		3FBA2F54147C340800DFD625 /* PLCrashSysctl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashSysctl.h; sourceTree = "<group>"; };
 		3FBAE210137ACCC5001BBC0E /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
 		3FBAE211137ACCC5001BBC0E /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		3FBAE212137ACCC5001BBC0E /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
@@ -2864,18 +2894,6 @@
 		3FED45DC146AF45C00B8587F /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3FED45DD146AF45C00B8587F /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
 		3FED45DE146AF45C00B8587F /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		3FED45E3146AF7E600B8587F /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
-		3FED45E4146AF7E600B8587F /* Crittercism_v2_9_27.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = Crittercism_v2_9_27.a; sourceTree = "<group>"; };
-		3FED45E5146AF7E600B8587F /* CrittercismAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismAboutViewController.h; sourceTree = "<group>"; };
-		3FED45E6146AF7E600B8587F /* CrittercismAddCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismAddCommentViewController.h; sourceTree = "<group>"; };
-		3FED45E7146AF7E600B8587F /* CrittercismAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismAddViewController.h; sourceTree = "<group>"; };
-		3FED45E8146AF7E600B8587F /* CrittercismDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismDescriptionViewController.h; sourceTree = "<group>"; };
-		3FED45E9146AF7E600B8587F /* CrittercismJSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismJSONKit.h; sourceTree = "<group>"; };
-		3FED45EA146AF7E600B8587F /* CrittercismNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismNavigationView.h; sourceTree = "<group>"; };
-		3FED45EB146AF7E600B8587F /* CrittercismReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismReachability.h; sourceTree = "<group>"; };
-		3FED45EC146AF7E600B8587F /* CrittercismRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismRootViewController.h; sourceTree = "<group>"; };
-		3FED45ED146AF7E600B8587F /* CrittercismUIAlertPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismUIAlertPrompt.h; sourceTree = "<group>"; };
-		3FED45EE146AF7E600B8587F /* CrittercismViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismViewController.h; sourceTree = "<group>"; };
 		3FED55571385ACF2004743A2 /* NSObject_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObject_Additions.h; sourceTree = "<group>"; };
 		3FED55581385ACF2004743A2 /* NSObject_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObject_Additions.m; sourceTree = "<group>"; };
 		3FF11362138190300093764D /* GTIOBrowseTableViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOBrowseTableViewControllerSpec.m; path = Specs/Controllers/GTIOBrowseTableViewControllerSpec.m; sourceTree = "<group>"; };
@@ -3464,7 +3482,7 @@
 				25851890135357C5005DCBA5 /* Foundation.framework in Frameworks */,
 				25851892135357C5005DCBA5 /* CoreGraphics.framework in Frameworks */,
 				3F77329B14697F4500F35813 /* libFlurryAnalytics.a in Frameworks */,
-				3FED45EF146AF7E600B8587F /* Crittercism_v2_9_27.a in Frameworks */,
+				3FBA2F55147C340800DFD625 /* libCrittercism_v3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3600,7 +3618,7 @@
 		258518AC135357D0005DCBA5 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				3FED45E2146AF7E600B8587F /* CrittercismSDK-crashreporting-only */,
+				3FBA2F36147C340800DFD625 /* CrittercismSDK */,
 				3FED45DA146AF45C00B8587F /* TestFlightSDK0.7.2 (1) */,
 				A76206EF1379D37500DFBD66 /* TTTAttributedLabel */,
 				A7E307E1137989380036F86D /* FlurryLib */,
@@ -4274,6 +4292,44 @@
 			path = "3.0-tabs-blank";
 			sourceTree = "<group>";
 		};
+		3FBA2F36147C340800DFD625 /* CrittercismSDK */ = {
+			isa = PBXGroup;
+			children = (
+				3FBA2F37147C340800DFD625 /* CrashReporter.h */,
+				3FBA2F38147C340800DFD625 /* Crittercism.h */,
+				3FBA2F39147C340800DFD625 /* CrittercismJSONKit.h */,
+				3FBA2F3A147C340800DFD625 /* CrittercismReachability.h */,
+				3FBA2F3B147C340800DFD625 /* libCrittercism_v3.a */,
+				3FBA2F3C147C340800DFD625 /* PLCrashAsync.h */,
+				3FBA2F3D147C340800DFD625 /* PLCrashAsyncImage.h */,
+				3FBA2F3E147C340800DFD625 /* PLCrashAsyncSignalInfo.h */,
+				3FBA2F3F147C340800DFD625 /* PLCrashFrameWalker.h */,
+				3FBA2F40147C340800DFD625 /* PLCrashFrameWalker_arm.h */,
+				3FBA2F41147C340800DFD625 /* PLCrashFrameWalker_i386.h */,
+				3FBA2F42147C340800DFD625 /* PLCrashFrameWalker_ppc.h */,
+				3FBA2F43147C340800DFD625 /* PLCrashFrameWalker_x86_64.h */,
+				3FBA2F44147C340800DFD625 /* PLCrashLogWriter.h */,
+				3FBA2F45147C340800DFD625 /* PLCrashLogWriterEncoding.h */,
+				3FBA2F46147C340800DFD625 /* PLCrashReport.h */,
+				3FBA2F47147C340800DFD625 /* PLCrashReportApplicationInfo.h */,
+				3FBA2F48147C340800DFD625 /* PLCrashReportBinaryImageInfo.h */,
+				3FBA2F49147C340800DFD625 /* PLCrashReporter.h */,
+				3FBA2F4A147C340800DFD625 /* PLCrashReportExceptionInfo.h */,
+				3FBA2F4B147C340800DFD625 /* PLCrashReportFormatter.h */,
+				3FBA2F4C147C340800DFD625 /* PLCrashReportMachineInfo.h */,
+				3FBA2F4D147C340800DFD625 /* PLCrashReportProcessInfo.h */,
+				3FBA2F4E147C340800DFD625 /* PLCrashReportProcessorInfo.h */,
+				3FBA2F4F147C340800DFD625 /* PLCrashReportSignalInfo.h */,
+				3FBA2F50147C340800DFD625 /* PLCrashReportSystemInfo.h */,
+				3FBA2F51147C340800DFD625 /* PLCrashReportTextFormatter.h */,
+				3FBA2F52147C340800DFD625 /* PLCrashReportThreadInfo.h */,
+				3FBA2F53147C340800DFD625 /* PLCrashSignalHandler.h */,
+				3FBA2F54147C340800DFD625 /* PLCrashSysctl.h */,
+			);
+			name = CrittercismSDK;
+			path = Libraries/Crittercism_v3_0_beta/CrittercismSDK;
+			sourceTree = "<group>";
+		};
 		3FBAE20E137ACCC5001BBC0E /* NSLogger */ = {
 			isa = PBXGroup;
 			children = (
@@ -4731,25 +4787,6 @@
 				3FED45DE146AF45C00B8587F /* TestFlight.h */,
 			);
 			path = "TestFlightSDK0.7.2 (1)";
-			sourceTree = "<group>";
-		};
-		3FED45E2146AF7E600B8587F /* CrittercismSDK-crashreporting-only */ = {
-			isa = PBXGroup;
-			children = (
-				3FED45E3146AF7E600B8587F /* Crittercism.h */,
-				3FED45E4146AF7E600B8587F /* Crittercism_v2_9_27.a */,
-				3FED45E5146AF7E600B8587F /* CrittercismAboutViewController.h */,
-				3FED45E6146AF7E600B8587F /* CrittercismAddCommentViewController.h */,
-				3FED45E7146AF7E600B8587F /* CrittercismAddViewController.h */,
-				3FED45E8146AF7E600B8587F /* CrittercismDescriptionViewController.h */,
-				3FED45E9146AF7E600B8587F /* CrittercismJSONKit.h */,
-				3FED45EA146AF7E600B8587F /* CrittercismNavigationView.h */,
-				3FED45EB146AF7E600B8587F /* CrittercismReachability.h */,
-				3FED45EC146AF7E600B8587F /* CrittercismRootViewController.h */,
-				3FED45ED146AF7E600B8587F /* CrittercismUIAlertPrompt.h */,
-				3FED45EE146AF7E600B8587F /* CrittercismViewController.h */,
-			);
-			path = "CrittercismSDK-crashreporting-only";
 			sourceTree = "<group>";
 		};
 		3FFCBC4813A7BDAE0061A28A /* featured-assets */ = {
@@ -7952,6 +7989,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -7971,13 +8012,20 @@
 					Libraries/RestKit/Build,
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Specs/Support/OCMock\"",
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 					"\"$(SRCROOT)/CrittercismSDK-crashreporting-only\"",
+					"\"$(SRCROOT)/Libraries/Crittercism_v3_0_beta/CrittercismSDK\"",
+				);
+				OTHER_LDFLAGS = (
+					"-weak_library",
+					/usr/lib/libSystem.B.dylib,
+					"-ObjC",
+					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -7990,6 +8038,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -8005,13 +8057,20 @@
 					Libraries/RestKit/Build,
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Specs/Support/OCMock\"",
 					"\"$(SRCROOT)/Libraries/FlurryLib\"",
 					"\"$(SRCROOT)/CrittercismSDK-crashreporting-only\"",
+					"\"$(SRCROOT)/Libraries/Crittercism_v3_0_beta/CrittercismSDK\"",
+				);
+				OTHER_LDFLAGS = (
+					"-weak_library",
+					/usr/lib/libSystem.B.dylib,
+					"-ObjC",
+					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -8025,6 +8084,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -8044,6 +8107,7 @@
 					Libraries/RestKit/Build,
 				);
 				INFOPLIST_FILE = Resources/Info_Staging.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)\\\"",
@@ -8063,6 +8127,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -8078,6 +8146,7 @@
 					Libraries/RestKit/Build,
 				);
 				INFOPLIST_FILE = Resources/Info_Staging.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)\\\"",
