@@ -208,6 +208,7 @@
     
     if([objectLoader.resourcePath isEqualToString:GTIORestResourcePath(@"/stylists/add")]) {
         [[GTIOLoadingOverlayManager sharedManager] stopLoading];
+        TTAlert([NSString stringWithFormat:@"nice, you have added %d stylists!", [_stylistsToAdd count]]);
         [self dismissModalViewControllerAnimated:YES];
         
     } else {
