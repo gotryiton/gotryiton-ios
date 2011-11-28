@@ -272,8 +272,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     #else
     [Crittercism initWithAppID: @"4ebabf0eddf5206d3a0001e4"
                         andKey:@"4ebabf0eddf5206d3a0001e4h9zr6giv"
-                     andSecret:@"puwfoyudx1oci7lsajbghwb5ekjq08g2"
-         andMainViewController:nil];
+                     andSecret:@"puwfoyudx1oci7lsajbghwb5ekjq08g2"];
 
     #endif
     
