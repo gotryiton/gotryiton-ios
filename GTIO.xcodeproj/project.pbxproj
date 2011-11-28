@@ -8185,7 +8185,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				COPY_PHASE_STRIP = NO;
@@ -8216,8 +8219,6 @@
 					"\"$(SRCROOT)/Libraries/Crittercism_v3_0_beta/CrittercismSDK\"",
 				);
 				OTHER_LDFLAGS = (
-					"-weak_library",
-					/usr/lib/libSystem.B.dylib,
 					"-ObjC",
 					"-all_load",
 				);
@@ -8233,7 +8234,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -8259,8 +8263,6 @@
 					"\"$(SRCROOT)/Libraries/Crittercism_v3_0_beta/CrittercismSDK\"",
 				);
 				OTHER_LDFLAGS = (
-					"-weak_library",
-					/usr/lib/libSystem.B.dylib,
 					"-ObjC",
 					"-all_load",
 				);
