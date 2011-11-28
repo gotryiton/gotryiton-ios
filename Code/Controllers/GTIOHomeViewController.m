@@ -20,7 +20,9 @@ static float const dragOffsetReloadDistance = 40.0f;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"home-pull-widget-bg.png"]];
+        self.backgroundColor = [UIColor clearColor];
+        UIImageView* imgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home-pull-widget-bg.png"]] autorelease];
+        [self addSubview:imgView];
         _textLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)] autorelease];
         _textLabel.textAlignment = UITextAlignmentCenter;
         _textLabel.backgroundColor = [UIColor clearColor];
