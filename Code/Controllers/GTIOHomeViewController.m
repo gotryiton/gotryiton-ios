@@ -23,7 +23,7 @@ static float const dragOffsetReloadDistance = 40.0f;
         self.backgroundColor = [UIColor clearColor];
         UIImageView* imgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home-pull-widget-bg.png"]] autorelease];
         [self addSubview:imgView];
-        _textLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)] autorelease];
+        _textLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0, 20, 320, 20)] autorelease];
         _textLabel.textAlignment = UITextAlignmentCenter;
         _textLabel.backgroundColor = [UIColor clearColor];
         _textLabel.font = kGTIOFontHelveticaNeueOfSize(14);
@@ -32,7 +32,7 @@ static float const dragOffsetReloadDistance = 40.0f;
         [self addSubview:_textLabel];
         
         _arrowImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 26, 30)] autorelease];
-        _arrowImageView.center = CGPointMake(320/2, 30);
+        _arrowImageView.center = CGPointMake(320/2, 12);
         _arrowImageView.image = [UIImage imageNamed:@"home-pull-widget-arrow.png"];
         [self addSubview:_arrowImageView];
     }
