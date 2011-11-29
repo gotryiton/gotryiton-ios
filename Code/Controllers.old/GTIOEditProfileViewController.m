@@ -1,4 +1,4 @@
-    //
+//
 //  GTIOEditProfileViewController.m
 //  GoTryItOn
 //
@@ -386,11 +386,10 @@
 
 - (void)loadView {
 	self.tableViewStyle = UITableViewStyleGrouped;
-	
+    [super loadView];
+    
 	self.variableHeightRows = YES;
 	self.autoresizesForKeyboard = YES;
-    
-    [super loadView];
 	
 	// Background
 	UIImageView* bgImage = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(modalBackgroundImage)] autorelease];
