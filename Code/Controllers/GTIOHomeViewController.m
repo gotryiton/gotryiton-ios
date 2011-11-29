@@ -37,6 +37,12 @@ static float const dragOffsetReloadDistance = 40.0f;
     return self;
 }
 
+- (void)dealloc {
+    TT_RELEASE_SAFELY(_textLabel);
+    TT_RELEASE_SAFELY(_arrowImageView);
+    [super dealloc];
+}
+
 - (void)setDragOffset:(float)offset {
     [UIView beginAnimations:nil context:nil];
     if (dragOffsetReloadDistance > offset) {
