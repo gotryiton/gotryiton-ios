@@ -28,6 +28,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    self.textLabel.backgroundColor = [UIColor clearColor];
     self.textLabel.textColor = TTSTYLEVAR(pinkColor);
 }
 
@@ -64,6 +65,7 @@
     _imageView2.frame = CGRectMake(10,10,50,50);
     _overlayImageView.frame = CGRectMake(7,7,56,56);
     self.textLabel.frame = CGRectMake(70,47,150,15);
+    self.textLabel.backgroundColor = [UIColor clearColor];
 }
 
 @end
@@ -328,6 +330,9 @@
 	_aboutMeTextView = [[[GTIOPlaceholderTextView alloc] initWithFrame:CGRectMake(5, 5, 290, 100 + 30)] autorelease];
 	_aboutMeTextView.text = user.aboutMe;
     _aboutMeTextView.customPlaceholder = @"Tell us about your personal style!";
+    _aboutMeTextView.customPlaceholderLabel.backgroundColor = [UIColor clearColor];
+    _aboutMeTextView.backgroundColor = [UIColor clearColor];    
+    _aboutMeTextView.textInputView.backgroundColor = [UIColor clearColor];
 	_aboutMeTextView.textColor = [UIColor grayColor];
 	_aboutMeTextView.font = [UIFont systemFontOfSize:14];
 	_aboutMeTextView.delegate = self;
@@ -381,8 +386,8 @@
 
 - (void)loadView {
 	self.tableViewStyle = UITableViewStyleGrouped;
-	[super loadView];
-	
+    [super loadView];
+    
 	self.variableHeightRows = YES;
 	self.autoresizesForKeyboard = YES;
 	
