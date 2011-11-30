@@ -18,7 +18,7 @@
 		<string>Icon@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.gotryiton.app-staging</string>
+	<string>com.gotryiton.app-dev</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -62,7 +62,7 @@
 	<array/>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
-		<string>ld: warning: directory not found for option &apos;-L&quot;/Users/jeremy/twotoasters/GTIOv3/Libraries/FlurryLib&quot;&apos;
+		<string>ld: warning: directory not found for option '-L"/Users/jeremy/twotoasters/GTIOv3/Libraries/FlurryLib"'
 </string>
 	</array>
 </dict>
