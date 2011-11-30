@@ -62,6 +62,12 @@ extern NSUInteger const kGTIONetworkLogLevel;
 
 extern NSUInteger const kGTIOLogLevel;
 
+// Auth
+
+extern NSString* const kGTIOHTTPAuthUsername;
+
+extern NSString* const kGTIOHTTPAuthPassword;
+
 
 RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute);
 

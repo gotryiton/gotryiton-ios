@@ -17,22 +17,26 @@
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
 	NSString* const kGTIOEnvironmentName = @"development";
-	NSString* const kGTIOBaseURLString = @"http://www.gotryiton.com";
+	NSString* const kGTIOBaseURLString = @"http://gtio-dev.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString* const kGTIOFacebookAppID = @"134143416622354";
     NSUInteger const kGTIONetworkLogLevel = RKLogLevelTrace;
     NSUInteger const kGTIOLogLevel = RKLogLevelDebug;
+    NSString* const kGTIOHTTPAuthUsername = @"tt";
+    NSString* const kGTIOHTTPAuthPassword = @"toast";
 #endif 
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
 	NSString* const kGTIOEnvironmentName = @"staging";
-	NSString* const kGTIOBaseURLString = @"http://iphonedev.gotryiton.com";
+	NSString* const kGTIOBaseURLString = @"http://stage.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString* const kGTIOFacebookAppID = @"134143416622354";
     NSUInteger const kGTIONetworkLogLevel = RKLogLevelTrace;
     NSUInteger const kGTIOLogLevel = RKLogLevelDebug;
+    NSString* const kGTIOHTTPAuthUsername = @"tt";
+    NSString* const kGTIOHTTPAuthPassword = @"toast";
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
@@ -43,6 +47,8 @@
     NSString* const kGTIOFacebookAppID = @"126454074038555";
     NSUInteger const kGTIONetworkLogLevel = RKLogLevelError;
     NSUInteger const kGTIOLogLevel = RKLogLevelError;
+    NSString* const kGTIOHTTPAuthUsername = nil;
+    NSString* const kGTIOHTTPAuthPassword = nil;
 #endif
 
 NSString* GTIORestResourcePath(NSString* string) {
