@@ -55,7 +55,7 @@
 }
 
 - (void)skipButtonAction {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)stylistSelected:(UIButton*)button {
@@ -208,7 +208,8 @@
     
     if([objectLoader.resourcePath isEqualToString:GTIORestResourcePath(@"/stylists/add")]) {
         [[GTIOLoadingOverlayManager sharedManager] stopLoading];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        TTAlert([NSString stringWithFormat:@"nice, you have added %d stylists!", [_stylistsToAdd count]]);
+        [self dismissModalViewControllerAnimated:YES];
         
     } else {
         

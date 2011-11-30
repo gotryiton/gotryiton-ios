@@ -336,13 +336,13 @@ static GTIOUser* gCurrentUser = nil;
 
 - (void)loginWithFacebook {
     [self didStartLogin];
-    _facebook = [[Facebook alloc] initWithAppId:kGTIOFacebookAppID];
+    _facebook = [[Facebook alloc] initWithAppId:kGTIOFacebookAppID andDelegate:self];
     NSArray* permissions = [NSArray arrayWithObjects:@"publish_stream", @"offline_access", @"email", @"user_birthday", nil];
-    [_facebook authorize:permissions delegate:self];
+    [_facebook authorize:permissions];
 }
 
 - (BOOL)resumeFacebookSession {
-    _facebook = [[Facebook alloc] initWithAppId:kGTIOFacebookAppID];
+    _facebook = [[Facebook alloc] initWithAppId:kGTIOFacebookAppID andDelegate:self];
     _facebook.accessToken = [[NSUserDefaults standardUserDefaults] valueForKey:kGTIOFacebookAuthToken];
     _facebook.expirationDate = [[NSUserDefaults standardUserDefaults] valueForKey:kGTIOFacebookExpirationToken];
     return [_facebook isSessionValid];

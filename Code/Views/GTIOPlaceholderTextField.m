@@ -19,6 +19,7 @@
         _customPlaceholderLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0,0,320,20)] autorelease];
         _customPlaceholderLabel.textAlignment = UITextAlignmentRight;
         _customPlaceholderLabel.textColor = [UIColor lightGrayColor];
+        _customPlaceholderLabel.backgroundColor = [UIColor clearColor];
         _customPlaceholderLabel.font = [UIFont italicSystemFontOfSize:14];
         _customPlaceholderLabel.numberOfLines = 1;
         self.placeholder = @" ";// causes the frame never to be set to a 0 height;
