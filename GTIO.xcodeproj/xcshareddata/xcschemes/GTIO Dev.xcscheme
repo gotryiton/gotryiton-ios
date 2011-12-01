@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3F06679414867A3900692659"
-               BuildableName = "GTIO copy copy.app"
+               BuildableName = "GTIO Dev.app"
                BlueprintName = "GTIO Dev"
                ReferencedContainer = "container:GTIO.xcodeproj">
             </BuildableReference>
@@ -32,7 +32,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3F06679414867A3900692659"
-            BuildableName = "GTIO copy copy.app"
+            BuildableName = "GTIO Dev.app"
             BlueprintName = "GTIO Dev"
             ReferencedContainer = "container:GTIO.xcodeproj">
          </BuildableReference>
@@ -50,7 +50,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3F06679414867A3900692659"
-            BuildableName = "GTIO copy copy.app"
+            BuildableName = "GTIO Dev.app"
             BlueprintName = "GTIO Dev"
             ReferencedContainer = "container:GTIO.xcodeproj">
          </BuildableReference>
@@ -68,7 +68,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3F06679414867A3900692659"
-            BuildableName = "GTIO copy copy.app"
+            BuildableName = "GTIO Dev.app"
             BlueprintName = "GTIO Dev"
             ReferencedContainer = "container:GTIO.xcodeproj">
          </BuildableReference>
