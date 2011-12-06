@@ -32,7 +32,7 @@ static float const dragOffsetReloadDistance = 40.0f;
         [self addSubview:_textLabel];
         
         _arrowImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 26, 30)] autorelease];
-        _arrowImageView.center = CGPointMake(320/2, 12);
+        _arrowImageView.center = CGPointMake(320/2, 12-5);
         _arrowImageView.image = [UIImage imageNamed:@"home-pull-widget-arrow.png"];
         [self addSubview:_arrowImageView];
     }
@@ -373,7 +373,7 @@ static float const dragOffsetReloadDistance = 40.0f;
     
     if (_model.hasMoreToLoad) {
 //        maxHeight += 20;
-        _loadMoreView.frame = CGRectMake(0, maxHeight-10, _loadMoreView.bounds.size.width, _loadMoreView.bounds.size.height);
+        _loadMoreView.frame = CGRectMake(-2, maxHeight, _loadMoreView.bounds.size.width, _loadMoreView.bounds.size.height);
         [_thumbnailContainer addSubview:_loadMoreView];
     } else {
         [_loadMoreView removeFromSuperview];
