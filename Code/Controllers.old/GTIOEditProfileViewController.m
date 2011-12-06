@@ -443,22 +443,34 @@
 	[self startGeocodingIfNecessary];
 }
 
+- (void)scrollFirstResponderIntoView {
+    UIView* responder = [_tableView.window findFirstResponder];
+    UITableViewCell* cell = (UITableViewCell*)[responder
+                                               ancestorOrSelfWithClass:[UITableViewCell class]];
+    if (cell) {
+        TTTableControlCell* controllCell = (id)cell;
+        NSIndexPath* indexPath = [(TTTableViewDataSource*)_tableView.dataSource tableView:_tableView indexPathForObject:controllCell.item];
+        if (indexPath) {
+            [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle
+                                      animated:YES];
+        }
+    }
+}
+
 - (void)picker:(TWTPickerControl*)picker nextButtonWasTouched:(NSString*)choice {
 	[[(TTListDataSource*)self.dataSource nextSiblingControlToControl:picker] becomeFirstResponder];
-	[self.tableView scrollFirstResponderIntoView];
+	[self scrollFirstResponderIntoView];
 }
 
-- (void)picker:(TWTPickerControl*)picker didShowPicker:(UIView*)pickerView {
-	[UIView beginAnimations:nil context:nil];
-	self.tableView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - pickerView.bounds.size.height);
-	[UIView commitAnimations];
-	[self.tableView scrollFirstResponderIntoView];
+- (void)keyboardDidAppear:(BOOL)animated withBounds:(CGRect)bounds {
+    [super keyboardDidAppear:animated withBounds:bounds];
+    [self scrollFirstResponderIntoView];
 }
 
-- (void)picker:(TWTPickerControl*)picker willHidePicker:(UIView*)pickerView {
-	[UIView beginAnimations:nil context:nil];
-	self.tableView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
-	[UIView commitAnimations];
+- (void)keyboardDidDisappear:(BOOL)animated withBounds:(CGRect)bounds {
+    if (nil == [_tableView.window findFirstResponder]) {
+        [super keyboardDidDisappear:animated withBounds:bounds];
+    }
 }
 
 #pragma mark UITextFieldDelegate
@@ -476,7 +488,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[[(TTListDataSource*)self.dataSource nextSiblingControlToControl:textField] becomeFirstResponder];
-	[self.tableView scrollFirstResponderIntoView];
+    if ([[_tableView.window findFirstResponder] isKindOfClass:[UITextField class]]) {
+        [self scrollFirstResponderIntoView];
+    }
 	return NO;
 }
 
