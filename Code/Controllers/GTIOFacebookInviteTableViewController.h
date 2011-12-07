@@ -16,9 +16,9 @@
 }
 
 @property (nonatomic, copy) NSString* facebookTitle;
-@property (nonatomic, copy) NSString* facebookImageURL;
+@property (nonatomic, copy) NSString* facebookInviteURL;
 
-- (id)initWithInviteTitle:(NSString*)title imageURL:(NSString*)imageURL;
+- (id)initWithInviteTitle:(NSString*)title inviteURL:(NSString*)inviteURL;
 
 - (void)loadedList:(GTIOBrowseList*)list;
 - (UISearchBar*)searchBarForList:(GTIOBrowseList*)list;

@@ -136,16 +136,16 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
 @implementation GTIOFacebookInviteTableViewController
 
 @synthesize facebookTitle;
-@synthesize facebookImageURL;
+@synthesize facebookInviteURL;
 
-- (id)initWithInviteTitle:(NSString*)title imageURL:(NSString*)imageURL {
+- (id)initWithInviteTitle:(NSString*)title inviteURL:(NSString*)inviteURL {
     self = [super initWithNibName:nil bundle:nil];
     if(self) {
         self.variableHeightRows = YES;
         self.autoresizesForKeyboard = YES;
         
         self.facebookTitle = title;
-        self.facebookImageURL = imageURL;
+        self.facebookInviteURL = inviteURL;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginDidEnd) name:kGTIOUserDidEndLoginProcess object:nil];
     }
@@ -192,11 +192,11 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
     
     NSLog(@"facebook id: %@", item.profile.facebookId);
     
-    NSLog(@"stuff: %@, %@", self.facebookTitle, self.facebookImageURL);
+    NSLog(@"stuff: %@, %@", self.facebookTitle, self.facebookInviteURL);
     
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    kGTIOFacebookAppID, @"app_id",
-                                   self.facebookImageURL, @"link",
+                                   self.facebookInviteURL, @"link",
                                    item.profile.facebookId, @"to",
                                    nil];
     

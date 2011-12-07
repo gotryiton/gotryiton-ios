@@ -715,7 +715,7 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
         NSString* title = [body valueForKey:@"text"];
         NSString* url = [body valueForKey:@"url"];
         
-        GTIOFacebookInviteTableViewController* controller = [[GTIOFacebookInviteTableViewController alloc] initWithInviteTitle:title imageURL:url];
+        GTIOFacebookInviteTableViewController* controller = [[GTIOFacebookInviteTableViewController alloc] initWithInviteTitle:title inviteURL:url];
         [self.navigationController pushViewController:controller animated:YES];
         [controller release];
     }
