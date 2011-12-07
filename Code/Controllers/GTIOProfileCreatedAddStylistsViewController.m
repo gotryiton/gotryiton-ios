@@ -16,11 +16,13 @@
         _stylists = nil;
         _stylistsToAdd = [NSMutableArray new];
         [GTIOUser currentUser].showAlmostDoneScreen = [NSNumber numberWithBool:NO];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserNotificationFired:) name:kGTIOUserDidUpdateProfileNotificationName object:nil];
     }
     return self;
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     TT_RELEASE_SAFELY(_stylists);
     TT_RELEASE_SAFELY(_addStylistContainer);
     TT_RELEASE_SAFELY(_addStylistsLabel);
@@ -29,6 +31,13 @@
     TT_RELEASE_SAFELY(_stylistsToAdd);
     TT_RELEASE_SAFELY(_doneButton);
     [super dealloc];
+}
+
+- (void)viewDidUnload {
+    TT_RELEASE_SAFELY(_profileThumbnailView);
+    TT_RELEASE_SAFELY(_userNameLabel);
+    TT_RELEASE_SAFELY(_userLocationLabel);
+    [super viewDidUnload];
 }
 
 - (void)doneButtonAction {
@@ -242,6 +251,22 @@
     [self skipButtonAction];
 }
 
+- (void)updateUserLabel {
+    _userNameLabel.text = [[GTIOUser currentUser].username uppercaseString];
+    [_userNameLabel sizeToFit];
+    _userNameLabel.frame = CGRectOffset(_userNameLabel.bounds, 45, 6);
+    
+    _userLocationLabel.text = [GTIOUser currentUser].location;
+    [_userLocationLabel sizeToFit];
+    _userLocationLabel.frame = CGRectMake(45, 25, 200, _userLocationLabel.bounds.size.height);
+    
+    _profileThumbnailView.urlPath = [GTIOUser currentUser].profileIconURL;
+}
+
+- (void)updateUserNotificationFired:(NSNotification*)note {
+    [self updateUserLabel];
+}
+
 - (void)loadView {
     [super loadView];
 
@@ -261,27 +286,21 @@
     UIImageView* thumbOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home-thumb-overlay.png"]];
     [thumbOverlay setFrame:CGRectMake(1, 1, 42, 42)];
 
-    TTImageView* profileThumbnailView = [[TTImageView alloc] initWithFrame:CGRectMake(5, 5, 34, 34)];
-    profileThumbnailView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
-    profileThumbnailView.urlPath = [GTIOUser currentUser].profileIconURL;
+    _profileThumbnailView = [[TTImageView alloc] initWithFrame:CGRectMake(5, 5, 34, 34)];
+    _profileThumbnailView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
 
-    UILabel* userNameLabel = [[UILabel alloc] init];
-    userNameLabel.frame = CGRectZero;
-    userNameLabel.text = [[GTIOUser currentUser].username uppercaseString];
-    userNameLabel.font = kGTIOFetteFontOfSize(22);
-    userNameLabel.textColor = [UIColor whiteColor];
-    userNameLabel.backgroundColor = [UIColor clearColor];
-    [userNameLabel sizeToFit];
-    userNameLabel.frame = CGRectOffset(userNameLabel.bounds, 45, 6);
+    _userNameLabel = [[UILabel alloc] init];
+    _userNameLabel.frame = CGRectZero;
+    _userNameLabel.font = kGTIOFetteFontOfSize(22);
+    _userNameLabel.textColor = [UIColor whiteColor];
+    _userNameLabel.backgroundColor = [UIColor clearColor];
 
-    UILabel* userLocationLabel = [[UILabel alloc] init];
-    userLocationLabel.frame = CGRectZero;
-    userLocationLabel.text = [GTIOUser currentUser].location;
-    userLocationLabel.font = [UIFont systemFontOfSize:13];
-    userLocationLabel.textColor = RGBCOLOR(156,156,156);
-    [userLocationLabel sizeToFit];
-    userLocationLabel.frame = CGRectMake(45, 25, 200, userLocationLabel.bounds.size.height);
-    userLocationLabel.backgroundColor = [UIColor clearColor];
+
+    _userLocationLabel = [[UILabel alloc] init];
+    _userLocationLabel.frame = CGRectZero;
+    _userLocationLabel.font = [UIFont systemFontOfSize:13];
+    _userLocationLabel.textColor = RGBCOLOR(156,156,156);
+    _userLocationLabel.backgroundColor = [UIColor clearColor];
 
     //extracted from the bar button item
 
@@ -310,15 +329,12 @@
     [userHeaderBackground addSubview:editButton];
 
     [userHeaderBackground addSubview:thumbOverlay];
-    [userHeaderBackground addSubview:profileThumbnailView];
-    [userHeaderBackground addSubview:userNameLabel];
-    [userHeaderBackground addSubview:userLocationLabel];
+    [userHeaderBackground addSubview:_profileThumbnailView];
+    [userHeaderBackground addSubview:_userNameLabel];
+    [userHeaderBackground addSubview:_userLocationLabel];
     [self.view addSubview:userHeaderBackground];
 
     TT_RELEASE_SAFELY(thumbOverlay);
-    TT_RELEASE_SAFELY(profileThumbnailView);
-    TT_RELEASE_SAFELY(userNameLabel);
-    TT_RELEASE_SAFELY(userLocationLabel);
     TT_RELEASE_SAFELY(userHeaderBackground);
 
     // scroll view
@@ -420,15 +436,20 @@
 
     TT_RELEASE_SAFELY(buttonView);
 
+    [self updateUserLabel];
+    
     [self requestStylists];
     
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:animated];
+}
+
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    [self.navigationController setNavigationBarHidden:YES];
 }
 
 @end
