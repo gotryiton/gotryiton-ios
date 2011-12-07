@@ -33,6 +33,9 @@
     
     TTActivityLabel* _loadingStylistsLabel;
     
+    TTImageView* _profileThumbnailView;
+    UILabel* _userNameLabel;
+    UILabel* _userLocationLabel;
 }
 
 @end

@@ -85,6 +85,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     objectManager.client.username = kGTIOHTTPAuthUsername;
     objectManager.client.password = kGTIOHTTPAuthPassword;
+    if (objectManager.client.username && objectManager.client.password) {
+        objectManager.client.authenticationType = RKRequestAuthenticationTypeHTTPBasic;
+    }
     
     
 //    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);

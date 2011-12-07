@@ -66,7 +66,6 @@
 		25851892135357C5005DCBA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25851891135357C5005DCBA5 /* CoreGraphics.framework */; };
 		25851894135357C5005DCBA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25851893135357C5005DCBA5 /* CoreData.framework */; };
 		25D5C93113536729007B6F14 /* libRestKitCoreData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92B13536729007B6F14 /* libRestKitCoreData.a */; };
-		25D5C93213536729007B6F14 /* libRestKitJSONParserJSONKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92C13536729007B6F14 /* libRestKitJSONParserJSONKit.a */; };
 		25D5C93313536729007B6F14 /* libRestKitNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92D13536729007B6F14 /* libRestKitNetwork.a */; };
 		25D5C93413536729007B6F14 /* libRestKitObjectMapping.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92E13536729007B6F14 /* libRestKitObjectMapping.a */; };
 		25D5C93513536729007B6F14 /* libRestKitSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92F13536729007B6F14 /* libRestKitSupport.a */; };
@@ -317,7 +316,6 @@
 		3F06685B14867A3900692659 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C93A13536788007B6F14 /* SystemConfiguration.framework */; };
 		3F06685C14867A3900692659 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25851893135357C5005DCBA5 /* CoreData.framework */; };
 		3F06685D14867A3900692659 /* libRestKitCoreData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92B13536729007B6F14 /* libRestKitCoreData.a */; };
-		3F06685E14867A3900692659 /* libRestKitJSONParserJSONKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92C13536729007B6F14 /* libRestKitJSONParserJSONKit.a */; };
 		3F06685F14867A3900692659 /* libRestKitNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92D13536729007B6F14 /* libRestKitNetwork.a */; };
 		3F06686014867A3900692659 /* libRestKitObjectMapping.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92E13536729007B6F14 /* libRestKitObjectMapping.a */; };
 		3F06686114867A3900692659 /* libRestKitSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92F13536729007B6F14 /* libRestKitSupport.a */; };
@@ -1381,7 +1379,6 @@
 		3F86F19913B8CA50005063FE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C93A13536788007B6F14 /* SystemConfiguration.framework */; };
 		3F86F19A13B8CA50005063FE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25851893135357C5005DCBA5 /* CoreData.framework */; };
 		3F86F19B13B8CA50005063FE /* libRestKitCoreData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92B13536729007B6F14 /* libRestKitCoreData.a */; };
-		3F86F19C13B8CA50005063FE /* libRestKitJSONParserJSONKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92C13536729007B6F14 /* libRestKitJSONParserJSONKit.a */; };
 		3F86F19D13B8CA50005063FE /* libRestKitNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92D13536729007B6F14 /* libRestKitNetwork.a */; };
 		3F86F19E13B8CA50005063FE /* libRestKitObjectMapping.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92E13536729007B6F14 /* libRestKitObjectMapping.a */; };
 		3F86F19F13B8CA50005063FE /* libRestKitSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C92F13536729007B6F14 /* libRestKitSupport.a */; };
@@ -2133,6 +2130,9 @@
 		3FA654C41384230F00CC1106 /* tabs3-1-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654C21384230F00CC1106 /* tabs3-1-off.png */; };
 		3FA654C71384230F00CC1106 /* tabs3-1-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA654C31384230F00CC1106 /* tabs3-1-off@2x.png */; };
 		3FA9BBD71386AA56002701F4 /* GTIOListSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA9BBD61386AA56002701F4 /* GTIOListSection.m */; };
+		3FA9DB18148FC0A500751848 /* libRestKitJSONParserYAJL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C81813535ACD007B6F14 /* libRestKitJSONParserYAJL.a */; };
+		3FA9DB19148FC1B800751848 /* libRestKitJSONParserYAJL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C81813535ACD007B6F14 /* libRestKitJSONParserYAJL.a */; };
+		3FA9DB1A148FC1C200751848 /* libRestKitJSONParserYAJL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C81813535ACD007B6F14 /* libRestKitJSONParserYAJL.a */; };
 		3FBA2F55147C340800DFD625 /* libCrittercism_v3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBA2F3B147C340800DFD625 /* libCrittercism_v3.a */; };
 		3FBFC2EC1381ABBC00A47A1B /* GTIOSortTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBFC2EB1381ABBC00A47A1B /* GTIOSortTab.m */; };
 		3FC1E81F13A8F72700646EEE /* libTWTCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC1E81E13A8F72700646EEE /* libTWTCommon.a */; };
@@ -3128,6 +3128,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 25BD43BD1340315800DBACDD;
 			remoteInfo = "RestKitXMLParser+Libxml";
+		};
+		3F65E23C148FBD6900B34AC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 20808DBC13DE8CDC000A156A;
+			remoteInfo = "RestKitJSONParser+NXJSON";
 		};
 		3F86F0DB13B8CA50005063FE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -4551,6 +4558,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FA9DB1A148FC1C200751848 /* libRestKitJSONParserYAJL.a in Frameworks */,
 				3F5CA5451405704B00406841 /* ImageIO.framework in Frameworks */,
 				3FC1E81F13A8F72700646EEE /* libTWTCommon.a in Frameworks */,
 				A76208801379D53500DFBD66 /* CoreText.framework in Frameworks */,
@@ -4566,7 +4574,6 @@
 				25D5C93E13536788007B6F14 /* SystemConfiguration.framework in Frameworks */,
 				25851894135357C5005DCBA5 /* CoreData.framework in Frameworks */,
 				25D5C93113536729007B6F14 /* libRestKitCoreData.a in Frameworks */,
-				25D5C93213536729007B6F14 /* libRestKitJSONParserJSONKit.a in Frameworks */,
 				25D5C93313536729007B6F14 /* libRestKitNetwork.a in Frameworks */,
 				25D5C93413536729007B6F14 /* libRestKitObjectMapping.a in Frameworks */,
 				25D5C93513536729007B6F14 /* libRestKitSupport.a in Frameworks */,
@@ -4591,6 +4598,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FA9DB19148FC1B800751848 /* libRestKitJSONParserYAJL.a in Frameworks */,
 				3F06684F14867A3900692659 /* ImageIO.framework in Frameworks */,
 				3F06685014867A3900692659 /* libTWTCommon.a in Frameworks */,
 				3F06685114867A3900692659 /* CoreText.framework in Frameworks */,
@@ -4606,7 +4614,6 @@
 				3F06685B14867A3900692659 /* SystemConfiguration.framework in Frameworks */,
 				3F06685C14867A3900692659 /* CoreData.framework in Frameworks */,
 				3F06685D14867A3900692659 /* libRestKitCoreData.a in Frameworks */,
-				3F06685E14867A3900692659 /* libRestKitJSONParserJSONKit.a in Frameworks */,
 				3F06685F14867A3900692659 /* libRestKitNetwork.a in Frameworks */,
 				3F06686014867A3900692659 /* libRestKitObjectMapping.a in Frameworks */,
 				3F06686114867A3900692659 /* libRestKitSupport.a in Frameworks */,
@@ -4631,6 +4638,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FA9DB18148FC0A500751848 /* libRestKitJSONParserYAJL.a in Frameworks */,
 				3F5CA5431405703D00406841 /* ImageIO.framework in Frameworks */,
 				3F86F18E13B8CA50005063FE /* libTWTCommon.a in Frameworks */,
 				3F86F18F13B8CA50005063FE /* CoreText.framework in Frameworks */,
@@ -4646,7 +4654,6 @@
 				3F86F19913B8CA50005063FE /* SystemConfiguration.framework in Frameworks */,
 				3F86F19A13B8CA50005063FE /* CoreData.framework in Frameworks */,
 				3F86F19B13B8CA50005063FE /* libRestKitCoreData.a in Frameworks */,
-				3F86F19C13B8CA50005063FE /* libRestKitJSONParserJSONKit.a in Frameworks */,
 				3F86F19D13B8CA50005063FE /* libRestKitNetwork.a in Frameworks */,
 				3F86F19E13B8CA50005063FE /* libRestKitObjectMapping.a in Frameworks */,
 				3F86F19F13B8CA50005063FE /* libRestKitSupport.a in Frameworks */,
@@ -6944,6 +6951,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3F65E23D148FBD6900B34AC2 /* PBXTargetDependency */,
 				3F86F0DA13B8CA50005063FE /* PBXTargetDependency */,
 				3F86F0DC13B8CA50005063FE /* PBXTargetDependency */,
 				3F86F0DE13B8CA50005063FE /* PBXTargetDependency */,
@@ -10078,6 +10086,11 @@
 			isa = PBXTargetDependency;
 			name = Three20Style;
 			targetProxy = 3F0667A814867A3900692659 /* PBXContainerItemProxy */;
+		};
+		3F65E23D148FBD6900B34AC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "RestKitJSONParser+NXJSON";
+			targetProxy = 3F65E23C148FBD6900B34AC2 /* PBXContainerItemProxy */;
 		};
 		3F86F0DA13B8CA50005063FE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
