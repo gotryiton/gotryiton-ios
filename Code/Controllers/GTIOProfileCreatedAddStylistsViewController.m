@@ -121,7 +121,7 @@
         
         CGRect stylistRect = CGRectMake(containerXOffset, heightInContainer + ( [_stylists.stylists indexOfObject:profile] * (heightOfStylists + heightBetweenStylists) ), _addStylistContainer.width - (2 * containerXOffset), heightOfStylists);
         
-        GTIOAddStylistButton* stylistButton = [[GTIOAddStylistButton alloc] initWithTitle:profile.displayName subtitle:profile.featuredText imageURL:profile.profileIconURL];
+        GTIOAddStylistButton* stylistButton = [[GTIOAddStylistButton alloc] initWithTitle:profile.displayName subtitle:profile.stylistDescription imageURL:profile.profileIconURL];
         stylistButton.backgroundColor = [UIColor clearColor];
         [stylistButton addTarget:self action:@selector(stylistSelected:) forControlEvents:UIControlEventTouchUpInside];
         stylistButton.frame = stylistRect;

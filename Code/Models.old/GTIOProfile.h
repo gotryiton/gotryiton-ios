@@ -47,6 +47,8 @@
     GTIOExtraProfileRow* _extraProfileRow;
     
     NSArray* _stylists;
+    
+    NSString* _stylistDescription;
 }
 
 @property (nonatomic, copy) NSArray *badges;
@@ -67,6 +69,7 @@
 @property (nonatomic, retain) NSNumber *isAuthorizedUser;
 @property (nonatomic, copy) NSArray *userStats;
 @property (nonatomic, retain) NSArray* stylists;
+@property (nonatomic, copy) NSString* stylistDescription;
 
 @property (nonatomic, retain) NSNumber* stylistRequestAlertsEnabled;
 @property (nonatomic, retain) NSNumber* activeStylist;

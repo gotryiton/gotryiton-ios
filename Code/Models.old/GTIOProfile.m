@@ -36,6 +36,7 @@
 @synthesize extraProfileRow = _extraProfileRow;
 @synthesize stylists = _stylists;
 @synthesize facebookId = _facebookId;
+@synthesize stylistDescription = _stylistDescription;
 
 - (void)dealloc {
     TT_RELEASE_SAFELY(_isBranded);

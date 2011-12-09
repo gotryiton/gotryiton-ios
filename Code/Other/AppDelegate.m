@@ -168,7 +168,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     RKObjectMapping* profileMapping = [RKObjectMapping mappingForClass:[GTIOProfile class]];
     [profileMapping mapAttributes:@"uid", @"auth", @"displayName", @"firstName", @"gender", @"city", @"state", @"location", @"aboutMe",
-                                  @"isAuthorizedUser", @"featuredText", @"activeStylist", @"facebookId", nil];
+                                  @"isAuthorizedUser", @"featuredText", @"activeStylist", @"facebookId", @"stylistDescription", nil];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"isBrand", @"isBranded")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"profileIcon", @"profileIconURL")];
     [profileMapping addAttributeMapping:RKObjectAttributeMappingMake(@"badgeURLs", @"badgeImageURLs")];
