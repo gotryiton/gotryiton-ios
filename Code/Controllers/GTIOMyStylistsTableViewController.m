@@ -272,13 +272,15 @@
     }
     [self.navigationItem setRightBarButtonItem:_editButton animated:YES];
     // Delete from Stylists to Delete
-    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/remove") delegate:nil];
-    id ids = [[_stylistsToDelete valueForKey:@"uid"] jsonEncode];
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:ids, @"stylistUids", nil];
-    loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-    loader.method = RKRequestMethodPOST;
-    [loader sendSynchronously];
-    [self invalidateModel];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/remove") delegate:nil];
+        id ids = [[_stylistsToDelete valueForKey:@"uid"] jsonEncode];
+        NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:ids, @"stylistUids", nil];
+        loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+        loader.method = RKRequestMethodPOST;
+        [loader sendSynchronously];
+        [self invalidateModel];
+    });
 }
 
 - (void)editButtonPressed:(id)sender {

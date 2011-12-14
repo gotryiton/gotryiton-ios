@@ -31,9 +31,9 @@ static NSInteger kGTIOPhotoActionSheetCancelButtonIndex = 2;
 
 static NSInteger kGTIOActivityLabelTag = 99999;
 
-@interface GTIOOpinionRequestSession (Private)
-
-NSInteger _getAnOpinionChooseFromLibraryButtonIndex;
+@interface GTIOOpinionRequestSession () {
+    NSInteger _getAnOpinionChooseFromLibraryButtonIndex;
+}
 
 @property (nonatomic, readonly) UIWindow* window;
 @property (nonatomic, readonly) UIViewController* topViewController;
