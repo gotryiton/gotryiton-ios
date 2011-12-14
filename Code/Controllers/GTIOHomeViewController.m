@@ -147,105 +147,113 @@ static float const dragOffsetReloadDistance = 40.0f;
 }
 
 - (void)updateUserLabel {
-    _profileThumbnailView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
-    if ([GTIOUser currentUser].loggedIn) {
-        _profileThumbnailView.urlPath = [GTIOUser currentUser].profileIconURL;
-        
-        _nameLabel.frame = CGRectZero;
-        _nameLabel.text = [[GTIOUser currentUser].username uppercaseString];
-        _nameLabel.font = kGTIOFetteFontOfSize(22);
-        _nameLabel.textColor = [UIColor whiteColor];
-        _nameLabel.backgroundColor = [UIColor clearColor];
-        [_nameLabel sizeToFit];
-        _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 45, 6);
-        
-        _locationLabel.frame = CGRectZero;
-        _locationLabel.text = [GTIOUser currentUser].location;
-        _locationLabel.font = [UIFont systemFontOfSize:13];
-        _locationLabel.textColor = RGBCOLOR(156,156,156);
-        [_locationLabel sizeToFit];
-        _locationLabel.frame = CGRectMake(45, 25, 200, _locationLabel.bounds.size.height);
-        _locationLabel.backgroundColor = [UIColor clearColor];
-        
-    } else {
-        _profileThumbnailView.urlPath = nil;
-        
-        _nameLabel.text = @"my profile";
-        _nameLabel.textColor = RGBCOLOR(185,185,185);
-        _nameLabel.font = [UIFont systemFontOfSize:16];
-        _nameLabel.backgroundColor = [UIColor clearColor];
-        [_nameLabel sizeToFit];
-        _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 45, 12);
-        
-        _locationLabel.text = @"";
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _profileThumbnailView.defaultImage = [UIImage imageNamed:@"empty-profile-pic.png"];
+        if ([GTIOUser currentUser].loggedIn) {
+            _profileThumbnailView.urlPath = [GTIOUser currentUser].profileIconURL;
+            
+            _nameLabel.frame = CGRectZero;
+            _nameLabel.text = [[GTIOUser currentUser].username uppercaseString];
+            _nameLabel.font = kGTIOFetteFontOfSize(22);
+            _nameLabel.textColor = [UIColor whiteColor];
+            _nameLabel.backgroundColor = [UIColor clearColor];
+            [_nameLabel sizeToFit];
+            _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 45, 6);
+            
+            _locationLabel.frame = CGRectZero;
+            _locationLabel.text = [GTIOUser currentUser].location;
+            _locationLabel.font = [UIFont systemFontOfSize:13];
+            _locationLabel.textColor = RGBCOLOR(156,156,156);
+            [_locationLabel sizeToFit];
+            _locationLabel.frame = CGRectMake(45, 25, 200, _locationLabel.bounds.size.height);
+            _locationLabel.backgroundColor = [UIColor clearColor];
+            
+        } else {
+            _profileThumbnailView.urlPath = nil;
+            
+            _nameLabel.text = @"my profile";
+            _nameLabel.textColor = RGBCOLOR(185,185,185);
+            _nameLabel.font = [UIFont systemFontOfSize:16];
+            _nameLabel.backgroundColor = [UIColor clearColor];
+            [_nameLabel sizeToFit];
+            _nameLabel.frame = CGRectOffset(_nameLabel.bounds, 45, 12);
+            
+            _locationLabel.text = @"";
+        }
+    });
 }
 
 - (void)updateScrollView {
-    BOOL noNotifications = CGRectEqualToRect(_notificationsContainer.frame, CGRectZero);
-    int thumbnailContainerOffset = (noNotifications ? 380 : 370) - 8;
-    
-    if ([_model isLoading]) {
-        [_loadingView startAnimating];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL noNotifications = CGRectEqualToRect(_notificationsContainer.frame, CGRectZero);
+        int thumbnailContainerOffset = (noNotifications ? 380 : 370) - 8;
         
-        _thumbnailContainer.frame = CGRectMake(2,thumbnailContainerOffset, 314, 253);//320);
-        [_thumbnailContainer addSubview:_loadingView];
-    } else {
-        _thumbnailContainer.frame = CGRectMake(2,thumbnailContainerOffset, 314, _thumbnailContainer.bounds.size.height);
-    }
-    
-    [_looksFromOurCommunity sizeToFit];
-    _looksFromOurCommunity.frame = CGRectMake(11, _thumbnailContainer.frame.origin.y - 13, 300, _looksFromOurCommunity.bounds.size.height);
-    
-    int maxY = CGRectGetMaxY(_thumbnailContainer.frame);
-    _scrollView.contentSize = CGSizeMake(320,noNotifications ? maxY : maxY + 36);
-    
-    if (_thumbnailsVisible && _viewJustLoaded) {
-        _viewJustLoaded = NO;
-        [_scrollView setContentOffset:CGPointMake(0,_scrollView.contentSize.height - _scrollView.bounds.size.height) animated:NO];
-    }
-    
-    [self scrollViewDidScroll:_scrollView];
-    [self snapScrollView:_scrollView];
+        if ([_model isLoading]) {
+            [_loadingView startAnimating];
+            
+            _thumbnailContainer.frame = CGRectMake(2,thumbnailContainerOffset, 314, 253);//320);
+            [_thumbnailContainer addSubview:_loadingView];
+        } else {
+            _thumbnailContainer.frame = CGRectMake(2,thumbnailContainerOffset, 314, _thumbnailContainer.bounds.size.height);
+        }
+        
+        [_looksFromOurCommunity sizeToFit];
+        _looksFromOurCommunity.frame = CGRectMake(11, _thumbnailContainer.frame.origin.y - 13, 300, _looksFromOurCommunity.bounds.size.height);
+        
+        int maxY = CGRectGetMaxY(_thumbnailContainer.frame);
+        _scrollView.contentSize = CGSizeMake(320,noNotifications ? maxY : maxY + 36);
+        
+        if (_thumbnailsVisible && _viewJustLoaded) {
+            _viewJustLoaded = NO;
+            [_scrollView setContentOffset:CGPointMake(0,_scrollView.contentSize.height - _scrollView.bounds.size.height) animated:NO];
+        }
+        
+        [self scrollViewDidScroll:_scrollView];
+        [self snapScrollView:_scrollView];
+    });
 }
 
 - (void)updateNotificationsButton {
-    if (!_notificationsVisible) {
-        _notificationsContainer.frame = CGRectMake(0,420,320,465);
-    }
-    if (![[GTIOUser currentUser] isLoggedIn] || [[GTIOUser currentUser].notifications count] == 0) {
-        _notificationsContainer.frame = CGRectZero;
-    } else if ([[GTIOUser currentUser] numberOfUnseenNotifications] == 0) {
-        [_notificationsBadgeButton setTitle:@"" forState:UIControlStateNormal];
-        [_notificationsBadgeButton setSelected:NO];
-        [_notificationsButton setTitle:@"notifications" forState:UIControlStateNormal];
-        _notificationsButton.enabled = YES;
-        _notificationsBadgeButton.enabled = YES;
-    } else {
-        NSString* title = [NSString stringWithFormat:@"new notification%@", ([[GTIOUser currentUser] numberOfUnseenNotifications] == 1 ? @"" : @"s")];
-        [_notificationsButton setTitle:title forState:UIControlStateNormal];
-        NSString* badgeTitle = [NSString stringWithFormat:@"%d", [[GTIOUser currentUser] numberOfUnseenNotifications]];
-        [_notificationsBadgeButton setTitle:badgeTitle forState:UIControlStateNormal];
-        [_notificationsBadgeButton setSelected:YES];
-        _notificationsButton.enabled = YES;
-        _notificationsBadgeButton.enabled = YES;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!_notificationsVisible) {
+            _notificationsContainer.frame = CGRectMake(0,420,320,465);
+        }
+        if (![[GTIOUser currentUser] isLoggedIn] || [[GTIOUser currentUser].notifications count] == 0) {
+            _notificationsContainer.frame = CGRectZero;
+        } else if ([[GTIOUser currentUser] numberOfUnseenNotifications] == 0) {
+            [_notificationsBadgeButton setTitle:@"" forState:UIControlStateNormal];
+            [_notificationsBadgeButton setSelected:NO];
+            [_notificationsButton setTitle:@"notifications" forState:UIControlStateNormal];
+            _notificationsButton.enabled = YES;
+            _notificationsBadgeButton.enabled = YES;
+        } else {
+            NSString* title = [NSString stringWithFormat:@"new notification%@", ([[GTIOUser currentUser] numberOfUnseenNotifications] == 1 ? @"" : @"s")];
+            [_notificationsButton setTitle:title forState:UIControlStateNormal];
+            NSString* badgeTitle = [NSString stringWithFormat:@"%d", [[GTIOUser currentUser] numberOfUnseenNotifications]];
+            [_notificationsBadgeButton setTitle:badgeTitle forState:UIControlStateNormal];
+            [_notificationsBadgeButton setSelected:YES];
+            _notificationsButton.enabled = YES;
+            _notificationsBadgeButton.enabled = YES;
+        }
+    });
 }
 
 - (void)updateTodoBadge {
-    if ([[GTIOUser currentUser].todosBadge intValue] > 0) {
-        _todosBadgeButton.hidden = NO;
-    } else {
-        _todosBadgeButton.hidden = YES;
-    }
-    NSString* title = [NSString stringWithFormat:@"%d", [[GTIOUser currentUser].todosBadge intValue]];
-    [_todosBadgeButton setTitle:title forState:UIControlStateNormal];
-    _todosBadgeButton.frame = CGRectMake(251, 106, 23 + (([title length] - 1) * 6), 24);
-    
-    UIImage* image = [UIImage imageNamed:@"todos-badge.png"];
-    UIImage* bgImage = [image stretchableImageWithLeftCapWidth:12 topCapHeight:12];
-    [_todosBadgeButton setBackgroundImage:bgImage forState:UIControlStateNormal];
-    _todosBadgeButton.contentEdgeInsets = UIEdgeInsetsMake(-2,1,2,0);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([[GTIOUser currentUser].todosBadge intValue] > 0) {
+            _todosBadgeButton.hidden = NO;
+        } else {
+            _todosBadgeButton.hidden = YES;
+        }
+        NSString* title = [NSString stringWithFormat:@"%d", [[GTIOUser currentUser].todosBadge intValue]];
+        [_todosBadgeButton setTitle:title forState:UIControlStateNormal];
+        _todosBadgeButton.frame = CGRectMake(251, 106, 23 + (([title length] - 1) * 6), 24);
+        
+        UIImage* image = [UIImage imageNamed:@"todos-badge.png"];
+        UIImage* bgImage = [image stretchableImageWithLeftCapWidth:12 topCapHeight:12];
+        [_todosBadgeButton setBackgroundImage:bgImage forState:UIControlStateNormal];
+        _todosBadgeButton.contentEdgeInsets = UIEdgeInsetsMake(-2,1,2,0);
+    });
 }
 
 #pragma mark - Scroll View
