@@ -14,7 +14,7 @@
 + (id)updateUser:(GTIOUser*)user delegate:(id)delegate selector:(SEL)selector {
 	NSLog(@"User Params: %@", user);
     // This allows us to check for this alert as a means to test the api would be hit
-    TTAlert(@"Updating User"); 
+    GTIOAlert(@"Updating User"); 
     return nil;
 }
 

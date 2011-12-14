@@ -765,7 +765,7 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
         }
         [self invalidateModel];
     } else {
-        TTAlert(@"Please enter a valid email address");
+        GTIOAlert(@"Please enter a valid email address");
     }
     
     return NO;

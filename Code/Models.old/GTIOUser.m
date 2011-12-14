@@ -573,7 +573,7 @@ static GTIOUser* gCurrentUser = nil;
     [self clearUserData];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidCancelLoginNotificationName object:self];	
     if (cancelled == NO) {
-        TTAlert(@"Login Failed");
+        GTIOAlert(@"Login Failed");
     }
 }
 

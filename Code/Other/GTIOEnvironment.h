@@ -72,3 +72,5 @@ extern NSString* const kGTIOHTTPAuthPassword;
 RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute);
 
 void GTIOErrorMessage(NSError* error);
+
+void GTIOAlert(NSString*)message;

@@ -546,7 +546,7 @@
 //		[errors addObject:@"Gender is required"];
 //	}
 	if ([errors count] > 0) {
-		TTAlert([errors componentsJoinedByString:@"\n"]);
+		GTIOAlert([errors componentsJoinedByString:@"\n"]);
 		return;
 	}
 	
@@ -598,9 +598,9 @@
 	if ([[json objectForKey:@"response"] isEqualToString:@"error"]) {
 		NSString* error = [json objectForKey:@"error"];
 		if ([error isKindOfClass:[NSNull class]]) {
-			TTAlert(@"Unknown Error");
+			GTIOAlert(@"Unknown Error");
 		} else {
-			TTAlert(error);
+			GTIOAlert(error);
 		}
 		return;
 	}

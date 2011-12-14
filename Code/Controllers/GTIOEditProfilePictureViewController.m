@@ -332,9 +332,9 @@
 	if ([[json objectForKey:@"response"] isEqualToString:@"error"]) {
 		NSString* error = [json objectForKey:@"error"];
 		if ([error isKindOfClass:[NSNull class]]) {
-			TTAlert(@"Unknown Error");
+			GTIOAlert(@"Unknown Error");
 		} else {
-			TTAlert(error);
+			GTIOAlert(error);
 		}
 		return;
 	}
