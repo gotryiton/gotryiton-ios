@@ -41,7 +41,7 @@
         subtitleLabel.text = subtitle;
         subtitleLabel.backgroundColor = [UIColor clearColor];
         [subtitleLabel sizeToFit];
-        subtitleLabel.frame = CGRectMake(40, 20, subtitleLabel.width, subtitleLabel.height);
+        subtitleLabel.frame = CGRectMake(40, 20 + 2, subtitleLabel.width, subtitleLabel.height);
         
         [self addSubview:imageView];
         [self addSubview:titleLabel];
