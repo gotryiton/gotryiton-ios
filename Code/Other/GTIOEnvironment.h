@@ -73,4 +73,4 @@ RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSStri
 
 void GTIOErrorMessage(NSError* error);
 
-void GTIOAlert(NSString*)message;
+void GTIOAlert(NSString* message);

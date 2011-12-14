@@ -95,6 +95,6 @@ void GTIOErrorMessage(NSError* error) {
     [errorAlertView show];
 }
 
-void GTIOAlert(NSString*)message {
+void GTIOAlert(NSString* message) {
     [[[[UIAlertView alloc] initWithTitle:@"GO TRY IT ON" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 }
