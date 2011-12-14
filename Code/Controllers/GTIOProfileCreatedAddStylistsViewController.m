@@ -217,7 +217,7 @@
     
     if([objectLoader.resourcePath isEqualToString:GTIORestResourcePath(@"/stylists/add")]) {
         [[GTIOLoadingOverlayManager sharedManager] stopLoading];
-        [[[[UIAlertView alloc] initWithTitle:@"GO TRY IT ON" message:[NSString stringWithFormat:@"nice, you have added %d stylists!", [_stylistsToAdd count]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+        GTIOAlert([NSString stringWithFormat:@"nice, you have added %d stylists!", [_stylistsToAdd count]]);
         [self dismissModalViewControllerAnimated:YES];
         
     } else {
