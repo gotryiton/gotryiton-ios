@@ -78,6 +78,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
     NSNumber* _alertNewsletter;
     NSNumber* _stylistsCount;
     NSNumber* _istyleCount;
+    NSNumber* _isNewUser;
     
     NSString* _location;
     NSArray* _badges;
@@ -107,6 +108,7 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 @property (nonatomic, retain) NSNumber* alertStylistAdd;
 @property (nonatomic, retain) NSNumber* alertNewsletter;
 @property (nonatomic, retain) NSNumber* istyleCount;
+@property (nonatomic, retain) NSNumber* isNewUser;
 @property (nonatomic, retain) NSNumber* stylistsCount;
 @property (nonatomic, copy) NSString *aboutMe;
 @property (nonatomic, assign, getter=isLoggedIn) BOOL loggedIn;

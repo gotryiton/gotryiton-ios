@@ -601,7 +601,7 @@ void uncaughtExceptionHandler(NSException *exception) {
             NSLog(@"Crittercism raised exception: %@ trying to set username to %@", exception, user.UID);
         }
     #endif
-    if (user.stylistsCount != nil && [user.stylistsCount intValue] == 0 && _showStylistPush && ![user.showAlmostDoneScreen boolValue]) {
+    if (user.stylistsCount != nil && [user.stylistsCount intValue] == 0 && _showStylistPush && ![user.showAlmostDoneScreen boolValue] && [user.isNewUser boolValue]) {
         // Wait for other navigations to finish
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
 //        TTOpenURL(@"gtio://pushStylists");

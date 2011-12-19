@@ -43,20 +43,24 @@
 - (void)doneButtonAction {
     [[GTIOLoadingOverlayManager sharedManager] showLoading];
     
-    [[GTIOAnalyticsTracker sharedTracker] trackUserDidAddStylists:[NSNumber numberWithInt:([_stylistsToAdd count])]];
-    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/add") delegate:self];
-    
-    NSMutableArray* stylistUIDs = [NSMutableArray array];
-    for(GTIOProfile* stylist in _stylistsToAdd) {
-        [stylistUIDs addObject:stylist.uid];
+    if ([_stylistsToAdd count] > 0) {
+        [[GTIOAnalyticsTracker sharedTracker] trackUserDidAddStylists:[NSNumber numberWithInt:([_stylistsToAdd count])]];
+        RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/stylists/add") delegate:self];
+        
+        NSMutableArray* stylistUIDs = [NSMutableArray array];
+        for(GTIOProfile* stylist in _stylistsToAdd) {
+            [stylistUIDs addObject:stylist.uid];
+        }
+        
+        NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [stylistUIDs jsonEncode], @"stylistUids",
+                                @"1", @"quick-add", nil];
+        loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+        loader.method = RKRequestMethodPOST;
+        [loader send];
+    } else {
+        [self dismissModalViewControllerAnimated:YES];
     }
-    
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            [stylistUIDs jsonEncode], @"stylistUids",
-                            @"1", @"quick-add", nil];
-    loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
-    loader.method = RKRequestMethodPOST;
-    [loader send];
 }
 
 - (void)editButtonAction {
