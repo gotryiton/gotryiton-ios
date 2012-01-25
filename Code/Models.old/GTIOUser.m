@@ -553,7 +553,7 @@ static GTIOUser* gCurrentUser = nil;
     [[NSUserDefaults standardUserDefaults] setValue:[_facebook expirationDate] forKey:kGTIOFacebookExpirationToken];
     
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:[_facebook accessToken], @"fbToken",
-//                            [self deviceTokenURLEncoded], @"deviceToken",
+                            [self deviceTokenURLEncoded], @"deviceToken",
                             [GTIOUser appVersionString], @"iphoneAppVersion", nil];
     params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     
