@@ -30,10 +30,12 @@ The Outfit page should now include a 'suggest' button in the outfit details expa
 #### Screen Mockups
 
 1.1.a default outfit page:
-<img src="https://github.com/twotoasters/GTIOv3/tree/master/Docs/Mockups/picker-7-outfit-page-default-unchanged.png" width="240px">
+
+<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-default-unchanged.png" width="240px">
 
 1.1.b outfit dettails expanded view:
-<img src="https://github.com/twotoasters/GTIOv3/tree/master/Docs/Mockups/picker-7-outfit-page-expanded.png" width="240px">
+
+<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-expanded.png" width="240px">
 
 
 #### Tracking Usage
@@ -61,8 +63,8 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 #### Screen Mockups
 
 2.1.a initial webview picker mockup
-<img src="https://github.com/twotoasters/GTIOv3/tree/master/Docs/Mockups/picker-7-outfit-page-default-unchanged.png" width="240px">
-<img src="https://github.com/twotoasters/GTIOv3/tree/master/Docs/Mockups/picker-7-outfit-page-expanded.png" width="240px">
+<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-default-unchanged.png" width="240px">
+<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-expanded.png" width="240px">
 
 #### API Usage
 
