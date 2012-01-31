@@ -182,8 +182,16 @@
         image = [[UIImage imageNamed:@"header-white-single.png"] stretchableImageWithLeftCapWidth:154 topCapHeight:50];
     }
 	headerView.image = image;
-	UIView* wrapperView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320-12, headerView.height + 6)];
+    
+    // Recommend Button
+    UIButton* recommendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [recommendButton setTitle:@"Recommend" forState:UIControlStateNormal];
+    recommendButton.frame = CGRectMake(10, headerView.height + 3, 280, 50);
+    [recommendButton addTarget:self action:@selector(recommendedButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+	UIView* wrapperView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320-12, headerView.height + 6 + recommendButton.height)];
 	[wrapperView addSubview:headerView];
+    [wrapperView addSubview:recommendButton];
 	headerView.userInteractionEnabled = YES;
 	
 	_closeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -205,6 +213,11 @@
     _keyboardOverlayButton2 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _keyboardOverlayButton2.frame = CGRectOffset(self.view.bounds, 0, headerView.bounds.size.height);
     [_keyboardOverlayButton2 addTarget:self action:@selector(dismissKeyboard:event:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)recommendedButtonWasPressed:(id)sender {
+    NSString* url = [NSString stringWithFormat:@"http://gtio-dev.gotryiton.com/iphone/rec/%@?gtioToken=%@", _outfit.outfitID, [GTIOUser currentUser].token];
+    TTOpenURL(url);
 }
 
 - (void)dismissKeyboard:(id)sender event:(UIEvent*)event {
