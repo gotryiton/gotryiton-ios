@@ -333,6 +333,10 @@
 	[actionSheet release];
 }
 
+- (void)suggestButtonWasPressed:(id)sender {
+    TTAlert(@"Suggest!");
+}
+
 - (void)writeAReviewButtonWasPressed:(id)sender {
 	[_scrollView.centerPage performSelector:@selector(writeAReviewButtonWasPressed:) withObject:sender];
 }
