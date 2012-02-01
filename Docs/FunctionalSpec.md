@@ -106,6 +106,7 @@ product{ // (OPTIONAL)
 			description	
 		} 
 ```
+
 	- This product response should be saved and used to populate the data for the story "A user should see a preview of their recommendation" in Section 3.2
 	- This product id should be saved and used to populate productId parameter in the API request for submitting reviews in Section 3.2
 
@@ -194,6 +195,7 @@ The Reviews page should now allow users to move to the suggest screen (2.1 webvi
 	- The reviews api request should include:
 		- gtioToken
 	- The reviews api response will include:
+
 ```
 reviews {
 	[
@@ -298,6 +300,7 @@ The reviews page should allow a user to complete and submit a recommendation (wi
 	- The reviews api request should include:
 		- gtioToken
 	- The reviews api response will include:
+
 ```
 reviews {
 	[
