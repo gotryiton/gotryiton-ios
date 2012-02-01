@@ -158,13 +158,9 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-1-default-1.png" width="240px">
 
-2.1.b webview picker, manually browsing (recommendation INACTIVE):
+2.1.b webview picker, manually browsing:
 
-<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-1-default-1.png" width="240px">
-
-2.1.c webview picker, manually browsing (recommendation ACTIVE):
-
-<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-1-default-1.png" width="240px">
+<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-4-manual-on.png" width="240px">
 
 #### API Usage
 
