@@ -17,6 +17,7 @@
 			- let the API request finish asynchronously
 			- populate the recommendation preview once the API has responded
 			- prevent the user from submitting a review until the request has finished
+	- **NOTE:** This question is answered but is pending design and technical direction to be added to the document
 
 2. How easy is it to customize the nav bars in view 2.1.b based on the response of the /rest/v4/scrape response?  We'd ideally like to be able to have that response:
 	- make the 'suggest this' button active or inactive
@@ -25,11 +26,10 @@
 	- customize the top nav bar title area (view 2.1.b has 'm.shopbop.com' as the title, we'd like this to be the Product->brand field if possible)
 		- the title in the top nav might need to be static if this is not feasible
 		- if not feasible, use 'suggest' as the title throughout
+	- **NOTE:** This question is answered but is pending design and technical direction to be added to the document
 
-3.  When a user leaves the reviews page with a recommendation selected (hits 'cancel' in view 3.2.e), what happens to the recommendation?  We see two options:
-	- The recommendation is cleared so that the user must start the 2.1 process over again from the start
-	- The recommendation is saved so that when a user returns to the reviews page, the recommendation is still attached to their pending review.  To avoid any possible memory issues and/or user confusion it may make sense to clear the recommendation at some point (when the user browses to another outfit, or after the 15 minute refresh?)
-	- We're happy to hear direction on which of these is easier/more ideal on your end.
+3.  When a user leaves the reviews page with a recommendation selected (hits 'cancel' in view 3.2.e), what happens to the recommendation?  
+	- **NOTE:** this question has been answered.  See Story "The user should be presented with a confirmation dialog"
 
 ### Minimum requirements for iOS App
 	Supported devices/os versions should be listed here
@@ -49,11 +49,11 @@ The Outfit page should now include a 'suggest' button in the outfit details expa
 
 #### Screen Mockups
 
-*1.1.a* default outfit page:
+**1.1.a** default outfit page:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-default-unchanged.png" width="240px">
 
-*1.1.b* outfit details expanded view:
+**1.1.b** outfit details expanded view:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-expanded.png" width="240px">
 
@@ -83,11 +83,11 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 
 #### Screen Mockups
 
-*2.1.a* webview picker, initial view:
+**2.1.a** webview picker, initial view:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-1-default-1.png" width="240px">
 
-*2.1.b* webview picker, manually browsing:
+**2.1.b** webview picker, manually browsing:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-4-manual-on.png" width="240px">
 
@@ -116,7 +116,8 @@ product{
 	- This product id should be saved and used to populate productId parameter in the API request for submitting reviews in Section 3.2
 
 - RECOMMENDING: When gtio://recommend/[product_id] is navigated to in the webview, the api should make an API request
-	- The request endpoint is: /rest/v4/get-product-info/[productId]
+	- The request endpoint is: /rest/v4/product/[productId]
+		- **NOTE** this endpoint changed in name on 2.1.12
 	- The request response is:
 
 ```
@@ -138,7 +139,7 @@ product{
 
 - gtio://recommend/[product_id]
 	- When the webview container redirects to this gtio-url:
-		- the user is routed to 1.x
+		- the user is routed to view 3.2.a
 		- the iOS native app submits an API request using the product_id 
 - gtio:://recommend/bottomNav/hide
 	- When the webview container redirects to this url:
@@ -176,21 +177,25 @@ The Reviews page should now allow users to move to the suggest screen (2.1 webvi
 
 #### Screen Mockups
 
-*3.1.a* reviews page:
+**3.1.a** reviews page:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-6-review-page.png" width="240px">
 
-*3.1.b* reviews page showing comments with recommendations:
+**3.1.a.i** reviews page scrolled to bottom:
+
+<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/spec-reviews-bottom.png" width="240px">
+
+**3.1.b** reviews page showing comments with recommendations:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-recommendation-submitted.png" width="240px">
 
 	- **NOTE:**  Bottom 'suggest a product for this look' button removed to show full recommendation item for the purposes of this screenshot.  The button *should* appear in this view.
 
-*3.1.c* reviews page, submitting a review (single outfit):
+**3.1.c** reviews page, submitting a review (single outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-6-review-page-keyboard-up.png" width="240px">
 
-*3.1.d* reviews page, submitting a review (multiple outfit):
+**3.1.d** reviews page, submitting a review (multiple outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-6-review-page-mult-keyboard-up.png" width="240px">
 
@@ -284,23 +289,23 @@ The reviews page should allow a user to complete and submit a recommendation (wi
 
 #### Screen Mockups
 
-*3.2.a* reviews page, submitting recommendation (short product image) (single outfit):
+**3.2.a** reviews page, submitting recommendation (short product image) (single outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-single-short.png" width="240px">
 
-*3.2.b* reviews page, submitting recommendation (tall product image) (single outfit):
+**3.2.b** reviews page, submitting recommendation (tall product image) (single outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-single-tall.png" width="240px">
 
-*3.2.c* reviews page, submitting recommendation (short product image) (multiple outfit):
+**3.2.c** reviews page, submitting recommendation (short product image) (multiple outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-mult-short.png" width="240px">
 
-*3.2.d* reviews page, submitting recommendation (tall product image) (multiple outfit):
+**3.2.d** reviews page, submitting recommendation (tall product image) (multiple outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-mult-tall.png" width="240px">
 
-*3.2.e* reviews page, closing reviews page with recommendation selected:
+**3.2.e** reviews page, closing reviews page with recommendation selected:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-single-tall-close-page.png"  width="240px">
 
@@ -379,4 +384,6 @@ reviews {
 	- The dialog should allow the user to either 'cancel' or 'yes'
 		- 'yes' should submit the recommendation without any review text included
 		- 'cancel' should bring the user to the front of the outfit page without submitting anything
+	- If the user cancels, the unsubmitted recommendation should stay in memory until the outfit is loaded again (either from a list or outfit refresh)
+	- If the user cancels, then (at any point later in their browsing of the app) taps on suggest from view 1.1.b, the unsubmitted review is erased and the user proceeds into the Webview Picker (view 2.1.a)
 
