@@ -11,7 +11,7 @@
 	This doc is in reference to the changes for the GTIO 3.4 release only.  All other functional questions should reference prior specs delivered from GTIO to TwoToasters or should be asked of Simon Holroyd (simon@gotryiton.com) or Matt Varghese (matt@gotryiton.com)
 
 1. What happens if the "recommend" button is hit (Section 2.1, view 2.1.b) before the API request to /rest/v4/scrape has returned a productId
-	-options:
+	- options:
 		- disable the button until the API has responded (maybe show a spinner?)
 		- allow the user to move to Section 3.2 anyway
 			- let the API request finish asynchronously
@@ -94,28 +94,37 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 		- gtioToken
 		- url (the url that the webview controller has navigated to)
 	- The api request will respond with:
-		- product
-			- id (product id)
-			- brand
-			- productName
-			- price ($ will be included in the price response)
-			- buyUrl
-			- thumbnail 
-			- description
+
+```
+product{ // (OPTIONAL)
+			id, // (product id)
+			brand, 
+			productName,
+			price  // ($ will be included in the price response)
+			buyUrl,
+			thumbnail, 
+			description	
+		} 
+```
 	- This product response should be saved and used to populate the data for the story "A user should see a preview of their recommendation" in Section 3.2
 	- This product id should be saved and used to populate productId parameter in the API request for submitting reviews in Section 3.2
 
 - RECOMMENDING: When gtio://recommend/[product_id] is navigated to in the webview, the api should make an API request
 	- The request endpoint is: /rest/v4/get-product-info/[productId]
 	- The request response is:
-		- product
-			- id (product id)
-			- brand
-			- productName
-			- price ($ will be included in the price response)
-			- buyUrl
-			- thumbnail 
-			- description
+
+```
+product{ // (OPTIONAL)
+			id, // (product id)
+			brand, 
+			productName,
+			price  // ($ will be included in the price response)
+			buyUrl,
+			thumbnail, // (variable height, maximum width of 384px)
+			description	
+		} 
+```
+
 	- This product response should be saved and used to populate the data for the story "A user should see a preview of their recommendation" in Section 3.2
 	- This product id should be saved and used to populate productId parameter in the API request for submitting reviews in Section 3.2
 
@@ -135,10 +144,6 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 <!-- - gtio://recommend/topNav/default
 	- When the webview container redirects to this -->
 
-
-#### Tracking Usage
-
-- ****TRACKING USAGE*****
 
 #### Stories
 
@@ -189,32 +194,41 @@ The Reviews page should now allow users to move to the suggest screen (2.1 webvi
 	- The reviews api request should include:
 		- gtioToken
 	- The reviews api response will include:
-		- reviews
-			- array
-				- outfitId,
-				- userId
-				- text (the text of the review)
-				- agreeVotes (the number of existing review agree votes)
-				- id (id of the review)
-				- timestamp (unixtime)
-				- user
-					- badges
-						- array
-							- since (timestamp)
-							- imgURL 
-					- displayName
-				    - isBrand (boolean representing whether or not the review gets a verified marker)
-				    - location
-				    - profileIcon
-				- uid
-				- product (OPTIONAL)
-					- id (product id)
-					- brand
-					- productName
-					- price ($ will be included in the price response)
-					- buyUrl
-					- thumbnail (variable height, maximum width of 384px)
-					- description
+```
+reviews {
+	[
+		outfitId,
+		userId,
+		text, // (the text of the review)
+		agreeVotes, // (the number of existing review agree votes)
+		id, // (id of the review)
+		timestamp (unixtime)
+		user {
+			badges [
+				{
+					since,
+					imgURL
+				}
+			]
+			displayName,
+		    isBrand, // (boolean representing whether or not the review gets a verified marker)
+		    location,
+		    profileIcon,
+
+		},
+		uid,
+		product{ // (OPTIONAL)
+			id, // (product id)
+			brand, 
+			productName,
+			price  // ($ will be included in the price response)
+			buyUrl,
+			thumbnail, // (variable height, maximum width of 384px)
+			description	
+		} 
+	]
+}
+```
 				
 - Reviews should be submitted as before 
 	- Upon submission of a review, the iOS application should send data to:
@@ -284,32 +298,41 @@ The reviews page should allow a user to complete and submit a recommendation (wi
 	- The reviews api request should include:
 		- gtioToken
 	- The reviews api response will include:
-		- reviews
-			- array
-				- outfitId,
-				- userId
-				- text (the text of the review)
-				- agreeVotes (the number of existing review agree votes)
-				- id (id of the review)
-				- timestamp (unixtime)
-				- user
-					- badges
-						- array
-							- since (timestamp)
-							- imgURL 
-					- displayName
-				    - isBrand (boolean representing whether or not the review gets a verified marker)
-				    - location
-				    - profileIcon
-				- uid
-				- product (OPTIONAL)
-					- id (product id)
-					- brand
-					- productName
-					- price ($ will be included in the price response)
-					- buyUrl
-					- thumbnail (variable height, maximum width of 384px)
-					- description
+```
+reviews {
+	[
+		outfitId,
+		userId,
+		text, // (the text of the review)
+		agreeVotes, // (the number of existing review agree votes)
+		id, // (id of the review)
+		timestamp (unixtime)
+		user {
+			badges [
+				{
+					since,
+					imgURL
+				}
+			]
+			displayName,
+		    isBrand, // (boolean representing whether or not the review gets a verified marker)
+		    location,
+		    profileIcon,
+
+		},
+		uid,
+		product{ // (OPTIONAL)
+			id, // (product id)
+			brand, 
+			productName,
+			price  // ($ will be included in the price response)
+			buyUrl,
+			thumbnail, // (variable height, maximum width of 384px)
+			description	
+		} 
+	]
+}
+```
 				
 - Reviews should be submitted as before with one additional parameter, productId
 	- Upon submission of a review, the iOS application should send data to:
