@@ -34,6 +34,7 @@ The Outfit page should now include a 'suggest' button in the outfit details expa
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-default-unchanged.png" width="240px">
 
 1.1.b outfit details expanded view:
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-expanded.png" width="240px">
 
 #### Tracking Usage
@@ -61,27 +62,35 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 #### Screen Mockups
 
 1.3.a reviews page:
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-6-review-page.png" width="240px">
 
 1.3.b reviews page showing comments with recommendations:
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-recommendation-submitted.png" width="240px">
 
 1.3.c reviews page, submitting a review (single outfit):
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-6-review-page-keyboard-up.png" width="240px">
 
 1.3.d reviews page, submitting a review (multiple outfit):
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-6-review-page-mult-keyboard-up.png" width="240px">
 
 1.3.e reviews page, submitting recommendation (short product image) (single outfit):
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-single-short.png" width="240px">
 
 1.3.f reviews page, submitting recommendation (tall product image) (single outfit):
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-single-tall.png" width="240px">
 
 1.3.g reviews page, submitting recommendation (short product image) (multiple outfit):
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-mult-short.png" width="240px">
 
 1.3.h reviews page, submitting recommendation (tall product image) (multiple outfit):
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-mult-tall.png" width="240px">
 
 #### API Usage
@@ -146,12 +155,15 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 #### Screen Mockups
 
 2.1.a webview picker, initial view:
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-1-default-1.png" width="240px">
 
 2.1.b webview picker, manually browsing (recommendation INACTIVE):
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-1-default-1.png" width="240px">
 
 2.1.c webview picker, manually browsing (recommendation ACTIVE):
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-1-default-1.png" width="240px">
 
 #### API Usage
