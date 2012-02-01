@@ -145,6 +145,9 @@
 	
 	[_toolsButton release];
 	_toolsButton = nil;
+    
+    [_suggestButton release];
+    _suggestButton = nil;
 	
 	[super dealloc];
 }
