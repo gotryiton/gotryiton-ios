@@ -44,11 +44,11 @@ The Outfit page should now include a 'suggest' button in the outfit details expa
 
 #### Screen Mockups
 
-1.1.a default outfit page:
+*1.1.a* default outfit page:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-default-unchanged.png" width="240px">
 
-1.1.b outfit details expanded view:
+*1.1.b* outfit details expanded view:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-expanded.png" width="240px">
 
@@ -78,11 +78,11 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 
 #### Screen Mockups
 
-2.1.a webview picker, initial view:
+*2.1.a* webview picker, initial view:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-1-default-1.png" width="240px">
 
-2.1.b webview picker, manually browsing:
+*2.1.b* webview picker, manually browsing:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-4-manual-on.png" width="240px">
 
@@ -171,19 +171,19 @@ The Reviews page should now allow users to move to the suggest screen (2.1 webvi
 
 #### Screen Mockups
 
-3.1.a reviews page:
+*3.1.a* reviews page:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-6-review-page.png" width="240px">
 
-3.1.b reviews page showing comments with recommendations:
+*3.1.b* reviews page showing comments with recommendations:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-recommendation-submitted.png" width="240px">
 
-3.1.c reviews page, submitting a review (single outfit):
+*3.1.c* reviews page, submitting a review (single outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-6-review-page-keyboard-up.png" width="240px">
 
-3.1.d reviews page, submitting a review (multiple outfit):
+*3.1.d* reviews page, submitting a review (multiple outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-6-review-page-mult-keyboard-up.png" width="240px">
 
@@ -275,19 +275,19 @@ The reviews page should allow a user to complete and submit a recommendation (wi
 
 #### Screen Mockups
 
-3.2.a reviews page, submitting recommendation (short product image) (single outfit):
+*3.2.a* reviews page, submitting recommendation (short product image) (single outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-single-short.png" width="240px">
 
-3.2.b reviews page, submitting recommendation (tall product image) (single outfit):
+*3.2.b* reviews page, submitting recommendation (tall product image) (single outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-single-tall.png" width="240px">
 
-3.2.c reviews page, submitting recommendation (short product image) (multiple outfit):
+*3.2.c* reviews page, submitting recommendation (short product image) (multiple outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-mult-short.png" width="240px">
 
-3.2.d reviews page, submitting recommendation (tall product image) (multiple outfit):
+*3.2.d* reviews page, submitting recommendation (tall product image) (multiple outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-mult-tall.png" width="240px">
 
