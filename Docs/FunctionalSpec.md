@@ -302,7 +302,7 @@ The reviews page should allow a user to complete and submit a recommendation (wi
 
 *3.2.e* reviews page, closing reviews page with recommendation selected:
 
-<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-single-tall-close-page.png">
+<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-single-tall-close-page.png"  width="240px">
 
 
 #### API Usage
