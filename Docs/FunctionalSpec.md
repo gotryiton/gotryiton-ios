@@ -30,6 +30,7 @@ The Outfit page should now include a 'suggest' button in the outfit details expa
 #### Screen Mockups
 
 1.1.a default outfit page:
+
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-7-outfit-page-default-unchanged.png" width="240px">
 
 1.1.b outfit details expanded view:
