@@ -43,10 +43,9 @@
 }
 
 - (id)initWithOutfitID:(NSString*)outfitID {
-	if (self = [super initWithStyle:UITableViewStylePlain]) {
-		NSLog(@"OutfitID: %@", outfitID);
+	if (self = [self initWithStyle:UITableViewStylePlain]) {
 		self.outfit = [GTIOOutfit outfitWithOutfitID:outfitID];
-		NSLog(@"Outfit: %@", _outfit);
+        self.title = @"reviews";
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewDeletedNotification:) name:@"ReviewDeletedNotification" object:nil];
         
         self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
@@ -216,8 +215,7 @@
 }
 
 - (void)recommendedButtonWasPressed:(id)sender {
-    NSString* url = [NSString stringWithFormat:@"http://gtio-dev.gotryiton.com/iphone/rec/%@?gtioToken=%@", _outfit.outfitID, [GTIOUser currentUser].token];
-    TTOpenURL(url);
+    [GTIOUser recommendOutfit:_outfit];
 }
 
 - (void)dismissKeyboard:(id)sender event:(UIEvent*)event {

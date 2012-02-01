@@ -95,7 +95,6 @@ NSMutableArray* allOutfits;
 }
 
 + (GTIOOutfit*)outfitWithOutfitID:(NSString*)oid {
-    NSLog(@"Outfit IDs: %@", [allOutfits valueForKeyPath:@"outfitID"]);
 	return [allOutfits objectWithValue:oid forKey:@"outfitID"];
 }
 

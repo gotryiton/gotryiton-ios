@@ -27,7 +27,7 @@
 @synthesize model = _model;
 
 - (id)initWithOutfitID:(NSString*)outfitID {
-	if (self = [super initWithNibName:nil bundle:nil]) {
+	if (self = [self initWithNibName:nil bundle:nil]) {
 		NSLog(@"Init With Outfit ID: %@", outfitID);
 		_state = GTIOOutfitViewStateFullscreen;
 		
@@ -42,18 +42,12 @@
         [_loader send];
 
 		self.hidesBottomBarWhenPushed = YES;
-        
-        self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
-                                                                                  
-                                                                                 target:nil 
-                                                                                 action:nil] autorelease];
-        
 	}
 	return self;
 }
 
 - (id)initWithModel:(GTIOPaginatedTTModel*)model outfitIndex:(int)index {
-	if (self = [super initWithNibName:nil bundle:nil]) {
+	if (self = [self initWithNibName:nil bundle:nil]) {
 		_state = GTIOOutfitViewStateShowControls;
 		self.model = model;
 		_outfitIndex = index;
@@ -64,6 +58,14 @@
 		self.hidesBottomBarWhenPushed = YES;
 	}
 	return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = @"outfit";
+    }
+    return self;
 }
 
 - (void)dealloc {
@@ -78,10 +80,6 @@
 	[_model release];
 	_model = nil;
     [super dealloc];
-}
-
-- (void)release {
-    [super release];
 }
 
 - (void)setModel:(GTIOPaginatedTTModel *)model {
@@ -121,8 +119,6 @@
 	
 	UIBarButtonItem* profileButton = [[[GTIOBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"profile.png"] target:self action:@selector(openProfileButtonWasPressed:)] autorelease];
 	self.navigationItem.rightBarButtonItem = profileButton;
-	
-	self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleDone target:nil action:nil] autorelease];
 	
 	_scrollView = [[GTIOScrollView alloc] initWithFrame:self.view.bounds];
 	_scrollView.delegate = self;
@@ -334,7 +330,7 @@
 }
 
 - (void)suggestButtonWasPressed:(id)sender {
-    TTAlert(@"Suggest!");
+    [GTIOUser recommendOutfit:self.outfit];
 }
 
 - (void)writeAReviewButtonWasPressed:(id)sender {
@@ -389,32 +385,9 @@
 
 - (void)modelDidFinishLoad:(id <TTModel>)model {
 	[self hideLoadingMore];
-    
-    //    GTIOOutfitPageView* page = (GTIOOutfitPageView*)_scrollView.centerPage;
-//    if (self.outfit) {
-//    _scrollViewDataSource.moreToLoad = [_model hasMoreToLoad];
     [self updateIsLastPage];
-//    
-//    page.outfit = self.outfit;
-//    [page showFullDescription:NO];
-//    } else {
-//        [self performSelector:@selector(scrollBack) withObject:nil afterDelay:0.1];
-//    }
-    
 	[self updateView];
 }
-         
-//- (void)scrollBack {
-//    _scrollView.centerPageIndex -= 1;
-//    GTIOOutfitPageView* page = (GTIOOutfitPageView*)_scrollView.centerPage;
-//    page.isLastPage = YES;
-//    [page showFullDescription:NO];
-//    [self performSelector:@selector(getRidOfLastPage) withObject:nil afterDelay:0.1];
-//}
-//
-//- (void)getRidOfLastPage {
-//    _scrollViewDataSource.moreToLoad = NO;
-//}
 
 - (void)model:(id <TTModel>)model didFailLoadWithError:(NSError *)error {
 	[self hideLoadingMore];
