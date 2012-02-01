@@ -26,6 +26,11 @@
 		- the title in the top nav might need to be static if this is not feasible
 		- if not feasible, use 'suggest' as the title throughout
 
+3.  When a user leaves the reviews page with a recommendation selected (hits 'cancel' in view 3.2.e), what happens to the recommendation?  We see two options:
+	- The recommendation is cleared so that the user must start the 2.1 process over again from the start
+	- The recommendation is saved so that when a user returns to the reviews page, the recommendation is still attached to their pending review.  To avoid any possible memory issues and/or user confusion it may make sense to clear the recommendation at some point (when the user browses to another outfit, or after the 15 minute refresh?)
+	- We're happy to hear direction on which of these is easier/more ideal on your end.
+
 ### Minimum requirements for iOS App
 	Supported devices/os versions should be listed here
 - iOS 4
@@ -255,6 +260,8 @@ reviews {
 	- The product brand should be pulled from Reviews->review->product->brand
 	- The product price should be pulled from Reviews->review->product->price
 	- The click url should be pulled from Reviews->review->product->buyUrl
+	- The 'verified' corner icon should appear in the same way it does for existing reviews (based on the boolean Reviews->review->isBrand)
+	- The right margin of the product title, product brand, and price should be the same as the review text right margin
 - The user should be taken to a standard in-app webview with the url:buyUrl when they tap on the product (as if it were any other link in a review)
 	- The tap area for this button is the photo and text characters (the tap area should not extend the width of the view unless the text does)
 - The user should see a custom control bar directly above the keyboard when submitting a review (screens 3.1.c, 3.1.d)
@@ -292,6 +299,10 @@ The reviews page should allow a user to complete and submit a recommendation (wi
 *3.2.d* reviews page, submitting recommendation (tall product image) (multiple outfit):
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-mult-tall.png" width="240px">
+
+*3.2.e* reviews page, closing reviews page with recommendation selected:
+
+<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-submitting-rec-single-tall-close-page.png">
 
 
 #### API Usage
@@ -361,7 +372,7 @@ reviews {
 	- The preview will have a minimum height that is determined by the area needed to show product info
 	- The preview will have a maximum height that is determined by the height of the product image
 - The user should be able to submit the 'review' without entering any text, or optionally entering text
-- The user should be presented with a confirmation dialog if they attempt to close the review page at this stage
+- The user should be presented with a confirmation dialog if they attempt to close the review page at this stage (view 3.2.e)
 	- The dialog should have a title of 'wait!'
 	- The dialog comment first line should read 'suggest this product'
 	- The dialog comment second line should read 'without a comment?'
