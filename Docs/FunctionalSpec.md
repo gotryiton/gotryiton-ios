@@ -10,7 +10,7 @@
 
 	This doc is in reference to the changes for the GTIO 3.4 release only.  All other functional questions should reference prior specs delivered from GTIO to TwoToasters or should be asked of Simon Holroyd (simon@gotryiton.com) or Matt Varghese (matt@gotryiton.com)
 
-1. What happens if the "recommend" button is hit (Section 2.1, view 2.1.b) before the API request to /rest/v4/scrape has returned a productId
+1. What happens if the "suggest this" button is hit (Section 2.1, view 2.1.b) before the API request to /rest/v4/scrape has returned a productId
 	- options:
 		- disable the button until the API has responded (maybe show a spinner?)
 		- allow the user to move to Section 3.2 anyway
@@ -19,12 +19,12 @@
 			- prevent the user from submitting a review until the request has finished
 
 2. How easy is it to customize the nav bars in view 2.1.b based on the response of the /rest/v4/scrape response?  We'd ideally like to be able to have that response:
-	- make the recommend button active or inactive
+	- make the 'suggest this' button active or inactive
 	- show a thumbnail in the bottom nav area (Product->thumbnail)
 	- show a product name (Product->productName)
 	- customize the top nav bar title area (view 2.1.b has 'm.shopbop.com' as the title, we'd like this to be the Product->brand field if possible)
 		- the title in the top nav might need to be static if this is not feasible
-		- if not feasible, use 'recommend' as the title throughout
+		- if not feasible, use 'suggest' as the title throughout
 
 ### Minimum requirements for iOS App
 	Supported devices/os versions should be listed here
@@ -96,7 +96,7 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 	- The api request will respond with:
 
 ```
-product{ // (OPTIONAL)
+product{ 
 			id, // (product id)
 			brand, 
 			productName,
@@ -115,7 +115,7 @@ product{ // (OPTIONAL)
 	- The request response is:
 
 ```
-product{ // (OPTIONAL)
+product{ 
 			id, // (product id)
 			brand, 
 			productName,
@@ -150,7 +150,7 @@ product{ // (OPTIONAL)
 
 - The user first arrives on the webview picker and sees a custom top nav bar
 	- The title of the nav bar is 'SUGGEST'
-	- The back button of the nav bar is 'reviews' 
+	- The back button of the nav bar is 'reviews' or 'outfit' depending on the user's entrance point (either view 1.1.a or 3.1.a)
 	- The user taps on 'reviews' and is taken back to their original entrance point - either view 1.1 (outfit page) or view 3.1.a (reviews page) or view 3.1.c/d (submitting a review)
 	- The top right button of the top nav bar is a button that has text ('for') and a thumbnail (the outfit thumbnail)
 	- The outfit thumbnail should be drawn from the Outift->smallThumb url provided as part of the Outfit API response
@@ -161,7 +161,7 @@ product{ // (OPTIONAL)
 	- If the user drags the 'search' bar for instance, the webview page should not move
 	- If the user drags internal scrollable elements, they should scroll within the selected html div (if a user drags the 'shopbop' logo left and right, the row should scroll left and right)
 	- If the user turns their phone, the webview picker and native page should stay in portrait mode
-- The user taps on recommend in the bottom nav, they should be taken to the reviews page (view 3.2.a/f/g/h)
+- The user taps on "suggest this" in the bottom nav, they should be taken to the reviews page (view 3.2.a/f/g/h)
 
 ### 3.1 Reviews page
 
@@ -178,6 +178,8 @@ The Reviews page should now allow users to move to the suggest screen (2.1 webvi
 *3.1.b* reviews page showing comments with recommendations:
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-5-recommendation-submitted.png" width="240px">
+
+	- **NOTE:**  Bottom 'suggest a product for this look' button removed to show full recommendation item for the purposes of this screenshot.  The button *should* appear in this view.
 
 *3.1.c* reviews page, submitting a review (single outfit):
 
@@ -254,7 +256,7 @@ reviews {
 	- The product price should be pulled from Reviews->review->product->price
 	- The click url should be pulled from Reviews->review->product->buyUrl
 - The user should be taken to a standard in-app webview with the url:buyUrl when they tap on the product (as if it were any other link in a review)
-	- Matt, whats the tap area?
+	- The tap area for this button is the photo and text characters (the tap area should not extend the width of the view unless the text does)
 - The user should see a custom control bar directly above the keyboard when submitting a review (screens 3.1.c, 3.1.d)
 	- The bar should have a custom background texture, border and drop shadow
 	- The bar should have a custom button on the left with an icon which brings the user to (2.1 WebView Picker)
