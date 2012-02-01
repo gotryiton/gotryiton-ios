@@ -39,6 +39,14 @@
 		_toolsButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 12, 0);
 		_toolsButton.frame = CGRectMake(250, 0, 65, 0);
 		[self addSubview:_toolsButton];
+        
+        _suggestButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+		[_suggestButton addTarget:nil action:@selector(suggestButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+		_suggestButton.titleLabel.font = kGTIOFontBoldHelveticaNeueOfSize(18);
+		[_suggestButton setBackgroundImage:[UIImage imageNamed:@"suggest.png"] forState:UIControlStateNormal];
+		_suggestButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 12, 0);
+		_suggestButton.frame = CGRectMake(250, 0, 65, 0);
+		[self addSubview:_suggestButton];
 		
 		_descriptionView = [[UIImageView alloc] initWithFrame:CGRectZero];
 		_descriptionView.image = [[UIImage imageNamed:@"description-background.png"] stretchableImageWithLeftCapWidth:125 topCapHeight:25];
@@ -137,6 +145,9 @@
 	
 	[_toolsButton release];
 	_toolsButton = nil;
+    
+    [_suggestButton release];
+    _suggestButton = nil;
 	
 	[super dealloc];
 }
@@ -211,11 +222,12 @@
 		
 		if ([_outfit.uid isEqualToString:[[GTIOUser currentUser] UID]]) {
 			_toolsButton.frame = CGRectMake(249, 0, 65, 60);
+            _shareButton.frame = CGRectMake(249, 60, 65, 60);
 			_reviewsButtonSmall.frame = CGRectMake(250, 120, 65, 60);
-			_shareButton.frame = CGRectMake(249, 60, 65, 60);
 		} else {
-			_reviewsButtonSmall.frame = CGRectMake(250, 60, 65, 60);
-			_shareButton.frame = CGRectMake(249, 0, 65, 60);
+            _suggestButton.frame = CGRectMake(249, 0, 65, 60);
+			_shareButton.frame = CGRectMake(250, 60, 65, 60);
+			_reviewsButtonSmall.frame = CGRectMake(250, 120, 65, 60);
 		}
 		
 		_expandArrow.alpha = 0;
@@ -237,6 +249,7 @@
 		
 		_shareButton.frame = CGRectMake(249, 0, 65, 0);
 		_toolsButton.frame = CGRectMake(249, 0, 65, 0);
+        _suggestButton.frame = CGRectMake(249, 0, 65, 0);
 	}
 	
 }

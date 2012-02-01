@@ -58,9 +58,14 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
 
 //////////////////////////////////////////////////////////////////////
 
+typedef void (^LoginCompletionHandler)();
+
 @class GTIONotification;
+@class GTIOOutfit;
 
 @interface GTIOUser : NSObject <JREngageDelegate, FBSessionDelegate, RKObjectLoaderDelegate> {
+    LoginCompletionHandler _facebookLoginCompletionHandler;
+    
 	BOOL _loggedIn;	
 	NSString* _token;
 	NSString* _UID;
@@ -211,10 +216,20 @@ extern NSString* const kGTIOToDoBadgeUpdatedNotificationName;
  */
 + (RKObjectLoader*)voteForOutfit:(NSString*)outfitID look:(NSInteger)look reasons:(NSArray*)reasons delegate:(NSObject<RKObjectLoaderDelegate>*)delegate;
 
+/*
+ * Recommend something for an outfit. Will login if neccessary.
+ */
++ (void)recommendOutfit:(GTIOOutfit*)outfit;
+
 /**
  * Begin the login process with Facebook (preferred)
  */
 - (void)loginWithFacebook;
+
+/**
+ * Begin the facebook login process. On successful login, call the handler.
+ */
+- (void)loginWithFacebookAndCompletion:(LoginCompletionHandler)handler;
 
 /**
  * Reload the facebook object, return isSessionValid

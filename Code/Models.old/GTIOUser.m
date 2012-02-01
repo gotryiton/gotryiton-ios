@@ -17,6 +17,7 @@
 #import "GTIOAppStatusAlertButton.h"
 #import "GTIOGlobalVariableStore.h"
 #import "GTIOChangeItReason.h"
+#import "GTIOOutfit.h"
 
 // Constants (see GTIOEnvironment.m)
 extern NSString* const kGTIOJanRainEngageApplicationID;
@@ -128,6 +129,19 @@ static GTIOUser* gCurrentUser = nil;
 	[loader send];
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOOutfitVoteNotification object:outfitID];
     return loader;
+}
+
++ (void)recommendOutfit:(GTIOOutfit*)outfit {
+    if (![[GTIOUser currentUser] isLoggedIn]) {
+        __block NSString* outfitID = outfit.outfitID;
+		[[GTIOUser currentUser] loginWithFacebookAndCompletion:^{
+            NSString* url = [NSString stringWithFormat:@"gtio://recommend/%@", outfitID];
+            TTOpenURL(url);
+        }];
+    } else {
+        NSString* url = [NSString stringWithFormat:@"gtio://recommend/%@", outfit.outfitID];
+        TTOpenURL(url);
+    }
 }
 
 + (RKObjectMapping*)userMapping {
@@ -341,6 +355,11 @@ static GTIOUser* gCurrentUser = nil;
     _facebook = [[Facebook alloc] initWithAppId:kGTIOFacebookAppID andDelegate:self];
     NSArray* permissions = [NSArray arrayWithObjects:@"publish_stream", @"offline_access", @"email", @"user_birthday", @"user_location", nil];
     [_facebook authorize:permissions];
+}
+
+- (void)loginWithFacebookAndCompletion:(LoginCompletionHandler)handler {
+    _facebookLoginCompletionHandler = Block_copy(handler);
+    [self loginWithFacebook];
 }
 
 - (BOOL)resumeFacebookSession {
@@ -565,12 +584,22 @@ static GTIOUser* gCurrentUser = nil;
     loader.objectMapping = userMapping;
     
     [loader send];
+    if (_facebookLoginCompletionHandler) {
+        _facebookLoginCompletionHandler();
+        Block_release(_facebookLoginCompletionHandler);
+        _facebookLoginCompletionHandler = NULL;
+    }
 }
 
 /**
  * Called when the user dismissed the dialog without logging in.
  */
 - (void)fbDidNotLogin:(BOOL)cancelled {
+    if (_facebookLoginCompletionHandler) {
+        Block_release(_facebookLoginCompletionHandler);
+        _facebookLoginCompletionHandler = NULL;
+    }
+    
     [self didStopLogin];
     [self clearUserData];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidCancelLoginNotificationName object:self];	

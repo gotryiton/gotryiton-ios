@@ -1165,6 +1165,18 @@
 		3F23E94913BB765F00348711 /* upload-intro.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F23E93413BB765F00348711 /* upload-intro.png */; };
 		3F23E94A13BB765F00348711 /* upload-intro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F23E93513BB765F00348711 /* upload-intro@2x.png */; };
 		3F23E94D13BB765F00348711 /* upload-intro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F23E93513BB765F00348711 /* upload-intro@2x.png */; };
+		3F25688714D9CC2700A7C62A /* suggest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F25688514D9CC2700A7C62A /* suggest@2x.png */; };
+		3F25688814D9CC2700A7C62A /* suggest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F25688514D9CC2700A7C62A /* suggest@2x.png */; };
+		3F25688914D9CC2700A7C62A /* suggest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F25688514D9CC2700A7C62A /* suggest@2x.png */; };
+		3F25688A14D9CC2700A7C62A /* suggest.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F25688614D9CC2700A7C62A /* suggest.png */; };
+		3F25688B14D9CC2700A7C62A /* suggest.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F25688614D9CC2700A7C62A /* suggest.png */; };
+		3F25688C14D9CC2700A7C62A /* suggest.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F25688614D9CC2700A7C62A /* suggest.png */; };
+		3F25689014D9CD6C00A7C62A /* GTIORecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F25688E14D9CD6C00A7C62A /* GTIORecommendViewController.m */; };
+		3F25689114D9CD6C00A7C62A /* GTIORecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F25688E14D9CD6C00A7C62A /* GTIORecommendViewController.m */; };
+		3F25689214D9CD6C00A7C62A /* GTIORecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F25688E14D9CD6C00A7C62A /* GTIORecommendViewController.m */; };
+		3F25689314D9CD6C00A7C62A /* GTIORecommendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F25688F14D9CD6C00A7C62A /* GTIORecommendViewController.xib */; };
+		3F25689414D9CD6C00A7C62A /* GTIORecommendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F25688F14D9CD6C00A7C62A /* GTIORecommendViewController.xib */; };
+		3F25689514D9CD6C00A7C62A /* GTIORecommendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F25688F14D9CD6C00A7C62A /* GTIORecommendViewController.xib */; };
 		3F330787140E7033000625EA /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F330786140E7033000625EA /* GTIOViewController.m */; };
 		3F330788140E7033000625EA /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F330786140E7033000625EA /* GTIOViewController.m */; };
 		3F437098138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F437097138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m */; };
@@ -3578,6 +3590,11 @@
 		3F23E93313BB765F00348711 /* upload-get-started-ON@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload-get-started-ON@2x.png"; sourceTree = "<group>"; };
 		3F23E93413BB765F00348711 /* upload-intro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload-intro.png"; sourceTree = "<group>"; };
 		3F23E93513BB765F00348711 /* upload-intro@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload-intro@2x.png"; sourceTree = "<group>"; };
+		3F25688514D9CC2700A7C62A /* suggest@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "suggest@2x.png"; sourceTree = "<group>"; };
+		3F25688614D9CC2700A7C62A /* suggest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = suggest.png; sourceTree = "<group>"; };
+		3F25688D14D9CD6C00A7C62A /* GTIORecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIORecommendViewController.h; sourceTree = "<group>"; };
+		3F25688E14D9CD6C00A7C62A /* GTIORecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIORecommendViewController.m; sourceTree = "<group>"; };
+		3F25688F14D9CD6C00A7C62A /* GTIORecommendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTIORecommendViewController.xib; sourceTree = "<group>"; };
 		3F330785140E7033000625EA /* GTIOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOViewController.h; sourceTree = "<group>"; };
 		3F330786140E7033000625EA /* GTIOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOViewController.m; sourceTree = "<group>"; };
 		3F437096138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIODropShadowSectionTableViewDelegate.h; sourceTree = "<group>"; };
@@ -4524,8 +4541,8 @@
 		A7E301231379887F0036F86D /* GTIOExternalURLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOExternalURLHelper.m; sourceTree = "<group>"; };
 		A7E301241379887F0036F86D /* GTIOGiveAnOpinionTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOGiveAnOpinionTableViewDataSource.h; sourceTree = "<group>"; };
 		A7E301251379887F0036F86D /* GTIOGiveAnOpinionTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOGiveAnOpinionTableViewDataSource.m; sourceTree = "<group>"; };
-		A7E301261379887F0036F86D /* GTIOOutfitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOOutfitViewController.h; sourceTree = "<group>"; };
-		A7E301271379887F0036F86D /* GTIOOutfitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOOutfitViewController.m; sourceTree = "<group>"; };
+		A7E301261379887F0036F86D /* GTIOOutfitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOOutfitViewController.h; path = ../Other.old/GTIOOutfitViewController.h; sourceTree = "<group>"; };
+		A7E301271379887F0036F86D /* GTIOOutfitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOOutfitViewController.m; path = ../Other.old/GTIOOutfitViewController.m; sourceTree = "<group>"; };
 		A7E301281379887F0036F86D /* GTIOProfileViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileViewDataSource.h; sourceTree = "<group>"; };
 		A7E301291379887F0036F86D /* GTIOProfileViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileViewDataSource.m; sourceTree = "<group>"; };
 		A7E3012A1379887F0036F86D /* GTIOReachabilityObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOReachabilityObserver.h; sourceTree = "<group>"; };
@@ -6544,6 +6561,8 @@
 		A7C62883137C2CFB00F89D4F /* outfit-assets */ = {
 			isa = PBXGroup;
 			children = (
+				3F25688514D9CC2700A7C62A /* suggest@2x.png */,
+				3F25688614D9CC2700A7C62A /* suggest.png */,
 				A7C62884137C2CFB00F89D4F /* arrow-left-ON.png */,
 				A7C62885137C2CFB00F89D4F /* arrow-left-ON@2x.png */,
 				A7C62886137C2CFB00F89D4F /* arrow-left.png */,
@@ -6648,6 +6667,8 @@
 		A7E300B91379887F0036F86D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A7E301261379887F0036F86D /* GTIOOutfitViewController.h */,
+				A7E301271379887F0036F86D /* GTIOOutfitViewController.m */,
 				3F7E495F1386EF2C00A38A75 /* GTIONotificationsOverlayViewController.h */,
 				3F7E49601386EF2C00A38A75 /* GTIONotificationsOverlayViewController.m */,
 				A7E300BA1379887F0036F86D /* GTIOHomeViewController.h */,
@@ -6680,6 +6701,9 @@
 				13B38E4F146C5C4E0096E00C /* GTIOProfileCreatedAddStylistsViewController.m */,
 				13EEDDFD1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.h */,
 				13EEDDFE1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m */,
+				3F25688D14D9CD6C00A7C62A /* GTIORecommendViewController.h */,
+				3F25688E14D9CD6C00A7C62A /* GTIORecommendViewController.m */,
+				3F25688F14D9CD6C00A7C62A /* GTIORecommendViewController.xib */,
 			);
 			name = Controllers;
 			path = Code/Controllers;
@@ -6816,8 +6840,6 @@
 				A7E301231379887F0036F86D /* GTIOExternalURLHelper.m */,
 				A7E301241379887F0036F86D /* GTIOGiveAnOpinionTableViewDataSource.h */,
 				A7E301251379887F0036F86D /* GTIOGiveAnOpinionTableViewDataSource.m */,
-				A7E301261379887F0036F86D /* GTIOOutfitViewController.h */,
-				A7E301271379887F0036F86D /* GTIOOutfitViewController.m */,
 				A7E301281379887F0036F86D /* GTIOProfileViewDataSource.h */,
 				A7E301291379887F0036F86D /* GTIOProfileViewDataSource.m */,
 				A7E3012A1379887F0036F86D /* GTIOReachabilityObserver.h */,
@@ -7986,6 +8008,9 @@
 				1321690F14758B5F00353C24 /* invite-sms-OFF@2x.png in Resources */,
 				1321691014758B5F00353C24 /* invite-sms-ON.png in Resources */,
 				1321691114758B5F00353C24 /* invite-sms-ON@2x.png in Resources */,
+				3F25688714D9CC2700A7C62A /* suggest@2x.png in Resources */,
+				3F25688A14D9CC2700A7C62A /* suggest.png in Resources */,
+				3F25689314D9CD6C00A7C62A /* GTIORecommendViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8731,6 +8756,9 @@
 				3F066B5014867A3900692659 /* invite-sms-OFF@2x.png in Resources */,
 				3F066B5114867A3900692659 /* invite-sms-ON.png in Resources */,
 				3F066B5214867A3900692659 /* invite-sms-ON@2x.png in Resources */,
+				3F25688914D9CC2700A7C62A /* suggest@2x.png in Resources */,
+				3F25688C14D9CC2700A7C62A /* suggest.png in Resources */,
+				3F25689514D9CD6C00A7C62A /* GTIORecommendViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9476,6 +9504,9 @@
 				1321692114758B7300353C24 /* invite-sms-OFF@2x.png in Resources */,
 				1321692214758B7300353C24 /* invite-sms-ON.png in Resources */,
 				1321692314758B7300353C24 /* invite-sms-ON@2x.png in Resources */,
+				3F25688814D9CC2700A7C62A /* suggest@2x.png in Resources */,
+				3F25688B14D9CC2700A7C62A /* suggest.png in Resources */,
+				3F25689414D9CD6C00A7C62A /* GTIORecommendViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9650,6 +9681,7 @@
 				3F1A7DEB1475861E0019F538 /* GTIOInternalURLHelper.m in Sources */,
 				13BBBCF9147A9C030069D69A /* GTIOAddStylistButton.m in Sources */,
 				13EEDDFF1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m in Sources */,
+				3F25689014D9CD6C00A7C62A /* GTIORecommendViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9821,6 +9853,7 @@
 				3F06684B14867A3900692659 /* GTIOInternalURLHelper.m in Sources */,
 				3F06684C14867A3900692659 /* GTIOAddStylistButton.m in Sources */,
 				3F06684D14867A3900692659 /* GTIOFacebookInviteTableViewController.m in Sources */,
+				3F25689214D9CD6C00A7C62A /* GTIORecommendViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9992,6 +10025,7 @@
 				3F1A7DEC1475861E0019F538 /* GTIOInternalURLHelper.m in Sources */,
 				13BBBCFA147A9C030069D69A /* GTIOAddStylistButton.m in Sources */,
 				13EEDE001476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m in Sources */,
+				3F25689114D9CD6C00A7C62A /* GTIORecommendViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

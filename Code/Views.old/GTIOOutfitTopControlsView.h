@@ -18,6 +18,7 @@
 	GTIOMultiLineQuotedLabel* _descriptionTextSmall;
 	UIButton* _reviewsButtonSmall;
 	UIButton* _toolsButton;
+    UIButton* _suggestButton;
 	UIButton* _shareButton;
 	UILabel* _forLabel;
 	UILabel* _forTextLabel;
