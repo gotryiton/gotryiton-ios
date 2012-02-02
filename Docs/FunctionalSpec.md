@@ -11,22 +11,11 @@
 	This doc is in reference to the changes for the GTIO 3.4 release only.  All other functional questions should reference prior specs delivered from GTIO to TwoToasters or should be asked of Simon Holroyd (simon@gotryiton.com) or Matt Varghese (matt@gotryiton.com)
 
 1. What happens if the "suggest this" button is hit (Section 2.1, view 2.1.b) before the API request to /rest/v4/scrape has returned a productId
-	- options:
-		- disable the button until the API has responded (maybe show a spinner?)
-		- allow the user to move to Section 3.2 anyway
-			- let the API request finish asynchronously
-			- populate the recommendation preview once the API has responded
-			- prevent the user from submitting a review until the request has finished
-	- **NOTE:** This question is answered but is pending design and technical direction to be added to the document
+	- **NOTE:** This question is answered in story "The user taps on "suggest this" in the bottom nav"
 
 2. How easy is it to customize the nav bars in view 2.1.b based on the response of the /rest/v4/scrape response?  We'd ideally like to be able to have that response:
-	- make the 'suggest this' button active or inactive
-	- show a thumbnail in the bottom nav area (Product->thumbnail)
-	- show a product name (Product->productName)
-	- customize the top nav bar title area (view 2.1.b has 'm.shopbop.com' as the title, we'd like this to be the Product->brand field if possible)
-		- the title in the top nav might need to be static if this is not feasible
-		- if not feasible, use 'suggest' as the title throughout
-	- **NOTE:** This question is answered but is pending design and technical direction to be added to the document
+	- **NOTE**  This question has been answered in story "The user browses to a mobile web page and sees the brand name in the top nav bar"
+	- **NOTE**  We will not be changing the bottom nav bar based on the /rest/v4/scrape response (at least for this round of development)
 
 3.  When a user leaves the reviews page with a recommendation selected (hits 'cancel' in view 3.2.e), what happens to the recommendation?  
 	- **NOTE:** this question has been answered.  See Story "The user should be presented with a confirmation dialog"
@@ -91,9 +80,18 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 
 <img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-4-manual-on.png" width="240px">
 
+**2.1.c** webview picker, manually browsing after API response:
+
+<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-4-manual-on-shopbop.png" width="240px">
+
+**2.1.d** webview picker, suggest tapped before API response:
+
+<img src="https://github.com/twotoasters/GTIOv3/raw/master/Docs/Mockups/picker-4-loading.png" width="240px">
+
 #### API Usage
 
 - BROWSING: On each change in webview url the native iOS api should make an API request
+	- **NOTE** this api is not currently functional on dev/staging/production branches of the GTIO api.  ETA: Thursday end of day
 	- The request endpoint is: /rest/v4/scrape
 	- The api request should include the parameters:
 		- gtioToken
@@ -168,6 +166,12 @@ product{
 	- If the user drags internal scrollable elements, they should scroll within the selected html div (if a user drags the 'shopbop' logo left and right, the row should scroll left and right)
 	- If the user turns their phone, the webview picker and native page should stay in portrait mode
 - The user taps on "suggest this" in the bottom nav, they should be taken to the reviews page (view 3.2.a/f/g/h)
+	- If the /rest/v4/scrape api has not yet responded, the user should see view 2.1.d until the api returns a response
+		- During this view no buttons are tappable
+- The user browses to a mobile web page and sees the brand name in the top nav bar
+	- After the /rest/v4/scrape api has responded, update the title with Product->brand
+	- Until the API has responded, leave whatever previous title was in the bar ('SUGGEST' in most cases)
+	- See view 2.1.c, note 'SHOPBOB' is now the title
 
 ### 3.1 Reviews page
 
@@ -384,6 +388,7 @@ reviews {
 	- The dialog should allow the user to either 'cancel' or 'yes'
 		- 'yes' should submit the recommendation without any review text included
 		- 'cancel' should bring the user to the front of the outfit page without submitting anything
-	- If the user cancels, the unsubmitted recommendation should stay in memory until the outfit is loaded again (either from a list or outfit refresh)
-	- If the user cancels, then (at any point later in their browsing of the app) taps on suggest from view 1.1.b, the unsubmitted review is erased and the user proceeds into the Webview Picker (view 2.1.a)
-
+	- If the user cancels, the unsubmitted recommendation should be cleared from memory (**NOTE** changed @5pm 2.1.12)
+- The user taps on the preview product they should be taken back to their last browsing position in the webview (view 2.1.b)
+	- Their browsing history should remain intact
+	- same tappable area as in story "The user should see standard reviews as well as reviews that include product suggestions")
