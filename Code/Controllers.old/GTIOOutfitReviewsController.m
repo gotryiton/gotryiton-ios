@@ -182,15 +182,8 @@
     }
 	headerView.image = image;
     
-    // Recommend Button
-    UIButton* recommendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [recommendButton setTitle:@"Recommend" forState:UIControlStateNormal];
-    recommendButton.frame = CGRectMake(10, headerView.height + 3, 280, 50);
-    [recommendButton addTarget:self action:@selector(recommendedButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-	UIView* wrapperView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320-12, headerView.height + 6 + recommendButton.height)];
+	UIView* wrapperView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320-12, headerView.height + 6)];
 	[wrapperView addSubview:headerView];
-    [wrapperView addSubview:recommendButton];
 	headerView.userInteractionEnabled = YES;
 	
 	_closeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -212,6 +205,19 @@
     _keyboardOverlayButton2 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _keyboardOverlayButton2.frame = CGRectOffset(self.view.bounds, 0, headerView.bounds.size.height);
     [_keyboardOverlayButton2 addTarget:self action:@selector(dismissKeyboard:event:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Recommend Button
+    UIButton* recommendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-OFF.png"] forState:UIControlStateNormal];
+    [recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-ON.png"] forState:UIControlStateHighlighted];
+    recommendButton.frame = CGRectMake(0, self.view.bounds.size.height - 65, 320, 65);
+    [recommendButton addTarget:self action:@selector(recommendedButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+    recommendButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:recommendButton];
+    self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
+                                      self.tableView.frame.origin.y,
+                                      self.tableView.width,
+                                      self.tableView.height - 58);
 }
 
 - (void)recommendedButtonWasPressed:(id)sender {
