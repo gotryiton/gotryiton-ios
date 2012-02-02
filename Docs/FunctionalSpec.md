@@ -91,10 +91,12 @@ The iOS app should spawn a webview with custom top nav bar and hidden bottom nav
 #### API Usage
 
 - BROWSING: On each change in webview url the native iOS api should make an API request
-	- **NOTE** this api is not currently functional on dev/staging/production branches of the GTIO api.  ETA: Thursday end of day
+	- **NOTE** this api is not currently returning default data on the dev api.  ETA for live data: Friday morning
+	- This request should only be made when the domain of the url navigated to does not equal the domain of the API (gtio-dev.gotryiton.com/stage.gotryiton.com/gotryiton.com)
+	- In cases where a product image cannot be scraped, the api may return a default product image
 	- The request endpoint is: /rest/v4/scrape
 	- The api request should include the parameters:
-		- gtioToken
+		- gtioToken (required)
 		- url (the url that the webview controller has navigated to)
 	- The api request will respond with:
 
@@ -146,9 +148,6 @@ product{
 	- When the webview container redirects to this url:
 		- the bottom nav is shown
 
-<!-- - gtio://recommend/topNav/default
-	- When the webview container redirects to this -->
-
 
 #### Stories
 
@@ -161,6 +160,8 @@ product{
 	- The user taps on the 'for' button and is shown a full screen overlay of the outfit image (drawn from Outfit->mainImg)
 		- The behavior of the full scren view should be the same as when a user taps on a outfit thumnail in 3.1.a/b/c/d 
 - The user first arrives on the webview picker and sees no bottom nav bar
+	- The bottom nav bar should default to hidden whenever the domain of the webview url is the same as the API domain
+	- The bottom nav bar should be shown whenever the webview directs to a domain that is different from the API domain
 - The user scrolls or drags or reorients the webview picker and the position of the page should stay fixed in portrait mode
 	- If the user drags the 'search' bar for instance, the webview page should not move
 	- If the user drags internal scrollable elements, they should scroll within the selected html div (if a user drags the 'shopbop' logo left and right, the row should scroll left and right)
@@ -171,7 +172,7 @@ product{
 - The user browses to a mobile web page and sees the brand name in the top nav bar
 	- After the /rest/v4/scrape api has responded, update the title with Product->brand
 	- Until the API has responded, leave whatever previous title was in the bar ('SUGGEST' in most cases)
-	- See view 2.1.c, note 'SHOPBOB' is now the title
+	- See view 2.1.c, note 'SHOPBOP' is now the title
 
 ### 3.1 Reviews page
 
