@@ -30,7 +30,7 @@
     }
     if ([viewController isKindOfClass:NSClassFromString(@"GTIOOutfitViewController")] ||
         [viewController isKindOfClass:NSClassFromString(@"GTIOHomeViewController")] ||
-        [viewController isKindOfClass:NSClassFromString(@"GTIORecommendedViewController")]) {
+        [viewController isKindOfClass:NSClassFromString(@"GTIOSuggestViewController")]) {
         image = [UIImage imageNamed:@"outfit-navbar.png"];
     }
 	[image drawInRect:rect];

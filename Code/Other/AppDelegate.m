@@ -409,7 +409,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [map from:@"gtio://featured" toViewController:NSClassFromString(@"GTIOFeaturedViewController")];
     
     // Recommendations
-    [map from:@"gtio://recommend/(initWithOutfitID:)" toViewController:NSClassFromString(@"GTIORecommendViewController")];
+    [map from:@"gtio://recommend/(initWithOutfitID:)" toViewController:NSClassFromString(@"GTIOSuggestViewController")];
 	
     
 	// All other links open the web controller

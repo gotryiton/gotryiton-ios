@@ -1,5 +1,5 @@
 //
-//  GTIORecommendViewController.h
+//  GTIOSuggestViewController.h
 //  GTIO
 //
 //  Created by Jeremy Ellison on 2/1/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GTIORecommendViewController : UIViewController
+@interface GTIOSuggestViewController : UIViewController <UIWebViewDelegate, RKObjectLoaderDelegate>
 
 @end

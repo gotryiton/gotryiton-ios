@@ -52,7 +52,7 @@
 #endif
 
 NSString* GTIORestResourcePath(NSString* string) {
-	return [NSString stringWithFormat:@"/rest/v3%@", string];
+	return [NSString stringWithFormat:@"/rest/v4%@", string];
 	//return [NSString stringWithFormat:@"/rest%@", string];
 }
 
