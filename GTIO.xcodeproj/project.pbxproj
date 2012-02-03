@@ -2407,6 +2407,9 @@
 		3FED45E0146AF45C00B8587F /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3FED45DC146AF45C00B8587F /* README.txt */; };
 		3FED45E1146AF45C00B8587F /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3FED45DD146AF45C00B8587F /* release_notes.txt */; };
 		3FED55591385ACF2004743A2 /* NSObject_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED55581385ACF2004743A2 /* NSObject_Additions.m */; };
+		3FEF525914DC349600A106EF /* GTIOProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF525814DC349600A106EF /* GTIOProduct.m */; };
+		3FEF525A14DC349600A106EF /* GTIOProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF525814DC349600A106EF /* GTIOProduct.m */; };
+		3FEF525B14DC349600A106EF /* GTIOProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF525814DC349600A106EF /* GTIOProduct.m */; };
 		3FF661C813C6513E0003D120 /* GTIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E300BD1379887F0036F86D /* GTIOLoginViewController.m */; };
 		3FFBE1DA13855F4F000C5CB5 /* GTIOAddStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFBE1D913855F4F000C5CB5 /* GTIOAddStylistsViewController.m */; };
 		3FFCBC5313A7BDAE0061A28A /* connection-2-featured.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FFCBC4913A7BDAE0061A28A /* connection-2-featured.png */; };
@@ -4037,6 +4040,8 @@
 		3FED45DE146AF45C00B8587F /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		3FED55571385ACF2004743A2 /* NSObject_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObject_Additions.h; sourceTree = "<group>"; };
 		3FED55581385ACF2004743A2 /* NSObject_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObject_Additions.m; sourceTree = "<group>"; };
+		3FEF525714DC349600A106EF /* GTIOProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProduct.h; sourceTree = "<group>"; };
+		3FEF525814DC349600A106EF /* GTIOProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProduct.m; sourceTree = "<group>"; };
 		3FF11362138190300093764D /* GTIOBrowseTableViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOBrowseTableViewControllerSpec.m; path = Specs/Controllers/GTIOBrowseTableViewControllerSpec.m; sourceTree = "<group>"; };
 		3FF536F613708E84001DEE26 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		3FF536F713708E84001DEE26 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
@@ -6150,6 +6155,8 @@
 				3FC1E83F13A928B500646EEE /* GTIOExtraProfileRow.m */,
 				3FE5F21E13AF9D17002B3746 /* GTIOStylistsQuickLook.h */,
 				3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */,
+				3FEF525714DC349600A106EF /* GTIOProduct.h */,
+				3FEF525814DC349600A106EF /* GTIOProduct.m */,
 			);
 			name = Models;
 			path = Code/Models;
@@ -9722,6 +9729,7 @@
 				13BBBCF9147A9C030069D69A /* GTIOAddStylistButton.m in Sources */,
 				13EEDDFF1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m in Sources */,
 				3F25689014D9CD6C00A7C62A /* GTIOSuggestViewController.m in Sources */,
+				3FEF525914DC349600A106EF /* GTIOProduct.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9894,6 +9902,7 @@
 				3F06684C14867A3900692659 /* GTIOAddStylistButton.m in Sources */,
 				3F06684D14867A3900692659 /* GTIOFacebookInviteTableViewController.m in Sources */,
 				3F25689214D9CD6C00A7C62A /* GTIOSuggestViewController.m in Sources */,
+				3FEF525B14DC349600A106EF /* GTIOProduct.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10066,6 +10075,7 @@
 				13BBBCFA147A9C030069D69A /* GTIOAddStylistButton.m in Sources */,
 				13EEDE001476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m in Sources */,
 				3F25689114D9CD6C00A7C62A /* GTIOSuggestViewController.m in Sources */,
+				3FEF525A14DC349600A106EF /* GTIOProduct.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

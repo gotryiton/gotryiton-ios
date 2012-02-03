@@ -47,6 +47,7 @@
 #import "TestFlight.h"
 #import "Crittercism.h"
 #import "GTIOInternalURLHelper.h"
+#import "GTIOProduct.h"
 
 @interface NSURLRequest(anyssl)
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host;
@@ -237,6 +238,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     RKObjectMapping* notificationMapping = [GTIONotification notificationMapping];
     [provider setObjectMapping:notificationMapping forKeyPath:@"notifications"];
+    
+    RKObjectMapping* productMapping = [GTIOProduct productMapping];
+    [provider setObjectMapping:productMapping forKeyPath:@"product"];
     
     RKObjectMapping* stylistRelationshipMapping = [RKObjectMapping mappingForClass:[GTIOStylistRelationship class]];
     [stylistRelationshipMapping mapAttributes:@"isMyStylist", @"isMyStylistIgnored", @"iStyle", @"iStyleIgnored", nil];

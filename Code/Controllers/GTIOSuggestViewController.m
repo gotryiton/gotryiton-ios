@@ -8,9 +8,11 @@
 
 #import "GTIOSuggestViewController.h"
 #import "GTIOBarButtonItem.h"
+#import "GTIOProduct.h"
 
 @interface GTIOSuggestViewController () {
     NSString* _outfitID;
+    BOOL _isShowingLoading;
 }
 
 @property (nonatomic, retain) IBOutlet UIWebView* webView;
@@ -18,8 +20,12 @@
 @property (nonatomic, retain) IBOutlet UIBarButtonItem* backButtonItem;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem* forwardButtonItem;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem* recommendButtonItem;
+@property (nonatomic, retain) GTIOProduct* currentProduct;
 
+- (IBAction)suggestButtonWasPressed:(id)sender;
 - (void)loadWebView;
+- (void)showLoading;
+- (void)hideLoading;
 
 @end
 
@@ -30,6 +36,7 @@
 @synthesize backButtonItem = _backButtonItem;
 @synthesize forwardButtonItem = _forwardButtonItem;
 @synthesize recommendButtonItem = _recommendButtonItem;
+@synthesize currentProduct = _currentProduct;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -112,6 +119,7 @@
 }
 
 - (void)loadWebView {
+    self.title = @"SUGGEST";
     NSString* url = [NSString stringWithFormat:@"%@/iphone/rec/%@?gtioToken=%@",
                      kGTIOBaseURLString,
                      _outfitID,
@@ -147,10 +155,12 @@
 - (void)scrapeURL:(NSURL*)url {
     if (![self isLocalURL:url]) {
         NSLog(@"Scraping: %@", [url absoluteString]);
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/rest/v4/scrape") delegate:self block:^(RKObjectLoader* loader) {
+        self.currentProduct = nil; // Clear out current product before scraping the next one.
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/scrape") delegate:self block:^(RKObjectLoader* loader) {
             loader.params = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [GTIOUser currentUser].token, @"token",
+                             [GTIOUser currentUser].token, @"gtioToken",
                              [url absoluteString], @"url", nil];
+            loader.method = RKRequestMethodPOST;
         }];
     }
 }
@@ -164,12 +174,56 @@
         [self showToolbar];
         return YES;
     } else if ([string rangeOfString:@"gtio://recommend/"].location != NSNotFound) {
-        NSString* outfitID = [string stringByReplacingOccurrencesOfString:@"gtio://recommend/" withString:@""];
+        NSString* productID = [string stringByReplacingOccurrencesOfString:@"gtio://recommend/" withString:@""];
         // TODO: handle selected outfit id.
-        TTAlert([NSString stringWithFormat:@"TODO: Recommend %@", outfitID]);
+        NSString* path = [NSString stringWithFormat:@"/product/%@", productID];
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(path)
+                                                          delegate:self
+                                                             block:^(RKObjectLoader* loader) {
+            loader.method = RKRequestMethodPOST;
+            loader.params = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [GTIOUser currentUser].token, @"gtioToken", nil];
+        }];
+        [self showLoading];
+        return YES;
+    } else if ([string rangeOfString:@"gtio://"].location != NSNotFound ||
+               [string rangeOfString:@"gtio:://"].location != NSNotFound) {
+        NSLog(@"GTIO:// url is not handled: %@", url);
         return YES;
     }
     return NO;
+}
+
+- (void)suggest:(GTIOProduct*)product
+{
+    [self hideLoading];
+    TTAlert(@"Suggesting Product!, not yet implemented");
+}
+
+- (IBAction)suggestButtonWasPressed:(id)sender
+{
+    if (self.currentProduct) {
+        [self suggest:self.currentProduct];
+    } else {
+        // /scrape has not yet returned.
+        [self showLoading];
+    }
+}
+
+#pragma mark Loading Methods
+
+- (void)showLoading {
+    NSLog(@"Show Loading...");
+    _isShowingLoading = YES;
+}
+
+- (void)hideLoading {
+    NSLog(@"Hide Loading...");
+    _isShowingLoading = NO;
+}
+
+- (BOOL)isShowingLoading {
+    return _isShowingLoading;
 }
 
 #pragma mark UIWebViewDelegate
@@ -181,7 +235,6 @@
        gtio://recommend/bottomNav/hide
        gtio://recommend/bottomNav/show
     */
-//    NSLog(@"Should Load Request: %@ navigationType: %d", request, navigationType);
     if (![self handleSpecialURL:request.URL]) {
         [self toggleToolbar:request.URL];
         if (navigationType != UIWebViewNavigationTypeOther) {
@@ -194,19 +247,21 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-//    NSLog(@"Started Load: %@", webView.request);
+    
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-//    NSLog(@"Finished Load: %@", webView.request);
     self.backButtonItem.enabled = [webView canGoBack];
     self.forwardButtonItem.enabled = [webView canGoForward];
     [self toggleToolbar:webView.request.URL];
+    if ([self isLocalURL:webView.request.URL]) {
+        self.title = @"SUGGEST";
+    }
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    NSLog(@"WebView Error: %@", [error localizedDescription]);
+    NSLog(@"WebView: %@ Error: %@", webView.request, [error localizedDescription]);
 }
 
 #pragma mark RKObjectLoaderDelegate
@@ -216,8 +271,25 @@
     NSLog(@"Error: %@", [error localizedDescription]);
 }
 
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
-    NSLog(@"Objects: %@", objects);
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
+    NSLog(@"Object: %@", object);
+    GTIOProduct* product = object;
+    // Update Nav Bar Title based on this object.
+    NSAssert(product, @"Expected a product, didn't get one. %@", objectLoader);
+    self.title = product.brand;
+    if ([objectLoader.resourcePath isEqualToString:GTIORestResourcePath(@"/scrape")]) {
+        // Update nav bar title.
+        self.currentProduct = product;
+        if ([self isShowingLoading]) {
+            // if the user already tapped the recommend button (we're showing the loading overlay),
+            // then we should select this product as the one to recommend
+            [self suggest:self.currentProduct];
+        }
+        
+    } else {
+        // User recommended this product.
+        [self suggest:product];
+    }
 }
 
 @end
