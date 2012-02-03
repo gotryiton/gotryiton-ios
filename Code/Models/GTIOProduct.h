@@ -18,6 +18,11 @@
 @property (nonatomic, retain) NSString* thumbnail;
 @property (nonatomic, retain) NSString* descriptionString;
 
+@property (nonatomic, retain) NSData* encodedWebView;
+
 + (RKObjectMapping*)productMapping;
+
+- (void)encodeWebView:(UIWebView*)webView;
+- (UIWebView*)decodedWebView;
 
 @end

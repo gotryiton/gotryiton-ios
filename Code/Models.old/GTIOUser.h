@@ -219,7 +219,7 @@ typedef void (^LoginCompletionHandler)();
 /*
  * Recommend something for an outfit. Will login if neccessary.
  */
-+ (void)recommendOutfit:(GTIOOutfit*)outfit;
++ (void)makeSuggestionForOutfit:(GTIOOutfit*)outfit;
 
 /**
  * Begin the login process with Facebook (preferred)

@@ -397,6 +397,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[map from:@"gtio://popToRootViewController" toObject:session selector:@selector(popToRootViewController)];
 	
 	[map from:@"gtio://show_reviews/(initWithOutfitID:)" toViewController:NSClassFromString(@"GTIOOutfitReviewsController") transition:UIViewAnimationTransitionFlipFromRight];
+    [map from:@"gtio://show_reviews_with_query" toViewController:NSClassFromString(@"GTIOOutfitReviewsController") transition:UIViewAnimationTransitionFlipFromRight];
 	
 	// Map loading urls
 	[map from:@"gtio://loading" toObject:[GTIOLoadingOverlayManager sharedManager] selector:@selector(showLoading)];

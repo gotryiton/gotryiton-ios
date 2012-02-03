@@ -63,6 +63,9 @@ NSString* const kGTIOFacebookExpirationToken = @"kGTIOFacebookExpirationToken";
 
 NSString* const kGTIOOutfitVoteNotification = @"kGTIOOutfitVoteNotification";
 
+NSString* const kGTIOSuggestionMadeNotification = @"kGTIOSuggestionMadeNotification";
+NSString* const kGTIOProductNotificationKey = @"product";
+
 RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute) {
     return [RKObjectAttributeMapping mappingFromKeyPath:keyPath toKeyPath:attribute];
 }

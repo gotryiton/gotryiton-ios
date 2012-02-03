@@ -9,9 +9,9 @@
 
 #import <Foundation/Foundation.h>
 #import "GTIOOutfit.h"
+#import "GTIOProduct.h"
 
 @interface GTIOOutfitReviewsController : TTTableViewController <TTTextEditorDelegate, RKObjectLoaderDelegate> {
-	GTIOOutfit* _outfit;
 	TTTextEditor* _editor;
     UIButton* _closeButton;
 	UILabel* _placeholder;
@@ -23,5 +23,6 @@
 }
 /// outfit object
 @property (nonatomic, retain) GTIOOutfit* outfit;
+@property (nonatomic, retain) GTIOProduct* product;
 
 @end

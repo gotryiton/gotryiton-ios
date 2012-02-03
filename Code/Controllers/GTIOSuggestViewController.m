@@ -9,6 +9,7 @@
 #import "GTIOSuggestViewController.h"
 #import "GTIOBarButtonItem.h"
 #import "GTIOProduct.h"
+#import "GTIOHeaderView.h"
 
 @interface GTIOSuggestViewController () {
     NSString* _outfitID;
@@ -16,11 +17,12 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIWebView* webView;
-@property (nonatomic, retain) IBOutlet UIToolbar* toolbar;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem* backButtonItem;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem* forwardButtonItem;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem* recommendButtonItem;
+@property (nonatomic, retain) IBOutlet UIView *toolbar;
+@property (nonatomic, retain) IBOutlet UIButton* backButtonItem;
+@property (nonatomic, retain) IBOutlet UIButton* forwardButtonItem;
+@property (retain, nonatomic) IBOutlet UIButton* recommendButtonItem;
 @property (nonatomic, retain) GTIOProduct* currentProduct;
+@property (retain, nonatomic) IBOutlet UIView *loadingOverlay;
 
 - (IBAction)suggestButtonWasPressed:(id)sender;
 - (void)loadWebView;
@@ -37,6 +39,7 @@
 @synthesize forwardButtonItem = _forwardButtonItem;
 @synthesize recommendButtonItem = _recommendButtonItem;
 @synthesize currentProduct = _currentProduct;
+@synthesize loadingOverlay = _loadingOverlay;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -65,6 +68,8 @@
     [_backButtonItem release];
     [_forwardButtonItem release];
     [_recommendButtonItem release];
+    [_toolbar release];
+    [_loadingOverlay release];
     [super dealloc];
 }
 
@@ -87,6 +92,10 @@
 
 - (void)viewDidUnload
 {
+    [self setToolbar:nil];
+    [self setRecommendButtonItem:nil];
+    [self setLoadingOverlay:nil];
+    [self setLoadingOverlay:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -95,6 +104,11 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)setTitle:(NSString *)title
+{
+    self.navigationItem.titleView = [GTIOHeaderView viewWithText:title];
 }
 
 - (void)showToolbar
@@ -197,7 +211,11 @@
 - (void)suggest:(GTIOProduct*)product
 {
     [self hideLoading];
-    TTAlert(@"Suggesting Product!, not yet implemented");
+//    TTAlert(@"Suggesting Product!, not yet implemented");
+    [product encodeWebView:self.webView];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOSuggestionMadeNotification
+                                                        object:_outfitID
+                                                      userInfo:[NSDictionary dictionaryWithObject:product forKey:kGTIOProductNotificationKey]];
 }
 
 - (IBAction)suggestButtonWasPressed:(id)sender
@@ -215,11 +233,14 @@
 - (void)showLoading {
     NSLog(@"Show Loading...");
     _isShowingLoading = YES;
+    self.loadingOverlay.frame = self.view.bounds;
+    [self.view addSubview:self.loadingOverlay];
 }
 
 - (void)hideLoading {
     NSLog(@"Hide Loading...");
     _isShowingLoading = NO;
+    [self.loadingOverlay removeFromSuperview];
 }
 
 - (BOOL)isShowingLoading {

@@ -14,6 +14,7 @@
 #import "GTIOReview.h"
 #import "GTIOHomeViewController.h"
 #import "GTIOStaticOutfitListModel.h"
+#import "GTIOProduct.h"
 
 
 @interface GTIOOutfitViewController (shouldReloadPage)
@@ -69,6 +70,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     _loader.delegate = nil;
     [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
 	[_scrollViewDataSource release];
@@ -330,7 +332,23 @@
 }
 
 - (void)suggestButtonWasPressed:(id)sender {
-    [GTIOUser recommendOutfit:self.outfit];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(suggestionMade:) name:kGTIOSuggestionMadeNotification object:nil];
+    [GTIOUser makeSuggestionForOutfit:self.outfit];
+}
+
+- (void)suggestionMade:(NSNotification*)note {
+    if ([self.outfit.outfitID isEqualToString:note.object]) {
+        // note.object is outfitID. we're getting the product from the user info.
+        GTIOProduct* product = [note.userInfo objectForKey:kGTIOProductNotificationKey];
+        NSString* url = @"gtio://show_reviews_with_query";
+        NSDictionary* query = [NSDictionary dictionaryWithObjectsAndKeys:
+                               product, @"product",
+                               self.outfit, @"outfit", nil];
+        
+        [self.navigationController popToViewController:self animated:NO];
+        [[TTNavigator navigator] openURLAction:
+         [[[TTURLAction actionWithURLPath:url] applyAnimated:YES] applyQuery:query]];
+    }
 }
 
 - (void)writeAReviewButtonWasPressed:(id)sender {

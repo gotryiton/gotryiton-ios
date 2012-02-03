@@ -131,7 +131,7 @@ static GTIOUser* gCurrentUser = nil;
     return loader;
 }
 
-+ (void)recommendOutfit:(GTIOOutfit*)outfit {
++ (void)makeSuggestionForOutfit:(GTIOOutfit*)outfit {
     if (![[GTIOUser currentUser] isLoggedIn]) {
         __block NSString* outfitID = outfit.outfitID;
 		[[GTIOUser currentUser] loginWithFacebookAndCompletion:^{

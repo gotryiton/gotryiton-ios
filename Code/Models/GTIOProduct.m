@@ -17,6 +17,7 @@
             buyUrl,
             thumbnail,
             descriptionString;
+@synthesize encodedWebView = _encodedWebView;
 
 + (RKObjectMapping*)productMapping
 {
@@ -25,6 +26,27 @@
         [mapping mapAttributes:@"brand", @"productName", @"price", @"buyUrl", @"thumbnail", nil];
         [mapping mapKeyPath:@"description" toAttribute:@"descriptionString"];
     }];
+}
+
+- (void)dealloc
+{
+    [productID release];
+    [brand release];
+    [productName release];
+    [price release];
+    [buyUrl release];
+    [thumbnail release];
+    [descriptionString release];
+    [_encodedWebView release];
+    [super dealloc];
+}
+
+- (void)encodeWebView:(UIWebView*)webView
+{
+    self.encodedWebView = [NSKeyedArchiver archivedDataWithRootObject:webView];
+}
+- (UIWebView*)decodedWebView {
+    return [NSKeyedUnarchiver unarchiveObjectWithData:self.encodedWebView];
 }
 
 @end

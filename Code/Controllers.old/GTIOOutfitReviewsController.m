@@ -35,6 +35,7 @@
 @implementation GTIOOutfitReviewsController
 
 @synthesize outfit = _outfit;
+@synthesize product = _product;
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -42,18 +43,32 @@
 	[super dealloc];
 }
 
-- (id)initWithOutfitID:(NSString*)outfitID {
-	if (self = [self initWithStyle:UITableViewStylePlain]) {
-		self.outfit = [GTIOOutfit outfitWithOutfitID:outfitID];
+- (id)initWithStyle:(UITableViewStyle)style {
+    if (self = [super initWithStyle:style]) {
         self.title = @"reviews";
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewDeletedNotification:) name:@"ReviewDeletedNotification" object:nil];
         
         self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
-                                                                                  
-                                                                                 target:nil 
-                                                                                 action:nil] autorelease];
+                                                  
+                                                                                   target:nil 
+                                                                                   action:nil] autorelease];
+    }
+    return self;
+}
+
+- (id)initWithOutfitID:(NSString*)outfitID {
+	if (self = [self initWithStyle:UITableViewStylePlain]) {
+		self.outfit = [GTIOOutfit outfitWithOutfitID:outfitID];
 	}
 	return self;
+}
+
+- (id)initWithNavigatorURL:(NSURL *)URL query:(NSDictionary *)query {
+    if (self = [self initWithStyle:UITableViewStylePlain]) {
+        self.outfit = [query objectForKey:@"outfit"];
+        self.product = [query objectForKey:@"product"];
+    }
+    return self;
 }
 
 - (void)setupTableFooter {
@@ -72,6 +87,8 @@
     TT_RELEASE_SAFELY(_closeButton);
     TT_RELEASE_SAFELY(_keyboardOverlayButton1);
     TT_RELEASE_SAFELY(_keyboardOverlayButton2);
+    [_outfit release];
+    [_product release];
 	[super viewDidUnload];
 }
 
@@ -221,7 +238,7 @@
 }
 
 - (void)recommendedButtonWasPressed:(id)sender {
-    [GTIOUser recommendOutfit:_outfit];
+    [GTIOUser makeSuggestionForOutfit:_outfit];
 }
 
 - (void)dismissKeyboard:(id)sender event:(UIEvent*)event {

@@ -68,6 +68,11 @@ extern NSString* const kGTIOHTTPAuthUsername;
 
 extern NSString* const kGTIOHTTPAuthPassword;
 
+// Suggestions
+
+extern NSString* const kGTIOSuggestionMadeNotification;
+extern NSString* const kGTIOProductNotificationKey;
+
 
 RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute);
 
