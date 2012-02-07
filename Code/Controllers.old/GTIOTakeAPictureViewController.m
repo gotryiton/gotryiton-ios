@@ -39,7 +39,8 @@
 - (void)viewDidUnload {
 	TT_RELEASE_SAFELY(_scrollView);
 	TT_RELEASE_SAFELY(_blurrableImageView);
-	TT_RELEASE_SAFELY(_toolbar);
+	[_toolbar release];
+    _toolbar = nil;
 	
 	[super viewDidUnload];
 }
@@ -61,22 +62,22 @@
 																			 action:nil] autorelease];
 	
 	if (self.useDoneButton) {
-		self.navigationItem.rightBarButtonItem = [[GTIOBarButtonItem alloc] initWithTitle:@"done"
+		self.navigationItem.rightBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"done"
 																				  
 																				 target:self
-																				 action:@selector(nextButtonWasTouched:)];
+																				 action:@selector(nextButtonWasTouched:)] autorelease];
 	} else {		
-		self.navigationItem.rightBarButtonItem = [[GTIOBarButtonItem alloc] initWithTitle:@"next" 
+		self.navigationItem.rightBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"next" 
 																				  
 																				 target:self
-																				 action:@selector(nextButtonWasTouched:)];
+																				 action:@selector(nextButtonWasTouched:)] autorelease];
 	}
 	
 	if (self.useCancelButton) {
-		self.navigationItem.leftBarButtonItem = [[GTIOBarButtonItem alloc] initWithTitle:@"cancel" 
+		self.navigationItem.leftBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"cancel" 
 																				 
 																				target:self 
-																				action:@selector(cancelButtonWasTouched:)];
+																				action:@selector(cancelButtonWasTouched:)] autorelease];
 	}
 	
 	// Configure the Toolbar
@@ -134,7 +135,7 @@
 	
 	// Scroll View
 	CGRect scrollableFrame = CGRectMake(3, 3, 267, 356); //new aspect ratio: 4:3
-	UIView* backgroundView = [[UIView alloc] initWithFrame:scrollableFrame];
+	UIView* backgroundView = [[[UIView alloc] initWithFrame:scrollableFrame] autorelease];
 	backgroundView.backgroundColor = TTSTYLEVAR(patternedPhotoBackgroundColor);
 	[imageBorder addSubview:backgroundView];
 	

@@ -90,7 +90,7 @@
     [_badgeImageViews release];
     _badgeImageViews = [NSMutableArray new];
     for (GTIOBadge* badge in _outfitTableItem.outfit.badges) {
-        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0,0,24,24)];
+        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,24,24)] autorelease];
         imageView.backgroundColor = [UIColor clearColor];
         imageView.urlPath = badge.imgURL;
         [self addSubview:imageView];

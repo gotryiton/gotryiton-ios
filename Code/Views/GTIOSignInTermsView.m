@@ -30,8 +30,8 @@ static NSString* kGTIOStandardsURL = @"http://gotryiton.com/community-standards"
     
 	NSString* text = @"by continuing you agree to our terms and conditions of";
     NSString* text2 = @"use, privacy policy, legal terms, and community standards.";
-	NSMutableAttributedString* attributedText = [[NSMutableAttributedString alloc] initWithString:text];
-    NSMutableAttributedString* attributedText2 = [[NSMutableAttributedString alloc] initWithString:text2];
+	NSMutableAttributedString* attributedText = [[[NSMutableAttributedString alloc] initWithString:text] autorelease];
+    NSMutableAttributedString* attributedText2 = [[[NSMutableAttributedString alloc] initWithString:text2] autorelease];
 	
 	UIColor* normal = [UIColor colorWithRed:.243 green:.243 blue:.243 alpha:1];
 	UIColor* highlight = [UIColor colorWithRed:1 green:0 blue:.588 alpha:1];
@@ -103,8 +103,8 @@ static NSString* kGTIOStandardsURL = @"http://gotryiton.com/community-standards"
     
     NSString* text = @"need assistance with your account?";
     NSString* text2 = @"email support@gotryiton.com";
-	NSMutableAttributedString* attributedText = [[NSMutableAttributedString alloc] initWithString:text];
-    NSMutableAttributedString* attributedText2 = [[NSMutableAttributedString alloc] initWithString:text2];
+	NSMutableAttributedString* attributedText = [[[NSMutableAttributedString alloc] initWithString:text] autorelease];
+    NSMutableAttributedString* attributedText2 = [[[NSMutableAttributedString alloc] initWithString:text2] autorelease];
 	
 	UIColor* normal = [UIColor colorWithRed:.243 green:.243 blue:.243 alpha:1];
 	UIColor* highlight = [UIColor colorWithRed:1 green:0 blue:.588 alpha:1];

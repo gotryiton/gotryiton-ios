@@ -54,7 +54,7 @@
 	TTDASSERT(nil == _rootObject);
 	
 	if ([data isKindOfClass:[NSData class]]) {
-		NSString* json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		NSString* json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 		_rootObject = [[json JSONValue] retain];
 	}
 	

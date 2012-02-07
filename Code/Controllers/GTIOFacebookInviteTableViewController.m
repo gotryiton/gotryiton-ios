@@ -93,7 +93,7 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
 		label.textAlignment = UITextAlignmentCenter;
 		[label sizeToFit];
 		
-		UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+		UIView* container = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)] autorelease];
         container.backgroundColor = RGBCOLOR(227,227,227);
 		[container addSubview:label];
         label.frame = CGRectOffset(label.frame, 5, 2);
@@ -228,7 +228,7 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
         self.navigationItem.titleView = [GTIOHeaderView viewWithText:title];
         
         if (nil == _searchBar) {
-            _searchBar = [self searchBarForList:list];
+            _searchBar = [[self searchBarForList:list] retain];
             _searchBar.delegate = self;
             self.tableView.tableHeaderView = _searchBar;
         }
@@ -269,7 +269,7 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
 #pragma mark - Search Bar stuff
 
 - (UISearchBar*)searchBarForList:(GTIOBrowseList *)list {
-    UISearchBar* searchBar = [[UISearchBar alloc] init];
+    UISearchBar* searchBar = [[[UISearchBar alloc] init] autorelease];
     searchBar.tintColor = RGBCOLOR(212,212,212);
     [searchBar sizeToFit];
 

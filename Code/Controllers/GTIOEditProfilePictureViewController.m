@@ -141,7 +141,7 @@
     [_seperator setBackgroundColor:kGTIOColorE3E3E3];
     [self.view addSubview:_seperator];
     // Preview Section
-    UIView* previewBackground = [UIView new];
+    UIView* previewBackground = [[UIView new] autorelease];
     [previewBackground setFrame:CGRectMake(30,255,260,85)];
     [previewBackground setBackgroundColor:kGTIOColorE3E3E3];
     [[previewBackground layer] setBorderColor:[kGTIOColorE3E3E3 CGColor]];
@@ -155,7 +155,7 @@
     [_previewImageView setFrame:CGRectMake(44,269,56,56)];
     [_previewImageView setAccessibilityLabel:@"preview image"];
     [self.view addSubview:_previewImageView];
-    UIImageView* profileIconOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-overlay-110.png"]];
+    UIImageView* profileIconOverlay = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-overlay-110.png"]] autorelease];
     [profileIconOverlay setFrame:CGRectMake(40,265,64,64)];
     [self.view addSubview:profileIconOverlay];
     UILabel* locationLabel = [UILabel new];
@@ -216,7 +216,7 @@
             continue;
         } else if ([option.type isEqualToString:@"Facebook"]) {
             _facebookIconOption = option;
-            TTImageView* image = [[TTImageView alloc] init];
+            TTImageView* image = [[[TTImageView alloc] init] autorelease];
 //            [image setFrame:CGRectMake(30,90,48,48)];
             [image setFrame:CGRectMake(30,90,width,height)];
             image.urlPath = option.url;
@@ -231,7 +231,7 @@
             [button addTarget:self action:@selector(selectOption:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:button];
         } else {
-            TTImageView* image = [[TTImageView alloc] init];
+            TTImageView* image = [[[TTImageView alloc] init] autorelease];
 //            [image setFrame:CGRectMake(i*49+i*2.5,0,49,67)];
             [image setFrame:CGRectMake(outfitPadding,0,width,height)];
             image.urlPath = option.url;

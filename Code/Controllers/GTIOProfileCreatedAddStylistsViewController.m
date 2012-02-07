@@ -125,7 +125,7 @@
         
         CGRect stylistRect = CGRectMake(containerXOffset, heightInContainer + ( [_stylists.stylists indexOfObject:profile] * (heightOfStylists + heightBetweenStylists) ), _addStylistContainer.width - (2 * containerXOffset), heightOfStylists);
         
-        GTIOAddStylistButton* stylistButton = [[GTIOAddStylistButton alloc] initWithTitle:profile.displayName subtitle:profile.stylistDescription imageURL:profile.profileIconURL];
+        GTIOAddStylistButton* stylistButton = [[[GTIOAddStylistButton alloc] initWithTitle:profile.displayName subtitle:profile.stylistDescription imageURL:profile.profileIconURL] autorelease];
         stylistButton.backgroundColor = [UIColor clearColor];
         [stylistButton addTarget:self action:@selector(stylistSelected:) forControlEvents:UIControlEventTouchUpInside];
         stylistButton.frame = stylistRect;
@@ -386,7 +386,7 @@
 
     NSString* skipText = @"skip this step";
 
-    NSMutableAttributedString* attributedSkipText = [[NSMutableAttributedString alloc] initWithString:skipText];
+    NSMutableAttributedString* attributedSkipText = [[[NSMutableAttributedString alloc] initWithString:skipText] autorelease];
 
     [attributedSkipText setTextColor:kGTIOColorB4B4B4 range:NSMakeRange(0, attributedSkipText.length)];
     [attributedSkipText setFont:kGTIOFontHelveticaNeueOfSize(12)];

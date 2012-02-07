@@ -20,14 +20,14 @@
         self.selected = YES;
         
         UIImage* checkBoxImage = [UIImage imageNamed:@"add-checkbox-ON.png"];
-        self.checkboxView = [[UIImageView alloc] initWithImage:checkBoxImage];
+        self.checkboxView = [[[UIImageView alloc] initWithImage:checkBoxImage] autorelease];
         
-        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(5, 5, 30, 30)];
+        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(5, 5, 30, 30)] autorelease];
         imageView.urlPath = imageURL;
         imageView.layer.borderColor = RGBCOLOR(218,218,218).CGColor;
         imageView.layer.borderWidth = 1;
         
-        UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        UILabel* titleLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
         titleLabel.font = kGTIOFontHelveticaNeueOfSize(15);
         titleLabel.textColor = kGTIOColor797979;
         titleLabel.text = title;
@@ -35,7 +35,7 @@
         [titleLabel sizeToFit];
         titleLabel.frame = CGRectMake(40, 5, titleLabel.width, titleLabel.height);
         
-        UILabel* subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        UILabel* subtitleLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
         subtitleLabel.font = kGTIOFontHelveticaNeueOfSize(10);
         subtitleLabel.textColor = kGTIOColorAFAFAF;
         subtitleLabel.text = subtitle;
@@ -47,10 +47,6 @@
         [self addSubview:titleLabel];
         [self addSubview:subtitleLabel];
         [self addSubview:_checkboxView];
-        
-        TT_RELEASE_SAFELY(imageView);
-        TT_RELEASE_SAFELY(titleLabel);
-        TT_RELEASE_SAFELY(subtitleLabel);
     }
     return self;
 }

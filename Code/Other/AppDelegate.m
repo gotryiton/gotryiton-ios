@@ -602,12 +602,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
     GTIOUser* user = [GTIOUser currentUser];
     #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
-        @try {
-            [Crittercism setUsername:user.UID];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Crittercism raised exception: %@ trying to set username to %@", exception, user.UID);
-        }
+        if (user.UID) [Crittercism setUsername:user.UID];
     #endif
     if (user.stylistsCount != nil && [user.stylistsCount intValue] == 0 && _showStylistPush && ![user.showAlmostDoneScreen boolValue] && [user.isNewUser boolValue]) {
         // Wait for other navigations to finish

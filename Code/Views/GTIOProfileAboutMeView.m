@@ -71,7 +71,7 @@ static float const qFontSize = 42;
 		line1Size = [line1Text sizeWithFont:font];
 	}
 	
-	float rQuoteLeftPosition = line1LeftOffset + line1Size.width + rQuoteHorizontalOffset;
+	// float rQuoteLeftPosition = line1LeftOffset + line1Size.width + rQuoteHorizontalOffset;
 	
 	if ([wordsNotInLine1 count] > 0) {
 		
@@ -111,7 +111,7 @@ static float const qFontSize = 42;
 			}
 			lineSize = [currentLine sizeWithFont:font]; // Not sure why i have to set this here and at the end of the loop...
 			
-			rQuoteLeftPosition = lineLeftOffset + lineSize.width + rQuoteHorizontalOffset;
+            //			rQuoteLeftPosition = lineLeftOffset + lineSize.width + rQuoteHorizontalOffset;
 			currentLine = [wordsNotInCurrentLine componentsJoinedByString:@" "];
 			[wordsNotInCurrentLine removeAllObjects];
 		}

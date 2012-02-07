@@ -240,6 +240,7 @@
 		UIImage* settingsButtonImage = [UIImage imageNamed:@"settingsBarButton.png"];
 		GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)];
 		[self.navigationItem setRightBarButtonItem:item];
+        [item release];
 	} else {
 		[self.navigationItem setRightBarButtonItem:nil];
 	}

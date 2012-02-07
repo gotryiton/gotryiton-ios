@@ -55,7 +55,7 @@
 	// Controls
 	NSArray* components = [NSArray arrayWithObject:[self whereYouAreGoingChoices]];
 	_whereYouAreGoingPicker = [[TWTPickerControl alloc] initWithFrame:CGRectMake(0, 0, 177, 30)];
-	_whereYouAreGoingPicker.dataSource = [[TWTPickerDataSource alloc] initWithComponents:components];
+	_whereYouAreGoingPicker.dataSource = [[[TWTPickerDataSource alloc] initWithComponents:components] autorelease];
 	_whereYouAreGoingPicker.textLabel.textAlignment = UITextAlignmentRight;
 	_whereYouAreGoingPicker.textLabel.textColor = TTSTYLEVAR(pinkColor);
 	_whereYouAreGoingPicker.font = [UIFont boldSystemFontOfSize:14];

@@ -56,7 +56,7 @@
 		label.textAlignment = UITextAlignmentCenter;
 		[label sizeToFit];
 		
-		UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 35)];
+		UIView* container = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 35)] autorelease];
 		[container addSubview:label];
 		label.center = container.center;
 		[label release];
@@ -119,10 +119,10 @@ static NSString* const kGTIOContactViewAdditionalEmailsURLString = @"gtio://getA
 		
 		// Navigation Item
 		self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:TTSTYLEVAR(shareTitleImage)] autorelease];
-		self.navigationItem.rightBarButtonItem = [[GTIOBarButtonItem alloc] initWithTitle:@"done"
+		self.navigationItem.rightBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"done"
 																				  style:UIBarButtonItemStyleDone
 																				 target:self 
-																				 action:@selector(doneButtonWasTouched:)];
+																				 action:@selector(doneButtonWasTouched:)] autorelease];
 		
 		// Table View
 		self.tableViewStyle = UITableViewStyleGrouped;
@@ -224,7 +224,6 @@ static NSString* const kGTIOContactViewAdditionalEmailsURLString = @"gtio://getA
 		[self.opinionRequest.contactEmails addObject:emailAddress];
 	}
 	
-	CFRelease(value);
 	[emailAddress release];
 	
 	[self dismissModalViewControllerAnimated:YES];

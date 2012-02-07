@@ -305,6 +305,7 @@
     
     UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:delegate cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:button1Title, button2Title, button3Title, nil];
     [actionSheet showInView:[TTNavigator navigator].window];
+    [actionSheet release];
 }
 
 - (void)editButtonAction {

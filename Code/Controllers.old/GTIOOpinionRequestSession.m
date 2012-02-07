@@ -309,6 +309,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	actionSheet.actionSheetStyle = UIBarStyleBlackTranslucent;
 	actionSheet.tag = kGTIOGetAnOpinionDoneWithPhotosOrAddAnotherActionSheetTag;
 	[actionSheet showInView:self.window];
+    [actionSheet release];
 }
 
 #pragma mark UIActionSheetDelegate
@@ -360,11 +361,11 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
     
     /* Analize EXIF Data */
-    CGImageRef imageRef = [image CGImage];
-    CGImageSourceRef source = CGImageSourceCreateWithData(UIImageJPEGRepresentation(image, 1.0), NULL);
-    NSDictionary* metadata = CGImageSourceCopyPropertiesAtIndex(source,0, NULL);
-    
-    NSLog(@"Dict: %@", metadata);
+//    CGImageRef imageRef = [image CGImage];
+//    CGImageSourceRef source = CGImageSourceCreateWithData(UIImageJPEGRepresentation(image, 1.0), NULL);
+//    NSDictionary* metadata = CGImageSourceCopyPropertiesAtIndex(source,0, NULL);
+//    
+//    NSLog(@"Dict: %@", metadata);
     /* end */
     
 	UIImageOrientation originalOrientation = image.imageOrientation;
@@ -397,6 +398,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	GTIOPhoto* photo = [[GTIOPhoto alloc] init];
 	photo.image = image;	
 	[self.opinionRequest.photos addObject:photo];
+    [photo release];
 	
 	// Dismiss this after we add the photo so the overlay view shows up on the get an oppinion tab.
 	[picker dismissModalViewControllerAnimated:NO];
@@ -466,6 +468,7 @@ static GTIOOpinionRequestSession* globalSession = nil;
 											  cancelButtonTitle:@"OK" 
 											  otherButtonTitles:nil];
 	[alertView show];
+    [alertView release];
 	[_submission release];
     _submission = nil;
 }

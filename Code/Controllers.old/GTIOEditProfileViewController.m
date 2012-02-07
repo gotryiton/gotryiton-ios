@@ -285,7 +285,7 @@
 	NSArray* component = [NSArray arrayWithObjects:@"F", @"M", nil];
     [_genderPicker release];
 	_genderPicker = [[TWTPickerControl alloc] initWithFrame:CGRectMake(0, 0, 213, 30)];
-	_genderPicker.dataSource = [[TWTPickerDataSource alloc ] initWithRows:component];
+	_genderPicker.dataSource = [[[TWTPickerDataSource alloc ] initWithRows:component] autorelease];
 	_genderPicker.textLabel.textAlignment = UITextAlignmentRight;
 	_genderPicker.textLabel.textColor = TTSTYLEVAR(greyTextColor);
 	_genderPicker.font = [UIFont boldSystemFontOfSize:14];
@@ -309,7 +309,7 @@
     }
     [_bornInPicker release];
     _bornInPicker = [[TWTPickerControl alloc] initWithFrame:CGRectMake(0, 0, 213, 30)];
-	_bornInPicker.dataSource = [[TWTPickerDataSource alloc ] initWithRows:years];
+	_bornInPicker.dataSource = [[[TWTPickerDataSource alloc ] initWithRows:years] autorelease];
 	_bornInPicker.textLabel.textAlignment = UITextAlignmentRight;
 	_bornInPicker.textLabel.textColor = TTSTYLEVAR(pinkColor);
 	_bornInPicker.font = [UIFont boldSystemFontOfSize:14];
@@ -618,7 +618,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
 	[manager stopUpdatingLocation];
 	[_reverseGeocoder cancel];
-	self.reverseGeocoder = [[MKReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate];
+	self.reverseGeocoder = [[[MKReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate] autorelease];
 	_reverseGeocoder.delegate = self;
 	[_reverseGeocoder start];
 }

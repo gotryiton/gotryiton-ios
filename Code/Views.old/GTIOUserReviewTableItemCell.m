@@ -81,11 +81,11 @@
     
     _scoreLabel.text = [NSString stringWithFormat:@"+%d", [item.outfit.userReviewAgreeVotes intValue]];
 	
-	NSString* text = item.outfit.userReview;
-	if ([text length] > 35) {
-		text = [NSString stringWithFormat:@"%@...",
-				[text substringToIndex:32]];
-	}
+//	NSString* text = item.outfit.userReview;
+//	if ([text length] > 35) {
+//		text = [NSString stringWithFormat:@"%@...",
+//				[text substringToIndex:32]];
+//	}
 	self.quote = [NSString stringWithFormat:@"%@",  _reviewItem.outfit.userReview];
 }
 

@@ -137,7 +137,7 @@
 
 - (UISearchBar*)searchBar {
     if ([_list.includeSearch boolValue]) {
-        UISearchBar* searchBar = [[UISearchBar alloc] init];
+        UISearchBar* searchBar = [[[UISearchBar alloc] init] autorelease];
         searchBar.tintColor = RGBCOLOR(212,212,212);
         [searchBar sizeToFit];
         

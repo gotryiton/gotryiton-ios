@@ -115,7 +115,7 @@
             _hasMoreToLoad = NO;
         }
         NSArray* newObjects = [[_objects arrayByAddingObjectsFromArray:moreOutfits] retain];
-        [_objects release];
+        [_objects autorelease];
         _objects = newObjects;
         [self didFinishLoad];
     } else {

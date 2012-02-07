@@ -185,7 +185,7 @@
     [super loadView];
     self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"WHO I STYLE"];
     UIImage* settingsButtonImage = [UIImage imageNamed:@"settingsBarButton.png"];
-    GTIOBarButtonItem* item  = [[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)];
+    GTIOBarButtonItem* item  = [[[GTIOBarButtonItem alloc] initWithImage:settingsButtonImage target:self action:@selector(settingsButtonAction:)] autorelease];
     [self.navigationItem setRightBarButtonItem:item];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }

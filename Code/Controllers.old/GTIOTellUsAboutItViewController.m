@@ -43,7 +43,7 @@
             NSLog(@"WARNING: where are you going choices were not loaded!");
         }
 		_whereYouAreGoingPicker = [[TWTPickerControl alloc] initWithFrame:CGRectMake(0, 0, 177, 30)];
-		_whereYouAreGoingPicker.dataSource = [[TWTPickerDataSource alloc] initWithComponents:components];
+		_whereYouAreGoingPicker.dataSource = [[[TWTPickerDataSource alloc] initWithComponents:components] autorelease];
 		_whereYouAreGoingPicker.textLabel.textAlignment = UITextAlignmentRight;
 		_whereYouAreGoingPicker.textLabel.textColor = TTSTYLEVAR(pinkColor);
 		_whereYouAreGoingPicker.font = [UIFont boldSystemFontOfSize:14];
@@ -221,6 +221,7 @@
 												  cancelButtonTitle:@"Close" 
 												  otherButtonTitles:nil];
 		[alertView show];
+        [alertView release];
 	}
 }
 

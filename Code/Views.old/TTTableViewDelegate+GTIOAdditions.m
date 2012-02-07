@@ -33,7 +33,7 @@
 		[label sizeToFit];
 		label.frame = CGRectOffset(label.frame, 20, 3);
 		
-		UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 35)];
+		UIView* container = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 35)] autorelease];
 		[container addSubview:label];
 		[label release];
 		

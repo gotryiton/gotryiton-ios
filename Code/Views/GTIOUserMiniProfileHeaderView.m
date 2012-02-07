@@ -20,7 +20,7 @@
     [_profilePictureImageView setFrame:CGRectInset(CGRectMake(15,15,46,46), 4, 4)];
     [self addSubview:_profilePictureImageView];
     
-    UIImageView* profilePictureFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-overlay-76.png"]];
+    UIImageView* profilePictureFrame = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-overlay-76.png"]] autorelease];
     [profilePictureFrame setFrame:CGRectMake(15,15,46,46)];
     [self addSubview:profilePictureFrame];
     
@@ -66,7 +66,7 @@
     _badgeImageViews = [NSMutableArray new];
     offsetX += 4;
     for (GTIOBadge* badge in profile.badges) {
-        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(offsetX,20,20,20)];
+        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(offsetX,20,20,20)] autorelease];
         offsetX += 23;
         imageView.backgroundColor = [UIColor clearColor];
         imageView.urlPath = badge.imgURL;

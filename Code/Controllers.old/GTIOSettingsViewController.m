@@ -108,7 +108,7 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 	[super loadView];
 	self.navigationItem.titleView = [GTIOHeaderView viewWithText:@"SETTINGS"];
     GTIOAnalyticsEvent(kUserDidViewSettingsEventName);
-    UIBarButtonItem* signoutItem = [[GTIOBarButtonItem alloc] initWithTitle:@"sign out" target:self action:@selector(signOutButtonWasPressed:)];
+    UIBarButtonItem* signoutItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"sign out" target:self action:@selector(signOutButtonWasPressed:)] autorelease];
     self.navigationItem.rightBarButtonItem = signoutItem;
     self.tableView.tableFooterView = [GTIOSupportInfoView supportView];
     

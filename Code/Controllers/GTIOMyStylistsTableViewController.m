@@ -129,7 +129,7 @@
     [_badgeImageViews release];
     _badgeImageViews = [NSMutableArray new];
     for (GTIOBadge* badge in profile.badges) {
-        TTImageView* imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0,0,16,16)];
+        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(0,0,16,16)] autorelease];
         imageView.backgroundColor = [UIColor clearColor];
         imageView.urlPath = badge.imgURL;
         [self.contentView addSubview:imageView];
@@ -365,12 +365,12 @@
         
         GTIOAnalyticsEvent(kStylistsIntroEventName);
         
-        UIButton* invisibleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        UIButton* invisibleButton = [UIButton buttonWithType:UIButtonTypeCustom];
         invisibleButton.frame = imageView.bounds;
         [invisibleButton addTarget:self action:@selector(addButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
         [imageView addSubview:invisibleButton];
         
-        UIButton* addButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        UIButton* addButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [addButton setImage:[UIImage imageNamed:@"pspush-add-button-OFF.png"] forState:UIControlStateNormal];
         [addButton setImage:[UIImage imageNamed:@"pspush-add-button-ON.png"] forState:UIControlStateHighlighted];
         [addButton addTarget:self action:@selector(addButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];

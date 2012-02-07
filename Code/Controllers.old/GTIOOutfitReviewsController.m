@@ -158,7 +158,7 @@
 		[photoView release];
         
         NSString* imageName = @"thumb-overlay-single.png";
-        UIImageView* overlayView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+        UIImageView* overlayView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]] autorelease];
         overlayView.frame = frame;
         [headerView addSubview:overlayView];
         

@@ -245,7 +245,7 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
 		label.textAlignment = UITextAlignmentCenter;
 		[label sizeToFit];
 		
-		UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+		UIView* container = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)] autorelease];
         container.backgroundColor = RGBCOLOR(227,227,227);
 		[container addSubview:label];
         label.frame = CGRectOffset(label.frame, 5, 2);
@@ -692,7 +692,7 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
         
         NSString* text = [body valueForKey:@"text"];
         
-        GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
+        GTIOMessageComposer* composer = [[[GTIOMessageComposer alloc] init] autorelease];
         // TODO: outfit id not used in composer creation method - ask jeremy if should be removed
         UIViewController* controller = [composer textMessageComposerWithOutfitID:@"" body:text];
         if(nil != controller) {
@@ -703,7 +703,7 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
         NSString* text = [body valueForKey:@"text"];
         NSString* subject = [body valueForKey:@"subject"];
         
-        GTIOMessageComposer* composer = [[GTIOMessageComposer alloc] init];
+        GTIOMessageComposer* composer = [[[GTIOMessageComposer alloc] init] autorelease];
         // TODO: again, the outfit id is irrelevant
         UIViewController* controller = [composer emailComposerWithOutfitID:@"" subject:subject body:text];
         if(nil != controller) {
