@@ -52,6 +52,8 @@
                                                   
                                                                                    target:nil 
                                                                                    action:nil] autorelease];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(suggestionMade:) name:kGTIOSuggestionMadeNotification object:nil];
     }
     return self;
 }
@@ -235,6 +237,15 @@
                                       self.tableView.frame.origin.y,
                                       self.tableView.width,
                                       self.tableView.height - 58);
+}
+
+- (void)suggestionMade:(NSNotification*)note {
+    if ([self.outfit.outfitID isEqualToString:note.object]) {
+        // note.object is outfitID. we're getting the product from the user info.
+        GTIOProduct* product = [note.userInfo objectForKey:kGTIOProductNotificationKey];
+        [self.navigationController popViewControllerAnimated:YES];
+        // TODO: update view with product.
+    }
 }
 
 - (void)recommendedButtonWasPressed:(id)sender {
