@@ -12,6 +12,16 @@
 #import "GTIOOutfitReviewTableItem.h"
 #import "GTIOOutfitReviewTableCell.h"
 
+const NSUInteger kOutfitReviewHeaderContainerTag = 90;
+const NSUInteger kOutfitReviewProductHeaderTag = 91;
+const NSUInteger kOutfitReviewProductCloseButtonTag = 92;
+const NSUInteger kOutfitReviewEmptyViewTag = 91919191;
+const CGFloat kOutfitReviewSectionSpacer = 7.5;
+const CGFloat kOutfitReviewProductLabelSpacer = 4.0;
+const CGFloat kOutfitReviewProductHeaderWidth = 262.0;
+const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
+const CGFloat kOutfitReviewMaxProductImageSize = 60.0;
+
 @interface GTIOOutfitReviewsTableViewDataSource : TTListDataSource {
 	
 }
@@ -30,6 +40,12 @@
 
 @interface GTIOOutfitReviewsController (Private)
 - (void)closeButtonWasPressed:(id)sender;
+- (void)updateTableHeaderWithProduct:(GTIOProduct *)product;
+- (void)removeProductHeader;
+- (void)updateEmptyView;
+
+- (void)postReview;
+- (void)verifyUserComment;
 @end
 
 @implementation GTIOOutfitReviewsController
@@ -185,11 +201,13 @@
 	_editor.delegate = self;
 	_editor.backgroundColor = [UIColor clearColor];
 	[headerView addSubview:_editor];
-	_placeholder = [[UILabel alloc] initWithFrame:CGRectMake(_editor.frame.origin.x+8, _editor.frame.origin.y+8, _editor.frame.size.width-16, 16)];
+	_placeholder = [[UILabel alloc] initWithFrame:CGRectMake(_editor.frame.origin.x+8, _editor.frame.origin.y+8, _editor.frame.size.width-16, 32)];
 	_placeholder.backgroundColor = [UIColor clearColor];
-	_placeholder.text = @"I think...";
+	_placeholder.text = @"add a comment about this, or just hit 'done'!";
 	_placeholder.font = kGTIOFontBoldHelveticaNeueOfSize(12);
 	_placeholder.textColor = kGTIOColorbfbfbf;
+    _placeholder.numberOfLines = 2;
+
 	[headerView addSubview:_placeholder];
 	
 	
@@ -202,6 +220,7 @@
 	headerView.image = image;
     
 	UIView* wrapperView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320-12, headerView.height + 6)];
+    [headerView setTag:kOutfitReviewHeaderContainerTag];
 	[wrapperView addSubview:headerView];
 	headerView.userInteractionEnabled = YES;
 	
@@ -239,12 +258,123 @@
                                       self.tableView.height - 58);
 }
 
+- (void)updateTableHeaderWithProduct:(GTIOProduct *)product {
+    self.product = product;
+    UIView *tableHeaderView = self.tableView.tableHeaderView;
+    UIView *headerView = [tableHeaderView viewWithTag:kOutfitReviewHeaderContainerTag];
+    
+    UIView *productViewWrapper = [[[UIView alloc] initWithFrame:(CGRect){0, tableHeaderView.frame.size.height - kOutfitReviewSectionSpacer,tableHeaderView.frame.size.width, 0}] autorelease];
+    [productViewWrapper setTag:kOutfitReviewProductHeaderTag];
+    [productViewWrapper setClipsToBounds:YES];
+    
+    CGFloat productViewWidth =  [[_outfit isMultipleOption] boolValue] ? kOutfitReviewProductHeaderMultipleWidth : kOutfitReviewProductHeaderWidth;  
+    CGRect productViewRect = (CGRect){6.0, 0, productViewWidth, 0};
+    CGFloat verticalOffset = 6.0;
+    CGFloat horizontalOffset = 75.0;
+    
+    UIView *productView = [[UIView alloc] initWithFrame:productViewRect];
+    [productView setBackgroundColor:[UIColor whiteColor]];
+    [productView setClipsToBounds:YES];
+
+    TTImageView *imageView = [[TTImageView alloc] initWithFrame:CGRectZero];
+    [imageView setDelegate:self];
+    [imageView setUrlPath:product.thumbnail];
+    [productView addSubview:imageView];
+    
+    NSString *suggestionText = [[_outfit isMultipleOption] boolValue] ? @"suggested for this look" : @"you are recommending...";
+    UILabel *suggestionTextLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    [suggestionTextLabel setText:suggestionText];
+    [suggestionTextLabel setBackgroundColor:[UIColor colorWithRed:236/255.0 green:236/255.0 blue:236/255.0 alpha:1.0]];
+    [suggestionTextLabel setTextColor:[UIColor colorWithRed:154/255.0 green:154/255.0 blue:154/255.0 alpha:1.0]];
+    [suggestionTextLabel setFont:kGTIOFontBoldHelveticaNeueOfSize(9)];
+    [suggestionTextLabel setTextAlignment:UITextAlignmentCenter];
+    CGSize suggestionLabelSize = [[suggestionTextLabel text] sizeWithFont:kGTIOFontBoldHelveticaNeueOfSize(9)];
+    [suggestionTextLabel setFrame:(CGRect){horizontalOffset - 4, verticalOffset, suggestionLabelSize.width + 12, suggestionLabelSize.height}];
+    [productView addSubview:suggestionTextLabel];
+        
+    verticalOffset += suggestionLabelSize.height + kOutfitReviewProductLabelSpacer;
+    
+    UILabel *productLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    [productLabel setText:product.productName];
+    [productLabel setBackgroundColor:[UIColor clearColor]];
+    [productLabel setTextColor:[UIColor colorWithRed:232/255.0 green:19/255.0 blue:154/255.0 alpha:1.0]];
+    [productLabel setFont:kGTIOFontBoldHelveticaNeueOfSize(12)];
+    [productLabel setTextAlignment:UITextAlignmentLeft];
+    CGSize constraint = (CGSize){productViewWidth - horizontalOffset, 20};
+    CGSize productLabelSize = [[productLabel text] sizeWithFont:kGTIOFontHelveticaNeueOfSize(12) constrainedToSize:constraint];
+    [productLabel setFrame:(CGRect){horizontalOffset, verticalOffset, productLabelSize.width, productLabelSize.height}];
+    [productView addSubview:productLabel];
+
+    verticalOffset += productLabelSize.height + kOutfitReviewProductLabelSpacer;
+
+    UILabel *brandLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    [brandLabel setText:product.brand];
+    [brandLabel setBackgroundColor:[UIColor clearColor]];
+    [brandLabel setTextColor:[UIColor colorWithRed:154/255.0 green:154/255.0 blue:154/255.0 alpha:1.0]];
+    [brandLabel setFont:kGTIOFontHelveticaNeueOfSize(12)];
+    [brandLabel setTextAlignment:UITextAlignmentLeft];
+    CGSize brandLabelSize = [[brandLabel text] sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
+    [brandLabel setFrame:(CGRect){horizontalOffset, verticalOffset, brandLabelSize.width + 12, brandLabelSize.height}];
+    [productView addSubview:brandLabel];
+    
+    verticalOffset += brandLabelSize.height + kOutfitReviewProductLabelSpacer;
+
+    UILabel *priceLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    [priceLabel setText:[NSString stringWithFormat:@"$%@", product.price]];
+    [priceLabel setBackgroundColor:[UIColor clearColor]];
+    [priceLabel setTextColor:[UIColor darkGrayColor]];
+    [priceLabel setFont:kGTIOFontHelveticaNeueOfSize(12)];
+    [priceLabel setTextAlignment:UITextAlignmentLeft];
+    CGSize priceLabelSize = [[priceLabel text] sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
+    [priceLabel setFrame:(CGRect){horizontalOffset, verticalOffset, priceLabelSize.width + 12, priceLabelSize.height}];
+    [productView addSubview:priceLabel];
+    
+    verticalOffset += priceLabelSize.height + kOutfitReviewProductLabelSpacer;
+    productViewRect.size.height = verticalOffset;
+    
+    UIButton *closeProductButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *closeButtonImage = [UIImage imageNamed:@"close.png"];
+    [closeProductButton setBackgroundImage:closeButtonImage forState:UIControlStateNormal];
+    [closeProductButton addTarget:self action:@selector(removeProductHeader) forControlEvents:UIControlEventTouchUpInside];
+    [closeProductButton setFrame:(CGRect){productViewWidth - closeButtonImage.size.width / 2.0, 0, closeButtonImage.size.width / 2.0, closeButtonImage.size.width / 2.0}];
+    [productView addSubview:closeProductButton];
+    
+    [productView setFrame:productViewRect];
+    [productView addSubview:imageView];
+    [productViewWrapper addSubview:productView];
+    
+    CGRect viewWrapperRect = productViewWrapper.frame;
+    viewWrapperRect.size.height = productViewRect.size.height + kOutfitReviewSectionSpacer;
+    [UIView animateWithDuration:0.5 animations:^{
+        [tableHeaderView setFrame:(CGRect){tableHeaderView.frame.origin, {tableHeaderView.frame.size.width, tableHeaderView.frame.size.height + viewWrapperRect.size.height}}];
+        [productViewWrapper setFrame:viewWrapperRect];
+        [headerView setFrame:(CGRect){headerView.origin, {headerView.frame.size.width, tableHeaderView.frame.size.height - kOutfitReviewSectionSpacer}}];
+        [headerView addSubview:productViewWrapper];
+        [self.tableView setTableHeaderView:tableHeaderView];
+        [self updateEmptyView];
+    }];
+}
+
+- (void)removeProductHeader {
+    UIView *tableHeaderView = self.tableView.tableHeaderView;
+    UIView *headerView = [tableHeaderView viewWithTag:kOutfitReviewHeaderContainerTag];
+    UIView *productView = [headerView viewWithTag:kOutfitReviewProductHeaderTag];
+    CGRect targetRect = (CGRect){tableHeaderView.frame.origin, {tableHeaderView.frame.size.width, tableHeaderView.frame.size.height - productView.frame.size.height}};
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [productView removeFromSuperview];
+        [tableHeaderView setFrame:targetRect];
+        [headerView setFrame:(CGRect){headerView.origin, {tableHeaderView.frame.size.width, tableHeaderView.frame.size.height - kOutfitReviewSectionSpacer}}];
+        [self.tableView setTableHeaderView:tableHeaderView];
+        [self updateEmptyView];
+    }];
+}
+
 - (void)suggestionMade:(NSNotification*)note {
     if ([self.outfit.outfitID isEqualToString:note.object]) {
         // note.object is outfitID. we're getting the product from the user info.
-        GTIOProduct* product = [note.userInfo objectForKey:kGTIOProductNotificationKey];
+        [self updateTableHeaderWithProduct:[note.userInfo objectForKey:kGTIOProductNotificationKey]];
         [self.navigationController popViewControllerAnimated:YES];
-        // TODO: update view with product.
     }
 }
 
@@ -266,6 +396,13 @@
     [_keyboardOverlayButton2 removeFromSuperview];
 }
 
+- (void)updateEmptyView {
+    UIView* emptyView = [self.view viewWithTag:kOutfitReviewEmptyViewTag];
+    if (emptyView) {
+        emptyView.frame = [self rectForOverlayView];
+    }
+}
+
 - (CGRect)rectForOverlayView {
     return CGRectMake(0, _tableView.tableHeaderView.height, 320, _tableView.height - _tableView.tableHeaderView.height);
 }
@@ -278,11 +415,11 @@
                                                             subtitle:nil
                                                                image:image] autorelease];
         emptyView.frame = [self rectForOverlayView];
-        emptyView.tag = 91919191;
+        emptyView.tag = kOutfitReviewEmptyViewTag;
         [self.view addSubview:emptyView];
         self.tableView.tableFooterView = nil;
     } else {
-        UIView* emptyView = [self.view viewWithTag:91919191];
+        UIView* emptyView = [self.view viewWithTag:kOutfitReviewEmptyViewTag];
         [emptyView removeFromSuperview];
         [self setupTableFooter];
     }
@@ -375,11 +512,20 @@
 	_placeholder.alpha = ([textEditor.text isWhitespaceAndNewlines] ? 1 : 0);
 }
 
+- (void)verifyUserComment {
+    if ([[_editor text] length] <= 0) {
+        UIAlertView *noCommentAlert = [[[UIAlertView alloc] initWithTitle:@"wait!" message:@"suggest this product\n without a comment?" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil] autorelease];
+        [noCommentAlert show];
+    } else {
+        [self postReview];
+    }
+}
+
 - (void)postReview {
     TTOpenURL(@"gtio://loading");
     _loading = YES;
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            _editor.text, @"reviewText", nil];
+                            _editor.text, @"reviewText", _product.productID, @"productId", nil];
     params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/review/%@", _outfit.outfitID]);
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:self];
@@ -397,12 +543,12 @@
 }
 
 - (BOOL)textEditorShouldReturn:(TTTextEditor*)textEditor {
-	if (![textEditor.text isWhitespaceAndNewlines]) {
+	if (![textEditor.text isWhitespaceAndNewlines] || self.product) {
         if (![[GTIOUser currentUser] isLoggedIn]) {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotification:) name:kGTIOUserDidLoginNotificationName object:nil];
             TTOpenURL(@"gtio://login");
         } else {
-            [self postReview];
+            [self verifyUserComment];
         }
 	}
     [_editor resignFirstResponder];
@@ -476,5 +622,26 @@
     _loading = NO;
     GTIOErrorMessage(error);
 }
+
+#pragma mark - TTImageViewDelegate
+
+- (void)imageView:(TTImageView *)imageView didLoadImage:(UIImage *)image {
+    CGRect imageRect = (CGRect){CGPointZero, image.size};
+    if (image.size.width > kOutfitReviewMaxProductImageSize) {
+        CGFloat ratio = image.size.width * 1.0 / image.size.height;
+        imageRect.size.width = kOutfitReviewMaxProductImageSize;
+        imageRect.size.height = MAX(kOutfitReviewMaxProductImageSize, kOutfitReviewMaxProductImageSize / ratio);
+    }
+    [imageView setFrame:imageRect];
+}
+
+#pragma mark - alert view delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex > 0) {
+        [self postReview];
+    }
+}
+
 
 @end

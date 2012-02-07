@@ -11,7 +11,7 @@
 #import "GTIOOutfit.h"
 #import "GTIOProduct.h"
 
-@interface GTIOOutfitReviewsController : TTTableViewController <TTTextEditorDelegate, RKObjectLoaderDelegate> {
+@interface GTIOOutfitReviewsController : TTTableViewController <TTImageViewDelegate, TTTextEditorDelegate, RKObjectLoaderDelegate, UIAlertViewDelegate> {
 	TTTextEditor* _editor;
     UIButton* _closeButton;
 	UILabel* _placeholder;
