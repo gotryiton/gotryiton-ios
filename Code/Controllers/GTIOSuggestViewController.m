@@ -10,6 +10,7 @@
 #import "GTIOBarButtonItem.h"
 #import "GTIOProduct.h"
 #import "GTIOHeaderView.h"
+#import "GTIOOutfit.h"
 
 @interface GTIOSuggestViewController () {
     NSString* _outfitID;
@@ -23,6 +24,7 @@
 @property (retain, nonatomic) IBOutlet UIButton* recommendButtonItem;
 @property (nonatomic, retain) GTIOProduct* currentProduct;
 @property (retain, nonatomic) IBOutlet UIView *loadingOverlay;
+@property (nonatomic, readonly) GTIOOutfit* outfit;
 
 - (IBAction)suggestButtonWasPressed:(id)sender;
 - (void)loadWebView;
@@ -30,7 +32,7 @@
 - (void)hideLoading;
 
 @end
-
+ 
 @implementation GTIOSuggestViewController
 
 @synthesize webView = _webView;
@@ -86,8 +88,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
     [self loadWebView];
+    
+    // Setup right bar button item.
+    UIButton* rightButtonView = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightButtonView addTarget:self action:@selector(forButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView setBackgroundImage:[[UIImage imageNamed:@"button.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:16] forState:UIControlStateNormal];
+    rightButtonView.frame = CGRectMake(0, 0, 52, 32);
+    UILabel* forLabel = [[[UILabel alloc] initWithFrame:CGRectMake(8, 9, 20, 14)] autorelease];
+    forLabel.text = @"for";
+    forLabel.backgroundColor = [UIColor clearColor];
+    forLabel.font = [UIFont boldSystemFontOfSize:12];
+    forLabel.textColor = [UIColor whiteColor];
+    [rightButtonView addSubview:forLabel];
+    TTImageView* outfitThumbnailImageView = [[[TTImageView alloc] initWithFrame:CGRectMake(30, 6, 15, 20)] autorelease];
+    [outfitThumbnailImageView addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forButtonWasPressed:)] autorelease]];
+    outfitThumbnailImageView.urlPath = self.outfit.smallThumbnailUrl;
+    outfitThumbnailImageView.defaultImage = [UIImage imageNamed:@"hanger-filler-single.png"];
+    [rightButtonView addSubview:outfitThumbnailImageView];
+    UIBarButtonItem* rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:rightButtonView] autorelease];
+    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
 }
 
 - (void)viewDidUnload
@@ -109,6 +130,26 @@
 - (void)setTitle:(NSString *)title
 {
     self.navigationItem.titleView = [GTIOHeaderView viewWithText:title];
+}
+
+- (void)forButtonWasPressed:(id)sender {
+    NSString* photoURL = [[self.outfit.photos objectAtIndex:0] valueForKey:@"mainImg"];
+    CGRect frame = [UIScreen mainScreen].applicationFrame;
+    CGRect bounds = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    UIView* backgroundView = [[[UIView alloc] initWithFrame:frame] autorelease];
+    backgroundView.backgroundColor = [UIColor blackColor];
+    backgroundView.tag = 99999;
+    TTImageView* fullsizeImage = [[[TTImageView alloc] initWithFrame:bounds] autorelease];
+    fullsizeImage.contentMode = UIViewContentModeScaleAspectFit;
+    fullsizeImage.defaultImage = [UIImage imageNamed:@"default-outfit.png"];
+    fullsizeImage.urlPath = photoURL;
+    [backgroundView addSubview:fullsizeImage];
+    [self.view.window addSubview:backgroundView];
+    [backgroundView addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissOverlayView:)] autorelease]];
+}
+
+- (void)dismissOverlayView:(UIGestureRecognizer*)recognizer {
+    [[self.view.window viewWithTag:99999] removeFromSuperview];
 }
 
 - (void)showToolbar
@@ -228,13 +269,17 @@
     }
 }
 
+- (GTIOOutfit*)outfit {
+    return [GTIOOutfit outfitWithOutfitID:_outfitID];
+}
+
 #pragma mark Loading Methods
 
 - (void)showLoading {
     NSLog(@"Show Loading...");
     _isShowingLoading = YES;
-    self.loadingOverlay.frame = self.view.bounds;
-    [self.view addSubview:self.loadingOverlay];
+    self.loadingOverlay.frame = self.view.window.bounds;
+    [self.view.window addSubview:self.loadingOverlay];
 }
 
 - (void)hideLoading {
