@@ -279,6 +279,10 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
         [self verifyUserComment];
     }];
     [self.view insertSubview:_controlBar aboveSubview:_keyboardOverlayButton2];
+    
+    if (self.product) {
+        [self updateTableHeaderWithProduct:self.product];
+    }
 }
 
 - (void)updateTableHeaderWithProduct:(GTIOProduct *)product {
@@ -642,10 +646,8 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
                           delay:0.0 
                         options:animationCurve 
                      animations:^{
-                         
+                         [_tableView setFrame:(CGRect){_tableView.frame.origin, { _tableView.frame.size.width, 100 }}];
                          [_controlBar setFrame:(CGRect){{keyboardEndFrame.origin.x, keyboardEndFrame.origin.y - controlBarOffset}, _controlBar.size}];
-
-                         
                      } completion:nil];
 }
 
@@ -661,10 +663,8 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
                           delay:0.0 
                         options:animationCurve 
                      animations:^{
-                         
+                         [_tableView setFrame:(CGRect){_tableView.frame.origin, { _tableView.frame.size.width, self.view.size.height }}];
                          [_controlBar setFrame:(CGRect){{keyboardEndFrame.origin.x, keyboardEndFrame.origin.y}, _controlBar.size}];
-                         
-                         
                      } completion:nil];
 }
 
