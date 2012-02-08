@@ -41,6 +41,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 
 @interface GTIOOutfitReviewsController () {
     GTIOOutfitReviewControlBar *_controlBar;
+    UIViewController *_webViewController;
 }
 - (void)recommendedButtonWasPressed:(id)sender;
 
@@ -67,6 +68,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 	[_outfit release];
     [_product release];
     [_controlBar release];
+    [_webViewController release];
 	[super dealloc];
 }
 
@@ -98,6 +100,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
     if (self = [self initWithStyle:UITableViewStylePlain]) {
         self.outfit = [query objectForKey:@"outfit"];
         self.product = [query objectForKey:@"product"];
+        _webViewController = [query objectForKey:@"webview"];
     }
     return self;
 }
@@ -351,12 +354,17 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
         }
         // note.object is outfitID. we're getting the product from the user info.
         [self updateTableHeaderWithProduct:[note.userInfo objectForKey:kGTIOProductNotificationKey]];
+        _webViewController = [note.userInfo objectForKey:kGTIOProductWebViewController];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
 - (void)recommendedButtonWasPressed:(id)sender {
-    [GTIOUser makeSuggestionForOutfit:_outfit];
+    if (_webViewController) {
+        [self.navigationController pushViewController:_webViewController animated:YES];
+    } else {
+        [GTIOUser makeSuggestionForOutfit:_outfit];
+    }
 }
 
 - (void)dismissKeyboard:(id)sender event:(UIEvent*)event {
@@ -629,7 +637,9 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 #pragma mark - Product details
 
 - (void)showProductPreviewDetails:(UIGestureRecognizer *)gesture {
-    [self.navigationController pushViewController:[GTIOProduct cachedWebViewForOutfitId:_outfit.outfitID] animated:YES];
+    if (_webViewController) {
+        [self.navigationController pushViewController:_webViewController animated:YES];
+    }
 }
 
 #pragma mark - keyboard notifications

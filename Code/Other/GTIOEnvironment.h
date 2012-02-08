@@ -72,7 +72,7 @@ extern NSString* const kGTIOHTTPAuthPassword;
 
 extern NSString* const kGTIOSuggestionMadeNotification;
 extern NSString* const kGTIOProductNotificationKey;
-
+extern NSString* const kGTIOProductWebViewController;
 
 RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute);
 

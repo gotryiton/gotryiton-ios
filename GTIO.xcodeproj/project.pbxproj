@@ -1379,7 +1379,6 @@
 		3F86F18C13B8CA50005063FE /* GTIOStylistsQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F21F13AF9D17002B3746 /* GTIOStylistsQuickLook.m */; };
 		3F86F18E13B8CA50005063FE /* libTWTCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC1E81E13A8F72700646EEE /* libTWTCommon.a */; };
 		3F86F18F13B8CA50005063FE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A762087F1379D53500DFBD66 /* CoreText.framework */; };
-		3F86F19013B8CA50005063FE /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */; };
 		3F86F19113B8CA50005063FE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECF4137069200039D779 /* MapKit.framework */; };
 		3F86F19213B8CA50005063FE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECF2137069150039D779 /* CoreLocation.framework */; };
 		3F86F19313B8CA50005063FE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBECEE137068E30039D779 /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -2470,6 +2469,7 @@
 		3FFCBC6E13A7BDAE0061A28A /* shadow-wallpaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FFCBC5213A7BDAE0061A28A /* shadow-wallpaper@2x.png */; };
 		3FFCBC7313A7BDFC0061A28A /* GTIOFeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCBC7213A7BDFC0061A28A /* GTIOFeaturedViewController.m */; };
 		3FFCBC7813A7F1920061A28A /* GTIOBannerAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCBC7713A7F1920061A28A /* GTIOBannerAd.m */; };
+		A42DCD7A14E2C6A7007B05BB /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF22B1370820B0039D779 /* libfacebook_ios_sdk.a */; };
 		A433AE1714E2262C002788C1 /* GTIOProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = A433AE1614E2262C002788C1 /* GTIOProductView.m */; };
 		A433AE1814E2262C002788C1 /* GTIOProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = A433AE1614E2262C002788C1 /* GTIOProductView.m */; };
 		A433AE1914E2262C002788C1 /* GTIOProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = A433AE1614E2262C002788C1 /* GTIOProductView.m */; };
@@ -2513,7 +2513,6 @@
 		A458A21314DC7BCD00FD4C6F /* libRestKitSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C81613535ACD007B6F14 /* libRestKitSupport.a */; };
 		A458A21414DC7BCD00FD4C6F /* libRestKitThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C82213535ACD007B6F14 /* libRestKitThree20.a */; };
 		A458A21514DC7BCD00FD4C6F /* libTWTCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE8B3FC1372F03F00514FE5 /* libTWTCommon.a */; };
-		A458A21C14DC7BFD00FD4C6F /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF22B1370820B0039D779 /* libfacebook_ios_sdk.a */; };
 		A458A21D14DC7BFD00FD4C6F /* libRestKitCoreData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C82013535ACD007B6F14 /* libRestKitCoreData.a */; };
 		A458A21E14DC7BFD00FD4C6F /* libRestKitNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C81213535ACD007B6F14 /* libRestKitNetwork.a */; };
 		A458A21F14DC7BFD00FD4C6F /* libRestKitObjectMapping.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C81413535ACD007B6F14 /* libRestKitObjectMapping.a */; };
@@ -3315,6 +3314,13 @@
 			remoteGlobalIDString = D2AAC07E0554694100DB518D;
 			remoteInfo = TWTCommon;
 		};
+		A42DCD7814E2C679007B05BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3FCBF2231370820B0039D779 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
+		};
 		A458A20914DC7BBE00FD4C6F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
@@ -3349,13 +3355,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = TWTCommon;
-		};
-		A458A21A14DC7BEB00FD4C6F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3FCBF2231370820B0039D779 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -4071,9 +4070,6 @@
 		3FCBED02137069670039D779 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FCBED041370696D0039D779 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3FCBF2231370820B0039D779 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "Libraries/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
-		3FCBF22E1370824D0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
-		3FCBF2321370825F0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
-		3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = SOURCE_ROOT; };
 		3FCF14C2138AB91D00C8B715 /* GTIOTodosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTodosTableViewController.h; sourceTree = "<group>"; };
 		3FCF14C3138AB91D00C8B715 /* GTIOTodosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTodosTableViewController.m; sourceTree = "<group>"; };
 		3FCF14C7138AC20C00C8B715 /* GTIOWhoIStyleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOWhoIStyleTableViewController.h; sourceTree = "<group>"; };
@@ -4766,7 +4762,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A458A21C14DC7BFD00FD4C6F /* libfacebook_ios_sdk.a in Frameworks */,
+				A42DCD7A14E2C6A7007B05BB /* libfacebook_ios_sdk.a in Frameworks */,
 				A458A21D14DC7BFD00FD4C6F /* libRestKitCoreData.a in Frameworks */,
 				A458A21E14DC7BFD00FD4C6F /* libRestKitNetwork.a in Frameworks */,
 				A458A21F14DC7BFD00FD4C6F /* libRestKitObjectMapping.a in Frameworks */,
@@ -4810,7 +4806,6 @@
 				3F5CA5431405703D00406841 /* ImageIO.framework in Frameworks */,
 				3F86F18E13B8CA50005063FE /* libTWTCommon.a in Frameworks */,
 				3F86F18F13B8CA50005063FE /* CoreText.framework in Frameworks */,
-				3F86F19013B8CA50005063FE /* libfacebook_ios_sdk.a in Frameworks */,
 				3F86F19113B8CA50005063FE /* MapKit.framework in Frameworks */,
 				3F86F19213B8CA50005063FE /* CoreLocation.framework in Frameworks */,
 				3F86F19313B8CA50005063FE /* MessageUI.framework in Frameworks */,
@@ -4882,9 +4877,6 @@
 				A76208831379D55200DFBD66 /* CoreText.framework */,
 				A76208811379D54400DFBD66 /* CoreText.framework */,
 				A762087F1379D53500DFBD66 /* CoreText.framework */,
-				3FCBF2361370826F0039D779 /* libfacebook_ios_sdk.a */,
-				3FCBF2321370825F0039D779 /* libfacebook_ios_sdk.a */,
-				3FCBF22E1370824D0039D779 /* libfacebook_ios_sdk.a */,
 				3FCBED041370696D0039D779 /* MapKit.framework */,
 				3FCBED02137069670039D779 /* CoreLocation.framework */,
 				3FCBED00137069600039D779 /* MessageUI.framework */,
@@ -7161,9 +7153,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				A42DCD7914E2C679007B05BB /* PBXTargetDependency */,
 				A458A21714DC7BEB00FD4C6F /* PBXTargetDependency */,
 				A458A21914DC7BEB00FD4C6F /* PBXTargetDependency */,
-				A458A21B14DC7BEB00FD4C6F /* PBXTargetDependency */,
 				3F06679B14867A3900692659 /* PBXTargetDependency */,
 				3F06679D14867A3900692659 /* PBXTargetDependency */,
 				3F06679F14867A3900692659 /* PBXTargetDependency */,
@@ -10483,6 +10475,11 @@
 			name = Three20Style;
 			targetProxy = 3F86F0ED13B8CA50005063FE /* PBXContainerItemProxy */;
 		};
+		A42DCD7914E2C679007B05BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "facebook-ios-sdk";
+			targetProxy = A42DCD7814E2C679007B05BB /* PBXContainerItemProxy */;
+		};
 		A458A20A14DC7BBE00FD4C6F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RestKit;
@@ -10507,11 +10504,6 @@
 			isa = PBXTargetDependency;
 			name = TWTCommon;
 			targetProxy = A458A21814DC7BEB00FD4C6F /* PBXContainerItemProxy */;
-		};
-		A458A21B14DC7BEB00FD4C6F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "facebook-ios-sdk";
-			targetProxy = A458A21A14DC7BEB00FD4C6F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -10693,11 +10685,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv7,
-					armv6,
-				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Josh Johnson (4UH3R9P93N)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -10726,7 +10715,7 @@
 					"\"$(SRCROOT)/TestFlightSDK0.7.2 (1)\"",
 				);
 				PRODUCT_NAME = "GTIO Dev";
-				PROVISIONING_PROFILE = "3A928A57-1B45-487A-AFE1-C60349953502";
+				PROVISIONING_PROFILE = "AEAEE20E-BC95-4BA8-9609-E2454361CB9B";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -10736,11 +10725,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv7,
-					armv6,
-				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Josh Johnson (4UH3R9P93N)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
@@ -10765,7 +10751,7 @@
 					"\"$(SRCROOT)/TestFlightSDK0.7.2 (1)\"",
 				);
 				PRODUCT_NAME = "GTIO Dev";
-				PROVISIONING_PROFILE = "3A928A57-1B45-487A-AFE1-C60349953502";
+				PROVISIONING_PROFILE = "AEAEE20E-BC95-4BA8-9609-E2454361CB9B";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;

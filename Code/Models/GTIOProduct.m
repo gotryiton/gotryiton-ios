@@ -8,8 +8,6 @@
 
 #import "GTIOProduct.h"
 
-static NSCache *GTIO_webViewCache = nil;
-
 @implementation GTIOProduct
 
 @synthesize productID,
@@ -19,14 +17,6 @@ static NSCache *GTIO_webViewCache = nil;
             buyUrl,
             thumbnail,
             descriptionString;
-
-+ (void)initialize {
-    if (self == [GTIOProduct class]) {
-        GTIO_webViewCache = [[NSCache alloc] init];
-        [GTIO_webViewCache setName:@"ProductWebViewCache"];
-        [GTIO_webViewCache setEvictsObjectsWithDiscardedContent:YES];
-    }
-}
 
 + (RKObjectMapping*)productMapping
 {
@@ -47,14 +37,6 @@ static NSCache *GTIO_webViewCache = nil;
     [thumbnail release];
     [descriptionString release];
     [super dealloc];
-}
-
-+ (void)cacheWebView:(id)webView outfitId:(NSString *)outfitId {
-    [GTIO_webViewCache setObject:webView forKey:outfitId];
-}
-
-+ (id)cachedWebViewForOutfitId:(NSString *)outfitId { 
-    return [GTIO_webViewCache objectForKey:outfitId];
 }
 
 @end

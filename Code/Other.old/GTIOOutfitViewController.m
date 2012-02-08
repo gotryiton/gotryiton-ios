@@ -340,10 +340,12 @@
     if ([self.outfit.outfitID isEqualToString:note.object]) {
         // note.object is outfitID. we're getting the product from the user info.
         GTIOProduct* product = [note.userInfo objectForKey:kGTIOProductNotificationKey];
+        UIViewController *outfitController = [note.userInfo objectForKey:kGTIOProductWebViewController];
         NSString* url = @"gtio://show_reviews_with_query";
         NSDictionary* query = [NSDictionary dictionaryWithObjectsAndKeys:
                                product, @"product",
-                               self.outfit, @"outfit", nil];
+                               self.outfit, @"outfit",
+                               outfitController, @"webview", nil];
         
         [self.navigationController popToViewController:self animated:NO];
         [[TTNavigator navigator] openURLAction:

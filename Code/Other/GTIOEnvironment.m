@@ -65,6 +65,7 @@ NSString* const kGTIOOutfitVoteNotification = @"kGTIOOutfitVoteNotification";
 
 NSString* const kGTIOSuggestionMadeNotification = @"kGTIOSuggestionMadeNotification";
 NSString* const kGTIOProductNotificationKey = @"product";
+NSString* const kGTIOProductWebViewController = @"webViewController";
 
 RKObjectAttributeMapping* RKObjectAttributeMappingMake(NSString* keyPath, NSString* attribute) {
     return [RKObjectAttributeMapping mappingFromKeyPath:keyPath toKeyPath:attribute];

@@ -15,7 +15,6 @@
 @interface GTIOSuggestViewController () {
     NSString* _outfitID;
     BOOL _isShowingLoading;
-    BOOL _isShowingCached;
 }
 
 @property (nonatomic, retain) IBOutlet UIWebView* webView;
@@ -58,8 +57,6 @@
 {
     self = [self initWithNibName:@"GTIOSuggestViewController" bundle:[NSBundle mainBundle]];
     if (self) {
-        _webView = [[GTIOProduct cachedWebViewForOutfitId:outfitID] retain];
-        _isShowingCached = _webView != nil;
         _outfitID = [outfitID retain];
     }
     return self;
@@ -178,15 +175,13 @@
 
 - (void)loadWebView {
     self.title = @"SUGGEST";
-    if (! _isShowingCached) {
-        NSString* url = [NSString stringWithFormat:@"%@/iphone/rec/%@?gtioToken=%@",
-                         kGTIOBaseURLString,
-                         _outfitID,
-                         [GTIOUser currentUser].token];
-        NSURLRequest* request = [NSURLRequest requestWithURL:
-                                 [NSURL URLWithString:url]];
-        [self.webView loadRequest:request];
-    }
+    NSString* url = [NSString stringWithFormat:@"%@/iphone/rec/%@?gtioToken=%@",
+                     kGTIOBaseURLString,
+                     _outfitID,
+                     [GTIOUser currentUser].token];
+    NSURLRequest* request = [NSURLRequest requestWithURL:
+                             [NSURL URLWithString:url]];
+    [self.webView loadRequest:request];
 }
 
 - (IBAction)goBack:(id)sender
@@ -257,11 +252,9 @@
 - (void)suggest:(GTIOProduct*)product
 {
     [self hideLoading];
-    _isShowingCached = YES;
-    [GTIOProduct cacheWebView:self outfitId:_outfitID];
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOSuggestionMadeNotification
                                                         object:_outfitID
-                                                      userInfo:[NSDictionary dictionaryWithObject:product forKey:kGTIOProductNotificationKey]];
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:product, kGTIOProductNotificationKey, self, kGTIOProductWebViewController, nil]];
 }
 
 - (IBAction)suggestButtonWasPressed:(id)sender
