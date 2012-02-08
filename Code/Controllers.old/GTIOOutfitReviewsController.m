@@ -11,6 +11,17 @@
 #import "GTIOReview.h"
 #import "GTIOOutfitReviewTableItem.h"
 #import "GTIOOutfitReviewTableCell.h"
+#import "GTIOProductView.h"
+#import "GTIOOutfitReviewControlBar.h"
+
+const NSUInteger kOutfitReviewHeaderContainerTag = 90;
+const NSUInteger kOutfitReviewProductHeaderTag = 91;
+const NSUInteger kOutfitReviewProductCloseButtonTag = 92;
+const NSUInteger kOutfitReviewEmptyViewTag = 91919191;
+const NSUInteger kOutfitReviewSuggestButtonViewTag = 93;
+const CGFloat kOutfitReviewSectionSpacer = 7.5;
+const CGFloat kOutfitReviewProductHeaderWidth = 262.0;
+const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 
 @interface GTIOOutfitReviewsTableViewDataSource : TTListDataSource {
 	
@@ -28,8 +39,22 @@
 }
 @end
 
-@interface GTIOOutfitReviewsController (Private)
+@interface GTIOOutfitReviewsController () {
+    GTIOOutfitReviewControlBar *_controlBar;
+}
+- (void)recommendedButtonWasPressed:(id)sender;
+
 - (void)closeButtonWasPressed:(id)sender;
+- (void)updateTableHeaderWithProduct:(GTIOProduct *)product;
+- (void)removeProductHeader;
+- (void)showProductPreviewDetails:(UIGestureRecognizer *)gesture;
+- (void)updateEmptyView;
+
+- (void)keyboardWillShowNotification:(NSNotification *)note;
+- (void)keyboardWillHideNotification:(NSNotification *)note;
+
+- (void)postReview;
+- (void)verifyUserComment;
 @end
 
 @implementation GTIOOutfitReviewsController
@@ -40,6 +65,8 @@
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[_outfit release];
+    [_product release];
+    [_controlBar release];
 	[super dealloc];
 }
 
@@ -47,6 +74,8 @@
     if (self = [super initWithStyle:style]) {
         self.title = @"reviews";
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewDeletedNotification:) name:@"ReviewDeletedNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
         
         self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
                                                   
@@ -89,8 +118,6 @@
     TT_RELEASE_SAFELY(_closeButton);
     TT_RELEASE_SAFELY(_keyboardOverlayButton1);
     TT_RELEASE_SAFELY(_keyboardOverlayButton2);
-    [_outfit release];
-    [_product release];
 	[super viewDidUnload];
 }
 
@@ -185,11 +212,15 @@
 	_editor.delegate = self;
 	_editor.backgroundColor = [UIColor clearColor];
 	[headerView addSubview:_editor];
-	_placeholder = [[UILabel alloc] initWithFrame:CGRectMake(_editor.frame.origin.x+8, _editor.frame.origin.y+8, _editor.frame.size.width-16, 16)];
+    
+    CGFloat placeholderHeight = [[_outfit isMultipleOption] boolValue] ? 16 : 32;
+	_placeholder = [[UILabel alloc] initWithFrame:CGRectMake(_editor.frame.origin.x+8, _editor.frame.origin.y+8, _editor.frame.size.width-16, placeholderHeight)];
 	_placeholder.backgroundColor = [UIColor clearColor];
-	_placeholder.text = @"I think...";
+	_placeholder.text = @"add a comment about this, or just hit 'done'!";
 	_placeholder.font = kGTIOFontBoldHelveticaNeueOfSize(12);
 	_placeholder.textColor = kGTIOColorbfbfbf;
+    _placeholder.numberOfLines = 2;
+
 	[headerView addSubview:_placeholder];
 	
 	
@@ -202,6 +233,7 @@
 	headerView.image = image;
     
 	UIView* wrapperView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320-12, headerView.height + 6)];
+    [headerView setTag:kOutfitReviewHeaderContainerTag];
 	[wrapperView addSubview:headerView];
 	headerView.userInteractionEnabled = YES;
 	
@@ -232,19 +264,90 @@
     recommendButton.frame = CGRectMake(0, self.view.bounds.size.height - 65, 320, 65);
     [recommendButton addTarget:self action:@selector(recommendedButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
     recommendButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [recommendButton setTag:kOutfitReviewSuggestButtonViewTag];
     [self.view addSubview:recommendButton];
     self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
                                       self.tableView.frame.origin.y,
                                       self.tableView.width,
                                       self.tableView.height - 58);
+    _controlBar = [[GTIOOutfitReviewControlBar alloc] init];
+    [_controlBar setFrame:(CGRect){{0, self.view.frame.size.height + _controlBar.frame.size.height}, _controlBar.frame.size}];
+    [_controlBar setProductSuggestHandler:^{
+        [self recommendedButtonWasPressed:nil];
+    }];
+    [_controlBar setSubmitReviewHandler:^{
+        [self verifyUserComment];
+    }];
+    [self.view insertSubview:_controlBar aboveSubview:_keyboardOverlayButton2];
+}
+
+- (void)updateTableHeaderWithProduct:(GTIOProduct *)product {
+    self.product = product;
+    
+    UIView *tableHeaderView = self.tableView.tableHeaderView;
+    UIView *headerView = [tableHeaderView viewWithTag:kOutfitReviewHeaderContainerTag];
+    
+    UIView *productViewWrapper = [[[UIView alloc] initWithFrame:(CGRect){0, tableHeaderView.frame.size.height - kOutfitReviewSectionSpacer,tableHeaderView.frame.size.width, 0}] autorelease];
+    [productViewWrapper setTag:kOutfitReviewProductHeaderTag];
+    [productViewWrapper setClipsToBounds:YES];
+    
+    CGFloat productViewWidth =  [[_outfit isMultipleOption] boolValue] ? kOutfitReviewProductHeaderMultipleWidth : kOutfitReviewProductHeaderWidth;  
+    CGRect productViewRect = (CGRect){6.0, 0, productViewWidth, 0};
+
+    GTIOProductView *productView = [[GTIOProductView alloc] initWithFrame:productViewRect];
+    [productView setSuggestionText:[[_outfit isMultipleOption] boolValue] ? @"suggested for this look" : @"you are recommending..."];
+    [productView setProduct:self.product];
+    
+    UIButton *closeProductButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *closeButtonImage = [UIImage imageNamed:@"close.png"];
+    [closeProductButton setBackgroundImage:closeButtonImage forState:UIControlStateNormal];
+    [closeProductButton addTarget:self action:@selector(removeProductHeader) forControlEvents:UIControlEventTouchUpInside];
+    [closeProductButton setFrame:(CGRect){productViewWidth - closeButtonImage.size.width / 2.0, 0, closeButtonImage.size.width / 2.0, closeButtonImage.size.width / 2.0}];
+    [productView addSubview:closeProductButton];
+    [productViewWrapper addSubview:productView];
+    [headerView addSubview:productViewWrapper];
+    
+    UITapGestureRecognizer *tapGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showProductPreviewDetails:)] autorelease];
+    [tapGesture setDelegate:self];
+    [productView addGestureRecognizer:tapGesture];
+    
+    CGRect viewWrapperRect = productViewWrapper.frame;
+    viewWrapperRect.size.height = [GTIOProductView productViewHeightForProduct:product] + kOutfitReviewSectionSpacer;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        [tableHeaderView setFrame:(CGRect){tableHeaderView.frame.origin, {tableHeaderView.frame.size.width, tableHeaderView.frame.size.height + viewWrapperRect.size.height}}];
+        [productViewWrapper setFrame:viewWrapperRect];
+        [headerView setFrame:(CGRect){headerView.origin, {headerView.frame.size.width, tableHeaderView.frame.size.height - kOutfitReviewSectionSpacer}}];
+        [self.tableView setTableHeaderView:tableHeaderView];
+        [self updateEmptyView];
+    }];
+}
+
+- (void)removeProductHeader {
+    self.product = nil;
+    
+    UIView *tableHeaderView = self.tableView.tableHeaderView;
+    UIView *headerView = [tableHeaderView viewWithTag:kOutfitReviewHeaderContainerTag];
+    UIView *productView = [headerView viewWithTag:kOutfitReviewProductHeaderTag];
+    CGRect targetRect = (CGRect){tableHeaderView.frame.origin, {tableHeaderView.frame.size.width, tableHeaderView.frame.size.height - productView.frame.size.height}};
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [productView removeFromSuperview];
+        [tableHeaderView setFrame:targetRect];
+        [headerView setFrame:(CGRect){headerView.origin, {tableHeaderView.frame.size.width, tableHeaderView.frame.size.height - kOutfitReviewSectionSpacer}}];
+        [self.tableView setTableHeaderView:tableHeaderView];
+        [self updateEmptyView];
+    }];
 }
 
 - (void)suggestionMade:(NSNotification*)note {
     if ([self.outfit.outfitID isEqualToString:note.object]) {
+        if (self.product) {
+            [self removeProductHeader];
+        }
         // note.object is outfitID. we're getting the product from the user info.
-        GTIOProduct* product = [note.userInfo objectForKey:kGTIOProductNotificationKey];
+        [self updateTableHeaderWithProduct:[note.userInfo objectForKey:kGTIOProductNotificationKey]];
         [self.navigationController popViewControllerAnimated:YES];
-        // TODO: update view with product.
     }
 }
 
@@ -258,12 +361,20 @@
 
 - (void)textEditorDidBeginEditing:(TTTextEditor*)textEditor {
     [_editor.superview insertSubview:_keyboardOverlayButton1 belowSubview:_editor];
-    [self.view addSubview:_keyboardOverlayButton2];
+    [self.view insertSubview:_keyboardOverlayButton2 belowSubview:_controlBar];
 }
 
 - (void)textEditorDidEndEditing:(TTTextEditor*)textEditor {
     [_keyboardOverlayButton1 removeFromSuperview];
     [_keyboardOverlayButton2 removeFromSuperview];
+}
+
+- (void)updateEmptyView {
+    UIView* emptyView = [self.view viewWithTag:kOutfitReviewEmptyViewTag];
+    if (emptyView) {
+        emptyView.frame = [self rectForOverlayView];
+    }
+    [self.view bringSubviewToFront:[self.view viewWithTag:kOutfitReviewSuggestButtonViewTag]];
 }
 
 - (CGRect)rectForOverlayView {
@@ -278,11 +389,11 @@
                                                             subtitle:nil
                                                                image:image] autorelease];
         emptyView.frame = [self rectForOverlayView];
-        emptyView.tag = 91919191;
-        [self.view addSubview:emptyView];
+        emptyView.tag = kOutfitReviewEmptyViewTag;
+        [self.view insertSubview:emptyView belowSubview:_controlBar];
         self.tableView.tableFooterView = nil;
     } else {
-        UIView* emptyView = [self.view viewWithTag:91919191];
+        UIView* emptyView = [self.view viewWithTag:kOutfitReviewEmptyViewTag];
         [emptyView removeFromSuperview];
         [self setupTableFooter];
     }
@@ -375,12 +486,27 @@
 	_placeholder.alpha = ([textEditor.text isWhitespaceAndNewlines] ? 1 : 0);
 }
 
+- (void)verifyUserComment {
+    if (self.product && [[_editor text] length] <= 0) {
+        UIAlertView *noCommentAlert = [[[UIAlertView alloc] initWithTitle:@"wait!" message:@"suggest this product\n without a comment?" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil] autorelease];
+        [noCommentAlert show];
+    } else if ([[_editor text] length] > 0) {
+        [self postReview];
+    } else {
+        [_editor resignFirstResponder];
+    }
+}
+
 - (void)postReview {
     TTOpenURL(@"gtio://loading");
     _loading = YES;
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            _editor.text, @"reviewText", nil];
-    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:_editor.text forKey:@"reviewText"];
+    if (_product) {
+        [params setObject:_product.productID forKey:@"productId"];
+    }
+    params = (NSMutableDictionary *)[GTIOUser paramsByAddingCurrentUserIdentifier:params];
+
     NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/review/%@", _outfit.outfitID]);
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:self];
     loader.params = params;
@@ -390,6 +516,8 @@
     [loader send];
     // Post the voted notification (even though we only reviewed)
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOOutfitVoteNotification object:_outfit.outfitID];
+    [self removeProductHeader];
+    [_editor resignFirstResponder];
 }
 
 - (void)loginNotification:(NSNotification*)note {
@@ -397,12 +525,12 @@
 }
 
 - (BOOL)textEditorShouldReturn:(TTTextEditor*)textEditor {
-	if (![textEditor.text isWhitespaceAndNewlines]) {
+	if (![textEditor.text isWhitespaceAndNewlines] || self.product) {
         if (![[GTIOUser currentUser] isLoggedIn]) {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotification:) name:kGTIOUserDidLoginNotificationName object:nil];
             TTOpenURL(@"gtio://login");
         } else {
-            [self postReview];
+            [self verifyUserComment];
         }
 	}
     [_editor resignFirstResponder];
@@ -476,5 +604,72 @@
     _loading = NO;
     GTIOErrorMessage(error);
 }
+
+#pragma mark - alert view delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex > 0) {
+        [self postReview];
+    }
+}
+
+#pragma mark - gesture recognizer delegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([touch.view isKindOfClass:[UIButton class]]) {
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - Product details
+
+- (void)showProductPreviewDetails:(UIGestureRecognizer *)gesture {
+    if (self.product) {
+        NSString* url = [NSString stringWithFormat:@"gtio://recommend/cachedSuggest/%@/%@", self.product.productID, self.outfit.outfitID];
+        TTOpenURL(url);
+    }
+}
+
+#pragma mark - keyboard notifications
+
+- (void)keyboardWillShowNotification:(NSNotification *)note {
+    CGRect keyboardBeginFrame = [[[note userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect keyboardEndFrame = [[[note userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval duration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve animationCurve = [[[note userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue];
+    CGFloat controlBarOffset = _controlBar.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    
+    [_controlBar setFrame:(CGRect){{keyboardBeginFrame.origin.x, keyboardBeginFrame.origin.y}, _controlBar.size}];
+    [UIView animateWithDuration:duration 
+                          delay:0.0 
+                        options:animationCurve 
+                     animations:^{
+                         
+                         [_controlBar setFrame:(CGRect){{keyboardEndFrame.origin.x, keyboardEndFrame.origin.y - controlBarOffset}, _controlBar.size}];
+
+                         
+                     } completion:nil];
+}
+
+- (void)keyboardWillHideNotification:(NSNotification *)note {
+    CGRect keyboardBeginFrame = [[[note userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect keyboardEndFrame = [[[note userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval duration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve animationCurve = [[[note userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue];
+    CGFloat controlBarOffset = _controlBar.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    
+    [_controlBar setFrame:(CGRect){{keyboardBeginFrame.origin.x, keyboardBeginFrame.origin.y - controlBarOffset}, _controlBar.size}];
+    [UIView animateWithDuration:duration 
+                          delay:0.0 
+                        options:animationCurve 
+                     animations:^{
+                         
+                         [_controlBar setFrame:(CGRect){{keyboardEndFrame.origin.x, keyboardEndFrame.origin.y}, _controlBar.size}];
+                         
+                         
+                     } completion:nil];
+}
+
 
 @end

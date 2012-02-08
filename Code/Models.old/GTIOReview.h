@@ -10,6 +10,7 @@
 #import <RestKit/RestKit.h>
 #import "GTIOProfile.h"
 #import "GTIOOutfit.h"
+#import "GTIOProduct.h"
 
 @interface GTIOReview : NSObject {
 	NSString* _outfitID;
@@ -32,5 +33,6 @@
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, retain) GTIOProfile *user;
 @property (nonatomic, retain) GTIOOutfit* outfit;
+@property (nonatomic, retain) GTIOProduct *product;
 
 @end

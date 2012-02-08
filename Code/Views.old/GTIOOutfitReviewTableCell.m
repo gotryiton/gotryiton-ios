@@ -82,6 +82,13 @@ CGSize kMaxSize = {260,8000};
         UIImage* image = [UIImage imageNamed:@"review-corner-verified.png"];
 		[_brandButton setBackgroundImage:image forState:UIControlStateNormal];
 		[self.contentView addSubview:_brandButton];
+        
+        _productView = [[GTIOProductView alloc] initWithFrame:CGRectZero];
+        [_productView setSuggestionText:@"suggested for this look!"];
+        [_productView setHidden:YES];
+        UITapGestureRecognizer *tapped = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(productTapped)] autorelease];
+        [_productView addGestureRecognizer:tapped];
+        [self.contentView addSubview:_productView];
 		
         [_brandButton addTarget:self action:@selector(viewProfile) forControlEvents:UIControlEventTouchUpInside];
 		[_flagButton addTarget:self action:@selector(flagButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -118,10 +125,18 @@ CGSize kMaxSize = {260,8000};
 }
 
 + (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
-	NSString* text = [[object review] text];
-    
-	CGFloat textHeight = [self sizeForReviewText:text].height;
-	return textHeight+50.0+5;
+    NSString* text = [[object review] text];
+	CGFloat textHeight = [self sizeForReviewText:text].height+50.0+5;
+    if ([[object review] product]) {
+        textHeight += [GTIOProductView productViewHeightForProduct:[[object review] product]];
+    }
+	return textHeight;
+}
+
+- (void)productTapped {
+    if (_reviewTableItem.review.product) {
+        TTOpenURL([_reviewTableItem.review.product buyUrl]);
+    }
 }
 
 - (void)layoutSubviews {
@@ -143,6 +158,15 @@ CGSize kMaxSize = {260,8000};
     // Review Text
 	CGSize textSize = [[self class] sizeForReviewText:[[_reviewTableItem review] text]];
 	_reviewTextLabel.frame = CGRectMake(12+2, 12+4, textSize.width, textSize.height);
+    
+    if (_reviewTableItem.review.product) {
+        [_productView setHidden:NO];
+        [_productView setFrame:(CGRect){12+2,_reviewTextLabel.frame.origin.x + _reviewTextLabel.frame.size.height, kMaxSize.width, [GTIOProductView productViewHeightForProduct:_reviewTableItem.review.product] + 4}];
+    } else {
+        [_productView setHidden:YES];
+    }
+    [_productView setProduct:_reviewTableItem.review.product];
+
     
     CGFloat bottomLabelVerticalMargin = 3;
     CGFloat bottomLabelBaselineAdjustment = 8;
@@ -209,6 +233,7 @@ CGSize kMaxSize = {260,8000};
 	TT_RELEASE_SAFELY(_authorLabel);
 	TT_RELEASE_SAFELY(_agreeVotesLabel);
 	TT_RELEASE_SAFELY(_agreeButton);
+    TT_RELEASE_SAFELY(_productView);
 	TT_RELEASE_SAFELY(_flagButton);	
 	[super dealloc];
 }

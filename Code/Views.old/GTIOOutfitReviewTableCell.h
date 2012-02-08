@@ -7,6 +7,7 @@
 //
 /// GTIOOutfitReviewTableCell is a subclass of TTTableViewCell for [GTIOOutfitReviewsController](GTIOOutfitReviewsController)
 #import "GTIOOutfitReviewTableItem.h"
+#import "GTIOProductView.h"
 
 @interface GTIOOutfitReviewTableCell : TTTableViewCell {
 	GTIOOutfitReviewTableItem* _reviewTableItem;
@@ -22,7 +23,7 @@
     TTImageView* _authorProfilePictureImageView;
     UIImageView* _authorProfilePictureImageOverlay;
     UIButton* _authorButton;
-    
+    GTIOProductView *_productView;
     NSMutableArray* _badgeImageViews;
 }
 

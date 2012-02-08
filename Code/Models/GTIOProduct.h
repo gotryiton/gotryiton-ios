@@ -22,7 +22,7 @@
 
 + (RKObjectMapping*)productMapping;
 
-- (void)encodeWebView:(UIWebView*)webView;
-- (UIWebView*)decodedWebView;
++ (void)cacheWebView:(id)webView productId:(NSString *)productId;
++ (id)cachedWebViewForProductId:(NSString *)productId;
 
 @end
