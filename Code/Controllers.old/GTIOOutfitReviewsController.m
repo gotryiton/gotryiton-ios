@@ -12,6 +12,7 @@
 #import "GTIOOutfitReviewTableItem.h"
 #import "GTIOOutfitReviewTableCell.h"
 #import "GTIOProductView.h"
+#import "GTIOOutfitReviewControlBar.h"
 
 const NSUInteger kOutfitReviewHeaderContainerTag = 90;
 const NSUInteger kOutfitReviewProductHeaderTag = 91;
@@ -38,12 +39,19 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 }
 @end
 
-@interface GTIOOutfitReviewsController (Private)
+@interface GTIOOutfitReviewsController () {
+    GTIOOutfitReviewControlBar *_controlBar;
+}
+- (void)recommendedButtonWasPressed:(id)sender;
+
 - (void)closeButtonWasPressed:(id)sender;
 - (void)updateTableHeaderWithProduct:(GTIOProduct *)product;
 - (void)removeProductHeader;
 - (void)showProductPreviewDetails:(UIGestureRecognizer *)gesture;
 - (void)updateEmptyView;
+
+- (void)keyboardWillShowNotification:(NSNotification *)note;
+- (void)keyboardWillHideNotification:(NSNotification *)note;
 
 - (void)postReview;
 - (void)verifyUserComment;
@@ -57,6 +65,8 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[_outfit release];
+    [_product release];
+    [_controlBar release];
 	[super dealloc];
 }
 
@@ -64,6 +74,8 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
     if (self = [super initWithStyle:style]) {
         self.title = @"reviews";
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewDeletedNotification:) name:@"ReviewDeletedNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
         
         self.navigationItem.backBarButtonItem = [[[GTIOBarButtonItem alloc] initWithTitle:@"back" 
                                                   
@@ -106,8 +118,6 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
     TT_RELEASE_SAFELY(_closeButton);
     TT_RELEASE_SAFELY(_keyboardOverlayButton1);
     TT_RELEASE_SAFELY(_keyboardOverlayButton2);
-    [_outfit release];
-    [_product release];
 	[super viewDidUnload];
 }
 
@@ -260,7 +270,15 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
                                       self.tableView.frame.origin.y,
                                       self.tableView.width,
                                       self.tableView.height - 58);
-    
+    _controlBar = [[GTIOOutfitReviewControlBar alloc] init];
+    [_controlBar setFrame:(CGRect){{0, self.view.frame.size.height + _controlBar.frame.size.height}, _controlBar.frame.size}];
+    [_controlBar setProductSuggestHandler:^{
+        [self recommendedButtonWasPressed:nil];
+    }];
+    [_controlBar setSubmitReviewHandler:^{
+        [self verifyUserComment];
+    }];
+    [self.view insertSubview:_controlBar aboveSubview:_keyboardOverlayButton2];
 }
 
 - (void)updateTableHeaderWithProduct:(GTIOProduct *)product {
@@ -343,7 +361,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 
 - (void)textEditorDidBeginEditing:(TTTextEditor*)textEditor {
     [_editor.superview insertSubview:_keyboardOverlayButton1 belowSubview:_editor];
-    [self.view addSubview:_keyboardOverlayButton2];
+    [self.view insertSubview:_keyboardOverlayButton2 belowSubview:_controlBar];
 }
 
 - (void)textEditorDidEndEditing:(TTTextEditor*)textEditor {
@@ -372,7 +390,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
                                                                image:image] autorelease];
         emptyView.frame = [self rectForOverlayView];
         emptyView.tag = kOutfitReviewEmptyViewTag;
-        [self.view addSubview:emptyView];
+        [self.view insertSubview:emptyView belowSubview:_controlBar];
         self.tableView.tableFooterView = nil;
     } else {
         UIView* emptyView = [self.view viewWithTag:kOutfitReviewEmptyViewTag];
@@ -469,11 +487,13 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 }
 
 - (void)verifyUserComment {
-    if ([[_editor text] length] <= 0) {
+    if (self.product && [[_editor text] length] <= 0) {
         UIAlertView *noCommentAlert = [[[UIAlertView alloc] initWithTitle:@"wait!" message:@"suggest this product\n without a comment?" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil] autorelease];
         [noCommentAlert show];
-    } else {
+    } else if ([[_editor text] length] > 0) {
         [self postReview];
+    } else {
+        [_editor resignFirstResponder];
     }
 }
 
@@ -485,7 +505,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
     if (_product) {
         [params setObject:_product.productID forKey:@"productId"];
     }
-    params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
+    params = (NSMutableDictionary *)[GTIOUser paramsByAddingCurrentUserIdentifier:params];
 
     NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/review/%@", _outfit.outfitID]);
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:self];
@@ -497,6 +517,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
     // Post the voted notification (even though we only reviewed)
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOOutfitVoteNotification object:_outfit.outfitID];
     [self removeProductHeader];
+    [_editor resignFirstResponder];
 }
 
 - (void)loginNotification:(NSNotification*)note {
@@ -608,6 +629,46 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
         NSString* url = [NSString stringWithFormat:@"gtio://recommend/cachedSuggest/%@/%@", self.product.productID, self.outfit.outfitID];
         TTOpenURL(url);
     }
+}
+
+#pragma mark - keyboard notifications
+
+- (void)keyboardWillShowNotification:(NSNotification *)note {
+    CGRect keyboardBeginFrame = [[[note userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect keyboardEndFrame = [[[note userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval duration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve animationCurve = [[[note userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue];
+    CGFloat controlBarOffset = _controlBar.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    
+    [_controlBar setFrame:(CGRect){{keyboardBeginFrame.origin.x, keyboardBeginFrame.origin.y}, _controlBar.size}];
+    [UIView animateWithDuration:duration 
+                          delay:0.0 
+                        options:animationCurve 
+                     animations:^{
+                         
+                         [_controlBar setFrame:(CGRect){{keyboardEndFrame.origin.x, keyboardEndFrame.origin.y - controlBarOffset}, _controlBar.size}];
+
+                         
+                     } completion:nil];
+}
+
+- (void)keyboardWillHideNotification:(NSNotification *)note {
+    CGRect keyboardBeginFrame = [[[note userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect keyboardEndFrame = [[[note userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval duration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve animationCurve = [[[note userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue];
+    CGFloat controlBarOffset = _controlBar.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    
+    [_controlBar setFrame:(CGRect){{keyboardBeginFrame.origin.x, keyboardBeginFrame.origin.y - controlBarOffset}, _controlBar.size}];
+    [UIView animateWithDuration:duration 
+                          delay:0.0 
+                        options:animationCurve 
+                     animations:^{
+                         
+                         [_controlBar setFrame:(CGRect){{keyboardEndFrame.origin.x, keyboardEndFrame.origin.y}, _controlBar.size}];
+                         
+                         
+                     } completion:nil];
 }
 
 
