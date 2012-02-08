@@ -49,12 +49,12 @@ static NSCache *GTIO_webViewCache = nil;
     [super dealloc];
 }
 
-+ (void)cacheWebView:(id)webView productId:(NSString *)productId {
-    [GTIO_webViewCache setObject:webView forKey:productId];
++ (void)cacheWebView:(id)webView outfitId:(NSString *)outfitId {
+    [GTIO_webViewCache setObject:webView forKey:outfitId];
 }
 
-+ (id)cachedWebViewForProductId:(NSString *)productId { 
-    return [GTIO_webViewCache objectForKey:productId];
++ (id)cachedWebViewForOutfitId:(NSString *)outfitId { 
+    return [GTIO_webViewCache objectForKey:outfitId];
 }
 
 @end

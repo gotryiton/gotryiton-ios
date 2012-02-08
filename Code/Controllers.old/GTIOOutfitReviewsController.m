@@ -625,10 +625,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 #pragma mark - Product details
 
 - (void)showProductPreviewDetails:(UIGestureRecognizer *)gesture {
-    if (self.product) {
-        NSString* url = [NSString stringWithFormat:@"gtio://recommend/cachedSuggest/%@/%@", self.product.productID, self.outfit.outfitID];
-        TTOpenURL(url);
-    }
+    [self.navigationController pushViewController:[GTIOProduct cachedWebViewForOutfitId:_outfit.outfitID] animated:YES];
 }
 
 #pragma mark - keyboard notifications

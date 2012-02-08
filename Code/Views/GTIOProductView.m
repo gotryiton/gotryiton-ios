@@ -118,11 +118,13 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     
     verticalOffset += brandLabelSize.height + kGTIOProductLabelSpacer;
     
-    [_productPriceLabel setText:[NSString stringWithFormat:@"$%@", _product.price]];
-    CGSize priceLabelSize = [[_productPriceLabel text] sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
-    [_productPriceLabel setFrame:(CGRect){horizontalOffset, verticalOffset, priceLabelSize.width + 12, priceLabelSize.height}];
-    
-    verticalOffset += priceLabelSize.height + kGTIOProductLabelSpacer;
+    if (_product.price) {
+        [_productPriceLabel setText:[NSString stringWithFormat:@"$%@", _product.price]];
+        CGSize priceLabelSize = [[_productPriceLabel text] sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
+        [_productPriceLabel setFrame:(CGRect){horizontalOffset, verticalOffset, priceLabelSize.width + 12, priceLabelSize.height}];
+        verticalOffset += priceLabelSize.height + kGTIOProductLabelSpacer;
+    }
+
     viewRect.size.height = verticalOffset;
     
     [self setFrame:viewRect];
