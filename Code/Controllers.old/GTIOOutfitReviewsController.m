@@ -100,7 +100,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
     if (self = [self initWithStyle:UITableViewStylePlain]) {
         self.outfit = [query objectForKey:@"outfit"];
         self.product = [query objectForKey:@"product"];
-        _webViewController = [query objectForKey:@"webview"];
+        _webViewController = [[query objectForKey:@"webview"] retain];
     }
     return self;
 }
@@ -354,7 +354,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
         }
         // note.object is outfitID. we're getting the product from the user info.
         [self updateTableHeaderWithProduct:[note.userInfo objectForKey:kGTIOProductNotificationKey]];
-        _webViewController = [note.userInfo objectForKey:kGTIOProductWebViewController];
+        _webViewController = [[note.userInfo objectForKey:kGTIOProductWebViewController] retain];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
