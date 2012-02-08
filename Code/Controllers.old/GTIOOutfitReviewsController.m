@@ -557,21 +557,27 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 	GTIOReview* review = (GTIOReview*)note.object;
 	TTListDataSource* dataSource = (TTListDataSource*)self.dataSource;
 	
-	[self.tableView beginUpdates];
-	
-	id item = [dataSource.items objectWithValue:review forKey:@"review"];
-	NSInteger index = [dataSource.items indexOfObject:item];
-	[dataSource.items removeObjectAtIndex:index];
-	NSArray* indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]];
+    id item = [dataSource.items objectWithValue:review forKey:@"review"];
     
-    _outfit.reviewCount = [NSNumber numberWithInt:[_outfit.reviewCount intValue] - 1];
-    
-    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-    
-	[self.tableView endUpdates];
-    
-    if ([dataSource.items count] == 0) {
-        [self showEmpty:YES];
+    if (item) {
+        
+        [self.tableView beginUpdates];
+        
+        NSInteger index = [dataSource.items indexOfObject:item];
+        [dataSource.items removeObjectAtIndex:index];
+        NSArray* indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]];
+        
+        _outfit.reviewCount = [NSNumber numberWithInt:[_outfit.reviewCount intValue] - 1];
+        
+        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+        
+        [self.tableView endUpdates];
+        
+        if ([dataSource.items count] == 0) {
+            [self showEmpty:YES];
+        }
+    } else {
+        [self invalidateModel];
     }
 }
 

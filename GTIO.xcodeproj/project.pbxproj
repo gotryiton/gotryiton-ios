@@ -10689,7 +10689,7 @@
 					armv7,
 					armv6,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Josh Johnson (4UH3R9P93N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -10718,7 +10718,7 @@
 					"\"$(SRCROOT)/TestFlightSDK0.7.2 (1)\"",
 				);
 				PRODUCT_NAME = "GTIO Dev";
-				PROVISIONING_PROFILE = "AEAEE20E-BC95-4BA8-9609-E2454361CB9B";
+				PROVISIONING_PROFILE = "3A928A57-1B45-487A-AFE1-C60349953502";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -10732,7 +10732,7 @@
 					armv7,
 					armv6,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Josh Johnson (4UH3R9P93N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
@@ -10757,7 +10757,7 @@
 					"\"$(SRCROOT)/TestFlightSDK0.7.2 (1)\"",
 				);
 				PRODUCT_NAME = "GTIO Dev";
-				PROVISIONING_PROFILE = "AEAEE20E-BC95-4BA8-9609-E2454361CB9B";
+				PROVISIONING_PROFILE = "3A928A57-1B45-487A-AFE1-C60349953502";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
