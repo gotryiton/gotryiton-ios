@@ -605,9 +605,8 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 
 - (void)showProductPreviewDetails:(UIGestureRecognizer *)gesture {
     if (self.product) {
-        
-        //UIWebView *webView = [self.product decodedWebView];
-        #warning TODO: Do somethign with this thing
+        NSString* url = [NSString stringWithFormat:@"gtio://recommend/cachedSuggest/%@/%@", self.product.productID, self.outfit.outfitID];
+        TTOpenURL(url);
     }
 }
 

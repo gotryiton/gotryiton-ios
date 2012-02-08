@@ -62,6 +62,14 @@
     return self;
 }
 
+- (id)initWithProductId:(NSString *)productId outfitId:(NSString *)outfitId {
+    if (self = [self initWithNibName:@"GTIOSuggestViewController" bundle:[NSBundle mainBundle]]) {
+        self.webView = [GTIOProduct cachedWebViewForProductId:productId];
+        _outfitID = outfitId;
+    }
+    return self;
+}
+
 - (void)dealloc
 {
     [_outfitID release];
@@ -175,13 +183,15 @@
 
 - (void)loadWebView {
     self.title = @"SUGGEST";
-    NSString* url = [NSString stringWithFormat:@"%@/iphone/rec/%@?gtioToken=%@",
-                     kGTIOBaseURLString,
-                     _outfitID,
-                     [GTIOUser currentUser].token];
-    NSURLRequest* request = [NSURLRequest requestWithURL:
-                             [NSURL URLWithString:url]];
-    [self.webView loadRequest:request];
+    if (self.webView) {
+        NSString* url = [NSString stringWithFormat:@"%@/iphone/rec/%@?gtioToken=%@",
+                         kGTIOBaseURLString,
+                         _outfitID,
+                         [GTIOUser currentUser].token];
+        NSURLRequest* request = [NSURLRequest requestWithURL:
+                                 [NSURL URLWithString:url]];
+        [self.webView loadRequest:request];
+    }
 }
 
 - (IBAction)goBack:(id)sender
@@ -252,8 +262,7 @@
 - (void)suggest:(GTIOProduct*)product
 {
     [self hideLoading];
-//    TTAlert(@"Suggesting Product!, not yet implemented");
-    [product encodeWebView:self.webView];
+    [GTIOProduct cacheWebView:self.webView productId:product.productID];
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOSuggestionMadeNotification
                                                         object:_outfitID
                                                       userInfo:[NSDictionary dictionaryWithObject:product forKey:kGTIOProductNotificationKey]];
