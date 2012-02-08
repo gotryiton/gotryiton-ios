@@ -20,6 +20,7 @@
 @synthesize text = _text;
 @synthesize user = _user;
 @synthesize outfit = _outfit;
+@synthesize product = _product;
 
 
 - (void)dealloc {
@@ -42,6 +43,8 @@
 	_flags = nil;
     [_outfit release];
     _outfit = nil;
+    [_product release];
+    _product = nil;
 
 	[super dealloc];
 }

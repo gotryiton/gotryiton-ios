@@ -2470,6 +2470,9 @@
 		3FFCBC6E13A7BDAE0061A28A /* shadow-wallpaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FFCBC5213A7BDAE0061A28A /* shadow-wallpaper@2x.png */; };
 		3FFCBC7313A7BDFC0061A28A /* GTIOFeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCBC7213A7BDFC0061A28A /* GTIOFeaturedViewController.m */; };
 		3FFCBC7813A7F1920061A28A /* GTIOBannerAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCBC7713A7F1920061A28A /* GTIOBannerAd.m */; };
+		A433AE1714E2262C002788C1 /* GTIOProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = A433AE1614E2262C002788C1 /* GTIOProductView.m */; };
+		A433AE1814E2262C002788C1 /* GTIOProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = A433AE1614E2262C002788C1 /* GTIOProductView.m */; };
+		A433AE1914E2262C002788C1 /* GTIOProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = A433AE1614E2262C002788C1 /* GTIOProductView.m */; };
 		A458A20F14DC7BCD00FD4C6F /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF22B1370820B0039D779 /* libfacebook_ios_sdk.a */; };
 		A458A21014DC7BCD00FD4C6F /* libRestKitCoreData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C82013535ACD007B6F14 /* libRestKitCoreData.a */; };
 		A458A21114DC7BCD00FD4C6F /* libRestKitNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D5C81213535ACD007B6F14 /* libRestKitNetwork.a */; };
@@ -4141,6 +4144,8 @@
 		3FFCBC7213A7BDFC0061A28A /* GTIOFeaturedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFeaturedViewController.m; sourceTree = "<group>"; };
 		3FFCBC7613A7F1920061A28A /* GTIOBannerAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBannerAd.h; sourceTree = "<group>"; };
 		3FFCBC7713A7F1920061A28A /* GTIOBannerAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBannerAd.m; sourceTree = "<group>"; };
+		A433AE1514E2262C002788C1 /* GTIOProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductView.h; sourceTree = "<group>"; };
+		A433AE1614E2262C002788C1 /* GTIOProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductView.m; sourceTree = "<group>"; };
 		A70F09A01381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOJanrainAuthenticationController.h; sourceTree = "<group>"; };
 		A70F09A11381B67C00E4EBE6 /* GTIOJanrainAuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOJanrainAuthenticationController.m; sourceTree = "<group>"; };
 		A70F0EB013817F0B007B3C50 /* GTIOBarButtonItemSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOBarButtonItemSpec.m; path = Specs/Views/GTIOBarButtonItemSpec.m; sourceTree = "<group>"; };
@@ -6164,6 +6169,8 @@
 				3FDE8C40146C756C002A2840 /* GTIOSpinnerImageView.m */,
 				13BBBCF7147A9C030069D69A /* GTIOAddStylistButton.h */,
 				13BBBCF8147A9C030069D69A /* GTIOAddStylistButton.m */,
+				A433AE1514E2262C002788C1 /* GTIOProductView.h */,
+				A433AE1614E2262C002788C1 /* GTIOProductView.m */,
 			);
 			name = Views;
 			path = Code/Views;
@@ -9898,6 +9905,7 @@
 				13EEDDFF1476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m in Sources */,
 				3F25689014D9CD6C00A7C62A /* GTIOSuggestViewController.m in Sources */,
 				3FEF525914DC349600A106EF /* GTIOProduct.m in Sources */,
+				A433AE1714E2262C002788C1 /* GTIOProductView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10071,6 +10079,7 @@
 				3F06684D14867A3900692659 /* GTIOFacebookInviteTableViewController.m in Sources */,
 				3F25689214D9CD6C00A7C62A /* GTIOSuggestViewController.m in Sources */,
 				3FEF525B14DC349600A106EF /* GTIOProduct.m in Sources */,
+				A433AE1914E2262C002788C1 /* GTIOProductView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10244,6 +10253,7 @@
 				13EEDE001476AA9900DAD18B /* GTIOFacebookInviteTableViewController.m in Sources */,
 				3F25689114D9CD6C00A7C62A /* GTIOSuggestViewController.m in Sources */,
 				3FEF525A14DC349600A106EF /* GTIOProduct.m in Sources */,
+				A433AE1814E2262C002788C1 /* GTIOProductView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
