@@ -15,6 +15,7 @@
 @interface GTIOSuggestViewController () {
     NSString* _outfitID;
     BOOL _isShowingLoading;
+    BOOL _isShowingCached;
 }
 
 @property (nonatomic, retain) IBOutlet UIWebView* webView;
@@ -57,15 +58,9 @@
 {
     self = [self initWithNibName:@"GTIOSuggestViewController" bundle:[NSBundle mainBundle]];
     if (self) {
+        _webView = [[GTIOProduct cachedWebViewForOutfitId:outfitID] retain];
+        _isShowingCached = _webView != nil;
         _outfitID = [outfitID retain];
-    }
-    return self;
-}
-
-- (id)initWithProductId:(NSString *)productId outfitId:(NSString *)outfitId {
-    if (self = [self initWithNibName:@"GTIOSuggestViewController" bundle:[NSBundle mainBundle]]) {
-        self.webView = [GTIOProduct cachedWebViewForProductId:productId];
-        _outfitID = outfitId;
     }
     return self;
 }
@@ -183,7 +178,7 @@
 
 - (void)loadWebView {
     self.title = @"SUGGEST";
-    if (self.webView) {
+    if (! _isShowingCached) {
         NSString* url = [NSString stringWithFormat:@"%@/iphone/rec/%@?gtioToken=%@",
                          kGTIOBaseURLString,
                          _outfitID,
@@ -262,7 +257,8 @@
 - (void)suggest:(GTIOProduct*)product
 {
     [self hideLoading];
-    [GTIOProduct cacheWebView:self.webView productId:product.productID];
+    _isShowingCached = YES;
+    [GTIOProduct cacheWebView:self outfitId:_outfitID];
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOSuggestionMadeNotification
                                                         object:_outfitID
                                                       userInfo:[NSDictionary dictionaryWithObject:product forKey:kGTIOProductNotificationKey]];

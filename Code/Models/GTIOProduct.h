@@ -22,7 +22,7 @@
 
 + (RKObjectMapping*)productMapping;
 
-+ (void)cacheWebView:(id)webView productId:(NSString *)productId;
-+ (id)cachedWebViewForProductId:(NSString *)productId;
++ (void)cacheWebView:(id)webView outfitId:(NSString *)outfitId;
++ (id)cachedWebViewForOutfitId:(NSString *)outfitId;
 
 @end
