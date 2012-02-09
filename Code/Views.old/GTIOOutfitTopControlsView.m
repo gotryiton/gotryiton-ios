@@ -221,11 +221,11 @@
 		_reviewsButtonSmall.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 12, 0);
 		
 		if ([_outfit.uid isEqualToString:[[GTIOUser currentUser] UID]]) {
-			_toolsButton.frame = CGRectMake(249, 0, 65, 60);
-            _shareButton.frame = CGRectMake(249, 60, 65, 60);
+			_toolsButton.frame = CGRectMake(250, 0, 65, 60);
+            _shareButton.frame = CGRectMake(250, 60, 65, 60);
 			_reviewsButtonSmall.frame = CGRectMake(250, 120, 65, 60);
 		} else {
-            _suggestButton.frame = CGRectMake(249, 0, 65, 60);
+            _suggestButton.frame = CGRectMake(250, 0, 65, 60);
 			_shareButton.frame = CGRectMake(250, 60, 65, 60);
 			_reviewsButtonSmall.frame = CGRectMake(250, 120, 65, 60);
 		}
