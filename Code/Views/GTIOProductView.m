@@ -36,6 +36,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
 
         _productImageView = [[TTImageView alloc] initWithFrame:CGRectZero];
         [_productImageView setDelegate:self];
+        [_productImageView setContentMode:UIViewContentModeScaleAspectFill];
         [self addSubview:_productImageView];
         
         _suggestionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -101,9 +102,9 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     
     [_suggestionLabel setText:_suggestionText];
     CGSize suggestionLabelSize = [_suggestionText sizeWithFont:kGTIOFontBoldHelveticaNeueOfSize(9)];
-    [_suggestionLabel setFrame:(CGRect){horizontalOffset - 4, verticalOffset, suggestionLabelSize.width + 12, suggestionLabelSize.height}];
+    [_suggestionLabel setFrame:(CGRect){horizontalOffset - 4, verticalOffset, suggestionLabelSize.width + 6, suggestionLabelSize.height}];
     
-    verticalOffset += suggestionLabelSize.height + kGTIOProductLabelSpacer;
+    verticalOffset += suggestionLabelSize.height + kGTIOProductLabelSpacer + 2; // Add 2 px spacing as per Matt V. Story #24361445
     
     [_productNameLabel setText:_product.productName];
     CGSize constraint = (CGSize){self.frame.size.width - horizontalOffset, 20};
@@ -124,8 +125,9 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
         [_productPriceLabel setFrame:(CGRect){horizontalOffset, verticalOffset, priceLabelSize.width + 12, priceLabelSize.height}];
         verticalOffset += priceLabelSize.height + kGTIOProductLabelSpacer;
     }
-
-    viewRect.size.height = verticalOffset;
+    
+    float vOffset = [[self class] productViewHeightForProduct:_product];
+    viewRect.size.height = MAX(kGTIOMaxProductImageSize, vOffset);
     
     [self setFrame:viewRect];
 }
@@ -145,8 +147,8 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
 #pragma mark - class methods
 
 + (CGFloat)productViewHeightForProduct:(GTIOProduct *)product {
-    CGFloat verticalOffset = 16.0;
-    verticalOffset += kGTIOProductLabelSpacer;
+    CGFloat verticalOffset = 18.0;
+    verticalOffset += kGTIOProductLabelSpacer + 2;
 
     CGSize productLabelSize = [product.productName sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
     verticalOffset += productLabelSize.height + kGTIOProductLabelSpacer;
@@ -157,7 +159,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     CGSize priceLabelSize = [product.price sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
     verticalOffset += priceLabelSize.height + kGTIOProductLabelSpacer;
 
-    return verticalOffset;
+    return MAX(kGTIOMaxProductImageSize, verticalOffset);
 }
 
 @end

@@ -21,7 +21,7 @@ const NSUInteger kOutfitReviewEmptyViewTag = 91919191;
 const NSUInteger kOutfitReviewSuggestButtonViewTag = 93;
 const CGFloat kOutfitReviewSectionSpacer = 7.5;
 const CGFloat kOutfitReviewProductHeaderWidth = 262.0;
-const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
+const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 @interface GTIOOutfitReviewsTableViewDataSource : TTListDataSource {
 	
@@ -299,17 +299,17 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
     [productViewWrapper setClipsToBounds:YES];
     
     CGFloat productViewWidth =  [[_outfit isMultipleOption] boolValue] ? kOutfitReviewProductHeaderMultipleWidth : kOutfitReviewProductHeaderWidth;  
-    CGRect productViewRect = (CGRect){6.0, 0, productViewWidth, 0};
+    CGRect productViewRect = (CGRect){6.0, 2, productViewWidth, 0};
 
     GTIOProductView *productView = [[GTIOProductView alloc] initWithFrame:productViewRect];
-    [productView setSuggestionText:[[_outfit isMultipleOption] boolValue] ? @"suggested for this look" : @"you are recommending..."];
+    [productView setSuggestionText:@"you are recommending..."];
     [productView setProduct:self.product];
     
     UIButton *closeProductButton = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *closeButtonImage = [UIImage imageNamed:@"close.png"];
     [closeProductButton setBackgroundImage:closeButtonImage forState:UIControlStateNormal];
     [closeProductButton addTarget:self action:@selector(removeProductHeader) forControlEvents:UIControlEventTouchUpInside];
-    [closeProductButton setFrame:(CGRect){productViewWidth - closeButtonImage.size.width / 2.0, 0, closeButtonImage.size.width / 2.0, closeButtonImage.size.width / 2.0}];
+    [closeProductButton setFrame:(CGRect){productViewWidth - (closeButtonImage.size.width / 2.0) - 3, 3, closeButtonImage.size.width / 2.0, closeButtonImage.size.width / 2.0}];
     [productView addSubview:closeProductButton];
     [productViewWrapper addSubview:productView];
     [headerView addSubview:productViewWrapper];
@@ -328,6 +328,8 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
         [self.tableView setTableHeaderView:tableHeaderView];
         [self updateEmptyView];
     }];
+    
+    [_editor becomeFirstResponder];
 }
 
 - (void)removeProductHeader {
@@ -651,6 +653,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 #pragma mark - keyboard notifications
 
 - (void)keyboardWillShowNotification:(NSNotification *)note {
+    if (_product) return;
     CGRect keyboardBeginFrame = [[[note userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect keyboardEndFrame = [[[note userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     NSTimeInterval duration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
@@ -668,6 +671,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 293.0;
 }
 
 - (void)keyboardWillHideNotification:(NSNotification *)note {
+    if (_product) return;
     CGRect keyboardBeginFrame = [[[note userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect keyboardEndFrame = [[[note userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     NSTimeInterval duration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
