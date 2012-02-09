@@ -124,6 +124,19 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 	[super viewDidUnload];
 }
 
+- (void)setPlaceholderText {
+    CGFloat placeholderHeight = [[_outfit isMultipleOption] boolValue] ? 16 : 32;
+    if (_product) {
+        _placeholder.text = @"add a comment about this, or just hit 'done'!";
+        _placeholder.numberOfLines = 2;
+        _placeholder.frame = CGRectMake(_editor.frame.origin.x+8, _editor.frame.origin.y+8, _editor.frame.size.width-16, placeholderHeight);
+    } else {
+        _placeholder.text = @"I think...";
+        _placeholder.numberOfLines = 1;
+        _placeholder.frame = CGRectMake(_editor.frame.origin.x+8, _editor.frame.origin.y+8, _editor.frame.size.width-16, 16);
+    }
+}
+
 - (void)loadView {
 	[super loadView];
     self.view.accessibilityLabel = @"Reviews Screen";
@@ -216,13 +229,11 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 	_editor.backgroundColor = [UIColor clearColor];
 	[headerView addSubview:_editor];
     
-    CGFloat placeholderHeight = [[_outfit isMultipleOption] boolValue] ? 16 : 32;
-	_placeholder = [[UILabel alloc] initWithFrame:CGRectMake(_editor.frame.origin.x+8, _editor.frame.origin.y+8, _editor.frame.size.width-16, placeholderHeight)];
+	_placeholder = [[UILabel alloc] initWithFrame:CGRectZero];
 	_placeholder.backgroundColor = [UIColor clearColor];
-	_placeholder.text = @"add a comment about this, or just hit 'done'!";
 	_placeholder.font = kGTIOFontBoldHelveticaNeueOfSize(12);
 	_placeholder.textColor = kGTIOColorbfbfbf;
-    _placeholder.numberOfLines = 2;
+    [self setPlaceholderText];
 
 	[headerView addSubview:_placeholder];
 	
@@ -290,6 +301,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 - (void)updateTableHeaderWithProduct:(GTIOProduct *)product {
     self.product = product;
+    [self setPlaceholderText];
     
     UIView *tableHeaderView = self.tableView.tableHeaderView;
     UIView *headerView = [tableHeaderView viewWithTag:kOutfitReviewHeaderContainerTag];
