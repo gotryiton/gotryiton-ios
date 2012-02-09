@@ -84,6 +84,7 @@ CGSize kMaxSize = {260,8000};
 		[self.contentView addSubview:_brandButton];
         
         _productView = [[GTIOProductView alloc] initWithFrame:CGRectZero];
+        _productView.backgroundColor = [UIColor clearColor];
         [_productView setSuggestionText:@"suggested for this look!"];
         [_productView setHidden:YES];
         UITapGestureRecognizer *tapped = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(productTapped)] autorelease];
