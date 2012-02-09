@@ -272,28 +272,30 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
     _keyboardOverlayButton2.frame = CGRectOffset(self.view.bounds, 0, headerView.bounds.size.height);
     [_keyboardOverlayButton2 addTarget:self action:@selector(dismissKeyboard:event:) forControlEvents:UIControlEventTouchUpInside];
     
-    // Recommend Button
-    UIButton* recommendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-OFF.png"] forState:UIControlStateNormal];
-    [recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-ON.png"] forState:UIControlStateHighlighted];
-    recommendButton.frame = CGRectMake(0, self.view.bounds.size.height - 65, 320, 65);
-    [recommendButton addTarget:self action:@selector(recommendedButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-    recommendButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [recommendButton setTag:kOutfitReviewSuggestButtonViewTag];
-    [self.view addSubview:recommendButton];
-    self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
-                                      self.tableView.frame.origin.y,
-                                      self.tableView.width,
-                                      self.tableView.height - 58);
-    _controlBar = [[GTIOOutfitReviewControlBar alloc] init];
-    [_controlBar setFrame:(CGRect){{0, self.view.frame.size.height + _controlBar.frame.size.height}, _controlBar.frame.size}];
-    [_controlBar setProductSuggestHandler:^{
-        [self recommendedButtonWasPressed:nil];
-    }];
-    [_controlBar setSubmitReviewHandler:^{
-        [self verifyUserComment];
-    }];
-    [self.view insertSubview:_controlBar aboveSubview:_keyboardOverlayButton2];
+    if (![self.outfit.uid isEqual:[GTIOUser currentUser].UID]) {
+        // Recommend Button
+        UIButton* recommendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-OFF.png"] forState:UIControlStateNormal];
+        [recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-ON.png"] forState:UIControlStateHighlighted];
+        recommendButton.frame = CGRectMake(0, self.view.bounds.size.height - 65, 320, 65);
+        [recommendButton addTarget:self action:@selector(recommendedButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        recommendButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        [recommendButton setTag:kOutfitReviewSuggestButtonViewTag];
+        [self.view addSubview:recommendButton];
+        self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
+                                          self.tableView.frame.origin.y,
+                                          self.tableView.width,
+                                          self.tableView.height - 58);
+        _controlBar = [[GTIOOutfitReviewControlBar alloc] init];
+        [_controlBar setFrame:(CGRect){{0, self.view.frame.size.height + _controlBar.frame.size.height}, _controlBar.frame.size}];
+        [_controlBar setProductSuggestHandler:^{
+            [self recommendedButtonWasPressed:nil];
+        }];
+        [_controlBar setSubmitReviewHandler:^{
+            [self verifyUserComment];
+        }];
+        [self.view insertSubview:_controlBar aboveSubview:_keyboardOverlayButton2];
+    }
     
     if (self.product) {
         [self updateTableHeaderWithProduct:self.product];
@@ -681,7 +683,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 #pragma mark - keyboard notifications
 
 - (void)keyboardWillShowNotification:(NSNotification *)note {
-    if (_product) return;
+    if (_product || [self.outfit.uid isEqual:[GTIOUser currentUser].UID]) return;
     CGRect keyboardBeginFrame = [[[note userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect keyboardEndFrame = [[[note userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     NSTimeInterval duration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
@@ -699,7 +701,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 }
 
 - (void)keyboardWillHideNotification:(NSNotification *)note {
-    if (_product) return;
+    if (_product || [self.outfit.uid isEqual:[GTIOUser currentUser].UID]) return;
     CGRect keyboardBeginFrame = [[[note userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect keyboardEndFrame = [[[note userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     NSTimeInterval duration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];

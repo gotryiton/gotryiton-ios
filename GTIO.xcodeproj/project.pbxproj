@@ -1168,9 +1168,9 @@
 		3F330787140E7033000625EA /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F330786140E7033000625EA /* GTIOViewController.m */; };
 		3F330788140E7033000625EA /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F330786140E7033000625EA /* GTIOViewController.m */; };
 		3F437098138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F437097138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m */; };
-		3F4F727D14E43AD1007AC80D /* SXYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F727C14E43AD1007AC80D /* SXYAlertView.m */; };
-		3F4F727E14E43AD1007AC80D /* SXYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F727C14E43AD1007AC80D /* SXYAlertView.m */; };
-		3F4F727F14E43AD1007AC80D /* SXYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F727C14E43AD1007AC80D /* SXYAlertView.m */; };
+		3F4F728314E44CCE007AC80D /* SXYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F728214E44CCE007AC80D /* SXYAlertView.m */; };
+		3F4F728414E44CCE007AC80D /* SXYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F728214E44CCE007AC80D /* SXYAlertView.m */; };
+		3F4F728514E44CCE007AC80D /* SXYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F728214E44CCE007AC80D /* SXYAlertView.m */; };
 		3F506AA2138BFC030062D7D1 /* welcome-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F506A9C138BFC030062D7D1 /* welcome-button.png */; };
 		3F506AA5138BFC030062D7D1 /* welcome-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F506A9D138BFC030062D7D1 /* welcome-button@2x.png */; };
 		3F506AA8138BFC030062D7D1 /* welcome-header.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F506A9E138BFC030062D7D1 /* welcome-header.png */; };
@@ -3712,8 +3712,8 @@
 		3F330786140E7033000625EA /* GTIOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOViewController.m; sourceTree = "<group>"; };
 		3F437096138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIODropShadowSectionTableViewDelegate.h; sourceTree = "<group>"; };
 		3F437097138E9ED20073BE27 /* GTIODropShadowSectionTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIODropShadowSectionTableViewDelegate.m; sourceTree = "<group>"; };
-		3F4F727B14E43AD1007AC80D /* SXYAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SXYAlertView.h; sourceTree = "<group>"; };
-		3F4F727C14E43AD1007AC80D /* SXYAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SXYAlertView.m; sourceTree = "<group>"; };
+		3F4F728114E44CCE007AC80D /* SXYAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SXYAlertView.h; sourceTree = "<group>"; };
+		3F4F728214E44CCE007AC80D /* SXYAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SXYAlertView.m; sourceTree = "<group>"; };
 		3F506A9C138BFC030062D7D1 /* welcome-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-button.png"; path = "welcome-assets/welcome-button.png"; sourceTree = "<group>"; };
 		3F506A9D138BFC030062D7D1 /* welcome-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-button@2x.png"; path = "welcome-assets/welcome-button@2x.png"; sourceTree = "<group>"; };
 		3F506A9E138BFC030062D7D1 /* welcome-header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-header.png"; path = "welcome-assets/welcome-header.png"; sourceTree = "<group>"; };
@@ -4951,6 +4951,7 @@
 		258518AD135357DD005DCBA5 /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				3F4F728014E44CCE007AC80D /* SXYAlertView */,
 				A7E300AE1379887F0036F86D /* Classes */,
 				A7E300B91379887F0036F86D /* Controllers */,
 				A7E300C01379887F0036F86D /* Controllers (old) */,
@@ -5522,6 +5523,16 @@
 				3F23E93513BB765F00348711 /* upload-intro@2x.png */,
 			);
 			path = "upload-intro";
+			sourceTree = "<group>";
+		};
+		3F4F728014E44CCE007AC80D /* SXYAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				3F4F728114E44CCE007AC80D /* SXYAlertView.h */,
+				3F4F728214E44CCE007AC80D /* SXYAlertView.m */,
+			);
+			name = SXYAlertView;
+			path = Code/SXYAlertView;
 			sourceTree = "<group>";
 		};
 		3F506A9B138BFBF50062D7D1 /* welcome-assets */ = {
@@ -6873,8 +6884,6 @@
 				3F6823B013993A1C00CCE67E /* GTIOBrowseListPresenter.m */,
 				3FC1E82013A9021100646EEE /* GTIOTopRightBarButton.h */,
 				3FC1E82113A9021100646EEE /* GTIOTopRightBarButton.m */,
-				3F4F727B14E43AD1007AC80D /* SXYAlertView.h */,
-				3F4F727C14E43AD1007AC80D /* SXYAlertView.m */,
 			);
 			name = Classes;
 			path = Code/Classes;
@@ -10001,7 +10010,7 @@
 				3FEF525914DC349600A106EF /* GTIOProduct.m in Sources */,
 				A433AE1714E2262C002788C1 /* GTIOProductView.m in Sources */,
 				A433AE4614E24E5C002788C1 /* GTIOOutfitReviewControlBar.m in Sources */,
-				3F4F727D14E43AD1007AC80D /* SXYAlertView.m in Sources */,
+				3F4F728314E44CCE007AC80D /* SXYAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10177,7 +10186,7 @@
 				3FEF525B14DC349600A106EF /* GTIOProduct.m in Sources */,
 				A433AE1914E2262C002788C1 /* GTIOProductView.m in Sources */,
 				A433AE4814E24E5C002788C1 /* GTIOOutfitReviewControlBar.m in Sources */,
-				3F4F727F14E43AD1007AC80D /* SXYAlertView.m in Sources */,
+				3F4F728514E44CCE007AC80D /* SXYAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10353,7 +10362,7 @@
 				3FEF525A14DC349600A106EF /* GTIOProduct.m in Sources */,
 				A433AE1814E2262C002788C1 /* GTIOProductView.m in Sources */,
 				A433AE4714E24E5C002788C1 /* GTIOOutfitReviewControlBar.m in Sources */,
-				3F4F727E14E43AD1007AC80D /* SXYAlertView.m in Sources */,
+				3F4F728414E44CCE007AC80D /* SXYAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

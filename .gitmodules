@@ -25,3 +25,6 @@
 [submodule "Libraries/appledoc"]
 	path = Libraries/appledoc
 	url = https://github.com/tomaz/appledoc.git
+[submodule "Code/SXYAlertView"]
+	path = Code/SXYAlertView
+	url = git://gist.github.com/1781877.git
