@@ -283,6 +283,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
     [TestFlight takeOff:@"25547739e2554e6dbe9fd5bbb3e0f6db_NzcwMg"];
     #endif
+    #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
+    [TestFlight takeOff:@"25547739e2554e6dbe9fd5bbb3e0f6db_NzcwMg"];
+    #endif
     #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
     [Crittercism initWithAppID: @"4ebabf0eddf5206d3a0001e4"
                         andKey:@"4ebabf0eddf5206d3a0001e4h9zr6giv"
