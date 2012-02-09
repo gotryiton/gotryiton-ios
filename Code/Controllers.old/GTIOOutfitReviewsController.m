@@ -13,6 +13,7 @@
 #import "GTIOOutfitReviewTableCell.h"
 #import "GTIOProductView.h"
 #import "GTIOOutfitReviewControlBar.h"
+#import "SXYAlertView.h"
 
 const NSUInteger kOutfitReviewHeaderContainerTag = 90;
 const NSUInteger kOutfitReviewProductHeaderTag = 91;
@@ -492,9 +493,24 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 	[(GTIOOutfitReviewsTableViewDataSource*)self.dataSource setItems:items];
 }
 
+- (void)dismiss {
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)closeButtonWasPressed:(id)sender {
-	[self.navigationController setNavigationBarHidden:NO animated:NO];
-	[self.navigationController popViewControllerAnimated:YES];
+    if (self.product) {
+        [SXYAlertView showAlertWithTitle:@"wait!" message:@"suggest this product\n without a comment?" action:^(int buttonIndex) {
+            if (1 == buttonIndex) {
+                _exitAfterPostingReview = YES;
+                [self postReview];
+            } else {
+                [self dismiss];
+            }
+        } cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil];
+    } else {
+        [self dismiss];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -514,8 +530,12 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 - (void)verifyUserComment {
     if (self.product && [[_editor text] length] <= 0) {
-        UIAlertView *noCommentAlert = [[[UIAlertView alloc] initWithTitle:@"wait!" message:@"suggest this product\n without a comment?" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil] autorelease];
-        [noCommentAlert show];
+        [SXYAlertView showAlertWithTitle:@"wait!" message:@"suggest this product\n without a comment?" action:^(int buttonIndex) {
+            if (1 == buttonIndex) {
+                [self postReview];
+            }
+        } cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil];
+        
     } else if ([[_editor text] length] > 0) {
         [self postReview];
     } else {
@@ -599,6 +619,10 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 	TTOpenURL(@"gtio://stopLoading");
     GTIOReview* review = [dictionary objectForKey:@"review"];
 	if (review) {
+        if (_exitAfterPostingReview) {
+            [self dismiss];
+            return;
+        }
         TTOpenURL(@"gtio://analytics/trackReviewSubmitted");
         
 		TTListDataSource* dataSource = (TTListDataSource*)self.dataSource;
@@ -635,14 +659,6 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 	TTOpenURL(@"gtio://stopLoading");
     _loading = NO;
     GTIOErrorMessage(error);
-}
-
-#pragma mark - alert view delegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex > 0) {
-        [self postReview];
-    }
 }
 
 #pragma mark - gesture recognizer delegate

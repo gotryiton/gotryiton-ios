@@ -11,7 +11,7 @@
 #import "GTIOOutfit.h"
 #import "GTIOProduct.h"
 
-@interface GTIOOutfitReviewsController : TTTableViewController <TTTextEditorDelegate, RKObjectLoaderDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate> {
+@interface GTIOOutfitReviewsController : TTTableViewController <TTTextEditorDelegate, RKObjectLoaderDelegate, UIGestureRecognizerDelegate> {
 	TTTextEditor* _editor;
     UIButton* _closeButton;
 	UILabel* _placeholder;
@@ -19,6 +19,7 @@
     NSMutableArray* _buttons;
     UIButton* _keyboardOverlayButton1;
     UIButton* _keyboardOverlayButton2;
+    BOOL _exitAfterPostingReview;
     BOOL _loading;
 }
 /// outfit object
