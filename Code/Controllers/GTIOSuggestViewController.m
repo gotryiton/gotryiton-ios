@@ -105,7 +105,7 @@
     TTImageView* outfitThumbnailImageView = [[[TTImageView alloc] initWithFrame:CGRectMake(30, 6, 15, 20)] autorelease];
     [outfitThumbnailImageView addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forButtonWasPressed:)] autorelease]];
     outfitThumbnailImageView.urlPath = self.outfit.smallThumbnailUrl;
-    outfitThumbnailImageView.defaultImage = [UIImage imageNamed:@"hanger-filler-single.png"];
+    outfitThumbnailImageView.backgroundColor = [UIColor whiteColor];
     [rightButtonView addSubview:outfitThumbnailImageView];
     UIBarButtonItem* rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:rightButtonView] autorelease];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
