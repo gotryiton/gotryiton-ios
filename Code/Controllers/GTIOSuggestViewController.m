@@ -89,6 +89,7 @@
 {
     [super viewDidLoad];
     
+    [self.webView setScalesPageToFit:YES];
     [self loadWebView];
     
     // Setup right bar button item.
