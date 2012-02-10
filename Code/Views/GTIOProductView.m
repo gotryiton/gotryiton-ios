@@ -109,7 +109,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     [_productNameLabel setText:_product.productName];
     CGSize constraint = (CGSize){self.frame.size.width - horizontalOffset, 20};
     CGSize productLabelSize = [_product.productName sizeWithFont:kGTIOFontHelveticaNeueOfSize(12) constrainedToSize:constraint];
-    [_productNameLabel setFrame:(CGRect){horizontalOffset, verticalOffset, productLabelSize.width, productLabelSize.height}];
+    [_productNameLabel setFrame:(CGRect){horizontalOffset, verticalOffset, self.frame.size.width - horizontalOffset, productLabelSize.height}];
     
     verticalOffset += productLabelSize.height + kGTIOProductLabelSpacer;
     
