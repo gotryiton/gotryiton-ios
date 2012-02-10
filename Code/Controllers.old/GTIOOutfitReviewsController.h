@@ -21,6 +21,7 @@
     UIButton* _keyboardOverlayButton2;
     BOOL _exitAfterPostingReview;
     BOOL _loading;
+    UIButton* recommendButton;
 }
 /// outfit object
 @property (nonatomic, retain) GTIOOutfit* outfit;

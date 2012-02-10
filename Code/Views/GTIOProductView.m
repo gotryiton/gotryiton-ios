@@ -96,7 +96,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
 - (void)layoutSubviews {
     CGRect viewRect = self.frame;
     CGFloat verticalOffset = 6.0;
-    CGFloat horizontalOffset = 75.0;
+    CGFloat horizontalOffset = 72.0;
     
     [_productImageView setUrlPath:_product.thumbnail];
     

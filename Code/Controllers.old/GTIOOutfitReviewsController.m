@@ -138,6 +138,13 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
     }
 }
 
+- (CGFloat)heightForTableView {
+    if (recommendButton) {
+        return self.tableView.height - 58;
+    }
+    return self.tableView.height;
+}
+
 - (void)loadView {
 	[super loadView];
     self.view.accessibilityLabel = @"Reviews Screen";
@@ -274,7 +281,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
     
     if (![self.outfit.uid isEqual:[GTIOUser currentUser].UID]) {
         // Recommend Button
-        UIButton* recommendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        recommendButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-OFF.png"] forState:UIControlStateNormal];
         [recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-ON.png"] forState:UIControlStateHighlighted];
         recommendButton.frame = CGRectMake(0, self.view.bounds.size.height - 65, 320, 65);
@@ -285,7 +292,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
                                           self.tableView.frame.origin.y,
                                           self.tableView.width,
-                                          self.tableView.height - 58);
+                                          [self heightForTableView]);
         _controlBar = [[GTIOOutfitReviewControlBar alloc] init];
         [_controlBar setFrame:(CGRect){{0, self.view.frame.size.height + _controlBar.frame.size.height}, _controlBar.frame.size}];
         [_controlBar setProductSuggestHandler:^{
@@ -502,7 +509,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 - (void)closeButtonWasPressed:(id)sender {
     if (self.product) {
-        [SXYAlertView showAlertWithTitle:@"wait!" message:@"suggest this product\n without a comment?" action:^(int buttonIndex) {
+        [SXYAlertView showAlertWithTitle:@"wait!" message:@"do you want to submit\nyour suggestion?" action:^(int buttonIndex) {
             if (1 == buttonIndex) {
                 _exitAfterPostingReview = YES;
                 [self postReview];
@@ -714,6 +721,26 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
                      animations:^{
                          [_controlBar setFrame:(CGRect){{keyboardEndFrame.origin.x, keyboardEndFrame.origin.y}, _controlBar.size}];
                      } completion:nil];
+}
+
+- (void)keyboardWillDisappear:(BOOL)animated withBounds:(CGRect)bounds {
+    [super keyboardWillDisappear:animated withBounds:bounds];
+    
+    // If we do this when there is currently no table view, we can get into a weird loop where the
+    // table view gets doubly-initialized. self.tableView will try to initialize it; this will call
+    // self.view, which will call -loadView, which often calls self.tableView, which initializes it.
+    if (_tableView) {
+        CGRect previousFrame = self.tableView.frame;
+        self.tableView.height = [self heightForTableView];
+        
+        // There's any number of edge cases wherein a table view controller will get this callback but
+        // it shouldn't resize itself -- e.g. when a controller has the keyboard up, and then drills
+        // down into this controller. This is a sanity check to avoid situations where the table
+        // extends way off the bottom of the screen and becomes unusable.
+        if (self.tableView.height > self.view.bounds.size.height) {
+            self.tableView.frame = previousFrame;
+        }
+    }
 }
 
 
