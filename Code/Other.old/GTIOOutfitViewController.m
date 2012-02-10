@@ -47,6 +47,19 @@
 	return self;
 }
 
+- (id)initWithOutfitIDShowingReviews:(NSString*)outfitID {
+    self = [self initWithOutfitID:outfitID];
+    if (self) {
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            NSString* url = [NSString stringWithFormat:@"gtio://show_reviews/%@", outfitID];
+            TTOpenURL(url);
+        });
+    }
+    return self;
+}
+
 - (id)initWithModel:(GTIOPaginatedTTModel*)model outfitIndex:(int)index {
 	if (self = [self initWithNibName:nil bundle:nil]) {
 		_state = GTIOOutfitViewStateShowControls;

@@ -328,6 +328,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 	// Convenience Helpers for SMS/E-mail
 	[map from:@"gtio://looks/(initWithOutfitID:)" toViewController:NSClassFromString(@"GTIOOutfitViewController")];
+    [map from:@"gtio://looks/(initWithOutfitIDShowingReviews:)/reviews" toViewController:NSClassFromString(@"GTIOOutfitViewController")];
 	[map from:@"gtio://looks" toViewController:NSClassFromString(@"GTIOGiveAnOpinionTableViewController")];
 	
 	// Main external URL's. Not very pretty.

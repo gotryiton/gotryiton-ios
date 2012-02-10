@@ -127,11 +127,11 @@ CGSize kMaxSize = {260,8000};
 
 + (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
     NSString* text = [[object review] text];
-	CGFloat textHeight = [self sizeForReviewText:text].height+50.0+5;
+	CGFloat textHeight = [self sizeForReviewText:text].height;
     if ([[object review] product]) {
         textHeight += [GTIOProductView productViewHeightForProduct:[[object review] product]];
     }
-	return textHeight;
+	return textHeight + 60;
 }
 
 - (void)productTapped {
@@ -156,18 +156,28 @@ CGSize kMaxSize = {260,8000};
     _authorProfilePictureImageView.frame = CGRectMake(commentBoxLeftMargin+profilePictureMargin, self.height-25-commentBoxShadowLength-profilePictureMargin, 25, 25);
     CGRect profilePictureFrame = _authorProfilePictureImageView.frame;
     _authorProfilePictureImageOverlay.frame = CGRectMake(profilePictureFrame.origin.x-1, profilePictureFrame.origin.y-1, 27, 27);
-    // Review Text
-	CGSize textSize = [[self class] sizeForReviewText:[[_reviewTableItem review] text]];
-	_reviewTextLabel.frame = CGRectMake(12+2, 12+4, textSize.width, textSize.height);
     
     if (_reviewTableItem.review.product) {
         [_productView setHidden:NO];
-        [_productView setFrame:(CGRect){12+2,_reviewTextLabel.frame.origin.x + _reviewTextLabel.frame.size.height, kMaxSize.width, [GTIOProductView productViewHeightForProduct:_reviewTableItem.review.product] + 4}];
+        [_productView setFrame:(CGRect){12+2,12+4,kMaxSize.width, [GTIOProductView productViewHeightForProduct:_reviewTableItem.review.product]}];
     } else {
+        [_productView setFrame:CGRectMake(12+2, 12+4, 0, 0)];
         [_productView setHidden:YES];
     }
     [_productView setProduct:_reviewTableItem.review.product];
-
+    
+    float reviewX = 12 + 2;
+    float reviewY = CGRectGetMaxY(_productView.frame) + 8;
+    
+    if (_reviewTableItem.review.text && ![_reviewTableItem.review.text isWhitespaceAndNewlines]) {
+        [_reviewTextLabel setHidden:NO];
+        // Review Text
+        CGSize textSize = [[self class] sizeForReviewText:[[_reviewTableItem review] text]];
+        _reviewTextLabel.frame = CGRectMake(reviewX, reviewY, textSize.width, textSize.height);
+    } else {
+        _reviewTextLabel.frame = CGRectMake(reviewX, reviewY, 0, 0);
+        [_reviewTextLabel setHidden:YES];
+    }
     
     CGFloat bottomLabelVerticalMargin = 3;
     CGFloat bottomLabelBaselineAdjustment = 8;

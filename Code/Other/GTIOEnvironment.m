@@ -53,7 +53,6 @@
 
 NSString* GTIORestResourcePath(NSString* string) {
 	return [NSString stringWithFormat:@"/rest/v4%@", string];
-	//return [NSString stringWithFormat:@"/rest%@", string];
 }
 
 NSUInteger const kGTIOPaginationLimit = 20;

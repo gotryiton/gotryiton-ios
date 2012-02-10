@@ -695,7 +695,6 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
                           delay:0.0 
                         options:animationCurve 
                      animations:^{
-                         [_tableView setFrame:(CGRect){_tableView.frame.origin, { _tableView.frame.size.width, 100 }}];
                          [_controlBar setFrame:(CGRect){{keyboardEndFrame.origin.x, keyboardEndFrame.origin.y - controlBarOffset}, _controlBar.size}];
                      } completion:nil];
 }
@@ -713,7 +712,6 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
                           delay:0.0 
                         options:animationCurve 
                      animations:^{
-                         [_tableView setFrame:(CGRect){_tableView.frame.origin, { _tableView.frame.size.width, self.view.size.height }}];
                          [_controlBar setFrame:(CGRect){{keyboardEndFrame.origin.x, keyboardEndFrame.origin.y}, _controlBar.size}];
                      } completion:nil];
 }
