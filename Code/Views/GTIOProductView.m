@@ -89,6 +89,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     if (_product != product) {
         [_product release];
         _product = [product retain];
+        [_productImageView unsetImage];
         [self setNeedsLayout];
     }
 }
@@ -141,7 +142,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     if (image.size.width > kGTIOMaxProductImageWidth) {
         CGFloat ratio = image.size.width * 1.0 / image.size.height;
         imageRect.size.width = kGTIOMaxProductImageWidth;
-        imageRect.size.height = MAX(kGTIOMaxProductImageHeight, kGTIOMaxProductImageWidth / ratio);
+        imageRect.size.height = MIN(kGTIOMaxProductImageHeight, kGTIOMaxProductImageWidth / ratio);
     }
     [imageView setFrame:imageRect];
 }

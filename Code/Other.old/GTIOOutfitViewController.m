@@ -17,7 +17,9 @@
 #import "GTIOProduct.h"
 
 
-@interface GTIOOutfitViewController (shouldReloadPage)
+@interface GTIOOutfitViewController () {
+    BOOL _showReviews;
+}
 - (void)scrollView:(GTIOScrollView*)scrollView shouldReloadPage:(GTIOOutfitPageView*)page;
 @end
 
@@ -50,12 +52,7 @@
 - (id)initWithOutfitIDShowingReviews:(NSString*)outfitID {
     self = [self initWithOutfitID:outfitID];
     if (self) {
-        double delayInSeconds = 1.0;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            NSString* url = [NSString stringWithFormat:@"gtio://show_reviews/%@", outfitID];
-            TTOpenURL(url);
-        });
+        _showReviews = YES;
     }
     return self;
 }
@@ -165,6 +162,16 @@
     [super viewDidAppear:animated];
     GTIOOutfitPageView* page = (GTIOOutfitPageView*)_scrollView.centerPage;
     [page didAppear];
+    if(_showReviews) {
+        _showReviews = NO;
+        double delayInSeconds = 0.5;
+        NSString* outfitID = self.outfit.outfitID;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            NSString* url = [NSString stringWithFormat:@"gtio://show_reviews/%@", outfitID];
+            TTOpenURL(url);
+        });
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

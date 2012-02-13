@@ -48,7 +48,6 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 - (void)closeButtonWasPressed:(id)sender;
 - (void)updateTableHeaderWithProduct:(GTIOProduct *)product;
-- (void)removeProductHeader;
 - (void)showProductPreviewDetails:(UIGestureRecognizer *)gesture;
 - (void)updateEmptyView;
 
@@ -139,10 +138,10 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 }
 
 - (CGFloat)heightForTableView {
-    if (recommendButton) {
-        return self.tableView.height - 58;
+    if (recommendButton && nil == self.product) {
+        return self.view.height - 58;
     }
-    return self.tableView.height;
+    return self.view.height;
 }
 
 - (void)loadView {
@@ -310,7 +309,6 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 }
 
 - (void)updateTableHeaderWithProduct:(GTIOProduct *)product {
-    self.product = product;
     [self setPlaceholderText];
     
     UIView *tableHeaderView = self.tableView.tableHeaderView;
@@ -329,9 +327,11 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
     
     UIButton *closeProductButton = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *closeButtonImage = [UIImage imageNamed:@"close.png"];
-    [closeProductButton setBackgroundImage:closeButtonImage forState:UIControlStateNormal];
-    [closeProductButton addTarget:self action:@selector(removeProductHeader) forControlEvents:UIControlEventTouchUpInside];
+    [closeProductButton setImage:closeButtonImage forState:UIControlStateNormal];
+    [closeProductButton addTarget:self action:@selector(closeProductButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
     [closeProductButton setFrame:(CGRect){productViewWidth - (closeButtonImage.size.width / 2.0) - 3, 3, closeButtonImage.size.width / 2.0, closeButtonImage.size.width / 2.0}];
+    closeProductButton.contentEdgeInsets = UIEdgeInsetsMake(10,10,10,10);
+    closeProductButton.frame = UIEdgeInsetsInsetRect(closeProductButton.frame, UIEdgeInsetsMake(-10, -10, -10, -10));
     [productView addSubview:closeProductButton];
     [productViewWrapper addSubview:productView];
     [headerView addSubview:productViewWrapper];
@@ -355,8 +355,6 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 }
 
 - (void)removeProductHeader {
-    self.product = nil;
-    
     UIView *tableHeaderView = self.tableView.tableHeaderView;
     UIView *headerView = [tableHeaderView viewWithTag:kOutfitReviewHeaderContainerTag];
     UIView *productView = [headerView viewWithTag:kOutfitReviewProductHeaderTag];
@@ -368,16 +366,58 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
         [headerView setFrame:(CGRect){headerView.origin, {tableHeaderView.frame.size.width, tableHeaderView.frame.size.height - kOutfitReviewSectionSpacer}}];
         [self.tableView setTableHeaderView:tableHeaderView];
         [self updateEmptyView];
+        [self setPlaceholderText];
     }];
+}
+
+- (void)showSuggestButton {
+    [UIView animateWithDuration:0.5 animations:^{
+        recommendButton.frame = CGRectMake(0, self.view.bounds.size.height - 65, 320, 65);
+        self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
+                                          self.tableView.frame.origin.y,
+                                          self.tableView.width,
+                                          [self heightForTableView]);
+    }];
+}
+
+- (void)hideSuggestButton {
+    [UIView animateWithDuration:0.5 animations:^{
+        recommendButton.frame = CGRectMake(0, self.view.bounds.size.height, 320, 65);
+        self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
+                                          self.tableView.frame.origin.y,
+                                          self.tableView.width,
+                                          [self heightForTableView]);
+
+    }];
+}
+
+- (void)setProduct:(GTIOProduct*)product {
+    [product retain];
+    id oldProduct = _product;
+    _product = product;
+    if (_tableView != nil) {
+        if (nil == product && nil != oldProduct) {
+            [self removeProductHeader];
+            [self showSuggestButton];
+        } else if (nil != product && nil == oldProduct) {
+            [self updateTableHeaderWithProduct:product];
+            [self hideSuggestButton];
+        }
+    }
+    [oldProduct release];
+}
+
+- (void)closeProductButtonWasPressed:(id)sender {
+    self.product = nil;
 }
 
 - (void)suggestionMade:(NSNotification*)note {
     if ([self.outfit.outfitID isEqualToString:note.object]) {
         if (self.product) {
-            [self removeProductHeader];
+            self.product = nil;
         }
         // note.object is outfitID. we're getting the product from the user info.
-        [self updateTableHeaderWithProduct:[note.userInfo objectForKey:kGTIOProductNotificationKey]];
+        self.product = [note.userInfo objectForKey:kGTIOProductNotificationKey];
         _webViewController = [[note.userInfo objectForKey:kGTIOProductWebViewController] retain];
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -438,6 +478,8 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 - (void)createModel {
 	NSString* path = GTIORestResourcePath([NSString stringWithFormat:@"/reviews/%@", _outfit.outfitID]);
     RKObjectLoader* objectLoader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:nil];
+    objectLoader.method = RKRequestMethodPOST;
+    objectLoader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:[NSDictionary dictionary]];
 	RKObjectLoaderTTModel* model = [RKObjectLoaderTTModel modelWithObjectLoader:objectLoader];
 	TTListDataSource* ds = [GTIOOutfitReviewsTableViewDataSource dataSourceWithObjects:nil];
 	ds.model = model;
@@ -571,7 +613,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
     [loader send];
     // Post the voted notification (even though we only reviewed)
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOOutfitVoteNotification object:_outfit.outfitID];
-    [self removeProductHeader];
+    self.product = nil;
     [_editor resignFirstResponder];
 }
 
@@ -626,6 +668,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
 	TTOpenURL(@"gtio://stopLoading");
+    [self setPlaceholderText];
     GTIOReview* review = [dictionary objectForKey:@"review"];
 	if (review) {
         if (_exitAfterPostingReview) {

@@ -101,6 +101,11 @@ CGSize kMaxSize = {260,8000};
 	return self;
 }
 
+- (void)prepareForReuse {
+    [_productView setProduct:nil];
+    [super prepareForReuse];
+}
+
 + (CGSize)sizeForReviewText:(NSString*)text {
     NSScanner* scanner = [NSScanner scannerWithString:text];
     NSString* foundText = nil;
