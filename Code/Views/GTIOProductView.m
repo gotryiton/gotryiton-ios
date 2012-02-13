@@ -9,7 +9,8 @@
 #import "GTIOProductView.h"
 #import "GTIOProduct.h"
 
-const CGFloat kGTIOMaxProductImageSize = 60.0;
+const CGFloat kGTIOMaxProductImageWidth = 60.0;
+const CGFloat kGTIOMaxProductImageHeight = 80.0;
 const CGFloat kGTIOProductLabelSpacer = 4.0;
 
 @interface GTIOProductView () {
@@ -36,8 +37,9 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
 
         _productImageView = [[TTImageView alloc] initWithFrame:CGRectZero];
         [_productImageView setDelegate:self];
-        [_productImageView setContentMode:UIViewContentModeScaleAspectFill];
+        [_productImageView setContentMode:UIViewContentModeScaleAspectFit];
         [self addSubview:_productImageView];
+        [_productImageView setClipsToBounds:YES];
         
         _suggestionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_suggestionLabel setBackgroundColor:[UIColor colorWithRed:236/255.0 green:236/255.0 blue:236/255.0 alpha:1.0]];
@@ -127,7 +129,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     }
     
     float vOffset = [[self class] productViewHeightForProduct:_product];
-    viewRect.size.height = MAX(kGTIOMaxProductImageSize, vOffset);
+    viewRect.size.height = MAX(kGTIOMaxProductImageHeight, vOffset);
     
     [self setFrame:viewRect];
 }
@@ -136,10 +138,10 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
 
 - (void)imageView:(TTImageView *)imageView didLoadImage:(UIImage *)image {
     CGRect imageRect = (CGRect){CGPointZero, image.size};
-    if (image.size.width > kGTIOMaxProductImageSize) {
+    if (image.size.width > kGTIOMaxProductImageWidth) {
         CGFloat ratio = image.size.width * 1.0 / image.size.height;
-        imageRect.size.width = kGTIOMaxProductImageSize;
-        imageRect.size.height = MAX(kGTIOMaxProductImageSize, kGTIOMaxProductImageSize / ratio);
+        imageRect.size.width = kGTIOMaxProductImageWidth;
+        imageRect.size.height = MAX(kGTIOMaxProductImageHeight, kGTIOMaxProductImageWidth / ratio);
     }
     [imageView setFrame:imageRect];
 }
@@ -159,7 +161,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     CGSize priceLabelSize = [product.price sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
     verticalOffset += priceLabelSize.height + kGTIOProductLabelSpacer;
 
-    return MAX(kGTIOMaxProductImageSize, verticalOffset);
+    return MAX(kGTIOMaxProductImageHeight, verticalOffset);
 }
 
 @end

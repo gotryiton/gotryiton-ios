@@ -1220,6 +1220,8 @@
 		3F7B15A714DB262D007D4388 /* reviews-suggest-bigpink-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7B159C14DB262C007D4388 /* reviews-suggest-bigpink-ON@2x.png */; };
 		3F7B15A814DB262D007D4388 /* reviews-suggest-bigpink-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7B159C14DB262C007D4388 /* reviews-suggest-bigpink-ON@2x.png */; };
 		3F7E49611386EF2D00A38A75 /* GTIONotificationsOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E49601386EF2C00A38A75 /* GTIONotificationsOverlayViewController.m */; };
+		3F815FF214E5C29800A52FDC /* GTIOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3010F1379887F0036F86D /* GTIOUser.m */; };
+		3F815FF314E5C2CC00A52FDC /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBF22B1370820B0039D779 /* libfacebook_ios_sdk.a */; };
 		3F82E872137D707D00F8FE1A /* GTIOBrowseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E871137D707D00F8FE1A /* GTIOBrowseTableViewController.m */; };
 		3F82E877137D765E00F8FE1A /* GTIOBrowseList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E876137D765E00F8FE1A /* GTIOBrowseList.m */; };
 		3F82E87C137D828D00F8FE1A /* GTIOCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F82E87B137D828D00F8FE1A /* GTIOCategory.m */; };
@@ -1287,7 +1289,6 @@
 		3F86F12D13B8CA50005063FE /* GTIOPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301091379887F0036F86D /* GTIOPhoto.m */; };
 		3F86F12E13B8CA50005063FE /* GTIOProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3010B1379887F0036F86D /* GTIOProfile.m */; };
 		3F86F12F13B8CA50005063FE /* GTIOReview.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3010D1379887F0036F86D /* GTIOReview.m */; };
-		3F86F13013B8CA50005063FE /* GTIOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3010F1379887F0036F86D /* GTIOUser.m */; };
 		3F86F13113B8CA50005063FE /* GTIOVotingResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301111379887F0036F86D /* GTIOVotingResultSet.m */; };
 		3F86F13213B8CA50005063FE /* RKObjectLoader_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301131379887F0036F86D /* RKObjectLoader_Additions.m */; };
 		3F86F13313B8CA50005063FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E301161379887F0036F86D /* AppDelegate.m */; };
@@ -3226,12 +3227,12 @@
 			remoteGlobalIDString = 25BD43BD1340315800DBACDD;
 			remoteInfo = "RestKitXMLParser+Libxml";
 		};
-		3F65E23C148FBD6900B34AC2 /* PBXContainerItemProxy */ = {
+		3F815FF514E5C4E300A52FDC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 25D5C7FA13535ACC007B6F14 /* RestKit.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 20808DBC13DE8CDC000A156A;
-			remoteInfo = "RestKitJSONParser+NXJSON";
+			remoteGlobalIDString = 2590E64E125231F600531FA8;
+			remoteInfo = "RestKitJSONParser+YAJL";
 		};
 		3F86F0DB13B8CA50005063FE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -4807,6 +4808,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F815FF314E5C2CC00A52FDC /* libfacebook_ios_sdk.a in Frameworks */,
 				3FA9DB18148FC0A500751848 /* libRestKitJSONParserYAJL.a in Frameworks */,
 				3F5CA5431405703D00406841 /* ImageIO.framework in Frameworks */,
 				3F86F18E13B8CA50005063FE /* libTWTCommon.a in Frameworks */,
@@ -7196,7 +7198,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				3F65E23D148FBD6900B34AC2 /* PBXTargetDependency */,
+				3F815FF614E5C4E300A52FDC /* PBXTargetDependency */,
 				3F86F0DA13B8CA50005063FE /* PBXTargetDependency */,
 				3F86F0DC13B8CA50005063FE /* PBXTargetDependency */,
 				3F86F0DE13B8CA50005063FE /* PBXTargetDependency */,
@@ -10257,7 +10259,6 @@
 				3F86F12D13B8CA50005063FE /* GTIOPhoto.m in Sources */,
 				3F86F12E13B8CA50005063FE /* GTIOProfile.m in Sources */,
 				3F86F12F13B8CA50005063FE /* GTIOReview.m in Sources */,
-				3F86F13013B8CA50005063FE /* GTIOUser.m in Sources */,
 				3F86F13113B8CA50005063FE /* GTIOVotingResultSet.m in Sources */,
 				3F86F13213B8CA50005063FE /* RKObjectLoader_Additions.m in Sources */,
 				3F86F13313B8CA50005063FE /* AppDelegate.m in Sources */,
@@ -10363,6 +10364,7 @@
 				A433AE1814E2262C002788C1 /* GTIOProductView.m in Sources */,
 				A433AE4714E24E5C002788C1 /* GTIOOutfitReviewControlBar.m in Sources */,
 				3F4F728414E44CCE007AC80D /* SXYAlertView.m in Sources */,
+				3F815FF214E5C29800A52FDC /* GTIOUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10439,10 +10441,10 @@
 			name = Three20Style;
 			targetProxy = 3F0667A814867A3900692659 /* PBXContainerItemProxy */;
 		};
-		3F65E23D148FBD6900B34AC2 /* PBXTargetDependency */ = {
+		3F815FF614E5C4E300A52FDC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "RestKitJSONParser+NXJSON";
-			targetProxy = 3F65E23C148FBD6900B34AC2 /* PBXContainerItemProxy */;
+			name = "RestKitJSONParser+YAJL";
+			targetProxy = 3F815FF514E5C4E300A52FDC /* PBXContainerItemProxy */;
 		};
 		3F86F0DA13B8CA50005063FE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -10616,7 +10618,7 @@
 					armv6,
 				);
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -10649,8 +10651,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B8173C80-EC61-43E1-8F90-6CEF9E3F8FE8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "BD31C70A-B495-462B-B8BC-E2E580A6DAC2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BD31C70A-B495-462B-B8BC-E2E580A6DAC2";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -10693,7 +10695,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B8173C80-EC61-43E1-8F90-6CEF9E3F8FE8";
+				PROVISIONING_PROFILE = "BD31C70A-B495-462B-B8BC-E2E580A6DAC2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;

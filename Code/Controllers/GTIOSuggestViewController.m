@@ -222,7 +222,7 @@
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/scrape") delegate:self block:^(RKObjectLoader* loader) {
             loader.params = [NSDictionary dictionaryWithObjectsAndKeys:
                              [GTIOUser currentUser].token, @"gtioToken",
-                             [url absoluteString], @"url", nil];
+                             [[url absoluteString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"url", nil];
             loader.method = RKRequestMethodPOST;
         }];
     }
