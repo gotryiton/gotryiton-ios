@@ -105,7 +105,7 @@ product{
 			id, // (product id)
 			brand, 
 			productName,
-			price  // ($ will be included in the price response)
+			prettyPrice  // ($ will be included in the prettyPrice response)
 			buyUrl,
 			thumbnail, 
 			description	
@@ -125,7 +125,7 @@ product{
 			id, // (product id)
 			brand, 
 			productName,
-			price  // ($ will be included in the price response)
+			prettyPrice  // ($ will be included in the prettyPrice response)
 			buyUrl,
 			thumbnail, // (variable height, maximum width of 384px)
 			description	
@@ -240,7 +240,7 @@ reviews {
 			id, // (product id)
 			brand, 
 			productName,
-			price  // ($ will be included in the price response)
+			prettyPrice  // ($ will be included in the prettyPrice response)
 			buyUrl,
 			thumbnail, // (variable height, maximum width of 384px)
 			description	
@@ -268,7 +268,7 @@ reviews {
 	- The image of the product should be pulled from Reviews->review->product->thumbnail
 	- The product title should be pulled from Reviews->review->product->productName
 	- The product brand should be pulled from Reviews->review->product->brand
-	- The product price should be pulled from Reviews->review->product->price
+	- The product price should be pulled from Reviews->review->product->prettyPrice
 	- The click url should be pulled from Reviews->review->product->buyUrl
 	- The 'verified' corner icon should appear in the same way it does for existing reviews (based on the boolean Reviews->review->isBrand)
 	- The right margin of the product title, product brand, and price should be the same as the review text right margin
@@ -351,7 +351,7 @@ reviews {
 			id, // (product id)
 			brand, 
 			productName,
-			price  // ($ will be included in the price response)
+			prettyPrice  // ($ will be included in the price response)
 			buyUrl,
 			thumbnail, // (variable height, maximum width of 384px)
 			description	
