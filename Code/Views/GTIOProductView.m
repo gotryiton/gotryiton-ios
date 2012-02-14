@@ -37,7 +37,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
 
         _productImageView = [[TTImageView alloc] initWithFrame:CGRectZero];
         [_productImageView setDelegate:self];
-        [_productImageView setContentMode:UIViewContentModeScaleAspectFit];
+        [_productImageView setContentMode:UIViewContentModeScaleAspectFill];
         [self addSubview:_productImageView];
         [_productImageView setClipsToBounds:YES];
         
@@ -89,7 +89,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     if (_product != product) {
         [_product release];
         _product = [product retain];
-        [_productImageView unsetImage];
+        [_productImageView setUrlPath:_product.smallThumbnail];
         [self setNeedsLayout];
     }
 }
@@ -100,8 +100,6 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     CGRect viewRect = self.frame;
     CGFloat verticalOffset = 6.0;
     CGFloat horizontalOffset = 72.0;
-    
-    [_productImageView setUrlPath:_product.thumbnail];
     
     [_suggestionLabel setText:_suggestionText];
     CGSize suggestionLabelSize = [_suggestionText sizeWithFont:kGTIOFontBoldHelveticaNeueOfSize(9)];
@@ -122,8 +120,8 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     
     verticalOffset += brandLabelSize.height + kGTIOProductLabelSpacer;
     
-    if (_product.price) {
-        [_productPriceLabel setText:[NSString stringWithFormat:@"$%@", _product.price]];
+    if (_product.prettyPrice) {
+        [_productPriceLabel setText:_product.prettyPrice];
         CGSize priceLabelSize = [[_productPriceLabel text] sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
         [_productPriceLabel setFrame:(CGRect){horizontalOffset, verticalOffset, priceLabelSize.width + 12, priceLabelSize.height}];
         verticalOffset += priceLabelSize.height + kGTIOProductLabelSpacer;
@@ -159,7 +157,7 @@ const CGFloat kGTIOProductLabelSpacer = 4.0;
     CGSize brandLabelSize = [product.brand sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
     verticalOffset += brandLabelSize.height + kGTIOProductLabelSpacer;
     
-    CGSize priceLabelSize = [product.price sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
+    CGSize priceLabelSize = [product.prettyPrice sizeWithFont:kGTIOFontHelveticaNeueOfSize(12)];
     verticalOffset += priceLabelSize.height + kGTIOProductLabelSpacer;
 
     return MAX(kGTIOMaxProductImageHeight, verticalOffset);

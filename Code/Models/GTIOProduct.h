@@ -13,9 +13,9 @@
 @property (nonatomic, retain) NSString* productID;
 @property (nonatomic, retain) NSString* brand;
 @property (nonatomic, retain) NSString* productName;
-@property (nonatomic, retain) NSString* price;
+@property (nonatomic, retain) NSString* prettyPrice;
 @property (nonatomic, retain) NSString* buyUrl;
-@property (nonatomic, retain) NSString* thumbnail;
+@property (nonatomic, retain) NSString* smallThumbnail;
 @property (nonatomic, retain) NSString* descriptionString;
 
 + (RKObjectMapping*)productMapping;

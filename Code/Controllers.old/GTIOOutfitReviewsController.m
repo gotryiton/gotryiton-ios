@@ -413,9 +413,6 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 - (void)suggestionMade:(NSNotification*)note {
     if ([self.outfit.outfitID isEqualToString:note.object]) {
-        if (self.product) {
-            self.product = nil;
-        }
         // note.object is outfitID. we're getting the product from the user info.
         self.product = [note.userInfo objectForKey:kGTIOProductNotificationKey];
         _webViewController = [[note.userInfo objectForKey:kGTIOProductWebViewController] retain];
@@ -608,12 +605,9 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
     RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:path delegate:self];
     loader.params = params;
     loader.method = RKRequestMethodPOST;
-    _editor.text = @"";
-    [self textEditorDidChange:_editor];
     [loader send];
     // Post the voted notification (even though we only reviewed)
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOOutfitVoteNotification object:_outfit.outfitID];
-    self.product = nil;
     [_editor resignFirstResponder];
 }
 
@@ -668,9 +662,15 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary {
 	TTOpenURL(@"gtio://stopLoading");
-    [self setPlaceholderText];
     GTIOReview* review = [dictionary objectForKey:@"review"];
 	if (review) {
+        _editor.text = @"";
+        [self textEditorDidChange:_editor];
+        [_editor resignFirstResponder];
+        [_product release];
+        _product = nil;
+        [self removeProductHeader];
+        [self setPlaceholderText];
         if (_exitAfterPostingReview) {
             [self dismiss];
             return;
@@ -687,7 +687,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 		[dataSource.items insertObject:item atIndex:0];
         
         _outfit.reviewCount = [NSNumber numberWithInt:[_outfit.reviewCount intValue]+1];
-
+        
         if ([dataSource.items count] == 1) {
             [self invalidateModel];
         } else {

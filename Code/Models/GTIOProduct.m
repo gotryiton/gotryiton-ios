@@ -13,16 +13,16 @@
 @synthesize productID,
             brand,
             productName,
-            price,
+            prettyPrice,
             buyUrl,
-            thumbnail,
+            smallThumbnail,
             descriptionString;
 
 + (RKObjectMapping*)productMapping
 {
     return [RKObjectMapping mappingForClass:[GTIOProduct class] block:^(RKObjectMapping *mapping) {
         [mapping mapKeyPath:@"id" toAttribute:@"productID"];
-        [mapping mapAttributes:@"brand", @"productName", @"price", @"buyUrl", @"thumbnail", nil];
+        [mapping mapAttributes:@"brand", @"productName", @"prettyPrice", @"buyUrl", @"smallThumbnail", nil];
         [mapping mapKeyPath:@"description" toAttribute:@"descriptionString"];
     }];
 }
@@ -32,11 +32,18 @@
     [productID release];
     [brand release];
     [productName release];
-    [price release];
+    [prettyPrice release];
     [buyUrl release];
-    [thumbnail release];
+    [smallThumbnail release];
     [descriptionString release];
     [super dealloc];
+}
+
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"%@ - %@",
+            [super description],
+            [[RKObjectSerializer serializerWithObject:self mapping:[[[GTIOProduct class] productMapping] inverseMapping]] serializedObject:nil]];
 }
 
 @end

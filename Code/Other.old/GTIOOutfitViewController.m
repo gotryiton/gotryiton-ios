@@ -162,16 +162,16 @@
     [super viewDidAppear:animated];
     GTIOOutfitPageView* page = (GTIOOutfitPageView*)_scrollView.centerPage;
     [page didAppear];
-    if(_showReviews) {
-        _showReviews = NO;
-        double delayInSeconds = 0.5;
-        NSString* outfitID = self.outfit.outfitID;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            NSString* url = [NSString stringWithFormat:@"gtio://show_reviews/%@", outfitID];
-            TTOpenURL(url);
-        });
-    }
+}
+
+- (void)showReviews {
+    double delayInSeconds = 0.5;
+    NSString* outfitID = self.outfit.outfitID;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        NSString* url = [NSString stringWithFormat:@"gtio://show_reviews/%@", outfitID];
+        TTOpenURL(url);
+    });
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -566,6 +566,10 @@
     }
     
 	if (outfit) {
+        if(_showReviews) {
+            _showReviews = NO;
+            [self showReviews];
+        }
 		if (![_model.objects isKindOfClass:[NSMutableArray array]]) {
 			// Prevents accidental non-mutable arrays in here.
             NSArray* array = _model.objects;

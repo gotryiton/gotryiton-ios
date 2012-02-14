@@ -172,7 +172,7 @@ CGSize kMaxSize = {260,8000};
     [_productView setProduct:_reviewTableItem.review.product];
     
     float reviewX = 12 + 2;
-    float reviewY = CGRectGetMaxY(_productView.frame) + 8;
+    float reviewY = (_reviewTableItem.review.product == nil ? 16 : CGRectGetMaxY(_productView.frame) + 8);
     
     if (_reviewTableItem.review.text && ![_reviewTableItem.review.text isWhitespaceAndNewlines]) {
         [_reviewTextLabel setHidden:NO];
