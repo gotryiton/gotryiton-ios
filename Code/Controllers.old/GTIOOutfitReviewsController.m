@@ -578,18 +578,20 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 }
 
 - (void)verifyUserComment {
-    if (self.product && [[_editor text] length] <= 0) {
-        [SXYAlertView showAlertWithTitle:@"wait!" message:@"suggest this product\n without a comment?" action:^(int buttonIndex) {
-            if (1 == buttonIndex) {
-                [self postReview];
-            }
-        } cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil];
-        
-    } else if ([[_editor text] length] > 0) {
-        [self postReview];
-    } else {
-        [_editor resignFirstResponder];
-    }
+    [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
+        if (self.product && [[_editor text] length] <= 0) {
+            [SXYAlertView showAlertWithTitle:@"wait!" message:@"suggest this product\n without a comment?" action:^(int buttonIndex) {
+                if (1 == buttonIndex) {
+                    [self postReview];
+                }
+            } cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil];
+            
+        } else if ([[_editor text] length] > 0) {
+            [self postReview];
+        } else {
+            [_editor resignFirstResponder];
+        }
+    }];
 }
 
 - (void)postReview {
@@ -614,9 +616,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 - (BOOL)textEditorShouldReturn:(TTTextEditor*)textEditor {
 	if (![textEditor.text isWhitespaceAndNewlines] || self.product) {
-        [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
-            [self verifyUserComment];
-        }];
+        [self verifyUserComment];
 	}
     [_editor resignFirstResponder];
     // It is unclear why I need to call this here, but if I don't it does not get called when
