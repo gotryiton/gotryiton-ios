@@ -348,9 +348,9 @@
     GTIOProduct* product = object;
     // Update Nav Bar Title based on this object.
     NSAssert(product, @"Expected a product, didn't get one. %@", objectLoader);
-    self.title = product.brand;
     if ([objectLoader.resourcePath isEqualToString:GTIORestResourcePath(@"/scrape")]) {
         // Update nav bar title.
+        self.title = product.brand;
         self.currentProduct = product;
         if ([self isShowingLoading]) {
             // if the user already tapped the recommend button (we're showing the loading overlay),

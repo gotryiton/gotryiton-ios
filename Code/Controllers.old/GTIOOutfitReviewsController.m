@@ -417,6 +417,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
         self.product = [note.userInfo objectForKey:kGTIOProductNotificationKey];
         _webViewController = [[note.userInfo objectForKey:kGTIOProductWebViewController] retain];
         [self.navigationController popViewControllerAnimated:YES];
+        [self.tableView scrollToTop:YES];
     }
 }
 

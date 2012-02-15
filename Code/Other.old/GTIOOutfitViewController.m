@@ -169,13 +169,17 @@
     NSString* outfitID = self.outfit.outfitID;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        NSString* url = [NSString stringWithFormat:@"gtio://show_reviews/%@", outfitID];
-        TTOpenURL(url);
+        if (_showReviews) {
+            _showReviews = NO;
+            NSString* url = [NSString stringWithFormat:@"gtio://show_reviews/%@", outfitID];
+            TTOpenURL(url);
+        }
     });
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    _showReviews = NO;
     [self.navigationController.navigationBar setNeedsDisplay]; // Force navigation bar to redraw to rest background
     [[[TTNavigator navigator].window findFirstResponderInView:self.view] resignFirstResponder];
     
@@ -567,7 +571,6 @@
     
 	if (outfit) {
         if(_showReviews) {
-            _showReviews = NO;
             [self showReviews];
         }
 		if (![_model.objects isKindOfClass:[NSMutableArray array]]) {
