@@ -276,10 +276,7 @@
 	if ([textEditor.text length] == 0) {
 		return NO;
 	}
-	if (![[GTIOUser currentUser] isLoggedIn]) {
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotification:) name:kGTIOUserDidLoginNotificationName object:nil];
-		[[GTIOUser currentUser] loginWithFacebook];
-	} else {
+    [[GTIOUser currentUser] loginWithCompletion:^{
 		TTOpenURL(@"gtio://loading");
 		NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 								textEditor.text, @"reviewText", nil];
@@ -292,7 +289,7 @@
 		// save review
         // Post the voted notification (even though we only reviewed)
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOOutfitVoteNotification object:_outfit.outfitID];
-	}
+	}];
 	return NO;
 }
 

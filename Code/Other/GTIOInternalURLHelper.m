@@ -12,19 +12,15 @@
 @implementation GTIOInternalURLHelper
 
 - (void)showMyLooks {
-    if ([[GTIOUser currentUser] isLoggedIn]) {
+    [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
         TTOpenURL([NSString stringWithFormat:@"gtio://browse/.rest.v3.profile.%@.looks", [[GTIOUser currentUser] UID]]);
-    } else {
-        TTOpenURL(@"gtio://login");
-    }
+    }];
 }
 
 - (void)showMyReviews {
-    if ([[GTIOUser currentUser] isLoggedIn]) {
+    [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
         TTOpenURL([NSString stringWithFormat:@"gtio://browse//.rest.v3.profile.%@.reviews", [[GTIOUser currentUser] UID]]);
-    } else {
-        TTOpenURL(@"gtio://login");
-    }
+    }];
 }
 
 @end

@@ -611,18 +611,11 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
     [_editor resignFirstResponder];
 }
 
-- (void)loginNotification:(NSNotification*)note {
-    [_editor becomeFirstResponder];
-}
-
 - (BOOL)textEditorShouldReturn:(TTTextEditor*)textEditor {
 	if (![textEditor.text isWhitespaceAndNewlines] || self.product) {
-        if (![[GTIOUser currentUser] isLoggedIn]) {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotification:) name:kGTIOUserDidLoginNotificationName object:nil];
-            TTOpenURL(@"gtio://login");
-        } else {
+        [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
             [self verifyUserComment];
-        }
+        }];
 	}
     [_editor resignFirstResponder];
     // It is unclear why I need to call this here, but if I don't it does not get called when

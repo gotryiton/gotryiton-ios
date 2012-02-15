@@ -61,7 +61,6 @@
 
 - (void)dismiss {
     [self popViewController];
-    //[self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)loginStopped:(NSNotification*)note {

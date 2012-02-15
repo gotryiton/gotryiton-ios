@@ -64,7 +64,7 @@ typedef void (^LoginCompletionHandler)();
 @class GTIOOutfit;
 
 @interface GTIOUser : NSObject <JREngageDelegate, FBSessionDelegate, RKObjectLoaderDelegate> {
-    LoginCompletionHandler _facebookLoginCompletionHandler;
+    LoginCompletionHandler _loginCompletionHandler;
     
 	BOOL _loggedIn;	
 	NSString* _token;
@@ -227,9 +227,20 @@ typedef void (^LoginCompletionHandler)();
 - (void)loginWithFacebook;
 
 /**
+ * Begin the FB Login process. Ensure any login block is cleared.
+ */
+- (void)loginWithFacebookClearingCompletionBlock;
+
+/**
  * Begin the facebook login process. On successful login, call the handler.
  */
-- (void)loginWithFacebookAndCompletion:(LoginCompletionHandler)handler;
+- (void)loginWithCompletion:(LoginCompletionHandler)handler;
+
+/**
+ * Ensure the user is logged in and execute the block once they are.
+ * If the user does not login, the block is not executed.
+ */
+- (void)ensureLoggedInAndExecute:(LoginCompletionHandler)handler;
 
 /**
  * Reload the facebook object, return isSessionValid

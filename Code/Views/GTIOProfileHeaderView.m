@@ -309,23 +309,21 @@
 }
 
 - (void)editButtonAction {
-    if (![GTIOUser currentUser].loggedIn) {
-        TTOpenURL(@"gtio://login");
-        return;
-    }
-    if (_shouldAllowEditing) {
-        [_editProfileButton setHighlighted:YES];
-        TTOpenURL(@"gtio://profile/edit");
-    } else {
-        GTIOStylistRelationship* relationship = _profile.stylistRelationship;
-        if (relationship.iStyle) {
-            [self presentActionSheetForRelationship:relationship];
-        } else if (relationship.isMyStylist && !relationship.isMyStylistIgnored) {
-            [self removeAsMyStylist];
+    [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
+        if (_shouldAllowEditing) {
+            [_editProfileButton setHighlighted:YES];
+            TTOpenURL(@"gtio://profile/edit");
         } else {
-            [self addAsMyStylist];
+            GTIOStylistRelationship* relationship = _profile.stylistRelationship;
+            if (relationship.iStyle) {
+                [self presentActionSheetForRelationship:relationship];
+            } else if (relationship.isMyStylist && !relationship.isMyStylistIgnored) {
+                [self removeAsMyStylist];
+            } else {
+                [self addAsMyStylist];
+            }
         }
-    }
+    }];
 }
 
 

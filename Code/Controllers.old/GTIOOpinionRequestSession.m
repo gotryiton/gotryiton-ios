@@ -113,20 +113,6 @@ static GTIOOpinionRequestSession* globalSession = nil;
 	return [self topViewController].navigationController;
 }
 
-#pragma mark Notifications
-
-- (void)removeLoginObservers {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:kGTIOUserDidLoginNotificationName object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:kGTIOUserDidCancelLoginNotificationName object:nil];
-}
-
-- (void)userDidLogin {
-	[self removeLoginObservers];
-	
-	// User has now logged in, let's start the process
-	[self start];
-}
-
 #pragma mark Opinion Request Settings persistence
 
 - (void)persistOpinionRequestToUserDefaults {
@@ -158,23 +144,11 @@ static GTIOOpinionRequestSession* globalSession = nil;
 - (void)start {
     GTIOAnalyticsEvent(kUploadGetStartedEventName);
 	GTIOUser* currentUser = [GTIOUser currentUser];
-	if (currentUser.isLoggedIn) {
+    [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
 		[_opinionRequest release];
 		_opinionRequest = [self newOpinionRequestRespectingPreviousSettings];
 		[self presentPhotoSourceActionSheet:YES];
-	} else {
-		// Watch for login to complete or be canceled
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(userDidLogin) 
-													 name:kGTIOUserDidLoginNotificationName 
-												   object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(removeLoginObservers) 
-													 name:kGTIOUserDidCancelLoginNotificationName 
-												   object:nil];
-		//[currentUser login];
-        TTOpenURL(@"gtio://login");
-	}		
+    }];	
 }
 
 - (void)next {

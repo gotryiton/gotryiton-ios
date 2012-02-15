@@ -132,16 +132,11 @@ static GTIOUser* gCurrentUser = nil;
 }
 
 + (void)makeSuggestionForOutfit:(GTIOOutfit*)outfit {
-    if (![[GTIOUser currentUser] isLoggedIn]) {
-        __block NSString* outfitID = outfit.outfitID;
-		[[GTIOUser currentUser] loginWithFacebookAndCompletion:^{
-            NSString* url = [NSString stringWithFormat:@"gtio://recommend/%@", outfitID];
-            TTOpenURL(url);
-        }];
-    } else {
-        NSString* url = [NSString stringWithFormat:@"gtio://recommend/%@", outfit.outfitID];
+    __block NSString* outfitID = outfit.outfitID;
+    [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
+        NSString* url = [NSString stringWithFormat:@"gtio://recommend/%@", outfitID];
         TTOpenURL(url);
-    }
+    }];
 }
 
 + (RKObjectMapping*)userMapping {
@@ -342,6 +337,28 @@ static GTIOUser* gCurrentUser = nil;
     return count;
 }
 
++ (void)loginWithNoCompletionBlock {
+    [[GTIOUser currentUser] loginWithCompletion:^{
+        ;
+    }];
+}
+
+- (void)loginWithCompletion:(LoginCompletionHandler)handler {
+    if (_loginCompletionHandler) {
+        Block_release(_loginCompletionHandler);
+    }
+    _loginCompletionHandler = Block_copy(handler);
+    TTOpenURL(@"gtio://showLogin");
+}
+
+- (void)ensureLoggedInAndExecute:(LoginCompletionHandler)handler {
+    if ([GTIOUser currentUser].isLoggedIn) {
+        handler();
+    } else {
+        [self loginWithCompletion:handler];
+    }
+}
+
 - (void)didStartLogin {
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidBeginLoginProcess object:self];
 }
@@ -357,8 +374,11 @@ static GTIOUser* gCurrentUser = nil;
     [_facebook authorize:permissions];
 }
 
-- (void)loginWithFacebookAndCompletion:(LoginCompletionHandler)handler {
-    _facebookLoginCompletionHandler = Block_copy(handler);
+- (void)loginWithFacebookClearingCompletionBlock {
+    if (_loginCompletionHandler) {
+        Block_release(_loginCompletionHandler);
+    }
+    _loginCompletionHandler = NULL;
     [self loginWithFacebook];
 }
 
@@ -448,6 +468,16 @@ static GTIOUser* gCurrentUser = nil;
 		if (loggedIn) {
 			TTOpenURL(@"gtio://analytics/trackUserDidLogin");
 			[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLoginNotificationName object:self];
+            if (_loginCompletionHandler) {
+                // We are going to wait, because the login page is most likely being dismissed.
+                double delayInSeconds = 0.5;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    _loginCompletionHandler();
+                    Block_release(_loginCompletionHandler);
+                    _loginCompletionHandler = NULL;
+                });
+            }
 		} else {
 			TTOpenURL(@"gtio://analytics/trackUserDidLogout");
 			[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidLogoutNotificationName object:self];
@@ -584,22 +614,12 @@ static GTIOUser* gCurrentUser = nil;
     loader.objectMapping = userMapping;
     
     [loader send];
-    if (_facebookLoginCompletionHandler) {
-        _facebookLoginCompletionHandler();
-        Block_release(_facebookLoginCompletionHandler);
-        _facebookLoginCompletionHandler = NULL;
-    }
 }
 
 /**
  * Called when the user dismissed the dialog without logging in.
  */
 - (void)fbDidNotLogin:(BOOL)cancelled {
-    if (_facebookLoginCompletionHandler) {
-        Block_release(_facebookLoginCompletionHandler);
-        _facebookLoginCompletionHandler = NULL;
-    }
-    
     [self didStopLogin];
     [self clearUserData];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kGTIOUserDidCancelLoginNotificationName object:self];	

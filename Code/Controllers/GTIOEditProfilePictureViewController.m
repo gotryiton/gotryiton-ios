@@ -282,7 +282,7 @@
 #pragma mark Button Actions
 
 - (void)connectToFacebook:(id)sender {
-    [[GTIOUser currentUser] loginWithFacebook];
+    [[GTIOUser currentUser] loginWithFacebookClearingCompletionBlock];
 }
 
 - (void)cancelButtonAction {

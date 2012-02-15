@@ -275,11 +275,9 @@
 }
 
 - (void)stylistsButtonWasPressed:(id)sender {
-    if ([GTIOUser currentUser].loggedIn) {
-       TTOpenURL(@"gtio://stylists");
-    } else {
-        TTOpenURL(@"gtio://login");
-    }
+    [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
+        TTOpenURL(@"gtio://stylists");
+    }];
 }
 
 - (void)createModel {

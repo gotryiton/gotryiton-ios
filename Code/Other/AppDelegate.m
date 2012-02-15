@@ -313,7 +313,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	[map from:@"gtio://home" toSharedViewController:[GTIOHomeViewController class]];
 	[map from:@"gtio://welcome" toModalViewController:[GTIOWelcomeViewController class]];
-	[map from:@"gtio://login" toViewController:[GTIOLoginViewController class]];
+	[map from:@"gtio://login" toObject:[GTIOUser class] selector:@selector(loginWithNoCompletionBlock)];
+    [map from:@"gtio://showLogin" toViewController:[GTIOLoginViewController class]];
     
 	[map from:@"gtio://loginWithJanRain" toObject:[GTIOUser currentUser] selector:@selector(loginWithJanRain)];
 	[map from:@"gtio://loginWithFacebook" toObject:[GTIOUser currentUser] selector:@selector(loginWithFacebook)];

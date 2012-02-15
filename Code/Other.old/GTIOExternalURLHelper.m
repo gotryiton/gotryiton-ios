@@ -11,19 +11,7 @@
 
 @implementation GTIOExternalURLHelper
 
-- (id)init {
-	if (self = [super init]) {
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(loadURLOnLogin) 
-													 name:kGTIOUserDidLoginNotificationName
-												   object:nil];
-	}
-	
-	return self;
-}
-
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[_URLString release];
 	[super dealloc];
 }
@@ -38,16 +26,17 @@
 	[[TTNavigator globalNavigator] openURLAction:
 	 [TTURLAction actionWithURLPath:[NSString stringWithFormat:@"gtio://%@", tabName]]];
 	
-	if ((requireLogin == NO || [GTIOUser currentUser].isLoggedIn) && URLString) {
-		[[TTNavigator globalNavigator] openURLAction:
-		 [TTURLAction actionWithURLPath:URLString]];
-	} else {
-		_URLString = URLString;
-		[_URLString retain];
-		
-		[[TTNavigator globalNavigator] openURLAction:
-		 [TTURLAction actionWithURLPath:@"gtio://login"]];
-	}
+    if (URLString) {
+        if (NO == requireLogin) {
+            [[TTNavigator globalNavigator] openURLAction:
+             [TTURLAction actionWithURLPath:URLString]];
+        } else {
+            [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
+                [[TTNavigator globalNavigator] openURLAction:
+                 [TTURLAction actionWithURLPath:URLString]];
+            }];
+        }
+    }
 }
 
 - (void)requireLoginAndShowOutfitOnProfileTab:(NSString*)outfitID {

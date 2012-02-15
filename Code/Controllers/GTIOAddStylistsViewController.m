@@ -81,7 +81,7 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
 }
 
 - (void)fbButtonWasPressed:(id)sender {
-    [[GTIOUser currentUser] loginWithFacebook];
+    [[GTIOUser currentUser] loginWithFacebookClearingCompletionBlock];
 }
 
 - (void)layoutSubviews {
@@ -644,7 +644,7 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
     NSLog(@"facebook invite pressed!");
     
     if(![[GTIOUser currentUser] resumeFacebookSession] || [[GTIOUser currentUser].isFacebookConnected boolValue] == NO) {
-        [[GTIOUser currentUser] loginWithFacebook];
+        [[GTIOUser currentUser] loginWithFacebookClearingCompletionBlock];
     } else {
         NSDictionary* params = [NSDictionary dictionary];
         params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];

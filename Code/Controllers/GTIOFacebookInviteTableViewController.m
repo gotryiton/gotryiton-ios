@@ -187,7 +187,7 @@ NSString* kGTIOFacebookInviteAPIEndpoint = @"/stylists/all-friends";
     GTIOFacebookInviteTableItem* item = (GTIOFacebookInviteTableItem*)object;
     
     if([GTIOUser currentUser].facebook == nil) {
-        [[GTIOUser currentUser] loginWithFacebook];
+        [[GTIOUser currentUser] loginWithFacebookClearingCompletionBlock];
     }
     
     NSLog(@"facebook id: %@", item.profile.facebookId);
