@@ -144,11 +144,15 @@ static GTIOOpinionRequestSession* globalSession = nil;
 - (void)start {
     GTIOAnalyticsEvent(kUploadGetStartedEventName);
 	GTIOUser* currentUser = [GTIOUser currentUser];
-    [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
-		[_opinionRequest release];
+    if (currentUser.loggedIn) {
+        [_opinionRequest release];
 		_opinionRequest = [self newOpinionRequestRespectingPreviousSettings];
 		[self presentPhotoSourceActionSheet:YES];
-    }];	
+    } else {
+        [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
+            ;
+        }];
+    }
 }
 
 - (void)next {
