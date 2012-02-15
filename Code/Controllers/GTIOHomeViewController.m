@@ -562,9 +562,13 @@ static float const dragOffsetReloadDistance = 40.0f;
 }
 
 - (IBAction)profileViewWasTouched {
-    [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
+    if ([GTIOUser currentUser].isLoggedIn) {
         TTOpenURL(@"gtio://profile");
-    }];
+    } else {
+        [[GTIOUser currentUser] loginWithCompletion:^{
+            ;
+        }];
+    }
 }
 
 #pragma mark - Notifications

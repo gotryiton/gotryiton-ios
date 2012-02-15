@@ -22,7 +22,7 @@
 }
 
 - (IBAction)loginButtonWasPressed {
-    UIViewController* viewController = [[TTNavigator navigator] viewControllerForURL:@"gtio://login"];
+    UIViewController* viewController = [[TTNavigator navigator] viewControllerForURL:@"gtio://showLogin"];
     [self dismissModalViewControllerAnimated:YES];
     UIViewController* home = [[TTNavigator navigator] viewControllerForURL:@"gtio://home"];
     [home.navigationController pushViewController:viewController animated:YES];
