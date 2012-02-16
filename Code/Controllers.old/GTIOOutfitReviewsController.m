@@ -138,7 +138,7 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 }
 
 - (CGFloat)heightForTableView {
-    if (recommendButton && nil == self.product) {
+    if (_recommendButton && nil == self.product) {
         return self.view.height - 58;
     }
     return self.view.height;
@@ -280,14 +280,14 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
     
     if (![self.outfit.uid isEqual:[GTIOUser currentUser].UID]) {
         // Recommend Button
-        recommendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-OFF.png"] forState:UIControlStateNormal];
-        [recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-ON.png"] forState:UIControlStateHighlighted];
-        recommendButton.frame = CGRectMake(0, self.view.bounds.size.height - 65, 320, 65);
-        [recommendButton addTarget:self action:@selector(recommendedButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-        recommendButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        [recommendButton setTag:kOutfitReviewSuggestButtonViewTag];
-        [self.view addSubview:recommendButton];
+        _recommendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-OFF.png"] forState:UIControlStateNormal];
+        [_recommendButton setImage:[UIImage imageNamed:@"reviews-suggest-bigpink-ON.png"] forState:UIControlStateHighlighted];
+        _recommendButton.frame = CGRectMake(0, self.view.bounds.size.height - 65, 320, 65);
+        [_recommendButton addTarget:self action:@selector(recommendedButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _recommendButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        [_recommendButton setTag:kOutfitReviewSuggestButtonViewTag];
+        [self.view addSubview:_recommendButton];
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
                                           self.tableView.frame.origin.y,
                                           self.tableView.width,
@@ -310,6 +310,9 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 - (void)updateTableHeaderWithProduct:(GTIOProduct *)product {
     [self setPlaceholderText];
+    if (nil == product) {
+        return;
+    }
     
     UIView *tableHeaderView = self.tableView.tableHeaderView;
     UIView *headerView = [tableHeaderView viewWithTag:kOutfitReviewHeaderContainerTag];
@@ -370,39 +373,28 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
     }];
 }
 
-- (void)showSuggestButton {
+- (void)updateSuggestButton {
     [UIView animateWithDuration:0.5 animations:^{
-        recommendButton.frame = CGRectMake(0, self.view.bounds.size.height - 65, 320, 65);
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
                                           self.tableView.frame.origin.y,
                                           self.tableView.width,
                                           [self heightForTableView]);
-    }];
-}
-
-- (void)hideSuggestButton {
-    [UIView animateWithDuration:0.5 animations:^{
-        recommendButton.frame = CGRectMake(0, self.view.bounds.size.height, 320, 65);
-        self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
-                                          self.tableView.frame.origin.y,
-                                          self.tableView.width,
-                                          [self heightForTableView]);
-
+        _recommendButton.frame = CGRectMake(0, CGRectGetMaxY(self.tableView.frame)-7, 320, 65);
     }];
 }
 
 - (void)setProduct:(GTIOProduct*)product {
+    if ([product isKindOfClass:[NSNull class]]) {
+        [self setProduct:nil];
+        return;
+    }
     [product retain];
     id oldProduct = _product;
     _product = product;
     if (_tableView != nil) {
-        if (nil == product && nil != oldProduct) {
-            [self removeProductHeader];
-            [self showSuggestButton];
-        } else if (nil != product && nil == oldProduct) {
-            [self updateTableHeaderWithProduct:product];
-            [self hideSuggestButton];
-        }
+        [self removeProductHeader];
+        [self updateTableHeaderWithProduct:product];
+        [self updateSuggestButton];
     }
     [oldProduct release];
 }

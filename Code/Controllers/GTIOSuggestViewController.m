@@ -347,7 +347,12 @@
     NSLog(@"Object: %@", object);
     GTIOProduct* product = object;
     // Update Nav Bar Title based on this object.
-    NSAssert(product, @"Expected a product, didn't get one. %@", objectLoader);
+    if (nil == product) {
+        NSLog(@"Expected a product, didn't get one. %@", objectLoader);
+        self.title = @"SUGGEST";
+        self.currentProduct = (GTIOProduct*)[NSNull null];
+    }
+    if (nil == product) return;
     if ([objectLoader.resourcePath isEqualToString:GTIORestResourcePath(@"/scrape")]) {
         // Update nav bar title.
         self.title = product.brand;
