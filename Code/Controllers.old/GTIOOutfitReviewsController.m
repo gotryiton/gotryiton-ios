@@ -650,9 +650,12 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 	TTOpenURL(@"gtio://stopLoading");
     GTIOReview* review = [dictionary objectForKey:@"review"];
 	if (review) {
+        // Resetting the text here, without toggling autoresizesToText, causes the text editor to become the first responder (sort of). We don't want that.
+        _editor.autoresizesToText = NO;
         _editor.text = @"";
+        _editor.autoresizesToText = YES;
+        
         [self textEditorDidChange:_editor];
-        [_editor resignFirstResponder];
         [_product release];
         _product = nil;
         [self removeProductHeader];

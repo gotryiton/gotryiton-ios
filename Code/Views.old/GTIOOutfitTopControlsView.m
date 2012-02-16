@@ -267,16 +267,12 @@
 	}
 }
 
-- (void)loginNotification:(NSNotification*)note {
-	[_reviewTextArea becomeFirstResponder];
-}
-
 - (BOOL)textEditorShouldReturn:(TTTextEditor*)textEditor {
 	[textEditor resignFirstResponder];
 	if ([textEditor.text length] == 0) {
 		return NO;
 	}
-    [[GTIOUser currentUser] loginWithCompletion:^{
+    [[GTIOUser currentUser] ensureLoggedInAndExecute:^{
 		TTOpenURL(@"gtio://loading");
 		NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
 								textEditor.text, @"reviewText", nil];

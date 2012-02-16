@@ -352,7 +352,7 @@ static GTIOUser* gCurrentUser = nil;
 }
 
 - (void)ensureLoggedInAndExecute:(LoginCompletionHandler)handler {
-    if ([GTIOUser currentUser].isLoggedIn) {
+    if (self.isLoggedIn) {
         handler();
     } else {
         [self loginWithCompletion:handler];
