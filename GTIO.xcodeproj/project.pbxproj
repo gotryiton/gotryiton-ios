@@ -490,8 +490,6 @@
 		3F06691714867A3900692659 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BB137C2CFA00F89D4F /* Icon-Small-50.png */; };
 		3F06691814867A3900692659 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BC137C2CFA00F89D4F /* Icon-Small.png */; };
 		3F06691914867A3900692659 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BD137C2CFA00F89D4F /* Icon-Small@2x.png */; };
-		3F06691A14867A3900692659 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BE137C2CFA00F89D4F /* Icon.png */; };
-		3F06691B14867A3900692659 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BF137C2CFA00F89D4F /* Icon@2x.png */; };
 		3F06691C14867A3900692659 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7C627C0137C2CFA00F89D4F /* iTunesArtwork */; };
 		3F06691D14867A3900692659 /* Icon-Small-staging.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627C2137C2CFA00F89D4F /* Icon-Small-staging.png */; };
 		3F06691E14867A3900692659 /* Icon-Small-staging@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627C3137C2CFA00F89D4F /* Icon-Small-staging@2x.png */; };
@@ -1089,6 +1087,8 @@
 		3F06ED251395403500FC245F /* add-tab-recommended-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F06ED071395403500FC245F /* add-tab-recommended-ON@2x.png */; };
 		3F06ED261395403500FC245F /* add-view-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F06ED081395403500FC245F /* add-view-profile.png */; };
 		3F06ED271395403500FC245F /* add-view-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F06ED091395403500FC245F /* add-view-profile@2x.png */; };
+		3F089C4514ED570A00C1E214 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9083A9139EBB950039C8FE /* Icon@2x.png */; };
+		3F089C4614ED570D00C1E214 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9083A7139EBB8E0039C8FE /* Icon.png */; };
 		3F18333F138D64850032CFAF /* GTIOStaticOutfitListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F18333E138D64850032CFAF /* GTIOStaticOutfitListModel.m */; };
 		3F18334F138D685F0032CFAF /* enable-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F183343138D685F0032CFAF /* enable-OFF.png */; };
 		3F183352138D685F0032CFAF /* enable-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F183344138D685F0032CFAF /* enable-OFF@2x.png */; };
@@ -1578,8 +1578,6 @@
 		3F86F25413B8CA50005063FE /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BB137C2CFA00F89D4F /* Icon-Small-50.png */; };
 		3F86F25513B8CA50005063FE /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BC137C2CFA00F89D4F /* Icon-Small.png */; };
 		3F86F25613B8CA50005063FE /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BD137C2CFA00F89D4F /* Icon-Small@2x.png */; };
-		3F86F25713B8CA50005063FE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BE137C2CFA00F89D4F /* Icon.png */; };
-		3F86F25813B8CA50005063FE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BF137C2CFA00F89D4F /* Icon@2x.png */; };
 		3F86F25913B8CA50005063FE /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7C627C0137C2CFA00F89D4F /* iTunesArtwork */; };
 		3F86F25A13B8CA50005063FE /* Icon-Small-staging.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627C2137C2CFA00F89D4F /* Icon-Small-staging.png */; };
 		3F86F25B13B8CA50005063FE /* Icon-Small-staging@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627C3137C2CFA00F89D4F /* Icon-Small-staging@2x.png */; };
@@ -2123,8 +2121,6 @@
 		3F906B461396A83E008EC414 /* mystylists-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F906B381396A83E008EC414 /* mystylists-bg.png */; };
 		3F906B491396A83E008EC414 /* mystylists-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F906B391396A83E008EC414 /* mystylists-bg@2x.png */; };
 		3F9083A6139EBB780039C8FE /* Icon-staging@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9083A4139EBAA40039C8FE /* Icon-staging@2x.png */; };
-		3F9083A8139EBB8E0039C8FE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9083A7139EBB8E0039C8FE /* Icon.png */; };
-		3F9083AA139EBB950039C8FE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9083A9139EBB950039C8FE /* Icon@2x.png */; };
 		3F9EC686138449C0008E816A /* GTIOMyStylistsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */; };
 		3FA47D2314743E34006A2610 /* home-pull-widget-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA47D1F14743E34006A2610 /* home-pull-widget-arrow.png */; };
 		3FA47D2414743E34006A2610 /* home-pull-widget-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA47D1F14743E34006A2610 /* home-pull-widget-arrow.png */; };
@@ -2639,8 +2635,6 @@
 		A7C62940137C2CFB00F89D4F /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BB137C2CFA00F89D4F /* Icon-Small-50.png */; };
 		A7C62943137C2CFB00F89D4F /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BC137C2CFA00F89D4F /* Icon-Small.png */; };
 		A7C62946137C2CFB00F89D4F /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BD137C2CFA00F89D4F /* Icon-Small@2x.png */; };
-		A7C62949137C2CFB00F89D4F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BE137C2CFA00F89D4F /* Icon.png */; };
-		A7C6294C137C2CFB00F89D4F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627BF137C2CFA00F89D4F /* Icon@2x.png */; };
 		A7C6294F137C2CFB00F89D4F /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7C627C0137C2CFA00F89D4F /* iTunesArtwork */; };
 		A7C62952137C2CFB00F89D4F /* Icon-Small-staging.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627C2137C2CFA00F89D4F /* Icon-Small-staging.png */; };
 		A7C62955137C2CFB00F89D4F /* Icon-Small-staging@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C627C3137C2CFA00F89D4F /* Icon-Small-staging@2x.png */; };
@@ -3789,8 +3783,8 @@
 		3F906B391396A83E008EC414 /* mystylists-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mystylists-bg@2x.png"; sourceTree = "<group>"; };
 		3F9083A2139EBA9C0039C8FE /* Icon-staging.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-staging.png"; sourceTree = "<group>"; };
 		3F9083A4139EBAA40039C8FE /* Icon-staging@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-staging@2x.png"; sourceTree = "<group>"; };
-		3F9083A7139EBB8E0039C8FE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		3F9083A9139EBB950039C8FE /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		3F9083A7139EBB8E0039C8FE /* Icon.png */ = {isa = PBXFileReference; explicitFileType = image.icns; path = Icon.png; sourceTree = "<group>"; };
+		3F9083A9139EBB950039C8FE /* Icon@2x.png */ = {isa = PBXFileReference; explicitFileType = image.icns; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		3F9EC684138449C0008E816A /* GTIOMyStylistsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMyStylistsTableViewController.h; sourceTree = "<group>"; };
 		3F9EC685138449C0008E816A /* GTIOMyStylistsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMyStylistsTableViewController.m; sourceTree = "<group>"; };
 		3FA47D1F14743E34006A2610 /* home-pull-widget-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-pull-widget-arrow.png"; sourceTree = "<group>"; };
@@ -4355,8 +4349,6 @@
 		A7C627BB137C2CFA00F89D4F /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
 		A7C627BC137C2CFA00F89D4F /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		A7C627BD137C2CFA00F89D4F /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		A7C627BE137C2CFA00F89D4F /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		A7C627BF137C2CFA00F89D4F /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		A7C627C0137C2CFA00F89D4F /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		A7C627C2137C2CFA00F89D4F /* Icon-Small-staging.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-staging.png"; sourceTree = "<group>"; };
 		A7C627C3137C2CFA00F89D4F /* Icon-Small-staging@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-staging@2x.png"; sourceTree = "<group>"; };
@@ -6629,8 +6621,6 @@
 				A7C627BB137C2CFA00F89D4F /* Icon-Small-50.png */,
 				A7C627BC137C2CFA00F89D4F /* Icon-Small.png */,
 				A7C627BD137C2CFA00F89D4F /* Icon-Small@2x.png */,
-				A7C627BE137C2CFA00F89D4F /* Icon.png */,
-				A7C627BF137C2CFA00F89D4F /* Icon@2x.png */,
 				A7C627C0137C2CFA00F89D4F /* iTunesArtwork */,
 				A7C627C1137C2CFA00F89D4F /* staging */,
 			);
@@ -7665,8 +7655,6 @@
 				A7C62940137C2CFB00F89D4F /* Icon-Small-50.png in Resources */,
 				A7C62943137C2CFB00F89D4F /* Icon-Small.png in Resources */,
 				A7C62946137C2CFB00F89D4F /* Icon-Small@2x.png in Resources */,
-				A7C62949137C2CFB00F89D4F /* Icon.png in Resources */,
-				A7C6294C137C2CFB00F89D4F /* Icon@2x.png in Resources */,
 				A7C6294F137C2CFB00F89D4F /* iTunesArtwork in Resources */,
 				A7C62952137C2CFB00F89D4F /* Icon-Small-staging.png in Resources */,
 				A7C62955137C2CFB00F89D4F /* Icon-Small-staging@2x.png in Resources */,
@@ -8097,8 +8085,6 @@
 				3F906B461396A83E008EC414 /* mystylists-bg.png in Resources */,
 				3F906B491396A83E008EC414 /* mystylists-bg@2x.png in Resources */,
 				3F9083A6139EBB780039C8FE /* Icon-staging@2x.png in Resources */,
-				3F9083A8139EBB8E0039C8FE /* Icon.png in Resources */,
-				3F9083AA139EBB950039C8FE /* Icon@2x.png in Resources */,
 				3FD92210139FD26800521E82 /* circle-chevron.png in Resources */,
 				3FD92213139FD26800521E82 /* circle-chevron@2x.png in Resources */,
 				3FD92216139FD26800521E82 /* home-bg.png in Resources */,
@@ -8270,6 +8256,8 @@
 				A433AE3B14E24E23002788C1 /* kb-controls-suggest-OFF@2x.png in Resources */,
 				A433AE3E14E24E23002788C1 /* kb-controls-suggest-ON.png in Resources */,
 				A433AE4114E24E23002788C1 /* kb-controls-suggest-ON@2x.png in Resources */,
+				3F089C4514ED570A00C1E214 /* Icon@2x.png in Resources */,
+				3F089C4614ED570D00C1E214 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8446,8 +8434,6 @@
 				3F06691714867A3900692659 /* Icon-Small-50.png in Resources */,
 				3F06691814867A3900692659 /* Icon-Small.png in Resources */,
 				3F06691914867A3900692659 /* Icon-Small@2x.png in Resources */,
-				3F06691A14867A3900692659 /* Icon.png in Resources */,
-				3F06691B14867A3900692659 /* Icon@2x.png in Resources */,
 				3F06691C14867A3900692659 /* iTunesArtwork in Resources */,
 				3F06691D14867A3900692659 /* Icon-Small-staging.png in Resources */,
 				3F06691E14867A3900692659 /* Icon-Small-staging@2x.png in Resources */,
@@ -9228,8 +9214,6 @@
 				3F86F25413B8CA50005063FE /* Icon-Small-50.png in Resources */,
 				3F86F25513B8CA50005063FE /* Icon-Small.png in Resources */,
 				3F86F25613B8CA50005063FE /* Icon-Small@2x.png in Resources */,
-				3F86F25713B8CA50005063FE /* Icon.png in Resources */,
-				3F86F25813B8CA50005063FE /* Icon@2x.png in Resources */,
 				3F86F25913B8CA50005063FE /* iTunesArtwork in Resources */,
 				3F86F25A13B8CA50005063FE /* Icon-Small-staging.png in Resources */,
 				3F86F25B13B8CA50005063FE /* Icon-Small-staging@2x.png in Resources */,
@@ -10617,8 +10601,8 @@
 					armv7,
 					armv6,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: GO TRY IT ON";
+				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -10651,8 +10635,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BD31C70A-B495-462B-B8BC-E2E580A6DAC2";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BD31C70A-B495-462B-B8BC-E2E580A6DAC2";
+				PROVISIONING_PROFILE = "9663EA5A-9E75-4E7A-91EA-B0A5053FF53E";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -10666,7 +10649,8 @@
 					armv7,
 					armv6,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: GO TRY IT ON";
+				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
@@ -10695,7 +10679,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BD31C70A-B495-462B-B8BC-E2E580A6DAC2";
+				PROVISIONING_PROFILE = "9663EA5A-9E75-4E7A-91EA-B0A5053FF53E";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
@@ -10793,7 +10777,8 @@
 					armv7,
 					armv6,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -10822,7 +10807,8 @@
 					"\"$(SRCROOT)/TestFlightSDK0.7.2 (1)\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "11201B1C-B43B-4E0D-B9EC-E7607A4A3F42";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -10836,7 +10822,7 @@
 					armv7,
 					armv6,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremy Ellison (E24ZRRYSRR)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Code/Other/Prefix.pch;
@@ -10861,7 +10847,7 @@
 					"\"$(SRCROOT)/TestFlightSDK0.7.2 (1)\"",
 				);
 				PRODUCT_NAME = "GTIO Staging";
-				PROVISIONING_PROFILE = "11201B1C-B43B-4E0D-B9EC-E7607A4A3F42";
+				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7 i386 x86_64";
 				WRAPPER_EXTENSION = app;
