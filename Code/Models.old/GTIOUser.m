@@ -370,7 +370,7 @@ static GTIOUser* gCurrentUser = nil;
 - (void)loginWithFacebook {
     [self didStartLogin];
     _facebook = [[Facebook alloc] initWithAppId:kGTIOFacebookAppID andDelegate:self];
-    NSArray* permissions = [NSArray arrayWithObjects:@"publish_stream", @"offline_access", @"email", @"user_birthday", @"user_location", nil];
+    NSArray* permissions = [NSArray arrayWithObjects:@"publish_stream", @"offline_access", @"email", @"user_birthday", @"user_location", @"publish_actions", nil];
     [_facebook authorize:permissions];
 }
 

@@ -44,7 +44,7 @@
 	NSString* const kGTIOBaseURLString = @"http://i.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"iligdiaplfgbmhcpebgf";
     NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
-    NSString* const kGTIOFacebookAppID = @"126454074038555";
+    NSString* const kGTIOFacebookAppID = @"125885160757300";
     NSUInteger const kGTIONetworkLogLevel = RKLogLevelError;
     NSUInteger const kGTIOLogLevel = RKLogLevelError;
     NSString* const kGTIOHTTPAuthUsername = nil;

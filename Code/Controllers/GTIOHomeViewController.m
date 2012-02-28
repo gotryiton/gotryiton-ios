@@ -235,6 +235,7 @@ static float const dragOffsetReloadDistance = 40.0f;
             _notificationsButton.enabled = YES;
             _notificationsBadgeButton.enabled = YES;
         }
+        [self updateScrollView];
     });
 }
 
