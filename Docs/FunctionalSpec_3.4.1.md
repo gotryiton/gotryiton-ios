@@ -67,11 +67,6 @@ When a User has already created a GO TRY IT ON account with Facebook prior to th
 
 <img src="http://assets.gotryiton.com/img/spec/3.4.1/1/1.2.permissions_screen%20on_2nd_login.png" width="240px"> 
 
-#### Stories
-
-- When a User?... Do we need a story here?
-   - If the user?...
-
 ### 2.1 Settings Page
 
 #### Overview
