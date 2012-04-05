@@ -25,6 +25,7 @@ typedef enum {
     NSMutableArray* _profileIDsToInvite;
     UITextField* _emailField;
     NSMutableArray* _customEmailAddresses;
+    GTIOMessageComposer* _composer;
     
     UIView* _inviteOverlay;
 }

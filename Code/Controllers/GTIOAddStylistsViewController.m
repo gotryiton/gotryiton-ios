@@ -275,6 +275,8 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
         _profileIDsToInvite = [NSMutableArray new];
         _customEmailAddresses = [NSMutableArray new];
         
+        _composer = [[GTIOMessageComposer alloc] init];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedIn:) name:kGTIOUserDidUpdateProfileNotificationName object:nil];
     }
     return self;
@@ -285,6 +287,7 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
     [_emailsToInvite release];
     [_profileIDsToInvite release];
     [_customEmailAddresses release];
+    [_composer release];
     [super dealloc];
 }
 
@@ -692,9 +695,8 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
         
         NSString* text = [body valueForKey:@"text"];
         
-        GTIOMessageComposer* composer = [[[GTIOMessageComposer alloc] init] autorelease];
         // TODO: outfit id not used in composer creation method - ask jeremy if should be removed
-        UIViewController* controller = [composer textMessageComposerWithOutfitID:@"" body:text];
+        UIViewController* controller = [_composer textMessageComposerWithOutfitID:@"" body:text];
         if(nil != controller) {
             [self.navigationController presentModalViewController:controller animated:YES]; 
         }
@@ -703,9 +705,8 @@ NSString* kGTIOInviteFacebookPath = @"/stylists/invite/facebook";
         NSString* text = [body valueForKey:@"text"];
         NSString* subject = [body valueForKey:@"subject"];
         
-        GTIOMessageComposer* composer = [[[GTIOMessageComposer alloc] init] autorelease];
         // TODO: again, the outfit id is irrelevant
-        UIViewController* controller = [composer emailComposerWithOutfitID:@"" subject:subject body:text];
+        UIViewController* controller = [_composer emailComposerWithOutfitID:@"" subject:subject body:text];
         if(nil != controller) {
             [self.navigationController presentModalViewController:controller animated:YES];
         }
