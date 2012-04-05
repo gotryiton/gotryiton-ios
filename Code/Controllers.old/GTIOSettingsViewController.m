@@ -152,14 +152,31 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 	_alertNewsletterSwitch.on = [[GTIOUser currentUser].alertNewsletter boolValue];
 	_alertNewsletterSwitch.delegate = self;
     
-	self.dataSource = [GTIOSettingsDataSource dataSourceWithObjects:@"",
-					   [TTTableControlItem itemWithCaption:@"push notifications" control:_pushNotificationsSwitch],
-                       (_pushNotificationsSwitch.on ? @"email + alert me when..." : @"email me when..."),
-                       [GTIOSettingsTableControlItem itemWithCaption:@"there's activity on my look" control:_alertActivitySwitch],
-                       [GTIOSettingsTableControlItem itemWithCaption:@"I become someone's stylist" control:_alertStylistAddSwitch],
-                       [GTIOSettingsTableControlItem itemWithCaption:@"someone needs my advice" control:_alertStylistActivitySwitch],
-                       [GTIOSettingsTableControlItem itemWithCaption:@"there's GO TRY IT ON news" control:_alertNewsletterSwitch],
-					   nil];
+    _shareSuggestionsToFacebookSwitch = [[[CustomUISwitch alloc] initWithFrame:CGRectZero] autorelease];
+	_shareSuggestionsToFacebookSwitch.on = [[GTIOUser currentUser].facebookSuggestionShare boolValue];
+	_shareSuggestionsToFacebookSwitch.delegate = self;
+    
+    if ([[[GTIOUser currentUser] isFacebookConnected] boolValue]) {
+        self.dataSource = [GTIOSettingsDataSource dataSourceWithObjects:@"",
+                           [TTTableControlItem itemWithCaption:@"push notifications" control:_pushNotificationsSwitch],
+                           (_pushNotificationsSwitch.on ? @"email + alert me when..." : @"email me when..."),
+                           [GTIOSettingsTableControlItem itemWithCaption:@"there's activity on my look" control:_alertActivitySwitch],
+                           [GTIOSettingsTableControlItem itemWithCaption:@"I become someone's stylist" control:_alertStylistAddSwitch],
+                           [GTIOSettingsTableControlItem itemWithCaption:@"someone needs my advice" control:_alertStylistActivitySwitch],
+                           [GTIOSettingsTableControlItem itemWithCaption:@"there's GO TRY IT ON news" control:_alertNewsletterSwitch],
+                           @"Facebook share settings",
+                           [GTIOSettingsTableControlItem itemWithCaption:@"share product suggestions" control:_shareSuggestionsToFacebookSwitch],
+                           nil];
+    } else {
+        self.dataSource = [GTIOSettingsDataSource dataSourceWithObjects:@"",
+                           [TTTableControlItem itemWithCaption:@"push notifications" control:_pushNotificationsSwitch],
+                           (_pushNotificationsSwitch.on ? @"email + alert me when..." : @"email me when..."),
+                           [GTIOSettingsTableControlItem itemWithCaption:@"there's activity on my look" control:_alertActivitySwitch],
+                           [GTIOSettingsTableControlItem itemWithCaption:@"I become someone's stylist" control:_alertStylistAddSwitch],
+                           [GTIOSettingsTableControlItem itemWithCaption:@"someone needs my advice" control:_alertStylistActivitySwitch],
+                           [GTIOSettingsTableControlItem itemWithCaption:@"there's GO TRY IT ON news" control:_alertNewsletterSwitch],
+                           nil];
+    }
 }
 
 - (void)createLoggedOutModel {
@@ -182,12 +199,14 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 }
 
 - (void)valueChangedInView:(CustomUISwitch*)view {
-	GTIOUser* user = [GTIOUser currentUser];
+    GTIOUser* user = [GTIOUser currentUser];
+    
     user.iphonePush = [NSNumber numberWithBool:_pushNotificationsSwitch.on];
 	user.alertActivity = [NSNumber numberWithBool:_alertActivitySwitch.on];
     user.alertStylistActivity = [NSNumber numberWithBool:_alertStylistActivitySwitch.on];
     user.alertStylistAdd = [NSNumber numberWithBool:_alertStylistAddSwitch.on];
     user.alertNewsletter = [NSNumber numberWithBool:_alertNewsletterSwitch.on];
+    user.facebookSuggestionShare = [NSNumber numberWithBool:_shareSuggestionsToFacebookSwitch.on];
     
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
                             user.iphonePush, @"iphonePush",
@@ -195,10 +214,11 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
                             user.alertStylistActivity, @"alertStylistActivity",
                             user.alertStylistAdd, @"alertStylistAdd",
                             user.alertNewsletter, @"alertNewsletter",
+                            user.facebookSuggestionShare, @"facebookSuggestionShare",
                             user.deviceToken, @"deviceToken",
                             nil];
     
-    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/user") delegate:nil];
+    RKObjectLoader* loader = [[RKObjectManager sharedManager] objectLoaderWithResourcePath:GTIORestResourcePath(@"/user") delegate:self];
     loader.method = RKRequestMethodPOST;
     loader.params = [GTIOUser paramsByAddingCurrentUserIdentifier:params];
     [loader send];
@@ -212,6 +232,40 @@ static NSString* const settingsURL = @"http://i.gotryiton.com/about-us.php";
 	[super viewDidAppear:animated];
 	[self invalidateModel];
 	self.tableView.backgroundColor = [UIColor clearColor];
+}
+
+- (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
+    GTIOErrorMessage(error);
+}
+
+- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {
+    NSLog(@"Response: %@", [response bodyAsString]);
+    GTIOUser* user = [GTIOUser currentUser];
+    NSError* error = nil;;
+    id body = [response parsedBody:&error];
+    if (body == nil && error) {
+        return;
+    }
+    
+    NSValue* facebookSuggestionSharePermission = [body valueForKeyPath:@"user.facebookSuggestionSharePermission"];
+    bool boolValue;
+    [facebookSuggestionSharePermission getValue:&boolValue];
+    if (_shareSuggestionsToFacebookSwitch.on &&
+        boolValue == NO) {
+        [user loginWithFacebook];
+    }
+    
+    [user digestProfileInfo:body];
+    [_pushNotificationsSwitch setOn:[user.iphonePush boolValue] animated:YES];
+    [_alertActivitySwitch setOn:[user.alertActivity boolValue] animated:YES];
+    [_alertStylistActivitySwitch setOn:[user.alertStylistActivity boolValue] animated:YES];
+    [_alertStylistAddSwitch setOn:[user.alertStylistAdd boolValue] animated:YES];
+    [_alertNewsletterSwitch setOn:[user.alertNewsletter boolValue] animated:YES];
+    [_shareSuggestionsToFacebookSwitch setOn:[user.facebookSuggestionShare boolValue] animated:YES];
+}
+
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
+    ;
 }
 
 @end

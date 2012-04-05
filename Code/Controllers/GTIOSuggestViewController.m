@@ -15,6 +15,7 @@
 @interface GTIOSuggestViewController () {
     NSString* _outfitID;
     BOOL _isShowingLoading;
+    NSURL* _scrapedURL;
 }
 
 @property (nonatomic, retain) IBOutlet UIWebView* webView;
@@ -183,10 +184,11 @@
 
 - (void)loadWebView {
     self.title = @"SUGGEST";
-    NSString* url = [NSString stringWithFormat:@"%@/iphone/rec/%@?gtioToken=%@",
+    NSString* url = [NSString stringWithFormat:@"%@/iphone/rec/%@?gtioToken=%@&iOSVersion=%@",
                      kGTIOBaseURLString,
                      _outfitID,
-                     [GTIOUser currentUser].token];
+                     [GTIOUser currentUser].token,
+                     [UIDevice currentDevice].systemVersion];
     NSURLRequest* request = [NSURLRequest requestWithURL:
                              [NSURL URLWithString:url]];
     [self.webView loadRequest:request];
@@ -217,6 +219,9 @@
 
 - (void)scrapeURL:(NSURL*)url {
     if (![self isLocalURL:url]) {
+        [url retain];
+        [_scrapedURL release];
+        _scrapedURL = url;
         NSLog(@"Scraping: %@", [url absoluteString]);
         self.currentProduct = nil; // Clear out current product before scraping the next one.
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:GTIORestResourcePath(@"/scrape") delegate:self block:^(RKObjectLoader* loader) {
@@ -267,7 +272,7 @@
 
 - (IBAction)suggestButtonWasPressed:(id)sender
 {
-    if (self.currentProduct) {
+    if (self.currentProduct && [_webView.request.URL isEqual:_scrapedURL]) {
         [self suggest:self.currentProduct];
     } else {
         // /scrape has not yet returned.
@@ -308,10 +313,6 @@
        gtio://recommend/bottomNav/show
     */
     if (![self handleSpecialURL:request.URL]) {
-        [self toggleToolbar:request.URL];
-        if (navigationType != UIWebViewNavigationTypeOther) {
-            [self scrapeURL:request.URL];
-        }
         return YES;
     }
     return NO;
@@ -327,6 +328,11 @@
     self.backButtonItem.enabled = [webView canGoBack];
     self.forwardButtonItem.enabled = [webView canGoForward];
     [self toggleToolbar:webView.request.URL];
+    
+    if (![webView.request.URL isEqual:_scrapedURL]) {
+        [self scrapeURL:webView.request.URL];
+    }
+    
     if ([self isLocalURL:webView.request.URL]) {
         self.title = @"SUGGEST";
     }

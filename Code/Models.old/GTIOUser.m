@@ -78,6 +78,7 @@ static GTIOUser* gCurrentUser = nil;
 @synthesize notifications = _notifications;
 @synthesize todosBadge = _todosBadge;
 @synthesize isFacebookConnected = _isFacebookConnected;
+@synthesize facebookSuggestionShare = _facebookSuggestionShare;
 @synthesize bornIn = _bornIn;
 @synthesize stylistsQuickLook = _stylistsQuickLook;
 
@@ -164,6 +165,7 @@ static GTIOUser* gCurrentUser = nil;
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.showAlmostDoneScreen", @"showAlmostDoneScreen")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.bornIn", @"bornIn")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.auth", @"auth")];
+    [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"user.facebookSuggestionShare", @"facebookSuggestionShare")];
     [userMapping addAttributeMapping:RKObjectAttributeMappingMake(@"todosBadge", @"todosBadge")];
     [userMapping addRelationshipMapping:[RKObjectRelationshipMapping mappingFromKeyPath:@"user.stylistsQuickLook" toKeyPath:@"stylistsQuickLook" withMapping:[GTIOStylistsQuickLook qlMapping]]];
     
@@ -349,6 +351,14 @@ static GTIOUser* gCurrentUser = nil;
     }
     _loginCompletionHandler = Block_copy(handler);
     TTOpenURL(@"gtio://showLogin");
+}
+
+- (void)loginWithFacebookAndCompletion:(LoginCompletionHandler)handler {
+    if (_loginCompletionHandler) {
+        Block_release(_loginCompletionHandler);
+    }
+    _loginCompletionHandler = Block_copy(handler);
+    [self loginWithFacebook];
 }
 
 - (void)ensureLoggedInAndExecute:(LoginCompletionHandler)handler {

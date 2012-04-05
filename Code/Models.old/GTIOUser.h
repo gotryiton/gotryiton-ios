@@ -145,6 +145,7 @@ typedef void (^LoginCompletionHandler)();
 @property (nonatomic, copy) NSString* deviceToken;
 @property (nonatomic, copy) NSString* profileIconURL;
 @property (nonatomic, retain) NSNumber* isFacebookConnected;
+@property (nonatomic, retain) NSNumber* facebookSuggestionShare;
 
 /**
  * The list of services this account is associated with. Returned
@@ -230,6 +231,11 @@ typedef void (^LoginCompletionHandler)();
  * Begin the FB Login process. Ensure any login block is cleared.
  */
 - (void)loginWithFacebookClearingCompletionBlock;
+
+/**
+ * Begin FB Login, execute handler on successful login.
+ */
+- (void)loginWithFacebookAndCompletion:(LoginCompletionHandler)handler;
 
 /**
  * Begin the facebook login process. On successful login, call the handler.

@@ -401,6 +401,8 @@ const CGFloat kOutfitReviewProductHeaderMultipleWidth = 295.0;
 
 - (void)closeProductButtonWasPressed:(id)sender {
     self.product = nil;
+    [_webViewController release];
+    _webViewController = nil;
 }
 
 - (void)suggestionMade:(NSNotification*)note {

@@ -117,28 +117,20 @@ static float const dragOffsetReloadDistance = 40.0f;
         _backgroundImageView.alpha = 0;
         _backgroundImageView.hidden = NO;
         if (!_animatedInThisLaunch) {
-            [UIView beginAnimations:nil context:nil];
-            [UIView setAnimationDuration:2];
-            [UIView setAnimationDelay:1];
-            [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-            [UIView setAnimationDelegate:self];
-            [UIView setAnimationDidStopSelector:@selector(fadeInTodosBadge)];
+            [UIView animateWithDuration:2 delay:1 options:UIViewAnimationCurveLinear animations:^{
+                _backgroundImageView.alpha = 1;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:2 delay:0 options:UIViewAnimationCurveLinear animations:^{
+                    [self scrollViewDidScroll:_scrollView];
+                } completion:^(BOOL finished) {
+                    [self fadeInTodosBadge];
+                }];
+            }];
+            _animatedInThisLaunch = YES;
         } else {
             [self fadeInTodosBadge];
-        }
-        _backgroundImageView.alpha = 1;
-        if (!_animatedInThisLaunch) {
-            [UIView commitAnimations];
-        
-            [UIView beginAnimations:nil context:nil];
-            [UIView setAnimationDuration:2];
-            [UIView setAnimationDelay:2];
-            [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-        }
-        [self scrollViewDidScroll:_scrollView];
-        if (!_animatedInThisLaunch) {
-            [UIView commitAnimations];
-            _animatedInThisLaunch = YES;
+            _backgroundImageView.alpha = 1;
+            [self scrollViewDidScroll:_scrollView];
         }
     } else {
         // Reload TODO's and notifications.

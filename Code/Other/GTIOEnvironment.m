@@ -20,7 +20,7 @@
 	NSString* const kGTIOBaseURLString = @"http://gtio-dev.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
-    NSString* const kGTIOFacebookAppID = @"134143416622354";
+    NSString* const kGTIOFacebookAppID = @"125885160757300";
     NSUInteger const kGTIONetworkLogLevel = RKLogLevelTrace;
     NSUInteger const kGTIOLogLevel = RKLogLevelDebug;
     NSString* const kGTIOHTTPAuthUsername = @"tt";
@@ -32,7 +32,7 @@
 	NSString* const kGTIOBaseURLString = @"http://stage.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
-    NSString* const kGTIOFacebookAppID = @"134143416622354";
+    NSString* const kGTIOFacebookAppID = @"125885160757300";
     NSUInteger const kGTIONetworkLogLevel = RKLogLevelTrace;
     NSUInteger const kGTIOLogLevel = RKLogLevelDebug;
     NSString* const kGTIOHTTPAuthUsername = @"tt";
@@ -44,7 +44,7 @@
 	NSString* const kGTIOBaseURLString = @"http://i.gotryiton.com";
 	NSString* const kGTIOJanRainEngageApplicationID = @"iligdiaplfgbmhcpebgf";
     NSString* const kGTIOFlurryAPIKey = @"***REMOVED***";
-    NSString* const kGTIOFacebookAppID = @"125885160757300";
+    NSString* const kGTIOFacebookAppID = @"126454074038555";
     NSUInteger const kGTIONetworkLogLevel = RKLogLevelError;
     NSUInteger const kGTIOLogLevel = RKLogLevelError;
     NSString* const kGTIOHTTPAuthUsername = nil;
