@@ -219,4 +219,71 @@ Facebook Sign in (details coming)
    - skip directs **tap** ==> 9.1
    - ? btn **tap** ==> view 1.2
 
+## 2. Global Nav bar and Notifications Center
+
+
+### 2.1 Navbar with Notifications
+
+#### Overview  
+When a user is on one of the top level tabs, they see a navigation bar with notifications 
+
+#### Mockups
+([wireframe](http://invis.io/P32OE57R))
+
+#### API Usage
+/Notifications
+
+#### Stories
+- When a user is not logged in the nav bar is disabled
+   - gotryiton is not clickable
+   - logo is centered
+- When a user has zero new notifications, the nav bar has an empty notifications container
+   - notification container and gotryiton logo tappable if total notifications > 0
+      - **tap** ==> (view 2.2) 
+      - TBD: matt to add animation details
+   - if total notifications = 0, notification container and logo are not tappable
+- When a user has more than zero new notifications the navbar notifications icon is highlighted 
+   - the nav bar contains number of new notifications
+   - notification container and gotryiton logo tappable
+      - **tap** ==> (view 2.2) (!!matt to add animation details)
+
+### 2.2 Notifications view 
+
+#### Overview  
+When a user is on one of the top level tabs, they see a navigation bar with notifications 
+
+#### Mockups
+([wireframe](http://invis.io/QR2OBP8N))
+
+#### API Usage
+/Notifications
+
+#### Stories
+- A user can view their notifications in a notifications view
+   - View has close button in top left
+      - closes overlay 
+      - TBD: matt to add animation details
+   - View has cell layout with dynamic text
+      - description text allows for bold html styling
+         - ```<b>```Person's Name```</b>``` should make the name appear bold
+      - heights depending on description text
+- A user can tap on each notification item
+   - each notification item has a destination 
+      - can be gtio:// link or http:// link
+- A user can sometimes tap on a button in the notification
+   - each notification item can conditionally include an action button with customizable text and action
+      - action can either:
+         - direct the user to a url
+            - button tap activates on state during transition
+         - send an api request
+            - button tap activates on state of button persistently
+- The app will only highlight the number of notifications that the user has not seen
+   - app will keep track of notificiation ids
+      - ids that have been seen will get a read state
+      - ids that have not been seen will be treated as NEW notifications
+         - new notifications will populate the notification navbar container number
+         - new notifications will get an unread state the first time they are seen
+      - this behavior will mimmick current 3.0 behavior
+
+
 
