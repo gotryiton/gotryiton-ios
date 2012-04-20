@@ -1,21 +1,26 @@
-# the build
-Build
-
-# Specs and Features Stuff
-Features/features_built_path
-.uispec.app
-
-# temp nibs and swap files
-*~.nib
-*.swp
-
 # OS X folder attributes
 .DS_Store
 
-# user-specific XCode stuff
-*.mode1v3
-*.mode2v3
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Xcode
+build/*
 *.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
 *.perspectivev3
+!default.perspectivev3
 *.xcworkspace
+!default.xcworkspace
 xcuserdata
+profile
+*.moved-aside
+DerivedData
