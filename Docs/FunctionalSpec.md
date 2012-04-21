@@ -772,3 +772,156 @@ A user can invite friends to GTIO via SMS, Email, Facebook
       - actionsheet **tap** ==> api request (SMS or Email depending on type of contact)
          - **success** ==> (view 4.3.1) or (view 4.4) (with contact populated in the to field)
 
+
+
+
+# 6. Friends management
+
+### 6.1 Find my friends via Profile 
+
+#### Overview
+A user can find friends to follow 
+
+#### Mockups
+6.1 ([wireframe](http://invis.io/XM2OCN3P))
+6.1.1 No Results ([wireframe](http://invis.io/QK2OCQ56))
+
+#### API Usage
+/Friends/Find?
+/Friends/Search
+
+#### Stories
+- A user can find friends to follow
+   - title: find my friends
+   - suggested friends btn
+      - includes profile icons from api 
+      - **tap** ==> (view 6.2)
+   - you are following x
+      - text populated by api
+   - list of users (who you are following)
+      - has profile icon, name, following btn, tappable to profile
+      - filter search available
+      - if filter search comes up empty, see (view 6.1.1)
+      - following toggle btn
+         - tapped state: following
+- When a user searches for friends and doesnt find the user they are looking for, they can search the entire community
+   - the filter search has custom empty text 
+      - 'We couldnt find "search string" do you want to try searching the entire GTIO community' button
+         - **tap** ==> api request
+            - **success** ==> (view 6.4)
+
+
+
+### 6.2 Suggested Friends 
+
+#### Overview
+A user can see a list of suggested users to follow
+
+#### Mockups
+([wireframe](http://invis.io/VD2OCR5H))
+
+#### API Usage
+/Friends/Suggested
+
+#### Stories
+- A user can see a list of suggested users to follow
+   - page loads a list of users
+   - list items have profile icon, name, tappable to profile (view 7.7)
+   - following btn (toggles state)
+- A user can refresh the list of suggested users to see a different set
+   - refresh btn top right
+       - **tap** ==> api request
+          - **success** ==> replaces list with new users
+
+
+
+### 6.3 Friends management page (via feed)
+
+#### Overview
+A user can manage their friend relationships via the feed
+
+#### Mockups
+([wireframe](http://invis.io/R62OCSKJ))
+
+#### API Usage
+/Friends?
+
+#### Stories
+- A user can manage their friend relationships via the feed
+   - title: friends
+   - invite friends btn
+      - **tap** ==> (view 5.1)
+   - find friends btn
+      - **tap** ==> (view 6.4)
+   - suggested friends btn
+      - **tap** ==> (view 6.2)
+   - youre following x (from api response)
+- A user can see a list of the users they follow and edit those users
+   - list of users 
+      - filter search enabled
+      - has profile icon, name, tappable to profile
+      - following btn (toggles state)
+      - if filter search comes up empty
+         - custom empty text 
+            - 'We couldnt find "search string" do you want to try searching the entire GTIO community' button
+            - **tap** ==> (view 6.4)
+
+### 6.4 Find out-of-network Friends
+
+#### Overview
+A user can search for friends outside of their own network
+
+#### Mockups
+([wireframe](http://invis.io/MH2OCTA9))
+
+#### API Usage
+/Friends/Search
+
+#### Stories
+- A user can search for friends outside of their own network
+   - search field
+   - on **submit** ==> api request
+      - results show in list
+      - has profile icon, name, tappable to profile
+      - following btn (toggles state)
+
+### 6.5 Following List
+
+#### Overview
+A User A can see a list of who a User B is following.  User A and User B can be the same user.
+
+#### Mockups
+([wireframe](http://invis.io/CS2OCU2W))
+
+#### API Usage
+/User/Following
+
+#### Stories
+- A user can see a list of who they (or another user) are following
+   - title (from api)
+   - youre following x (from api)
+   - list of users (from api)
+      - alpha sort
+      - has profile icon, name, tappable to profile, 
+      - following toggle
+
+
+### 6.6 Followers List
+
+#### Overview
+A User A can see a list of User B's followers.  User A and User B can be the same user.
+
+#### Mockups
+([wireframe](http://invis.io/Y92OCV3E))
+
+#### API Usage
+/User/Followers
+
+#### Stories
+- A user can see a list of who their (or another user's) followers
+   - title (from api)
+   - x following you (from api)
+   - list of users (from api)
+      - alpha sort
+      - has profile icon, name, tappable to profile, 
+      - following toggle
