@@ -287,3 +287,226 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 
 
 
+## 3. Product Post and Outfit Post Detail pages
+
+### 3.1 Outfit Post Detail Page
+
+#### Overview 
+A user can see a detailed view of a single outfit post
+
+#### Mockups
+3.1 [wireframe](http://invis.io/SX2OBQUG)
+3.1.1 Outfit Detail No Voting ([wireframe](http://invis.io/W22OBRHF)
+
+#### API Usage
+/Outfit
+
+#### Stories
+- When a user views an outfit post detail page, they should see details about the outfit post
+   - Name and location in navbar
+   - profile button in top right in navbar
+      - image in button should be user->profileIcon
+      - **tap** ==> (view 7.7)
+   - full description
+   - full brands
+   - reviews button with reviews count
+      - **tap** ==> view 3.4
+- A user can heart the outfit from an outfit page
+   - heart action button in top left of image
+      - **tap** ==> api request
+   - heart count + heart icons
+      - **tap** ==> view 3.5
+- A user can vote on the outfit from an outfit page (that has voting enabled)
+   - wear it button & change it buttons at bottom of page
+      - conditionally included
+         - reference api ??
+         - if not included see (view 3.1.1)
+      - **tap** ==> api request
+         - upon tap, buttons are not tappable anymore
+         - verdict info (from api response) is displayed (see view 3.2)
+- A user can take additional actions on an outfit
+   - ... btn 
+      - raises custom actionsheet menu
+         - outfit post owner: tweet, facebook, delete
+         - outfit post viewer: tweet, suggest, flag
+- A user can tweet the outfit post from an outfit post page
+   - makes api call for tweet text
+   - conditionally visible based on if twitter is activated
+   - raises twitter compose window
+      - twitter text is given in response from api
+- A user can suggest a product from an outfit post page
+   - only available for outfit viewers
+   - **tap** ==> view 4.2
+- A user can flag an outfit from an outfit post page
+   - pop up dialog asking to confirm
+      - confirm: sends api request 
+      - cancel: clears dialog
+- An outfit post owner can facebook share the outfit from the outfit post page
+   - if user is not facebook authenticated
+      - kick out to facebook app SSO
+   - dialog asking if they're sure
+      - ok: sends api request
+      - cancel: closes dialog
+- An outfit post owner can delete the outfit from the outfit post page
+   - dialog asking if they're sure
+      - ok: sends api request
+         - kicks user back from outfit post page and reloads list 
+      - cancel: closes dialog
+
+
+### 
+
+### 3.2 Outfit Post Detail Page verdict displayed 
+
+#### Overview 
+A user can vote on an outfit from the outfit detail page and see voting results
+
+#### Mockups
+3.2 Verdict displayed 
+3.2.1 Verdict displayed on Product Page
+
+#### API Usage
+/Outfit/Vote
+
+#### Stories
+- A user can see voting results after they vote
+
+
+### 3.3 Outfit Detail Page Full screen photo ([wireframe](http://invis.io/2W2OFST5))
+
+#### Overview 
+A user can see a full screen detail of an outfit
+
+#### Mockups
+3.3 Outfit Full Screen ([wireframe](http://invis.io/2W2OFST5))
+3.3.1 Product Post Full Screen ([wireframe](http://invis.io/2W2OFST5))
+
+#### API Usage
+None.
+
+#### Stories
+- A user can see a full screen image of an Outfit Detail or Product detail page
+   - If a user is looking at a product full screen, then the nav bar disappears too
+
+
+### 3.4 Reviews page 
+
+#### Overview 
+A user can read reviews from an outfit post or a product post page
+
+#### Mockups
+([wireframe](http://invis.io/NE2OBV7J))
+
+#### API Usage
+/Outfit/Reviews
+/Review/Agree
+/Review/Flag
+
+#### Stories
+- This feature is mostly unchanged from 3.0.  Here are the details of changes:
+   - Suggest a product button is no longer available
+   - post thumbnail displayed should be square 
+      - **taps** ==> (view 3.3)
+   - no longer needs to support multiple outfits
+- A user can agree with a review
+   - **taps** ==> api request
+- A user can flag a review
+   - **taps** ==> api request
+
+
+
+### 3.5 Who hearted this 
+
+#### Overview 
+
+A User can see other users who have hearted an outfit or product post
+
+#### Mockups
+
+([wireframe](http://invis.io/N22OBX9Q))
+
+#### API Usage
+
+/Post/Hearts
+
+#### Stories
+- A user can view a list of other users who have hearted a post
+   - cell list view 
+   - profile icons, name
+   - follow btn
+      - state of button is either unfollow or follow
+      - **tap** ==> api request and changes state of button
+
+
+### 3.6 Product Post Detail
+
+#### Overview 
+A user can see a detailed view of a Product Post
+
+#### Mockups
+([wireframe](http://invis.io/UA2OBZHJ))
+
+#### API Usage
+
+#### Stories
+- When a user views a product post detail page, they should see details about the product post
+   - Name and location in navbar
+      - NOTE: nav bar for product posts is transparent 
+   - profile button in top right in navbar
+      - image in button should be user->profileIcon
+      - **tap** ==> (view 7.7)
+   - full description
+   - full brands
+   - reviews button with reviews count
+      - **tap** ==> view 3.4 
+   - product name with brand and price
+   - photo aligned to top 
+      - TBD: matt to provide specs
+   - wear it button & change it button 
+      - conditionally included
+         - reference api ??
+         - if not included see (view 3.1.1)
+      - **tap** ==> api request
+         - upon tap, buttons are not tappable anymore
+         - verdict info (from api response) is displayed (see view 3.2)
+
+- A user can take additional actions on an Product Post
+   - ... btn 
+      - raises custom actionsheet menu
+         - post owner: tweet, facebook, delete
+         - post viewer: tweet, suggest, flag
+- A user can tweet the post from an post page
+   - makes api call for tweet text
+   - conditionally visible based on if twitter is activated
+   - raises twitter compose window
+      - twitter text is given in response from api
+- A user can suggest a product from an post page
+   - only available for post viewers
+   - **tap** ==> view 4.2
+- A user can flag a post from an post page
+   - pop up dialog asking to confirm
+      - confirm: sends api request 
+      - cancel: clears dialog
+- An post owner can facebook share the post from the post page
+   - if user is not facebook authenticated
+      - kick out to facebook app SSO
+   - dialog asking if they're sure
+      - ok: sends api request
+      - cancel: closes dialog
+- An post owner can delete the post from the post page
+   - dialog asking if they're sure
+      - ok: sends api request
+         - kicks user back from post page and reloads list 
+      - cancel: closes dialog
+- A user can tap to buy a prodcut in a product post
+  - **tap** raises actionsheet with options:
+     - email to me
+        - dialog confirming
+           - ok: sends api request
+           - cancel closes dialog
+     - go to store site
+        - opens buy url in safari 
+     - view in my shopping list
+        - sends api request
+        - **tap** ==> view 7.8
+
