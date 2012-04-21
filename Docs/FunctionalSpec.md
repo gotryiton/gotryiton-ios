@@ -734,3 +734,41 @@ A user can post a product to their feed from a product page
    - voting on/off toggle
       - default state set by api (???)
 
+
+## 5. Invite 
+
+### 5.1 Invite friends
+
+#### Overview 
+A user can invite friends to GTIO via SMS, Email, Facebook
+
+#### Mockups
+([wireframe](http://invis.io/TW2OCGBR))
+
+#### API Usage
+/Invite/SMS
+/Invite/Email
+/Invite/Facebook
+
+#### Stories
+- A user can invite friends to GTIO via SMS, Email, Facebook 
+   - A user can see buttons to select SMS, Email, Facebook
+   - A user can see a list of their phone contacts
+      - contacts should include both those with phone numbers and email addresses
+- A user can compose an SMS by entering their own recipients
+   - sms btn
+      - **tap** ==> sends api request (for body of SMS)
+      - successful api response ==> (view 4.3.1)
+- A user can compose an Email by entering their own recipients
+   - email btn
+      - **tap** ==> sends api request (for body of email)
+      - successful api response ==> (view 4.4)
+- A user can select to invite via facebook
+   - facebook btn
+      - **tap** ==> sends api request (for facebook contact list)
+      - successful api response ==> (view 4.5)
+- A user can select to invite a particular friend from their contact list
+   - **tap** ==> raises actionsheet of available contacts (phone number or email addres)
+      - actionsheet **tap** ==> api request (SMS or Email depending on type of contact)
+         - **success** ==> (view 4.3.1) or (view 4.4) (with contact populated in the to field)
+
