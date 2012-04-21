@@ -510,3 +510,227 @@ A user can see a detailed view of a Product Post
         - sends api request
         - **tap** ==> view 7.8
 
+## 4. Product Pages
+
+### 4.1 Product page view 
+
+#### Overview 
+A user can view a detailed page about a single product
+
+#### Mockups
+([wireframe](http://invis.io/8Y2OC5N7))
+
+#### API Usage
+/Product
+
+#### Stories
+- A user can view a detailed page about a single product
+   - transparent navbar 
+      - TBD: matt to provide guidance
+   - heart action button
+      - sends api request
+   - heart action button
+   - full product name with brand and price
+   - photo aligned to top 
+      - **tap** ==> (view 3.3.1)
+      - TBD: matt to provide direction
+- A user can post a product from a product page
+   - Post btn **tap** ==> (view 4.7)
+- A user can suggest a product from a product page
+   - suggest btn **tap** ==> (view 4.2)
+- A user can buy a product from a product page
+   - buy btn **tap** ==> raises actionsheet (see view 4.1.1)
+
+### 4.1.1 Product Buy Actionsheet
+
+#### Overview 
+A user can see options of how to buy the product
+
+#### Mockups
+([wireframe](http://invis.io/QE2OC6XW))
+
+#### API Usage
+TBD
+
+#### Stories
+- A user can email the product to themselves
+   - email btn **tap** raises dialog confirm
+         - ok **tap** ==> api request
+         - cancel: closes dialog
+- A user can go to store mobile site to view the product
+   - 'go to store site' btn **tap** ==> opens buy url in default safari view
+- A user can view the item in their shopping list
+   - 'view in shopping list' btn **tap** ==> makes api request
+      - upon successful api response: ==> (view 7.8)
+
+### 4.2 Suggest a product
+
+#### Overview 
+A user can suggest a product to another user
+
+#### Mockups
+([wireframe](http://invis.io/NT2OC8QM))
+
+#### API Usage
+/Product/Suggest
+/Product/Suggest/Email
+
+#### Stories
+- A user can see details about a product before suggesting it 
+   - product detail area includes:
+      - product name
+      - brand
+      - price
+      - square thumbnail
+         - thumbnail **tap** ==> full screen image (view 3.3.1)
+         - heart toggle in top left
+- A user can select from their GTIO contacts to suggest from the Suggest a Product Page
+   - gotryiton contacts btn **tap** ==> (view 4.6)
+- A user can select from their Phone contacts to SMS a suggestion from the Suggest a Product Page
+   - sms contacts btn **tap** ==> (view 4.3)
+- A user can Email a suggestion from the Suggest a Product Page
+   - email contacts btn **tap** ==> api request
+      - successful api response ==> (view 4.4)
+- A user can select from their Facebook contacts to suggest from the Suggest a Product Page\
+   - facebook btn 
+      - if user is not facebook authenticated
+         - **tap** ==> facebook SSO
+            - success: request authentication api 
+      - else:
+         - **tap** ==> api request
+            - successful response  ==> (view 4.5)
+   
+### 4.3 Phone contact list
+
+#### Overview 
+A user can select from their phone contacts to SMS a suggestion
+
+#### Mockups
+4.3 ([wireframe](http://invis.io/DW2OC9PN))
+4.3.1 ([wireframe](http://invis.io/MR2OCAUP))
+
+#### API Usage
+/Product/Suggest/SMS
+/Tracking?
+
+#### Stories
+- A user can select from their phone's contacts to suggest a product
+   - List should only include contacts that have phone numbers
+   - List is Alpha sorted and has Alpha shortcuts
+   - list item **tap** => api request
+      - successful response ==> (view 4.3.1)
+- A user can send an SMS from a native SMS compose window to suggest a product
+   - to: filled with users name from (view 4.3)
+   - body: from api call
+   - tracking on send??
+   - after successful send ==> (view 4.2)
+
+
+### 4.4 Email compose
+
+#### Overview 
+A user can email a product suggestion from a native compose window
+
+#### Mockups
+([wireframe](http://invis.io/4R2OCBCW))
+
+#### API Usage
+/Tracking?
+
+#### Stories
+A user can email a product suggestion from a native compose window
+  - to: empty
+   - body: from api response in (view 4.1)
+   - tracking on send???
+   - after successful send ==> (view 4.2)
+
+
+
+### 4.5 Facebook contacts
+
+#### Overview 
+A user can choose from their facebook contacts and post on their wall to suggest a product
+
+#### Mockups
+([wireframe](http://invis.io/AG2OCC3Z))
+
+#### API Usage
+/Product/Suggest/Facebook
+
+#### Stories
+- A user can see a list of their facebook contacts
+   - alpha sorted with alpha shortcut
+- A user can select a facebook contact and post on their wall
+   - list item **tap** ==> makes api request
+      - On successful response ==> 
+         - raises facebook post ui (similar to GTIOv3 functionality using Facbook SDK)
+            - content is populated by api
+
+
+### 4.6 Gotryiton contacts 
+
+#### Overview 
+A user can select from the users they are following to suggest a product
+
+#### Mockups
+4.6 ([wireframe](http://invis.io/QB2OCDVE))
+4.6.1  ([wireframe](http://invis.io/UA2OBZHJ))
+
+#### API Usage
+/Product/Suggest/Following
+
+#### Stories
+- A user can see a list of the users they are following to suggest a product
+   - title (from api)
+   - line of text with connection count (from api)
+   - filter search 
+   - list of contacts (from api) with: 
+      - user icons
+      - name
+- A user can select a user they are following to suggest a product
+   - contact name **tap** ==> raises dialog:
+      - text: Send this suggestion to ```user.display_name```? 
+      - ok: api request
+         - on successful response: show 'sent' overlay (view 4.6.1)
+      - cancel:  closes dialog
+- After a user sends a suggestion to one GTIO contact, they can send another 
+   - after suggestion is sent, show sent overlay 
+   - show done btn in top right
+       - after sending one suggestion done btn appears 
+       - **tap** ==> back to (view 4.2)
+
+### 4.7 Post a product
+
+#### Overview 
+A user can post a product to their feed from a product page
+
+#### Mockups
+([wireframe](http://invis.io/U92OCEF2))
+
+#### API Usage
+/Product/Post
+
+#### Stories
+A user can post a product to their feed from a product page
+   - title: post a product
+   - product detail (same behavior as product detail in (view 4.2)) 
+      - product name
+      - brand
+      - price
+      - square thumbnail
+         - thumbnail **tap** ==> (view 3.3.1)
+         - heart toggle button in top left
+            - **tap** makes api request   
+   - post btn
+      - **tap** ==> makes api request
+         - **success** ==> feed (view 8.4)
+         - **error** ==> error dialog
+
+- A user can optionally add a description to a product post
+   - post description input box
+      - optional input
+      - raises keyboard
+- A user can turn voting on or off on their product post
+   - voting on/off toggle
+      - default state set by api (???)
+
