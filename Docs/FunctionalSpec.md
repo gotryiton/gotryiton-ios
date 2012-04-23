@@ -3,6 +3,7 @@
 ## Version History
 - 2012-04-20 - Scott Penrose - Initial Version
 - 2012-04-20 - Simon Holroyd - First Pass
+- 2012-04-23 - Simon Holroyd - A bunch more stuff...  (let's keep version notes in git?)
 
 ---
 
@@ -1023,14 +1024,14 @@ A logged in user can edit their share settings
 A logged in user can edit their profile icon
 
 #### Mockups
-([wireframe](http://invis.io/C22OCZBZ))
+([wireframe](http://invis.io//DQ2POPNA))
 
 #### API Usage
 /User/Icon
 
 #### Stories
 - A user can edit their profile icon
-   - behavior follows GTIO v3
+   - behavior & api follows GTIO v3
 
 
 ### 7.4 Edit profile 
@@ -1216,6 +1217,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.3 feed scrolled: ([wireframe](http://invis.io/DA2PN3TC)) 
 
+8.1.4 feed empty:  ([wireframe](http://invis.io/3W2OH9G2)) 
 
 #### API Usage
 /Posts/Feed
@@ -1287,7 +1289,9 @@ Each user has a personalized feed of content on the first tab.  The content cont
 - A user can paginate through multiple pages of their feed
    - pagination detail api details to come
 - A user can pull to refresh their feed
-   - see 13.6
+   - see (section 13.6)
+- If the user's feed is empty they see messaging encouraging them to add friends
+   - see (view 8.1.4)
 
 ###  8.3 Feed Verdict view
 
@@ -1559,6 +1563,7 @@ A logged out user can browse to non-active tabs and see an intro screen to that 
 A non-logged in user can browse to the explore looks tab and see popular looks.  They have a limited ability to interact with the content they see.
 
 #### Mockups
+11.2 login wall: ([wireframe](http://invis.io/BA2POGZT)) 
 
 #### API Usage
 /Posts/Popular
@@ -1571,6 +1576,7 @@ A non-logged in user can browse to the explore looks tab and see popular looks. 
    - for following actions, open dialog 
       - heart toggle button
    - dialog info
+      - see (view 11.2)
       - text:  you must be logged in to do that
       - login:  **tap** ==> (view 1.9)
       - cancel: closes dialog
@@ -1589,7 +1595,7 @@ A non-logged in user can browse to a post detail page.  They have a limited abil
 #### Stories 
 - A non-logged in user can browse to a post detail page. 
 - A non-logged in user has limited ability to take actions
-   - for following actions, open dialog 
+   - for following actions, open dialog (view 11.2)
       - heart btn
       - vote btns
       - profile btn
@@ -1612,7 +1618,7 @@ A non-logged in user can browse to a Reviews page page.  They have a limited abi
 #### Stories 
 - A non-logged in user can browse to a post detail page. 
 - A non-logged in user has limited ability to take actions
-   - for following actions, open dialog 
+   - for following actions, open dialog (view 11.2)
       - agree
       - flag
       - tap into review area
