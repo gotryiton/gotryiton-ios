@@ -773,9 +773,7 @@ A user can invite friends to GTIO via SMS, Email, Facebook
          - **success** ==> (view 4.3.1) or (view 4.4) (with contact populated in the to field)
 
 
-
-
-# 6. Friends management
+## 6. Friends management
 
 ### 6.1 Find my friends via Profile 
 
@@ -925,3 +923,249 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
       - alpha sort
       - has profile icon, name, tappable to profile, 
       - following toggle
+
+
+
+## 7. Profile pages
+
+
+### 7.1 My management page
+
+#### Overview
+A logged in user can manage their profile, share settings, looks, and friends
+
+#### Mockups
+([wireframe1](http://invis.io/TQ2OCXAV) [wireframe2](http://invis.io/ND2OCYR4))
+
+#### API Usage
+/User
+
+#### Stories
+- A logged in user can see a management page on the 5th tab
+   -  top nav bar
+   - user detail view
+      - thumbnail
+         - **tap** ==> (view 7.3)
+      - name, location
+      - following: x
+         - **tap** ==> (view 6.5)
+      - followers: x
+         - **tap** ==> (view 6.6)
+      - edit btn
+         - **tap** ==> (view 7.4)
+   - my shopping list btn
+      - **tap** ==> (view 7.8)
+   - my hearts btn
+      - **tap** ==> (view 7.5)
+   - my posts
+      - **tap** ==> (view 7.6)
+   - find my friends
+      - **tap** ==> (view 6.1)
+   - invite friends
+      - **tap** ==> (view 5.1)
+   - share settings
+      - **tap** ==> (view 7.2)
+   - sign out
+      - confirmation dialog
+         - ok:  api request
+            - **success** ==> (view 1.9)
+         - cancel: close dialog
+   - looks are private toggle
+      - confirm dialog if you're turng OFF
+      - api request
+   - messaging about private looks   
+
+
+### 7.2 Share Settings
+
+#### Overview
+A logged in user can edit their share settings
+
+#### Mockups
+([wireframe](http://invis.io/C22OCZBZ))
+
+#### API Usage
+/User/Share
+
+#### Stories
+- A user can edit when they receive notifications from GTIO
+   - send me push notifications on/off
+   - send me emails on/off
+   alert me when:
+      - when someone follows me on/off
+      - when someone suggests a product to me on/off
+      - verdict on/off
+      - gtio news on/off
+
+
+### 7.3 Edit profile pic
+
+#### Overview
+A logged in user can edit their profile icon
+
+#### Mockups
+([wireframe](http://invis.io/C22OCZBZ))
+
+#### API Usage
+/User/Icon
+
+#### Stories
+- A user can edit their profile icon
+   - behavior follows GTIO v3
+
+
+### 7.4 Edit profile 
+
+#### Overview
+A logged in user can edit their profile 
+
+#### Mockups
+([wireframe](http://invis.io/VY2OD0HD))
+
+#### API Usage
+/User/Edit
+
+#### Stories
+- A user can edit their profile
+   - mimmick existing form
+   - add website field
+   - edit profile picture **tap** ==> (view 7.3)
+   - save:
+      - **tap** ==> api request
+         - **success** ==> returns you to previous screen
+         - **error** ==> dialog message
+
+
+### 7.5 My hearts
+
+#### Overview
+A logged in user can view their hearted items
+
+#### Mockups
+([wireframe](http://invis.io/KD2OD28X))
+
+#### API Usage
+/User/Hearts
+
+#### Stories
+- A logged in user can view their hearted items
+   - masonry view of hearts (posts and products)
+   - thumbnails have heart toggle upper left
+      - see standard heart toggle behavior
+   - destination link provided in api
+
+
+### 7.6 My posts
+
+#### Overview
+A logged in user can view their posts
+
+#### Mockups
+ ([wireframe](http://invis.io/732OD3ZH))
+
+#### API Usage
+/User/Posts
+
+#### Stories
+- A logged in user can view their posted items
+   - masonry view of hearts (posts and products)
+   - thumbnails have heart toggle upper left
+      - see standard heart toggle behavior
+   - destination link provided in api
+
+
+
+### 7.7 Profile page
+
+#### Overview
+Each user has a profile page
+
+#### Mockups
+ ([wireframe](http://invis.io/732OD3ZH))
+
+#### API Usage
+/User/Profile
+
+#### Stories
+- a user can view the profile of another user (or their self)
+   - title: profile
+   - settings btn in top right
+      - tapping (if not your own profile) raises actionsheet:
+         - options are:
+            - turn on/off alerts 
+            - follow/unfollow toggle
+            - block/unblock toggle
+         - current on/off states determined by api
+      - tapping if IS your own profile
+         - sends to view 7.1
+- a user can follow another user from their profile
+   - follow btn (toggle)
+      - see standard documentation for follow btn
+   - follow btn not visible if this is your own profile
+- a user can see who another user is following
+   - following btn
+      - **tap** ==> (view 6.5)
+- a user can see who another user follows
+   - followers btn
+      - **tap** ==> (view 6.6)
+- A user can see additional info about another user
+   - each profile has a customizable text field
+      - icon (sent from api)
+      - text (sent from api)
+         - supports ```<b>```
+- Special user accounts can display a banner
+   - banner area 
+      - image and link served via api
+- A users profile can show a button linking to an external site
+   - button defined by api
+      - two button types
+      - text
+      - action
+- A users profile shows a masonry list of their hearts and looks
+   - hearts and looks
+      - sent from api
+      - thumbnails with heart toggle
+  
+
+### 7.8 Shopping list
+
+#### Overview
+Each user has a shopping list
+
+#### Mockups
+([wireframe](http://invis.io/8W2OD45T))
+
+#### API Usage
+/User/Shopping-list
+
+#### Stories    
+- Each user has a shopping list page
+   - title: shopping list
+   - products shown in customized cells
+      - item description:
+         -user icons, names, and description text (api customized)
+         - ```<b>``` text activated
+         - whole item is linkable
+         - delete button on each description
+            - ??
+      - product item view
+         - same as view in 4.2 and 4.7
+         - includes buy button
+- A user can buy an item in their shopping list
+   - shopping list items include buy button
+      - **tap** ==> raises actionsheet
+         - email to myself
+            - **tap** ==> api request
+               - **success** ==> show sent overlay
+         - go to store site
+            - **tap** ==> opens url in standard webview 
+- A user can delete an item from their shopping list
+   - each description area has a delete btn
+      - **tap** ==> sends api request
+         - **success** ==> refreshes list
+- A user can email themselves their shopping list 
+   - top right btn: email list
+      - raises dialog
+         - ok: api request 
+            - **success** ==> show confirmation overlay
+         - cancel: closes dialog
