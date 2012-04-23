@@ -978,17 +978,11 @@ A logged in user can edit their share settings
 ([wireframe](http://invis.io/C22OCZBZ))
 
 #### API Usage
-/User/Share
+/User/Share-Settings
 
 #### Stories
 - A user can edit when they receive notifications from GTIO
-   - send me push notifications on/off
-   - send me emails on/off
-   alert me when:
-      - when someone follows me on/off
-      - when someone suggests a product to me on/off
-      - verdict on/off
-      - gtio news on/off
+   - load a webview which will allow a user to turn on and off notifications
 
 
 ### 7.3 Edit profile pic
@@ -1461,16 +1455,25 @@ dynamic
    - top nav bar is custom nav bar
       - customizable title: via gtio link that spawned the container
       - shopping list btn visible
-     - back btn to return to previous container
-    - custom visual header (optional)
+      - back btn to return to previous container
+   - list of products in masonry view
+      - list defined by api
+- A user can see a custom header on certain Browse Products pages
+   - custom visual header (optional)
        - image specified by api
        - link specified by api
-    - customizable standard cell (optional)
+- A user can see a customized standard cell call to action on certain Browse Products pages
+   - customizable standard cell (optional)
        - styled text
        - chevron on right
        - text set by api
        - destination set by api
-    - list of products in masonry view
+- A user can select from a menu picker to sort the list
+   - customizable standard picker menu
+      - items defined by apis
+      - selected item defined by api
+      - api path for each item defined by api
+      - api design will be similar to list tabs in GTIOv3
 
 
 
