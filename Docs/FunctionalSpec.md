@@ -1169,3 +1169,136 @@ Each user has a shopping list
          - ok: api request 
             - **success** ==> show confirmation overlay
          - cancel: closes dialog
+
+
+## 8. The Feed 
+
+### 8.1 Feed view
+
+#### Overview
+Each user has a personalized feed of content on the first tab.  The content contains product posts and outfit posts.  Users can take actions directly from the feed view
+
+#### Mockups
+([wireframe](http://invis.io/P32OE57R)) 
+
+#### API Usage
+/Posts/Feed
+
+#### Stories  
+- A user can see a personalized feed of content
+   - display details (matt to flesh this out)
+      - User detail area
+         - profile icon 
+         - user name
+         - time since upload
+         - location
+         - description (truncated)
+            - truncation details (??matt??)
+         - user detail area catches during scroll
+            - catches at top of visible area
+            - scrolls out of view and replaced by next user detail of next item in feed (a la instagram)
+   - outfit post area
+      - main image
+         - heart toggle in top left
+      - reviews button w/ reviews count
+         - **tap** ==> (view 3.1) ==> (view 3.4)
+            - animation should work like a reviews gtio:// link in GTIOv3.  User taps reviews and the Outfit page slides in, followed by the outfit page flipping to the reviews page
+               - during animation, other taps should be supressed to avoid issues (see GTIOv3 code)
+- A user can heart an outfit or product post from the feed
+   - heart toggle btn in top left corner of each photo   
+   - see universal heart toggle behavior
+- If a post has voting enabled, a user can vote from the feed
+   - user **tap** on wear it or change it ==> api request
+      - **success** ==> (view 8.3)
+- If a post does not have voting enabled, a user can see an indication of this fact
+   - view TBD
+- A user can tap on a '...' btn to see more actions
+      - the ... button
+         - tweet
+            - grab details from above
+         - flag
+             - grab details from above
+         - delete (outfit owner)
+      - wear it / change it btn
+         - api call
+         - show verdict view 8.x??
+      - heart count + heart callouts
+         - users defined by api
+         - tappable to view 3.5
+      - brand keywords
+         - tappable defined by api
+
+
+      - the ... button
+         - post
+         - suggest
+         - buy
+            - raises actionsheet (see above)
+         - tweet
+            - grab details from above
+         - flag (non outfit owner)
+             - grab details from above
+         - delete (outfit owner)
+      - wear it / change it btn
+         - api call
+         - show verdict view 8.x??
+      - heart count + heart callouts
+         - users defined by api
+         - tappable to view 3.5
+      - brand keywords
+         - tappable defined by api
+- A user can paginate through multiple pages of their feed
+   - pagination detail api details to come
+
+
+###  8.3 Feed Verdict view
+
+#### Overview
+A user can see voting results in the feed
+
+#### Mockups
+([wireframe](http://invis.io/EK2OE7BD)) 
+
+#### API Usage
+/Post/Vote
+
+#### Stories  
+- A user can see voting results in the feed
+   - numbers and graph bars
+   - matt will fill y'all in....
+
+###  8.4 Upload in progress view
+
+#### Overview
+A user can see their pending upload in their feed
+
+#### Mockups
+([wireframe](http://invis.io/642OE8AC)) 
+
+#### API Usage
+/Post/Upload
+
+#### Stories  
+- A user can see their pending upload in their feed
+   - text 'Just a moment...'
+   - progress bar marking upload progress
+   - on **success** from upload api ==> (view 8.5)
+   - on **fail** ==> retry?
+
+
+
+###  8.5 Feed after completed upload 
+
+#### Overview
+A user can see their new upload in their feed
+
+#### Mockups
+([wireframe](http://invis.io/8C2OE9B7)) 
+
+#### API Usage
+/Post/Upload
+
+#### Stories  
+- A users just completed can be viewed at the top of their feed
+   - insert item from completed api request in 8.4 at top of list
+   
