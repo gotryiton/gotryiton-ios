@@ -1174,6 +1174,8 @@ Each user has a personalized feed of content on the first tab.  The content cont
 #### Mockups
 ([wireframe](http://invis.io/P32OE57R)) 
 
+8.1.1 voting disabled: ([wireframe](http://invis.io/NS2PAHQA)) 
+
 #### API Usage
 /Posts/Feed
 
@@ -1204,7 +1206,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
    - user **tap** on wear it or change it ==> api request
       - **success** ==> (view 8.3)
 - If a post does not have voting enabled, a user can see an indication of this fact
-   - view TBD
+   - (view 8.1.1)
 - A user can tap on a '...' btn to see more actions
       - the ... button
          - tweet
