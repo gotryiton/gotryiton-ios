@@ -1301,4 +1301,178 @@ A user can see their new upload in their feed
 #### Stories  
 - A users just completed can be viewed at the top of their feed
    - insert item from completed api request in 8.4 at top of list
+
+
+## 9. Explore Looks
+
+###  9.1 Popular Looks Grid
+
+#### Overview
+A user can see a grid of popular looks on GTIO and tab to other groups of looks
+
+#### Mockups
+([wireframe](http://invis.io/8C2OE9B7)) 
+
+#### API Usage
+/Posts/Popular
+
+#### Stories 
+- A user can see a grid of popular looks on GTIO
+   - Api will respond with items to populate the feed
+      - each item has heart toggle (see standard behavior)
+- A user can switch to a different tab of looks
+   - tab choices can have 2, 3 or 4 items
+   - tab names are specified by api
+   - tab apis are specified by api 
+      - similar behavior to lists in GTIOv3
+- A user can switch to consume the list of popular looks in a feed view (view 8.1) rather than a grid view
+   - see questions 
+
+
+
+
+## 10. Shop tab
+
+
+### 10.1 Shop landing page  
+
+#### Overview
+A user can see a page of shopping options on GTIO
+
+#### Mockups
+([wireframe](http://invis.io/2R2OEKY8)) 
+
+#### API Usage
+/Shop
+
+#### Stories 
+- A user can see a page of shopping options on GTIO
+   - top nav bar is standard native bar
+   - top right btn 'shopping list'
+      - shows count of unread shopping list items
+      - responds to gtio:// trigger for updating shopping list count
+      - see story
+   - Main content of page is webview (source is /Shop)
+- A user can tap on elements on the Shopping page
+   - /Shop page can have spawn 4 different types of pages:
+      - Shop Browse Webview Container (view 10.2)
+         - triggered by: gtio://ShopBrowseWebview/[title (urlencoded)]/[url (url encoded)]
+      - Shop 3rd Party Webview Container (view 10.3)
+         - triggered by: gtio://3rdPartyShopWebview/[title (urlencoded)]/[url (url encoded)]
+      - Default 3rd Party Webview Container (view 10.4)
+         - triggered by: gtio://3rdPartyDefaultWebview/[url (url encoded)]
+      - Shop Browse Products Container (view 10.5)
+         - triggered by: gtio://ShopBrowse/[title (urlencoded)]/[api path (url encoded)]
+
+
+### 10.2 Shop Browse Webview Container
+
+#### Overview
+A user can browse to a 2ndary webview page of navigation
+
+#### Mockups
+([wireframe](http://invis.io/NX2OELBZ)) 
+
+#### API Usage
+dynamic
+
+#### Stories 
+- A user can browse to a 2ndary webview page of navigation
+   - top nav bar is custom nav bar
+      - customizable title: via gtio link that spawned the container
+      - shopping list btn visible
+      - back btn to return to previous container
+   - default uitabbar is visible
+   - url of webview is customized via gtio:// link that spawned the container
+
+
+
+### 10.3 Shop 3rd Party webview Container  
+
+#### Overview
+A user can browse to a 3rd party site to look for products to heart or post
+
+#### Mockups
+([wireframe](http://invis.io/N92OENXT)) 
+
+#### API Usage
+/Shop/Scrape
+/Product/Heart
+/Tracking
+
+#### Stories 
+- A user can browse to a 3rd party site to look for products to heart or post
+   - top nav bar is same as Shop Browse navbar (see view 10.2)
+   - top right btn 'shopping list'
+      - shows count of unread shopping list items
+      - responds to gtio:// trigger for updating shopping list count
+      - see universal behaivor
+   - each user page load trigters api scrape
+      - similar behavior to GTIOv3
+   - default uitabbar is NOT visible
+   - url of webview is customized via gtio:// link that spawned the container
+   - bottom nav:
+      - standard webview forward and back browse buttons 
+      - heart btn
+         - wait for scrape api to finish (with spinner like suggest feature in GTIO3.0)
+            - **tap** ==> make api call to heart api
+               - **success** ==> (view 4.1)
+      - post this btn
+         - wait for scrape api to finish (with spinner like suggest feature in GTIO3.0)
+            - **tap** ==> tracking api call
+            - **tap** ==> (view 4.7)
+
+
+### 10.4 Default 3rd party webview container
+
+#### Overview
+A user can browse to a 3rd party site with a default browsing experience
+
+#### Mockups
+([wireframe](http://invis.io/XF2OEOYU)) 
+
+#### API Usage
+None.
+
+#### Stories 
+- A user can browse to a 3rd party site with a default browsing experience  
+   - default webview container
+   - may contain custom assets
+   - forward, back navigation
+   - reload
+   - open in safari
+
+
+### 10.5 Shop Browse Products
+
+#### Overview
+A user can browse to a native list of products
+
+#### Mockups
+10.5 ([wireframe](http://invis.io/E22OEQDR)) 
+
+10.5.1 Shop Browse Products without standard cell ([wireframe](http://invis.io/GP2OEPH9))
+
+#### API Usage
+dynamic
+
+#### Stories 
+- A user can browse to a native list of products
+   - top nav bar is custom nav bar
+      - customizable title: via gtio link that spawned the container
+      - shopping list btn visible
+     - back btn to return to previous container
+    - custom visual header (optional)
+       - image specified by api
+       - link specified by api
+    - customizable standard cell (optional)
+       - styled text
+       - chevron on right
+       - text set by api
+       - destination set by api
+    - list of products in masonry view
+
+
+
+
    
