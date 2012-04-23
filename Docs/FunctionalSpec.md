@@ -1242,6 +1242,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
          - tappable defined by api
 - A user can paginate through multiple pages of their feed
    - pagination detail api details to come
+- A user can pull to refresh their feed
 
 
 ###  8.3 Feed Verdict view
@@ -1323,6 +1324,7 @@ A user can see a grid of popular looks on GTIO and tab to other groups of looks
 - A list can have a custom image above the grid
    - banner area (view TBD)
       - image and link served via api
+- A user can pull to refresh the list of looks
 
 
 
