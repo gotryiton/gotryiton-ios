@@ -1088,7 +1088,6 @@ Each user has a profile page
 - a user can follow another user from their profile
    - follow btn (toggle)
       - see standard documentation for follow btn
-   - follow btn not visible if this is your own profile
 - a user can see who another user is following
    - following btn
       - **tap** ==> (view 6.5)
@@ -1687,3 +1686,122 @@ A user can add details to their post before they submit.  They can select to use
    - Each photo in frame is pinchable
       - photo cannot be resized out of frame
 
+
+
+## 13. Universal Elements & Behavior
+
+### 13.1 UITabBar default behavior 
+
+#### Overview
+The app has a universal UITabBar that allows the user to move from tab to tab
+
+#### Mockups
+see (view 8.1), (view 9.1), (view 12.1), (view 10.1), (view 7.1)
+
+#### API Usage
+None.
+
+#### Stories
+- A user can switch between tabs of the app
+   - matt to define visual display
+   - 5 tabs
+      - 1st tab starts on (view 8.1)
+      - 2nd tab starts on (view 9.1)
+      - 3rd tab starts on (view 12.1)
+      - 4th tab starts on (view 10.1)
+      - 5th tab starts on (view 7.1)
+   - tapping on a tab brings you to the page and position in which you left that tab
+   - tapping the tab a 2nd time when you are already viewing a tab routes you to the landing page of that tab (see above)
+- A user who has left the app inactive for 24 hours has their tabs reset.
+   - if a user returns to the app after >24 hours of inactivity
+      - maintains your selected tab
+      - brings you to the landing page of that tab
+
+
+### 13.1 UITabbar Shopping list animation 
+
+#### Overview
+The app has a universal UITabBar that allows the user to move from tab to tab
+
+#### Mockups
+
+
+#### API Usage
+None.
+
+#### Stories
+- When a user is not on the 4th tab and they trigger an action to increment the Shopping list count, they should see an animation
+   - when shopping list count is incremented
+   - display animation over 4th tab
+
+
+
+
+### 13.3 Error messages 
+
+#### Overview
+The app should display a custom dialog whenever the API responds with an error
+
+#### Mockups
+None.
+
+#### API Usage
+An error response from the gtio api will look like this:
+
+```json
+{
+
+   status : "error",
+
+   message : "Hi, this is your error",
+
+   title : "Optional title to the dialog"
+
+} 
+```
+
+#### Stories
+- When a user encounters an error, they should see a standard error response
+   - error messages should appear as standard dialogs
+   - if no error message is defined by the api:
+      - display "Gotryiton is not responding right now"
+   - if error message is defined in the api response, display it
+   - if a title is defined in the error reponse use it
+      - otherwise use 'error'
+      
+
+
+### 13.4 Follow buttons
+
+#### Overview
+In many places where there is a user's name, there is a follow button.  This button can have many states
+
+#### Mockups
+
+#### API Usage
+```/User```  each user may contain a FollowButtonState object
+
+```json
+FollowButtonState : {
+
+   text : "string for content of button",
+
+   action: "api/path/to/hit",
+
+   buttonType: "button_type_name_here"
+
+} 
+```
+
+```/User/Follow``` Each request to the follow api responds with another FollowButtonState object
+
+
+#### Stories
+- When a user sees another user they can follow, they can take action via a standard button
+   - default case:
+      - button text: follow
+      - action: defined by api
+   - the button may have no action associated 
+      - follow button shows 'pending' if the request to follow is pending
+- When a user sees their own name, the follow button will not be visible
+   - User objects do not contain FollowButtonState of the user who made the request
