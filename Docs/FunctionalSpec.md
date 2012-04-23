@@ -270,13 +270,6 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 - A user can tap on each notification item
    - each notification item has a destination 
       - can be gtio:// link or http:// link
-- A user can sometimes tap on a button in the notification
-   - each notification item can conditionally include an action button with customizable text and action
-      - action can either:
-         - direct the user to a url
-            - button tap activates on state during transition
-         - send an api request
-            - button tap activates on state of button persistently
 - The app will only highlight the number of notifications that the user has not seen
    - app will keep track of notificiation ids
       - ids that have been seen will get a read state
@@ -1327,6 +1320,9 @@ A user can see a grid of popular looks on GTIO and tab to other groups of looks
       - similar behavior to lists in GTIOv3
 - A user can switch to consume the list of popular looks in a feed view (view 8.1) rather than a grid view
    - see questions 
+- A list can have a custom image above the grid
+   - banner area (view TBD)
+      - image and link served via api
 
 
 
