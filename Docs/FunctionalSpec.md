@@ -298,6 +298,7 @@ A user can see a detailed view of a single outfit post
 
 #### Mockups
 3.1 [wireframe](http://invis.io/SX2OBQUG)
+
 3.1.1 Outfit Detail No Voting ([wireframe](http://invis.io/W22OBRHF)
 
 #### API Usage
@@ -364,8 +365,9 @@ A user can see a detailed view of a single outfit post
 A user can vote on an outfit from the outfit detail page and see voting results
 
 #### Mockups
-3.2 Verdict displayed 
-3.2.1 Verdict displayed on Product Page
+3.2 Verdict displayed ([wireframe](http://invis.io/HS2PNQD6))
+
+3.2.1 Verdict displayed on Product Page ([wireframe](http://invis.io/842PNRNU))
 
 #### API Usage
 /Outfit/Vote
@@ -380,8 +382,9 @@ A user can vote on an outfit from the outfit detail page and see voting results
 A user can see a full screen detail of an outfit
 
 #### Mockups
-3.3 Outfit Full Screen ([wireframe](http://invis.io/2W2OFST5))
-3.3.1 Product Post Full Screen ([wireframe](http://invis.io/2W2OFST5))
+3.3 Outfit Full Screen ([wireframe](http://invis.io/F72PNPKB))
+
+3.3.1 Product Post Full Screen ([wireframe](http://invis.io/XB2PNTT9))
 
 #### API Usage
 None.
@@ -746,7 +749,13 @@ A user can post a product to their feed from a product page
 A user can invite friends to GTIO via SMS, Email, Facebook
 
 #### Mockups
-([wireframe](http://invis.io/TW2OCGBR))
+5.1 invite friends  ([wireframe](http://invis.io/TW2OCGBR))
+
+5.1.1 invite friends actionsheet  ([wireframe](http://invis.io/NB2PNCHD))
+
+5.1.2 invite friends SMS ([wireframe](http://invis.io/YX2PND9V))
+
+5.1.3 invite friends EMAIL  ([wireframe](http://invis.io/R22PNE35))
 
 #### API Usage
 /Invite/SMS
@@ -761,19 +770,19 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 - A user can compose an SMS by entering their own recipients
    - sms btn
       - **tap** ==> sends api request (for body of SMS)
-      - successful api response ==> (view 4.3.1)
+      - successful api response ==> (view 5.1.2)
 - A user can compose an Email by entering their own recipients
    - email btn
       - **tap** ==> sends api request (for body of email)
-      - successful api response ==> (view 4.4)
+      - successful api response ==> (view 5.1.3)
 - A user can select to invite via facebook
    - facebook btn
       - **tap** ==> sends api request (for facebook contact list)
       - successful api response ==> (view 4.5)
 - A user can select to invite a particular friend from their contact list
-   - **tap** ==> raises actionsheet of available contacts (phone number or email addres)
+   - **tap** ==> raises actionsheet of available contacts (phone number or email addres) (view 5.1.1)
       - actionsheet **tap** ==> api request (SMS or Email depending on type of contact)
-         - **success** ==> (view 4.3.1) or (view 4.4) (with contact populated in the to field)
+         - **success** ==> (view 5.1.2) or (view 5.1.3) (with contact populated in the to field)
 
 
 ## 6. Friends management
@@ -1078,7 +1087,13 @@ A logged in user can view their posts
 Each user has a profile page
 
 #### Mockups
- ([wireframe](http://invis.io/732OD3ZH))
+7.1 basic: ([wireframe](http://invis.io/732OD3ZH))
+
+7.7.1 other's profile, not following: ([wireframe](http://invis.io/AD2PMYYW))
+
+7.7.2 other's profile, following requested: ([wireframe](http://invis.io/4Q2PMZHE))
+
+
 
 #### API Usage
 /User/Profile
@@ -1095,7 +1110,10 @@ Each user has a profile page
          - current on/off states determined by api
       - tapping if IS your own profile
          - sends to view 7.1
-- a user can follow another user from their profile
+- a user can read another user's bio
+   - see (view 7.7.1)
+   - 'Atlantic-Pacific :-)' will be bio text from API response
+- a user can follow another user from their profile if not already following (view 7.7.1)
    - follow btn (toggle)
       - see standard documentation for follow btn
 - a user can see who another user is following
@@ -1104,8 +1122,8 @@ Each user has a profile page
 - a user can see who another user follows
    - followers btn
       - **tap** ==> (view 6.6)
-- A user can see additional info about another user
-   - each profile has a customizable text field
+- A user can see additional info about another user 
+   - each profile has a customizable text field (view 7.7.1)
       - icon (sent from api)
       - text (sent from api)
          - supports ```<b>```
@@ -1113,7 +1131,7 @@ Each user has a profile page
    - banner area 
       - image and link served via api
 - A users profile can show a button linking to an external site
-   - button defined by api
+   - button defined by api (view 7.7.1)
       - two button types
       - text
       - action
@@ -1130,6 +1148,8 @@ Each user has a shopping list
 
 #### Mockups
 ([wireframe](http://invis.io/8W2OD45T))
+
+7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))
 
 #### API Usage
 /User/Shopping-list
@@ -1152,7 +1172,7 @@ Each user has a shopping list
       - **tap** ==> raises actionsheet
          - email to myself
             - **tap** ==> api request
-               - **success** ==> show sent overlay
+               - **success** ==> show 'emailed' overlay (view 7.8.1)
          - go to store site
             - **tap** ==> opens url in standard webview 
 - A user can delete an item from their shopping list
@@ -1163,7 +1183,7 @@ Each user has a shopping list
    - top right btn: email list
       - raises dialog
          - ok: api request 
-            - **success** ==> show confirmation overlay
+            - **success** ==> show 'emailed' overlay (view 7.8.1)
          - cancel: closes dialog
 
 
@@ -1177,7 +1197,12 @@ Each user has a personalized feed of content on the first tab.  The content cont
 #### Mockups
 ([wireframe](http://invis.io/P32OE57R)) 
 
-8.1.1 voting disabled: ([wireframe](http://invis.io/NS2PAHQA)) 
+8.1.1 product in feed with voting disabled: ([wireframe](http://invis.io/NS2PAHQA)) 
+
+8.1.2 dot options: ([outfit item](http://invis.io/N92PN2YP)) ([product item](http://invis.io/WN2PN693)) 
+
+8.1.3 feed scrolled: ([wireframe](http://invis.io/DA2PN3TC)) 
+
 
 #### API Usage
 /Posts/Feed
@@ -1193,9 +1218,9 @@ Each user has a personalized feed of content on the first tab.  The content cont
          - description (truncated)
             - truncation details (??matt??)
          - user detail area catches during scroll
-            - catches at top of visible area
+            - catches at top of visible area (view 8.1.3)
             - scrolls out of view and replaced by next user detail of next item in feed (a la instagram)
-   - outfit post area
+   - post area
       - main image
          - heart toggle in top left
       - reviews button w/ reviews count
@@ -1210,7 +1235,8 @@ Each user has a personalized feed of content on the first tab.  The content cont
       - **success** ==> (view 8.3)
 - If a post does not have voting enabled, a user can see an indication of this fact
    - (view 8.1.1)
-- A user can tap on a '...' btn to see more actions
+- A user can tap on a '...' btn to see more actions 
+   - see (views 8.1.2)
       - the ... button
          - tweet
             - grab details from above
@@ -1248,7 +1274,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 - A user can paginate through multiple pages of their feed
    - pagination detail api details to come
 - A user can pull to refresh their feed
-
+   - see 13.6
 
 ###  8.3 Feed Verdict view
 
@@ -1292,7 +1318,7 @@ A user can see their pending upload in their feed
 A user can see their new upload in their feed
 
 #### Mockups
-([wireframe](http://invis.io/8C2OE9B7)) 
+([wireframe](http://invis.io/ZS2PN997)) 
 
 #### API Usage
 /Post/Upload
@@ -1310,7 +1336,9 @@ A user can see their new upload in their feed
 A user can see a grid of popular looks on GTIO and tab to other groups of looks
 
 #### Mockups
-([wireframe](http://invis.io/8C2OE9B7)) 
+9.1 Popular looks grid: ([wireframe](http://invis.io/8C2OE9B7)) 
+
+9.1.1 popular as feed: ([wireframe](http://invis.io/HX2PNHZC)) 
 
 #### API Usage
 /Posts/Popular
@@ -1324,13 +1352,14 @@ A user can see a grid of popular looks on GTIO and tab to other groups of looks
    - tab names are specified by api
    - tab apis are specified by api 
       - similar behavior to lists in GTIOv3
-- A user can switch to consume the list of popular looks in a feed view (view 8.1) rather than a grid view
-   - see questions 
+- A user can switch to consume the list of popular looks in a feed view (like view 8.1) rather than a grid view
+   - see (view 9.1.1)
+   - see question# 3 for clarification
 - A list can have a custom image above the grid
    - banner area (view TBD)
       - image and link served via api
 - A user can pull to refresh the list of looks
-
+   - see 13.6
 
 
 
@@ -1434,6 +1463,8 @@ A user can browse to a 3rd party site with a default browsing experience
 #### Mockups
 ([wireframe](http://invis.io/XF2OEOYU)) 
 
+10.4.1 actionsheet: ([wireframe](http://invis.io/F32PNLA5)) 
+
 #### API Usage
 None.
 
@@ -1442,8 +1473,9 @@ None.
    - default webview container
    - may contain custom assets
    - forward, back navigation
-   - reload
-   - open in safari
+   - standard options button
+      - raises actionsheet as (view 10.4.1)
+   
 
 
 ### 10.5 Shop Browse Products
@@ -1494,6 +1526,7 @@ dynamic
 A logged out user can browse to non-active tabs and see an intro screen to that tab.  They can also tap to sign up from that screen
 
 #### Mockups
+([wireframe](http://invis.io/US2PNOWQ)) 
 
 #### API Usage
 /Config
