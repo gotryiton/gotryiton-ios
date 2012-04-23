@@ -81,6 +81,7 @@ First time users of the app see a screen where they can sign up
 
 #### API Usage
 Tracking (details coming)
+
 Facebook Sign in (details coming)
 
 #### Stories
@@ -104,7 +105,9 @@ Returning users can sign in with Facebook or Janrain
 
 #### API Usage
 Tracking (details coming)
+
 Facebook Sign in (details coming)
+
 Janrain Sign in (details coming)
 
 #### Stories
@@ -127,6 +130,7 @@ New users can sign up with Facebook or Janrain
 
 #### API Usage
 Tracking (details coming)
+
 Janrain Sign in (details coming)
 
 #### Stories
@@ -189,6 +193,7 @@ When a new user signs up, they can quickly add people to follow
 
 #### API Usage
 /User 
+
 /Follow/Quick-Add
 
 #### Stories
@@ -215,6 +220,7 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 
 #### API Usage
 Tracking (details coming)
+
 Facebook Sign in (details coming)
 
 #### Stories
@@ -404,7 +410,9 @@ A user can read reviews from an outfit post or a product post page
 
 #### API Usage
 /Outfit/Reviews
+
 /Review/Agree
+
 /Review/Flag
 
 #### Stories
@@ -578,6 +586,7 @@ A user can suggest a product to another user
 
 #### API Usage
 /Product/Suggest
+
 /Product/Suggest/Email
 
 #### Stories
@@ -616,6 +625,7 @@ A user can select from their phone contacts to SMS a suggestion
 
 #### API Usage
 /Product/Suggest/SMS
+
 /Tracking?
 
 #### Stories
@@ -759,7 +769,9 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 
 #### API Usage
 /Invite/SMS
+
 /Invite/Email
+
 /Invite/Facebook
 
 #### Stories
@@ -798,6 +810,7 @@ A user can find friends to follow
 
 #### API Usage
 /Friends/Find?
+
 /Friends/Search
 
 #### Stories
@@ -1429,7 +1442,9 @@ A user can browse to a 3rd party site to look for products to heart or post
 
 #### API Usage
 /Shop/Scrape
+
 /Product/Heart
+
 /Tracking
 
 #### Stories 
@@ -1624,6 +1639,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 
 #### API Usage
 /Tracking
+
 /Post/Config
 
 #### Stories 
@@ -1677,7 +1693,9 @@ A user can add details to their post before they submit.  They can select to use
 
 #### API Usage
 /Tracking
+
 /User/Facebook-Connect
+
 /Post/Upload
 
 #### Stories 
