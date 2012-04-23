@@ -667,6 +667,7 @@ A user can select from the users they are following to suggest a product
 
 #### Mockups
 4.6 ([wireframe](http://invis.io/QB2OCDVE))
+
 4.6.1  ([wireframe](http://invis.io/UA2OBZHJ))
 
 #### API Usage
@@ -1768,7 +1769,7 @@ An error response from the gtio api will look like this:
    - if error message is defined in the api response, display it
    - if a title is defined in the error reponse use it
       - otherwise use 'error'
-      
+
 
 
 ### 13.4 Follow buttons
@@ -1805,3 +1806,6 @@ FollowButtonState : {
       - follow button shows 'pending' if the request to follow is pending
 - When a user sees their own name, the follow button will not be visible
    - User objects do not contain FollowButtonState of the user who made the request
+- When a user taps on the button and it takes an action, the button updates
+   - upon **successful** api response, update the button
+
