@@ -1564,7 +1564,123 @@ A non-logged in user can browse to a Reviews page page.  They have a limited abi
 
 
 
+## 12. Upload
 
 
+### 12.1  Upload start  
 
-   
+#### Overview
+A user can start an upload by opening their camera within the GTIO app.  They can use the camera to take subsequent photos for a framed upload.
+
+#### Mockups
+12.1 ([wireframe](http://invis.io/WD2OERMP))
+
+12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5)) 
+
+#### API Usage
+/Tracking
+/Post/Config
+
+#### Stories 
+- A user can start an upload by opening their camera within the GTIO app
+   - TT to flesh out details here.
+- A user can select a photo from their photo library
+- A user can use their camera to take subsequent photos (for framed uploads)
+   - The camera has a guide overlay that matches frame (view 12.1.1)
+   - The camera has a mini-map of frame with current frame highlighted (view 12.1.1)
+- When a user starts an upload, the app gets config data from the server
+   - /Post/Config
+      - will respond with Facebook Toggle status
+      - will respond with Voting Toggle status
+      - will respond with Brands dictionary
+
+### 12.2  Upload confirm
+
+#### Overview
+A user can confirm that they want to upload the photo they've taken or selected.  They can apply filters at this stage
+
+#### Mockups
+([wireframe](http://invis.io/9M2OEVED) [2](http://invis.io/2Z2OEWB8) [3](http://invis.io/QB2OEYM7) [4](http://invis.io/4F2OEZGK))  
+
+#### API Usage
+/Tracking
+
+#### Stories 
+- A user can apply a filter to a photo they have taken or selected
+   - filter menu
+      - 5 only
+         - tasteful filters
+         - labels
+   - one filter is a 'no filter' option which removes any applied filter
+- A user can select if they want to use the photo they've selected (and filtered)
+   - use this photo yes/no
+      - yes ==> (view 12.3)
+      - no ==> (view 12.1)
+
+
+### 12.3 Post a look
+
+#### Overview
+A user can add details to their post before they submit.  They can select to use frames.  They can edit photos in their frames. 
+
+#### Mockups
+([wireframe](http://invis.io/J92OF18E)) 
+
+12.3.1 Post a look (Description with keyboard) ([wireframe](http://invis.io/AC2OF2GX)) 
+
+12.3.2 Post a look (Photo preview with frames) ([wireframe](http://invis.io/5K2OF0W8)) 
+
+#### API Usage
+/Tracking
+/User/Facebook-Connect
+/Post/Upload
+
+#### Stories 
+- A user can add details to their post before they submit.
+   - description (optional)
+      - page slides down and keyboard is raised (view 12.3.1)
+   - tag brands
+      - page slides down and keyboard is raised (view 12.3.1)
+
+- When a user enters brands that are recognized by the app, the app offeres autocomplete
+   - dictionary used is passed back in /Post/Config
+- A user can select to use frames in their upload
+   - frames buttons
+      - multi frame button converts to (view 12.3.2)
+      - single frame button converts back to (view 12.3)
+- A user can toggle facebook on or off
+   - initial toggle state set by API
+   - if a user is not facebook connected
+      - **tap** ==> Facebook SSO
+         - **success** ==> api request /User/Facebook-Connect
+         - toggles on state
+- A user can toggle voting on or off
+   - initial toggle state set by API
+- A user can cancel their post
+   - cancel btn
+      - **tap** ==> returns you to your previous tab in previous state
+- A user can edit the photos in their Post
+   - frame camera buttons
+      - **tap** ==> (view 12.1.1)
+   - frame cancel btn
+      - clears the photo stored in that frame
+      - **tap** ==> (view 12.1.1)
+- A user can edit the photo in their single image Post
+   - main image close button **tap** ==> (view 12.1)
+- A user cannot post their upload if they have frames turned on but fewer than 3 photos 
+   - if frames enabled and < 3 photos 
+      - post button is grayed out and disabled
+- A user can post their upload
+   - post btn
+      - if description is empty
+         - show dialog
+            - text: Are you sure ...
+            - ok: send api request
+            - cancel: select description field and ==> (view 12.3.1)
+      - **tap** ==> api request /Post/Upload
+- A user can move a photo within a frame
+   - Each photo in frame is draggable
+      - photo cannot be dragged outside of frame
+   - Each photo in frame is pinchable
+      - photo cannot be resized out of frame
+
