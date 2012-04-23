@@ -1818,3 +1818,37 @@ FollowButtonState : {
 - When a user taps on the button and it takes an action, the button updates
    - upon **successful** api response, update the button
 
+
+### 13.5 Authentication
+
+#### Overview
+When a user logs into the GTIO app, they should remain logged in
+
+#### API Usage
+When the GTIO api responds with an gtioToken, this token should be saved (overwrite existing tokens) and passed with all subsequent requests to the api.
+
+More api details to come.
+
+#### Stories
+- When a user logs into the GTIO app, they should remain logged in
+
+
+### 13.6 Pull to refresh behavior
+
+#### Overview
+A user can refresh a feed
+
+#### API Usage
+Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
+
+#### Stories
+- A user can refresh a feed
+   - pull to refresh is active on the feed in (view 8.1) and the popular lists in (view 9.1) only
+   - pull to refresh visually should look like it does in GTIOv3, with the following changes
+      - matt will fill you in.
+
+
+
+
+
+
