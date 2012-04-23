@@ -31,7 +31,7 @@ static image used while app is loading
 ([wireframe](http://invis.io/PC2NYJUX))
 
 #### API Usage
-api request for app config
+/Config
 
 #### Stories
 - the app should know if this is a user's first time here
@@ -1471,6 +1471,98 @@ dynamic
        - text set by api
        - destination set by api
     - list of products in masonry view
+
+
+
+## 11. Logged out views
+
+### 11.1 Logged out view of non active tabs 
+
+#### Overview
+A logged out user can browse to non-active tabs and see an intro screen to that tab.  They can also tap to sign up from that screen
+
+#### Mockups
+
+#### API Usage
+/Config
+
+#### Stories 
+- A logged out user can browse to non-active tabs and see an intro screen to that tab
+   - all tabs except for explore looks tab will have an image url specified in the Config api
+- A logged out user can tap to sign up from that screen
+   - **tap** on image ==> (view 1.9) 
+
+
+### 11.2 Logged out view of Explore looks (view 9.1)
+
+#### Overview
+A non-logged in user can browse to the explore looks tab and see popular looks.  They have a limited ability to interact with the content they see.
+
+#### Mockups
+
+#### API Usage
+/Posts/Popular
+
+#### Stories 
+- A non-logged in user can browse to the explore looks tab and see popular looks.  
+   - A user can view the page in the grid view
+   - A user cannot switch to a feed view
+- A non-logged in user has limited ability to take actions
+   - for following actions, open dialog 
+      - heart toggle button
+   - dialog info
+      - text:  you must be logged in to do that
+      - login:  **tap** ==> (view 1.9)
+      - cancel: closes dialog
+
+
+### 11.3 Logged out view of Post detail page (view 3.6) and (view 3.1)
+
+#### Overview
+A non-logged in user can browse to a post detail page.  They have a limited ability to interact with the content they see.
+
+#### Mockups
+
+#### API Usage
+/Posts/Popular
+
+#### Stories 
+- A non-logged in user can browse to a post detail page. 
+- A non-logged in user has limited ability to take actions
+   - for following actions, open dialog 
+      - heart btn
+      - vote btns
+      - profile btn
+      - any action under ... btn
+   - dialog info
+      - text:  you must be logged in to do that
+      - login:  **tap** ==> (view 1.9)
+      - cancel: closes dialog
+
+### 11.4 Logged out view of Reviews page (view 3.4)
+
+#### Overview
+A non-logged in user can browse to a Reviews page page.  They have a limited ability to interact with the content they see.
+
+#### Mockups
+
+#### API Usage
+/Posts/Reviews
+
+#### Stories 
+- A non-logged in user can browse to a post detail page. 
+- A non-logged in user has limited ability to take actions
+   - for following actions, open dialog 
+      - agree
+      - flag
+      - tap into review area
+      - tap on users name
+   - dialog info
+      - text:  you must be logged in to do that
+      - login:  **tap** ==> (view 1.9)
+      - cancel: closes dialog
+
+
 
 
 
