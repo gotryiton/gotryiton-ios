@@ -246,19 +246,32 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 #### Mockups
 ([wireframe](http://invis.io/P32OE57R))
 
+2.1.1 New notifications
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.1.Navbar.Notifications.New.png" width=420px/>
+
+2.1.2 No New notifications
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.2.Navbar.Notifications.No.New.png" width=420px/>
+
+2.1.3 Logged out notifications
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.3.Navbar.Notifications.Logged.Out.png" width=420px/>
+
+
 #### API Usage
 /Notifications
 
 #### Stories
-- When a user is not logged in the nav bar is disabled
+- When a user is not logged in the nav bar is disabled (view 2.1.3)
    - gotryiton is not clickable
    - logo is centered
-- When a user has zero new notifications, the nav bar has an empty notifications container
+- When a user has zero new notifications, the nav bar has an empty notifications container (view 2.1.2)
    - notification container and gotryiton logo tappable if total notifications > 0
       - **tap** ==> (view 2.2) 
       - TBD: matt to add animation details
    - if total notifications = 0, notification container and logo are not tappable
-- When a user has more than zero new notifications the navbar notifications icon is highlighted 
+- When a user has more than zero new notifications the navbar notifications icon is highlighted (view 2.1.1)
    - the nav bar contains number of new notifications
    - notification container and gotryiton logo tappable
       - **tap** ==> (view 2.2) (!!matt to add animation details)
@@ -270,6 +283,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 
 #### Mockups
 ([wireframe](http://invis.io/QR2OBP8N))
+
 
 #### API Usage
 /Notifications
