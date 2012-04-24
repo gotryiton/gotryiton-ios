@@ -1107,7 +1107,7 @@ Each user has a profile page
 
 7.7.2 other's profile, following requested: ([wireframe](http://invis.io/4Q2PMZHE))
 
-
+7.7.3 other's profile, with banner: ([wireframe](http://invis.io/RW2POUXA))
 
 #### API Usage
 /User/Profile
@@ -1141,9 +1141,10 @@ Each user has a profile page
       - icon (sent from api)
       - text (sent from api)
          - supports ```<b>```
-- Special user accounts can display a banner
-   - banner area 
+- Special branded users can display a banner in their profile
+   - banner area (view 7.7.3)
       - image and link served via api
+      - behavior mimics GTIOv3
 - A users profile can show a button linking to an external site
    - button defined by api (view 7.7.1)
       - two button types
