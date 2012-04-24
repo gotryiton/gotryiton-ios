@@ -1792,7 +1792,7 @@ None.
 The app has a universal UITabBar that allows the user to move from tab to tab
 
 #### Mockups
-
+([wireframe](http://invis.io/X92POXGZ)) 
 
 #### API Usage
 None.
@@ -1800,7 +1800,7 @@ None.
 #### Stories
 - When a user is not on the 4th tab and they trigger an action to increment the Shopping list count, they should see an animation
    - when shopping list count is incremented
-   - display animation over 4th tab
+   - display animation over 4th tab (view 13.1)
 
 
 
