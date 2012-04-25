@@ -243,7 +243,9 @@ When a new user signs up, they can quickly add people to follow
 When a returning (non-logged in) user starts the app, they see a screen asking them to login (and skip the intro screens)
 
 #### Mockups
-([wireframe](http://invis.io/SC2OBNJM))
+1.9 ([wireframe](http://invis.io/SC2OBNJM))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.9.Sign.In.2nd.Load.png" width=420px/>
 
 #### API Usage
 Tracking (details coming)
@@ -773,9 +775,11 @@ A user can select from the users they are following to suggest a product
 #### Mockups
 4.6 ([wireframe](http://invis.io/QB2OCDVE))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.Suggest.GTIO.Contacts.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.1.Suggest.A.Product.Confirm.png" width=420px/>
 
 4.6.1  ([wireframe](http://invis.io/UA2OBZHJ))
+
+4.6.1.Suggest.GTIO.Contacts.Confirm.png
 
 #### API Usage
 /Product/Suggest/Following
@@ -1378,6 +1382,8 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.4 feed empty:  ([wireframe](http://invis.io/3W2OH9G2)) 
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Empty.png" width=420px/>
+
 8.1.3 feed with voting results: 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Verdict.png" width=420px/>
@@ -1693,7 +1699,11 @@ A user can browse to a native list of products
 #### Mockups
 10.5 ([wireframe](http://invis.io/E22OEQDR)) 
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.5.Shop.Browse.Products.png" width=420px/>
+
 10.5.1 Shop Browse Products without standard cell ([wireframe](http://invis.io/GP2OEPH9))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.5.Shop.Browse.Products.No.Link.png" width=420px/>
 
 #### API Usage
 dynamic
@@ -2010,7 +2020,7 @@ None.
       - brings you to the landing page of that tab
 
 
-### 13.1 UITabbar Shopping list animation 
+### 13.2 UITabbar Shopping list animation 
 
 #### Overview
 The app has a universal UITabBar that allows the user to move from tab to tab
@@ -2018,6 +2028,7 @@ The app has a universal UITabBar that allows the user to move from tab to tab
 #### Mockups
 ([wireframe](http://invis.io/X92POXGZ)) 
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/13.2.Feed.Scrolled.Further.Hearted.png" width=420px/>
 
 #### API Usage
 None.
