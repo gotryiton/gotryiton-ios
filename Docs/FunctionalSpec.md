@@ -38,7 +38,9 @@
 static image used while app is loading
 
 #### Mockups
-([wireframe](http://invis.io/PC2NYJUX))
+1.1 Splash ([wireframe](http://invis.io/PC2NYJUX))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.1.Splash.png" width=420px>
 
 #### API Usage
 /Config
@@ -55,7 +57,9 @@ static image used while app is loading
 A uiPageControl should be used to introduce new users to screens of the app
 
 #### Mockups
-([wireframe](http://invis.io/QS2OBFDF)) 
+1.2 Intros ([wireframe](http://invis.io/QS2OBFDF)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.2.Intro.1.png" width=420px>
 
 #### API Usage
 Array of images is part of the response in (view 1.1)
@@ -78,7 +82,9 @@ Array of images is part of the response in (view 1.1)
 First time users of the app see a screen where they can sign up
 
 #### Mockups
-([wireframe](http://invis.io/TW2OBGAK))
+1.3 Sign in ([wireframe](http://invis.io/TW2OBGAK))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.3.Sign.In.First.Use.png" width=420px>
 
 #### API Usage
 Tracking (details coming)
@@ -102,7 +108,9 @@ Facebook Sign in (details coming)
 Returning users can sign in with Facebook or Janrain
 
 #### Mockups
-([wireframe](http://invis.io/5W2OBHJ7))
+1.4 Returning users ([wireframe](http://invis.io/5W2OBHJ7))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.4.Returning.Users.png" width=420px>
 
 #### API Usage
 Tracking (details coming)
@@ -127,7 +135,10 @@ Janrain Sign in (details coming)
 New users can sign up with Facebook or Janrain
 
 #### Mockups
-([wireframe](http://invis.io/EQ2OBJ6W))
+
+1.5 Janrain Sign up ([wireframe](http://invis.io/EQ2OBJ6W))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Sign.Up.png" width=420px>
 
 #### API Usage
 Tracking (details coming)
@@ -147,7 +158,11 @@ Janrain Sign in (details coming)
 When a user fails to sign in, they're presented with an error screen allowing them to try again
 
 #### Mockups
-([wireframe](http://invis.io/CR2OBKVK))
+
+1.6 Failed sign in ([wireframe](http://invis.io/CR2OBKVK))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.6.Failed.Sign.In.png" width=420px>
+
 
 #### API Usage
 None
@@ -167,7 +182,14 @@ None
 When a new user signs up, the app confirms they have a complete GTIO profile
 
 #### Mockups
-([wireframe](http://invis.io/XB2OBL7A))
+
+1.7 Almost done ([wireframe](http://invis.io/XB2OBL7A))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.7.Almost.Done.png" width=420px>
+
+1.7 Scrolled
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.7.Almost.Done.Scrolled.pngg" width=420px>
 
 #### API Usage
 /User api
@@ -190,7 +212,11 @@ When a new user signs up, they can quickly add people to follow
 
 #### Mockups
 [wireframe1](http://invis.io/9P2OBMUR)  
-[wireframe2](http://invis.io/AE2OBO7F)
+
+1.8
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.8.Quick.Add.png" width=420px>
+
 
 #### API Usage
 /User 
@@ -282,8 +308,9 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 When a user is on one of the top level tabs, they see a navigation bar with notifications 
 
 #### Mockups
-([wireframe](http://invis.io/QR2OBP8N))
+2.2 Notifications ([wireframe](http://invis.io/QR2OBP8N))
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.4.Notifications.png" width=420px/>
 
 #### API Usage
 /Notifications
@@ -318,9 +345,13 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 A user can see a detailed view of a single outfit post
 
 #### Mockups
-3.1 [wireframe](http://invis.io/SX2OBQUG)
+3.1 Outfit Post Detail Page [wireframe](http://invis.io/SX2OBQUG)
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.png" width=420px/>
 
 3.1.1 Outfit Detail No Voting ([wireframe](http://invis.io/W22OBRHF)
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.No.Voting.png" width=420px/>
 
 #### API Usage
 /Outfit
@@ -388,7 +419,11 @@ A user can vote on an outfit from the outfit detail page and see voting results
 #### Mockups
 3.2 Verdict displayed ([wireframe](http://invis.io/HS2PNQD6))
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Mine.Verdict.png" width=420px/>
+
 3.2.1 Verdict displayed on Product Page ([wireframe](http://invis.io/842PNRNU))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Verdict.png" width=420px/>
 
 #### API Usage
 /Outfit/Vote
@@ -405,7 +440,12 @@ A user can see a full screen detail of an outfit
 #### Mockups
 3.3 Outfit Full Screen ([wireframe](http://invis.io/F72PNPKB))
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.No.Voting.Fullscreen.png" width=420px/>
+
 3.3.1 Product Post Full Screen ([wireframe](http://invis.io/XB2PNTT9))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Fullscreen.png" width=420px/>
+
 
 #### API Usage
 None.
@@ -421,7 +461,9 @@ None.
 A user can read reviews from an outfit post or a product post page
 
 #### Mockups
-([wireframe](http://invis.io/NE2OBV7J))
+3.4 Reviews Page ([wireframe](http://invis.io/NE2OBV7J))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.4.Reviews.png" width=420px/>
 
 #### API Usage
 /Outfit/Reviews
@@ -451,7 +493,9 @@ A User can see other users who have hearted an outfit or product post
 
 #### Mockups
 
-([wireframe](http://invis.io/N22OBX9Q))
+3.5 Who Hearted this ([wireframe](http://invis.io/N22OBX9Q))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.5.Who.Hearted.This.png" width=420px/>
 
 #### API Usage
 
@@ -472,7 +516,10 @@ A User can see other users who have hearted an outfit or product post
 A user can see a detailed view of a Product Post
 
 #### Mockups
-([wireframe](http://invis.io/UA2OBZHJ))
+3.6 Product Post Detail ([wireframe](http://invis.io/UA2OBZHJ))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Mine.png" width=420px/>
+
 
 #### API Usage
 
@@ -546,7 +593,10 @@ A user can see a detailed view of a Product Post
 A user can view a detailed page about a single product
 
 #### Mockups
-([wireframe](http://invis.io/8Y2OC5N7))
+4.1 Product Page View ([wireframe](http://invis.io/8Y2OC5N7))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.1.Product.Detail.png" width=420px/>
+
 
 #### API Usage
 /Product
@@ -575,7 +625,9 @@ A user can view a detailed page about a single product
 A user can see options of how to buy the product
 
 #### Mockups
-([wireframe](http://invis.io/QE2OC6XW))
+4.1.1 Product Buy Actionsheet ([wireframe](http://invis.io/QE2OC6XW))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.1.Product.Detail.Actionsheet.png" width=420px/>
 
 #### API Usage
 TBD
@@ -597,7 +649,9 @@ TBD
 A user can suggest a product to another user
 
 #### Mockups
-([wireframe](http://invis.io/NT2OC8QM))
+4.2 Suggest a product ([wireframe](http://invis.io/NT2OC8QM))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.2.Suggest.A.Product.png" width=420px/>
 
 #### API Usage
 /Product/Suggest
@@ -636,7 +690,13 @@ A user can select from their phone contacts to SMS a suggestion
 
 #### Mockups
 4.3 ([wireframe](http://invis.io/DW2OC9PN))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.3.Suggest.Phone.Contact.List.png" width=420px/>
+
 4.3.1 ([wireframe](http://invis.io/MR2OCAUP))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.3.1.Suggest.SMS.Compose.png" width=420px/>
+
 
 #### API Usage
 /Product/Suggest/SMS
@@ -662,7 +722,10 @@ A user can select from their phone contacts to SMS a suggestion
 A user can email a product suggestion from a native compose window
 
 #### Mockups
-([wireframe](http://invis.io/4R2OCBCW))
+4.4 ([wireframe](http://invis.io/4R2OCBCW))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.4.Suggest.Email.Compose.png" width=420px/>
+
 
 #### API Usage
 /Tracking?
@@ -682,7 +745,9 @@ A user can email a product suggestion from a native compose window
 A user can choose from their facebook contacts and post on their wall to suggest a product
 
 #### Mockups
-([wireframe](http://invis.io/AG2OCC3Z))
+4.5 ([wireframe](http://invis.io/AG2OCC3Z))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.5.Suggest.Facebook.Contacts.png" width=420px/>
 
 #### API Usage
 /Product/Suggest/Facebook
@@ -704,6 +769,8 @@ A user can select from the users they are following to suggest a product
 
 #### Mockups
 4.6 ([wireframe](http://invis.io/QB2OCDVE))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.Suggest.GTIO.Contacts.png" width=420px/>
 
 4.6.1  ([wireframe](http://invis.io/UA2OBZHJ))
 
@@ -737,6 +804,8 @@ A user can post a product to their feed from a product page
 
 #### Mockups
 ([wireframe](http://invis.io/U92OCEF2))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.7.Post.A.Product.png" width=420px/>
 
 #### API Usage
 /Product/Post
@@ -776,11 +845,20 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 #### Mockups
 5.1 invite friends  ([wireframe](http://invis.io/TW2OCGBR))
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/5.1.Invite.Friends.png" width=420px/>
+
 5.1.1 invite friends actionsheet  ([wireframe](http://invis.io/NB2PNCHD))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/5.1.Invite.Friends.Actionsheet.png" width=420px/>
 
 5.1.2 invite friends SMS ([wireframe](http://invis.io/YX2PND9V))
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.3.1.Suggest.SMS.Compose.png" width=420px/>
+
 5.1.3 invite friends EMAIL  ([wireframe](http://invis.io/R22PNE35))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.4.Suggest.Email.Compose.png" width=420px/>
+
 
 #### API Usage
 /Invite/SMS
@@ -821,7 +899,12 @@ A user can find friends to follow
 
 #### Mockups
 6.1 ([wireframe](http://invis.io/XM2OCN3P))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.1.Find.My.Friends.Profile.png" width=420px/>
+
 6.1.1 No Results ([wireframe](http://invis.io/QK2OCQ56))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.1.Find.My.Friends.Profile.No.Result.png" width=420px/>
 
 #### API Usage
 /Friends/Find?
@@ -856,7 +939,9 @@ A user can find friends to follow
 A user can see a list of suggested users to follow
 
 #### Mockups
-([wireframe](http://invis.io/VD2OCR5H))
+6.2 Suggested Friends ([wireframe](http://invis.io/VD2OCR5H))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.2.Suggested.Friends.png" width=420px/>
 
 #### API Usage
 /Friends/Suggested
@@ -879,7 +964,9 @@ A user can see a list of suggested users to follow
 A user can manage their friend relationships via the feed
 
 #### Mockups
-([wireframe](http://invis.io/R62OCSKJ))
+6.3 ([wireframe](http://invis.io/R62OCSKJ))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.3.Friends.From.Feed.png" width=420px/>
 
 #### API Usage
 /Friends?
@@ -910,7 +997,9 @@ A user can manage their friend relationships via the feed
 A user can search for friends outside of their own network
 
 #### Mockups
-([wireframe](http://invis.io/MH2OCTA9))
+6.4 ([wireframe](http://invis.io/MH2OCTA9))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.4.Find.Friends.Unconnected.png" width=420px/>
 
 #### API Usage
 /Friends/Search
@@ -929,7 +1018,9 @@ A user can search for friends outside of their own network
 A User A can see a list of who a User B is following.  User A and User B can be the same user.
 
 #### Mockups
-([wireframe](http://invis.io/CS2OCU2W))
+6.5 ([wireframe](http://invis.io/CS2OCU2W))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.5.I'm.Following.png" width=420px/>
 
 #### API Usage
 /User/Following
@@ -950,7 +1041,9 @@ A User A can see a list of who a User B is following.  User A and User B can be 
 A User A can see a list of User B's followers.  User A and User B can be the same user.
 
 #### Mockups
-([wireframe](http://invis.io/Y92OCV3E))
+6.6 Followers List ([wireframe](http://invis.io/Y92OCV3E))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.6.My.Followers.png" width=420px/>
 
 #### API Usage
 /User/Followers
@@ -975,7 +1068,13 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 A logged in user can manage their profile, share settings, looks, and friends
 
 #### Mockups
-([wireframe1](http://invis.io/TQ2OCXAV) [wireframe2](http://invis.io/ND2OCYR4))
+7.1 Management Page [wireframe1](http://invis.io/TQ2OCXAV) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.1.My.Management.png" width=420px/>
+
+7.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.1.My.Management.Scrolled.png" width=420px/>
 
 #### API Usage
 /User
@@ -1022,7 +1121,9 @@ A logged in user can manage their profile, share settings, looks, and friends
 A logged in user can edit their share settings
 
 #### Mockups
-([wireframe](http://invis.io/C22OCZBZ))
+7.2 Share settings ([wireframe](http://invis.io/C22OCZBZ))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.2.Share.Settings.png" width=420px/>
 
 #### API Usage
 /User/Share-Settings
@@ -1038,7 +1139,9 @@ A logged in user can edit their share settings
 A logged in user can edit their profile icon
 
 #### Mockups
-([wireframe](http://invis.io//DQ2POPNA))
+7.3 ([wireframe](http://invis.io//DQ2POPNA))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.3.Edit.Profile.Pic.png" width=420px/>
 
 #### API Usage
 /User/Icon
@@ -1054,7 +1157,13 @@ A logged in user can edit their profile icon
 A logged in user can edit their profile 
 
 #### Mockups
-([wireframe](http://invis.io/VY2OD0HD))
+7.4 ([wireframe](http://invis.io/VY2OD0HD))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.4.Edit.Profile.png" width=420px/>
+
+7.4 scrolled 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.4.Edit.Profile.Scrolled.png" width=420px/>
 
 #### API Usage
 /User/Edit
@@ -1076,7 +1185,9 @@ A logged in user can edit their profile
 A logged in user can view their hearted items
 
 #### Mockups
-([wireframe](http://invis.io/KD2OD28X))
+7.5 My hearts ([wireframe](http://invis.io/KD2OD28X))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.5.My.Hearts.png" width=420px/>
 
 #### API Usage
 /User/Hearts
@@ -1095,7 +1206,9 @@ A logged in user can view their hearted items
 A logged in user can view their posts
 
 #### Mockups
- ([wireframe](http://invis.io/732OD3ZH))
+7.6 ([wireframe](http://invis.io/732OD3ZH))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.6.My.Posts.png" width=420px/>
 
 #### API Usage
 /User/Posts
@@ -1117,11 +1230,20 @@ Each user has a profile page
 #### Mockups
 7.1 basic: ([wireframe](http://invis.io/732OD3ZH))
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.7.Profile.Page.Others.Following.png" width=420px/>
+
 7.7.1 other's profile, not following: ([wireframe](http://invis.io/AD2PMYYW))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.7.Profile.Page.Others.Not.Following.png" width=420px/>
 
 7.7.2 other's profile, following requested: ([wireframe](http://invis.io/4Q2PMZHE))
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.7.Profile.Page.Others.Not.Following.Follow.Request.png" width=420px/>
+
 7.7.3 other's profile, with banner: ([wireframe](http://invis.io/RW2POUXA))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.7.3.Profile.Page.Branded.Banner.png" width=420px/>
+
 
 #### API Usage
 /User/Profile
@@ -1176,9 +1298,14 @@ Each user has a profile page
 Each user has a shopping list
 
 #### Mockups
-([wireframe](http://invis.io/8W2OD45T))
+7.8 Shopping list ([wireframe](http://invis.io/8W2OD45T))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.8.Shopping.List.png" width=420px/>
 
 7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.8.Shopping.List.Confirm.png" width=420px/>
+
 
 #### API Usage
 /User/Shopping-list
@@ -1224,15 +1351,28 @@ Each user has a shopping list
 Each user has a personalized feed of content on the first tab.  The content contains product posts and outfit posts.  Users can take actions directly from the feed view
 
 #### Mockups
-([wireframe](http://invis.io/P32OE57R)) 
+8.1 ([wireframe](http://invis.io/P32OE57R)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.png" width=420px/>
 
 8.1.1 product in feed with voting disabled: ([wireframe](http://invis.io/NS2PAHQA)) 
 
-8.1.2 dot options: ([outfit item](http://invis.io/N92PN2YP)) ([product item](http://invis.io/WN2PN693)) 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Further.png" width=420px/>
+
+8.1.2a Outfit dot options: ([outfit item](http://invis.io/N92PN2YP)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Dot.Options.png" width=420px/>
+
+8.1.2b Product dot options: ([product item](http://invis.io/WN2PN693)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Further.Dot.Options.png" width=420px/>
 
 8.1.3 feed scrolled: ([wireframe](http://invis.io/DA2PN3TC)) 
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.png" width=420px/>
+
 8.1.4 feed empty:  ([wireframe](http://invis.io/3W2OH9G2)) 
+
 
 #### API Usage
 /Posts/Feed
@@ -1314,7 +1454,9 @@ Each user has a personalized feed of content on the first tab.  The content cont
 A user can see voting results in the feed
 
 #### Mockups
-([wireframe](http://invis.io/EK2OE7BD)) 
+8.3 ([wireframe](http://invis.io/EK2OE7BD)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Verdict.png" width=420px/>
 
 #### API Usage
 /Post/Vote
@@ -1330,7 +1472,9 @@ A user can see voting results in the feed
 A user can see their pending upload in their feed
 
 #### Mockups
-([wireframe](http://invis.io/642OE8AC)) 
+8.4 ([wireframe](http://invis.io/642OE8AC)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.4.Upload.In.Progress.png" width=420px/>
 
 #### API Usage
 /Post/Upload
@@ -1350,7 +1494,9 @@ A user can see their pending upload in their feed
 A user can see their new upload in their feed
 
 #### Mockups
-([wireframe](http://invis.io/ZS2PN997)) 
+8.5 ([wireframe](http://invis.io/ZS2PN997)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.5.Feed.After.Upload.png" width=420px/>
 
 #### API Usage
 /Post/Upload
@@ -1370,7 +1516,11 @@ A user can see a grid of popular looks on GTIO and tab to other groups of looks
 #### Mockups
 9.1 Popular looks grid: ([wireframe](http://invis.io/8C2OE9B7)) 
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/9.1.Explore.Looks.Grid.png" width=420px/>
+
 9.1.1 popular as feed: ([wireframe](http://invis.io/HX2PNHZC)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/9.1.Explore.Looks.Column.png" width=420px/>
 
 #### API Usage
 /Posts/Popular
@@ -1404,7 +1554,9 @@ A user can see a grid of popular looks on GTIO and tab to other groups of looks
 A user can see a page of shopping options on GTIO
 
 #### Mockups
-([wireframe](http://invis.io/2R2OEKY8)) 
+10.1 ([wireframe](http://invis.io/2R2OEKY8)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.1.Shop.Landing.WV.png" width=420px/>
 
 #### API Usage
 /Shop
@@ -1437,6 +1589,8 @@ A user can browse to a 2ndary webview page of navigation
 #### Mockups
 ([wireframe](http://invis.io/NX2OELBZ)) 
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.2.Shop.Browse.WV.png" width=420px/>
+
 #### API Usage
 dynamic
 
@@ -1457,7 +1611,9 @@ dynamic
 A user can browse to a 3rd party site to look for products to heart or post
 
 #### Mockups
-([wireframe](http://invis.io/N92OENXT)) 
+10.3 ([wireframe](http://invis.io/N92OENXT)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.3.Shop.3rd.Party.WV.png" width=420px/>
 
 #### API Usage
 /Shop/Scrape
@@ -1495,9 +1651,13 @@ A user can browse to a 3rd party site to look for products to heart or post
 A user can browse to a 3rd party site with a default browsing experience
 
 #### Mockups
-([wireframe](http://invis.io/XF2OEOYU)) 
+10.4 ([wireframe](http://invis.io/XF2OEOYU)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.4.Default.3rd.Party.WV.png" width=420px/>
 
 10.4.1 actionsheet: ([wireframe](http://invis.io/F32PNLA5)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.4.Default.3rd.Party.WV.Actionsheet.png" width=420px/>
 
 #### API Usage
 None.
@@ -1562,6 +1722,8 @@ A logged out user can browse to non-active tabs and see an intro screen to that 
 #### Mockups
 ([wireframe](http://invis.io/US2PNOWQ)) 
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/11.1.Explore.Looks.Logged.Out.png" width=420px/>
+
 #### API Usage
 /Config
 
@@ -1579,6 +1741,8 @@ A non-logged in user can browse to the explore looks tab and see popular looks. 
 
 #### Mockups
 11.2 login wall: ([wireframe](http://invis.io/BA2POGZT)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/11.1.Explore.Looks.Logged.Out.png" width=420px/>
 
 #### API Usage
 /Posts/Popular
@@ -1604,6 +1768,10 @@ A non-logged in user can browse to a post detail page.  They have a limited abil
 
 #### Mockups
 
+11.3
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/11.3.Outfit.Detail.Logged.Out.png" width=420px/>
+
 #### API Usage
 /Posts/Popular
 
@@ -1626,6 +1794,10 @@ A non-logged in user can browse to a post detail page.  They have a limited abil
 A non-logged in user can browse to a Reviews page page.  They have a limited ability to interact with the content they see.
 
 #### Mockups
+
+11.4
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/11.4.Reviews.Logged.Out.png" width=420px/>
 
 #### API Usage
 /Posts/Reviews
@@ -1656,7 +1828,17 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 #### Mockups
 12.1 ([wireframe](http://invis.io/WD2OERMP))
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.1.Upload.Start.png" width=420px/>
+
+
 12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.1.1.Upload.Start.Frame.Left.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.1.1.Upload.Start.Frame.Right.Top.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.1.1.Upload.Start.Frame.Right.Bottom.png" width=420px/>
+
 
 #### API Usage
 /Tracking
@@ -1684,6 +1866,14 @@ A user can confirm that they want to upload the photo they've taken or selected.
 #### Mockups
 ([wireframe](http://invis.io/9M2OEVED) [2](http://invis.io/2Z2OEWB8) [3](http://invis.io/QB2OEYM7) [4](http://invis.io/4F2OEZGK))  
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.Upload.Confirm.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Right.Top.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Left.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Right.Bottom.png" width=420px/>
+
 #### API Usage
 /Tracking
 
@@ -1708,9 +1898,16 @@ A user can add details to their post before they submit.  They can select to use
 #### Mockups
 ([wireframe](http://invis.io/J92OF18E)) 
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.Post.A.Look.png" width=420px/>
+
 12.3.1 Post a look (Description with keyboard) ([wireframe](http://invis.io/AC2OF2GX)) 
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.1.Post.A.Look.Description.Keyboard.png" width=420px/>
+
 12.3.2 Post a look (Photo preview with frames) ([wireframe](http://invis.io/5K2OF0W8)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.2.Post.A.Look.Frames.png" width=420px/>
+
 
 #### API Usage
 /Tracking
@@ -1808,6 +2005,7 @@ The app has a universal UITabBar that allows the user to move from tab to tab
 #### Mockups
 ([wireframe](http://invis.io/X92POXGZ)) 
 
+
 #### API Usage
 None.
 
@@ -1832,13 +2030,15 @@ An error response from the gtio api will look like this:
 
 ```json
 {
+   error : {
 
-   status : "error",
+      status : "error",
 
-   message : "Hi, this is your error",
+      message : "Hi, this is your error",
 
-   title : "Optional title to the dialog"
+      title : "Optional title to the dialog"
 
+   }
 } 
 ```
 
