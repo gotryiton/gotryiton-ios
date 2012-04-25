@@ -50,13 +50,13 @@ reponse:
 
 ```json
 {
-   'config' : {
-      'intro_screens' : [
+   config : {
+      intro_screens : [
          { 
-            'image_url' : "http://path/to/cdn/image",
-            'id' : 'id_of_screen'
-         },
-      ],
+            image_url : "http://path/to/cdn/image",
+            id : 'id_of_screen'
+         }
+      ]
    }
 }
 ```
