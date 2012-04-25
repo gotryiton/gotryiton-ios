@@ -15,9 +15,9 @@
 
 3.  ~~On the Popular Looks Grid (view 9.1), We're showing a grid view of a feed of posts.  On the Feed view (view 8.1) we're showing the same data in a feed view.  We'd like for a button on the Popular looks grid (9.1) to allow a user to switch between the feed view and grid view consumption of the list.  (this feature will only be available for view 9.1, view 8.1 will always be consumed in a feed view).  Is this simple to implement or does it add complexity?~~  simple.
 
-~~ 4.  In spec'ing out the Share Settings screen (view 7.2), we determined that maintaining flexibility about the fields in the list means that it would be easier to implement as a webview (similar to the FourSquare app).  Since this view will need to make api calls that have a device token (in order to enable and disable push alerts), will there be any issues with Apple approval if that device token is passed in the clear to a webview?  (we're already passing it in the clear to an api in our current app, but wanted to confirm you guys dont see any issues before we revise the design).~~ shouldnt be an issue
+4.  ~~In spec'ing out the Share Settings screen (view 7.2), we determined that maintaining flexibility about the fields in the list means that it would be easier to implement as a webview (similar to the FourSquare app).  Since this view will need to make api calls that have a device token (in order to enable and disable push alerts), will there be any issues with Apple approval if that device token is passed in the clear to a webview?  (we're already passing it in the clear to an api in our current app, but wanted to confirm you guys dont see any issues before we revise the design).~~ shouldnt be an issue
 
-~~ 5. We're interested in customizing the standard iOS dialog message view throughout the app.  What is the scale of complexity to acheive this.  We'd use this dialog for all places in this spec that reference a dialog message. ~~ doable.
+5. ~~We're interested in customizing the standard iOS dialog message view throughout the app.  What is the scale of complexity to acheive this.  We'd use this dialog for all places in this spec that reference a dialog message. ~~ doable.
 
 ### Deployment Targets
 - iOS 4
@@ -210,7 +210,7 @@ When a new user signs up, the app confirms they have a complete GTIO profile
 
 1.7 Scrolled
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.7.Almost.Done.Scrolled.pngg" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.7.Almost.Done.Scrolled.png" width=420px>
 
 #### API Usage
 /User api
