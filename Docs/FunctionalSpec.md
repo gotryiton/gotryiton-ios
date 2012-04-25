@@ -1186,7 +1186,7 @@ A logged in user can edit their settings
 #### Mockups
 7.2 Settings ([wireframe](http://invis.io/C22OCZBZ))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.2.Settings" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.2.Settings.png" width=420px/>
 
 #### API Usage
 /User/Settings
