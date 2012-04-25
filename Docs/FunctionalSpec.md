@@ -453,6 +453,8 @@ None.
 #### Stories
 - A user can see a full screen image of an Outfit Detail or Product detail page
    - If a user is looking at a product full screen, then the nav bar disappears too
+- A user can dismiss the full screen image by tapping anywhere on the image.
+   - state of the post view returns to prior state
 
 
 ### 3.4 Reviews page 
