@@ -532,11 +532,12 @@ A user can see a detailed view of a Product Post
    - profile button in top right in navbar
       - image in button should be user->profileIcon
       - **tap** ==> (view 7.7)
-   - full description
-   - full brands
+   - full user-generated description text
+      - similar to an outfit description on an outfit page
    - reviews button with reviews count
       - **tap** ==> view 3.4 
    - product name with brand and price
+      - this will be part of the product object in the api
    - photo aligned to top 
       - TBD: matt to provide specs
    - wear it button & change it button 
@@ -627,7 +628,7 @@ A user can view a detailed page about a single product
 A user can see options of how to buy the product
 
 #### Mockups
-4.1.1 Product Buy Actionsheet ([wireframe](http://invis.io/QE2OC6XW))
+4.1.1 Product Buy Actionsheet ([wireframe](http://invis.io/PS2QI79V))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.1.Product.Detail.Actionsheet.png" width=420px/>
 
@@ -923,10 +924,11 @@ A user can find friends to follow
       - text populated by api
    - list of users (who you are following)
       - has profile icon, name, following btn, tappable to profile
-      - filter search available
-      - if filter search comes up empty, see (view 6.1.1)
       - following toggle btn
          - tapped state: following
+- A user can search through their existing friends by typing in the search box
+   - typing should immediately start filtering your following list
+   - if filter search comes up empty, see (view 6.1.1)
 - When a user searches for friends and doesnt find the user they are looking for, they can search the entire community
    - the filter search has custom empty text 
       - 'We couldnt find "search string" do you want to try searching the entire GTIO community' button
@@ -1114,7 +1116,8 @@ A logged in user can manage their profile, share settings, looks, and friends
    - looks are private toggle
       - confirm dialog if you're turng OFF
       - api request
-   - messaging about private looks   
+   - "messaging about private looks"
+      - this is static copy GTIO will provide
 
 
 ### 7.2 Share Settings
@@ -1141,7 +1144,7 @@ A logged in user can edit their share settings
 A logged in user can edit their profile icon
 
 #### Mockups
-7.3 ([wireframe](http://invis.io//DQ2POPNA))
+7.3 ([wireframe](http://invis.io/MF2QIO3Y))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.3.Edit.Profile.Pic.png" width=420px/>
 
@@ -1375,6 +1378,10 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.4 feed empty:  ([wireframe](http://invis.io/3W2OH9G2)) 
 
+8.1.3 feed with voting results: 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Verdict.png" width=420px/>
+
 
 #### API Usage
 /Posts/Feed
@@ -1422,7 +1429,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
          - users defined by api
          - tappable to view 3.5
       - brand keywords
-         - tappable defined by api
+         - tappable to (view 10.5)
 
 
       - the ... button
@@ -1516,7 +1523,7 @@ A user can see their new upload in their feed
 A user can see a grid of popular looks on GTIO and tab to other groups of looks
 
 #### Mockups
-9.1 Popular looks grid: ([wireframe](http://invis.io/8C2OE9B7)) 
+9.1 Popular looks grid: ([wireframe](http://invis.io/W82OEAFH)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/9.1.Explore.Looks.Grid.png" width=420px/>
 
@@ -1544,6 +1551,8 @@ A user can see a grid of popular looks on GTIO and tab to other groups of looks
       - image and link served via api
 - A user can pull to refresh the list of looks
    - see 13.6
+- A user can tap on a look in a grid and see a post detail page 
+   - the destination is conditional on the type of the post (outfit or product) either (view 3.1) or (view 3.6), respectively
 
 
 
@@ -1581,6 +1590,8 @@ A user can see a page of shopping options on GTIO
          - triggered by: gtio://3rdPartyDefaultWebview/[url (url encoded)]
       - Shop Browse Products Container (view 10.5)
          - triggered by: gtio://ShopBrowse/[title (urlencoded)]/[api path (url encoded)]
+- A user can get to their shopping list page by tapping on the top right button 
+   - **tap** ==> (view 7.8)
 
 
 ### 10.2 Shop Browse Webview Container
