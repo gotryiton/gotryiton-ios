@@ -469,24 +469,49 @@ A user can read reviews from an outfit post or a product post page
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.4.Reviews.png" width=420px/>
 
+3.4.1 Reviews with keyboard 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.4.Reviews.Keyboard.png" width=420px/>
+
 #### API Usage
-/Outfit/Reviews
+/Post/Reviews
 
 /Review/Agree
 
 /Review/Flag
 
+/Review/Remove
+
 #### Stories
-- This feature is mostly unchanged from 3.0.  Here are the details of changes:
-   - Suggest a product button is no longer available
-   - post thumbnail displayed should be square 
+- A User can read reviews other users have written for a post
+   - the review api will populate:
+      - review text
+      - user name, icon, badges
+      - agree votes
+      - this api should respond with all comments, no pagination needed here
+      - The text field shows 'I think...' as pre-filled text
+      - top right 'x' button, flips the reviews screen back to the post detail view (view 3.6 or view 3.1)
+- A user can see a full screen image of the post
+   - a square post thumbnail is displayed next to the review text 
       - **taps** ==> (view 3.3)
-   - no longer needs to support multiple outfits
 - A user can agree with a review
    - **taps** ==> api request
+      - **success** ==> button is left in on state (no other action)
 - A user can flag a review
-   - **taps** ==> api request
-
+   - **taps** ==> opens dialog
+      - text: 'Flag this review as inappropriate?'
+      - flag: api request
+         - **success** ==> button is left in on state (no other action)
+      - cancel: close dialog
+- A user can remove their own review
+   - if the user is the review's owner
+      - the flag button is hidden
+      - the agree button is replaced with a 'remove' bttn
+         - **taps** ==> opens dialog
+            - text: 'Delete this review?'
+            - delete: api request
+               - **success** ==> button is left in on state (no other action)
+            - cancel: close dialog
 
 
 ### 3.5 Who hearted this 
@@ -754,6 +779,10 @@ A user can choose from their facebook contacts and post on their wall to suggest
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.5.Suggest.Facebook.Contacts.png" width=420px/>
 
+4.5.1 Facebook post confirm
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.5.Suggest.Facebook.Contacts.Compose.png" width=420px/>
+
 #### API Usage
 /Product/Suggest/Facebook
 
@@ -762,9 +791,8 @@ A user can choose from their facebook contacts and post on their wall to suggest
    - alpha sorted with alpha shortcut
 - A user can select a facebook contact and post on their wall
    - list item **tap** ==> makes api request
-      - On successful response ==> 
-         - raises facebook post ui (similar to GTIOv3 functionality using Facbook SDK)
-            - content is populated by api
+      - On successful response ==> raises facebook post ui using Facbook SDK (view 4.5.1)
+            - post url is populated by api response
 
 
 ### 4.6 Gotryiton contacts 
@@ -1124,18 +1152,18 @@ A logged in user can manage their profile, share settings, looks, and friends
       - this is static copy GTIO will provide
 
 
-### 7.2 Share Settings
+### 7.2 Settings
 
 #### Overview
-A logged in user can edit their share settings
+A logged in user can edit their settings
 
 #### Mockups
-7.2 Share settings ([wireframe](http://invis.io/C22OCZBZ))
+7.2 Settings ([wireframe](http://invis.io/C22OCZBZ))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.2.Share.Settings.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.2.Settings" width=420px/>
 
 #### API Usage
-/User/Share-Settings
+/User/Settings
 
 #### Stories
 - A user can edit when they receive notifications from GTIO
@@ -1152,13 +1180,27 @@ A logged in user can edit their profile icon
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.3.Edit.Profile.Pic.png" width=420px/>
 
+7.3.1 No facebook connect, and no looks
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.3.Edit.Profile.Pic.Nulls.png" width=420px/>
+
 #### API Usage
 /User/Icon
 
+/User/Facebook-Connect
+
 #### Stories
 - A user can edit their profile icon
-   - behavior & api follows GTIO v3
-
+   - a user sees a list of profile icon options
+   - a user can tap on each profile icon option and see a preview of their icon with their GTIO display name and location
+   - a user can tap to clear profile icon, which sets the icon to the GTIO default icon
+      - api for /User/Icon will provide default icon 
+- If a user is not connected to facebook, they can connect from this screen to add their fb profile icon (GTIOv3 behavior)
+   - if the user is not facebook connected, their facebook icon has a 'connect' btn
+      - **tap** ==> Facebook SSO
+         - **success** ==> api request to /User/Facebook-Connect
+            - **success** ==> refresh (view 7.3)
+   - if the user **is** facebook connected, then the fb connect button is hidden
 
 ### 7.4 Edit profile 
 
@@ -1186,6 +1228,8 @@ A logged in user can edit their profile
       - **tap** ==> api request
          - **success** ==> returns you to previous screen
          - **error** ==> dialog message
+
+
 
 
 ### 7.5 My hearts
@@ -1931,6 +1975,7 @@ A user can add details to their post before they submit.  They can select to use
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.2.Post.A.Look.Frames.png" width=420px/>
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.2.Post.A.Look.Frames.2nd.png" width=420px/>
 
 #### API Usage
 /Tracking
@@ -2134,14 +2179,29 @@ More api details to come.
 #### Overview
 A user can refresh a feed
 
+#### Mockups
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.1.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.2.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.3.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.1.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.2.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.3.png" width=420px/>
+
+
+
 #### API Usage
 Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
 
 #### Stories
 - A user can refresh a feed
    - pull to refresh is active on the feed in (view 8.1) and the popular lists in (view 9.1) only
-   - pull to refresh visually should look like it does in GTIOv3, with the following changes
-      - matt will fill you in.
+
 
 
 
