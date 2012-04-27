@@ -173,10 +173,10 @@ Returning users can sign in with Facebook or Janrain
 ([view 1.9](#19-sign-in-screen-2nd-load))   
 
 **exit screens:**  
-- ([view 8.1](#81-feed-view)) via ([view 1.10](##110-facebook-sso))   
-- ([view 8.1](#81-feed-view)) via ([view 1.5.x](#15-janrain-sign-up))   
+- ([view 8.1](#81-feed-view)) via ([view 1.10](#110-facebook-sso))   
+- ([view 8.1](#81-feed-view)) via ([view 1.11](#111-janrain-sdk))   
 - ([view 1.6](#16-failed-sign-in)) via ([view 1.10](#110-facebook-sso))   
-- ([view 1.6](#16-failed-sign-in)) via ([view 1.5.x](#15-janrain-sign-up))   
+- ([view 1.6](#16-failed-sign-in)) via ([view 1.11](#111-janrain-sdk))   
 - previous screen
 
 #### API Usage
@@ -209,31 +209,13 @@ New users can sign up with Facebook or Janrain
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Sign.Up.png" width=420px>
 
-
-1.5.1 Janrain Google login
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Google.png" width=420px>
-
-1.5.2 Janrain Yahoo login
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Yahoo.png" width=420px>
-
-1.5.3 Janrain Yahoo login
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Aol.png" width=420px>
-
-1.5.4 Janrain Yahoo login
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Twitter.png" width=420px>
-
 #### User flow
 **entry screens:**   
 ([view 1.4](#14-returning-users))   
 
 **exit screens:**  
-- ([view 8.1](#81-feed-view))   
-- ([view 1.6](#16-failed-sign-in))   
-- ([view 1.7](#17-almost-done))   
+- ([view 8.1](#81-feed-view)) via ([view 1.11](#111-janrain-sdk))     
+- ([view 1.7](#17-almost-done)) via ([view 1.11](#111-janrain-sdk))   
 - previous screen   
 
 #### API Usage
@@ -447,6 +429,43 @@ User/Auth/Facebook (details coming)
    - app key and secret should be hard coded into app
    - pass fb_token to /User/Auth/Facebook or /User/Signup/Facebook to log in a user
 
+
+## 1.11 Janrain SDK
+
+#### Overview
+A user should be able to log in via Janrain SDK
+
+#### Mockups
+
+1.5.1 Janrain Google login
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Google.png" width=420px>
+
+1.5.2 Janrain Yahoo login
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Yahoo.png" width=420px>
+
+1.5.3 Janrain Yahoo login
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Aol.png" width=420px>
+
+1.5.4 Janrain Yahoo login
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Twitter.png" width=420px>
+
+#### User Flow
+
+**entry screens:**   
+([view 1.4](#14-returning-users))   
+([view 1.5](#15-janrain-sign-up))   
+
+**exit screens:**
+([view 1.6](#16-failed-sign-in))   
+([view 8.1](#81-feed-view))   
+([view 1.7](#17-almost-done))   
+
+#### Stories
+- A user should be able to log in via Janrain SDK
 
 
 ## 2. Global Nav bar and Notifications Center
