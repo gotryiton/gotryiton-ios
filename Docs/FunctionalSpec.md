@@ -42,8 +42,12 @@ static image used while app is loading
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.1.Splash.png" width=420px>
 
 #### User flow
-**entry screens:** user starts app  
-**exit screens:** ([view 1.2](#12-intro-screens)), ([view 1.9](#19-sign-in-screen-2nd-load)), ([view 8.1](#81-feed-view))  
+**entry screens:**    
+user starts app    
+**exit screens:**    
+([view 1.2](#12-intro-screens))   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+([view 8.1](#81-feed-view))    
 
 
 #### API Usage
@@ -136,9 +140,9 @@ First time users of the app see a screen where they can sign up
 ([view 1.2](#12-intro-screens))   
 ([view 1.2.1](#12-intro-screens))   
 **exit screens:**   
-- ([view 1.2.1](#12-intro-screens))   
-- ([view 1.4](#14-returning-users))   
-- ([view 1.10](#110-facebook-sso))
+([view 1.2.1](#12-intro-screens))   
+([view 1.4](#14-returning-users))   
+([view 1.10](#110-facebook-sso))
 
 #### API Usage
 Tracking (details coming)
@@ -173,11 +177,11 @@ Returning users can sign in with Facebook or Janrain
 ([view 1.9](#19-sign-in-screen-2nd-load))   
 
 **exit screens:**  
-- ([view 8.1](#81-feed-view)) via ([view 1.10](#110-facebook-sso))   
-- ([view 8.1](#81-feed-view)) via ([view 1.11](#111-janrain-sdk))   
-- ([view 1.6](#16-failed-sign-in)) via ([view 1.10](#110-facebook-sso))   
-- ([view 1.6](#16-failed-sign-in)) via ([view 1.11](#111-janrain-sdk))   
-- previous screen
+([view 8.1](#81-feed-view)) via ([view 1.10](#110-facebook-sso))   
+([view 8.1](#81-feed-view)) via ([view 1.11](#111-janrain-sdk))   
+([view 1.6](#16-failed-sign-in)) via ([view 1.10](#110-facebook-sso))   
+([view 1.6](#16-failed-sign-in)) via ([view 1.11](#111-janrain-sdk))   
+previous screen
 
 #### API Usage
 Tracking (details coming)
@@ -214,9 +218,9 @@ New users can sign up with Facebook or Janrain
 ([view 1.4](#14-returning-users))   
 
 **exit screens:**  
-- ([view 8.1](#81-feed-view)) via ([view 1.11](#111-janrain-sdk))     
-- ([view 1.7](#17-almost-done)) via ([view 1.11](#111-janrain-sdk))   
-- previous screen   
+([view 8.1](#81-feed-view)) via ([view 1.11](#111-janrain-sdk))     
+([view 1.7](#17-almost-done)) via ([view 1.11](#111-janrain-sdk))   
+previous screen   
 
 #### API Usage
 Tracking (details coming)
@@ -277,8 +281,8 @@ When a new user signs up, the app confirms they have a complete GTIO profile
 ([view 1.5](#15-janrain-sign-up))   
 
 **exit screens:**  
-- ([view 7.3](#73-edit-profile-pic))   
-- ([view 1.8](#18-quick-add))   
+([view 7.3](#73-edit-profile-pic))   
+([view 1.8](#18-quick-add))   
 
 
 #### API Usage
@@ -323,10 +327,10 @@ When a new user signs up, they can quickly add people to follow
 ([view 1.5](#15-janrain-sign-up))   
 
 **exit screens:**  
-- ([view 8.1](#81-feed-view))   
-- ([view 9.1](#91-popular-looks-grid))   
-- ([view 5.1](#51-invite-friends))   
-- ([view 7.4](#74-edit-profile))   
+([view 8.1](#81-feed-view))   
+([view 9.1](#91-popular-looks-grid))   
+([view 5.1](#51-invite-friends))   
+([view 7.4](#74-edit-profile))   
 
 
 #### API Usage
@@ -366,12 +370,12 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 ([view 7.1](#71-my-management-page))   
 
 **exit screens:**  
-- ([view 8.1](#81-feed-view)) via ([view 10.1](#110-facebook-sso))   
-- ([view 1.7](#17-almost-done))    via ([view 10.1](#110-facebook-sso))      
-- ([view 1.4](#14-returning-users))   
-- ([view 1.5](#15-janrain-sign-up))   
-- ([view 9.1](#91-popular-looks-grid))   
-- ([view 1.2](#12-intro-screens))   
+([view 8.1](#81-feed-view)) via ([view 10.1](#110-facebook-sso))   
+([view 1.7](#17-almost-done))    via ([view 10.1](#110-facebook-sso))      
+([view 1.4](#14-returning-users))   
+([view 1.5](#15-janrain-sign-up))   
+([view 9.1](#91-popular-looks-grid))   
+([view 1.2](#12-intro-screens))   
    
 
 #### API Usage
@@ -413,9 +417,9 @@ A user can log in with facebook using facebook SSO.
 ([view 1.9](#19-sign-in-screen-2nd-load))   
 
 **exit screens:**  
-- ([view 8.1](#81-feed-view))
-- ([view 1.7](#17-almost-done))
-- previous screen   
+([view 8.1](#81-feed-view))
+([view 1.7](#17-almost-done))
+previous screen   
 
 #### API Usage
 Tracking (details coming)
@@ -491,6 +495,18 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/2.3.Navbar.Notifications.Logged.Out.png" width=420px/>
 
+#### User Flow
+
+**viewable on:**   
+([view 7.1](#71-my-management-page))   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 10.1](#10-shop-landing-page))   
+
+**exit screens:**   
+([view 2.2](#22-notifications-view))   
 
 #### API Usage
 /Notifications
@@ -519,6 +535,25 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/2.4.Notifications.png" width=420px/>
 
+#### User Flow
+
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 10.1](#10-shop-landing-page))   
+
+**exit screens:**   
+([view 7.1](#71-my-management-page))   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 10.1](#10-shop-landing-page))   
+
+
 #### API Usage
 /Notifications
 
@@ -541,6 +576,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
          - new notifications will populate the notification navbar container number
          - new notifications will get an unread state the first time they are seen
       - this behavior will mimmick current 3.0 behavior
+
 
 
 
