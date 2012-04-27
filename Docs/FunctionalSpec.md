@@ -31,7 +31,7 @@
 
 ## 1. Welcome screens
 
-<a id="1.1" />
+<a id="1.1"></a>
 ### 1.1 Splash screen  
 
 #### Overview
@@ -44,7 +44,7 @@ static image used while app is loading
 
 #### User flow
 **entry screens:** user starts app  
-**exit screens:** ([view 1.2](#12-intro-screens)), ([view 1.9](#1.9)), ([view 8.1](#8.1))  
+**exit screens:** ([view 1.2](#1.2)), ([view 1.9](#1.9)), ([view 8.1](#8.1))  
 
 
 #### API Usage
@@ -82,7 +82,7 @@ reponse:
    - if a user is upgrading from 3.0 they should be treated as a brand new logged out user
    - if a user is upgrading from 4.0 to 4.x they should be treated as an existing user and logged in (skip intro screens)
 
-<a id="1.2" />
+<a id="1.2" ></a>
 ### 1.2 Intro screens 
 
 #### Overview
@@ -121,7 +121,7 @@ A uiPageControl should be used to introduce new users to screens of the app
       - last dot in uiPageControl represents sign in screen (view 1.3)
 
 
-<a id="1.3"/>
+<a id="1.3"></a>
 ### 1.3 Sign in screen (first use) 
 
 #### Overview	
