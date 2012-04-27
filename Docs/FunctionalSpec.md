@@ -44,7 +44,7 @@ static image used while app is loading
 
 #### User flow
 **entry screens:** user starts app  
-**exit screens:** ([view 1.2](#1.2)), ([view 1.9](#1.9)), ([view 8.1](#8.1))  
+**exit screens:** ([view 1.2](#12-intro-screens)), ([view 1.9](#1.9)), ([view 8.1](#8.1))  
 
 
 #### API Usage
