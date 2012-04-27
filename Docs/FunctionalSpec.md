@@ -19,6 +19,8 @@
 
 5. ~~We're interested in customizing the standard iOS dialog message view throughout the app.  What is the scale of complexity to acheive this.  We'd use this dialog for all places in this spec that reference a dialog message.~~ doable.
 
+
+
 ### Deployment Targets
 - iOS 4
 - iOS 5
@@ -71,7 +73,8 @@ reponse:
 - the app should know if this is a user's first time here
    - if user is brand new to the app ==> (view 1.2)
    - if user is a returning user to the app ==> (view 1.9)
-
+   - if a user is upgrading from 3.0 they should be treated as a brand new logged out user
+   - if a user is upgrading from 4.0 to 4.x they should be treated as an existing user and logged in (skip intro screens)
 
 ### 1.2 Intro screens 
 
@@ -84,7 +87,10 @@ A uiPageControl should be used to introduce new users to screens of the app
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.2.Intro.1.png" width=420px>
 
 #### API Usage
-Array of images is part of the response in (view 1.1)
+
+```intro_screens``` will be part of the response in (view 1.1)
+
+/Tracking (usage TBD)
 
 #### Stories
 - on the user's first load of the app, they should be able to swipe through intro screens
@@ -93,7 +99,7 @@ Array of images is part of the response in (view 1.1)
   - next button in bottom right **taps** ==> next image in array
   - sign in btn **taps** ==> (view 1.3)
   - uiPageControl dots represent flow through intro screens 
-  - last **swipe** OR next **tap** ==> sign in screen (view 1.3)
+  - last **swipe** OR last next **tap** ==> sign in screen (view 1.3)
       - last dot in uiPageControl represents sign in screen (view 1.3)
 
 
@@ -111,7 +117,7 @@ First time users of the app see a screen where they can sign up
 #### API Usage
 Tracking (details coming)
 
-Facebook Sign in (details coming)
+User/Auth/Facebook (details coming)
 
 #### Stories
   - A new user is presented with a sign in screen and can sign up
@@ -137,18 +143,20 @@ Returning users can sign in with Facebook or Janrain
 #### API Usage
 Tracking (details coming)
 
-Facebook Sign in (details coming)
+User/Auth/Facebook (details coming)
 
-Janrain Sign in (details coming)
+User/Auth/Janrain (details coming)
 
 #### Stories
 - A returning user is presented with a sign in screen and can sign in
    - sign in with facebook btn **tap** ==> Facebook SSO
-      - upon successful return: calls api for sign in
+      - **successful SSO** ==> /User/Auth/Facebook (with SSO token)
+         - **successful response** ==> (view 8.1)
    - aol/google/twiter/yahoo janrain options
 		- **tap** ==> to janrain SDK for each
-		- upon successful return: calls api for sign in   
-			- failed api request to sign in ==> (view 1.6)
+         - **successful janrain auth** ==> /User/Auth/Janrain request
+            - **successful response** ==> (view 8.1) 
+            - **failed signin** ==> (view 1.6)
 
 
 ### 1.5 Janrain Sign up
@@ -165,14 +173,15 @@ New users can sign up with Facebook or Janrain
 #### API Usage
 Tracking (details coming)
 
-Janrain Sign in (details coming)
+User/Auth/Janrain (details coming)
 
 #### Stories
 - new users can sign up with janrain sdk (aol/google/twitter/yahoo options)
    - **tap** ==> to janrain SDK for each
-      - on successful return: request api for sign up
-         - successful sign up **tap** ==> (view 1.7)
-         - existing user response **tap** ==> (view 8.1)
+      - **successful janrain auth** ==> /User/Auth/Janrain request
+            - **successful new user response** ==> (view 1.7)
+            - **error** ==> dialog, (view 1.5)
+            - **successful existing user** ==> (view 8.1)
 
 ### 1.6 Failed sign in 
 
@@ -191,11 +200,12 @@ None
 
 #### Stories
 - When a user fails to sign in, they're presented with an error screen allowing them to try again
-   - try again **tap** ==> view 1.4
-   - im a new user **tap** ==> view 1.3
+   - try again **tap** ==> (view 1.4)
+   - im a new user **tap** ==> (view 1.3)
    - email support **tap** ==>  email compose
       - adressee is support@gotryiton.com
       - subject 'Sign in help'
+   - back **taps** ==> (view 1.4)
 
 
 ### 1.7 Almost done 
@@ -214,16 +224,24 @@ When a new user signs up, the app confirms they have a complete GTIO profile
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.7.Almost.Done.Scrolled.png" width=420px>
 
 #### API Usage
-/User api
+/User/Auth (api details coming soon)
+/User
 
 #### Stories
 - if a new user doesnt have a complete profile, they can edit a form to complete it
-   - mimmick existing form (GTIO v3)
-   - combine first name and last initial into a single name field
-   - add website field
+   - each entry maps to a user attribute (see api details)
    - edit profile picture **tap** ==> (view 7.3)
-   - save **tap** ==> (view 1.8)
-
+   - save **tap** ==> api request
+      - **success** ==> (view 1.8)
+      - **error** ==> dialog 
+         - the dialog message will be used to inform users about required fields
+- if a user has a complete profile already, they skip this screen and go straight to (view 1.8)
+   - ```User->has_complete_profile (bool)``` will mark whether this screen is required or not.
+   - ```User->required_attributes (array)``` will mark which fields are still required for the user
+- A user can see example text in the form
+   - tapping in each field clears these fields and opens the keyboard
+- A user can go through each entry quickly
+   - keyboard has a 'next' button on each entry until the last, which says 'done'
 
 
 
@@ -243,7 +261,9 @@ When a new user signs up, they can quickly add people to follow
 #### API Usage
 /User 
 
-/Follow/Quick-Add
+/User/Quick-Add
+
+/Follow
 
 #### Stories
 - When a new user signs up, they can quickly add people to follow
@@ -272,18 +292,20 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 #### API Usage
 Tracking (details coming)
 
-Facebook Sign in (details coming)
+User/Auth/Facebook (details coming)
 
 #### Stories
 
 - When a returning (non-logged in) user starts the app, they see a screen asking them to login (and skip the intro screens)
-   - sign up with facebook btn
-       - **tap** ==> Facebook app for SSO
-       - return makes call to sign up api
-   - im a returning user btn **tap** ==> view 1.4
-   - sign up with another provider btn **tap** ==> view 1.5
-   - skip directs **tap** ==> 9.1
-   - ? btn **tap** ==> view 1.2
+   - sign in with facebook btn **tap** ==> Facebook SSO
+      - **successful SSO** ==> /User/Auth/Facebook (with SSO token)
+         - **successful existing user response** ==> (view 8.1)
+         - **successful new user response** ==> (view 1.7)
+   - im a returning user btn **tap** ==> (view 1.4)
+   - sign up with another provider btn **tap** ==> (view 1.5)
+   - skip directs **tap** ==> (view 9.1)
+   - ? btn **tap** ==> (view 1.2)
+
 
 ## 2. Global Nav bar and Notifications Center
 
