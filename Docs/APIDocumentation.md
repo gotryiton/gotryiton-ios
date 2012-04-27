@@ -47,24 +47,20 @@ A response for a collection of outfits would look like:
 {
     "outfits": [
         {	        	
-			{
-        		"id": 1234,
-        		"description": "This is an outfit's description",
-        		"user": {
-        			"id": 4321,
-        			"name": "Test User"
-        		}
-        	}	        	
+            "id": 1234,
+            "description": "This is an outfit's description",
+            "user": {
+            	"id": 4321,
+            	"name": "Test User"
+            }
         },
         {
-        	{
-        		"id": 5678,
-        		"description": "This is another outfit's description",
-        		"user": {
-        			"id": 8765,
-        			"name": "Some other user"
-        		}
-        	}
+            "id": 5678,
+            "description": "This is another outfit's description",
+            "user": {
+            	"id": 8765,
+            	"name": "Some other user"
+            }
         }
     ]
 }
@@ -96,24 +92,20 @@ An example where offset is 40
 {
     "outfits": [
         {
-        	{
-        		"id": 1234,
-        		"description": "This is an outfit's description",
-        		"user": {
-        			"id": 4321,
-        			"name": "Test User"
-        		}
-        	}	        	
+            "id": 1234,
+            "description": "This is an outfit's description",
+            "user": {
+            	"id": 4321,
+            	"name": "Test User"
+            }
         },
         {
-        	{
-        		"id": 5678,
-        		"description": "This is another outfit's description",
-        		"user": {
-        			"id": 8765,
-        			"name": "Some other user"
-        		}
-        	}
+            "id": 5678,
+            "description": "This is another outfit's description",
+            "user": {
+            	"id": 8765,
+            	"name": "Some other user"
+            }
         },
 		more outfits…
     ],
@@ -130,24 +122,20 @@ Only page:
 {
     "outfits": [
         {
-        	{
-        		"id": 1234,
-        		"description": "This is an outfit's description",
-        		"user": {
-        			"id": 4321,
-        			"name": "Test User"
-        		}
-        	}	        	
+    		"id": 1234,
+    		"description": "This is an outfit's description",
+    		"user": {
+    			"id": 4321,
+    			"name": "Test User"
+    		}
         },
         {
-        	{
-        		"id": 5678,
-        		"description": "This is another outfit's description",
-        		"user": {
-        			"id": 8765,
-        			"name": "Some other user"
-        		}
-        	}
+    		"id": 5678,
+    		"description": "This is another outfit's description",
+    		"user": {
+    			"id": 8765,
+    			"name": "Some other user"
+    		}
         }
     ],
     "pagination": {
