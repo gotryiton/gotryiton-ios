@@ -596,6 +596,29 @@ A user can see a detailed view of a single outfit post
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.No.Voting.png" width=420px/>
 
+
+#### User Flow
+
+**entry screens:**   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 3.3](#33-post-detail-full-screen))     
+([view 2.2](#22-notifications-view))    
+
+
+**exit screens:**   
+([view 7.7](#77-profile-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))   
+([view 3.2](#85-post-detail-with-verdict))   
+([view 4.2](#42-suggest-a-product))   
+([view 1.10](#110-facebook-sso))   
+([view 3.3](#33-post-detail-full-screen))     
+previous screen
+
+
 #### API Usage
 /Outfit
 
@@ -608,12 +631,12 @@ A user can see a detailed view of a single outfit post
    - full description
    - full brands
    - reviews button with reviews count
-      - **tap** ==> view 3.4
+      - **tap** ==> (view 3.4)
 - A user can heart the outfit from an outfit page
    - heart action button in top left of image
       - **tap** ==> api request
    - heart count + heart icons
-      - **tap** ==> view 3.5
+      - **tap** ==> (view 3.5)
 - A user can vote on the outfit from an outfit page (that has voting enabled)
    - wear it button & change it buttons at bottom of page
       - conditionally included
@@ -634,7 +657,7 @@ A user can see a detailed view of a single outfit post
       - twitter text is given in response from api
 - A user can suggest a product from an outfit post page
    - only available for outfit viewers
-   - **tap** ==> view 4.2
+   - **tap** ==> (view 4.2)
 - A user can flag an outfit from an outfit post page
    - pop up dialog asking to confirm
       - confirm: sends api request 
@@ -654,7 +677,7 @@ A user can see a detailed view of a single outfit post
 
 ### 
 
-### 3.2 Outfit Post Detail Page verdict displayed
+### 3.2 Post Detail With Verdict
 
 #### Overview 
 A user can vote on an outfit from the outfit detail page and see voting results
@@ -668,6 +691,26 @@ A user can vote on an outfit from the outfit detail page and see voting results
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Verdict.png" width=420px/>
 
+
+#### User Flow
+
+**entry screens:**   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 3.3](#33-post-detail-full-screen))     
+
+**exit screens:**   
+([view 7.7](#77-profile-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))      
+([view 3.3](#33-post-detail-full-screen))      
+([view 4.2](#42-suggest-a-product))   
+([view 1.10](#110-facebook-sso))   
+previous screen
+
+
 #### API Usage
 /Outfit/Vote
 
@@ -675,7 +718,7 @@ A user can vote on an outfit from the outfit detail page and see voting results
 - A user can see voting results after they vote
 
 
-### 3.3 Outfit Detail Page Full screen photo 
+### 3.3 Post Detail Full screen
 
 #### Overview 
 A user can see a full screen detail of an outfit
@@ -688,6 +731,16 @@ A user can see a full screen detail of an outfit
 3.3.1 Product Post Full Screen ([wireframe](http://invis.io/XB2PNTT9))   
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Fullscreen.png" width=420px/>
+
+#### User Flow
+
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))    
+([view 3.6](#31-product-post-detail-page))    
+
+
+**exit screens:**   
+previous screen   
 
 
 #### API Usage
@@ -717,6 +770,16 @@ A user can read reviews from an outfit post or a product post page
 3.4.2 Reviews Empty
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/2/3.4.Reviews.Empty.png" width=420px/>
+
+
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))    
+([view 3.6](#31-product-post-detail-page))    
+([view 2.2](#22-notifications-view))    
+
+**exit screens:**   
+previous screen   
+
 
 #### API Usage
 /Post/Reviews
@@ -771,6 +834,14 @@ A User can see other users who have hearted an outfit or product post
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.5.Who.Hearted.This.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))    
+([view 3.6](#31-product-post-detail-page))    
+
+**exit screens:**   
+previous screen   
+
 #### API Usage
 
 /Post/Hearts
@@ -784,7 +855,7 @@ A User can see other users who have hearted an outfit or product post
       - **tap** ==> api request and changes state of button
 
 
-### 3.6 Product Post Detail  
+### 3.6 Product Post Detail Page
 
 #### Overview 
 A user can see a detailed view of a Product Post
@@ -793,6 +864,27 @@ A user can see a detailed view of a Product Post
 3.6 Product Post Detail ([wireframe](http://invis.io/UA2OBZHJ))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Mine.png" width=420px/>
+
+#### User Flow
+
+**entry screens:**   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 3.3](#33-post-detail-full-screen))     
+([view 2.2](#22-notifications-view))    
+
+
+**exit screens:**   
+([view 7.7](#77-profile-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))   
+([view 3.2](#85-post-detail-with-verdict))   
+([view 1.10](#110-facebook-sso))   
+([view 3.3](#33-post-detail-full-screen))     
+([view 7.8](#78-shopping-list))     
+previous screen
 
 
 #### API Usage
