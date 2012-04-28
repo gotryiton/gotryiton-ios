@@ -503,7 +503,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 ([view 8.4](#84-upload-in-progress-view))   
 ([view 8.5](#85-feed-after-completed-upload))   
 ([view 9.1](#91-popular-looks-grid))   
-([view 10.1](#10-shop-landing-page))   
+([view 10.1](#101-shop-landing-page))   
 
 **exit screens:**   
 ([view 2.2](#22-notifications-view))   
@@ -543,7 +543,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 ([view 8.4](#84-upload-in-progress-view))   
 ([view 8.5](#85-feed-after-completed-upload))   
 ([view 9.1](#91-popular-looks-grid))   
-([view 10.1](#10-shop-landing-page))   
+([view 10.1](#101-shop-landing-page))   
 
 **exit screens:**   
 ([view 7.1](#71-my-management-page))   
@@ -551,7 +551,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 ([view 8.4](#84-upload-in-progress-view))   
 ([view 8.5](#85-feed-after-completed-upload))   
 ([view 9.1](#91-popular-looks-grid))   
-([view 10.1](#10-shop-landing-page))   
+([view 10.1](#101-shop-landing-page))   
 
 
 #### API Usage
@@ -612,7 +612,7 @@ A user can see a detailed view of a single outfit post
 ([view 7.7](#77-profile-page))   
 ([view 3.4](#34-reviews-page))   
 ([view 3.5](#35-who-hearted-this))   
-([view 3.2](#85-post-detail-with-verdict))   
+([view 3.2](#32-post-detail-with-verdict))   
 ([view 4.2](#42-suggest-a-product))   
 ([view 1.10](#110-facebook-sso))   
 ([view 3.3](#33-post-detail-full-screen))     
@@ -880,7 +880,7 @@ A user can see a detailed view of a Product Post
 ([view 7.7](#77-profile-page))   
 ([view 3.4](#34-reviews-page))   
 ([view 3.5](#35-who-hearted-this))   
-([view 3.2](#85-post-detail-with-verdict))   
+([view 3.2](#32-post-detail-with-verdict))   
 ([view 1.10](#110-facebook-sso))   
 ([view 3.3](#33-post-detail-full-screen))     
 ([view 7.8](#78-shopping-list))     
@@ -964,6 +964,23 @@ A user can view a detailed page about a single product
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.1.Product.Detail.png" width=420px/>
 
+#### User Flow
+
+**entry screens:**   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 10.5](#105-shop-browse-products))   
+
+**exit screens:**   
+  
+([view 4.7](#47-post-a-product))   
+([view 3.5](#35-who-hearted-this))   
+([view 4.2](#42-suggest-a-product))   
+([view 10.4](#104-default-3rd-party-webview-container)) via ([view 4.1.1](#411-product-buy-actionsheet))   
+([view 7.8](#78-shopping-list)) via ([view 4.1.1](#411-product-buy-actionsheet))   
+([view 4.1.2](#412-product-full-screen))   
+
+previous screen
+
 
 #### API Usage
 /Product
@@ -972,13 +989,12 @@ A user can view a detailed page about a single product
 - A user can view a detailed page about a single product
    - transparent navbar 
       - TBD: matt to provide guidance
-   - heart action button
-      - sends api request
-   - heart action button
    - full product name with brand and price
    - photo aligned to top 
-      - **tap** ==> (view 3.3.1)
-      - TBD: matt to provide direction
+      - tapping routes to full screen view of product (view 4.1.2)
+- A user can heart a Product and see who has hearted a product
+   - standard heart button with count
+   - **tap** on count ==> (view 3.5)
 - A user can post a product from a product page
    - Post btn **tap** ==> (view 4.7)
 - A user can suggest a product from a product page
@@ -996,6 +1012,16 @@ A user can see options of how to buy the product
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.1.Product.Detail.Actionsheet.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 4.1](#41-product-page-view))   
+**exit screens:**   
+([view 10.4](#104-default-3rd-party-webview-container))    
+([view 7.8](#78-shopping-list))   
+([view 4.1](#41-product-page-view))   
+
+
+
 #### API Usage
 TBD
 
@@ -1005,10 +1031,37 @@ TBD
          - ok **tap** ==> api request
          - cancel: closes dialog
 - A user can go to store mobile site to view the product
-   - 'go to store site' btn **tap** ==> opens buy url in default safari view
+   - 'go to store site' btn **tap** ==> opens buy url in default safari view (view 10.5)
 - A user can view the item in their shopping list
    - 'view in shopping list' btn **tap** ==> makes api request
       - upon successful api response: ==> (view 7.8)
+
+
+### 4.1.2 Product Full Screen  
+
+#### Overview 
+A user can see a full screen view of a product
+
+#### Mockups
+4.1.2 Product Full Screen
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Fullscreen.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.1](#41-product-page-view))   
+([view 4.2](#41-suggest-a-product))   
+**exit screens:**   
+previous screen   
+
+
+#### API Usage
+None.
+
+#### Stories
+- A user can see a full screen view of a product
+   - tapping on the full screen view returns the user to the previous screen
+
 
 ### 4.2 Suggest a product  
 
@@ -1019,6 +1072,18 @@ A user can suggest a product to another user
 4.2 Suggest a product ([wireframe](http://invis.io/NT2OC8QM))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.2.Suggest.A.Product.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))    
+([view 3.2](#32-post-detail-with-verdict))   
+([view 4.1](#412-product-page-view))   
+**exit screens:**   
+([view 4.6](#46-gotryiton-contacts))    
+([view 4.3](#43-phone-contact-list))   
+([view 4.4](#44-email-compose))   
+([view 4.5](#45-facebook-contacts))   
+([view 4.1.2](#412-product-full-screen))   
 
 #### API Usage
 /Product/Suggest
@@ -1032,7 +1097,7 @@ A user can suggest a product to another user
       - brand
       - price
       - square thumbnail
-         - thumbnail **tap** ==> full screen image (view 3.3.1)
+         - thumbnail **tap** ==> full screen image (view 4.1.1)
          - heart toggle in top left
 - A user can select from their GTIO contacts to suggest from the Suggest a Product Page
    - gotryiton contacts btn **tap** ==> (view 4.6)
@@ -1064,6 +1129,13 @@ A user can select from their phone contacts to SMS a suggestion
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.3.1.Suggest.SMS.Compose.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 4.2](#42-suggest-a-product-post-detail-page))    
+**exit screens:**   
+previous screen
+([view 4.2](#42-suggest-a-product-post-detail-page)) via SMS Compose (view 4.3.1)   
+
 
 #### API Usage
 /Product/Suggest/SMS
@@ -1093,6 +1165,11 @@ A user can email a product suggestion from a native compose window
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.4.Suggest.Email.Compose.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 4.2](#42-suggest-a-product-post-detail-page))    
+**exit screens:**   
+previous screen
 
 #### API Usage
 /Tracking?
@@ -1120,6 +1197,13 @@ A user can choose from their facebook contacts and post on their wall to suggest
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.5.Suggest.Facebook.Contacts.Compose.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 4.2](#42-suggest-a-product-post-detail-page))    
+**exit screens:**   
+previous screen
+
+
 #### API Usage
 /Product/Suggest/Facebook
 
@@ -1144,7 +1228,15 @@ A user can select from the users they are following to suggest a product
 
 4.6.1  ([wireframe](http://invis.io/UA2OBZHJ))
 
-4.6.1.Suggest.GTIO.Contacts.Confirm.png
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.1.Suggest.GTIO.Contacts.Confirm.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.2](#42-suggest-a-product-post-detail-page))    
+**exit screens:**   
+([view 4.2](#42-suggest-a-product-post-detail-page))    
+previous screen
+
 
 #### API Usage
 /Product/Suggest/Following
@@ -1179,6 +1271,13 @@ A user can post a product to their feed from a product page
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.7.Post.A.Product.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 4.1](#412-product-page-view))   
+**exit screens:**   
+([view 8.1](#81-feed-view))    
+([view 4.1.2](#412-product-full-screen))   
+
 #### API Usage
 /Product/Post
 
@@ -1190,21 +1289,20 @@ A user can post a product to their feed from a product page
       - brand
       - price
       - square thumbnail
-         - thumbnail **tap** ==> (view 3.3.1)
+         - thumbnail **tap** ==> (view 4.1.1)
          - heart toggle button in top left
             - **tap** makes api request   
    - post btn
       - **tap** ==> makes api request
          - **success** ==> feed (view 8.4)
          - **error** ==> error dialog
-
 - A user can optionally add a description to a product post
    - post description input box
       - optional input
       - raises keyboard
 - A user can turn voting on or off on their product post
    - voting on/off toggle
-      - default state set by api (???)
+      - default state set by api
 
 
 ## 5. Invite 
@@ -1231,7 +1329,14 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.4.Suggest.Email.Compose.png" width=420px/>
 
-
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 6.3](#63-friends-management-page))   
+([view 1.8](#18-quick-add))   
+**exit screens:**   
+previous screen   
+`
 #### API Usage
 /Invite/SMS
 
@@ -1331,7 +1436,7 @@ A user can see a list of suggested users to follow
 
 
 
-### 6.3 Friends management page (via feed)  
+### 6.3 Friends management page
 
 #### Overview
 A user can manage their friend relationships via the feed
