@@ -655,9 +655,6 @@ previous screen
    - conditionally visible based on if twitter is activated
    - raises twitter compose window
       - twitter text is given in response from api
-- A user can suggest a product from an outfit post page
-   - only available for outfit viewers
-   - **tap** ==> (view 4.2)
 - A user can flag an outfit from an outfit post page
    - pop up dialog asking to confirm
       - confirm: sends api request 
@@ -1075,9 +1072,7 @@ A user can suggest a product to another user
 
 #### User Flow
 **entry screens:**   
-([view 3.1](#31-outfit-post-detail-page))    
-([view 3.2](#32-post-detail-with-verdict))   
-([view 4.1](#412-product-page-view))   
+([view 4.1](#41-product-page-view))   
 **exit screens:**   
 ([view 4.6](#46-gotryiton-contacts))    
 ([view 4.3](#43-phone-contact-list))   
@@ -1224,17 +1219,14 @@ A user can select from the users they are following to suggest a product
 #### Mockups
 4.6 ([wireframe](http://invis.io/QB2OCDVE))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.1.Suggest.A.Product.Confirm.png" width=420px/>
-
-4.6.1  ([wireframe](http://invis.io/UA2OBZHJ))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.1.Suggest.GTIO.Contacts.Confirm.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.Suggest.GTIO.Contacts.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
 ([view 4.2](#42-suggest-a-product-post-detail-page))    
+([view 4.6.1](#461-gotryiton-contacts-sent-overlay))    
 **exit screens:**   
-([view 4.2](#42-suggest-a-product-post-detail-page))    
+([view 4.6.2](#426-suggestion-compose))    
 previous screen
 
 
@@ -1250,16 +1242,58 @@ previous screen
       - user icons
       - name
 - A user can select a user they are following to suggest a product
-   - contact name **tap** ==> raises dialog:
-      - text: Send this suggestion to ```user.display_name```? 
-      - ok: api request
-         - on successful response: show 'sent' overlay (view 4.6.1)
-      - cancel:  closes dialog
+   - contact name **tap** ==> (view 4.6.2)
 - After a user sends a suggestion to one GTIO contact, they can send another 
    - after suggestion is sent, show sent overlay 
    - show done btn in top right
        - after sending one suggestion done btn appears 
        - **tap** ==> back to (view 4.2)
+
+### 4.6.1 Gotryiton contacts (sent overlay)
+
+#### Overview 
+A user sees a confirmation that their suggestion was sent
+
+#### Mockups
+4.6.1  ([wireframe](http://invis.io/UA2OBZHJ))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.1.Suggest.GTIO.Contacts.Confirm.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.6.2](#426-suggestion-compose))  
+**exit screens:**   
+([view 4.6](#426-gotryiton-contacts))    
+previous screen
+
+#### API Usage
+None.
+
+#### Stories
+- A user sees a confirmation after they have sent a suggestion
+   - overlay displays temporarily then disappears to (view 4.6)
+
+### 4.6.2 Suggestion compose
+
+#### Overview 
+A user sees a compose window where they can send a message with their suggestion
+
+#### Mockups
+4.6.2 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.Suggest.GTIO.Contacts.Description.png" width=420px/>
+
+#### API Usage
+/Product/Suggest
+
+#### Stories
+- A user sees a compose window where they can send a message with their suggestion
+   - the text field has suggestion text that disappears when the user starts typing (and reappears if the text field is empty)
+- A user can send their suggestion 
+   - a send button in the top right
+      - **tap** ==> make api request, (view 4.6.1)
+   - a user can send their suggestion with or with out entering text
+
 
 ### 4.7 Post a product  
 
@@ -1273,7 +1307,7 @@ A user can post a product to their feed from a product page
 
 #### User Flow
 **entry screens:**   
-([view 4.1](#412-product-page-view))   
+([view 4.1](#41-product-page-view))   
 **exit screens:**   
 ([view 8.1](#81-feed-view))    
 ([view 4.1.2](#412-product-full-screen))   
@@ -1369,7 +1403,7 @@ previous screen
 
 ## 6. Friends management
 
-### 6.1 Find my friends via Profile 
+### 6.1 Find my friends
 
 #### Overview
 A user can find friends to follow 
@@ -1382,6 +1416,15 @@ A user can find friends to follow
 6.1.1 No Results ([wireframe](http://invis.io/QK2OCQ56))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/6.1.Find.My.Friends.Profile.No.Result.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+**exit screens:**   
+([view 6.2](#62-suggested-friends))   
+([view 6.4](#64-find-out-of-network-friends))   
+([view 7.7](#77-profile-pages))   
+
 
 #### API Usage
 /Friends/Find?
@@ -1397,7 +1440,7 @@ A user can find friends to follow
    - you are following x
       - text populated by api
    - list of users (who you are following)
-      - has profile icon, name, following btn, tappable to profile
+      - has profile icon, name, following btn, tappable to profile (view 7.7)
       - following toggle btn
          - tapped state: following
 - A user can search through their existing friends by typing in the search box
@@ -1423,6 +1466,15 @@ A user can see a list of suggested users to follow
 
 #### API Usage
 /Friends/Suggested
+
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+**exit screens:**   
+([view 7.7](#77-profile-pages))   
+previous screen
+
 
 #### Stories
 - A user can see a list of suggested users to follow
