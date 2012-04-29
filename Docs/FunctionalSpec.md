@@ -1471,6 +1471,7 @@ A user can see a list of suggested users to follow
 #### User Flow
 **entry screens:**   
 ([view 7.1](#71-my-management-page))   
+([view 6.3](#63-friends-management-page))   
 **exit screens:**   
 ([view 7.7](#77-profile-pages))   
 previous screen
@@ -1498,6 +1499,18 @@ A user can manage their friend relationships via the feed
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/6.3.Friends.From.Feed.png" width=420px/>
 
+
+#### User Flow
+**entry screens:**   
+([view 8.1](#81-feed-view))   
+**exit screens:**   
+([view 5.1](#51-invite-friends))   
+([view 6.4](#64-find-out-of-network-friends))   
+([view 6.2](#62-suggested-friends))   
+([view 7.7](#77-profile-pages))   
+previous screen
+
+
 #### API Usage
 /Friends?
 
@@ -1514,7 +1527,7 @@ A user can manage their friend relationships via the feed
 - A user can see a list of the users they follow and edit those users
    - list of users 
       - filter search enabled
-      - has profile icon, name, tappable to profile
+      - has profile icon, name, tappable to profile (view 7.7)
       - following btn (toggles state)
       - if filter search comes up empty
          - custom empty text 
@@ -1531,6 +1544,15 @@ A user can search for friends outside of their own network
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/6.4.Find.Friends.Unconnected.png" width=420px/>
 
+
+#### User Flow
+**entry screens:**   
+([view 6.1](#61-find-my-friends))   
+([view 6.3](#63-friends-management-page))   
+**exit screens:**   
+([view 7.7](#77-profile-pages))   
+previous screen   
+
 #### API Usage
 /Friends/Search
 
@@ -1539,7 +1561,7 @@ A user can search for friends outside of their own network
    - search field
    - on **submit** ==> api request
       - results show in list
-      - has profile icon, name, tappable to profile
+      - has profile icon, name, tappable to profile (view 7.7)
       - following btn (toggles state)
 
 ### 6.5 Following List  
@@ -1551,6 +1573,14 @@ A User A can see a list of who a User B is following.  User A and User B can be 
 6.5 ([wireframe](http://invis.io/CS2OCU2W))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/6.5.I'm.Following.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-mananagement-page))   
+([view 7.7](#77-profile-pages))   
+**exit screens:**   
+([view 7.7](#77-profile-pages))   
+previous screen   
 
 #### API Usage
 /User/Following
@@ -1574,6 +1604,14 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 6.6 Followers List ([wireframe](http://invis.io/Y92OCV3E))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/6.6.My.Followers.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-mananagement-page))   
+([view 7.7](#77-profile-pages))   
+**exit screens:**   
+([view 7.7](#77-profile-pages))   
+previous screen   
 
 #### API Usage
 /User/Followers
@@ -1605,6 +1643,23 @@ A logged in user can manage their profile, share settings, looks, and friends
 7.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.1.My.Management.Scrolled.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+any screen with uiTabBar
+**exit screens:**   
+([view 7.3](#73-edit-profile-pic))   
+([view 6.5](#65-following-list))   
+([view 6.6](#66-followers-list))   
+([view 7.4](#74-edit-profile))   
+([view 7.8](#78-shopping-list))   
+([view 7.5](#75-my-hearts))   
+([view 7.6](#76-my-looks))   
+([view 6.1](#61-find-my-friends))   
+([view 5.1](#51-invite-friends))   
+([view 7.2](#72-settings))   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+
 
 #### API Usage
 /User
@@ -1656,6 +1711,14 @@ A logged in user can edit their settings
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.2.Settings.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+**exit screens:**   
+([view 7.3](#73-edit-profile-pic))   
+previous screen    
+
+
 #### API Usage
 /User/Settings
 
@@ -1677,6 +1740,15 @@ A logged in user can edit their profile icon
 7.3.1 No facebook connect, and no looks  
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.3.Edit.Profile.Pic.Nulls.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 7.7](#74-edit-profile))   
+([view 1.7](#17-almost-done))   
+**exit screens:**   
+previous screen    
+
 
 #### API Usage
 /User/Icon
@@ -1710,6 +1782,14 @@ A logged in user can edit their profile
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.4.Edit.Profile.Scrolled.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 1.8](#18-quick-add))   
+**exit screens:**   
+previous screen    
+
+
 #### API Usage
 /User/Edit
 
@@ -1736,6 +1816,16 @@ A logged in user can view their hearted items
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.5.My.Hearts.png" width=420px/>
 
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 4.1](#41-product-page-view))   
+previous screen    
+
+
 #### API Usage
 /User/Hearts
 
@@ -1747,7 +1837,7 @@ A logged in user can view their hearted items
    - destination link provided in api
 
 
-### 7.6 My postsn  
+### 7.6 My posts
 
 #### Overview
 A logged in user can view their posts
@@ -1756,6 +1846,15 @@ A logged in user can view their posts
 7.6 ([wireframe](http://invis.io/732OD3ZH))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.6.My.Posts.png" width=420px/>
+
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-view))   
+previous screen    
 
 #### API Usage
 /User/Posts
@@ -1790,6 +1889,26 @@ Each user has a profile page
 7.7.3 other's profile, with banner: ([wireframe](http://invis.io/RW2POUXA))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.7.3.Profile.Page.Branded.Banner.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.2](#32-post-detail-with-verdict))   
+([view 3.6](#36-product-post-detail-view))   
+([view 6.1](#61-find-my-friends))   
+([view 6.2](#62-suggested-friends))   
+([view 6.3](#63-friends-management-page))   
+([view 6.4](#64-find-out-of-network-friends))   
+([view 6.5](#65-following-list))   
+([view 6.6](#66-followers-list))   
+
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-view))   
+([view 4.1](#41-product-page-view))   
+([view 6.5](#65-following-list))   
+([view 6.6](#66-followers-list))   
+previous screen    
 
 
 #### API Usage
@@ -1837,6 +1956,7 @@ Each user has a profile page
    - hearts and looks
       - sent from api
       - thumbnails with heart toggle
+      - **tap** ==> (view 4.1), (view 3.1), or (view 3.6)
   
 
 ### 7.8 Shopping list  
@@ -1853,6 +1973,23 @@ Each user has a shopping list
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.8.Shopping.List.Confirm.png" width=420px/>
 
+
+#### User Flow
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.2](#32-post-detail-with-verdict))   
+([view 3.6](#36-product-post-detail-view))   
+([view 6.1](#61-find-my-friends))   
+([view 6.2](#62-suggested-friends))   
+([view 6.3](#63-friends-management-page))   
+([view 6.4](#64-find-out-of-network-friends))   
+([view 6.5](#65-following-list))   
+([view 6.6](#66-followers-list))   
+
+**exit screens:**   
+([view 4.1](#41-product-page-view))   
+([view 10.4](#104-default-3rd-party-webview-container))   
+previous screen    
 
 #### API Usage
 /User/Shopping-list
