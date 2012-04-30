@@ -19,6 +19,8 @@
 
 5. ~~We're interested in customizing the standard iOS dialog message view throughout the app.  What is the scale of complexity to acheive this.  We'd use this dialog for all places in this spec that reference a dialog message.~~ doable.
 
+
+
 ### Deployment Targets
 - iOS 4
 - iOS 5
@@ -29,9 +31,7 @@
 
 ## 1. Welcome screens
 
-
-
-### 1.1 Splash screen
+### 1.1 Splash screen  
 
 #### Overview
 static image used while app is loading
@@ -41,8 +41,18 @@ static image used while app is loading
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.1.Splash.png" width=420px>
 
+#### User flow
+**entry screens:**    
+user starts app    
+**exit screens:**    
+([view 1.2](#12-intro-screens))   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+([view 8.1](#81-feed-view))    
+
+
 #### API Usage
-/Config
+/Config  
+/User/Auth  
 
 request params: None
 
@@ -70,7 +80,10 @@ reponse:
 #### Stories
 - the app should know if this is a user's first time here
    - if user is brand new to the app ==> (view 1.2)
-   - if user is a returning user to the app ==> (view 1.9)
+   - if user is a returning user to the app (and not logged in) ==> (view 1.9)
+   - if user is a returning user to the app (and logged in) ==> (view 8.1)
+   - if a user is upgrading from 3.0 they should be treated as a brand new logged out user
+   - if a user is upgrading from 4.0 to 4.x they should be treated as an existing user and logged in (skip intro screens)
 
 
 ### 1.2 Intro screens 
@@ -83,8 +96,22 @@ A uiPageControl should be used to introduce new users to screens of the app
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.2.Intro.1.png" width=420px>
 
+1.2.1 Intro screen 2 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.2.Intro.2.png" width=420px>
+
+#### User flow
+**entry screens:**   
+([view 1.1](#11-splash-screen))   
+**exit screens:**   
+([view 1.2.1](#12-intro-screens))   
+([view 1.3](#13-sign-in-screen-first-use))  
+
 #### API Usage
-Array of images is part of the response in (view 1.1)
+
+```intro_screens``` will be part of the response in (view 1.1)
+
+/Tracking (usage TBD)
 
 #### Stories
 - on the user's first load of the app, they should be able to swipe through intro screens
@@ -93,12 +120,12 @@ Array of images is part of the response in (view 1.1)
   - next button in bottom right **taps** ==> next image in array
   - sign in btn **taps** ==> (view 1.3)
   - uiPageControl dots represent flow through intro screens 
-  - last **swipe** OR next **tap** ==> sign in screen (view 1.3)
+  - last **swipe** OR last next **tap** ==> sign in screen (view 1.3)
       - last dot in uiPageControl represents sign in screen (view 1.3)
 
 
 
-### 1.3 Sign in screen (first use)
+### 1.3 Sign in screen (first use) 
 
 #### Overview	
 First time users of the app see a screen where they can sign up
@@ -108,21 +135,31 @@ First time users of the app see a screen where they can sign up
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.3.Sign.In.First.Use.png" width=420px>
 
+#### User flow
+**entry screens:**   
+([view 1.2](#12-intro-screens))   
+([view 1.2.1](#12-intro-screens))   
+**exit screens:**   
+([view 1.2.1](#12-intro-screens))   
+([view 1.4](#14-returning-users))   
+([view 1.10](#110-facebook-sso))
+
 #### API Usage
 Tracking (details coming)
 
-Facebook Sign in (details coming)
+User/Auth/Facebook (details coming)
 
 #### Stories
   - A new user is presented with a sign in screen and can sign up
 	  -sign up with facebook btn
-	    - **tap** ==> Facebook app for SSO
+	    - **tap** ==> Facebook app for SSO (view 1.10)
 	    - return makes call to sign up api
 	  - im a returning user **tap** ==> (view 1.4)
 	  - sign up with another provider btn **tap** ==> (view 1.5)
 	  - skip btn **tap** ==> (view 2.0)
 	  - uiPageControl represent flow through intro screens and sign in screen
 	      - swiping backwards brings user to the previous intro screen
+
 
 ### 1.4 Returning users 
 
@@ -134,24 +171,38 @@ Returning users can sign in with Facebook or Janrain
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.4.Returning.Users.png" width=420px>
 
+#### User flow
+**entry screens:**   
+([view 1.3](#13-sign-in-screen-first-use))   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+
+**exit screens:**  
+([view 8.1](#81-feed-view)) via ([view 1.10](#110-facebook-sso))   
+([view 8.1](#81-feed-view)) via ([view 1.11](#111-janrain-sdk))   
+([view 1.6](#16-failed-sign-in)) via ([view 1.10](#110-facebook-sso))   
+([view 1.6](#16-failed-sign-in)) via ([view 1.11](#111-janrain-sdk))   
+previous screen
+
 #### API Usage
 Tracking (details coming)
 
-Facebook Sign in (details coming)
+User/Auth/Facebook (details coming)
 
-Janrain Sign in (details coming)
+User/Auth/Janrain (details coming)
 
 #### Stories
 - A returning user is presented with a sign in screen and can sign in
    - sign in with facebook btn **tap** ==> Facebook SSO
-      - upon successful return: calls api for sign in
+      - **successful SSO** ==> /User/Auth/Facebook (with SSO token)
+         - **successful response** ==> (view 8.1)
    - aol/google/twiter/yahoo janrain options
 		- **tap** ==> to janrain SDK for each
-		- upon successful return: calls api for sign in   
-			- failed api request to sign in ==> (view 1.6)
+         - **successful janrain auth** ==> /User/Auth/Janrain request
+            - **successful response** ==> (view 8.1) 
+            - **failed signin** ==> (view 1.6)
 
 
-### 1.5 Janrain Sign up
+### 1.5 Janrain Sign up 
 
 #### Overview  
 New users can sign up with Facebook or Janrain
@@ -162,26 +213,36 @@ New users can sign up with Facebook or Janrain
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Sign.Up.png" width=420px>
 
+#### User flow
+**entry screens:**   
+([view 1.4](#14-returning-users))   
+
+**exit screens:**  
+([view 8.1](#81-feed-view)) via ([view 1.11](#111-janrain-sdk))     
+([view 1.7](#17-almost-done)) via ([view 1.11](#111-janrain-sdk))   
+previous screen   
+
 #### API Usage
 Tracking (details coming)
 
-Janrain Sign in (details coming)
+User/Auth/Janrain (details coming)
 
 #### Stories
 - new users can sign up with janrain sdk (aol/google/twitter/yahoo options)
    - **tap** ==> to janrain SDK for each
-      - on successful return: request api for sign up
-         - successful sign up **tap** ==> (view 1.7)
-         - existing user response **tap** ==> (view 8.1)
+      - **successful janrain auth** ==> /User/Auth/Janrain request
+            - **successful new user response** ==> (view 1.7)
+            - **error** ==> dialog, (view 1.5)
+            - **successful existing user** ==> (view 8.1)
 
-### 1.6 Failed sign in 
+### 1.6 Failed sign in  
 
 #### Overview  
 When a user fails to sign in, they're presented with an error screen allowing them to try again
 
 #### Mockups
 
-1.6 Failed sign in ([wireframe](http://invis.io/CR2OBKVK))
+1.6 Failed sign in ([wireframe](http://invis.io/CR2OBKVK))  
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.6.Failed.Sign.In.png" width=420px>
 
@@ -191,11 +252,12 @@ None
 
 #### Stories
 - When a user fails to sign in, they're presented with an error screen allowing them to try again
-   - try again **tap** ==> view 1.4
-   - im a new user **tap** ==> view 1.3
+   - try again **tap** ==> (view 1.4)
+   - im a new user **tap** ==> (view 1.3)
    - email support **tap** ==>  email compose
       - adressee is support@gotryiton.com
       - subject 'Sign in help'
+   - back **taps** ==> (view 1.4)
 
 
 ### 1.7 Almost done 
@@ -205,7 +267,7 @@ When a new user signs up, the app confirms they have a complete GTIO profile
 
 #### Mockups
 
-1.7 Almost done ([wireframe](http://invis.io/XB2OBL7A))
+1.7 Almost done ([wireframe](http://invis.io/XB2OBL7A)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.7.Almost.Done.png" width=420px>
 
@@ -213,21 +275,39 @@ When a new user signs up, the app confirms they have a complete GTIO profile
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.7.Almost.Done.Scrolled.png" width=420px>
 
+#### User flow
+**entry screens:**   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+([view 1.5](#15-janrain-sign-up))   
+
+**exit screens:**  
+([view 7.3](#73-edit-profile-pic))   
+([view 1.8](#18-quick-add))   
+
+
 #### API Usage
-/User api
+/User/Auth (api details coming soon)
+/User
 
 #### Stories
 - if a new user doesnt have a complete profile, they can edit a form to complete it
-   - mimmick existing form (GTIO v3)
-   - combine first name and last initial into a single name field
-   - add website field
+   - each entry maps to a user attribute (see api details)
    - edit profile picture **tap** ==> (view 7.3)
-   - save **tap** ==> (view 1.8)
+   - save **tap** ==> api request
+      - **success** ==> (view 1.8)
+      - **error** ==> dialog 
+         - the dialog message will be used to inform users about required fields
+- if a user has a complete profile already, they skip this screen and go straight to (view 1.8)
+   - ```User->has_complete_profile (bool)``` will mark whether this screen is required or not.
+   - ```User->required_attributes (array)``` will mark which fields are still required for the user
+- A user can see example text in the form
+   - tapping in each field clears these fields and opens the keyboard
+- A user can go through each entry quickly
+   - keyboard has a 'next' button on each entry until the last, which says 'done'
 
 
 
-
-### 1.8 Quick add 
+### 1.8 Quick add  
 
 #### Overview  
 When a new user signs up, they can quickly add people to follow
@@ -240,10 +320,25 @@ When a new user signs up, they can quickly add people to follow
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.8.Quick.Add.png" width=420px>
 
 
+#### User flow
+**entry screens:**   
+([view 1.7](#17-almost-done))   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+([view 1.5](#15-janrain-sign-up))   
+
+**exit screens:**  
+([view 8.1](#81-feed-view))   
+([view 9.1](#91-popular-looks-grid))   
+([view 5.1](#51-invite-friends))   
+([view 7.4](#74-edit-profile))   
+
+
 #### API Usage
 /User 
 
-/Follow/Quick-Add
+/User/Quick-Add
+
+/Follow
 
 #### Stories
 - When a new user signs up, they can quickly add people to follow
@@ -269,26 +364,118 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/1.9.Sign.In.2nd.Load.png" width=420px/>
 
+#### User flow
+**entry screens:**   
+([view 1.1](#11-splash-screen))   
+([view 7.1](#71-my-management-page))   
+
+**exit screens:**  
+([view 8.1](#81-feed-view)) via ([view 1.10](#110-facebook-sso))   
+([view 1.7](#17-almost-done))    via ([view 1.10](#110-facebook-sso))      
+([view 1.4](#14-returning-users))   
+([view 1.5](#15-janrain-sign-up))   
+([view 9.1](#91-popular-looks-grid))   
+([view 1.2](#12-intro-screens))   
+   
+
 #### API Usage
 Tracking (details coming)
 
-Facebook Sign in (details coming)
+User/Auth/Facebook (details coming)
 
 #### Stories
 
 - When a returning (non-logged in) user starts the app, they see a screen asking them to login (and skip the intro screens)
-   - sign up with facebook btn
-       - **tap** ==> Facebook app for SSO
-       - return makes call to sign up api
-   - im a returning user btn **tap** ==> view 1.4
-   - sign up with another provider btn **tap** ==> view 1.5
-   - skip directs **tap** ==> 9.1
-   - ? btn **tap** ==> view 1.2
+   - sign in with facebook btn **tap** ==> Facebook SSO
+      - **successful SSO** ==> /User/Auth/Facebook (with SSO token)
+         - **successful existing user response** ==> (view 8.1)
+         - **successful new user response** ==> (view 1.7)
+   - im a returning user btn **tap** ==> (view 1.4)
+   - sign up with another provider btn **tap** ==> (view 1.5)
+   - skip directs **tap** ==> (view 9.1)
+   - ? btn **tap** ==> (view 1.2)
+
+
+### 1.10 Facebook SSO
+
+#### Overview  
+A user can log in with facebook using facebook SSO.
+
+#### Mockups
+1.10 Facebook SSO
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.10.Facebook.SSO.png" width=420px/>
+
+1.10.1 Facebook SSO Permissions
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.10.Facebook.SSO.2.png" width=420px/>
+
+#### User flow
+**entry screens:**   
+([view 1.3](#13-sign-in-screen))   
+([view 1.4](#14-returning-users))   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+
+**exit screens:**  
+([view 8.1](#81-feed-view))
+([view 1.7](#17-almost-done))
+previous screen   
+
+#### API Usage
+Tracking (details coming)
+
+User/Auth/Facebook (details coming)
+
+#### Stories
+
+- A user can log in with facebook using facebook SSO
+   - permissions requested should come from /Config api call in (view 1.1)
+   - app key and secret should be hard coded into app
+   - pass fb_token to /User/Auth/Facebook or /User/Signup/Facebook to log in a user
+
+
+## 1.11 Janrain SDK
+
+#### Overview
+A user should be able to log in via Janrain SDK
+
+#### Mockups
+
+1.5.1 Janrain Google login
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Google.png" width=420px>
+
+1.5.2 Janrain Yahoo login
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Yahoo.png" width=420px>
+
+1.5.3 Janrain Yahoo login
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Aol.png" width=420px>
+
+1.5.4 Janrain Yahoo login
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Twitter.png" width=420px>
+
+#### User Flow
+
+**entry screens:**   
+([view 1.4](#14-returning-users))   
+([view 1.5](#15-janrain-sign-up))   
+
+**exit screens:**
+([view 1.6](#16-failed-sign-in))   
+([view 8.1](#81-feed-view))   
+([view 1.7](#17-almost-done))   
+
+#### Stories
+- A user should be able to log in via Janrain SDK
+
 
 ## 2. Global Nav bar and Notifications Center
 
 
-### 2.1 Navbar with Notifications
+### 2.1 Navbar with Notifications  
 
 #### Overview  
 When a user is on one of the top level tabs, they see a navigation bar with notifications 
@@ -296,11 +483,11 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 #### Mockups
 ([wireframe](http://invis.io/P32OE57R))
 
-2.1.1 New notifications
+2.1.1 New notifications  
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/2.1.Navbar.Notifications.New.png" width=420px/>
 
-2.1.2 No New notifications
+2.1.2 No New notifications  
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/2.2.Navbar.Notifications.No.New.png" width=420px/>
 
@@ -308,6 +495,18 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/2.3.Navbar.Notifications.Logged.Out.png" width=420px/>
 
+#### User Flow
+
+**viewable on:**   
+([view 7.1](#71-my-management-page))   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 10.1](#101-shop-landing-page))   
+
+**exit screens:**   
+([view 2.2](#22-notifications-view))   
 
 #### API Usage
 /Notifications
@@ -336,6 +535,20 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/2.4.Notifications.png" width=420px/>
 
+#### User Flow
+
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 10.1](#101-shop-landing-page))   
+
+**exit screens:**   
+TBD
+
+
 #### API Usage
 /Notifications
 
@@ -361,21 +574,45 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 
 
 
+
 ## 3. Product Post and Outfit Post Detail pages
 
-### 3.1 Outfit Post Detail Page
+### 3.1 Outfit Post Detail Page  
 
 #### Overview 
 A user can see a detailed view of a single outfit post
 
 #### Mockups
-3.1 Outfit Post Detail Page [wireframe](http://invis.io/SX2OBQUG)
+3.1 Outfit Post Detail Page [wireframe](http://invis.io/SX2OBQUG) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.png" width=420px/>
 
-3.1.1 Outfit Detail No Voting ([wireframe](http://invis.io/W22OBRHF)
+3.1.1 Outfit Detail No Voting ([wireframe](http://invis.io/W22OBRHF) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.No.Voting.png" width=420px/>
+
+
+#### User Flow
+
+**entry screens:**   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 3.3](#33-post-detail-full-screen))     
+([view 2.2](#22-notifications-view))    
+
+
+**exit screens:**   
+([view 7.7](#77-profile-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))   
+([view 3.2](#32-post-detail-with-verdict))   
+([view 4.2](#42-suggest-a-product))   
+([view 1.10](#110-facebook-sso))   
+([view 3.3](#33-post-detail-full-screen))     
+previous screen
+
 
 #### API Usage
 /Outfit
@@ -389,12 +626,12 @@ A user can see a detailed view of a single outfit post
    - full description
    - full brands
    - reviews button with reviews count
-      - **tap** ==> view 3.4
+      - **tap** ==> (view 3.4)
 - A user can heart the outfit from an outfit page
    - heart action button in top left of image
       - **tap** ==> api request
    - heart count + heart icons
-      - **tap** ==> view 3.5
+      - **tap** ==> (view 3.5)
 - A user can vote on the outfit from an outfit page (that has voting enabled)
    - wear it button & change it buttons at bottom of page
       - conditionally included
@@ -413,9 +650,6 @@ A user can see a detailed view of a single outfit post
    - conditionally visible based on if twitter is activated
    - raises twitter compose window
       - twitter text is given in response from api
-- A user can suggest a product from an outfit post page
-   - only available for outfit viewers
-   - **tap** ==> view 4.2
 - A user can flag an outfit from an outfit post page
    - pop up dialog asking to confirm
       - confirm: sends api request 
@@ -435,19 +669,39 @@ A user can see a detailed view of a single outfit post
 
 ### 
 
-### 3.2 Outfit Post Detail Page verdict displayed 
+### 3.2 Post Detail With Verdict
 
 #### Overview 
 A user can vote on an outfit from the outfit detail page and see voting results
 
 #### Mockups
-3.2 Verdict displayed ([wireframe](http://invis.io/HS2PNQD6))
+3.2 Verdict displayed ([wireframe](http://invis.io/HS2PNQD6)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Mine.Verdict.png" width=420px/>
 
-3.2.1 Verdict displayed on Product Page ([wireframe](http://invis.io/842PNRNU))
+3.2.1 Verdict displayed on Product Page ([wireframe](http://invis.io/842PNRNU)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Verdict.png" width=420px/>
+
+
+#### User Flow
+
+**entry screens:**   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 3.3](#33-post-detail-full-screen))     
+
+**exit screens:**   
+([view 7.7](#77-profile-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))      
+([view 3.3](#33-post-detail-full-screen))      
+([view 4.2](#42-suggest-a-product))   
+([view 1.10](#110-facebook-sso))   
+previous screen
+
 
 #### API Usage
 /Outfit/Vote
@@ -456,7 +710,7 @@ A user can vote on an outfit from the outfit detail page and see voting results
 - A user can see voting results after they vote
 
 
-### 3.3 Outfit Detail Page Full screen photo ([wireframe](http://invis.io/2W2OFST5))
+### 3.3 Post Detail Full screen
 
 #### Overview 
 A user can see a full screen detail of an outfit
@@ -466,9 +720,19 @@ A user can see a full screen detail of an outfit
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.No.Voting.Fullscreen.png" width=420px/>
 
-3.3.1 Product Post Full Screen ([wireframe](http://invis.io/XB2PNTT9))
+3.3.1 Product Post Full Screen ([wireframe](http://invis.io/XB2PNTT9))   
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Fullscreen.png" width=420px/>
+
+#### User Flow
+
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))    
+([view 3.6](#31-product-post-detail-page))    
+
+
+**exit screens:**   
+previous screen   
 
 
 #### API Usage
@@ -481,7 +745,7 @@ None.
    - state of the post view returns to prior state
 
 
-### 3.4 Reviews page 
+### 3.4 Reviews page  
 
 #### Overview 
 A user can read reviews from an outfit post or a product post page
@@ -498,6 +762,16 @@ A user can read reviews from an outfit post or a product post page
 3.4.2 Reviews Empty
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/2/3.4.Reviews.Empty.png" width=420px/>
+
+
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))    
+([view 3.6](#31-product-post-detail-page))    
+([view 2.2](#22-notifications-view))    
+
+**exit screens:**   
+previous screen   
+
 
 #### API Usage
 /Post/Reviews
@@ -548,9 +822,17 @@ A User can see other users who have hearted an outfit or product post
 
 #### Mockups
 
-3.5 Who Hearted this ([wireframe](http://invis.io/N22OBX9Q))
+3.5 Who Hearted this ([wireframe](http://invis.io/N22OBX9Q)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.5.Who.Hearted.This.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))    
+([view 3.6](#31-product-post-detail-page))    
+
+**exit screens:**   
+previous screen   
 
 #### API Usage
 
@@ -565,7 +847,7 @@ A User can see other users who have hearted an outfit or product post
       - **tap** ==> api request and changes state of button
 
 
-### 3.6 Product Post Detail
+### 3.6 Product Post Detail Page
 
 #### Overview 
 A user can see a detailed view of a Product Post
@@ -574,6 +856,27 @@ A user can see a detailed view of a Product Post
 3.6 Product Post Detail ([wireframe](http://invis.io/UA2OBZHJ))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Mine.png" width=420px/>
+
+#### User Flow
+
+**entry screens:**   
+([view 8.1](#81-feed-view))   
+([view 8.4](#84-upload-in-progress-view))   
+([view 8.5](#85-feed-after-completed-upload))   
+([view 9.1](#91-popular-looks-grid))   
+([view 3.3](#33-post-detail-full-screen))     
+([view 2.2](#22-notifications-view))    
+
+
+**exit screens:**   
+([view 7.7](#77-profile-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))   
+([view 3.2](#32-post-detail-with-verdict))   
+([view 1.10](#110-facebook-sso))   
+([view 3.3](#33-post-detail-full-screen))     
+([view 7.8](#78-shopping-list))     
+previous screen
 
 
 #### API Usage
@@ -643,7 +946,7 @@ A user can see a detailed view of a Product Post
 
 ## 4. Product Pages
 
-### 4.1 Product page view 
+### 4.1 Product page view  
 
 #### Overview 
 A user can view a detailed page about a single product
@@ -653,6 +956,23 @@ A user can view a detailed page about a single product
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.1.Product.Detail.png" width=420px/>
 
+#### User Flow
+
+**entry screens:**   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 10.5](#105-shop-browse-products))   
+
+**exit screens:**   
+  
+([view 4.7](#47-post-a-product))   
+([view 3.5](#35-who-hearted-this))   
+([view 4.2](#42-suggest-a-product))   
+([view 10.4](#104-default-3rd-party-webview-container)) via ([view 4.1.1](#411-product-buy-actionsheet))   
+([view 7.8](#78-shopping-list)) via ([view 4.1.1](#411-product-buy-actionsheet))   
+([view 4.1.2](#412-product-full-screen))   
+
+previous screen
+
 
 #### API Usage
 /Product
@@ -661,13 +981,12 @@ A user can view a detailed page about a single product
 - A user can view a detailed page about a single product
    - transparent navbar 
       - TBD: matt to provide guidance
-   - heart action button
-      - sends api request
-   - heart action button
    - full product name with brand and price
    - photo aligned to top 
-      - **tap** ==> (view 3.3.1)
-      - TBD: matt to provide direction
+      - tapping routes to full screen view of product (view 4.1.2)
+- A user can heart a Product and see who has hearted a product
+   - standard heart button with count
+   - **tap** on count ==> (view 3.5)
 - A user can post a product from a product page
    - Post btn **tap** ==> (view 4.7)
 - A user can suggest a product from a product page
@@ -675,7 +994,7 @@ A user can view a detailed page about a single product
 - A user can buy a product from a product page
    - buy btn **tap** ==> raises actionsheet (see view 4.1.1)
 
-### 4.1.1 Product Buy Actionsheet
+### 4.1.1 Product Buy Actionsheet  
 
 #### Overview 
 A user can see options of how to buy the product
@@ -684,6 +1003,16 @@ A user can see options of how to buy the product
 4.1.1 Product Buy Actionsheet ([wireframe](http://invis.io/PS2QI79V))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.1.Product.Detail.Actionsheet.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.1](#41-product-page-view))   
+**exit screens:**   
+([view 10.4](#104-default-3rd-party-webview-container))    
+([view 7.8](#78-shopping-list))   
+([view 4.1](#41-product-page-view))   
+
+
 
 #### API Usage
 TBD
@@ -694,12 +1023,39 @@ TBD
          - ok **tap** ==> api request
          - cancel: closes dialog
 - A user can go to store mobile site to view the product
-   - 'go to store site' btn **tap** ==> opens buy url in default safari view
+   - 'go to store site' btn **tap** ==> opens buy url in default safari view (view 10.5)
 - A user can view the item in their shopping list
    - 'view in shopping list' btn **tap** ==> makes api request
       - upon successful api response: ==> (view 7.8)
 
-### 4.2 Suggest a product
+
+### 4.1.2 Product Full Screen  
+
+#### Overview 
+A user can see a full screen view of a product
+
+#### Mockups
+4.1.2 Product Full Screen
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Fullscreen.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.1](#41-product-page-view))   
+([view 4.2](#41-suggest-a-product))   
+**exit screens:**   
+previous screen   
+
+
+#### API Usage
+None.
+
+#### Stories
+- A user can see a full screen view of a product
+   - tapping on the full screen view returns the user to the previous screen
+
+
+### 4.2 Suggest a product  
 
 #### Overview 
 A user can suggest a product to another user
@@ -708,6 +1064,16 @@ A user can suggest a product to another user
 4.2 Suggest a product ([wireframe](http://invis.io/NT2OC8QM))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.2.Suggest.A.Product.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.1](#41-product-page-view))   
+**exit screens:**   
+([view 4.6](#46-gotryiton-contacts))    
+([view 4.3](#43-phone-contact-list))   
+([view 4.4](#44-email-compose))   
+([view 4.5](#45-facebook-contacts))   
+([view 4.1.2](#412-product-full-screen))   
 
 #### API Usage
 /Product/Suggest
@@ -721,7 +1087,7 @@ A user can suggest a product to another user
       - brand
       - price
       - square thumbnail
-         - thumbnail **tap** ==> full screen image (view 3.3.1)
+         - thumbnail **tap** ==> full screen image (view 4.1.1)
          - heart toggle in top left
 - A user can select from their GTIO contacts to suggest from the Suggest a Product Page
    - gotryiton contacts btn **tap** ==> (view 4.6)
@@ -739,7 +1105,7 @@ A user can suggest a product to another user
          - **tap** ==> api request
             - successful response  ==> (view 4.5)
    
-### 4.3 Phone contact list
+### 4.3 Phone contact list  
 
 #### Overview 
 A user can select from their phone contacts to SMS a suggestion
@@ -752,6 +1118,13 @@ A user can select from their phone contacts to SMS a suggestion
 4.3.1 ([wireframe](http://invis.io/MR2OCAUP))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.3.1.Suggest.SMS.Compose.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.2](#42-suggest-a-product-post-detail-page))    
+**exit screens:**   
+previous screen
+([view 4.2](#42-suggest-a-product-post-detail-page)) via SMS Compose (view 4.3.1)   
 
 
 #### API Usage
@@ -772,7 +1145,7 @@ A user can select from their phone contacts to SMS a suggestion
    - after successful send ==> (view 4.2)
 
 
-### 4.4 Email compose
+### 4.4 Email compose  
 
 #### Overview 
 A user can email a product suggestion from a native compose window
@@ -782,6 +1155,11 @@ A user can email a product suggestion from a native compose window
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.4.Suggest.Email.Compose.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 4.2](#42-suggest-a-product-post-detail-page))    
+**exit screens:**   
+previous screen
 
 #### API Usage
 /Tracking?
@@ -795,7 +1173,7 @@ A user can email a product suggestion from a native compose window
 
 
 
-### 4.5 Facebook contacts
+### 4.5 Facebook contacts  
 
 #### Overview 
 A user can choose from their facebook contacts and post on their wall to suggest a product
@@ -809,6 +1187,13 @@ A user can choose from their facebook contacts and post on their wall to suggest
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.5.Suggest.Facebook.Contacts.Compose.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 4.2](#42-suggest-a-product-post-detail-page))    
+**exit screens:**   
+previous screen
+
+
 #### API Usage
 /Product/Suggest/Facebook
 
@@ -821,7 +1206,7 @@ A user can choose from their facebook contacts and post on their wall to suggest
             - post url is populated by api response
 
 
-### 4.6 Gotryiton contacts 
+### 4.6 Gotryiton contacts  
 
 #### Overview 
 A user can select from the users they are following to suggest a product
@@ -829,11 +1214,16 @@ A user can select from the users they are following to suggest a product
 #### Mockups
 4.6 ([wireframe](http://invis.io/QB2OCDVE))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.1.Suggest.A.Product.Confirm.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.Suggest.GTIO.Contacts.png" width=420px/>
 
-4.6.1  ([wireframe](http://invis.io/UA2OBZHJ))
+#### User Flow
+**entry screens:**   
+([view 4.2](#42-suggest-a-product-post-detail-page))    
+([view 4.6.1](#461-gotryiton-contacts-sent-overlay))    
+**exit screens:**   
+([view 4.6.2](#426-suggestion-compose))    
+previous screen
 
-4.6.1.Suggest.GTIO.Contacts.Confirm.png
 
 #### API Usage
 /Product/Suggest/Following
@@ -847,18 +1237,60 @@ A user can select from the users they are following to suggest a product
       - user icons
       - name
 - A user can select a user they are following to suggest a product
-   - contact name **tap** ==> raises dialog:
-      - text: Send this suggestion to ```user.display_name```? 
-      - ok: api request
-         - on successful response: show 'sent' overlay (view 4.6.1)
-      - cancel:  closes dialog
+   - contact name **tap** ==> (view 4.6.2)
 - After a user sends a suggestion to one GTIO contact, they can send another 
    - after suggestion is sent, show sent overlay 
    - show done btn in top right
        - after sending one suggestion done btn appears 
        - **tap** ==> back to (view 4.2)
 
-### 4.7 Post a product
+### 4.6.1 Gotryiton contacts (sent overlay)
+
+#### Overview 
+A user sees a confirmation that their suggestion was sent
+
+#### Mockups
+4.6.1  ([wireframe](http://invis.io/UA2OBZHJ))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.1.Suggest.GTIO.Contacts.Confirm.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.6.2](#426-suggestion-compose))  
+**exit screens:**   
+([view 4.6](#426-gotryiton-contacts))    
+previous screen
+
+#### API Usage
+None.
+
+#### Stories
+- A user sees a confirmation after they have sent a suggestion
+   - overlay displays temporarily then disappears to (view 4.6)
+
+### 4.6.2 Suggestion compose
+
+#### Overview 
+A user sees a compose window where they can send a message with their suggestion
+
+#### Mockups
+4.6.2 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.Suggest.GTIO.Contacts.Description.png" width=420px/>
+
+#### API Usage
+/Product/Suggest
+
+#### Stories
+- A user sees a compose window where they can send a message with their suggestion
+   - the text field has suggestion text that disappears when the user starts typing (and reappears if the text field is empty)
+- A user can send their suggestion 
+   - a send button in the top right
+      - **tap** ==> make api request, (view 4.6.1)
+   - a user can send their suggestion with or with out entering text
+
+
+### 4.7 Post a product  
 
 #### Overview 
 A user can post a product to their feed from a product page
@@ -867,6 +1299,13 @@ A user can post a product to their feed from a product page
 ([wireframe](http://invis.io/U92OCEF2))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.7.Post.A.Product.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.1](#41-product-page-view))   
+**exit screens:**   
+([view 8.1](#81-feed-view))    
+([view 4.1.2](#412-product-full-screen))   
 
 #### API Usage
 /Product/Post
@@ -879,26 +1318,25 @@ A user can post a product to their feed from a product page
       - brand
       - price
       - square thumbnail
-         - thumbnail **tap** ==> (view 3.3.1)
+         - thumbnail **tap** ==> (view 4.1.1)
          - heart toggle button in top left
             - **tap** makes api request   
    - post btn
       - **tap** ==> makes api request
          - **success** ==> feed (view 8.4)
          - **error** ==> error dialog
-
 - A user can optionally add a description to a product post
    - post description input box
       - optional input
       - raises keyboard
 - A user can turn voting on or off on their product post
    - voting on/off toggle
-      - default state set by api (???)
+      - default state set by api
 
 
 ## 5. Invite 
 
-### 5.1 Invite friends
+### 5.1 Invite friends  
 
 #### Overview 
 A user can invite friends to GTIO via SMS, Email, Facebook
@@ -920,7 +1358,14 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/4.4.Suggest.Email.Compose.png" width=420px/>
 
-
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 6.3](#63-friends-management-page))   
+([view 1.8](#18-quick-add))   
+**exit screens:**   
+previous screen   
+`
 #### API Usage
 /Invite/SMS
 
@@ -953,7 +1398,7 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 
 ## 6. Friends management
 
-### 6.1 Find my friends via Profile 
+### 6.1 Find my friends
 
 #### Overview
 A user can find friends to follow 
@@ -966,6 +1411,15 @@ A user can find friends to follow
 6.1.1 No Results ([wireframe](http://invis.io/QK2OCQ56))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/6.1.Find.My.Friends.Profile.No.Result.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+**exit screens:**   
+([view 6.2](#62-suggested-friends))   
+([view 6.4](#64-find-out-of-network-friends))   
+([view 7.7](#77-profile-pages))   
+
 
 #### API Usage
 /Friends/Find?
@@ -981,7 +1435,7 @@ A user can find friends to follow
    - you are following x
       - text populated by api
    - list of users (who you are following)
-      - has profile icon, name, following btn, tappable to profile
+      - has profile icon, name, following btn, tappable to profile (view 7.7)
       - following toggle btn
          - tapped state: following
 - A user can search through their existing friends by typing in the search box
@@ -995,7 +1449,7 @@ A user can find friends to follow
 
 
 
-### 6.2 Suggested Friends 
+### 6.2 Suggested Friends  
 
 #### Overview
 A user can see a list of suggested users to follow
@@ -1007,6 +1461,16 @@ A user can see a list of suggested users to follow
 
 #### API Usage
 /Friends/Suggested
+
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 6.3](#63-friends-management-page))   
+**exit screens:**   
+([view 7.7](#77-profile-pages))   
+previous screen
+
 
 #### Stories
 - A user can see a list of suggested users to follow
@@ -1020,7 +1484,7 @@ A user can see a list of suggested users to follow
 
 
 
-### 6.3 Friends management page (via feed)
+### 6.3 Friends management page
 
 #### Overview
 A user can manage their friend relationships via the feed
@@ -1029,6 +1493,18 @@ A user can manage their friend relationships via the feed
 6.3 ([wireframe](http://invis.io/R62OCSKJ))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/6.3.Friends.From.Feed.png" width=420px/>
+
+
+#### User Flow
+**entry screens:**   
+([view 8.1](#81-feed-view))   
+**exit screens:**   
+([view 5.1](#51-invite-friends))   
+([view 6.4](#64-find-out-of-network-friends))   
+([view 6.2](#62-suggested-friends))   
+([view 7.7](#77-profile-pages))   
+previous screen
+
 
 #### API Usage
 /Friends?
@@ -1046,14 +1522,14 @@ A user can manage their friend relationships via the feed
 - A user can see a list of the users they follow and edit those users
    - list of users 
       - filter search enabled
-      - has profile icon, name, tappable to profile
+      - has profile icon, name, tappable to profile (view 7.7)
       - following btn (toggles state)
       - if filter search comes up empty
          - custom empty text 
             - 'We couldnt find "search string" do you want to try searching the entire GTIO community' button
             - **tap** ==> (view 6.4)
 
-### 6.4 Find out-of-network Friends
+### 6.4 Find out-of-network Friends  
 
 #### Overview
 A user can search for friends outside of their own network
@@ -1063,6 +1539,15 @@ A user can search for friends outside of their own network
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/6.4.Find.Friends.Unconnected.png" width=420px/>
 
+
+#### User Flow
+**entry screens:**   
+([view 6.1](#61-find-my-friends))   
+([view 6.3](#63-friends-management-page))   
+**exit screens:**   
+([view 7.7](#77-profile-pages))   
+previous screen   
+
 #### API Usage
 /Friends/Search
 
@@ -1071,10 +1556,10 @@ A user can search for friends outside of their own network
    - search field
    - on **submit** ==> api request
       - results show in list
-      - has profile icon, name, tappable to profile
+      - has profile icon, name, tappable to profile (view 7.7)
       - following btn (toggles state)
 
-### 6.5 Following List
+### 6.5 Following List  
 
 #### Overview
 A User A can see a list of who a User B is following.  User A and User B can be the same user.
@@ -1083,6 +1568,14 @@ A User A can see a list of who a User B is following.  User A and User B can be 
 6.5 ([wireframe](http://invis.io/CS2OCU2W))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/6.5.I'm.Following.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-mananagement-page))   
+([view 7.7](#77-profile-pages))   
+**exit screens:**   
+([view 7.7](#77-profile-pages))   
+previous screen   
 
 #### API Usage
 /User/Following
@@ -1097,7 +1590,7 @@ A User A can see a list of who a User B is following.  User A and User B can be 
       - following toggle
 
 
-### 6.6 Followers List
+### 6.6 Followers List  
 
 #### Overview
 A User A can see a list of User B's followers.  User A and User B can be the same user.
@@ -1106,6 +1599,14 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 6.6 Followers List ([wireframe](http://invis.io/Y92OCV3E))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/6.6.My.Followers.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-mananagement-page))   
+([view 7.7](#77-profile-pages))   
+**exit screens:**   
+([view 7.7](#77-profile-pages))   
+previous screen   
 
 #### API Usage
 /User/Followers
@@ -1124,7 +1625,7 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 ## 7. Profile pages
 
 
-### 7.1 My management page
+### 7.1 My management page  
 
 #### Overview
 A logged in user can manage their profile, share settings, looks, and friends
@@ -1137,6 +1638,23 @@ A logged in user can manage their profile, share settings, looks, and friends
 7.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.1.My.Management.Scrolled.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+any screen with uiTabBar
+**exit screens:**   
+([view 7.3](#73-edit-profile-pic))   
+([view 6.5](#65-following-list))   
+([view 6.6](#66-followers-list))   
+([view 7.4](#74-edit-profile))   
+([view 7.8](#78-shopping-list))   
+([view 7.5](#75-my-hearts))   
+([view 7.6](#76-my-looks))   
+([view 6.1](#61-find-my-friends))   
+([view 5.1](#51-invite-friends))   
+([view 7.2](#72-settings))   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+
 
 #### API Usage
 /User
@@ -1178,7 +1696,7 @@ A logged in user can manage their profile, share settings, looks, and friends
       - this is static copy GTIO will provide
 
 
-### 7.2 Settings
+### 7.2 Settings  
 
 #### Overview
 A logged in user can edit their settings
@@ -1188,6 +1706,14 @@ A logged in user can edit their settings
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.2.Settings.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+**exit screens:**   
+([view 7.3](#73-edit-profile-pic))   
+previous screen    
+
+
 #### API Usage
 /User/Settings
 
@@ -1196,7 +1722,7 @@ A logged in user can edit their settings
    - load a webview which will allow a user to turn on and off notifications
 
 
-### 7.3 Edit profile pic
+### 7.3 Edit profile pic  
 
 #### Overview
 A logged in user can edit their profile icon
@@ -1206,9 +1732,18 @@ A logged in user can edit their profile icon
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.3.Edit.Profile.Pic.png" width=420px/>
 
-7.3.1 No facebook connect, and no looks
+7.3.1 No facebook connect, and no looks  
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.3.Edit.Profile.Pic.Nulls.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 7.7](#74-edit-profile))   
+([view 1.7](#17-almost-done))   
+**exit screens:**   
+previous screen    
+
 
 #### API Usage
 /User/Icon
@@ -1228,7 +1763,7 @@ A logged in user can edit their profile icon
             - **success** ==> refresh (view 7.3)
    - if the user **is** facebook connected, then the fb connect button is hidden
 
-### 7.4 Edit profile 
+### 7.4 Edit profile  
 
 #### Overview
 A logged in user can edit their profile 
@@ -1241,6 +1776,14 @@ A logged in user can edit their profile
 7.4 scrolled 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.4.Edit.Profile.Scrolled.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 1.8](#18-quick-add))   
+**exit screens:**   
+previous screen    
+
 
 #### API Usage
 /User/Edit
@@ -1258,7 +1801,7 @@ A logged in user can edit their profile
 
 
 
-### 7.5 My hearts
+### 7.5 My hearts  
 
 #### Overview
 A logged in user can view their hearted items
@@ -1267,6 +1810,16 @@ A logged in user can view their hearted items
 7.5 My hearts ([wireframe](http://invis.io/KD2OD28X))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.5.My.Hearts.png" width=420px/>
+
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 4.1](#41-product-page-view))   
+previous screen    
+
 
 #### API Usage
 /User/Hearts
@@ -1289,6 +1842,15 @@ A logged in user can view their posts
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.6.My.Posts.png" width=420px/>
 
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-view))   
+previous screen    
+
 #### API Usage
 /User/Posts
 
@@ -1301,7 +1863,7 @@ A logged in user can view their posts
 
 
 
-### 7.7 Profile page
+### 7.7 Profile page  
 
 #### Overview
 Each user has a profile page
@@ -1322,6 +1884,26 @@ Each user has a profile page
 7.7.3 other's profile, with banner: ([wireframe](http://invis.io/RW2POUXA))
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.7.3.Profile.Page.Branded.Banner.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.2](#32-post-detail-with-verdict))   
+([view 3.6](#36-product-post-detail-view))   
+([view 6.1](#61-find-my-friends))   
+([view 6.2](#62-suggested-friends))   
+([view 6.3](#63-friends-management-page))   
+([view 6.4](#64-find-out-of-network-friends))   
+([view 6.5](#65-following-list))   
+([view 6.6](#66-followers-list))   
+
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-view))   
+([view 4.1](#41-product-page-view))   
+([view 6.5](#65-following-list))   
+([view 6.6](#66-followers-list))   
+previous screen    
 
 
 #### API Usage
@@ -1369,9 +1951,10 @@ Each user has a profile page
    - hearts and looks
       - sent from api
       - thumbnails with heart toggle
+      - **tap** ==> (view 4.1), (view 3.1), or (view 3.6)
   
 
-### 7.8 Shopping list
+### 7.8 Shopping list  
 
 #### Overview
 Each user has a shopping list
@@ -1385,6 +1968,23 @@ Each user has a shopping list
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.8.Shopping.List.Confirm.png" width=420px/>
 
+
+#### User Flow
+**entry screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.2](#32-post-detail-with-verdict))   
+([view 3.6](#36-product-post-detail-view))   
+([view 6.1](#61-find-my-friends))   
+([view 6.2](#62-suggested-friends))   
+([view 6.3](#63-friends-management-page))   
+([view 6.4](#64-find-out-of-network-friends))   
+([view 6.5](#65-following-list))   
+([view 6.6](#66-followers-list))   
+
+**exit screens:**   
+([view 4.1](#41-product-page-view))   
+([view 10.4](#104-default-3rd-party-webview-container))   
+previous screen    
 
 #### API Usage
 /User/Shopping-list
@@ -1424,7 +2024,7 @@ Each user has a shopping list
 
 ## 8. The Feed 
 
-### 8.1 Feed view
+### 8.1 Feed view  
 
 #### Overview
 Each user has a personalized feed of content on the first tab.  The content contains product posts and outfit posts.  Users can take actions directly from the feed view
@@ -1458,6 +2058,23 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Verdict.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+any screen with uiTabBar
+([view 1.1](#11-splash-page))   
+([view 1.8](#18-quick-add))   
+([view 1.9](#18-sign-in-screen-2nd-load)) via ([view 1.10](#110-facebook-sso)) or ([view 1.11](#111-janrain-sdk))     
+([view 1.4](#14-returning-users)) via ([view 1.10](#110-facebook-sso)) or ([view 1.11](#111-janrain-sdk))     
+([view 1.5](#15-janrain-sign-up)) via ([view 1.11](#111-janrain-sdk))     
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))   
+([view 7.7](#77-profile-page))   
+([view 10.5](#105-shop-browse-products))   
+([view 10.3](#103-default-3rd-party-webview-container))   
+([view 8.3](#83-default-3rd-party-webview-container))   
 
 #### API Usage
 /Posts/Feed
@@ -1531,7 +2148,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 - If the user's feed is empty they see messaging encouraging them to add friends
    - see (view 8.1.4)
 
-###  8.3 Feed Verdict view
+###  8.3 Feed Verdict view  
 
 #### Overview
 A user can see voting results in the feed
@@ -1541,6 +2158,9 @@ A user can see voting results in the feed
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Verdict.png" width=420px/>
 
+#### User Flow
+same as 8.1
+
 #### API Usage
 /Post/Vote
 
@@ -1549,7 +2169,7 @@ A user can see voting results in the feed
    - numbers and graph bars
    - matt will fill y'all in....
 
-###  8.4 Upload in progress view
+###  8.4 Upload in progress view  
 
 #### Overview
 A user can see their pending upload in their feed
@@ -1558,6 +2178,21 @@ A user can see their pending upload in their feed
 8.4 ([wireframe](http://invis.io/642OE8AC)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.4.Upload.In.Progress.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.7](#47-post-a-product))   
+([view 12.3](#123-post-a-look))   
+
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))   
+([view 7.7](#77-profile-page))   
+([view 10.5](#105-shop-browse-products))   
+([view 10.3](#103-default-3rd-party-webview-container))   
+([view 8.3](#83-default-3rd-party-webview-container))   
 
 #### API Usage
 /Post/Upload
@@ -1571,7 +2206,7 @@ A user can see their pending upload in their feed
 
 
 
-###  8.5 Feed after completed upload 
+###  8.5 Feed after completed upload  
 
 #### Overview
 A user can see their new upload in their feed
@@ -1580,6 +2215,20 @@ A user can see their new upload in their feed
 8.5 ([wireframe](http://invis.io/ZS2PN997)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.5.Feed.After.Upload.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 8.4](#84-upload-in-progress-view))   
+
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))   
+([view 7.7](#77-profile-page))   
+([view 10.5](#105-shop-browse-products))   
+([view 10.3](#103-default-3rd-party-webview-container))   
+([view 8.3](#83-default-3rd-party-webview-container))   
 
 #### API Usage
 /Post/Upload
@@ -1591,7 +2240,7 @@ A user can see their new upload in their feed
 
 ## 9. Explore Looks
 
-###  9.1 Popular Looks Grid
+###  9.1 Popular Looks Grid  
 
 #### Overview
 A user can see a grid of popular looks on GTIO and tab to other groups of looks
@@ -1604,6 +2253,21 @@ A user can see a grid of popular looks on GTIO and tab to other groups of looks
 9.1.1 popular as feed: ([wireframe](http://invis.io/HX2PNHZC)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/9.1.Explore.Looks.Column.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+any screen with uiTabBar
+([view 1.8](#18-quick-add))   
+([view 1.9](#18-sign-in-screen-2nd-load))    
+**exit screens:**   
+feed+grid: ([view 3.1](#31-outfit-post-detail-page))   
+feed+grid: ([view 3.6](#36-product-post-detail-page))   
+feed: ([view 3.4](#34-reviews-page))    
+feed: ([view 3.5](#35-who-hearted-this))   
+feed: ([view 7.7](#77-profile-page))   
+feed: ([view 10.5](#105-shop-browse-products))   
+feed: ([view 10.3](#103-default-3rd-party-webview-container))   
+feed: ([view 8.3](#83-default-3rd-party-webview-container))   
 
 #### API Usage
 /Posts/Popular
@@ -1668,7 +2332,7 @@ A user can see a page of shopping options on GTIO
    - **tap** ==> (view 7.8)
 
 
-### 10.2 Shop Browse Webview Container
+### 10.2 Shop Browse Webview Container  
 
 #### Overview
 A user can browse to a 2ndary webview page of navigation
@@ -1692,7 +2356,7 @@ dynamic
 
 
 
-### 10.3 Shop 3rd Party webview Container  
+### 10.3 Shop 3rd Party webview Container 
 
 #### Overview
 A user can browse to a 3rd party site to look for products to heart or post
@@ -1732,7 +2396,7 @@ A user can browse to a 3rd party site to look for products to heart or post
             - **tap** ==> (view 4.7)
 
 
-### 10.4 Default 3rd party webview container
+### 10.4 Default 3rd party webview container  
 
 #### Overview
 A user can browse to a 3rd party site with a default browsing experience
@@ -1759,7 +2423,7 @@ None.
    
 
 
-### 10.5 Shop Browse Products
+### 10.5 Shop Browse Products  
 
 #### Overview
 A user can browse to a native list of products
@@ -1805,7 +2469,7 @@ dynamic
 
 ## 11. Logged out views
 
-### 11.1 Logged out view of non active tabs 
+### 11.1 Logged out view of non active tabs  
 
 #### Overview
 A logged out user can browse to non-active tabs and see an intro screen to that tab.  They can also tap to sign up from that screen
@@ -1825,7 +2489,7 @@ A logged out user can browse to non-active tabs and see an intro screen to that 
    - **tap** on image ==> (view 1.9) 
 
 
-### 11.2 Logged out view of Explore looks (view 9.1)
+### 11.2 Logged out view of Explore looks (view 9.1)  
 
 #### Overview
 A non-logged in user can browse to the explore looks tab and see popular looks.  They have a limited ability to interact with the content they see.
@@ -1852,7 +2516,7 @@ A non-logged in user can browse to the explore looks tab and see popular looks. 
       - cancel: closes dialog
 
 
-### 11.3 Logged out view of Post detail page (view 3.6) and (view 3.1)
+### 11.3 Logged out view of Post detail page (view 3.6) and (view 3.1) 
 
 #### Overview
 A non-logged in user can browse to a post detail page.  They have a limited ability to interact with the content they see.
@@ -1879,7 +2543,7 @@ A non-logged in user can browse to a post detail page.  They have a limited abil
       - login:  **tap** ==> (view 1.9)
       - cancel: closes dialog
 
-### 11.4 Logged out view of Reviews page (view 3.4)
+### 11.4 Logged out view of Reviews page (view 3.4)  
 
 #### Overview
 A non-logged in user can browse to a Reviews page page.  They have a limited ability to interact with the content they see.
@@ -1922,7 +2586,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/12.1.Upload.Start.png" width=420px/>
 
 
-12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5)) 
+12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5))  
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/12.1.1.Upload.Start.Frame.Left.png" width=420px/>
 
@@ -1949,7 +2613,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
       - will respond with Voting Toggle status
       - will respond with Brands dictionary
 
-### 12.2  Upload confirm
+### 12.2  Upload confirm  
 
 #### Overview
 A user can confirm that they want to upload the photo they've taken or selected.  They can apply filters at this stage
@@ -1981,7 +2645,7 @@ A user can confirm that they want to upload the photo they've taken or selected.
       - no ==> (view 12.1)
 
 
-### 12.3 Post a look
+### 12.3 Post a look  
 
 #### Overview
 A user can add details to their post before they submit.  They can select to use frames.  They can edit photos in their frames. 
@@ -1991,11 +2655,11 @@ A user can add details to their post before they submit.  They can select to use
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.Post.A.Look.png" width=420px/>
 
-12.3.1 Post a look (Description with keyboard) ([wireframe](http://invis.io/AC2OF2GX)) 
+12.3.1 Post a look (Description with keyboard) ([wireframe](http://invis.io/AC2OF2GX))  
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.1.Post.A.Look.Description.Keyboard.png" width=420px/>
 
-12.3.2 Post a look (Photo preview with frames) ([wireframe](http://invis.io/5K2OF0W8)) 
+12.3.2 Post a look (Photo preview with frames) ([wireframe](http://invis.io/5K2OF0W8))  
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.2.Post.A.Look.Frames.png" width=420px/>
 
@@ -2061,7 +2725,7 @@ A user can add details to their post before they submit.  They can select to use
 
 ## 13. Universal Elements & Behavior
 
-### 13.1 UITabBar default behavior 
+### 13.1 UITabBar default behavior  
 
 #### Overview
 The app has a universal UITabBar that allows the user to move from tab to tab
@@ -2089,7 +2753,7 @@ None.
       - brings you to the landing page of that tab
 
 
-### 13.2 UITabbar Shopping list animation 
+### 13.2 UITabbar Shopping list animation  
 
 #### Overview
 The app has a universal UITabBar that allows the user to move from tab to tab
@@ -2110,7 +2774,7 @@ None.
 
 
 
-### 13.3 Error messages 
+### 13.3 Error messages  
 
 #### Overview
 The app should display a custom dialog whenever the API responds with an error
@@ -2146,7 +2810,7 @@ An error response from the gtio api will look like this:
 
 
 
-### 13.4 Follow buttons
+### 13.4 Follow buttons  
 
 #### Overview
 In many places where there is a user's name, there is a follow button.  This button can have many states
@@ -2184,7 +2848,7 @@ FollowButtonState : {
    - upon **successful** api response, update the button
 
 
-### 13.5 Authentication
+### 13.5 Authentication  
 
 #### Overview
 When a user logs into the GTIO app, they should remain logged in
@@ -2198,7 +2862,7 @@ More api details to come.
 - When a user logs into the GTIO app, they should remain logged in
 
 
-### 13.6 Pull to refresh behavior
+### 13.6 Pull to refresh behavior  
 
 #### Overview
 A user can refresh a feed
