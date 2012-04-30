@@ -2307,6 +2307,16 @@ A user can see a page of shopping options on GTIO
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/10.1.Shop.Landing.WV.png" width=420px/>
 
+
+#### User Flow
+**entry screens:**   
+any screen with uiTabBar
+**exit screens:**   
+([view 10.2](#102-shop-browse-webview-container))   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 10.4](#104-default-3rd-party-webview-container))   
+([view 7.8](#78-shopping-list))   
+
 #### API Usage
 /Shop
 
@@ -2342,6 +2352,16 @@ A user can browse to a 2ndary webview page of navigation
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/10.2.Shop.Browse.WV.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 10.1](#102-shop-landing-page))   
+**exit screens:**   
+([view 10.2](#102-shop-browse-webview-container))   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 10.4](#104-default-3rd-party-webview-container))   
+([view 7.8](#78-shopping-list))   
+previous screen   
+
 #### API Usage
 dynamic
 
@@ -2365,6 +2385,18 @@ A user can browse to a 3rd party site to look for products to heart or post
 10.3 ([wireframe](http://invis.io/N92OENXT)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/10.3.Shop.3rd.Party.WV.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 10.1](#102-shop-landing-page))   
+([view 10.2](#102-shop-browse-webview-container))   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+**exit screens:**   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 7.8](#78-shopping-list))   
+([view 4.1](#41-product-page-view))   
+([view 4.7](#47-post-a-product))   
+previous screen   
 
 #### API Usage
 /Shop/Scrape
@@ -2410,6 +2442,13 @@ A user can browse to a 3rd party site with a default browsing experience
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/10.4.Default.3rd.Party.WV.Actionsheet.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 10.1](#102-shop-landing-page))   
+([view 10.2](#102-shop-browse-webview-container))   
+**exit screens:**   
+previous screen   
+
 #### API Usage
 None.
 
@@ -2437,6 +2476,18 @@ A user can browse to a native list of products
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/10.5.Shop.Browse.Products.No.Link.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 10.1](#102-shop-landing-page))   
+([view 10.2](#102-shop-browse-webview-container))   
+([view 8.1](#81-feed-view))   
+**exit screens:**   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 10.4](#104-default-3rd-party-webview-container))   
+([view 7.8](#78-shopping-list))   
+([view 4.1](#41-product-page-view))   
+previous screen   
+
 #### API Usage
 dynamic
 
@@ -2445,6 +2496,7 @@ dynamic
    - top nav bar is custom nav bar
       - customizable title: via gtio link that spawned the container
       - shopping list btn visible
+         - **tap** ==> (view 7.8)
       - back btn to return to previous container
    - list of products in masonry view
       - list defined by api
