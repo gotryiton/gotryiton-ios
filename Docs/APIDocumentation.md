@@ -68,9 +68,9 @@ A response for a collection of outfits would look like:
 	
 ## Authentication
 
-For requests that require authentication, a token is required to be passed to the api. The token can be sent as either an `Authorization` header or as a request parameter named `access_token`.
+For requests that require authentication, a token is required to be passed to the api. The token can be sent as either an `Authentication` header or as a request parameter named `access_token`.
 
-	$ curl -H "Accept: application/v4-json" -H "Authorization: 1234567890" gotryiton.com/super_secret_resource
+	$ curl -H "Accept: application/v4-json" -H "Authentication: 1234567890" gotryiton.com/super_secret_resource
 	
 	or
 	
