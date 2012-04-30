@@ -2,15 +2,15 @@
 
 **To Do**
 
-- 
-- 
-- 
+- notes
+- notes
+- notes
 
 **Notes**
 
-- 
-- 
-- 
+- notes
+- notes
+- notes
 
 ---
 
