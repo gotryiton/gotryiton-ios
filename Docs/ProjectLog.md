@@ -2,15 +2,15 @@
 
 **To Do**
 
-- notes
-- notes
-- notes
+- TT - Look at the URL library.
+- TT - Put together a demo of camera filter libraries that the GTIO team can look at and see which ones they like.
+- GTIO - Put which pages need tracking in spec
 
 **Notes**
 
-- notes
-- notes
-- notes
+- Ask existing users to login again on upgrade
+- Prompt user for location by gps on sign up.
+- Remove crittercism and add TestFlight for crashes
 
 ---
 
