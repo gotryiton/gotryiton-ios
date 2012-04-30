@@ -1,3 +1,19 @@
+**Strategy Session 4/30**
+
+**To Do**
+
+- 
+- 
+- 
+
+**Notes**
+
+- 
+- 
+- 
+
+---
+
 **Strategy Session 4/25**
 
 **To Do**
