@@ -370,8 +370,8 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 ([view 7.1](#71-my-management-page))   
 
 **exit screens:**  
-([view 8.1](#81-feed-view)) via ([view 10.1](#110-facebook-sso))   
-([view 1.7](#17-almost-done))    via ([view 10.1](#110-facebook-sso))      
+([view 8.1](#81-feed-view)) via ([view 1.10](#110-facebook-sso))   
+([view 1.7](#17-almost-done))    via ([view 1.10](#110-facebook-sso))      
 ([view 1.4](#14-returning-users))   
 ([view 1.5](#15-janrain-sign-up))   
 ([view 9.1](#91-popular-looks-grid))   
@@ -546,12 +546,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 ([view 10.1](#101-shop-landing-page))   
 
 **exit screens:**   
-([view 7.1](#71-my-management-page))   
-([view 8.1](#81-feed-view))   
-([view 8.4](#84-upload-in-progress-view))   
-([view 8.5](#85-feed-after-completed-upload))   
-([view 9.1](#91-popular-looks-grid))   
-([view 10.1](#101-shop-landing-page))   
+TBD
 
 
 #### API Usage
@@ -2063,6 +2058,23 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Verdict.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+any screen with uiTabBar
+([view 1.1](#11-splash-page))   
+([view 1.8](#18-quick-add))   
+([view 1.9](#18-sign-in-screen-2nd-load)) via ([view 1.10](#110-facebook-sso)) or ([view 1.11](#111-janrain-sdk))     
+([view 1.4](#14-returning-users)) via ([view 1.10](#110-facebook-sso)) or ([view 1.11](#111-janrain-sdk))     
+([view 1.5](#15-janrain-sign-up)) via ([view 1.11](#111-janrain-sdk))     
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))   
+([view 7.7](#77-profile-page))   
+([view 10.5](#105-shop-browse-products))   
+([view 10.3](#103-default-3rd-party-webview-container))   
+([view 8.3](#83-default-3rd-party-webview-container))   
 
 #### API Usage
 /Posts/Feed
@@ -2146,6 +2158,9 @@ A user can see voting results in the feed
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Verdict.png" width=420px/>
 
+#### User Flow
+same as 8.1
+
 #### API Usage
 /Post/Vote
 
@@ -2163,6 +2178,21 @@ A user can see their pending upload in their feed
 8.4 ([wireframe](http://invis.io/642OE8AC)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.4.Upload.In.Progress.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 4.7](#47-post-a-product))   
+([view 12.3](#123-post-a-look))   
+
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))   
+([view 7.7](#77-profile-page))   
+([view 10.5](#105-shop-browse-products))   
+([view 10.3](#103-default-3rd-party-webview-container))   
+([view 8.3](#83-default-3rd-party-webview-container))   
 
 #### API Usage
 /Post/Upload
@@ -2185,6 +2215,20 @@ A user can see their new upload in their feed
 8.5 ([wireframe](http://invis.io/ZS2PN997)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.5.Feed.After.Upload.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 8.4](#84-upload-in-progress-view))   
+
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-page))   
+([view 3.4](#34-reviews-page))   
+([view 3.5](#35-who-hearted-this))   
+([view 7.7](#77-profile-page))   
+([view 10.5](#105-shop-browse-products))   
+([view 10.3](#103-default-3rd-party-webview-container))   
+([view 8.3](#83-default-3rd-party-webview-container))   
 
 #### API Usage
 /Post/Upload
@@ -2209,6 +2253,21 @@ A user can see a grid of popular looks on GTIO and tab to other groups of looks
 9.1.1 popular as feed: ([wireframe](http://invis.io/HX2PNHZC)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/9.1.Explore.Looks.Column.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+any screen with uiTabBar
+([view 1.8](#18-quick-add))   
+([view 1.9](#18-sign-in-screen-2nd-load))    
+**exit screens:**   
+feed+grid: ([view 3.1](#31-outfit-post-detail-page))   
+feed+grid: ([view 3.6](#36-product-post-detail-page))   
+feed: ([view 3.4](#34-reviews-page))    
+feed: ([view 3.5](#35-who-hearted-this))   
+feed: ([view 7.7](#77-profile-page))   
+feed: ([view 10.5](#105-shop-browse-products))   
+feed: ([view 10.3](#103-default-3rd-party-webview-container))   
+feed: ([view 8.3](#83-default-3rd-party-webview-container))   
 
 #### API Usage
 /Posts/Popular
