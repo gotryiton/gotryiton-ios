@@ -5,6 +5,83 @@
 - 2012-04-20 - Simon Holroyd - First Pass
 - 2012-04-23 - Simon Holroyd - A bunch more stuff...  (let's keep version notes in git?)
 
+## Table of Contents
+1. [Welcome Screen](#1-welcome-screens)   
+   1.1 [Splash Screen](#11-splash-screen)   
+   1.2 [Intro Screens](#12-intro-screens)   
+   1.3 [Sign In Screen (first use)](#13-sign-in-screen-first-use)   
+   1.4 [Returning Users](#14-returning-users)   
+   1.5 [Janrain Sign up](#15-janrain-sign-up)   
+   1.6 [Failed Sigin In](#16-failed-sign-in)   
+   1.7 [Almost Done](#17-almost-done)   
+   1.8 [Quick Add](#18-quick-add)   
+   1.9 [Sign in Screen (2nd load)](#19-sign-in-screen-2nd-load)   
+2. [Global Nav Bar and Notifications](#2-global-nav-bar-and-notifications)   
+   2.1 [Navbar with notifications](#21-navbar-with-notifications)   
+   2.2 [Notifications view](#22-notifications-view)   
+3. [Product Post and Outfit Post Detail pages](#3-product-and-outfit-post-detail-pages)   
+   3.1 [Outfit Post Detail Page](#31-outfit-post-detail-page)   
+   3.2 [Post detail with verdict](#32-post-detail-with-verdict)   
+   3.3 [Post detail full screen](#33-post-detail-full-screen)   
+   3.4 [Reviews page](#34-reviews-page)   
+   3.5 [Who hearted this](#35-who-hearted-this)   
+   3.6 [Product post detail page](#36-product-post-detail-page)   
+4. [Product pages](#4-product-pages)   
+   4.1 [Product page view](#41-product-page-view)   
+   4.2 [Suggest a product](#42-suggest-a-product)   
+   4.3 [Phone Contact List](#43-phone-contact-list)   
+   4.4 [Email Compose](#44-email-compose)   
+   4.5 [Facebook Contacts](#45-facebook-contacts)   
+   4.6 [Gotryiton Contacts](#46-gotryiton-contacts)   
+   4.7 [Post a product](#47-post-a-product)   
+5. [Invite](#5-invite)   
+   5.1 [Invite friends](#51-invite-friends)   
+6. [Friends Management](#6-friends-management)   
+   6.1 [Find my friends](#61-find-my-friends)   
+   6.2 [Suggested Friends](#62-suggested-friends)   
+   6.3 [Friends management page](#63-friends-management-page)   
+   6.4 [Find out-of-network Friends](#64-find-out-of-network-friends)   
+   6.5 [Following List](#65-following-list)   
+   6.6 [Followers List](#66-followers-list)   
+7. [Profile Pages](#7-profile-pages)   
+   7.1 [My management page](#71-my-management-page)   
+   7.2 [Settings](#72-settings)   
+   7.3 [Edit profile pic](#73-edit-profile-pic)   
+   7.4 [Edit profile](#74-edit-profile)   
+   7.5 [My Hearts](#75-my-hearts)   
+   7.6 [My Posts](#76-my-posts)   
+   7.7 [Profile Page](#77-profile-page)   
+8. [The Feed](#8-the-feed)   
+   8.1 [Feed view](#81-feed-view)   
+   8.3 [Feed verdict view](#83-feed-verdict-view)   
+   8.4 [Upload in progress view](#84-upload-in-progress-view)   
+   8.5 [Feed after completed upload](#85-feed-after-completed-upload)   
+9. [Explore Looks](#9-explore-looks)   
+   9.1 [Popular Looks Grid](#91-popular-looks-grid)   
+10. [Shop Tab](#10-shop-tab)   
+   10.1 [Shop landing page](#101-shop-landing-page)   
+   10.2 [Shop Browse Webview Container](#102-shop-browse-webview-container)   
+   10.3 [Shop 3rd Party Webview Container](#103-shop-3rd-party-webview-container)   
+   10.4 [Default 3rd Party Webview Container](#104-default-3rd-party-webview-container)   
+   10.5 [Shop Browse Products](#105-shop-browse-products)   
+11. [Logged out views](#11-logged-out-views)   
+   11.1 [Logged out view inactive tabs](#111-logged-out-view-inactive-tabs)   
+   11.2 [Logged out default tab](#112-logged-out-default-tab)   
+   11.3 [Logged out post detail page](#113-logged-out-post-detail-page)   
+   11.4 [Logged out reviews page](#114-logged-out-reviews-page)   
+12. [Upload](#12-upload)   
+   12.1 [Upload Start](#121-upload-start)   
+   12.2 [Upload Confirm](#122-upload-confirm)   
+   12.3 [Post a look](#123-post-a-look)   
+13. [Universal Elements and Behavior](#13-universal-elements-and-behavior)   
+   13.1 [UITabBar default behavior](#131-uitabbar-default-behavior)   
+   13.2 [UITabBar shopping list animation](#132-uitabbar-shopping-list-animation)   
+   13.3 [Error messages](#133-error-messages)   
+   13.4 [Follow buttons](#134-follow-buttons)   
+   13.5 [Authentication](#135-authentication)   
+   13.6 [Pull to refresh behavior](#136-pull-to-refresh-behavior)   
+
+
 ---
 
 ### General Questions
@@ -22,9 +99,8 @@
 
 
 ### Deployment Targets
-- iOS 4
-- iOS 5
-- All standard devices and iOS versions agreed to with Rachit and Matt last year should still apply
+- iOS 5, iOS 6
+- Iphone 3GS, Iphone 4, Iphone 4S, Iphone 5(?)
 
 
 ---
@@ -142,7 +218,8 @@ First time users of the app see a screen where they can sign up
 **exit screens:**   
 ([view 1.2.1](#12-intro-screens))   
 ([view 1.4](#14-returning-users))   
-([view 1.10](#110-facebook-sso))
+([view 1.10](#110-facebook-sso))    
+([view 11.2](#112-logged-out-default-tab))   
 
 #### API Usage
 Tracking (details coming)
@@ -156,7 +233,7 @@ User/Auth/Facebook (details coming)
 	    - return makes call to sign up api
 	  - im a returning user **tap** ==> (view 1.4)
 	  - sign up with another provider btn **tap** ==> (view 1.5)
-	  - skip btn **tap** ==> (view 2.0)
+	  - skip btn **tap** ==> (view 11.2)
 	  - uiPageControl represent flow through intro screens and sign in screen
 	      - swiping backwards brings user to the previous intro screen
 
@@ -472,7 +549,7 @@ A user should be able to log in via Janrain SDK
 - A user should be able to log in via Janrain SDK
 
 
-## 2. Global Nav bar and Notifications Center
+## 2. Global Nav bar and Notifications
 
 
 ### 2.1 Navbar with Notifications  
@@ -575,7 +652,7 @@ TBD
 
 
 
-## 3. Product Post and Outfit Post Detail pages
+## 3. Product and Outfit Post Detail pages
 
 ### 3.1 Outfit Post Detail Page  
 
@@ -2307,6 +2384,16 @@ A user can see a page of shopping options on GTIO
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/10.1.Shop.Landing.WV.png" width=420px/>
 
+
+#### User Flow
+**entry screens:**   
+any screen with uiTabBar
+**exit screens:**   
+([view 10.2](#102-shop-browse-webview-container))   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 10.4](#104-default-3rd-party-webview-container))   
+([view 7.8](#78-shopping-list))   
+
 #### API Usage
 /Shop
 
@@ -2342,6 +2429,16 @@ A user can browse to a 2ndary webview page of navigation
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/10.2.Shop.Browse.WV.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 10.1](#102-shop-landing-page))   
+**exit screens:**   
+([view 10.2](#102-shop-browse-webview-container))   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 10.4](#104-default-3rd-party-webview-container))   
+([view 7.8](#78-shopping-list))   
+previous screen   
+
 #### API Usage
 dynamic
 
@@ -2365,6 +2462,18 @@ A user can browse to a 3rd party site to look for products to heart or post
 10.3 ([wireframe](http://invis.io/N92OENXT)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/10.3.Shop.3rd.Party.WV.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 10.1](#102-shop-landing-page))   
+([view 10.2](#102-shop-browse-webview-container))   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+**exit screens:**   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 7.8](#78-shopping-list))   
+([view 4.1](#41-product-page-view))   
+([view 4.7](#47-post-a-product))   
+previous screen   
 
 #### API Usage
 /Shop/Scrape
@@ -2410,6 +2519,13 @@ A user can browse to a 3rd party site with a default browsing experience
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/10.4.Default.3rd.Party.WV.Actionsheet.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 10.1](#102-shop-landing-page))   
+([view 10.2](#102-shop-browse-webview-container))   
+**exit screens:**   
+previous screen   
+
 #### API Usage
 None.
 
@@ -2437,6 +2553,18 @@ A user can browse to a native list of products
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/10.5.Shop.Browse.Products.No.Link.png" width=420px/>
 
+#### User Flow
+**entry screens:**   
+([view 10.1](#102-shop-landing-page))   
+([view 10.2](#102-shop-browse-webview-container))   
+([view 8.1](#81-feed-view))   
+**exit screens:**   
+([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 10.4](#104-default-3rd-party-webview-container))   
+([view 7.8](#78-shopping-list))   
+([view 4.1](#41-product-page-view))   
+previous screen   
+
 #### API Usage
 dynamic
 
@@ -2445,6 +2573,7 @@ dynamic
    - top nav bar is custom nav bar
       - customizable title: via gtio link that spawned the container
       - shopping list btn visible
+         - **tap** ==> (view 7.8)
       - back btn to return to previous container
    - list of products in masonry view
       - list defined by api
@@ -2469,7 +2598,7 @@ dynamic
 
 ## 11. Logged out views
 
-### 11.1 Logged out view of non active tabs  
+### 11.1 Logged out view inactive tabs  
 
 #### Overview
 A logged out user can browse to non-active tabs and see an intro screen to that tab.  They can also tap to sign up from that screen
@@ -2478,6 +2607,12 @@ A logged out user can browse to non-active tabs and see an intro screen to that 
 ([wireframe](http://invis.io/US2PNOWQ)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/11.1.Explore.Looks.Logged.Out.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 11.2](#112-logged-out-default-tab))   
+**exit screens:**   
+([view 1.9](#19-sign-in-screen-2nd-load))   
 
 #### API Usage
 /Config
@@ -2489,7 +2624,7 @@ A logged out user can browse to non-active tabs and see an intro screen to that 
    - **tap** on image ==> (view 1.9) 
 
 
-### 11.2 Logged out view of Explore looks (view 9.1)  
+### 11.2 Logged out default tab  
 
 #### Overview
 A non-logged in user can browse to the explore looks tab and see popular looks.  They have a limited ability to interact with the content they see.
@@ -2498,6 +2633,14 @@ A non-logged in user can browse to the explore looks tab and see popular looks. 
 11.2 login wall: ([wireframe](http://invis.io/BA2POGZT)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/11.1.Explore.Looks.Logged.Out.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 11.1](#111-logged-out-view-inactive-tabs))   
+**exit screens:**   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+([view 11.3](#113-Logged-out-post-detail-page))   
+previous screen
 
 #### API Usage
 /Posts/Popular
@@ -2516,7 +2659,7 @@ A non-logged in user can browse to the explore looks tab and see popular looks. 
       - cancel: closes dialog
 
 
-### 11.3 Logged out view of Post detail page (view 3.6) and (view 3.1) 
+### 11.3 Logged out Post detail page
 
 #### Overview
 A non-logged in user can browse to a post detail page.  They have a limited ability to interact with the content they see.
@@ -2526,6 +2669,15 @@ A non-logged in user can browse to a post detail page.  They have a limited abil
 11.3
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/11.3.Outfit.Detail.Logged.Out.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 11.2](#112-Logged-out-default-tab))   
+**exit screens:**   
+([view 11.4](#114-logged-out-reviews-page))   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+previous screen
+
 
 #### API Usage
 /Posts/Popular
@@ -2543,7 +2695,7 @@ A non-logged in user can browse to a post detail page.  They have a limited abil
       - login:  **tap** ==> (view 1.9)
       - cancel: closes dialog
 
-### 11.4 Logged out view of Reviews page (view 3.4)  
+### 11.4 Logged out Reviews page
 
 #### Overview
 A non-logged in user can browse to a Reviews page page.  They have a limited ability to interact with the content they see.
@@ -2553,6 +2705,12 @@ A non-logged in user can browse to a Reviews page page.  They have a limited abi
 11.4
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/11.4.Reviews.Logged.Out.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 11.2](#112-Logged-out-default-tab))   
+**exit screens:**   
+([view 1.9](#19-sign-in-screen-2nd-load))   
 
 #### API Usage
 /Posts/Reviews
@@ -2575,7 +2733,7 @@ A non-logged in user can browse to a Reviews page page.  They have a limited abi
 ## 12. Upload
 
 
-### 12.1  Upload start  
+### 12.1 Upload start  
 
 #### Overview
 A user can start an upload by opening their camera within the GTIO app.  They can use the camera to take subsequent photos for a framed upload.
@@ -2613,7 +2771,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
       - will respond with Voting Toggle status
       - will respond with Brands dictionary
 
-### 12.2  Upload confirm  
+### 12.2 Upload confirm  
 
 #### Overview
 A user can confirm that they want to upload the photo they've taken or selected.  They can apply filters at this stage
@@ -2723,7 +2881,7 @@ A user can add details to their post before they submit.  They can select to use
 
 
 
-## 13. Universal Elements & Behavior
+## 13. Universal Elements and Behavior
 
 ### 13.1 UITabBar default behavior  
 
@@ -2818,21 +2976,24 @@ In many places where there is a user's name, there is a follow button.  This but
 #### Mockups
 
 #### API Usage
-```/User```  each user may contain a FollowButtonState object
+```/User```  each user may contain a following_button object
 
 ```json
-FollowButtonState : {
+"user" : {
+   
+   "following_button" : {
+      "text" : "string for content of button",
 
-   text : "string for content of button",
+      "action" : "api/path/to/hit",
 
-   action: "api/path/to/hit",
+      "state" : 1,
 
-   buttonType: "button_type_name_here"
-
+   }
+   
 } 
 ```
 
-```/User/Follow``` Each request to the follow api responds with another FollowButtonState object
+```/User/Follow``` Each request to the follow api responds with another ```user->following_button``` object
 
 
 #### Stories
@@ -2842,8 +3003,12 @@ FollowButtonState : {
       - action: defined by api
    - the button may have no action associated 
       - follow button shows 'pending' if the request to follow is pending
+   - the button's color/state will be defined by the api ```state``` attribute
+      - 0: off (not yet following)
+      - 1: on (currently following)
+      - 2: requested (button inactive, follow requested)
 - When a user sees their own name, the follow button will not be visible
-   - User objects do not contain FollowButtonState of the user who made the request
+   - User objects do not contain following_button of the user who made the request
 - When a user taps on the button and it takes an action, the button updates
    - upon **successful** api response, update the button
 
