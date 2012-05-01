@@ -73,7 +73,7 @@
    12.1 [Upload Start](#121-upload-start)   
    12.2 [Upload Confirm](#122-upload-confirm)   
    12.3 [Post a look](#123-post-a-look)   
-13. [Universal Elements and Behavior](#123-post-a-look)   
+13. [Universal Elements and Behavior](#13-universal-elements-and-behavior)   
    13.1 [UITabBar default behavior](#131-uitabbar-default-behavior)   
    13.2 [UITabBar shopping list animation](#132-uitabbar-shopping-list-animation)   
    13.3 [Error messages](#133-error-messages)   
@@ -2733,7 +2733,7 @@ A non-logged in user can browse to a Reviews page page.  They have a limited abi
 ## 12. Upload
 
 
-### 12.1  Upload start  
+### 12.1 Upload start  
 
 #### Overview
 A user can start an upload by opening their camera within the GTIO app.  They can use the camera to take subsequent photos for a framed upload.
@@ -2771,7 +2771,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
       - will respond with Voting Toggle status
       - will respond with Brands dictionary
 
-### 12.2  Upload confirm  
+### 12.2 Upload confirm  
 
 #### Overview
 A user can confirm that they want to upload the photo they've taken or selected.  They can apply filters at this stage
@@ -2979,14 +2979,14 @@ In many places where there is a user's name, there is a follow button.  This but
 ```/User```  each user may contain a following_button object
 
 ```json
-user : {
+"user" : {
    
-   following_button : {
-      text : "string for content of button",
+   "following_button" : {
+      "text" : "string for content of button",
 
-      action: "api/path/to/hit",
+      "action" : "api/path/to/hit",
 
-      state: 1,
+      "state" : 1,
 
    }
    
