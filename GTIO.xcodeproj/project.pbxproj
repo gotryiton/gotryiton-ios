@@ -15,11 +15,17 @@
 		D2CDA98115502F02009B7E24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96815502F02009B7E24 /* Foundation.framework */; };
 		D2CDA99E1550307B009B7E24 /* GTIOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2CDA99D1550307B009B7E24 /* GTIOAppDelegate.m */; };
 		D2CDA9A8155032D7009B7E24 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D2CDA9A3155032D7009B7E24 /* InfoPlist.strings */; };
-		D2CDA9A9155032D7009B7E24 /* GTIO-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2CDA9A5155032D7009B7E24 /* GTIO-Info.plist */; };
 		D2CDA9AA155032D7009B7E24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2CDA9A7155032D7009B7E24 /* main.m */; };
 		D2CDA9BB155033B6009B7E24 /* GTIOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2CDA9B315503385009B7E24 /* GTIOTests.m */; };
 		D2CDA9BC155033BC009B7E24 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D2CDA9B6155033A6009B7E24 /* InfoPlist.strings */; };
 		D2CDA9BD155033BE009B7E24 /* GTIOTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2CDA9B8155033A6009B7E24 /* GTIOTests-Info.plist */; };
+		D2CDA9EB15505783009B7E24 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9DC1550429C009B7E24 /* libRestKit.a */; };
+		D2CDA9F21550579A009B7E24 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9EC1550579A009B7E24 /* CFNetwork.framework */; };
+		D2CDA9F31550579A009B7E24 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9ED1550579A009B7E24 /* CoreData.framework */; };
+		D2CDA9F41550579A009B7E24 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9EE1550579A009B7E24 /* MobileCoreServices.framework */; };
+		D2CDA9F51550579A009B7E24 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9EF1550579A009B7E24 /* QuartzCore.framework */; };
+		D2CDA9F61550579A009B7E24 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9F01550579A009B7E24 /* Security.framework */; };
+		D2CDA9F71550579A009B7E24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9F11550579A009B7E24 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,10 +36,52 @@
 			remoteGlobalIDString = D2CDA96115502F02009B7E24;
 			remoteInfo = GTIO;
 		};
+		D2CDA9DB1550429C009B7E24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D1614564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		D2CDA9DD1550429C009B7E24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D2614564E820060A5C5;
+			remoteInfo = RestKitTests;
+		};
+		D2CDA9DF1550429C009B7E24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E62145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		D2CDA9E11550429C009B7E24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E78145651060060A5C5;
+			remoteInfo = RestKitFrameworkTests;
+		};
+		D2CDA9E31550429C009B7E24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 259C301615128079003066A2;
+			remoteInfo = RestKitResources;
+		};
+		D2CDA9E91550577E009B7E24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160D1514564E810060A5C5;
+			remoteInfo = RestKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D2CDA96215502F02009B7E24 /* GTIO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTIO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2CDA96215502F02009B7E24 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2CDA96615502F02009B7E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D2CDA96815502F02009B7E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -49,6 +97,13 @@
 		D2CDA9B315503385009B7E24 /* GTIOTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOTests.m; path = "GTIO-UnitTests/GTIOTests.m"; sourceTree = SOURCE_ROOT; };
 		D2CDA9B7155033A6009B7E24 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D2CDA9B8155033A6009B7E24 /* GTIOTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GTIOTests-Info.plist"; sourceTree = "<group>"; };
+		D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = Libraries/RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		D2CDA9EC1550579A009B7E24 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D2CDA9ED1550579A009B7E24 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D2CDA9EE1550579A009B7E24 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		D2CDA9EF1550579A009B7E24 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D2CDA9F01550579A009B7E24 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D2CDA9F11550579A009B7E24 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +111,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2CDA9F21550579A009B7E24 /* CFNetwork.framework in Frameworks */,
+				D2CDA9F31550579A009B7E24 /* CoreData.framework in Frameworks */,
+				D2CDA9F41550579A009B7E24 /* MobileCoreServices.framework in Frameworks */,
+				D2CDA9F51550579A009B7E24 /* QuartzCore.framework in Frameworks */,
+				D2CDA9F61550579A009B7E24 /* Security.framework in Frameworks */,
+				D2CDA9F71550579A009B7E24 /* SystemConfiguration.framework in Frameworks */,
+				D2CDA9EB15505783009B7E24 /* libRestKit.a in Frameworks */,
 				D2CDA96715502F02009B7E24 /* UIKit.framework in Frameworks */,
 				D2CDA96915502F02009B7E24 /* Foundation.framework in Frameworks */,
 				D2CDA96B15502F02009B7E24 /* CoreGraphics.framework in Frameworks */,
@@ -89,7 +151,7 @@
 		D2CDA96315502F02009B7E24 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2CDA96215502F02009B7E24 /* GTIO.app */,
+				D2CDA96215502F02009B7E24 /* Go Try It On.app */,
 				D2CDA97D15502F02009B7E24 /* GTIOTests.octest */,
 			);
 			name = Products;
@@ -98,6 +160,12 @@
 		D2CDA96515502F02009B7E24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2CDA9EC1550579A009B7E24 /* CFNetwork.framework */,
+				D2CDA9ED1550579A009B7E24 /* CoreData.framework */,
+				D2CDA9EE1550579A009B7E24 /* MobileCoreServices.framework */,
+				D2CDA9EF1550579A009B7E24 /* QuartzCore.framework */,
+				D2CDA9F01550579A009B7E24 /* Security.framework */,
+				D2CDA9F11550579A009B7E24 /* SystemConfiguration.framework */,
 				D2CDA96615502F02009B7E24 /* UIKit.framework */,
 				D2CDA96815502F02009B7E24 /* Foundation.framework */,
 				D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */,
@@ -155,6 +223,7 @@
 		D2CDA99B15503058009B7E24 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D2CDA9E51550429F009B7E24 /* RestKit */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -223,6 +292,26 @@
 			path = "GTIO-UnitTests/Supporting Files";
 			sourceTree = SOURCE_ROOT;
 		};
+		D2CDA9D11550429B009B7E24 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDA9DC1550429C009B7E24 /* libRestKit.a */,
+				D2CDA9DE1550429C009B7E24 /* RestKitTests.octest */,
+				D2CDA9E01550429C009B7E24 /* RestKit.framework */,
+				D2CDA9E21550429C009B7E24 /* RestKitFrameworkTests.octest */,
+				D2CDA9E41550429C009B7E24 /* RestKitResources.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D2CDA9E51550429F009B7E24 /* RestKit */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */,
+			);
+			name = RestKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -237,10 +326,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				D2CDA9EA1550577E009B7E24 /* PBXTargetDependency */,
 			);
 			name = "Go Try It On";
 			productName = GTIO;
-			productReference = D2CDA96215502F02009B7E24 /* GTIO.app */;
+			productReference = D2CDA96215502F02009B7E24 /* Go Try It On.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D2CDA97C15502F02009B7E24 /* GTIOTests */ = {
@@ -282,6 +372,12 @@
 			mainGroup = D2CDA95715502F01009B7E24;
 			productRefGroup = D2CDA96315502F02009B7E24 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D2CDA9D11550429B009B7E24 /* Products */;
+					ProjectRef = D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D2CDA96115502F02009B7E24 /* Go Try It On */,
@@ -290,13 +386,50 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		D2CDA9DC1550429C009B7E24 /* libRestKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKit.a;
+			remoteRef = D2CDA9DB1550429C009B7E24 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2CDA9DE1550429C009B7E24 /* RestKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitTests.octest;
+			remoteRef = D2CDA9DD1550429C009B7E24 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2CDA9E01550429C009B7E24 /* RestKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RestKit.framework;
+			remoteRef = D2CDA9DF1550429C009B7E24 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2CDA9E21550429C009B7E24 /* RestKitFrameworkTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitFrameworkTests.octest;
+			remoteRef = D2CDA9E11550429C009B7E24 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2CDA9E41550429C009B7E24 /* RestKitResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitResources.bundle;
+			remoteRef = D2CDA9E31550429C009B7E24 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		D2CDA96015502F02009B7E24 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D2CDA9A8155032D7009B7E24 /* InfoPlist.strings in Resources */,
-				D2CDA9A9155032D7009B7E24 /* GTIO-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +485,11 @@
 			isa = PBXTargetDependency;
 			target = D2CDA96115502F02009B7E24 /* Go Try It On */;
 			targetProxy = D2CDA98215502F02009B7E24 /* PBXContainerItemProxy */;
+		};
+		D2CDA9EA1550577E009B7E24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKit;
+			targetProxy = D2CDA9E91550577E009B7E24 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -421,10 +559,19 @@
 		D2CDA99015502F02009B7E24 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				INFOPLIST_FILE = "GTIO/Application/Supporting Files/GTIO-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -433,10 +580,19 @@
 		D2CDA99115502F02009B7E24 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				INFOPLIST_FILE = "GTIO/Application/Supporting Files/GTIO-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
