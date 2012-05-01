@@ -1,0 +1,512 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D2CDA96715502F02009B7E24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96615502F02009B7E24 /* UIKit.framework */; };
+		D2CDA96915502F02009B7E24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96815502F02009B7E24 /* Foundation.framework */; };
+		D2CDA96B15502F02009B7E24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */; };
+		D2CDA97F15502F02009B7E24 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA97E15502F02009B7E24 /* SenTestingKit.framework */; };
+		D2CDA98015502F02009B7E24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96615502F02009B7E24 /* UIKit.framework */; };
+		D2CDA98115502F02009B7E24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96815502F02009B7E24 /* Foundation.framework */; };
+		D2CDA99E1550307B009B7E24 /* GTIOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2CDA99D1550307B009B7E24 /* GTIOAppDelegate.m */; };
+		D2CDA9A8155032D7009B7E24 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D2CDA9A3155032D7009B7E24 /* InfoPlist.strings */; };
+		D2CDA9A9155032D7009B7E24 /* GTIO-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2CDA9A5155032D7009B7E24 /* GTIO-Info.plist */; };
+		D2CDA9AA155032D7009B7E24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2CDA9A7155032D7009B7E24 /* main.m */; };
+		D2CDA9BB155033B6009B7E24 /* GTIOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2CDA9B315503385009B7E24 /* GTIOTests.m */; };
+		D2CDA9BC155033BC009B7E24 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D2CDA9B6155033A6009B7E24 /* InfoPlist.strings */; };
+		D2CDA9BD155033BE009B7E24 /* GTIOTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2CDA9B8155033A6009B7E24 /* GTIOTests-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D2CDA98215502F02009B7E24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2CDA95915502F01009B7E24 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2CDA96115502F02009B7E24;
+			remoteInfo = GTIO;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D2CDA96215502F02009B7E24 /* GTIO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTIO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2CDA96615502F02009B7E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D2CDA96815502F02009B7E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D2CDA97D15502F02009B7E24 /* GTIOTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GTIOTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2CDA97E15502F02009B7E24 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		D2CDA99C1550307B009B7E24 /* GTIOAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOAppDelegate.h; path = Application/GTIOAppDelegate.h; sourceTree = "<group>"; };
+		D2CDA99D1550307B009B7E24 /* GTIOAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOAppDelegate.m; path = Application/GTIOAppDelegate.m; sourceTree = "<group>"; };
+		D2CDA9A4155032D7009B7E24 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		D2CDA9A5155032D7009B7E24 /* GTIO-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GTIO-Info.plist"; path = "Application/Supporting Files/GTIO-Info.plist"; sourceTree = "<group>"; };
+		D2CDA9A6155032D7009B7E24 /* GTIO-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTIO-Prefix.pch"; path = "Application/Supporting Files/GTIO-Prefix.pch"; sourceTree = "<group>"; };
+		D2CDA9A7155032D7009B7E24 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Application/Supporting Files/main.m"; sourceTree = "<group>"; };
+		D2CDA9B215503385009B7E24 /* GTIOTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOTests.h; path = "GTIO-UnitTests/GTIOTests.h"; sourceTree = SOURCE_ROOT; };
+		D2CDA9B315503385009B7E24 /* GTIOTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOTests.m; path = "GTIO-UnitTests/GTIOTests.m"; sourceTree = SOURCE_ROOT; };
+		D2CDA9B7155033A6009B7E24 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D2CDA9B8155033A6009B7E24 /* GTIOTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GTIOTests-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2CDA95F15502F02009B7E24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2CDA96715502F02009B7E24 /* UIKit.framework in Frameworks */,
+				D2CDA96915502F02009B7E24 /* Foundation.framework in Frameworks */,
+				D2CDA96B15502F02009B7E24 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2CDA97915502F02009B7E24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2CDA97F15502F02009B7E24 /* SenTestingKit.framework in Frameworks */,
+				D2CDA98015502F02009B7E24 /* UIKit.framework in Frameworks */,
+				D2CDA98115502F02009B7E24 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D2CDA95715502F01009B7E24 = {
+			isa = PBXGroup;
+			children = (
+				D2CDA96C15502F02009B7E24 /* GTIO */,
+				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
+				D2CDA99B15503058009B7E24 /* Libraries */,
+				D2CDA96515502F02009B7E24 /* Frameworks */,
+				D2CDA96315502F02009B7E24 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D2CDA96315502F02009B7E24 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDA96215502F02009B7E24 /* GTIO.app */,
+				D2CDA97D15502F02009B7E24 /* GTIOTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D2CDA96515502F02009B7E24 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDA96615502F02009B7E24 /* UIKit.framework */,
+				D2CDA96815502F02009B7E24 /* Foundation.framework */,
+				D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */,
+				D2CDA97E15502F02009B7E24 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D2CDA96C15502F02009B7E24 /* GTIO */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDA9AF15503307009B7E24 /* Controllers */,
+				D2CDA9B015503307009B7E24 /* Models */,
+				D2CDA9B115503307009B7E24 /* Views */,
+				D2CDA9991550304A009B7E24 /* Application */,
+			);
+			path = GTIO;
+			sourceTree = "<group>";
+		};
+		D2CDA96D15502F02009B7E24 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDA9A2155032D7009B7E24 /* en.lproj */,
+				D2CDA9A5155032D7009B7E24 /* GTIO-Info.plist */,
+				D2CDA9A6155032D7009B7E24 /* GTIO-Prefix.pch */,
+				D2CDA9A7155032D7009B7E24 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D2CDA98415502F02009B7E24 /* GTIO-UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDA9B215503385009B7E24 /* GTIOTests.h */,
+				D2CDA9B315503385009B7E24 /* GTIOTests.m */,
+				D2CDA9B5155033A6009B7E24 /* Supporting Files */,
+			);
+			name = "GTIO-UnitTests";
+			path = GTIOTests;
+			sourceTree = "<group>";
+		};
+		D2CDA9991550304A009B7E24 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDA9AC155032F7009B7E24 /* Categories */,
+				D2CDA99C1550307B009B7E24 /* GTIOAppDelegate.h */,
+				D2CDA99D1550307B009B7E24 /* GTIOAppDelegate.m */,
+				D2CDA9AD155032F7009B7E24 /* Protocols */,
+				D2CDA9AE155032F7009B7E24 /* Resources */,
+				D2CDA96D15502F02009B7E24 /* Supporting Files */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		D2CDA99B15503058009B7E24 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		D2CDA9A2155032D7009B7E24 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDA9A3155032D7009B7E24 /* InfoPlist.strings */,
+			);
+			name = en.lproj;
+			path = "Application/Supporting Files/en.lproj";
+			sourceTree = "<group>";
+		};
+		D2CDA9AC155032F7009B7E24 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Categories;
+			path = Application/Categories;
+			sourceTree = "<group>";
+		};
+		D2CDA9AD155032F7009B7E24 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Protocols;
+			path = Application/Protocols;
+			sourceTree = "<group>";
+		};
+		D2CDA9AE155032F7009B7E24 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			path = Application/Resources;
+			sourceTree = "<group>";
+		};
+		D2CDA9AF15503307009B7E24 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D2CDA9B015503307009B7E24 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D2CDA9B115503307009B7E24 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D2CDA9B5155033A6009B7E24 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDA9B6155033A6009B7E24 /* InfoPlist.strings */,
+				D2CDA9B8155033A6009B7E24 /* GTIOTests-Info.plist */,
+			);
+			name = "Supporting Files";
+			path = "GTIO-UnitTests/Supporting Files";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D2CDA96115502F02009B7E24 /* Go Try It On */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2CDA98F15502F02009B7E24 /* Build configuration list for PBXNativeTarget "Go Try It On" */;
+			buildPhases = (
+				D2CDA95E15502F02009B7E24 /* Sources */,
+				D2CDA95F15502F02009B7E24 /* Frameworks */,
+				D2CDA96015502F02009B7E24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Go Try It On";
+			productName = GTIO;
+			productReference = D2CDA96215502F02009B7E24 /* GTIO.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D2CDA97C15502F02009B7E24 /* GTIOTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2CDA99215502F02009B7E24 /* Build configuration list for PBXNativeTarget "GTIOTests" */;
+			buildPhases = (
+				D2CDA97815502F02009B7E24 /* Sources */,
+				D2CDA97915502F02009B7E24 /* Frameworks */,
+				D2CDA97A15502F02009B7E24 /* Resources */,
+				D2CDA97B15502F02009B7E24 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D2CDA98315502F02009B7E24 /* PBXTargetDependency */,
+			);
+			name = GTIOTests;
+			productName = GTIOTests;
+			productReference = D2CDA97D15502F02009B7E24 /* GTIOTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D2CDA95915502F01009B7E24 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = GTIO;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = .;
+			};
+			buildConfigurationList = D2CDA95C15502F01009B7E24 /* Build configuration list for PBXProject "GTIO" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D2CDA95715502F01009B7E24;
+			productRefGroup = D2CDA96315502F02009B7E24 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2CDA96115502F02009B7E24 /* Go Try It On */,
+				D2CDA97C15502F02009B7E24 /* GTIOTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D2CDA96015502F02009B7E24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2CDA9A8155032D7009B7E24 /* InfoPlist.strings in Resources */,
+				D2CDA9A9155032D7009B7E24 /* GTIO-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2CDA97A15502F02009B7E24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2CDA9BC155033BC009B7E24 /* InfoPlist.strings in Resources */,
+				D2CDA9BD155033BE009B7E24 /* GTIOTests-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D2CDA97B15502F02009B7E24 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2CDA95E15502F02009B7E24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2CDA99E1550307B009B7E24 /* GTIOAppDelegate.m in Sources */,
+				D2CDA9AA155032D7009B7E24 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2CDA97815502F02009B7E24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2CDA9BB155033B6009B7E24 /* GTIOTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D2CDA98315502F02009B7E24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D2CDA96115502F02009B7E24 /* Go Try It On */;
+			targetProxy = D2CDA98215502F02009B7E24 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D2CDA9A3155032D7009B7E24 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D2CDA9A4155032D7009B7E24 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D2CDA9B6155033A6009B7E24 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D2CDA9B7155033A6009B7E24 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D2CDA98D15502F02009B7E24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D2CDA98E15502F02009B7E24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D2CDA99015502F02009B7E24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
+				INFOPLIST_FILE = "GTIO/Application/Supporting Files/GTIO-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D2CDA99115502F02009B7E24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
+				INFOPLIST_FILE = "GTIO/Application/Supporting Files/GTIO-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D2CDA99315502F02009B7E24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GTIO.app/GTIO";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
+				INFOPLIST_FILE = "GTIO-UnitTests/Supporting Files/GTIOTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D2CDA99415502F02009B7E24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GTIO.app/GTIO";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
+				INFOPLIST_FILE = "GTIO-UnitTests/Supporting Files/GTIOTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D2CDA95C15502F01009B7E24 /* Build configuration list for PBXProject "GTIO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2CDA98D15502F02009B7E24 /* Debug */,
+				D2CDA98E15502F02009B7E24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D2CDA98F15502F02009B7E24 /* Build configuration list for PBXNativeTarget "Go Try It On" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2CDA99015502F02009B7E24 /* Debug */,
+				D2CDA99115502F02009B7E24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D2CDA99215502F02009B7E24 /* Build configuration list for PBXNativeTarget "GTIOTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2CDA99315502F02009B7E24 /* Debug */,
+				D2CDA99415502F02009B7E24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D2CDA95915502F01009B7E24 /* Project object */;
+}
