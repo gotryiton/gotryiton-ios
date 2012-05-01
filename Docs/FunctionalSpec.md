@@ -5,6 +5,19 @@
 - 2012-04-20 - Simon Holroyd - First Pass
 - 2012-04-23 - Simon Holroyd - A bunch more stuff...  (let's keep version notes in git?)
 
+## Table of Contents
+1. [Welcome Screen](#1-welcome-screen)   
+   1.1 [Splash Screen](#11-splash-screen)   
+   1.2 [Intro Screens](#12-intro-screens)   
+   1.3 [Sign In Screen (first use)](#13-sign-in-screen-first-use)   
+   1.4 [Returning Users](#14-returning-users)   
+   1.5 [Janrain Sign up](#15-janrain-sign-up)   
+   1.6 [Failed Sigin In](#16-failed-sign-in)   
+   1.7 [Almost Done](#17-almost-done)   
+   1.8 [Quick Add](#18-quick-add)   
+   1.9 [Sign in Screen (2nd load)](#19-sign-in-screen-2nd-load)   
+
+
 ---
 
 ### General Questions
@@ -22,9 +35,8 @@
 
 
 ### Deployment Targets
-- iOS 4
-- iOS 5
-- All standard devices and iOS versions agreed to with Rachit and Matt last year should still apply
+- iOS 5, iOS 6
+- Iphone 3GS, Iphone 4, Iphone 4S, Iphone 5(?)
 
 
 ---
@@ -142,7 +154,8 @@ First time users of the app see a screen where they can sign up
 **exit screens:**   
 ([view 1.2.1](#12-intro-screens))   
 ([view 1.4](#14-returning-users))   
-([view 1.10](#110-facebook-sso))
+([view 1.10](#110-facebook-sso))    
+([view 11.2](#112-logged-out-default-tab))   
 
 #### API Usage
 Tracking (details coming)
@@ -156,7 +169,7 @@ User/Auth/Facebook (details coming)
 	    - return makes call to sign up api
 	  - im a returning user **tap** ==> (view 1.4)
 	  - sign up with another provider btn **tap** ==> (view 1.5)
-	  - skip btn **tap** ==> (view 2.0)
+	  - skip btn **tap** ==> (view 11.2)
 	  - uiPageControl represent flow through intro screens and sign in screen
 	      - swiping backwards brings user to the previous intro screen
 
@@ -2521,7 +2534,7 @@ dynamic
 
 ## 11. Logged out views
 
-### 11.1 Logged out view of non active tabs  
+### 11.1 Logged out view inactive tabs  
 
 #### Overview
 A logged out user can browse to non-active tabs and see an intro screen to that tab.  They can also tap to sign up from that screen
@@ -2530,6 +2543,12 @@ A logged out user can browse to non-active tabs and see an intro screen to that 
 ([wireframe](http://invis.io/US2PNOWQ)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/11.1.Explore.Looks.Logged.Out.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 11.2](#112-logged-out-default-tab))   
+**exit screens:**   
+([view 1.9](#19-sign-in-screen-2nd-load))   
 
 #### API Usage
 /Config
@@ -2541,7 +2560,7 @@ A logged out user can browse to non-active tabs and see an intro screen to that 
    - **tap** on image ==> (view 1.9) 
 
 
-### 11.2 Logged out view of Explore looks (view 9.1)  
+### 11.2 Logged out default tab  
 
 #### Overview
 A non-logged in user can browse to the explore looks tab and see popular looks.  They have a limited ability to interact with the content they see.
@@ -2550,6 +2569,14 @@ A non-logged in user can browse to the explore looks tab and see popular looks. 
 11.2 login wall: ([wireframe](http://invis.io/BA2POGZT)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/11.1.Explore.Looks.Logged.Out.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 11.1](#111-logged-out-view-inactive-tabs))   
+**exit screens:**   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+([view 11.3](#113-Logged-out-post-detail-page))   
+previous screen
 
 #### API Usage
 /Posts/Popular
@@ -2568,7 +2595,7 @@ A non-logged in user can browse to the explore looks tab and see popular looks. 
       - cancel: closes dialog
 
 
-### 11.3 Logged out view of Post detail page (view 3.6) and (view 3.1) 
+### 11.3 Logged out Post detail page
 
 #### Overview
 A non-logged in user can browse to a post detail page.  They have a limited ability to interact with the content they see.
@@ -2578,6 +2605,14 @@ A non-logged in user can browse to a post detail page.  They have a limited abil
 11.3
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/11.3.Outfit.Detail.Logged.Out.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 11.2](#112-Logged-out-default-tab))   
+**exit screens:**   
+([view 1.9](#19-sign-in-screen-2nd-load))   
+previous screen
+
 
 #### API Usage
 /Posts/Popular
@@ -2605,6 +2640,12 @@ A non-logged in user can browse to a Reviews page page.  They have a limited abi
 11.4
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/11.4.Reviews.Logged.Out.png" width=420px/>
+
+#### User Flow
+**entry screens:**   
+([view 11.2](#112-Logged-out-default-tab))   
+**exit screens:**   
+([view 1.9](#19-sign-in-screen-2nd-load))   
 
 #### API Usage
 /Posts/Reviews
