@@ -2756,7 +2756,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 #### API Usage
 /Tracking
 
-/Post/Config
+/Config/Upload
 
 #### Stories 
 - A user can start an upload by opening their camera within the GTIO app
