@@ -127,10 +127,7 @@ user starts app
 
 
 #### API Usage
-/Config  
-/User/Auth  
-
-request params: None
+GET /Config  
 
 reponse:
 
@@ -140,26 +137,86 @@ reponse:
       "intro_screens" : [
          { 
             "image_url" : "http://path/to/cdn/image",
-            "id" : "id_of_screen"
+            "id" : "id_of_screen",
+            "track" : "api/url/to/hit/on/first/image/view"
          }
       ]
    }
 }
 ```
 
+POST /User/Visit  (see documentation [ApiUsers][ApiUsers.md])
+
+request: 
+
+```json
+{
+   "visit" : {
+      "latitude" : 40.720577,
+      "longitude" : -74.000478,
+      "ios_version" : 5.1,
+      "ios_device" : "Iphone 4S",
+      "ios_ip" : "1.0.0.10",
+      "build_version" : 4.0.0,
+   } 
+}
+```
+
+response: 
+
+```json
+{
+   "user" : {
+      "id": "1DB2BD0",
+      "name": "Blair G.",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+      "born_in": 1984,
+      "is_brand": false,
+      "location": "California",
+      "about_me": "Something",
+      "badge": 
+         {
+            'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+         },
+      "city": "NY",
+      "state": "NY",
+      "gender": "female",
+      "service": "Twitter",
+      "auth": false,
+      "is_new_user": false,
+      "has_complete_profile" : true
+   } 
+}
+```
+
+
 **notes:**
 
 ```intro_screens``` will be an array of no more than 5 items
 
 
-
 #### Stories
+- the app should request global config settings
+   - every first load should include a request to ```config``` endpoint
+   - the splash screen displays at least the duration of this api request
+- the app should track a users visit to the app
+   - if a user has an authentication token, pass it to the ```user/visit``` endpoint
+   - always pass a ```Tracking-Id``` parameter to the ```user/visit``` endpoint
 - the app should know if this is a user's first time here
-   - if user is brand new to the app ==> (view 1.2)
-   - if user is a returning user to the app (and not logged in) ==> (view 1.9)
-   - if user is a returning user to the app (and logged in) ==> (view 8.1)
-   - if a user is upgrading from 3.0 they should be treated as a brand new logged out user
-   - if a user is upgrading from 4.0 to 4.x they should be treated as an existing user and logged in (skip intro screens)
+   - once the ```config``` endpoint has responded:
+      - if user is new to the app (has no authentication token) route directly to ==> (view 1.2)
+         - let ```user/visit``` complete in the background
+      - if user is a returning user to the app (and has an authentication token):
+         - stay on splash screen until ```/user/visit``` endpoint has responded:
+            - if user is not logged in route to ==> (view 1.9)
+            - if user logged in, route to ==> (view 8.1)
+   - if a user is upgrading from 3.0 they should be treated as a brand new logged out user (their gtioToken from GTIOv3 should be ignored)
+   - if a user is upgrading from 4.0 to 4.x they should be treated as an existing user if they have a token
 
 
 ### 1.2 Intro screens 
@@ -187,8 +244,6 @@ A uiPageControl should be used to introduce new users to screens of the app
 
 ```intro_screens``` will be part of the response in (view 1.1)
 
-/Tracking (usage TBD)
-
 #### Stories
 - on the user's first load of the app, they should be able to swipe through intro screens
   - maximum of 5 screens (not including final login screen)
@@ -198,6 +253,8 @@ A uiPageControl should be used to introduce new users to screens of the app
   - uiPageControl dots represent flow through intro screens 
   - last **swipe** OR last next **tap** ==> sign in screen (view 1.3)
       - last dot in uiPageControl represents sign in screen (view 1.3)
+  - when image is first viewed by a user, an api request to the ```track``` endpoint should be triggered (based on ```track``` endpoint attribute in the ```intro_screen``` object)
+     - subsequent swipes back and forth to the intro screens can be ignored
 
 
 

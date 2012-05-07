@@ -2,7 +2,7 @@
 
 ##Endpoints
 
-### GET `/users/:id`
+### GET `/user/:id`
 
 Show one user
 
@@ -15,7 +15,7 @@ Response
 		"name": "Blair W.",
         "location": "NY, NY",
 		"icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/users/1DB2BD0/profile",
+        "action": "/user/1DB2BD0/profile",
 		"badge": 
             {
                 'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
@@ -27,14 +27,14 @@ Response
             },
         "follow_button": {
             "text": "following",
-            "action": "/users/E54E869/unfollow",
+            "action": "/user/E54E869/unfollow",
             "state": 1
         }
 	}
 }
 ```
 
-### POST `/users/:id/update`
+### POST `/user/:id/update`
 
 Update a user. Can send partial data in the user object.  This api might be used from multiple screens, so a tracking object is also included that sets screen that the api is called from (almost_done, edit_profile, edit_profile_icon) 
 
@@ -85,7 +85,7 @@ Response
 ```
 
 
-### GET `/users/:id/profile`
+### GET `/user/:id/profile`
 
 Show one user's profile
 
@@ -109,13 +109,13 @@ Response
             },
         "follow_button": {
             "text": "following",
-            "action": "/users/1DB2BD0/unfollow",
+            "action": "/user/1DB2BD0/unfollow",
             "state": 1
         },
         'settings_button' : {
             "follow_button" : {
                 "text": "following",
-                "action": "/users/1DB2BD0/unfollow",
+                "action": "/user/1DB2BD0/unfollow",
                 "state": 1
             },
             "alerts_button" : {
@@ -125,11 +125,11 @@ Response
         }
         'following_button' : {
             'count' : 20, 
-            'action' : "/users/1DB2BD0/following"
+            'action' : "/user/1DB2BD0/following"
         },
         'followers_button' : {
             'count' : 25, 
-            'action' : "/users/1DB2BD0/follwers"
+            'action' : "/user/1DB2BD0/follwers"
         },
     }
 }
@@ -137,7 +137,7 @@ Response
 
 
 
-### POST `/users/auth`
+### POST `/user/auth`
 
 Authenticates the user with the application using a token.
 
@@ -146,7 +146,7 @@ Request
 You can either pass the token via a header named 'Authentication' or in a request
 
 ```bash
-curl -H "Accept: application/v4-json" -H "Authentication: c4b4aase9a82b61d7f041f2ef6b36eb8" gotryiton.com/users/auth
+curl -H "Accept: application/v4-json" -H "Authentication: c4b4aase9a82b61d7f041f2ef6b36eb8" gotryiton.com/user/auth
 ```
 
 or
@@ -205,7 +205,73 @@ Error Response
 } 
 ```
 
-### POST `/users/auth/facebook`
+
+
+### POST `/user/visit`
+
+Accepts a visit object that includes tracking information about a user's visit.  Authenticates the user with the application using a token.
+
+Request
+
+Pass 'Authentication' header if a token is available.  Pass 'Tracking-Id' header.  Include visit object:
+
+
+```json
+{
+    "visit" : {
+      "latitude" : 40.720577,
+      "longitude" : -74.000478,
+      "ios_version" : 5.1,
+      "ios_device" : "Iphone 4S",
+      "ios_ip" : "1.0.0.10",
+      "build_version" : 4.0.0,
+    } 
+}
+```
+
+Response (current token is authenticated)
+
+```json
+{
+    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "user": {
+        "id": "1DB2BD0",
+        "name": "Blair W.",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "born_in": 1984,
+        "location": "NY, NY",
+        "about_me": "Upper east side girl",
+        "badge": 
+            {
+                'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+            },
+        "city": "NY",
+        "state": "NY",
+        "gender": "female",
+        "service": "Twitter",
+        "auth": true,
+        "is_new_user": false,
+        "has_complete_profile" : true
+    }
+}
+```
+
+Response (current token is NOT authenticated)
+
+```json
+{
+   "user": null
+} 
+```
+
+
+
+### POST `/user/auth/facebook`
 
 Authenticates a user with facebook. Responds with token to authenticate directly with the application
 
@@ -266,7 +332,7 @@ Error Response
 ```
 
 
-### POST `/users/auth/janrain`
+### POST `/user/auth/janrain`
 
 Authenticates a user with janrain. Responds with token to authenticate directly with the application
 
@@ -328,7 +394,7 @@ Error Response
 ```
 
 
-### POST `/users/signup/facebook`
+### POST `/user/signup/facebook`
 
 Register a facebook user with the application. If the user already exists, authenticates the user with the application. Responds with token to authenticate directly with the application.
 
@@ -374,6 +440,8 @@ Response
 
 `is_new_user` returns true or false depending on whether the user was newly registered or already had an account.
 
+`has_complete_profile` returns true or false depending on if the user has all required fields (should or should not skip the almost done screen)
+
 
 Error Response
 
@@ -393,7 +461,7 @@ Error Response
 ```
 
 
-### POST `/users/signup/janrain`
+### POST `/user/signup/janrain`
 
 Register a janrain user with the application. If the user already exists, authenticates the user with the application. Responds with token to authenticate directly with the application.
 
@@ -439,6 +507,7 @@ Response
 
 `is_new_user` returns true or false depending on whether the user was newly registered or already had an account.
 
+`has_complete_profile` returns true or false depending on if the user has all required fields (should or should not skip the almost done screen)
 
 Error Response
 
@@ -459,7 +528,7 @@ Error Response
 
 
 
-### GET `/users/:id/follow`
+### GET `/user/:id/follow`
 
 Create a following relationship between the requestor and the id'd user
 
@@ -472,7 +541,7 @@ Response
         "name": "Blair W.",
         "location": "NY, NY",
         "icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/users/1DB2BD0/profile",
+        "action": "/user/1DB2BD0/profile",
         "badge": 
             {
                 'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
@@ -484,14 +553,14 @@ Response
             },
         "follow_button": {
             "text": "following",
-            "action": "/users/1DB2BD0/unfollow",
+            "action": "/user/1DB2BD0/unfollow",
             "state": 1
         }
     }
 }
 ```
 
-### GET `/users/:id/unfollow`
+### GET `/user/:id/unfollow`
 
 Discard a following relationship between the requestor and the id'd user
 
@@ -504,7 +573,7 @@ Response
         "name": "Blair W.",
         "location": "NY, NY",
         "icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/users/1DB2BD0/profile",
+        "action": "/user/1DB2BD0/profile",
         "badge": 
             {
                 'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
@@ -516,14 +585,14 @@ Response
             },
         "follow_button": {
             "text": "follow",
-            "action": "/users/1DB2BD0/follow",
+            "action": "/user/1DB2BD0/follow",
             "state": 0
         }
     }
 }
 ```
 
-### GET `/users/:id/following`
+### GET `/user/:id/following`
 
 Show all users who the id'd user is following. NOTE: the follow_button is contextual to the requestor, not the id'd user.
 
@@ -537,7 +606,7 @@ Response
         "name": "Blair W.",
         "location": "NY, NY",
         "icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/users/1DB2BD0/profile",
+        "action": "/user/1DB2BD0/profile",
         "badge": 
             {
                 'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
@@ -549,7 +618,7 @@ Response
             },
         "follow_button": {
             "text": "follow",
-            "action": "/users/1DB2BD0/follow",
+            "action": "/user/1DB2BD0/follow",
             "state": 0
         }
     },
@@ -558,11 +627,11 @@ Response
         "name": "Simon H.",
         "location": "NY, NY",
         "icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/users/FD120BC/profile",
+        "action": "/user/FD120BC/profile",
         "badge": null,
         "follow_button": {
             "text": "follow",
-            "action": "/users/FD120BC/follow",
+            "action": "/user/FD120BC/follow",
             "state": 0
         }
     },
@@ -571,11 +640,11 @@ Response
         "name": "Ashish G.",
         "location": "NY, NY",
         "icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/users/72C9BB/profile",
+        "action": "/user/72C9BB/profile",
         "badge": null,
         "follow_button": {
             "text": "following",
-            "action": "/users/72C9BB/unfollow",
+            "action": "/user/72C9BB/unfollow",
             "state": 1
         }
     },
@@ -589,7 +658,7 @@ Response
 ```
 
 
-### GET `/users/:id/followers`
+### GET `/user/:id/followers`
 
 Show all users who the id'd user is following. NOTE: the follow_button is contextual to the requestor, not the id'd user.
 
@@ -603,7 +672,7 @@ Response
         "name": "Blair W.",
         "location": "NY, NY",
         "icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/users/1DB2BD0/profile",
+        "action": "/user/1DB2BD0/profile",
         "badge": 
             {
                 'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
@@ -615,7 +684,7 @@ Response
             },
         "follow_button": {
             "text": "follow",
-            "action": "/users/1DB2BD0/follow",
+            "action": "/user/1DB2BD0/follow",
             "state": 0
         }
     },
@@ -624,11 +693,11 @@ Response
         "name": "Simon H.",
         "location": "NY, NY",
         "icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/users/FD120BC/profile",
+        "action": "/user/FD120BC/profile",
         "badge": null,
         "follow_button": {
             "text": "follow",
-            "action": "/users/FD120BC/follow",
+            "action": "/user/FD120BC/follow",
             "state": 0
         }
     },
@@ -637,11 +706,11 @@ Response
         "name": "Ashish G.",
         "location": "NY, NY",
         "icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/users/72C9BB/profile",
+        "action": "/user/72C9BB/profile",
         "badge": null,
         "follow_button": {
             "text": "following",
-            "action": "/users/72C9BB/unfollow",
+            "action": "/user/72C9BB/unfollow",
             "state": 1
         }
     },
