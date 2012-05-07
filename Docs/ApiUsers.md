@@ -15,7 +15,7 @@ Response
 		"name": "Blair W.",
         "location": "NY, NY",
 		"icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action" => "/users/1DB2BD0",
+        "action": "/users/1DB2BD0",
 		"badge": 
             {
                 'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
