@@ -3059,5 +3059,30 @@ Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
 
 
 
+### 13.6 User badges
+
+#### Overview
+In many places where there is a user's name, there may be a badge icon next to a users name.  This icon will be specified by the api, but may use a different url depending on the screen.  Previously the GTIOv3 app supported multiple icons.  4.0 will only support 1.
+
+#### Mockups
+
+#### API Usage
+```/User```  each user may contain a badges array
+
+```json
+"user" : {
+   
+   "badge" : {
+      'page_type_1' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+      'page_type_2' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+      'page_type_3' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+   }
+   
+} 
+```
+
+
+#### Stories
+- When a user's name appears in the app and they have a badge, the appropriate badge icon should appear next to their name
 
 

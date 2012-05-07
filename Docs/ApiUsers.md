@@ -59,14 +59,15 @@ Response
 		"is_brand": false,
 		"location": "California",
 		"about_me": "Something",
-		"badges": [
+		"badge": 
 			{
-				"id": 9,
-				"badge_type": 2,
-				"image_url": "http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png",
-				"created_at": 1303243414
-			}
-		],
+				'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+    		},
 		"city": "NY",
 		"state": "NY",
 		"gender": "female",
