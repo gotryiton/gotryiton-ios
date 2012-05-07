@@ -8,7 +8,7 @@ Gets feed of the logged in user.
 - Pages are numbered from 1 and it defaults to the first page if no page is specified.
 - The `change_it` and `wear_it` button keys are absent if voting is disabled.
 
-Following is a sample response for `/posts/feed.json?offset=0&token=foo`.
+Following is a sample response for `/posts/feed.json?offset=3`. The example uses a limit of 3 but on produciton it's set to 20.
 
 	{
 	  "feed": [
