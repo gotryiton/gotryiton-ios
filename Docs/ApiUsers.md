@@ -15,7 +15,7 @@ Response
 		"name": "Blair W.",
         "location": "NY, NY",
 		"icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/users/1DB2BD0",
+        "action": "/users/1DB2BD0/profile",
 		"badge": 
             {
                 'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
@@ -33,7 +33,7 @@ Response
 	}
 }
 ```
-	
+
 ### POST `/users/:id/update`
 
 Update a user. Can send partial data.
@@ -78,6 +78,59 @@ Response
 	}
 }
 ```
+
+
+### GET `/users/:id/profile`
+
+Show one user's profile
+
+Response
+
+```json
+{
+    "user": {
+        "id": "1DB2BD0",
+        "name": "Blair W.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "badge": 
+            {
+                'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+            },
+        "follow_button": {
+            "text": "following",
+            "action": "/users/1DB2BD0/unfollow",
+            "state": 1
+        },
+        'settings_button' : {
+            "follow_button" : {
+                "text": "following",
+                "action": "/users/1DB2BD0/unfollow",
+                "state": 1
+            },
+            "alerts_button" : {
+                "text" : "turn alerts on",
+                "action" : "users/1DB2BD0/following-alerts-on"
+            }
+        }
+        'following_button' : {
+            'count' : 20, 
+            'action' : "/users/1DB2BD0/following"
+        },
+        'followers_button' : {
+            'count' : 25, 
+            'action' : "/users/1DB2BD0/follwers"
+        },
+    }
+}
+```
+
+
 
 ### POST `/users/auth`
 
@@ -352,5 +405,204 @@ Error Response
 ```json
 {
 	"error": "User could not be authenticated with janrain"
+}
+```
+
+
+
+### GET `/users/:id/follow`
+
+Create a following relationship between the requestor and the id'd user
+
+Response
+
+```json
+{
+    "user": {
+        "id": "1DB2BD0",
+        "name": "Blair W.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/users/1DB2BD0/profile",
+        "badge": 
+            {
+                'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+            },
+        "follow_button": {
+            "text": "following",
+            "action": "/users/1DB2BD0/unfollow",
+            "state": 1
+        }
+    }
+}
+```
+
+### GET `/users/:id/unfollow`
+
+Discard a following relationship between the requestor and the id'd user
+
+Response
+
+```json
+{
+    "user": {
+        "id": "1DB2BD0",
+        "name": "Blair W.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/users/1DB2BD0/profile",
+        "badge": 
+            {
+                'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+            },
+        "follow_button": {
+            "text": "follow",
+            "action": "/users/1DB2BD0/follow",
+            "state": 0
+        }
+    }
+}
+```
+
+### GET `/users/:id/following`
+
+Show all users who the id'd user is following. NOTE: the follow_button is contextual to the requestor, not the id'd user.
+
+Response
+
+```json
+{
+    "users": [
+    {
+        "id": "1DB2BD0",
+        "name": "Blair W.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/users/1DB2BD0/profile",
+        "badge": 
+            {
+                'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+            },
+        "follow_button": {
+            "text": "follow",
+            "action": "/users/1DB2BD0/follow",
+            "state": 0
+        }
+    },
+    {
+        "id": "FD120BC",
+        "name": "Simon H.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/users/FD120BC/profile",
+        "badge": null,
+        "follow_button": {
+            "text": "follow",
+            "action": "/users/FD120BC/follow",
+            "state": 0
+        }
+    },
+    {
+        "id": "72C9BB",
+        "name": "Ashish G.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/users/72C9BB/profile",
+        "badge": null,
+        "follow_button": {
+            "text": "following",
+            "action": "/users/72C9BB/unfollow",
+            "state": 1
+        }
+    },
+    ],
+    "ui" : {
+        "title" : "following",
+        "subtitle" : "Blair is following 3 people",
+        "include_filter_search" : true,
+    }
+}
+```
+
+
+### GET `/users/:id/followers`
+
+Show all users who the id'd user is following. NOTE: the follow_button is contextual to the requestor, not the id'd user.
+
+Response
+
+```json
+{
+    "users": [
+    {
+        "id": "1DB2BD0",
+        "name": "Blair W.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/users/1DB2BD0/profile",
+        "badge": 
+            {
+                'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+            },
+        "follow_button": {
+            "text": "follow",
+            "action": "/users/1DB2BD0/follow",
+            "state": 0
+        }
+    },
+    {
+        "id": "FD120BC",
+        "name": "Simon H.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/users/FD120BC/profile",
+        "badge": null,
+        "follow_button": {
+            "text": "follow",
+            "action": "/users/FD120BC/follow",
+            "state": 0
+        }
+    },
+    {
+        "id": "72C9BB",
+        "name": "Ashish G.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/users/72C9BB/profile",
+        "badge": null,
+        "follow_button": {
+            "text": "following",
+            "action": "/users/72C9BB/unfollow",
+            "state": 1
+        }
+    },
+
+    ],
+
+    "ui" : {
+        "title" : "followers",
+        "subtitle" : "you have 3 followers",
+        "include_filter_search" : false,
+    }
 }
 ```
