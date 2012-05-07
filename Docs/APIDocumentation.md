@@ -76,6 +76,18 @@ For requests that require authentication, a token is required to be passed to th
 	
 	$ curl -H "Accept: application/v4-json" gotryiton.com/super_secret_resource?access_token=1234567890"
 
+
+## Tracking
+
+For requests that require tracking, a udid should be passed via a `Tracking-Id` header or as a request parameter named `tracking_id`.
+
+    $ curl -H "Accept: application/v4-json" -H "Tracking-Id: 1234567890" gotryiton.com/tracked_resource
+    
+    or
+    
+    $ curl -H "Accept: application/v4-json" gotryiton.com/tracked_resource?tracking_id=1234567890"
+    
+
 ## Pagination
 
 A response that includes a collection of resources will have the ability to be paginated unless otherwise noted in documentation.
