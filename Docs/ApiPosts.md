@@ -221,4 +221,5 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
     "previous_page": "/posts/feed?offset=0",
     "next_page": "/posts/feed?offset=6"
   }
-}```
+}
+```
