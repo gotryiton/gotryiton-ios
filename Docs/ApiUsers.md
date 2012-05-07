@@ -36,14 +36,19 @@ Response
 
 ### POST `/users/:id/update`
 
-Update a user. Can send partial data.
+Update a user. Can send partial data in the user object.  This api might be used from multiple screens, so a tracking object is also included that sets screen that the api is called from (almost_done, edit_profile, edit_profile_icon) 
 
 Request
 
 ```json
 {
-	"name": "Blair G.",
-	"about_me": "Something"
+	"user" : {
+        "name": "Blair G.",
+        "about_me": "Something"
+    },
+    "tracking" : {
+        "screen" : "almost_done" 
+    }
 } 
 ```
 
