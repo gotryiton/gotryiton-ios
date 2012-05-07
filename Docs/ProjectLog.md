@@ -40,6 +40,11 @@ Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=1
 
 - Future API questions - Ask in email, update functional spec with answer/example 
 
+**Sprint Deliverables**
+
+- Standalone Filter Application
+- Demo build of application with planned features
+
 ---
 
 **Strategy Session 4/30**
