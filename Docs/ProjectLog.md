@@ -1,3 +1,47 @@
+***Iteration 1 Sprint Plan (Monday, May 7th 2012 - Friday May 18th, 2012)***
+
+Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=1&state=open
+
+**Planned Work**
+
+- 39 - Image Filter Standalone Application
+- 40 - 1.1 Splash Screen
+- 41 - 1.2 Intro Screens
+- 42 - Sign in Screen (first use)
+- 43 - Returning Users
+- 45 - Failed Sign in
+- 46 - 1.9 Sign in Screen (second load)
+- 47 - Facebook SSO
+- 48 - 13.1 UITabBar
+- 49 - 13.2 UITabBar Animation
+
+
+**Important Dates / Deadlines**
+
+- Photo Upload Design - Due 5/7
+- Welcome Screen, 13.1, 13.4 - Due 5/7
+- Scott out of office on  - 3/15
+- API Due Dates TBD
+
+**Open Questions**
+
+- When will login screen assets be delievered?
+- When can we expect the following endpoints?
+ - Config
+ - Sign in / sign up
+ - User/Auth
+ - User/Auth/Facebook
+
+**Risks**
+- API Endpoint due dates are unknown
+- Early design deadlines
+
+**General Notes**
+
+- Future API questions - Ask in email, update functional spec with answer/example 
+
+---
+
 **Strategy Session 4/30**
 
 **To Do**
