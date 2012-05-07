@@ -1,3 +1,30 @@
+***Monday, May 7th - Standup Notes***
+
+**Attendees**
+- TT - Matt, Scott
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Wrap up Filter application, Write basic documentation
+- TT - Start working on implementing endpoints as listed in Functional Spec
+- GTIO - Make update tweaks and changes as necessary with Scott
+- GTIO - Update complete design schedule
+- GTIO - Continue to updated API / Functional Spec on features planned in Iteration 1
+- GTIO - Supply Dev/Staging Environment URL, HTTP authrequirements
+
+**Updates to Planned Work**
+- 49 - Animation will implemented as a proof of concept
+
+**Updates to Important Dates / Deadlines**
+- Designs for 13.1, 13.4 will be delivered by EOB 5/7
+- Designs for Splash, Intro screens by EOB 5/8
+- Designs for Sign in, Sign up by EOB 5/11
+
+**General Notes**
+- Endpoints Required for Iteration 1 are already live on Dev
+
+---
+
 ***Iteration 1 Sprint Plan (Monday, May 7th 2012 - Friday May 18th, 2012)***
 
 Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=1&state=open
