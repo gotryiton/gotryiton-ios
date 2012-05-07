@@ -2,53 +2,65 @@
 
 ## Endpoints
 
-### GET  `/posts/feed(/~page/~limit)`
+### GET  `/posts/feed?offset=20`
 Gets feed of the logged in user.
 
-- The maximum limit is 20 and defaults to the same if no limit is specified.
 - Pages are numbered from 1 and it defaults to the first page if no page is specified.
 - The `change_it` and `wear_it` button keys are absent if voting is disabled.
 
-Following is a sample response for `/posts/feed/page/1/limit/1` for user with id 1426.
+Following is a sample response for `/posts/feed.json?offset=0&token=foo`.
 
 	{
 	  "feed": [
 	    {
-	      "id": 1426,
+	      "id": 1423,
 	      "user": {
-	        "id": "DD7CFD2",
-	        "name": "Simon H.",
-	        "location": "Brooklyn, New York",
-	        "user_icon": "http://graph.facebook.com/1702642/picture",
+	        "id": "6654D05",
+	        "name": "gtiotwit2 K.",
+	        "location": "Bk, NY",
+	        "user_icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/6cddd37ef45dc3c73d87dfb7b96de0c3_110_110.jpg",
 	        "badges": [
+	          {
+	            "id": 22,
+	            "badge_type": 1,
+	            "image_urls": {
+	              "default": "http://assets.gotryiton.com/img/badges/1/badge-flat-model.png",
+	              "profile": "http://assets.gotryiton.com/img/badges/1/badge-profile-model.png",
+	              "flat": "http://assets.gotryiton.com/img/badges/1/badge-flat-model.png",
+	              "outfit": "http://assets.gotryiton.com/img/badges/1/badge-outfit-model.png",
+	              "shaded": "http://assets.gotryiton.com/img/badges/1/badge-shaded-model.png",
+	              "small": "http://assets.gotryiton.com/img/badges/1/badge-review-model.png"
+	            },
+	            "created_at": 1327441478
+	          }
 	        ],
-	        "action": "/users/DD7CFD2",
+	        "action": "/users/6654D05",
 	        "following_button": {
 	          "text": "following",
-	          "action": "/users/DD7CFD2/unfollow",
+	          "action": "/users/6654D05/unfollow",
 	          "state": 1
 	        }
 	      },
 	      "reviews": {
-	        "action": "/post/1426/reviews",
-	        "count": "6"
+	        "action": "/post/1423/reviews",
+	        "count": "0"
 	      },
 	      "outfit": {
-	        "description": "Bubba",
-	        "brands_description": "",
-	        "main_image": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/6a69d89150893715f4d7520bc3618df4.jpg",
-	        "square_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/6a69d89150893715f4d7520bc3618df4_110_110.jpg",
-	        "small_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/6a69d89150893715f4d7520bc3618df4_101_131.jpg"
+	        "description": "afdasfdafa",
+	        "brands_description": "2222des",
+	        "main_image": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/187a1c600d9d3e9c537c3bd301eabc04.jpg",
+	        "square_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/187a1c600d9d3e9c537c3bd301eabc04_110_110.jpg",
+	        "small_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/187a1c600d9d3e9c537c3bd301eabc04_101_131.jpg"
 	      },
 	      "brands": [
 	      ],
 	      "heart": {
 	        "state": "0",
-	        "action": "/posts/1426/heart"
+	        "action": "/posts/1423/heart"
 	      },
 	      "hearts": {
 	        "count": "0",
-	        "action": "/posts/1426/hearts"
+	        "action": "/posts/1423/hearts"
 	      },
 	      "users_who_hearted_this": [
 	      ],
@@ -60,17 +72,152 @@ Following is a sample response for `/posts/feed/page/1/limit/1` for user with id
 	        "weart_it": {
 	          "count": 1,
 	          "state": 0,
-	          "action": "/post/1426/vote/wear-it"
+	          "action": "/post/1423/vote/wear-it"
 	        },
 	        "change_it": {
 	          "count": 0,
 	          "state": 0,
-	          "action": "/post/1426/vote/change-it"
+	          "action": "/post/1423/vote/change-it"
 	        }
 	      },
-	      "created_at": 1334616796,
-	      "created_when": "3 weeks ago",
+	      "created_at": 1334245987,
+	      "created_when": "4 weeks ago",
+	      "post_type": "outfit"
+	    },
+	    {
+	      "id": 1421,
+	      "user": {
+	        "id": "6654D05",
+	        "name": "gtiotwit2 K.",
+	        "location": "Bk, NY",
+	        "user_icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/6cddd37ef45dc3c73d87dfb7b96de0c3_110_110.jpg",
+	        "badges": [
+	          {
+	            "id": 22,
+	            "badge_type": 1,
+	            "image_urls": {
+	              "default": "http://assets.gotryiton.com/img/badges/1/badge-flat-model.png",
+	              "profile": "http://assets.gotryiton.com/img/badges/1/badge-profile-model.png",
+	              "flat": "http://assets.gotryiton.com/img/badges/1/badge-flat-model.png",
+	              "outfit": "http://assets.gotryiton.com/img/badges/1/badge-outfit-model.png",
+	              "shaded": "http://assets.gotryiton.com/img/badges/1/badge-shaded-model.png",
+	              "small": "http://assets.gotryiton.com/img/badges/1/badge-review-model.png"
+	            },
+	            "created_at": 1327441478
+	          }
+	        ],
+	        "action": "/users/6654D05",
+	        "following_button": {
+	          "text": "following",
+	          "action": "/users/6654D05/unfollow",
+	          "state": 1
+	        }
+	      },
+	      "reviews": {
+	        "action": "/post/1421/reviews",
+	        "count": "2"
+	      },
+	      "outfit": {
+	        "description": "Bababbaba",
+	        "brands_description": "",
+	        "main_image": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/91d9e0cb6124a70cfcacc7b759fdb5ef.jpg",
+	        "square_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/91d9e0cb6124a70cfcacc7b759fdb5ef_110_110.jpg",
+	        "small_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/91d9e0cb6124a70cfcacc7b759fdb5ef_101_131.jpg"
+	      },
+	      "brands": [
+	      ],
+	      "heart": {
+	        "state": "0",
+	        "action": "/posts/1421/heart"
+	      },
+	      "hearts": {
+	        "count": "0",
+	        "action": "/posts/1421/hearts"
+	      },
+	      "users_who_hearted_this": [
+	      ],
+	      "vote": {
+	        "enabled": true,
+	        "count_votes": 1,
+	        "verdict": true,
+	        "pending": true,
+	        "weart_it": {
+	          "count": 1,
+	          "state": 0,
+	          "action": "/post/1421/vote/wear-it"
+	        },
+	        "change_it": {
+	          "count": 0,
+	          "state": 0,
+	          "action": "/post/1421/vote/change-it"
+	        }
+	      },
+	      "created_at": 1334180149,
+	      "created_when": "4 weeks ago",
+	      "post_type": "outfit"
+	    },
+	    {
+	      "id": 1417,
+	      "user": {
+	        "id": "42BDB51",
+	        "name": "Ashish",
+	        "location": "Manhattan, New York",
+	        "user_icon": "http://graph.facebook.com/538638807/picture",
+	        "badges": [
+	        ],
+	        "action": "/users/42BDB51",
+	        "following_button": {
+	          "text": "following",
+	          "action": "/users/42BDB51/unfollow",
+	          "state": 1
+	        }
+	      },
+	      "reviews": {
+	        "action": "/post/1417/reviews",
+	        "count": "0"
+	      },
+	      "outfit": {
+	        "description": "Blue?",
+	        "brands_description": "",
+	        "main_image": "http://stage.assets.gotryiton.s3.amazonaws.com/img/removed/removed_420_560.png",
+	        "square_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/img/removed/removed_110_110.png",
+	        "small_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/img/removed/removed_101_131.png"
+	      },
+	      "brands": [
+	      ],
+	      "heart": {
+	        "state": "0",
+	        "action": "/posts/1417/heart"
+	      },
+	      "hearts": {
+	        "count": "0",
+	        "action": "/posts/1417/hearts"
+	      },
+	      "users_who_hearted_this": [
+	      ],
+	      "vote": {
+	        "enabled": true,
+	        "count_votes": 0,
+	        "verdict": true,
+	        "pending": true,
+	        "weart_it": {
+	          "count": 0,
+	          "state": 0,
+	          "action": "/post/1417/vote/wear-it"
+	        },
+	        "change_it": {
+	          "count": 0,
+	          "state": 0,
+	          "action": "/post/1417/vote/change-it"
+	        }
+	      },
+	      "created_at": 1333724425,
+	      "created_when": "a month ago",
 	      "post_type": "outfit"
 	    }
-	  ]
+	  ],
+	  "pagination": {
+	    "previous_page": "/posts/feed?offset=0",
+	    "next_page": "/posts/feed?offset=6"
+	  }
 	}
