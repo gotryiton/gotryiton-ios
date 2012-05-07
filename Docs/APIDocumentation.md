@@ -156,3 +156,25 @@ Only page:
     }
 }
 ```
+
+
+## Domains
+
+Request domains should map to build targets as follows:
+
+**dev:**
+
+    gtio-dev.gotryiton.com
+
+**staging:**
+
+    stage.gotryiton.com
+
+**production:**
+
+    gotryiton.com
+
+dev and staging domains require http basic authentication:
+
+    user: tt
+    password: toast
