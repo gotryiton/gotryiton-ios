@@ -188,8 +188,16 @@ Error Response
 
 ```json
 {
-	"error": "User could not be authenticated"
-}
+   error : {
+
+      status : "error",
+
+      message : "We couldnt log you in for some reason",
+
+      title : "GO TRY IT ON"
+
+   }
+} 
 ```
 
 ### POST `/users/auth/facebook`
@@ -240,9 +248,18 @@ Error Response
 
 ```json
 {
-	"error": "User could not be authenticated with facebook"
-}
+   error : {
+
+      status : "error",
+
+      message : "We couldnt log you in via Facebook for some reason",
+
+      title : "GO TRY IT ON"
+
+   }
+} 
 ```
+
 
 ### POST `/users/auth/janrain`
 
@@ -290,10 +307,19 @@ Response
 
 Error Response
 
+
 ```json
 {
-	"error": "User could not be authenticated with janrain"
-}
+   error : {
+
+      status : "error",
+
+      message : "We couldnt log you in for some reason",
+
+      title : "GO TRY IT ON"
+
+   }
+} 
 ```
 
 
@@ -346,10 +372,19 @@ Response
 
 Error Response
 
+
 ```json
 {
-	"error": "User could not be authenticated with facebook"
-}
+   error : {
+
+      status : "error",
+
+      message : "We couldnt log you in via Facebook for some reason",
+
+      title : "GO TRY IT ON"
+
+   }
+} 
 ```
 
 
@@ -402,10 +437,19 @@ Response
 
 Error Response
 
+
 ```json
 {
-	"error": "User could not be authenticated with janrain"
-}
+   error : {
+
+      status : "error",
+
+      message : "We couldnt log you in for some reason",
+
+      title : "GO TRY IT ON"
+
+   }
+} 
 ```
 
 
