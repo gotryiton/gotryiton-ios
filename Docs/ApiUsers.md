@@ -13,24 +13,23 @@ Response
 	"user": {
 		"id": "1DB2BD0",
 		"name": "Blair W.",
-		"born_in": 1984,
-		"is_brand": false,
-		"location": "NY, NY",
-		"about_me": "Upper east side girl",
-		"badges": [
-			{
-				"id": 9,
-				"badge_type": 2,
-				"image_url": "http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png",
-				"created_at": 1303243414
-			}
-		],
-		"city": "NY",
-		"state": "NY",
-		"gender": "female",
-		"service": "Twitter",
-		"auth": false,
-		"is_new_user": false
+        "location": "NY, NY",
+		"icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action" => "/users/1DB2BD0",
+		"badge": 
+            {
+                'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+            },
+        "follow_button": {
+            "text": "following",
+            "action": "/users/E54E869/unfollow",
+            "state": 1
+        }
 	}
 }
 ```
@@ -55,6 +54,7 @@ Response
 	"user": {
 		"id": "1DB2BD0",
 		"name": "Blair G.",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
 		"born_in": 1984,
 		"is_brand": false,
 		"location": "California",
@@ -73,7 +73,8 @@ Response
 		"gender": "female",
 		"service": "Twitter",
 		"auth": false,
-		"is_new_user": false
+		"is_new_user": false,
+        "has_complete_profile" : true
 	}
 }
 ```
@@ -106,8 +107,8 @@ Response
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
         "born_in": 1984,
-        "is_brand": false,
         "location": "NY, NY",
         "about_me": "Upper east side girl",
         "badge": 
@@ -124,7 +125,8 @@ Response
         "gender": "female",
         "service": "Twitter",
         "auth": true,
-        "is_new_user": false
+        "is_new_user": false,
+        "has_complete_profile" : true
     }
 }
 ```
@@ -157,8 +159,8 @@ Response
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
         "born_in": 1984,
-        "is_brand": false,
         "location": "NY, NY",
         "about_me": "Upper east side girl",
         "badge": 
@@ -175,7 +177,8 @@ Response
         "gender": "female",
         "service": "Facebook",
         "auth": true,
-        "is_new_user": false
+        "is_new_user": false,
+        "has_complete_profile" : true
     }
 }
 ```
@@ -208,8 +211,8 @@ Response
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
         "born_in": 1984,
-        "is_brand": false,
         "location": "NY, NY",
         "about_me": "Upper east side girl",
         "badge": 
@@ -226,7 +229,8 @@ Response
         "gender": "female",
         "service": "Twitter",
         "auth": true,
-        "is_new_user": false
+        "is_new_user": false,
+        "has_complete_profile" : true
     }
 }
 ```
@@ -260,8 +264,8 @@ Response
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
         "born_in": 1984,
-        "is_brand": false,
         "location": "NY, NY",
         "about_me": "Upper east side girl",
         "badge": 
@@ -278,7 +282,8 @@ Response
         "gender": "female",
         "service": "Facebook",
         "auth": true,
-        "is_new_user": true
+        "is_new_user": true,
+        "has_complete_profile" : true
     }
 }
 ```
@@ -315,8 +320,8 @@ Response
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
         "born_in": 1984,
-        "is_brand": false,
         "location": "NY, NY",
         "about_me": "Upper east side girl",
         "badge": 
@@ -333,7 +338,8 @@ Response
         "gender": "female",
         "service": "Twitter",
         "auth": true,
-        "is_new_user": true
+        "is_new_user": true,
+        "has_complete_profile" : true
     }
 }
 ```
