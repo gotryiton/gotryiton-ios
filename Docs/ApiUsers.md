@@ -345,54 +345,55 @@ Error Response
 ### GET `/users/:id/icons`
 Respondes with a user object, Facebook icon and 20 recent outfit icons, each in their own respective keys.
 
-	{
-	  "user": {
-	    "id": "7178E1D",
-	    "name": "Scott B.",
-	    "location": "NY, New York",
-	    "icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/7f7d77f56c9223755d82be0aa3bf54d0_110_110.jpg",
-	    "action": "/users/7178E1D",
-	    "follow_button": {
-	      "text": "follow",
-	      "action": "/users/7178E1D/follow",
-	      "state": 0
-	    }
-	  },
-	  "facebook_icon": {
-	    "url": "http://graph.facebook.com/1240629055/picture",
-	    "width": 50,
-	    "height": 50
-	  },
-	  "outfit_icons": [
-	    {
-	      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/3acb06d6c75c5cd709a51055c2ff0d26_110_110.jpg",
-	      "width": 110,
-	      "height": 110
-	    },
-	    {
-	      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/7f7d77f56c9223755d82be0aa3bf54d0_110_110.jpg",
-	      "width": 110,
-	      "height": 110
-	    },
-	    {
-	      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/589d8ec3ef179acafda2954a0c7fdaea_110_110.jpg",
-	      "width": 110,
-	      "height": 110
-	    },
-	    {
-	      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/a096c7c7f78435bc14c6346cc25ef452_110_110.jpg",
-	      "width": 110,
-	      "height": 110
-	    },
-	    {
-	      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/0ab9dbcc93ed489c49cab5d7e2b5763a_110_110.jpg",
-	      "width": 110,
-	      "height": 110
-	    },
-	    {
-	      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/a8f2fd1116cf7fca5d8a590726773978_110_110.jpg",
-	      "width": 110,
-	      "height": 110
-	    }
-	  ]
-	}
+```json
+{
+  "user": {
+    "id": "7178E1D",
+    "name": "Scott B.",
+    "location": "NY, New York",
+    "icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/7f7d77f56c9223755d82be0aa3bf54d0_110_110.jpg",
+    "action": "/users/7178E1D",
+    "follow_button": {
+      "text": "follow",
+      "action": "/users/7178E1D/follow",
+      "state": 0
+    }
+  },
+  "facebook_icon": {
+    "url": "http://graph.facebook.com/1240629055/picture",
+    "width": 50,
+    "height": 50
+  },
+  "outfit_icons": [
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/3acb06d6c75c5cd709a51055c2ff0d26_110_110.jpg",
+      "width": 110,
+      "height": 110
+    },
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/7f7d77f56c9223755d82be0aa3bf54d0_110_110.jpg",
+      "width": 110,
+      "height": 110
+    },
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/589d8ec3ef179acafda2954a0c7fdaea_110_110.jpg",
+      "width": 110,
+      "height": 110
+    },
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/a096c7c7f78435bc14c6346cc25ef452_110_110.jpg",
+      "width": 110,
+      "height": 110
+    },
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/0ab9dbcc93ed489c49cab5d7e2b5763a_110_110.jpg",
+      "width": 110,
+      "height": 110
+    },
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/a8f2fd1116cf7fca5d8a590726773978_110_110.jpg",
+      "width": 110,
+      "height": 110
+    }
+  ]
+}```
