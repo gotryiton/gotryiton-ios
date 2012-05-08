@@ -3019,6 +3019,8 @@ In many places where there is a user's name, there is a follow button.  This but
       - 0: off (file: follow-OFF.png, button color: peach)
       - 1: on (file: following-OFF.png, button color: green)
       - 2: requested (file: requested-OFF.png, button color: gray)
+   - after a button is tapped, the button is replaced with a standard spinner @24px high in light gray, centered where the butotn used to be.
+      - when the api request has completed, the spinner is replaced with the new follow_button returned by the api response
 - When a user sees their own name, the follow button will not be visible
    - User objects do not contain follow_button of the user who made the request
 - When a user taps on the button and it takes an action, the button updates
