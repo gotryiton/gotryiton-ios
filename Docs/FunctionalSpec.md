@@ -3031,7 +3031,7 @@ In many places where there is a user's name, there is a follow button.  This but
    - TBD pending completion of list designs
 - Buttons
    - Assets use naming convention 'following-OFF.png'
-      - states indicated in file name are 'follow' (peach), 'following' (green), 'requested' (white)
+      - states indicated in file name are 'follow' (medium green), 'following' (light green), 'requested' (white)
       - 'OFF' or 'ON' indicates if user is seeing ON or OFF state
 - Text
    - 11pt (@2x)
