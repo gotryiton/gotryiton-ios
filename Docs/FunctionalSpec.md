@@ -2993,10 +2993,10 @@ In many places where there is a user's name, there is a follow button.  This but
 ```json
 "user" : {
    
-   "following_button" : {
-      "text" : "string for content of button",
+   "follow_button" : {
+      "text" : "follow",
 
-      "action" : "api/path/to/hit",
+      "action" : "/user/:id/follow",
 
       "state" : 1,
 
@@ -3014,13 +3014,13 @@ In many places where there is a user's name, there is a follow button.  This but
       - button text: follow
       - action: defined by api
    - the button may have no action associated 
-      - follow button shows 'pending' if the request to follow is pending
+      - follow button shows 'requested' if the request to follow is pending
    - the button's color/state will be defined by the api ```state``` attribute
-      - 0: off (not yet following)
-      - 1: on (currently following)
-      - 2: requested (button inactive, follow requested)
+      - 0: off (file: follow-OFF.png, button color: peach)
+      - 1: on (file: following-OFF.png, button color: green)
+      - 2: requested (file: requested-OFF.png, button color: gray)
 - When a user sees their own name, the follow button will not be visible
-   - User objects do not contain following_button of the user who made the request
+   - User objects do not contain follow_button of the user who made the request
 - When a user taps on the button and it takes an action, the button updates
    - upon **successful** api response, update the button
 
