@@ -2910,6 +2910,9 @@ None.
       - maintains your selected tab
       - brings you to the landing page of that tab
 
+#### Design Assets
+- 'UI-Tab-BG.png' is the tab bar background
+
 
 ### 13.2 UITabbar Shopping list animation  
 
@@ -2928,7 +2931,6 @@ None.
 - When a user is not on the 4th tab and they trigger an action to increment the Shopping list count, they should see an animation
    - when shopping list count is incremented
    - display animation over 4th tab (view 13.1)
-
 
 
 
