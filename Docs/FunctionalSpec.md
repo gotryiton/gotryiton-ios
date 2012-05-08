@@ -161,6 +161,10 @@ reponse:
    - if a user is upgrading from 3.0 they should be treated as a brand new logged out user
    - if a user is upgrading from 4.0 to 4.x they should be treated as an existing user and logged in (skip intro screens)
 
+#### Graphical Assets / Usage
+- Background
+   - 'Splash.png'
+   - Top of image should be visible via UIStatusBarStyleBlackTranslucent 
 
 ### 1.2 Intro screens 
 
@@ -198,6 +202,24 @@ A uiPageControl should be used to introduce new users to screens of the app
   - uiPageControl dots represent flow through intro screens 
   - last **swipe** OR last next **tap** ==> sign in screen (view 1.3)
       - last dot in uiPageControl represents sign in screen (view 1.3)
+
+#### Graphical Assets / Usage
+- Control Bar
+   - background
+      - 'intro-bar-bg.png'
+      - placed flush with bottom of screen
+   - buttons
+      - left button is 'intro-bar-sign-in...png'
+      - right button is 'intro-bar-next...png'
+      - assets include ON and OFF states
+      - placed 6px from left edge (sign in), right edge (next), bottom edge (sign in / next) of screen
+   - page controls
+      - if customizable, ON is selected page, OFF asset is unselected
+      - if not customizable, Matt may provide alternate background image which simulates white halo around dots
+      - if customizable, placement:
+         - bottom edge of custom dot asset is 16px up from bottom edge of screen
+         - allow 5px margin between custom dot assets
+         - horizontally center the group of dots together
 
 
 
