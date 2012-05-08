@@ -1,3 +1,29 @@
+***Tuesday, May 8th - Standup Notes***
+
+**Attendees**
+- TT - Matt, Scott
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Review Filter Standalone app and provide feedback
+- TT - Create directory for cut assets.  GTIO to use new directory for designs going forward
+- TT - Continue testing custom fonts / Dynamic multiline.  Provide screenshots to showcase spacing
+- TT/GTIO - debug code signing error on filter app
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Assets for 1.1, 1.2 on 5/9
+
+**General Notes**
+- Buttons delivered for UITab Bar
+- Photo Upload mockups near complete, assets have not been cut.  Work will be continued on during the next iteration based on design priority
+- Design specifications in functional spec is perfect.  Please continue to do this!
+ - Add additional detail to distinguish between 1x and 2x
+
+---
+
 ***Monday, May 7th - Standup Notes***
 
 **Attendees**
