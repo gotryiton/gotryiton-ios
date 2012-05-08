@@ -8,15 +8,35 @@
 
 #import "GTIOAppDelegate.h"
 
+#import "GTIOFeedViewController.h"
+#import "GTIOExploreLooksViewController.h"
+
+@interface GTIOAppDelegate ()
+
+@property (nonatomic, strong) UITabBarController *tabBarController;
+
+@end
+
 @implementation GTIOAppDelegate
 
 @synthesize window = _window;
+@synthesize tabBarController = _tabBarController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
+    
+    
+    // Display UI
     self.window.backgroundColor = [UIColor whiteColor];
+    self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects:
+                                [[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil],
+                                [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
+                                nil];
+    [self.tabBarController setViewControllers:viewControllers];
+    [self.window setRootViewController:self.tabBarController];
     [self.window makeKeyAndVisible];
     return YES;
 }
