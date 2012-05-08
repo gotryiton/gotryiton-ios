@@ -2896,7 +2896,6 @@ None.
 
 #### Stories
 - A user can switch between tabs of the app
-   - matt to define visual display
    - 5 tabs
       - 1st tab starts on (view 8.1)
       - 2nd tab starts on (view 9.1)
@@ -2910,8 +2909,15 @@ None.
       - maintains your selected tab
       - brings you to the landing page of that tab
 
-#### Design Assets
-- 'UI-Tab-BG.png' is the tab bar background
+#### Graphical Assets / Usage
+- Background
+   - 'UI-Tab-BG.png'
+   - Should be slightly transparent
+- Icons
+   - Assets use naming convention 'UI-Tab-1-OFF.png'
+      - '1' is the tab number
+      - 'OFF' or 'ON' indicates if user is seeing ON or OFF state
+   - Assets are 128px wide (@2x), should be placed edge to edge horizontally and flush with bottom edge of screen.
 
 
 ### 13.2 UITabbar Shopping list animation  
@@ -3013,6 +3019,20 @@ In many places where there is a user's name, there is a follow button.  This but
    - User objects do not contain following_button of the user who made the request
 - When a user taps on the button and it takes an action, the button updates
    - upon **successful** api response, update the button
+
+#### Graphical Assets / Usage
+- Button placement
+   - TBD pending completion of list designs
+- Buttons
+   - Assets use naming convention 'following-OFF.png'
+      - states indicated in file name are 'follow' (peach), 'following' (green), 'requested' (white)
+      - 'OFF' or 'ON' indicates if user is seeing ON or OFF state
+- Text
+   - 11pt (@2x)
+   - Proxima Nova (Regular weight)
+   - #555556
+   - Centered within button width (140px @2x)
+   - Baseline of text should be 10px higher than bottom edge of button
 
 
 ### 13.5 Authentication  
