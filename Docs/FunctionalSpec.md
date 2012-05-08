@@ -2948,12 +2948,13 @@ The app has a universal UITabBar that allows the user to move from tab to tab
 #### Mockups
 see (view 8.1), (view 9.1), (view 12.1), (view 10.1), (view 7.1)
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.1.ui-tab.png" width=420px/>
+
 #### API Usage
 None.
 
 #### Stories
 - A user can switch between tabs of the app
-   - matt to define visual display
    - 5 tabs
       - 1st tab starts on (view 8.1)
       - 2nd tab starts on (view 9.1)
@@ -2966,6 +2967,16 @@ None.
    - if a user returns to the app after >24 hours of inactivity
       - maintains your selected tab
       - brings you to the landing page of that tab
+
+#### Graphical Assets / Usage
+- Background
+   - 'UI-Tab-BG.png'
+   - Should be slightly transparent
+- Icons
+   - Assets use naming convention 'UI-Tab-1-OFF.png'
+      - '1' is the tab number
+      - 'OFF' or 'ON' indicates if user is seeing ON or OFF state
+   - Assets are 128px wide (@2x), should be placed edge to edge horizontally and flush with bottom edge of screen.
 
 
 ### 13.2 UITabbar Shopping list animation  
@@ -2985,7 +2996,6 @@ None.
 - When a user is not on the 4th tab and they trigger an action to increment the Shopping list count, they should see an animation
    - when shopping list count is incremented
    - display animation over 4th tab (view 13.1)
-
 
 
 
@@ -3032,16 +3042,18 @@ In many places where there is a user's name, there is a follow button.  This but
 
 #### Mockups
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.4.following-buttons.png" width=420px/>
+
 #### API Usage
 ```/User```  each user may contain a following_button object
 
 ```json
 "user" : {
    
-   "following_button" : {
-      "text" : "string for content of button",
+   "follow_button" : {
+      "text" : "follow",
 
-      "action" : "api/path/to/hit",
+      "action" : "/user/:id/follow",
 
       "state" : 1,
 
@@ -3059,15 +3071,31 @@ In many places where there is a user's name, there is a follow button.  This but
       - button text: follow
       - action: defined by api
    - the button may have no action associated 
-      - follow button shows 'pending' if the request to follow is pending
+      - follow button shows 'requested' if the request to follow is pending
    - the button's color/state will be defined by the api ```state``` attribute
-      - 0: off (not yet following)
-      - 1: on (currently following)
-      - 2: requested (button inactive, follow requested)
+      - 0: off (file: follow-OFF.png, button color: peach)
+      - 1: on (file: following-OFF.png, button color: green)
+      - 2: requested (file: requested-OFF.png, button color: gray)
+   - after a button is tapped, the button is replaced with a standard spinner @24px high in light gray, centered where the butotn used to be.
+      - when the api request has completed, the spinner is replaced with the new follow_button returned by the api response
 - When a user sees their own name, the follow button will not be visible
-   - User objects do not contain following_button of the user who made the request
+   - User objects do not contain follow_button of the user who made the request
 - When a user taps on the button and it takes an action, the button updates
    - upon **successful** api response, update the button
+
+#### Graphical Assets / Usage
+- Button placement
+   - TBD pending completion of list designs
+- Buttons
+   - Assets use naming convention 'following-OFF.png'
+      - states indicated in file name are 'follow' (medium green), 'following' (light green), 'requested' (white)
+      - 'OFF' or 'ON' indicates if user is seeing ON or OFF state
+- Text
+   - 11pt (@2x)
+   - Proxima Nova (Regular weight)
+   - #555556
+   - Centered within button width (140px @2x)
+   - Baseline of text should be 10px higher than bottom edge of button
 
 
 ### 13.5 Authentication  
