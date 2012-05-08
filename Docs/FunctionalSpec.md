@@ -2891,6 +2891,8 @@ The app has a universal UITabBar that allows the user to move from tab to tab
 #### Mockups
 see (view 8.1), (view 9.1), (view 12.1), (view 10.1), (view 7.1)
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.1.ui-tab.png" width=420px/>
+
 #### API Usage
 None.
 
@@ -2982,6 +2984,8 @@ An error response from the gtio api will look like this:
 In many places where there is a user's name, there is a follow button.  This button can have many states
 
 #### Mockups
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.4.following-buttons.png" width=420px/>
 
 #### API Usage
 ```/User```  each user may contain a following_button object
