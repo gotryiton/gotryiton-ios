@@ -15,12 +15,18 @@ Response
             {
                 'image_url' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
                 'id' : 'app_intro_1',
-                'track' : "/track/app-intro/1"
+                'track' : {
+                  "id" : "app-intro",
+                  "page_number" : 1
+                }
             },
             {
                 'image_url' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
                 'id' : 'app_intro_2',
-                'track' : "/track/app-intro/2"
+                'track' : {
+                  "id" : "app-intro",
+                  "page_number" : 2
+                }
             },
         ]
 	}

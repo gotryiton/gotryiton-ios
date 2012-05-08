@@ -2,9 +2,9 @@
 
 ##Endpoints
 
-### GET `/track/:event_id`
+### POST `/track/`
 
-Track an event with :event_id
+Track an event 
 
 Request
 
@@ -13,6 +13,10 @@ Pass 'Authentication' header if a token is available.  Pass 'Tracking-Id' header
 
 ```json
 {
+  "track" : {
+
+    "id" : "id_of_event",
+
     "visit" : {
       "latitude" : 40.720577,
       "longitude" : -74.000478,
@@ -21,15 +25,22 @@ Pass 'Authentication' header if a token is available.  Pass 'Tracking-Id' header
       "ios_ip" : "1.0.0.10",
       "build_version" : 4.0.0,
     } 
+  }
 }
 ```
 
 
 Response
 
+Api responds with the id that was tracked and the visitor tracking id of the visitor that was tracked
+
 ```json
 {
-	"event": ":event_id"
-    "id" : 123454321
+	"track": {
+    "id" : "id_of_event"
+    "visit" {
+       "id" : 123454321 
+    }
+  }
 }
 ```
