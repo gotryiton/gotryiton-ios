@@ -115,7 +115,7 @@ static image used while app is loading
 #### Mockups
 1.1 Splash ([wireframe](http://invis.io/PC2NYJUX))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.1.Splash.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.1.Splash.png" width=420px/>
 
 #### User flow
 **entry screens:**    
@@ -174,11 +174,11 @@ A uiPageControl should be used to introduce new users to screens of the app
 #### Mockups
 1.2 Intros ([wireframe](http://invis.io/QS2OBFDF)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.2.Intro.1.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.2.0.Intro.Screen.png" width=420px>
 
 1.2.1 Intro screen 2 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.2.Intro.2.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.2.1.Intro.Screen.2.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -214,6 +214,7 @@ A uiPageControl should be used to introduce new users to screens of the app
       - assets include ON and OFF states
       - placed 6px from left edge (sign in), right edge (next), bottom edge (sign in / next) of screen
    - page controls
+      - 'intro-bar-page-OFF.png' and 'intro-bar-page-ON.png'
       - if customizable, ON is selected page, OFF asset is unselected
       - if not customizable, Matt may provide alternate background image which simulates white halo around dots
       - if customizable, placement:
