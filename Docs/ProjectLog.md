@@ -1,3 +1,24 @@
+***Wednesday, May 9th - Standup Notes***
+
+**Attendees**
+- TT - Matt, Scott
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Review Filter application after today's standup
+- TT - Scott to research possibilities around prompting for location a second time after a user denies access
+- GTIO - Add mockups for 1.1 and 1.2 to Functional Spec
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- 
+**General Notes**
+- is it possible to reask for location permission after a user denies access?
+
+---
+
 ***Tuesday, May 8th - Standup Notes***
 
 **Attendees**
