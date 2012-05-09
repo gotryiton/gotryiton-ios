@@ -1,18 +1,18 @@
 //
-//  GTIOExploreLooksViewController.m
+//  GTIOCameraViewController.m
 //  GTIO
 //
-//  Created by Scott Penrose on 5/8/12.
+//  Created by Scott Penrose on 5/9/12.
 //  Copyright (c) 2012 . All rights reserved.
 //
 
-#import "GTIOExploreLooksViewController.h"
+#import "GTIOCameraViewController.h"
 
-@interface GTIOExploreLooksViewController ()
+@interface GTIOCameraViewController ()
 
 @end
 
-@implementation GTIOExploreLooksViewController
+@implementation GTIOCameraViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,7 +27,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.view setBackgroundColor:[UIColor grayColor]];
 }
 
 - (void)viewDidUnload
