@@ -13,7 +13,8 @@
 - NA
 
 **Updates to Important Dates / Deadlines**
-- 
+- NA
+
 **General Notes**
 - is it possible to reask for location permission after a user denies access?
 
