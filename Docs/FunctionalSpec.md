@@ -115,7 +115,7 @@ static image used while app is loading
 #### Mockups
 1.1 Splash ([wireframe](http://invis.io/PC2NYJUX))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.1.Splash.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.1.Splash.png" width=420px/>
 
 #### User flow
 **entry screens:**    
@@ -218,6 +218,10 @@ response:
    - if a user is upgrading from 3.0 they should be treated as a brand new logged out user (their gtioToken from GTIOv3 should be ignored)
    - if a user is upgrading from 4.0 to 4.x they should be treated as an existing user if they have a token
 
+#### Graphical Assets / Usage
+- Background
+   - 'Splash.png'
+   - Top of image should be visible via UIStatusBarStyleBlackTranslucent 
 
 ### 1.2 Intro screens 
 
@@ -227,11 +231,11 @@ A uiPageControl should be used to introduce new users to screens of the app
 #### Mockups
 1.2 Intros ([wireframe](http://invis.io/QS2OBFDF)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.2.Intro.1.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.2.0.Intro.Screen.png" width=420px>
 
 1.2.1 Intro screen 2 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.2.Intro.2.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.2.1.Intro.Screen.2.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -255,6 +259,25 @@ A uiPageControl should be used to introduce new users to screens of the app
       - last dot in uiPageControl represents sign in screen (view 1.3)
   - when image is first viewed by a user, an api request to the ```track``` endpoint should be triggered (based on ```track``` endpoint attribute in the ```intro_screen``` object)
      - subsequent swipes back and forth to the intro screens can be ignored
+
+#### Graphical Assets / Usage
+- Control Bar
+   - background
+      - 'intro-bar-bg.png'
+      - placed flush with bottom of screen
+   - buttons
+      - left button is 'intro-bar-sign-in...png'
+      - right button is 'intro-bar-next...png'
+      - assets include ON and OFF states
+      - placed 6px from left edge (sign in), right edge (next), bottom edge (sign in / next) of screen
+   - page controls
+      - 'intro-bar-page-OFF.png' and 'intro-bar-page-ON.png'
+      - if customizable, ON is selected page, OFF asset is unselected
+      - if not customizable, Matt may provide alternate background image which simulates white halo around dots
+      - if customizable, placement:
+         - bottom edge of custom dot asset is 16px up from bottom edge of screen
+         - allow 5px margin between custom dot assets
+         - horizontally center the group of dots together
 
 
 
