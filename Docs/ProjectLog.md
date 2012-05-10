@@ -1,3 +1,28 @@
+***Thursday, May 10th - Standup Notes***
+
+**Attendees**
+- TT - Matt, Scott
+- GTIO - Simon, MAtt
+
+**Tasks / To Do List**
+- TT - Inform Simon one JSON content is posted
+- GTIO - Prepare delivery of Edit Profile assets
+- TT - Look into Slider implementation options (Matt.gtio's email)
+- GTIO - Push changes to filters to branch.
+- TT - Work on filter optimization
+
+**Updates to Planned Work**
+- Hit Track API in background after Config and user/me
+- Additional work on Filters - Optimization 
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Wednesday, May 9th - Standup Notes***
 
 **Attendees**
