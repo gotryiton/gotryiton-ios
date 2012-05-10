@@ -369,11 +369,11 @@ When a new user signs up, the app confirms they have a complete GTIO profile
 
 1.7 Almost done ([wireframe](http://invis.io/XB2OBL7A)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.7.Almost.Done.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.7.Almost.Done.png" width=420px>
 
 1.7 Scrolled
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.7.Almost.Done.Scrolled.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.7.Almost.Done.Scrolled.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -405,7 +405,25 @@ When a new user signs up, the app confirms they have a complete GTIO profile
 - A user can go through each entry quickly
    - keyboard has a 'next' button on each entry until the last, which says 'done'
 
-
+#### Design Stories
+- Will provide green 'save' button background along with Notifications/Nav Bar final assets (2.1/2.2)
+- List tables/cells
+   - Cell dividers and outside stroke should be #e2e1db
+   - Profile picture
+      - displayed at 55px x 55px
+      - overlaid by 'icon-mask-110.png'
+      - Profile picture and overlay should have 13px of top, bottom, and left side padding inside table cell
+   - "edit profile picture?" text
+      - 7pt Proxima Nova Semibold #8f8f8f
+      - 10px away from right edge of profile picture
+      - vertically centered inside table cell
+   - text for field labels
+      - 7pt Proxima Nova Semibold #8f8f8f
+      - mandatory field labels (name, email, gender) - 7pt Proxima Nova Semibold #ff6a72
+   - example input text
+      - 7pt Proxima Nova Light Italic #a4a4a4
+   - text prompting picker controls (select, select year)
+      - 7pt Proxima Nova Semibold #8f8f8f
 
 ### 1.8 Quick add  
 
@@ -1871,11 +1889,11 @@ A logged in user can edit their profile
 #### Mockups
 7.4 ([wireframe](http://invis.io/VY2OD0HD))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.4.Edit.Profile.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.4.Edit.Profile.png" width=420px/>
 
 7.4 scrolled 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.4.Edit.Profile.Scrolled.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.4.Edit.Profile.Scrolled.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1899,6 +1917,24 @@ previous screen
          - **error** ==> dialog message
 
 
+#### Design Stories
+- List tables/cells
+   - Cell dividers and outside stroke should be #e2e1db
+   - Profile picture
+      - displayed at 55px x 55px
+      - overlaid by 'icon-mask-110.png' (asset delivered for 1.7 - Almost Done)
+      - Profile picture and overlay should have 13px of top, bottom, and left side padding inside table cell
+   - "edit profile picture?" text
+      - 7pt Proxima Nova Semibold #8f8f8f
+      - 10px away from right edge of profile picture
+      - vertically centered inside table cell
+   - text for field labels
+      - 7pt Proxima Nova Semibold #8f8f8f
+      - mandatory field labels (name, email, gender) - 7pt Proxima Nova Semibold #ff6a72
+   - example input text
+      - 7pt Proxima Nova Light Italic #a4a4a4
+   - text prompting picker controls (select, select year)
+      - 7pt Proxima Nova Semibold #8f8f8f
 
 
 ### 7.5 My hearts  
