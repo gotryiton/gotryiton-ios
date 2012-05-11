@@ -7,6 +7,7 @@
 //
 
 #import "GTIOTests.h"
+#import "GTIOVisit.h"
 
 @implementation GTIOTests
 
@@ -26,7 +27,7 @@
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in GTIOTests");
+    GTIOVisit *visit = [GTIOVisit visit];
 }
 
 @end

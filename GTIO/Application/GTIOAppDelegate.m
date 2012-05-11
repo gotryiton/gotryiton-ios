@@ -6,9 +6,11 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
+#import <RestKit/RestKit.h>
 
 #import "GTIOAppDelegate.h"
+
+#import "GTIOSplashViewController.h"
 
 #import "GTIOFeedViewController.h"
 #import "GTIOExploreLooksViewController.h"
@@ -16,16 +18,23 @@
 #import "GTIOShopViewController.h"
 #import "GTIOMeViewController.h"
 
-#import "TTTAttributedLabel.h"
+#import "GTIOAppearance.h"
+#import "GTIOMappingProvider.h"
+
+#import "GTIOTrack.h"
 
 @interface GTIOAppDelegate ()
 
-@property (nonatomic, strong) UITabBarController *tabBarController;
+@property (nonatomic, strong) GTIOSplashViewController *splashViewController;
+
 @property (nonatomic, strong) UIImageView *tab1ImageView;
 @property (nonatomic, strong) UIImageView *tab2ImageView;
 @property (nonatomic, strong) UIImageView *tab3ImageView;
 @property (nonatomic, strong) UIImageView *tab4ImageView;
 @property (nonatomic, strong) UIImageView *tab5ImageView;
+
+- (void)setupTabBar;
+- (void)setupRestKit;
 
 @end
 
@@ -33,33 +42,29 @@
 
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
+@synthesize splashViewController = _splashViewController;
 @synthesize tab1ImageView = _tab1ImageView, tab2ImageView = _tab2ImageView, tab3ImageView = _tab3ImageView, tab4ImageView = _tab4ImageView, tab5ImageView = _tab5ImageView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    // List all fonts on iPhone
+    [self listAllFonts];
+    
+    // Appearance setup
+    GTIOAppearance *appearance __attribute__((unused)) = [[GTIOAppearance alloc] init];
+    
     // Customize Tab bar
     [self setupTabBar];
     
-    // List all fonts on iPhone
-//    NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
-//    NSArray *fontNames;
-//    NSInteger indFamily, indFont;
-//    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
-//    {
-//        NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
-//        fontNames = [[NSArray alloc] initWithArray:[UIFont fontNamesForFamilyName:[familyNames objectAtIndex:indFamily]]];
-//        for (indFont=0; indFont<[fontNames count]; ++indFont)
-//        {
-//            NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
-//        }
-//    }
-
-    [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"UI-Tab-BG.png"]];
-    [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"ui.empty.pixel.png"]];
+    // RestKit
+    [self setupRestKit];
     
-    [self.window setRootViewController:self.tabBarController];
+    
+//    [self.window setRootViewController:self.tabBarController];
+    self.splashViewController = [[GTIOSplashViewController alloc] initWithNibName:nil bundle:nil];
+    [self.window setRootViewController:self.splashViewController];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -91,7 +96,56 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - FontHelper
+
+- (void)listAllFonts
+{
+    NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
+    NSArray *fontNames;
+    NSInteger indFamily, indFont;
+    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
+    {
+        NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
+        fontNames = [[NSArray alloc] initWithArray:[UIFont fontNamesForFamilyName:[familyNames objectAtIndex:indFamily]]];
+        for (indFont=0; indFont<[fontNames count]; ++indFont)
+        {
+            NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
+        }
+    }
+}
+
+#pragma mark - RestKit
+
+- (void)setupRestKit
+{
+    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace)
+//    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace)
+    
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURLString:kGTIOBaseURL];
+    [objectManager setMappingProvider:[[GTIOMappingProvider alloc] init]];
+    [objectManager setAcceptMIMEType:kGTIOAcceptHeader];
+    [objectManager setSerializationMIMEType:RKMIMETypeJSON];
+    
+    // Headers
+    [objectManager.client setValue:@"142" forHTTPHeaderField:kGTIOTrackingHeaderKey];
+    [objectManager.client setValue:@"34cbc5cb8b99981444540270842c0376" forHTTPHeaderField:kGTIOAuthenticationHeaderKey];
+    
+    // Auth for dev/staging
+    [objectManager.client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];
+    [objectManager.client setUsername:@"tt"];
+    [objectManager.client setPassword:@"toast"];
+    
+    // Routes
+    RKObjectRouter *router = objectManager.router;
+    [router routeClass:[GTIOTrack class] toResourcePath:@"/track" forMethod:RKRequestMethodPOST];
+}
+
 #pragma mark - UITabBarController
+
+- (void)addTabBarToWindow
+{
+    [self.window setRootViewController:self.tabBarController];
+}
 
 - (void)setupTabBar
 {
