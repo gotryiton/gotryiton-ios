@@ -138,29 +138,17 @@ reponse:
          { 
             "image_url" : "http://path/to/cdn/image",
             "id" : "id_of_screen",
-            "track" : "api/url/to/hit/on/first/image/view"
+            "track" : {
+                  "id" : "app-intro",
+                  "page_number" : 2
+                }
          }
       ]
    }
 }
 ```
 
-POST /User/Visit  (see documentation [ApiUsers][ApiUsers.md])
-
-request: 
-
-```json
-{
-   "visit" : {
-      "latitude" : 40.720577,
-      "longitude" : -74.000478,
-      "ios_version" : 5.1,
-      "ios_device" : "Iphone 4S",
-      "ios_ip" : "1.0.0.10",
-      "build_version" : 4.0.0,
-   } 
-}
-```
+GET /User/me  (see documentation [ApiUsers][ApiUsers.md])
 
 response: 
 
@@ -195,6 +183,24 @@ response:
 ```
 
 
+POST /track  (see documentation [ApiTrack][ApiTrack.md])
+
+request: 
+
+```json
+{
+   "id" : "visit",
+   "visit" : {
+      "latitude" : 40.720577,
+      "longitude" : -74.000478,
+      "ios_version" : 5.1,
+      "ios_device" : "Iphone 4S",
+      "build_version" : 4.0.0,
+   } 
+}
+```
+
+
 **notes:**
 
 ```intro_screens``` will be an array of no more than 5 items
@@ -205,14 +211,14 @@ response:
    - every first load should include a request to ```config``` endpoint
    - the splash screen displays at least the duration of this api request
 - the app should track a users visit to the app
-   - if a user has an authentication token, pass it to the ```user/visit``` endpoint
-   - always pass a ```Tracking-Id``` parameter to the ```user/visit``` endpoint
+   - when the app starts it should make a request to ```/track``` to track a visit
+   - always pass a ```Tracking-Id``` parameter to the ```/track``` endpoint
 - the app should know if this is a user's first time here
-   - once the ```config``` endpoint has responded:
+   - if a user has an authentication token, pass it to the ```user/me``` endpoint
       - if user is new to the app (has no authentication token) route directly to ==> (view 1.2)
-         - let ```user/visit``` complete in the background
+         - let ```/track``` complete in the background
       - if user is a returning user to the app (and has an authentication token):
-         - stay on splash screen until ```/user/visit``` endpoint has responded:
+         - stay on splash screen until ```/user/me``` endpoint has responded:
             - if user is not logged in route to ==> (view 1.9)
             - if user logged in, route to ==> (view 8.1)
    - if a user is upgrading from 3.0 they should be treated as a brand new logged out user (their gtioToken from GTIOv3 should be ignored)

@@ -207,33 +207,19 @@ Error Response
 
 
 
-### POST `/user/visit`
+### GET `/user/me`
 
-Accepts a visit object that includes tracking information about a user's visit.  Authenticates the user with the application using a token.
+Authenticates the user with the application using a token and responds with a user object for that user.
 
 Request
 
-Pass 'Authentication' header if a token is available.  Pass 'Tracking-Id' header.  Include visit object:
+Pass 'Authentication' header if a token is available.  Pass 'Tracking-Id' header.  
 
-
-```json
-{
-    "visit" : {
-      "latitude" : 40.720577,
-      "longitude" : -74.000478,
-      "ios_version" : 5.1,
-      "ios_device" : "Iphone 4S",
-      "ios_ip" : "1.0.0.10",
-      "build_version" : 4.0.0,
-    } 
-}
-```
 
 Response (current token is authenticated)
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",

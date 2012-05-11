@@ -22,7 +22,6 @@ Pass 'Authentication' header if a token is available.  Pass 'Tracking-Id' header
       "longitude" : -74.000478,
       "ios_version" : 5.1,
       "ios_device" : "Iphone 4S",
-      "ios_ip" : "1.0.0.10",
       "build_version" : 4.0.0,
     } 
   }
