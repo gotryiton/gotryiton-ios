@@ -1,8 +1,44 @@
+***Friday, May 11th - Standup / Retrospective Notes***
+
+**Attendees**
+- TT - Matt, Scott
+- GTIO - Simon
+
+**Tasks / To Do List**
+- TT - Tag GTIO v3 branch and mark as legacy
+- TT - Merge all open v4 branches into Master
+- TT - Research burst photos / how fast photos can be taken
+- GTIO - Complete designs due today
+- TT - Come up with travel dates for Simon to return to NC during Sprint 2
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Completed splash screen functionality.  waiting for code review
+- Filter tentatively pushed back to Sprint 3
+- New requirements for Photo upload introduced, slotted for Sprint 2
+
+**Week Retrospective**
+- Additional time spent on standalone application, but task has been completed
+ - GTIO - Taking standalone a huge success
+- UITabbar has been completed
+- Splash screen - end points are being hit, loading animations visible
+- Next steps, sign in and page controls
+- API integration has been painless thus far
+- Design delays may be forthcoming at the end of Sprint 1
+- Overall, on track to deliver on all planned stories
+
+---
+
 ***Thursday, May 10th - Standup Notes***
 
 **Attendees**
 - TT - Matt, Scott
-- GTIO - Simon, MAtt
+- GTIO - Simon, Matt
 
 **Tasks / To Do List**
 - TT - Inform Simon one JSON content is posted
