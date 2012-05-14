@@ -1,3 +1,26 @@
+***Monday, May 14th - Standup Notes***
+
+**Attendees**
+- TT - Matt, Scott
+- GTIO - Simon
+
+**Tasks / To Do List**
+- TT - Begin styling, facebook login
+- GTIO - Add documentation for Facebook permissions
+- GTIO - push assets for 1.3,1.4,1.5,1.6,1.9 
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scott out of the office tommorow, May 15th
+
+**General Notes**
+- Tracking on Images - previously utilized a URL, now using ID/Page Number
+- Moving forward, Config endpoint to include intro images
+
+---
+
 ***Friday, May 11th - Standup / Retrospective Notes***
 
 **Attendees**
