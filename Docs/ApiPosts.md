@@ -287,7 +287,7 @@ Creates and returns a post object based on passed parameters.
     },
     "created_at": 1337012650,
     "created_when": "just now",
-    "post_type": null
+    "post_type": "outfit"
   }
 }
 ```
