@@ -223,3 +223,62 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
   }
 }
 ```
+
+### GET  `/posts/create`
+Creates and returns a post object based on passed parameters.
+
+- **Must provide:** `description` `(string)` and `voting_enabled` `(boolean)`.
+- **Must provide either one:** `photo_id` `(string)` or `product_id` `(int)` . If both are provided then `photo_id` takes precedence.
+
+Following is a sample response to `/posts/create.json`.
+
+```json
+{
+  "post": {
+    "id": "1430",
+    "user": {
+      "id": "42BDB51",
+      "name": "Ashish",
+      "location": "Manhattan, New York",
+      "icon": "http://graph.facebook.com/538638807/picture",
+      "action": "/user/42BDB51/profile",
+      "follow_button": {
+        "text": "following",
+        "action": "/user/42BDB51/unfollow",
+        "state": 1
+      }
+    },
+    "reviews": {
+      "action": "/post/1430/reviews",
+      "count": "0"
+    },
+    "": {
+      "description": "\"This is a post.\"",
+      "brands_description": null,
+      "main_image": null,
+      "square_thumbnail": null,
+      "small_thumbnail": null
+    },
+    "brands": [
+    ],
+    "heart": {
+      "state": null,
+      "action": "/posts/1430/heart"
+    },
+    "hearts": {
+      "count": null,
+      "action": "/posts/1430/hearts"
+    },
+    "users_who_hearted_this": null,
+    "vote": {
+      "enabled": false,
+      "count_votes": 0,
+      "verdict": null,
+      "pending": null
+    },
+    "created_at": 1337012650,
+    "created_when": "just now",
+    "post_type": null
+  }
+}
+```
