@@ -10,17 +10,14 @@
 
 @implementation GTIOAppearance
 
-- (id)init
++ (void)setupAppearance
 {
-    self = [super init];
-    if (self) {
-        
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         // UITabBar
         [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"UI-Tab-BG.png"]];
         [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"ui.empty.pixel.png"]];
-        
-    }
-    return self;
+    });
 }
 
 @end

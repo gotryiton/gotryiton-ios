@@ -53,14 +53,13 @@
     [self listAllFonts];
     
     // Appearance setup
-    GTIOAppearance *appearance __attribute__((unused)) = [[GTIOAppearance alloc] init];
+    [GTIOAppearance setupAppearance];
     
     // Customize Tab bar
     [self setupTabBar];
     
     // RestKit
     [self setupRestKit];
-    
     
 //    [self.window setRootViewController:self.tabBarController];
     self.splashViewController = [[GTIOSplashViewController alloc] initWithNibName:nil bundle:nil];

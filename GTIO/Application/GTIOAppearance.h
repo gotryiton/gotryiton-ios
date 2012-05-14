@@ -10,4 +10,6 @@
 
 @interface GTIOAppearance : NSObject
 
++ (void)setupAppearance;
+
 @end
