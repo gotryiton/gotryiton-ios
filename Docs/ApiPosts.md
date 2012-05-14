@@ -224,14 +224,23 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
 }
 ```
 
-### GET  `/posts/create`
+### POST  `/posts/create`
 Creates and returns a post object based on passed parameters.
 
 - **Must provide:** `description` `(string)` and `voting_enabled` `(boolean)`.
 - **Must provide either one:** `photo_id` `(string)` or `product_id` `(int)` . If both are provided then `photo_id` takes precedence.
 
-Following is a sample response to `/posts/create.json`.
+#### Request
+```json
+{
+  "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+  "description": "This is a post."
+  "voting_enabled": true
+  "photo_id": "76199FA"
+}
+```
 
+#### Response
 ```json
 {
   "post": {
@@ -252,8 +261,8 @@ Following is a sample response to `/posts/create.json`.
       "action": "/post/1430/reviews",
       "count": "0"
     },
-    "": {
-      "description": "\"This is a post.\"",
+    "outfit": {
+      "description": "This is a post.",
       "brands_description": null,
       "main_image": null,
       "square_thumbnail": null,
