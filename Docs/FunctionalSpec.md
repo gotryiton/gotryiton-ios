@@ -183,7 +183,7 @@ response:
 ```
 
 
-POST /track  (see documentation [ApiTrack][ApiTrack.md])
+POST /track  (see documentation [ApiTrack](ApiTrack.md) )
 
 request: 
 
@@ -213,6 +213,7 @@ request:
 - the app should track a users visit to the app
    - when the app starts it should make a request to ```/track``` to track a visit
    - always pass a ```Tracking-Id``` parameter to the ```/track``` endpoint
+   - when the app resumes from a Background/Suspended state, it should also make a POST request to ```/track``` to track a visit
 - the app should know if this is a user's first time here
    - if a user has an authentication token, pass it to the ```user/me``` endpoint
       - if user is new to the app (has no authentication token) route directly to ==> (view 1.2)
