@@ -295,7 +295,7 @@ First time users of the app see a screen where they can sign up
 #### Mockups
 1.3 Sign in ([wireframe](http://invis.io/TW2OBGAK))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.3.Sign.In.First.Use.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.3.Sign.In.First.Use.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -323,6 +323,22 @@ User/Auth/Facebook (details coming)
 	  - uiPageControl represent flow through intro screens and sign in screen
 	      - swiping backwards brings user to the previous intro screen
 
+#### Graphical Assets / Usage
+   - Background
+      - 'login-bg-logo.png'
+      - includes status bar area for UIStatusBarStyleBlackTranslucent
+   - Buttons
+      - Facebook
+         - 'fb-sign-up.png' ON and OFF states
+         - horizontally centered, starts 265px down from top of screen
+      - I'm a returning user
+         - 'returning-user.png' ON and OFF states
+         - horizontally centered, starts 320px down from top of screen
+   - 'another provider' text
+      - normal: 6pt Proxima Nova Regular #8f8f8f
+      - link portion: 6pt Proxima Nova Regular #ff6a72 underlined
+      - horizontally centered, baseline is 405px down from top of screen
+
 
 ### 1.4 Returning users 
 
@@ -332,7 +348,7 @@ Returning users can sign in with Facebook or Janrain
 #### Mockups
 1.4 Returning users ([wireframe](http://invis.io/5W2OBHJ7))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.4.Returning.Users.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.4.Returning.Users.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -364,6 +380,28 @@ User/Auth/Janrain (details coming)
             - **successful response** ==> (view 8.1) 
             - **failed signin** ==> (view 1.6)
 
+#### Graphical Assets / Usage
+- Nav Bar
+   - Background
+      - 'login-nav.png'
+      - only used for Login views
+      - placed directly below Status bar
+   - Button
+      - 'login-nav-back.png'
+      - no ON state
+      - only used for Login views
+      - placed 27px below top edge of screen (7px below Status bar)
+- Buttons
+   - Facebook
+      - 'fb-sign-in.png' with ON and OFF states
+      - horizontally centered
+      - shown 144px down from top edge of screen
+   - Janrain table
+      - four buttons (ON and OFF) laid out edge to edge to simulate table view
+         - naming convention is 'janrain-table-1-aol-ON.png' where '1' is the cell number from top to bottom
+      - horizontally centered
+      - top button shown 209px down from top edge of screen
+
 
 ### 1.5 Janrain Sign up 
 
@@ -374,7 +412,7 @@ New users can sign up with Facebook or Janrain
 
 1.5 Janrain Sign up ([wireframe](http://invis.io/EQ2OBJ6W))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.5.Janrain.Sign.Up.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.5.Janrain.Sign.Up.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -398,6 +436,25 @@ User/Auth/Janrain (details coming)
             - **error** ==> dialog, (view 1.5)
             - **successful existing user** ==> (view 8.1)
 
+#### Graphical Assets / Usage
+- Nav Bar
+   - Background
+      - 'login-nav.png'
+      - only used for Login views
+      - placed directly below Status bar
+   - Button
+      - 'login-nav-back.png'
+      - no ON state
+      - only used for Login views
+      - placed 27px below top edge of screen (7px below Status bar)
+- Buttons
+   - Janrain table
+      - four buttons (ON and OFF) laid out edge to edge to simulate table view
+         - naming convention is 'janrain-table-1-aol-ON.png' where '1' is the cell number from top to bottom
+      - horizontally centered
+      - top button shown 180px down from top edge of screen
+
+
 ### 1.6 Failed sign in  
 
 #### Overview  
@@ -407,7 +464,7 @@ When a user fails to sign in, they're presented with an error screen allowing th
 
 1.6 Failed sign in ([wireframe](http://invis.io/CR2OBKVK))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.6.Failed.Sign.In.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.6.Failed.Sign.In.png" width=420px>
 
 
 #### API Usage
@@ -421,6 +478,25 @@ None
       - adressee is support@gotryiton.com
       - subject 'Sign in help'
    - back **taps** ==> (view 1.4)
+
+
+#### Graphical Assets / Usage
+- Nav Bar
+   - Background
+      - 'login-nav.png'
+      - only used for Login views
+      - placed directly below Status bar
+   - Button
+      - 'login-nav-back.png'
+      - no ON state
+      - only used for Login views
+      - placed 27px below top edge of screen (7px below Status bar)
+- Buttons
+   - 'Fail' table
+      - three buttons (ON and OFF) laid out edge to edge to simulate table view
+         - naming convention is 'fail-table-1-try-again-ON.png' where '1' is the cell number from top to bottom
+      - horizontally centered
+      - top button shown 208px down from top edge of screen
 
 
 ### 1.7 Almost done 
@@ -543,7 +619,7 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 #### Mockups
 1.9 ([wireframe](http://invis.io/SC2OBNJM))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.9.Sign.In.2nd.Load.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.9.Sign.In.2nd.Load.png" width=420px/>
 
 #### User flow
 **entry screens:**   
@@ -575,6 +651,26 @@ User/Auth/Facebook (details coming)
    - sign up with another provider btn **tap** ==> (view 1.5)
    - skip directs **tap** ==> (view 9.1)
    - ? btn **tap** ==> (view 1.2)
+
+
+#### Graphical Assets / Usage
+   - Background
+      - 'login-bg-logo.png'
+      - includes status bar area for UIStatusBarStyleBlackTranslucent
+   - Buttons
+      - Facebook
+         - 'fb-sign-up.png' ON and OFF states
+         - horizontally centered, starts 265px down from top of screen
+      - I'm a returning user
+         - 'returning-user.png' ON and OFF states
+         - horizontally centered, starts 320px down from top of screen
+      - "?" Button
+         - 9px margin from bottom and left edge of screen
+         - no 'ON' state
+   - 'another provider' text
+      - normal: 6pt Proxima Nova Regular #8f8f8f
+      - link portion: 6pt Proxima Nova Regular #ff6a72 underlined
+      - horizontally centered, baseline is 405px down from top of screen
 
 
 ### 1.10 Facebook SSO
