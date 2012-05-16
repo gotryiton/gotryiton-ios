@@ -83,6 +83,10 @@
 		D2CDA9F51550579A009B7E24 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9EF1550579A009B7E24 /* QuartzCore.framework */; };
 		D2CDA9F61550579A009B7E24 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9F01550579A009B7E24 /* Security.framework */; };
 		D2CDA9F71550579A009B7E24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9F11550579A009B7E24 /* SystemConfiguration.framework */; };
+		D2D048321563F1DA0034E04F /* GTIOIntroScreenToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D048311563F1DA0034E04F /* GTIOIntroScreenToolbarView.m */; };
+		D2D048351563F4690034E04F /* UIButton+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D048341563F4690034E04F /* UIButton+GTIOAdditions.m */; };
+		D2D048381563F9820034E04F /* GTIOPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D048371563F9820034E04F /* GTIOPageControl.m */; };
+		D2D0483B15642B6E0034E04F /* GTIOIntroScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D0483A15642B6E0034E04F /* GTIOIntroScreenViewController.m */; };
 		D2D738E1155D574A001B2D4B /* GTIOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D738E0155D574A001B2D4B /* GTIOUser.m */; };
 		D2E375741559B76500763A67 /* UI-Tab-1-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E375511559B76500763A67 /* UI-Tab-1-OFF.png */; };
 		D2E375751559B76500763A67 /* UI-Tab-1-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E375521559B76500763A67 /* UI-Tab-1-OFF@2x.png */; };
@@ -290,6 +294,14 @@
 		D2CDA9EF1550579A009B7E24 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D2CDA9F01550579A009B7E24 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D2CDA9F11550579A009B7E24 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D2D048301563F1DA0034E04F /* GTIOIntroScreenToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIntroScreenToolbarView.h; sourceTree = "<group>"; };
+		D2D048311563F1DA0034E04F /* GTIOIntroScreenToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroScreenToolbarView.m; sourceTree = "<group>"; };
+		D2D048331563F4690034E04F /* UIButton+GTIOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+GTIOAdditions.h"; sourceTree = "<group>"; };
+		D2D048341563F4690034E04F /* UIButton+GTIOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+GTIOAdditions.m"; sourceTree = "<group>"; };
+		D2D048361563F9820034E04F /* GTIOPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPageControl.h; sourceTree = "<group>"; };
+		D2D048371563F9820034E04F /* GTIOPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPageControl.m; sourceTree = "<group>"; };
+		D2D0483915642B6E0034E04F /* GTIOIntroScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIntroScreenViewController.h; sourceTree = "<group>"; };
+		D2D0483A15642B6E0034E04F /* GTIOIntroScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroScreenViewController.m; sourceTree = "<group>"; };
 		D2D738DF155D574A001B2D4B /* GTIOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUser.h; sourceTree = "<group>"; };
 		D2D738E0155D574A001B2D4B /* GTIOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUser.m; sourceTree = "<group>"; };
 		D2E375511559B76500763A67 /* UI-Tab-1-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UI-Tab-1-OFF.png"; sourceTree = "<group>"; };
@@ -370,10 +382,12 @@
 		D201C824156144CE00C4168D /* Splash/Intro */ = {
 			isa = PBXGroup;
 			children = (
-				D246B0E9155C683000E5546A /* GTIOSplashViewController.h */,
-				D246B0EA155C683000E5546A /* GTIOSplashViewController.m */,
 				D201C8251561455100C4168D /* GTIOIntroScreensViewController.h */,
 				D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */,
+				D2D0483915642B6E0034E04F /* GTIOIntroScreenViewController.h */,
+				D2D0483A15642B6E0034E04F /* GTIOIntroScreenViewController.m */,
+				D246B0E9155C683000E5546A /* GTIOSplashViewController.h */,
+				D246B0EA155C683000E5546A /* GTIOSplashViewController.m */,
 			);
 			name = Splash/Intro;
 			sourceTree = "<group>";
@@ -488,8 +502,6 @@
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
-				D201C85715615C1A00C4168D /* MapKit.framework */,
-				D201C85515615C1300C4168D /* ImageIO.framework */,
 				D2CDA96C15502F02009B7E24 /* GTIO */,
 				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
 				D2CDA99B15503058009B7E24 /* Libraries */,
@@ -510,6 +522,8 @@
 		D2CDA96515502F02009B7E24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D201C85715615C1A00C4168D /* MapKit.framework */,
+				D201C85515615C1300C4168D /* ImageIO.framework */,
 				D2603E1F155AD93A00536BF9 /* CoreText.framework */,
 				D2CDA9EC1550579A009B7E24 /* CFNetwork.framework */,
 				D2CDA9ED1550579A009B7E24 /* CoreData.framework */,
@@ -529,8 +543,8 @@
 			isa = PBXGroup;
 			children = (
 				D2CDA9B015503307009B7E24 /* Models */,
-				D2CDA9AF15503307009B7E24 /* Controllers */,
 				D2CDA9B115503307009B7E24 /* Views */,
+				D2CDA9AF15503307009B7E24 /* Controllers */,
 				D2CDA9991550304A009B7E24 /* Application */,
 			);
 			path = GTIO;
@@ -566,6 +580,8 @@
 				D2CDA99D1550307B009B7E24 /* GTIOAppDelegate.m */,
 				D246B085155C037C00E5546A /* GTIOAppearance.h */,
 				D246B086155C037C00E5546A /* GTIOAppearance.m */,
+				D201C83515614C8400C4168D /* GTIOConfigManager.h */,
+				D201C83615614C8400C4168D /* GTIOConfigManager.m */,
 				D20C228C155B1C5B0079D7D9 /* GTIOEnvironment.h */,
 				D20C228D155B1C5B0079D7D9 /* GTIOEnvironment.m */,
 				D20C2289155B14440079D7D9 /* GTIOMappingProvider.h */,
@@ -573,8 +589,6 @@
 				D2CDA9AD155032F7009B7E24 /* Protocols */,
 				D2CDA9AE155032F7009B7E24 /* Resources */,
 				D2CDA96D15502F02009B7E24 /* Supporting Files */,
-				D201C83515614C8400C4168D /* GTIOConfigManager.h */,
-				D201C83615614C8400C4168D /* GTIOConfigManager.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -601,6 +615,8 @@
 		D2CDA9AC155032F7009B7E24 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				D2D048331563F4690034E04F /* UIButton+GTIOAdditions.h */,
+				D2D048341563F4690034E04F /* UIButton+GTIOAdditions.m */,
 			);
 			name = Categories;
 			path = Application/Categories;
@@ -656,6 +672,7 @@
 		D2CDA9B115503307009B7E24 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D2D0482F1563F19F0034E04F /* Splash/Intro */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -688,6 +705,17 @@
 				D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */,
 			);
 			name = RestKit;
+			sourceTree = "<group>";
+		};
+		D2D0482F1563F19F0034E04F /* Splash/Intro */ = {
+			isa = PBXGroup;
+			children = (
+				D2D048301563F1DA0034E04F /* GTIOIntroScreenToolbarView.h */,
+				D2D048311563F1DA0034E04F /* GTIOIntroScreenToolbarView.m */,
+				D2D048361563F9820034E04F /* GTIOPageControl.h */,
+				D2D048371563F9820034E04F /* GTIOPageControl.m */,
+			);
+			name = Splash/Intro;
 			sourceTree = "<group>";
 		};
 		D2E3754F1559B76500763A67 /* Images */ = {
@@ -1013,6 +1041,10 @@
 				D2D738E1155D574A001B2D4B /* GTIOUser.m in Sources */,
 				D201C8271561455100C4168D /* GTIOIntroScreensViewController.m in Sources */,
 				D201C83715614C8400C4168D /* GTIOConfigManager.m in Sources */,
+				D2D048321563F1DA0034E04F /* GTIOIntroScreenToolbarView.m in Sources */,
+				D2D048351563F4690034E04F /* UIButton+GTIOAdditions.m in Sources */,
+				D2D048381563F9820034E04F /* GTIOPageControl.m in Sources */,
+				D2D0483B15642B6E0034E04F /* GTIOIntroScreenViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

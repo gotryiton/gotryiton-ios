@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "GTIOTrack.h"
 
 @interface GTIOIntroScreen : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *introScreenID;
 @property (nonatomic, strong) NSURL *imageURL;
-@property (nonatomic, strong) NSString *track;
+@property (nonatomic, strong) GTIOTrack *track;
 
 @end

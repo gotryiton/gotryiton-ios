@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GTIOIntroScreensViewController : UIViewController
+@interface GTIOIntroScreensViewController : UIViewController <UIScrollViewDelegate>
 
 @end
