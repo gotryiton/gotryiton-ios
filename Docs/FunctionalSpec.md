@@ -257,15 +257,16 @@ A uiPageControl should be used to introduce new users to screens of the app
 
 #### Stories
 - on the user's first load of the app, they should be able to swipe through intro screens
-  - maximum of 5 screens (not including final login screen)
-  - swipe moves to next image in arrray
-  - next button in bottom right **taps** ==> next image in array
-  - sign in btn **taps** ==> (view 1.3)
-  - uiPageControl dots represent flow through intro screens 
-  - last **swipe** OR last next **tap** ==> sign in screen (view 1.3)
+   - maximum of 5 screens (not including final login screen)
+   - swipe moves to next image in arrray
+   - next button in bottom right **taps** ==> next image in array
+   - sign in btn **taps** ==> (view 1.3)
+   - uiPageControl dots represent flow through intro screens 
+   - last **swipe** OR last next **tap** ==> sign in screen (view 1.3)
       - last dot in uiPageControl represents sign in screen (view 1.3)
-  - when image is first viewed by a user, an api request to the ```track``` endpoint should be triggered (based on ```track``` endpoint attribute in the ```intro_screen``` object)
+   - when image is first viewed by a user, an api request to the ```track``` endpoint should be triggered (POST the ```track``` object that is part of the ```intro_screen``` object)
      - subsequent swipes back and forth to the intro screens can be ignored
+   - if ```intro_screens``` array is empty, skip directly to the sign in screen with no uiPageControl (view 1.3.1)
 
 #### Graphical Assets / Usage
 - Control Bar
@@ -296,7 +297,12 @@ First time users of the app see a screen where they can sign up
 #### Mockups
 1.3 Sign in ([wireframe](http://invis.io/TW2OBGAK))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.3.Sign.In.First.Use.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.3.Sign.In.First.Use.png" width=420px>
+
+
+1.3.1 Sign in with no intro screens 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.9.Sign.In.2nd.Load.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -309,9 +315,19 @@ First time users of the app see a screen where they can sign up
 ([view 11.2](#112-logged-out-default-tab))   
 
 #### API Usage
-Tracking (details coming)
+POST /track
 
-User/Auth/Facebook (details coming)
+```json
+{
+   "track" : {
+      "id" : "Sign in view"
+   }
+}
+
+
+POST User/Signup/Facebook (see documentation [ApiUser](ApiUser.md) )
+
+
 
 #### Stories
   - A new user is presented with a sign in screen and can sign up
@@ -320,9 +336,9 @@ User/Auth/Facebook (details coming)
 	    - return makes call to sign up api
 	  - im a returning user **tap** ==> (view 1.4)
 	  - sign up with another provider btn **tap** ==> (view 1.5)
-	  - skip btn **tap** ==> (view 11.2)
 	  - uiPageControl represent flow through intro screens and sign in screen
 	      - swiping backwards brings user to the previous intro screen
+         - uiPageControl nav is absent if there are no intro screens
 
 #### Graphical Assets / Usage
    - Background
@@ -364,11 +380,10 @@ Returning users can sign in with Facebook or Janrain
 previous screen
 
 #### API Usage
-Tracking (details coming)
 
-User/Auth/Facebook (details coming)
+POST User/Auth/Facebook (see documentation [ApiUser](ApiUser.md) )
 
-User/Auth/Janrain (details coming)
+POST User/Auth/Janrain (see documentation [ApiUser](ApiUser.md) )
 
 #### Stories
 - A returning user is presented with a sign in screen and can sign in
@@ -425,9 +440,8 @@ New users can sign up with Facebook or Janrain
 previous screen   
 
 #### API Usage
-Tracking (details coming)
 
-User/Auth/Janrain (details coming)
+POST User/Signup/Janrain (see documentation [ApiUser](ApiUser.md) )
 
 #### Stories
 - new users can sign up with janrain sdk (aol/google/twitter/yahoo options)
@@ -526,8 +540,20 @@ When a new user signs up, the app confirms they have a complete GTIO profile
 
 
 #### API Usage
-/User/Auth (api details coming soon)
-/User
+
+POST /track
+
+```json
+{
+   "track" : {
+      "id" : "Almost done view"
+   }
+}
+
+
+POST /User (see documentation [ApiUser](ApiUser.md) )
+
+
 
 #### Stories
 - if a new user doesnt have a complete profile, they can edit a form to complete it
@@ -592,11 +618,12 @@ When a new user signs up, they can quickly add people to follow
 
 
 #### API Usage
-/User 
 
-/User/Quick-Add
+GET /User/Quick-Add
 
-/Follow
+POST /Users/Follow-Many
+
+
 
 #### Stories
 - When a new user signs up, they can quickly add people to follow
@@ -620,7 +647,7 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 #### Mockups
 1.9 ([wireframe](http://invis.io/SC2OBNJM))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.9.Sign.In.2nd.Load.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.9.Sign.In.2nd.Load.png" width=420px/>
 
 #### User flow
 **entry screens:**   
@@ -650,8 +677,6 @@ User/Auth/Facebook (details coming)
          - **successful new user response** ==> (view 1.7)
    - im a returning user btn **tap** ==> (view 1.4)
    - sign up with another provider btn **tap** ==> (view 1.5)
-   - skip directs **tap** ==> (view 9.1)
-   - ? btn **tap** ==> (view 1.2)
 
 
 #### Graphical Assets / Usage
@@ -707,7 +732,7 @@ User/Auth/Facebook (details coming)
 #### Stories
 
 - A user can log in with facebook using facebook SSO
-   - permissions requested should come from /Config api call in (view 1.1)
+   - permissions requested is available as ```facebook_permissions_requested``` in the config object (returned by ```/Config``` request in (view 1.1)
    - app key and secret should be hard coded into app
    - pass fb_token to /User/Auth/Facebook or /User/Signup/Facebook to log in a user
 
@@ -2814,138 +2839,6 @@ dynamic
       - api design will be similar to list tabs in GTIOv3
 
 
-
-## 11. Logged out views
-
-### 11.1 Logged out view inactive tabs  
-
-#### Overview
-A logged out user can browse to non-active tabs and see an intro screen to that tab.  They can also tap to sign up from that screen
-
-#### Mockups
-([wireframe](http://invis.io/US2PNOWQ)) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/11.1.Explore.Looks.Logged.Out.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 11.2](#112-logged-out-default-tab))   
-**exit screens:**   
-([view 1.9](#19-sign-in-screen-2nd-load))   
-
-#### API Usage
-/Config
-
-#### Stories 
-- A logged out user can browse to non-active tabs and see an intro screen to that tab
-   - all tabs except for explore looks tab will have an image url specified in the Config api
-- A logged out user can tap to sign up from that screen
-   - **tap** on image ==> (view 1.9) 
-
-
-### 11.2 Logged out default tab  
-
-#### Overview
-A non-logged in user can browse to the explore looks tab and see popular looks.  They have a limited ability to interact with the content they see.
-
-#### Mockups
-11.2 login wall: ([wireframe](http://invis.io/BA2POGZT)) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/11.1.Explore.Looks.Logged.Out.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 11.1](#111-logged-out-view-inactive-tabs))   
-**exit screens:**   
-([view 1.9](#19-sign-in-screen-2nd-load))   
-([view 11.3](#113-Logged-out-post-detail-page))   
-previous screen
-
-#### API Usage
-/Posts/Popular
-
-#### Stories 
-- A non-logged in user can browse to the explore looks tab and see popular looks.  
-   - A user can view the page in the grid view
-   - A user cannot switch to a feed view
-- A non-logged in user has limited ability to take actions
-   - for following actions, open dialog 
-      - heart toggle button
-   - dialog info
-      - see (view 11.2)
-      - text:  you must be logged in to do that
-      - login:  **tap** ==> (view 1.9)
-      - cancel: closes dialog
-
-
-### 11.3 Logged out Post detail page
-
-#### Overview
-A non-logged in user can browse to a post detail page.  They have a limited ability to interact with the content they see.
-
-#### Mockups
-
-11.3
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/11.3.Outfit.Detail.Logged.Out.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 11.2](#112-Logged-out-default-tab))   
-**exit screens:**   
-([view 11.4](#114-logged-out-reviews-page))   
-([view 1.9](#19-sign-in-screen-2nd-load))   
-previous screen
-
-
-#### API Usage
-/Posts/Popular
-
-#### Stories 
-- A non-logged in user can browse to a post detail page. 
-- A non-logged in user has limited ability to take actions
-   - for following actions, open dialog (view 11.2)
-      - heart btn
-      - vote btns
-      - profile btn
-      - any action under ... btn
-   - dialog info
-      - text:  you must be logged in to do that
-      - login:  **tap** ==> (view 1.9)
-      - cancel: closes dialog
-
-### 11.4 Logged out Reviews page
-
-#### Overview
-A non-logged in user can browse to a Reviews page page.  They have a limited ability to interact with the content they see.
-
-#### Mockups
-
-11.4
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/11.4.Reviews.Logged.Out.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 11.2](#112-Logged-out-default-tab))   
-**exit screens:**   
-([view 1.9](#19-sign-in-screen-2nd-load))   
-
-#### API Usage
-/Posts/Reviews
-
-#### Stories 
-- A non-logged in user can browse to a post detail page. 
-- A non-logged in user has limited ability to take actions
-   - for following actions, open dialog (view 11.2)
-      - agree
-      - flag
-      - tap into review area
-      - tap on users name
-   - dialog info
-      - text:  you must be logged in to do that
-      - login:  **tap** ==> (view 1.9)
-      - cancel: closes dialog
 
 
 
