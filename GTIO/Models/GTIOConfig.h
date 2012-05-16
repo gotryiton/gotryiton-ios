@@ -8,12 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GTIOConfig : NSObject
-
-typedef void(^GTIOConfigHandler)(NSError *error, GTIOConfig *config);
+@interface GTIOConfig : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSArray *introScreens;
-
-+ (void)loadConfigUsingBlock:(GTIOConfigHandler)configHandler;
 
 @end

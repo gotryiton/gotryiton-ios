@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D201C8271561455100C4168D /* GTIOIntroScreensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */; };
+		D201C83715614C8400C4168D /* GTIOConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D201C83615614C8400C4168D /* GTIOConfigManager.m */; };
+		D201C85415615BF200C4168D /* libSDWebImageARC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D201C8511561599A00C4168D /* libSDWebImageARC.a */; };
+		D201C85615615C1300C4168D /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D201C85515615C1300C4168D /* ImageIO.framework */; };
+		D201C85815615C1B00C4168D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D201C85715615C1A00C4168D /* MapKit.framework */; };
 		D20C2253155B0D2C0079D7D9 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D20C2240155B0D2C0079D7D9 /* Default.png */; };
 		D20C2254155B0D2C0079D7D9 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D20C2241155B0D2C0079D7D9 /* Default@2x.png */; };
 		D20C2255155B0D2C0079D7D9 /* intro-bar-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D20C2243155B0D2C0079D7D9 /* intro-bar-bg.png */; };
@@ -118,6 +123,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D201C84E1561599A00C4168D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D201C8461561599A00C4168D /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53922D6F148C55820056699D;
+			remoteInfo = SDWebImage;
+		};
+		D201C8501561599A00C4168D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D201C8461561599A00C4168D /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53761325155AD0D5005750A4;
+			remoteInfo = "SDWebImage ARC";
+		};
+		D201C85215615BE800C4168D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D201C8461561599A00C4168D /* SDWebImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 53761307155AD0D5005750A4;
+			remoteInfo = "SDWebImage ARC";
+		};
 		D246B097155C143B00E5546A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D2CDA95915502F01009B7E24 /* Project object */;
@@ -170,6 +196,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D201C8251561455100C4168D /* GTIOIntroScreensViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIntroScreensViewController.h; sourceTree = "<group>"; };
+		D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroScreensViewController.m; sourceTree = "<group>"; };
+		D201C83515614C8400C4168D /* GTIOConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOConfigManager.h; path = Application/GTIOConfigManager.h; sourceTree = "<group>"; };
+		D201C83615614C8400C4168D /* GTIOConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOConfigManager.m; path = Application/GTIOConfigManager.m; sourceTree = "<group>"; };
+		D201C8461561599A00C4168D /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = Libraries/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
+		D201C85515615C1300C4168D /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		D201C85715615C1A00C4168D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D20C2240155B0D2C0079D7D9 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		D20C2241155B0D2C0079D7D9 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		D20C2243155B0D2C0079D7D9 /* intro-bar-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intro-bar-bg.png"; sourceTree = "<group>"; };
@@ -304,6 +337,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D201C85815615C1B00C4168D /* MapKit.framework in Frameworks */,
+				D201C85615615C1300C4168D /* ImageIO.framework in Frameworks */,
+				D201C85415615BF200C4168D /* libSDWebImageARC.a in Frameworks */,
 				D246B091155C140900E5546A /* CoreData.framework in Frameworks */,
 				D2603E20155AD93A00536BF9 /* CoreText.framework in Frameworks */,
 				D2CDA9F51550579A009B7E24 /* QuartzCore.framework in Frameworks */,
@@ -331,6 +367,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D201C824156144CE00C4168D /* Splash/Intro */ = {
+			isa = PBXGroup;
+			children = (
+				D246B0E9155C683000E5546A /* GTIOSplashViewController.h */,
+				D246B0EA155C683000E5546A /* GTIOSplashViewController.m */,
+				D201C8251561455100C4168D /* GTIOIntroScreensViewController.h */,
+				D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */,
+			);
+			name = Splash/Intro;
+			sourceTree = "<group>";
+		};
+		D201C8451561598500C4168D /* SDWebImage */ = {
+			isa = PBXGroup;
+			children = (
+				D201C8461561599A00C4168D /* SDWebImage.xcodeproj */,
+			);
+			name = SDWebImage;
+			sourceTree = "<group>";
+		};
+		D201C8471561599A00C4168D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D201C84F1561599A00C4168D /* libSDWebImage.a */,
+				D201C8511561599A00C4168D /* libSDWebImageARC.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D20C223F155B0D2C0079D7D9 /* 1.1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +488,8 @@
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
+				D201C85715615C1A00C4168D /* MapKit.framework */,
+				D201C85515615C1300C4168D /* ImageIO.framework */,
 				D2CDA96C15502F02009B7E24 /* GTIO */,
 				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
 				D2CDA99B15503058009B7E24 /* Libraries */,
@@ -507,6 +573,8 @@
 				D2CDA9AD155032F7009B7E24 /* Protocols */,
 				D2CDA9AE155032F7009B7E24 /* Resources */,
 				D2CDA96D15502F02009B7E24 /* Supporting Files */,
+				D201C83515614C8400C4168D /* GTIOConfigManager.h */,
+				D201C83615614C8400C4168D /* GTIOConfigManager.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -514,6 +582,7 @@
 		D2CDA99B15503058009B7E24 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D201C8451561598500C4168D /* SDWebImage */,
 				D2603E1B155AD91E00536BF9 /* TTTAttributedLabel */,
 				D2CDA9E51550429F009B7E24 /* RestKit */,
 			);
@@ -558,6 +627,7 @@
 		D2CDA9AF15503307009B7E24 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D201C824156144CE00C4168D /* Splash/Intro */,
 				D2E375961559B86700763A67 /* GTIOExploreLooksViewController.h */,
 				D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */,
 				D2E375981559B86700763A67 /* GTIOFeedViewController.h */,
@@ -568,8 +638,6 @@
 				D2603DC5155AAE4500536BF9 /* GTIOShopViewController.m */,
 				D2603DC7155AAE5100536BF9 /* GTIOMeViewController.h */,
 				D2603DC8155AAE5100536BF9 /* GTIOMeViewController.m */,
-				D246B0E9155C683000E5546A /* GTIOSplashViewController.h */,
-				D246B0EA155C683000E5546A /* GTIOSplashViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -696,6 +764,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D201C85315615BE800C4168D /* PBXTargetDependency */,
 				D2CDA9EA1550577E009B7E24 /* PBXTargetDependency */,
 			);
 			name = "Go Try It On";
@@ -747,6 +816,10 @@
 					ProductGroup = D2CDA9D11550429B009B7E24 /* Products */;
 					ProjectRef = D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */;
 				},
+				{
+					ProductGroup = D201C8471561599A00C4168D /* Products */;
+					ProjectRef = D201C8461561599A00C4168D /* SDWebImage.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -757,6 +830,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D201C84F1561599A00C4168D /* libSDWebImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDWebImage.a;
+			remoteRef = D201C84E1561599A00C4168D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D201C8511561599A00C4168D /* libSDWebImageARC.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDWebImageARC.a;
+			remoteRef = D201C8501561599A00C4168D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D2CDA9DC1550429C009B7E24 /* libRestKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -924,6 +1011,8 @@
 				D246B0E4155C54EE00E5546A /* GTIOTrack.m in Sources */,
 				D246B0EB155C683000E5546A /* GTIOSplashViewController.m in Sources */,
 				D2D738E1155D574A001B2D4B /* GTIOUser.m in Sources */,
+				D201C8271561455100C4168D /* GTIOIntroScreensViewController.m in Sources */,
+				D201C83715614C8400C4168D /* GTIOConfigManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -939,6 +1028,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D201C85315615BE800C4168D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SDWebImage ARC";
+			targetProxy = D201C85215615BE800C4168D /* PBXContainerItemProxy */;
+		};
 		D246B098155C143B00E5546A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D2CDA96115502F02009B7E24 /* Go Try It On */;
@@ -1021,7 +1115,11 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+					"”$(TARGET_BUILD_DIR)/usr/local/lib/include”",
+					"”$(OBJROOT)/UninstalledProducts/include”",
+				);
 				INFOPLIST_FILE = "GTIO/Application/Supporting Files/GTIO-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
@@ -1040,7 +1138,11 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+					"”$(TARGET_BUILD_DIR)/usr/local/lib/include”",
+					"”$(OBJROOT)/UninstalledProducts/include”",
+				);
 				INFOPLIST_FILE = "GTIO/Application/Supporting Files/GTIO-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (

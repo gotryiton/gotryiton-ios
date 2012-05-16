@@ -4,3 +4,6 @@
 [submodule "Libraries/TTTAttributedLabel"]
 	path = Libraries/TTTAttributedLabel
 	url = https://github.com/mattt/TTTAttributedLabel.git
+[submodule "Libraries/SDWebImage"]
+	path = Libraries/SDWebImage
+	url = https://github.com/rs/SDWebImage.git

@@ -8,26 +8,26 @@
 
 #import "GTIOConfig.h"
 
-#import <RestKit/RestKit.h>
+NSString * const kGTIOIntroScreensKey = @"GTIOIntroScreensKey";
 
 @implementation GTIOConfig
 
 @synthesize introScreens = _introScreens;
 
-+ (void)loadConfigUsingBlock:(GTIOConfigHandler)configHandler
+- (id)initWithCoder:(NSCoder *)coder
 {
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/config" usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadObject = ^(id object){
-            if (configHandler) {
-                configHandler(nil, object);
-            }
-        };
-        loader.onDidFailWithError = ^(NSError *error){
-            if (configHandler) {
-                configHandler(error, nil);
-            }
-        };
-    }];
+    self = [self init];
+    if (self) {
+        self.introScreens = [coder decodeObjectForKey:kGTIOIntroScreensKey];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    if (self.introScreens) {
+        [coder encodeObject:self.introScreens forKey:kGTIOIntroScreensKey];
+    }
 }
 
 @end

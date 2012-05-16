@@ -14,7 +14,10 @@
 #import "GTIOUser.h"
 #import "GTIOConfig.h"
 
+#import "GTIOConfigManager.h"
 #import "GTIOAppDelegate.h"
+
+#import "GTIOIntroScreensViewController.h"
 
 @interface GTIOSplashViewController ()
 
@@ -41,7 +44,7 @@
     [self.view addSubview:splashImageView];
     
     // Load Config
-    [GTIOConfig loadConfigUsingBlock:^(NSError *error, GTIOConfig *config) {
+    [[GTIOConfigManager sharedManager] loadConfigFromWebUsingBlock:^(NSError *error, GTIOConfig *config) {
         if (error) {
             NSLog(@"Error loading config");
             // TODO: Do we fail here or what?
@@ -64,6 +67,12 @@
                 }];
             } else {
                 // route to view 1.2
+                if ([config.introScreens count] > 0) {
+                    GTIOIntroScreensViewController *introScreensViewController = [[GTIOIntroScreensViewController alloc] initWithNibName:nil bundle:nil];
+                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate).window setRootViewController:introScreensViewController];
+                } else {
+                    // no intro screens route to view 1.9
+                }
                 
                 [GTIOTrack postTrackUsingBlock:^(NSError *error, GTIOTrack *track) {
                     if (error) {
@@ -85,6 +94,13 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark -
+
+- (void)loadIntroScreensImages
+{
+    
 }
 
 @end

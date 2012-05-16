@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GTIOIntroScreen : NSObject
+@interface GTIOIntroScreen : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *introScreenID;
 @property (nonatomic, strong) NSURL *imageURL;
