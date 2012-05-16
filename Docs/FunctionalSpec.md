@@ -3057,36 +3057,46 @@ None.
 ### 13.3 Error messages  
 
 #### Overview
-The app should display a custom dialog whenever the API responds with an error
+The app should display a custom dialog if the API responds with an error
 
 #### Mockups
 None.
 
 #### API Usage
-An error response from the gtio api will look like this:
+An error response from the gtio api will include an error object.  The error object will always include a 'status' attribute which will be a meaningful error message for a developer.  The error object will optionally include an alert object whcih should trigger a dialog message.
 
 ```json
 {
-   error : {
+   "error" : {
 
-      status : "error",
+      "status" : "meaningful error message for a developer",
 
-      message : "Hi, this is your error",
+      "alert" : { 
 
-      title : "Optional title to the dialog"
+         "message" : "user-facing message about the error",
 
+         "title" : "Optional title to the dialog",
+
+         "buttons" : [
+            {
+               "text" : "ok",
+               
+               "action" : null
+            },
+         ]
+   
+      }
+      
    }
 } 
 ```
 
 #### Stories
-- When a user encounters an error, they should see a standard error response
-   - error messages should appear as standard dialogs
-   - if no error message is defined by the api:
-      - display "Gotryiton is not responding right now"
-   - if error message is defined in the api response, display it
-   - if a title is defined in the error reponse use it
-      - otherwise use 'error'
+- When a user encounters an error that includes an alert object, they should see a standard error response
+   - error messages should appear as custom dialog windows
+   - if alert object is defined in the api response, display it
+      - if a title is defined in the error reponse use it
+         - otherwise use 'error'
 
 
 
