@@ -323,7 +323,7 @@ POST /track
       "id" : "Sign in view"
    }
 }
-
+```
 
 POST User/Signup/Facebook (see documentation [ApiUser](ApiUser.md) )
 
@@ -549,7 +549,7 @@ POST /track
       "id" : "Almost done view"
    }
 }
-
+```
 
 POST /User (see documentation [ApiUser](ApiUser.md) )
 
