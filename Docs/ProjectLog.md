@@ -1,3 +1,29 @@
+***Wednesday, May 16th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott
+- GTIO - Simon
+
+**Tasks / To Do List**
+- TT - provide preliminary development schedule for sprint 2
+
+**Status**
+-Working on sign in animations
+-Add 1.9 to login flow
+-Complete styling on 1.2
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Monday, May 14th - Standup Notes***
 
 **Attendees**
