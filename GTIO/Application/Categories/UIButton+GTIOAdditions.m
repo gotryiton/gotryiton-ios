@@ -28,4 +28,22 @@
     return button;
 }
 
++ (UIButton *)gtio_facebookButton
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"fb-sign-up-OFF.png"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"fb-sign-up-ON.png"] forState:UIControlStateHighlighted];
+    [button setFrame:(CGRect){ CGPointZero, { 241, 58 } }];
+    return button;
+}
+
++ (UIButton *)gtio_returningUserButton
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"returning-user-OFF.png"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"returning-user-ON.png"] forState:UIControlStateHighlighted];
+    [button setFrame:(CGRect){ CGPointZero, { 241, 58 } }];
+    return button;
+}
+
 @end

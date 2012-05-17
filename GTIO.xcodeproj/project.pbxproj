@@ -66,6 +66,8 @@
 		D2603E1E155AD92E00536BF9 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D2603E1D155AD92E00536BF9 /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D2603E20155AD93A00536BF9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2603E1F155AD93A00536BF9 /* CoreText.framework */; };
 		D2603E22155AE97800536BF9 /* ui.empty.pixel.png in Resources */ = {isa = PBXBuildFile; fileRef = D2603E21155AE97800536BF9 /* ui.empty.pixel.png */; };
+		D2985851156539AF005EE3CA /* login-help.png in Resources */ = {isa = PBXBuildFile; fileRef = D298584F156539AF005EE3CA /* login-help.png */; };
+		D2985852156539AF005EE3CA /* login-help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2985850156539AF005EE3CA /* login-help@2x.png */; };
 		D2CDA96715502F02009B7E24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96615502F02009B7E24 /* UIKit.framework */; };
 		D2CDA96915502F02009B7E24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96815502F02009B7E24 /* Foundation.framework */; };
 		D2CDA96B15502F02009B7E24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */; };
@@ -87,6 +89,19 @@
 		D2D048351563F4690034E04F /* UIButton+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D048341563F4690034E04F /* UIButton+GTIOAdditions.m */; };
 		D2D048381563F9820034E04F /* GTIOPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D048371563F9820034E04F /* GTIOPageControl.m */; };
 		D2D0483B15642B6E0034E04F /* GTIOIntroScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D0483A15642B6E0034E04F /* GTIOIntroScreenViewController.m */; };
+		D2D0483F1564378E0034E04F /* GTIOSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D0483E1564378E0034E04F /* GTIOSignInViewController.m */; };
+		D2D0484B156437BC0034E04F /* fb-sign-up-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04841156437BC0034E04F /* fb-sign-up-OFF.png */; };
+		D2D0484C156437BC0034E04F /* fb-sign-up-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04842156437BC0034E04F /* fb-sign-up-OFF@2x.png */; };
+		D2D0484D156437BC0034E04F /* fb-sign-up-ON.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04843156437BC0034E04F /* fb-sign-up-ON.png */; };
+		D2D0484E156437BC0034E04F /* fb-sign-up-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04844156437BC0034E04F /* fb-sign-up-ON@2x.png */; };
+		D2D0484F156437BC0034E04F /* login-bg-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04845156437BC0034E04F /* login-bg-logo.png */; };
+		D2D04850156437BC0034E04F /* login-bg-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04846156437BC0034E04F /* login-bg-logo@2x.png */; };
+		D2D04851156437BC0034E04F /* returning-user-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04847156437BC0034E04F /* returning-user-OFF.png */; };
+		D2D04852156437BC0034E04F /* returning-user-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04848156437BC0034E04F /* returning-user-OFF@2x.png */; };
+		D2D04853156437BC0034E04F /* returning-user-ON.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04849156437BC0034E04F /* returning-user-ON.png */; };
+		D2D04854156437BC0034E04F /* returning-user-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D0484A156437BC0034E04F /* returning-user-ON@2x.png */; };
+		D2D0485715643F970034E04F /* UIFont+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D0485615643F970034E04F /* UIFont+GTIOAdditions.m */; };
+		D2D0485A15643FB40034E04F /* UIColor+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D0485915643FB40034E04F /* UIColor+GTIOAdditions.m */; };
 		D2D738E1155D574A001B2D4B /* GTIOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D738E0155D574A001B2D4B /* GTIOUser.m */; };
 		D2E375741559B76500763A67 /* UI-Tab-1-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E375511559B76500763A67 /* UI-Tab-1-OFF.png */; };
 		D2E375751559B76500763A67 /* UI-Tab-1-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E375521559B76500763A67 /* UI-Tab-1-OFF@2x.png */; };
@@ -271,6 +286,8 @@
 		D2603E1D155AD92E00536BF9 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = Libraries/TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
 		D2603E1F155AD93A00536BF9 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		D2603E21155AE97800536BF9 /* ui.empty.pixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui.empty.pixel.png; path = General/ui.empty.pixel.png; sourceTree = "<group>"; };
+		D298584F156539AF005EE3CA /* login-help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-help.png"; sourceTree = "<group>"; };
+		D2985850156539AF005EE3CA /* login-help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-help@2x.png"; sourceTree = "<group>"; };
 		D2CDA96215502F02009B7E24 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2CDA96615502F02009B7E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D2CDA96815502F02009B7E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -302,6 +319,22 @@
 		D2D048371563F9820034E04F /* GTIOPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPageControl.m; sourceTree = "<group>"; };
 		D2D0483915642B6E0034E04F /* GTIOIntroScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIntroScreenViewController.h; sourceTree = "<group>"; };
 		D2D0483A15642B6E0034E04F /* GTIOIntroScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroScreenViewController.m; sourceTree = "<group>"; };
+		D2D0483D1564378E0034E04F /* GTIOSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSignInViewController.h; sourceTree = "<group>"; };
+		D2D0483E1564378E0034E04F /* GTIOSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSignInViewController.m; sourceTree = "<group>"; };
+		D2D04841156437BC0034E04F /* fb-sign-up-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-sign-up-OFF.png"; sourceTree = "<group>"; };
+		D2D04842156437BC0034E04F /* fb-sign-up-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-sign-up-OFF@2x.png"; sourceTree = "<group>"; };
+		D2D04843156437BC0034E04F /* fb-sign-up-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-sign-up-ON.png"; sourceTree = "<group>"; };
+		D2D04844156437BC0034E04F /* fb-sign-up-ON@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-sign-up-ON@2x.png"; sourceTree = "<group>"; };
+		D2D04845156437BC0034E04F /* login-bg-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-bg-logo.png"; sourceTree = "<group>"; };
+		D2D04846156437BC0034E04F /* login-bg-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-bg-logo@2x.png"; sourceTree = "<group>"; };
+		D2D04847156437BC0034E04F /* returning-user-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "returning-user-OFF.png"; sourceTree = "<group>"; };
+		D2D04848156437BC0034E04F /* returning-user-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "returning-user-OFF@2x.png"; sourceTree = "<group>"; };
+		D2D04849156437BC0034E04F /* returning-user-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "returning-user-ON.png"; sourceTree = "<group>"; };
+		D2D0484A156437BC0034E04F /* returning-user-ON@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "returning-user-ON@2x.png"; sourceTree = "<group>"; };
+		D2D0485515643F970034E04F /* UIFont+GTIOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+GTIOAdditions.h"; sourceTree = "<group>"; };
+		D2D0485615643F970034E04F /* UIFont+GTIOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+GTIOAdditions.m"; sourceTree = "<group>"; };
+		D2D0485815643FB40034E04F /* UIColor+GTIOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GTIOAdditions.h"; sourceTree = "<group>"; };
+		D2D0485915643FB40034E04F /* UIColor+GTIOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GTIOAdditions.m"; sourceTree = "<group>"; };
 		D2D738DF155D574A001B2D4B /* GTIOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUser.h; sourceTree = "<group>"; };
 		D2D738E0155D574A001B2D4B /* GTIOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUser.m; sourceTree = "<group>"; };
 		D2E375511559B76500763A67 /* UI-Tab-1-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UI-Tab-1-OFF.png"; sourceTree = "<group>"; };
@@ -499,6 +532,15 @@
 			name = TTTAttributedLabel;
 			sourceTree = "<group>";
 		};
+		D298584E156539AF005EE3CA /* 1.9 */ = {
+			isa = PBXGroup;
+			children = (
+				D298584F156539AF005EE3CA /* login-help.png */,
+				D2985850156539AF005EE3CA /* login-help@2x.png */,
+			);
+			path = 1.9;
+			sourceTree = "<group>";
+		};
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
@@ -617,6 +659,10 @@
 			children = (
 				D2D048331563F4690034E04F /* UIButton+GTIOAdditions.h */,
 				D2D048341563F4690034E04F /* UIButton+GTIOAdditions.m */,
+				D2D0485515643F970034E04F /* UIFont+GTIOAdditions.h */,
+				D2D0485615643F970034E04F /* UIFont+GTIOAdditions.m */,
+				D2D0485815643FB40034E04F /* UIColor+GTIOAdditions.h */,
+				D2D0485915643FB40034E04F /* UIColor+GTIOAdditions.m */,
 			);
 			name = Categories;
 			path = Application/Categories;
@@ -643,6 +689,7 @@
 		D2CDA9AF15503307009B7E24 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D2D0483C156437730034E04F /* Authentication */,
 				D201C824156144CE00C4168D /* Splash/Intro */,
 				D2E375961559B86700763A67 /* GTIOExploreLooksViewController.h */,
 				D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */,
@@ -718,11 +765,39 @@
 			name = Splash/Intro;
 			sourceTree = "<group>";
 		};
+		D2D0483C156437730034E04F /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				D2D0483D1564378E0034E04F /* GTIOSignInViewController.h */,
+				D2D0483E1564378E0034E04F /* GTIOSignInViewController.m */,
+			);
+			name = Authentication;
+			sourceTree = "<group>";
+		};
+		D2D04840156437BB0034E04F /* 1.3 */ = {
+			isa = PBXGroup;
+			children = (
+				D2D04841156437BC0034E04F /* fb-sign-up-OFF.png */,
+				D2D04842156437BC0034E04F /* fb-sign-up-OFF@2x.png */,
+				D2D04843156437BC0034E04F /* fb-sign-up-ON.png */,
+				D2D04844156437BC0034E04F /* fb-sign-up-ON@2x.png */,
+				D2D04845156437BC0034E04F /* login-bg-logo.png */,
+				D2D04846156437BC0034E04F /* login-bg-logo@2x.png */,
+				D2D04847156437BC0034E04F /* returning-user-OFF.png */,
+				D2D04848156437BC0034E04F /* returning-user-OFF@2x.png */,
+				D2D04849156437BC0034E04F /* returning-user-ON.png */,
+				D2D0484A156437BC0034E04F /* returning-user-ON@2x.png */,
+			);
+			path = 1.3;
+			sourceTree = "<group>";
+		};
 		D2E3754F1559B76500763A67 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				D20C223F155B0D2C0079D7D9 /* 1.1 */,
 				D20C2242155B0D2C0079D7D9 /* 1.2 */,
+				D2D04840156437BB0034E04F /* 1.3 */,
+				D298584E156539AF005EE3CA /* 1.9 */,
 				D2E375501559B76500763A67 /* 13.1 */,
 				D2E375671559B76500763A67 /* 13.4 */,
 				D2603E21155AE97800536BF9 /* ui.empty.pixel.png */,
@@ -988,6 +1063,18 @@
 				D20C2262155B0D2C0079D7D9 /* intro-bar-sign-in-ON@2x.png in Resources */,
 				D20C2263155B0D2C0079D7D9 /* status-bar-bg.png in Resources */,
 				D20C2264155B0D2C0079D7D9 /* status-bar-bg@2x.png in Resources */,
+				D2D0484B156437BC0034E04F /* fb-sign-up-OFF.png in Resources */,
+				D2D0484C156437BC0034E04F /* fb-sign-up-OFF@2x.png in Resources */,
+				D2D0484D156437BC0034E04F /* fb-sign-up-ON.png in Resources */,
+				D2D0484E156437BC0034E04F /* fb-sign-up-ON@2x.png in Resources */,
+				D2D0484F156437BC0034E04F /* login-bg-logo.png in Resources */,
+				D2D04850156437BC0034E04F /* login-bg-logo@2x.png in Resources */,
+				D2D04851156437BC0034E04F /* returning-user-OFF.png in Resources */,
+				D2D04852156437BC0034E04F /* returning-user-OFF@2x.png in Resources */,
+				D2D04853156437BC0034E04F /* returning-user-ON.png in Resources */,
+				D2D04854156437BC0034E04F /* returning-user-ON@2x.png in Resources */,
+				D2985851156539AF005EE3CA /* login-help.png in Resources */,
+				D2985852156539AF005EE3CA /* login-help@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1045,6 +1132,9 @@
 				D2D048351563F4690034E04F /* UIButton+GTIOAdditions.m in Sources */,
 				D2D048381563F9820034E04F /* GTIOPageControl.m in Sources */,
 				D2D0483B15642B6E0034E04F /* GTIOIntroScreenViewController.m in Sources */,
+				D2D0483F1564378E0034E04F /* GTIOSignInViewController.m in Sources */,
+				D2D0485715643F970034E04F /* UIFont+GTIOAdditions.m in Sources */,
+				D2D0485A15643FB40034E04F /* UIColor+GTIOAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

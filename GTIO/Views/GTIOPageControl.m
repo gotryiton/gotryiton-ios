@@ -73,6 +73,7 @@
         } else {
             dot.image = self.normalDot;
         }
+        [dot setBounds:(CGRect){ dot.frame.origin, { 11, 11 } }]; // Make dots bigger
     }
 }
 

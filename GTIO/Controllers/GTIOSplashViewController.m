@@ -18,6 +18,7 @@
 #import "GTIOAppDelegate.h"
 
 #import "GTIOIntroScreensViewController.h"
+#import "GTIOSignInViewController.h"
 
 @interface GTIOSplashViewController ()
 
@@ -63,6 +64,9 @@
                     loader.onDidFailWithError = ^(NSError *error) {
                         NSLog(@"Auth /user/me failed. User is not logged in.");
                         // TODO: go to view 1.9
+                        GTIOSignInViewController *signInViewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
+                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
+                        [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate).window setRootViewController:navController];
                     };
                 }];
             } else {

@@ -13,4 +13,7 @@
 + (UIButton *)gtio_signInButton;
 + (UIButton *)gtio_nextButton;
 
++ (UIButton *)gtio_facebookButton;
++ (UIButton *)gtio_returningUserButton;
+
 @end

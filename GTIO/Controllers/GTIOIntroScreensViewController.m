@@ -11,6 +11,8 @@
 #import <SDWebImage/SDImageCache.h>
 
 #import "GTIOIntroScreenViewController.h"
+#import "GTIOSignInViewController.h"
+
 #import "GTIOConfigManager.h"
 
 #import "GTIOConfig.h"
@@ -63,6 +65,7 @@
     [self.view addSubview:self.scrollView];
     
     self.toolbarView = [[GTIOIntroScreenToolbarView alloc] initWithFrame:(CGRect){ { 0, self.scrollView.frame.origin.y + self.scrollView.frame.size.height }, { self.view.frame.size.width, 44 } }];
+    [self.toolbarView.signInButton addTarget:self action:@selector(signInButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.toolbarView];
     
     // Setup intro pages
@@ -76,7 +79,7 @@
     }];
     
     CGFloat xOffset = 0.0f;
-    for (GTIOIntroScreen *introScreen in introScreensSorted) {        
+    for (GTIOIntroScreen *introScreen in introScreensSorted) {
         GTIOIntroScreenViewController *introScreenViewController = [[GTIOIntroScreenViewController alloc] initWithNibName:nil bundle:nil];
         [introScreenViewController setIntroScreen:introScreen];
         [introScreenViewController.view setFrame:(CGRect){ { xOffset, 0 }, self.scrollView.frame.size }];
@@ -86,9 +89,16 @@
         xOffset += self.scrollView.frame.size.width;
     }
     
+    // Add last page as sign up
+    GTIOSignInViewController *signInViewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
+    [signInViewController.view setFrame:(CGRect){ { xOffset, 0 }, self.scrollView.frame.size }];
+    [self.scrollView addSubview:signInViewController.view];
+    [self addChildViewController:signInViewController];
+    xOffset += self.scrollView.frame.size.width;
+    
     [self.scrollView setContentSize:(CGSize){ xOffset, self.scrollView.frame.size.height }];
     
-    [self.toolbarView.pageControl setNumberOfPages:[config.introScreens count]];
+    [self.toolbarView.pageControl setNumberOfPages:[self.childViewControllers count]];
     [self.toolbarView.pageControl setCurrentPage:0];
     [self.toolbarView.pageControl addTarget:self action:@selector(pageControlTouched:) forControlEvents:UIControlEventValueChanged];
 }
@@ -132,6 +142,13 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.toolbarView.pageControl setCurrentPage:[self currentScrollViewPageNumber]];
+}
+
+#pragma mark - UIButton Actions
+
+- (void)signInButtonTouched:(id)sender
+{
+    
 }
 
 @end
