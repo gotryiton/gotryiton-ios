@@ -68,7 +68,18 @@
     [self.view addSubview:self.scrollView];
     
     self.toolbarView = [[GTIOIntroScreenToolbarView alloc] initWithFrame:(CGRect){ { 0, self.scrollView.frame.origin.y + self.scrollView.frame.size.height }, { self.view.frame.size.width, 44 } }];
-    [self.toolbarView.signInButton addTarget:self action:@selector(signInButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [self.toolbarView.signInButton setTapHandler:^(id sender) {
+        // Go to last page
+        NSInteger currentPage = [self.childViewControllers count] - 1;
+        [self.scrollView setContentOffset:(CGPoint){ currentPage * self.scrollView.frame.size.width, 0 } animated:YES];
+    }];
+    __block typeof(self) blockSelf = self;
+    [self.toolbarView.nextButton setTapHandler:^(id sender) {
+        NSInteger currentPage = [blockSelf currentScrollViewPageNumber];
+        if (currentPage < [blockSelf.childViewControllers count] - 1) {
+            [self.scrollView setContentOffset:(CGPoint){ (currentPage + 1) * self.scrollView.frame.size.width, 0 } animated:YES];
+        }
+    }];
     [self.view addSubview:self.toolbarView];
     
     // Setup intro pages
@@ -126,7 +137,7 @@
 - (void)pageControlTouched:(id)sender
 {
     GTIOPageControl *pageControl = sender;
-    [self.scrollView setContentOffset:(CGPoint){ pageControl.currentPage * self.scrollView.frame.size.width, 0 }];
+    [self.scrollView setContentOffset:(CGPoint){ pageControl.currentPage * self.scrollView.frame.size.width, 0 } animated:YES];
 }
 
 #pragma mark - UIScrollView Helpers
@@ -145,15 +156,12 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.toolbarView.pageControl setCurrentPage:[self currentScrollViewPageNumber]];
-}
-
-#pragma mark - UIButton Actions
-
-- (void)signInButtonTouched:(id)sender
-{
-    // Go to last page
-    NSInteger currentPage = [self.childViewControllers count] - 1;
-    [self.scrollView setContentOffset:(CGPoint){ currentPage * self.scrollView.frame.size.width, 0 } animated:YES];
+    
+    if (self.toolbarView.pageControl.currentPage == [self.childViewControllers count] - 1) {
+        [self.toolbarView hideButtons:YES];
+    } else {
+        [self.toolbarView hideButtons:NO];
+    }
 }
 
 @end

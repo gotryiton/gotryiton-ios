@@ -15,4 +15,6 @@
 @property (nonatomic, strong) GTIOButton *signInButton;
 @property (nonatomic, strong) GTIOButton *nextButton;
 
+- (void)hideButtons:(BOOL)hidden;
+
 @end

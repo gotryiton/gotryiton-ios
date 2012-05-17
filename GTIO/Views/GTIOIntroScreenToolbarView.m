@@ -38,4 +38,10 @@ NSInteger const kGTIOButtonPadding = 6;
     return self;
 }
 
+- (void)hideButtons:(BOOL)hidden
+{
+    [self.signInButton setHidden:hidden];
+    [self.nextButton setHidden:hidden];
+}
+
 @end
