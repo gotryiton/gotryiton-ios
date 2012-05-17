@@ -451,8 +451,8 @@ Following is a response to `/posts/by-user?offset=3`. The example uses a limit o
     }
   ],
   "pagination": {
-    "previous_page": "/user/posts?offset=0",
-    "next_page": "/user/posts?offset=6"
+    "previous_page": "/posts/by-user/02022CB?offset=0",
+    "next_page": "/posts/by-user/02022CB?offset=6"
   }
 }
 ```
