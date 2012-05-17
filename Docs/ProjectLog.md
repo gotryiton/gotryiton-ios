@@ -1,3 +1,31 @@
+***Thursday, May 17th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott
+- GTIO - Simon, Matt, Scott
+
+**Tasks / To Do List**
+- TT - provide preliminary development schedule for sprint 2
+- GTIO - Provide new assets for Nav Bar with padding.  This change applies to all new nav assets
+- GTIO - Provide list of recipients for initial builds
+
+**Status**
+- Created custom view for returning users instead of utilizing Janrain SDK.  Need to investigate how much work is involved into customizing standard Janrain screen.  This also applies to New User / Other Providers screen.  This additional work requires the delivery of the feature to be pushed to Sprint 2.
+- UI Nav Bar has to be 44 pixels, instead of 40.  This requires a significant development effort.
+ - Solution: Provide assets that are 44 pixels in height, but bottom 4 buttons are transparent. Avoid changing height of the bar itself.
+
+**Updates to Planned Work**
+- 43 - Returning Users Issue will be pushed to Sprint 2
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Wednesday, May 16th - Standup Notes***
 
 **Attendees**
@@ -9,9 +37,9 @@
 - TT - provide preliminary development schedule for sprint 2
 
 **Status**
--Working on sign in animations
--Add 1.9 to login flow
--Complete styling on 1.2
+- Working on sign in animations
+- Add 1.9 to login flow
+- Complete styling on 1.2
 
 **Updates to Planned Work**
 - NA
