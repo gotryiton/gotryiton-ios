@@ -28,7 +28,8 @@
         case GTIOButtonTypeReturningUser: return [self gtio_returningUserButton];
         case GTIOButtonTypeNewUser: return [self gtio_newUserButton];
         case GTIOButtonTypeTryAgain: return [self gtio_tryAgainButton];
-        case GTIOButtonTryeEmailSupport: return [self gtio_emailSupportButton];
+        case GTIOButtonTypeEmailSupport: return [self gtio_emailSupportButton];
+        case GTIOButtonTypeBack: return [self gtio_backButton];
         default: return nil;
     }
 }
@@ -117,6 +118,11 @@
 + (id)gtio_emailSupportButton
 {
     return [self buttonWithCoreImageName:@"fail-table-3-email-support"];
+}
+
++ (id)gtio_backButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"login-nav-back.png"] hightlightImage:nil];
 }
 
 #pragma mark - Touch Handling

@@ -36,6 +36,11 @@
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"login-nav.png"] forBarMetrics:UIBarMetricsDefault];
     
+    GTIOButton *backButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBack tapHandler:^(id sender) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+    
     self.tryAgainButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeTryAgain];
     [self.tryAgainButton setFrame:(CGRect){ {(self.view.frame.size.width - self.tryAgainButton.frame.size.width) / 2, 144 }, self.tryAgainButton.frame.size }];
     [self.tryAgainButton setTapHandler:^(id sender) {
@@ -47,7 +52,7 @@
     [self.createUserButton setFrame:(CGRect){ {(self.view.frame.size.width - self.createUserButton.frame.size.width) / 2, self.tryAgainButton.frame.origin.y + self.tryAgainButton.frame.size.height }, self.createUserButton.frame.size }];
     [self.view addSubview:self.createUserButton];
     
-    self.emailSupportButton = [GTIOButton buttonWithGTIOType:GTIOButtonTryeEmailSupport];
+    self.emailSupportButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeEmailSupport];
     [self.emailSupportButton setFrame:(CGRect){ {(self.view.frame.size.width - self.emailSupportButton.frame.size.width) / 2, self.createUserButton.frame.origin.y + self.createUserButton.frame.size.height }, self.emailSupportButton.frame.size }];
     [self.view addSubview:self.emailSupportButton];
 }

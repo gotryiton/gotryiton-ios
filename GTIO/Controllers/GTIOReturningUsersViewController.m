@@ -38,6 +38,11 @@
     [self.view addSubview:backgroundImageView];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"login-nav.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    GTIOButton *backButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBack tapHandler:^(id sender) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
 
     self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignIn];
     [self.facebookButton setFrame:(CGRect){ {(self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 80 }, self.facebookButton.frame.size }];

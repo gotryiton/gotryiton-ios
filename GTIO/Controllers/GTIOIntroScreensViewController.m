@@ -47,6 +47,7 @@
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }

@@ -20,7 +20,8 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeReturningUser,
     GTIOButtonTypeTryAgain,
     GTIOButtonTypeNewUser,
-    GTIOButtonTryeEmailSupport
+    GTIOButtonTypeEmailSupport,
+    GTIOButtonTypeBack,
 } GTIOButtonType;
 
 @interface GTIOButton : UIButton
