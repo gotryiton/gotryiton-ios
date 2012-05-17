@@ -9,15 +9,18 @@
 typedef void(^GTIOButtonDidTapHandler)(id sender);
 
 typedef enum GTIOButtonType {
-    GTIOButtonTypeSignInButton = 0,
-    GTIOButtonTypeNextButton,
-    GTIOButtonTypeFacebookSignUpButton,
-    GTIOButtonTypeFacebookSignInButton,
-    GTIOButtonTypeAOLButton,
-    GTIOButtonTypeGoogleButton,
-    GTIOButtonTypeTwitterButton,
-    GTIOButtonTypeYahooButton,
-    GTIOButtonTypeReturningUserButton,
+    GTIOButtonTypeSignIn = 0,
+    GTIOButtonTypeNext,
+    GTIOButtonTypeFacebookSignUp,
+    GTIOButtonTypeFacebookSignIn,
+    GTIOButtonTypeAOL,
+    GTIOButtonTypeGoogle,
+    GTIOButtonTypeTwitter,
+    GTIOButtonTypeYahoo,
+    GTIOButtonTypeReturningUser,
+    GTIOButtonTypeTryAgain,
+    GTIOButtonTypeNewUser,
+    GTIOButtonTryeEmailSupport
 } GTIOButtonType;
 
 @interface GTIOButton : UIButton

@@ -96,6 +96,21 @@
 		D298588715653E47005EE3CA /* login-return-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D298586D15653E47005EE3CA /* login-return-bg@2x.png */; };
 		D298588A15653E71005EE3CA /* GTIOReturningUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D298588915653E71005EE3CA /* GTIOReturningUsersViewController.m */; };
 		D298588E15654403005EE3CA /* GTIOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D298588D15654403005EE3CA /* GTIOButton.m */; };
+		D29858A115657C8C005EE3CA /* fail-table-1-try-again-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589315657C8C005EE3CA /* fail-table-1-try-again-OFF.png */; };
+		D29858A215657C8C005EE3CA /* fail-table-1-try-again-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589415657C8C005EE3CA /* fail-table-1-try-again-OFF@2x.png */; };
+		D29858A315657C8C005EE3CA /* fail-table-1-try-again-ON.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589515657C8C005EE3CA /* fail-table-1-try-again-ON.png */; };
+		D29858A415657C8C005EE3CA /* fail-table-1-try-again-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589615657C8C005EE3CA /* fail-table-1-try-again-ON@2x.png */; };
+		D29858A515657C8C005EE3CA /* fail-table-2-new-user-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589715657C8C005EE3CA /* fail-table-2-new-user-OFF.png */; };
+		D29858A615657C8C005EE3CA /* fail-table-2-new-user-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589815657C8C005EE3CA /* fail-table-2-new-user-OFF@2x.png */; };
+		D29858A715657C8C005EE3CA /* fail-table-2-new-user-ON.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589915657C8C005EE3CA /* fail-table-2-new-user-ON.png */; };
+		D29858A815657C8C005EE3CA /* fail-table-2-new-user-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589A15657C8C005EE3CA /* fail-table-2-new-user-ON@2x.png */; };
+		D29858A915657C8C005EE3CA /* fail-table-3-email-support-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589B15657C8C005EE3CA /* fail-table-3-email-support-OFF.png */; };
+		D29858AA15657C8C005EE3CA /* fail-table-3-email-support-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589C15657C8C005EE3CA /* fail-table-3-email-support-OFF@2x.png */; };
+		D29858AB15657C8C005EE3CA /* fail-table-3-email-support-ON.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589D15657C8C005EE3CA /* fail-table-3-email-support-ON.png */; };
+		D29858AC15657C8C005EE3CA /* fail-table-3-email-support-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589E15657C8C005EE3CA /* fail-table-3-email-support-ON@2x.png */; };
+		D29858AD15657C8C005EE3CA /* login-fail-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D298589F15657C8C005EE3CA /* login-fail-bg.png */; };
+		D29858AE15657C8C005EE3CA /* login-fail-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D29858A015657C8C005EE3CA /* login-fail-bg@2x.png */; };
+		D29858B115657CC6005EE3CA /* GTIOFailedSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D29858B015657CC6005EE3CA /* GTIOFailedSignInViewController.m */; };
 		D2CDA96715502F02009B7E24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96615502F02009B7E24 /* UIKit.framework */; };
 		D2CDA96915502F02009B7E24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96815502F02009B7E24 /* Foundation.framework */; };
 		D2CDA96B15502F02009B7E24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */; };
@@ -345,6 +360,22 @@
 		D298588915653E71005EE3CA /* GTIOReturningUsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOReturningUsersViewController.m; sourceTree = "<group>"; };
 		D298588C15654403005EE3CA /* GTIOButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOButton.h; sourceTree = "<group>"; };
 		D298588D15654403005EE3CA /* GTIOButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOButton.m; sourceTree = "<group>"; };
+		D298589315657C8C005EE3CA /* fail-table-1-try-again-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-1-try-again-OFF.png"; sourceTree = "<group>"; };
+		D298589415657C8C005EE3CA /* fail-table-1-try-again-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-1-try-again-OFF@2x.png"; sourceTree = "<group>"; };
+		D298589515657C8C005EE3CA /* fail-table-1-try-again-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-1-try-again-ON.png"; sourceTree = "<group>"; };
+		D298589615657C8C005EE3CA /* fail-table-1-try-again-ON@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-1-try-again-ON@2x.png"; sourceTree = "<group>"; };
+		D298589715657C8C005EE3CA /* fail-table-2-new-user-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-2-new-user-OFF.png"; sourceTree = "<group>"; };
+		D298589815657C8C005EE3CA /* fail-table-2-new-user-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-2-new-user-OFF@2x.png"; sourceTree = "<group>"; };
+		D298589915657C8C005EE3CA /* fail-table-2-new-user-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-2-new-user-ON.png"; sourceTree = "<group>"; };
+		D298589A15657C8C005EE3CA /* fail-table-2-new-user-ON@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-2-new-user-ON@2x.png"; sourceTree = "<group>"; };
+		D298589B15657C8C005EE3CA /* fail-table-3-email-support-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-3-email-support-OFF.png"; sourceTree = "<group>"; };
+		D298589C15657C8C005EE3CA /* fail-table-3-email-support-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-3-email-support-OFF@2x.png"; sourceTree = "<group>"; };
+		D298589D15657C8C005EE3CA /* fail-table-3-email-support-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-3-email-support-ON.png"; sourceTree = "<group>"; };
+		D298589E15657C8C005EE3CA /* fail-table-3-email-support-ON@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail-table-3-email-support-ON@2x.png"; sourceTree = "<group>"; };
+		D298589F15657C8C005EE3CA /* login-fail-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-fail-bg.png"; sourceTree = "<group>"; };
+		D29858A015657C8C005EE3CA /* login-fail-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-fail-bg@2x.png"; sourceTree = "<group>"; };
+		D29858AF15657CC6005EE3CA /* GTIOFailedSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFailedSignInViewController.h; sourceTree = "<group>"; };
+		D29858B015657CC6005EE3CA /* GTIOFailedSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFailedSignInViewController.m; sourceTree = "<group>"; };
 		D2CDA96215502F02009B7E24 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2CDA96615502F02009B7E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D2CDA96815502F02009B7E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -638,6 +669,27 @@
 			name = General;
 			sourceTree = "<group>";
 		};
+		D298589215657C8A005EE3CA /* 1.6 */ = {
+			isa = PBXGroup;
+			children = (
+				D298589315657C8C005EE3CA /* fail-table-1-try-again-OFF.png */,
+				D298589415657C8C005EE3CA /* fail-table-1-try-again-OFF@2x.png */,
+				D298589515657C8C005EE3CA /* fail-table-1-try-again-ON.png */,
+				D298589615657C8C005EE3CA /* fail-table-1-try-again-ON@2x.png */,
+				D298589715657C8C005EE3CA /* fail-table-2-new-user-OFF.png */,
+				D298589815657C8C005EE3CA /* fail-table-2-new-user-OFF@2x.png */,
+				D298589915657C8C005EE3CA /* fail-table-2-new-user-ON.png */,
+				D298589A15657C8C005EE3CA /* fail-table-2-new-user-ON@2x.png */,
+				D298589B15657C8C005EE3CA /* fail-table-3-email-support-OFF.png */,
+				D298589C15657C8C005EE3CA /* fail-table-3-email-support-OFF@2x.png */,
+				D298589D15657C8C005EE3CA /* fail-table-3-email-support-ON.png */,
+				D298589E15657C8C005EE3CA /* fail-table-3-email-support-ON@2x.png */,
+				D298589F15657C8C005EE3CA /* login-fail-bg.png */,
+				D29858A015657C8C005EE3CA /* login-fail-bg@2x.png */,
+			);
+			path = 1.6;
+			sourceTree = "<group>";
+		};
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
@@ -868,6 +920,8 @@
 				D2D0483E1564378E0034E04F /* GTIOSignInViewController.m */,
 				D298588815653E71005EE3CA /* GTIOReturningUsersViewController.h */,
 				D298588915653E71005EE3CA /* GTIOReturningUsersViewController.m */,
+				D29858AF15657CC6005EE3CA /* GTIOFailedSignInViewController.h */,
+				D29858B015657CC6005EE3CA /* GTIOFailedSignInViewController.m */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";
@@ -892,6 +946,7 @@
 		D2E3754F1559B76500763A67 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D298589215657C8A005EE3CA /* 1.6 */,
 				D298585315653E47005EE3CA /* 1.4 */,
 				D20C223F155B0D2C0079D7D9 /* 1.1 */,
 				D20C2242155B0D2C0079D7D9 /* 1.2 */,
@@ -1200,6 +1255,20 @@
 				D298588515653E47005EE3CA /* login-nav@2x.png in Resources */,
 				D298588615653E47005EE3CA /* login-return-bg.png in Resources */,
 				D298588715653E47005EE3CA /* login-return-bg@2x.png in Resources */,
+				D29858A115657C8C005EE3CA /* fail-table-1-try-again-OFF.png in Resources */,
+				D29858A215657C8C005EE3CA /* fail-table-1-try-again-OFF@2x.png in Resources */,
+				D29858A315657C8C005EE3CA /* fail-table-1-try-again-ON.png in Resources */,
+				D29858A415657C8C005EE3CA /* fail-table-1-try-again-ON@2x.png in Resources */,
+				D29858A515657C8C005EE3CA /* fail-table-2-new-user-OFF.png in Resources */,
+				D29858A615657C8C005EE3CA /* fail-table-2-new-user-OFF@2x.png in Resources */,
+				D29858A715657C8C005EE3CA /* fail-table-2-new-user-ON.png in Resources */,
+				D29858A815657C8C005EE3CA /* fail-table-2-new-user-ON@2x.png in Resources */,
+				D29858A915657C8C005EE3CA /* fail-table-3-email-support-OFF.png in Resources */,
+				D29858AA15657C8C005EE3CA /* fail-table-3-email-support-OFF@2x.png in Resources */,
+				D29858AB15657C8C005EE3CA /* fail-table-3-email-support-ON.png in Resources */,
+				D29858AC15657C8C005EE3CA /* fail-table-3-email-support-ON@2x.png in Resources */,
+				D29858AD15657C8C005EE3CA /* login-fail-bg.png in Resources */,
+				D29858AE15657C8C005EE3CA /* login-fail-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1261,6 +1330,7 @@
 				D2D0485A15643FB40034E04F /* UIColor+GTIOAdditions.m in Sources */,
 				D298588A15653E71005EE3CA /* GTIOReturningUsersViewController.m in Sources */,
 				D298588E15654403005EE3CA /* GTIOButton.m in Sources */,
+				D29858B115657CC6005EE3CA /* GTIOFailedSignInViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

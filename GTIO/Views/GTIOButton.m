@@ -17,15 +17,18 @@
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType 
 {
     switch (buttonType) {
-        case GTIOButtonTypeSignInButton: return [self gtio_signInButton];
-        case GTIOButtonTypeNextButton: return [self gtio_nextButton];
-        case GTIOButtonTypeFacebookSignInButton: return [self gtio_facebookSignInButton];
-        case GTIOButtonTypeFacebookSignUpButton: return [self gtio_facebookSignUpButton];
-        case GTIOButtonTypeAOLButton: return [self gtio_aolButton];
-        case GTIOButtonTypeGoogleButton: return [self gtio_googleButton];
-        case GTIOButtonTypeTwitterButton: return [self gtio_twitterButton];
-        case GTIOButtonTypeYahooButton: return [self gtio_yahooButton];
-        case GTIOButtonTypeReturningUserButton: return [self gtio_returningUserButton];
+        case GTIOButtonTypeSignIn: return [self gtio_signInButton];
+        case GTIOButtonTypeNext: return [self gtio_nextButton];
+        case GTIOButtonTypeFacebookSignIn: return [self gtio_facebookSignInButton];
+        case GTIOButtonTypeFacebookSignUp: return [self gtio_facebookSignUpButton];
+        case GTIOButtonTypeAOL: return [self gtio_aolButton];
+        case GTIOButtonTypeGoogle: return [self gtio_googleButton];
+        case GTIOButtonTypeTwitter: return [self gtio_twitterButton];
+        case GTIOButtonTypeYahoo: return [self gtio_yahooButton];
+        case GTIOButtonTypeReturningUser: return [self gtio_returningUserButton];
+        case GTIOButtonTypeNewUser: return [self gtio_newUserButton];
+        case GTIOButtonTypeTryAgain: return [self gtio_tryAgainButton];
+        case GTIOButtonTryeEmailSupport: return [self gtio_emailSupportButton];
         default: return nil;
     }
 }
@@ -99,6 +102,21 @@
 + (id)gtio_returningUserButton
 {
     return [self buttonWithCoreImageName:@"returning-user"];
+}
+
++ (id)gtio_tryAgainButton
+{
+    return [self buttonWithCoreImageName:@"fail-table-1-try-again"];
+}
+
++ (id)gtio_newUserButton
+{
+    return [self buttonWithCoreImageName:@"fail-table-2-new-user"];
+}
+
++ (id)gtio_emailSupportButton
+{
+    return [self buttonWithCoreImageName:@"fail-table-3-email-support"];
 }
 
 #pragma mark - Touch Handling

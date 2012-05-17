@@ -39,26 +39,26 @@
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"login-nav.png"] forBarMetrics:UIBarMetricsDefault];
 
-    self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignInButton];
+    self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignIn];
     [self.facebookButton setFrame:(CGRect){ {(self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 80 }, self.facebookButton.frame.size }];
     [self.facebookButton setTapHandler:^(id sender) {
         NSLog(@"Facebook button touched");
     }];
     [self.view addSubview:self.facebookButton];
     
-    self.aolButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeAOLButton];
+    self.aolButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeAOL];
     [self.aolButton setFrame:(CGRect){ {(self.view.frame.size.width - self.aolButton.frame.size.width) / 2, 145 }, self.aolButton.frame.size }];
     [self.view addSubview:self.aolButton];
     
-    self.googleButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeGoogleButton];
+    self.googleButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeGoogle];
     [self.googleButton setFrame:(CGRect){ {(self.view.frame.size.width - self.googleButton.frame.size.width) / 2, self.aolButton.frame.origin.y + self.aolButton.frame.size.height }, self.googleButton.frame.size }];
     [self.view addSubview:self.googleButton];
     
-    self.twitterButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeTwitterButton];
+    self.twitterButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeTwitter];
     [self.twitterButton setFrame:(CGRect){ {(self.view.frame.size.width - self.twitterButton.frame.size.width) / 2, self.googleButton.frame.origin.y + self.googleButton.frame.size.height }, self.twitterButton.frame.size }];
     [self.view addSubview:self.twitterButton];
     
-    self.yahooButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeYahooButton];
+    self.yahooButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeYahoo];
     [self.yahooButton setFrame:(CGRect){ {(self.view.frame.size.width - self.yahooButton.frame.size.width) / 2, self.twitterButton.frame.origin.y + self.twitterButton.frame.size.height }, self.yahooButton.frame.size }];
     [self.view addSubview:self.yahooButton];
 }
@@ -66,7 +66,11 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-
+    self.facebookButton = nil;
+    self.aolButton = nil;
+    self.googleButton = nil;
+    self.twitterButton = nil;
+    self.yahooButton = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
