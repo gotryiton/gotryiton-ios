@@ -224,7 +224,7 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
 }
 ```
 
-### POST  `/posts/create`
+### POST  `/post/create`
 Creates and returns a post object based on passed parameters.
 
 - **Must provide:** `description` `(string)` and `voting_enabled` `(boolean)`.
@@ -288,6 +288,79 @@ Creates and returns a post object based on passed parameters.
     "created_at": 1337012650,
     "created_when": "just now",
     "post_type": "outfit"
+  }
+}
+```
+
+### POST  `/posts/by-user?offset=20`
+Responds with posts created by the user that is logged in.
+
+Following is a response to `/posts/by-user?offset=1` with a limit of 1. In production the limit is set to 20.
+
+```json
+{
+  "posts": [
+    {
+      "id": 2,
+      "user": {
+        "id": "1000",
+        "name": "Test User",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/user/1000/profile",
+        "follow_button": {
+          "text": "follow",
+          "action": "/user/1000/follow",
+          "state": 0
+        }
+      },
+      "reviews": {
+        "action": "/post/2/reviews",
+        "count": "0"
+      },
+      "product": {
+        "description": "This will look good on you.",
+        "brands_description": null,
+        "main_image": "http://image.gtio.com/",
+        "square_thumbnail": "/Users/ashishgandhi/src/chef-repo/gotryiton/config/environments/../../tests/tmp/images/products/1337_300_300.jpg",
+        "small_thumbnail": "/Users/ashishgandhi/src/chef-repo/gotryiton/config/environments/../../tests/tmp/images/products/1337_200_0.jpg"
+      },
+      "brands": [
+      ],
+      "heart": {
+        "state": "0",
+        "action": "/posts/2/heart"
+      },
+      "hearts": {
+        "count": "0",
+        "action": "/posts/2/hearts"
+      },
+      "users_who_hearted_this": [
+      ],
+      "vote": {
+        "enabled": true,
+        "count_votes": 9,
+        "verdict": "Pending",
+        "pending": true,
+        "weart_it": {
+          "count": 4,
+          "state": 0,
+          "action": "/post/2/vote/wear-it"
+        },
+        "change_it": {
+          "count": 5,
+          "state": 0,
+          "action": "/post/2/vote/change-it"
+        }
+      },
+      "created_at": 13490831,
+      "created_when": "42 years ago",
+      "post_type": "product"
+    }
+  ],
+  "pagination": {
+    "previous_page": "/user/posts?offset=0",
+    "next_page": "/user/posts?offset=2"
   }
 }
 ```
