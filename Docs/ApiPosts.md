@@ -2,13 +2,12 @@
 
 ## Endpoints
 
-### GET  `/posts/feed?offset=20`
+### GET  `/posts/feed`
 Gets feed of the logged in user.
 
-- Pages are numbered from 1 and it defaults to the first page if no page is specified.
 - The `change_it` and `wear_it` button keys are absent if voting is disabled.
 
-Following is a sample response for `/posts/feed.json?offset=3`. The example uses a limit of 3 but on produciton it's set to 20.
+Following is a sample response for `/posts/feed?offset=3`. The example uses a limit of 3 but on produciton it's set to 20.
 
 ```json
 {
@@ -19,24 +18,19 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
         "id": "6654D05",
         "name": "gtiotwit2 K.",
         "location": "Bk, NY",
-        "user_icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/6cddd37ef45dc3c73d87dfb7b96de0c3_110_110.jpg",
-        "badges": [
+        "icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/6cddd37ef45dc3c73d87dfb7b96de0c3_110_110.jpg",
+        "badge": 
           {
-            "id": 22,
-            "badge_type": 1,
-            "image_urls": {
               "default": "http://assets.gotryiton.com/img/badges/1/badge-flat-model.png",
               "profile": "http://assets.gotryiton.com/img/badges/1/badge-profile-model.png",
               "flat": "http://assets.gotryiton.com/img/badges/1/badge-flat-model.png",
               "outfit": "http://assets.gotryiton.com/img/badges/1/badge-outfit-model.png",
               "shaded": "http://assets.gotryiton.com/img/badges/1/badge-shaded-model.png",
               "small": "http://assets.gotryiton.com/img/badges/1/badge-review-model.png"
-            },
-            "created_at": 1327441478
           }
-        ],
+        ,
         "action": "/users/6654D05",
-        "following_button": {
+        "follow_button": {
           "text": "following",
           "action": "/users/6654D05/unfollow",
           "state": 1
@@ -44,7 +38,7 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
       },
       "reviews": {
         "action": "/post/1423/reviews",
-        "count": "0"
+        "count": 0
       },
       "outfit": {
         "description": "afdasfdafa",
@@ -56,21 +50,21 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
       "brands": [
       ],
       "heart": {
-        "state": "0",
+        "state": 0,
         "action": "/posts/1423/heart"
       },
       "hearts": {
-        "count": "0",
+        "count": 0,
         "action": "/posts/1423/hearts"
       },
       "users_who_hearted_this": [
       ],
       "vote": {
         "enabled": true,
-        "count_votes": 1,
+        "count": 1,
         "verdict": true,
         "pending": true,
-        "weart_it": {
+        "wear_it": {
           "count": 1,
           "state": 0,
           "action": "/post/1423/vote/wear-it"
@@ -91,24 +85,10 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
         "id": "6654D05",
         "name": "gtiotwit2 K.",
         "location": "Bk, NY",
-        "user_icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/6cddd37ef45dc3c73d87dfb7b96de0c3_110_110.jpg",
-        "badges": [
-          {
-            "id": 22,
-            "badge_type": 1,
-            "image_urls": {
-              "default": "http://assets.gotryiton.com/img/badges/1/badge-flat-model.png",
-              "profile": "http://assets.gotryiton.com/img/badges/1/badge-profile-model.png",
-              "flat": "http://assets.gotryiton.com/img/badges/1/badge-flat-model.png",
-              "outfit": "http://assets.gotryiton.com/img/badges/1/badge-outfit-model.png",
-              "shaded": "http://assets.gotryiton.com/img/badges/1/badge-shaded-model.png",
-              "small": "http://assets.gotryiton.com/img/badges/1/badge-review-model.png"
-            },
-            "created_at": 1327441478
-          }
-        ],
+        "icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/6cddd37ef45dc3c73d87dfb7b96de0c3_110_110.jpg",
+        "badge": null,
         "action": "/users/6654D05",
-        "following_button": {
+        "follow_button": {
           "text": "following",
           "action": "/users/6654D05/unfollow",
           "state": 1
@@ -116,7 +96,7 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
       },
       "reviews": {
         "action": "/post/1421/reviews",
-        "count": "2"
+        "count": 2
       },
       "outfit": {
         "description": "Bababbaba",
@@ -139,10 +119,10 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
       ],
       "vote": {
         "enabled": true,
-        "count_votes": 1,
+        "count": 1,
         "verdict": true,
         "pending": true,
-        "weart_it": {
+        "wear_it": {
           "count": 1,
           "state": 0,
           "action": "/post/1421/vote/wear-it"
@@ -163,7 +143,7 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
         "id": "42BDB51",
         "name": "Ashish",
         "location": "Manhattan, New York",
-        "user_icon": "http://graph.facebook.com/538638807/picture",
+        "icon": "http://graph.facebook.com/538638807/picture",
         "badges": [
         ],
         "action": "/users/42BDB51",
@@ -175,7 +155,7 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
       },
       "reviews": {
         "action": "/post/1417/reviews",
-        "count": "0"
+        "count": 0
       },
       "outfit": {
         "description": "Blue?",
@@ -187,27 +167,27 @@ Following is a sample response for `/posts/feed.json?offset=3`. The example uses
       "brands": [
       ],
       "heart": {
-        "state": "0",
+        "state": 0,
         "action": "/posts/1417/heart"
       },
       "hearts": {
-        "count": "0",
+        "count": 0,
         "action": "/posts/1417/hearts"
       },
       "users_who_hearted_this": [
       ],
       "vote": {
         "enabled": true,
-        "count_votes": 0,
-        "verdict": true,
-        "pending": true,
+        "count": 25,
+        "verdict": "wear it",
+        "pending": false,
         "weart_it": {
-          "count": 0,
+          "count": 23,
           "state": 0,
           "action": "/post/1417/vote/wear-it"
         },
         "change_it": {
-          "count": 0,
+          "count": 2,
           "state": 0,
           "action": "/post/1417/vote/change-it"
         }
@@ -251,15 +231,11 @@ Creates and returns a post object based on passed parameters.
       "location": "Manhattan, New York",
       "icon": "http://graph.facebook.com/538638807/picture",
       "action": "/user/42BDB51/profile",
-      "follow_button": {
-        "text": "following",
-        "action": "/user/42BDB51/unfollow",
-        "state": 1
-      }
+      "follow_button": null
     },
     "reviews": {
       "action": "/post/1430/reviews",
-      "count": "0"
+      "count": 0
     },
     "outfit": {
       "description": "This is a post.",
@@ -271,19 +247,17 @@ Creates and returns a post object based on passed parameters.
     "brands": [
     ],
     "heart": {
-      "state": null,
+      "state": 0,
       "action": "/posts/1430/heart"
     },
     "hearts": {
-      "count": null,
+      "count": 0,
       "action": "/posts/1430/hearts"
     },
     "users_who_hearted_this": null,
     "vote": {
       "enabled": false,
-      "count_votes": 0,
-      "verdict": null,
-      "pending": null
+      "count": 0,
     },
     "created_at": 1337012650,
     "created_when": "just now",
@@ -292,7 +266,7 @@ Creates and returns a post object based on passed parameters.
 }
 ```
 
-### POST  `/posts/by-user?offset=20`
+### POST  `/posts/by-user`
 Responds with posts created by the user that is logged in.
 
 Following is a response to `/posts/by-user?offset=1` with a limit of 1. In production the limit is set to 20.
@@ -316,7 +290,7 @@ Following is a response to `/posts/by-user?offset=1` with a limit of 1. In produ
       },
       "reviews": {
         "action": "/post/2/reviews",
-        "count": "0"
+        "count": 0
       },
       "product": {
         "description": "This will look good on you.",
@@ -328,11 +302,11 @@ Following is a response to `/posts/by-user?offset=1` with a limit of 1. In produ
       "brands": [
       ],
       "heart": {
-        "state": "0",
+        "state": 0,
         "action": "/posts/2/heart"
       },
       "hearts": {
-        "count": "0",
+        "count": 0,
         "action": "/posts/2/hearts"
       },
       "users_who_hearted_this": [
@@ -342,7 +316,7 @@ Following is a response to `/posts/by-user?offset=1` with a limit of 1. In produ
         "count_votes": 9,
         "verdict": "Pending",
         "pending": true,
-        "weart_it": {
+        "wear_it": {
           "count": 4,
           "state": 0,
           "action": "/post/2/vote/wear-it"
