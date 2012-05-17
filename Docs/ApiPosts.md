@@ -269,72 +269,190 @@ Creates and returns a post object based on passed parameters.
 ### POST  `/posts/by-user(/:id)`
 Responds with posts created by the user that is logged in if no `id` is passed. Responds with errors if the logged in user is not authorized to access the requested user's posts or if the passed `id` doesn't map to an existing user.
 
-Following is a response to `/posts/by-user?offset=1` with a limit of 1. In production the limit is set to 20.
+Following is a response to `/posts/by-user?offset=3`. The example uses a limit of 3 but on produciton it's set to 20.
 
 ```json
 {
   "posts": [
     {
-      "id": 2,
+      "id": 610,
       "user": {
-        "id": "1000",
-        "name": "Test User",
-        "location": "NY, NY",
+        "id": "02022CB",
+        "name": "simonmm H.",
+        "location": "Boston, MA",
         "icon": "http://assets.gotryiton.com/img/profile-default.png",
-        "action": "/user/1000/profile",
+        "action": "/user/02022CB/profile",
         "follow_button": {
           "text": "follow",
-          "action": "/user/1000/follow",
+          "action": "/user/02022CB/follow",
           "state": 0
         }
       },
       "reviews": {
-        "action": "/post/2/reviews",
-        "count": 0
+        "action": "/post/610/reviews",
+        "count": 1
       },
-      "product": {
-        "description": "This will look good on you.",
-        "brands_description": null,
-        "main_image": "http://image.gtio.com/",
-        "square_thumbnail": "/Users/ashishgandhi/src/chef-repo/gotryiton/config/environments/../../tests/tmp/images/products/1337_300_300.jpg",
-        "small_thumbnail": "/Users/ashishgandhi/src/chef-repo/gotryiton/config/environments/../../tests/tmp/images/products/1337_200_0.jpg"
+      "outfit": {
+        "description": "penguins and koala in for an interview at GTIO Boston ",
+        "brands_description": "penguin feathers ",
+        "main_image": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/CCE537F.jpg",
+        "square_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/CCE537F_110_110.jpg",
+        "small_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/CCE537F_101_131.jpg"
       },
       "brands": [
       ],
       "heart": {
-        "state": 0,
-        "action": "/posts/2/heart"
+        "state": "0",
+        "action": "/posts/610/heart"
       },
       "hearts": {
-        "count": 0,
-        "action": "/posts/2/hearts"
+        "count": "0",
+        "action": "/posts/610/hearts"
       },
       "users_who_hearted_this": [
       ],
       "vote": {
         "enabled": true,
-        "count_votes": 9,
-        "verdict": "Pending",
-        "pending": true,
+        "count_votes": 11,
+        "verdict": false,
+        "pending": false,
         "wear_it": {
-          "count": 4,
+          "count": 11,
           "state": 0,
-          "action": "/post/2/vote/wear-it"
+          "action": "/post/610/vote/wear-it"
         },
         "change_it": {
-          "count": 5,
+          "count": 0,
           "state": 0,
-          "action": "/post/2/vote/change-it"
+          "action": "/post/610/vote/change-it"
         }
       },
-      "created_at": 13490831,
-      "created_when": "42 years ago",
-      "post_type": "product"
+      "created_at": 1278603818,
+      "created_when": "2 years ago",
+      "post_type": "outfit"
+    },
+    {
+      "id": 14,
+      "user": {
+        "id": "02022CB",
+        "name": "simonmm H.",
+        "location": "Boston, MA",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/user/02022CB/profile",
+        "follow_button": {
+          "text": "follow",
+          "action": "/user/02022CB/follow",
+          "state": 0
+        }
+      },
+      "reviews": {
+        "action": "/post/14/reviews",
+        "count": 0
+      },
+      "outfit": {
+        "description": "aa ",
+        "brands_description": "",
+        "main_image": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/57A7142.jpg",
+        "square_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/57A7142_110_110.jpg",
+        "small_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/57A7142_101_131.jpg"
+      },
+      "brands": [
+        {
+          "id": "american_apparel",
+          "name": "American Apparel"
+        }
+      ],
+      "heart": {
+        "state": "0",
+        "action": "/posts/14/heart"
+      },
+      "hearts": {
+        "count": "0",
+        "action": "/posts/14/hearts"
+      },
+      "users_who_hearted_this": [
+      ],
+      "vote": {
+        "enabled": true,
+        "count_votes": 6,
+        "verdict": true,
+        "pending": true,
+        "wear_it": {
+          "count": 6,
+          "state": 0,
+          "action": "/post/14/vote/wear-it"
+        },
+        "change_it": {
+          "count": 0,
+          "state": 0,
+          "action": "/post/14/vote/change-it"
+        }
+      },
+      "created_at": 1278602393,
+      "created_when": "2 years ago",
+      "post_type": "outfit"
+    },
+    {
+      "id": 188,
+      "user": {
+        "id": "02022CB",
+        "name": "simonmm H.",
+        "location": "Boston, MA",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/user/02022CB/profile",
+        "follow_button": {
+          "text": "follow",
+          "action": "/user/02022CB/follow",
+          "state": 0
+        }
+      },
+      "reviews": {
+        "action": "/post/188/reviews",
+        "count": 2
+      },
+      "outfit": {
+        "description": "penguins interviewing jelly fish ",
+        "brands_description": "",
+        "main_image": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/BF20445.jpg",
+        "square_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/BF20445_110_110.jpg",
+        "small_thumbnail": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/BF20445_101_131.jpg"
+      },
+      "brands": [
+      ],
+      "heart": {
+        "state": "0",
+        "action": "/posts/188/heart"
+      },
+      "hearts": {
+        "count": "0",
+        "action": "/posts/188/hearts"
+      },
+      "users_who_hearted_this": [
+      ],
+      "vote": {
+        "enabled": true,
+        "count_votes": 1,
+        "verdict": true,
+        "pending": true,
+        "wear_it": {
+          "count": 1,
+          "state": 0,
+          "action": "/post/188/vote/wear-it"
+        },
+        "change_it": {
+          "count": 0,
+          "state": 0,
+          "action": "/post/188/vote/change-it"
+        }
+      },
+      "created_at": 1278602295,
+      "created_when": "2 years ago",
+      "post_type": "outfit"
     }
   ],
   "pagination": {
     "previous_page": "/user/posts?offset=0",
-    "next_page": "/user/posts?offset=2"
+    "next_page": "/user/posts?offset=6"
   }
 }
 ```
