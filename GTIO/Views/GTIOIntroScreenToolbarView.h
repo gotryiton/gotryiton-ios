@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) GTIOPageControl *pageControl;
 
-@property (nonatomic, strong) UIButton *signInButton;
-@property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, strong) GTIOButton *signInButton;
+@property (nonatomic, strong) GTIOButton *nextButton;
 
 @end

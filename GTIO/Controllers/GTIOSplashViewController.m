@@ -22,6 +22,8 @@
 
 @interface GTIOSplashViewController ()
 
+- (void)displaySignInViewController;
+
 @end
 
 @implementation GTIOSplashViewController
@@ -64,18 +66,18 @@
                     loader.onDidFailWithError = ^(NSError *error) {
                         NSLog(@"Auth /user/me failed. User is not logged in.");
                         // TODO: go to view 1.9
-                        GTIOSignInViewController *signInViewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
-                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
-                        [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate).window setRootViewController:navController];
+                        [self displaySignInViewController];
                     };
                 }];
             } else {
                 // route to view 1.2
                 if ([config.introScreens count] > 0) {
                     GTIOIntroScreensViewController *introScreensViewController = [[GTIOIntroScreensViewController alloc] initWithNibName:nil bundle:nil];
-                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate).window setRootViewController:introScreensViewController];
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:introScreensViewController];
+                    [[UIApplication sharedApplication].keyWindow setRootViewController:navController];
                 } else {
                     // no intro screens route to view 1.9
+                    [self displaySignInViewController];
                 }
                 
                 [GTIOTrack postTrackUsingBlock:^(NSError *error, GTIOTrack *track) {
@@ -100,11 +102,13 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark -
+#pragma mark - Next Page Helpers
 
-- (void)loadIntroScreensImages
+- (void)displaySignInViewController
 {
-    
+    GTIOSignInViewController *signInViewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
+    [[UIApplication sharedApplication].keyWindow setRootViewController:navController];
 }
 
 @end

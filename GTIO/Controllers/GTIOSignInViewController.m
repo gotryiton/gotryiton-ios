@@ -8,10 +8,12 @@
 
 #import "GTIOSignInViewController.h"
 
+#import "GTIOReturningUsersViewController.h"
+
 @interface GTIOSignInViewController ()
 
-@property (nonatomic, strong) UIButton *facebookButton;
-@property (nonatomic, strong) UIButton *returningUserButton;
+@property (nonatomic, strong) GTIOButton *facebookButton;
+@property (nonatomic, strong) GTIOButton *returningUserButton;
 
 @end
 
@@ -45,14 +47,18 @@
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
     [self.view addSubview:backgroundImageView];
     
-    self.facebookButton = [UIButton gtio_facebookButton];
+    self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignUpButton];
     [self.facebookButton setFrame:(CGRect){ { (self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 245 }, self.facebookButton.frame.size }];
     [self.facebookButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.view addSubview:self.facebookButton];
     
-    self.returningUserButton = [UIButton gtio_returningUserButton];
+    self.returningUserButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeReturningUserButton];
     [self.returningUserButton setFrame:(CGRect){ { (self.view.frame.size.width - self.returningUserButton.frame.size.width) / 2, 300 }, self.returningUserButton.frame.size }];
-    [self.facebookButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
+    [self.returningUserButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
+    [self.returningUserButton setTapHandler:^(id sender) {
+        GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:returningUsersViewController animated:YES];
+    }];
     [self.view addSubview:self.returningUserButton];
     
     // Sign up with another provider

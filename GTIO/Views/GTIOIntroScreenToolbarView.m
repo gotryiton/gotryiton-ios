@@ -23,11 +23,11 @@ NSInteger const kGTIOButtonPadding = 6;
         [backgroundImageView setImage:[UIImage imageNamed:@"intro-bar-bg.png"]];
         [self addSubview:backgroundImageView];
         
-        _signInButton = [UIButton gtio_signInButton];
+        _signInButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSignInButton];
         [_signInButton setFrame:(CGRect){ { kGTIOButtonPadding, kGTIOButtonPadding } , _signInButton.frame.size }];
         [self addSubview:_signInButton];
         
-        _nextButton = [UIButton gtio_nextButton];
+        _nextButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeNextButton];
         [_nextButton setFrame:(CGRect){ { self.frame.size.width - _nextButton.frame.size.width - kGTIOButtonPadding, kGTIOButtonPadding } , _nextButton.frame.size }];
         [self addSubview:_nextButton];
         

@@ -47,6 +47,8 @@
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)viewDidLoad
@@ -148,7 +150,9 @@
 
 - (void)signInButtonTouched:(id)sender
 {
-    
+    // Go to last page
+    NSInteger currentPage = [self.childViewControllers count] - 1;
+    [self.scrollView setContentOffset:(CGPoint){ currentPage * self.scrollView.frame.size.width, 0 } animated:YES];
 }
 
 @end
