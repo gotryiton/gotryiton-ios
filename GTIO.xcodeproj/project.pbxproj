@@ -152,7 +152,7 @@
 		D2CDA9F71550579A009B7E24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9F11550579A009B7E24 /* SystemConfiguration.framework */; };
 		D2D048321563F1DA0034E04F /* GTIOIntroScreenToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D048311563F1DA0034E04F /* GTIOIntroScreenToolbarView.m */; };
 		D2D048381563F9820034E04F /* GTIOPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D048371563F9820034E04F /* GTIOPageControl.m */; };
-		D2D0483B15642B6E0034E04F /* GTIOIntroScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D0483A15642B6E0034E04F /* GTIOIntroScreenViewController.m */; };
+		D2D0483B15642B6E0034E04F /* GTIOIntroImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D0483A15642B6E0034E04F /* GTIOIntroImageViewController.m */; };
 		D2D0483F1564378E0034E04F /* GTIOSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D0483E1564378E0034E04F /* GTIOSignInViewController.m */; };
 		D2D0484B156437BC0034E04F /* fb-sign-up-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04841156437BC0034E04F /* fb-sign-up-OFF.png */; };
 		D2D0484C156437BC0034E04F /* fb-sign-up-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D04842156437BC0034E04F /* fb-sign-up-OFF@2x.png */; };
@@ -452,8 +452,8 @@
 		D2D048311563F1DA0034E04F /* GTIOIntroScreenToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroScreenToolbarView.m; sourceTree = "<group>"; };
 		D2D048361563F9820034E04F /* GTIOPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPageControl.h; sourceTree = "<group>"; };
 		D2D048371563F9820034E04F /* GTIOPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPageControl.m; sourceTree = "<group>"; };
-		D2D0483915642B6E0034E04F /* GTIOIntroScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIntroScreenViewController.h; sourceTree = "<group>"; };
-		D2D0483A15642B6E0034E04F /* GTIOIntroScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroScreenViewController.m; sourceTree = "<group>"; };
+		D2D0483915642B6E0034E04F /* GTIOIntroImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GTIOIntroImageViewController.h; sourceTree = "<group>"; };
+		D2D0483A15642B6E0034E04F /* GTIOIntroImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroImageViewController.m; sourceTree = "<group>"; };
 		D2D0483D1564378E0034E04F /* GTIOSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSignInViewController.h; sourceTree = "<group>"; };
 		D2D0483E1564378E0034E04F /* GTIOSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSignInViewController.m; sourceTree = "<group>"; };
 		D2D04841156437BC0034E04F /* fb-sign-up-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-sign-up-OFF.png"; sourceTree = "<group>"; };
@@ -553,8 +553,8 @@
 			children = (
 				D201C8251561455100C4168D /* GTIOIntroScreensViewController.h */,
 				D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */,
-				D2D0483915642B6E0034E04F /* GTIOIntroScreenViewController.h */,
-				D2D0483A15642B6E0034E04F /* GTIOIntroScreenViewController.m */,
+				D2D0483915642B6E0034E04F /* GTIOIntroImageViewController.h */,
+				D2D0483A15642B6E0034E04F /* GTIOIntroImageViewController.m */,
 				D246B0E9155C683000E5546A /* GTIOSplashViewController.h */,
 				D246B0EA155C683000E5546A /* GTIOSplashViewController.m */,
 			);
@@ -1457,7 +1457,7 @@
 				D201C83715614C8400C4168D /* GTIOConfigManager.m in Sources */,
 				D2D048321563F1DA0034E04F /* GTIOIntroScreenToolbarView.m in Sources */,
 				D2D048381563F9820034E04F /* GTIOPageControl.m in Sources */,
-				D2D0483B15642B6E0034E04F /* GTIOIntroScreenViewController.m in Sources */,
+				D2D0483B15642B6E0034E04F /* GTIOIntroImageViewController.m in Sources */,
 				D2D0483F1564378E0034E04F /* GTIOSignInViewController.m in Sources */,
 				D2D0485715643F970034E04F /* UIFont+GTIOAdditions.m in Sources */,
 				D2D0485A15643FB40034E04F /* UIColor+GTIOAdditions.m in Sources */,

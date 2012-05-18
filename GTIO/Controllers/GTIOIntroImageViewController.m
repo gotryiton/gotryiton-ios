@@ -6,29 +6,20 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
-#import "GTIOIntroScreenViewController.h"
+#import "GTIOIntroImageViewController.h"
 
 #import "SDImageCache.h"
 
-@interface GTIOIntroScreenViewController ()
+@interface GTIOIntroImageViewController ()
 
 @property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
-@implementation GTIOIntroScreenViewController
+@implementation GTIOIntroImageViewController
 
 @synthesize introScreen = _introScreen;
 @synthesize imageView = _imageView;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)loadView
 {

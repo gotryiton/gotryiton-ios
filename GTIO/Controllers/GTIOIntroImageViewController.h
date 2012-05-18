@@ -8,7 +8,7 @@
 
 #import "GTIOIntroScreen.h"
 
-@interface GTIOIntroScreenViewController : UIViewController
+@interface GTIOIntroImageViewController : UIViewController
 
 @property (nonatomic, strong) GTIOIntroScreen *introScreen;
 
