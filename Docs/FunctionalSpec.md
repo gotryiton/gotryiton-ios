@@ -1913,9 +1913,9 @@ A user can search for friends outside of their own network
 #### Mockups
 6.4 ([wireframe](http://invis.io/MH2OCTA9))
 
-<img src="<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>
 
-<img src="<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
