@@ -1647,7 +1647,7 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 #### Mockups
 5.1 invite friends  ([wireframe](http://invis.io/TW2OCGBR))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/5.1.invite.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/5.1.invite.friends.png" width=420px/>
 
 5.1.1 invite friends actionsheet  ([wireframe](http://invis.io/NB2PNCHD))
 
@@ -1735,11 +1735,11 @@ A user can find friends to follow
 #### Mockups
 6.1 ([wireframe](http://invis.io/XM2OCN3P))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.1.1.find.my.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.1.1.find.my.friends.png" width=420px/>
 
 6.1.1 No Results ([wireframe](http://invis.io/QK2OCQ56))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.1.2.find.friends.no.results.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.1.2.find.friends.no.results.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1823,7 +1823,7 @@ A user can see a list of suggested users to follow
 #### Mockups
 6.2 Suggested Friends ([wireframe](http://invis.io/VD2OCR5H))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
 
 #### API Usage
 /Friends/Suggested
@@ -1860,7 +1860,7 @@ A user can manage their friend relationships via the feed
 #### Mockups
 6.3 ([wireframe](http://invis.io/R62OCSKJ))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.3.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.3.friends.png" width=420px/>
 
 
 #### User Flow
@@ -1913,9 +1913,9 @@ A user can search for friends outside of their own network
 #### Mockups
 6.4 ([wireframe](http://invis.io/MH2OCTA9))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1953,7 +1953,7 @@ A User A can see a list of who a User B is following.  User A and User B can be 
 #### Mockups
 6.5 ([wireframe](http://invis.io/CS2OCU2W))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.5.following.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.5.following.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1984,7 +1984,7 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 #### Mockups
 6.6 Followers List ([wireframe](http://invis.io/Y92OCV3E))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.6.followers.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.6.followers.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
