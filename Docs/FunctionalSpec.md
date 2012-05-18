@@ -3034,6 +3034,80 @@ A user can add details to their post before they submit.  They can select to use
    - Each photo in frame is pinchable
       - photo cannot be resized out of frame
 
+#### Design Stories
+- Photo Frame
+   - 'photo-frame.png'
+   - 3px from left edge of screen, 4px from bottom edge of nav bar
+   - should be overlaid by applicable photos
+      - if user has single photo, vertically and horizontally centered within frame
+      - if user has multiple photos
+         - photo 1 is 13px from left edge of screen, 13px from bottom edge of nav bar
+         - photo 2 (upper right) is 129px from left edge of screen, 13px from bottom edge of nav bar
+         - photo 3 (lower right) is 129px from left edge of screen, 204px from bottom edge of nav bar
+- Remove Frame Controls (X buttons)
+   - 'remove-frame.png' (on and off states)
+   - Control 1 (for leftmost frame or single photo)
+      - 1px from left edge of screen
+      - 1px from bottom of nav bar
+   - Control 2 (for upper right frame)
+      - 227px from left edge of screen
+      - 1px from bottom of nav bar
+   - Control 3 (for lower right frame)
+      - 227px from left edge of screen
+      - 192px from bottom of nav bar
+- Empty Frame Icon
+   - 'frame-camera-icon.png' with ON and OFF states
+   - horizontally and vertically centered within framed image areas when no image is yet present
+- Single/Framed Toggle
+   - 'frames-toggle.png' (SINGLE and MULTIPLE versions)
+   - no tap 'ON' state, switches between SINGLE and MULTIPLE versions after tap
+   - 7px from right edge of screen
+   - 12px from bottom of nav bar
+- Toggle Containers
+   - 'toggle-containers.png'
+   - place asset 174px from bottom of nav bar, 7px from right edge of screen
+   - Toggles
+      - 'switch-....png' assets
+      - VOTING: 228px from bottom of nav bar, 17px from right edge of screen
+      - FACEBOOK: 287px from bottom of nav bar, 17px from right edge of screen
+      - Tap area is entire container, not just toggle switch
+- Text Boxes
+   - Description
+      - 'description-box.png'
+      - 330px from bottom edge of nav bar, 5px from left edge of screen
+      - 'description-box-icon.png' placed in upper right corner with 8px of top and right padding
+      - 'add a description' text in Archer Medium Italic, 6pt, rgb(183,183,183)
+         - 11px of left padding inside box
+         - 21px of top padding inside box
+      - Input Area
+         - When tapped or if text is left in field, 'description-box-icon' and 'add a description' text are not shown
+         - 165px x 125px vertically and horizontally centered within box
+         - ACTIVE (user is typing): Verlag Light, rgb(64,64,65), 7pt
+         - INACTIVE (text is left in field): Verlag Light, rgb(143,143,143), 7pt
+   - Brands
+      - 'brands-box.png'
+      - 330px from bottom edge of nav bar, 5px from left edge of screen
+      - 'brands-box-icon.png' placed in upper right corner with 8px of top and right padding
+      - 'tag brands' text in Archer Medium Italic, 6pt, rgb(183,183,183)
+         - 11px of left padding inside box
+         - 21px of top padding inside box
+      - Input Area
+         - When tapped or if text is left in field, 'brands-box-icon' and 'tag brands' text are not shown
+         - 97px x 125px vertically and horizontally centered within box
+         - ACTIVE (user is typing): Verlag Light, rgb(64,64,65), 7pt
+         - INACTIVE (text is left in field): Verlag Light, rgb(143,143,143), 7pt
+- 'Post a Look' CTA
+   - Background
+      - 'post-button-bg.png'
+      - flush with bottom of screen
+   - Button
+      - 'post-button...png' with ON, OFF, DISABLED states
+   - Overlays all other content, position is fixed
+- Text Input
+   - When user taps Description or Brands, all elements on page (except navigation bar and 'post a look' element) scroll up by 277px, keyboard is shown
+      - If typing in Description, keyboard action button is 'Next' (gray) which brings user to input of Brands
+      - If typing in Brands, keyboard action button is 'Done' (gray) which disappears keyboard and scrolls back up by 277px
+      
 
 
 ## 13. Universal Elements and Behavior
