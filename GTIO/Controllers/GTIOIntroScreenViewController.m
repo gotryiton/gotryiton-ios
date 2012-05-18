@@ -8,7 +8,7 @@
 
 #import "GTIOIntroScreenViewController.h"
 
-#import <SDWebImage/SDImageCache.h>
+#import "SDImageCache.h"
 
 @interface GTIOIntroScreenViewController ()
 

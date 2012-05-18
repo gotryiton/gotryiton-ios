@@ -10,7 +10,7 @@
 
 #import <RestKit/RestKit.h>
 
-#import <SDWebImage/SDImageCache.h>
+#import "SDImageCache.h"
 #import "GTIOIntroScreen.h"
 
 NSString * const kGTIOConfigKey = @"kGTIOConfigKey";

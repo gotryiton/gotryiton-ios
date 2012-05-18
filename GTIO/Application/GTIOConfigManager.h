@@ -8,7 +8,7 @@
 
 #import "GTIOConfig.h"
 
-#import <SDWebImage/SDWebImageManager.h>
+#import "SDWebImageManager.h"
 
 typedef void(^GTIOConfigHandler)(NSError *error, GTIOConfig *config);
 

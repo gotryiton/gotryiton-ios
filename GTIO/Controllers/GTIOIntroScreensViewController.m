@@ -8,7 +8,7 @@
 
 #import "GTIOIntroScreensViewController.h"
 
-#import <SDWebImage/SDImageCache.h>
+#import "SDImageCache.h"
 
 #import "GTIOIntroScreenViewController.h"
 #import "GTIOSignInViewController.h"

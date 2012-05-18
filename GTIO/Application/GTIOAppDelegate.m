@@ -7,6 +7,7 @@
 //
 
 #import <RestKit/RestKit.h>
+#import "TestFlight.h"
 
 #import "GTIOAppDelegate.h"
 
@@ -48,6 +49,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [TestFlight takeOff:@"01429fe002e0a4e8b7055610f04fa766_OTE1MjMyMDEyLTA1LTE4IDA5OjU0OjUxLjA3MzA3Mw"];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     NSLog(@"\n*****\nGTIO Started in %@ mode.\n*****", kGTIOEnvironmentName);
