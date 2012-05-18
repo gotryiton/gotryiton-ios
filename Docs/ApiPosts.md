@@ -266,7 +266,7 @@ Creates and returns a post object based on passed parameters.
 }
 ```
 
-### POST  `/posts/by-user(/:id)`
+### POST  `/posts/by-user(/:user_id)`
 Responds with posts created by the user that is logged in if no `id` is passed. Responds with errors if the logged in user is not authorized to access the requested user's posts or if the passed `id` doesn't map to an existing user.
 
 Following is a response to `/posts/by-user?offset=3`. The example uses a limit of 3 but on produciton it's set to 20.
