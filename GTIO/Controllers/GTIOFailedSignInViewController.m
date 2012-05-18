@@ -48,7 +48,7 @@
     }];
     [self.view addSubview:self.tryAgainButton];
     
-    self.createUserButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeAOL];
+    self.createUserButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeNewUser];
     [self.createUserButton setFrame:(CGRect){ {(self.view.frame.size.width - self.createUserButton.frame.size.width) / 2, self.tryAgainButton.frame.origin.y + self.tryAgainButton.frame.size.height }, self.createUserButton.frame.size }];
     [self.view addSubview:self.createUserButton];
     
@@ -63,6 +63,18 @@
     self.tryAgainButton = nil;
     self.createUserButton = nil;
     self.emailSupportButton = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

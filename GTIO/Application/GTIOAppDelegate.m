@@ -22,6 +22,7 @@
 #import "GTIOMappingProvider.h"
 
 #import "GTIOTrack.h"
+#import "GTIOUser.h"
 
 @interface GTIOAppDelegate ()
 
@@ -48,6 +49,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    NSLog(@"\n*****\nGTIO Started in %@ mode.\n*****", kGTIOEnvironmentName);
     
     // List all fonts on iPhone
 //    [self listAllFonts];
@@ -95,6 +98,13 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - Facebook
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [[GTIOUser currentUser].facebook handleOpenURL:url]; 
+}
+
 #pragma mark - FontHelper
 
 - (void)listAllFonts
@@ -117,10 +127,11 @@
 
 - (void)setupRestKit
 {
-    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace)
+    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
+    RKLogConfigureByName("RestKit/Network", kGTIONetworkLogLevel)
 //    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace)
     
-    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURLString:kGTIOBaseURL];
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURLString:kGTIOBaseURLString];
     [objectManager setMappingProvider:[[GTIOMappingProvider alloc] init]];
     [objectManager setAcceptMIMEType:kGTIOAcceptHeader];
     [objectManager setSerializationMIMEType:RKMIMETypeJSON];

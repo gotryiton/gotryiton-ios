@@ -12,4 +12,8 @@
 
 @property (nonatomic, strong) NSArray *introScreens;
 
+@property (nonatomic, strong) NSString *facebookPermissions;
+@property (nonatomic, strong) NSNumber *facebookShareDefaultOn;
+@property (nonatomic, strong) NSNumber *votingDefaultOn;
+
 @end

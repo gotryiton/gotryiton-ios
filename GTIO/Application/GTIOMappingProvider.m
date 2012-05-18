@@ -36,6 +36,9 @@
         [introScreenMapping mapKeyPath:@"track" toRelationship:@"track" withMapping:trackMapping];
         
         // GTIOConfig
+        [configMapping mapKeyPath:@"facebook_permissions_requested" toAttribute:@"facebookPermissions"];
+        [configMapping mapKeyPath:@"facebook_share_default_on" toAttribute:@"facebookShareDefaultOn"];
+        [configMapping mapKeyPath:@"voting_default_on" toAttribute:@"votingDefaultOn"];
         [configMapping mapKeyPath:@"intro_images" toRelationship:@"introScreens" withMapping:introScreenMapping];
         [self setMapping:configMapping forKeyPath:@"config"];
         

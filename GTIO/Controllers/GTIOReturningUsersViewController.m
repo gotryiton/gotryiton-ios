@@ -8,6 +8,11 @@
 
 #import "GTIOReturningUsersViewController.h"
 
+#import "GTIOFailedSignInViewController.h"
+
+#import "GTIOUser.h"
+#import "GTIOAppDelegate.h"
+
 @interface GTIOReturningUsersViewController ()
 
 @property (nonatomic, strong) GTIOButton *facebookButton;
@@ -33,7 +38,8 @@
 {
     [super viewDidLoad];
     
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login-return-bg.png"]];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed
+                                                                           :@"login-return-bg.png"]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -64)];
     [self.view addSubview:backgroundImageView];
     
@@ -47,7 +53,17 @@
     self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignIn];
     [self.facebookButton setFrame:(CGRect){ {(self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 80 }, self.facebookButton.frame.size }];
     [self.facebookButton setTapHandler:^(id sender) {
-        NSLog(@"Facebook button touched");
+        [[GTIOUser currentUser] signInWithFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
+            if (error) {
+                GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
+                [self.navigationController pushViewController:failedSignInViewController animated:YES];
+            } else {
+                NSLog(@"Logged in");
+                // existing user Go to View 8.1
+                // new user go to 1.7
+                [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+            }
+        }];
     }];
     [self.view addSubview:self.facebookButton];
     
