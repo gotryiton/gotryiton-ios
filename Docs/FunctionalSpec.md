@@ -2934,16 +2934,22 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 #### Mockups
 12.1 ([wireframe](http://invis.io/WD2OERMP))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.1.Upload.Start.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.png" width=420px/>
 
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.On.States.png" width=420px/>
 
 12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.1.1.Upload.Start.Frame.Left.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.1.Upload.Start.Frame.Left.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.1.1.Upload.Start.Frame.Right.Top.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.1.Upload.Start.Frame.Top.Right.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.1.1.Upload.Start.Frame.Right.Bottom.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.1.Upload.Start.Frame.Bottom.Right.png" width=420px/>
+
+12.1.2
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.2.Upload.Photoshoot.with.reel.png" width=420px/>
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.2.Upload.Photoshoot.without.reel.png" width=420px/>
 
 
 #### API Usage
@@ -2972,7 +2978,9 @@ A user can confirm that they want to upload the photo they've taken or selected.
 #### Mockups
 ([wireframe](http://invis.io/9M2OEVED) [2](http://invis.io/2Z2OEWB8) [3](http://invis.io/QB2OEYM7) [4](http://invis.io/4F2OEZGK))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.Upload.Confirm.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.2.3.1.Photo.Filter.png" width=420px/>
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.2.3.2.Photo.Filter.Back.To.Grid.png" width=420px/>
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Right.Top.png" width=420px/>
 
@@ -3072,7 +3080,19 @@ A user can add details to their post before they submit.  They can select to use
    - Each photo in frame is pinchable
       - photo cannot be resized out of frame
 
+### 12.4 Photoshoot/Burst Mode Selection
 
+#### Overview
+
+#### Mockups
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.2.2.Photoshoot.select.png" width=420px/>
+
+### 12.5 Photoshoot/Burst Mode Timer
+
+#### Overview
+
+#### Mockups
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.2.1.3.Upload.Photoshoot.Timer.png" width=420px/>
 
 ## 13. Universal Elements and Behavior
 
