@@ -46,8 +46,9 @@ Request
         "name": "Blair G.",
         "about_me": "Something"
     },
-    "tracking" : {
-        "screen" : "almost_done" 
+    "track" : {
+        "id" : "edit profile"
+        "screen" : "almost done", 
     }
 } 
 ```
@@ -131,7 +132,59 @@ Response
             'count' : 25, 
             'action' : "/user/1DB2BD0/follwers"
         },
-    }
+        "stars_button" : {
+            'count' : 25, 
+            'action' : "/posts/by-user/1DB2BD0/starred"
+        },
+    },
+    "posts" : [
+        {
+            "id": "1430",
+            "user": {
+              "id": "42BDB51",
+              "name": "Ashish",
+              "location": "Manhattan, New York",
+              "icon": "http://graph.facebook.com/538638807/picture",
+              "action": "/user/42BDB51/profile",
+              "follow_button": {
+                "text": "following",
+                "action": "/user/42BDB51/unfollow",
+                "state": 1
+              }
+            },
+            "reviews": {
+              "action": "/post/1430/reviews",
+              "count": 0
+            },
+            "outfit": {
+              "description": "This is a post.",
+              "brands_description": null,
+              "main_image": "http://cdn.gotryiton.com/outfit/1234.jpg",
+              "square_thumbnail": "http://cdn.gotryiton.com/outfit/1234_110_110.jpg",
+              "small_thumbnail": "http://cdn.gotryiton.com/outfit/1234_385_0.jpg"
+            },
+            "brands": [
+            ],
+            "heart": {
+              "state": 0,
+              "action": "/posts/1430/heart"
+            },
+            "hearts": {
+              "count": 0,
+              "action": "/posts/1430/hearts"
+            },
+            "users_who_hearted_this": null,
+            "vote": {
+              "enabled": false,
+              "count_votes": 0,
+              "verdict": null,
+              "pending": null
+            },
+            "created_at": 1337012650,
+            "created_when": "just now",
+            "post_type": "outfit"
+        }
+    ]
 }
 ```
 
