@@ -1,3 +1,46 @@
+***Friday, May 18th - Standup / Retrospective Notes***
+
+**Attendees**
+
+- TT - Matt, Scott
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - when returning to the application from FB login, a splash screen is displayed briefly
+ - Need to define behavior for this and other transitions
+- TT - Assist Simon with Testflight setup
+
+**Status**
+- Outstanding development pushed to Sprint 2
+ - Tracking items have
+ - Hide the bottom bar on login screen
+ - Facebook auth token and rested object
+ - email support
+- Findings from Janrain research - We are able to utilize custom views
+- Tentative plan for next week
+ - Photo upload
+ - complete Janrain / almost done screens - check with GTIO on Monday, possibly find other work to perform in Sprint 2
+
+**Planned Work Delivered**
+- 48 - UI Tab Bar
+- 40 - 1.1 Splash Screen
+- 39 - Filter Standalone Application
+- 49 - Tab Bar Animation
+- 47 - 1.10 Facebook SSO
+- 46 - 1.9 Sign-in (2nd load)
+- 45 - 1.6 Failed Sign-in
+- 42 - 1.3 Sign0in Screen (1st use)
+- 31 - 1.2 Intro Screens
+
+**Planned Work Pushed to Next Sprint**
+- 43 - Returning Users
+
+**Sprint Retrospective**
+- All major effort planned delivered on time
+- Going forward, break down larger stories into smaller ones to help identify any outstanding requirements on Issues, especially for Issues planned for development later on in the Sprint
+
+---
+
 ***Thursday, May 17th - Standup Notes***
 
 **Attendees**
