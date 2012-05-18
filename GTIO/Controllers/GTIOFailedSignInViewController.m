@@ -44,12 +44,15 @@
     self.tryAgainButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeTryAgain];
     [self.tryAgainButton setFrame:(CGRect){ {(self.view.frame.size.width - self.tryAgainButton.frame.size.width) / 2, 144 }, self.tryAgainButton.frame.size }];
     [self.tryAgainButton setTapHandler:^(id sender) {
-        NSLog(@"tryAgainButton touched");
+        [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.view addSubview:self.tryAgainButton];
     
     self.createUserButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeNewUser];
     [self.createUserButton setFrame:(CGRect){ {(self.view.frame.size.width - self.createUserButton.frame.size.width) / 2, self.tryAgainButton.frame.origin.y + self.tryAgainButton.frame.size.height }, self.createUserButton.frame.size }];
+    [self.createUserButton setTapHandler:^(id sender) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
     [self.view addSubview:self.createUserButton];
     
     self.emailSupportButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeEmailSupport];

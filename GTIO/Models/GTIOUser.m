@@ -119,10 +119,12 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
 
 - (void)fbDidNotLogin:(BOOL)cancelled
 {
-    if (self.loginHandler) {
-        NSError *error = [[NSError alloc] init];
-        self.loginHandler(nil, error);
-    }
+//    if (!cancelled) {
+        if (self.loginHandler) {
+            NSError *error = [[NSError alloc] init];
+            self.loginHandler(nil, error);
+        }
+//    }
 }
 
 - (void)fbDidExtendToken:(NSString*)accessToken expiresAt:(NSDate*)expiresAt
