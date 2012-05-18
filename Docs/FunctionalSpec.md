@@ -1647,7 +1647,7 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 #### Mockups
 5.1 invite friends  ([wireframe](http://invis.io/TW2OCGBR))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/5.1.Invite.Friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/5.1.invite.friends.png" width=420px/>
 
 5.1.1 invite friends actionsheet  ([wireframe](http://invis.io/NB2PNCHD))
 
@@ -1698,6 +1698,32 @@ previous screen
       - actionsheet **tap** ==> api request (SMS or Email depending on type of contact)
          - **success** ==> (view 5.1.2) or (view 5.1.3) (with contact populated in the to field)
 
+#### Design Stories
+- All text in cells that is left aligned has a 11px left padding
+- Top Area
+	- Height: 140px
+	- Background: Transparent with image (general/dark.overlay.png) - Image has stretchable area in middle with nonstretchable area extending 7px from all sides
+	- Buttons are all 97x32px
+	- Buttons are 7px from left and right side of the screen with 8px padding between each button. There is 8px padding below the buttons
+	- Text is about 10px below the top of the cell
+		- Font: Verlag 14pt rgb(255,255,255) #ffffff
+- Phone option section header
+	- Height: 28px (without borders)
+	- Background: rgb(235,242,239) #ebf2ef
+	- 1px top border rgb(255,255,255) #ffffff
+	- 1px bottom border rgb(211,217,215) #d3d9d7
+	- Font: Verlag Light 14pt rgb(143,143,143) #8f8f8f (16px from top)
+- Letter section headers
+	- Height: 29px
+	- Background: rgb(240,240,240) #f0f0f0
+	- Font: Proxima Nova Bold rgb(143,143,143) #8f8f8f (9px from top)
+	- Bottom border 1px rgb(217,215,206) #d9d7ce
+- Contact Cells
+	- Height: 44px
+	- Background: rgb(255,255,255) #f0f0f0
+	- Font: 14pt Verlag Light/Bold rgb(143,143,143) #8f8f8f (16px from top)
+	- Bottom border 1px rgb(217,215,206) #d9d7ce
+
 
 ## 6. Friends management
 
@@ -1709,11 +1735,11 @@ A user can find friends to follow
 #### Mockups
 6.1 ([wireframe](http://invis.io/XM2OCN3P))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.1.Find.My.Friends.Profile.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.1.1.find.my.friends.png" width=420px/>
 
 6.1.1 No Results ([wireframe](http://invis.io/QK2OCQ56))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.1.Find.My.Friends.Profile.No.Result.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.1.2.find.friends.no.results.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1750,7 +1776,44 @@ A user can find friends to follow
          - **tap** ==> api request
             - **success** ==> (view 6.4)
 
-
+### Design Stories
+- List tables/cells
+	- All Cells
+		- Height: 48px (without border)
+		- Background: rgb(255,255,255) #ffffff
+		- Active State background: rgb(237,235,224) #edebe0
+		- Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
+		- Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
+		- Bottom border: 1px rgba(217,215,206) #d9d7ce
+		- Chevrons: 8px from the right and vertically centered within the cell
+	- "Suggested Friends" Cell
+		- No bottom border
+		- Profile Icons are 25px with an inner shadow overlay (general/small-profile-overlay-inner-shadow.png), 6px padding between profile icon
+	- Profile Icons
+		- 36x36px
+		- Inner shadow overlay (general/large-profile-overlay-inner-shadow.png)
+		- 6px from left of cell
+		- Vertically centered in cell
+		- 10px padding from profile icon and username text
+	- Follow buttons
+		- 9px left from chevrons
+	- Search area
+		- Height: 66px
+		- Background transparent, with image (6/search.area.background.shadow.png)
+		- Font: Proxima Nova light 10pt rgb(143,143,143) #8f8f8f
+		- Where font is bold, use Proxima Nova Bold
+		- Search Field
+			- Field is 320x31px (with border), use background image to draw (general/search.field.background.png)
+			- Font: Proxima Nova light 12pt rgb(143,143,143) #8f8f8f
+			- When field is unselected, text has a 0.6 alpha
+			- Mag icon is 5px from top and 5px from left
+	- Search No Results
+		- Empty image is 46px down and horizontally centered (6/search.area.background.shadow.png)
+		- Empty text is 45px down
+		- "couldn't find [search query]": 16pt Proxima Nova Light rgb(143,143,143) #8f8f8f
+		- "do you want to try": 14pt Proxima Nova Light rgb(143,143,143) #8f8f8f
+		- "searching the community?": 14pt Proxima Nova Light rgb(255,106,113) #ff6a71
+			
 
 ### 6.2 Suggested Friends  
 
@@ -1760,7 +1823,7 @@ A user can see a list of suggested users to follow
 #### Mockups
 6.2 Suggested Friends ([wireframe](http://invis.io/VD2OCR5H))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.2.Suggested.Friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
 
 #### API Usage
 /Friends/Suggested
@@ -1785,7 +1848,9 @@ previous screen
        - **tap** ==> api request
           - **success** ==> replaces list with new users
 
-
+#### Design Stories
+- Refresh Icon
+	- 16px from top, 9px from right
 
 ### 6.3 Friends management page
 
@@ -1795,7 +1860,7 @@ A user can manage their friend relationships via the feed
 #### Mockups
 6.3 ([wireframe](http://invis.io/R62OCSKJ))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.3.Friends.From.Feed.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.3.friends.png" width=420px/>
 
 
 #### User Flow
@@ -1832,6 +1897,14 @@ previous screen
             - 'We couldnt find "search string" do you want to try searching the entire GTIO community' button
             - **tap** ==> (view 6.4)
 
+#### Design Stories
+- First three cells
+	- Height: 43px (without borders)
+	- Background: rgb(235,242,239) #ebf2ef
+	- Top Border: 1px rgb(243,247,245) #f3f7f5
+	- Bottom Border: 1px rgb(211,217,215) #d3d9d7
+	- "suggested friend" cell has no bottom border and has height of 49px
+
 ### 6.4 Find out-of-network Friends  
 
 #### Overview
@@ -1840,8 +1913,9 @@ A user can search for friends outside of their own network
 #### Mockups
 6.4 ([wireframe](http://invis.io/MH2OCTA9))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.4.Find.Friends.Unconnected.png" width=420px/>
+<img src="<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>" width=420px/>
 
+<img src="<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1862,6 +1936,15 @@ previous screen
       - has profile icon, name, tappable to profile (view 7.7)
       - following btn (toggles state)
 
+#### Design Stories
+- Search area
+	- Background transparent with image (6/search.area.background.shadow.small.png)
+- Search Empty
+	- 64px from top, 169px from left
+	- Text begins 16px below icon
+	- "search through the entire" 16pt Proxima Nova Light rgb(143,143,143) #8f8f8f
+	- "Go Try It On community" 16pt Proxima Nova Bold rgb(143,143,143) #8f8f8f
+
 ### 6.5 Following List  
 
 #### Overview
@@ -1870,7 +1953,7 @@ A User A can see a list of who a User B is following.  User A and User B can be 
 #### Mockups
 6.5 ([wireframe](http://invis.io/CS2OCU2W))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.5.I'm.Following.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.5.following.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1901,7 +1984,7 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 #### Mockups
 6.6 Followers List ([wireframe](http://invis.io/Y92OCV3E))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/6.6.My.Followers.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-section6-updates/GTIO/Application/Resources/Mockups/6.6.followers.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1922,8 +2005,6 @@ previous screen
       - alpha sort
       - has profile icon, name, tappable to profile, 
       - following toggle
-
-
 
 ## 7. Profile pages
 
