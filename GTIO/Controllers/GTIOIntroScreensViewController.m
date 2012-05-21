@@ -63,58 +63,61 @@
     [statusBarBackgroundImageView setImage:[UIImage imageNamed:@"status-bar-bg.png"]];
     [self.view addSubview:statusBarBackgroundImageView];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.view.frame.size.height - 44 } }];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.view.frame.size.height } }];
     [self.scrollView setPagingEnabled:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setShowsVerticalScrollIndicator:NO];
     [self.scrollView setDelegate:self];
     [self.view addSubview:self.scrollView];
     
-    self.toolbarView = [[GTIOIntroScreenToolbarView alloc] initWithFrame:(CGRect){ { 0, self.scrollView.frame.origin.y + self.scrollView.frame.size.height }, { self.view.frame.size.width, 44 } }];
-    [self.toolbarView.signInButton setTapHandler:^(id sender) {
-        // Go to last page
-        NSInteger currentPage = [self.childViewControllers count] - 1;
-        [self.toolbarView hideButtons:YES];
-        self.forceScroll = YES;
-        [self.scrollView setContentOffset:(CGPoint){ currentPage * self.scrollView.frame.size.width, 0 } animated:YES];
-    }];
-    __block typeof(self) blockSelf = self;
-    [self.toolbarView.nextButton setTapHandler:^(id sender) {
-        NSInteger currentPage = [blockSelf currentScrollViewPageNumber];
-        // Hide next button if last page
-        if (currentPage == [blockSelf.childViewControllers count] - 2) {
-            self.forceScroll = YES;
-            [blockSelf.toolbarView hideButtons:YES];
-        }
-        // Scroll to next page
-        if (currentPage < [blockSelf.childViewControllers count] - 1) {
-            [self.scrollView setContentOffset:(CGPoint){ (currentPage + 1) * self.scrollView.frame.size.width, 0 } animated:YES];
-        }
-        
-    }];
-    [self.view addSubview:self.toolbarView];
-    
-    // Setup intro pages
     GTIOConfig *config = [[GTIOConfigManager sharedManager] config];
     
-    NSArray *introScreensSorted = [config.introScreens sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        GTIOIntroScreen *introScreen1 = obj1;
-        GTIOIntroScreen *introScreen2 = obj2;
-        
-        return [introScreen1.track.pageNumber compare:introScreen2.track.pageNumber];
-    }];
-    
+    // Setup intro pages if there are any
     CGFloat xOffset = 0.0f;
-    for (GTIOIntroScreen *introScreen in introScreensSorted) {
-        GTIOIntroImageViewController *introScreenViewController = [[GTIOIntroImageViewController alloc] initWithNibName:nil bundle:nil];
-        [introScreenViewController setIntroScreen:introScreen];
-        [introScreenViewController.view setFrame:(CGRect){ { xOffset, 0 }, self.scrollView.frame.size }];
-        [self.scrollView addSubview:introScreenViewController.view];
-        [self addChildViewController:introScreenViewController];
+    if ([config.introScreens count] > 0) {
+        [self.scrollView setFrame:(CGRect){ self.scrollView.frame.origin, { self.scrollView.frame.size.width, self.scrollView.frame.size.height - 44 } }];
+        self.toolbarView = [[GTIOIntroScreenToolbarView alloc] initWithFrame:(CGRect){ { 0, self.scrollView.frame.origin.y + self.scrollView.frame.size.height }, { self.view.frame.size.width, 44 } }];
+        [self.toolbarView.signInButton setTapHandler:^(id sender) {
+            // Go to last page
+            NSInteger currentPage = [self.childViewControllers count] - 1;
+            [self.toolbarView hideButtons:YES];
+            self.forceScroll = YES;
+            [self.scrollView setContentOffset:(CGPoint){ currentPage * self.scrollView.frame.size.width, 0 } animated:YES];
+        }];
+        __block typeof(self) blockSelf = self;
+        [self.toolbarView.nextButton setTapHandler:^(id sender) {
+            NSInteger currentPage = [blockSelf currentScrollViewPageNumber];
+            // Hide next button if last page
+            if (currentPage == [blockSelf.childViewControllers count] - 2) {
+                self.forceScroll = YES;
+                [blockSelf.toolbarView hideButtons:YES];
+            }
+            // Scroll to next page
+            if (currentPage < [blockSelf.childViewControllers count] - 1) {
+                [self.scrollView setContentOffset:(CGPoint){ (currentPage + 1) * self.scrollView.frame.size.width, 0 } animated:YES];
+            }
+            
+        }];
+        [self.view addSubview:self.toolbarView];
         
-        xOffset += self.scrollView.frame.size.width;
+        NSArray *introScreensSorted = [config.introScreens sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            GTIOIntroScreen *introScreen1 = obj1;
+            GTIOIntroScreen *introScreen2 = obj2;
+            
+            return [introScreen1.track.pageNumber compare:introScreen2.track.pageNumber];
+        }];
+        
+        for (GTIOIntroScreen *introScreen in introScreensSorted) {
+            GTIOIntroImageViewController *introScreenViewController = [[GTIOIntroImageViewController alloc] initWithNibName:nil bundle:nil];
+            [introScreenViewController setIntroScreen:introScreen];
+            [introScreenViewController.view setFrame:(CGRect){ { xOffset, 0 }, self.scrollView.frame.size }];
+            [self.scrollView addSubview:introScreenViewController.view];
+            [self addChildViewController:introScreenViewController];
+            
+            xOffset += self.scrollView.frame.size.width;
+        }
     }
-    
+
     // Add last page as sign up
     GTIOSignInViewController *signInViewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
     [signInViewController.view setFrame:(CGRect){ { xOffset, 0 }, self.scrollView.frame.size }];
