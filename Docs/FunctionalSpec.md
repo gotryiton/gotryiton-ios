@@ -3006,7 +3006,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 			- Button: image (12/upload.bottom.bar.switch.png)
 				- Width: 35px
 				- Height: 32px
-				- Clip entire button in 61x17px area with borders that have 9px radius (rounded)
+				- Clip entire button in 61x17px area with borders that have 5px radius (rounded)
 				- When switch button is on either side, move button another 2px within clipping mask to hide the shadow in the image
 		- Normal Small Icon
 			- 14px from top of bar (10px from top if not including bar's shadow overlay)
@@ -3068,21 +3068,25 @@ A user can confirm that they want to upload the photo they've taken or selected.
       - no ==> (view 12.1)
 
 ### Design Stories
-- Thumbnails
-	- With frame/shadow: 90x120px image (upload.photoreel.vertical.divider.png)
-	- Photo Thumbnail: 84x112px
-		- 3px from top
-		- 3px from left/right
-		- 5px from bottom
-	- Positioning 
-		- 1st row is 12px from top
-		- Left-most thumbnail in each row: 11px from left
-		- Middle thumbnail in each row: horizontally centered
-		- Right-most thumbnail in each row: 11px from right
-	- Horizontal Lines/indicators
-		- 59px from top
-	- Vertical Lines/indicators
-		- 
+- Bottom Bar
+	- X Button
+		- 17px padding left/right
+		- 22px from top of bar (18px from top if not including bar's shadow overlay)
+	- Check Button
+		- 13px padding left/right
+		- 22px from top of bar (18px from top if not including bar's shadow overlay)
+	- Middle Text: 18px Archer Light Italic rgb(64,64,65) #404041
+		- 22px from top of bar (18px from top if not including bar's shadow overlay)
+- Filter Buttons
+	- 68x68px including shadow
+	- Filter Image: 60x60px with 5px radius (10px @2x)
+	- On active state place (upload.filter.overlay.selected.png) behind filter area
+	- 5px padding on left side
+	- 3px padding between each filter button
+	- Text is Verlag Light 10pt rgb(255,255,255) #ffffff
+- Background shadow
+	- 101px high shadow behind filter buttons using (upload.filter.shadow.bg.png) which should stretch horizontally
+
 ### 12.3 Post a look  
 
 #### Overview
@@ -3165,6 +3169,24 @@ A user can add details to their post before they submit.  They can select to use
 
 #### Mockups
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.2.2.Photoshoot.select.png" width=420px/>
+
+#### Design Stories
+- Thumbnails
+	- With frame/shadow: 90x120px image (upload.photoreel.vertical.divider.png)
+	- Photo Thumbnail: 84x112px
+		- 3px from top
+		- 3px from left/right
+		- 5px from bottom
+	- Positioning 
+		- 1st row is 12px from top
+		- Left-most thumbnail in each row: 11px from left
+		- Middle thumbnail in each row: horizontally centered
+		- Right-most thumbnail in each row: 11px from right
+	- Horizontal Lines/indicators (upload.photoreel.horizontal.divider.png)
+		- 59px from top
+	- Vertical Lines/indicators (upload.photoreel.vertical.divider.png)	
+		- 47px from left edge of bottom image
+		- 38px from right of top image
 
 ### 12.5 Photoshoot/Burst Mode Timer
 
