@@ -2018,7 +2018,7 @@ A logged in user can manage their profile, share settings, looks, and friends
 7.1 Management Page [wireframe1](http://invis.io/TQ2OCXAV) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.1.My.Management.png" width=420px/>
-
+=========================================================================================
 7.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.1.My.Management.Scrolled.png" width=420px/>
@@ -2970,6 +2970,70 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
       - will respond with Voting Toggle status
       - will respond with Brands dictionary
 
+### Design Stories
+- Bottom Bar
+	- Height: 58px (with shadow) (non-shadow portion is only: 53px high)
+	- Background: (12/upload.bottom.bar.bg) repeating-X
+	- Capture Button
+		- 10px from top of bar (including bar's shadow overlay, only 6px from top if don't include bar's shadow overlay)
+		- Horizontally Centered when no photoshoot reel button icon
+			- Move 20px to the right when icon is present
+		- Background: Stretch image (12/upload.bottom.bar.camera.button.bg.off.png)
+		- Activate state: Stretch image (12/upload.bottom.bar.camera.button.bg.on.png)
+		- Width: 93px (Including shadow in image)
+		- Height: 45px (Including shadow in image)
+		- Capture Icon: Centered, 11px from top of button (12/upload.bottom.bar.camera.button.icon.normal.png)
+		- Photoshoot Icon: Centered, 10px from top of button (12/upload.bottom.bar.camera.button.icon.photoshoot.png)
+	- Divider (12/upload.bottom.bar.divider.png) repeating-y
+		- 1px wide
+		- 53px high
+	- X Button (12/upload.bottom.bar.icon.x.png)
+		- 22px from top of bar (18px from top if not including bar's shadow overlay)
+		- 11px left/right padding
+	- Photoroll Button (12/upload.bottom.bar.icon.photoroll.png)
+		- 19px from top of bar (15px from top if not including bar's shadow overlay)
+		- 9px left/right padding
+	- Photoshoot Reel Button (12/upload.bottom.bar.icon.photoshootreel.png)
+		- 19px from top of bar (15px from top if not including bar's shadow overlay)
+		- 8px left/right padding
+	- Photo capture mode switch
+		- Switch
+			- Background: image (12/upload.bottom.bar.switch.bg.png)
+			- 9px left/right padding
+			- 8px from bottom
+			- Width: 61px
+			- Height: 17px
+			- Button: image (12/upload.bottom.bar.switch.png)
+				- Width: 35px
+				- Height: 32px
+				- Clip entire button in 61x17px area with borders that have 9px radius (rounded)
+				- When switch button is on either side, move button another 2px within clipping mask to hide the shadow in the image
+		- Normal Small Icon
+			- 14px from top of bar (10px from top if not including bar's shadow overlay)
+			- 13px from left
+		- Photoshoot Small Icon
+			- 14px from tp of bar (10px from top if not including bar's shadow overlay)
+			- 13px from right
+- Flash Icon
+	- Background: image (upload.flash.off.png)
+		- Active State: (upload.flash.on.png)
+	- Height: 42px
+	- Width: 78px
+	- 6px from top
+	- 5px from left
+- Frame Indication Icon
+	- Background images (upload.frames.indicator.photo.overlay.[location].png)
+	- Height: 53px
+	- Width: 56px
+	- 10px from top and right
+- Loader
+	- Vertically and horizontally center in viewfinder
+	- For background: image (upload.loader.bg.png)
+	- Animating portion:
+		- Center within background image
+		- Image (upload.loader.inner.png)
+		- Incrementally reveal/draw portion of it like clock
+
 ### 12.2 Upload confirm  
 
 #### Overview
@@ -3003,6 +3067,7 @@ A user can confirm that they want to upload the photo they've taken or selected.
       - yes ==> (view 12.3)
       - no ==> (view 12.1)
 
+### Design Stories
 
 ### 12.3 Post a look  
 
