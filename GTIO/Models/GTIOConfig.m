@@ -8,26 +8,43 @@
 
 #import "GTIOConfig.h"
 
-#import <RestKit/RestKit.h>
+NSString * const kGTIOIntroScreensKey = @"GTIOIntroScreensKey";
+NSString * const kGTIOFacebookPermissions = @"GTIOFacebookPermissions";
+NSString * const kGTIOFacebookShareDefaultOn = @"GTIOFacebookShareDefaultOn";
+NSString * const kGTIOVotingDefaultOn = @"GTIOVotingDefaultOn";
 
 @implementation GTIOConfig
 
 @synthesize introScreens = _introScreens;
+@synthesize facebookPermissions = _facebookPermissions;
+@synthesize facebookShareDefaultOn = _facebookShareDefaultOn, votingDefaultOn = _votingDefaultOn;
 
-+ (void)loadConfigUsingBlock:(GTIOConfigHandler)configHandler
+- (id)initWithCoder:(NSCoder *)coder
 {
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/config" usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadObject = ^(id object){
-            if (configHandler) {
-                configHandler(nil, object);
-            }
-        };
-        loader.onDidFailWithError = ^(NSError *error){
-            if (configHandler) {
-                configHandler(error, nil);
-            }
-        };
-    }];
+    self = [self init];
+    if (self) {
+        self.introScreens = [coder decodeObjectForKey:kGTIOIntroScreensKey];
+        self.facebookPermissions = [coder decodeObjectForKey:kGTIOFacebookPermissions];
+        self.facebookShareDefaultOn = [coder decodeObjectForKey:kGTIOFacebookShareDefaultOn];
+        self.votingDefaultOn = [coder decodeObjectForKey:kGTIOVotingDefaultOn];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    if (self.introScreens) {
+        [coder encodeObject:self.introScreens forKey:kGTIOIntroScreensKey];
+    }
+    if (self.facebookPermissions) {
+        [coder encodeObject:self.facebookPermissions forKey:kGTIOFacebookPermissions];
+    }
+    if (self.facebookShareDefaultOn) {
+        [coder encodeObject:self.facebookShareDefaultOn forKey:kGTIOFacebookShareDefaultOn];
+    }
+    if (self.votingDefaultOn) {
+        [coder encodeObject:self.votingDefaultOn forKey:kGTIOVotingDefaultOn];
+    }
 }
 
 @end

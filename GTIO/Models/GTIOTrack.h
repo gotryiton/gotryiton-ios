@@ -12,10 +12,13 @@
 
 typedef void(^GTIOTrackHandler)(NSError *error, GTIOTrack *track);
 
-@interface GTIOTrack : NSObject
+@interface GTIOTrack : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSNumber *trackID;
 @property (nonatomic, strong) GTIOVisit *visit;
+
+/** Intro screens */
+@property (nonatomic, strong) NSNumber *pageNumber;
 
 + (GTIOTrack *)track;
 

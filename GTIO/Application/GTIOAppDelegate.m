@@ -7,6 +7,7 @@
 //
 
 #import <RestKit/RestKit.h>
+#import "TestFlight.h"
 
 #import "GTIOAppDelegate.h"
 
@@ -22,6 +23,7 @@
 #import "GTIOMappingProvider.h"
 
 #import "GTIOTrack.h"
+#import "GTIOUser.h"
 
 @interface GTIOAppDelegate ()
 
@@ -47,10 +49,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [TestFlight takeOff:@"01429fe002e0a4e8b7055610f04fa766_OTE1MjMyMDEyLTA1LTE4IDA5OjU0OjUxLjA3MzA3Mw"];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    NSLog(@"\n*****\nGTIO Started in %@ mode.\n*****", kGTIOEnvironmentName);
+    
     // List all fonts on iPhone
-    [self listAllFonts];
+//    [self listAllFonts];
     
     // Appearance setup
     [GTIOAppearance setupAppearance];
@@ -95,6 +101,13 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - Facebook
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [[GTIOUser currentUser].facebook handleOpenURL:url]; 
+}
+
 #pragma mark - FontHelper
 
 - (void)listAllFonts
@@ -117,17 +130,19 @@
 
 - (void)setupRestKit
 {
-    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace)
+    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
+    RKLogConfigureByName("RestKit/Network", kGTIONetworkLogLevel)
 //    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace)
     
-    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURLString:kGTIOBaseURL];
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURLString:kGTIOBaseURLString];
     [objectManager setMappingProvider:[[GTIOMappingProvider alloc] init]];
     [objectManager setAcceptMIMEType:kGTIOAcceptHeader];
     [objectManager setSerializationMIMEType:RKMIMETypeJSON];
     
     // Headers
     [objectManager.client setValue:@"142" forHTTPHeaderField:kGTIOTrackingHeaderKey];
-    [objectManager.client setValue:@"34cbc5cb8b99981444540270842c0376" forHTTPHeaderField:kGTIOAuthenticationHeaderKey];
+//    [objectManager.client setValue:@"34cbc5cb8b99981444540270842c0376" forHTTPHeaderField:kGTIOAuthenticationHeaderKey]; // Valid
+//    [objectManager.client setValue:@"34cbc59981444540270842c0376" forHTTPHeaderField:kGTIOAuthenticationHeaderKey];
     
     // Auth for dev/staging
     [objectManager.client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];
