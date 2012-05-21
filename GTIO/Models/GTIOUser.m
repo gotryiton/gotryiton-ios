@@ -177,7 +177,6 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
         
         loader.onDidLoadObjects = ^(NSArray *objects) {
             NSLog(@"Loaded user");
-            // Save token to user defaults
             if (self.loginHandler) {
                 self.loginHandler(self, nil);
             }
@@ -194,7 +193,9 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
 
 - (void)jrAuthenticationDidFailWithError:(NSError*)error forProvider:(NSString*)provider
 {
-    
+    if (self.loginHandler) {
+        self.loginHandler(nil, error);
+    }
 }
 
 @end
