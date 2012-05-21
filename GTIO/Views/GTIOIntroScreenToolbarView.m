@@ -40,17 +40,14 @@ NSInteger const kGTIOButtonPadding = 6;
 
 - (void)hideButtons:(BOOL)hidden
 {
-        [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{            
-            CGFloat alpha = 1.0f;
-            if (hidden) {
-                alpha = 0.0f;
-            }
-            
-            [self.signInButton setAlpha:alpha];
-            [self.nextButton setAlpha:alpha];
-        } completion:^(BOOL finished) {
-            
-        }];
+    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{            
+        CGFloat alpha = 1.0f;
+        if (hidden) {
+            alpha = 0.0f;
+        }
+        [self.signInButton setAlpha:alpha];
+        [self.nextButton setAlpha:alpha];
+    } completion:nil];
 }
 
 @end
