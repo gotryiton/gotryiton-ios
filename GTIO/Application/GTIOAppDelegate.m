@@ -24,6 +24,7 @@
 
 #import "GTIOTrack.h"
 #import "GTIOUser.h"
+#import "GTIOAuth.h"
 
 @interface GTIOAppDelegate ()
 
@@ -141,6 +142,11 @@
     
     // Headers
     [objectManager.client setValue:@"142" forHTTPHeaderField:kGTIOTrackingHeaderKey];
+    
+    NSString *authToken = [[GTIOAuth alloc] init].token;
+    if ([authToken length] > 0) {
+        [[RKObjectManager sharedManager].client.HTTPHeaders setObject:authToken forKey:kGTIOAuthenticationHeaderKey];
+    }
 //    [objectManager.client setValue:@"34cbc5cb8b99981444540270842c0376" forHTTPHeaderField:kGTIOAuthenticationHeaderKey]; // Valid
 //    [objectManager.client setValue:@"34cbc59981444540270842c0376" forHTTPHeaderField:kGTIOAuthenticationHeaderKey];
     

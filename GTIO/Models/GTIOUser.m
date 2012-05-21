@@ -12,14 +12,12 @@
 
 #import "GTIOConfigManager.h"
 
-NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
+#import "GTIOAuth.h"
 
 @interface GTIOUser ()
 
 @property (nonatomic, copy) GTIOLoginHandler loginHandler;
 @property (nonatomic, strong) NSString *facebookAuthResourcePath;
-
-- (void)saveTokenToUserDefaults:(NSString *)authToken;
 
 @end
 
@@ -43,26 +41,16 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
 
 - (BOOL)isLoggedIn
 {
-    NSString *authToken = [[NSUserDefaults standardUserDefaults] objectForKey:kGTIOAuthTokenKey];
-    if ([authToken length] > 0) {
-        return YES;
-    } else {
-        return NO;
-    }
+    NSString *authToken = [[GTIOAuth alloc] init].token;
+    return [authToken length] > 0;
 }
 
 - (void)logOut
 {
     // Remove auth token
+    [[GTIOAuth alloc] init].token = @"";
+    
     // Remove all data... user=[[self alloc] init]?
-}
-
-#pragma mark - AuthToken
-
-- (void)saveTokenToUserDefaults:(NSString *)authToken
-{
-    [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:kGTIOAuthTokenKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Facebook
@@ -98,11 +86,24 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
                                 nil];
         loader.params = params;
         loader.method = RKRequestMethodPOST;
-        loader.targetObject = self;
         
         loader.onDidLoadObjects = ^(NSArray *objects) {
             NSLog(@"Loaded user");
-            // Save token to user defaults
+            
+            // Find user object
+            GTIOUser *user = nil;
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOUser class]]) {
+                    user = object;
+                    break;
+                }
+            }
+            
+            // Populate self with returned User values
+            if (user) {
+                [self populateWithUser:user];
+            }
+            
             if (self.loginHandler) {
                 self.loginHandler(self, nil);
             }
@@ -119,28 +120,47 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
 
 - (void)fbDidNotLogin:(BOOL)cancelled
 {
-//    if (!cancelled) {
+    if (!cancelled) {
         if (self.loginHandler) {
             NSError *error = [[NSError alloc] init];
             self.loginHandler(nil, error);
         }
-//    }
+    }
 }
 
 - (void)fbDidExtendToken:(NSString*)accessToken expiresAt:(NSDate*)expiresAt
 {
-    
+    // Required for FBSessionDelegate
 }
 
 
 - (void)fbDidLogout
 {
-    
+    // Required for FBSessionDelegate    
 }
 
 - (void)fbSessionInvalidated
 {
-    
+    // Required for FBSessionDelegate
+}
+
+#pragma mark - Helpers
+
+- (void)populateWithUser:(GTIOUser *)user
+{
+    self.userID = user.userID;
+    self.name = user.name;
+    self.icon = user.icon;
+    self.birthYear = user.birthYear;
+    self.location = user.location;
+    self.aboutMe = user.aboutMe;
+    self.city = user.city;
+    self.state = user.state;
+    self.gender = user.gender;
+    self.service = user.service;
+    self.auth = user.auth;
+    self.isNewUser = user.isNewUser;
+    self.hasCompleteProfile = user.hasCompleteProfile;
 }
 
 @end

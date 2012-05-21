@@ -76,6 +76,7 @@
 		D2603E1E155AD92E00536BF9 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D2603E1D155AD92E00536BF9 /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D2603E20155AD93A00536BF9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2603E1F155AD93A00536BF9 /* CoreText.framework */; };
 		D2603E22155AE97800536BF9 /* ui.empty.pixel.png in Resources */ = {isa = PBXBuildFile; fileRef = D2603E21155AE97800536BF9 /* ui.empty.pixel.png */; };
+		D27E0C70156AAD9E00BE7C9E /* GTIOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */; };
 		D289CB2F1566957300909FC1 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB161566957300909FC1 /* Facebook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D289CB301566957300909FC1 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D289CB181566957300909FC1 /* FBDialog.bundle */; };
 		D289CB311566957300909FC1 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB1A1566957300909FC1 /* FBDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -352,6 +353,8 @@
 		D2603E1D155AD92E00536BF9 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = Libraries/TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
 		D2603E1F155AD93A00536BF9 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		D2603E21155AE97800536BF9 /* ui.empty.pixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui.empty.pixel.png; path = General/ui.empty.pixel.png; sourceTree = "<group>"; };
+		D27E0C6E156AAD9E00BE7C9E /* GTIOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAuth.h; sourceTree = "<group>"; };
+		D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAuth.m; sourceTree = "<group>"; };
 		D289CB151566957300909FC1 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Facebook.h; path = "Libraries/facebook-iOS-SDK/src/Facebook.h"; sourceTree = "<group>"; };
 		D289CB161566957300909FC1 /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Facebook.m; path = "Libraries/facebook-iOS-SDK/src/Facebook.m"; sourceTree = "<group>"; };
 		D289CB171566957300909FC1 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBConnect.h; path = "Libraries/facebook-iOS-SDK/src/FBConnect.h"; sourceTree = "<group>"; };
@@ -1009,6 +1012,8 @@
 				D20C2268155B106F0079D7D9 /* Config */,
 				D2D738DF155D574A001B2D4B /* GTIOUser.h */,
 				D2D738E0155D574A001B2D4B /* GTIOUser.m */,
+				D27E0C6E156AAD9E00BE7C9E /* GTIOAuth.h */,
+				D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1483,6 +1488,7 @@
 				D2569BF91566CA6F0045B508 /* MKAnnotationView+WebCache.m in Sources */,
 				D2569BFA1566CA6F0045B508 /* UIButton+WebCache.m in Sources */,
 				D2569BFB1566CA6F0045B508 /* UIImageView+WebCache.m in Sources */,
+				D27E0C70156AAD9E00BE7C9E /* GTIOAuth.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

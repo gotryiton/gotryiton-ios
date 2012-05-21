@@ -13,6 +13,7 @@
 #import "GTIOVisit.h"
 #import "GTIOTrack.h"
 #import "GTIOUser.h"
+#import "GTIOAuth.h"
 
 @implementation GTIOMappingProvider
 
@@ -26,6 +27,7 @@
         RKObjectMapping *configMapping = [RKObjectMapping mappingForClass:[GTIOConfig class]];
         RKObjectMapping *visitMapping = [RKObjectMapping mappingForClass:[GTIOVisit class]];
         RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[GTIOUser class]];
+        RKObjectMapping *authMapping = [RKObjectMapping mappingForClass:[GTIOAuth class]];
         
         /** Config
          */
@@ -77,9 +79,15 @@
         [userMapping mapKeyPath:@"about_me" toAttribute:@"aboutMe"];
         [userMapping mapKeyPath:@"is_new_user" toAttribute:@"isNewUser"];
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
-        [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"auth", nil];
+        [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", /*@"auth",*/ nil];
         [self setMapping:userMapping forKeyPath:@"user"];
         
+        /** Auth
+         */
+        
+        // GTIOAuth
+        [authMapping mapAttributes:@"token", nil];
+        [self setMapping:authMapping forKeyPath:@"auth"];
     }
     return self;
 }
