@@ -18,13 +18,13 @@ NSInteger const kGTIOButtonPadding = 6;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:(CGRect){ frame.origin, { frame.size.width, 44 } }];
-    if (self) {
+    if (self) {        
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ CGPointZero, frame.size }];
         [backgroundImageView setImage:[UIImage imageNamed:@"intro-bar-bg.png"]];
         [self addSubview:backgroundImageView];
         
         _signInButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSignIn];
-        [_signInButton setFrame:(CGRect){ { kGTIOButtonPadding, kGTIOButtonPadding } , _signInButton.frame.size }];
+        [_signInButton setFrame:(CGRect){ { kGTIOButtonPadding, kGTIOButtonPadding }, _signInButton.frame.size }];
         [self addSubview:_signInButton];
         
         _nextButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeNext];
@@ -40,8 +40,17 @@ NSInteger const kGTIOButtonPadding = 6;
 
 - (void)hideButtons:(BOOL)hidden
 {
-    [self.signInButton setHidden:hidden];
-    [self.nextButton setHidden:hidden];
+        [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{            
+            CGFloat alpha = 1.0f;
+            if (hidden) {
+                alpha = 0.0f;
+            }
+            
+            [self.signInButton setAlpha:alpha];
+            [self.nextButton setAlpha:alpha];
+        } completion:^(BOOL finished) {
+            
+        }];
 }
 
 @end
