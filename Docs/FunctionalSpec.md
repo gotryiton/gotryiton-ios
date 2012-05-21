@@ -64,7 +64,7 @@
    10.3 [Shop 3rd Party Webview Container](#103-shop-3rd-party-webview-container)   
    10.4 [Default 3rd Party Webview Container](#104-default-3rd-party-webview-container)   
    10.5 [Shop Browse Products](#105-shop-browse-products)   
-11. ~Logged out screens~
+11. ~~Logged out screens~~
 12. [Upload](#12-upload)   
    12.1 [Upload Start](#121-upload-start)   
    12.2 [Upload Confirm](#122-upload-confirm)   
@@ -2912,12 +2912,6 @@ A user can confirm that they want to upload the photo they've taken or selected.
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.3.1.Photo.Filter.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Right.Top.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Left.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Right.Bottom.png" width=420px/>
-
 12.2.1 Upload confirm with grid button
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.3.2.Photo.Filter.Back.To.Grid.png" width=420px/>
@@ -3145,7 +3139,7 @@ None.
 
 #### User Flow
 **entry screens:**   
-([view 12.1](#121-upload-start))
+([view 12.1](#121-upload-start))   
 **exit screens:**   
 ([view 12.4](#124-photoshoot-grid))   
 
