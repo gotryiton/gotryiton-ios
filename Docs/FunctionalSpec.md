@@ -3068,7 +3068,21 @@ A user can confirm that they want to upload the photo they've taken or selected.
       - no ==> (view 12.1)
 
 ### Design Stories
-
+- Thumbnails
+	- With frame/shadow: 90x120px image (upload.photoreel.vertical.divider.png)
+	- Photo Thumbnail: 84x112px
+		- 3px from top
+		- 3px from left/right
+		- 5px from bottom
+	- Positioning 
+		- 1st row is 12px from top
+		- Left-most thumbnail in each row: 11px from left
+		- Middle thumbnail in each row: horizontally centered
+		- Right-most thumbnail in each row: 11px from right
+	- Horizontal Lines/indicators
+		- 59px from top
+	- Vertical Lines/indicators
+		- 
 ### 12.3 Post a look  
 
 #### Overview
