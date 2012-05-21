@@ -214,7 +214,9 @@ Response
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "auth": {
+        "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    },
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
@@ -326,7 +328,9 @@ Response
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "auth": {
+        "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    },
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
@@ -387,7 +391,9 @@ Response
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "auth": {
+        "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    },
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
@@ -449,7 +455,9 @@ Response
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "auth": {
+        "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    },
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
@@ -516,7 +524,9 @@ Response
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "auth": {
+        "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    },
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
