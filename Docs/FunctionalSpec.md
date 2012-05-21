@@ -64,6 +64,7 @@
    10.3 [Shop 3rd Party Webview Container](#103-shop-3rd-party-webview-container)   
    10.4 [Default 3rd Party Webview Container](#104-default-3rd-party-webview-container)   
    10.5 [Shop Browse Products](#105-shop-browse-products)   
+11. ~Logged out screens~
 12. [Upload](#12-upload)   
    12.1 [Upload Start](#121-upload-start)   
    12.2 [Upload Confirm](#122-upload-confirm)   
@@ -2865,7 +2866,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.2.Upload.Photoshoot.without.reel.png" width=420px/>
 
-12.1.3 Upload Start in Photoshoot Mode with Reel
+12.1.3 Upload Start in Photoshoot Mode with Grid button
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.1.Upload.Photoshoot.with.reel.png" width=420px/>
 
@@ -2909,7 +2910,7 @@ A user can confirm that they want to upload the photo they've taken or selected.
 #### Mockups
 ([wireframe](http://invis.io/9M2OEVED) [2](http://invis.io/2Z2OEWB8) [3](http://invis.io/QB2OEYM7) [4](http://invis.io/4F2OEZGK))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.Upload.Confirm.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.3.1.Photo.Filter.png" width=420px/>
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Right.Top.png" width=420px/>
 
@@ -2949,17 +2950,21 @@ A user can add details to their post before they submit.  They can select to use
 #### Mockups
 ([wireframe](http://invis.io/J92OF18E)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.Post.A.Look.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.a.Post.A.Look.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.f.Post.A.Look.Filled.Text.png" width=420px/>
 
 12.3.1 Post a look (Description with keyboard) ([wireframe](http://invis.io/AC2OF2GX))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.1.Post.A.Look.Description.Keyboard.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.d.Post.A.Look.Description.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.e.Post.A.Look.Brands.png" width=420px/>
 
 12.3.2 Post a look (Photo preview with frames) ([wireframe](http://invis.io/5K2OF0W8))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.2.Post.A.Look.Frames.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.c.Post.A.Look.Framed.With.Photos.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.2.Post.A.Look.Frames.2nd.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.b.Post.A.Look.Framed.png" width=420px/>
 
 #### API Usage
 
