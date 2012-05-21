@@ -213,7 +213,6 @@ Creates and returns a post object based on passed parameters.
 #### Request
 ```json
 {
-  "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
   "description": "This is a post.",
   "voting_enabled": true,
   "photo_id": "76199FA"

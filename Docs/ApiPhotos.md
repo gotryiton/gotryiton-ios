@@ -8,7 +8,6 @@ Creates and returns a post object based on passed parameters. Upload a file that
 #### Request
 ```json
 {
-  "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
   "image": "<Image Data>",
   "using_filter" : "FilterName",
   "using_frame" : true
