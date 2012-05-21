@@ -3105,7 +3105,7 @@ A user can add details to their post before they submit.  They can select to use
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.c.Post.A.Look.Framed.With.Photos.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.b.Post.A.Look.Framed.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.b.1.Post.A.Look.Framed.png" width=420px/>
 
 #### API Usage
 
