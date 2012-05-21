@@ -10,3 +10,6 @@
 [submodule "Libraries/facebook-iOS-SDK"]
 	path = Libraries/facebook-iOS-SDK
 	url = https://github.com/facebook/facebook-ios-sdk.git
+[submodule "Libraries/janrain"]
+	path = Libraries/janrain
+	url = git@github.com:twotoasters/engage.iphone.git

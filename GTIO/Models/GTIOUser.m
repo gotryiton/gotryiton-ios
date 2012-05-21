@@ -18,8 +18,10 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
 
 @property (nonatomic, copy) GTIOLoginHandler loginHandler;
 @property (nonatomic, strong) NSString *facebookAuthResourcePath;
+@property (nonatomic, strong) NSString *janrainAuthResourcePath;
 
 - (void)saveTokenToUserDefaults:(NSString *)authToken;
+- (void)authWithFacebookWithLoginHandler:(GTIOLoginHandler)loginHandler;
 
 @end
 
@@ -28,6 +30,7 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
 @synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile;
 @synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
 @synthesize loginHandler = _loginHandler;
+@synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath;
 
 + (GTIOUser *)currentUser
 {
@@ -35,6 +38,7 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         user = [[self alloc] init];
+        user.janrain = [JREngage jrEngageWithAppId:kGTIOJanRainEngageApplicationID andTokenUrl:nil delegate:user];
     });
     return user;
 }
@@ -139,6 +143,56 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
 }
 
 - (void)fbSessionInvalidated
+{
+    
+}
+
+#pragma mark - janrain
+
+- (void)signInWithJanrainForProvider:(NSString *)providerName WithLoginHandler:(GTIOLoginHandler)loginHandler
+{
+    self.janrainAuthResourcePath = @"/user/auth/janrain";
+    self.loginHandler = loginHandler;
+    [_janrain showAuthenticationDialogForProvider:providerName];
+}
+
+- (void)signUpWithJanrainForProvider:(NSString *)providerName WithLoginHandler:(GTIOLoginHandler)loginHandler
+{
+    self.janrainAuthResourcePath = @"/user/signup/janrain";
+    self.loginHandler = loginHandler;
+    [_janrain showAuthenticationDialogForProvider:providerName];
+}
+
+#pragma mark - JREngageDelegate methods
+
+- (void)jrAuthenticationDidSucceedForUser:(NSDictionary*)auth_info forProvider:(NSString*)provider
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.janrainAuthResourcePath usingBlock:^(RKObjectLoader *loader) {
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [auth_info valueForKey:@"token"], @"janrain_token",
+                                nil];
+        loader.params = params;
+        loader.method = RKRequestMethodPOST;
+        loader.targetObject = self;
+        
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            NSLog(@"Loaded user");
+            // Save token to user defaults
+            if (self.loginHandler) {
+                self.loginHandler(self, nil);
+            }
+        };
+        
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"Failed to load user");
+            if (self.loginHandler) {
+                self.loginHandler(nil, error);
+            }
+        };
+    }];
+}
+
+- (void)jrAuthenticationDidFailWithError:(NSError*)error forProvider:(NSString*)provider
 {
     
 }

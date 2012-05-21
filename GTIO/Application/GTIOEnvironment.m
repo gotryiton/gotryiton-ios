@@ -55,3 +55,9 @@
 NSString * const kGTIOAcceptHeader = @"application/v4-json";
 NSString * const kGTIOAuthenticationHeaderKey = @"Authentication";
 NSString * const kGTIOTrackingHeaderKey = @"Tracking-Id";
+
+/* janrain providers */
+NSString * const kGTIOJanRainProviderAol = @"aol";
+NSString * const kGTIOJanRainProviderGoogle = @"google";
+NSString * const kGTIOJanRainProviderTwitter = @"twitter";
+NSString * const kGTIOJanRainProviderYahoo = @"yahoo";

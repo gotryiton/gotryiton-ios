@@ -69,18 +69,38 @@
     
     self.aolButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeAOL];
     [self.aolButton setFrame:(CGRect){ {(self.view.frame.size.width - self.aolButton.frame.size.width) / 2, 145 }, self.aolButton.frame.size }];
+    [self.aolButton setTapHandler:^(id sender) {
+        [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderAol WithLoginHandler:^(GTIOUser *user, NSError *error) {
+            NSLog(@"%@ is logged in with AOL!",user.name);
+        }];
+    }];
     [self.view addSubview:self.aolButton];
     
     self.googleButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeGoogle];
     [self.googleButton setFrame:(CGRect){ {(self.view.frame.size.width - self.googleButton.frame.size.width) / 2, self.aolButton.frame.origin.y + self.aolButton.frame.size.height }, self.googleButton.frame.size }];
+    [self.googleButton setTapHandler:^(id sender) {
+        [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderGoogle WithLoginHandler:^(GTIOUser *user, NSError *error) {
+            NSLog(@"%@ is logged in with Google!",user.name);
+        }];
+    }];
     [self.view addSubview:self.googleButton];
     
     self.twitterButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeTwitter];
     [self.twitterButton setFrame:(CGRect){ {(self.view.frame.size.width - self.twitterButton.frame.size.width) / 2, self.googleButton.frame.origin.y + self.googleButton.frame.size.height }, self.twitterButton.frame.size }];
+    [self.twitterButton setTapHandler:^(id sender) {
+        [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderTwitter WithLoginHandler:^(GTIOUser *user, NSError *error) {
+            NSLog(@"%@ is logged in with Twitter!",user.name);
+        }];
+    }];
     [self.view addSubview:self.twitterButton];
     
     self.yahooButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeYahoo];
     [self.yahooButton setFrame:(CGRect){ {(self.view.frame.size.width - self.yahooButton.frame.size.width) / 2, self.twitterButton.frame.origin.y + self.twitterButton.frame.size.height }, self.yahooButton.frame.size }];
+    [self.yahooButton setTapHandler:^(id sender) {
+        [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderYahoo WithLoginHandler:^(GTIOUser *user, NSError *error) {
+            NSLog(@"%@ is logged in with Yahoo!",user.name);
+        }];
+    }];
     [self.view addSubview:self.yahooButton];
 }
 
