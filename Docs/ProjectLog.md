@@ -1,3 +1,48 @@
+***Sprint 2 Development Plan (Monday, May 21st 2012 - Friday, June 1st, 2012)***
+
+Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=2&state=open
+
+**Planned Work**
+
+- 79 - 7.3 Edit profile pic
+- 78 - 1.7 Almost done - endpoint
+- 77 - 1.7 Almost done - styling
+- 76 - 1.5 Janrain sign in - endpoint
+- 75 - 1.5 Janrain sign up - endpoint
+- 74 - 1.5 Janrain sign up - styling
+- 73 - 1.4 Connect buttons to janrain screens
+- 72 - Loading spinner when coming back from Facebook SSO
+- 71 - Failed sign-in Email support
+- 70 - Auth Token Nested
+- 69 - Tracking
+- 68 - No Intro Screens Hide Bottom Bar
+- 43 - Returning Users
+
+**Important Dates / Deadlines**
+
+- Memorial Day (TT OFfice Closed) - 5/28
+
+**Open Questions**
+
+- 1.7 api for photo upload - Does the user ever upload their own icon?
+- 7.3 - where does the list of profile icon options come from?
+- When can we expect mockups for burst mode / updates to functional spec?
+
+**Risks**
+
+- NA
+
+**General Notes**
+
+- TT - Verify that all assets for planned Issues are available.  If any designs are missing, schedule a due date with GTIO on 5/28 standup
+- TT - Verify all required API endpoints are available.
+
+**Sprint Deliverables**
+
+- Miletone build with completed issues delivered 6/1
+
+---
+
 ***Friday, May 18th - Standup / Retrospective Notes***
 
 **Attendees**
