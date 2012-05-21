@@ -28,15 +28,6 @@
 
 @implementation GTIOSplashViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,7 +38,7 @@
     [self.view addSubview:splashImageView];
     
     // Load Config
-    [[GTIOConfigManager sharedManager] loadConfigFromWebUsingBlock:^(NSError *error, GTIOConfig *config) {
+    [[GTIOConfigManager sharedManager] loadConfigFromWebUsingBlock:^(GTIOConfig *config, NSError *error) {
         if (error) {
             NSLog(@"Error loading config");
             // TODO: Do we fail here or what?
@@ -89,12 +80,6 @@
             }
         }
     }];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

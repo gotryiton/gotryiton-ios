@@ -78,7 +78,7 @@ NSInteger const kGTIOImageDownloadTimeout = 30;
                 
                 if (configHandler) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        configHandler(nil, object);
+                        configHandler(object, nil);
                     });
                 }
             });
@@ -86,7 +86,7 @@ NSInteger const kGTIOImageDownloadTimeout = 30;
         
         loader.onDidFailWithError = ^(NSError *error) {
             if (configHandler) {
-                configHandler(error, nil);
+                configHandler(nil, error);
             }
         };
     }];

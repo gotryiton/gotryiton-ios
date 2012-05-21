@@ -452,7 +452,7 @@
 		D2D048311563F1DA0034E04F /* GTIOIntroScreenToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroScreenToolbarView.m; sourceTree = "<group>"; };
 		D2D048361563F9820034E04F /* GTIOPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPageControl.h; sourceTree = "<group>"; };
 		D2D048371563F9820034E04F /* GTIOPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPageControl.m; sourceTree = "<group>"; };
-		D2D0483915642B6E0034E04F /* GTIOIntroImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GTIOIntroImageViewController.h; sourceTree = "<group>"; };
+		D2D0483915642B6E0034E04F /* GTIOIntroImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIntroImageViewController.h; sourceTree = "<group>"; };
 		D2D0483A15642B6E0034E04F /* GTIOIntroImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroImageViewController.m; sourceTree = "<group>"; };
 		D2D0483D1564378E0034E04F /* GTIOSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSignInViewController.h; sourceTree = "<group>"; };
 		D2D0483E1564378E0034E04F /* GTIOSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSignInViewController.m; sourceTree = "<group>"; };
