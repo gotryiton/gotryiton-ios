@@ -3234,25 +3234,6 @@ response:
       - the photo uploaded should be 640px wide
       - the image data for the photo should be sent as ```image``` in the POST request
 
-
-### 12.4 Photoshoot grid
-
-#### Overview
-A user can select from 9 photos taken during photoshoot mode.
-
-#### Mockups
-([wireframe](http://invis.io/J92OF18E)) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.2.Photoshoot.select.png" width=420px/>
-
-
-#### User Flow
-**entry screens:**   
-([view 12.5](#125-photoshoot-mode))
-**exit screens:**   
-([view 12.1](#121-upload-start))   
-([view 12.3](#123-post-a-look))     
-
 #### Design Stories
 - Photo Frame
    - 'photo-frame.png'
@@ -3326,7 +3307,26 @@ A user can select from 9 photos taken during photoshoot mode.
    - When user taps Description or Brands, all elements on page (except navigation bar and 'post a look' element) scroll up by 277px, keyboard is shown
       - If typing in Description, keyboard action button is 'Next' (gray) which brings user to input of Brands
       - If typing in Brands, keyboard action button is 'Done' (gray) which disappears keyboard and scrolls back up by 277px
-      
+
+
+
+### 12.4 Photoshoot grid
+
+#### Overview
+A user can select from 9 photos taken during photoshoot mode.
+
+#### Mockups
+([wireframe](http://invis.io/J92OF18E)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.2.Photoshoot.select.png" width=420px/>
+
+
+#### User Flow
+**entry screens:**   
+([view 12.5](#125-photoshoot-mode))
+**exit screens:**   
+([view 12.1](#121-upload-start))   
+([view 12.3](#123-post-a-look))           
 
 #### API Usage
 None.
