@@ -6,9 +6,13 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "Facebook.h"
 
-@interface GTIOUser : NSObject
+@class GTIOUser;
+
+typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
+
+@interface GTIOUser : NSObject <FBSessionDelegate>
 
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *name;
@@ -23,5 +27,24 @@
 @property (nonatomic, strong) NSNumber *auth;
 @property (nonatomic, strong) NSNumber *isNewUser;
 @property (nonatomic, strong) NSNumber *hasCompleteProfile;
+
+@property (nonatomic, strong) Facebook *facebook;
+
+/** The current user that is logged in
+ */
++ (GTIOUser *)currentUser;
+
+/** Returns whether current user is authed
+ */
+- (BOOL)isLoggedIn;
+
+/** Logs current user out of GTIO
+ */
+- (void)logOut;
+
+/** Sign up/in with Facebook
+ */
+- (void)signUpWithFacebookWithLoginHandler:(GTIOLoginHandler)loginHandler;
+- (void)signInWithFacebookWithLoginHandler:(GTIOLoginHandler)loginHandler;
 
 @end

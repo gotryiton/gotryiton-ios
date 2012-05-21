@@ -21,22 +21,31 @@
     self = [super init];
     if (self) {
         
+        RKObjectMapping *trackMapping = [RKObjectMapping mappingForClass:[GTIOTrack class]];
+        RKObjectMapping *introScreenMapping = [RKObjectMapping mappingForClass:[GTIOIntroScreen class]];
+        RKObjectMapping *configMapping = [RKObjectMapping mappingForClass:[GTIOConfig class]];
+        RKObjectMapping *visitMapping = [RKObjectMapping mappingForClass:[GTIOVisit class]];
+        RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[GTIOUser class]];
+        
         /** Config
          */
         
-        RKObjectMapping *introScreenMapping = [RKObjectMapping mappingForClass:[GTIOIntroScreen class]];
+        // GTIOIntroScreen
         [introScreenMapping mapKeyPath:@"id" toAttribute:@"introScreenID"];
         [introScreenMapping mapKeyPath:@"image_url" toAttribute:@"imageURL"];
-        [introScreenMapping mapAttributes:@"track", nil];
+        [introScreenMapping mapKeyPath:@"track" toRelationship:@"track" withMapping:trackMapping];
         
-        RKObjectMapping *configMapping = [RKObjectMapping mappingForClass:[GTIOConfig class]];
+        // GTIOConfig
+        [configMapping mapKeyPath:@"facebook_permissions_requested" toAttribute:@"facebookPermissions"];
+        [configMapping mapKeyPath:@"facebook_share_default_on" toAttribute:@"facebookShareDefaultOn"];
+        [configMapping mapKeyPath:@"voting_default_on" toAttribute:@"votingDefaultOn"];
         [configMapping mapKeyPath:@"intro_images" toRelationship:@"introScreens" withMapping:introScreenMapping];
         [self setMapping:configMapping forKeyPath:@"config"];
         
         /** Visit
          */
         
-        RKObjectMapping *visitMapping = [RKObjectMapping mappingForClass:[GTIOVisit class]];
+        // GTIOVisit
         [visitMapping mapKeyPath:@"ios_version" toAttribute:@"iOSVersion"];
         [visitMapping mapKeyPath:@"ios_device" toAttribute:@"iOSDevice"];
         [visitMapping mapKeyPath:@"build_version" toAttribute:@"buildVersion"];
@@ -50,8 +59,8 @@
         /** Track
          */
         
-        RKObjectMapping *trackMapping = [RKObjectMapping mappingForClass:[GTIOTrack class]];
         [trackMapping mapKeyPath:@"id" toAttribute:@"trackID"];
+        [trackMapping mapKeyPath:@"page_number" toAttribute:@"pageNumber"];
         [trackMapping mapKeyPath:@"visit" toRelationship:@"visit" withMapping:visitMapping serialize:YES];
         [self setMapping:trackMapping forKeyPath:@"track"];
         
@@ -62,7 +71,7 @@
         /** User
          */
         
-        RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[GTIOUser class]];
+        // GTIOUser
         [userMapping mapKeyPath:@"id" toAttribute:@"userID"];
         [userMapping mapKeyPath:@"born_in" toAttribute:@"birthYear"];
         [userMapping mapKeyPath:@"about_me" toAttribute:@"aboutMe"];

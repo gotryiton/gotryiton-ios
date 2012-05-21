@@ -10,9 +10,13 @@
 
 #import <RestKit/RestKit.h>
 
+NSString * const kGTIOTrackIDKey = @"GTIOTrackIDKey";
+NSString * const kGTIOPageNumberKey = @"GTIOPageNumberKey";
+
 @implementation GTIOTrack
 
 @synthesize trackID = _trackID, visit = _visit;
+@synthesize pageNumber = _pageNumber;
 
 + (GTIOTrack *)track
 {
@@ -38,6 +42,26 @@
             }
         };
     }];
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        self.trackID = [coder decodeObjectForKey:kGTIOTrackIDKey];
+        self.pageNumber = [coder decodeObjectForKey:kGTIOPageNumberKey];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    if (self.trackID) {
+        [coder encodeObject:self.trackID forKey:kGTIOTrackIDKey];
+    }
+    if (self.pageNumber) {
+        [coder encodeObject:self.pageNumber forKey:kGTIOPageNumberKey];
+    }
 }
 
 @end

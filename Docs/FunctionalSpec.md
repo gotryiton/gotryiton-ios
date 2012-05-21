@@ -1,4 +1,4 @@
-# GTIO 4.0 Functional Spec
+# GTIO 4.0 Functional Spec 
 
 ## Version History
 - 2012-04-20 - Scott Penrose - Initial Version

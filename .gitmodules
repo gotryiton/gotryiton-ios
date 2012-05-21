@@ -4,3 +4,9 @@
 [submodule "Libraries/TTTAttributedLabel"]
 	path = Libraries/TTTAttributedLabel
 	url = https://github.com/mattt/TTTAttributedLabel.git
+[submodule "Libraries/SDWebImage"]
+	path = Libraries/SDWebImage
+	url = https://github.com/rs/SDWebImage.git
+[submodule "Libraries/facebook-iOS-SDK"]
+	path = Libraries/facebook-iOS-SDK
+	url = https://github.com/facebook/facebook-ios-sdk.git

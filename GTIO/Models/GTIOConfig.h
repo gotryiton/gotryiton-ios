@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GTIOConfig : NSObject
-
-typedef void(^GTIOConfigHandler)(NSError *error, GTIOConfig *config);
+@interface GTIOConfig : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSArray *introScreens;
 
-+ (void)loadConfigUsingBlock:(GTIOConfigHandler)configHandler;
+@property (nonatomic, strong) NSString *facebookPermissions;
+@property (nonatomic, strong) NSNumber *facebookShareDefaultOn;
+@property (nonatomic, strong) NSNumber *votingDefaultOn;
 
 @end

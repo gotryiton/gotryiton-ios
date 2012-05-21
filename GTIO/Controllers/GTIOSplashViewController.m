@@ -14,22 +14,19 @@
 #import "GTIOUser.h"
 #import "GTIOConfig.h"
 
+#import "GTIOConfigManager.h"
 #import "GTIOAppDelegate.h"
 
+#import "GTIOIntroScreensViewController.h"
+#import "GTIOSignInViewController.h"
+
 @interface GTIOSplashViewController ()
+
+- (void)displaySignInViewController;
 
 @end
 
 @implementation GTIOSplashViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -41,7 +38,7 @@
     [self.view addSubview:splashImageView];
     
     // Load Config
-    [GTIOConfig loadConfigUsingBlock:^(NSError *error, GTIOConfig *config) {
+    [[GTIOConfigManager sharedManager] loadConfigFromWebUsingBlock:^(GTIOConfig *config, NSError *error) {
         if (error) {
             NSLog(@"Error loading config");
             // TODO: Do we fail here or what?
@@ -60,10 +57,19 @@
                     loader.onDidFailWithError = ^(NSError *error) {
                         NSLog(@"Auth /user/me failed. User is not logged in.");
                         // TODO: go to view 1.9
+                        [self displaySignInViewController];
                     };
                 }];
             } else {
                 // route to view 1.2
+                if ([config.introScreens count] > 0) {
+                    GTIOIntroScreensViewController *introScreensViewController = [[GTIOIntroScreensViewController alloc] initWithNibName:nil bundle:nil];
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:introScreensViewController];
+                    [[UIApplication sharedApplication].keyWindow setRootViewController:navController];
+                } else {
+                    // no intro screens route to view 1.9
+                    [self displaySignInViewController];
+                }
                 
                 [GTIOTrack postTrackUsingBlock:^(NSError *error, GTIOTrack *track) {
                     if (error) {
@@ -76,15 +82,18 @@
     }];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Next Page Helpers
+
+- (void)displaySignInViewController
+{
+    GTIOSignInViewController *signInViewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
+    [[UIApplication sharedApplication].keyWindow setRootViewController:navController];
 }
 
 @end
