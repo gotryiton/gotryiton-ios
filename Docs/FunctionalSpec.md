@@ -69,8 +69,8 @@
    12.1 [Upload Start](#121-upload-start)   
    12.2 [Upload Confirm](#122-upload-confirm)   
    12.3 [Post a look](#123-post-a-look)   
-   12.4 [Photoshoot Grid](#124-photoshoot-grid)
-   12.5 [Photoshoot Mode](#125-photoshoot-mode)
+   12.4 [Photoshoot Grid](#124-photoshoot-grid)   
+   12.5 [Photoshoot Mode](#125-photoshoot-mode)   
 13. [Universal Elements and Behavior](#13-universal-elements-and-behavior)   
    13.1 [UITabBar default behavior](#131-uitabbar-default-behavior)   
    13.2 [UITabBar shopping list animation](#132-uitabbar-shopping-list-animation)   
@@ -3074,9 +3074,9 @@ A user can confirm that they want to upload the photo they've taken or selected.
    - when the user first loads this view, filter processing should begin in the background before the user taps on the filter icons
    - processing should be cancelled if a user exits this screen
 - A user can select if they want to use the photo they've selected (and filtered)
-   - use this photo yes/no
-      - yes ==> (view 12.3)
-      - no ==> (view 12.1)
+   - use this photo check button **tap** ==> (view 12.3)
+   - 'x' button **tap** => (view 12.1)
+   - grid button **tap** => (view 12.4)
 - A user can go back to their previous screen
    - If a user arrived on this screen via the Photoshoot grid, they can return to the grid via a grid icon (view 12.2.1)
    - If a user arrived on this screen via the upload start screen, they can return to that screen via the x icon (view 12.2)
@@ -3144,7 +3144,7 @@ request:
 
 ```json
 {
-   "image" : "<image data>"
+   "image" : "<image data>",
    "using_filter" : "FilterName",
    "using_frame" : true
 }
@@ -3170,9 +3170,6 @@ response:
       - page slides down and keyboard is raised (view 12.3.1)
    - tag brands
       - page slides down and keyboard is raised (view 12.3.1)
-
-- When a user enters brands that are recognized by the app, the app offeres autocomplete
-   - dictionary used is passed back in /Post/Config
 - A user can select to use frames in their upload
    - frames buttons
       - multi frame button converts to (view 12.3.2)
@@ -3180,7 +3177,7 @@ response:
 - A user can toggle facebook on or off
    - initial toggle state set by API
       - ```/config``` object will include Facebook Toggle status:  ```facebook_share_default_on```
-   - if a user is not facebook connected
+   - if a user is not facebook connected (use attribute ```user->is_facebook_connected```)
       - **tap** ==> Facebook SSO
          - **success** ==> api request /User/Facebook-Connect
          - toggles on state
@@ -3191,13 +3188,13 @@ response:
    - cancel btn
       - **tap** ==> returns you to your previous tab in previous state
 - A user can edit the photos in their Post
-   - frame camera buttons
+   - empty frame camera buttons
       - **tap** ==> (view 12.1.1)
-   - frame cancel btn
+   - frame (x) cancel btn
       - clears the photo stored in that frame
       - **tap** ==> (view 12.1.1)
 - A user can edit the photo in their single image Post
-   - main image close button **tap** ==> (view 12.1)
+   - main image (x) button **tap** ==> (view 12.1)
 - A user cannot post their upload if they have frames turned on but fewer than 3 photos 
    - if frames enabled and < 3 photos 
       - post button is grayed out and disabled
@@ -3205,9 +3202,9 @@ response:
    - post btn
       - if description is empty
          - show dialog
-            - text: Are you sure ...
+            - text: "Are you sure you want to post without a description?"
             - ok: send api request
-            - cancel: select description field and ==> (view 12.3.1)
+            - cancel: select description field and route to (view 12.3.1)
       - **tap** ==> route to (view 8.4)
          - if ```photo/create``` request is finished and the app has a valid photo object with id
             - POST to ```post/create```
