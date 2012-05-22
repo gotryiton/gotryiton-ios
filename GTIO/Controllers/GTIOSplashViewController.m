@@ -50,13 +50,13 @@
             }
             if (authToken) {
                 // stay on splash till /user/me comes back
+                // TODO: Do we need to track here?
                 [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/me" usingBlock:^(RKObjectLoader *loader) {
                     loader.onDidLoadObject = ^(id object) {
                         [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
                     };
                     loader.onDidFailWithError = ^(NSError *error) {
                         NSLog(@"Auth /user/me failed. User is not logged in.");
-                        // TODO: go to view 1.9
                         [self displaySignInViewController];
                     };
                 }];
@@ -67,16 +67,10 @@
                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:introScreensViewController];
                     [[UIApplication sharedApplication].keyWindow setRootViewController:navController];
                 } else {
-                    // no intro screens route to view 1.9
                     [self displaySignInViewController];
                 }
                 
-                [GTIOTrack postTrackUsingBlock:^(NSError *error, GTIOTrack *track) {
-                    if (error) {
-                        // Fail silently
-                        NSLog(@"Failed to POST /track on splash view: %@", [error localizedDescription]);
-                    }
-                }];
+                [GTIOTrack postTrackAndVisitWithID:kGTIOTrackAppLaunch handler:nil];
             }
         }
     }];

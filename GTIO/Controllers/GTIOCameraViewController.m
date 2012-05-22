@@ -10,29 +10,62 @@
 
 @interface GTIOCameraViewController ()
 
+@property (nonatomic, strong) AVCaptureSession *captureSession;
+
 @end
 
 @implementation GTIOCameraViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+@synthesize captureSession = _captureSession;
 
-    }
-    return self;
+- (void)loadView
+{
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+    [self.view setBackgroundColor:[UIColor blueColor]];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    self.captureSession = [[AVCaptureSession alloc] init];
+    self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+    
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    NSError *error = nil;
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+    if (!input) {
+        NSLog(@"Error: %@", [error localizedDescription]);
+    }
+    
+    if ([self.captureSession canAddInput:input]) {
+        [self.captureSession addInput:input];
+    } else {
+        NSLog(@"Can't add video");
+    }
+    
+    // Setup preview
+    AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
+    [captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    
+    CGRect layerRect = self.view.layer.bounds;
+	[captureVideoPreviewLayer setBounds:layerRect];
+	[captureVideoPreviewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect), CGRectGetMidY(layerRect))];
+	[self.view.layer addSublayer:captureVideoPreviewLayer];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    self.captureSession = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.captureSession startRunning];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

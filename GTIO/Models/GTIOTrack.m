@@ -10,38 +10,71 @@
 
 #import <RestKit/RestKit.h>
 
+NSString * const kGTIOTrackAppLaunch = @"App Launch";
+NSString * const kGTIOTrackAppResumeFromBackground = @"Resume from background";
+NSString * const kGTIOTrackSignIn = @"Sign in view";
+
 NSString * const kGTIOTrackIDKey = @"GTIOTrackIDKey";
 NSString * const kGTIOPageNumberKey = @"GTIOPageNumberKey";
+
+@interface GTIOTrack ()
+
++ (void)postTrack:(GTIOTrack *)track;
++ (GTIOTrack *)trackWithID:(NSString *)trackID visit:(BOOL)visit handler:(GTIOTrackHandler)handler;
+
+@end
 
 @implementation GTIOTrack
 
 @synthesize trackID = _trackID, visit = _visit;
 @synthesize pageNumber = _pageNumber;
+@synthesize trackHandler = _trackHandler;
 
-+ (GTIOTrack *)track
++ (GTIOTrack *)trackWithID:(NSString *)trackID visit:(BOOL)visit handler:(GTIOTrackHandler)handler
 {
     GTIOTrack *track = [[self alloc] init];
+    track.trackID = trackID;
+    track.trackHandler = handler;
     
-    track.trackID = [NSNumber numberWithInt:123];
-    track.visit = [GTIOVisit visit];
+    if (visit) {
+        track.visit = [GTIOVisit visit];
+    }
     
     return track;
 }
 
-+ (void)postTrackUsingBlock:(GTIOTrackHandler)trackHandler
++ (void)postTrack:(GTIOTrack *)track
 {
-    [[RKObjectManager sharedManager] postObject:[GTIOTrack track] usingBlock:^(RKObjectLoader *loader) {
+    [[RKObjectManager sharedManager] postObject:track usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObject = ^(id object) {
-            if (trackHandler) {
-                trackHandler(nil, object);
+            if (track.trackHandler) {
+                track.trackHandler(object, nil);
             }
         };
         loader.onDidFailWithError = ^(NSError *error) {
-            if (trackHandler) {
-                trackHandler(error, nil);
+            if (track.trackHandler) {
+                track.trackHandler(nil, error);
             }
         };
     }];
+}
+
++ (void)postTrack:(GTIOTrack *)track handler:(GTIOTrackHandler)trackHandler
+{
+    track.trackHandler = trackHandler;
+    [GTIOTrack postTrack:track];
+}
+
++ (void)postTrackWithID:(NSString *)trackID handler:(GTIOTrackHandler)trackHandler
+{
+    GTIOTrack *track = [GTIOTrack trackWithID:trackID visit:NO handler:trackHandler];
+    [GTIOTrack postTrack:track];
+}
+
++ (void)postTrackAndVisitWithID:(NSString *)trackID handler:(GTIOTrackHandler)trackHandler
+{
+    GTIOTrack *track = [GTIOTrack trackWithID:trackID visit:YES handler:trackHandler];
+    [GTIOTrack postTrack:track];
 }
 
 - (id)initWithCoder:(NSCoder *)coder

@@ -10,4 +10,6 @@
 
 @interface GTIOSignInViewController : UIViewController <TTTAttributedLabelDelegate>
 
+- (void)track;
+
 @end

@@ -8,6 +8,8 @@
 
 #import "GTIOMeViewController.h"
 
+#import "GTIOUser.h"
+
 @interface GTIOMeViewController ()
 
 @end
@@ -33,6 +35,12 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GTIOUser currentUser] logOut];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

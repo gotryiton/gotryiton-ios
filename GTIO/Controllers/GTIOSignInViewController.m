@@ -10,20 +10,26 @@
 
 #import "GTIOReturningUsersViewController.h"
 #import "GTIOFailedSignInViewController.h"
+#import "GTIOAppDelegate.h"
 
 #import "GTIOUser.h"
-#import "GTIOAppDelegate.h"
+#import "GTIOTrack.h"
+
+#import "GTIOProgressHUD.h"
 
 @interface GTIOSignInViewController ()
 
 @property (nonatomic, strong) GTIOButton *facebookButton;
 @property (nonatomic, strong) GTIOButton *returningUserButton;
 
+@property (nonatomic, assign, getter = isTracked) BOOL tracked;
+
 @end
 
 @implementation GTIOSignInViewController
 
 @synthesize facebookButton = _facebookButton, returningUserButton = _returningUserButton;
+@synthesize tracked = _tracked;
 
 - (void)loadView
 {
@@ -46,14 +52,17 @@
     [self.facebookButton setFrame:(CGRect){ { (self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 245 }, self.facebookButton.frame.size }];
     [self.facebookButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.facebookButton setTapHandler:^(id sender) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         [[GTIOUser currentUser] signUpWithFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
             if (error) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:failedSignInViewController animated:YES];
             } else {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 NSLog(@"Logged in");
+                // TODO: new user go to 1.7
                 // existing user Go to View 8.1
-                // new user go to 1.7
                 [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
             }
         }];
@@ -98,6 +107,14 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)track
+{
+    if (!self.isTracked) {
+        [GTIOTrack postTrackWithID:kGTIOTrackSignIn handler:nil];
+        self.tracked = YES;
+    }
 }
 
 #pragma mark - TTTAttributedLabel

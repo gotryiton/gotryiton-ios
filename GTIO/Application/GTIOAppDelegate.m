@@ -24,6 +24,7 @@
 
 #import "GTIOTrack.h"
 #import "GTIOUser.h"
+#import "GTIOAuth.h"
 
 @interface GTIOAppDelegate ()
 
@@ -49,7 +50,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if DEBUG == 0
     [TestFlight takeOff:@"01429fe002e0a4e8b7055610f04fa766_OTE1MjMyMDEyLTA1LTE4IDA5OjU0OjUxLjA3MzA3Mw"];
+#endif
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -89,6 +92,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [GTIOTrack postTrackAndVisitWithID:kGTIOTrackAppResumeFromBackground handler:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -141,6 +145,11 @@
     
     // Headers
     [objectManager.client setValue:@"142" forHTTPHeaderField:kGTIOTrackingHeaderKey];
+    
+    NSString *authToken = [[GTIOAuth alloc] init].token;
+    if ([authToken length] > 0) {
+        [[RKObjectManager sharedManager].client.HTTPHeaders setObject:authToken forKey:kGTIOAuthenticationHeaderKey];
+    }
 //    [objectManager.client setValue:@"34cbc5cb8b99981444540270842c0376" forHTTPHeaderField:kGTIOAuthenticationHeaderKey]; // Valid
 //    [objectManager.client setValue:@"34cbc59981444540270842c0376" forHTTPHeaderField:kGTIOAuthenticationHeaderKey];
     
@@ -209,16 +218,29 @@
     [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-OFF.png"]];
     [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-OFF.png"]];
     
+    CGFloat yOffset = 0.0f;
+    if (self.tabBarController.tabBar.frame.origin.y != self.tabBarController.view.frame.size.height - self.tabBarController.tabBar.frame.size.height) {
+        yOffset = -self.tabBarController.tabBar.frame.size.height;
+    }
+    
     if ([viewController isKindOfClass:[GTIOFeedViewController class]]) {
         [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
         [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOCameraViewController class]]) {
+        yOffset = self.tabBarController.tabBar.frame.size.height;
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOShopViewController class]]) {
         [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOMeViewController class]]) {
         [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
+    }
+         
+    // Animate tab bar in or out
+    if (yOffset != 0.0f) {
+        [UIView animateWithDuration:0.2f animations:^{
+            [tabBarController.tabBar setFrame:CGRectOffset(tabBarController.tabBar.frame, 0, tabBarController.tabBar.frame.size.height)];
+        }];
     }
 }
 
