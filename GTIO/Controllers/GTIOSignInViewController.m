@@ -15,6 +15,8 @@
 #import "GTIOUser.h"
 #import "GTIOTrack.h"
 
+#import "GTIOProgressHUD.h"
+
 @interface GTIOSignInViewController ()
 
 @property (nonatomic, strong) GTIOButton *facebookButton;
@@ -50,11 +52,14 @@
     [self.facebookButton setFrame:(CGRect){ { (self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 245 }, self.facebookButton.frame.size }];
     [self.facebookButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.facebookButton setTapHandler:^(id sender) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         [[GTIOUser currentUser] signUpWithFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
             if (error) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:failedSignInViewController animated:YES];
             } else {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 NSLog(@"Logged in");
                 // TODO: new user go to 1.7
                 // existing user Go to View 8.1

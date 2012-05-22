@@ -13,6 +13,8 @@
 #import "GTIOUser.h"
 #import "GTIOAppDelegate.h"
 
+#import "GTIOProgressHUD.h"
+
 @interface GTIOReturningUsersViewController ()
 
 @property (nonatomic, strong) GTIOButton *facebookButton;
@@ -53,14 +55,17 @@
     self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignIn];
     [self.facebookButton setFrame:(CGRect){ {(self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 80 }, self.facebookButton.frame.size }];
     [self.facebookButton setTapHandler:^(id sender) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         [[GTIOUser currentUser] signInWithFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
             if (error) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:failedSignInViewController animated:YES];
             } else {
                 NSLog(@"Logged in");
                 // existing user Go to View 8.1
                 // new user go to 1.7
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
             }
         }];
