@@ -16,17 +16,23 @@ NSString * const kGTIOAuthTokenKey = @"GTIOAuthTokenKey";
 
 @synthesize token = _token;
 
++ (void)removeToken
+{
+    [[RKObjectManager sharedManager].client.HTTPHeaders removeObjectForKey:kGTIOAuthTokenKey];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kGTIOAuthTokenKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)setToken:(NSString *)token
 {
     _token = token;
     if ([_token length] > 0) {
         [[RKObjectManager sharedManager].client.HTTPHeaders setObject:_token forKey:kGTIOAuthenticationHeaderKey];
         [[NSUserDefaults standardUserDefaults] setObject:_token forKey:kGTIOAuthTokenKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     } else {
-        [[RKObjectManager sharedManager].client.HTTPHeaders removeObjectForKey:kGTIOAuthTokenKey];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kGTIOAuthTokenKey];
+        [GTIOAuth removeToken];
     }
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (NSString *)token

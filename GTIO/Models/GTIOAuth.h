@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) NSString *token;
 
++ (void)removeToken;
+
 @end

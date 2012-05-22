@@ -89,12 +89,12 @@
             NSInteger currentPage = [blockSelf currentScrollViewPageNumber];
             // Hide next button if last page
             if (currentPage == [blockSelf.childViewControllers count] - 2) {
-                self.forceScroll = YES;
+                blockSelf.forceScroll = YES;
                 [blockSelf.toolbarView hideButtons:YES];
             }
             // Scroll to next page
             if (currentPage < [blockSelf.childViewControllers count] - 1) {
-                [self.scrollView setContentOffset:(CGPoint){ (currentPage + 1) * self.scrollView.frame.size.width, 0 } animated:YES];
+                [blockSelf.scrollView setContentOffset:(CGPoint){ (currentPage + 1) * blockSelf.scrollView.frame.size.width, 0 } animated:YES];
             }
             
         }];

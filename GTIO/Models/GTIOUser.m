@@ -48,7 +48,7 @@
 - (void)logOut
 {
     // Remove auth token
-    [[GTIOAuth alloc] init].token = @"";
+    [GTIOAuth removeToken];
     
     // Remove all data... user=[[self alloc] init]?
 }
