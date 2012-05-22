@@ -7,7 +7,7 @@
 //
 
 #import "GTIOReturningUsersViewController.h"
-
+#import "GTIOAlmostDoneViewController.h"
 #import "GTIOFailedSignInViewController.h"
 
 #import "GTIOUser.h"
@@ -131,6 +131,8 @@
     } else {
         if (user.isNewUser || !user.hasCompleteProfile) {
             // load "almost done" screen
+            GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:almostDone animated:YES];
         } else {
             [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
         }

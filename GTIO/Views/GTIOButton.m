@@ -30,6 +30,7 @@
         case GTIOButtonTypeTryAgain: return [self gtio_tryAgainButton];
         case GTIOButtonTypeEmailSupport: return [self gtio_emailSupportButton];
         case GTIOButtonTypeBack: return [self gtio_backButton];
+        case GTIOButtonTypeSave: return [self gtio_saveButton];
         default: return nil;
     }
 }
@@ -123,6 +124,11 @@
 + (id)gtio_backButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"login-nav-back.png"] hightlightImage:nil];
+}
+
++ (id)gtio_saveButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"save-button.png"] hightlightImage:nil];
 }
 
 #pragma mark - Touch Handling

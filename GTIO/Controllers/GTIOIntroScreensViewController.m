@@ -12,6 +12,7 @@
 
 #import "GTIOIntroImageViewController.h"
 #import "GTIOSignInViewController.h"
+#import "GTIOAlmostDoneViewController.h"
 
 #import "GTIOConfigManager.h"
 
@@ -73,10 +74,12 @@
     self.toolbarView = [[GTIOIntroScreenToolbarView alloc] initWithFrame:(CGRect){ { 0, self.scrollView.frame.origin.y + self.scrollView.frame.size.height }, { self.view.frame.size.width, 44 } }];
     [self.toolbarView.signInButton setTapHandler:^(id sender) {
         // Go to last page
-        NSInteger currentPage = [self.childViewControllers count] - 1;
-        [self.toolbarView hideButtons:YES];
-        self.forceScroll = YES;
-        [self.scrollView setContentOffset:(CGPoint){ currentPage * self.scrollView.frame.size.width, 0 } animated:YES];
+//        NSInteger currentPage = [self.childViewControllers count] - 1;
+//        [self.toolbarView hideButtons:YES];
+//        self.forceScroll = YES;
+//        [self.scrollView setContentOffset:(CGPoint){ currentPage * self.scrollView.frame.size.width, 0 } animated:YES];
+        GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:almostDone animated:YES];
     }];
     __block typeof(self) blockSelf = self;
     [self.toolbarView.nextButton setTapHandler:^(id sender) {
