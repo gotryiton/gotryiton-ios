@@ -10,37 +10,13 @@
 
 @interface GTIOCameraViewController ()
 
-@property (nonatomic, strong) AVCaptureSession *session;
+@property (nonatomic, strong) AVCaptureSession *captureSession;
 
 @end
 
 @implementation GTIOCameraViewController
 
-@synthesize session = _session;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.session = [[AVCaptureSession alloc] init];
-        self.session.sessionPreset = AVCaptureSessionPresetPhoto;
-        
-        NSArray *devices = [AVCaptureDevice devices];
-        AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-        
-        NSError *error = nil;
-        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
-        if (!input) {
-            // Handle the error appropriately.
-            NSLog(@"Error: %@", [error localizedDescription]);
-        }
-        
-        [self.session beginConfiguration];
-        [self.session addInput:input];
-        [self.session commitConfiguration]; 
-    }
-    return self;
-}
+@synthesize captureSession = _captureSession;
 
 - (void)loadView
 {
@@ -53,22 +29,43 @@
 {
     [super viewDidLoad];
     
+    self.captureSession = [[AVCaptureSession alloc] init];
+    self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+    
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    NSError *error = nil;
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+    if (!input) {
+        NSLog(@"Error: %@", [error localizedDescription]);
+    }
+    
+    if ([self.captureSession canAddInput:input]) {
+        [self.captureSession addInput:input];
+    } else {
+        NSLog(@"Can't add video");
+    }
+    
+    // Setup preview
+    AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
+    [captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    
+    CGRect layerRect = self.view.layer.bounds;
+	[captureVideoPreviewLayer setBounds:layerRect];
+	[captureVideoPreviewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect), CGRectGetMidY(layerRect))];
+	[self.view.layer addSublayer:captureVideoPreviewLayer];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    self.captureSession = nil;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
-    
-    // Setup preview
-    AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-    [self.view.layer addSublayer:captureVideoPreviewLayer];
-    [self.session startRunning];
+    [super viewWillAppear:animated];
+    [self.captureSession startRunning];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
