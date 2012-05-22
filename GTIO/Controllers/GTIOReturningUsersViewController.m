@@ -15,7 +15,6 @@
 
 #import "GTIOProgressHUD.h"
 
-@interface GTIOReturningUsersViewController ()
 @interface GTIOReturningUsersViewController () {
 @private
     BOOL _returningUser;
