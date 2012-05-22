@@ -10,3 +10,6 @@
 [submodule "Libraries/facebook-iOS-SDK"]
 	path = Libraries/facebook-iOS-SDK
 	url = https://github.com/facebook/facebook-ios-sdk.git
+[submodule "Libraries/MBProgressHUD"]
+	path = Libraries/MBProgressHUD
+	url = https://github.com/jdg/MBProgressHUD.git
