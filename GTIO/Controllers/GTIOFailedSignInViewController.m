@@ -8,17 +8,22 @@
 
 #import "GTIOFailedSignInViewController.h"
 
+#import "GTIOMailComposer.h"
+
 @interface GTIOFailedSignInViewController ()
 
 @property (nonatomic, strong) GTIOButton *tryAgainButton;
 @property (nonatomic, strong) GTIOButton *createUserButton;
 @property (nonatomic, strong) GTIOButton *emailSupportButton;
 
+@property (nonatomic, strong) GTIOMailComposer *mailComposer;
+
 @end
 
 @implementation GTIOFailedSignInViewController
 
 @synthesize tryAgainButton = _tryAgainButton, createUserButton = _newUserButton, emailSupportButton = _emailSupportButton;
+@synthesize mailComposer = _mailComposer;
 
 - (void)loadView
 {
@@ -57,6 +62,15 @@
     
     self.emailSupportButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeEmailSupport];
     [self.emailSupportButton setFrame:(CGRect){ {(self.view.frame.size.width - self.emailSupportButton.frame.size.width) / 2, self.createUserButton.frame.origin.y + self.createUserButton.frame.size.height }, self.emailSupportButton.frame.size }];
+    __block GTIOMailComposer *blockMailComposer = self.mailComposer;
+    __block typeof(self) blockSelf = self;
+    [self.emailSupportButton setTapHandler:^(id sender) {
+        blockMailComposer = [[GTIOMailComposer alloc] initWithSubject:@"Sign in help" recipients:[NSArray arrayWithObject:@"support@gotryiton.com"] didFinishHandler:^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *error) {
+            // Dismiss when finished
+            [controller dismissModalViewControllerAnimated:YES];
+        }];
+        [blockSelf presentModalViewController:blockMailComposer.mailComposeViewController animated:YES];
+    }];
     [self.view addSubview:self.emailSupportButton];
 }
 
@@ -66,6 +80,7 @@
     self.tryAgainButton = nil;
     self.createUserButton = nil;
     self.emailSupportButton = nil;
+    self.mailComposer = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
