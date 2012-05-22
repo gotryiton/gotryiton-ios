@@ -2923,6 +2923,9 @@ dynamic
 
 ## 12. Upload
 
+### User flow
+
+[User Flow Diagram PDF](12.Upload.FlowChart.pdf)
 
 ### 12.1 Upload start  
 
@@ -2971,14 +2974,21 @@ see documentation [Tracking API](ApiTrack.md)
 
 #### Stories 
 - A user can start an upload by opening their camera within the GTIO app
-   - TT to flesh out details here.
+   - After camera capture button is pressed
+      - capture photo @ 640px wide
+      - route to (view 12.2)
 - A user can select a photo from their photo library
+   - tapping on photoroll button opens the users photo roll
+      - after a photo is selected:
+         - resize photo to 640px wide
+         - route to (view 12.2)
 - A user can use their camera to take subsequent photos (for framed uploads)
    - The camera has a guide overlay that matches frame (view 12.1.1)
    - The camera has a mini-map of frame with current frame highlighted (view 12.1.1)
 - A user can turn on Photoshoot Mode
    - toggling the photoshoot toggle in the bottom right turns on and off Photoshoot mode
       - with photoshoot mode on, shutter button changes to represent photoshoot mode (view 12.1.2)
+   - capture button routes to (view 12.5)
 - A user can select a photo from their photoshoot grid (if available)
    - if a user has previously done a photoshoot, they can access the grid to choose a photo
       - grid button **tap** ==> (view 12.4)
@@ -3075,11 +3085,10 @@ A user can confirm that they want to upload the photo they've taken or selected.
    - processing should be cancelled if a user exits this screen
 - A user can select if they want to use the photo they've selected (and filtered)
    - use this photo check button **tap** ==> (view 12.3)
-   - 'x' button **tap** => (view 12.1)
-   - grid button **tap** => (view 12.4)
-- A user can go back to their previous screen
-   - If a user arrived on this screen via the Photoshoot grid, they can return to the grid via a grid icon (view 12.2.1)
-   - If a user arrived on this screen via the upload start screen, they can return to that screen via the x icon (view 12.2)
+   - If a user arrived on this screen via the upload start screen, they can return to that screen via the x icon (seen in view 12.2)
+      - 'x' button **tap** => (view 12.1)
+   - If a user arrived on this screen via the Photoshoot grid, they can return to the grid via a grid icon (seen in view 12.2.1)
+      - grid button **tap** => (view 12.4)
 
 ### Design Stories
 
@@ -3185,8 +3194,13 @@ response:
    - initial toggle state set by API
       - ```/config``` object will include Voting Toggle status: ```voting_default_on```
 - A user can cancel their post
-   - cancel btn
+   - cancel btn (if post button is INACTIVE)
       - **tap** ==> returns you to your previous tab in previous state
+   - cancel btn (if post button is ACTIVE)
+      - **tap** ==> opens dialog
+         - text: "Are you sure you want to exit without posting?"
+         - ok: ==> returns you to your previous tab in previous state
+         - cancel: ==> closes dialog
 - A user can edit the photos in their Post
    - empty frame camera buttons
       - **tap** ==> (view 12.1.1)
@@ -3214,6 +3228,11 @@ response:
       - photo cannot be dragged outside of frame
    - Each photo in frame is pinchable
       - photo cannot be resized out of frame
+- A user can toggle between frame mode and single photo mode
+   - Use the first photo (left most frame photo) as the single photo image (and vice-versa)
+   - If a user has more than one photo in frame mode
+      - Use left most frame photo as single photo
+      - Save existing framed photos if a user returns to frame mode
 - A user can upload a photo 
    - The ```photo/create``` request should be started in the background before a user has tapped on 'post'
    - The request should get sent on a 2 second delay after the user loads view 12.3 
