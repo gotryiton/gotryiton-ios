@@ -32,6 +32,9 @@ Response
     "facebook_permissions_requested" : "user_location,email,user_birthday,publish_stream,offline_access,publish_actions",
     "voting_default_on": true,
     "facebook_share_default_on": true,
+    "photoshoot_first_timer" : 6,
+    "photoshoot_second_timer" : 2,
+    "photoshoot_third_timer" : 2,
 	}
 }
 ```

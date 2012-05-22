@@ -64,15 +64,13 @@
    10.3 [Shop 3rd Party Webview Container](#103-shop-3rd-party-webview-container)   
    10.4 [Default 3rd Party Webview Container](#104-default-3rd-party-webview-container)   
    10.5 [Shop Browse Products](#105-shop-browse-products)   
-11. [Logged out views](#11-logged-out-views)   
-   11.1 [Logged out view inactive tabs](#111-logged-out-view-inactive-tabs)   
-   11.2 [Logged out default tab](#112-logged-out-default-tab)   
-   11.3 [Logged out post detail page](#113-logged-out-post-detail-page)   
-   11.4 [Logged out reviews page](#114-logged-out-reviews-page)   
+11. ~~Logged out screens~~
 12. [Upload](#12-upload)   
    12.1 [Upload Start](#121-upload-start)   
    12.2 [Upload Confirm](#122-upload-confirm)   
    12.3 [Post a look](#123-post-a-look)   
+   12.4 [Photoshoot Grid](#124-photoshoot-grid)   
+   12.5 [Photoshoot Mode](#125-photoshoot-mode)   
 13. [Universal Elements and Behavior](#13-universal-elements-and-behavior)   
    13.1 [UITabBar default behavior](#131-uitabbar-default-behavior)   
    13.2 [UITabBar shopping list animation](#132-uitabbar-shopping-list-animation)   
@@ -2992,22 +2990,36 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 
 12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5))  
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.1.Upload.Start.Frame.Left.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.1.Upload.Start.Frame.Left.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.1.Upload.Start.Frame.Top.Right.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.2.Upload.Start.Frame.Top.Right.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.1.Upload.Start.Frame.Bottom.Right.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.3.Upload.Start.Frame.Bottom.Right.png" width=420px/>
 
-12.1.2
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.2.Upload.Photoshoot.with.reel.png" width=420px/>
+12.1.2 Upload Start in Photoshoot Mode
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.2.Upload.Photoshoot.without.reel.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.2.Upload.Photoshoot.without.reel.png" width=420px/>
+
+12.1.3 Upload Start in Photoshoot Mode with Grid button
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.1.Upload.Photoshoot.with.reel.png" width=420px/>
 
 
 #### API Usage
-/Tracking
 
-/Config/Upload
+POST /track
+
+see documentation [Tracking API](ApiTrack.md)
+
+```json
+{
+   "track" : {
+      "id" : "Upload start",
+      "photos_in_frame" : 0,
+   }
+}
+```
+
 
 #### Stories 
 - A user can start an upload by opening their camera within the GTIO app
@@ -3016,11 +3028,13 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 - A user can use their camera to take subsequent photos (for framed uploads)
    - The camera has a guide overlay that matches frame (view 12.1.1)
    - The camera has a mini-map of frame with current frame highlighted (view 12.1.1)
-- When a user starts an upload, the app gets config data from the server
-   - /Post/Config
-      - will respond with Facebook Toggle status
-      - will respond with Voting Toggle status
-      - will respond with Brands dictionary
+- A user can turn on Photoshoot Mode
+   - toggling the photoshoot toggle in the bottom right turns on and off Photoshoot mode
+      - with photoshoot mode on, shutter button changes to represent photoshoot mode (view 12.1.2)
+- A user can select a photo from their photoshoot grid (if available)
+   - if a user has previously done a photoshoot, they can access the grid to choose a photo
+      - grid button **tap** ==> (view 12.4)
+   - the toggle state is remembered the next time this view is accessed
 
 ### Design Stories
 - Bottom Bar
@@ -3094,30 +3108,30 @@ A user can confirm that they want to upload the photo they've taken or selected.
 #### Mockups
 ([wireframe](http://invis.io/9M2OEVED) [2](http://invis.io/2Z2OEWB8) [3](http://invis.io/QB2OEYM7) [4](http://invis.io/4F2OEZGK))  
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.2.3.1.Photo.Filter.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.3.1.Photo.Filter.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.2.3.2.Photo.Filter.Back.To.Grid.png" width=420px/>
+12.2.1 Upload confirm with grid button
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Right.Top.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Left.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.2.1.Upload.Confirm.Frame.Right.Bottom.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.3.2.Photo.Filter.Back.To.Grid.png" width=420px/>
 
 #### API Usage
 /Tracking
 
 #### Stories 
 - A user can apply a filter to a photo they have taken or selected
-   - filter menu
-      - 5 only
-         - tasteful filters
-         - labels
-   - one filter is a 'no filter' option which removes any applied filter
+   - tapping on a filter icon applies that filter to the photo
+   - first filter is 'no filter' option which removes any applied filter
+   - remaining filters delivered in [PhotoFilters-iOS](https://github.com/twotoasters/PhotoFilters-iOS)
+- A filter that a user selects should be applied quickly
+   - when the user first loads this view, filter processing should begin in the background before the user taps on the filter icons
+   - processing should be cancelled if a user exits this screen
 - A user can select if they want to use the photo they've selected (and filtered)
-   - use this photo yes/no
-      - yes ==> (view 12.3)
-      - no ==> (view 12.1)
+   - use this photo check button **tap** ==> (view 12.3)
+   - 'x' button **tap** => (view 12.1)
+   - grid button **tap** => (view 12.4)
+- A user can go back to their previous screen
+   - If a user arrived on this screen via the Photoshoot grid, they can return to the grid via a grid icon (view 12.2.1)
+   - If a user arrived on this screen via the upload start screen, they can return to that screen via the x icon (view 12.2)
 
 ### Design Stories
 - Bottom Bar
@@ -3147,24 +3161,78 @@ A user can add details to their post before they submit.  They can select to use
 #### Mockups
 ([wireframe](http://invis.io/J92OF18E)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.Post.A.Look.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.a.Post.A.Look.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.f.Post.A.Look.Filled.Text.png" width=420px/>
 
 12.3.1 Post a look (Description with keyboard) ([wireframe](http://invis.io/AC2OF2GX))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.1.Post.A.Look.Description.Keyboard.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.d.Post.A.Look.Description.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.e.Post.A.Look.Brands.png" width=420px/>
 
 12.3.2 Post a look (Photo preview with frames) ([wireframe](http://invis.io/5K2OF0W8))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.2.Post.A.Look.Frames.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.c.Post.A.Look.Framed.With.Photos.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/12.3.2.Post.A.Look.Frames.2nd.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.b.1.Post.A.Look.Framed.png" width=420px/>
 
 #### API Usage
-/Tracking
 
-/User/Facebook-Connect
+POST /track  
 
-/Post/Upload
+see documentation [Tracking API](ApiTrack.md)
+
+
+```json
+{
+   "track" : {
+      "id" : "Post a look",
+      "photos_in_frame" : 0,
+   }
+}
+```
+
+POST /User/Facebook-Connect
+
+request 
+
+```json
+{
+   "fb_token" : "xyz123",
+}
+```
+
+response is documented in [Users API](ApiUsers.md)
+
+
+POST /photo/create
+
+documented in [Photo API](ApiPhotos.md)
+
+request:
+
+```json
+{
+   "image" : "<image data>",
+   "using_filter" : "FilterName",
+   "using_frame" : true
+}
+```
+
+response:
+
+```json
+{
+  "photo": {
+    "id": "E15F09D",
+    "user_id": "A23CC82",
+    "url": "/path/to/image.jpg",
+    "width": 640,
+    "height": 852
+  }
+}
+```
 
 #### Stories 
 - A user can add details to their post before they submit.
@@ -3172,32 +3240,31 @@ A user can add details to their post before they submit.  They can select to use
       - page slides down and keyboard is raised (view 12.3.1)
    - tag brands
       - page slides down and keyboard is raised (view 12.3.1)
-
-- When a user enters brands that are recognized by the app, the app offeres autocomplete
-   - dictionary used is passed back in /Post/Config
 - A user can select to use frames in their upload
    - frames buttons
       - multi frame button converts to (view 12.3.2)
       - single frame button converts back to (view 12.3)
 - A user can toggle facebook on or off
    - initial toggle state set by API
-   - if a user is not facebook connected
+      - ```/config``` object will include Facebook Toggle status:  ```facebook_share_default_on```
+   - if a user is not facebook connected (use attribute ```user->is_facebook_connected```)
       - **tap** ==> Facebook SSO
          - **success** ==> api request /User/Facebook-Connect
          - toggles on state
 - A user can toggle voting on or off
    - initial toggle state set by API
+      - ```/config``` object will include Voting Toggle status: ```voting_default_on```
 - A user can cancel their post
    - cancel btn
       - **tap** ==> returns you to your previous tab in previous state
 - A user can edit the photos in their Post
-   - frame camera buttons
+   - empty frame camera buttons
       - **tap** ==> (view 12.1.1)
-   - frame cancel btn
+   - frame (x) cancel btn
       - clears the photo stored in that frame
       - **tap** ==> (view 12.1.1)
 - A user can edit the photo in their single image Post
-   - main image close button **tap** ==> (view 12.1)
+   - main image (x) button **tap** ==> (view 12.1)
 - A user cannot post their upload if they have frames turned on but fewer than 3 photos 
    - if frames enabled and < 3 photos 
       - post button is grayed out and disabled
@@ -3205,23 +3272,120 @@ A user can add details to their post before they submit.  They can select to use
    - post btn
       - if description is empty
          - show dialog
-            - text: Are you sure ...
+            - text: "Are you sure you want to post without a description?"
             - ok: send api request
-            - cancel: select description field and ==> (view 12.3.1)
-      - **tap** ==> api request /Post/Upload
+            - cancel: select description field and route to (view 12.3.1)
+      - **tap** ==> route to (view 8.4)
+         - if ```photo/create``` request is finished and the app has a valid photo object with id
+            - POST to ```post/create```
+            - let request finish in the background
 - A user can move a photo within a frame
    - Each photo in frame is draggable
       - photo cannot be dragged outside of frame
    - Each photo in frame is pinchable
       - photo cannot be resized out of frame
+- A user can upload a photo 
+   - The ```photo/create``` request should be started in the background before a user has tapped on 'post'
+   - The request should get sent on a 2 second delay after the user loads view 12.3 
+      - The request should not get sent if the user has an incomplete frame view
+      - the timer delay should get restarted if:
+         - the user moves a photo in the frame
+         - the user resizes a photo in the frame
+   - The request should get cancelled if it has not finished and:
+      - the user moves a photo in the frame
+      - the user resizes a photo in the frame
+      - the user clears a photo in the frame
+      - the user cancels their post
+   - The photo should be a composite image of 3 photos included in the frame (if frames are used)
+      - the photo uploaded should not include the white border around the framed image, but should include the white internal border
+      - the photo uploaded should be 640px wide
+      - the image data for the photo should be sent as ```image``` in the POST request
 
-### 12.4 Photoshoot/Burst Mode Selection
+#### Design Stories
+- Photo Frame
+   - 'photo-frame.png'
+   - 3px from left edge of screen, 4px from bottom edge of nav bar
+   - should be overlaid by applicable photos
+      - if user has single photo, vertically and horizontally centered within frame
+      - if user has multiple photos
+         - photo 1 is 13px from left edge of screen, 13px from bottom edge of nav bar
+         - photo 2 (upper right) is 129px from left edge of screen, 13px from bottom edge of nav bar
+         - photo 3 (lower right) is 129px from left edge of screen, 204px from bottom edge of nav bar
+- Remove Frame Controls (X buttons)
+   - 'remove-frame.png' (on and off states)
+   - Control 1 (for leftmost frame or single photo)
+      - 1px from left edge of screen
+      - 1px from bottom of nav bar
+   - Control 2 (for upper right frame)
+      - 227px from left edge of screen
+      - 1px from bottom of nav bar
+   - Control 3 (for lower right frame)
+      - 227px from left edge of screen
+      - 192px from bottom of nav bar
+- Empty Frame Icon
+   - 'frame-camera-icon.png' with ON and OFF states
+   - horizontally and vertically centered within framed image areas when no image is yet present
+- Single/Framed Toggle
+   - 'frames-toggle.png' (SINGLE and MULTIPLE versions)
+   - no tap 'ON' state, switches between SINGLE and MULTIPLE versions after tap
+   - 7px from right edge of screen
+   - 12px from bottom of nav bar
+- Toggle Containers
+   - 'toggle-containers.png'
+   - place asset 174px from bottom of nav bar, 7px from right edge of screen
+   - Toggles
+      - 'switch-....png' assets
+      - VOTING: 228px from bottom of nav bar, 17px from right edge of screen
+      - FACEBOOK: 287px from bottom of nav bar, 17px from right edge of screen
+      - Tap area is entire container, not just toggle switch
+- Text Boxes
+   - Description
+      - 'description-box.png'
+      - 330px from bottom edge of nav bar, 5px from left edge of screen
+      - 'description-box-icon.png' placed in upper right corner with 8px of top and right padding
+      - 'add a description' text in Archer Medium Italic, 6pt, rgb(183,183,183)
+         - 11px of left padding inside box
+         - 21px of top padding inside box
+      - Input Area
+         - When tapped or if text is left in field, 'description-box-icon' and 'add a description' text are not shown
+         - 165px x 125px vertically and horizontally centered within box
+         - ACTIVE (user is typing): Verlag Light, rgb(64,64,65), 7pt
+         - INACTIVE (text is left in field): Verlag Light, rgb(143,143,143), 7pt
+   - Brands
+      - 'brands-box.png'
+      - 330px from bottom edge of nav bar, 5px from left edge of screen
+      - 'brands-box-icon.png' placed in upper right corner with 8px of top and right padding
+      - 'tag brands' text in Archer Medium Italic, 6pt, rgb(183,183,183)
+         - 11px of left padding inside box
+         - 21px of top padding inside box
+      - Input Area
+         - When tapped or if text is left in field, 'brands-box-icon' and 'tag brands' text are not shown
+         - 97px x 125px vertically and horizontally centered within box
+         - ACTIVE (user is typing): Verlag Light, rgb(64,64,65), 7pt
+         - INACTIVE (text is left in field): Verlag Light, rgb(143,143,143), 7pt
+- 'Post a Look' CTA
+   - Background
+      - 'post-button-bg.png'
+      - flush with bottom of screen
+   - Button
+      - 'post-button...png' with ON, OFF, DISABLED states
+   - Overlays all other content, position is fixed
+- Text Input
+   - When user taps Description or Brands, all elements on page (except navigation bar and 'post a look' element) scroll up by 277px, keyboard is shown
+      - If typing in Description, keyboard action button is 'Next' (gray) which brings user to input of Brands
+      - If typing in Brands, keyboard action button is 'Done' (gray) which disappears keyboard and scrolls back up by 277px
+
+
+
+### 12.4 Photoshoot grid
 
 #### Overview
+A user can select from 9 photos taken during photoshoot mode.
 
 #### Mockups
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.2.2.Photoshoot.select.png" width=420px/>
+([wireframe](http://invis.io/J92OF18E)) 
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.2.Photoshoot.select.png" width=420px/>
 #### Design Stories
 - Thumbnails
 	- With frame/shadow: 90x120px image (upload.photoreel.vertical.divider.png)
@@ -3242,10 +3406,63 @@ A user can add details to their post before they submit.  They can select to use
 
 ### 12.5 Photoshoot/Burst Mode Timer
 
+
+#### User Flow
+**entry screens:**   
+([view 12.5](#125-photoshoot-mode))
+**exit screens:**   
+([view 12.1](#121-upload-start))   
+([view 12.3](#123-post-a-look))           
+
+#### API Usage
+None.
+
+
+#### Stories 
+- A user can select from the 9 photos taken during photoshoot mode
+   - the 9 photos are arranged in the order in which they were taken
+   - check button **tap** ==> (view 12.3)
+   - all 9 photos are kept in memory for potential use in frames or as replacement images
+      - if a user enters photoshoot mode for a 2nd time, the 9 photos in storage are cleared
+   - tapping back routes to (view 12.1)
+      - on view 12.1:
+         - photoshoot mode should still be turned on
+         - photoshoot grid button should be active
+
+
+### 12.5 Photoshoot Mode
+
 #### Overview
+A user can take photos in photoshoot mode (a timer + burst mode hybrid)
 
 #### Mockups
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.2.1.3.Upload.Photoshoot.Timer.png" width=420px/>
+([wireframe](http://invis.io/J92OF18E)) 
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.3.Upload.Photoshoot.Timer.png" width=420px/>
+
+
+#### API Usage
+None.
+
+#### User Flow
+**entry screens:**   
+([view 12.1](#121-upload-start))   
+**exit screens:**   
+([view 12.4](#124-photoshoot-grid))   
+
+
+#### Stories 
+- A user can take 9 photos during photoshoot mode
+   - When the user is in photoshoot mode on screen 12.1 (view 12.1.x) and they tap the shutter button
+      1. The initial timer starts and counts down from ```photoshoot_first_timer``` value in /Config (value is in seconds)
+      2. At the end of the first timer, 3 photos are taken in as quick succession as the device's camera can allow
+         - a sound is played (sound should be of 3 consecutive shutter fires.  the default shutter sound can be used)
+      3. The second timer starts and counts down from ```photoshoot_second_timer``` 
+      4. At the end of the 2nd timer, 3 more photos are taken in the same fashion
+      5. The third timer starts and counts down from ```photoshoot_third_timer```
+      6. Three more photos are taken in photoshoot mode.
+   - once these steps are complete, the user is routed to (view 12.4)
+
 
 ## 13. Universal Elements and Behavior
 

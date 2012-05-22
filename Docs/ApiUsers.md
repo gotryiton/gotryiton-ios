@@ -46,8 +46,9 @@ Request
         "name": "Blair G.",
         "about_me": "Something"
     },
-    "tracking" : {
-        "screen" : "almost_done" 
+    "track" : {
+        "id" : "edit profile"
+        "screen" : "almost done", 
     }
 } 
 ```
@@ -131,7 +132,59 @@ Response
             'count' : 25, 
             'action' : "/user/1DB2BD0/follwers"
         },
-    }
+        "stars_button" : {
+            'count' : 25, 
+            'action' : "/posts/by-user/1DB2BD0/starred"
+        },
+    },
+    "posts" : [
+        {
+            "id": "1430",
+            "user": {
+              "id": "42BDB51",
+              "name": "Ashish",
+              "location": "Manhattan, New York",
+              "icon": "http://graph.facebook.com/538638807/picture",
+              "action": "/user/42BDB51/profile",
+              "follow_button": {
+                "text": "following",
+                "action": "/user/42BDB51/unfollow",
+                "state": 1
+              }
+            },
+            "reviews": {
+              "action": "/post/1430/reviews",
+              "count": 0
+            },
+            "outfit": {
+              "description": "This is a post.",
+              "brands_description": null,
+              "main_image": "http://cdn.gotryiton.com/outfit/1234.jpg",
+              "square_thumbnail": "http://cdn.gotryiton.com/outfit/1234_110_110.jpg",
+              "small_thumbnail": "http://cdn.gotryiton.com/outfit/1234_385_0.jpg"
+            },
+            "brands": [
+            ],
+            "heart": {
+              "state": 0,
+              "action": "/posts/1430/heart"
+            },
+            "hearts": {
+              "count": 0,
+              "action": "/posts/1430/hearts"
+            },
+            "users_who_hearted_this": null,
+            "vote": {
+              "enabled": false,
+              "count_votes": 0,
+              "verdict": null,
+              "pending": null
+            },
+            "created_at": 1337012650,
+            "created_when": "just now",
+            "post_type": "outfit"
+        }
+    ]
 }
 ```
 
@@ -161,7 +214,9 @@ Response
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "auth": {
+        "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    },
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
@@ -273,7 +328,9 @@ Response
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "auth": {
+        "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    },
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
@@ -334,7 +391,9 @@ Response
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "auth": {
+        "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    },
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
@@ -396,7 +455,9 @@ Response
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "auth": {
+        "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    },
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
@@ -463,7 +524,9 @@ Response
 
 ```json
 {
-    "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    "auth": {
+        "token": "c4b4aase9a82b61d7f041f2ef6b36eb8",
+    },
     "user": {
         "id": "1DB2BD0",
         "name": "Blair W.",
@@ -545,6 +608,7 @@ Response
     }
 }
 ```
+
 
 ### GET `/user/:id/unfollow`
 
@@ -708,5 +772,62 @@ Response
         "subtitle" : "you have 3 followers",
         "include_filter_search" : false,
     }
+```
+
+### GET `/users/:id/icons`
+Respondes with a user object, Facebook icon and 20 recent outfit icons, each in their own respective keys.
+
+```json
+{
+  "user": {
+    "id": "7178E1D",
+    "name": "Scott B.",
+    "location": "NY, New York",
+    "icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/7f7d77f56c9223755d82be0aa3bf54d0_110_110.jpg",
+    "action": "/users/7178E1D",
+    "follow_button": {
+      "text": "follow",
+      "action": "/users/7178E1D/follow",
+      "state": 0
+    }
+  },
+  "facebook_icon": {
+    "url": "http://graph.facebook.com/1240629055/picture",
+    "width": 50,
+    "height": 50
+  },
+  "outfit_icons": [
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/3acb06d6c75c5cd709a51055c2ff0d26_110_110.jpg",
+      "width": 110,
+      "height": 110
+    },
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/7f7d77f56c9223755d82be0aa3bf54d0_110_110.jpg",
+      "width": 110,
+      "height": 110
+    },
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/589d8ec3ef179acafda2954a0c7fdaea_110_110.jpg",
+      "width": 110,
+      "height": 110
+    },
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/a096c7c7f78435bc14c6346cc25ef452_110_110.jpg",
+      "width": 110,
+      "height": 110
+    },
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/0ab9dbcc93ed489c49cab5d7e2b5763a_110_110.jpg",
+      "width": 110,
+      "height": 110
+    },
+    {
+      "url": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/a8f2fd1116cf7fca5d8a590726773978_110_110.jpg",
+      "width": 110,
+      "height": 110
+    }
+  ]
+
 }
 ```
