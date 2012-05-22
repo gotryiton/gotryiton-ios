@@ -662,9 +662,8 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
    
 
 #### API Usage
-Tracking (details coming)
 
-User/Auth/Facebook (details coming)
+POST User/Auth/Facebook (see documentation [ApiUser](ApiUser.md) )
 
 #### Stories
 
@@ -723,9 +722,10 @@ A user can log in with facebook using facebook SSO.
 previous screen   
 
 #### API Usage
-Tracking (details coming)
 
-User/Auth/Facebook (details coming)
+POST User/Auth/Facebook (see documentation [ApiUser](ApiUser.md) )   
+
+POST User/Signup/Facebook (see documentation [ApiUser](ApiUser.md) )   
 
 #### Stories
 
