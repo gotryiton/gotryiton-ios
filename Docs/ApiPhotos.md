@@ -8,9 +8,11 @@ Creates and returns a post object based on passed parameters. Upload a file that
 #### Request
 ```json
 {
-  "image": "<Image Data>",
-  "using_filter" : "FilterName",
-  "using_frame" : true
+  "photo": {
+    "image": "<Image Data>",
+    "using_filter" : "FilterName",
+    "using_frame" : true
+  }
 }
 ```
 
