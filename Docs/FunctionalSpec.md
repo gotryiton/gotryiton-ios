@@ -3223,6 +3223,7 @@ response:
          - if ```photo/create``` request is finished and the app has a valid photo object with id
             - POST to ```post/create```
             - let request finish in the background
+      - Tapping on the post button also saves the composite image to the user's photo roll.
 - A user can move a photo within a frame
    - Each photo in frame is draggable
       - photo cannot be dragged outside of frame
