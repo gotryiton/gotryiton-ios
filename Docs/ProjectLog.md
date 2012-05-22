@@ -1,3 +1,30 @@
+***Monday, May 21th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Continue documenting Photo upload / Burst mode in functional spec
+- TT - Review Burst mode information in Simon's pull request by EOB 5/22
+- GTIO / TT - Test No Intro Screen case when disabled in config
+
+**Status**
+- 1.7 api for photo upload - Does the user ever upload their own icon?
+ - No
+
+**Updates to Planned Work**
+- Creation of Photo Upload Issues Pending
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Sprint 2 Development Plan (Monday, May 21st 2012 - Friday, June 1st, 2012)***
 
 Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=2&state=open
@@ -20,11 +47,11 @@ Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=2
 
 **Important Dates / Deadlines**
 
-- Memorial Day (TT OFfice Closed) - 5/28
+- Memorial Day - 5/28
 
 **Open Questions**
 
-- 1.7 api for photo upload - Does the user ever upload their own icon?
+- 1.7 API for photo upload - Does the user ever upload their own icon?
 - 7.3 - where does the list of profile icon options come from?
 - When can we expect mockups for burst mode / updates to functional spec?
 

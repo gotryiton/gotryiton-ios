@@ -362,7 +362,6 @@
 		D26D32A4156BFDC100C06CA9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Libraries/MBProgressHUD/MBProgressHUD.m; sourceTree = "<group>"; };
 		D26D32A9156C016800C06CA9 /* GTIOProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProgressHUD.h; sourceTree = "<group>"; };
 		D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProgressHUD.m; sourceTree = "<group>"; };
-		D26D32AC156C0DE800C06CA9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D27E0C6E156AAD9E00BE7C9E /* GTIOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAuth.h; sourceTree = "<group>"; };
 		D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAuth.m; sourceTree = "<group>"; };
 		D289CB151566957300909FC1 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Facebook.h; path = "Libraries/facebook-iOS-SDK/src/Facebook.h"; sourceTree = "<group>"; };
@@ -533,7 +532,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D26D32AD156C0DE800C06CA9 /* AVFoundation.framework in Frameworks */,
 				D2EC0EDA156ADF5800984838 /* MessageUI.framework in Frameworks */,
 				D2569C051566CE7A0045B508 /* libz.dylib in Frameworks */,
 				D201C85815615C1B00C4168D /* MapKit.framework in Frameworks */,
@@ -751,24 +749,6 @@
 			name = MBProgressHUD;
 			sourceTree = "<group>";
 		};
-		D26D32AE156C0E0500C06CA9 /* Camera */ = {
-			isa = PBXGroup;
-			children = (
-				D2603DC1155AAE1700536BF9 /* GTIOCameraViewController.h */,
-				D2603DC2155AAE1700536BF9 /* GTIOCameraViewController.m */,
-			);
-			name = Camera;
-			sourceTree = "<group>";
-		};
-		D26D32AF156C0E1500C06CA9 /* General */ = {
-			isa = PBXGroup;
-			children = (
-				D2EC0ED6156ADF1500984838 /* GTIOMailComposer.h */,
-				D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */,
-			);
-			name = General;
-			sourceTree = "<group>";
-		};
 		D289CB141566954000909FC1 /* Facebook-iOS-SDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -907,7 +887,6 @@
 		D2CDA96515502F02009B7E24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D26D32AC156C0DE800C06CA9 /* AVFoundation.framework */,
 				D2EC0ED9156ADF5800984838 /* MessageUI.framework */,
 				D2569C041566CE7A0045B508 /* libz.dylib */,
 				D201C85715615C1A00C4168D /* MapKit.framework */,
@@ -1048,6 +1027,8 @@
 				D2603DC5155AAE4500536BF9 /* GTIOShopViewController.m */,
 				D2603DC7155AAE5100536BF9 /* GTIOMeViewController.h */,
 				D2603DC8155AAE5100536BF9 /* GTIOMeViewController.m */,
+				D2EC0ED6156ADF1500984838 /* GTIOMailComposer.h */,
+				D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
