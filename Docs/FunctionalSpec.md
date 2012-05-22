@@ -2079,6 +2079,34 @@ any screen with uiTabBar
    - "messaging about private looks"
       - this is static copy GTIO will provide
 
+#### Design Stories
+- Top Area
+	- Transparent Background with image (profile.top.bg)
+		- Anchor top and bottom 8px (don't stretch top and bottom 8px blocks)
+	- Height: 72px
+	- Edit Icon (profile.top.icon.edit.png)
+		- 26x26px
+		- Positioned on top right of icon
+	- Profile Image
+		- 110x110px without shadow (with shadow background image 128x128)
+		- 4px from top 4px from left (including shadow background)
+	- Name Text: Archer Medium Italics 16pt rgb(255,255,255) #ffffff (11px from top, 3px from profile image)
+	- Location Text: Proxima Nova Regular 10pt rgb(186,186,186) #bababa (6px from top, 3px from profile image)
+	- Following/Followers/Featured Buttons
+		- Should align with bottom of profile image (~7-8px)
+		- 3px from left
+		- 7px between buttons
+		- Use profile.top.buttons.bg.left.png for left side
+			- Following/Followers is 54px wide
+			- Featured is 21px wide
+			- Text: Archer Medium Italic 11pt rgb(157,157,157) #9d9d9d
+		- Use profile.top.buttons.bg.right.png for right side
+			- Following/Followers is 31px wide		
+			- Featured is 23px wide
+			- Text: Proxima Nova Bold 12pt rgb(210,210,210) #d2d2d2
+- Grouped Table View
+	- Border color: rgb(217,215,206) #d9d7ce
+	- Chevron is 10px from right
 
 ### 7.2 Settings  
 
@@ -2273,19 +2301,23 @@ Each user has a profile page
 #### Mockups
 7.1 basic: ([wireframe](http://invis.io/732OD3ZH))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.7.Profile.Page.Others.Following.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.1.My.Management.png" width=420px/>
 
 7.7.1 other's profile, not following: ([wireframe](http://invis.io/AD2PMYYW))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.7.Profile.Page.Others.Not.Following.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Following.png" width=420px/>
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Not.Following.Bio.Site.png" width=420px/>
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.1.other.profile.not.following.png" width=420px/>
 
 7.7.2 other's profile, following requested: ([wireframe](http://invis.io/4Q2PMZHE))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.7.Profile.Page.Others.Not.Following.Follow.Request.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.2.Follow.Requested.png" width=420px/>
 
 7.7.3 other's profile, with banner: ([wireframe](http://invis.io/RW2POUXA))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.7.3.Profile.Page.Branded.Banner.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.3.Banner.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2354,7 +2386,27 @@ previous screen
       - sent from api
       - thumbnails with heart toggle
       - **tap** ==> (view 4.1), (view 3.1), or (view 3.6)
-  
+
+#### Design Stories
+- Top Area
+	- Cog Icon
+		- 26x26px
+		- 8px from top and right
+	- Profile Text
+		- 11pt Proxima Nova Regular rgb(186,186,186) #bababa
+- Friend Request
+	- 32px high rgb(0,0,0) 0.22 alpha
+	- Text: 11pt Proxima Nova Regular rgb(255,255,255) #ffffff
+		- 12px from left and 12px padding above
+	- Buttons
+		- Width: 55x21px
+		- 11pt Proxima Nova Bold rgb(255,255,255) #ffffff
+		- Text should be have about 5px padding from top to center
+- Tab Bar
+	- All images are profile.tabbar.[position].[state].png
+	- Text: 14px Archer Book Italic 14pt rgb(85,85,85) #555556
+		- 8px from top, centered
+
 
 ### 7.8 Shopping list  
 
