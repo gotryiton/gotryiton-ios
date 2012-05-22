@@ -142,6 +142,16 @@
     self.toolbarView = nil;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    // Track first intro screen on view. 
+    if ([self.childViewControllers count] > 1) { // Make sure there are intro screens
+        GTIOIntroImageViewController *introImageViewController = [self.childViewControllers objectAtIndex:0];
+        [introImageViewController track];
+    }
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -177,6 +187,8 @@
             [self.toolbarView hideButtons:YES];
         } else {
             [self.toolbarView hideButtons:NO];
+            GTIOIntroImageViewController *introImageViewController = [self.childViewControllers objectAtIndex:self.toolbarView.pageControl.currentPage];
+            [introImageViewController track];
         }
     }
 }
