@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) GTIOIntroScreen *introScreen;
 
+- (void)track;
+
 @end

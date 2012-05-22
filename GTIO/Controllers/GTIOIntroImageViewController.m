@@ -10,9 +10,12 @@
 
 #import "SDImageCache.h"
 
+#import "GTIOTrack.h"
+
 @interface GTIOIntroImageViewController ()
 
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, assign, getter = isTracked) BOOL tracked;
 
 @end
 
@@ -20,6 +23,7 @@
 
 @synthesize introScreen = _introScreen;
 @synthesize imageView = _imageView;
+@synthesize tracked = _tracked;
 
 - (void)loadView
 {
@@ -42,6 +46,14 @@
 {
     [super viewDidUnload];
     self.imageView = nil;
+}
+
+- (void)track
+{
+    if (!self.isTracked) {
+        [GTIOTrack postTrack:self.introScreen.track handler:nil];
+        self.tracked = YES;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
