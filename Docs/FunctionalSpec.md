@@ -3506,13 +3506,14 @@ None.
       - all dots vertically centered within tab bar area
       - positioning:
          - 1st dot is 47px from left edge of screen
-         - 2nd dot is 54px from left edge of screen
-         - 3rd dot is 61px from left edge of screen
+         - 2nd dot is 68px from left edge of screen
+         - 3rd dot is 89px from left edge of screen
          - 4th dot is 132px from left edge of screen
-         - 5th dot is 139px from left edge of screen
-         - 6th dot is 146px from left edge of screen
+         - 5th dot is 153px from left edge of screen
+         - 6th dot is 174px from left edge of screen
          - 7th dot is 217px from left edge of screen
-         - 8th dot is 224px from left edge of screen
+         - 8th dot is 238px from left edge of screen
+         - 9th dot is 259px from left edge of screen
 - Timer
    - outer circle, static
       - outer diameter is 74px
