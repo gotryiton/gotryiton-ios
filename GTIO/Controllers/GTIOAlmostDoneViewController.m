@@ -8,6 +8,7 @@
 
 #import "GTIOAlmostDoneViewController.h"
 #import "GTIOAlmostDoneTableHeaderCell.h"
+#import "GTIOPickerViewForTextFields.h"
 #import "GTIOUser.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -181,9 +182,9 @@
             cell = [[GTIOAlmostDoneTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             [cell setCellTitle:[dataItemForRow titleText]];
             [cell setRequired:[dataItemForRow required]];
+            [cell setAccessoryTextIsMultipleLines:[dataItemForRow multiline]];
             [cell setAccessoryTextUsesPicker:[dataItemForRow usesPicker]];
             [cell setAccessoryTextPlaceholderText:[dataItemForRow placeHolderText]];
-            [cell setAccessoryTextIsMultipleLines:[dataItemForRow multiline]];
             [cell setTag:(indexPath.section+indexPath.row)];
             [cell setDelegate:self];
             
@@ -209,12 +210,22 @@
     }
 }
 
+- (void)moveResponderToNextCellFromCell:(NSUInteger)cellIdentifier {
+    cellIdentifier++;
+    GTIOAlmostDoneTableCell* cellToActivate = (GTIOAlmostDoneTableCell*)[_content viewWithTag:cellIdentifier];
+    if (cellToActivate) {
+        [cellToActivate becomeFirstResponder];
+    }
+}
+
 - (void)scrollUpWhileEditing:(NSUInteger)cellIdentifier {
-    [_content setFrame:(CGRect){0,0,_originalContentFrame.size.width,_originalContentFrame.size.height-260}];
+    if (CGRectEqualToRect(_content.frame,_originalContentFrame)) {
+        [_content setFrame:(CGRect){0,0,_originalContentFrame.size.width,_originalContentFrame.size.height-260}];
+    }
     UIView *cell = [_content viewWithTag:cellIdentifier];
     CGRect frame = cell.frame;
     frame.origin.y = frame.origin.y + 55;
-    [_content scrollRectToVisible:frame animated:NO];
+    [_content scrollRectToVisible:frame animated:YES];
 }
 
 - (void)resetScrollAfterEditing {

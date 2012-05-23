@@ -13,6 +13,7 @@
 @optional
 - (void)scrollUpWhileEditing:(NSUInteger)cellIdentifier;
 - (void)resetScrollAfterEditing;
+- (void)moveResponderToNextCellFromCell:(NSUInteger)cellIdentifier;
 
 @end
 

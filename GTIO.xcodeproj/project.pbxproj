@@ -315,6 +315,8 @@
 		8E1ACAFE156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC9CE156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow.png */; };
 		8E1ACAFF156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC9CF156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow@2x.png */; };
 		8E1ACB00156C4AAF0039E6E9 /* ui.empty.pixel.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC9D0156C4AAF0039E6E9 /* ui.empty.pixel.png */; };
+		8E897715156D567600BC6FFE /* GTIOPickerViewForTextFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E897714156D567600BC6FFE /* GTIOPickerViewForTextFields.m */; };
+		8E89771B156D84F300BC6FFE /* GTIOPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89771A156D84F300BC6FFE /* GTIOPlaceHolderTextView.m */; };
 		8E91B0FF156AC197009D70AC /* JRActivityObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B037156AC197009D70AC /* JRActivityObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E91B100156AC197009D70AC /* JRConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B039156AC197009D70AC /* JRConnectionManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E91B101156AC197009D70AC /* JREngage+CustomInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B03B156AC197009D70AC /* JREngage+CustomInterface.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -944,6 +946,10 @@
 		8E1AC9CE156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = small.profile.overlay.inner.shadow.png; sourceTree = "<group>"; };
 		8E1AC9CF156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small.profile.overlay.inner.shadow@2x.png"; sourceTree = "<group>"; };
 		8E1AC9D0156C4AAF0039E6E9 /* ui.empty.pixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui.empty.pixel.png; sourceTree = "<group>"; };
+		8E897713156D567600BC6FFE /* GTIOPickerViewForTextFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPickerViewForTextFields.h; sourceTree = "<group>"; };
+		8E897714156D567600BC6FFE /* GTIOPickerViewForTextFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPickerViewForTextFields.m; sourceTree = "<group>"; };
+		8E897719156D84F300BC6FFE /* GTIOPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPlaceHolderTextView.h; sourceTree = "<group>"; };
+		8E89771A156D84F300BC6FFE /* GTIOPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPlaceHolderTextView.m; sourceTree = "<group>"; };
 		8E91B036156AC197009D70AC /* JRActivityObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRActivityObject.h; sourceTree = "<group>"; };
 		8E91B037156AC197009D70AC /* JRActivityObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRActivityObject.m; sourceTree = "<group>"; };
 		8E91B038156AC197009D70AC /* JRConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRConnectionManager.h; sourceTree = "<group>"; };
@@ -2079,6 +2085,10 @@
 				8EF8FF82156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m */,
 				8EF8FF9B156C112400AFCE55 /* GTIOAlmostDoneTableCell.h */,
 				8EF8FF9C156C112400AFCE55 /* GTIOAlmostDoneTableCell.m */,
+				8E897713156D567600BC6FFE /* GTIOPickerViewForTextFields.h */,
+				8E897714156D567600BC6FFE /* GTIOPickerViewForTextFields.m */,
+				8E897719156D84F300BC6FFE /* GTIOPlaceHolderTextView.h */,
+				8E89771A156D84F300BC6FFE /* GTIOPlaceHolderTextView.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -3264,6 +3274,8 @@
 				8E1AC831156C48200039E6E9 /* GTIOCameraViewController.m in Sources */,
 				8E1AC832156C48570039E6E9 /* GTIOAlmostDoneViewController.m in Sources */,
 				8E1AC834156C48ED0039E6E9 /* MBProgressHUD.m in Sources */,
+				8E897715156D567600BC6FFE /* GTIOPickerViewForTextFields.m in Sources */,
+				8E89771B156D84F300BC6FFE /* GTIOPlaceHolderTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
