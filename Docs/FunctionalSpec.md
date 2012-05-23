@@ -79,15 +79,9 @@
    13.5 [Authentication](#135-authentication)   
    13.6 [Pull to refresh behavior](#136-pull-to-refresh-behavior)   
    13.7 [User Badges](#137-user-badges)   
-<<<<<<< HEAD
    13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)
    13.9 [Custom UIAlertView](#139-custom-uialertview) 
 
-
-=======
-   13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)   
-   13.9 [Custom UIAlertView](#139-custom-uialertview)   
->>>>>>> Putting in references for rest of section 6
 ---
 
 ### General Questions
