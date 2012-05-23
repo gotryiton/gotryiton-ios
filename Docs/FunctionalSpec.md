@@ -834,7 +834,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 #### Mockups
 2.2 Notifications ([wireframe](http://invis.io/QR2OBP8N))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.4.Notifications.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/2.2.notifications.png" width=420px/>
 
 #### User Flow
 
@@ -1661,7 +1661,7 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 
 5.1.1 invite friends actionsheet  ([wireframe](http://invis.io/NB2PNCHD))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/5.1.Invite.Friends.Actionsheet.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/5.1.1.invite.actionsheet.png" width=420px/>
 
 5.1.2 invite friends SMS ([wireframe](http://invis.io/YX2PND9V))
 
@@ -1733,7 +1733,19 @@ previous screen
 	- Background: rgb(255,255,255) #f0f0f0
 	- Font: 14pt Verlag Light/Bold rgb(143,143,143) #8f8f8f (16px from top)
 	- Bottom border 1px rgb(217,215,206) #d9d7ce
-
+- Actionsheet 
+	- Buttons (use general/large.button.[color].[state].png)
+		- 14px padding left/right & top/bottom
+		- Between action cells (buttons that are not cancel buttons) the vertical padding is 8px
+		- Height: 42px
+		- Width: 292px
+		- Text
+			- Proxima Nova Bold/Regular rgb(85,85,86) #555556
+			- Cancel button: rgb(143,143,143) #8f8f8f
+			- Vertically/horizontally centered in button
+	- Background (general/actonsheet.bg)
+		- Top/Bottom anchors: 18px
+		- Stretch middle area
 
 ## 6. Friends management
 
