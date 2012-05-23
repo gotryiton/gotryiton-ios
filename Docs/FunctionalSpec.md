@@ -78,7 +78,9 @@
    13.4 [Follow buttons](#134-follow-buttons)   
    13.5 [Authentication](#135-authentication)   
    13.6 [Pull to refresh behavior](#136-pull-to-refresh-behavior)   
-
+   13.7 [User Badges](#137-user-badges)   
+   13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)   
+   13.9 [Custom UIAlertView](#139-custom-uialertview) 
 
 ---
 
@@ -834,7 +836,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 #### Mockups
 2.2 Notifications ([wireframe](http://invis.io/QR2OBP8N))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.4.Notifications.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/2.2.notifications.png" width=420px/>
 
 #### User Flow
 
@@ -873,8 +875,20 @@ TBD
          - new notifications will get an unread state the first time they are seen
       - this behavior will mimmick current 3.0 behavior
 
-
-
+#### Design Stories
+- Text: 16pt Verlag Bold/Light
+	- Active State: rgb(98,98,98) #626262
+	- Read State: rgb(143,143,143) #8f8f8f
+	- Top/Bottom Padding: 16px
+- Icons: 21x21px
+	- 8px from left
+	- Vertically centered
+	- 10px right padding to text
+- Cell:
+	- Active State: rgb(255,255,255)
+	- Read State: rgb(255,255,255) with an alpha of .45
+	- Bottom border: 1px rgb(217,215,206) #d9d7ce
+ 
 
 ## 3. Product and Outfit Post Detail pages
 
@@ -1645,11 +1659,11 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 #### Mockups
 5.1 invite friends  ([wireframe](http://invis.io/TW2OCGBR))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/5.1.invite.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/5.1.invite.friends.png" width=420px/>
 
 5.1.1 invite friends actionsheet  ([wireframe](http://invis.io/NB2PNCHD))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/5.1.Invite.Friends.Actionsheet.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/5.1.1.invite.actionsheet.png" width=420px/>
 
 5.1.2 invite friends SMS ([wireframe](http://invis.io/YX2PND9V))
 
@@ -1722,7 +1736,6 @@ previous screen
 	- Font: 14pt Verlag Light/Bold rgb(143,143,143) #8f8f8f (16px from top)
 	- Bottom border 1px rgb(217,215,206) #d9d7ce
 
-
 ## 6. Friends management
 
 ### 6.1 Find my friends
@@ -1733,11 +1746,11 @@ A user can find friends to follow
 #### Mockups
 6.1 ([wireframe](http://invis.io/XM2OCN3P))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.1.1.find.my.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.1.1.find.my.friends.png" width=420px/>
 
 6.1.1 No Results ([wireframe](http://invis.io/QK2OCQ56))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.1.2.find.friends.no.results.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.1.2.find.friends.no.results.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1821,7 +1834,7 @@ A user can see a list of suggested users to follow
 #### Mockups
 6.2 Suggested Friends ([wireframe](http://invis.io/VD2OCR5H))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
 
 #### API Usage
 /Friends/Suggested
@@ -1849,6 +1862,7 @@ previous screen
 #### Design Stories
 - Refresh Icon
 	- 16px from top, 9px from right
+- For cells and button placement, refer to 6.1 design stories
 
 ### 6.3 Friends management page
 
@@ -1858,7 +1872,7 @@ A user can manage their friend relationships via the feed
 #### Mockups
 6.3 ([wireframe](http://invis.io/R62OCSKJ))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.3.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.3.friends.png" width=420px/>
 
 
 #### User Flow
@@ -1902,6 +1916,7 @@ previous screen
 	- Top Border: 1px rgb(243,247,245) #f3f7f5
 	- Bottom Border: 1px rgb(211,217,215) #d3d9d7
 	- "suggested friend" cell has no bottom border and has height of 49px
+- For cells and button placement, refer to 6.1 design stories
 
 ### 6.4 Find out-of-network Friends  
 
@@ -1911,9 +1926,9 @@ A user can search for friends outside of their own network
 #### Mockups
 6.4 ([wireframe](http://invis.io/MH2OCTA9))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1942,6 +1957,7 @@ previous screen
 	- Text begins 16px below icon
 	- "search through the entire" 16pt Proxima Nova Light rgb(143,143,143) #8f8f8f
 	- "Go Try It On community" 16pt Proxima Nova Bold rgb(143,143,143) #8f8f8f
+- For cells and button placement, refer to 6.1 design stories	
 
 ### 6.5 Following List  
 
@@ -1951,7 +1967,7 @@ A User A can see a list of who a User B is following.  User A and User B can be 
 #### Mockups
 6.5 ([wireframe](http://invis.io/CS2OCU2W))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.5.following.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.5.following.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1973,6 +1989,8 @@ previous screen
       - has profile icon, name, tappable to profile, 
       - following toggle
 
+#### Design Stories
+- For cells and button placement, refer to 6.1 design stories
 
 ### 6.6 Followers List  
 
@@ -1982,7 +2000,7 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 #### Mockups
 6.6 Followers List ([wireframe](http://invis.io/Y92OCV3E))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.6.followers.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.6.followers.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2003,6 +2021,9 @@ previous screen
       - alpha sort
       - has profile icon, name, tappable to profile, 
       - following toggle
+
+#### Design Stories
+- For cells and button placement, refer to 6.1 design stories
 
 ## 7. Profile pages
 
@@ -2299,23 +2320,23 @@ Each user has a profile page
 #### Mockups
 7.1 basic: ([wireframe](http://invis.io/732OD3ZH))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.1.My.Management.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.1.My.Management.png" width=420px/>
 
 7.7.1 other's profile, not following: ([wireframe](http://invis.io/AD2PMYYW))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Following.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Following.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Not.Following.Bio.Site.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Not.Following.Bio.Site.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.1.other.profile.not.following.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.other.profile.not.following.png" width=420px/>
 
 7.7.2 other's profile, following requested: ([wireframe](http://invis.io/4Q2PMZHE))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.2.Follow.Requested.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.2.Follow.Requested.png" width=420px/>
 
 7.7.3 other's profile, with banner: ([wireframe](http://invis.io/RW2POUXA))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.3.Banner.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.3.Banner.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2987,9 +3008,9 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 #### Mockups
 12.1 ([wireframe](http://invis.io/WD2OERMP))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.On.States.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.On.States.png" width=420px/>
 
 12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5))  
 
@@ -3406,25 +3427,6 @@ A user can select from 9 photos taken during photoshoot mode.
 ([wireframe](http://invis.io/J92OF18E)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.2.Photoshoot.select.png" width=420px/>
-#### Design Stories
-- Thumbnails
-	- With frame/shadow: 90x120px image (upload.photoreel.vertical.divider.png)
-	- Photo Thumbnail: 84x112px
-		- 3px from top
-		- 3px from left/right
-		- 5px from bottom
-	- Positioning 
-		- 1st row is 12px from top
-		- Left-most thumbnail in each row: 11px from left
-		- Middle thumbnail in each row: horizontally centered
-		- Right-most thumbnail in each row: 11px from right
-	- Horizontal Lines/indicators (upload.photoreel.horizontal.divider.png)
-		- 59px from top
-	- Vertical Lines/indicators (upload.photoreel.vertical.divider.png)	
-		- 47px from left edge of bottom image
-		- 38px from right of top image
-
-### 12.5 Photoshoot/Burst Mode Timer
 
 
 #### User Flow
@@ -3449,6 +3451,24 @@ None.
          - photoshoot mode should still be turned on
          - photoshoot grid button should be active
 
+#### Design Stories
+- Thumbnails
+   - With frame/shadow: 90x120px image (upload.photoreel.vertical.divider.png)
+   - Photo Thumbnail: 84x112px
+      - 3px from top
+      - 3px from left/right
+      - 5px from bottom
+   - Positioning 
+      - 1st row is 12px from top
+      - Left-most thumbnail in each row: 11px from left
+      - Middle thumbnail in each row: horizontally centered
+      - Right-most thumbnail in each row: 11px from right
+   - Horizontal Lines/indicators (upload.photoreel.horizontal.divider.png)
+      - 59px from top
+   - Vertical Lines/indicators (upload.photoreel.vertical.divider.png)  
+      - 47px from left edge of bottom image
+      - 38px from right of top image
+
 
 ### 12.5 Photoshoot Mode
 
@@ -3458,7 +3478,14 @@ A user can take photos in photoshoot mode (a timer + burst mode hybrid)
 #### Mockups
 ([wireframe](http://invis.io/J92OF18E)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.3.Upload.Photoshoot.Timer.png" width=420px/>
+**12.5** with timer running and progress bar empty   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.5.Upload.Photoshoot.Mode.1.First-Countdown.png" width=420px/>
+
+**12.5.1** with 2nd timer running and progress bar showing 3/9   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.5.Upload.Photoshoot.Mode.2.In.Progress.png" width=420px/>
+
+**12.5.2** with shutter flash on 4th photo progress bar showing 4/9   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.5.Upload.Photoshoot.Mode.3.Photo.Taken.png" width=420px/>
 
 
 #### API Usage
@@ -3475,14 +3502,51 @@ None.
 - A user can take 9 photos during photoshoot mode
    - When the user is in photoshoot mode on screen 12.1 (view 12.1.x) and they tap the shutter button
       1. The initial timer starts and counts down from ```photoshoot_first_timer``` value in /Config (value is in seconds)
+         - see view 12.5
       2. At the end of the first timer, 3 photos are taken in as quick succession as the device's camera can allow
          - a sound is played (sound should be of 3 consecutive shutter fires.  the default shutter sound can be used)
+         - during each capture, the view shows a white transparent flash (see view 12.5.2)
+         - during each capture, a button on the photoshoot progress bar is turned on (see view 12.5.2)
       3. The second timer starts and counts down from ```photoshoot_second_timer``` 
+         - see view 12.5.1
       4. At the end of the 2nd timer, 3 more photos are taken in the same fashion
       5. The third timer starts and counts down from ```photoshoot_third_timer```
       6. Three more photos are taken in photoshoot mode.
    - once these steps are complete, the user is routed to (view 12.4)
+   - each photo should be captured at 640px wide.
+- A user can view a progress bar showing their place in the photoshoot
+   - each time an image is captured, the progress bar updates with a new dot filled in
 
+#### Design Stories
+- Progress Bar
+   - background (lines)
+      - 'timer-progress-bg.png'
+      - horizontally and vertically centered within tab bar area
+   - dots
+      - 'timer-progress-dot.png' with ON and OFF states
+      - all dots vertically centered within tab bar area
+      - positioning:
+         - 1st dot is 47px from left edge of screen
+         - 2nd dot is 68px from left edge of screen
+         - 3rd dot is 89px from left edge of screen
+         - 4th dot is 132px from left edge of screen
+         - 5th dot is 153px from left edge of screen
+         - 6th dot is 174px from left edge of screen
+         - 7th dot is 217px from left edge of screen
+         - 8th dot is 238px from left edge of screen
+         - 9th dot is 259px from left edge of screen
+- Timer
+   - outer circle, static
+      - outer diameter is 74px
+      - inner diameter is 70px
+      - rgb(255,255,255)
+   - inner circle, fills in clockwise starting from '12 oclock' position
+      - outer diameter is 66px
+      - inner diameter is 54px
+      - rgb(119,226,179)
+- Snap Overlay
+   - 'snap-overlay.png'
+   - flashes as overlay onscreen when photo is taken
 
 ## 13. Universal Elements and Behavior
 
@@ -3727,3 +3791,51 @@ In many places where there is a user's name, there may be a badge icon next to a
 - When a user's name appears in the app and they have a badge, the appropriate badge icon should appear next to their name
 
 
+### 13.8 Custom UIActionSheet
+
+#### Mockups
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/13.8.actionsheet.png" width=420px/>
+
+#### Design Stories
+- Buttons (use general/large.button.[color].[state].png)
+	- 14px padding left/right & top/bottom
+	- Between action cells (buttons that are not cancel buttons) the vertical padding is 8px
+	- Height: 42px
+	- Width: 292px
+	- Text
+		- Proxima Nova Bold/Regular rgb(85,85,86) #555556
+		- Cancel button: rgb(143,143,143) #8f8f8f
+		- Vertically/horizontally centered in button
+- Background (general/actonsheet.bg)
+	- Top/Bottom anchors: 18px
+	- Stretch middle area
+
+### 13.9 Custom UIAlertView
+
+#### Mockups
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/13.9.custom.dialog.png" width=420px/>
+
+#### Design Stories
+- Background Stretchable Image (general/alert.bg.png)
+	- Top Anchor: 11px
+	- Bottom Anchor: 14px
+	- Left/Right Anchor: 13px
+- Width (with shadow) 284px
+- Width of center white area: 278px
+- Heading Text
+	- 22pt Archer Light Italic rgb(0,0,0) #000000
+	- 21px padding from top including shadow in height (without shadow: 18px)
+	- Horizontally centered
+- Secondary Text
+	- 16pt Verlag Light rgb(143,143,143) #8f8f8f
+	- 23px padding/left right including shadow (without shadow: 19px)
+- Buttons (use general/large.button.[color].[state].png)
+	- 15px from bottom (9px without shadow)
+	- 16px from left/right (12px without shadow)
+	- 10px padding between buttons horizontally
+	- Height: 42px
+	- Width: 125px
+	- Text
+		- Proxima Nova Bold/Regular rgb(85,85,86) #555556
+		- Cancel button: rgb(143,143,143) #8f8f8f
+		- Vertically/horizontally centered in button
