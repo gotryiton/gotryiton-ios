@@ -77,9 +77,10 @@
    13.3 [Error messages](#133-error-messages)   
    13.4 [Follow buttons](#134-follow-buttons)   
    13.5 [Authentication](#135-authentication)   
-   13.6 [Pull to refresh behavior](#136-pull-to-refresh-behavior)   
-
-
+   13.6 [Pull to refresh behavior](#136-pull-to-refresh-behavior) 
+   13.7 [User Badges](#137-user-badges)   
+   13.8 [Custom UIActionsheet](#138-custom-uiactionsheet) 
+   13.9 [Custom UIAlertView](#139-custom-uialertview) 
 ---
 
 ### General Questions
@@ -1733,19 +1734,6 @@ previous screen
 	- Background: rgb(255,255,255) #f0f0f0
 	- Font: 14pt Verlag Light/Bold rgb(143,143,143) #8f8f8f (16px from top)
 	- Bottom border 1px rgb(217,215,206) #d9d7ce
-- Actionsheet 
-	- Buttons (use general/large.button.[color].[state].png)
-		- 14px padding left/right & top/bottom
-		- Between action cells (buttons that are not cancel buttons) the vertical padding is 8px
-		- Height: 42px
-		- Width: 292px
-		- Text
-			- Proxima Nova Bold/Regular rgb(85,85,86) #555556
-			- Cancel button: rgb(143,143,143) #8f8f8f
-			- Vertically/horizontally centered in button
-	- Background (general/actonsheet.bg)
-		- Top/Bottom anchors: 18px
-		- Stretch middle area
 
 ## 6. Friends management
 
@@ -3751,3 +3739,51 @@ In many places where there is a user's name, there may be a badge icon next to a
 - When a user's name appears in the app and they have a badge, the appropriate badge icon should appear next to their name
 
 
+### 13.8 Custom UIActionSheet
+
+#### Mockups
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/13.8.actionsheet.png" width=420px/>
+
+#### Design Stories
+- Buttons (use general/large.button.[color].[state].png)
+	- 14px padding left/right & top/bottom
+	- Between action cells (buttons that are not cancel buttons) the vertical padding is 8px
+	- Height: 42px
+	- Width: 292px
+	- Text
+		- Proxima Nova Bold/Regular rgb(85,85,86) #555556
+		- Cancel button: rgb(143,143,143) #8f8f8f
+		- Vertically/horizontally centered in button
+- Background (general/actonsheet.bg)
+	- Top/Bottom anchors: 18px
+	- Stretch middle area
+
+### 13.9 Custom UIAlertView
+
+#### Mockups
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/13.9.custom.dialog.png" width=420px/>
+
+#### Design Stories
+- Background Stretchable Image (general/alert.bg.png)
+	- Top Anchor: 11px
+	- Bottom Anchor: 14px
+	- Left/Right Anchor: 13px
+- Width (with shadow) 284px
+- Width of center white area: 278px
+- Heading Text
+	- 22pt Archer Light Italic rgb(0,0,0) #000000
+	- 21px padding from top including shadow in height (without shadow: 18px)
+	- Horizontally centered
+- Secondary Text
+	- 16pt Verlag Light rgb(143,143,143) #8f8f8f
+	- 23px padding/left right including shadow (without shadow: 19px)
+- Buttons (use general/large.button.[color].[state].png)
+	- 15px from bottom (9px without shadow)
+	- 16px from left/right (12px without shadow)
+	- 10px padding between buttons horizontally
+	- Height: 42px
+	- Width: 125px
+	- Text
+		- Proxima Nova Bold/Regular rgb(85,85,86) #555556
+		- Cancel button: rgb(143,143,143) #8f8f8f
+		- Vertically/horizontally centered in button
