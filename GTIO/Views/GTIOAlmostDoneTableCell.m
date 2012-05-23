@@ -66,6 +66,7 @@
         [_cellAccessoryTextMulti setTextColor:UIColorFromRGB(0xA0A0A0)];
         [_cellAccessoryTextMulti setPlaceholderColor:UIColorFromRGB(0xA0A0A0)];
         [_cellAccessoryTextMulti setInputAccessoryView:_accessoryToolBar];
+        [_cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         
         _usesPicker = NO;
     }
@@ -113,16 +114,7 @@
     if ([_delegate respondsToSelector:@selector(scrollUpWhileEditing:)]) {
         [_delegate scrollUpWhileEditing:[self tag]];
     }
-    if ([textField.text isEqualToString:_placeHolderText] && !_usesPicker) {
-        [textField setText:@""];
-    }
     return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    if ([textField.text length] == 0 && !_usesPicker) {
-        [textField setText:_placeHolderText];
-    }
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
@@ -190,7 +182,7 @@
         [_cellAccessoryTextMulti setPlaceholderText:text];
         [_cellAccessoryTextMulti setFrame:(CGRect){_cellTitle.frame.origin.x,_cellTitle.frame.origin.y+_cellTitle.frame.size.height,self.frame.size.width-40,70}];
     } else {
-        [_cellAccessoryText setText:text];
+        [_cellAccessoryText setPlaceholder:text];
         [_cellAccessoryText setFrame:(CGRect){_cellTitle.frame.origin.x+_cellTitle.frame.size.width+3,_cellTitle.frame.origin.y,self.frame.size.width-_cellTitle.frame.size.width-43,_cellTitle.frame.size.height}];
     }
 }

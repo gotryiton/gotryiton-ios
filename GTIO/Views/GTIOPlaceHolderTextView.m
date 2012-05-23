@@ -73,7 +73,8 @@
 - (void)contentDidChange:(NSNotification *)notification
 {
     BOOL previousState = _shouldDrawPlaceholder;
-    _shouldDrawPlaceholder = _placeholderText && _placeholderColor && [[self text] length] == 0;
+    NSString* emptyCheck = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    _shouldDrawPlaceholder = _placeholderText && _placeholderColor && [emptyCheck length] == 0;
     if (previousState != _shouldDrawPlaceholder) {
         [self setNeedsDisplay];
     }
