@@ -3406,25 +3406,6 @@ A user can select from 9 photos taken during photoshoot mode.
 ([wireframe](http://invis.io/J92OF18E)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.2.Photoshoot.select.png" width=420px/>
-#### Design Stories
-- Thumbnails
-	- With frame/shadow: 90x120px image (upload.photoreel.vertical.divider.png)
-	- Photo Thumbnail: 84x112px
-		- 3px from top
-		- 3px from left/right
-		- 5px from bottom
-	- Positioning 
-		- 1st row is 12px from top
-		- Left-most thumbnail in each row: 11px from left
-		- Middle thumbnail in each row: horizontally centered
-		- Right-most thumbnail in each row: 11px from right
-	- Horizontal Lines/indicators (upload.photoreel.horizontal.divider.png)
-		- 59px from top
-	- Vertical Lines/indicators (upload.photoreel.vertical.divider.png)	
-		- 47px from left edge of bottom image
-		- 38px from right of top image
-
-### 12.5 Photoshoot/Burst Mode Timer
 
 
 #### User Flow
@@ -3449,6 +3430,24 @@ None.
          - photoshoot mode should still be turned on
          - photoshoot grid button should be active
 
+#### Design Stories
+- Thumbnails
+   - With frame/shadow: 90x120px image (upload.photoreel.vertical.divider.png)
+   - Photo Thumbnail: 84x112px
+      - 3px from top
+      - 3px from left/right
+      - 5px from bottom
+   - Positioning 
+      - 1st row is 12px from top
+      - Left-most thumbnail in each row: 11px from left
+      - Middle thumbnail in each row: horizontally centered
+      - Right-most thumbnail in each row: 11px from right
+   - Horizontal Lines/indicators (upload.photoreel.horizontal.divider.png)
+      - 59px from top
+   - Vertical Lines/indicators (upload.photoreel.vertical.divider.png)  
+      - 47px from left edge of bottom image
+      - 38px from right of top image
+
 
 ### 12.5 Photoshoot Mode
 
@@ -3458,7 +3457,14 @@ A user can take photos in photoshoot mode (a timer + burst mode hybrid)
 #### Mockups
 ([wireframe](http://invis.io/J92OF18E)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.3.Upload.Photoshoot.Timer.png" width=420px/>
+**12.5** with timer running and progress bar empty   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.3.Upload.Photoshoot.Timer.Progress.Bar.1.Start.Timer.png" width=420px/>
+
+**12.5.1** with 2nd timer running and progress bar showing 3/9   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.3.Upload.Photoshoot.Timer.Progress.Bar.2.Second.Timer.png" width=420px/>
+
+**12.5.2** with shutter flash on 4th photo progress bar showing 4/9   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.3.Upload.Photoshoot.Timer.Progress.Bar.3.Snapped.png" width=420px/>
 
 
 #### API Usage
@@ -3475,14 +3481,22 @@ None.
 - A user can take 9 photos during photoshoot mode
    - When the user is in photoshoot mode on screen 12.1 (view 12.1.x) and they tap the shutter button
       1. The initial timer starts and counts down from ```photoshoot_first_timer``` value in /Config (value is in seconds)
+         - see view 12.5
       2. At the end of the first timer, 3 photos are taken in as quick succession as the device's camera can allow
          - a sound is played (sound should be of 3 consecutive shutter fires.  the default shutter sound can be used)
+         - during each capture, the view shows a white transparent flash (see view 12.5.2)
+         - during each capture, a button on the photoshoot progress bar is turned on (see view 12.5.2)
       3. The second timer starts and counts down from ```photoshoot_second_timer``` 
+         - see view 12.5.1
       4. At the end of the 2nd timer, 3 more photos are taken in the same fashion
       5. The third timer starts and counts down from ```photoshoot_third_timer```
       6. Three more photos are taken in photoshoot mode.
    - once these steps are complete, the user is routed to (view 12.4)
+   - each photo should be captured at 640px wide.
+- A user can view a progress bar showing their place in the photoshoot
+   - each time an image is captured, the progress bar updates with a new dot filled in
 
+#### Design Stories
 
 ## 13. Universal Elements and Behavior
 
