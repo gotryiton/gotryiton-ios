@@ -1,3 +1,38 @@
+***Wednesday, May 23rd - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - provide styling guidelines for janrain custom overlay by EOB
+- GTIO - Discuss photo shoot transitions internally and update spec
+
+**Status**
+- Currently breaking out Photo Upload Issues in Github.  Will update project log when complete
+- Screenflow very helpful
+
+**Updates to Planned Work**
+- Creation of Photo Upload Issues Pending
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- When performing bursts in photo shoot mode, what happens when grid button is touched?
+ - A: Grid button only appears after a photo shoot is performed and user is in frame mode.
+- Need clarity around screen transitions/animations in photo shoot process
+ - A: GTIO to discuss internally and update spec doc with requirements
+- Description / Brands on Post a Look screen?
+ - A: When typing, box stays the same size.  To return to the top line of text, user must select and drag to the top
+
+---
+
+***Tuesday, May 22nd - No Standup Today***
+
+---
+
 ***Monday, May 21th - Standup Notes***
 
 **Attendees**
