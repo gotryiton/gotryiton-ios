@@ -3458,13 +3458,13 @@ A user can take photos in photoshoot mode (a timer + burst mode hybrid)
 ([wireframe](http://invis.io/J92OF18E)) 
 
 **12.5** with timer running and progress bar empty   
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.3.Upload.Photoshoot.Timer.Progress.Bar.1.Start.Timer.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.5.Upload.Photoshoot.Mode.1.First-Countdown.png" width=420px/>
 
 **12.5.1** with 2nd timer running and progress bar showing 3/9   
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.3.Upload.Photoshoot.Timer.Progress.Bar.2.Second.Timer.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.5.Upload.Photoshoot.Mode.2.In.Progress.png" width=420px/>
 
 **12.5.2** with shutter flash on 4th photo progress bar showing 4/9   
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.3.Upload.Photoshoot.Timer.Progress.Bar.3.Snapped.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.5.Upload.Photoshoot.Mode.3.Photo.Taken.png" width=420px/>
 
 
 #### API Usage
@@ -3497,6 +3497,34 @@ None.
    - each time an image is captured, the progress bar updates with a new dot filled in
 
 #### Design Stories
+- Progress Bar
+   - background (lines)
+      - 'timer-progress-bg.png'
+      - horizontally and vertically centered within tab bar area
+   - dots
+      - 'timer-progress-dot.png' with ON and OFF states
+      - all dots vertically centered within tab bar area
+      - positioning:
+         - 1st dot is 47px from left edge of screen
+         - 2nd dot is 54px from left edge of screen
+         - 3rd dot is 61px from left edge of screen
+         - 4th dot is 132px from left edge of screen
+         - 5th dot is 139px from left edge of screen
+         - 6th dot is 146px from left edge of screen
+         - 7th dot is 217px from left edge of screen
+         - 8th dot is 224px from left edge of screen
+- Timer
+   - outer circle, static
+      - outer diameter is 74px
+      - inner diameter is 70px
+      - rgb(255,255,255)
+   - inner circle, fills in clockwise starting from '12 oclock' position
+      - outer diameter is 66px
+      - inner diameter is 54px
+      - rgb(119,226,179)
+- Snap Overlay
+   - 'snap-overlay.png'
+   - flashes as overlay onscreen when photo is taken
 
 ## 13. Universal Elements and Behavior
 
