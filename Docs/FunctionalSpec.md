@@ -2173,6 +2173,88 @@ previous screen
             - **success** ==> refresh (view 7.3)
    - if the user **is** facebook connected, then the fb connect button is hidden
 
+#### Design Stories
+- Table Cell 1
+   - 183px tall
+   - outside stroke rbg(217,215,206)
+   - 'choose from'
+      - Archer Light Italic
+      - 8pt
+      - rgb(255,106,114)
+      - 28px from left edge of screen
+      - baseline is 29px from top of table cell
+   - 'facebook'
+      - 'edit.profile.pic.fb.png'
+      - 31px from left edge of screen
+      - 51px from top of table cell
+   - 'my looks'
+      - Verlag Light
+      - 6pt
+      - rgb(143,143,143)
+      - 36px from left edge of screen
+      - baseline is 60px from top of table cell
+   - thumbs
+      - facebook
+         - 25px from left edge of screen
+         - 71px from top of table cell
+         - overlaid by 'edit.profile.pic.thumb.mask.png'
+      - my looks
+         - 195px wide area
+         - first thumb
+            - 100px from left edge of screen
+            - 71px from top of table cell
+         - all thumbs
+            - overlaid by 'edit.profile.pic.thumb.mask.png'
+            - 5px gap between thumbnails
+         - scrollbar
+            - only visible if there is overflow
+            - 10px below bottom of thumbnails
+            - 'thumbs-scroll.png' with OVER and UNDER versions
+      - selected thumb
+         - overlaid by 'edit profile.pic.selected,png'
+            - position is offset by 1px to the left and 1px up from thumb position
+   - 'f connect' button
+      - 'edit.profile.pic.fb.connect.png' with ACTIVE and INACTIVE versions
+      - 25px from left edge of screen
+      - 10px below accompanying thumbnail
+- Table Cell 2
+   - 200px tall
+   - outside stroke rbg(217,215,206)
+   - 'preview'
+      - Archer Light Italic
+      - 8pt
+      - rgb(255,106,114)
+      - 28px from left edge of screen
+      - baseline is 29px from top of table cell
+   - preview area
+      - bg is 'edit.profile.pic.preview.cell.png'
+         - 26px from left edge of screen
+         - 54px from top of table cell
+      - thumb
+         - overlaid by 'edit.profile.pic.thumb.mask.png'
+         - 39px from left edge of screen
+         - vertically centered inside 'edit.profile.pic.preview.cell.png'
+            - trying for 13px of padding on top, left, bottom of thumb
+      - user name
+         - Archer Medium Italic
+         - max width of text is 172px wide
+         - 9pt max, 7pt min
+         - rgb(255,106,114)
+         - 108px from left edge of screen
+         - baseline is 91px from top of table cell
+            - if user location is not available, baseline is 110px from top of table cell
+      - user location (if available)
+         - Proxima Nova Regular
+         - All caps
+         - 6pt
+         - rgb(143,143,143)
+         - 108px from left edge of screen
+         - baseline is 110px from top of table cell
+   - 'clear profile picture' button
+         - 'edit.profile.pic.clear.png' with ACTIVE and INACTIVE versions
+         - 26px from left edge of screen
+         - 151px from top of table cell
+
 ### 7.4 Edit profile  
 
 #### Overview
