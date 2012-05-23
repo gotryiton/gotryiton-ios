@@ -873,8 +873,20 @@ TBD
          - new notifications will get an unread state the first time they are seen
       - this behavior will mimmick current 3.0 behavior
 
-
-
+#### Design Stories
+- Text: 16pt Verlag Bold/Light
+	- Active State: rgb(98,98,98) #626262
+	- Read State: rgb(143,143,143) #8f8f8f
+	- Top/Bottom Padding: 16px
+- Icons: 21x21px
+	- 8px from left
+	- Vertically centered
+	- 10px right padding to text
+- Cell:
+	- Active State: rgb(255,255,255)
+	- Read State: rgb(255,255,255) with an alpha of .45
+	- Bottom border: 1px rgb(217,215,206) #d9d7ce
+ 
 
 ## 3. Product and Outfit Post Detail pages
 
@@ -1645,7 +1657,7 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 #### Mockups
 5.1 invite friends  ([wireframe](http://invis.io/TW2OCGBR))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/5.1.invite.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/5.1.invite.friends.png" width=420px/>
 
 5.1.1 invite friends actionsheet  ([wireframe](http://invis.io/NB2PNCHD))
 
@@ -1733,11 +1745,11 @@ A user can find friends to follow
 #### Mockups
 6.1 ([wireframe](http://invis.io/XM2OCN3P))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.1.1.find.my.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.1.1.find.my.friends.png" width=420px/>
 
 6.1.1 No Results ([wireframe](http://invis.io/QK2OCQ56))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.1.2.find.friends.no.results.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.1.2.find.friends.no.results.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1821,7 +1833,7 @@ A user can see a list of suggested users to follow
 #### Mockups
 6.2 Suggested Friends ([wireframe](http://invis.io/VD2OCR5H))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
 
 #### API Usage
 /Friends/Suggested
@@ -1858,7 +1870,7 @@ A user can manage their friend relationships via the feed
 #### Mockups
 6.3 ([wireframe](http://invis.io/R62OCSKJ))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.3.friends.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.3.friends.png" width=420px/>
 
 
 #### User Flow
@@ -1911,9 +1923,9 @@ A user can search for friends outside of their own network
 #### Mockups
 6.4 ([wireframe](http://invis.io/MH2OCTA9))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1951,7 +1963,7 @@ A User A can see a list of who a User B is following.  User A and User B can be 
 #### Mockups
 6.5 ([wireframe](http://invis.io/CS2OCU2W))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.5.following.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.5.following.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1982,7 +1994,7 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 #### Mockups
 6.6 Followers List ([wireframe](http://invis.io/Y92OCV3E))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/6.6.followers.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.6.followers.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2299,23 +2311,23 @@ Each user has a profile page
 #### Mockups
 7.1 basic: ([wireframe](http://invis.io/732OD3ZH))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.1.My.Management.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.1.My.Management.png" width=420px/>
 
 7.7.1 other's profile, not following: ([wireframe](http://invis.io/AD2PMYYW))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Following.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Following.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Not.Following.Bio.Site.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Not.Following.Bio.Site.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.1.other.profile.not.following.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.other.profile.not.following.png" width=420px/>
 
 7.7.2 other's profile, following requested: ([wireframe](http://invis.io/4Q2PMZHE))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.2.Follow.Requested.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.2.Follow.Requested.png" width=420px/>
 
 7.7.3 other's profile, with banner: ([wireframe](http://invis.io/RW2POUXA))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/7.7.3.Banner.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.3.Banner.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2987,9 +2999,9 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 #### Mockups
 12.1 ([wireframe](http://invis.io/WD2OERMP))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-updates/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.On.States.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.On.States.png" width=420px/>
 
 12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5))  
 
