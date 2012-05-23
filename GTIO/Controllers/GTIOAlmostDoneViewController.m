@@ -8,32 +8,37 @@
 
 #import "GTIOAlmostDoneViewController.h"
 #import "GTIOAlmostDoneTableHeaderCell.h"
+#import "GTIOUser.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface GTIOAlmostDoneTableDataItem : NSObject
 
 @property (nonatomic, copy) NSString* titleText;
 @property (nonatomic, copy) NSString* placeHolderText;
+@property (nonatomic, copy) NSString* accessoryText;
+@property (nonatomic, retain) NSArray* pickerItems;
 @property (nonatomic, unsafe_unretained) BOOL required;
-@property (nonatomic, unsafe_unretained) BOOL editable;
+@property (nonatomic, unsafe_unretained) BOOL usesPicker;
 @property (nonatomic, unsafe_unretained) BOOL multiline;
 
-- (id)initWithTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder isRequired:(BOOL)required isEditable:(BOOL)editable isMultiline:(BOOL)multiline;
+- (id)initWithTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline;
 
 @end
 
 @implementation GTIOAlmostDoneTableDataItem
 
-@synthesize titleText = _titleText, placeHolderText = _placeHolderText, required = _required, editable = _editable, multiline = _multiline;
+@synthesize titleText = _titleText, placeHolderText = _placeHolderText, accessoryText = _accessoryText, pickerItems = _pickerItems, required = _required, usesPicker = _usesPicker, multiline = _multiline;
 
-- (id)initWithTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder isRequired:(BOOL)required isEditable:(BOOL)editable isMultiline:(BOOL)multiline
+- (id)initWithTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline
 {
     self = [super init];
     if (self) {
         _titleText = title;
         _placeHolderText = placeholder;
+        _accessoryText = accessoryText;
+        _pickerItems = pickerItems;
         _required = required;
-        _editable = editable;
+        _usesPicker = usesPicker;
         _multiline = multiline;
     }
     return self;
@@ -47,6 +52,7 @@
     NSArray* _tableData;
     UITableView* _content;
     CGRect _originalContentFrame;
+    NSURL* _profilePicture;
 }
 
 @end
@@ -57,15 +63,30 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
+        NSMutableArray* selectableYears = [NSMutableArray array];
+        NSDate* currentDate = [NSDate date];
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy"];
+        for (int i = 0; i < 100; i++) {
+            [selectableYears addObject:[dateFormatter stringFromDate:currentDate]];
+            currentDate = [currentDate dateByAddingTimeInterval:-(60*60*24*365.25)];
+        }
+        
+        NSArray* selectableGenders = [NSArray arrayWithObjects:@"female", @"male", nil];
+        
+        GTIOUser* currentUser = [GTIOUser currentUser];
+        _profilePicture = [currentUser icon];
+        
         _tableData = [NSArray arrayWithObjects:
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"email" andPlaceHolderText:@"user@domain.com" isRequired:YES isEditable:YES isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"name" andPlaceHolderText:@"Jane Doe" isRequired:YES isEditable:YES isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"city" andPlaceHolderText:@"New York" isRequired:NO isEditable:YES isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"state or country" andPlaceHolderText:@"NY" isRequired:NO isEditable:YES isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"gender" andPlaceHolderText:@"select" isRequired:YES isEditable:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"year born" andPlaceHolderText:@"select year" isRequired:NO isEditable:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" isRequired:NO isEditable:YES isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" isRequired:NO isEditable:YES isMultiline:YES],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:nil andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser name] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"state or country" andPlaceHolderText:@"NY" andAccessoryText:[currentUser state] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"gender" andPlaceHolderText:@"select" andAccessoryText:[currentUser gender] andPickerItems:selectableGenders isRequired:YES usesPicker:YES isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"year born" andPlaceHolderText:@"select year" andAccessoryText:[NSString stringWithFormat:@"%i",[[currentUser birthYear] intValue]] andPickerItems:selectableYears isRequired:NO usesPicker:YES isMultiline:NO],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:nil andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" andAccessoryText:[currentUser aboutMe] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:YES],
                       nil];
     }
     return self;
@@ -153,19 +174,27 @@
     if (cell == nil) {
         if (indexPath.section == 0) {
             cell = (GTIOAlmostDoneTableHeaderCell*)[[GTIOAlmostDoneTableHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            // we'll need to grab the profile picture from the current user
-            // do we have a placeholder image to put here when the user doesn't have a profile picture?
-            [cell setProfilePicture:[UIImage imageNamed:@""]];
+            [cell setProfilePicture:_profilePicture];
             [cell setTag:(indexPath.section+indexPath.row)];
         } else {
+            GTIOAlmostDoneTableDataItem* dataItemForRow = (GTIOAlmostDoneTableDataItem*)[_tableData objectAtIndex:indexPath.row];
             cell = [[GTIOAlmostDoneTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            [cell setCellTitle:[[_tableData objectAtIndex:indexPath.row] titleText]];
-            [cell setRequired:[[_tableData objectAtIndex:indexPath.row] required]];
-            [cell setAccessoryTextEditable:[[_tableData objectAtIndex:indexPath.row] editable]];
-            [cell setAccessoryTextPlaceholderText:[[_tableData objectAtIndex:indexPath.row] placeHolderText]];
-            [cell setAccessoryTextIsMultipleLines:[[_tableData objectAtIndex:indexPath.row] multiline]];
+            [cell setCellTitle:[dataItemForRow titleText]];
+            [cell setRequired:[dataItemForRow required]];
+            [cell setAccessoryTextUsesPicker:[dataItemForRow usesPicker]];
+            [cell setAccessoryTextPlaceholderText:[dataItemForRow placeHolderText]];
+            [cell setAccessoryTextIsMultipleLines:[dataItemForRow multiline]];
             [cell setTag:(indexPath.section+indexPath.row)];
             [cell setDelegate:self];
+            
+            if ([dataItemForRow usesPicker]) {
+                [cell setPickerViewItems:[dataItemForRow pickerItems]];
+            }
+            
+            // prepopulate anything from the current user
+            if ([[dataItemForRow accessoryText] length] > 0 && ![[dataItemForRow accessoryText] isEqualToString:@"0"]) {
+                [cell setAccessoryText:[dataItemForRow accessoryText]];
+            }
         }
     }
     
@@ -177,12 +206,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {
         NSLog(@"tapped edit profile picture");
-    }
-    if (indexPath.section == 1 && indexPath.row == 4) {
-        NSLog(@"tapped gender");
-    }
-    if (indexPath.section == 1 && indexPath.row == 5) {
-        NSLog(@"tapped year");
     }
 }
 

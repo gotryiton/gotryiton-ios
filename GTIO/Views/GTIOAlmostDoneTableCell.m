@@ -10,43 +10,48 @@
 
 @interface GTIOAlmostDoneTableCell() {
 @private
-    UILabel *cellTitle;
-    UITextField *cellAccessoryText;
-    UITextView* cellAccessoryTextMulti;
-    NSString *placeHolderText;
+    UILabel* _cellTitle;
+    UITextField* _cellAccessoryText;
+    UITextView* _cellAccessoryTextMulti;
+    NSString* _placeHolderText;
+    BOOL _usesPicker;
+    BOOL _multiLine;
 }
 
 @end
 
 @implementation GTIOAlmostDoneTableCell
 
-@synthesize delegate = _delegate;
+@synthesize pickerViewItems = _pickerViewItems, delegate = _delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setBackgroundColor:[UIColor whiteColor]];
-        cellTitle = [[UILabel alloc] initWithFrame:(CGRect){10,self.frame.size.height/2-8,0,0}];
-        [cellTitle setBackgroundColor:[UIColor clearColor]];
-        [cellTitle setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
-        [cellTitle setTextColor:UIColorFromRGB(0xA0A0A0)];
-        [self.contentView addSubview:cellTitle];
+        _cellTitle = [[UILabel alloc] initWithFrame:(CGRect){10,self.frame.size.height/2-8,0,0}];
+        [_cellTitle setBackgroundColor:[UIColor clearColor]];
+        [_cellTitle setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
+        [_cellTitle setTextColor:UIColorFromRGB(0xA0A0A0)];
+        [self.contentView addSubview:_cellTitle];
         
-        cellAccessoryText = [[UITextField alloc] initWithFrame:CGRectZero];
-        [cellAccessoryText setBackgroundColor:[UIColor clearColor]];
-        [cellAccessoryText setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:14.0]];
-        [cellAccessoryText setTextColor:UIColorFromRGB(0xA0A0A0)];
-        [cellAccessoryText setTextAlignment:UITextAlignmentRight];
-        [cellAccessoryText setDelegate:self];
-        [self.contentView addSubview:cellAccessoryText];
+        _cellAccessoryText = [[UITextField alloc] initWithFrame:CGRectZero];
+        [_cellAccessoryText setBackgroundColor:[UIColor clearColor]];
+        [_cellAccessoryText setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:14.0]];
+        [_cellAccessoryText setTextColor:UIColorFromRGB(0xA0A0A0)];
+        [_cellAccessoryText setTextAlignment:UITextAlignmentRight];
+        [_cellAccessoryText setDelegate:self];
+        [self.contentView addSubview:_cellAccessoryText];
         
-        cellAccessoryTextMulti = [[UITextView alloc] initWithFrame:CGRectZero];
-        [cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
-        [cellAccessoryTextMulti setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:14.0]];
-        [cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
-        [cellAccessoryTextMulti setDelegate:self];
-        [cellAccessoryTextMulti setTextColor:UIColorFromRGB(0xA0A0A0)];
+        _cellAccessoryTextMulti = [[UITextView alloc] initWithFrame:CGRectZero];
+        [_cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
+        [_cellAccessoryTextMulti setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:14.0]];
+        [_cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
+        [_cellAccessoryTextMulti setDelegate:self];
+        [_cellAccessoryTextMulti setTextColor:UIColorFromRGB(0xA0A0A0)];
+        
+        _usesPicker = NO;
+        _placeHolderText = @"";
     }
     return self;
 }
@@ -62,15 +67,15 @@
     if ([_delegate respondsToSelector:@selector(scrollUpWhileEditing:)]) {
         [_delegate scrollUpWhileEditing:[self tag]];
     }
-    if ([textField.text isEqualToString:placeHolderText]) {
+    if ([textField.text isEqualToString:_placeHolderText] && !_usesPicker) {
         [textField setText:@""];
     }
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    if ([textField.text isEqualToString:@""]) {
-        [textField setText:placeHolderText];
+    if ([textField.text isEqualToString:@""] && !_usesPicker) {
+        [textField setText:_placeHolderText];
     }
 }
 
@@ -78,56 +83,69 @@
     if ([_delegate respondsToSelector:@selector(scrollUpWhileEditing:)]) {
         [_delegate scrollUpWhileEditing:[self tag]];
     }
-    if ([textView.text isEqualToString:placeHolderText]) {
+    if ([textView.text isEqualToString:_placeHolderText] && !_usesPicker) {
         [textView setText:@""];
     }
     return YES;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    if ([textView.text isEqualToString:@""]) {
-        [textView setText:placeHolderText];
+    if ([textView.text isEqualToString:@""] && !_usesPicker) {
+        [textView setText:_placeHolderText];
     }
 }
 
 - (void)setCellTitle:(NSString*)title
 {
-    [cellTitle setText:title];
-    [cellTitle sizeToFit];
-    [cellAccessoryTextMulti setFrame:(CGRect){cellTitle.frame.origin.x,cellTitle.frame.origin.y+cellTitle.frame.size.height,self.frame.size.width-40,70}];
+    [_cellTitle setText:title];
+    [_cellTitle sizeToFit];
+    [_cellAccessoryTextMulti setFrame:(CGRect){_cellTitle.frame.origin.x,_cellTitle.frame.origin.y+_cellTitle.frame.size.height,self.frame.size.width-40,70}];
 }
 
 - (void)setRequired:(BOOL)required
 {
     UIColor *textColor = (required) ? UIColorFromRGB(0xFF8285) : UIColorFromRGB(0xA0A0A0);
-    [cellTitle setTextColor:textColor];
+    [_cellTitle setTextColor:textColor];
 }
 
-- (void)setAccessoryTextEditable:(BOOL)editable
+- (void)setAccessoryTextUsesPicker:(BOOL)usesPicker
 {
-    [cellAccessoryText setEnabled:editable];
-    UIFont *placeHolderFont = (editable) ? [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:14.0] : [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0];
-    [cellAccessoryText setFont:placeHolderFont];
+    _usesPicker = usesPicker;
+    UIFont *placeHolderFont = (usesPicker) ? [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0] : [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:14.0];
+    [_cellAccessoryText setFont:placeHolderFont];
+    
+    
+    
 }
 
 - (void)setAccessoryTextIsMultipleLines:(BOOL)multipleLines
 {
+    _multiLine = multipleLines;
     if (multipleLines) {
-        [cellAccessoryText removeFromSuperview];
-        [cellAccessoryTextMulti setText:placeHolderText];
-        [self.contentView addSubview:cellAccessoryTextMulti];
+        [_cellAccessoryText removeFromSuperview];
+        [_cellAccessoryTextMulti setText:_placeHolderText];
+        [self.contentView addSubview:_cellAccessoryTextMulti];
     } else {
-        [cellAccessoryTextMulti removeFromSuperview];
-        [cellAccessoryText setText:placeHolderText];
-        [self.contentView addSubview:cellAccessoryText];
+        [_cellAccessoryTextMulti removeFromSuperview];
+        [_cellAccessoryText setText:_placeHolderText];
+        [self.contentView addSubview:_cellAccessoryText];
+    }
+}
+
+- (void)setAccessoryText:(NSString*)text
+{
+    if (_multiLine) {
+        [_cellAccessoryTextMulti setText:text];
+    } else {
+        [_cellAccessoryText setText:text];
     }
 }
 
 - (void)setAccessoryTextPlaceholderText:(NSString*)text
 {
-    placeHolderText = text;
-    [cellAccessoryText setText:text];
-    [cellAccessoryText setFrame:(CGRect){cellTitle.frame.origin.x+cellTitle.frame.size.width+3,cellTitle.frame.origin.y,self.frame.size.width-cellTitle.frame.size.width-43,cellTitle.frame.size.height}];
+    _placeHolderText = text;
+    [_cellAccessoryText setText:text];
+    [_cellAccessoryText setFrame:(CGRect){_cellTitle.frame.origin.x+_cellTitle.frame.size.width+3,_cellTitle.frame.origin.y,self.frame.size.width-_cellTitle.frame.size.width-43,_cellTitle.frame.size.height}];
 }
 
 @end

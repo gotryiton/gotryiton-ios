@@ -1741,6 +1741,15 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		8E6C8836156D2B1C0082E13B /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				8E1AC82C156C48200039E6E9 /* GTIOAlmostDoneViewController.h */,
+				8E1AC82D156C48200039E6E9 /* GTIOAlmostDoneViewController.m */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
 		8E91ABE7156AC119009D70AC /* janrain */ = {
 			isa = PBXGroup;
 			children = (
@@ -2432,10 +2441,9 @@
 		D2CDA9AF15503307009B7E24 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8E6C8836156D2B1C0082E13B /* Profile */,
 				D2D0483C156437730034E04F /* Authentication */,
 				D201C824156144CE00C4168D /* Splash/Intro */,
-				8E1AC82C156C48200039E6E9 /* GTIOAlmostDoneViewController.h */,
-				8E1AC82D156C48200039E6E9 /* GTIOAlmostDoneViewController.m */,
 				8E1AC82E156C48200039E6E9 /* GTIOCameraViewController.h */,
 				8E1AC82F156C48200039E6E9 /* GTIOCameraViewController.m */,
 				D2E375961559B86700763A67 /* GTIOExploreLooksViewController.h */,

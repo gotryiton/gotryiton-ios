@@ -18,11 +18,12 @@
 
 @interface GTIOAlmostDoneTableCell : UITableViewCell <UITextFieldDelegate, UITextViewDelegate>
 
+@property (nonatomic, retain) NSArray *pickerViewItems;
 @property (nonatomic, unsafe_unretained) id<GTIOAlmostDoneTableCellDelegate> delegate;
 
 - (void)setCellTitle:(NSString*)title;
 - (void)setRequired:(BOOL)required;
-- (void)setAccessoryTextEditable:(BOOL)editable;
+- (void)setAccessoryTextUsesPicker:(BOOL)usesPicker;
 - (void)setAccessoryTextIsMultipleLines:(BOOL)multipleLines;
 - (void)setAccessoryTextPlaceholderText:(NSString*)text;
 

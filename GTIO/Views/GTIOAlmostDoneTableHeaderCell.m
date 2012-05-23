@@ -7,6 +7,7 @@
 //
 
 #import "GTIOAlmostDoneTableHeaderCell.h"
+#import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface GTIOAlmostDoneTableHeaderCell() {
@@ -38,6 +39,7 @@
         [_profilePicture.layer setBorderWidth:2.0f];
         [_profilePicture.layer setCornerRadius:5.0f];
         [_profilePicture.layer setOpaque:YES];
+        [_profilePicture.layer setMasksToBounds:YES];
         [self addSubview:_profilePicture];
         
         UILabel *editProfilePictureTitle = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -56,8 +58,8 @@
     return self;
 }
 
-- (void)setProfilePicture:(UIImage *)profilePicture {
-    [_profilePicture setImage:profilePicture];
+- (void)setProfilePicture:(NSURL*)profilePicture {
+    [_profilePicture setImageWithURL:profilePicture];
 }
 
 @end
