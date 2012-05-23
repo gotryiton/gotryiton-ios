@@ -77,12 +77,17 @@
    13.3 [Error messages](#133-error-messages)   
    13.4 [Follow buttons](#134-follow-buttons)   
    13.5 [Authentication](#135-authentication)   
-   13.6 [Pull to refresh behavior](#136-pull-to-refresh-behavior) 
+   13.6 [Pull to refresh behavior](#136-pull-to-refresh-behavior)   
    13.7 [User Badges](#137-user-badges)   
+<<<<<<< HEAD
    13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)
    13.9 [Custom UIAlertView](#139-custom-uialertview) 
 
 
+=======
+   13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)   
+   13.9 [Custom UIAlertView](#139-custom-uialertview)   
+>>>>>>> Putting in references for rest of section 6
 ---
 
 ### General Questions
@@ -1863,6 +1868,7 @@ previous screen
 #### Design Stories
 - Refresh Icon
 	- 16px from top, 9px from right
+- For cells and button placement, refer to 6.1 design stories
 
 ### 6.3 Friends management page
 
@@ -1916,6 +1922,7 @@ previous screen
 	- Top Border: 1px rgb(243,247,245) #f3f7f5
 	- Bottom Border: 1px rgb(211,217,215) #d3d9d7
 	- "suggested friend" cell has no bottom border and has height of 49px
+- For cells and button placement, refer to 6.1 design stories
 
 ### 6.4 Find out-of-network Friends  
 
@@ -1956,6 +1963,7 @@ previous screen
 	- Text begins 16px below icon
 	- "search through the entire" 16pt Proxima Nova Light rgb(143,143,143) #8f8f8f
 	- "Go Try It On community" 16pt Proxima Nova Bold rgb(143,143,143) #8f8f8f
+- For cells and button placement, refer to 6.1 design stories	
 
 ### 6.5 Following List  
 
@@ -1987,6 +1995,8 @@ previous screen
       - has profile icon, name, tappable to profile, 
       - following toggle
 
+#### Design Stories
+- For cells and button placement, refer to 6.1 design stories
 
 ### 6.6 Followers List  
 
@@ -2017,6 +2027,9 @@ previous screen
       - alpha sort
       - has profile icon, name, tappable to profile, 
       - following toggle
+
+#### Design Stories
+- For cells and button placement, refer to 6.1 design stories
 
 ## 7. Profile pages
 
