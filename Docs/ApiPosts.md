@@ -213,11 +213,9 @@ Creates and returns a post object based on passed parameters.
 #### Request
 ```json
 {
-  "post" : {
-    "description": "This is a post.",
-    "voting_enabled": true,
-    "photo_id": "76199FA"
-  }
+  "description": "This is a post.",
+  "voting_enabled": true,
+  "photo_id": "76199FA"
 }
 ```
 
