@@ -786,15 +786,15 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 
 2.1.1 New notifications  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.1.Navbar.Notifications.New.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/2.1.Notifications.Unread.png" width=420px/>
 
 2.1.2 No New notifications  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.2.Navbar.Notifications.No.New.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/2.1.Notifications.Already.Read.png" width=420px/>
 
 2.1.3 Logged out notifications
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.3.Navbar.Notifications.Logged.Out.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/2.1.Notifications.None.png" width=420px/>
 
 #### User Flow
 
@@ -825,6 +825,43 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
    - the nav bar contains number of new notifications
    - notification container and gotryiton logo tappable
       - **tap** ==> (view 2.2) (!!matt to add animation details)
+
+#### Design Stories
+- Background
+   - 'nav.bar.bg.png'
+- Shadow
+   - 'nav.bar.shadow.png'
+   - shown immediately below nav bar on all screens with this nav bar, overlays content area
+- Buttons
+   - Normal
+      - 'nav.button.png'
+         - middle is stretchable
+         - 2px nonstretchable on left and right
+   - Back
+      - 'nav.button.back.png'
+         - middle is stretchable
+         - 2px nonstretchable on right
+         - 8px nonstretchable on left
+- Notifications View
+   - 'nav.logo.png' as title
+      - asset is padded to allow vertical and horizontal centering
+      - position is the same whether counter is present/not present
+   - 'nav.counter.png' is bubble container for notification count
+      - ACTIVE, INACTIVE, EMPTY ACTIVE, EMPTY INACTIVE versions
+      - asset is padded to allow vertical centering
+      - should be placed 81px from right edge of screen
+      - notification count
+         - Verlag Book
+         - 7pt
+         - rgb(255,255,255)
+         - horizontally and vertically centered within bubble
+- Custom Title View
+   - Archer Light Italic
+   - 8pt
+   - rgb(64,64,65)
+   - baseline should be 4px lower than normal
+
+
 
 ### 2.2 Notifications view 
 
