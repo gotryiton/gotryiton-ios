@@ -54,7 +54,6 @@
     UITableView* _content;
     CGRect _originalContentFrame;
     NSURL* _profilePicture;
-    NSMutableArray* _cellIdentifiers;
 }
 
 @end
@@ -65,8 +64,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _cellIdentifiers = [NSMutableArray array];
-        
         NSMutableArray* selectableYears = [NSMutableArray array];
         NSDate* currentDate = [NSDate date];
         NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
@@ -177,31 +174,27 @@
     if (cell == nil) {
         if (indexPath.section == 0) {
             cell = (GTIOAlmostDoneTableHeaderCell*)[[GTIOAlmostDoneTableHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            [cell setProfilePicture:_profilePicture];
+            [cell setTag:(indexPath.section+indexPath.row)];
         } else {
             cell = [[GTIOAlmostDoneTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-    }
-    
-    if (indexPath.section == 0) {
-        [cell setProfilePicture:_profilePicture];
-        [cell setTag:(indexPath.section+indexPath.row)];
-    } else {
-        GTIOAlmostDoneTableDataItem* dataItemForRow = (GTIOAlmostDoneTableDataItem*)[_tableData objectAtIndex:indexPath.row];
-        [cell setCellTitle:[dataItemForRow titleText]];
-        [cell setRequired:[dataItemForRow required]];
-        [cell setAccessoryTextIsMultipleLines:[dataItemForRow multiline]];
-        [cell setAccessoryTextUsesPicker:[dataItemForRow usesPicker]];
-        [cell setAccessoryTextPlaceholderText:[dataItemForRow placeHolderText]];
-        [cell setTag:(indexPath.section+indexPath.row)];
-        [cell setDelegate:self];
-        
-        if ([dataItemForRow usesPicker]) {
-            [cell setPickerViewItems:[dataItemForRow pickerItems]];
-        }
-        
-        // prepopulate anything from the current user
-        if ([[dataItemForRow accessoryText] length] > 0 && ![[dataItemForRow accessoryText] isEqualToString:@"0"]) {
-            [cell setAccessoryText:[dataItemForRow accessoryText]];
+            GTIOAlmostDoneTableDataItem* dataItemForRow = (GTIOAlmostDoneTableDataItem*)[_tableData objectAtIndex:indexPath.row];
+            [cell setCellTitle:[dataItemForRow titleText]];
+            [cell setRequired:[dataItemForRow required]];
+            [cell setAccessoryTextIsMultipleLines:[dataItemForRow multiline]];
+            [cell setAccessoryTextUsesPicker:[dataItemForRow usesPicker]];
+            [cell setAccessoryTextPlaceholderText:[dataItemForRow placeHolderText]];
+            [cell setTag:(indexPath.section+indexPath.row)];
+            [cell setDelegate:self];
+            
+            if ([dataItemForRow usesPicker]) {
+                [cell setPickerViewItems:[dataItemForRow pickerItems]];
+            }
+            
+            // prepopulate anything from the current user
+            if ([[dataItemForRow accessoryText] length] > 0 && ![[dataItemForRow accessoryText] isEqualToString:@"0"]) {
+                [cell setAccessoryText:[dataItemForRow accessoryText]];
+            }
         }
     }
     
