@@ -1162,7 +1162,7 @@ A User can see other users who have hearted an outfit or product post
 
 3.5 Who Hearted this ([wireframe](http://invis.io/N22OBX9Q)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.5.Who.Hearted.This.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.5.Who.Hearted.This.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1188,9 +1188,26 @@ previous screen
 - Custom Title Bar
    - 'who.hearted.this.title.png'
    - horizontally and vertically centered
+- List tables/cells
+   - All Cells
+      - Height: 48px (without border)
+      - Background: rgb(255,255,255) #ffffff
+      - Active State background: rgb(237,235,224) #edebe0
+      - Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
+      - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
+      - Bottom border: 1px rgba(217,215,206) #d9d7ce
+   - Profile Icons
+      - 36x36px
+      - Inner shadow overlay (general/large-profile-overlay-inner-shadow.png)
+      - 6px from left of cell
+      - Vertically centered in cell
+      - 10px padding from profile icon and username text
+   - Follow buttons
+      - 10px from left edge of screen
 - Transitions
    - slides in from right
    - normal behavior in navigation stack
+
 
 ### 3.6 Product Post Detail Page
 
