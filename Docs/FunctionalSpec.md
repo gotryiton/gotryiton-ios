@@ -3261,9 +3261,11 @@ request:
 
 ```json
 {
-   "image" : "<image data>",
-   "using_filter" : "FilterName",
-   "using_frame" : true
+   "photo" : {
+      "image" : "<image data>",
+      "using_filter" : "FilterName",
+      "using_frame" : true
+   }
 }
 ```
 
