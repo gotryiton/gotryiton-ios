@@ -1184,6 +1184,13 @@ previous screen
       - state of button is either unfollow or follow
       - **tap** ==> api request and changes state of button
 
+#### Design Stories
+- Custom Title Bar
+   - 'who.hearted.this.title.png'
+   - horizontally and vertically centered
+- Transitions
+   - slides in from right
+   - normal behavior in navigation stack
 
 ### 3.6 Product Post Detail Page
 
