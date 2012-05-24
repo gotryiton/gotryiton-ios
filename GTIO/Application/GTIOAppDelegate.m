@@ -218,29 +218,17 @@
     [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-OFF.png"]];
     [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-OFF.png"]];
     
-    CGFloat yOffset = 0.0f;
-    if (self.tabBarController.tabBar.frame.origin.y != self.tabBarController.view.frame.size.height - self.tabBarController.tabBar.frame.size.height) {
-        yOffset = -self.tabBarController.tabBar.frame.size.height;
-    }
     
     if ([viewController isKindOfClass:[GTIOFeedViewController class]]) {
         [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
         [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOCameraViewController class]]) {
-        yOffset = self.tabBarController.tabBar.frame.size.height;
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOShopViewController class]]) {
         [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOMeViewController class]]) {
         [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
-    }
-         
-    // Animate tab bar in or out
-    if (yOffset != 0.0f) {
-        [UIView animateWithDuration:0.2f animations:^{
-            [tabBarController.tabBar setFrame:CGRectOffset(tabBarController.tabBar.frame, 0, tabBarController.tabBar.frame.size.height)];
-        }];
     }
 }
 
