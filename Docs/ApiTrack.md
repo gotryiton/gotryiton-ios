@@ -15,10 +15,7 @@ Optionally: include visit object to define parameters about the user's visit.  T
 
 ```json
 {
-  "track" : {
-
     "id" : "id_of_event",
-
     "visit" : {
       "latitude" : 40.720577,
       "longitude" : -74.000478,
@@ -26,7 +23,6 @@ Optionally: include visit object to define parameters about the user's visit.  T
       "ios_device" : "Iphone 4S",
       "build_version" : "4.0.0",
     } 
-  }
 }
 ```
 
