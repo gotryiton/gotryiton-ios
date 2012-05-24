@@ -805,15 +805,15 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 
 2.1.1 New notifications  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.1.Navbar.Notifications.New.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/2.1.Notifications.Unread.png" width=420px/>
 
 2.1.2 No New notifications  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.2.Navbar.Notifications.No.New.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/2.1.Notifications.Already.Read.png" width=420px/>
 
 2.1.3 Logged out notifications
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/2.3.Navbar.Notifications.Logged.Out.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/2.1.Notifications.None.png" width=420px/>
 
 #### User Flow
 
@@ -844,6 +844,43 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
    - the nav bar contains number of new notifications
    - notification container and gotryiton logo tappable
       - **tap** ==> (view 2.2) (!!matt to add animation details)
+
+#### Design Stories
+- Background
+   - 'nav.bar.bg.png'
+- Shadow
+   - 'nav.bar.shadow.png'
+   - shown immediately below nav bar on all screens with this nav bar, overlays content area
+- Buttons
+   - Normal
+      - 'nav.button.png'
+         - middle is stretchable
+         - 2px nonstretchable on left and right
+   - Back
+      - 'nav.button.back.png'
+         - middle is stretchable
+         - 2px nonstretchable on right
+         - 8px nonstretchable on left
+- Notifications View
+   - 'nav.logo.png' as title
+      - asset is padded to allow vertical and horizontal centering
+      - position is the same whether counter is present/not present
+   - 'nav.counter.png' is bubble container for notification count
+      - ACTIVE, INACTIVE, EMPTY ACTIVE, EMPTY INACTIVE versions
+      - asset is padded to allow vertical centering
+      - should be placed 81px from right edge of screen
+      - notification count
+         - Verlag Book
+         - 7pt
+         - rgb(255,255,255)
+         - horizontally and vertically centered within bubble
+- Custom Title View
+   - Archer Light Italic
+   - 8pt
+   - rgb(64,64,65)
+   - baseline should be 4px lower than normal
+
+
 
 ### 2.2 Notifications view 
 
@@ -1156,7 +1193,7 @@ A User can see other users who have hearted an outfit or product post
 
 3.5 Who Hearted this ([wireframe](http://invis.io/N22OBX9Q)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.5.Who.Hearted.This.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.5.Who.Hearted.This.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1177,6 +1214,30 @@ previous screen
    - follow btn
       - state of button is either unfollow or follow
       - **tap** ==> api request and changes state of button
+
+#### Design Stories
+- Custom Title Bar
+   - 'who.hearted.this.title.png'
+   - horizontally and vertically centered
+- List tables/cells
+   - All Cells
+      - Height: 48px (without border)
+      - Background: rgb(255,255,255) #ffffff
+      - Active State background: rgb(237,235,224) #edebe0
+      - Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
+      - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
+      - Bottom border: 1px rgba(217,215,206) #d9d7ce
+   - Profile Icons
+      - 36x36px
+      - Inner shadow overlay (general/large-profile-overlay-inner-shadow.png)
+      - 6px from left of cell
+      - Vertically centered in cell
+      - 10px padding from profile icon and username text
+   - Follow buttons
+      - 10px from left edge of screen
+- Transitions
+   - slides in from right
+   - normal behavior in navigation stack
 
 
 ### 3.6 Product Post Detail Page
@@ -2178,11 +2239,11 @@ A logged in user can edit their profile icon
 #### Mockups
 7.3 ([wireframe](http://invis.io/MF2QIO3Y))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.3.Edit.Profile.Pic.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.3.Edit.Profile.Picture.png" width=420px/>
 
 7.3.1 No facebook connect, and no looks  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.3.Edit.Profile.Pic.Nulls.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.3.Edit.Profile.Picture.Nulls.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2210,6 +2271,88 @@ previous screen
          - **success** ==> api request to /User/Facebook-Connect
             - **success** ==> refresh (view 7.3)
    - if the user **is** facebook connected, then the fb connect button is hidden
+
+#### Design Stories
+- Table Cell 1
+   - 183px tall
+   - outside stroke rbg(217,215,206)
+   - 'choose from'
+      - Archer Light Italic
+      - 8pt
+      - rgb(255,106,114)
+      - 28px from left edge of screen
+      - baseline is 29px from top of table cell
+   - 'facebook'
+      - 'edit.profile.pic.fb.png'
+      - 31px from left edge of screen
+      - 51px from top of table cell
+   - 'my looks'
+      - Verlag Light
+      - 6pt
+      - rgb(143,143,143)
+      - 36px from left edge of screen
+      - baseline is 60px from top of table cell
+   - thumbs
+      - facebook
+         - 25px from left edge of screen
+         - 71px from top of table cell
+         - overlaid by 'edit.profile.pic.thumb.mask.png'
+      - my looks
+         - 195px wide area
+         - first thumb
+            - 100px from left edge of screen
+            - 71px from top of table cell
+         - all thumbs
+            - overlaid by 'edit.profile.pic.thumb.mask.png'
+            - 5px gap between thumbnails
+         - scrollbar
+            - only visible if there is overflow
+            - 10px below bottom of thumbnails
+            - 'thumbs-scroll.png' with OVER and UNDER versions
+      - selected thumb
+         - overlaid by 'edit profile.pic.selected,png'
+            - position is offset by 1px to the left and 1px up from thumb position
+   - 'f connect' button
+      - 'edit.profile.pic.fb.connect.png' with ACTIVE and INACTIVE versions
+      - 25px from left edge of screen
+      - 10px below accompanying thumbnail
+- Table Cell 2
+   - 200px tall
+   - outside stroke rbg(217,215,206)
+   - 'preview'
+      - Archer Light Italic
+      - 8pt
+      - rgb(255,106,114)
+      - 28px from left edge of screen
+      - baseline is 29px from top of table cell
+   - preview area
+      - bg is 'edit.profile.pic.preview.cell.png'
+         - 26px from left edge of screen
+         - 54px from top of table cell
+      - thumb
+         - overlaid by 'edit.profile.pic.thumb.mask.png'
+         - 39px from left edge of screen
+         - vertically centered inside 'edit.profile.pic.preview.cell.png'
+            - trying for 13px of padding on top, left, bottom of thumb
+      - user name
+         - Archer Medium Italic
+         - max width of text is 172px wide
+         - 9pt max, 7pt min
+         - rgb(255,106,114)
+         - 108px from left edge of screen
+         - baseline is 91px from top of table cell
+            - if user location is not available, baseline is 110px from top of table cell
+      - user location (if available)
+         - Proxima Nova Regular
+         - All caps
+         - 6pt
+         - rgb(143,143,143)
+         - 108px from left edge of screen
+         - baseline is 110px from top of table cell
+   - 'clear profile picture' button
+         - 'edit.profile.pic.clear.png' with ACTIVE and INACTIVE versions
+         - 26px from left edge of screen
+         - 151px from top of table cell
 
 ### 7.4 Edit profile  
 
