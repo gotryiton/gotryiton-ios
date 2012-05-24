@@ -54,6 +54,7 @@
     UITableView* _content;
     CGRect _originalContentFrame;
     NSURL* _profilePicture;
+    NSMutableDictionary* _saveData;
 }
 
 @end
@@ -63,7 +64,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self) {        
         NSMutableArray* selectableYears = [NSMutableArray array];
         NSDate* currentDate = [NSDate date];
         NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
@@ -79,15 +80,21 @@
         _profilePicture = [currentUser icon];
         
         _tableData = [NSArray arrayWithObjects:
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:nil andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:@"" andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser name] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"state or country" andPlaceHolderText:@"NY" andAccessoryText:[currentUser state] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"gender" andPlaceHolderText:@"select" andAccessoryText:[currentUser gender] andPickerItems:selectableGenders isRequired:YES usesPicker:YES isMultiline:NO],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"year born" andPlaceHolderText:@"select year" andAccessoryText:[NSString stringWithFormat:@"%i",[[currentUser birthYear] intValue]] andPickerItems:selectableYears isRequired:NO usesPicker:YES isMultiline:NO],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:nil andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:@"" andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" andAccessoryText:[currentUser aboutMe] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:YES],
                       nil];
+        
+        // prepopulate save data with values from current user
+        _saveData = [NSMutableDictionary dictionary];
+        for (GTIOAlmostDoneTableDataItem *dataItem in _tableData) {
+            [_saveData setValue:[dataItem accessoryText] forKey:[dataItem titleText]];
+        }
     }
     return self;
 }
@@ -106,7 +113,20 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"green-pattern-nav-bar.png"] forBarMetrics:UIBarMetricsDefault];
     
     GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSave tapHandler:^(id sender) {
-        [self.navigationController popViewControllerAnimated:YES];
+        NSMutableArray *missingDataElements = [NSMutableArray array];
+        for (GTIOAlmostDoneTableDataItem *dataItem in _tableData) {
+            if ([dataItem required]) {
+                if ([[_saveData valueForKey:[dataItem titleText]] length] == 0) {
+                    [missingDataElements addObject:[dataItem titleText]];
+                }
+            }
+        }
+        if ([missingDataElements count] > 0) {
+            UIAlertView *missingRequiredData = [[UIAlertView alloc] initWithTitle:@"Incomplete Profile!" message:[NSString stringWithFormat:@"Please complete the '%@' section%@.",[missingDataElements componentsJoinedByString:@", "], ([missingDataElements count] > 1) ? @"s" : @""] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            [missingRequiredData show];
+        } else {
+            NSLog(@"%@",_saveData);
+        }
     }];
     
     [self.navigationItem setHidesBackButton:YES];
@@ -227,6 +247,11 @@
     } else {
         [_content scrollRectToVisible:frame animated:YES];
     }
+}
+
+- (void)updateDataSourceWithValue:(id)value ForKey:(NSString*)key
+{
+    [_saveData setValue:value forKey:key];
 }
 
 - (void)resetScrollAfterEditing {
