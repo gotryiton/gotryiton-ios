@@ -851,7 +851,7 @@ Request
         }
     ], 
     "track" : {
-        "id" : "Quick Add",
+        "screen" : "Quick Add",
         "quick_add_list_length" : 8,
     }
 } 
