@@ -10,6 +10,9 @@
 
 @protocol GTIOAlmostDoneTableCellDelegate <NSObject>
 
+@required
+- (void)updateDataSourceWithValue:(id)value ForKey:(NSString*)key;
+
 @optional
 - (void)scrollUpWhileEditing:(NSUInteger)cellIdentifier;
 - (void)resetScrollAfterEditing;
