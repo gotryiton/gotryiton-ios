@@ -69,7 +69,7 @@
         [currentUser updateCurrentUserWithFields:fieldsToUpdate withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             if (!error) {
-                [[GTIOUser currentUser] setIcon:[NSURL URLWithString:currentlySelectedProfileIconURL]];
+                [[GTIOUser currentUser] setIcon:[NSURL URLWithString:[user.icon absoluteString]]];
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to update your profile picture." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
