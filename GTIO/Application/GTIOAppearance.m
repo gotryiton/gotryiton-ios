@@ -7,6 +7,8 @@
 //
 
 #import "GTIOAppearance.h"
+#import "GTIOAlmostDoneViewController.h"
+#import "GTIOEditProfilePictureViewController.h"
 
 @implementation GTIOAppearance
 

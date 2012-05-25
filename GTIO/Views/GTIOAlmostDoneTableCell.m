@@ -38,13 +38,13 @@
         _cellTitle = [[UILabel alloc] initWithFrame:(CGRect){10,self.frame.size.height/2-8,0,0}];
         [_cellTitle setBackgroundColor:[UIColor clearColor]];
         [_cellTitle setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
-        [_cellTitle setTextColor:UIColorFromRGB(0xA0A0A0)];
+        [_cellTitle setTextColor:[UIColor gtio_darkGrayTextColor]];
         [self.contentView addSubview:_cellTitle];
         
         _cellAccessoryText = [[GTIOTextFieldForPickerViews alloc] initWithFrame:CGRectZero];
         [_cellAccessoryText setBackgroundColor:[UIColor clearColor]];
         [_cellAccessoryText setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLightItal size:14.0]];
-        [_cellAccessoryText setTextColor:UIColorFromRGB(0xA0A0A0)];
+        [_cellAccessoryText setTextColor:[UIColor gtio_darkGrayTextColor]];
         [_cellAccessoryText setTextAlignment:UITextAlignmentRight];
         [_cellAccessoryText setDelegate:self];
         [_cellAccessoryText setReturnKeyType:UIReturnKeyNext];
@@ -65,8 +65,8 @@
         [_cellAccessoryTextMulti setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:14.0]];
         [_cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         [_cellAccessoryTextMulti setDelegate:self];
-        [_cellAccessoryTextMulti setTextColor:UIColorFromRGB(0xA0A0A0)];
-        [_cellAccessoryTextMulti setPlaceholderColor:UIColorFromRGB(0xA0A0A0)];
+        [_cellAccessoryTextMulti setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [_cellAccessoryTextMulti setPlaceholderColor:[UIColor gtio_darkGrayTextColor]];
         [_cellAccessoryTextMulti setInputAccessoryView:_accessoryToolBar];
         [_cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSaveDataMulti:) name:UITextViewTextDidChangeNotification object:_cellAccessoryTextMulti];
@@ -167,7 +167,7 @@
 
 - (void)setRequired:(BOOL)required
 {
-    UIColor *textColor = (required) ? UIColorFromRGB(0xFF8285) : UIColorFromRGB(0xA0A0A0);
+    UIColor *textColor = (required) ? [UIColor gtio_pinkTextColor] : [UIColor gtio_darkGrayTextColor];
     [_cellTitle setTextColor:textColor];
 }
 

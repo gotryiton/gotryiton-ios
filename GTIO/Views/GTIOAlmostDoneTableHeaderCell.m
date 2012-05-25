@@ -35,7 +35,7 @@
         
         _profilePicture = [[UIImageView alloc] initWithFrame:(CGRect){22,15,59,59}];
         [_profilePicture setBackgroundColor:[UIColor clearColor]];
-        [_profilePicture.layer setBorderColor:UIColorFromRGB(0xF3F3F3).CGColor];
+        [_profilePicture.layer setBorderColor:[UIColor gtio_profilePictureBorderColor].CGColor];
         [_profilePicture.layer setBorderWidth:2.0f];
         [_profilePicture.layer setCornerRadius:5.0f];
         [_profilePicture.layer setOpaque:YES];
@@ -45,7 +45,7 @@
         UILabel *editProfilePictureTitle = [[UILabel alloc] initWithFrame:CGRectZero];
         [editProfilePictureTitle setText:@"edit profile picture?"];
         [editProfilePictureTitle setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
-        [editProfilePictureTitle setTextColor:UIColorFromRGB(0xA0A0A0)];
+        [editProfilePictureTitle setTextColor:[UIColor gtio_darkGrayTextColor]];
         [editProfilePictureTitle sizeToFit];
         [editProfilePictureTitle setFrame:(CGRect){_profilePicture.frame.origin.x+_profilePicture.frame.size.width+10,_profilePicture.frame.origin.y+(_profilePicture.frame.size.height/2-editProfilePictureTitle.frame.size.height/2),editProfilePictureTitle.frame.size}];
         [self addSubview:editProfilePictureTitle];
