@@ -119,7 +119,7 @@
     [loadingIconsLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
     [loadingIconsLabel setText:@"Loading..."];
     [myLooksIcons addSubview:loadingIconsLabel];
-    [[GTIOProfileDataSource sharedDataSource] loadUserIconsWithUserID:@"0596D58" andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+    [[GTIOProfileDataSource sharedDataSource] loadUserIconsWithUserID:currentUser.userID andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         [loadingIconsLabel removeFromSuperview];
         if (!error) {
             BOOL userHasFacebookPicture = NO;
