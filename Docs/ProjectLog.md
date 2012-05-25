@@ -1,3 +1,40 @@
+***Friday May 25th - Standup / Retrospective Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon
+
+**Tasks / To Do List**
+- TT - Get new assets for for custom switch.  Inform Matt.gtio preferred method for cutting assts going forward
+- TT - Send font change article to Matt
+- GTIO - rename fonts to resolve font family issue
+- TT - Review remaining planned work for sprint and update accordingly on 5/29
+
+**Status**
+- Working on custom tab bar with photos.  Hit a little bit of a delay due to having to write a custom switch for changing photo modes.
+- 12.1 Animation - Normal Mode / Photoshoot Mode
+ - Image will be changed
+- Issue with multiple font in same font family on iOS.  Workaround will be to edit the fonts and change the family name.
+- Continuing work on Edit Profile screens
+
+**Updates to Planned Work**
+- 
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+**Week Retrospective**
+- Functional spec came in later than expected with Photo upload requirements 
+- Several technical hurdles popped up over the course of the week
+ - Font
+ - custom switch
+
+---
+
 ***Thursday, May 24th - Standup Notes***
 
 **Attendees**
