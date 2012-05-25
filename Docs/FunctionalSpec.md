@@ -623,13 +623,29 @@ GET /User/Quick-Add
 
 POST /Users/Follow-Many
 
+Request should include an array of user objects (nested under ```users```) that includes the user's id attribute.  Request should also include a track object that includes ```"screen" : "Quick add"``` to specify which screen this request is originating from.
 
+```json
+{
+    "users" : [
+        {
+            "id": "1DB2BD0",
+        },
+        {
+            "id": "7178E1D",
+        }
+    ], 
+    "track" : {
+        "screen" : "Quick add"
+    }
+} 
+```
 
 #### Stories
 - When a new user signs up, they can quickly add people to follow
    - mimmick existing page (GTIO v3)
    - edit user **tap** ==> (view 7.4)
-   - list of users defined in api 
+   - list of users defined in ```/user/quick-add``` response 
       - users default to checked state
       - unchecking all contacts greys out follow x people btn and changes button text to 'follow'
       - selecting and deselecting increments/decrements follow x people btn
@@ -637,6 +653,7 @@ POST /Users/Follow-Many
    - skip **tap** ==> (view 9.1)
    - follow button 
       - makes api requests
+         - POST ```users``` array to ```/users/follow-many```
       - **tap** ==> to (view 8.1)
 
 ### 1.9 Sign in screen (2nd load)
@@ -3141,7 +3158,9 @@ dynamic
 
 ### User flow
 
-[User Flow Diagram PDF](12.Upload.FlowChart.pdf)
+[User Flow Diagram PDF](http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/pdf/12.Upload.FlowChart.pdf)
+
+[Upload Transitions Diagram PDF](http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/pdf/12.Upload.Transitions.pdf)
 
 ### 12.1 Upload start  
 
@@ -3387,9 +3406,11 @@ request:
 
 ```json
 {
-   "image" : "<image data>",
-   "using_filter" : "FilterName",
-   "using_frame" : true
+   "photo" : {
+      "image" : "<image data>",
+      "using_filter" : "FilterName",
+      "using_frame" : true
+   }
 }
 ```
 
