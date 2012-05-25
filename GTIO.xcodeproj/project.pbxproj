@@ -87,8 +87,6 @@
 		8E1ACA1A156C4AAF0039E6E9 /* green-pattern-nav-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC8E1156C4AAF0039E6E9 /* green-pattern-nav-bar@2x.png */; };
 		8E1ACA1B156C4AAF0039E6E9 /* icon-mask-110.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC8E2156C4AAF0039E6E9 /* icon-mask-110.png */; };
 		8E1ACA1C156C4AAF0039E6E9 /* icon-mask-110@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC8E3156C4AAF0039E6E9 /* icon-mask-110@2x.png */; };
-		8E1ACA1D156C4AAF0039E6E9 /* save-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC8E4156C4AAF0039E6E9 /* save-button.png */; };
-		8E1ACA1E156C4AAF0039E6E9 /* save-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC8E5156C4AAF0039E6E9 /* save-button@2x.png */; };
 		8E1ACA1F156C4AAF0039E6E9 /* top-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC8E6156C4AAF0039E6E9 /* top-shadow.png */; };
 		8E1ACA20156C4AAF0039E6E9 /* top-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC8E7156C4AAF0039E6E9 /* top-shadow@2x.png */; };
 		8E1ACA21156C4AAF0039E6E9 /* login-help.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC8E9156C4AAF0039E6E9 /* login-help.png */; };
@@ -315,8 +313,32 @@
 		8E1ACAFE156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC9CE156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow.png */; };
 		8E1ACAFF156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC9CF156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow@2x.png */; };
 		8E1ACB00156C4AAF0039E6E9 /* ui.empty.pixel.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC9D0156C4AAF0039E6E9 /* ui.empty.pixel.png */; };
+		8E240DD2156EB7BA004EA1B8 /* save-button-green-top-margin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240DD0156EB7BA004EA1B8 /* save-button-green-top-margin.png */; };
+		8E240DD3156EB7BA004EA1B8 /* save-button-green-top-margin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240DD1156EB7BA004EA1B8 /* save-button-green-top-margin@2x.png */; };
+		8E240DD6156EB7F2004EA1B8 /* cancel-button-gray-top-margin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240DD4156EB7F2004EA1B8 /* cancel-button-gray-top-margin.png */; };
+		8E240DD7156EB7F2004EA1B8 /* cancel-button-gray-top-margin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240DD5156EB7F2004EA1B8 /* cancel-button-gray-top-margin@2x.png */; };
+		8E240DDA156EB8AD004EA1B8 /* save-button-gray-top-margin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240DD8156EB8AD004EA1B8 /* save-button-gray-top-margin.png */; };
+		8E240DDB156EB8AD004EA1B8 /* save-button-gray-top-margin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240DD9156EB8AD004EA1B8 /* save-button-gray-top-margin@2x.png */; };
+		8E240E16156EC240004EA1B8 /* GTIORoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E240E15156EC240004EA1B8 /* GTIORoundedView.m */; };
+		8E240E19156EC7BA004EA1B8 /* facebook-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E17156EC7BA004EA1B8 /* facebook-logo.png */; };
+		8E240E1A156EC7BA004EA1B8 /* facebook-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E18156EC7BA004EA1B8 /* facebook-logo@2x.png */; };
+		8E240E1D156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E240E1C156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.m */; };
+		8E240E21156ED437004EA1B8 /* GTIOIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E240E20156ED437004EA1B8 /* GTIOIcon.m */; };
+		8E240E24156EE34F004EA1B8 /* facebook-connect-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E22156EE34F004EA1B8 /* facebook-connect-button.png */; };
+		8E240E25156EE34F004EA1B8 /* facebook-connect-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E23156EE34F004EA1B8 /* facebook-connect-button@2x.png */; };
+		8E240E28156EE95E004EA1B8 /* preview-box-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E26156EE95E004EA1B8 /* preview-box-bg.png */; };
+		8E240E29156EE95E004EA1B8 /* preview-box-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E27156EE95E004EA1B8 /* preview-box-bg@2x.png */; };
+		8E240E2C156EEF42004EA1B8 /* clear-profile-picture-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E2A156EEF42004EA1B8 /* clear-profile-picture-button.png */; };
+		8E240E2D156EEF42004EA1B8 /* clear-profile-picture-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E2B156EEF42004EA1B8 /* clear-profile-picture-button@2x.png */; };
+		8E240E30156EF731004EA1B8 /* GTIOProfileDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E240E2F156EF730004EA1B8 /* GTIOProfileDataSource.m */; };
+		8E240E33156F004E004EA1B8 /* GTIOFacebookIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E240E32156F004E004EA1B8 /* GTIOFacebookIcon.m */; };
+		8E240E38156F0772004EA1B8 /* default-facebook-profile-picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E34156F0772004EA1B8 /* default-facebook-profile-picture.png */; };
+		8E240E39156F0772004EA1B8 /* default-facebook-profile-picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E35156F0772004EA1B8 /* default-facebook-profile-picture@2x.png */; };
+		8E240E3A156F0772004EA1B8 /* no-profile-picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E36156F0772004EA1B8 /* no-profile-picture.png */; };
+		8E240E3B156F0772004EA1B8 /* no-profile-picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E37156F0772004EA1B8 /* no-profile-picture@2x.png */; };
 		8E355BF7156D8F5300AA09F6 /* GTIOPickerViewForTextFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E355BF4156D8F5300AA09F6 /* GTIOPickerViewForTextFields.m */; };
 		8E355BF8156D8F5300AA09F6 /* GTIOPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E355BF6156D8F5300AA09F6 /* GTIOPlaceHolderTextView.m */; };
+		8E8A906B156EA202000732CC /* GTIOEditProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */; };
 		8E91B0FF156AC197009D70AC /* JRActivityObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B037156AC197009D70AC /* JRActivityObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E91B100156AC197009D70AC /* JRConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B039156AC197009D70AC /* JRConnectionManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E91B101156AC197009D70AC /* JREngage+CustomInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B03B156AC197009D70AC /* JREngage+CustomInterface.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -719,8 +741,6 @@
 		8E1AC8E1156C4AAF0039E6E9 /* green-pattern-nav-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-pattern-nav-bar@2x.png"; sourceTree = "<group>"; };
 		8E1AC8E2156C4AAF0039E6E9 /* icon-mask-110.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-mask-110.png"; sourceTree = "<group>"; };
 		8E1AC8E3156C4AAF0039E6E9 /* icon-mask-110@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-mask-110@2x.png"; sourceTree = "<group>"; };
-		8E1AC8E4156C4AAF0039E6E9 /* save-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save-button.png"; sourceTree = "<group>"; };
-		8E1AC8E5156C4AAF0039E6E9 /* save-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save-button@2x.png"; sourceTree = "<group>"; };
 		8E1AC8E6156C4AAF0039E6E9 /* top-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-shadow.png"; sourceTree = "<group>"; };
 		8E1AC8E7156C4AAF0039E6E9 /* top-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-shadow@2x.png"; sourceTree = "<group>"; };
 		8E1AC8E9156C4AAF0039E6E9 /* login-help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-help.png"; sourceTree = "<group>"; };
@@ -947,10 +967,40 @@
 		8E1AC9CE156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = small.profile.overlay.inner.shadow.png; sourceTree = "<group>"; };
 		8E1AC9CF156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small.profile.overlay.inner.shadow@2x.png"; sourceTree = "<group>"; };
 		8E1AC9D0156C4AAF0039E6E9 /* ui.empty.pixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui.empty.pixel.png; sourceTree = "<group>"; };
+		8E240DD0156EB7BA004EA1B8 /* save-button-green-top-margin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save-button-green-top-margin.png"; sourceTree = "<group>"; };
+		8E240DD1156EB7BA004EA1B8 /* save-button-green-top-margin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save-button-green-top-margin@2x.png"; sourceTree = "<group>"; };
+		8E240DD4156EB7F2004EA1B8 /* cancel-button-gray-top-margin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button-gray-top-margin.png"; sourceTree = "<group>"; };
+		8E240DD5156EB7F2004EA1B8 /* cancel-button-gray-top-margin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button-gray-top-margin@2x.png"; sourceTree = "<group>"; };
+		8E240DD8156EB8AD004EA1B8 /* save-button-gray-top-margin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save-button-gray-top-margin.png"; sourceTree = "<group>"; };
+		8E240DD9156EB8AD004EA1B8 /* save-button-gray-top-margin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save-button-gray-top-margin@2x.png"; sourceTree = "<group>"; };
+		8E240E14156EC23F004EA1B8 /* GTIORoundedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIORoundedView.h; sourceTree = "<group>"; };
+		8E240E15156EC240004EA1B8 /* GTIORoundedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIORoundedView.m; sourceTree = "<group>"; };
+		8E240E17156EC7BA004EA1B8 /* facebook-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-logo.png"; sourceTree = "<group>"; };
+		8E240E18156EC7BA004EA1B8 /* facebook-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-logo@2x.png"; sourceTree = "<group>"; };
+		8E240E1B156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSelectableProfilePicture.h; sourceTree = "<group>"; };
+		8E240E1C156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSelectableProfilePicture.m; sourceTree = "<group>"; };
+		8E240E1F156ED437004EA1B8 /* GTIOIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIcon.h; sourceTree = "<group>"; };
+		8E240E20156ED437004EA1B8 /* GTIOIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIcon.m; sourceTree = "<group>"; };
+		8E240E22156EE34F004EA1B8 /* facebook-connect-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-connect-button.png"; sourceTree = "<group>"; };
+		8E240E23156EE34F004EA1B8 /* facebook-connect-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-connect-button@2x.png"; sourceTree = "<group>"; };
+		8E240E26156EE95E004EA1B8 /* preview-box-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "preview-box-bg.png"; sourceTree = "<group>"; };
+		8E240E27156EE95E004EA1B8 /* preview-box-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "preview-box-bg@2x.png"; sourceTree = "<group>"; };
+		8E240E2A156EEF42004EA1B8 /* clear-profile-picture-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear-profile-picture-button.png"; sourceTree = "<group>"; };
+		8E240E2B156EEF42004EA1B8 /* clear-profile-picture-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear-profile-picture-button@2x.png"; sourceTree = "<group>"; };
+		8E240E2E156EF730004EA1B8 /* GTIOProfileDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileDataSource.h; sourceTree = "<group>"; };
+		8E240E2F156EF730004EA1B8 /* GTIOProfileDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileDataSource.m; sourceTree = "<group>"; };
+		8E240E31156F004E004EA1B8 /* GTIOFacebookIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFacebookIcon.h; sourceTree = "<group>"; };
+		8E240E32156F004E004EA1B8 /* GTIOFacebookIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFacebookIcon.m; sourceTree = "<group>"; };
+		8E240E34156F0772004EA1B8 /* default-facebook-profile-picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-facebook-profile-picture.png"; sourceTree = "<group>"; };
+		8E240E35156F0772004EA1B8 /* default-facebook-profile-picture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-facebook-profile-picture@2x.png"; sourceTree = "<group>"; };
+		8E240E36156F0772004EA1B8 /* no-profile-picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-profile-picture.png"; sourceTree = "<group>"; };
+		8E240E37156F0772004EA1B8 /* no-profile-picture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-profile-picture@2x.png"; sourceTree = "<group>"; };
 		8E355BF3156D8F5300AA09F6 /* GTIOPickerViewForTextFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPickerViewForTextFields.h; sourceTree = "<group>"; };
 		8E355BF4156D8F5300AA09F6 /* GTIOPickerViewForTextFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPickerViewForTextFields.m; sourceTree = "<group>"; };
 		8E355BF5156D8F5300AA09F6 /* GTIOPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPlaceHolderTextView.h; sourceTree = "<group>"; };
 		8E355BF6156D8F5300AA09F6 /* GTIOPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPlaceHolderTextView.m; sourceTree = "<group>"; };
+		8E8A9069156EA202000732CC /* GTIOEditProfilePictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOEditProfilePictureViewController.h; sourceTree = "<group>"; };
+		8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOEditProfilePictureViewController.m; sourceTree = "<group>"; };
 		8E91B036156AC197009D70AC /* JRActivityObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRActivityObject.h; sourceTree = "<group>"; };
 		8E91B037156AC197009D70AC /* JRActivityObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRActivityObject.m; sourceTree = "<group>"; };
 		8E91B038156AC197009D70AC /* JRConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRConnectionManager.h; sourceTree = "<group>"; };
@@ -1449,14 +1499,14 @@
 		8E1AC8DD156C4AAF0039E6E9 /* 1.7 */ = {
 			isa = PBXGroup;
 			children = (
+				8E240DD0156EB7BA004EA1B8 /* save-button-green-top-margin.png */,
+				8E240DD1156EB7BA004EA1B8 /* save-button-green-top-margin@2x.png */,
 				8E1AC8DE156C4AAF0039E6E9 /* checkered-bg.png */,
 				8E1AC8DF156C4AAF0039E6E9 /* checkered-bg@2x.png */,
 				8E1AC8E0156C4AAF0039E6E9 /* green-pattern-nav-bar.png */,
 				8E1AC8E1156C4AAF0039E6E9 /* green-pattern-nav-bar@2x.png */,
 				8E1AC8E2156C4AAF0039E6E9 /* icon-mask-110.png */,
 				8E1AC8E3156C4AAF0039E6E9 /* icon-mask-110@2x.png */,
-				8E1AC8E4156C4AAF0039E6E9 /* save-button.png */,
-				8E1AC8E5156C4AAF0039E6E9 /* save-button@2x.png */,
 				8E1AC8E6156C4AAF0039E6E9 /* top-shadow.png */,
 				8E1AC8E7156C4AAF0039E6E9 /* top-shadow@2x.png */,
 			);
@@ -1508,6 +1558,22 @@
 		8E1AC900156C4AAF0039E6E9 /* 7 */ = {
 			isa = PBXGroup;
 			children = (
+				8E240E34156F0772004EA1B8 /* default-facebook-profile-picture.png */,
+				8E240E35156F0772004EA1B8 /* default-facebook-profile-picture@2x.png */,
+				8E240E36156F0772004EA1B8 /* no-profile-picture.png */,
+				8E240E37156F0772004EA1B8 /* no-profile-picture@2x.png */,
+				8E240E2A156EEF42004EA1B8 /* clear-profile-picture-button.png */,
+				8E240E2B156EEF42004EA1B8 /* clear-profile-picture-button@2x.png */,
+				8E240E26156EE95E004EA1B8 /* preview-box-bg.png */,
+				8E240E27156EE95E004EA1B8 /* preview-box-bg@2x.png */,
+				8E240E22156EE34F004EA1B8 /* facebook-connect-button.png */,
+				8E240E23156EE34F004EA1B8 /* facebook-connect-button@2x.png */,
+				8E240E17156EC7BA004EA1B8 /* facebook-logo.png */,
+				8E240E18156EC7BA004EA1B8 /* facebook-logo@2x.png */,
+				8E240DD8156EB8AD004EA1B8 /* save-button-gray-top-margin.png */,
+				8E240DD9156EB8AD004EA1B8 /* save-button-gray-top-margin@2x.png */,
+				8E240DD4156EB7F2004EA1B8 /* cancel-button-gray-top-margin.png */,
+				8E240DD5156EB7F2004EA1B8 /* cancel-button-gray-top-margin@2x.png */,
 				8E1AC901156C4AAF0039E6E9 /* profile.hearts.navbar.icon.png */,
 				8E1AC902156C4AAF0039E6E9 /* profile.hearts.navbar.icon@2x.png */,
 				8E1AC903156C4AAF0039E6E9 /* profile.icon.heart.png */,
@@ -1750,11 +1816,26 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		8E240E1E156ED41E004EA1B8 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				8E240E1F156ED437004EA1B8 /* GTIOIcon.h */,
+				8E240E20156ED437004EA1B8 /* GTIOIcon.m */,
+				8E240E31156F004E004EA1B8 /* GTIOFacebookIcon.h */,
+				8E240E32156F004E004EA1B8 /* GTIOFacebookIcon.m */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
 		8E6C8836156D2B1C0082E13B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				8E1AC82C156C48200039E6E9 /* GTIOAlmostDoneViewController.h */,
 				8E1AC82D156C48200039E6E9 /* GTIOAlmostDoneViewController.m */,
+				8E8A9069156EA202000732CC /* GTIOEditProfilePictureViewController.h */,
+				8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */,
+				8E240E2E156EF730004EA1B8 /* GTIOProfileDataSource.h */,
+				8E240E2F156EF730004EA1B8 /* GTIOProfileDataSource.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -2094,6 +2175,10 @@
 				8EF8FF9C156C112400AFCE55 /* GTIOAlmostDoneTableCell.m */,
 				8EAA14C5156E846C0083884E /* GTIOTextFieldForPickerViews.h */,
 				8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */,
+				8E240E14156EC23F004EA1B8 /* GTIORoundedView.h */,
+				8E240E15156EC240004EA1B8 /* GTIORoundedView.m */,
+				8E240E1B156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.h */,
+				8E240E1C156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -2478,6 +2563,7 @@
 		D2CDA9B015503307009B7E24 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8E240E1E156ED41E004EA1B8 /* Profile */,
 				D246B099155C3D2500E5546A /* Tracking */,
 				D20C2268155B106F0079D7D9 /* Config */,
 				D2D738DF155D574A001B2D4B /* GTIOUser.h */,
@@ -2949,8 +3035,6 @@
 				8E1ACA1A156C4AAF0039E6E9 /* green-pattern-nav-bar@2x.png in Resources */,
 				8E1ACA1B156C4AAF0039E6E9 /* icon-mask-110.png in Resources */,
 				8E1ACA1C156C4AAF0039E6E9 /* icon-mask-110@2x.png in Resources */,
-				8E1ACA1D156C4AAF0039E6E9 /* save-button.png in Resources */,
-				8E1ACA1E156C4AAF0039E6E9 /* save-button@2x.png in Resources */,
 				8E1ACA1F156C4AAF0039E6E9 /* top-shadow.png in Resources */,
 				8E1ACA20156C4AAF0039E6E9 /* top-shadow@2x.png in Resources */,
 				8E1ACA21156C4AAF0039E6E9 /* login-help.png in Resources */,
@@ -3177,6 +3261,24 @@
 				8E1ACAFE156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow.png in Resources */,
 				8E1ACAFF156C4AAF0039E6E9 /* small.profile.overlay.inner.shadow@2x.png in Resources */,
 				8E1ACB00156C4AAF0039E6E9 /* ui.empty.pixel.png in Resources */,
+				8E240DD2156EB7BA004EA1B8 /* save-button-green-top-margin.png in Resources */,
+				8E240DD3156EB7BA004EA1B8 /* save-button-green-top-margin@2x.png in Resources */,
+				8E240DD6156EB7F2004EA1B8 /* cancel-button-gray-top-margin.png in Resources */,
+				8E240DD7156EB7F2004EA1B8 /* cancel-button-gray-top-margin@2x.png in Resources */,
+				8E240DDA156EB8AD004EA1B8 /* save-button-gray-top-margin.png in Resources */,
+				8E240DDB156EB8AD004EA1B8 /* save-button-gray-top-margin@2x.png in Resources */,
+				8E240E19156EC7BA004EA1B8 /* facebook-logo.png in Resources */,
+				8E240E1A156EC7BA004EA1B8 /* facebook-logo@2x.png in Resources */,
+				8E240E24156EE34F004EA1B8 /* facebook-connect-button.png in Resources */,
+				8E240E25156EE34F004EA1B8 /* facebook-connect-button@2x.png in Resources */,
+				8E240E28156EE95E004EA1B8 /* preview-box-bg.png in Resources */,
+				8E240E29156EE95E004EA1B8 /* preview-box-bg@2x.png in Resources */,
+				8E240E2C156EEF42004EA1B8 /* clear-profile-picture-button.png in Resources */,
+				8E240E2D156EEF42004EA1B8 /* clear-profile-picture-button@2x.png in Resources */,
+				8E240E38156F0772004EA1B8 /* default-facebook-profile-picture.png in Resources */,
+				8E240E39156F0772004EA1B8 /* default-facebook-profile-picture@2x.png in Resources */,
+				8E240E3A156F0772004EA1B8 /* no-profile-picture.png in Resources */,
+				8E240E3B156F0772004EA1B8 /* no-profile-picture@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3282,6 +3384,12 @@
 				8E355BF7156D8F5300AA09F6 /* GTIOPickerViewForTextFields.m in Sources */,
 				8E355BF8156D8F5300AA09F6 /* GTIOPlaceHolderTextView.m in Sources */,
 				8EAA14C7156E846C0083884E /* GTIOTextFieldForPickerViews.m in Sources */,
+				8E8A906B156EA202000732CC /* GTIOEditProfilePictureViewController.m in Sources */,
+				8E240E16156EC240004EA1B8 /* GTIORoundedView.m in Sources */,
+				8E240E1D156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.m in Sources */,
+				8E240E21156ED437004EA1B8 /* GTIOIcon.m in Sources */,
+				8E240E30156EF731004EA1B8 /* GTIOProfileDataSource.m in Sources */,
+				8E240E33156F004E004EA1B8 /* GTIOFacebookIcon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

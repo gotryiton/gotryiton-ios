@@ -1,3 +1,45 @@
+***Thursday, May 24th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon
+
+**Tasks / To Do List**
+- NA
+
+**Status**
+- Working on 1.7, moving on to 7.3 (Janrain screens)
+- Working on photo nav bar
+
+**Updates to Planned Work**
+- 104 - 12.5 Play sound when taking photo
+- 103 - 12.5 Burst photos on timer
+- 102 - 12.5 Photo shoot progress bar
+- 101 - 12.5 Photo shoot timer view
+- 100 - 12.4 Photo shoot grid view
+- 99 - 12.3 POST /post
+- 98 - 12.3 Upload photo
+- 96 - 12.3 Photo frames view
+- 95 - 12.3 Style the photo frame mode view
+- 94 - 12.3 Style the post options view
+- 93 - 12.3 Description and tag brands views
+- 92 - 12.2 Filter page toolbar view
+- 91 - 12.2 Filter page view
+- 90 - 12.1 Photo frame overlay 
+- 89 - 12.1 Photo picker
+- 85 - 12.1 Camera control bar
+- 84 - 12.1 Show Camera
+- 83 - Intro Screen animate buttons
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Wednesday, May 23rd - Standup Notes***
 
 **Attendees**

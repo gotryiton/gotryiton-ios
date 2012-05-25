@@ -192,10 +192,24 @@
                                 nil];
         loader.params = params;
         loader.method = RKRequestMethodPOST;
-        loader.targetObject = self;
         
         loader.onDidLoadObjects = ^(NSArray *objects) {
             NSLog(@"Loaded user");
+            
+            // Find user object
+            GTIOUser *user = nil;
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOUser class]]) {
+                    user = object;
+                    break;
+                }
+            }
+            
+            // Populate self with returned User values
+            if (user) {
+                [self populateWithUser:user];
+            }
+            
             if (self.loginHandler) {
                 self.loginHandler(self, nil);
             }

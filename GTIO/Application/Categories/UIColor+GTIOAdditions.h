@@ -24,5 +24,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
 + (UIColor *)gtio_linkColor;
 + (UIColor *)gtio_signInColor;
++ (UIColor *)gtio_lightGrayBorderColor;
++ (UIColor *)gtio_darkGrayTextColor;
++ (UIColor *)gtio_profilePictureBorderColor;
++ (UIColor *)gtio_pinkTextColor;
++ (UIColor *)gtio_greenBorderColor;
 
 @end

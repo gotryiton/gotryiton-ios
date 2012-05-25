@@ -55,6 +55,7 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"login-nav.png"] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewDidLoad
@@ -66,15 +67,14 @@
                                                                            :backgroundImageResourcePath]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -64)];
     [self.view addSubview:backgroundImageView];
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"login-nav.png"] forBarMetrics:UIBarMetricsDefault];
-    
-    GTIOButton *backButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBack tapHandler:^(id sender) {
+
+    GTIOButton *backButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBackBottomMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
     
     __block id blockSelf = self;
+    __block BOOL blockReturningUser = _returningUser;
     
     if (_returningUser) {
         self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignIn];
@@ -92,36 +92,60 @@
     self.aolButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeAOL];
     [self.aolButton setFrame:(CGRect){ {(self.view.frame.size.width - self.aolButton.frame.size.width) / 2, signinOptionsTableYPos }, self.aolButton.frame.size }];
     [self.aolButton setTapHandler:^(id sender) {
-        [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderAol WithLoginHandler:^(GTIOUser *user, NSError *error) {
-            [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-        }];
+        if (blockReturningUser) {
+            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderAol WithLoginHandler:^(GTIOUser *user, NSError *error) {
+                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+            }];
+        } else {
+            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderAol WithLoginHandler:^(GTIOUser *user, NSError *error) {
+                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+            }];
+        }
     }];
     [self.view addSubview:self.aolButton];
     
     self.googleButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeGoogle];
     [self.googleButton setFrame:(CGRect){ {(self.view.frame.size.width - self.googleButton.frame.size.width) / 2, self.aolButton.frame.origin.y + self.aolButton.frame.size.height }, self.googleButton.frame.size }];
     [self.googleButton setTapHandler:^(id sender) {
-        [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderGoogle WithLoginHandler:^(GTIOUser *user, NSError *error) {
-            [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-        }];
+        if (blockReturningUser) {
+            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderGoogle WithLoginHandler:^(GTIOUser *user, NSError *error) {
+                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+            }];
+        } else {
+            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderGoogle WithLoginHandler:^(GTIOUser *user, NSError *error) {
+                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+            }];
+        }
     }];
     [self.view addSubview:self.googleButton];
     
     self.twitterButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeTwitter];
     [self.twitterButton setFrame:(CGRect){ {(self.view.frame.size.width - self.twitterButton.frame.size.width) / 2, self.googleButton.frame.origin.y + self.googleButton.frame.size.height }, self.twitterButton.frame.size }];
     [self.twitterButton setTapHandler:^(id sender) {
-        [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderTwitter WithLoginHandler:^(GTIOUser *user, NSError *error) {
-            [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-        }];
+        if (blockReturningUser) {
+            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderTwitter WithLoginHandler:^(GTIOUser *user, NSError *error) {
+                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+            }];
+        } else {
+            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderTwitter WithLoginHandler:^(GTIOUser *user, NSError *error) {
+                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+            }];
+        }
     }];
     [self.view addSubview:self.twitterButton];
     
     self.yahooButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeYahoo];
     [self.yahooButton setFrame:(CGRect){ {(self.view.frame.size.width - self.yahooButton.frame.size.width) / 2, self.twitterButton.frame.origin.y + self.twitterButton.frame.size.height }, self.yahooButton.frame.size }];
     [self.yahooButton setTapHandler:^(id sender) {
-        [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderYahoo WithLoginHandler:^(GTIOUser *user, NSError *error) {
-            [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-        }];
+        if (blockReturningUser) {
+            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderYahoo WithLoginHandler:^(GTIOUser *user, NSError *error) {
+                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+            }];
+        } else {
+            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderYahoo WithLoginHandler:^(GTIOUser *user, NSError *error) {
+                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+            }];
+        }
     }];
     [self.view addSubview:self.yahooButton];
 }

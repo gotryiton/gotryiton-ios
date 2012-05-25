@@ -9,6 +9,7 @@
 #import "GTIOAlmostDoneViewController.h"
 #import "GTIOAlmostDoneTableHeaderCell.h"
 #import "GTIOPickerViewForTextFields.h"
+#import "GTIOEditProfilePictureViewController.h"
 #import "GTIOUser.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -64,7 +65,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {        
+    if (self) {    
         NSMutableArray* selectableYears = [NSMutableArray array];
         NSDate* currentDate = [NSDate date];
         NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
@@ -104,15 +105,9 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
-
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
-    [backgroundImageView setBackgroundColor:[UIColor whiteColor]];
-    [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -64)];
-    [self.view addSubview:backgroundImageView];
-
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"green-pattern-nav-bar.png"] forBarMetrics:UIBarMetricsDefault];
     
-    GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSave tapHandler:^(id sender) {
+    GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGreenTopMargin tapHandler:^(id sender) {
         NSMutableArray *missingDataElements = [NSMutableArray array];
         for (GTIOAlmostDoneTableDataItem *dataItem in _tableData) {
             if ([dataItem required]) {
@@ -143,7 +138,7 @@
     [_content setDataSource:self];
     [_content setBackgroundColor:[UIColor clearColor]];
     [_content setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-    [_content setSeparatorColor:UIColorFromRGB(0xE6E6E6)];
+    [_content setSeparatorColor:[UIColor gtio_lightGrayBorderColor]];
     _originalContentFrame = _content.frame;
     [self.view addSubview:_content];
     
@@ -225,7 +220,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {
-        NSLog(@"tapped edit profile picture");
+        GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
     }
 }
 
@@ -279,7 +275,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
