@@ -44,10 +44,15 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
  */
 - (void)logOut;
 
-/** Sign up/in with Facebook
+/** Update current user
+ */
+- (void)updateCurrentUserWithFields:(NSDictionary*)updateFields withTrackingInformation:(NSDictionary*)trackingInfo andLoginHandler:(GTIOLoginHandler)loginHandler;
+
+/** Sign up/in or connect with Facebook
  */
 - (void)signUpWithFacebookWithLoginHandler:(GTIOLoginHandler)loginHandler;
 - (void)signInWithFacebookWithLoginHandler:(GTIOLoginHandler)loginHandler;
+- (void)connectToFacebookWithLoginHandler:(GTIOLoginHandler)loginHandler;
 
 /** Sign up/in with janrain
  */

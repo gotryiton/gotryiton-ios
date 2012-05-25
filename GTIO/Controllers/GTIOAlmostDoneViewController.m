@@ -11,10 +11,13 @@
 #import "GTIOPickerViewForTextFields.h"
 #import "GTIOEditProfilePictureViewController.h"
 #import "GTIOUser.h"
+#import "GTIOProgressHUD.h"
+#import "GTIOAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface GTIOAlmostDoneTableDataItem : NSObject
 
+@property (nonatomic, copy) NSString* apiKey;
 @property (nonatomic, copy) NSString* titleText;
 @property (nonatomic, copy) NSString* placeHolderText;
 @property (nonatomic, copy) NSString* accessoryText;
@@ -23,18 +26,19 @@
 @property (nonatomic, unsafe_unretained) BOOL usesPicker;
 @property (nonatomic, unsafe_unretained) BOOL multiline;
 
-- (id)initWithTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline;
+- (id)initWithApiKey:(NSString*)apiKey andTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline;
 
 @end
 
 @implementation GTIOAlmostDoneTableDataItem
 
-@synthesize titleText = _titleText, placeHolderText = _placeHolderText, accessoryText = _accessoryText, pickerItems = _pickerItems, required = _required, usesPicker = _usesPicker, multiline = _multiline;
+@synthesize apiKey = _apiKey, titleText = _titleText, placeHolderText = _placeHolderText, accessoryText = _accessoryText, pickerItems = _pickerItems, required = _required, usesPicker = _usesPicker, multiline = _multiline;
 
-- (id)initWithTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline
+- (id)initWithApiKey:(NSString*)apiKey andTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline
 {
     self = [super init];
     if (self) {
+        _apiKey = apiKey;
         _titleText = title;
         _placeHolderText = placeholder;
         _accessoryText = accessoryText;
@@ -56,6 +60,7 @@
     CGRect _originalContentFrame;
     NSURL* _profilePicture;
     NSMutableDictionary* _saveData;
+    NSMutableArray* _textFields;
 }
 
 @end
@@ -81,21 +86,23 @@
         _profilePicture = [currentUser icon];
         
         _tableData = [NSArray arrayWithObjects:
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:@"" andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser name] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"state or country" andPlaceHolderText:@"NY" andAccessoryText:[currentUser state] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"gender" andPlaceHolderText:@"select" andAccessoryText:[currentUser gender] andPickerItems:selectableGenders isRequired:YES usesPicker:YES isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"year born" andPlaceHolderText:@"select year" andAccessoryText:[NSString stringWithFormat:@"%i",[[currentUser birthYear] intValue]] andPickerItems:selectableYears isRequired:NO usesPicker:YES isMultiline:NO],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:@"" andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" andAccessoryText:[currentUser aboutMe] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:YES],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"email" andTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:@"" andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"name" andTitleText:@"name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser name] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"city" andTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"state" andTitleText:@"state or country" andPlaceHolderText:@"NY" andAccessoryText:[currentUser state] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"gender" andTitleText:@"gender" andPlaceHolderText:@"select" andAccessoryText:[currentUser gender] andPickerItems:selectableGenders isRequired:YES usesPicker:YES isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"born_in" andTitleText:@"year born" andPlaceHolderText:@"select year" andAccessoryText:[NSString stringWithFormat:@"%i",[[currentUser birthYear] intValue]] andPickerItems:selectableYears isRequired:NO usesPicker:YES isMultiline:NO],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"website" andTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:@"" andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"about_me" andTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" andAccessoryText:[currentUser aboutMe] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:YES],
                       nil];
         
         // prepopulate save data with values from current user
         _saveData = [NSMutableDictionary dictionary];
         for (GTIOAlmostDoneTableDataItem *dataItem in _tableData) {
-            [_saveData setValue:[dataItem accessoryText] forKey:[dataItem titleText]];
+            [_saveData setValue:[dataItem accessoryText] forKey:[dataItem apiKey]];
         }
+        
+        _textFields = [NSMutableArray array];
     }
     return self;
 }
@@ -111,7 +118,7 @@
         NSMutableArray *missingDataElements = [NSMutableArray array];
         for (GTIOAlmostDoneTableDataItem *dataItem in _tableData) {
             if ([dataItem required]) {
-                if ([[_saveData valueForKey:[dataItem titleText]] length] == 0) {
+                if ([[_saveData valueForKey:[dataItem apiKey]] length] == 0) {
                     [missingDataElements addObject:[dataItem titleText]];
                 }
             }
@@ -120,7 +127,20 @@
             UIAlertView *missingRequiredData = [[UIAlertView alloc] initWithTitle:@"Incomplete Profile!" message:[NSString stringWithFormat:@"Please complete the '%@' section%@.",[missingDataElements componentsJoinedByString:@", "], ([missingDataElements count] > 1) ? @"s" : @""] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [missingRequiredData show];
         } else {
-            NSLog(@"%@",_saveData);
+            [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+            NSDictionary *trackingInformation = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                 @"edit_profile", @"id",
+                                                 @"almost_done", @"screen",
+                                                 nil];
+            [[GTIOUser currentUser] updateCurrentUserWithFields:_saveData withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                if (!error) {
+                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to save your profile." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                    [alert show];
+                }
+            }];
         }
     }];
     
@@ -186,6 +206,8 @@
     
     id cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    GTIOAlmostDoneTableDataItem* dataItemForRow = (GTIOAlmostDoneTableDataItem*)[_tableData objectAtIndex:indexPath.row];
+    
     if (cell == nil) {
         if (indexPath.section == 0) {
             cell = (GTIOAlmostDoneTableHeaderCell*)[[GTIOAlmostDoneTableHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -193,12 +215,12 @@
             [cell setTag:(indexPath.section+indexPath.row)];
         } else {
             cell = [[GTIOAlmostDoneTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            GTIOAlmostDoneTableDataItem* dataItemForRow = (GTIOAlmostDoneTableDataItem*)[_tableData objectAtIndex:indexPath.row];
             [cell setCellTitle:[dataItemForRow titleText]];
             [cell setRequired:[dataItemForRow required]];
             [cell setAccessoryTextIsMultipleLines:[dataItemForRow multiline]];
             [cell setAccessoryTextUsesPicker:[dataItemForRow usesPicker]];
             [cell setAccessoryTextPlaceholderText:[dataItemForRow placeHolderText]];
+            [cell setApiKey:[dataItemForRow apiKey]];
             [cell setTag:(indexPath.section+indexPath.row)];
             [cell setDelegate:self];
             
@@ -206,10 +228,18 @@
                 [cell setPickerViewItems:[dataItemForRow pickerItems]];
             }
             
-            // prepopulate anything from the current user
-            if ([[dataItemForRow accessoryText] length] > 0 && ![[dataItemForRow accessoryText] isEqualToString:@"0"]) {
-                [cell setAccessoryText:[dataItemForRow accessoryText]];
+            if (![_textFields containsObject:[cell cellAccessoryText]]) {
+                [_textFields addObject:[cell cellAccessoryText]];
             }
+        }
+    }
+    
+    if (indexPath.section == 0) {
+        [cell setProfilePicture:_profilePicture];
+    } else {
+        // prepopulate anything from the current user
+        if ([[dataItemForRow accessoryText] length] > 0 && ![[dataItemForRow accessoryText] isEqualToString:@"0"]) {
+            [cell setAccessoryText:[dataItemForRow accessoryText]];
         }
     }
     
@@ -250,13 +280,22 @@
     [_saveData setValue:value forKey:key];
 }
 
+- (void)refreshScreenData {
+    _profilePicture = [GTIOUser currentUser].icon;
+    for (GTIOAlmostDoneTableDataItem* dataItem in _tableData) {
+        [dataItem setAccessoryText:[_saveData valueForKey:[dataItem apiKey]]];
+    }
+    [_content reloadData];
+    [self adjustContentSizeToFit];
+}
+
 - (void)resetScrollAfterEditing {
     [_content setFrame:_originalContentFrame];
     [self adjustContentSizeToFit];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self adjustContentSizeToFit];
+    [self refreshScreenData];
 }
 
 - (void)adjustContentSizeToFit {
@@ -272,9 +311,13 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    // get rid of the pesky keyboard
+    for (UITextField *textField in _textFields) {
+        [textField resignFirstResponder];
+    }
+    [self resetScrollAfterEditing];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
