@@ -13,11 +13,14 @@
 #import "GTIOProfileDataSource.h"
 #import "GTIOIcon.h"
 #import "GTIOFacebookIcon.h"
+#import "GTIOProgressHUD.h"
+#import "GTIOAlmostDoneViewController.h"
 
 @interface GTIOEditProfilePictureViewController ()
 {
     @private
     GTIOSelectableProfilePicture *previewIcon;
+    GTIOSelectableProfilePicture *facebookPicture;
     UILabel *previewNameLabel;
     UILabel *previewUserLocationLabel;
     NSMutableArray *profileIconViews;
@@ -42,6 +45,10 @@
 
 - (void)loadView
 {
+    [self refreshContent];
+}
+
+- (void)refreshContent {
     GTIOUser *currentUser = [GTIOUser currentUser];
     currentlySelectedProfileIconURL = [currentUser.icon absoluteString];
     
@@ -51,8 +58,24 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"green-pattern-nav-bar.png"] forBarMetrics:UIBarMetricsDefault];
     
     GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
-        [currentUser setIcon:[NSURL URLWithString:currentlySelectedProfileIconURL]];
-        [self.navigationController popViewControllerAnimated:YES];
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+        NSDictionary *fieldsToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            currentlySelectedProfileIconURL, @"icon",
+                                        nil];
+        NSDictionary *trackingInformation = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                @"edit_profile", @"id",
+                                                @"edit_profile_icon", @"screen",
+                                             nil];
+        [currentUser updateCurrentUserWithFields:fieldsToUpdate withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            if (!error) {
+                [[GTIOUser currentUser] setIcon:[NSURL URLWithString:currentlySelectedProfileIconURL]];
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to update your profile picture." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                [alert show];
+            }
+        }];
     }];
     
     GTIOButton *doneButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeDoneGrayTopMargin tapHandler:^(id sender) {
@@ -90,10 +113,16 @@
     UIScrollView *myLooksIcons = [[UIScrollView alloc] initWithFrame:(CGRect){90,72,195,70}];
     [myLooksIcons setShowsVerticalScrollIndicator:NO];
     [chooseFromBox addSubview:myLooksIcons];
-   
-    [[GTIOProfileDataSource sharedDataSource] loadUserIconsWithUserID:currentUser.userID andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+    
+    UILabel *loadingIconsLabel = [[UILabel alloc] initWithFrame:(CGRect){0,0,50,10}];
+    [loadingIconsLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0]];
+    [loadingIconsLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+    [loadingIconsLabel setText:@"Loading..."];
+    [myLooksIcons addSubview:loadingIconsLabel];
+    [[GTIOProfileDataSource sharedDataSource] loadUserIconsWithUserID:@"0596D58" andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        [loadingIconsLabel removeFromSuperview];
         if (!error) {
-             BOOL userHasFacebookPicture = NO;
+            BOOL userHasFacebookPicture = NO;
             
             // find the facebook icon first
             for (id object in loadedObjects) {
@@ -111,7 +140,7 @@
                 }
             }
             
-            GTIOSelectableProfilePicture *facebookPicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){16,72,55,55} andImageURL:nil];
+            facebookPicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){16,72,55,55} andImageURL:nil];
             if (userHasFacebookPicture) {
                 NSString* facebookPictureURL = [profileIconURLs objectAtIndex:0];
                 [facebookPicture setImageWithURL:facebookPictureURL];
@@ -124,6 +153,7 @@
                 
                 UIButton *facebookConnectButton = [[UIButton alloc] initWithFrame:(CGRect){16,137,55,21}];
                 [facebookConnectButton setImage:[UIImage imageNamed:@"facebook-connect-button"] forState:UIControlStateNormal];
+                [facebookConnectButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
                 [chooseFromBox addSubview:facebookConnectButton];
             }
             [chooseFromBox addSubview:facebookPicture];
@@ -141,7 +171,8 @@
             [myLooksIcons setContentSize:(CGSize){numberOfIcons * (55 + iconSpacing),70}];
             
         } else {
-            NSLog(@"%@",[error localizedDescription]);
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to load your looks." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            [alert show];
         }
     }];
     
@@ -181,13 +212,27 @@
     [previewBox addSubview:clearProfilePictureButton];
 }
 
-- (void)clearProfilePicture:(id)sender {
+- (void)connectToFacebook:(id)sender
+{
+    [[GTIOUser currentUser] connectToFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
+        if (!error) {
+            [self refreshContent];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to connect your account to facebook." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
+}
+
+- (void)clearProfilePicture:(id)sender
+{
     [previewIcon setImage:[UIImage imageNamed:@"no-profile-picture.png"]];
     currentlySelectedProfileIconURL = @"";
     [self clearSelectedProfilePictures];
 }
 
-- (void)pictureWasTapped:(id)picture {
+- (void)pictureWasTapped:(id)picture
+{
     // clear all selectable profile pictures before selecting this one
     [self clearSelectedProfilePictures];
     GTIOSelectableProfilePicture *tappedPicture = (GTIOSelectableProfilePicture*)picture;
@@ -195,7 +240,8 @@
     currentlySelectedProfileIconURL = tappedPicture.imageURL;
 }
 
-- (void)clearSelectedProfilePictures {
+- (void)clearSelectedProfilePictures
+{
     for (GTIOSelectableProfilePicture *picture in profileIconViews) {
         [picture setIsSelected:NO];
     }

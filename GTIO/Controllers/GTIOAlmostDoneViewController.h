@@ -11,4 +11,6 @@
 
 @interface GTIOAlmostDoneViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, GTIOAlmostDoneTableCellDelegate>
 
+- (void)updateDataSourceWithValue:(id)value ForKey:(NSString*)key;
+
 @end

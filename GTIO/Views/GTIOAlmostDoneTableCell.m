@@ -14,7 +14,6 @@
 @interface GTIOAlmostDoneTableCell() {
 @private
     UILabel* _cellTitle;
-    GTIOTextFieldForPickerViews* _cellAccessoryText;
     GTIOPlaceHolderTextView* _cellAccessoryTextMulti;
     NSString* _placeHolderText;
     UIToolbar* _accessoryToolBar;
@@ -28,7 +27,7 @@
 
 @implementation GTIOAlmostDoneTableCell
 
-@synthesize pickerViewItems = _pickerViewItems, delegate = _delegate;
+@synthesize apiKey = _apiKey, pickerViewItems = _pickerViewItems, delegate = _delegate, cellAccessoryText = _cellAccessoryText;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -114,7 +113,7 @@
 {
     UITextField *textField = (UITextField*)sender;
     if ([_delegate respondsToSelector:@selector(updateDataSourceWithValue:ForKey:)]) {
-        [_delegate updateDataSourceWithValue:[textField.text stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]] ForKey:_cellTitle.text];
+        [_delegate updateDataSourceWithValue:[textField.text stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]] ForKey:self.apiKey];
     }
 }
 

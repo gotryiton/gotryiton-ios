@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOTextFieldForPickerViews.h"
 
 @protocol GTIOAlmostDoneTableCellDelegate <NSObject>
 
@@ -23,6 +24,8 @@
 @interface GTIOAlmostDoneTableCell : UITableViewCell <UITextFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, retain) NSArray *pickerViewItems;
+@property (nonatomic, copy) NSString* apiKey;
+@property (nonatomic, retain) GTIOTextFieldForPickerViews* cellAccessoryText;
 @property (nonatomic, unsafe_unretained) id<GTIOAlmostDoneTableCellDelegate> delegate;
 
 - (void)setCellTitle:(NSString*)title;
