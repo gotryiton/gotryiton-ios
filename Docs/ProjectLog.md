@@ -19,7 +19,7 @@
 - Continuing work on Edit Profile screens
 
 **Updates to Planned Work**
-- 
+- NA
 
 **Updates to Important Dates / Deadlines**
 - NA
