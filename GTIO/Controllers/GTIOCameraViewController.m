@@ -8,13 +8,13 @@
 
 #import "GTIOCameraViewController.h"
 
-#import "GTIOPhotoToolbarView.h"
+#import "GTIOCameraToolbarView.h"
 
 @interface GTIOCameraViewController ()
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 
-@property (nonatomic, strong) GTIOPhotoToolbarView *photoToolbarView;
+@property (nonatomic, strong) GTIOCameraToolbarView *photoToolbarView;
 
 @end
 
@@ -72,7 +72,7 @@
 	[self.view.layer addSublayer:captureVideoPreviewLayer];
     
     // Toolbar
-    self.photoToolbarView = [[GTIOPhotoToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];
+    self.photoToolbarView = [[GTIOCameraToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];
     [self.view addSubview:self.photoToolbarView];
 }
 

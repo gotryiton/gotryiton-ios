@@ -31,7 +31,12 @@
         case GTIOButtonTypeEmailSupport: return [self gtio_emailSupportButton];
         case GTIOButtonTypeBack: return [self gtio_backButton];
         case GTIOButtonTypePhotoClose: return [self gtio_photoCloseButton];
-        default: return nil;
+        case GTIOButtonTypePhotoPicker: return [self gtio_photoPickerButton];
+        case GTIOButtonTypePhotoShootGrid: return [self gtio_photoShootGridButton];
+        case GTIOButtonTypePhotoShutter: return [self gtio_photoShutterButton];
+        default: 
+            NSLog(@"Could not find button for type: %i", buttonType);
+            return nil;
     }
 }
 
@@ -57,6 +62,15 @@
     UIImage *buttonImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@-OFF.png", coreImageName]];
     UIImage *buttonHightlightImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@-ON.png", coreImageName]];
     return [self buttonWithImage:buttonImage hightlightImage:buttonHightlightImage];
+}
+
++ (id)photoToolbarButtonWithImageName:(NSString *)photoToolbarButtonName
+{
+    UIButton *button = [self buttonWithImage:[UIImage imageNamed:photoToolbarButtonName] hightlightImage:nil];
+    [button setBackgroundImage:[UIImage imageNamed:@"upload.bottom.bar.button.bg.off.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"upload.bottom.bar.button.bg.on.png"] forState:UIControlStateHighlighted];
+    [button setFrame:(CGRect){ 0, 0, 39, 53}];
+    return button;
 }
 
 #pragma mark - Buttons
@@ -128,7 +142,26 @@
 
 + (id)gtio_photoCloseButton
 {
-    return [self buttonWithCoreImageName:<#(NSString *)#>
+    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.x.png"];
+}
+
++ (id)gtio_photoPickerButton
+{
+    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.photoroll.png"];
+}
+
++ (id)gtio_photoShootGridButton
+{
+    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.photoshootreel.png"];
+}
+
++ (id)gtio_photoShutterButton
+{
+    UIButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"upload.bottom.bar.camera.button.icon.normal.png"] hightlightImage:nil];
+    [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.off.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.on.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateHighlighted];
+    [button setFrame:(CGRect){ CGPointZero, { 93, 45 } }];
+    return button;
 }
 
 #pragma mark - Touch Handling

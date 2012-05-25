@@ -23,6 +23,9 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeEmailSupport,
     GTIOButtonTypeBack,
     GTIOButtonTypePhotoClose,
+    GTIOButtonTypePhotoPicker,
+    GTIOButtonTypePhotoShootGrid,
+    GTIOButtonTypePhotoShutter,
 } GTIOButtonType;
 
 @interface GTIOButton : UIButton

@@ -13,3 +13,6 @@
 [submodule "Libraries/MBProgressHUD"]
 	path = Libraries/MBProgressHUD
 	url = https://github.com/jdg/MBProgressHUD.git
+[submodule "Libraries/RCSwitch"]
+	path = Libraries/RCSwitch
+	url = https://github.com/robertchin/rcswitch.git
