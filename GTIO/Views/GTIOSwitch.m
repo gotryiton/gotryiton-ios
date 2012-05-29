@@ -10,13 +10,13 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-NSInteger const kKnobXOffset = -2;
+NSInteger const kKnobXOffset = 0;
 CGFloat const kAnimationDuration = 0.25;
 
 @interface GTIOSwitch ()
 
-@property (nonatomic, strong) UIImageView *trackOnImageView;
-@property (nonatomic, strong) UIImageView *trackOffImageView;
+@property (nonatomic, strong) UIImageView *trackImageView;
+@property (nonatomic, strong) UIImageView *trackFrameImageView;
 @property (nonatomic, strong) UIImageView *knobImageView;
 
 - (CGFloat)value;
@@ -25,36 +25,29 @@ CGFloat const kAnimationDuration = 0.25;
 
 @implementation GTIOSwitch
 
-@synthesize trackOn = _trackOn, trackOff = _trackOff, knob = _knob, knobOn = _knobOn, knobOff = _knobOff;
-@synthesize trackOnImageView = _trackOnImageView, trackOffImageView = _trackOffImageView, knobImageView = _knobImageView;
+@synthesize track = _track, trackFrame = _trackFrame, trackFrameMask = _trackFrameMask, knob = _knob, knobOn = _knobOn, knobOff = _knobOff;
+@synthesize trackImageView = _trackImageView, trackFrameImageView = _trackFrameImageView, knobImageView = _knobImageView;
 @synthesize on = _on;
+@synthesize changeHandler = _changeHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _trackOnImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        CALayer *trackOnMaskLayer = [CALayer layer];
-        trackOnMaskLayer.frame = self.bounds;
-        trackOnMaskLayer.backgroundColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f].CGColor;
-        trackOnMaskLayer.contents = (id)[[UIImage imageNamed:@"black_bar.png"]CGImage];
-        _trackOnImageView.layer.mask = trackOnMaskLayer;
-        
-        _trackOffImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        CALayer *trackOffMaskLayer = [CALayer layer];
-        trackOffMaskLayer.frame = self.bounds;
-        trackOffMaskLayer.backgroundColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f].CGColor;
-        trackOffMaskLayer.contents = (id)[[UIImage imageNamed:@"black_bar.png"]CGImage];
-        trackOffMaskLayer.contentsRect = self.bounds;
-        _trackOnImageView.layer.mask = trackOffMaskLayer;
-        
+        _trackImageView = [[UIImageView alloc] init];
+        _trackFrameImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         
         _knobImageView = [[UIImageView alloc] init];
         [_knobImageView setUserInteractionEnabled:YES];
         
-        [self addSubview:_trackOffImageView];
-        [self addSubview:_trackOnImageView];
+        [self addSubview:_trackImageView];
+        [self addSubview:_trackFrameImageView];
         [self addSubview:_knobImageView];
+        
+        [self bringSubviewToFront:_knobImageView];
+        [self setClipsToBounds:YES];
+        
+        _on = NO;
         
         UIPanGestureRecognizer *knobPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleKnobPanGesture:)];
         [knobPanGestureRecognizer setMinimumNumberOfTouches:1];
@@ -62,24 +55,31 @@ CGFloat const kAnimationDuration = 0.25;
         
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
         [self addGestureRecognizer:tapGestureRecognizer];
-
-        [self bringSubviewToFront:_knobImageView];        
     }
     return self;
 }
 
-- (void)setTrackOn:(UIImage *)trackOn
+- (void)setTrack:(UIImage *)track
 {
-    _trackOn = trackOn;
-    [_trackOnImageView setImage:_trackOn];
-//    [self setNeedsLayout];
+    _track = track;
+    [_trackImageView setImage:_track];
+    [_trackImageView setFrame:(CGRect){ CGPointZero, _track.size }];
 }
 
-- (void)setTrackOff:(UIImage *)trackOff
+- (void)setTrackFrame:(UIImage *)trackFrame
 {
-    _trackOff = trackOff;
-    [_trackOffImageView setImage:_trackOff];
-//    [self setNeedsLayout];
+    _trackFrame = trackFrame;
+    [_trackFrameImageView setImage:_trackFrame];
+}
+
+- (void)setTrackFrameMask:(UIImage *)trackFrameMask
+{
+    _trackFrameMask = trackFrameMask;
+    
+    CALayer *trackOffMaskLayer = [CALayer layer];
+    trackOffMaskLayer.frame = self.bounds;
+    trackOffMaskLayer.contents = (id)[_trackFrameMask CGImage];
+    self.layer.mask = trackOffMaskLayer;
 }
 
 - (void)setKnob:(UIImage *)knob
@@ -87,18 +87,28 @@ CGFloat const kAnimationDuration = 0.25;
     _knob = knob;
     [_knobImageView setImage:_knob];
     [_knobImageView setFrame:(CGRect){ { kKnobXOffset, 0 }, _knob.size }];
-//    [self setNeedsLayout];
 }
-
-//- (void)layoutSubviews
-//{
-//    [super layoutSubviews];
-//    
-//}
 
 - (void)setOn:(BOOL)on
 {
-    // handle setting on and off
+    _on = on;
+    // animate
+    if (on) {
+        [self animateToEnd:1.0f];
+    } else {
+        [self animateToEnd:0.0f];
+    }
+    
+    if (self.changeHandler) {
+        self.changeHandler(_on);
+    }
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self.trackImageView setCenter:self.knobImageView.center];
 }
 
 - (CGFloat)value
@@ -133,15 +143,8 @@ CGFloat const kAnimationDuration = 0.25;
     
     [UIView animateWithDuration:animationDuration animations:^{
         [self.knobImageView setCenter:(CGPoint){ newKnobXOrigin, self.knobImageView.center.y }];
-    } completion:^(BOOL finished) {
-        // TODO change images here to end ones
+        [self.trackImageView setCenter:(CGPoint){ newKnobXOrigin, self.trackImageView.center.y }];
     }];
-}
-
-- (void)masking:(CGFloat)centerOfKnobXOrigin
-{
-    [self.trackOffImageView.layer.mask setFrame:(CGRect){ 0, 0, centerOfKnobXOrigin, self.frame.size.height }];
-    [self.trackOnImageView.layer.mask setFrame:(CGRect){ centerOfKnobXOrigin, 0, self.frame.size.width - centerOfKnobXOrigin, self.frame.size.height}];
 }
 
 #pragma mark - GestureRecognizer
@@ -162,22 +165,25 @@ CGFloat const kAnimationDuration = 0.25;
         }
         
         [knobImageView setCenter:CGPointMake(newX, [knobImageView center].y)];
+        [self.trackImageView setCenter:(CGPoint){ newX, self.trackImageView.center.y}];
         [gesture setTranslation:CGPointZero inView:[knobImageView superview]];
+        [gesture setTranslation:CGPointZero inView:[self.trackImageView superview]];
         
-        [self masking:newX];
-        
-    } else if ([gesture state] == UIGestureRecognizerStateEnded) {
-        [self animateToEnd:[self value]];
+    } else if ([gesture state] == UIGestureRecognizerStateEnded) {        
+        if ([self value] <= 0.5f) {
+            self.on = NO;
+        } else {
+            self.on = YES;
+        }
     }
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)gesture
 {
-    NSLog(@"Tap gesture");
-    if ([self value] <= 0.5) {
-        [self animateToEnd:1.0f];
+    if ([self value] <= 0.5f) {
+        self.on = YES;
     } else if ([self value] > 0.5f) {
-        [self animateToEnd:0.0f];
+        self.on = NO;
     }
 }
 

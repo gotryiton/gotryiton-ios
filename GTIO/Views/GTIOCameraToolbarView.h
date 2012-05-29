@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GTIOSwitch.h"
+
 @interface GTIOCameraToolbarView : UIView
 
 @property (nonatomic, strong) GTIOButton *closeButton;
 @property (nonatomic, strong) GTIOButton *photoPickerButton;
 @property (nonatomic, strong) GTIOButton *photoShootGridButton;
 @property (nonatomic, strong) GTIOButton *shutterButton;
+@property (nonatomic, strong) GTIOSwitch *photoModeSwitch;
+
+- (void)showPhotoShootGrid:(BOOL)showPhotoShootGrid;
 
 @end

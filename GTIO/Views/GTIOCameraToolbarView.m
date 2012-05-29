@@ -8,9 +8,6 @@
 
 #import "GTIOCameraToolbarView.h"
 
-#import "GTIOSwitch.h"
-#import "GTIOSlider.h"
-
 NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
 
 @interface GTIOCameraToolbarView ()
@@ -21,7 +18,7 @@ NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
 
 @implementation GTIOCameraToolbarView
 
-@synthesize closeButton = _closeButton, photoPickerButton = _photoPickerButton, photoShootGridButton = _photoShootGridButton, shutterButton = _shutterButton;
+@synthesize closeButton = _closeButton, photoPickerButton = _photoPickerButton, photoShootGridButton = _photoShootGridButton, shutterButton = _shutterButton, photoModeSwitch = _photoModeSwitch;
 @synthesize photoShootGridDivider = _photoShootGridDivider;
 
 - (id)initWithFrame:(CGRect)frame
@@ -81,22 +78,42 @@ NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
         [photoShootCameraImageView setFrame:(CGRect){ { cameraImageView.frame.origin.x + cameraImageView.frame.size.width + 25, 10 }, photoShootCameraImageView.image.size }];
         [self addSubview:photoShootCameraImageView];
         
-        GTIOSwitch *photoModeSwitch = [[GTIOSwitch alloc] initWithFrame:(CGRect){ { shutterButtonDivider.frame.origin.x + shutterButtonDivider.frame.size.width + 9, 30 }, { 61, 17 } }];
-        [photoModeSwitch setTrackOff:[[UIImage imageNamed:@"upload.bottom.bar.switch.bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){17,17,17,17}]];
-        [photoModeSwitch setTrackOn:[[UIImage imageNamed:@"upload.bottom.bar.switch.bg.on.png"] resizableImageWithCapInsets:(UIEdgeInsets){17, 17, 17, 17}]];
-        [photoModeSwitch setKnob:[UIImage imageNamed:@"upload.bottom.bar.switch.png"]];
-        [self addSubview:photoModeSwitch];
+        _photoModeSwitch = [[GTIOSwitch alloc] initWithFrame:(CGRect){ { shutterButtonDivider.frame.origin.x + shutterButtonDivider.frame.size.width + 9, 30 }, { 61, 17 } }];
+        [_photoModeSwitch setTrack:[UIImage imageNamed:@"upload.bottom.bar.switch.track.shadow.png"]];
+        [_photoModeSwitch setTrackFrame:[UIImage imageNamed:@"upload.bottom.bar.switch.track.png"]];
+        [_photoModeSwitch setTrackFrameMask:[UIImage imageNamed:@"upload.bottom.bar.switch.mask.png"]];
+        [_photoModeSwitch setKnob:[UIImage imageNamed:@"upload.bottom.bar.switch.knob.png"]];
+        [_photoModeSwitch setChangeHandler:^(BOOL on) {
+            // Normal mode (default)
+            NSString *shutterButtonImage = @"upload.bottom.bar.camera.button.icon.normal.png";
+            
+            if (self.photoModeSwitch.isOn) {
+                // Photo shoot mode
+                shutterButtonImage = @"upload.bottom.bar.camera.button.icon.photoshoot.png";
+            } 
+            
+            [self.shutterButton setImage:[UIImage imageNamed:shutterButtonImage] forState:UIControlStateNormal];
+        }];
+        [self addSubview:_photoModeSwitch];
         
-//        GTIOSlider *customSlider = [[GTIOSlider alloc] initWithFrame:(CGRect){ { shutterButtonDivider.frame.origin.x + shutterButtonDivider.frame.size.width + 9, 28 }, { 61, 17 } }];
-//        [customSlider setThumbImage:[UIImage imageNamed:@"upload.bottom.bar.switch.png"] forState:UIControlStateNormal];
-//        [customSlider setMinimumTrackImage:[[UIImage imageNamed:@"upload.bottom.bar.switch.bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5, 15, 5, 15 }] forState:UIControlStateNormal];
-//        [customSlider setMaximumTrackImage:[[UIImage imageNamed:@"upload.bottom.bar.switch.bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5, 15, 5, 15 }] forState:UIControlStateNormal];
-//        [customSlider setMinimumValue:0.0f];
-//        [customSlider setMaximumValue:1.0f];
-//        [self addSubview:customSlider];
-        
+        [self showPhotoShootGrid:NO];
     }
     return self;
+}
+     
+- (void)showPhotoShootGrid:(BOOL)showPhotoShootGrid
+{
+    // Normal mode (default)
+    CGRect shutterButtonFrame = (CGRect){ { (self.frame.size.width - _shutterButton.frame.size.width) / 2, 6 }, _shutterButton.frame.size };
+
+    if (showPhotoShootGrid) {
+        // Photo shoot mode
+        shutterButtonFrame = CGRectOffset(shutterButtonFrame, 20, 0);
+    } 
+
+    [self.photoShootGridButton setHidden:!showPhotoShootGrid];
+    [self.photoShootGridDivider setHidden:!showPhotoShootGrid];
+    [self.shutterButton setFrame:shutterButtonFrame];
 }
 
 @end

@@ -6,17 +6,20 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import "RCSwitch.h"
+typedef void(^GTIOSwitchChangeHandler)(BOOL on);
 
-@interface GTIOSwitch : UIView
+@interface GTIOSwitch : UIControl
 
-@property (nonatomic, strong) UIImage *trackOn;
-@property (nonatomic, strong) UIImage *trackOff;
+@property (nonatomic, strong) UIImage *track;
+@property (nonatomic, strong) UIImage *trackFrame;
+@property (nonatomic, strong) UIImage *trackFrameMask;
 
 @property (nonatomic, strong) UIImage *knob;
 @property (nonatomic, strong) UIImage *knobOn;
 @property (nonatomic, strong) UIImage *knobOff;
 
 @property (nonatomic, assign, getter=isOn) BOOL on;
+
+@property (nonatomic, copy) GTIOSwitchChangeHandler changeHandler;
 
 @end

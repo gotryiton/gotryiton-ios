@@ -15,6 +15,8 @@
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 
 @property (nonatomic, strong) GTIOCameraToolbarView *photoToolbarView;
+@property (nonatomic, strong) GTIOButton *flashButton;
+@property (nonatomic, assign, getter = isFlashOn) BOOL flashOn;
 
 @end
 
@@ -22,6 +24,8 @@
 
 @synthesize captureSession = _captureSession;
 @synthesize photoToolbarView = _photoToolbarView;
+@synthesize flashButton = _flashButton;
+@synthesize flashOn = _flashOn;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,6 +74,21 @@
 	[captureVideoPreviewLayer setBounds:layerRect];
 	[captureVideoPreviewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect), CGRectGetMidY(layerRect))];
 	[self.view.layer addSublayer:captureVideoPreviewLayer];
+    
+    // Flash button
+    self.flashButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoFlash];
+    [self.flashButton setFrame:(CGRect){ { 5, 6 }, self.flashButton.frame.size }];
+
+    [self.flashButton setTapHandler:^(id sender) {
+        self.flashOn = !self.isFlashOn;
+        
+        NSString *imageName = @"upload.flash-OFF.png";
+        if (self.isFlashOn) {
+            imageName = @"upload.flash-ON.png";
+        }
+        [self.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    }];
+    [self.view addSubview:self.flashButton];
     
     // Toolbar
     self.photoToolbarView = [[GTIOCameraToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];

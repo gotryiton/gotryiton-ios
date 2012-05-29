@@ -34,6 +34,7 @@
         case GTIOButtonTypePhotoPicker: return [self gtio_photoPickerButton];
         case GTIOButtonTypePhotoShootGrid: return [self gtio_photoShootGridButton];
         case GTIOButtonTypePhotoShutter: return [self gtio_photoShutterButton];
+        case GTIOButtonTypePhotoFlash: return [self gtio_photoFlashButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -162,6 +163,11 @@
     [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.on.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateHighlighted];
     [button setFrame:(CGRect){ CGPointZero, { 93, 45 } }];
     return button;
+}
+
++ (id)gtio_photoFlashButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"upload.flash.off.png"] hightlightImage:nil];
 }
 
 #pragma mark - Touch Handling
