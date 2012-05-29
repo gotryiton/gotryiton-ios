@@ -278,6 +278,9 @@
 
 - (void)loadUserIconsWithUserID:(NSString*)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler
 {
+    if ([userID length] == 0) {
+        userID = self.userID;
+    }
     NSString *userIconResourcePath = [NSString stringWithFormat:@"/users/%@/icons", userID];
     
     BOOL authToken = NO;
