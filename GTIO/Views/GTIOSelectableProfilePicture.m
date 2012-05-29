@@ -29,12 +29,12 @@
         [self.layer setCornerRadius:3.0f];
         [self.layer setMasksToBounds:YES];
         
-        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];
+        self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];
         
-        imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
-        [imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [imageView setImageWithURL:url];
-        [self addSubview:imageView];
+        self.imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
+        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [self.imageView setImageWithURL:url];
+        [self addSubview:self. imageView];
         [self fadeInImageView];
         
         self.isSelected = NO;
@@ -47,7 +47,7 @@
 - (void)setImageWithURL:(NSURL*)url
 {
     self.imageURL = url;
-    [imageView setImageWithURL:url];
+    [self.imageView setImageWithURL:url];
     [self fadeInImageView];
 }
 

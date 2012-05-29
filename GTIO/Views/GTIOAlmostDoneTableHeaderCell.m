@@ -61,7 +61,7 @@
 
 - (void)setProfilePictureWithURL:(NSURL *)profilePicture
 {
-    [_profilePicture setImageWithURL:profilePicture];
+    [self.profilePicture setImageWithURL:profilePicture];
 }
 
 @end

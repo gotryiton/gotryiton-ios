@@ -19,10 +19,12 @@
 
 @property (nonatomic, assign) BOOL isSelectable;
 @property (nonatomic, assign) BOOL isSelected;
-@property (nonatomic, strong) NSString *imageURL;
+@property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, weak) id<GTIOSelectableProfilePictureDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame andImageURL:(NSString *)url;
+- (id)initWithFrame:(CGRect)frame andImageURL:(NSURL *)url;
+- (void)setImageWithURL:(NSURL*)url;
+- (void)setImage:(UIImage*)image;
 
 @end
