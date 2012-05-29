@@ -40,6 +40,7 @@
 		D22F1502157031B500D01DAF /* upload.bottom.bar.switch.track.shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = D22F14FB157031B500D01DAF /* upload.bottom.bar.switch.track.shadow.png */; };
 		D22F1503157031B500D01DAF /* upload.bottom.bar.switch.track.shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D22F14FC157031B500D01DAF /* upload.bottom.bar.switch.track.shadow@2x.png */; };
 		D22F1504157031B500D01DAF /* upload.bottom.bar.switch.track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D22F14FD157031B500D01DAF /* upload.bottom.bar.switch.track@2x.png */; };
+		D2423EE315753773000AD1AF /* GTIOCameraTabBarPlaceholderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2423EE215753773000AD1AF /* GTIOCameraTabBarPlaceholderViewController.m */; };
 		D246B087155C037C00E5546A /* GTIOAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B086155C037C00E5546A /* GTIOAppearance.m */; };
 		D246B08A155C0AE400E5546A /* GTIOVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B089155C0AE400E5546A /* GTIOVisit.m */; };
 		D246B08C155C134900E5546A /* GTIOVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B089155C0AE400E5546A /* GTIOVisit.m */; };
@@ -426,6 +427,8 @@
 		D22F14FB157031B500D01DAF /* upload.bottom.bar.switch.track.shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.bottom.bar.switch.track.shadow.png; sourceTree = "<group>"; };
 		D22F14FC157031B500D01DAF /* upload.bottom.bar.switch.track.shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload.bottom.bar.switch.track.shadow@2x.png"; sourceTree = "<group>"; };
 		D22F14FD157031B500D01DAF /* upload.bottom.bar.switch.track@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload.bottom.bar.switch.track@2x.png"; sourceTree = "<group>"; };
+		D2423EE115753773000AD1AF /* GTIOCameraTabBarPlaceholderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCameraTabBarPlaceholderViewController.h; sourceTree = "<group>"; };
+		D2423EE215753773000AD1AF /* GTIOCameraTabBarPlaceholderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCameraTabBarPlaceholderViewController.m; sourceTree = "<group>"; };
 		D246B085155C037C00E5546A /* GTIOAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOAppearance.h; path = Application/GTIOAppearance.h; sourceTree = "<group>"; };
 		D246B086155C037C00E5546A /* GTIOAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOAppearance.m; path = Application/GTIOAppearance.m; sourceTree = "<group>"; };
 		D246B088155C0AE400E5546A /* GTIOVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOVisit.h; sourceTree = "<group>"; };
@@ -1530,6 +1533,8 @@
 			children = (
 				D2D96FC5156D2A07009B9A72 /* GTIOCameraViewController.h */,
 				D2D96FC6156D2A07009B9A72 /* GTIOCameraViewController.m */,
+				D2423EE115753773000AD1AF /* GTIOCameraTabBarPlaceholderViewController.h */,
+				D2423EE215753773000AD1AF /* GTIOCameraTabBarPlaceholderViewController.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -2053,6 +2058,7 @@
 				D2D96FC7156D2A07009B9A72 /* GTIOCameraViewController.m in Sources */,
 				D25F9939156EAA2D004B705E /* GTIOSwitch.m in Sources */,
 				D25F993C156EC6B4004B705E /* GTIOSlider.m in Sources */,
+				D2423EE315753773000AD1AF /* GTIOCameraTabBarPlaceholderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

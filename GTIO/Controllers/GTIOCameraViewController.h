@@ -10,4 +10,6 @@
 
 @interface GTIOCameraViewController : UIViewController
 
+@property (nonatomic, copy) GTIODismissHandler dismissHandler;
+
 @end

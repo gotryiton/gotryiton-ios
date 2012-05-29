@@ -16,6 +16,7 @@
 #import "GTIOFeedViewController.h"
 #import "GTIOExploreLooksViewController.h"
 #import "GTIOCameraViewController.h"
+#import "GTIOCameraTabBarPlaceholderViewController.h"
 #import "GTIOShopViewController.h"
 #import "GTIOMeViewController.h"
 
@@ -177,7 +178,7 @@
     NSArray *viewControllers = [NSArray arrayWithObjects:
                                 [[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
-                                [[GTIOCameraViewController alloc] initWithNibName:nil bundle:nil],
+                                [[GTIOCameraTabBarPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOShopViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOMeViewController alloc] initWithNibName:nil bundle:nil],
                                 nil];
@@ -230,6 +231,22 @@
     } else if ([viewController isKindOfClass:[GTIOMeViewController class]]) {
         [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
     }
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    BOOL shouldSelect = YES;
+    
+    if ([viewController isKindOfClass:[GTIOCameraTabBarPlaceholderViewController class]]) {
+        shouldSelect = NO;
+        GTIOCameraViewController *cameraViewController = [[GTIOCameraViewController alloc] initWithNibName:nil bundle:nil];
+        [cameraViewController setDismissHandler:^(UIViewController *viewController) {
+            [viewController dismissModalViewControllerAnimated:YES];
+        }];
+        [self.tabBarController presentModalViewController:cameraViewController animated:YES];
+    }
+    
+    return shouldSelect;
 }
 
 @end

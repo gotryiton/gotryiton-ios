@@ -26,6 +26,7 @@
 @synthesize photoToolbarView = _photoToolbarView;
 @synthesize flashButton = _flashButton;
 @synthesize flashOn = _flashOn;
+@synthesize dismissHandler = _dismissHandler;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -92,6 +93,12 @@
     
     // Toolbar
     self.photoToolbarView = [[GTIOCameraToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];
+    __block typeof(self) blockSelf = self;
+    [self.photoToolbarView.closeButton setTapHandler:^(id sender) {
+        if (self.dismissHandler) {
+            self.dismissHandler(blockSelf);
+        }
+    }];
     [self.view addSubview:self.photoToolbarView];
 }
 
@@ -105,17 +112,21 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.tabBarController.tabBar setHidden:YES];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     
     [self.captureSession startRunning];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    [self.tabBarController.tabBar setHidden:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
