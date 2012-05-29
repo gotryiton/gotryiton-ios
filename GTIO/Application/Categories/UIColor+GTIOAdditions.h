@@ -29,5 +29,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_profilePictureBorderColor;
 + (UIColor *)gtio_pinkTextColor;
 + (UIColor *)gtio_greenBorderColor;
++ (UIColor *)gtio_photoBorderColor;
 
 @end

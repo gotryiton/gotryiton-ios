@@ -31,7 +31,7 @@
         case GTIOButtonTypeEmailSupport: return [self gtio_emailSupportButton];
         case GTIOButtonTypeBackBottomMargin: return [self gtio_backButtonBottomMargin];
         case GTIOButtonTypeSaveGreenTopMargin: return [self gtio_saveButtonGreenTopMargin];
-        case GTIOButtonTypeDoneGrayTopMargin: return [self gtio_doneButtonGrayTopMargin];
+        case GTIOButtonTypeCancelGrayTopMargin: return [self gtio_cancelButtonGrayTopMargin];
         case GTIOButtonTypeSaveGrayTopMargin: return [self gtio_saveButtonGrayTopMargin];
         default: return nil;
     }
@@ -133,7 +133,7 @@
     return [self buttonWithImage:[UIImage imageNamed:@"save-button-green-top-margin.png"] hightlightImage:nil];
 }
 
-+ (id)gtio_doneButtonGrayTopMargin
++ (id)gtio_cancelButtonGrayTopMargin
 {
     return [self buttonWithImage:[UIImage imageNamed:@"cancel-button-gray-top-margin.png"] hightlightImage:nil];
 }

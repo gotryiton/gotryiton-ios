@@ -10,13 +10,14 @@
 #import "GTIOPickerViewForTextFields.h"
 #import "GTIOPlaceHolderTextView.h"
 #import "GTIOTextFieldForPickerViews.h"
+#import "GTIODoneToolBar.h"
 
 @interface GTIOAlmostDoneTableCell()
 
 @property (nonatomic, strong) UILabel *cellTitleLabel;
 @property (nonatomic, strong) GTIOPlaceHolderTextView *cellAccessoryTextMulti;
 @property (nonatomic, strong) NSString *placeHolderText;
-@property (nonatomic, strong) UIToolbar *accessoryToolBar;
+@property (nonatomic, strong) GTIODoneToolBar *accessoryToolBar;
 @property (nonatomic, strong) UIBarButtonItem *flexibleSpace;
 @property (nonatomic, strong) GTIOPickerViewForTextFields *pickerView;
 @property (nonatomic, assign) BOOL usesPicker;
@@ -51,14 +52,7 @@
         [_cellAccessoryText addTarget:self action:@selector(updateSaveData:) forControlEvents:UIControlEventEditingChanged];
         [self.contentView addSubview:_cellAccessoryText];
         
-        _accessoryToolBar = [[UIToolbar alloc] init];
-        [_accessoryToolBar setBarStyle:UIBarStyleBlack];
-        [_accessoryToolBar setTranslucent:YES];
-        [_accessoryToolBar setTintColor:nil];
-        [_accessoryToolBar sizeToFit];
-        _flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(keyboardDoneTapped:)];
-        [_accessoryToolBar setItems:[NSArray arrayWithObjects:_flexibleSpace, doneButton, nil]];
+        _accessoryToolBar = [[GTIODoneToolBar alloc] initWithTarget:self andAction:@selector(keyboardDoneTapped:)];
         
         _cellAccessoryTextMulti = [[GTIOPlaceHolderTextView alloc] initWithFrame:CGRectZero];
         [_cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
