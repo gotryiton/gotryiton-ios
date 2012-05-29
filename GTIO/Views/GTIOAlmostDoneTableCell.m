@@ -11,34 +11,35 @@
 #import "GTIOPlaceHolderTextView.h"
 #import "GTIOTextFieldForPickerViews.h"
 
-@interface GTIOAlmostDoneTableCell() {
-@private
-    UILabel* _cellTitle;
-    GTIOPlaceHolderTextView* _cellAccessoryTextMulti;
-    NSString* _placeHolderText;
-    UIToolbar* _accessoryToolBar;
-    UIBarButtonItem* _flexibleSpace;
-    GTIOPickerViewForTextFields* _pickerView;
-    BOOL _usesPicker;
-    BOOL _multiLine;
-}
+@interface GTIOAlmostDoneTableCell()
+
+@property (nonatomic, strong) UILabel *cellTitleLabel;
+@property (nonatomic, strong) GTIOPlaceHolderTextView *cellAccessoryTextMulti;
+@property (nonatomic, strong) NSString *placeHolderText;
+@property (nonatomic, strong) UIToolbar *accessoryToolBar;
+@property (nonatomic, strong) UIBarButtonItem *flexibleSpace;
+@property (nonatomic, strong) GTIOPickerViewForTextFields *pickerView;
+@property (nonatomic, assign) BOOL usesPicker;
+@property (nonatomic, assign, getter = isMultiLine) BOOL multiLine;
 
 @end
 
 @implementation GTIOAlmostDoneTableCell
 
 @synthesize apiKey = _apiKey, pickerViewItems = _pickerViewItems, delegate = _delegate, cellAccessoryText = _cellAccessoryText;
+@synthesize cellTitleLabel = _cellTitleLabel, cellAccessoryTextMulti = _cellAccessoryTextMulti, placeHolderText = _placeHolderText, accessoryToolBar = _accessoryToolBar, flexibleSpace = _flexibleSpace, pickerView = _pickerView, usesPicker = _usesPicker, multiLine = _multiLine;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setBackgroundColor:[UIColor whiteColor]];
-        _cellTitle = [[UILabel alloc] initWithFrame:(CGRect){10,self.frame.size.height/2-8,0,0}];
-        [_cellTitle setBackgroundColor:[UIColor clearColor]];
-        [_cellTitle setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
-        [_cellTitle setTextColor:[UIColor gtio_darkGrayTextColor]];
-        [self.contentView addSubview:_cellTitle];
+        
+        _cellTitleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 10, self.frame.size.height / 2 - 8, 0, 0 }];
+        [_cellTitleLabel setBackgroundColor:[UIColor clearColor]];
+        [_cellTitleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
+        [_cellTitleLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [self.contentView addSubview:_cellTitleLabel];
         
         _cellAccessoryText = [[GTIOTextFieldForPickerViews alloc] initWithFrame:CGRectZero];
         [_cellAccessoryText setBackgroundColor:[UIColor clearColor]];
@@ -75,17 +76,18 @@
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)keyboardDoneTapped:(id)sender
 {
-    if (_multiLine) {
-        if ([_delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
-            [_delegate resetScrollAfterEditing];
+    if (self.multiLine) {
+        if ([self.delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
+            [self.delegate resetScrollAfterEditing];
         }
-        [_cellAccessoryTextMulti resignFirstResponder];
+        [self.cellAccessoryTextMulti resignFirstResponder];
     }
 }
 
@@ -96,24 +98,24 @@
 
 - (BOOL)becomeFirstResponder
 {
-    if (_multiLine) {
-        return [_cellAccessoryTextMulti becomeFirstResponder];
+    if (self.multiLine) {
+        return [self.cellAccessoryTextMulti becomeFirstResponder];
     }
-    return [_cellAccessoryText becomeFirstResponder];
+    return [self.cellAccessoryText becomeFirstResponder];
 }
 
 - (void)moveToNextCell
 {
-    if ([_delegate respondsToSelector:@selector(moveResponderToNextCellFromCell:)]) {
-        [_delegate moveResponderToNextCellFromCell:[self tag]];
+    if ([self.delegate respondsToSelector:@selector(moveResponderToNextCellFromCell:)]) {
+        [self.delegate moveResponderToNextCellFromCell:[self tag]];
     }
 }
 
 - (void)updateSaveData:(id)sender
 {
     UITextField *textField = (UITextField*)sender;
-    if ([_delegate respondsToSelector:@selector(updateDataSourceWithValue:ForKey:)]) {
-        [_delegate updateDataSourceWithValue:[textField.text stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]] ForKey:self.apiKey];
+    if ([self.delegate respondsToSelector:@selector(updateDataSourceWithValue:ForKey:)]) {
+        [self.delegate updateDataSourceWithValue:[textField.text stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]] ForKey:self.apiKey];
     }
 }
 
@@ -128,23 +130,23 @@
         [self moveToNextCell];
         return YES;
     }
-    if ([_delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
-        [_delegate resetScrollAfterEditing];
+    if ([self.delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
+        [self.delegate resetScrollAfterEditing];
     }
     return [textField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if ([_delegate respondsToSelector:@selector(scrollUpWhileEditing:)]) {
-        [_delegate scrollUpWhileEditing:[self tag]];
+    if ([self.delegate respondsToSelector:@selector(scrollUpWhileEditing:)]) {
+        [self.delegate scrollUpWhileEditing:[self tag]];
     }
     return YES;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (_usesPicker) {
+    if (self.usesPicker) {
         return NO;
     }
     return YES;
@@ -152,22 +154,22 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    if ([_delegate respondsToSelector:@selector(scrollUpWhileEditing:)]) {
-        [_delegate scrollUpWhileEditing:[self tag]];
+    if ([self.delegate respondsToSelector:@selector(scrollUpWhileEditing:)]) {
+        [self.delegate scrollUpWhileEditing:[self tag]];
     }
     return YES;
 }
 
 - (void)setCellTitle:(NSString*)title
 {
-    [_cellTitle setText:title];
-    [_cellTitle sizeToFit];
+    [self.cellTitleLabel setText:title];
+    [self.cellTitleLabel sizeToFit];
 }
 
 - (void)setRequired:(BOOL)required
 {
     UIColor *textColor = (required) ? [UIColor gtio_pinkTextColor] : [UIColor gtio_darkGrayTextColor];
-    [_cellTitle setTextColor:textColor];
+    [self.cellTitleLabel setTextColor:textColor];
 }
 
 - (void)setAccessoryTextUsesPicker:(BOOL)usesPicker
@@ -178,7 +180,8 @@
     [_cellAccessoryText setFont:placeHolderFont];
 }
 
-- (void)setPickerViewItems:(NSArray *)pickerViewItems {
+- (void)setPickerViewItems:(NSArray *)pickerViewItems
+{
     _pickerViewItems = pickerViewItems;
     _pickerView = [[GTIOPickerViewForTextFields alloc] initWithFrame:CGRectZero andPickerItems:_pickerViewItems];
     UIBarButtonItem* nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(pickerNextTapped:)];
@@ -215,10 +218,10 @@
     _placeHolderText = text;
     if (_multiLine) {
         [_cellAccessoryTextMulti setPlaceholderText:text];
-        [_cellAccessoryTextMulti setFrame:(CGRect){_cellTitle.frame.origin.x,_cellTitle.frame.origin.y+_cellTitle.frame.size.height,self.frame.size.width-40,70}];
+        [_cellAccessoryTextMulti setFrame:(CGRect){ _cellTitleLabel.frame.origin.x, _cellTitleLabel.frame.origin.y + _cellTitleLabel.frame.size.height, self.frame.size.width - 40, 70 }];
     } else {
         [_cellAccessoryText setPlaceholder:text];
-        [_cellAccessoryText setFrame:(CGRect){_cellTitle.frame.origin.x+_cellTitle.frame.size.width+3,_cellTitle.frame.origin.y,self.frame.size.width-_cellTitle.frame.size.width-43,_cellTitle.frame.size.height}];
+        [_cellAccessoryText setFrame:(CGRect){ _cellTitleLabel.frame.origin.x + _cellTitleLabel.frame.size.width + 3, _cellTitleLabel.frame.origin.y, self.frame.size.width - _cellTitleLabel.frame.size.width - 43, _cellTitleLabel.frame.size.height }];
     }
 }
 

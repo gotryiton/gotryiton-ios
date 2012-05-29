@@ -10,16 +10,15 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface GTIORoundedView()
-{
-    @private
-    UILabel *titleLabel;
-}
+
+@property (nonatomic, strong) UILabel *titleLabel;
 
 @end
 
 @implementation GTIORoundedView
 
 @synthesize title = _title;
+@synthesize titleLabel = _titleLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -30,18 +29,19 @@
         [self.layer setCornerRadius:10.0f];
         [self setBackgroundColor:[UIColor whiteColor]];
         
-        titleLabel = [[UILabel alloc] initWithFrame:(CGRect){19,18,260,20}];
-        [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLight size:17.0]];
-        [titleLabel setTextColor:[UIColor gtio_pinkTextColor]];
-        [titleLabel setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:titleLabel];
+        _titleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 19, 18, 260, 20 }];
+        [_titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLight size:17.0]];
+        [_titleLabel setTextColor:[UIColor gtio_pinkTextColor]];
+        [_titleLabel setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_titleLabel];
     }
     return self;
 }
 
-- (void)setTitle:(NSString *)title {
+- (void)setTitle:(NSString *)title
+{
     _title = title;
-    [titleLabel setText:self.title];
+    [_titleLabel setText:self.title];
 }
 
 @end

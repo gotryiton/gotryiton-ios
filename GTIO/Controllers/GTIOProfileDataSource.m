@@ -22,7 +22,7 @@
 
 #pragma mark - User Icons
 
-- (void)loadUserIconsWithUserID:(NSString*)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler
+- (void)loadUserIconsWithUserID:(NSString *)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler
 {
     NSString *userIconResourcePath = [NSString stringWithFormat:@"/users/%@/icons", userID];
     

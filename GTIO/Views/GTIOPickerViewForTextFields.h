@@ -10,11 +10,11 @@
 
 @interface GTIOPickerViewForTextFields : UIPickerView <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
-@property (nonatomic, retain) NSArray* pickerItems;
-@property (nonatomic, copy) NSString* placeHolderText;
+@property (nonatomic, retain) NSArray *pickerItems;
+@property (nonatomic, copy) NSString *placeHolderText;
 
-- (id)initWithFrame:(CGRect)frame andPickerItems:(NSArray*)pickerItems;
-- (NSString*)selectedRowLabel;
+- (id)initWithFrame:(CGRect)frame andPickerItems:(NSArray *)pickerItems;
+- (NSString *)selectedRowLabel;
 - (void)bindToTextField:(UITextField *)textField;
 
 @end

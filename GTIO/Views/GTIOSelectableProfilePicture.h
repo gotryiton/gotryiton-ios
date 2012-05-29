@@ -17,13 +17,12 @@
 
 @interface GTIOSelectableProfilePicture : UIView
 
-@property (nonatomic, unsafe_unretained) BOOL isSelectable;
-@property (nonatomic, unsafe_unretained) BOOL isSelected;
-@property (nonatomic, retain) NSString *imageURL;
-@property (nonatomic, unsafe_unretained) id<GTIOSelectableProfilePictureDelegate> delegate;
+@property (nonatomic, assign) BOOL isSelectable;
+@property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, strong) NSString *imageURL;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, weak) id<GTIOSelectableProfilePictureDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame andImageURL:(NSString*)url;
-- (void)setImageWithURL:(NSString*)url;
-- (void)setImage:(UIImage*)image;
+- (id)initWithFrame:(CGRect)frame andImageURL:(NSString *)url;
 
 @end

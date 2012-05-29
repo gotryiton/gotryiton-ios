@@ -43,7 +43,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)setText:(NSString *)text {
+- (void)setText:(NSString *)text
+{
     [super setText:text];
     [self contentDidChange:nil];
 }
@@ -54,9 +55,9 @@
 {
     [super drawRect:rect];
     
-    if (_shouldDrawPlaceholder) {
-        [_placeholderColor set];
-        [_placeholderText drawInRect:[self proportionalInsetRectFromRect:rect inset:8.0] withFont:[self font]];
+    if (self.shouldDrawPlaceholder) {
+        [self.placeholderColor set];
+        [self.placeholderText drawInRect:[self proportionalInsetRectFromRect:rect inset:8.0] withFont:[self font]];
     }
 }
 
@@ -65,17 +66,17 @@
 - (CGRect)proportionalInsetRectFromRect:(CGRect)rect inset:(CGFloat)inset
 {
     CGFloat insets = inset * 2;
-    return (CGRect){rect.origin.x + inset, rect.origin.y + inset, rect.size.width - insets, rect.size.height - insets};
+    return (CGRect){ rect.origin.x + inset, rect.origin.y + inset, rect.size.width - insets, rect.size.height - insets };
 }
 
 #pragma mark - notification
 
 - (void)contentDidChange:(NSNotification *)notification
 {
-    BOOL previousState = _shouldDrawPlaceholder;
-    NSString* emptyCheck = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    _shouldDrawPlaceholder = _placeholderText && _placeholderColor && [emptyCheck length] == 0;
-    if (previousState != _shouldDrawPlaceholder) {
+    BOOL previousState = self.shouldDrawPlaceholder;
+    NSString *emptyCheck = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.shouldDrawPlaceholder = self.placeholderText && self.placeholderColor && [emptyCheck length] == 0;
+    if (previousState != self.shouldDrawPlaceholder) {
         [self setNeedsDisplay];
     }
 }

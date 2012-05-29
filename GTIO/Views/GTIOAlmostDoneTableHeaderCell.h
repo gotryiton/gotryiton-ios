@@ -10,6 +10,6 @@
 
 @interface GTIOAlmostDoneTableHeaderCell : UITableViewCell
 
-- (void)setProfilePicture:(NSURL*)profilePicture;
+- (void)setProfilePictureWithURL:(NSURL *)profilePicture;
 
 @end

@@ -8,15 +8,16 @@
 
 #import "GTIOPickerViewForTextFields.h"
 
-@interface GTIOPickerViewForTextFields() {
-@private
-    UITextField* _bindingTextField;
-}
+@interface GTIOPickerViewForTextFields()
+
+@property (nonatomic, strong) UITextField *bindingTextField;
+
 @end
 
 @implementation GTIOPickerViewForTextFields
 
 @synthesize pickerItems = _pickerItems, placeHolderText = _placeHolderText;
+@synthesize bindingTextField = _bindingTextField;
 
 - (id)initWithFrame:(CGRect)frame andPickerItems:(NSArray*)pickerItems
 {
@@ -32,23 +33,23 @@
 
 - (NSString*)selectedRowLabel
 {
-    if ([_placeHolderText length] > 0) {
-        return _placeHolderText;
+    if ([self.placeHolderText length] > 0) {
+        return self.placeHolderText;
     } else {
-        return [_pickerItems objectAtIndex:[self selectedRowInComponent:0]];
+        return [self.pickerItems objectAtIndex:[self selectedRowInComponent:0]];
     }
 }
 
 - (void)updateLabel
 {
-    [_bindingTextField setText:[self selectedRowLabel]];
+    [self.bindingTextField setText:[self selectedRowLabel]];
 }
 
 - (void)bindToTextField:(UITextField *)textField
 {
-    _bindingTextField = textField;
-    [_bindingTextField setInputView:self];
-    [_bindingTextField setText:[self selectedRowLabel]];
+    self.bindingTextField = textField;
+    [self.bindingTextField setInputView:self];
+    [self.bindingTextField setText:[self selectedRowLabel]];
 }
 
 #pragma mark - UIPickerViewDataSource
@@ -61,7 +62,7 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     switch (component) {
-        case 0: return [_pickerItems count];
+        case 0: return [self.pickerItems count];
         default: return 0;
     }
 }
@@ -70,12 +71,12 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [_pickerItems objectAtIndex:row];
+    return [self.pickerItems objectAtIndex:row];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    _placeHolderText = @"";
+    self.placeHolderText = @"";
     [self updateLabel];
 }
 

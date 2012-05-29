@@ -26,7 +26,7 @@
 @property (nonatomic, retain) NSArray *pickerViewItems;
 @property (nonatomic, copy) NSString* apiKey;
 @property (nonatomic, retain) GTIOTextFieldForPickerViews* cellAccessoryText;
-@property (nonatomic, unsafe_unretained) id<GTIOAlmostDoneTableCellDelegate> delegate;
+@property (nonatomic, weak) id<GTIOAlmostDoneTableCellDelegate> delegate;
 
 - (void)setCellTitle:(NSString*)title;
 - (void)setRequired:(BOOL)required;

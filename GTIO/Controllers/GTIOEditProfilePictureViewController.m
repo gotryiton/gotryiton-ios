@@ -17,54 +17,67 @@
 #import "GTIOAlmostDoneViewController.h"
 
 @interface GTIOEditProfilePictureViewController ()
-{
-    @private
-    GTIOSelectableProfilePicture *previewIcon;
-    GTIOSelectableProfilePicture *facebookPicture;
-    UILabel *previewNameLabel;
-    UILabel *previewUserLocationLabel;
-    NSMutableArray *profileIconViews;
-    NSMutableArray *profileIconURLs;
-    NSString *currentlySelectedProfileIconURL;
-}
+
+@property (nonatomic, strong) GTIOSelectableProfilePicture *previewIcon;
+@property (nonatomic, strong) GTIOSelectableProfilePicture *facebookPicture;
+@property (nonatomic, strong) UILabel *previewNameLabel;
+@property (nonatomic, strong) UILabel *previewUserLocationLabel;
+@property (nonatomic, strong) NSMutableArray *profileIconViews;
+@property (nonatomic, strong) NSMutableArray *profileIconURLs;
+@property (nonatomic, strong) NSString *currentlySelectedProfileIconURL;
+@property (nonatomic, strong) UILabel *loadingIconsLabel;
+@property (nonatomic, strong) GTIORoundedView *chooseFromBox;
+@property (nonatomic, strong) UILabel *myLooksLabel;
+@property (nonatomic, strong) UIScrollView *myLooksIcons;
+@property (nonatomic, strong) GTIORoundedView *previewBox;
+@property (nonatomic, strong) UIImageView *previewBoxBackground;
+@property (nonatomic, strong) UIButton *clearProfilePictureButton;
+@property (nonatomic, strong) UIImageView *facebookLogo;
 
 @end
 
 @implementation GTIOEditProfilePictureViewController
 
+@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksLabel = _myLooksLabel, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {        
-        profileIconViews = [NSMutableArray array];
-        profileIconURLs = [NSMutableArray array];
-        currentlySelectedProfileIconURL = [NSString string];
+        _profileIconViews = [NSMutableArray array];
+        _profileIconURLs = [NSMutableArray array];
+        _currentlySelectedProfileIconURL = [NSString string];
     }
     return self;
 }
 
 - (void)loadView
 {
-    [self refreshContent];
-}
-
-- (void)refreshContent {
-    GTIOUser *currentUser = [GTIOUser currentUser];
-    currentlySelectedProfileIconURL = [currentUser.icon absoluteString];
-    
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"green-pattern-nav-bar.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
+    [titleView setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:18.0]];
+    [titleView setText:@"edit profile picture"];
+    [titleView sizeToFit];
+    [titleView setBackgroundColor:[UIColor clearColor]];
+    [self.navigationItem setTitleView:titleView];
+    
+    UIView *topShadow = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 3 }];
+    [topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
+    [self.view addSubview:topShadow];
+    
+    GTIOUser *currentUser = [GTIOUser currentUser];
     
     GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         NSDictionary *fieldsToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            currentlySelectedProfileIconURL, @"icon",
+                                        self.currentlySelectedProfileIconURL, @"icon",
                                         nil];
         NSDictionary *trackingInformation = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                @"edit_profile", @"id",
-                                                @"edit_profile_icon", @"screen",
+                                             @"edit_profile", @"id",
+                                             @"edit_profile_icon", @"screen",
                                              nil];
         [currentUser updateCurrentUserWithFields:fieldsToUpdate withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
@@ -82,45 +95,108 @@
         [self.navigationController popViewControllerAnimated:YES]; 
     }];
     
-    [self.navigationItem setHidesBackButton:YES];
-    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
-    [titleView setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:18.0]];
-    [titleView setText:@"edit profile picture"];
-    [titleView sizeToFit];
-    [titleView setBackgroundColor:[UIColor clearColor]];
-    [self.navigationItem setTitleView:titleView];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:doneButton]];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:saveButton]];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     
-    UIView *topShadow = [[UIView alloc] initWithFrame:(CGRect){0,0,self.view.bounds.size.width,3}];
-    [topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
-    [self.view addSubview:topShadow];
+    [self.navigationItem setHidesBackButton:YES];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"green-pattern-nav-bar.png"] forBarMetrics:UIBarMetricsDefault];
     
-    GTIORoundedView *chooseFromBox = [[GTIORoundedView alloc] initWithFrame:(CGRect){10,10,300,185}];
-    [chooseFromBox setTitle:@"choose from"];
-    [self.view addSubview:chooseFromBox];
+    GTIOUser *currentUser = [GTIOUser currentUser];
+    self.currentlySelectedProfileIconURL = [currentUser.icon absoluteString];
     
-    UIImageView *facebookLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"facebook-logo.png"]];
-    [facebookLogo setFrame:(CGRect){21,52.5,facebookLogo.bounds.size}];
-    [chooseFromBox addSubview:facebookLogo];
+    self.chooseFromBox = [[GTIORoundedView alloc] initWithFrame:(CGRect){ 10, 10, 300, 185 }];
+    [self.chooseFromBox setTitle:@"choose from"];
+    [self.view addSubview:self.chooseFromBox];
     
-    UILabel *myLooksLabel = [[UILabel alloc] initWithFrame:(CGRect){90,53,100,11}];
-    [myLooksLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:11.0]];
-    [myLooksLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
-    [myLooksLabel setText:@"my looks"];
-    [chooseFromBox addSubview:myLooksLabel];
+    self.facebookLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"facebook-logo.png"]];
+    [self.facebookLogo setFrame:(CGRect){ { 21, 52.5 }, self.facebookLogo.bounds.size }];
+    [self.chooseFromBox addSubview:self.facebookLogo];
     
-    UIScrollView *myLooksIcons = [[UIScrollView alloc] initWithFrame:(CGRect){90,72,195,70}];
-    [myLooksIcons setShowsVerticalScrollIndicator:NO];
-    [chooseFromBox addSubview:myLooksIcons];
+    self.myLooksLabel = [[UILabel alloc] initWithFrame:(CGRect){ 90, 53, 100, 11}];
+    [self.myLooksLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:11.0]];
+    [self.myLooksLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+    [self.myLooksLabel setText:@"my looks"];
+    [self.chooseFromBox addSubview:self.myLooksLabel];
     
-    UILabel *loadingIconsLabel = [[UILabel alloc] initWithFrame:(CGRect){0,0,50,10}];
-    [loadingIconsLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0]];
-    [loadingIconsLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
-    [loadingIconsLabel setText:@"Loading..."];
-    [myLooksIcons addSubview:loadingIconsLabel];
+    self.myLooksIcons = [[UIScrollView alloc] initWithFrame:(CGRect){ 90, 72, 195, 70 }];
+    [self.myLooksIcons setShowsVerticalScrollIndicator:NO];
+    [self.chooseFromBox addSubview:self.myLooksIcons];
+    
+    self.loadingIconsLabel = [[UILabel alloc] initWithFrame:(CGRect){ 0, 0, 50, 10 }];
+    [self.loadingIconsLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0]];
+    [self.loadingIconsLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+    [self.loadingIconsLabel setText:@"Loading..."];
+    [self.myLooksIcons addSubview:self.loadingIconsLabel];
+    
+    self.previewBox = [[GTIORoundedView alloc] initWithFrame:(CGRect){ 10, 205, 300, 202 }];
+    [self.previewBox setTitle:@"preview"];
+    [self.view addSubview:self.previewBox];
+    
+    self.previewBoxBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"preview-box-bg.png"]];
+    [self.previewBoxBackground setFrame:(CGRect){ { 17, 55 }, self.previewBoxBackground.bounds.size }];
+    [self.previewBox addSubview:self.previewBoxBackground];
+    
+    self.previewIcon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 12, 13, 55, 55 } andImageURL:nil];
+    [self.previewBoxBackground addSubview:self.previewIcon];
+    
+    self.previewNameLabel = [[UILabel alloc] initWithFrame:(CGRect){ 80, 24, 174, 21 }];
+    [self.previewNameLabel setBackgroundColor:[UIColor clearColor]];
+    [self.previewNameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMedium size:18.0]];
+    [self.previewNameLabel setTextColor:[UIColor gtio_pinkTextColor]];
+    [self.previewBoxBackground addSubview:self.previewNameLabel];
+    
+    self.previewUserLocationLabel = [[UILabel alloc] initWithFrame:(CGRect){ 80, 45, 174, 14 }];
+    [self.previewUserLocationLabel setBackgroundColor:[UIColor clearColor]];
+    [self.previewUserLocationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [self.previewUserLocationLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+    [self.previewBoxBackground addSubview:self.previewUserLocationLabel];
+    
+    self.clearProfilePictureButton = [[UIButton alloc] initWithFrame:(CGRect){ 17, 151, 118, 24 }];
+    [self.clearProfilePictureButton setImage:[UIImage imageNamed:@"clear-profile-picture-button.png"] forState:UIControlStateNormal];
+    [self.clearProfilePictureButton addTarget:self action:@selector(clearProfilePicture:) forControlEvents:UIControlEventTouchUpInside];
+    [self.previewBox addSubview:self.clearProfilePictureButton];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    self.facebookLogo = nil;
+    self.myLooksIcons = nil;
+    self.myLooksLabel = nil;
+    self.loadingIconsLabel = nil;
+    self.previewBox = nil;
+    self.previewBoxBackground = nil;
+    self.previewIcon = nil;
+    self.previewNameLabel = nil;
+    self.previewUserLocationLabel = nil;
+    self.clearProfilePictureButton = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self refreshContent];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - 
+
+- (void)refreshContent
+{        
+    GTIOUser *currentUser = [GTIOUser currentUser];
+    self.currentlySelectedProfileIconURL = [currentUser.icon absoluteString];
+    
     [[GTIOProfileDataSource sharedDataSource] loadUserIconsWithUserID:currentUser.userID andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
-        [loadingIconsLabel removeFromSuperview];
+        [self.loadingIconsLabel removeFromSuperview];
         if (!error) {
             BOOL userHasFacebookPicture = NO;
             
@@ -128,7 +204,7 @@
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOFacebookIcon class]]) {
                     GTIOIcon *facebookIcon = (GTIOIcon*)object;
-                    [profileIconURLs addObject:facebookIcon.url];
+                    [self.profileIconURLs addObject:facebookIcon.url];
                     userHasFacebookPicture = YES;
                 }
             }
@@ -136,39 +212,39 @@
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOIcon class]] && ![object isMemberOfClass:[GTIOFacebookIcon class]]) {
                     GTIOIcon *icon = (GTIOIcon*)object;
-                    [profileIconURLs addObject:icon.url];
+                    [self.profileIconURLs addObject:icon.url];
                 }
             }
             
-            facebookPicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){16,72,55,55} andImageURL:nil];
+            self.facebookPicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 16, 72, 55, 55 } andImageURL:nil];
             if (userHasFacebookPicture) {
-                NSString* facebookPictureURL = [profileIconURLs objectAtIndex:0];
-                [facebookPicture setImageWithURL:facebookPictureURL];
-                [profileIconViews addObject:facebookPicture];
-                [profileIconURLs removeObject:facebookPictureURL];
-                [facebookPicture setDelegate:self];
+                NSString *facebookPictureURL = [self.profileIconURLs objectAtIndex:0];
+                [self.facebookPicture setImageWithURL:facebookPictureURL];
+                [self.profileIconViews addObject:self.facebookPicture];
+                [self.profileIconURLs removeObject:facebookPictureURL];
+                [self.facebookPicture setDelegate:self];
             } else {
-                [facebookPicture setImage:[UIImage imageNamed:@"default-facebook-profile-picture.png"]];
-                [facebookPicture setIsSelectable:NO];
+                [self.facebookPicture setImage:[UIImage imageNamed:@"default-facebook-profile-picture.png"]];
+                [self.facebookPicture setIsSelectable:NO];
                 
-                UIButton *facebookConnectButton = [[UIButton alloc] initWithFrame:(CGRect){16,137,55,21}];
+                UIButton *facebookConnectButton = [[UIButton alloc] initWithFrame:(CGRect){ 16, 137, 55, 21 }];
                 [facebookConnectButton setImage:[UIImage imageNamed:@"facebook-connect-button"] forState:UIControlStateNormal];
                 [facebookConnectButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
-                [chooseFromBox addSubview:facebookConnectButton];
+                [self.chooseFromBox addSubview:facebookConnectButton];
             }
-            [chooseFromBox addSubview:facebookPicture];
+            [self.chooseFromBox addSubview:self.facebookPicture];
             
             double iconXPos = 0.0;
             double iconSpacing = 3.0;
-            int numberOfIcons = [profileIconURLs count];
+            int numberOfIcons = [self.profileIconURLs count];
             for (int i = 0; i < numberOfIcons; i++) {
-                GTIOSelectableProfilePicture *icon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){iconXPos,0,55,55} andImageURL:[profileIconURLs objectAtIndex:i]];
+                GTIOSelectableProfilePicture *icon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ iconXPos, 0, 55, 55 } andImageURL:[self.profileIconURLs objectAtIndex:i]];
                 [icon setDelegate:self];
-                [profileIconViews addObject:icon];
-                [myLooksIcons addSubview:icon];
+                [self.profileIconViews addObject:icon];
+                [self.myLooksIcons addSubview:icon];
                 iconXPos += 55 + ((i == (numberOfIcons - 1)) ? 0 : iconSpacing);
             }
-            [myLooksIcons setContentSize:(CGSize){numberOfIcons * (55 + iconSpacing),70}];
+            [self.myLooksIcons setContentSize:(CGSize){ numberOfIcons * (55 + iconSpacing), 70 }];
             
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to load your looks." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
@@ -176,40 +252,15 @@
         }
     }];
     
-    GTIORoundedView *previewBox = [[GTIORoundedView alloc] initWithFrame:(CGRect){10,205,300,202}];
-    [previewBox setTitle:@"preview"];
-    [self.view addSubview:previewBox];
-    
-    UIImageView *previewBoxBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"preview-box-bg.png"]];
-    [previewBoxBackground setFrame:(CGRect){17,55,previewBoxBackground.bounds.size}];
-    [previewBox addSubview:previewBoxBackground];
-    
-    previewIcon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){12,13,55,55} andImageURL:nil];
+
     if ([[currentUser.icon absoluteString] length] > 0) {
-        [previewIcon setImageWithURL:[currentUser.icon absoluteString]];
+        [self.previewIcon setImageWithURL:[currentUser.icon absoluteString]];
     } else {
-        [previewIcon setImage:[UIImage imageNamed:@"no-profile-picture.png"]];
+        [self.previewIcon setImage:[UIImage imageNamed:@"no-profile-picture.png"]];
     }
-    [previewBoxBackground addSubview:previewIcon];
     
-    previewNameLabel = [[UILabel alloc] initWithFrame:(CGRect){80,24,174,21}];
-    [previewNameLabel setBackgroundColor:[UIColor clearColor]];
-    [previewNameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMedium size:18.0]];
-    [previewNameLabel setTextColor:[UIColor gtio_pinkTextColor]];
-    [previewNameLabel setText:currentUser.name];
-    [previewBoxBackground addSubview:previewNameLabel];
-    
-    previewUserLocationLabel = [[UILabel alloc] initWithFrame:(CGRect){80,45,174,14}];
-    [previewUserLocationLabel setBackgroundColor:[UIColor clearColor]];
-    [previewUserLocationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [previewUserLocationLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
-    [previewUserLocationLabel setText:[NSString stringWithFormat:@"%@%@%@",currentUser.city,([currentUser.state length] > 0)?@", ":@"",currentUser.state]];
-    [previewBoxBackground addSubview:previewUserLocationLabel];
-    
-    UIButton *clearProfilePictureButton = [[UIButton alloc] initWithFrame:(CGRect){17,151,118,24}];
-    [clearProfilePictureButton setImage:[UIImage imageNamed:@"clear-profile-picture-button.png"] forState:UIControlStateNormal];
-    [clearProfilePictureButton addTarget:self action:@selector(clearProfilePicture:) forControlEvents:UIControlEventTouchUpInside];
-    [previewBox addSubview:clearProfilePictureButton];
+    [self.previewNameLabel setText:currentUser.name];
+    [self.previewUserLocationLabel setText:[NSString stringWithFormat:@"%@%@%@", currentUser.city, ([currentUser.state length] > 0) ? @", " : @"", currentUser.state]];
 }
 
 - (void)connectToFacebook:(id)sender
@@ -226,8 +277,8 @@
 
 - (void)clearProfilePicture:(id)sender
 {
-    [previewIcon setImage:[UIImage imageNamed:@"no-profile-picture.png"]];
-    currentlySelectedProfileIconURL = @"";
+    [self.previewIcon setImage:[UIImage imageNamed:@"no-profile-picture.png"]];
+    self.currentlySelectedProfileIconURL = @"";
     [self clearSelectedProfilePictures];
 }
 
@@ -236,20 +287,15 @@
     // clear all selectable profile pictures before selecting this one
     [self clearSelectedProfilePictures];
     GTIOSelectableProfilePicture *tappedPicture = (GTIOSelectableProfilePicture*)picture;
-    [previewIcon setImageWithURL:tappedPicture.imageURL];
-    currentlySelectedProfileIconURL = tappedPicture.imageURL;
+    [self.previewIcon setImageWithURL:tappedPicture.imageURL];
+    self.currentlySelectedProfileIconURL = tappedPicture.imageURL;
 }
 
 - (void)clearSelectedProfilePictures
 {
-    for (GTIOSelectableProfilePicture *picture in profileIconViews) {
+    for (GTIOSelectableProfilePicture *picture in self.profileIconViews) {
         [picture setIsSelected:NO];
     }
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

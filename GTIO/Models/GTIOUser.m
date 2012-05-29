@@ -217,14 +217,14 @@
 {
     self.janrainAuthResourcePath = @"/user/auth/janrain";
     self.loginHandler = loginHandler;
-    [_janrain showAuthenticationDialogForProvider:providerName];
+    [self.janrain showAuthenticationDialogForProvider:providerName];
 }
 
 - (void)signUpWithJanrainForProvider:(NSString *)providerName WithLoginHandler:(GTIOLoginHandler)loginHandler
 {
     self.janrainAuthResourcePath = @"/user/signup/janrain";
     self.loginHandler = loginHandler;
-    [_janrain showAuthenticationDialogForProvider:providerName];
+    [self.janrain showAuthenticationDialogForProvider:providerName];
 }
 
 #pragma mark - JREngageDelegate methods

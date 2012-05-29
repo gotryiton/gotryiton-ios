@@ -10,6 +10,6 @@
 
 @interface GTIOTextFieldForPickerViews : UITextField
 
-@property (nonatomic, unsafe_unretained) BOOL usesPicker;
+@property (nonatomic, assign) BOOL usesPicker;
 
 @end

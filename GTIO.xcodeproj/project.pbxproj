@@ -519,6 +519,7 @@
 		D20C226B155B10800079D7D9 /* GTIOConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D20C226A155B10800079D7D9 /* GTIOConfig.m */; };
 		D20C228B155B14440079D7D9 /* GTIOMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D20C228A155B14440079D7D9 /* GTIOMappingProvider.m */; };
 		D20C228E155B1C5C0079D7D9 /* GTIOEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = D20C228D155B1C5B0079D7D9 /* GTIOEnvironment.m */; };
+		D239CA7D15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D239CA7C15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.m */; };
 		D246B087155C037C00E5546A /* GTIOAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B086155C037C00E5546A /* GTIOAppearance.m */; };
 		D246B08A155C0AE400E5546A /* GTIOVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B089155C0AE400E5546A /* GTIOVisit.m */; };
 		D246B08C155C134900E5546A /* GTIOVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B089155C0AE400E5546A /* GTIOVisit.m */; };
@@ -1204,6 +1205,8 @@
 		D20C228A155B14440079D7D9 /* GTIOMappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOMappingProvider.m; path = Application/GTIOMappingProvider.m; sourceTree = "<group>"; };
 		D20C228C155B1C5B0079D7D9 /* GTIOEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOEnvironment.h; path = Application/GTIOEnvironment.h; sourceTree = "<group>"; };
 		D20C228D155B1C5B0079D7D9 /* GTIOEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOEnvironment.m; path = Application/GTIOEnvironment.m; sourceTree = "<group>"; };
+		D239CA7B15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAlmostDoneTableDataItem.h; sourceTree = "<group>"; };
+		D239CA7C15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAlmostDoneTableDataItem.m; sourceTree = "<group>"; };
 		D246B085155C037C00E5546A /* GTIOAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOAppearance.h; path = Application/GTIOAppearance.h; sourceTree = "<group>"; };
 		D246B086155C037C00E5546A /* GTIOAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOAppearance.m; path = Application/GTIOAppearance.m; sourceTree = "<group>"; };
 		D246B088155C0AE400E5546A /* GTIOVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOVisit.h; sourceTree = "<group>"; };
@@ -2165,20 +2168,20 @@
 		8EF8FF80156BEE9900AFCE55 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				8EF8FF9B156C112400AFCE55 /* GTIOAlmostDoneTableCell.h */,
+				8EF8FF9C156C112400AFCE55 /* GTIOAlmostDoneTableCell.m */,
+				8EF8FF81156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.h */,
+				8EF8FF82156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m */,
 				8E355BF3156D8F5300AA09F6 /* GTIOPickerViewForTextFields.h */,
 				8E355BF4156D8F5300AA09F6 /* GTIOPickerViewForTextFields.m */,
 				8E355BF5156D8F5300AA09F6 /* GTIOPlaceHolderTextView.h */,
 				8E355BF6156D8F5300AA09F6 /* GTIOPlaceHolderTextView.m */,
-				8EF8FF81156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.h */,
-				8EF8FF82156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m */,
-				8EF8FF9B156C112400AFCE55 /* GTIOAlmostDoneTableCell.h */,
-				8EF8FF9C156C112400AFCE55 /* GTIOAlmostDoneTableCell.m */,
-				8EAA14C5156E846C0083884E /* GTIOTextFieldForPickerViews.h */,
-				8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */,
 				8E240E14156EC23F004EA1B8 /* GTIORoundedView.h */,
 				8E240E15156EC240004EA1B8 /* GTIORoundedView.m */,
 				8E240E1B156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.h */,
 				8E240E1C156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.m */,
+				8EAA14C5156E846C0083884E /* GTIOTextFieldForPickerViews.h */,
+				8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -2217,6 +2220,15 @@
 				D20C2266155B0FBC0079D7D9 /* GTIOIntroScreen.m */,
 			);
 			name = Config;
+			sourceTree = "<group>";
+		};
+		D239CA7A15750D56004C6D51 /* Table Items */ = {
+			isa = PBXGroup;
+			children = (
+				D239CA7B15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.h */,
+				D239CA7C15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.m */,
+			);
+			name = "Table Items";
 			sourceTree = "<group>";
 		};
 		D246B099155C3D2500E5546A /* Tracking */ = {
@@ -2563,6 +2575,7 @@
 		D2CDA9B015503307009B7E24 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D239CA7A15750D56004C6D51 /* Table Items */,
 				8E240E1E156ED41E004EA1B8 /* Profile */,
 				D246B099155C3D2500E5546A /* Tracking */,
 				D20C2268155B106F0079D7D9 /* Config */,
@@ -3390,6 +3403,7 @@
 				8E240E21156ED437004EA1B8 /* GTIOIcon.m in Sources */,
 				8E240E30156EF731004EA1B8 /* GTIOProfileDataSource.m in Sources */,
 				8E240E33156F004E004EA1B8 /* GTIOFacebookIcon.m in Sources */,
+				D239CA7D15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

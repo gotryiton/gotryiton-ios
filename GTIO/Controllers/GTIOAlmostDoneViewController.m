@@ -14,58 +14,22 @@
 #import "GTIOProgressHUD.h"
 #import "GTIOAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
+#import "GTIOAlmostDoneTableDataItem.h"
 
-@interface GTIOAlmostDoneTableDataItem : NSObject
+@interface GTIOAlmostDoneViewController ()
 
-@property (nonatomic, copy) NSString* apiKey;
-@property (nonatomic, copy) NSString* titleText;
-@property (nonatomic, copy) NSString* placeHolderText;
-@property (nonatomic, copy) NSString* accessoryText;
-@property (nonatomic, retain) NSArray* pickerItems;
-@property (nonatomic, unsafe_unretained) BOOL required;
-@property (nonatomic, unsafe_unretained) BOOL usesPicker;
-@property (nonatomic, unsafe_unretained) BOOL multiline;
-
-- (id)initWithApiKey:(NSString*)apiKey andTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline;
-
-@end
-
-@implementation GTIOAlmostDoneTableDataItem
-
-@synthesize apiKey = _apiKey, titleText = _titleText, placeHolderText = _placeHolderText, accessoryText = _accessoryText, pickerItems = _pickerItems, required = _required, usesPicker = _usesPicker, multiline = _multiline;
-
-- (id)initWithApiKey:(NSString*)apiKey andTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline
-{
-    self = [super init];
-    if (self) {
-        _apiKey = apiKey;
-        _titleText = title;
-        _placeHolderText = placeholder;
-        _accessoryText = accessoryText;
-        _pickerItems = pickerItems;
-        _required = required;
-        _usesPicker = usesPicker;
-        _multiline = multiline;
-    }
-    return self;
-}
-
-@end
-
-
-@interface GTIOAlmostDoneViewController () {
-@private
-    NSArray* _tableData;
-    UITableView* _content;
-    CGRect _originalContentFrame;
-    NSURL* _profilePicture;
-    NSMutableDictionary* _saveData;
-    NSMutableArray* _textFields;
-}
+@property (nonatomic, strong) NSArray *tableData;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) CGRect originalContentFrame;
+@property (nonatomic, strong) NSURL *profilePicture;
+@property (nonatomic, strong) NSMutableDictionary *saveData;
+@property (nonatomic, strong) NSMutableArray *textFields;
 
 @end
 
 @implementation GTIOAlmostDoneViewController
+
+@synthesize tableData = _tableData, tableView = _tableView, originalContentFrame = _originalContentFrame, profilePicture = _profilePicture, saveData = _saveData, textFields = _textFields;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -77,7 +41,7 @@
         [dateFormatter setDateFormat:@"yyyy"];
         for (int i = 0; i < 100; i++) {
             [selectableYears addObject:[dateFormatter stringFromDate:currentDate]];
-            currentDate = [currentDate dateByAddingTimeInterval:-(60*60*24*365.25)];
+            currentDate = [currentDate dateByAddingTimeInterval:-(60 * 60 * 24 * 365.25)];
         }
         
         NSArray* selectableGenders = [NSArray arrayWithObjects:@"female", @"male", nil];
@@ -107,18 +71,24 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"green-pattern-nav-bar.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationItem setHidesBackButton:YES];
     
     GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGreenTopMargin tapHandler:^(id sender) {
         NSMutableArray *missingDataElements = [NSMutableArray array];
-        for (GTIOAlmostDoneTableDataItem *dataItem in _tableData) {
+        for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
             if ([dataItem required]) {
-                if ([[_saveData valueForKey:[dataItem apiKey]] length] == 0) {
+                if ([[self.saveData valueForKey:[dataItem apiKey]] length] == 0) {
                     [missingDataElements addObject:[dataItem titleText]];
                 }
             }
@@ -132,7 +102,7 @@
                                                  @"edit_profile", @"id",
                                                  @"almost_done", @"screen",
                                                  nil];
-            [[GTIOUser currentUser] updateCurrentUserWithFields:_saveData withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
+            [[GTIOUser currentUser] updateCurrentUserWithFields:self.saveData withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 if (!error) {
                     [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
@@ -144,7 +114,6 @@
         }
     }];
     
-    [self.navigationItem setHidesBackButton:YES];
     UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
     [titleView setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:18.0]];
     [titleView setText:@"almost done!"];
@@ -153,18 +122,52 @@
     [self.navigationItem setTitleView:titleView];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:saveButton]];
     
-    _content = [[UITableView alloc] initWithFrame:(CGRect){0,0,self.view.bounds.size.width,self.view.bounds.size.height} style:UITableViewStyleGrouped];
-    [_content setDelegate:self];
-    [_content setDataSource:self];
-    [_content setBackgroundColor:[UIColor clearColor]];
-    [_content setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-    [_content setSeparatorColor:[UIColor gtio_lightGrayBorderColor]];
-    _originalContentFrame = _content.frame;
-    [self.view addSubview:_content];
+    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){0,0,self.view.bounds.size.width,self.view.bounds.size.height} style:UITableViewStyleGrouped];
+    [self.tableView setDelegate:self];
+    [self.tableView setDataSource:self];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [self.tableView setSeparatorColor:[UIColor gtio_lightGrayBorderColor]];
+    self.originalContentFrame = self.tableView.frame;
+    [self.view addSubview:self.tableView];
     
     UIView *topShadow = [[UIView alloc] initWithFrame:(CGRect){0,0,self.view.bounds.size.width,3}];
     [topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
     [self.view addSubview:topShadow];
+}
+
+- (void)viewDidUnload
+{
+    [self viewDidUnload];
+    self.tableView = nil;
+    self.originalContentFrame = CGRectZero;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    // get rid of the pesky keyboard
+    for (UITextField *textField in self.textFields) {
+        [textField resignFirstResponder];
+    }
+    [self resetScrollAfterEditing];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self refreshScreenData];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - TableViewDelegate Methods
@@ -177,7 +180,8 @@
     return 8;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 2;
 }
 
@@ -202,19 +206,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell-%i-%i",indexPath.section,indexPath.row];
+    NSString *cellIdentifier = [NSString stringWithFormat:@"cell-%i-%i",indexPath.section,indexPath.row];
     
-    id cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    id cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    GTIOAlmostDoneTableDataItem* dataItemForRow = (GTIOAlmostDoneTableDataItem*)[_tableData objectAtIndex:indexPath.row];
+    GTIOAlmostDoneTableDataItem *dataItemForRow = (GTIOAlmostDoneTableDataItem*)[self.tableData objectAtIndex:indexPath.row];
     
-    if (cell == nil) {
+    if (!cell) {
         if (indexPath.section == 0) {
-            cell = (GTIOAlmostDoneTableHeaderCell*)[[GTIOAlmostDoneTableHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            [cell setProfilePicture:_profilePicture];
+            cell = (GTIOAlmostDoneTableHeaderCell *)[[GTIOAlmostDoneTableHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            [cell setProfilePictureWithURL:self.profilePicture];
             [cell setTag:(indexPath.section+indexPath.row)];
         } else {
-            cell = [[GTIOAlmostDoneTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell = [[GTIOAlmostDoneTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             [cell setCellTitle:[dataItemForRow titleText]];
             [cell setRequired:[dataItemForRow required]];
             [cell setAccessoryTextIsMultipleLines:[dataItemForRow multiline]];
@@ -228,14 +232,14 @@
                 [cell setPickerViewItems:[dataItemForRow pickerItems]];
             }
             
-            if (![_textFields containsObject:[cell cellAccessoryText]]) {
-                [_textFields addObject:[cell cellAccessoryText]];
+            if (![self.textFields containsObject:[cell cellAccessoryText]]) {
+                [self.textFields addObject:[cell cellAccessoryText]];
             }
         }
     }
     
     if (indexPath.section == 0) {
-        [cell setProfilePicture:_profilePicture];
+        [cell setProfilePictureWithURL:self.profilePicture];
     } else {
         // prepopulate anything from the current user
         if ([[dataItemForRow accessoryText] length] > 0 && ![[dataItemForRow accessoryText] isEqualToString:@"0"]) {
@@ -248,81 +252,66 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0 && indexPath.row == 0) {
         GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
     }
 }
 
-- (void)moveResponderToNextCellFromCell:(NSUInteger)cellIdentifier {
+#pragma mark - Helpers
+
+- (void)moveResponderToNextCellFromCell:(NSUInteger)cellIdentifier
+{
     cellIdentifier++;
-    GTIOAlmostDoneTableCell* cellToActivate = (GTIOAlmostDoneTableCell*)[_content viewWithTag:cellIdentifier];
+    GTIOAlmostDoneTableCell *cellToActivate = (GTIOAlmostDoneTableCell *)[self.tableView viewWithTag:cellIdentifier];
     if (cellToActivate) {
         [cellToActivate becomeFirstResponder];
     }
 }
 
-- (void)scrollUpWhileEditing:(NSUInteger)cellIdentifier {
-    GTIOAlmostDoneTableCell *cell = (GTIOAlmostDoneTableCell*)[_content viewWithTag:cellIdentifier];
+- (void)scrollUpWhileEditing:(NSUInteger)cellIdentifier
+{
+    GTIOAlmostDoneTableCell *cell = (GTIOAlmostDoneTableCell *)[self.tableView viewWithTag:cellIdentifier];
     CGRect frame = cell.frame;
     frame.origin.y = frame.origin.y + 55;
-    if (CGRectEqualToRect(_content.frame,_originalContentFrame)) {
-        [_content setFrame:(CGRect){0,0,_originalContentFrame.size.width,_originalContentFrame.size.height-260}];
-        [_content scrollRectToVisible:frame animated:NO];
+    if (CGRectEqualToRect(self.tableView.frame, self.originalContentFrame)) {
+        [self.tableView setFrame:(CGRect){ 0, 0, self.originalContentFrame.size.width, self.originalContentFrame.size.height - 260 }];
+        [self.tableView scrollRectToVisible:frame animated:NO];
     } else {
-        [_content scrollRectToVisible:frame animated:YES];
+        [self.tableView scrollRectToVisible:frame animated:YES];
     }
 }
 
 - (void)updateDataSourceWithValue:(id)value ForKey:(NSString*)key
 {
-    [_saveData setValue:value forKey:key];
+    [self.saveData setValue:value forKey:key];
 }
 
-- (void)refreshScreenData {
-    _profilePicture = [GTIOUser currentUser].icon;
-    for (GTIOAlmostDoneTableDataItem* dataItem in _tableData) {
-        [dataItem setAccessoryText:[_saveData valueForKey:[dataItem apiKey]]];
+- (void)refreshScreenData
+{
+    self.profilePicture = [GTIOUser currentUser].icon;
+    for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData)
+    {
+        [dataItem setAccessoryText:[self.saveData valueForKey:[dataItem apiKey]]];
     }
-    [_content reloadData];
+    [self.tableView reloadData];
     [self adjustContentSizeToFit];
 }
 
-- (void)resetScrollAfterEditing {
-    [_content setFrame:_originalContentFrame];
+- (void)resetScrollAfterEditing
+{
+    [self.tableView setFrame:self.originalContentFrame];
     [self adjustContentSizeToFit];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self refreshScreenData];
-}
-
-- (void)adjustContentSizeToFit {
-    NSArray* indexPaths = [_content indexPathsForVisibleRows];
-    CGRect lastRowRect= [_content rectForRowAtIndexPath:[indexPaths objectAtIndex:[indexPaths count]-1]];
+- (void)adjustContentSizeToFit
+{
+    NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
+    CGRect lastRowRect= [self.tableView rectForRowAtIndexPath:[indexPaths objectAtIndex:[indexPaths count] - 1]];
     CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height;
-    [_content setContentSize:(CGSize){_content.contentSize.width,contentHeight+55}];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    // get rid of the pesky keyboard
-    for (UITextField *textField in _textFields) {
-        [textField resignFirstResponder];
-    }
-    [self resetScrollAfterEditing];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    [self.tableView setContentSize:(CGSize){ self.tableView.contentSize.width, contentHeight + 55 }];
 }
 
 @end

@@ -15,16 +15,15 @@
 
 #import "GTIOProgressHUD.h"
 
-@interface GTIOReturningUsersViewController () {
-@private
-    BOOL _returningUser;
-}
+@interface GTIOReturningUsersViewController ()
 
 @property (nonatomic, strong) GTIOButton *facebookButton;
 @property (nonatomic, strong) GTIOButton *aolButton;
 @property (nonatomic, strong) GTIOButton *googleButton;
 @property (nonatomic, strong) GTIOButton *twitterButton;
 @property (nonatomic, strong) GTIOButton *yahooButton;
+
+@property (nonatomic, assign, getter = isReturningUser) BOOL returningUser;
 
 - (void)directUserToAppropriateScreenAfterSignIn:(GTIOUser*)user WithError:(NSError*)error;
 
@@ -33,8 +32,10 @@
 @implementation GTIOReturningUsersViewController
 
 @synthesize facebookButton = _facebookButton, aolButton = _aolButton, googleButton = _googleButton, twitterButton = _twitterButton, yahooButton = _yahooButton;
+@synthesize returningUser = _returningUser;
 
-- (id)initForReturningUsers:(BOOL)returning {
+- (id)initForReturningUsers:(BOOL)returning 
+{
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _returningUser = returning;
@@ -43,10 +44,6 @@
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    return [self initForReturningUsers:YES];
-}
-
-- (id)init {
     return [self initForReturningUsers:YES];
 }
 
@@ -62,7 +59,7 @@
 {
     [super viewDidLoad];
     
-    NSString *backgroundImageResourcePath = (_returningUser) ? @"login-return-bg.png" : @"login-janrain-new-bg.png";
+    NSString *backgroundImageResourcePath = (self.returningUser) ? @"login-return-bg.png" : @"login-janrain-new-bg.png";
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed
                                                                            :backgroundImageResourcePath]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -64)];
@@ -74,9 +71,9 @@
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
     
     __block id blockSelf = self;
-    __block BOOL blockReturningUser = _returningUser;
+    __block BOOL blockReturningUser = self.returningUser;
     
-    if (_returningUser) {
+    if (self.returningUser) {
         self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignIn];
         [self.facebookButton setFrame:(CGRect){ {(self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 80 }, self.facebookButton.frame.size }];
         [self.facebookButton setTapHandler:^(id sender) {
@@ -87,10 +84,10 @@
         [self.view addSubview:self.facebookButton];
     }
     
-    double signinOptionsTableYPos = (_returningUser) ? 145.0 : 116.0;
+    double signinOptionsTableYPos = (self.returningUser) ? 145.0 : 116.0;
     
     self.aolButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeAOL];
-    [self.aolButton setFrame:(CGRect){ {(self.view.frame.size.width - self.aolButton.frame.size.width) / 2, signinOptionsTableYPos }, self.aolButton.frame.size }];
+    [self.aolButton setFrame:(CGRect){ { (self.view.frame.size.width - self.aolButton.frame.size.width) / 2, signinOptionsTableYPos }, self.aolButton.frame.size }];
     [self.aolButton setTapHandler:^(id sender) {
         if (blockReturningUser) {
             [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderAol WithLoginHandler:^(GTIOUser *user, NSError *error) {
@@ -150,21 +147,6 @@
     [self.view addSubview:self.yahooButton];
 }
 
-- (void)directUserToAppropriateScreenAfterSignIn:(GTIOUser *)user WithError:(NSError*)error {
-    if (error) {
-        GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
-        [self.navigationController pushViewController:failedSignInViewController animated:YES];
-    } else {
-        if (user.isNewUser || !user.hasCompleteProfile) {
-            // load "almost done" screen
-            GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:almostDone animated:YES];
-        } else {
-            [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
-        }
-    }
-}
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -190,6 +172,24 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - 
+
+- (void)directUserToAppropriateScreenAfterSignIn:(GTIOUser *)user WithError:(NSError *)error 
+{
+    if (error) {
+        GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:failedSignInViewController animated:YES];
+    } else {
+        if (user.isNewUser || !user.hasCompleteProfile) {
+            // load "almost done" screen
+            GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:almostDone animated:YES];
+        } else {
+            [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+        }
+    }
 }
 
 @end

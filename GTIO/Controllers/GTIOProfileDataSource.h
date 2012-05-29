@@ -17,6 +17,6 @@ typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
 
 /** User Icons from API
  */
-- (void)loadUserIconsWithUserID:(NSString*)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler;
+- (void)loadUserIconsWithUserID:(NSString *)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end

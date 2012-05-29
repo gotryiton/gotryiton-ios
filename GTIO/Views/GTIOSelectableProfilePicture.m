@@ -11,17 +11,16 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface GTIOSelectableProfilePicture()
-{
-    @private
-    UIImageView *imageView;
-    UITapGestureRecognizer *tapGestureRecognizer;
-}
+
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
 
 @implementation GTIOSelectableProfilePicture
 
-@synthesize isSelectable = _isSelectable, isSelected = _isSelected, imageURL = _imageURL, delegate = _delegate;
+@synthesize isSelectable = _isSelectable, isSelected = _isSelected, imageURL = _imageURL, delegate = _delegate, image = _image;
+@synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer;
 
 - (id)initWithFrame:(CGRect)frame andImageURL:(NSString*)url
 {
@@ -30,12 +29,12 @@
         [self.layer setCornerRadius:3.0f];
         [self.layer setMasksToBounds:YES];
         
-        tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];
+        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];
         
-        imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
-        [imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [imageView setImageWithURL:[NSURL URLWithString:url]];
-        [self addSubview:imageView];
+        _imageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, 0 }, frame.size }];
+        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [_imageView setImageWithURL:[NSURL URLWithString:url]];
+        [self addSubview:_imageView];
         [self fadeInImageView];
         
         self.isSelected = NO;
@@ -45,16 +44,17 @@
     return self;
 }
 
-- (void)setImageWithURL:(NSString*)url
+- (void)setImageURL:(NSString *)imageURL
 {
-    self.imageURL = url;
-    [imageView setImageWithURL:[NSURL URLWithString:url]];
+    _imageURL = imageURL;
+    [_imageView setImageWithURL:[NSURL URLWithString:imageURL]];
     [self fadeInImageView];
 }
 
 - (void)setImage:(UIImage*)image
 {
-    [imageView setImage:image];
+    _image = image;
+    [_imageView setImage:image];
     [self fadeInImageView];
 }
 
@@ -62,9 +62,9 @@
 {
     _isSelectable = isSelectable;
     if (self.isSelectable) {
-        [self addGestureRecognizer:tapGestureRecognizer];
+        [self addGestureRecognizer:_tapGestureRecognizer];
     } else {
-        [self removeGestureRecognizer:tapGestureRecognizer];
+        [self removeGestureRecognizer:_tapGestureRecognizer];
     }
 }
 
@@ -82,16 +82,17 @@
 
 - (void)setIsSelectedGesture:(UITapGestureRecognizer *)sender
 {
-    if ([_delegate respondsToSelector:@selector(pictureWasTapped:)]) {
-        [_delegate pictureWasTapped:self];
+    if ([self.delegate respondsToSelector:@selector(pictureWasTapped:)]) {
+        [self.delegate pictureWasTapped:self];
     }
     [self setIsSelected:!self.isSelected];
 }
 
-- (void)fadeInImageView {
-    [imageView setAlpha:0.0];
+- (void)fadeInImageView
+{
+    [self.imageView setAlpha:0.0];
     [UIView animateWithDuration:0.25 animations:^{
-        [imageView setAlpha:1.0];
+        [self.imageView setAlpha:1.0];
     }];
 }
 
