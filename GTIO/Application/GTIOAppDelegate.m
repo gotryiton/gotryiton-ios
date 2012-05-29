@@ -16,7 +16,7 @@
 #import "GTIOFeedViewController.h"
 #import "GTIOExploreLooksViewController.h"
 #import "GTIOCameraViewController.h"
-#import "GTIOCameraTabBarPlaceholderViewController.h"
+#import "GTIOCameraTabPlaceholderViewController.h"
 #import "GTIOShopViewController.h"
 #import "GTIOMeViewController.h"
 
@@ -30,6 +30,8 @@
 @interface GTIOAppDelegate ()
 
 @property (nonatomic, strong) GTIOSplashViewController *splashViewController;
+
+@property (nonatomic, strong) GTIOCameraViewController *cameraViewController;
 
 @property (nonatomic, strong) UIImageView *tab1ImageView;
 @property (nonatomic, strong) UIImageView *tab2ImageView;
@@ -47,6 +49,7 @@
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
 @synthesize splashViewController = _splashViewController;
+@synthesize cameraViewController = _cameraViewController;
 @synthesize tab1ImageView = _tab1ImageView, tab2ImageView = _tab2ImageView, tab3ImageView = _tab3ImageView, tab4ImageView = _tab4ImageView, tab5ImageView = _tab5ImageView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -60,7 +63,7 @@
     NSLog(@"\n*****\nGTIO Started in %@ mode.\n*****", kGTIOEnvironmentName);
     
     // List all fonts on iPhone
-//    [self listAllFonts];
+    [self listAllFonts];
     
     // Appearance setup
     [GTIOAppearance setupAppearance];
@@ -74,7 +77,12 @@
 //    [self.window setRootViewController:self.tabBarController];
     self.splashViewController = [[GTIOSplashViewController alloc] initWithNibName:nil bundle:nil];
     [self.window setRootViewController:self.splashViewController];
+    
+    // Setup camera
+    self.cameraViewController = [[GTIOCameraViewController alloc] initWithNibName:nil bundle:nil];
+    
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -175,10 +183,11 @@
 {
     self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
     [self.tabBarController setDelegate:self];
+    
     NSArray *viewControllers = [NSArray arrayWithObjects:
                                 [[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
-                                [[GTIOCameraTabBarPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
+                                [[GTIOCameraTabPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOShopViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOMeViewController alloc] initWithNibName:nil bundle:nil],
                                 nil];
@@ -237,13 +246,12 @@
 {
     BOOL shouldSelect = YES;
     
-    if ([viewController isKindOfClass:[GTIOCameraTabBarPlaceholderViewController class]]) {
+    if ([viewController isKindOfClass:[GTIOCameraTabPlaceholderViewController class]]) {
         shouldSelect = NO;
-        GTIOCameraViewController *cameraViewController = [[GTIOCameraViewController alloc] initWithNibName:nil bundle:nil];
-        [cameraViewController setDismissHandler:^(UIViewController *viewController) {
+        [self.cameraViewController setDismissHandler:^(UIViewController *viewController) {
             [viewController dismissModalViewControllerAnimated:YES];
         }];
-        [self.tabBarController presentModalViewController:cameraViewController animated:YES];
+        [self.tabBarController presentModalViewController:self.cameraViewController animated:YES];
     }
     
     return shouldSelect;

@@ -7,6 +7,7 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
+#import <ImageIO/ImageIO.h>
 
 @interface GTIOCameraViewController : UIViewController
 
