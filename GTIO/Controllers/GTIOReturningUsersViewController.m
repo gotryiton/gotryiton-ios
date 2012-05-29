@@ -73,7 +73,11 @@
     __block id blockSelf = self;
     __block BOOL blockReturningUser = self.returningUser;
     
-    if (self.returningUser) {
+    GTIOLoginHandler loginHandler = ^(GTIOUser *user, NSError *error) {
+        [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+    };
+    
+    if (_returningUser) {
         self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignIn];
         [self.facebookButton setFrame:(CGRect){ {(self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 80 }, self.facebookButton.frame.size }];
         [self.facebookButton setTapHandler:^(id sender) {
@@ -90,13 +94,9 @@
     [self.aolButton setFrame:(CGRect){ { (self.view.frame.size.width - self.aolButton.frame.size.width) / 2, signinOptionsTableYPos }, self.aolButton.frame.size }];
     [self.aolButton setTapHandler:^(id sender) {
         if (blockReturningUser) {
-            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderAol WithLoginHandler:^(GTIOUser *user, NSError *error) {
-                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-            }];
+            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderAol WithLoginHandler:loginHandler];
         } else {
-            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderAol WithLoginHandler:^(GTIOUser *user, NSError *error) {
-                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-            }];
+            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderAol WithLoginHandler:loginHandler];
         }
     }];
     [self.view addSubview:self.aolButton];
@@ -105,13 +105,9 @@
     [self.googleButton setFrame:(CGRect){ {(self.view.frame.size.width - self.googleButton.frame.size.width) / 2, self.aolButton.frame.origin.y + self.aolButton.frame.size.height }, self.googleButton.frame.size }];
     [self.googleButton setTapHandler:^(id sender) {
         if (blockReturningUser) {
-            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderGoogle WithLoginHandler:^(GTIOUser *user, NSError *error) {
-                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-            }];
+            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderGoogle WithLoginHandler:loginHandler];
         } else {
-            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderGoogle WithLoginHandler:^(GTIOUser *user, NSError *error) {
-                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-            }];
+            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderGoogle WithLoginHandler:loginHandler];
         }
     }];
     [self.view addSubview:self.googleButton];
@@ -120,13 +116,9 @@
     [self.twitterButton setFrame:(CGRect){ {(self.view.frame.size.width - self.twitterButton.frame.size.width) / 2, self.googleButton.frame.origin.y + self.googleButton.frame.size.height }, self.twitterButton.frame.size }];
     [self.twitterButton setTapHandler:^(id sender) {
         if (blockReturningUser) {
-            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderTwitter WithLoginHandler:^(GTIOUser *user, NSError *error) {
-                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-            }];
+            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderTwitter WithLoginHandler:loginHandler];
         } else {
-            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderTwitter WithLoginHandler:^(GTIOUser *user, NSError *error) {
-                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-            }];
+            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderTwitter WithLoginHandler:loginHandler];
         }
     }];
     [self.view addSubview:self.twitterButton];
@@ -135,13 +127,9 @@
     [self.yahooButton setFrame:(CGRect){ {(self.view.frame.size.width - self.yahooButton.frame.size.width) / 2, self.twitterButton.frame.origin.y + self.twitterButton.frame.size.height }, self.yahooButton.frame.size }];
     [self.yahooButton setTapHandler:^(id sender) {
         if (blockReturningUser) {
-            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderYahoo WithLoginHandler:^(GTIOUser *user, NSError *error) {
-                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-            }];
+            [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderYahoo WithLoginHandler:loginHandler];
         } else {
-            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderYahoo WithLoginHandler:^(GTIOUser *user, NSError *error) {
-                [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
-            }];
+            [[GTIOUser currentUser] signUpWithJanrainForProvider:kGTIOJanRainProviderYahoo WithLoginHandler:loginHandler];
         }
     }];
     [self.view addSubview:self.yahooButton];

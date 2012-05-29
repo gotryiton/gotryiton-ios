@@ -10,7 +10,6 @@
 #import "GTIORoundedView.h"
 #import "GTIOSelectableProfilePicture.h"
 #import "GTIOUser.h"
-#import "GTIOProfileDataSource.h"
 #import "GTIOIcon.h"
 #import "GTIOFacebookIcon.h"
 #import "GTIOProgressHUD.h"
@@ -218,11 +217,11 @@
             
             self.facebookPicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 16, 72, 55, 55 } andImageURL:nil];
             if (userHasFacebookPicture) {
-                NSString *facebookPictureURL = [self.profileIconURLs objectAtIndex:0];
-                [self.facebookPicture setImageWithURL:facebookPictureURL];
-                [self.profileIconViews addObject:self.facebookPicture];
-                [self.profileIconURLs removeObject:facebookPictureURL];
-                [self.facebookPicture setDelegate:self];
+                NSURL* facebookPictureURL = (NSURL*)[profileIconURLs objectAtIndex:0];
+                [facebookPicture setImageWithURL:facebookPictureURL];
+                [profileIconViews addObject:facebookPicture];
+                [profileIconURLs removeObject:facebookPictureURL];
+                [facebookPicture setDelegate:self];
             } else {
                 [self.facebookPicture setImage:[UIImage imageNamed:@"default-facebook-profile-picture.png"]];
                 [self.facebookPicture setIsSelectable:NO];
@@ -238,7 +237,7 @@
             double iconSpacing = 3.0;
             int numberOfIcons = [self.profileIconURLs count];
             for (int i = 0; i < numberOfIcons; i++) {
-                GTIOSelectableProfilePicture *icon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ iconXPos, 0, 55, 55 } andImageURL:[self.profileIconURLs objectAtIndex:i]];
+                GTIOSelectableProfilePicture *icon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){iconXPos,0,55,55} andImageURL:(NSURL*)[profileIconURLs objectAtIndex:i]];
                 [icon setDelegate:self];
                 [self.profileIconViews addObject:icon];
                 [self.myLooksIcons addSubview:icon];
@@ -254,7 +253,7 @@
     
 
     if ([[currentUser.icon absoluteString] length] > 0) {
-        [self.previewIcon setImageWithURL:[currentUser.icon absoluteString]];
+        [previewIcon setImageWithURL:currentUser.icon];
     } else {
         [self.previewIcon setImage:[UIImage imageNamed:@"no-profile-picture.png"]];
     }
@@ -277,8 +276,8 @@
 
 - (void)clearProfilePicture:(id)sender
 {
-    [self.previewIcon setImage:[UIImage imageNamed:@"no-profile-picture.png"]];
-    self.currentlySelectedProfileIconURL = @"";
+    [previewIcon setImage:[UIImage imageNamed:@"no-profile-picture.png"]];
+    currentlySelectedProfileIconURL = nil;
     [self clearSelectedProfilePictures];
 }
 

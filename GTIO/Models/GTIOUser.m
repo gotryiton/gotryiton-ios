@@ -276,4 +276,30 @@
     }
 }
 
+- (void)loadUserIconsWithUserID:(NSString*)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler
+{
+    NSString *userIconResourcePath = [NSString stringWithFormat:@"/users/%@/icons", userID];
+    
+    BOOL authToken = NO;
+    if ([[RKObjectManager sharedManager].client.HTTPHeaders objectForKey:kGTIOAuthenticationHeaderKey]) {
+        authToken = YES;
+    }
+    if (authToken) {
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:userIconResourcePath usingBlock:^(RKObjectLoader *loader) {
+            loader.onDidLoadObjects = ^(NSArray *objects) {
+                if (completionHandler) {
+                    completionHandler(objects, nil);
+                }
+            };
+            loader.onDidFailWithError = ^(NSError *error) {
+                if (completionHandler) {
+                    completionHandler(nil, error);
+                }
+            };
+        }];
+    } else {
+        NSLog(@"no auth token");
+    }
+}
+
 @end

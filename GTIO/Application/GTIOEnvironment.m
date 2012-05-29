@@ -69,5 +69,8 @@ id GTIOJSONParams(id obj) {
     id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:RKMIMETypeJSON];
     NSError *error = nil;
     NSString *json = [parser stringFromObject:obj error:&error];
+    if (error) {
+        NSLog(@"%@",[error localizedDescription]);
+    }
     return [RKRequestSerialization serializationWithData:[json dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
 }

@@ -11,6 +11,7 @@
 
 @class GTIOUser;
 
+typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
 typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 
 @interface GTIOUser : NSObject <FBSessionDelegate, JREngageDelegate>
@@ -58,5 +59,9 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
  */
 - (void)signUpWithJanrainForProvider:(NSString*)providerName WithLoginHandler:(GTIOLoginHandler)loginHandler;
 - (void)signInWithJanrainForProvider:(NSString*)providerName WithLoginHandler:(GTIOLoginHandler)loginHandler;
+
+/** User Icons from API
+ */
+- (void)loadUserIconsWithUserID:(NSString*)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end

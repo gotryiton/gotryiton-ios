@@ -16,8 +16,7 @@
 
 @implementation GTIOPickerViewForTextFields
 
-@synthesize pickerItems = _pickerItems, placeHolderText = _placeHolderText;
-@synthesize bindingTextField = _bindingTextField;
+@synthesize bindingTextField = _bindingTextField, pickerItems = _pickerItems, placeHolderText = _placeHolderText;
 
 - (id)initWithFrame:(CGRect)frame andPickerItems:(NSArray*)pickerItems
 {

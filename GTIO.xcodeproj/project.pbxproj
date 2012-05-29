@@ -330,7 +330,6 @@
 		8E240E29156EE95E004EA1B8 /* preview-box-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E27156EE95E004EA1B8 /* preview-box-bg@2x.png */; };
 		8E240E2C156EEF42004EA1B8 /* clear-profile-picture-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E2A156EEF42004EA1B8 /* clear-profile-picture-button.png */; };
 		8E240E2D156EEF42004EA1B8 /* clear-profile-picture-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E2B156EEF42004EA1B8 /* clear-profile-picture-button@2x.png */; };
-		8E240E30156EF731004EA1B8 /* GTIOProfileDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E240E2F156EF730004EA1B8 /* GTIOProfileDataSource.m */; };
 		8E240E33156F004E004EA1B8 /* GTIOFacebookIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E240E32156F004E004EA1B8 /* GTIOFacebookIcon.m */; };
 		8E240E38156F0772004EA1B8 /* default-facebook-profile-picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E34156F0772004EA1B8 /* default-facebook-profile-picture.png */; };
 		8E240E39156F0772004EA1B8 /* default-facebook-profile-picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E240E35156F0772004EA1B8 /* default-facebook-profile-picture@2x.png */; };
@@ -988,8 +987,6 @@
 		8E240E27156EE95E004EA1B8 /* preview-box-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "preview-box-bg@2x.png"; sourceTree = "<group>"; };
 		8E240E2A156EEF42004EA1B8 /* clear-profile-picture-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear-profile-picture-button.png"; sourceTree = "<group>"; };
 		8E240E2B156EEF42004EA1B8 /* clear-profile-picture-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear-profile-picture-button@2x.png"; sourceTree = "<group>"; };
-		8E240E2E156EF730004EA1B8 /* GTIOProfileDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileDataSource.h; sourceTree = "<group>"; };
-		8E240E2F156EF730004EA1B8 /* GTIOProfileDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileDataSource.m; sourceTree = "<group>"; };
 		8E240E31156F004E004EA1B8 /* GTIOFacebookIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFacebookIcon.h; sourceTree = "<group>"; };
 		8E240E32156F004E004EA1B8 /* GTIOFacebookIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFacebookIcon.m; sourceTree = "<group>"; };
 		8E240E34156F0772004EA1B8 /* default-facebook-profile-picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-facebook-profile-picture.png"; sourceTree = "<group>"; };
@@ -1837,8 +1834,6 @@
 				8E1AC82D156C48200039E6E9 /* GTIOAlmostDoneViewController.m */,
 				8E8A9069156EA202000732CC /* GTIOEditProfilePictureViewController.h */,
 				8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */,
-				8E240E2E156EF730004EA1B8 /* GTIOProfileDataSource.h */,
-				8E240E2F156EF730004EA1B8 /* GTIOProfileDataSource.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -3401,7 +3396,6 @@
 				8E240E16156EC240004EA1B8 /* GTIORoundedView.m in Sources */,
 				8E240E1D156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.m in Sources */,
 				8E240E21156ED437004EA1B8 /* GTIOIcon.m in Sources */,
-				8E240E30156EF731004EA1B8 /* GTIOProfileDataSource.m in Sources */,
 				8E240E33156F004E004EA1B8 /* GTIOFacebookIcon.m in Sources */,
 				D239CA7D15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.m in Sources */,
 			);

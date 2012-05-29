@@ -22,7 +22,7 @@
 @synthesize isSelectable = _isSelectable, isSelected = _isSelected, imageURL = _imageURL, delegate = _delegate, image = _image;
 @synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer;
 
-- (id)initWithFrame:(CGRect)frame andImageURL:(NSString*)url
+- (id)initWithFrame:(CGRect)frame andImageURL:(NSURL*)url
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -31,10 +31,10 @@
         
         _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];
         
-        _imageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, 0 }, frame.size }];
-        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [_imageView setImageWithURL:[NSURL URLWithString:url]];
-        [self addSubview:_imageView];
+        imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
+        [imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [imageView setImageWithURL:url];
+        [self addSubview:imageView];
         [self fadeInImageView];
         
         self.isSelected = NO;
@@ -44,10 +44,10 @@
     return self;
 }
 
-- (void)setImageURL:(NSString *)imageURL
+- (void)setImageWithURL:(NSURL*)url
 {
-    _imageURL = imageURL;
-    [_imageView setImageWithURL:[NSURL URLWithString:imageURL]];
+    self.imageURL = url;
+    [imageView setImageWithURL:url];
     [self fadeInImageView];
 }
 
