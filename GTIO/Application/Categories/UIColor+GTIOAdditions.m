@@ -50,4 +50,9 @@
     return UIColorFromRGB(0xB2EED6);
 }
 
++ (UIColor *)gtio_progressBarColor
+{
+    return UIColorFromRGB(0x5EE4B7);
+}
+
 @end

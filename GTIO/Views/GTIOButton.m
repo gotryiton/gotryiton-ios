@@ -29,20 +29,18 @@
         case GTIOButtonTypeNewUser: return [self gtio_newUserButton];
         case GTIOButtonTypeTryAgain: return [self gtio_tryAgainButton];
         case GTIOButtonTypeEmailSupport: return [self gtio_emailSupportButton];
-        case GTIOButtonTypeBack: return [self gtio_backButton];
         case GTIOButtonTypePhotoClose: return [self gtio_photoCloseButton];
         case GTIOButtonTypePhotoPicker: return [self gtio_photoPickerButton];
         case GTIOButtonTypePhotoShootGrid: return [self gtio_photoShootGridButton];
         case GTIOButtonTypePhotoShutter: return [self gtio_photoShutterButton];
         case GTIOButtonTypePhotoFlash: return [self gtio_photoFlashButton];
-        default: 
-            NSLog(@"Could not find button for type: %i", buttonType);
-            return nil;
         case GTIOButtonTypeBackBottomMargin: return [self gtio_backButtonBottomMargin];
         case GTIOButtonTypeSaveGreenTopMargin: return [self gtio_saveButtonGreenTopMargin];
         case GTIOButtonTypeDoneGrayTopMargin: return [self gtio_doneButtonGrayTopMargin];
         case GTIOButtonTypeSaveGrayTopMargin: return [self gtio_saveButtonGrayTopMargin];
-        default: return nil;
+        default: 
+            NSLog(@"Could not find button for type: %i", buttonType);
+            return nil;
     }
 }
 

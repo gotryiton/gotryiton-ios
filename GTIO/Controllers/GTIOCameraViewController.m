@@ -10,6 +10,7 @@
 
 #import "GTIOCameraToolbarView.h"
 #import "GTIOPhotoShootProgressToolbarView.h"
+#import "GTIOPhotoShootTimerView.h"
 
 @interface GTIOCameraViewController ()
 
@@ -22,13 +23,14 @@
 @property (nonatomic, strong) GTIOButton *flashButton;
 @property (nonatomic, assign, getter = isFlashOn) BOOL flashOn;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
+@property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
 
 @end
 
 @implementation GTIOCameraViewController
 
 @synthesize captureSession = _captureSession, stillImageOutput = _stillImageOutput, captureVideoPreviewLayer = _captureVideoPreviewLayer;
-@synthesize photoToolbarView = _photoToolbarView, photoShootProgresToolbarView = _photoShootProgresToolbarView;
+@synthesize photoToolbarView = _photoToolbarView, photoShootProgresToolbarView = _photoShootProgresToolbarView, photoShootTimerView = _photoShootTimerView;
 @synthesize flashButton = _flashButton;
 @synthesize flashOn = _flashOn, shutterFlashOverlay = _shutterFlashOverlay;
 @synthesize dismissHandler = _dismissHandler;
@@ -240,6 +242,14 @@
     }];
     
     // Show timer
+    self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 75) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 75) / 2, 75, 75 }];
+    [self.view addSubview:self.photoShootTimerView];
+    [self.photoShootTimerView startWithDuration:3 completionHandler:^(GTIOPhotoShootTimerView *photoShootTimerView) {
+        // Take first batch of photos
+        [photoShootTimerView setAlpha:0.0];
+        
+        
+    }];
 }
 
 @end
