@@ -37,33 +37,33 @@
         [self setBackgroundColor:[UIColor whiteColor]];
         
         _cellTitleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 10, self.frame.size.height / 2 - 8, 0, 0 }];
-        [_cellTitleLabel setBackgroundColor:[UIColor clearColor]];
-        [_cellTitleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
-        [_cellTitleLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
-        [self.contentView addSubview:_cellTitleLabel];
+        [self.cellTitleLabel setBackgroundColor:[UIColor clearColor]];
+        [self.cellTitleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
+        [self.cellTitleLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [self.contentView addSubview:self.cellTitleLabel];
         
         _cellAccessoryText = [[GTIOTextFieldForPickerViews alloc] initWithFrame:CGRectZero];
-        [_cellAccessoryText setBackgroundColor:[UIColor clearColor]];
-        [_cellAccessoryText setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLightItal size:14.0]];
-        [_cellAccessoryText setTextColor:[UIColor gtio_darkGrayTextColor]];
-        [_cellAccessoryText setTextAlignment:UITextAlignmentRight];
-        [_cellAccessoryText setDelegate:self];
-        [_cellAccessoryText setReturnKeyType:UIReturnKeyNext];
-        [_cellAccessoryText addTarget:self action:@selector(updateSaveData:) forControlEvents:UIControlEventEditingChanged];
-        [self.contentView addSubview:_cellAccessoryText];
+        [self.cellAccessoryText setBackgroundColor:[UIColor clearColor]];
+        [self.cellAccessoryText setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLightItal size:14.0]];
+        [self.cellAccessoryText setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [self.cellAccessoryText setTextAlignment:UITextAlignmentRight];
+        [self.cellAccessoryText setDelegate:self];
+        [self.cellAccessoryText setReturnKeyType:UIReturnKeyNext];
+        [self.cellAccessoryText addTarget:self action:@selector(updateSaveData:) forControlEvents:UIControlEventEditingChanged];
+        [self.contentView addSubview:self.cellAccessoryText];
         
         _accessoryToolBar = [[GTIODoneToolBar alloc] initWithTarget:self andAction:@selector(keyboardDoneTapped:)];
         
         _cellAccessoryTextMulti = [[GTIOPlaceHolderTextView alloc] initWithFrame:CGRectZero];
-        [_cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
-        [_cellAccessoryTextMulti setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:14.0]];
-        [_cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
-        [_cellAccessoryTextMulti setDelegate:self];
-        [_cellAccessoryTextMulti setTextColor:[UIColor gtio_darkGrayTextColor]];
-        [_cellAccessoryTextMulti setPlaceholderColor:[UIColor gtio_darkGrayTextColor]];
-        [_cellAccessoryTextMulti setInputAccessoryView:_accessoryToolBar];
-        [_cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSaveDataMulti:) name:UITextViewTextDidChangeNotification object:_cellAccessoryTextMulti];
+        [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
+        [self.cellAccessoryTextMulti setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLightItal size:14.0]];
+        [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
+        [self.cellAccessoryTextMulti setDelegate:self];
+        [self.cellAccessoryTextMulti setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [self.cellAccessoryTextMulti setPlaceholderColor:[UIColor gtio_darkGrayTextColor]];
+        [self.cellAccessoryTextMulti setInputAccessoryView:self.accessoryToolBar];
+        [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSaveDataMulti:) name:UITextViewTextDidChangeNotification object:self.cellAccessoryTextMulti];
         
         _usesPicker = NO;
     }
@@ -169,53 +169,52 @@
 - (void)setAccessoryTextUsesPicker:(BOOL)usesPicker
 {
     _usesPicker = usesPicker;
-    UIFont *placeHolderFont = (usesPicker) ? [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0] : [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:14.0];
-    [_cellAccessoryText setUsesPicker:usesPicker];
-    [_cellAccessoryText setFont:placeHolderFont];
+    UIFont *placeHolderFont = (usesPicker) ? [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0] : [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLightItal size:14.0];
+    [self.cellAccessoryText setUsesPicker:usesPicker];
+    [self.cellAccessoryText setFont:placeHolderFont];
 }
 
 - (void)setPickerViewItems:(NSArray *)pickerViewItems
 {
     _pickerViewItems = pickerViewItems;
-    _pickerView = [[GTIOPickerViewForTextFields alloc] initWithFrame:CGRectZero andPickerItems:_pickerViewItems];
-    UIBarButtonItem* nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(pickerNextTapped:)];
-    [_accessoryToolBar setItems:[NSArray arrayWithObjects:_flexibleSpace, nextButton, nil]];
-    [_cellAccessoryText setInputAccessoryView:_accessoryToolBar];
-    [_pickerView setPlaceHolderText:_placeHolderText];
-    [_pickerView bindToTextField:_cellAccessoryText];
-    [_cellAccessoryText setInputView:_pickerView];
+    _pickerView = [[GTIOPickerViewForTextFields alloc] initWithFrame:CGRectZero andPickerItems:self.pickerViewItems];
+    [self.accessoryToolBar useNextButtonWithTarget:self andAction:@selector(pickerNextTapped:)];
+    [self.cellAccessoryText setInputAccessoryView:self.accessoryToolBar];
+    [self.pickerView setPlaceHolderText:self.placeHolderText];
+    [self.pickerView bindToTextField:self.cellAccessoryText];
+    [self.cellAccessoryText setInputView:self.pickerView];
 }
 
 - (void)setAccessoryTextIsMultipleLines:(BOOL)multipleLines
 {
     _multiLine = multipleLines;
     if (multipleLines) {
-        [_cellAccessoryText removeFromSuperview];
-        [self.contentView addSubview:_cellAccessoryTextMulti];
+        [self.cellAccessoryText removeFromSuperview];
+        [self.contentView addSubview:self.cellAccessoryTextMulti];
     } else {
-        [_cellAccessoryTextMulti removeFromSuperview];
-        [self.contentView addSubview:_cellAccessoryText];
+        [self.cellAccessoryTextMulti removeFromSuperview];
+        [self.contentView addSubview:self.cellAccessoryText];
     }
 }
 
 - (void)setAccessoryText:(NSString*)text
 {
-    if (_multiLine) {
-        [_cellAccessoryTextMulti setText:text];
+    if (self.multiLine) {
+        [self.cellAccessoryTextMulti setText:text];
     } else {
-        [_cellAccessoryText setText:text];
+        [self.cellAccessoryText setText:text];
     }
 }
 
 - (void)setAccessoryTextPlaceholderText:(NSString*)text
 {
     _placeHolderText = text;
-    if (_multiLine) {
-        [_cellAccessoryTextMulti setPlaceholderText:text];
-        [_cellAccessoryTextMulti setFrame:(CGRect){ _cellTitleLabel.frame.origin.x, _cellTitleLabel.frame.origin.y + _cellTitleLabel.frame.size.height, self.frame.size.width - 40, 70 }];
+    if (self.multiLine) {
+        [self.cellAccessoryTextMulti setPlaceholderText:text];
+        [self.cellAccessoryTextMulti setFrame:(CGRect){ self.cellTitleLabel.frame.origin.x, self.cellTitleLabel.frame.origin.y + self.cellTitleLabel.frame.size.height, self.frame.size.width - 40, 70 }];
     } else {
-        [_cellAccessoryText setPlaceholder:text];
-        [_cellAccessoryText setFrame:(CGRect){ _cellTitleLabel.frame.origin.x + _cellTitleLabel.frame.size.width + 3, _cellTitleLabel.frame.origin.y, self.frame.size.width - _cellTitleLabel.frame.size.width - 43, _cellTitleLabel.frame.size.height }];
+        [self.cellAccessoryText setPlaceholder:text];
+        [self.cellAccessoryText setFrame:(CGRect){ self.cellTitleLabel.frame.origin.x + self.cellTitleLabel.frame.size.width + 3, self.cellTitleLabel.frame.origin.y, self.frame.size.width - self.cellTitleLabel.frame.size.width - 43, self.cellTitleLabel.frame.size.height }];
     }
 }
 

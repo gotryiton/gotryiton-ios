@@ -8,7 +8,17 @@
 
 #import "GTIODoneToolBar.h"
 
+@interface GTIODoneToolBar()
+
+@property (nonatomic, strong) UIBarButtonItem *flexibleSpace;
+@property (nonatomic, strong) UIBarButtonItem *doneButton;
+@property (nonatomic, strong) UIBarButtonItem *nextButton;
+
+@end
+
 @implementation GTIODoneToolBar
+
+@synthesize flexibleSpace = _flexibleSpace, doneButton = _doneButton, nextButton = _nextButton;
 
 - (id)initWithTarget:(id)target andAction:(SEL)action
 {
@@ -18,11 +28,26 @@
         [self setTranslucent:YES];
         [self setTintColor:nil];
         [self sizeToFit];
-        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:target action:action];
-        [self setItems:[NSArray arrayWithObjects:flexibleSpace, doneButton, nil]];
+        self.flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        self.doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:target action:action];
+        self.nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:target action:action];
+        [self setItems:[NSArray arrayWithObjects:self.flexibleSpace, self.doneButton, nil]];
     }
     return self;
+}
+
+- (void)useNextButtonWithTarget:(id)target andAction:(SEL)action
+{
+    [self.nextButton setTarget:target];
+    [self.nextButton setAction:action];
+    [self setItems:[NSArray arrayWithObjects:self.flexibleSpace, self.nextButton, nil]];
+}
+
+- (void)useDoneButtonWithTarget:(id)target andAction:(SEL)action
+{
+    [self.doneButton setTarget:target];
+    [self.doneButton setAction:action];
+    [self setItems:[NSArray arrayWithObjects:self.flexibleSpace, self.doneButton, nil]];
 }
 
 @end

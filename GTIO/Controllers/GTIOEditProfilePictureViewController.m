@@ -168,7 +168,7 @@
     GTIOUser *currentUser = [GTIOUser currentUser];
     self.currentlySelectedProfileIconURL = currentUser.icon;
     
-    [[GTIOUser currentUser] loadUserIconsWithUserID:@"0596D58" andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+    [[GTIOUser currentUser] loadUserIconsWithUserID:currentUser.userID andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         [self.loadingIconsLabel removeFromSuperview];
         if (!error) {
             BOOL userHasFacebookPicture = NO;

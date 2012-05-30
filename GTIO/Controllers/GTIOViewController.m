@@ -38,11 +38,16 @@
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     
-    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
-    [titleView setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:18.0]];
-    [titleView setText:self.navigationTitle];
-    [titleView sizeToFit];
-    [titleView setBackgroundColor:[UIColor clearColor]];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLightItal size:18.0]];
+    [titleLabel setText:self.navigationTitle];
+    [titleLabel setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
+    [titleLabel sizeToFit];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    // need to shift the label down a bit because of the design
+    UIView *titleView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, titleLabel.bounds.size.width, titleLabel.bounds.size.height + 9 }];
+    [titleLabel setFrame:(CGRect){ 0, 9, titleLabel.bounds.size }];
+    [titleView addSubview:titleLabel];
     [self.navigationItem setTitleView:titleView];
     
     self.topShadow = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 3 }];

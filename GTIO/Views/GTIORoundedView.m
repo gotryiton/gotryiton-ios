@@ -30,7 +30,7 @@
         [self setBackgroundColor:[UIColor whiteColor]];
         
         _titleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 19, 18, 260, 20 }];
-        [_titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLight size:17.0]];
+        [_titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLightItal size:17.0]];
         [_titleLabel setTextColor:[UIColor gtio_pinkTextColor]];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_titleLabel];

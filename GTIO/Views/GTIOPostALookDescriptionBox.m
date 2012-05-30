@@ -37,8 +37,8 @@
         [iconView setFrame:(CGRect){ self.backgroundView.bounds.size.width - iconView.bounds.size.width - 15, 5, iconView.bounds.size }];
         [self.placeHolderView addSubview:iconView];
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 5, 5, self.placeHolderView.bounds.size.width - iconView.bounds.size.width - 15, 15 }];
-        [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLightItal size:10.0]];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 7, 9, self.placeHolderView.bounds.size.width - iconView.bounds.size.width - 17, 15 }];
+        [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:12.0]];
         [titleLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
         [titleLabel setAlpha:0.5];
         [titleLabel setText:title];
@@ -51,13 +51,11 @@
         self.textView = [[UITextView alloc] initWithFrame:(CGRect){ 5, 0, self.backgroundView.bounds.size.width - 10, self.backgroundView.bounds.size.height - 10 }];
         [self.textView setBackgroundColor:[UIColor clearColor]];
         [self.textView setContentInset:(UIEdgeInsets){ 0, -4, 0, 0 }];
-        [self.textView setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+        [self.textView setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:12.0]];
         [self.textView setTextColor:[UIColor gtio_darkGrayTextColor]];
         [self.textView setDelegate:self];
         if (self.nextTextView) {
-            UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-            UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(accessoryButtonTapped:)];
-            [self.accessoryToolBar setItems:[NSArray arrayWithObjects:flexibleSpace, nextButton, nil]];
+            [self.accessoryToolBar useNextButtonWithTarget:self andAction:@selector(accessoryButtonTapped:)];
         }
         [self.textView setInputAccessoryView:self.accessoryToolBar];
         [self addSubview:self.textView];

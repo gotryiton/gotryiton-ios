@@ -11,5 +11,7 @@
 @interface GTIODoneToolBar : UIToolbar
 
 - (id)initWithTarget:(id)target andAction:(SEL)action;
+- (void)useNextButtonWithTarget:(id)target andAction:(SEL)action;
+- (void)useDoneButtonWithTarget:(id)target andAction:(SEL)action;
 
 @end
