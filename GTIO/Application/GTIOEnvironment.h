@@ -45,3 +45,8 @@ extern NSString * const kGTIOTrackingHeaderKey;
 
 // JSON Param Serialization Helper
 id GTIOJSONParams(id obj);
+
+typedef enum GTIODeleteButtonPosition {
+    GTIODeleteButtonPositionLeft = 0,
+    GTIODeleteButtonPositionRight,
+} GTIODeleteButtonPosition;

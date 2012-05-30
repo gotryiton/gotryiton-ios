@@ -119,7 +119,7 @@
     
     self.previewNameLabel = [[UILabel alloc] initWithFrame:(CGRect){ 80, 24, 174, 21 }];
     [self.previewNameLabel setBackgroundColor:[UIColor clearColor]];
-    [self.previewNameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMedium size:18.0]];
+    [self.previewNameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:18.0]];
     [self.previewNameLabel setTextColor:[UIColor gtio_pinkTextColor]];
     [self.previewBoxBackground addSubview:self.previewNameLabel];
     

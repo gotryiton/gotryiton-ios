@@ -7,14 +7,14 @@
 //
 
 #import "GTIOLookSelectorView.h"
-#import "GTIODeletableImageView.h"
+#import "GTIOTakePhotoView.h"
 #import "GTIOPhotoSelectBoxButton.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface GTIOLookSelectorView()
 
 @property (nonatomic, strong) UIView *photoSetView;
-@property (nonatomic, strong) GTIODeletableImageView *singlePhotoView;
+@property (nonatomic, strong) GTIOTakePhotoView *singlePhotoView;
 @property (nonatomic, assign) BOOL isPhotoSet;
 
 @end
@@ -39,18 +39,20 @@
         UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds];
         [self.layer setShadowPath:path.CGPath]; // scroll performance
         
-        self.singlePhotoView = [[GTIODeletableImageView alloc] initWithFrame:(CGRect){ 5, 5, self.bounds.size.width - 10, self.bounds.size.height - 10 }];
+        self.singlePhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 5, 5, self.bounds.size.width - 10, self.bounds.size.height - 10 }];
         
-        self.photoSetView = [[UIView alloc] initWithFrame:(CGRect){ 5, 5, self.bounds.size.width - 10, self.bounds.size.height - 10 }];
+        self.photoSetView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.bounds.size.width, self.bounds.size.height }];
         UIImage *backgroundImage = [UIImage imageNamed:@"photo-frame.png"];
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
         [backgroundImageView setFrame:(CGRect){ 0, 0, self.photoSetView.bounds.size }];
         [self.photoSetView addSubview:backgroundImageView];
-        GTIODeletableImageView *tallLeftPhoto = [[GTIODeletableImageView alloc] initWithFrame:(CGRect){ 5, 5, 105, 291 }];
+        GTIOTakePhotoView *tallLeftPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 6, 6, 109, 300 }];
         [self.photoSetView addSubview:tallLeftPhoto];
-        GTIODeletableImageView *tallRightPhoto = [[GTIODeletableImageView alloc] initWithFrame:(CGRect){ 116, 5, 105, 180 }];
+        GTIOTakePhotoView *tallRightPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 122, 6, 109, 184 }];
+        [tallRightPhoto setDeleteButtonPosition:GTIODeleteButtonPositionRight];
         [self.photoSetView addSubview:tallRightPhoto];
-        GTIODeletableImageView *smallRightPhoto = [[GTIODeletableImageView alloc] initWithFrame:(CGRect){ 116, 190, 105, 106 }];
+        GTIOTakePhotoView *smallRightPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 122, 197, 109, 109 }];
+        [smallRightPhoto setDeleteButtonPosition:GTIODeleteButtonPositionRight];
         [self.photoSetView addSubview:smallRightPhoto];
         
         [self refreshView];

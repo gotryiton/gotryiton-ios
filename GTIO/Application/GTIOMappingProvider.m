@@ -83,7 +83,7 @@
         [userMapping mapKeyPath:@"about_me" toAttribute:@"aboutMe"];
         [userMapping mapKeyPath:@"is_new_user" toAttribute:@"isNewUser"];
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
-        [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", /*@"auth",*/ nil];
+        [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", nil];
         [self setMapping:userMapping forKeyPath:@"user"];
         
         /** Auth

@@ -19,6 +19,7 @@
 @property (nonatomic, strong) GTIOPostALookOptionsView *optionsView;
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *descriptionBox;
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *tagBox;
+@property (nonatomic, strong) UIButton *postThisButton;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) CGRect originalFrame;
@@ -27,7 +28,7 @@
 
 @implementation GTIOPostALookViewController
 
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame;
+@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -80,12 +81,12 @@
     UIImage *postThisButtonNormal = [UIImage imageNamed:@"post-button-OFF.png"];
     UIImage *postThisButtonHighlighted = [UIImage imageNamed:@"post-button-ON.png"];
     UIImage *postThisButtonDisabled = [UIImage imageNamed:@"post-button-disabled.png"];
-    UIButton *postThisButton = [[UIButton alloc] initWithFrame:(CGRect){ 5, 10, postThisButtonBackground.bounds.size.width - 10, postThisButtonBackground.bounds.size.height - 15 }];
-    [postThisButton setImage:postThisButtonNormal forState:UIControlStateNormal];
-    [postThisButton setImage:postThisButtonHighlighted forState:UIControlStateHighlighted];
-    [postThisButton setImage:postThisButtonDisabled forState:UIControlStateDisabled];
-    [postThisButton addTarget:self action:@selector(postThis:) forControlEvents:UIControlEventTouchUpInside];
-    [postThisButtonBackground addSubview:postThisButton];
+    self.postThisButton = [[UIButton alloc] initWithFrame:(CGRect){ 5, 10, postThisButtonBackground.bounds.size.width - 10, postThisButtonBackground.bounds.size.height - 15 }];
+    [self.postThisButton setImage:postThisButtonNormal forState:UIControlStateNormal];
+    [self.postThisButton setImage:postThisButtonHighlighted forState:UIControlStateHighlighted];
+    [self.postThisButton setImage:postThisButtonDisabled forState:UIControlStateDisabled];
+    [self.postThisButton addTarget:self action:@selector(postThis:) forControlEvents:UIControlEventTouchUpInside];
+    [postThisButtonBackground addSubview:self.postThisButton];
     
     [self.scrollView setContentSize:(CGSize){ self.view.bounds.size.width, self.descriptionBox.frame.origin.y + self.descriptionBox.bounds.size.height + postThisButtonBackground.bounds.size.height + self.navigationController.navigationBar.bounds.size.height }];
 }
@@ -100,6 +101,7 @@
     self.optionsView = nil;
     self.descriptionBox = nil;
     self.tagBox = nil;
+    self.postThisButton = nil;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification

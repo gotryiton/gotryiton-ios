@@ -371,10 +371,12 @@
 		8E436F9215767E8100AA06D9 /* Verlag-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E436F7415767E8100AA06D9 /* Verlag-LightItalic.otf */; };
 		8E436F9315767E8100AA06D9 /* Verlag-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E436F7515767E8100AA06D9 /* Verlag-XLight.otf */; };
 		8E436F9415767E8100AA06D9 /* Verlag-XLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E436F7615767E8100AA06D9 /* Verlag-XLightItalic.otf */; };
+		8E436F971576AE2000AA06D9 /* test-photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E436F951576AE2000AA06D9 /* test-photo.png */; };
+		8E436F981576AE2000AA06D9 /* test-photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E436F961576AE2000AA06D9 /* test-photo@2x.png */; };
 		8E8A906B156EA202000732CC /* GTIOEditProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */; };
 		8E8E6EC215756D2C009750E2 /* border-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8E6EC015756D2C009750E2 /* border-bg.png */; };
 		8E8E6EC315756D2C009750E2 /* border-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8E6EC115756D2C009750E2 /* border-bg@2x.png */; };
-		8E8E6EC615756DD0009750E2 /* GTIODeletableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E6EC515756DD0009750E2 /* GTIODeletableImageView.m */; };
+		8E8E6EC615756DD0009750E2 /* GTIOTakePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E6EC515756DD0009750E2 /* GTIOTakePhotoView.m */; };
 		8E91B0FF156AC197009D70AC /* JRActivityObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B037156AC197009D70AC /* JRActivityObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E91B100156AC197009D70AC /* JRConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B039156AC197009D70AC /* JRConnectionManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E91B101156AC197009D70AC /* JREngage+CustomInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B03B156AC197009D70AC /* JREngage+CustomInterface.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1056,12 +1058,14 @@
 		8E436F7415767E8100AA06D9 /* Verlag-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Verlag-LightItalic.otf"; sourceTree = "<group>"; };
 		8E436F7515767E8100AA06D9 /* Verlag-XLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Verlag-XLight.otf"; sourceTree = "<group>"; };
 		8E436F7615767E8100AA06D9 /* Verlag-XLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Verlag-XLightItalic.otf"; sourceTree = "<group>"; };
+		8E436F951576AE2000AA06D9 /* test-photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-photo.png"; sourceTree = "<group>"; };
+		8E436F961576AE2000AA06D9 /* test-photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-photo@2x.png"; sourceTree = "<group>"; };
 		8E8A9069156EA202000732CC /* GTIOEditProfilePictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOEditProfilePictureViewController.h; sourceTree = "<group>"; };
 		8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOEditProfilePictureViewController.m; sourceTree = "<group>"; };
 		8E8E6EC015756D2C009750E2 /* border-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border-bg.png"; sourceTree = "<group>"; };
 		8E8E6EC115756D2C009750E2 /* border-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border-bg@2x.png"; sourceTree = "<group>"; };
-		8E8E6EC415756DD0009750E2 /* GTIODeletableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIODeletableImageView.h; sourceTree = "<group>"; };
-		8E8E6EC515756DD0009750E2 /* GTIODeletableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIODeletableImageView.m; sourceTree = "<group>"; };
+		8E8E6EC415756DD0009750E2 /* GTIOTakePhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTakePhotoView.h; sourceTree = "<group>"; };
+		8E8E6EC515756DD0009750E2 /* GTIOTakePhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTakePhotoView.m; sourceTree = "<group>"; };
 		8E91B036156AC197009D70AC /* JRActivityObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRActivityObject.h; sourceTree = "<group>"; };
 		8E91B037156AC197009D70AC /* JRActivityObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRActivityObject.m; sourceTree = "<group>"; };
 		8E91B038156AC197009D70AC /* JRConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRConnectionManager.h; sourceTree = "<group>"; };
@@ -1461,8 +1465,8 @@
 				8E12C1F8157553800097CDE9 /* GTIOLookSelectorView.m */,
 				8E12C1FE15755B000097CDE9 /* GTIOPhotoSelectBoxButton.h */,
 				8E12C1FF15755B000097CDE9 /* GTIOPhotoSelectBoxButton.m */,
-				8E8E6EC415756DD0009750E2 /* GTIODeletableImageView.h */,
-				8E8E6EC515756DD0009750E2 /* GTIODeletableImageView.m */,
+				8E8E6EC415756DD0009750E2 /* GTIOTakePhotoView.h */,
+				8E8E6EC515756DD0009750E2 /* GTIOTakePhotoView.m */,
 				8EDA556415757777009F0404 /* GTIOLookSelectorControl.h */,
 				8EDA556515757777009F0404 /* GTIOLookSelectorControl.m */,
 				8EDA556915757E8A009F0404 /* GTIOPostALookOptionsView.h */,
@@ -1787,6 +1791,8 @@
 		8E1AC970156C4AAF0039E6E9 /* 12.3 */ = {
 			isa = PBXGroup;
 			children = (
+				8E436F951576AE2000AA06D9 /* test-photo.png */,
+				8E436F961576AE2000AA06D9 /* test-photo@2x.png */,
 				8E8E6EC015756D2C009750E2 /* border-bg.png */,
 				8E8E6EC115756D2C009750E2 /* border-bg@2x.png */,
 				8E1AC971156C4AAF0039E6E9 /* brands-box-icon.png */,
@@ -3405,6 +3411,8 @@
 				8E436F9215767E8100AA06D9 /* Verlag-LightItalic.otf in Resources */,
 				8E436F9315767E8100AA06D9 /* Verlag-XLight.otf in Resources */,
 				8E436F9415767E8100AA06D9 /* Verlag-XLightItalic.otf in Resources */,
+				8E436F971576AE2000AA06D9 /* test-photo.png in Resources */,
+				8E436F981576AE2000AA06D9 /* test-photo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3520,7 +3528,7 @@
 				8E12C1F515754E880097CDE9 /* GTIOViewController.m in Sources */,
 				8E12C1F9157553800097CDE9 /* GTIOLookSelectorView.m in Sources */,
 				8E12C20015755B000097CDE9 /* GTIOPhotoSelectBoxButton.m in Sources */,
-				8E8E6EC615756DD0009750E2 /* GTIODeletableImageView.m in Sources */,
+				8E8E6EC615756DD0009750E2 /* GTIOTakePhotoView.m in Sources */,
 				8EDA556615757777009F0404 /* GTIOLookSelectorControl.m in Sources */,
 				8EDA556B15757E8A009F0404 /* GTIOPostALookOptionsView.m in Sources */,
 				8EDA556E15758261009F0404 /* GTIOPostALookDescriptionBox.m in Sources */,

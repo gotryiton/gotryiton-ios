@@ -24,7 +24,7 @@
 
 @implementation GTIOUser
 
-@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile;
+@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url;
 @synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
 @synthesize loginHandler = _loginHandler;
 @synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath;
@@ -135,7 +135,7 @@
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                 self.facebook.accessToken, @"fb_token",
                                 nil];
-        loader.params = params;
+        loader.params = GTIOJSONParams(params);
         loader.method = RKRequestMethodPOST;
         
         loader.onDidLoadObjects = ^(NSArray *objects) {
@@ -209,6 +209,8 @@
     self.auth = user.auth;
     self.isNewUser = user.isNewUser;
     self.hasCompleteProfile = user.hasCompleteProfile;
+    self.url = user.url;
+    self.email = user.email;
 }
 
 #pragma mark - janrain
@@ -235,7 +237,7 @@
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                 [auth_info valueForKey:@"token"], @"janrain_token",
                                 nil];
-        loader.params = params;
+        loader.params = GTIOJSONParams(params);
         loader.method = RKRequestMethodPOST;
         
         loader.onDidLoadObjects = ^(NSArray *objects) {
