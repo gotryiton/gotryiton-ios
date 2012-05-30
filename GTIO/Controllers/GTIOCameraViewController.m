@@ -9,6 +9,7 @@
 #import "GTIOCameraViewController.h"
 
 #import "GTIOCameraToolbarView.h"
+#import "GTIOPhotoShootProgressToolbarView.h"
 
 @interface GTIOCameraViewController ()
 
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
 @property (nonatomic, strong) GTIOCameraToolbarView *photoToolbarView;
+@property (nonatomic, strong) GTIOPhotoShootProgressToolbarView *photoShootProgresToolbarView;
 @property (nonatomic, strong) GTIOButton *flashButton;
 @property (nonatomic, assign, getter = isFlashOn) BOOL flashOn;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
@@ -26,7 +28,7 @@
 @implementation GTIOCameraViewController
 
 @synthesize captureSession = _captureSession, stillImageOutput = _stillImageOutput, captureVideoPreviewLayer = _captureVideoPreviewLayer;
-@synthesize photoToolbarView = _photoToolbarView;
+@synthesize photoToolbarView = _photoToolbarView, photoShootProgresToolbarView = _photoShootProgresToolbarView;
 @synthesize flashButton = _flashButton;
 @synthesize flashOn = _flashOn, shutterFlashOverlay = _shutterFlashOverlay;
 @synthesize dismissHandler = _dismissHandler;
@@ -62,7 +64,7 @@
     self.view = [[UIView alloc] initWithFrame:self.tabBarController.view.bounds];
     [self.view setAutoresizesSubviews:YES];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    [self.view setBackgroundColor:[UIColor greenColor]];
+    [self.view setBackgroundColor:[UIColor gtio_toolbarBGColor]];
 }
 
 - (void)viewDidLoad
@@ -100,6 +102,11 @@
     }];
     [self.view addSubview:self.flashButton];
     
+    // Photo Shoot Toolbar
+    self.photoShootProgresToolbarView = [[GTIOPhotoShootProgressToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];
+    [self.photoShootProgresToolbarView setAlpha:0.0f];
+    [self.view addSubview:self.photoShootProgresToolbarView];
+    
     // Toolbar
     self.photoToolbarView = [[GTIOCameraToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];
     __block typeof(self) blockSelf = self;
@@ -109,7 +116,11 @@
         }
     }];
     [self.photoToolbarView.shutterButton setTapHandler:^(id sender) {
-        [blockSelf captureImage];
+        if (self.photoToolbarView.photoModeSwitch.isOn) {
+            [blockSelf photoShootModeButtonPress];
+        } else {
+            [blockSelf singleModeButtonPress];
+        }
     }];
     [self.view addSubview:self.photoToolbarView];
     
@@ -123,17 +134,10 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-//    self.captureSession = nil;
     self.flashButton = nil;
     self.photoToolbarView = nil;
     self.shutterFlashOverlay = nil;
     self.captureVideoPreviewLayer = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -146,6 +150,8 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self.captureSession startRunning];
     });
+    
+    [self.flashButton setAlpha:1.0f];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -213,6 +219,27 @@
                 //TODO: Handle image captured
             }
     }];
+}
+
+#pragma mark - Shutter Button
+
+- (void)singleModeButtonPress
+{
+    
+}
+
+- (void)photoShootModeButtonPress
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        // Hide flash button
+        [self.flashButton setAlpha:0.0f];
+        
+        // Switch tool bars
+        [self.photoShootProgresToolbarView setAlpha:1.0f];
+        [self.photoToolbarView setAlpha:0.0f];
+    }];
+    
+    // Show timer
 }
 
 @end

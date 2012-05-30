@@ -16,7 +16,7 @@
 #import "GTIOFeedViewController.h"
 #import "GTIOExploreLooksViewController.h"
 #import "GTIOCameraViewController.h"
-#import "GTIOCameraTabPlaceholderViewController.h"
+#import "GTIOCameraTabBarPlaceholderViewController.h"
 #import "GTIOShopViewController.h"
 #import "GTIOMeViewController.h"
 
@@ -187,7 +187,7 @@
     NSArray *viewControllers = [NSArray arrayWithObjects:
                                 [[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
-                                [[GTIOCameraTabPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
+                                [[GTIOCameraTabBarPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOShopViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOMeViewController alloc] initWithNibName:nil bundle:nil],
                                 nil];
@@ -246,7 +246,7 @@
 {
     BOOL shouldSelect = YES;
     
-    if ([viewController isKindOfClass:[GTIOCameraTabPlaceholderViewController class]]) {
+    if ([viewController isKindOfClass:[GTIOCameraTabBarPlaceholderViewController class]]) {
         shouldSelect = NO;
         [self.cameraViewController setDismissHandler:^(UIViewController *viewController) {
             [viewController dismissModalViewControllerAnimated:YES];

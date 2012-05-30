@@ -20,4 +20,9 @@
     return UIColorFromRGB(0x8F8F8F);
 }
 
++ (UIColor *)gtio_toolbarBGColor
+{
+    return UIColorFromRGB(0xF0F0F0);
+}
+
 @end

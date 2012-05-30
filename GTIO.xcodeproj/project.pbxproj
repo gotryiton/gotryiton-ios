@@ -117,6 +117,8 @@
 		D289CB391566957300909FC1 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB2C1566957300909FC1 /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D289CB3A1566957300909FC1 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB2E1566957300909FC1 /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D28FB46E157547C2002298A2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28FB46D157547C2002298A2 /* CoreMedia.framework */; };
+		D29483CB15756BBB00FCDB86 /* GTIOPhotoShootProgressToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D29483CA15756BBB00FCDB86 /* GTIOPhotoShootProgressToolbarView.m */; };
+		D29483CE1575718000FCDB86 /* GTIOCameraTabBarPlaceholderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D29483CD1575718000FCDB86 /* GTIOCameraTabBarPlaceholderViewController.m */; };
 		D2985851156539AF005EE3CA /* login-help.png in Resources */ = {isa = PBXBuildFile; fileRef = D298584F156539AF005EE3CA /* login-help.png */; };
 		D2985852156539AF005EE3CA /* login-help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2985850156539AF005EE3CA /* login-help@2x.png */; };
 		D298586E15653E47005EE3CA /* fb-sign-in-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = D298585415653E47005EE3CA /* fb-sign-in-OFF.png */; };
@@ -295,7 +297,6 @@
 		D2D96FC3156D27B9009B9A72 /* toggle-containers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2D96F5B156D27B9009B9A72 /* toggle-containers@2x.png */; };
 		D2D96FC7156D2A07009B9A72 /* GTIOCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D96FC6156D2A07009B9A72 /* GTIOCameraViewController.m */; };
 		D2D96FC9156D2A48009B9A72 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D96FC8156D2A48009B9A72 /* AVFoundation.framework */; };
-		D2DB97B21575604F00171286 /* GTIOCameraTabPlaceholderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DB97B11575604F00171286 /* GTIOCameraTabPlaceholderViewController.m */; };
 		D2E375741559B76500763A67 /* UI-Tab-1-OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E375511559B76500763A67 /* UI-Tab-1-OFF.png */; };
 		D2E375751559B76500763A67 /* UI-Tab-1-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E375521559B76500763A67 /* UI-Tab-1-OFF@2x.png */; };
 		D2E375761559B76500763A67 /* UI-Tab-1-ON.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E375531559B76500763A67 /* UI-Tab-1-ON.png */; };
@@ -541,6 +542,10 @@
 		D289CB2D1566957300909FC1 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		D289CB2E1566957300909FC1 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		D28FB46D157547C2002298A2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		D29483C915756BBB00FCDB86 /* GTIOPhotoShootProgressToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoShootProgressToolbarView.h; sourceTree = "<group>"; };
+		D29483CA15756BBB00FCDB86 /* GTIOPhotoShootProgressToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoShootProgressToolbarView.m; sourceTree = "<group>"; };
+		D29483CC1575718000FCDB86 /* GTIOCameraTabBarPlaceholderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCameraTabBarPlaceholderViewController.h; sourceTree = "<group>"; };
+		D29483CD1575718000FCDB86 /* GTIOCameraTabBarPlaceholderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCameraTabBarPlaceholderViewController.m; sourceTree = "<group>"; };
 		D298584F156539AF005EE3CA /* login-help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-help.png"; sourceTree = "<group>"; };
 		D2985850156539AF005EE3CA /* login-help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-help@2x.png"; sourceTree = "<group>"; };
 		D298585415653E47005EE3CA /* fb-sign-in-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-sign-in-OFF.png"; sourceTree = "<group>"; };
@@ -737,8 +742,6 @@
 		D2D96FC5156D2A07009B9A72 /* GTIOCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCameraViewController.h; sourceTree = "<group>"; };
 		D2D96FC6156D2A07009B9A72 /* GTIOCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCameraViewController.m; sourceTree = "<group>"; };
 		D2D96FC8156D2A48009B9A72 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		D2DB97B01575604F00171286 /* GTIOCameraTabPlaceholderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCameraTabPlaceholderViewController.h; sourceTree = "<group>"; };
-		D2DB97B11575604F00171286 /* GTIOCameraTabPlaceholderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCameraTabPlaceholderViewController.m; sourceTree = "<group>"; };
 		D2E375511559B76500763A67 /* UI-Tab-1-OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UI-Tab-1-OFF.png"; sourceTree = "<group>"; };
 		D2E375521559B76500763A67 /* UI-Tab-1-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UI-Tab-1-OFF@2x.png"; sourceTree = "<group>"; };
 		D2E375531559B76500763A67 /* UI-Tab-1-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UI-Tab-1-ON.png"; sourceTree = "<group>"; };
@@ -1394,6 +1397,8 @@
 			children = (
 				D2D96EEF156D2774009B9A72 /* GTIOCameraToolbarView.h */,
 				D2D96EF0156D2774009B9A72 /* GTIOCameraToolbarView.m */,
+				D29483C915756BBB00FCDB86 /* GTIOPhotoShootProgressToolbarView.h */,
+				D29483CA15756BBB00FCDB86 /* GTIOPhotoShootProgressToolbarView.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -1535,10 +1540,10 @@
 		D2D96FC4156D29F8009B9A72 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				D29483CC1575718000FCDB86 /* GTIOCameraTabBarPlaceholderViewController.h */,
+				D29483CD1575718000FCDB86 /* GTIOCameraTabBarPlaceholderViewController.m */,
 				D2D96FC5156D2A07009B9A72 /* GTIOCameraViewController.h */,
 				D2D96FC6156D2A07009B9A72 /* GTIOCameraViewController.m */,
-				D2DB97B01575604F00171286 /* GTIOCameraTabPlaceholderViewController.h */,
-				D2DB97B11575604F00171286 /* GTIOCameraTabPlaceholderViewController.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -2062,7 +2067,8 @@
 				D2D96FC7156D2A07009B9A72 /* GTIOCameraViewController.m in Sources */,
 				D25F9939156EAA2D004B705E /* GTIOSwitch.m in Sources */,
 				D25F993C156EC6B4004B705E /* GTIOSlider.m in Sources */,
-				D2DB97B21575604F00171286 /* GTIOCameraTabPlaceholderViewController.m in Sources */,
+				D29483CB15756BBB00FCDB86 /* GTIOPhotoShootProgressToolbarView.m in Sources */,
+				D29483CE1575718000FCDB86 /* GTIOCameraTabBarPlaceholderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,5 +24,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
 + (UIColor *)gtio_linkColor;
 + (UIColor *)gtio_signInColor;
++ (UIColor *)gtio_toolbarBGColor;
 
 @end
