@@ -1,3 +1,32 @@
+***Tuesday, May 29th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Continue working on font issue reported by Scott last week
+- TT - check with Adit to see if he knows of a tool for editing font metadata
+
+**Status**
+- Completed Janrain screen, Geoff moving on to styling photo views
+- Scott working on camera utilization
+- Initial feedback on photo taking:
+ - When opening camera in gtio, black screen is shown in first load.  subsequent loads have freeze frame of older photo appears
+ - May need loading animation or static image while camera is loading
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Friday May 25th - Standup / Retrospective Notes***
 
 **Attendees**
