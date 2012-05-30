@@ -11,18 +11,18 @@
 
 @interface GTIOPostALookDescriptionBox()
 
-@property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UIView *placeHolderView;
 @property (nonatomic, strong) UIImageView *backgroundView;
-@property (nonatomic, strong) GTIODoneToolBar *doneToolBar;
+@property (nonatomic, strong) UITextView *nextTextView;
+@property (nonatomic, strong) GTIODoneToolBar *accessoryToolBar;
 
 @end
 
 @implementation GTIOPostALookDescriptionBox
 
-@synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView, doneToolBar = _doneToolBar;
+@synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView, nextTextView = _nextTextView, accessoryToolBar = _accessoryToolBar;
 
-- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)title andIcon:(UIImage *)icon
+- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)title andIcon:(UIImage *)icon andNextTextView:(UITextView *)nextTextView
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -45,23 +45,43 @@
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [self.placeHolderView addSubview:titleLabel];
         
-        self.doneToolBar = [[GTIODoneToolBar alloc] initWithTarget:self andAction:@selector(keyboardDoneTapped:)];
-        
-        self.textView = [[UITextView alloc] initWithFrame:(CGRect){ 5, 0, self.backgroundView.bounds.size.width - 10, self.backgroundView.bounds.size.height }];
+        self.nextTextView = nextTextView;
+        self.accessoryToolBar = [[GTIODoneToolBar alloc] initWithTarget:self andAction:@selector(accessoryButtonTapped:)];
+                
+        self.textView = [[UITextView alloc] initWithFrame:(CGRect){ 5, 0, self.backgroundView.bounds.size.width - 10, self.backgroundView.bounds.size.height - 10 }];
         [self.textView setBackgroundColor:[UIColor clearColor]];
         [self.textView setContentInset:(UIEdgeInsets){ 0, -4, 0, 0 }];
         [self.textView setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
         [self.textView setTextColor:[UIColor gtio_darkGrayTextColor]];
         [self.textView setDelegate:self];
-        [self.textView setInputAccessoryView:self.doneToolBar];
+        if (self.nextTextView) {
+            UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+            UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(accessoryButtonTapped:)];
+            [self.accessoryToolBar setItems:[NSArray arrayWithObjects:flexibleSpace, nextButton, nil]];
+        }
+        [self.textView setInputAccessoryView:self.accessoryToolBar];
         [self addSubview:self.textView];
     }
     return self;
 }
 
-- (void)keyboardDoneTapped:(id)sender
+- (void)accessoryButtonTapped:(id)sender
 {
-    [self.textView resignFirstResponder];
+    if (self.nextTextView) {
+        [self.nextTextView becomeFirstResponder];
+    } else {
+        [self.textView resignFirstResponder];
+    }
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [self.textView setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    [self.textView setTextColor:[UIColor gtio_darkGrayTextColor]];
 }
 
 - (void)textViewDidChange:(UITextView *)textView

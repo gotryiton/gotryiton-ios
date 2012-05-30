@@ -63,15 +63,31 @@
     self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ 253, 174, 60, 143 }];
     [self.scrollView addSubview:self.optionsView];
     
-    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, 186, 120 } andTitle:@"add a description" andIcon:[UIImage imageNamed:@"description-box-icon.png"]];
-    [self.scrollView addSubview:self.descriptionBox];
-    
-    self.tagBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 195, 330, 119, 120 } andTitle:@"tag brands" andIcon:[UIImage imageNamed:@"brands-box-icon.png"]];
+    self.tagBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 195, 330, 119, 120 } andTitle:@"tag brands" andIcon:[UIImage imageNamed:@"brands-box-icon.png"] andNextTextView:nil];
     [self.scrollView addSubview:self.tagBox];
     
-    [self.scrollView setContentSize:(CGSize){ self.view.bounds.size.width, self.descriptionBox.frame.origin.y + self.descriptionBox.bounds.size.height + 50 }];
+    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, 186, 120 } andTitle:@"add a description" andIcon:[UIImage imageNamed:@"description-box-icon.png"] andNextTextView:self.tagBox.textView];
+    [self.scrollView addSubview:self.descriptionBox];
     
     self.originalFrame = self.scrollView.frame;
+    
+    UIImage *postThisButtonBackgroundImage = [UIImage imageNamed:@"post-button-bg.png"];
+    UIImageView *postThisButtonBackground = [[UIImageView alloc] initWithFrame:(CGRect){ 0, self.view.bounds.size.height - postThisButtonBackgroundImage.size.height - self.navigationController.navigationBar.bounds.size.height, postThisButtonBackgroundImage.size }];
+    [postThisButtonBackground setImage:postThisButtonBackgroundImage];
+    [postThisButtonBackground setUserInteractionEnabled:YES];
+    [self.view addSubview:postThisButtonBackground];
+    
+    UIImage *postThisButtonNormal = [UIImage imageNamed:@"post-button-OFF.png"];
+    UIImage *postThisButtonHighlighted = [UIImage imageNamed:@"post-button-ON.png"];
+    UIImage *postThisButtonDisabled = [UIImage imageNamed:@"post-button-disabled.png"];
+    UIButton *postThisButton = [[UIButton alloc] initWithFrame:(CGRect){ 5, 10, postThisButtonBackground.bounds.size.width - 10, postThisButtonBackground.bounds.size.height - 15 }];
+    [postThisButton setImage:postThisButtonNormal forState:UIControlStateNormal];
+    [postThisButton setImage:postThisButtonHighlighted forState:UIControlStateHighlighted];
+    [postThisButton setImage:postThisButtonDisabled forState:UIControlStateDisabled];
+    [postThisButton addTarget:self action:@selector(postThis:) forControlEvents:UIControlEventTouchUpInside];
+    [postThisButtonBackground addSubview:postThisButton];
+    
+    [self.scrollView setContentSize:(CGSize){ self.view.bounds.size.width, self.descriptionBox.frame.origin.y + self.descriptionBox.bounds.size.height + postThisButtonBackground.bounds.size.height + self.navigationController.navigationBar.bounds.size.height }];
 }
 
 - (void)viewDidUnload
@@ -88,13 +104,18 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-    [self.scrollView setFrame:(CGRect){ self.scrollView.frame.origin, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height - 215 }];
+    [self.scrollView setFrame:(CGRect){ self.originalFrame.origin, self.originalFrame.size.width, self.originalFrame.size.height - 215 }];
     [self.scrollView scrollRectToVisible:(CGRect){ 0, self.descriptionBox.frame.origin.y + 50, self.descriptionBox.bounds.size } animated:YES];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification
 {
     [self.scrollView setFrame:self.originalFrame];
+}
+
+- (void)postThis:(id)sender
+{
+    NSLog(@"posting!");
 }
 
 @end

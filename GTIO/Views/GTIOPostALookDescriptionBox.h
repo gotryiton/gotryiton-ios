@@ -10,6 +10,8 @@
 
 @interface GTIOPostALookDescriptionBox : UIView <UITextViewDelegate>
 
-- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)title andIcon:(UIImage *)icon;
+@property (nonatomic, strong) UITextView *textView;
+
+- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)title andIcon:(UIImage *)icon andNextTextView:(UITextView *)nextTextView;
 
 @end
