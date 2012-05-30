@@ -1456,7 +1456,7 @@ A user can suggest a product to another user
 #### Mockups
 4.2 Suggest a product ([wireframe](http://invis.io/NT2OC8QM))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.2.Suggest.A.Product.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/2/4.2.Suggest.A.Product.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1465,7 +1465,6 @@ A user can suggest a product to another user
 ([view 4.6](#46-gotryiton-contacts))    
 ([view 4.3](#43-phone-contact-list))   
 ([view 4.4](#44-email-compose))   
-([view 4.5](#45-facebook-contacts))   
 ([view 4.1.2](#412-product-full-screen))   
 
 #### API Usage
@@ -1489,14 +1488,6 @@ A user can suggest a product to another user
 - A user can Email a suggestion from the Suggest a Product Page
    - email contacts btn **tap** ==> api request
       - successful api response ==> (view 4.4)
-- A user can select from their Facebook contacts to suggest from the Suggest a Product Page\
-   - facebook btn 
-      - if user is not facebook authenticated
-         - **tap** ==> facebook SSO
-            - success: request authentication api 
-      - else:
-         - **tap** ==> api request
-            - successful response  ==> (view 4.5)
    
 ### 4.3 Phone contact list  
 
