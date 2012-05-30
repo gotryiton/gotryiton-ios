@@ -48,6 +48,8 @@
         self.photoSetView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.bounds.size.width, self.bounds.size.height }];
         UIImage *backgroundImage = [UIImage imageNamed:@"photo-frame.png"];
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
+        [backgroundImageView.layer setBorderColor:[UIColor gtio_photoBorderColor].CGColor];
+        [backgroundImageView.layer setBorderWidth:0.5];
         [backgroundImageView setFrame:(CGRect){ 0, 0, self.photoSetView.bounds.size }];
         [self.photoSetView addSubview:backgroundImageView];
         self.tallLeftPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 6, 6, 109, 300 }];
