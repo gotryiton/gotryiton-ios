@@ -9,6 +9,7 @@
 #import "GTIOEnvironment.h"
 
 #import <RestKit/RestKit.h>
+#import <RestKit/RKRequestSerialization.h>
 
 /** Go Try It On Build Environments
  *
@@ -55,3 +56,21 @@
 NSString * const kGTIOAcceptHeader = @"application/v4-json";
 NSString * const kGTIOAuthenticationHeaderKey = @"Authentication";
 NSString * const kGTIOTrackingHeaderKey = @"Tracking-Id";
+
+/* janrain providers */
+NSString * const kGTIOJanRainProviderAol = @"aol";
+NSString * const kGTIOJanRainProviderGoogle = @"google";
+NSString * const kGTIOJanRainProviderTwitter = @"twitter";
+NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
+
+#pragma mark - JSON Params Serialization Helper
+
+id GTIOJSONParams(id obj) {
+    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:RKMIMETypeJSON];
+    NSError *error = nil;
+    NSString *json = [parser stringFromObject:obj error:&error];
+    if (error) {
+        NSLog(@"%@",[error localizedDescription]);
+    }
+    return [RKRequestSerialization serializationWithData:[json dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
+}

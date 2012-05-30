@@ -14,6 +14,8 @@
 #import "GTIOTrack.h"
 #import "GTIOUser.h"
 #import "GTIOAuth.h"
+#import "GTIOIcon.h"
+#import "GTIOFacebookIcon.h"
 
 @implementation GTIOMappingProvider
 
@@ -28,6 +30,8 @@
         RKObjectMapping *visitMapping = [RKObjectMapping mappingForClass:[GTIOVisit class]];
         RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[GTIOUser class]];
         RKObjectMapping *authMapping = [RKObjectMapping mappingForClass:[GTIOAuth class]];
+        RKObjectMapping *userIconMapping = [RKObjectMapping mappingForClass:[GTIOIcon class]];
+        RKObjectMapping *facebookUserIconMapping = [RKObjectMapping mappingForClass:[GTIOFacebookIcon class]];
         
         /** Config
          */
@@ -88,6 +92,12 @@
         // GTIOAuth
         [authMapping mapAttributes:@"token", nil];
         [self setMapping:authMapping forKeyPath:@"auth"];
+        
+        // User Icons
+        [userIconMapping mapAttributes:@"url", @"width", @"height", nil];
+        [facebookUserIconMapping mapAttributes:@"url", @"width", @"height", nil];
+        [self setMapping:facebookUserIconMapping forKeyPath:@"facebook_icon"];
+        [self setMapping:userIconMapping forKeyPath:@"outfit_icons"];
     }
     return self;
 }

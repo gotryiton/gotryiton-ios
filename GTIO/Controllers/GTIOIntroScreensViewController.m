@@ -12,6 +12,7 @@
 
 #import "GTIOIntroImageViewController.h"
 #import "GTIOSignInViewController.h"
+#import "GTIOAlmostDoneViewController.h"
 
 #import "GTIOConfigManager.h"
 
