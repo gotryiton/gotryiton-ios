@@ -38,6 +38,11 @@
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
+        case GTIOButtonTypeBackBottomMargin: return [self gtio_backButtonBottomMargin];
+        case GTIOButtonTypeSaveGreenTopMargin: return [self gtio_saveButtonGreenTopMargin];
+        case GTIOButtonTypeDoneGrayTopMargin: return [self gtio_doneButtonGrayTopMargin];
+        case GTIOButtonTypeSaveGrayTopMargin: return [self gtio_saveButtonGrayTopMargin];
+        default: return nil;
     }
 }
 
@@ -136,9 +141,24 @@
     return [self buttonWithCoreImageName:@"fail-table-3-email-support"];
 }
 
-+ (id)gtio_backButton
++ (id)gtio_backButtonBottomMargin
 {
     return [self buttonWithImage:[UIImage imageNamed:@"login-nav-back.png"] hightlightImage:nil];
+}
+
++ (id)gtio_saveButtonGreenTopMargin
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"save-button-green-top-margin.png"] hightlightImage:nil];
+}
+
++ (id)gtio_doneButtonGrayTopMargin
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"cancel-button-gray-top-margin.png"] hightlightImage:nil];
+}
+
++ (id)gtio_saveButtonGrayTopMargin
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"save-button-gray-top-margin.png"] hightlightImage:nil];
 }
 
 + (id)gtio_photoCloseButton

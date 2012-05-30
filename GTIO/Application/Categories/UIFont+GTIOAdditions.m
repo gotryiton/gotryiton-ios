@@ -11,6 +11,7 @@
 static NSString * const GTIOFontProximaNovaName[] = {
     [GTIOFontProximaNovaRegular] = @"ProximaNova-Regular",
     [GTIOFontProximaNovaLight] = @"ProximaNova-Light",
+    [GTIOFontProximaNovaLightItal] = @"ProximaNova-LightIt",
     [GTIOFontProximaNovaSemiBold] = @"ProximaNova-Semibold",
     [GTIOFontProximaNovaBold] = @"ProximaNova-Bold",
     [GTIOFontProximaNovaThin] = @"ProximaNovaT-Thin"
@@ -19,9 +20,11 @@ static NSString * const GTIOFontProximaNovaName[] = {
 static NSString * const GTIOFontArcherName[] = {
     [GTIOFontArcherBold] = @"Archer-Bold",
     [GTIOFontArcherBook] = @"Archer-Book",
+    [GTIOFontArcherMediumItal] = @"Archer-MediumItal",
     [GTIOFontArcherMedium] = @"Archer-Medium",
     [GTIOFontArcherSemiBold] = @"Archer-Semibold",
-    [GTIOFontArcherLight] = @"Archer-Light"
+    [GTIOFontArcherLight] = @"Archer-Light",
+    [GTIOFontArcherLightItal] = @"Archer-LightItal"
 };
 
 @implementation UIFont (GTIOAdditions)

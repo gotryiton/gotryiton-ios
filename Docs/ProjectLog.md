@@ -1,3 +1,111 @@
+***Tuesday, May 29th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Continue working on font issue reported by Scott last week
+- TT - check with Adit to see if he knows of a tool for editing font metadata
+
+**Status**
+- Completed Janrain screen, Geoff moving on to styling photo views
+- Scott working on camera utilization
+- Initial feedback on photo taking:
+ - When opening camera in gtio, black screen is shown in first load.  subsequent loads have freeze frame of older photo appears
+ - May need loading animation or static image while camera is loading
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Friday May 25th - Standup / Retrospective Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon
+
+**Tasks / To Do List**
+- TT - Get new assets for for custom switch.  Inform Matt.gtio preferred method for cutting assts going forward
+- TT - Send font change article to Matt
+- GTIO - rename fonts to resolve font family issue
+- TT - Review remaining planned work for sprint and update accordingly on 5/29
+
+**Status**
+- Working on custom tab bar with photos.  Hit a little bit of a delay due to having to write a custom switch for changing photo modes.
+- 12.1 Animation - Normal Mode / Photoshoot Mode
+ - Image will be changed
+- Issue with multiple font in same font family on iOS.  Workaround will be to edit the fonts and change the family name.
+- Continuing work on Edit Profile screens
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+**Week Retrospective**
+- Functional spec came in later than expected with Photo upload requirements 
+- Several technical hurdles popped up over the course of the week
+ - Font
+ - custom switch
+
+---
+
+***Thursday, May 24th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon
+
+**Tasks / To Do List**
+- NA
+
+**Status**
+- Working on 1.7, moving on to 7.3 (Janrain screens)
+- Working on photo nav bar
+
+**Updates to Planned Work**
+- 104 - 12.5 Play sound when taking photo
+- 103 - 12.5 Burst photos on timer
+- 102 - 12.5 Photo shoot progress bar
+- 101 - 12.5 Photo shoot timer view
+- 100 - 12.4 Photo shoot grid view
+- 99 - 12.3 POST /post
+- 98 - 12.3 Upload photo
+- 96 - 12.3 Photo frames view
+- 95 - 12.3 Style the photo frame mode view
+- 94 - 12.3 Style the post options view
+- 93 - 12.3 Description and tag brands views
+- 92 - 12.2 Filter page toolbar view
+- 91 - 12.2 Filter page view
+- 90 - 12.1 Photo frame overlay 
+- 89 - 12.1 Photo picker
+- 85 - 12.1 Camera control bar
+- 84 - 12.1 Show Camera
+- 83 - Intro Screen animate buttons
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Wednesday, May 23rd - Standup Notes***
 
 **Attendees**

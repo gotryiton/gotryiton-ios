@@ -9,6 +9,7 @@
 typedef enum GTIOFontProximaNova {
     GTIOFontProximaNovaRegular = 0,
     GTIOFontProximaNovaLight,
+    GTIOFontProximaNovaLightItal,
     GTIOFontProximaNovaSemiBold,
     GTIOFontProximaNovaBold,
     GTIOFontProximaNovaThin
@@ -18,8 +19,10 @@ typedef enum GTIOFontArcher {
     GTIOFontArcherBold = 0,
     GTIOFontArcherBook,
     GTIOFontArcherMedium,
+    GTIOFontArcherMediumItal,
     GTIOFontArcherSemiBold,
-    GTIOFontArcherLight
+    GTIOFontArcherLight,
+    GTIOFontArcherLightItal
 } GTIOFontArcher;
 
 @interface UIFont (GTIOAdditions)

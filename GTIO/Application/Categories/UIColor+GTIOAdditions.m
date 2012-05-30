@@ -25,4 +25,29 @@
     return UIColorFromRGB(0xF0F0F0);
 }
 
++ (UIColor *)gtio_lightGrayBorderColor
+{
+    return UIColorFromRGB(0xE6E6E6);
+}
+
++ (UIColor *)gtio_darkGrayTextColor
+{
+    return UIColorFromRGB(0xA0A0A0);
+}
+
++ (UIColor *)gtio_profilePictureBorderColor
+{
+    return UIColorFromRGB(0xF3F3F3);
+}
+
++ (UIColor *)gtio_pinkTextColor
+{
+    return UIColorFromRGB(0xFF8285);
+}
+
++ (UIColor *)gtio_greenBorderColor
+{
+    return UIColorFromRGB(0xB2EED6);
+}
+
 @end

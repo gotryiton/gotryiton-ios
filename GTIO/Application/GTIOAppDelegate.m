@@ -27,6 +27,8 @@
 #import "GTIOUser.h"
 #import "GTIOAuth.h"
 
+#import "JREngage.h"
+
 @interface GTIOAppDelegate ()
 
 @property (nonatomic, strong) GTIOSplashViewController *splashViewController;
@@ -73,6 +75,9 @@
     
     // RestKit
     [self setupRestKit];
+    
+    // Initialize Janrain
+    [GTIOUser currentUser].janrain = [JREngage jrEngageWithAppId:kGTIOJanRainEngageApplicationID andTokenUrl:nil delegate:[GTIOUser currentUser]];
     
 //    [self.window setRootViewController:self.tabBarController];
     self.splashViewController = [[GTIOSplashViewController alloc] initWithNibName:nil bundle:nil];
@@ -159,8 +164,6 @@
     if ([authToken length] > 0) {
         [[RKObjectManager sharedManager].client.HTTPHeaders setObject:authToken forKey:kGTIOAuthenticationHeaderKey];
     }
-//    [objectManager.client setValue:@"34cbc5cb8b99981444540270842c0376" forHTTPHeaderField:kGTIOAuthenticationHeaderKey]; // Valid
-//    [objectManager.client setValue:@"34cbc59981444540270842c0376" forHTTPHeaderField:kGTIOAuthenticationHeaderKey];
     
     // Auth for dev/staging
     [objectManager.client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];

@@ -353,7 +353,8 @@ Response
         "service": "Facebook",
         "auth": true,
         "is_new_user": false,
-        "has_complete_profile" : true
+        "has_complete_profile" : true,
+        "is_facebook_connected" : true
     }
 }
 ```
@@ -416,7 +417,8 @@ Response
         "service": "Twitter",
         "auth": true,
         "is_new_user": false,
-        "has_complete_profile" : true
+        "has_complete_profile" : true,
+        "is_facebook_connected" : false
     }
 }
 ```
@@ -480,7 +482,8 @@ Response
         "service": "Facebook",
         "auth": true,
         "is_new_user": true,
-        "has_complete_profile" : true
+        "has_complete_profile" : true,
+        "is_facebook_connected" : true
     }
 }
 ```
@@ -549,7 +552,8 @@ Response
         "service": "Twitter",
         "auth": true,
         "is_new_user": true,
-        "has_complete_profile" : true
+        "has_complete_profile" : true,
+        "is_facebook_connected" : false
     }
 }
 ```
@@ -576,6 +580,65 @@ Error Response
 ```
 
 
+### POST `/user/facebook-connect`
+
+Adds facebook authentication to a user's account.  This api requires that the requesting user is **already logged in**. Responds with an updated user object
+
+Request
+
+```json
+{
+    "fb_token": "c4b4aase9a82b61d7f041f2ef6b36eb8"
+}
+```
+
+Response
+
+```json
+{
+    "user": {
+        "id": "1DB2BD0",
+        "name": "Blair W.",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "born_in": 1984,
+        "location": "NY, NY",
+        "about_me": "Upper east side girl",
+        "badge": 
+            {
+                'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+            },
+        "city": "NY",
+        "state": "NY",
+        "gender": "female",
+        "service": "Facebook",
+        "auth": true,
+        "is_new_user": false,
+        "has_complete_profile" : true,
+        "is_facebook_connected" : true
+    }
+}
+```
+
+Error Response
+
+```json
+{
+   error : {
+
+      status : "error",
+
+      message : "We couldnt log you in via Facebook for some reason",
+
+      title : "GO TRY IT ON"
+
+   }
+} 
+```
 
 ### GET `/user/:id/follow`
 
@@ -831,3 +894,120 @@ Respondes with a user object, Facebook icon and 20 recent outfit icons, each in 
 
 }
 ```
+
+
+
+### POST `/users/follow-many`
+
+Create a following relationship between the requestor and the users POST'ed.  Request should include a Track object specifying the screen used.
+
+Request
+
+```json
+{
+    "users" : [
+        {
+            "id": "1DB2BD0",
+        },
+        {
+            "id": "7178E1D",
+        }
+    ], 
+    "track" : {
+        "screen" : "Quick add",
+    }
+} 
+```
+
+Response
+
+```json
+{
+    "users": [
+    {
+        "id": "1DB2BD0",
+        "name": "Blair W.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/user/1DB2BD0/profile",
+        "badge": 
+            {
+                'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+            },
+        "follow_button": {
+            "text": "following",
+            "action": "/user/1DB2BD0/unfollow",
+            "state": 1
+        }
+    },
+    {
+        "id": "7178E1D",
+        "name": "Simon H.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/user/FD120BC/profile",
+        "badge": null,
+        "follow_button": {
+            "text": "following",
+            "action": "/user/FD120BC/unfollow",
+            "state": 1
+        }
+    }
+    ]
+}
+```
+
+
+### GET `/user/quick-add`
+
+Get a list of users who the requestor should follow on the Quick Add screen
+
+
+Response
+
+```json
+{
+    "users": [
+    {
+        "id": "1DB2BD0",
+        "name": "Blair W.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/user/1DB2BD0/profile",
+        "badge": 
+            {
+                'default' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'profile' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
+                'flat' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+                'outfit' : 'http://assets.gotryiton.com/img/badges/1/badge-outfit-fashionista.png',
+                'shaded' : 'http://assets.gotryiton.com/img/badges/1/badge-shaded-fashionista.png',
+                'small' : 'http://assets.gotryiton.com/img/badges/1/badge-review-fashionista.png',
+            },
+        "follow_button": {
+            "text": "follow",
+            "action": "/user/1DB2BD0/follow",
+            "state": 0
+        }
+    },
+    {
+        "id": "7178E1D",
+        "name": "Simon H.",
+        "location": "NY, NY",
+        "icon": "http://assets.gotryiton.com/img/profile-default.png",
+        "action": "/user/FD120BC/profile",
+        "badge": null,
+        "follow_button": {
+            "text": "follow",
+            "action": "/user/FD120BC/follow",
+            "state": 0
+        }
+    }
+    ]
+}
+```
+

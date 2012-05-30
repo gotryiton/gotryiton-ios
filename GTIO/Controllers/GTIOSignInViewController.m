@@ -11,6 +11,7 @@
 #import "GTIOReturningUsersViewController.h"
 #import "GTIOFailedSignInViewController.h"
 #import "GTIOAppDelegate.h"
+#import "GTIOAlmostDoneViewController.h"
 
 #import "GTIOUser.h"
 #import "GTIOTrack.h"
@@ -60,10 +61,13 @@
                 [self.navigationController pushViewController:failedSignInViewController animated:YES];
             } else {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                NSLog(@"Logged in");
-                // TODO: new user go to 1.7
-                // existing user Go to View 8.1
-                [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                if (user.isNewUser || !user.hasCompleteProfile) {
+                    // load "almost done" screen
+                    GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+                    [self.navigationController pushViewController:almostDone animated:YES];
+                } else {
+                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                }
             }
         }];
     }];
@@ -73,7 +77,7 @@
     [self.returningUserButton setFrame:(CGRect){ { (self.view.frame.size.width - self.returningUserButton.frame.size.width) / 2, 300 }, self.returningUserButton.frame.size }];
     [self.returningUserButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.returningUserButton setTapHandler:^(id sender) {
-        GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initWithNibName:nil bundle:nil];
+        GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:YES];
         [self.navigationController pushViewController:returningUsersViewController animated:YES];
     }];
     [self.view addSubview:self.returningUserButton];
@@ -121,7 +125,8 @@
 
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
 {
-    NSLog(@"Link selected");
+    GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:NO];
+    [self.navigationController pushViewController:returningUsersViewController animated:YES];
 }
 
 @end

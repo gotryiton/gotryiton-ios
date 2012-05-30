@@ -22,7 +22,10 @@ extern NSString * const kGTIOBaseURLString;
 
 // JanRain  (used for authentication via Engage)
 extern NSString * const kGTIOJanRainEngageApplicationID;
-extern NSString * const kGTIOJanRainEngageTokenURLString;
+extern NSString * const kGTIOJanRainProviderAol;
+extern NSString * const kGTIOJanRainProviderGoogle;
+extern NSString * const kGTIOJanRainProviderTwitter;
+extern NSString * const kGTIOJanRainProviderYahoo;
 
 // Facebook
 extern NSString * const kGTIOFacebookAppID;
@@ -43,3 +46,6 @@ extern NSString * const kGTIOTrackingHeaderKey;
 /** Dismiss handler
  */
 typedef void(^GTIODismissHandler)(UIViewController *viewController);
+
+// JSON Param Serialization Helper
+id GTIOJSONParams(id obj);

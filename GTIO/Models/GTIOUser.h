@@ -7,12 +7,14 @@
 //
 
 #import "Facebook.h"
+#import "JREngage.h"
 
 @class GTIOUser;
 
+typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
 typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 
-@interface GTIOUser : NSObject <FBSessionDelegate>
+@interface GTIOUser : NSObject <FBSessionDelegate, JREngageDelegate>
 
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *name;
@@ -29,6 +31,7 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 @property (nonatomic, strong) NSNumber *hasCompleteProfile;
 
 @property (nonatomic, strong) Facebook *facebook;
+@property (nonatomic, strong) JREngage *janrain;
 
 /** The current user that is logged in
  */
@@ -42,9 +45,23 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
  */
 - (void)logOut;
 
-/** Sign up/in with Facebook
+/** Update current user
+ */
+- (void)updateCurrentUserWithFields:(NSDictionary*)updateFields withTrackingInformation:(NSDictionary*)trackingInfo andLoginHandler:(GTIOLoginHandler)loginHandler;
+
+/** Sign up/in or connect with Facebook
  */
 - (void)signUpWithFacebookWithLoginHandler:(GTIOLoginHandler)loginHandler;
 - (void)signInWithFacebookWithLoginHandler:(GTIOLoginHandler)loginHandler;
+- (void)connectToFacebookWithLoginHandler:(GTIOLoginHandler)loginHandler;
+
+/** Sign up/in with janrain
+ */
+- (void)signUpWithJanrainForProvider:(NSString*)providerName WithLoginHandler:(GTIOLoginHandler)loginHandler;
+- (void)signInWithJanrainForProvider:(NSString*)providerName WithLoginHandler:(GTIOLoginHandler)loginHandler;
+
+/** User Icons from API
+ */
+- (void)loadUserIconsWithUserID:(NSString*)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end
