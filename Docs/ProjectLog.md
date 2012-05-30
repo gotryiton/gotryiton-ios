@@ -1,3 +1,31 @@
+***Wednesday, May 30th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Reevaluate remaining effort.  Adjust planned work accordingly
+
+**Status**
+- Styling Post View (12.3)
+- Still progressing on taking photo, burst mode, timer
+- Difficulties in photo screens may cause certain issues to be pushed to next sprint
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Burst mode questions
+ - To take photos at required resolution (640 minumum width), currently lag on a iPhone 4 is 1.5-2 seconds
+ - Keep this functionlity so GTIO can play around with it
+
+---
+
 ***Tuesday, May 29th - Standup Notes***
 
 **Attendees**
