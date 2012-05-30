@@ -12,5 +12,6 @@
 @interface GTIOLookSelectorView : UIView <GTIOLookSelectorControlDelegate>
 
 - (id)initWithFrame:(CGRect)frame asPhotoSet:(BOOL)photoSet;
+- (BOOL)selectionsComplete;
 
 @end

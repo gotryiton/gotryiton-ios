@@ -17,11 +17,15 @@
 @property (nonatomic, strong) GTIOTakePhotoView *singlePhotoView;
 @property (nonatomic, assign) BOOL isPhotoSet;
 
+@property (nonatomic, strong) GTIOTakePhotoView *tallLeftPhoto;
+@property (nonatomic, strong) GTIOTakePhotoView *tallRightPhoto;
+@property (nonatomic, strong) GTIOTakePhotoView *smallRightPhoto;
+
 @end
 
 @implementation GTIOLookSelectorView
 
-@synthesize  isPhotoSet = _isPhotoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView;
+@synthesize  isPhotoSet = _isPhotoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView, tallLeftPhoto = _tallLeftPhoto, tallRightPhoto = _tallRightPhoto, smallRightPhoto = _smallRightPhoto;
 
 - (id)initWithFrame:(CGRect)frame asPhotoSet:(BOOL)photoSet
 {
@@ -46,14 +50,14 @@
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
         [backgroundImageView setFrame:(CGRect){ 0, 0, self.photoSetView.bounds.size }];
         [self.photoSetView addSubview:backgroundImageView];
-        GTIOTakePhotoView *tallLeftPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 6, 6, 109, 300 }];
-        [self.photoSetView addSubview:tallLeftPhoto];
-        GTIOTakePhotoView *tallRightPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 122, 6, 109, 184 }];
-        [tallRightPhoto setDeleteButtonPosition:GTIODeleteButtonPositionRight];
-        [self.photoSetView addSubview:tallRightPhoto];
-        GTIOTakePhotoView *smallRightPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 122, 197, 109, 109 }];
-        [smallRightPhoto setDeleteButtonPosition:GTIODeleteButtonPositionRight];
-        [self.photoSetView addSubview:smallRightPhoto];
+        self.tallLeftPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 6, 6, 109, 300 }];
+        [self.photoSetView addSubview:self.tallLeftPhoto];
+        self.tallRightPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 122, 6, 109, 184 }];
+        [self.tallRightPhoto setDeleteButtonPosition:GTIODeleteButtonPositionRight];
+        [self.photoSetView addSubview:self.tallRightPhoto];
+        self.smallRightPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 122, 197, 109, 109 }];
+        [self.smallRightPhoto setDeleteButtonPosition:GTIODeleteButtonPositionRight];
+        [self.photoSetView addSubview:self.smallRightPhoto];
         
         [self refreshView];
     }
@@ -64,6 +68,15 @@
 {
     _isPhotoSet = isPhotoSet;
     [self refreshView];
+}
+
+- (BOOL)selectionsComplete
+{
+    if (self.isPhotoSet) {
+        return (self.tallLeftPhoto.imageView.image && self.tallRightPhoto.imageView.image && self.smallRightPhoto.imageView.image);
+    } else {
+        return (self.singlePhotoView.imageView.image != nil);
+    }
 }
 
 - (void)refreshView

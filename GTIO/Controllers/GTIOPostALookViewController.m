@@ -117,7 +117,15 @@
 
 - (void)postThis:(id)sender
 {
-    NSLog(@"posting!");
+    if (![self.lookSelectorView selectionsComplete]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"You are missing photos." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [alert show];
+    } else {
+        if ([self.descriptionBox.textView.text length] == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to post without a description?" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
 }
 
 @end
