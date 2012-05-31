@@ -7,6 +7,7 @@
 //
 
 #import "GTIOPostALookOptionsView.h"
+#import "GTIOSwitch.h"
 
 @interface GTIOPostALookOptionsView()
 
@@ -22,6 +23,26 @@
         UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:(CGRect){ 0, 0, backgroundImage.size }];
         [backgroundView setImage:backgroundImage];
         [self addSubview:backgroundView];
+        
+        GTIOSwitch *votingSwitch = [[GTIOSwitch alloc] initWithFrame:(CGRect){ 12, 55, 36, 17 }];
+        [votingSwitch setTrack:[UIImage imageNamed:@"general.slider.green.rail.png"]];
+        [votingSwitch setTrackFrame:[UIImage imageNamed:@"general.slider.green.bg.png"]];
+        [votingSwitch setTrackFrameMask:[UIImage imageNamed:@"general.slider.green.mask.png"]];
+        [votingSwitch setKnob:[UIImage imageNamed:@"general.slider.green.handle.png"]];
+        [votingSwitch setChangeHandler:^(BOOL on) {
+            // stuff
+        }];
+        [self addSubview:votingSwitch];
+        
+        GTIOSwitch *facebookSwitch = [[GTIOSwitch alloc] initWithFrame:(CGRect){ 12, 113, 36, 17 }];
+        [facebookSwitch setTrack:[UIImage imageNamed:@"general.slider.green.rail.png"]];
+        [facebookSwitch setTrackFrame:[UIImage imageNamed:@"general.slider.green.bg.png"]];
+        [facebookSwitch setTrackFrameMask:[UIImage imageNamed:@"general.slider.green.mask.png"]];
+        [facebookSwitch setKnob:[UIImage imageNamed:@"general.slider.green.handle.png"]];
+        [facebookSwitch setChangeHandler:^(BOOL on) {
+            // stuff
+        }];
+        [self addSubview:facebookSwitch];
     }
     return self;
 }
