@@ -10,9 +10,6 @@
 
 @interface GTIOPhotoConfirmationToolbarView ()
 
-@property (nonatomic, strong) GTIOButton *closeButton;
-@property (nonatomic, strong) GTIOButton *confirmButton;
-
 @end
 
 @implementation GTIOPhotoConfirmationToolbarView

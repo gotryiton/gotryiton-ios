@@ -11,6 +11,8 @@
 #import "GTIOPhotoShootGridView.h"
 #import "GTIONavigationTitleLabel.h"
 
+#import "GTIOPhotoConfirmationViewController.h"
+
 @interface GTIOPhotoShootGridViewController ()
 
 @property (nonatomic, strong) GTIOPhotoShootGridView *photoShootGridView;
@@ -53,6 +55,11 @@
     UIView *topShadow = [[UIView alloc] initWithFrame:(CGRect){0,0,self.view.bounds.size.width,3}];
     [topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
     [self.view addSubview:topShadow];
+    
+    GTIOButton *backButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
 }
 
 - (void)viewDidLoad
@@ -61,7 +68,9 @@
     
     self.photoShootGridView = [[GTIOPhotoShootGridView alloc] initWithFrame:self.view.bounds images:self.images];
     [self.photoShootGridView setImageSelectedHandler:^(UIImage *selectedImage) {
-        // TODO: open filter page
+        GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
+        [photoConfirmationViewController setPhoto:selectedImage];
+        [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
     }];
     [self.view addSubview:self.photoShootGridView];
 }

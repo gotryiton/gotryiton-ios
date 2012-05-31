@@ -149,6 +149,11 @@
             [blockSelf singleModeButtonPress];
         }
     }];
+    [self.photoToolbarView.photoShootGridButton setTapHandler:^(id sender){
+        GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
+        [photoShootGridViewController setImages:self.capturedImages];
+        [self.navigationController pushViewController:photoShootGridViewController animated:YES];
+    }];
     [self.view addSubview:self.photoToolbarView];
     
     // Shutter flash overlay
@@ -165,6 +170,19 @@
     self.photoToolbarView = nil;
     self.shutterFlashOverlay = nil;
     self.captureVideoPreviewLayer = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.photoToolbarView setAlpha:1.0f];
+    [self.photoShootProgresToolbarView setAlpha:0.0f];
+    
+    if ([self.capturedImages count] > 0) {
+        [self.photoToolbarView showPhotoShootGrid:YES];
+    } else {
+        [self.photoToolbarView showPhotoShootGrid:NO];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -317,6 +335,10 @@
         [self.photoShootProgresToolbarView setAlpha:1.0f];
         [self.photoToolbarView setAlpha:0.0f];
     }];
+    
+    // Clear current photos
+    [self.capturedImages removeAllObjects];
+    [self.photoShootProgresToolbarView setNumberOfDotsOn:0];
     
     // Show timer
     self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 74) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 74) / 2, 74, 74 }];

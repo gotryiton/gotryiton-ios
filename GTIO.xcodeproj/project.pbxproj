@@ -595,6 +595,8 @@
 		D27F9D151577C42B00EAB480 /* GTIONavigationTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D141577C42B00EAB480 /* GTIONavigationTitleLabel.m */; };
 		D27F9D181577E41C00EAB480 /* GTIOPhotoConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D171577E41C00EAB480 /* GTIOPhotoConfirmationViewController.m */; };
 		D27F9D1B1577E43800EAB480 /* GTIOPhotoConfirmationToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D1A1577E43800EAB480 /* GTIOPhotoConfirmationToolbarView.m */; };
+		D285FE4015780FFF000B55A5 /* general.back.top.margin.png in Resources */ = {isa = PBXBuildFile; fileRef = D285FE3E15780FFF000B55A5 /* general.back.top.margin.png */; };
+		D285FE4115780FFF000B55A5 /* general.back.top.margin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D285FE3F15780FFF000B55A5 /* general.back.top.margin@2x.png */; };
 		D289CB2F1566957300909FC1 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB161566957300909FC1 /* Facebook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D289CB301566957300909FC1 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D289CB181566957300909FC1 /* FBDialog.bundle */; };
 		D289CB311566957300909FC1 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB1A1566957300909FC1 /* FBDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1349,6 +1351,8 @@
 		D27F9D171577E41C00EAB480 /* GTIOPhotoConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoConfirmationViewController.m; sourceTree = "<group>"; };
 		D27F9D191577E43700EAB480 /* GTIOPhotoConfirmationToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoConfirmationToolbarView.h; sourceTree = "<group>"; };
 		D27F9D1A1577E43800EAB480 /* GTIOPhotoConfirmationToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoConfirmationToolbarView.m; sourceTree = "<group>"; };
+		D285FE3E15780FFF000B55A5 /* general.back.top.margin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = general.back.top.margin.png; sourceTree = "<group>"; };
+		D285FE3F15780FFF000B55A5 /* general.back.top.margin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "general.back.top.margin@2x.png"; sourceTree = "<group>"; };
 		D289CB151566957300909FC1 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Facebook.h; path = "Libraries/facebook-iOS-SDK/src/Facebook.h"; sourceTree = "<group>"; };
 		D289CB161566957300909FC1 /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Facebook.m; path = "Libraries/facebook-iOS-SDK/src/Facebook.m"; sourceTree = "<group>"; };
 		D289CB171566957300909FC1 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBConnect.h; path = "Libraries/facebook-iOS-SDK/src/FBConnect.h"; sourceTree = "<group>"; };
@@ -1904,6 +1908,8 @@
 		8E1AC9C1156C4AAF0039E6E9 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				D285FE3E15780FFF000B55A5 /* general.back.top.margin.png */,
+				D285FE3F15780FFF000B55A5 /* general.back.top.margin@2x.png */,
 				8E1AC9C2156C4AAF0039E6E9 /* dark.overlay.png */,
 				8E1AC9C3156C4AAF0039E6E9 /* dark.overlay@2x.png */,
 				8E1AC9C4156C4AAF0039E6E9 /* general.chevron.png */,
@@ -3471,6 +3477,8 @@
 				D245E10715766846009DBCF7 /* upload.flash-ON@2x.png in Resources */,
 				D27F9D111577B68700EAB480 /* upload.photoreel.bg.png in Resources */,
 				D27F9D121577B68700EAB480 /* upload.photoreel.bg@2x.png in Resources */,
+				D285FE4015780FFF000B55A5 /* general.back.top.margin.png in Resources */,
+				D285FE4115780FFF000B55A5 /* general.back.top.margin@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

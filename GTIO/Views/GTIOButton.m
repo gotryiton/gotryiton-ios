@@ -36,6 +36,7 @@
         case GTIOButtonTypePhotoFlash: return [self gtio_photoFlashButton];
         case GTIOButtonTypePhotoConfirm: return [self gtio_photoConfirmButton];
         case GTIOButtonTypeBackBottomMargin: return [self gtio_backButtonBottomMargin];
+        case GTIOButtonTypeBackTopMargin: return [self gtio_backButtonTopMargin];
         case GTIOButtonTypeSaveGreenTopMargin: return [self gtio_saveButtonGreenTopMargin];
         case GTIOButtonTypeDoneGrayTopMargin: return [self gtio_doneButtonGrayTopMargin];
         case GTIOButtonTypeSaveGrayTopMargin: return [self gtio_saveButtonGrayTopMargin];
@@ -158,6 +159,11 @@
 + (id)gtio_saveButtonGrayTopMargin
 {
     return [self buttonWithImage:[UIImage imageNamed:@"save-button-gray-top-margin.png"] hightlightImage:nil];
+}
+
++ (id)gtio_backButtonTopMargin
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"general.back.top.margin.png"] hightlightImage:nil];
 }
 
 + (id)gtio_photoCloseButton
