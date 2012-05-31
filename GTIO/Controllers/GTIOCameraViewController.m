@@ -17,6 +17,8 @@
 #import "GTIOConfig.h"
 #import "GTIOConfigManager.h"
 
+#import "GTIOPhotoShootGridViewController.h"
+
 @interface GTIOCameraViewController ()
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
@@ -164,18 +166,23 @@
     self.captureVideoPreviewLayer = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self.flashButton setAlpha:1.0f];
     
     double delayInSeconds = 0.1f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self.captureSession startRunning];
     });
-    
-    [self.flashButton setAlpha:1.0f];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -240,9 +247,6 @@
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
                 UIImage *image = [[UIImage alloc] initWithData:imageData];
                 
-                //TODO: Handle image captured
-//                UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
-                
                 // Crop image and then return it to sender
                 if (capturedImageHandler) {
                     capturedImageHandler(image);
@@ -271,6 +275,7 @@
 
 - (void)waitOnImages:(NSTimer *)timer
 {
+    [self.photoShootProgresToolbarView setNumberOfDotsOn:[self.capturedImages count]];
     if ((self.startingPhotoCount == 0 && [self.capturedImages count] == 3) || 
         (self.startingPhotoCount == 3 && [self.capturedImages count] == 6)) {
         
@@ -278,8 +283,18 @@
         [self.imageWaitTimer invalidate];
         [self.photoShootTimerView setHidden:NO];
     } else if (self.startingPhotoCount == 6 && [self.capturedImages count] == 9) {
-        // TODO we are done
         [self.imageWaitTimer invalidate];
+        
+        NSMutableArray *resizedImages = [NSMutableArray arrayWithCapacity:9];
+        [self.capturedImages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            UIImage *resizedImage = [obj resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+            [resizedImages addObject:resizedImage];
+        }];
+        self.capturedImages = resizedImages;
+        
+        GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
+        [photoShootGridViewController setImages:self.capturedImages];
+        [self.navigationController pushViewController:photoShootGridViewController animated:YES];
     }
 }
 
@@ -288,7 +303,8 @@
 - (void)singleModeButtonPress
 {
     [self captureImageWithHandler:^(UIImage *image) {
-        
+        // TODO: open filter page
+        UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
     }];
 }
 

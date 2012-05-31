@@ -588,6 +588,11 @@
 		D2603E20155AD93A00536BF9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2603E1F155AD93A00536BF9 /* CoreText.framework */; };
 		D26D32AB156C016800C06CA9 /* GTIOProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */; };
 		D27E0C70156AAD9E00BE7C9E /* GTIOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */; };
+		D27F9D0B1577B43200EAB480 /* GTIOPhotoShootGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D0A1577B43200EAB480 /* GTIOPhotoShootGridViewController.m */; };
+		D27F9D0E1577B45700EAB480 /* GTIOPhotoShootGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D0D1577B45700EAB480 /* GTIOPhotoShootGridView.m */; };
+		D27F9D111577B68700EAB480 /* upload.photoreel.bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D27F9D0F1577B68500EAB480 /* upload.photoreel.bg.png */; };
+		D27F9D121577B68700EAB480 /* upload.photoreel.bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D27F9D101577B68600EAB480 /* upload.photoreel.bg@2x.png */; };
+		D27F9D151577C42B00EAB480 /* GTIONavigationTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D141577C42B00EAB480 /* GTIONavigationTitleLabel.m */; };
 		D289CB2F1566957300909FC1 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB161566957300909FC1 /* Facebook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D289CB301566957300909FC1 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D289CB181566957300909FC1 /* FBDialog.bundle */; };
 		D289CB311566957300909FC1 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB1A1566957300909FC1 /* FBDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1330,6 +1335,14 @@
 		D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProgressHUD.m; sourceTree = "<group>"; };
 		D27E0C6E156AAD9E00BE7C9E /* GTIOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAuth.h; sourceTree = "<group>"; };
 		D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAuth.m; sourceTree = "<group>"; };
+		D27F9D091577B43200EAB480 /* GTIOPhotoShootGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoShootGridViewController.h; sourceTree = "<group>"; };
+		D27F9D0A1577B43200EAB480 /* GTIOPhotoShootGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoShootGridViewController.m; sourceTree = "<group>"; };
+		D27F9D0C1577B45700EAB480 /* GTIOPhotoShootGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoShootGridView.h; sourceTree = "<group>"; };
+		D27F9D0D1577B45700EAB480 /* GTIOPhotoShootGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoShootGridView.m; sourceTree = "<group>"; };
+		D27F9D0F1577B68500EAB480 /* upload.photoreel.bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.photoreel.bg.png; sourceTree = "<group>"; };
+		D27F9D101577B68600EAB480 /* upload.photoreel.bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload.photoreel.bg@2x.png"; sourceTree = "<group>"; };
+		D27F9D131577C42B00EAB480 /* GTIONavigationTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GTIONavigationTitleLabel.h; sourceTree = "<group>"; };
+		D27F9D141577C42B00EAB480 /* GTIONavigationTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONavigationTitleLabel.m; sourceTree = "<group>"; };
 		D289CB151566957300909FC1 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Facebook.h; path = "Libraries/facebook-iOS-SDK/src/Facebook.h"; sourceTree = "<group>"; };
 		D289CB161566957300909FC1 /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Facebook.m; path = "Libraries/facebook-iOS-SDK/src/Facebook.m"; sourceTree = "<group>"; };
 		D289CB171566957300909FC1 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBConnect.h; path = "Libraries/facebook-iOS-SDK/src/FBConnect.h"; sourceTree = "<group>"; };
@@ -1703,6 +1716,8 @@
 		8E1AC933156C4AAF0039E6E9 /* 12 */ = {
 			isa = PBXGroup;
 			children = (
+				D27F9D0F1577B68500EAB480 /* upload.photoreel.bg.png */,
+				D27F9D101577B68600EAB480 /* upload.photoreel.bg@2x.png */,
 				D245E0D815766846009DBCF7 /* snap-overlay.png */,
 				D245E0D915766846009DBCF7 /* snap-overlay@2x.png */,
 				D245E0DA15766846009DBCF7 /* timer-progress-bg.png */,
@@ -2491,6 +2506,8 @@
 				D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */,
 				D25F993A156EC6B3004B705E /* GTIOSlider.h */,
 				D25F993B156EC6B4004B705E /* GTIOSlider.m */,
+				D27F9D131577C42B00EAB480 /* GTIONavigationTitleLabel.h */,
+				D27F9D141577C42B00EAB480 /* GTIONavigationTitleLabel.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -2758,6 +2775,8 @@
 				D29483CA15756BBB00FCDB86 /* GTIOPhotoShootProgressToolbarView.m */,
 				D245E0D5157666E6009DBCF7 /* GTIOPhotoShootTimerView.h */,
 				D245E0D6157666E6009DBCF7 /* GTIOPhotoShootTimerView.m */,
+				D27F9D0C1577B45700EAB480 /* GTIOPhotoShootGridView.h */,
+				D27F9D0D1577B45700EAB480 /* GTIOPhotoShootGridView.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -2769,6 +2788,8 @@
 				D29483CD1575718000FCDB86 /* GTIOCameraTabBarPlaceholderViewController.m */,
 				D2D96FC5156D2A07009B9A72 /* GTIOCameraViewController.h */,
 				D2D96FC6156D2A07009B9A72 /* GTIOCameraViewController.m */,
+				D27F9D091577B43200EAB480 /* GTIOPhotoShootGridViewController.h */,
+				D27F9D0A1577B43200EAB480 /* GTIOPhotoShootGridViewController.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -3438,6 +3459,8 @@
 				D245E10515766846009DBCF7 /* upload.flash-OFF@2x.png in Resources */,
 				D245E10615766846009DBCF7 /* upload.flash-ON.png in Resources */,
 				D245E10715766846009DBCF7 /* upload.flash-ON@2x.png in Resources */,
+				D27F9D111577B68700EAB480 /* upload.photoreel.bg.png in Resources */,
+				D27F9D121577B68700EAB480 /* upload.photoreel.bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3556,6 +3579,9 @@
 				D239CA7D15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.m in Sources */,
 				D245E0D7157666E6009DBCF7 /* GTIOPhotoShootTimerView.m in Sources */,
 				D245E10A1576B3D6009DBCF7 /* UIImage+Resize.m in Sources */,
+				D27F9D0B1577B43200EAB480 /* GTIOPhotoShootGridViewController.m in Sources */,
+				D27F9D0E1577B45700EAB480 /* GTIOPhotoShootGridView.m in Sources */,
+				D27F9D151577C42B00EAB480 /* GTIONavigationTitleLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

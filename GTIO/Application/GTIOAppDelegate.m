@@ -254,7 +254,9 @@
         [self.cameraViewController setDismissHandler:^(UIViewController *viewController) {
             [viewController dismissModalViewControllerAnimated:YES];
         }];
-        [self.tabBarController presentModalViewController:self.cameraViewController animated:YES];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.cameraViewController];
+        [navController setNavigationBarHidden:YES animated:NO];
+        [self.tabBarController presentModalViewController:navController animated:YES];
     }
     
     return shouldSelect;
