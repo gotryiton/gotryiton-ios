@@ -41,10 +41,8 @@
     CGContextSetShouldAntialias(context, YES);
     
     // Outer circle
-    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
-    CGContextSetLineWidth(context, 2);
-    CGContextAddArc(context, rect.size.width/2, rect.size.height/2, 36, 0, 2 * M_PI, 1);
-    CGContextStrokePath(context);
+    UIImage *bgImage = [UIImage imageNamed:@"upload.loader.bg.png"];
+    [bgImage drawInRect:rect];
     
     // Progress bar
     CGContextSetStrokeColorWithColor(context, [UIColor gtio_progressBarColor].CGColor);

@@ -202,8 +202,6 @@
 		8E1ACA99156C4AAF0039E6E9 /* upload.frames.photo.overlay.top.right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC965156C4AAF0039E6E9 /* upload.frames.photo.overlay.top.right@2x.png */; };
 		8E1ACA9A156C4AAF0039E6E9 /* upload.loader.bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC966156C4AAF0039E6E9 /* upload.loader.bg.png */; };
 		8E1ACA9B156C4AAF0039E6E9 /* upload.loader.bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC967156C4AAF0039E6E9 /* upload.loader.bg@2x.png */; };
-		8E1ACA9C156C4AAF0039E6E9 /* upload.loader.inner.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC968156C4AAF0039E6E9 /* upload.loader.inner.png */; };
-		8E1ACA9D156C4AAF0039E6E9 /* upload.loader.inner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC969156C4AAF0039E6E9 /* upload.loader.inner@2x.png */; };
 		8E1ACA9E156C4AAF0039E6E9 /* upload.photoreel.horizontal.divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC96A156C4AAF0039E6E9 /* upload.photoreel.horizontal.divider.png */; };
 		8E1ACA9F156C4AAF0039E6E9 /* upload.photoreel.horizontal.divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC96B156C4AAF0039E6E9 /* upload.photoreel.horizontal.divider@2x.png */; };
 		8E1ACAA0156C4AAF0039E6E9 /* upload.photoreel.thumbnail.bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1AC96C156C4AAF0039E6E9 /* upload.photoreel.thumbnail.bg.png */; };
@@ -889,8 +887,6 @@
 		8E1AC965156C4AAF0039E6E9 /* upload.frames.photo.overlay.top.right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload.frames.photo.overlay.top.right@2x.png"; sourceTree = "<group>"; };
 		8E1AC966156C4AAF0039E6E9 /* upload.loader.bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.loader.bg.png; sourceTree = "<group>"; };
 		8E1AC967156C4AAF0039E6E9 /* upload.loader.bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload.loader.bg@2x.png"; sourceTree = "<group>"; };
-		8E1AC968156C4AAF0039E6E9 /* upload.loader.inner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.loader.inner.png; sourceTree = "<group>"; };
-		8E1AC969156C4AAF0039E6E9 /* upload.loader.inner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload.loader.inner@2x.png"; sourceTree = "<group>"; };
 		8E1AC96A156C4AAF0039E6E9 /* upload.photoreel.horizontal.divider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.photoreel.horizontal.divider.png; sourceTree = "<group>"; };
 		8E1AC96B156C4AAF0039E6E9 /* upload.photoreel.horizontal.divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload.photoreel.horizontal.divider@2x.png"; sourceTree = "<group>"; };
 		8E1AC96C156C4AAF0039E6E9 /* upload.photoreel.thumbnail.bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.photoreel.thumbnail.bg.png; sourceTree = "<group>"; };
@@ -1775,8 +1771,6 @@
 				8E1AC965156C4AAF0039E6E9 /* upload.frames.photo.overlay.top.right@2x.png */,
 				8E1AC966156C4AAF0039E6E9 /* upload.loader.bg.png */,
 				8E1AC967156C4AAF0039E6E9 /* upload.loader.bg@2x.png */,
-				8E1AC968156C4AAF0039E6E9 /* upload.loader.inner.png */,
-				8E1AC969156C4AAF0039E6E9 /* upload.loader.inner@2x.png */,
 				8E1AC96A156C4AAF0039E6E9 /* upload.photoreel.horizontal.divider.png */,
 				8E1AC96B156C4AAF0039E6E9 /* upload.photoreel.horizontal.divider@2x.png */,
 				8E1AC96C156C4AAF0039E6E9 /* upload.photoreel.thumbnail.bg.png */,
@@ -3273,8 +3267,6 @@
 				8E1ACA99156C4AAF0039E6E9 /* upload.frames.photo.overlay.top.right@2x.png in Resources */,
 				8E1ACA9A156C4AAF0039E6E9 /* upload.loader.bg.png in Resources */,
 				8E1ACA9B156C4AAF0039E6E9 /* upload.loader.bg@2x.png in Resources */,
-				8E1ACA9C156C4AAF0039E6E9 /* upload.loader.inner.png in Resources */,
-				8E1ACA9D156C4AAF0039E6E9 /* upload.loader.inner@2x.png in Resources */,
 				8E1ACA9E156C4AAF0039E6E9 /* upload.photoreel.horizontal.divider.png in Resources */,
 				8E1ACA9F156C4AAF0039E6E9 /* upload.photoreel.horizontal.divider@2x.png in Resources */,
 				8E1ACAA0156C4AAF0039E6E9 /* upload.photoreel.thumbnail.bg.png in Resources */,

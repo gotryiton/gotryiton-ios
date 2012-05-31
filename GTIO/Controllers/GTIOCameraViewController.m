@@ -276,6 +276,7 @@
         
         [self timerWithDuration:2];
         [self.imageWaitTimer invalidate];
+        [self.photoShootTimerView setHidden:NO];
     } else if (self.startingPhotoCount == 6 && [self.capturedImages count] == 9) {
         // TODO we are done
         [self.imageWaitTimer invalidate];
@@ -303,7 +304,7 @@
     }];
     
     // Show timer
-    self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 75) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 75) / 2, 75, 75 }];
+    self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 74) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 74) / 2, 74, 74 }];
     [self.view addSubview:self.photoShootTimerView];
 
     GTIOConfig *config = [[GTIOConfigManager sharedManager] config];
@@ -314,9 +315,8 @@
 {
     [self.photoShootTimerView startWithDuration:duration completionHandler:^(GTIOPhotoShootTimerView *photoShootTimerView) {
         // Take first batch of photos
-        [photoShootTimerView setAlpha:0.0f];
+        [self.photoShootTimerView setHidden:YES];
         [self takePhotoBurstWithNumberOfPhotos:3];
-        [photoShootTimerView setAlpha:1.0f];
     }];
 }
 
