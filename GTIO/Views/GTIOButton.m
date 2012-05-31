@@ -34,6 +34,7 @@
         case GTIOButtonTypePhotoShootGrid: return [self gtio_photoShootGridButton];
         case GTIOButtonTypePhotoShutter: return [self gtio_photoShutterButton];
         case GTIOButtonTypePhotoFlash: return [self gtio_photoFlashButton];
+        case GTIOButtonTypePhotoConfirm: return [self gtio_photoConfirmButton];
         case GTIOButtonTypeBackBottomMargin: return [self gtio_backButtonBottomMargin];
         case GTIOButtonTypeSaveGreenTopMargin: return [self gtio_saveButtonGreenTopMargin];
         case GTIOButtonTypeDoneGrayTopMargin: return [self gtio_doneButtonGrayTopMargin];
@@ -172,6 +173,11 @@
 + (id)gtio_photoShootGridButton
 {
     return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.photoshootreel.png"];
+}
+
++ (id)gtio_photoConfirmButton
+{
+    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.check.png"];
 }
 
 + (id)gtio_photoShutterButton

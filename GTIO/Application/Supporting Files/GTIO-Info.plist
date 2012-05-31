@@ -38,6 +38,7 @@
 		<string>Archer-Bold.otf</string>
 		<string>Archer-Book.otf</string>
 		<string>Archer-Light.otf</string>
+		<string>Archer-LightItal.otf</string>
 		<string>Archer-Medium.otf</string>
 		<string>Archer-Semibold.otf</string>
 		<string>ProximaNova-Bold.otf</string>
@@ -45,6 +46,8 @@
 		<string>ProximaNova-Reg.otf</string>
 		<string>ProximaNova-Sbold.otf</string>
 		<string>ProximaNova-Thin.otf</string>
+		<string>Verlag-Light.otf</string>
+		<string>Verlag-LightItalic.otf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

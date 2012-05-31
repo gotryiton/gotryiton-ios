@@ -18,6 +18,7 @@
 #import "GTIOConfigManager.h"
 
 #import "GTIOPhotoShootGridViewController.h"
+#import "GTIOPhotoConfirmationViewController.h"
 
 @interface GTIOCameraViewController ()
 
@@ -166,12 +167,6 @@
     self.captureVideoPreviewLayer = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -305,6 +300,10 @@
     [self captureImageWithHandler:^(UIImage *image) {
         // TODO: open filter page
         UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+        
+        GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
+        [photoConfirmationViewController setPhoto:resizedImage];
+        [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
     }];
 }
 

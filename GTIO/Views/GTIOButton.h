@@ -27,6 +27,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypePhotoShootGrid,
     GTIOButtonTypePhotoShutter,
     GTIOButtonTypePhotoFlash,
+    GTIOButtonTypePhotoConfirm,
     GTIOButtonTypeBackBottomMargin,
     GTIOButtonTypeSaveGreenTopMargin,
     GTIOButtonTypeDoneGrayTopMargin,
