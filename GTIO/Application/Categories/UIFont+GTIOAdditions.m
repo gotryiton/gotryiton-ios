@@ -35,16 +35,16 @@ static NSString * const GTIOFontArcherName[] = {
 };
 
 static NSString * const GTIOFontVerlagName[] = {
-    [GTIOFontVerlagBlack] = @"Verlag-Black",
-    [GTIOFontVerlagBlackItal] = @"Verlag-BlackItalic",
     [GTIOFontVerlagBold] = @"Verlag-Bold",
-    [GTIOFontVerlagBoldItal] = @"Verlag-BoldItalic",
+    [GTIOFontVerlagBoldItalic] = @"Verlag-BoldItalic",
+    [GTIOFontVerlagBlack] = @"Verlag-Black",
+    [GTIOFontVerlagBlackItalic] = @"Verlag-BlackItalic",
     [GTIOFontVerlagBook] = @"Verlag-Book",
-    [GTIOFontVerlagBookItal] = @"Verlag-BookItalic",
+    [GTIOFontVerlagBookItalic] = @"Verlag-BookItalic",
     [GTIOFontVerlagLight] = @"Verlag-Light",
-    [GTIOFontVerlagLightItal] = @"Verlag-LightItalic",
+    [GTIOFontVerlagLightItalic] = @"Verlag-LightItalic",
     [GTIOFontVerlagXLight] = @"Verlag-XLight",
-    [GTIOFontVerlagXLightItal] = @"Verlag-XLightItalic"
+    [GTIOFontVerlagXLightItalic] = @"Verlag-XLightItalic"
 };
 
 @implementation UIFont (GTIOAdditions)

@@ -46,6 +46,10 @@ extern NSString * const kGTIOTrackingHeaderKey;
 // Notification Constants
 extern NSString * const kGTIOLooksUpdated;
 
+/** Dismiss handler
+ */
+typedef void(^GTIODismissHandler)(UIViewController *viewController);
+
 // JSON Param Serialization Helper
 id GTIOJSONParams(id obj);
 

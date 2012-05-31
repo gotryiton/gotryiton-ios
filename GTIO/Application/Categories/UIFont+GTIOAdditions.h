@@ -33,16 +33,16 @@ typedef enum GTIOFontArcher {
 } GTIOFontArcher;
 
 typedef enum GTIOFontVerlag {
-    GTIOFontVerlagBlack = 0,
-    GTIOFontVerlagBlackItal,
-    GTIOFontVerlagBold,
-    GTIOFontVerlagBoldItal,
+    GTIOFontVerlagBold = 0,
+    GTIOFontVerlagBoldItalic,
+    GTIOFontVerlagBlack,
+    GTIOFontVerlagBlackItalic,
     GTIOFontVerlagBook,
-    GTIOFontVerlagBookItal,
+    GTIOFontVerlagBookItalic,
     GTIOFontVerlagLight,
-    GTIOFontVerlagLightItal,
+    GTIOFontVerlagLightItalic,
     GTIOFontVerlagXLight,
-    GTIOFontVerlagXLightItal
+    GTIOFontVerlagXLightItalic
 } GTIOFontVerlag;
 
 @interface UIFont (GTIOAdditions)
