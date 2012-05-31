@@ -35,18 +35,18 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {    
-        NSMutableArray* selectableYears = [NSMutableArray array];
-        NSDate* currentDate = [NSDate date];
-        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        NSMutableArray *selectableYears = [NSMutableArray array];
+        NSDate *currentDate = [NSDate date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy"];
         for (int i = 0; i < 100; i++) {
             [selectableYears addObject:[dateFormatter stringFromDate:currentDate]];
             currentDate = [currentDate dateByAddingTimeInterval:-(60 * 60 * 24 * 365.25)];
         }
         
-        NSArray* selectableGenders = [NSArray arrayWithObjects:@"female", @"male", nil];
+        NSArray *selectableGenders = [NSArray arrayWithObjects:@"female", @"male", nil];
         
-        GTIOUser* currentUser = [GTIOUser currentUser];
+        GTIOUser *currentUser = [GTIOUser currentUser];
         _profilePicture = [currentUser icon];
         
         _tableData = [NSArray arrayWithObjects:
@@ -210,7 +210,7 @@
     
     id cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    GTIOAlmostDoneTableDataItem *dataItemForRow = (GTIOAlmostDoneTableDataItem*)[self.tableData objectAtIndex:indexPath.row];
+    GTIOAlmostDoneTableDataItem *dataItemForRow = (GTIOAlmostDoneTableDataItem *)[self.tableData objectAtIndex:indexPath.row];
     
     if (!cell) {
         if (indexPath.section == 0) {

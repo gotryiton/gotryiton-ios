@@ -20,6 +20,8 @@
 #import "GTIOPhotoShootGridViewController.h"
 #import "GTIOPhotoConfirmationViewController.h"
 
+static CGFloat const kGTIOToolbarHeight = 53.0f;
+
 @interface GTIOCameraViewController ()
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
@@ -98,7 +100,7 @@
     [self.captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     
     CGRect layerRect = self.view.layer.bounds;
-    layerRect.size.height -= 53;
+    layerRect.size.height -= kGTIOToolbarHeight;
     [self.captureVideoPreviewLayer setBounds:layerRect];
     [self.captureVideoPreviewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect), CGRectGetMidY(layerRect))];
     [self.view.layer addSublayer:self.captureVideoPreviewLayer];
@@ -131,12 +133,12 @@
     }
     
     // Photo Shoot Toolbar
-    self.photoShootProgresToolbarView = [[GTIOPhotoShootProgressToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];
+    self.photoShootProgresToolbarView = [[GTIOPhotoShootProgressToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
     [self.photoShootProgresToolbarView setAlpha:0.0f];
     [self.view addSubview:self.photoShootProgresToolbarView];
     
     // Toolbar
-    self.photoToolbarView = [[GTIOCameraToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];
+    self.photoToolbarView = [[GTIOCameraToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
     [self.photoToolbarView.closeButton setTapHandler:^(id sender) {
         if (blockSelf.dismissHandler) {
             blockSelf.dismissHandler(blockSelf);

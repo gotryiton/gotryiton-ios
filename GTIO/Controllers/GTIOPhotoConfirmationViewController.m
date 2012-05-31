@@ -10,6 +10,8 @@
 
 #import "GTIOPhotoConfirmationToolbarView.h"
 
+static CGFloat const kGTIOToolbarHeight = 53.0f;
+
 @interface GTIOPhotoConfirmationViewController ()
 
 @property (nonatomic, strong) GTIOPhotoConfirmationToolbarView *photoConfirmationToolbarView;
@@ -44,11 +46,11 @@
 {
     [super viewDidLoad];
     
-    [self.photoImageView setFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.view.frame.size.height - 53 } }];
+    [self.photoImageView setFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.view.frame.size.height - kGTIOToolbarHeight } }];
     [self.view addSubview:self.photoImageView];
     
     // Toolbar
-    self.photoConfirmationToolbarView = [[GTIOPhotoConfirmationToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];
+    self.photoConfirmationToolbarView = [[GTIOPhotoConfirmationToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
     [self.photoConfirmationToolbarView.closeButton setTapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
