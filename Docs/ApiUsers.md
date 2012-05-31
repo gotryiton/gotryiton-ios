@@ -1011,3 +1011,48 @@ Response
 }
 ```
 
+### GET `/users/who-hearted-post/:post_id`
+Respondes with a list of user objects who hearted the post.
+
+```json
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Joydeep D.",
+      "location": "New York, New York",
+      "icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/757c5b95570e94e7ce4231ad4a6d8204_100_100.jpg",
+      "action": "/user/1/profile",
+      "follow_button": {
+        "text": "follow",
+        "action": "/user/1/follow",
+        "state": 0
+      }
+    },
+    {
+      "id": "2",
+      "name": "Emily L.",
+      "location": "",
+      "icon": "http://stage.assets.gotryiton.s3.amazonaws.com/outfits/047bf97dec7c832c286252b181c31ea7_100_100.jpg",
+      "action": "/user/2/profile",
+      "follow_button": {
+        "text": "follow",
+        "action": "/user/2/follow",
+        "state": 0
+      }
+    },
+    {
+      "id": "3",
+      "name": "Rebecca Brittany E.",
+      "location": "Nashville, TN",
+      "icon": "http://assets.gotryiton.com/img/profile-default.png",
+      "action": "/user/3/profile",
+      "follow_button": {
+        "text": "follow",
+        "action": "/user/3/follow",
+        "state": 0
+      }
+    }
+  ]
+}
+```
