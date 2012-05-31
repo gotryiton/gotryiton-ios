@@ -15,7 +15,6 @@
 
 @property (nonatomic, strong) UIView *photoSetView;
 @property (nonatomic, strong) GTIOTakePhotoView *singlePhotoView;
-@property (nonatomic, assign) BOOL isPhotoSet;
 
 @property (nonatomic, strong) GTIOTakePhotoView *tallLeftPhoto;
 @property (nonatomic, strong) GTIOTakePhotoView *tallRightPhoto;
@@ -25,7 +24,7 @@
 
 @implementation GTIOLookSelectorView
 
-@synthesize  isPhotoSet = _isPhotoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView, tallLeftPhoto = _tallLeftPhoto, tallRightPhoto = _tallRightPhoto, smallRightPhoto = _smallRightPhoto;
+@synthesize  isPhotoSet = _isPhotoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView, tallLeftPhoto = _tallLeftPhoto, tallRightPhoto = _tallRightPhoto, smallRightPhoto = _smallRightPhoto, photoCanvasSize = _photoCanvasSize;
 
 - (id)initWithFrame:(CGRect)frame asPhotoSet:(BOOL)photoSet
 {
@@ -44,6 +43,7 @@
         [self.layer setShadowPath:path.CGPath]; // scroll performance
         
         self.singlePhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 5, 5, self.bounds.size.width - 10, self.bounds.size.height - 10 }];
+        self.photoCanvasSize = (CGSize){ self.singlePhotoView.frame.size.width, self.singlePhotoView.frame.size.height };
         
         self.photoSetView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.bounds.size.width, self.bounds.size.height }];
         UIImage *backgroundImage = [UIImage imageNamed:@"photo-frame.png"];
@@ -61,15 +61,33 @@
         [self.smallRightPhoto setDeleteButtonPosition:GTIODeleteButtonPositionRight];
         [self.photoSetView addSubview:self.smallRightPhoto];
         
-        [self refreshView];
+        [self refreshView]; 
     }
     return self;
+}
+
+- (void)setDeleteButtonsHidden:(BOOL)hidden
+{
+    [self.singlePhotoView setDeleteButtonHidden:hidden];
+    [self.tallLeftPhoto setDeleteButtonHidden:hidden];
+    [self.tallRightPhoto setDeleteButtonHidden:hidden];
+    [self.smallRightPhoto setDeleteButtonHidden:hidden];
+}
+
+- (UIView *)getCompositeCanvas
+{
+    if (self.isPhotoSet) {
+        return self.photoSetView;
+    } else {
+        return self.singlePhotoView;
+    }
 }
 
 - (void)setIsPhotoSet:(BOOL)isPhotoSet
 {
     _isPhotoSet = isPhotoSet;
     [self refreshView];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
 }
 
 - (BOOL)selectionsComplete
@@ -87,9 +105,15 @@
     [self.photoSetView removeFromSuperview];
     
     if (self.isPhotoSet) {
+        if (self.singlePhotoView.imageView.image && !self.tallLeftPhoto.imageView.image) {
+            [self.tallLeftPhoto setImage:self.singlePhotoView.imageView.image];
+        }
         [self addSubview:self.photoSetView];
         [self bringSubviewToFront:self.photoSetView];
     } else {
+        if (!self.singlePhotoView.imageView.image && self.tallLeftPhoto.imageView.image) {
+            [self.singlePhotoView setImage:self.tallLeftPhoto.imageView.image];
+        }
         [self addSubview:self.singlePhotoView];
         [self bringSubviewToFront:self.singlePhotoView];
     }

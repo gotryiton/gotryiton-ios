@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "GTIOViewController.h"
 
-@interface GTIOPostALookViewController : GTIOViewController
+@interface GTIOPostALookViewController : GTIOViewController <UIAlertViewDelegate>
 
 @end

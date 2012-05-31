@@ -14,5 +14,6 @@
 
 - (void)setImage:(UIImage *)image;
 - (void)setDeleteButtonPosition:(GTIODeleteButtonPosition)position;
+- (void)setDeleteButtonHidden:(BOOL)hidden;
 
 @end

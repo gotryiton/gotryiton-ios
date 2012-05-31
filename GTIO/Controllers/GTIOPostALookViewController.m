@@ -11,6 +11,7 @@
 #import "GTIOLookSelectorControl.h"
 #import "GTIOPostALookOptionsView.h"
 #import "GTIOPostALookDescriptionBox.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface GTIOPostALookViewController()
 
@@ -20,15 +21,18 @@
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *descriptionBox;
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *tagBox;
 @property (nonatomic, strong) UIButton *postThisButton;
+@property (nonatomic, strong) UIAlertView *emptyDescriptionAlert;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) CGRect originalFrame;
+
+@property (nonatomic, strong) NSTimer *photoSaveTimer;
 
 @end
 
 @implementation GTIOPostALookViewController
 
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton;
+@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, emptyDescriptionAlert = _emptyDescriptionAlert;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +42,7 @@
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookSelectorViewUpdated:) name:kGTIOLooksUpdated object:nil];
     }
     return self;
 }
@@ -86,6 +91,7 @@
     [self.postThisButton setImage:postThisButtonHighlighted forState:UIControlStateHighlighted];
     [self.postThisButton setImage:postThisButtonDisabled forState:UIControlStateDisabled];
     [self.postThisButton addTarget:self action:@selector(postThis:) forControlEvents:UIControlEventTouchUpInside];
+    [self.postThisButton setEnabled:NO];
     [postThisButtonBackground addSubview:self.postThisButton];
     
     [self.scrollView setContentSize:(CGSize){ self.view.bounds.size.width, self.descriptionBox.frame.origin.y + self.descriptionBox.bounds.size.height + postThisButtonBackground.bounds.size.height + self.navigationController.navigationBar.bounds.size.height }];
@@ -117,14 +123,54 @@
 
 - (void)postThis:(id)sender
 {
-    if (![self.lookSelectorView selectionsComplete]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"You are missing photos." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-        [alert show];
+    if ([self.descriptionBox.textView.text length] == 0) {
+            self.emptyDescriptionAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to post without a description?" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:@"Cancel", nil];
+            [self.emptyDescriptionAlert show];
     } else {
-        if ([self.descriptionBox.textView.text length] == 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to post without a description?" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-            [alert show];
-        }
+        [self savePhotoToDisk];
+    }
+}
+
+- (void)savePhotoToDisk
+{
+    [self.lookSelectorView setDeleteButtonsHidden:YES];
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        UIGraphicsBeginImageContextWithOptions(self.lookSelectorView.photoCanvasSize, NO, [UIScreen mainScreen].scale);
+    } else {
+        UIGraphicsBeginImageContext(self.lookSelectorView.photoCanvasSize);
+    }
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (self.lookSelectorView.isPhotoSet) {
+        // crop out the white border
+        CGContextTranslateCTM(context, -5, -5);
+    }
+    [[self.lookSelectorView getCompositeCanvas].layer renderInContext:context];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();   
+    UIGraphicsEndImageContext();
+    UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil);
+    [self.lookSelectorView setDeleteButtonsHidden:NO];
+}
+
+- (void)lookSelectorViewUpdated:(id)sender
+{
+    [self.postThisButton setEnabled:[self.lookSelectorView selectionsComplete]];
+    [self.photoSaveTimer invalidate];
+    self.photoSaveTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(createGTIOPhoto:) userInfo:nil repeats:NO];
+}
+
+- (void)createGTIOPhoto:(id)sender
+{
+    if ([self.lookSelectorView selectionsComplete]) {
+        NSLog(@"safe to post photo");
+    } else {
+        NSLog(@"NOT SAFE to post photo");
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self savePhotoToDisk];
     }
 }
 

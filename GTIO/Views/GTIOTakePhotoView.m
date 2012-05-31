@@ -33,10 +33,10 @@
         [self.canvas setClipsToBounds:YES];
         [self addSubview:self.canvas];
         
-        self.imageView = [[UIImageView alloc] initWithFrame:(CGRect){ 0, 0, self.bounds.size }];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.imageView setUserInteractionEnabled:YES];
         [self.imageView setClipsToBounds:YES];
-        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
         
         [self setClipsToBounds:NO];
         
@@ -64,11 +64,24 @@
     return self;
 }
 
+- (void)setDeleteButtonHidden:(BOOL)hidden
+{
+    [self.deleteButton setHidden:hidden];
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    if (point.x > -10 && point.y > -10) {
+        return YES;
+    }
+    return [super pointInside:point withEvent:event];
+}
+
 - (void)setImage:(UIImage *)image
 {
     if (image) {
-        [self resetImageView];
         [self.imageView setImage:image];
+        [self resetImageViewSizeAndPosition];
         [self.photoSelectButton removeFromSuperview];
         [self.imageView setAlpha:0.0];
         [self.canvas addSubview:self.imageView];
@@ -76,6 +89,7 @@
             [self.imageView setAlpha:1.0];
         }];
         [self addSubview:self.deleteButton];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
     } else {
         [self addSubview:self.photoSelectButton];
         [UIView animateWithDuration:0.25 animations:^{
@@ -83,7 +97,8 @@
         } completion:^(BOOL finished) {
             [self.imageView removeFromSuperview];
             [self.imageView setImage:nil];
-            [self resetImageView];
+            [self resetImageViewSizeAndPosition];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
         }];
         [self.deleteButton removeFromSuperview];
     }
@@ -111,7 +126,11 @@
         self.firstY = [self.imageView center].y;
     }
     translatedPoint = CGPointMake(self.firstX+translatedPoint.x, self.firstY+translatedPoint.y);
-    [self.imageView setCenter:translatedPoint];
+    CGPoint adjustedTranslatedPoint = [self adjustPointToFitCanvas:translatedPoint];
+    if (!CGPointEqualToPoint(self.imageView.center, adjustedTranslatedPoint)) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
+    }
+    [self.imageView setCenter:adjustedTranslatedPoint];
 }
 
 -(void)scale:(id)sender
@@ -122,14 +141,38 @@
     CGFloat scale = 1.0 - (_lastScale - [(UIPinchGestureRecognizer*)sender scale]);
     CGAffineTransform currentTransform = self.imageView.transform;
     CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, scale, scale);
+    if (newTransform.d < 1 && newTransform.a < 1) {
+        newTransform.d = 1;
+        newTransform.a = 1;
+    }
     [self.imageView setTransform:newTransform];
+    [self.imageView setCenter:[self adjustPointToFitCanvas:self.imageView.center]];
     self.lastScale = [(UIPinchGestureRecognizer*)sender scale];
+    if (!CGAffineTransformEqualToTransform(currentTransform, newTransform)) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
+    }
 }
 
-- (void)resetImageView
+- (CGPoint)adjustPointToFitCanvas:(CGPoint)point
 {
+    if ((point.x - (self.imageView.frame.size.width / 2)) >= 0) {
+        point.x = (self.imageView.frame.size.width / 2);
+    } else if ((point.x + (self.imageView.frame.size.width / 2)) <= self.canvas.frame.size.width) {
+        point.x = self.canvas.frame.size.width - (self.imageView.frame.size.width / 2);
+    }
+    if ((point.y - (self.imageView.frame.size.height / 2)) >= 0) {
+        point.y = (self.imageView.frame.size.height / 2);
+    } else if ((point.y + (self.imageView.frame.size.height / 2)) <= self.canvas.frame.size.height) {
+        point.y = self.canvas.frame.size.height - (self.imageView.frame.size.height / 2);
+    }
+    return point;
+}
+
+- (void)resetImageViewSizeAndPosition
+{
+
+    [self.imageView setFrame:(CGRect){ 0, 0, self.canvas.bounds.size }];
     [self.imageView setCenter:(CGPoint){ self.canvas.bounds.size.width / 2, self.canvas.bounds.size.height / 2 }];
-    [self.imageView setFrame:(CGRect){ self.imageView.frame.origin, self.canvas.bounds.size }];
 }
 
 - (void)setDeleteButtonPosition:(GTIODeleteButtonPosition)position

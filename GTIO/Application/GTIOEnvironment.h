@@ -43,6 +43,9 @@ extern NSString * const kGTIOAcceptHeader;
 extern NSString * const kGTIOAuthenticationHeaderKey;
 extern NSString * const kGTIOTrackingHeaderKey;
 
+// Notification Constants
+extern NSString * const kGTIOLooksUpdated;
+
 // JSON Param Serialization Helper
 id GTIOJSONParams(id obj);
 

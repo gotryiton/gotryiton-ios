@@ -63,6 +63,8 @@ NSString * const kGTIOJanRainProviderGoogle = @"google";
 NSString * const kGTIOJanRainProviderTwitter = @"twitter";
 NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 
+NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
+
 #pragma mark - JSON Params Serialization Helper
 
 id GTIOJSONParams(id obj) {
