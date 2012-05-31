@@ -45,6 +45,9 @@
         [configMapping mapKeyPath:@"facebook_permissions_requested" toAttribute:@"facebookPermissions"];
         [configMapping mapKeyPath:@"facebook_share_default_on" toAttribute:@"facebookShareDefaultOn"];
         [configMapping mapKeyPath:@"voting_default_on" toAttribute:@"votingDefaultOn"];
+        [configMapping mapKeyPath:@"photoshoot_first_timer" toAttribute:@"photoShootFirstTimer"];
+        [configMapping mapKeyPath:@"photoshoot_second_timer" toAttribute:@"photoShootSecondTimer"];
+        [configMapping mapKeyPath:@"photoshoot_third_timer" toAttribute:@"photoShootThirdTimer"];
         [configMapping mapKeyPath:@"intro_images" toRelationship:@"introScreens" withMapping:introScreenMapping];
         [self setMapping:configMapping forKeyPath:@"config"];
         
@@ -83,7 +86,7 @@
         [userMapping mapKeyPath:@"about_me" toAttribute:@"aboutMe"];
         [userMapping mapKeyPath:@"is_new_user" toAttribute:@"isNewUser"];
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
-        [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", /*@"auth",*/ nil];
+        [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"auth", nil];
         [self setMapping:userMapping forKeyPath:@"user"];
         
         /** Auth

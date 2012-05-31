@@ -25,9 +25,23 @@ typedef enum GTIOFontArcher {
     GTIOFontArcherLightItal
 } GTIOFontArcher;
 
+typedef enum GTIOFontVerlag {
+    GTIOFontVerlagBold = 0,
+    GTIOFontVerlagBoldItalic,
+    GTIOFontVerlagBlack,
+    GTIOFontVerlagBlackItalic,
+    GTIOFontVerlagBook,
+    GTIOFontVerlagBookItalic,
+    GTIOFontVerlagLight,
+    GTIOFontVerlagLightItalic,
+    GTIOFontVerlagXLight,
+    GTIOFontVerlagXLightItalic
+} GTIOFontVerlag;
+
 @interface UIFont (GTIOAdditions)
 
 + (UIFont *)gtio_proximaNovaFontWithWeight:(GTIOFontProximaNova)proximaNova size:(CGFloat)size;
 + (UIFont *)gtio_archerFontWithWeight:(GTIOFontArcher)archer size:(CGFloat)size;
++ (UIFont *)gtio_verlagFontWithWeight:(GTIOFontVerlag)verlag size:(CGFloat)size;
 
 @end

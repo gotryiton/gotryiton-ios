@@ -43,5 +43,9 @@ extern NSString * const kGTIOAcceptHeader;
 extern NSString * const kGTIOAuthenticationHeaderKey;
 extern NSString * const kGTIOTrackingHeaderKey;
 
+/** Dismiss handler
+ */
+typedef void(^GTIODismissHandler)(UIViewController *viewController);
+
 // JSON Param Serialization Helper
 id GTIOJSONParams(id obj);
