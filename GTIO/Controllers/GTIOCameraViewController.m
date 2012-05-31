@@ -12,11 +12,17 @@
 #import "GTIOPhotoShootProgressToolbarView.h"
 #import "GTIOPhotoShootTimerView.h"
 
+#import "UIImage+Resize.h"
+
+#import "GTIOConfig.h"
+#import "GTIOConfigManager.h"
+
 @interface GTIOCameraViewController ()
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+@property (nonatomic, strong) AVCaptureDevice *captureDevice;
 
 @property (nonatomic, strong) GTIOCameraToolbarView *photoToolbarView;
 @property (nonatomic, strong) GTIOPhotoShootProgressToolbarView *photoShootProgresToolbarView;
@@ -25,15 +31,23 @@
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
 
+@property (nonatomic, strong) NSMutableArray *capturedImages;
+
+@property (nonatomic, assign) NSInteger startingPhotoCount;
+@property (nonatomic, strong) NSTimer *imageWaitTimer;
+
 @end
 
 @implementation GTIOCameraViewController
 
-@synthesize captureSession = _captureSession, stillImageOutput = _stillImageOutput, captureVideoPreviewLayer = _captureVideoPreviewLayer;
+@synthesize captureSession = _captureSession, stillImageOutput = _stillImageOutput, captureVideoPreviewLayer = _captureVideoPreviewLayer, captureDevice = _captureDevice;
 @synthesize photoToolbarView = _photoToolbarView, photoShootProgresToolbarView = _photoShootProgresToolbarView, photoShootTimerView = _photoShootTimerView;
 @synthesize flashButton = _flashButton;
 @synthesize flashOn = _flashOn, shutterFlashOverlay = _shutterFlashOverlay;
 @synthesize dismissHandler = _dismissHandler;
+@synthesize capturedImages = _capturedImages;
+@synthesize imageWaitTimer = _imageWaitTimer;
+@synthesize startingPhotoCount = _startingPhotoCount;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,22 +55,25 @@
     if (self) {
         [self setWantsFullScreenLayout:YES];
         
-        self.captureSession = [[AVCaptureSession alloc] init];
-        self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+        _captureSession = [[AVCaptureSession alloc] init];
+        _captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
         
-        AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        [self changeFlashMode:AVCaptureFlashModeOff];
         
         NSError *error = nil;
-        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:_captureDevice error:&error];
         if (!input) {
             NSLog(@"Error: %@", [error localizedDescription]);
         }
         
-        if ([self.captureSession canAddInput:input]) {
-            [self.captureSession addInput:input];
+        if ([_captureSession canAddInput:input]) {
+            [_captureSession addInput:input];
         } else {
             NSLog(@"Can't add video");
         }
+        
+        _capturedImages = [NSMutableArray array];
     }
     return self;
 }
@@ -92,17 +109,23 @@
     // Flash button
     self.flashButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoFlash];
     [self.flashButton setFrame:(CGRect){ { 5, 6 }, self.flashButton.frame.size }];
-    
+    __block typeof(self) blockSelf = self;
     [self.flashButton setTapHandler:^(id sender) {
-        self.flashOn = !self.isFlashOn;
+        blockSelf.flashOn = !blockSelf.isFlashOn;
         
         NSString *imageName = @"upload.flash-OFF.png";
         if (self.isFlashOn) {
             imageName = @"upload.flash-ON.png";
+            [blockSelf changeFlashMode:AVCaptureFlashModeOn];
+        } else {
+            [blockSelf changeFlashMode:AVCaptureFlashModeOff];
         }
-        [self.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+        [blockSelf.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     }];
-    [self.view addSubview:self.flashButton];
+    
+    if ([self.captureDevice isFlashModeSupported:AVCaptureFlashModeOn]) {
+        [self.view addSubview:self.flashButton];
+    }
     
     // Photo Shoot Toolbar
     self.photoShootProgresToolbarView = [[GTIOPhotoShootProgressToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];
@@ -111,7 +134,6 @@
     
     // Toolbar
     self.photoToolbarView = [[GTIOCameraToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - 53, self.view.frame.size.width, 53 }];
-    __block typeof(self) blockSelf = self;
     [self.photoToolbarView.closeButton setTapHandler:^(id sender) {
         if (blockSelf.dismissHandler) {
             blockSelf.dismissHandler(blockSelf);
@@ -175,7 +197,7 @@
 
 #pragma mark - Capture Image
 
-- (void)captureImage
+- (void)captureImageWithHandler:(GTIOImageCapturedHandler)capturedImageHandler
 {
     AVCaptureConnection *videoConnection = nil;
     for (AVCaptureConnection *connection in self.stillImageOutput.connections)
@@ -219,15 +241,54 @@
                 UIImage *image = [[UIImage alloc] initWithData:imageData];
                 
                 //TODO: Handle image captured
+//                UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+                
+                // Crop image and then return it to sender
+                if (capturedImageHandler) {
+                    capturedImageHandler(image);
+                }
             }
     }];
+}
+
+- (void)takePhotoBurstWithNumberOfPhotos:(NSInteger)numberOfPhotos
+{
+    self.startingPhotoCount = [self.capturedImages count];
+    
+    for (int i = 0; i < numberOfPhotos; i++) {
+        double delayInSeconds = i * 0.5;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self captureImageWithHandler:^(UIImage *image) {
+                [self.capturedImages addObject:image];
+                [self.photoShootProgresToolbarView setNumberOfDotsOn:[self.capturedImages count]];
+            }];
+        });
+    }
+    
+    self.imageWaitTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(waitOnImages:) userInfo:nil repeats:YES];
+}
+
+- (void)waitOnImages:(NSTimer *)timer
+{
+    if ((self.startingPhotoCount == 0 && [self.capturedImages count] == 3) || 
+        (self.startingPhotoCount == 3 && [self.capturedImages count] == 6)) {
+        
+        [self timerWithDuration:2];
+        [self.imageWaitTimer invalidate];
+    } else if (self.startingPhotoCount == 6 && [self.capturedImages count] == 9) {
+        // TODO we are done
+        [self.imageWaitTimer invalidate];
+    }
 }
 
 #pragma mark - Shutter Button
 
 - (void)singleModeButtonPress
 {
-    
+    [self captureImageWithHandler:^(UIImage *image) {
+        
+    }];
 }
 
 - (void)photoShootModeButtonPress
@@ -244,12 +305,30 @@
     // Show timer
     self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 75) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 75) / 2, 75, 75 }];
     [self.view addSubview:self.photoShootTimerView];
-    [self.photoShootTimerView startWithDuration:3 completionHandler:^(GTIOPhotoShootTimerView *photoShootTimerView) {
+
+    GTIOConfig *config = [[GTIOConfigManager sharedManager] config];
+    [self timerWithDuration:6];
+}
+
+- (void)timerWithDuration:(NSTimeInterval)duration
+{
+    [self.photoShootTimerView startWithDuration:duration completionHandler:^(GTIOPhotoShootTimerView *photoShootTimerView) {
         // Take first batch of photos
-        [photoShootTimerView setAlpha:0.0];
-        
-        
+        [photoShootTimerView setAlpha:0.0f];
+        [self takePhotoBurstWithNumberOfPhotos:3];
+        [photoShootTimerView setAlpha:1.0f];
     }];
+}
+
+#pragma mark - Flash Helpers
+
+- (void)changeFlashMode:(AVCaptureFlashMode)flashMode
+{
+    NSError *error = nil;
+    if ([self.captureDevice lockForConfiguration:&error]) {
+        [self.captureDevice setFlashMode:flashMode];
+        [self.captureDevice unlockForConfiguration];
+    }
 }
 
 @end

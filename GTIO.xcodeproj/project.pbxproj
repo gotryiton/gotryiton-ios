@@ -564,6 +564,7 @@
 		D245E10515766846009DBCF7 /* upload.flash-OFF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D245E0ED15766846009DBCF7 /* upload.flash-OFF@2x.png */; };
 		D245E10615766846009DBCF7 /* upload.flash-ON.png in Resources */ = {isa = PBXBuildFile; fileRef = D245E0EE15766846009DBCF7 /* upload.flash-ON.png */; };
 		D245E10715766846009DBCF7 /* upload.flash-ON@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D245E0EF15766846009DBCF7 /* upload.flash-ON@2x.png */; };
+		D245E10A1576B3D6009DBCF7 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */; };
 		D246B087155C037C00E5546A /* GTIOAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B086155C037C00E5546A /* GTIOAppearance.m */; };
 		D246B08A155C0AE400E5546A /* GTIOVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B089155C0AE400E5546A /* GTIOVisit.m */; };
 		D246B08C155C134900E5546A /* GTIOVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B089155C0AE400E5546A /* GTIOVisit.m */; };
@@ -1282,6 +1283,8 @@
 		D245E0ED15766846009DBCF7 /* upload.flash-OFF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload.flash-OFF@2x.png"; sourceTree = "<group>"; };
 		D245E0EE15766846009DBCF7 /* upload.flash-ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload.flash-ON.png"; sourceTree = "<group>"; };
 		D245E0EF15766846009DBCF7 /* upload.flash-ON@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload.flash-ON@2x.png"; sourceTree = "<group>"; };
+		D245E1081576B3D6009DBCF7 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		D246B085155C037C00E5546A /* GTIOAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOAppearance.h; path = Application/GTIOAppearance.h; sourceTree = "<group>"; };
 		D246B086155C037C00E5546A /* GTIOAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOAppearance.m; path = Application/GTIOAppearance.m; sourceTree = "<group>"; };
 		D246B088155C0AE400E5546A /* GTIOVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOVisit.h; sourceTree = "<group>"; };
@@ -2626,6 +2629,8 @@
 				D2D0485615643F970034E04F /* UIFont+GTIOAdditions.m */,
 				D2D0485815643FB40034E04F /* UIColor+GTIOAdditions.h */,
 				D2D0485915643FB40034E04F /* UIColor+GTIOAdditions.m */,
+				D245E1081576B3D6009DBCF7 /* UIImage+Resize.h */,
+				D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */,
 			);
 			name = Categories;
 			path = Application/Categories;
@@ -3558,6 +3563,7 @@
 				8E240E33156F004E004EA1B8 /* GTIOFacebookIcon.m in Sources */,
 				D239CA7D15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.m in Sources */,
 				D245E0D7157666E6009DBCF7 /* GTIOPhotoShootTimerView.m in Sources */,
+				D245E10A1576B3D6009DBCF7 /* UIImage+Resize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,12 +12,16 @@ NSString * const kGTIOIntroScreensKey = @"GTIOIntroScreensKey";
 NSString * const kGTIOFacebookPermissions = @"GTIOFacebookPermissions";
 NSString * const kGTIOFacebookShareDefaultOn = @"GTIOFacebookShareDefaultOn";
 NSString * const kGTIOVotingDefaultOn = @"GTIOVotingDefaultOn";
+NSString * const kGTIOPhotoShootFirstTimer = @"GTIOPhotoShootFirstTimer";
+NSString * const kGTIOPhotoShootSecondTimer = @"GTIOPhotoShootSecondTimer";
+NSString * const kGTIOPhotoShootThirdTimer = @"GTIOPhotoShootThirdTimer";
 
 @implementation GTIOConfig
 
 @synthesize introScreens = _introScreens;
 @synthesize facebookPermissions = _facebookPermissions;
 @synthesize facebookShareDefaultOn = _facebookShareDefaultOn, votingDefaultOn = _votingDefaultOn;
+@synthesize photoShootFirstTimer = _photoShootFirstTimer, photoShootSecondTimer = _photoShootSecondTimer, photoShootThirdTimer = _photoShootThirdTimer;
 
 - (id)initWithCoder:(NSCoder *)coder
 {
@@ -27,6 +31,9 @@ NSString * const kGTIOVotingDefaultOn = @"GTIOVotingDefaultOn";
         self.facebookPermissions = [coder decodeObjectForKey:kGTIOFacebookPermissions];
         self.facebookShareDefaultOn = [coder decodeObjectForKey:kGTIOFacebookShareDefaultOn];
         self.votingDefaultOn = [coder decodeObjectForKey:kGTIOVotingDefaultOn];
+        self.photoShootFirstTimer = [coder decodeObjectForKey:kGTIOPhotoShootFirstTimer];
+        self.photoShootSecondTimer = [coder decodeObjectForKey:kGTIOPhotoShootSecondTimer];
+        self.photoShootThirdTimer = [coder decodeObjectForKey:kGTIOPhotoShootThirdTimer];
     }
     return self;
 }
@@ -44,6 +51,15 @@ NSString * const kGTIOVotingDefaultOn = @"GTIOVotingDefaultOn";
     }
     if (self.votingDefaultOn) {
         [coder encodeObject:self.votingDefaultOn forKey:kGTIOVotingDefaultOn];
+    }
+    if (self.photoShootFirstTimer) {
+        [coder encodeObject:self.photoShootFirstTimer forKey:kGTIOPhotoShootFirstTimer];
+    }
+    if (self.photoShootSecondTimer) {
+        [coder encodeObject:self.photoShootSecondTimer forKey:kGTIOPhotoShootSecondTimer];
+    }
+    if (self.photoShootThirdTimer) {
+        [coder encodeObject:self.photoShootThirdTimer forKey:kGTIOPhotoShootThirdTimer];
     }
 }
 
