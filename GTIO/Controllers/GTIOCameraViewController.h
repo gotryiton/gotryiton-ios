@@ -7,7 +7,12 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
+#import <ImageIO/ImageIO.h>
+
+typedef void(^GTIOImageCapturedHandler)(UIImage *image);
 
 @interface GTIOCameraViewController : UIViewController
+
+@property (nonatomic, copy) GTIODismissHandler dismissHandler;
 
 @end

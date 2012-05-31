@@ -16,4 +16,8 @@
 @property (nonatomic, strong) NSNumber *facebookShareDefaultOn;
 @property (nonatomic, strong) NSNumber *votingDefaultOn;
 
+@property (nonatomic, strong) NSNumber *photoShootFirstTimer;
+@property (nonatomic, strong) NSNumber *photoShootSecondTimer;
+@property (nonatomic, strong) NSNumber *photoShootThirdTimer;
+
 @end

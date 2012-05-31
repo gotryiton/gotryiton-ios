@@ -16,6 +16,7 @@
 #import "GTIOFeedViewController.h"
 #import "GTIOExploreLooksViewController.h"
 #import "GTIOCameraViewController.h"
+#import "GTIOCameraTabBarPlaceholderViewController.h"
 #import "GTIOShopViewController.h"
 #import "GTIOMeViewController.h"
 
@@ -31,6 +32,8 @@
 @interface GTIOAppDelegate ()
 
 @property (nonatomic, strong) GTIOSplashViewController *splashViewController;
+
+@property (nonatomic, strong) GTIOCameraViewController *cameraViewController;
 
 @property (nonatomic, strong) UIImageView *tab1ImageView;
 @property (nonatomic, strong) UIImageView *tab2ImageView;
@@ -48,6 +51,7 @@
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
 @synthesize splashViewController = _splashViewController;
+@synthesize cameraViewController = _cameraViewController;
 @synthesize tab1ImageView = _tab1ImageView, tab2ImageView = _tab2ImageView, tab3ImageView = _tab3ImageView, tab4ImageView = _tab4ImageView, tab5ImageView = _tab5ImageView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -78,7 +82,12 @@
 //    [self.window setRootViewController:self.tabBarController];
     self.splashViewController = [[GTIOSplashViewController alloc] initWithNibName:nil bundle:nil];
     [self.window setRootViewController:self.splashViewController];
+    
+    // Setup camera
+    self.cameraViewController = [[GTIOCameraViewController alloc] initWithNibName:nil bundle:nil];
+    
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -139,7 +148,7 @@
 
 - (void)setupRestKit
 {
-    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
+//    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
     RKLogConfigureByName("RestKit/Network", kGTIONetworkLogLevel)
 //    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace)
     
@@ -177,10 +186,11 @@
 {
     self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
     [self.tabBarController setDelegate:self];
+    
     NSArray *viewControllers = [NSArray arrayWithObjects:
                                 [[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
-                                [[GTIOCameraViewController alloc] initWithNibName:nil bundle:nil],
+                                [[GTIOCameraTabBarPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOShopViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOMeViewController alloc] initWithNibName:nil bundle:nil],
                                 nil];
@@ -221,30 +231,35 @@
     [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-OFF.png"]];
     [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-OFF.png"]];
     
-    CGFloat yOffset = 0.0f;
-    if (self.tabBarController.tabBar.frame.origin.y != self.tabBarController.view.frame.size.height - self.tabBarController.tabBar.frame.size.height) {
-        yOffset = -self.tabBarController.tabBar.frame.size.height;
-    }
     
     if ([viewController isKindOfClass:[GTIOFeedViewController class]]) {
         [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
         [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOCameraViewController class]]) {
-        yOffset = self.tabBarController.tabBar.frame.size.height;
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOShopViewController class]]) {
         [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOMeViewController class]]) {
         [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
     }
-         
-    // Animate tab bar in or out
-    if (yOffset != 0.0f) {
-        [UIView animateWithDuration:0.2f animations:^{
-            [tabBarController.tabBar setFrame:CGRectOffset(tabBarController.tabBar.frame, 0, tabBarController.tabBar.frame.size.height)];
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    BOOL shouldSelect = YES;
+    
+    if ([viewController isKindOfClass:[GTIOCameraTabBarPlaceholderViewController class]]) {
+        shouldSelect = NO;
+        [self.cameraViewController setDismissHandler:^(UIViewController *viewController) {
+            [viewController dismissModalViewControllerAnimated:YES];
         }];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.cameraViewController];
+        [navController setNavigationBarHidden:YES animated:NO];
+        [self.tabBarController presentModalViewController:navController animated:YES];
     }
+    
+    return shouldSelect;
 }
 
 @end

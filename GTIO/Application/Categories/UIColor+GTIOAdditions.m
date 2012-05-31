@@ -20,6 +20,11 @@
     return UIColorFromRGB(0x8F8F8F);
 }
 
++ (UIColor *)gtio_toolbarBGColor
+{
+    return UIColorFromRGB(0xF0F0F0);
+}
+
 + (UIColor *)gtio_lightGrayBorderColor
 {
     return UIColorFromRGB(0xE6E6E6);
@@ -53,6 +58,11 @@
 + (UIColor *)gtio_greenBorderColor
 {
     return UIColorFromRGB(0xB2EED6);
+}
+
++ (UIColor *)gtio_progressBarColor
+{
+    return UIColorFromRGB(0x5EE4B7);
 }
 
 @end
