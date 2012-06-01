@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) UITextView *textView;
 
-- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)title andIcon:(UIImage *)icon andNextTextView:(UITextView *)nextTextView;
+- (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon nextTextView:(UITextView *)nextTextView;
 
 @end

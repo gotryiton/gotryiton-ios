@@ -52,7 +52,7 @@
         [self.cellAccessoryText addTarget:self action:@selector(updateSaveData:) forControlEvents:UIControlEventEditingChanged];
         [self.contentView addSubview:self.cellAccessoryText];
         
-        _accessoryToolBar = [[GTIODoneToolBar alloc] initWithTarget:self andAction:@selector(keyboardDoneTapped:)];
+        _accessoryToolBar = [[GTIODoneToolBar alloc] initWithTarget:self action:@selector(keyboardDoneTapped:)];
         
         _cellAccessoryTextMulti = [[GTIOPlaceHolderTextView alloc] initWithFrame:CGRectZero];
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
@@ -178,7 +178,7 @@
 {
     _pickerViewItems = pickerViewItems;
     _pickerView = [[GTIOPickerViewForTextFields alloc] initWithFrame:CGRectZero andPickerItems:self.pickerViewItems];
-    [self.accessoryToolBar useNextButtonWithTarget:self andAction:@selector(pickerNextTapped:)];
+    [self.accessoryToolBar useNextButtonWithTarget:self action:@selector(pickerNextTapped:)];
     [self.cellAccessoryText setInputAccessoryView:self.accessoryToolBar];
     [self.pickerView setPlaceHolderText:self.placeHolderText];
     [self.pickerView bindToTextField:self.cellAccessoryText];

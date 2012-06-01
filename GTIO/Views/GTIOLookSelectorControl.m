@@ -47,16 +47,16 @@
 
 - (void)selectSinglePhotoLayout:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(setIsPhotoSet:)]) {
-        [self.delegate setIsPhotoSet:NO];
+    if ([self.delegate respondsToSelector:@selector(lookSelectorControl:photoSet:)]) {
+        [self.delegate lookSelectorControl:self photoSet:NO];
         [self.backgroundView setImage:self.singleBackground];
     }
 }
 
 - (void)selectMultiPhotoLayout:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(setIsPhotoSet:)]) {
-        [self.delegate setIsPhotoSet:YES];
+    if ([self.delegate respondsToSelector:@selector(lookSelectorControl:photoSet:)]) {
+        [self.delegate lookSelectorControl:self photoSet:YES];
         [self.backgroundView setImage:self.multiBackground];
     }
 }

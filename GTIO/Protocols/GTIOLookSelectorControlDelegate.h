@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class GTIOLookSelectorControl;
+
 @protocol GTIOLookSelectorControlDelegate <NSObject>
 
 @required
-- (void)setIsPhotoSet:(BOOL)isPhotoSet;
+- (void)lookSelectorControl:(GTIOLookSelectorControl *)lookSelectorControl photoSet:(BOOL)photoSet;
 
 @end

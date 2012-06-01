@@ -32,7 +32,10 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeBackTopMargin,
     GTIOButtonTypeSaveGreenTopMargin,
     GTIOButtonTypeCancelGrayTopMargin,
-    GTIOButtonTypeSaveGrayTopMargin
+    GTIOButtonTypeSaveGrayTopMargin,
+    GTIOButtonTypePhotoSelectBox,
+    GTIOButtonTypePostThis,
+    GTIOButtonTypePhotoDelete
 } GTIOButtonType;
 
 @interface GTIOButton : UIButton
