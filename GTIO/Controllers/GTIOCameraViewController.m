@@ -19,6 +19,9 @@
 
 #import "GTIOPhotoShootGridViewController.h"
 #import "GTIOPhotoConfirmationViewController.h"
+#import "GTIOPostALookViewController.h"
+
+NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotification";
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
 
@@ -43,6 +46,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
+@property (nonatomic, strong) GTIOPostALookViewController *postALookViewController;
+
 @end
 
 @implementation GTIOCameraViewController
@@ -56,6 +61,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @synthesize imageWaitTimer = _imageWaitTimer;
 @synthesize startingPhotoCount = _startingPhotoCount;
 @synthesize imagePickerController = _imagePickerController;
+@synthesize postALookViewController = _postALookViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,6 +91,17 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         
         _imagePickerController = [[UIImagePickerController alloc] init];
         [_imagePickerController setDelegate:self];
+        
+        _postALookViewController = [[GTIOPostALookViewController alloc] initWithNibName:nil bundle:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:kGTIOPhotoAcceptedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+            UIImage *photo = [note.userInfo objectForKey:@"photo"];
+            
+            if (photo) {
+                [_postALookViewController setMainImage:photo];
+                [self.navigationController pushViewController:_postALookViewController animated:YES];
+            }
+        }];
     }
     return self;
 }

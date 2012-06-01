@@ -11,6 +11,8 @@
 
 typedef void(^GTIOImageCapturedHandler)(UIImage *image);
 
+extern NSString * const kGTIOPhotoAcceptedNotification;
+
 @interface GTIOCameraViewController : UIViewController
 
 @property (nonatomic, copy) GTIODismissHandler dismissHandler;

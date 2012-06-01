@@ -11,4 +11,8 @@
 
 @interface GTIOPostALookViewController : GTIOViewController <UIAlertViewDelegate>
 
+@property (nonatomic, strong) UIImage *mainImage;
+@property (nonatomic, strong) UIImage *secondImage;
+@property (nonatomic, strong) UIImage *thirdImage;
+
 @end

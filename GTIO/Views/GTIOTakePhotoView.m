@@ -23,6 +23,7 @@
 @implementation GTIOTakePhotoView
 
 @synthesize photoSelectButton = _photoSelectButton, deleteButton = _deleteButton, canvas = _canvas, imageView = _imageView, lastScale = _lastScale, firstX = _firstX, firstY = _firstY, image = _image, deleteButtonPosition = _deleteButtonPosition;
+@synthesize launchCameraHandler = _launchCameraHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -109,10 +110,8 @@
 
 - (void)getImageFromCamera:(id)sender
 {
-    if (self.imageView.image) {
-        [self setImage:nil];
-    } else {
-        [self setImage:[UIImage imageNamed:@"test-photo.png"]];
+    if (self.launchCameraHandler) {
+        self.launchCameraHandler();
     }
 }
 

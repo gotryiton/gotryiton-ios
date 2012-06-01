@@ -12,6 +12,7 @@
 #import "GTIOPostALookOptionsView.h"
 #import "GTIOPostALookDescriptionBox.h"
 #import <QuartzCore/QuartzCore.h>
+#import "GTIOTakePhotoView.h"
 
 @interface GTIOPostALookViewController()
 
@@ -33,11 +34,13 @@
 @implementation GTIOPostALookViewController
 
 @synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, emptyDescriptionAlert = _emptyDescriptionAlert;
+@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithTitle:@"post a look" leftNavBarButton:[GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
-        [self.navigationController popViewControllerAnimated:YES];
+        // TODO: Shouldn't dismiss here
+        [self.navigationController dismissModalViewControllerAnimated:YES];
     }] rightNavBarButton:nil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -52,6 +55,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)loadView
+{
+    [super loadView];
+    [self.view setFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 460 } }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -59,7 +68,10 @@
     self.scrollView = [[UIScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size }];
     [self.view addSubview:self.scrollView];
     
-    self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ 8, 8, 237, 312 } photoSet:NO];
+    self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ 8, 8, 237, 312 } photoSet:NO launchCameraHandler:^{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+    [self.lookSelectorView.singlePhotoView setImage:self.mainImage];
     [self.scrollView addSubview:self.lookSelectorView];
     
     self.lookSelectorControl = [[GTIOLookSelectorControl alloc] initWithFrame:(CGRect){ 253, 13, 60, 107 }];
@@ -94,7 +106,7 @@
 
 - (void)viewDidUnload
 {
-    [self viewDidUnload];
+    [super viewDidUnload];
     
     self.scrollView = nil;
     self.lookSelectorView = nil;
@@ -103,6 +115,21 @@
     self.descriptionBox = nil;
     self.tagBox = nil;
     self.postThisButton = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    [self.navigationController.navigationBar setFrame:(CGRect){ { 0, statusBarFrame.size.height }, self.navigationController.navigationBar.frame.size}];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification
@@ -167,6 +194,15 @@
     if (buttonIndex == 0) {
         [self savePhotoToDisk];
     }
+}
+
+#pragma mark - Photo Handlers
+
+- (void)setMainImage:(UIImage *)mainImage
+{
+    _mainImage = mainImage;
+    
+    self.lookSelectorView.singlePhotoView.image = _mainImage;
 }
 
 @end
