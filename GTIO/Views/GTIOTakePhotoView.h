@@ -11,9 +11,9 @@
 @interface GTIOTakePhotoView : UIView <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, assign) GTIODeleteButtonPosition deleteButtonPosition;
 
-- (void)setImage:(UIImage *)image;
-- (void)setDeleteButtonPosition:(GTIODeleteButtonPosition)position;
-- (void)setDeleteButtonHidden:(BOOL)hidden;
+- (void)hideDeleteButton:(BOOL)hidden;
 
 @end

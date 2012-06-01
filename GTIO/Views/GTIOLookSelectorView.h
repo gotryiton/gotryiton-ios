@@ -12,11 +12,11 @@
 @interface GTIOLookSelectorView : UIView <GTIOLookSelectorControlDelegate>
 
 @property (nonatomic, assign) CGSize photoCanvasSize;
-@property (nonatomic, assign) BOOL isPhotoSet;
+@property (nonatomic, assign) BOOL photoSet;
 
-- (id)initWithFrame:(CGRect)frame asPhotoSet:(BOOL)photoSet;
-- (void)setDeleteButtonsHidden:(BOOL)hidden;
+- (id)initWithFrame:(CGRect)frame photoSet:(BOOL)photoSet;
+- (void)hideDeleteButtons:(BOOL)hidden;
 - (BOOL)selectionsComplete;
-- (UIView *)getCompositeCanvas;
+- (UIView *)compositeCanvas;
 
 @end

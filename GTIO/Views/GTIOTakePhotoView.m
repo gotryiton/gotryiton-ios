@@ -7,11 +7,10 @@
 //
 
 #import "GTIOTakePhotoView.h"
-#import "GTIOPhotoSelectBoxButton.h"
 
 @interface GTIOTakePhotoView()
 
-@property (nonatomic, strong) GTIOPhotoSelectBoxButton *photoSelectButton;
+@property (nonatomic, strong) GTIOButton *photoSelectButton;
 @property (nonatomic, strong) UIButton *deleteButton;
 @property (nonatomic, strong) UIView *canvas;
 
@@ -23,7 +22,7 @@
 
 @implementation GTIOTakePhotoView
 
-@synthesize photoSelectButton = _photoSelectButton, deleteButton = _deleteButton, canvas = _canvas, imageView = _imageView, lastScale = _lastScale, firstX = _firstX, firstY = _firstY;
+@synthesize photoSelectButton = _photoSelectButton, deleteButton = _deleteButton, canvas = _canvas, imageView = _imageView, lastScale = _lastScale, firstX = _firstX, firstY = _firstY, image = _image, deleteButtonPosition = _deleteButtonPosition;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -50,21 +49,19 @@
         [pinchRecognizer setDelegate:self];
         [self.canvas addGestureRecognizer:pinchRecognizer];
         
-        self.photoSelectButton = [[GTIOPhotoSelectBoxButton alloc] initWithFrame:(CGRect){ 0, 0, self.bounds.size }];
+        self.photoSelectButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoSelectBox];
+        [self.photoSelectButton setFrame:(CGRect){ 0, 0, self.bounds.size }];
         [self.photoSelectButton addTarget:self action:@selector(getImageFromCamera:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.photoSelectButton];
         
-        UIImage *deleteButtonImageNormal = [UIImage imageNamed:@"remove-frame-OFF.png"];
-        UIImage *deleteButtonImageHighlighted = [UIImage imageNamed:@"remove-frame-ON.png"];
-        self.deleteButton = [[UIButton alloc] initWithFrame:(CGRect){ -10, -10, deleteButtonImageNormal.size }];
-        [self.deleteButton setImage:deleteButtonImageNormal forState:UIControlStateNormal];
-        [self.deleteButton setImage:deleteButtonImageHighlighted forState:UIControlStateHighlighted];
+        self.deleteButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoDelete];
+        [self.deleteButton setFrame:(CGRect){ -10, -10, self.deleteButton.frame.size }];
         [self.deleteButton addTarget:self action:@selector(removePhoto:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
 
-- (void)setDeleteButtonHidden:(BOOL)hidden
+- (void)hideDeleteButton:(BOOL)hidden
 {
     [self.deleteButton setHidden:hidden];
 }
@@ -79,6 +76,7 @@
 
 - (void)setImage:(UIImage *)image
 {
+    _image = image;
     if (image) {
         [self.imageView setImage:image];
         [self resetImageViewSizeAndPosition];

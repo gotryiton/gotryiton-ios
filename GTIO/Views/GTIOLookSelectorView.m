@@ -8,7 +8,6 @@
 
 #import "GTIOLookSelectorView.h"
 #import "GTIOTakePhotoView.h"
-#import "GTIOPhotoSelectBoxButton.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface GTIOLookSelectorView()
@@ -24,13 +23,13 @@
 
 @implementation GTIOLookSelectorView
 
-@synthesize  isPhotoSet = _isPhotoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView, tallLeftPhoto = _tallLeftPhoto, tallRightPhoto = _tallRightPhoto, smallRightPhoto = _smallRightPhoto, photoCanvasSize = _photoCanvasSize;
+@synthesize  photoSet = _photoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView, tallLeftPhoto = _tallLeftPhoto, tallRightPhoto = _tallRightPhoto, smallRightPhoto = _smallRightPhoto, photoCanvasSize = _photoCanvasSize;
 
-- (id)initWithFrame:(CGRect)frame asPhotoSet:(BOOL)photoSet
+- (id)initWithFrame:(CGRect)frame photoSet:(BOOL)photoSet
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.isPhotoSet = photoSet;
+        self.photoSet = photoSet;
         
         UIImageView *selfBackgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"border-bg.png"] stretchableImageWithLeftCapWidth:1.0 topCapHeight:1.0]];
         [selfBackgroundImageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
@@ -66,33 +65,33 @@
     return self;
 }
 
-- (void)setDeleteButtonsHidden:(BOOL)hidden
+- (void)hideDeleteButtons:(BOOL)hidden
 {
-    [self.singlePhotoView setDeleteButtonHidden:hidden];
-    [self.tallLeftPhoto setDeleteButtonHidden:hidden];
-    [self.tallRightPhoto setDeleteButtonHidden:hidden];
-    [self.smallRightPhoto setDeleteButtonHidden:hidden];
+    [self.singlePhotoView hideDeleteButton:hidden];
+    [self.tallLeftPhoto hideDeleteButton:hidden];
+    [self.tallRightPhoto hideDeleteButton:hidden];
+    [self.smallRightPhoto hideDeleteButton:hidden];
 }
 
-- (UIView *)getCompositeCanvas
+- (UIView *)compositeCanvas
 {
-    if (self.isPhotoSet) {
+    if (self.photoSet) {
         return self.photoSetView;
     } else {
         return self.singlePhotoView;
     }
 }
 
-- (void)setIsPhotoSet:(BOOL)isPhotoSet
+- (void)lookSelectorControl:(GTIOLookSelectorControl *)lookSelectorControl photoSet:(BOOL)photoSet
 {
-    _isPhotoSet = isPhotoSet;
+    _photoSet = photoSet;
     [self refreshView];
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
 }
 
 - (BOOL)selectionsComplete
 {
-    if (self.isPhotoSet) {
+    if (self.photoSet) {
         return (self.tallLeftPhoto.imageView.image && self.tallRightPhoto.imageView.image && self.smallRightPhoto.imageView.image);
     } else {
         return (self.singlePhotoView.imageView.image != nil);
@@ -104,7 +103,7 @@
     [self.singlePhotoView removeFromSuperview];
     [self.photoSetView removeFromSuperview];
     
-    if (self.isPhotoSet) {
+    if (self.photoSet) {
         if (self.singlePhotoView.imageView.image && !self.tallLeftPhoto.imageView.image) {
             [self.tallLeftPhoto setImage:self.singlePhotoView.imageView.image];
         }

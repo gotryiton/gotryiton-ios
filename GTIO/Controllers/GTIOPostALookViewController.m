@@ -36,9 +36,9 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithTitle:@"post a look" andLeftNavBarButton:[GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
+    self = [super initWithTitle:@"post a look" leftNavBarButton:[GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
-    }] andRightNavBarButton:nil];
+    }] rightNavBarButton:nil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
@@ -59,7 +59,7 @@
     self.scrollView = [[UIScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size }];
     [self.view addSubview:self.scrollView];
     
-    self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ 8, 8, 237, 312 } asPhotoSet:NO];
+    self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ 8, 8, 237, 312 } photoSet:NO];
     [self.scrollView addSubview:self.lookSelectorView];
     
     self.lookSelectorControl = [[GTIOLookSelectorControl alloc] initWithFrame:(CGRect){ 253, 13, 60, 107 }];
@@ -69,10 +69,10 @@
     self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ 253, 174, 60, 143 }];
     [self.scrollView addSubview:self.optionsView];
     
-    self.tagBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 195, 330, 119, 120 } andTitle:@"tag brands" andIcon:[UIImage imageNamed:@"brands-box-icon.png"] andNextTextView:nil];
+    self.tagBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 195, 330, 119, 120 } title:@"tag brands" icon:[UIImage imageNamed:@"brands-box-icon.png"] nextTextView:nil];
     [self.scrollView addSubview:self.tagBox];
     
-    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, 186, 120 } andTitle:@"add a description" andIcon:[UIImage imageNamed:@"description-box-icon.png"] andNextTextView:self.tagBox.textView];
+    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, 186, 120 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"] nextTextView:self.tagBox.textView];
     [self.scrollView addSubview:self.descriptionBox];
     
     self.originalFrame = self.scrollView.frame;
@@ -82,14 +82,9 @@
     [postThisButtonBackground setImage:postThisButtonBackgroundImage];
     [postThisButtonBackground setUserInteractionEnabled:YES];
     [self.view addSubview:postThisButtonBackground];
-    
-    UIImage *postThisButtonNormal = [UIImage imageNamed:@"post-button-OFF.png"];
-    UIImage *postThisButtonHighlighted = [UIImage imageNamed:@"post-button-ON.png"];
-    UIImage *postThisButtonDisabled = [UIImage imageNamed:@"post-button-disabled.png"];
-    self.postThisButton = [[UIButton alloc] initWithFrame:(CGRect){ 5, 10, postThisButtonBackground.bounds.size.width - 10, postThisButtonBackground.bounds.size.height - 15 }];
-    [self.postThisButton setImage:postThisButtonNormal forState:UIControlStateNormal];
-    [self.postThisButton setImage:postThisButtonHighlighted forState:UIControlStateHighlighted];
-    [self.postThisButton setImage:postThisButtonDisabled forState:UIControlStateDisabled];
+
+    self.postThisButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePostThis];
+    [self.postThisButton setFrame:(CGRect){ 5, 10, postThisButtonBackground.bounds.size.width - 10, postThisButtonBackground.bounds.size.height - 15 }];
     [self.postThisButton addTarget:self action:@selector(postThis:) forControlEvents:UIControlEventTouchUpInside];
     [self.postThisButton setEnabled:NO];
     [postThisButtonBackground addSubview:self.postThisButton];
@@ -133,22 +128,22 @@
 
 - (void)savePhotoToDisk
 {
-    [self.lookSelectorView setDeleteButtonsHidden:YES];
+    [self.lookSelectorView hideDeleteButtons:YES];
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
         UIGraphicsBeginImageContextWithOptions(self.lookSelectorView.photoCanvasSize, NO, [UIScreen mainScreen].scale);
     } else {
         UIGraphicsBeginImageContext(self.lookSelectorView.photoCanvasSize);
     }
     CGContextRef context = UIGraphicsGetCurrentContext();
-    if (self.lookSelectorView.isPhotoSet) {
+    if (self.lookSelectorView.photoSet) {
         // crop out the white border
         CGContextTranslateCTM(context, -5, -5);
     }
-    [[self.lookSelectorView getCompositeCanvas].layer renderInContext:context];
+    [[self.lookSelectorView compositeCanvas].layer renderInContext:context];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();   
     UIGraphicsEndImageContext();
     UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil);
-    [self.lookSelectorView setDeleteButtonsHidden:NO];
+    [self.lookSelectorView hideDeleteButtons:NO];
 }
 
 - (void)lookSelectorViewUpdated:(id)sender

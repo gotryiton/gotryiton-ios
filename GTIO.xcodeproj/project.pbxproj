@@ -10,7 +10,6 @@
 		8E12C1F2157547190097CDE9 /* GTIOPostALookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */; };
 		8E12C1F515754E880097CDE9 /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F415754E870097CDE9 /* GTIOViewController.m */; };
 		8E12C1F9157553800097CDE9 /* GTIOLookSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F8157553800097CDE9 /* GTIOLookSelectorView.m */; };
-		8E12C20015755B000097CDE9 /* GTIOPhotoSelectBoxButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1FF15755B000097CDE9 /* GTIOPhotoSelectBoxButton.m */; };
 		8E1AC832156C48570039E6E9 /* GTIOAlmostDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1AC82D156C48200039E6E9 /* GTIOAlmostDoneViewController.m */; };
 		8E1AC834156C48ED0039E6E9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D26D32A4156BFDC100C06CA9 /* MBProgressHUD.m */; };
 		8E240E16156EC240004EA1B8 /* GTIORoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E240E15156EC240004EA1B8 /* GTIORoundedView.m */; };
@@ -784,8 +783,6 @@
 		8E12C1F415754E870097CDE9 /* GTIOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOViewController.m; sourceTree = "<group>"; };
 		8E12C1F7157553800097CDE9 /* GTIOLookSelectorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLookSelectorView.h; sourceTree = "<group>"; };
 		8E12C1F8157553800097CDE9 /* GTIOLookSelectorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOLookSelectorView.m; sourceTree = "<group>"; };
-		8E12C1FE15755B000097CDE9 /* GTIOPhotoSelectBoxButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoSelectBoxButton.h; sourceTree = "<group>"; };
-		8E12C1FF15755B000097CDE9 /* GTIOPhotoSelectBoxButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoSelectBoxButton.m; sourceTree = "<group>"; };
 		8E1AC82C156C48200039E6E9 /* GTIOAlmostDoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAlmostDoneViewController.h; sourceTree = "<group>"; };
 		8E1AC82D156C48200039E6E9 /* GTIOAlmostDoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAlmostDoneViewController.m; sourceTree = "<group>"; };
 		8E240E14156EC23F004EA1B8 /* GTIORoundedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIORoundedView.h; sourceTree = "<group>"; };
@@ -1666,8 +1663,6 @@
 			children = (
 				8E12C1F7157553800097CDE9 /* GTIOLookSelectorView.h */,
 				8E12C1F8157553800097CDE9 /* GTIOLookSelectorView.m */,
-				8E12C1FE15755B000097CDE9 /* GTIOPhotoSelectBoxButton.h */,
-				8E12C1FF15755B000097CDE9 /* GTIOPhotoSelectBoxButton.m */,
 				8E8E6EC415756DD0009750E2 /* GTIOTakePhotoView.h */,
 				8E8E6EC515756DD0009750E2 /* GTIOTakePhotoView.m */,
 				8EDA556415757777009F0404 /* GTIOLookSelectorControl.h */,
@@ -3956,7 +3951,6 @@
 				8E12C1F2157547190097CDE9 /* GTIOPostALookViewController.m in Sources */,
 				8E12C1F515754E880097CDE9 /* GTIOViewController.m in Sources */,
 				8E12C1F9157553800097CDE9 /* GTIOLookSelectorView.m in Sources */,
-				8E12C20015755B000097CDE9 /* GTIOPhotoSelectBoxButton.m in Sources */,
 				8E8E6EC615756DD0009750E2 /* GTIOTakePhotoView.m in Sources */,
 				8EDA556615757777009F0404 /* GTIOLookSelectorControl.m in Sources */,
 				8EDA556B15757E8A009F0404 /* GTIOPostALookOptionsView.m in Sources */,

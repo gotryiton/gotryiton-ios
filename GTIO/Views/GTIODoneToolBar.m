@@ -20,7 +20,7 @@
 
 @synthesize flexibleSpace = _flexibleSpace, doneButton = _doneButton, nextButton = _nextButton;
 
-- (id)initWithTarget:(id)target andAction:(SEL)action
+- (id)initWithTarget:(id)target action:(SEL)action
 {
     self = [super init];
     if (self) {
@@ -36,14 +36,14 @@
     return self;
 }
 
-- (void)useNextButtonWithTarget:(id)target andAction:(SEL)action
+- (void)useNextButtonWithTarget:(id)target action:(SEL)action
 {
     [self.nextButton setTarget:target];
     [self.nextButton setAction:action];
     [self setItems:[NSArray arrayWithObjects:self.flexibleSpace, self.nextButton, nil]];
 }
 
-- (void)useDoneButtonWithTarget:(id)target andAction:(SEL)action
+- (void)useDoneButtonWithTarget:(id)target action:(SEL)action
 {
     [self.doneButton setTarget:target];
     [self.doneButton setAction:action];

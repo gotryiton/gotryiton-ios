@@ -40,6 +40,9 @@
         case GTIOButtonTypeSaveGreenTopMargin: return [self gtio_saveButtonGreenTopMargin];
         case GTIOButtonTypeCancelGrayTopMargin: return [self gtio_cancelButtonGrayTopMargin];
         case GTIOButtonTypeSaveGrayTopMargin: return [self gtio_saveButtonGrayTopMargin];
+        case GTIOButtonTypePhotoSelectBox: return [self gtio_photoSelectBox];
+        case GTIOButtonTypePostThis: return [self gtio_postThisButton];
+        case GTIOButtonTypePhotoDelete: return [self gtio_photoDeleteButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -188,7 +191,7 @@
 
 + (id)gtio_photoShutterButton
 {
-    UIButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"upload.bottom.bar.camera.button.icon.normal.png"] hightlightImage:nil];
+    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"upload.bottom.bar.camera.button.icon.normal.png"] hightlightImage:nil];
     [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.off.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.on.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateHighlighted];
     [button setFrame:(CGRect){ CGPointZero, { 93, 45 } }];
@@ -198,6 +201,25 @@
 + (id)gtio_photoFlashButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"upload.flash.off.png"] hightlightImage:nil];
+}
+
++ (id)gtio_photoSelectBox
+{
+    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"frame-camera-icon-OFF.png"] hightlightImage:[UIImage imageNamed:@"frame-camera-icon-ON.png"]];
+    [button setContentMode:UIViewContentModeCenter];
+    return button;
+}
+
++ (id)gtio_postThisButton
+{
+    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"post-button-OFF.png"] hightlightImage:[UIImage imageNamed:@"post-button-ON.png"]];
+    [button setImage:[UIImage imageNamed:@"post-button-disabled.png"] forState:UIControlStateDisabled];
+    return button;
+}
+
++ (id)gtio_photoDeleteButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"remove-frame-OFF.png"] hightlightImage:[UIImage imageNamed:@"remove-frame-ON.png"]];
 }
 
 #pragma mark - Touch Handling

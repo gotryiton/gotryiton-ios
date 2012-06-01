@@ -22,7 +22,7 @@
 
 @synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView, nextTextView = _nextTextView, accessoryToolBar = _accessoryToolBar;
 
-- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)title andIcon:(UIImage *)icon andNextTextView:(UITextView *)nextTextView
+- (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon nextTextView:(UITextView *)nextTextView
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -46,7 +46,7 @@
         [self.placeHolderView addSubview:titleLabel];
         
         self.nextTextView = nextTextView;
-        self.accessoryToolBar = [[GTIODoneToolBar alloc] initWithTarget:self andAction:@selector(accessoryButtonTapped:)];
+        self.accessoryToolBar = [[GTIODoneToolBar alloc] initWithTarget:self action:@selector(accessoryButtonTapped:)];
                 
         self.textView = [[UITextView alloc] initWithFrame:(CGRect){ 5, 0, self.backgroundView.bounds.size.width - 10, self.backgroundView.bounds.size.height - 10 }];
         [self.textView setBackgroundColor:[UIColor clearColor]];
@@ -55,7 +55,7 @@
         [self.textView setTextColor:[UIColor gtio_darkGrayTextColor]];
         [self.textView setDelegate:self];
         if (self.nextTextView) {
-            [self.accessoryToolBar useNextButtonWithTarget:self andAction:@selector(accessoryButtonTapped:)];
+            [self.accessoryToolBar useNextButtonWithTarget:self action:@selector(accessoryButtonTapped:)];
         }
         [self.textView setInputAccessoryView:self.accessoryToolBar];
         [self addSubview:self.textView];

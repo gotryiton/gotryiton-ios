@@ -10,8 +10,8 @@
 
 @interface GTIODoneToolBar : UIToolbar
 
-- (id)initWithTarget:(id)target andAction:(SEL)action;
-- (void)useNextButtonWithTarget:(id)target andAction:(SEL)action;
-- (void)useDoneButtonWithTarget:(id)target andAction:(SEL)action;
+- (id)initWithTarget:(id)target action:(SEL)action;
+- (void)useNextButtonWithTarget:(id)target action:(SEL)action;
+- (void)useDoneButtonWithTarget:(id)target action:(SEL)action;
 
 @end
