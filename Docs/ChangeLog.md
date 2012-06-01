@@ -1,6 +1,6 @@
 #### GTIO Build Changelog
 
-#### Build .2 - June 1st, 2012
+#### Build 4.0.0.1 - June 1st, 2012
 
 ### Build Summary
 The build on the remaining signin functionalty utilizing Janrain and contains the several styled screens withing the Photo shoot process
@@ -46,9 +46,17 @@ The build on the remaining signin functionalty utilizing Janrain and contains th
 ### Ongoing Development
 
 **Known Issues**
- - NA
+ - 115 - Almost done Text Issues
+ - 118 - Burst mode optimize photo processing
+ - 119 - Post View Switch Default Values
+ - 120 - "Select One Photo" view transition
+ - 121 - Photo Shoot Countdown View and Flash Animations
+ - 122 - Post button not enabled initially
+ - 123 - Hard to click switches on Post Photo View
 
 **Screens / Features**
- - NA
+ - 90 - 12.1 Photo Frame Shooting mode
+ - 98 - 12.3 Upload photo
+ - 99 - 12.3 POST /post
 
 ---
