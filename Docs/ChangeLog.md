@@ -53,6 +53,7 @@ The build on the remaining signin functionalty utilizing Janrain and contains th
  - 121 - Photo Shoot Countdown View and Flash Animations
  - 122 - Post button not enabled initially
  - 123 - Hard to click switches on Post Photo View
+ - 124 - Post View Nav Bar Styling
 
 **Screens / Features**
  - 90 - 12.1 Photo Frame Shooting mode
