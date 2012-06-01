@@ -29,6 +29,7 @@
         [votingSwitch setTrackFrame:[UIImage imageNamed:@"general.slider.green.bg.png"]];
         [votingSwitch setTrackFrameMask:[UIImage imageNamed:@"general.slider.green.mask.png"]];
         [votingSwitch setKnob:[UIImage imageNamed:@"general.slider.green.handle.png"]];
+        [votingSwitch setKnobXOffset:-1.5];
         [votingSwitch setChangeHandler:^(BOOL on) {
             // stuff
         }];
@@ -39,6 +40,7 @@
         [facebookSwitch setTrackFrame:[UIImage imageNamed:@"general.slider.green.bg.png"]];
         [facebookSwitch setTrackFrameMask:[UIImage imageNamed:@"general.slider.green.mask.png"]];
         [facebookSwitch setKnob:[UIImage imageNamed:@"general.slider.green.handle.png"]];
+        [facebookSwitch setKnobXOffset:-1.5];
         [facebookSwitch setChangeHandler:^(BOOL on) {
             // stuff
         }];
