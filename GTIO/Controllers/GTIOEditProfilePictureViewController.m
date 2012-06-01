@@ -41,34 +41,6 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {        
-        _profileIconViews = [NSMutableArray array];
-        _profileIconURLs = [NSMutableArray array];
-        _currentlySelectedProfileIconURL = [NSString string];
-    }
-    return self;
-}
-
-- (void)loadView
-{
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
-    
-    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
-    [titleView setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:18.0]];
-    [titleView setText:@"edit profile picture"];
-    [titleView sizeToFit];
-    [titleView setBackgroundColor:[UIColor clearColor]];
-    [self.navigationItem setTitleView:titleView];
-    
-    UIView *topShadow = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 3 }];
-    [topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
-    [self.view addSubview:topShadow];
-    
-    GTIOUser *currentUser = [GTIOUser currentUser];
-    
     GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         NSDictionary *fieldsToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -78,7 +50,7 @@
                                              @"edit_profile", @"id",
                                              @"edit_profile_icon", @"screen",
                                              nil];
-        [currentUser updateCurrentUserWithFields:fieldsToUpdate withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
+        [[GTIOUser currentUser] updateCurrentUserWithFields:fieldsToUpdate withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             if (!error) {
                 [[GTIOUser currentUser] setIcon:[NSURL URLWithString:[user.icon absoluteString]]];
@@ -90,20 +62,22 @@
         }];
     }];
     
-    GTIOButton *doneButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeDoneGrayTopMargin tapHandler:^(id sender) {
+    GTIOButton *doneButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES]; 
     }];
     
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:doneButton]];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:saveButton]];
+    self = [super initWithTitle:@"edit profile picture" leftNavBarButton:doneButton rightNavBarButton:saveButton];
+    if (self) {        
+        _profileIconViews = [NSMutableArray array];
+        _profileIconURLs = [NSMutableArray array];
+        _currentlySelectedProfileIconURL = [NSString string];
+    }
+    return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.navigationItem setHidesBackButton:YES];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"green-pattern-nav-bar.png"] forBarMetrics:UIBarMetricsDefault];
     
     GTIOUser *currentUser = [GTIOUser currentUser];
     self.currentlySelectedProfileIconURL = currentUser.icon;
@@ -145,7 +119,7 @@
     
     self.previewNameLabel = [[UILabel alloc] initWithFrame:(CGRect){ 80, 24, 174, 21 }];
     [self.previewNameLabel setBackgroundColor:[UIColor clearColor]];
-    [self.previewNameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMedium size:18.0]];
+    [self.previewNameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:18.0]];
     [self.previewNameLabel setTextColor:[UIColor gtio_pinkTextColor]];
     [self.previewBoxBackground addSubview:self.previewNameLabel];
     
@@ -194,7 +168,7 @@
     GTIOUser *currentUser = [GTIOUser currentUser];
     self.currentlySelectedProfileIconURL = currentUser.icon;
     
-    [[GTIOUser currentUser] loadUserIconsWithUserID:@"0596D58" andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+    [[GTIOUser currentUser] loadUserIconsWithUserID:currentUser.userID andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         [self.loadingIconsLabel removeFromSuperview];
         if (!error) {
             BOOL userHasFacebookPicture = NO;

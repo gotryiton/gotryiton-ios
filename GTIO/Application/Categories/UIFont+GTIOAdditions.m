@@ -9,22 +9,29 @@
 #import "UIFont+GTIOAdditions.h"
 
 static NSString * const GTIOFontProximaNovaName[] = {
-    [GTIOFontProximaNovaRegular] = @"ProximaNova-Regular",
+    [GTIOFontProximaNovaBold] = @"ProximaNova-Bold",
+    [GTIOFontProximaNovaBoldItal] = @"ProximaNova-BoldIt",
     [GTIOFontProximaNovaLight] = @"ProximaNova-Light",
     [GTIOFontProximaNovaLightItal] = @"ProximaNova-LightIt",
+    [GTIOFontProximaNovaRegular] = @"ProximaNova-Regular",
+    [GTIOFontProximaNovaRegularItal] = @"ProximaNova-RegularIt",
     [GTIOFontProximaNovaSemiBold] = @"ProximaNova-Semibold",
-    [GTIOFontProximaNovaBold] = @"ProximaNova-Bold",
+    [GTIOFontProximaNovaSemiBoldItal] = @"ProximaNova-SemiboldIt",
+    [GTIOFontProximaNovaThinItal] = @"ProximaNovaT-ThinIt",
     [GTIOFontProximaNovaThin] = @"ProximaNovaT-Thin"
 };
 
 static NSString * const GTIOFontArcherName[] = {
     [GTIOFontArcherBold] = @"Archer-Bold",
+    [GTIOFontArcherBoldItal] = @"Archer-BoldItalic",
     [GTIOFontArcherBook] = @"Archer-Book",
-    [GTIOFontArcherMediumItal] = @"Archer-MediumItal",
-    [GTIOFontArcherMedium] = @"Archer-Medium",
-    [GTIOFontArcherSemiBold] = @"Archer-Semibold",
+    [GTIOFontArcherBookItal] = @"Archer-BookItalic",
     [GTIOFontArcherLight] = @"Archer-Light",
-    [GTIOFontArcherLightItal] = @"Archer-LightItalic"
+    [GTIOFontArcherLightItal] = @"Archer-LightItalic",
+    [GTIOFontArcherMedium] = @"Archer-Medium",
+    [GTIOFontArcherMediumItal] = @"Archer-MediumItalic",
+    [GTIOFontArcherSemiBold] = @"Archer-Semibold",
+    [GTIOFontArcherSemiBoldItal] = @"Archer-SemiboldItalic"
 };
 
 static NSString * const GTIOFontVerlagName[] = {

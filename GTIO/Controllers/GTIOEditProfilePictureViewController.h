@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "GTIOSelectableProfilePicture.h"
+#import "GTIOViewController.h"
 
-@interface GTIOEditProfilePictureViewController : UIViewController <GTIOSelectableProfilePictureDelegate>
+@interface GTIOEditProfilePictureViewController : GTIOViewController <GTIOSelectableProfilePictureDelegate>
 
 @end

@@ -10,7 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-NSInteger const kKnobXOffset = 0;
+NSInteger const kKnobXOffset = 1;
 CGFloat const kAnimationDuration = 0.25;
 
 @interface GTIOSwitch ()

@@ -43,9 +43,17 @@ extern NSString * const kGTIOAcceptHeader;
 extern NSString * const kGTIOAuthenticationHeaderKey;
 extern NSString * const kGTIOTrackingHeaderKey;
 
+// Notification Constants
+extern NSString * const kGTIOLooksUpdated;
+
 /** Dismiss handler
  */
 typedef void(^GTIODismissHandler)(UIViewController *viewController);
 
 // JSON Param Serialization Helper
 id GTIOJSONParams(id obj);
+
+typedef enum GTIODeleteButtonPosition {
+    GTIODeleteButtonPositionLeft = 0,
+    GTIODeleteButtonPositionRight,
+} GTIODeleteButtonPosition;
