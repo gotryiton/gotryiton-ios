@@ -22,7 +22,7 @@
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
 
-@interface GTIOCameraViewController ()
+@interface GTIOCameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
@@ -41,6 +41,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @property (nonatomic, assign) NSInteger startingPhotoCount;
 @property (nonatomic, strong) NSTimer *imageWaitTimer;
 
+@property (nonatomic, strong) UIImagePickerController *imagePickerController;
+
 @end
 
 @implementation GTIOCameraViewController
@@ -53,6 +55,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @synthesize capturedImages = _capturedImages;
 @synthesize imageWaitTimer = _imageWaitTimer;
 @synthesize startingPhotoCount = _startingPhotoCount;
+@synthesize imagePickerController = _imagePickerController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -79,6 +82,9 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         }
         
         _capturedImages = [NSMutableArray array];
+        
+        _imagePickerController = [[UIImagePickerController alloc] init];
+        [_imagePickerController setDelegate:self];
     }
     return self;
 }
@@ -149,6 +155,11 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
             [blockSelf photoShootModeButtonPress];
         } else {
             [blockSelf singleModeButtonPress];
+        }
+    }];
+    [self.photoToolbarView.photoPickerButton setTapHandler:^(id sender) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+            [blockSelf presentViewController:self.imagePickerController animated:YES completion:nil];
         }
     }];
     [self.photoToolbarView.photoShootGridButton setTapHandler:^(id sender){
@@ -318,12 +329,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)singleModeButtonPress
 {
     [self captureImageWithHandler:^(UIImage *image) {
-        // TODO: open filter page
         UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
-        
-        GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
-        [photoConfirmationViewController setPhoto:resizedImage];
-        [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
+        [self openPhotoConfirmationScreenWithPhoto:resizedImage];
     }];
 }
 
@@ -368,6 +375,30 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [self.captureDevice setFlashMode:flashMode];
         [self.captureDevice unlockForConfiguration];
     }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+    [self.imagePickerController dismissModalViewControllerAnimated:YES];
+    [self openPhotoConfirmationScreenWithPhoto:resizedImage];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self.imagePickerController dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - Launch Screens
+
+- (void)openPhotoConfirmationScreenWithPhoto:(UIImage *)photo
+{
+    GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
+    [photoConfirmationViewController setPhoto:photo];
+    [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
 }
 
 @end
