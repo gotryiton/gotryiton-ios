@@ -8,21 +8,28 @@
 
 typedef enum GTIOFontProximaNova {
     GTIOFontProximaNovaRegular = 0,
+    GTIOFontProximaNovaRegularItal,
+    GTIOFontProximaNovaBold,
+    GTIOFontProximaNovaBoldItal,
+    GTIOFontProximaNovaSemiBold,
+    GTIOFontProximaNovaSemiBoldItal,
     GTIOFontProximaNovaLight,
     GTIOFontProximaNovaLightItal,
-    GTIOFontProximaNovaSemiBold,
-    GTIOFontProximaNovaBold,
-    GTIOFontProximaNovaThin
+    GTIOFontProximaNovaThin,
+    GTIOFontProximaNovaThinItal
 } GTIOFontProximaNova;
 
 typedef enum GTIOFontArcher {
     GTIOFontArcherBold = 0,
+    GTIOFontArcherBoldItal,
     GTIOFontArcherBook,
+    GTIOFontArcherBookItal,
+    GTIOFontArcherLight,
+    GTIOFontArcherLightItal,
     GTIOFontArcherMedium,
     GTIOFontArcherMediumItal,
     GTIOFontArcherSemiBold,
-    GTIOFontArcherLight,
-    GTIOFontArcherLightItal
+    GTIOFontArcherSemiBoldItal,
 } GTIOFontArcher;
 
 typedef enum GTIOFontVerlag {

@@ -33,57 +33,6 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {    
-        NSMutableArray *selectableYears = [NSMutableArray array];
-        NSDate *currentDate = [NSDate date];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy"];
-        for (int i = 0; i < 100; i++) {
-            [selectableYears addObject:[dateFormatter stringFromDate:currentDate]];
-            currentDate = [currentDate dateByAddingTimeInterval:-(60 * 60 * 24 * 365.25)];
-        }
-        
-        NSArray *selectableGenders = [NSArray arrayWithObjects:@"female", @"male", nil];
-        
-        GTIOUser *currentUser = [GTIOUser currentUser];
-        _profilePicture = [currentUser icon];
-        
-        _tableData = [NSArray arrayWithObjects:
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"email" andTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:@"" andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"name" andTitleText:@"name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser name] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"city" andTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"state" andTitleText:@"state or country" andPlaceHolderText:@"NY" andAccessoryText:[currentUser state] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"gender" andTitleText:@"gender" andPlaceHolderText:@"select" andAccessoryText:[currentUser gender] andPickerItems:selectableGenders isRequired:YES usesPicker:YES isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"born_in" andTitleText:@"year born" andPlaceHolderText:@"select year" andAccessoryText:[NSString stringWithFormat:@"%i",[[currentUser birthYear] intValue]] andPickerItems:selectableYears isRequired:NO usesPicker:YES isMultiline:NO],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"website" andTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:@"" andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"about_me" andTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" andAccessoryText:[currentUser aboutMe] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:YES],
-                      nil];
-        
-        // prepopulate save data with values from current user
-        _saveData = [NSMutableDictionary dictionary];
-        for (GTIOAlmostDoneTableDataItem *dataItem in _tableData) {
-            [_saveData setValue:[dataItem accessoryText] forKey:[dataItem apiKey]];
-        }
-        
-        _textFields = [NSMutableArray array];
-    }
-    return self;
-}
-
-- (void)loadView
-{
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"green-pattern-nav-bar.png"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationItem setHidesBackButton:YES];
-    
     GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGreenTopMargin tapHandler:^(id sender) {
         NSMutableArray *missingDataElements = [NSMutableArray array];
         for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
@@ -114,15 +63,48 @@
         }
     }];
     
-    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
-    [titleView setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:18.0]];
-    [titleView setText:@"almost done!"];
-    [titleView sizeToFit];
-    [titleView setBackgroundColor:[UIColor clearColor]];
-    [self.navigationItem setTitleView:titleView];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:saveButton]];
-    
-    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){0,0,self.view.bounds.size.width,self.view.bounds.size.height} style:UITableViewStyleGrouped];
+    self = [super initWithTitle:@"almost done!" leftNavBarButton:nil rightNavBarButton:saveButton];
+    if (self) {    
+        NSMutableArray *selectableYears = [NSMutableArray array];
+        NSDate *currentDate = [NSDate date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy"];
+        for (int i = 0; i < 100; i++) {
+            [selectableYears addObject:[dateFormatter stringFromDate:currentDate]];
+            currentDate = [currentDate dateByAddingTimeInterval:-(60 * 60 * 24 * 365.25)];
+        }
+        
+        NSArray *selectableGenders = [NSArray arrayWithObjects:@"female", @"male", nil];
+        
+        GTIOUser *currentUser = [GTIOUser currentUser];
+        _profilePicture = [currentUser icon];
+        
+        _tableData = [NSArray arrayWithObjects:
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"email" andTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:[currentUser email] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"name" andTitleText:@"name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser name] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"city" andTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"state" andTitleText:@"state or country" andPlaceHolderText:@"NY" andAccessoryText:[currentUser state] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"gender" andTitleText:@"gender" andPlaceHolderText:@"select" andAccessoryText:[currentUser gender] andPickerItems:selectableGenders isRequired:YES usesPicker:YES isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"born_in" andTitleText:@"year born" andPlaceHolderText:@"select year" andAccessoryText:[NSString stringWithFormat:@"%i",[[currentUser birthYear] intValue]] andPickerItems:selectableYears isRequired:NO usesPicker:YES isMultiline:NO],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"website" andTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:[currentUser url] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"about" andTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" andAccessoryText:[currentUser aboutMe] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:YES],
+                      nil];
+        
+        // prepopulate save data with values from current user
+        _saveData = [NSMutableDictionary dictionary];
+        for (GTIOAlmostDoneTableDataItem *dataItem in _tableData) {
+            [_saveData setValue:[dataItem accessoryText] forKey:[dataItem apiKey]];
+        }
+        
+        _textFields = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height } style:UITableViewStyleGrouped];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
@@ -130,10 +112,6 @@
     [self.tableView setSeparatorColor:[UIColor gtio_lightGrayBorderColor]];
     self.originalContentFrame = self.tableView.frame;
     [self.view addSubview:self.tableView];
-    
-    UIView *topShadow = [[UIView alloc] initWithFrame:(CGRect){0,0,self.view.bounds.size.width,3}];
-    [topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
-    [self.view addSubview:topShadow];
 }
 
 - (void)viewDidUnload

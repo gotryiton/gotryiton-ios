@@ -29,6 +29,8 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 @property (nonatomic, strong) NSNumber *auth;
 @property (nonatomic, strong) NSNumber *isNewUser;
 @property (nonatomic, strong) NSNumber *hasCompleteProfile;
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *url;
 
 @property (nonatomic, strong) Facebook *facebook;
 @property (nonatomic, strong) JREngage *janrain;

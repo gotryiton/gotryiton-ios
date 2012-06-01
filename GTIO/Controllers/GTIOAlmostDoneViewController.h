@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "GTIOAlmostDoneTableCell.h"
+#import "GTIOViewController.h"
 
-@interface GTIOAlmostDoneViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, GTIOAlmostDoneTableCellDelegate>
+@interface GTIOAlmostDoneViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOAlmostDoneTableCellDelegate>
 
 - (void)updateDataSourceWithValue:(id)value ForKey:(NSString*)key;
 
