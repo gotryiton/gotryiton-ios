@@ -2285,7 +2285,7 @@ previous screen
 - A user can edit their profile icon
    - a user sees a list of profile icon options
    - a user can tap on each profile icon option and see a preview of their icon with their GTIO display name and location
-   - a user can tap to clear profile icon, which sets the icon to the GTIO default icon
+   - a user can tap to clear profile icon, which sets the icon to the GTIO default icon (```default_icon``` in the api response)
       - api for /User/Icon will provide default icon 
 - If a user is not connected to facebook, they can connect from this screen to add their fb profile icon (GTIOv3 behavior)
    - if the user is not facebook connected, their facebook icon has a 'connect' btn
@@ -2553,7 +2553,7 @@ previous screen
 - a user can follow another user (but not theirself)
    - follow button displayed in top right corner
    - defined in api response ```user.follow_button```
-      - if null, do not display
+      - if null (requesting user is the same as profiled user -- or user is just not follow-able for some reason), do not display
 - settings btn
    - defined in api, ```user.settings```
       - if null, do not display
@@ -2569,6 +2569,9 @@ previous screen
 - a user can see who another user's followers are
    - ```user.followers_button``` defines action and count for the followers button
       - **tap** ==> (view 6.6)
+- a user can see who another user's starred posts (editors picks)
+   - ```user.stars_button``` defines action and count for the stars button
+      - **tap** ==> (view 7.9)
 - A user can see additional info about another user 
    - each profile has a customizable text fields (view 7.7.1)
       - defined in api as ```users.profile_callouts``` array
@@ -2684,7 +2687,7 @@ A logged in user can view their (or someone else's) posts that have been selecte
 
 #### Mockups
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.9.My.Stars.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.9.My.Stars.png" width=420px/>
 
 
 #### User Flow
@@ -2697,14 +2700,13 @@ A logged in user can view their (or someone else's) posts that have been selecte
 previous screen    
 
 #### API Usage
-/Posts/editors-picks-by-user-id/:user_id
-
-
+/Posts/stars-by-user-id/:user_id
 
 #### Stories
 - A logged in user can view their posted items that have editors pick stars
-   - masonry view of hearts (posts)
+   - masonry view of starred posts
    - destination link provided in api
+
 
 ### 7.10 Search Tags
 
