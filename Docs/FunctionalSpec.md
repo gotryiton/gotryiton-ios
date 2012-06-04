@@ -2112,11 +2112,11 @@ A logged in user can manage their profile, share settings, looks, and friends
 #### Mockups
 7.1 Management Page [wireframe1](http://invis.io/TQ2OCXAV) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.1.My.Management.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.png" width=420px/>
 =========================================================================================
 7.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.1.My.Management.Scrolled.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.Scrolled.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
