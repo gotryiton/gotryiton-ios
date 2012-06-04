@@ -1,3 +1,51 @@
+***Monday, June 4th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review GTIO feedback (github issues), incorporate into Sprint
+- GTIO - Decide what to show with Autofocus
+
+**Status**
+- Plan for iteration looks fine
+- 7.1 / 7.7 updated EOB today
+- 1.8 assets on schedule for EOB 6/6
+
+**Updates to Planned Work**
+- Worked ADDED to Sprint
+ - 153 - 12.4 photoshoot grid layout tweaks
+ - 152 - 12.3 post a look design tweaks
+ - 150 - 7.3 thumbnail styling bugs
+ - 149 - shutter button can be hit multiple times (12.1)
+ - 148 - 'sign up with another provider' target area too small (1.3 Sign In)
+ - 147 - Photos should always fill their frame
+ - 146 - exiting app during photoshoot has bad consequences
+ - 145 - single photo upload on screen 12.3 doesnt have active post button
+ - 142 - cancel button while post button is active (screen 12.3)
+ - 141 - scrolling on description and brands fields (screen 12.3)
+ - 140 - "next" button should appear in the keyboard not a bar over the keyboard (screen 12.3)
+ - 139 - tap to focus should be available during camera capture
+ - 138 - no flash button available during non-photoshoot camera capture
+ - 137 - website and about me not saving correctly on almost done
+
+New Total:
+
+Features: 14
+
+Bugs: 20
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Flashmode on photoshoot? A: NO
+- Auto Focus - place where user taps
+
+---
+
 ***Sprint 3 Development Plan (Monday, June 4th 2012 - Friday, June 15th, 2012)***
 
 Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=3&state=open
