@@ -51,6 +51,9 @@
    7.5 [My Hearts](#75-my-hearts)   
    7.6 [My Posts](#76-my-posts)   
    7.7 [Profile Page](#77-profile-page)   
+   7.8 [Shopping list](#78-shopping-list)   
+   7.9 [My Stars](#79-my-stars)   
+   7.10 [My Stars](#710-search-tags)   
 8. [The Feed](#8-the-feed)   
    8.1 [Feed view](#81-feed-view)   
    8.3 [Feed verdict view](#83-feed-verdict-view)   
@@ -2129,6 +2132,8 @@ any screen with uiTabBar
 ([view 7.8](#78-shopping-list))   
 ([view 7.5](#75-my-hearts))   
 ([view 7.6](#76-my-looks))   
+([view 7.9](#79-my-stars))   
+([view 7.10](#710-search-tags))   
 ([view 6.1](#61-find-my-friends))   
 ([view 5.1](#51-invite-friends))   
 ([view 7.2](#72-settings))   
@@ -2152,7 +2157,7 @@ Response:  Will respond with the extended user object for the currently logged i
 - a user can see their following count, followers count, and stars count
    - each button is defined in ```following_button```, ```followers_button```, and ```stars_button``` in api response
       - button includes count and action for destination tap
-      - buttons tap to (view 6.5), (view 6.6), (view 7.10) respectively
+      - buttons tap to (view 6.5), (view 6.6), (view 7.9) respectively
 - a user can tap to their shopping list
    - my shopping list btn
       - **tap** ==> (view 7.8)
@@ -2183,8 +2188,10 @@ Response:  Will respond with the extended user object for the currently logged i
          - cancel: close dialog
 - a user can toggle their state to private
    - looks are private toggle
+      - confirm dialog if you're turng ON
+         - text: "Are you sure you want to make your posts private? From now on, only followers you approve will see your posts."
       - confirm dialog if you're turng OFF
-         - text: "are you sure you want to make your profile private?"
+         - text: "Are you sure you want to make your posts public? From now on, anyone will be able to follow your posts."
       - api request:
          - POST to ```/user/update``` with ```public:true``` or ```public:false``` 
    - text under the toggle should read: "turn this option ON to require your permission before someone can follow your posts."
@@ -2668,6 +2675,55 @@ previous screen
          - ok: api request 
             - **success** ==> show 'emailed' overlay (view 7.8.1)
          - cancel: closes dialog
+
+### 7.9 My Stars
+
+#### Overview
+A logged in user can view their (or someone else's) posts that have been selected as editors picks
+
+#### Mockups
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.9.My.Stars.png" width=420px/>
+
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 7.7](#77-profile-page))   
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-view))   
+previous screen    
+
+#### API Usage
+/Posts/editors-picks-by-user-id/:user_id
+
+
+
+#### Stories
+- A logged in user can view their posted items that have editors pick stars
+   - masonry view of hearts (posts)
+   - destination link provided in api
+
+### 7.10 Search Tags
+
+#### Overview
+A logged in user can view their (or someone else's) posts that have been selected as editors picks
+
+#### Mockups
+Coming soon.
+
+
+#### User Flow
+Coming soon.  
+
+#### API Usage
+GET /tags/search/:query
+
+#### Stories
+- A user can search tags 
+
+
 
 
 ## 8. The Feed 
