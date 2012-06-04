@@ -22,30 +22,33 @@
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *tagBox;
 @property (nonatomic, strong) UIButton *postThisButton;
 @property (nonatomic, strong) UIAlertView *emptyDescriptionAlert;
+@property (nonatomic, strong) UIAlertView *emptyPostAlert;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) CGRect originalFrame;
 
 @property (nonatomic, strong) NSTimer *photoSaveTimer;
 
-@property (nonatomic, assign) BOOL scrollingToTop;
-
 @end
 
 @implementation GTIOPostALookViewController
 
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, emptyDescriptionAlert = _emptyDescriptionAlert, scrollingToTop = _scrollingToTop;
+@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, emptyDescriptionAlert = _emptyDescriptionAlert, emptyPostAlert = _emptyPostAlert;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithTitle:@"post a look" leftNavBarButton:[GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.postThisButton.enabled) {
+            self.emptyPostAlert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
+            [self.emptyPostAlert show];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }] rightNavBarButton:nil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookSelectorViewUpdated:) name:kGTIOLooksUpdated object:nil];
-        _scrollingToTop = NO;
     }
     return self;
 }
@@ -61,7 +64,6 @@
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 50 - 44 }];
     [self.scrollView setDelegate:self];
-    [self.scrollView setBounces:NO];
     [self.view addSubview:self.scrollView];
     
     self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ 8, 8, 237, 312 } photoSet:NO];
@@ -121,18 +123,6 @@
     [self.scrollView setContentOffset:(CGPoint){ 0, 0 } animated:YES];
 }
 
-//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-//{
-//    if (targetContentOffset->y > (scrollView.contentSize.height - scrollView.frame.size.height) / 2 ) {
-//        targetContentOffset->y = scrollView.contentSize.height - scrollView.frame.size.height;
-//        [self.descriptionBox.textView becomeFirstResponder];
-//    } else {
-//        targetContentOffset->y = 0;
-//        [self.descriptionBox.textView resignFirstResponder];
-//        [self.tagBox.textView resignFirstResponder];
-//    }
-//}
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self snapScrollView:scrollView];
@@ -148,17 +138,13 @@
 - (void)snapScrollView:(UIScrollView *)scrollView
 {
     CGPoint contentOffset = scrollView.contentOffset;
-    NSLog(@"Content offset: %@", NSStringFromCGPoint(contentOffset));
-    
     CGRect scrollToRect;
     BOOL top = NO;
     if (contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height) / 2 ) {
         scrollToRect = CGRectMake(0, scrollView.contentSize.height - 1, 1, 1);
-//        [scrollView setContentOffset:(CGPoint){ 0, scrollView.contentSize.height - scrollView.frame.size.height } animated:YES];
     } else {
         scrollToRect = CGRectMake(0, 0, 1, 1);
         top = YES;
-//        [scrollView setContentOffset:(CGPoint){ 0, 0 } animated:YES];
     }
     
     [UIView animateWithDuration:0.15 animations:^{
@@ -221,8 +207,11 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+    if (buttonIndex == 0 && [alertView isEqual:self.emptyDescriptionAlert]) {
         [self savePhotoToDisk];
+    }
+    if (buttonIndex == 0 && [alertView isEqual:self.emptyPostAlert]) {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

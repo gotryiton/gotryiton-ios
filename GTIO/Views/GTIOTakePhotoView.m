@@ -95,7 +95,6 @@
         } completion:^(BOOL finished) {
             [self.imageView removeFromSuperview];
             [self.imageView setImage:nil];
-            [self resetImageViewSizeAndPosition];
             [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
         }];
         [self.deleteButton removeFromSuperview];
@@ -139,11 +138,11 @@
     CGFloat scale = 1.0 - (_lastScale - [(UIPinchGestureRecognizer*)sender scale]);
     CGAffineTransform currentTransform = self.imageView.transform;
     CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, scale, scale);
-    if (newTransform.d < 1 && newTransform.a < 1) {
-        newTransform.d = 1;
-        newTransform.a = 1;
-    }
     [self.imageView setTransform:newTransform];
+    if (self.imageView.frame.size.width <= self.canvas.frame.size.width ||
+        self.imageView.frame.size.height <= self.canvas.frame.size.height) {
+        [self resetImageViewSizeAndPosition];
+    }
     [self.imageView setCenter:[self adjustPointToFitCanvas:self.imageView.center]];
     self.lastScale = [(UIPinchGestureRecognizer*)sender scale];
     if (!CGAffineTransformEqualToTransform(currentTransform, newTransform)) {
@@ -168,8 +167,14 @@
 
 - (void)resetImageViewSizeAndPosition
 {
-
-    [self.imageView setFrame:(CGRect){ 0, 0, self.canvas.bounds.size }];
+    CGSize imageSize = self.imageView.image.size;
+    float imageAspectRatio = imageSize.height / imageSize.width;
+    CGSize canvasSize = self.canvas.frame.size;
+    if ((canvasSize.width * imageAspectRatio) < canvasSize.height) {
+        [self.imageView setFrame:(CGRect){ 0, 0, canvasSize.height / imageAspectRatio, canvasSize.height }];
+    } else {
+        [self.imageView setFrame:(CGRect){ 0, 0, canvasSize.width, canvasSize.width * imageAspectRatio }];
+    }
     [self.imageView setCenter:(CGPoint){ self.canvas.bounds.size.width / 2, self.canvas.bounds.size.height / 2 }];
 }
 
