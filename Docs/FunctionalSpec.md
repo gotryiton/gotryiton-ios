@@ -2113,14 +2113,14 @@ A logged in user can manage their profile, share settings, looks, and friends
 7.1 Management Page [wireframe1](http://invis.io/TQ2OCXAV) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.png" width=420px/>
-=========================================================================================
+
 7.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.Scrolled.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
-any screen with uiTabBar
+any screen with uiTabBar   
 **exit screens:**   
 ([view 7.3](#73-edit-profile-pic))   
 ([view 6.5](#65-following-list))   
@@ -2136,43 +2136,60 @@ any screen with uiTabBar
 
 
 #### API Usage
-/User
+
+Request:  GET /User/me
+
+Response:  Will respond with the extended user object for the currently logged in user.
 
 #### Stories
-- A logged in user can see a management page on the 5th tab
-   -  top nav bar
-   - user detail view
-      - thumbnail
-         - **tap** ==> (view 7.3)
-      - name, location
-      - following: x
-         - **tap** ==> (view 6.5)
-      - followers: x
-         - **tap** ==> (view 6.6)
-      - edit btn
-         - **tap** ==> (view 7.4)
+- A logged in user can see their user info on the management page
+   - user.name, user.location, user.icon are displayed at the top of the page
+- a user can edit their profile icon
+   - profile icon is tappable to edit profile icon
+      - **tap** ==> (view 7.3)
+- a user can edit their profile information
+   - edit button **tap** routes to (view 7.4)
+- a user can see their following count, followers count, and stars count
+   - each button is defined in ```following_button```, ```followers_button```, and ```stars_button``` in api response
+      - button includes count and action for destination tap
+      - buttons tap to (view 6.5), (view 6.6), (view 7.10) respectively
+- a user can tap to their shopping list
    - my shopping list btn
       - **tap** ==> (view 7.8)
+- a user can tap to see their hearted posts
    - my hearts btn
       - **tap** ==> (view 7.5)
+- a user can tap to see their posts
    - my posts
       - **tap** ==> (view 7.6)
-   - find my friends
+- a user can tap to search for tags
+   - search tags button
+      - **tap** ==> (view 7.10)
+- a user can tap to find friends
+   - find my friends button
       - **tap** ==> (view 6.1)
-   - invite friends
+- a user can tap to invite friends
+   - invite friends button
       - **tap** ==> (view 5.1)
-   - share settings
+- a user can edit their settings
+   - settings button
       - **tap** ==> (view 7.2)
-   - sign out
+- a user can sign out
+   - sign out button:
       - confirmation dialog
-         - ok:  api request
-            - **success** ==> (view 1.9)
+         - text: "are you sure you want to log out?""
+         - ok:  api request to ```/user/logout```
+            - on response, discard token and route to (view 1.9)
          - cancel: close dialog
+- a user can toggle their state to private
    - looks are private toggle
       - confirm dialog if you're turng OFF
-      - api request
-   - "messaging about private looks"
-      - this is static copy GTIO will provide
+         - text: "are you sure you want to make your profile private?"
+      - api request:
+         - POST to ```/user/update``` with ```public:true``` or ```public:false``` 
+   - text under the toggle should read: "turn this option ON to require your permission before someone can follow your posts."
+      - use this copy not the copy in the mockup!
+
 
 #### Design Stories
 - Top Area
