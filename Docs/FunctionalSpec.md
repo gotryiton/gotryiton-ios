@@ -2502,23 +2502,21 @@ Each user has a profile page
 #### Mockups
 7.1 basic: ([wireframe](http://invis.io/732OD3ZH))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.1.My.Management.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.1.Other.Profile.Following.png" width=420px/>
 
 7.7.1 other's profile, not following: ([wireframe](http://invis.io/AD2PMYYW))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Following.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.1.Other.Profile.Following.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Not.Following.Bio.Site.png" width=420px/>
-
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.other.profile.not.following.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.1.Other.Profile.Not.Following.Bio.Site.png" width=420px/>
 
 7.7.2 other's profile, following requested: ([wireframe](http://invis.io/4Q2PMZHE))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.2.Follow.Requested.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.2.Follow.Requested.png" width=420px/>
 
 7.7.3 other's profile, with banner: ([wireframe](http://invis.io/RW2POUXA))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.3.Banner.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.3.Banner.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2542,51 +2540,54 @@ previous screen
 
 
 #### API Usage
-/User/Profile
+/user/:id/profile  (see documentation [api-users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 #### Stories
-- a user can view the profile of another user (or their self)
-   - title: profile
-   - settings btn in top right
-      - tapping (if not your own profile) raises actionsheet:
-         - options are:
-            - turn on/off alerts 
-            - follow/unfollow toggle
-            - block/unblock toggle
-         - current on/off states determined by api
-      - tapping if IS your own profile
-         - sends to view 7.1
+- a user can view the profile info of another user (or their self)
+   - user.name, user.location, user.icon are displayed at the top of the page
+      - user.badge is displayed next to name.
+         - path to the badge is defined in api: ```user.badge.path```
+         - file is defined in app
+            - use size "38_38.png" for 2x
+            - use size "17_17.png" for 1x
+- a user can follow another user (but not theirself)
+   - follow button displayed in top right corner
+   - defined in api response ```user.follow_button```
+      - if null, do not display
+- settings btn
+   - defined in api, ```user.settings```
+      - if null, do not display
+   - tapping raises actionsheet with buttons that are contained in the settings_button object:
+      - items in the actionsheet are defined by those buttons
+         - ```button.text``` defines visible text
+         - ```button.action``` defines api action
 - a user can read another user's bio
-   - see (view 7.7.1)
-   - 'Atlantic-Pacific :-)' will be bio text from API response
-- a user can follow another user from their profile if not already following (view 7.7.1)
-   - follow btn (toggle)
-      - see standard documentation for follow btn
+   - bio is defined as ```user.about```
 - a user can see who another user is following
-   - following btn
+   - ```user.following_button``` defines action and count for the following button
       - **tap** ==> (view 6.5)
-- a user can see who another user follows
-   - followers btn
+- a user can see who another user's followers are
+   - ```user.followers_button``` defines action and count for the followers button
       - **tap** ==> (view 6.6)
 - A user can see additional info about another user 
-   - each profile has a customizable text field (view 7.7.1)
-      - icon (sent from api)
-      - text (sent from api)
-         - supports ```<b>```
+   - each profile has a customizable text fields (view 7.7.1)
+      - defined in api as ```users.profile_callouts``` array
+      - each item has ```icon``` and ```text```
+      - text should support ```<b>``` tags for highlighting bold text
+      - items are not tappable
 - Special branded users can display a banner in their profile
    - banner area (view 7.7.3)
-      - image and link served via api
-      - behavior mimics GTIOv3
+      - image and action defined in api with ```user.banner_ad```
 - A users profile can show a button linking to an external site
-   - button defined by api (view 7.7.1)
-      - two button types
-      - text
-      - action
+   - seen in (view 7.7.1)
+   - button defined by api through ```user.website_button```
+      - button includes ```text``` and ```action``` 
 - A users profile shows a masonry list of their hearts and looks
-   - hearts and looks
-      - sent from api
-      - thumbnails with heart toggle
+   - api responds with ```hearts_list``` and ```posts_list``` which will be identical responses to ```/posts/hearted-by-user/:user_id``` and ```/posts/by-user/:user_id``` respectively
+      - api paginates in the usual manner
+   - each post is displayed as a thumbnail using ```post.thumbnail```
       - **tap** ==> (view 4.1), (view 3.1), or (view 3.6)
+
 
 #### Design Stories
 - Top Area
