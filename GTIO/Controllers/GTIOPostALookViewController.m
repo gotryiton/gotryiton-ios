@@ -120,9 +120,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
-    [self.navigationController.navigationBar setFrame:(CGRect){ { 0, statusBarFrame.size.height }, self.navigationController.navigationBar.frame.size}];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 

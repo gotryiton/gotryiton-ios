@@ -33,6 +33,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     if (self) {
         _photoImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_photoImageView setContentMode:UIViewContentModeScaleAspectFit];
+        [self setWantsFullScreenLayout:YES];
     }
     return self;
 }
@@ -67,18 +68,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 {
     [super viewDidUnload];
     self.photoConfirmationToolbarView = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -218,7 +218,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.flashButton setAlpha:1.0f];
     
     double delayInSeconds = 0.1f;
@@ -226,12 +225,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self.captureSession startRunning];
     });
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

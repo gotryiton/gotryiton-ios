@@ -39,7 +39,7 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     
-    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [bgImageView setImage:[[UIImage imageNamed:@"checkered-bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 0, 0, 0, 0 }]];
     [self.view addSubview:bgImageView];
     
