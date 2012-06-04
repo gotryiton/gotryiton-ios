@@ -1,3 +1,110 @@
+***Monday, June 4th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review GTIO feedback (github issues), incorporate into Sprint
+- GTIO - Decide what to show with Autofocus
+
+**Status**
+- Plan for iteration looks fine
+- 7.1 / 7.7 updated EOB today
+- 1.8 assets on schedule for EOB 6/6
+
+**Updates to Planned Work**
+- Worked ADDED to Sprint
+ - 153 - 12.4 photoshoot grid layout tweaks
+ - 152 - 12.3 post a look design tweaks
+ - 150 - 7.3 thumbnail styling bugs
+ - 149 - shutter button can be hit multiple times (12.1)
+ - 148 - 'sign up with another provider' target area too small (1.3 Sign In)
+ - 147 - Photos should always fill their frame
+ - 146 - exiting app during photoshoot has bad consequences
+ - 145 - single photo upload on screen 12.3 doesnt have active post button
+ - 142 - cancel button while post button is active (screen 12.3)
+ - 141 - scrolling on description and brands fields (screen 12.3)
+ - 140 - "next" button should appear in the keyboard not a bar over the keyboard (screen 12.3)
+ - 139 - tap to focus should be available during camera capture
+ - 138 - no flash button available during non-photoshoot camera capture
+ - 137 - website and about me not saving correctly on almost done
+
+New Total:
+
+Features: 14
+
+Bugs: 20
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Flashmode on photoshoot? A: NO
+- Auto Focus - place where user taps
+
+---
+
+***Sprint 3 Development Plan (Monday, June 4th 2012 - Friday, June 15th, 2012)***
+
+Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=3&state=open
+
+**Planned Work**
+
+Features planned: 12
+
+Bug Fixes planned: 9
+
+- **Planned Issues**
+ - 134 - 7.1 My Management Table View
+ - 133 - 7.1 My Management Table View Header Styling
+ - 132 - 1.8 Quick Add API
+ - 131 - 1.8 Quick Add styling
+ - 130 - 12.2 Apply Photo Filters to Photos
+ - 129 - 12.2 Photo Filters view
+ - 128 - Nav Bar w/ Noficiations
+ - 127 - Login doesnt respect is_new_user and has_complete_profile states
+ - 126 - Camera Status Bar
+ - 125 - Custom UISwitch styling on Post Photo View
+ - 124 - Post View Nav Bar Styling
+ - 123 - Hard to click switches on Post Photo View
+ - 122 - Post button not enabled initially
+ - 121 - Photo Shoot Countdown View and Flash Animations
+ - 120 - "Select One Photo" view transition
+ - 119 - Post View Switch Default Values
+ - 118 - Burst mode optimize photo processing
+ - 115 - Almost done Text Issues
+ - 99 - 12.3 POST /post
+ - 98 - 12.3 Upload photo
+ - 90 - 12.1 Photo Frame Shooting mode
+
+
+**Important Dates / Deadlines**
+
+- Scott out of office - 6/15
+- Matt out of office - 6/8
+- Assets for 1.8 needed EOB Wednesday
+
+**Open Questions**
+
+- When can we expect the functional spec update for 7.1? Dev slated to start mid-late this week
+
+**Risks**
+
+- None identified at this time
+
+**General Notes**
+
+- Focus first on bugs, photo posting, frame shooting
+
+**Sprint Deliverables**
+
+- Supplemental build containing upload functionality delivered 6/6
+- Miletone build with completed issues delivered 6/15
+
+---
+
 ***Friday, June 1st - Standup / Retrospective Notes***
 
 **Attendees**
