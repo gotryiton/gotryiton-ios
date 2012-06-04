@@ -1,3 +1,62 @@
+***Sprint 3 Development Plan (Monday, June 4th 2012 - Friday, June 15th, 2012)***
+
+Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=3&state=open
+
+**Planned Work**
+
+Features planned: 12
+
+Bug Fixes planned: 9
+
+- **Planned Issues**
+ - 134 - 7.1 My Management Table View
+ - 133 - 7.1 My Management Table View Header Styling
+ - 132 - 1.8 Quick Add API
+ - 131 - 1.8 Quick Add styling
+ - 130 - 12.2 Apply Photo Filters to Photos
+ - 129 - 12.2 Photo Filters view
+ - 128 - Nav Bar w/ Noficiations
+ - 127 - Login doesnt respect is_new_user and has_complete_profile states
+ - 126 - Camera Status Bar
+ - 125 - Custom UISwitch styling on Post Photo View
+ - 124 - Post View Nav Bar Styling
+ - 123 - Hard to click switches on Post Photo View
+ - 122 - Post button not enabled initially
+ - 121 - Photo Shoot Countdown View and Flash Animations
+ - 120 - "Select One Photo" view transition
+ - 119 - Post View Switch Default Values
+ - 118 - Burst mode optimize photo processing
+ - 115 - Almost done Text Issues
+ - 99 - 12.3 POST /post
+ - 98 - 12.3 Upload photo
+ - 90 - 12.1 Photo Frame Shooting mode
+
+
+**Important Dates / Deadlines**
+
+- Scott out of office - 6/15
+- Matt out of office - 6/8
+- Assets for 1.8 needed EOB Wednesday
+
+**Open Questions**
+
+- When can we expect the functional spec update for 7.1? Dev slated to start mid-late this week
+
+**Risks**
+
+- None identified at this time
+
+**General Notes**
+
+- Focus first on bugs, photo posting, frame shooting
+
+**Sprint Deliverables**
+
+- Supplemental build containing upload functionality delivered 6/6
+- Miletone build with completed issues delivered 6/15
+
+---
+
 ***Friday, June 1st - Standup / Retrospective Notes***
 
 **Attendees**
