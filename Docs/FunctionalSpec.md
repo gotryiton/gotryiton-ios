@@ -95,7 +95,9 @@
 
 Api docs will be hosted on gotryiton.  The most up-to-date documentaiton can be found at:
 
-[GTIO Api Docs](http://gtio-dev.gotryiton.com/docs/)
+[GTIO Api Docs](http://gtio-dev.gotryiton.com/docs/)   
+user: tt   
+pass: toast   
 
 ---
 
