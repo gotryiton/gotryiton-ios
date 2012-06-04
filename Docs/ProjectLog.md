@@ -1,3 +1,35 @@
+***Friday, June 1st - Standup / Retrospective Notes***
+
+**Attendees**
+
+- TT - Matt, Scott
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review Simon's pull request related to filters
+- GTIO - Updated spec with completed mockups (7.1)
+
+**Status**
+- Build delievered!
+
+**Planned Work Delivered**
+- Please see the ChangeLog document for a list of all delivered work
+ - https://github.com/twotoasters/GTIO-iOS/blob/master/Docs/ChangeLog.md#build-4001---june-1st-2012
+
+**Planned Work Pushed to Next Sprint**
+- NA
+
+**Sprint Retrospective**
+- Pulled back planned work based on undefined work around custom switch, complexity surrounding burst mode
+Tentative plan for next sprint (to be detailed on Monday)
+ - 2.x Nav Bar
+ - remaining sprint 2 stories
+ - 1.8 (finalized?)
+ - Photo Filters
+ - Begin Profile Pages (7.1)
+
+---
+
 ***Thursday, May 31st - Standup Notes***
 
 **Attendees**
