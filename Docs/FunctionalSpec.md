@@ -863,6 +863,10 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
          - middle is stretchable
          - 2px nonstretchable on right
          - 8px nonstretchable on left
+   - Font
+         - Proxima Nova Regular
+         - 5.5pt
+         - rgb(143,143,143)
 - Notifications View
    - 'nav.logo.png' as title
       - asset is padded to allow vertical and horizontal centering
