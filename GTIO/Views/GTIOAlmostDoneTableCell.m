@@ -61,7 +61,7 @@
         [self.cellAccessoryTextMulti setDelegate:self];
         [self.cellAccessoryTextMulti setTextColor:[UIColor gtio_darkGrayTextColor]];
         [self.cellAccessoryTextMulti setPlaceholderColor:[UIColor gtio_darkGrayTextColor]];
-        [self.cellAccessoryTextMulti setInputAccessoryView:self.accessoryToolBar];
+        [self.cellAccessoryTextMulti setReturnKeyType:UIReturnKeyDone];
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSaveDataMulti:) name:UITextViewTextDidChangeNotification object:self.cellAccessoryTextMulti];
         
@@ -75,14 +75,18 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)keyboardDoneTapped:(id)sender
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    if (self.multiLine) {
-        if ([self.delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
-            [self.delegate resetScrollAfterEditing];
+    if ([text isEqualToString:@"\n"] && [textView isEqual:self.cellAccessoryTextMulti]) {
+        if (self.multiLine) {
+            if ([self.delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
+                [self.delegate resetScrollAfterEditing];
+            }
+            [self.cellAccessoryTextMulti resignFirstResponder];
+            return NO;
         }
-        [self.cellAccessoryTextMulti resignFirstResponder];
     }
+    return YES;
 }
 
 - (void)pickerNextTapped:(id)sender

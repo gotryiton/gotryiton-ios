@@ -28,11 +28,13 @@
 
 @property (nonatomic, strong) NSTimer *photoSaveTimer;
 
+@property (nonatomic, assign) BOOL scrollingToTop;
+
 @end
 
 @implementation GTIOPostALookViewController
 
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, emptyDescriptionAlert = _emptyDescriptionAlert;
+@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, emptyDescriptionAlert = _emptyDescriptionAlert, scrollingToTop = _scrollingToTop;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,6 +45,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookSelectorViewUpdated:) name:kGTIOLooksUpdated object:nil];
+        _scrollingToTop = NO;
     }
     return self;
 }
@@ -56,7 +59,9 @@
 {
     [super viewDidLoad];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size }];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 50 - 44 }];
+    [self.scrollView setDelegate:self];
+    [self.scrollView setBounces:NO];
     [self.view addSubview:self.scrollView];
     
     self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ 8, 8, 237, 312 } photoSet:NO];
@@ -89,7 +94,7 @@
     [self.postThisButton setEnabled:NO];
     [postThisButtonBackground addSubview:self.postThisButton];
     
-    [self.scrollView setContentSize:(CGSize){ self.view.bounds.size.width, self.descriptionBox.frame.origin.y + self.descriptionBox.bounds.size.height + postThisButtonBackground.bounds.size.height + self.navigationController.navigationBar.bounds.size.height }];
+    [self.scrollView setContentSize:(CGSize){ self.view.bounds.size.width, self.descriptionBox.frame.origin.y + self.descriptionBox.bounds.size.height + 5 }];
 }
 
 - (void)viewDidUnload
@@ -107,13 +112,65 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-    [self.scrollView setFrame:(CGRect){ self.originalFrame.origin, self.originalFrame.size.width, self.originalFrame.size.height - 215 }];
-    [self.scrollView scrollRectToVisible:(CGRect){ 0, self.descriptionBox.frame.origin.y + 50, self.descriptionBox.bounds.size } animated:YES];
+    [self.scrollView setFrame:(CGRect){ self.originalFrame.origin, self.originalFrame.size.width, self.originalFrame.size.height - 165 }];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification
 {
     [self.scrollView setFrame:self.originalFrame];
+    [self.scrollView setContentOffset:(CGPoint){ 0, 0 } animated:YES];
+}
+
+//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+//{
+//    if (targetContentOffset->y > (scrollView.contentSize.height - scrollView.frame.size.height) / 2 ) {
+//        targetContentOffset->y = scrollView.contentSize.height - scrollView.frame.size.height;
+//        [self.descriptionBox.textView becomeFirstResponder];
+//    } else {
+//        targetContentOffset->y = 0;
+//        [self.descriptionBox.textView resignFirstResponder];
+//        [self.tagBox.textView resignFirstResponder];
+//    }
+//}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self snapScrollView:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate) {
+        [self snapScrollView:scrollView];
+    }
+}
+
+- (void)snapScrollView:(UIScrollView *)scrollView
+{
+    CGPoint contentOffset = scrollView.contentOffset;
+    NSLog(@"Content offset: %@", NSStringFromCGPoint(contentOffset));
+    
+    CGRect scrollToRect;
+    BOOL top = NO;
+    if (contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height) / 2 ) {
+        scrollToRect = CGRectMake(0, scrollView.contentSize.height - 1, 1, 1);
+//        [scrollView setContentOffset:(CGPoint){ 0, scrollView.contentSize.height - scrollView.frame.size.height } animated:YES];
+    } else {
+        scrollToRect = CGRectMake(0, 0, 1, 1);
+        top = YES;
+//        [scrollView setContentOffset:(CGPoint){ 0, 0 } animated:YES];
+    }
+    
+    [UIView animateWithDuration:0.15 animations:^{
+        [scrollView scrollRectToVisible:scrollToRect animated:YES];
+    } completion:^(BOOL finished) {
+        if (top) {
+            [self.tagBox.textView resignFirstResponder];
+            [self.descriptionBox.textView resignFirstResponder];
+        } else {
+            [self.descriptionBox.textView becomeFirstResponder];
+        }
+    }];
 }
 
 - (void)postThis:(id)sender
