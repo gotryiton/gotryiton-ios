@@ -63,12 +63,22 @@
                 [self.navigationController pushViewController:failedSignInViewController animated:YES];
             } else {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                if (user.isNewUser || !user.hasCompleteProfile) {
-                    // load "almost done" screen
-                    GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
-                    [self.navigationController pushViewController:almostDone animated:YES];
+                if (user.isNewUser) {
+                    if (user.hasCompleteProfile) {
+                        // load 1.8
+                        NSLog(@"Load screen 1.8");
+                    } else {
+                        GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+                        [self.navigationController pushViewController:almostDone animated:YES];
+                    }
                 } else {
-                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                    if (user.hasCompleteProfile) {
+                        // load 1.8
+                        NSLog(@"Load screen 1.8");
+                    } else {
+                        GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+                        [self.navigationController pushViewController:almostDone animated:YES];
+                    }
                 }
             }
         }];
@@ -79,7 +89,8 @@
     [self.returningUserButton setFrame:(CGRect){ { (self.view.frame.size.width - self.returningUserButton.frame.size.width) / 2, 300 }, self.returningUserButton.frame.size }];
     [self.returningUserButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.returningUserButton setTapHandler:^(id sender) {
-        GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:YES];
+//        GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:YES];
+        GTIOPostALookViewController *returningUsersViewController = [[GTIOPostALookViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:returningUsersViewController animated:YES];
     }];
     [self.view addSubview:self.returningUserButton];
