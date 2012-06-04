@@ -588,6 +588,8 @@ POST /User (see documentation [ApiUser](ApiUser.md) )
       - mandatory field labels (name, email, gender) - 7pt Proxima Nova Semibold #ff6a72
    - example input text
       - 7pt Proxima Nova Light Italic #a4a4a4
+   - actual input text
+      - 7pt Proxima Nova Regular #8f8f8f
    - text prompting picker controls (select, select year)
       - 7pt Proxima Nova Semibold #8f8f8f
 
@@ -2406,6 +2408,8 @@ previous screen
       - mandatory field labels (name, email, gender) - 7pt Proxima Nova Semibold #ff6a72
    - example input text
       - 7pt Proxima Nova Light Italic #a4a4a4
+   - actual input text
+      - 7pt Proxima Nova Regular #8f8f8f
    - text prompting picker controls (select, select year)
       - 7pt Proxima Nova Semibold #8f8f8f
 
