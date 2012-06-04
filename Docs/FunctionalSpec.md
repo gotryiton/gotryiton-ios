@@ -2142,20 +2142,20 @@ any screen with uiTabBar
 
 #### API Usage
 
-Request:  GET /User/me
+Request:  ```GET /user/management```  [api-users](http://gtio-dev.gotryiton.com/docs/api-users)
 
 Response:  Will respond with the extended user object for the currently logged in user.
 
 #### Stories
 - A logged in user can see their user info on the management page
-   - user.name, user.location, user.icon are displayed at the top of the page
+   - ```user.name```, ```user.location```, ```user.icon``` are displayed at the top of the page
 - a user can edit their profile icon
    - profile icon is tappable to edit profile icon
       - **tap** ==> (view 7.3)
 - a user can edit their profile information
    - edit button **tap** routes to (view 7.4)
 - a user can see their following count, followers count, and stars count
-   - each button is defined in ```following_button```, ```followers_button```, and ```stars_button``` in api response
+   - each button is defined in ```user.following_button```, ```user.followers_button```, and ```user.stars_button``` in api response
       - button includes count and action for destination tap
       - buttons tap to (view 6.5), (view 6.6), (view 7.9) respectively
 - a user can tap to their shopping list
