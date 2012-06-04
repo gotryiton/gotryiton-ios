@@ -86,17 +86,15 @@
 
 ### General Questions
 
-1. ~~**progress bars**: Will we be able to show a progress bar during the upload process?  Relatedly, will we be able to show a progress bar during the image download process (after a user's feed API call has returned, but before the user has loaded images from that API response).~~ easy
+---
 
-2.  ~~**retry requests**: Similar to Question 1, We've noticed that Instagram employs a 'retry' button for both uploads and image downloads.  This seems to be so that they can force a strict timeout length on their uploads and downloads and maintain an overal appearance of speed throughout the app.  We'd like to investigate the difficulty of something similar.  (to experience it in instagram, switch to edge and load a feed-- most images will give a 'couldnt load image. tap to retry' message).~~ easy.
+### Api Documentation
 
-3.  ~~On the Popular Looks Grid (view 9.1), We're showing a grid view of a feed of posts.  On the Feed view (view 8.1) we're showing the same data in a feed view.  We'd like for a button on the Popular looks grid (9.1) to allow a user to switch between the feed view and grid view consumption of the list.  (this feature will only be available for view 9.1, view 8.1 will always be consumed in a feed view).  Is this simple to implement or does it add complexity?~~  simple.
+Api docs will be hosted on gotryiton.  The most up-to-date documentaiton can be found at:
 
-4.  ~~In spec'ing out the Share Settings screen (view 7.2), we determined that maintaining flexibility about the fields in the list means that it would be easier to implement as a webview (similar to the FourSquare app).  Since this view will need to make api calls that have a device token (in order to enable and disable push alerts), will there be any issues with Apple approval if that device token is passed in the clear to a webview?  (we're already passing it in the clear to an api in our current app, but wanted to confirm you guys dont see any issues before we revise the design).~~ shouldnt be an issue
+[GTIO Api Docs](http://gtio-dev.gotryiton.com/docs/)
 
-5. ~~We're interested in customizing the standard iOS dialog message view throughout the app.  What is the scale of complexity to acheive this.  We'd use this dialog for all places in this spec that reference a dialog message.~~ doable.
-
-
+---
 
 ### Deployment Targets
 - iOS 5, iOS 6
@@ -148,7 +146,7 @@ reponse:
 }
 ```
 
-GET /User/me  (see documentation [ApiUsers][ApiUsers.md])
+GET /User/me  (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users) )
 
 response: 
 
@@ -183,7 +181,7 @@ response:
 ```
 
 
-POST /track  (see documentation [ApiTrack](ApiTrack.md) )
+POST /track  (see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track) )
 
 request: 
 
@@ -325,7 +323,7 @@ POST /track
 }
 ```
 
-POST User/Signup/Facebook (see documentation [ApiUser](ApiUser.md) )
+POST User/Signup/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 
 
@@ -381,9 +379,9 @@ previous screen
 
 #### API Usage
 
-POST User/Auth/Facebook (see documentation [ApiUser](ApiUser.md) )
+POST User/Auth/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
-POST User/Auth/Janrain (see documentation [ApiUser](ApiUser.md) )
+POST User/Auth/Janrain (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 #### Stories
 - A returning user is presented with a sign in screen and can sign in
@@ -441,7 +439,7 @@ previous screen
 
 #### API Usage
 
-POST User/Signup/Janrain (see documentation [ApiUser](ApiUser.md) )
+POST User/Signup/Janrain (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 #### Stories
 - new users can sign up with janrain sdk (aol/google/twitter/yahoo options)
@@ -551,7 +549,7 @@ POST /track
 }
 ```
 
-POST /User (see documentation [ApiUser](ApiUser.md) )
+POST /User (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 
 
@@ -682,7 +680,7 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 
 #### API Usage
 
-POST User/Auth/Facebook (see documentation [ApiUser](ApiUser.md) )
+POST User/Auth/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 #### Stories
 
@@ -742,9 +740,9 @@ previous screen
 
 #### API Usage
 
-POST User/Auth/Facebook (see documentation [ApiUser](ApiUser.md) )   
+POST User/Auth/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))   
 
-POST User/Signup/Facebook (see documentation [ApiUser](ApiUser.md) )   
+POST User/Signup/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))   
 
 #### Stories
 
@@ -3195,7 +3193,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 
 POST /track
 
-see documentation [Tracking API](ApiTrack.md)
+see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
 
 ```json
 {
@@ -3373,7 +3371,7 @@ A user can add details to their post before they submit.  They can select to use
 
 POST /track  
 
-see documentation [Tracking API](ApiTrack.md)
+see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
 
 
 ```json
