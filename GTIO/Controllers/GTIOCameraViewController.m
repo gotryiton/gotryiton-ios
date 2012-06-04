@@ -136,7 +136,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     
     // Flash button
     self.flashButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoFlash];
-    [self.flashButton setFrame:(CGRect){ { 5, 6 }, self.flashButton.frame.size }];
+    [self.flashButton setFrame:(CGRect){ { 5, 26 }, self.flashButton.frame.size }];
     __block typeof(self) blockSelf = self;
     [self.flashButton setTapHandler:^(id sender) {
         blockSelf.flashOn = !blockSelf.isFlashOn;
@@ -151,7 +151,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [blockSelf.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     }];
     
-    if ([self.captureDevice isFlashModeSupported:AVCaptureFlashModeOn]) {
+    if ([self.captureDevice isFlashAvailable]) {
         [self.view addSubview:self.flashButton];
     }
     

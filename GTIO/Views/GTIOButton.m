@@ -200,7 +200,7 @@
 
 + (id)gtio_photoFlashButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"upload.flash.off.png"] hightlightImage:nil];
+    return [self buttonWithImage:[UIImage imageNamed:@"upload.flash-OFF.png"] hightlightImage:nil];
 }
 
 + (id)gtio_photoSelectBox
