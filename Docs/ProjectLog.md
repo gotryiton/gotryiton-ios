@@ -19,7 +19,6 @@
  - 151 - 1.7 (and 7.4) text formatting
  - 135 - /user/signup/janrain api request is not passing http auth
  - 122 - Post button not enabled initially
- - 
 - Work REMOVED from Sprint
  - 160 - DUPLICATE ISSUE
 
