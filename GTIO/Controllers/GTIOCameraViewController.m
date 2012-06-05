@@ -19,10 +19,13 @@
 
 #import "GTIOPhotoShootGridViewController.h"
 #import "GTIOPhotoConfirmationViewController.h"
+#import "GTIOPostALookViewController.h"
+
+NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotification";
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
 
-@interface GTIOCameraViewController ()
+@interface GTIOCameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
@@ -32,7 +35,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @property (nonatomic, strong) GTIOCameraToolbarView *photoToolbarView;
 @property (nonatomic, strong) GTIOPhotoShootProgressToolbarView *photoShootProgresToolbarView;
 @property (nonatomic, strong) GTIOButton *flashButton;
-@property (nonatomic, assign, getter = isFlashOn) BOOL flashOn;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
 
@@ -40,6 +42,10 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 @property (nonatomic, assign) NSInteger startingPhotoCount;
 @property (nonatomic, strong) NSTimer *imageWaitTimer;
+
+@property (nonatomic, strong) UIImagePickerController *imagePickerController;
+
+@property (nonatomic, strong) GTIOPostALookViewController *postALookViewController;
 
 @end
 
@@ -53,6 +59,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @synthesize capturedImages = _capturedImages;
 @synthesize imageWaitTimer = _imageWaitTimer;
 @synthesize startingPhotoCount = _startingPhotoCount;
+@synthesize imagePickerController = _imagePickerController;
+@synthesize postALookViewController = _postALookViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -79,6 +87,20 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         }
         
         _capturedImages = [NSMutableArray array];
+        
+        _imagePickerController = [[UIImagePickerController alloc] init];
+        [_imagePickerController setDelegate:self];
+        
+        _postALookViewController = [[GTIOPostALookViewController alloc] initWithNibName:nil bundle:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:kGTIOPhotoAcceptedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+            UIImage *photo = [note.userInfo objectForKey:@"photo"];
+            
+            if (photo) {
+                [_postALookViewController setMainImage:photo];
+                [self.navigationController pushViewController:_postALookViewController animated:YES];
+            }
+        }];
     }
     return self;
 }
@@ -113,22 +135,13 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     
     // Flash button
     self.flashButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoFlash];
-    [self.flashButton setFrame:(CGRect){ { 5, 6 }, self.flashButton.frame.size }];
+    [self.flashButton setFrame:(CGRect){ { 5, 26 }, self.flashButton.frame.size }];
     __block typeof(self) blockSelf = self;
     [self.flashButton setTapHandler:^(id sender) {
         blockSelf.flashOn = !blockSelf.isFlashOn;
-        
-        NSString *imageName = @"upload.flash-OFF.png";
-        if (self.isFlashOn) {
-            imageName = @"upload.flash-ON.png";
-            [blockSelf changeFlashMode:AVCaptureFlashModeOn];
-        } else {
-            [blockSelf changeFlashMode:AVCaptureFlashModeOff];
-        }
-        [blockSelf.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     }];
     
-    if ([self.captureDevice isFlashModeSupported:AVCaptureFlashModeOn]) {
+    if ([self.captureDevice isFlashAvailable]) {
         [self.view addSubview:self.flashButton];
     }
     
@@ -151,10 +164,18 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
             [blockSelf singleModeButtonPress];
         }
     }];
+    [self.photoToolbarView.photoPickerButton setTapHandler:^(id sender) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+            [blockSelf presentViewController:self.imagePickerController animated:YES completion:nil];
+        }
+    }];
     [self.photoToolbarView.photoShootGridButton setTapHandler:^(id sender){
         GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
         [photoShootGridViewController setImages:self.capturedImages];
         [self.navigationController pushViewController:photoShootGridViewController animated:YES];
+    }];
+    [self.photoToolbarView setPhotoModeSwitchChangedHandler:^(BOOL on) {
+        [blockSelf showFlashButton:!on];
     }];
     [self.view addSubview:self.photoToolbarView];
     
@@ -190,20 +211,13 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-    [self.flashButton setAlpha:1.0f];
+    [self showFlashButton:![self.photoToolbarView.photoModeSwitch isOn]];
     
     double delayInSeconds = 0.1f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self.captureSession startRunning];
     });
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -215,6 +229,33 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - 
+
+- (void)showFlashButton:(BOOL)showFlashButton
+{
+    [UIView animateWithDuration:0.15f animations:^{
+        CGFloat alpha = 0.0f;
+        if (showFlashButton) {
+            alpha = 1.0f;
+        }
+        [self.flashButton setAlpha:alpha];
+    }];
+}
+
+#pragma mark - Property
+
+- (void)setFlashOn:(BOOL)flashOn
+{
+    _flashOn = flashOn;
+    
+    NSString *imageName = @"upload.flash-OFF.png";
+    if (_flashOn) {
+        imageName = @"upload.flash-ON.png";
+    } else {
+    }
+    [self.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
 }
 
 #pragma mark - Capture Image
@@ -237,7 +278,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     
     NSLog(@"about to request a capture from: %@", self.stillImageOutput);
     
-    // Show flash overlay
+    // Show shutter overlay
     [UIView animateWithDuration:0.15f animations:^{
         [self.shutterFlashOverlay setAlpha:1.0f];
     } completion:^(BOOL finished) {
@@ -317,22 +358,17 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 - (void)singleModeButtonPress
 {
+    [self changeFlashForceOff:NO];
     [self captureImageWithHandler:^(UIImage *image) {
-        // TODO: open filter page
         UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
-        
-        GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
-        [photoConfirmationViewController setPhoto:resizedImage];
-        [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
+        [self openPhotoConfirmationScreenWithPhoto:resizedImage];
     }];
 }
 
 - (void)photoShootModeButtonPress
 {
+    [self changeFlashForceOff:YES];
     [UIView animateWithDuration:0.3 animations:^{
-        // Hide flash button
-        [self.flashButton setAlpha:0.0f];
-        
         // Switch tool bars
         [self.photoShootProgresToolbarView setAlpha:1.0f];
         [self.photoToolbarView setAlpha:0.0f];
@@ -361,6 +397,15 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 #pragma mark - Flash Helpers
 
+- (void)changeFlashForceOff:(BOOL)forceOff
+{
+    if (self.isFlashOn && !forceOff) {
+        [self changeFlashMode:AVCaptureFlashModeOn];
+    } else {
+        [self changeFlashMode:AVCaptureFlashModeOff];
+    }
+}
+
 - (void)changeFlashMode:(AVCaptureFlashMode)flashMode
 {
     NSError *error = nil;
@@ -368,6 +413,30 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [self.captureDevice setFlashMode:flashMode];
         [self.captureDevice unlockForConfiguration];
     }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+    [self.imagePickerController dismissModalViewControllerAnimated:YES];
+    [self openPhotoConfirmationScreenWithPhoto:resizedImage];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self.imagePickerController dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - Launch Screens
+
+- (void)openPhotoConfirmationScreenWithPhoto:(UIImage *)photo
+{
+    GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
+    [photoConfirmationViewController setPhoto:photo];
+    [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
 }
 
 @end

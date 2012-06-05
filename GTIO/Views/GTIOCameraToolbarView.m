@@ -20,6 +20,7 @@ NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
 
 @synthesize closeButton = _closeButton, photoPickerButton = _photoPickerButton, photoShootGridButton = _photoShootGridButton, shutterButton = _shutterButton, photoModeSwitch = _photoModeSwitch;
 @synthesize photoShootGridDivider = _photoShootGridDivider;
+@synthesize photoModeSwitchChangedHandler = _photoModeSwitchChangedHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -83,6 +84,7 @@ NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
         [_photoModeSwitch setTrackFrame:[UIImage imageNamed:@"upload.bottom.bar.switch.track.png"]];
         [_photoModeSwitch setTrackFrameMask:[UIImage imageNamed:@"upload.bottom.bar.switch.mask.png"]];
         [_photoModeSwitch setKnob:[UIImage imageNamed:@"upload.bottom.bar.switch.knob.png"]];
+
         [_photoModeSwitch setChangeHandler:^(BOOL on) {
             // Normal mode (default)
             NSString *shutterButtonImage = @"upload.bottom.bar.camera.button.icon.normal.png";
@@ -93,6 +95,10 @@ NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
             } 
             
             [self.shutterButton setImage:[UIImage imageNamed:shutterButtonImage] forState:UIControlStateNormal];
+            
+            if (self.photoModeSwitchChangedHandler) {
+                self.photoModeSwitchChangedHandler(on);
+            }
         }];
         [self addSubview:_photoModeSwitch];
         

@@ -10,7 +10,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-NSInteger const kKnobXOffset = 1;
 CGFloat const kAnimationDuration = 0.25;
 
 @interface GTIOSwitch ()
@@ -29,6 +28,7 @@ CGFloat const kAnimationDuration = 0.25;
 @synthesize trackImageView = _trackImageView, trackFrameImageView = _trackFrameImageView, knobImageView = _knobImageView;
 @synthesize on = _on;
 @synthesize changeHandler = _changeHandler;
+@synthesize knobXOffset = _knobXOffset;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -48,6 +48,7 @@ CGFloat const kAnimationDuration = 0.25;
         [self setClipsToBounds:YES];
         
         _on = NO;
+        _knobXOffset = 0;
         
         UIPanGestureRecognizer *knobPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleKnobPanGesture:)];
         [knobPanGestureRecognizer setMinimumNumberOfTouches:1];
@@ -86,7 +87,13 @@ CGFloat const kAnimationDuration = 0.25;
 {
     _knob = knob;
     [_knobImageView setImage:_knob];
-    [_knobImageView setFrame:(CGRect){ { kKnobXOffset, 0 }, _knob.size }];
+    [_knobImageView setFrame:(CGRect){ { self.knobXOffset, 0 }, _knob.size }];
+}
+
+- (void)setKnobXOffset:(NSInteger)knobXOffset
+{
+    _knobXOffset = knobXOffset;
+    [self setKnob:self.knob];
 }
 
 - (void)setOn:(BOOL)on
@@ -120,9 +127,9 @@ CGFloat const kAnimationDuration = 0.25;
     CGFloat halfOfKnob = self.knobImageView.frame.size.width / 2;
     CGFloat centerX = [self.knobImageView center].x;
     if (centerX < self.frame.size.width / 2) {
-        centerX -= halfOfKnob + kKnobXOffset;
+        centerX -= halfOfKnob + self.knobXOffset;
     } else if (centerX > self.frame.size.width / 2) {
-        centerX += halfOfKnob + kKnobXOffset;
+        centerX += halfOfKnob + self.knobXOffset;
     } else {
         return 0.5;
     }
@@ -136,9 +143,9 @@ CGFloat const kAnimationDuration = 0.25;
     CGFloat newKnobXOrigin = self.knobImageView.center.x;
     
     if (value <= 0.5) { // OFF
-        newKnobXOrigin = (self.knobImageView.frame.size.width / 2) + kKnobXOffset;
+        newKnobXOrigin = (self.knobImageView.frame.size.width / 2) + self.knobXOffset;
     } else { // ON
-        newKnobXOrigin = self.frame.size.width - ((self.knobImageView.frame.size.width / 2) + kKnobXOffset);
+        newKnobXOrigin = self.frame.size.width - ((self.knobImageView.frame.size.width / 2) + self.knobXOffset);
     }
     
     [UIView animateWithDuration:animationDuration animations:^{
@@ -158,10 +165,10 @@ CGFloat const kAnimationDuration = 0.25;
         
         // Don't move past start or end
         CGFloat newX = [knobImageView center].x + translation.x;
-        if (newX < (knobImageView.frame.size.width / 2) + kKnobXOffset) { // start
-            newX = (knobImageView.frame.size.width / 2) + kKnobXOffset;
-        } else if (newX > self.frame.size.width - ((knobImageView.frame.size.width / 2) + kKnobXOffset)) { // End
-            newX = self.frame.size.width - ((knobImageView.frame.size.width / 2) + kKnobXOffset);
+        if (newX < (knobImageView.frame.size.width / 2) + self.knobXOffset) { // start
+            newX = (knobImageView.frame.size.width / 2) + self.knobXOffset;
+        } else if (newX > self.frame.size.width - ((knobImageView.frame.size.width / 2) + self.knobXOffset)) { // End
+            newX = self.frame.size.width - ((knobImageView.frame.size.width / 2) + self.knobXOffset);
         }
         
         [knobImageView setCenter:CGPointMake(newX, [knobImageView center].y)];
@@ -185,6 +192,11 @@ CGFloat const kAnimationDuration = 0.25;
     } else if ([self value] > 0.5f) {
         self.on = NO;
     }
+}
+
+- (void)handleExteriorTapGesture
+{
+    [self handleTapGesture:nil];
 }
 
 @end

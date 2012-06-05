@@ -96,7 +96,7 @@
     [self.myLooksLabel setText:@"my looks"];
     [self.chooseFromBox addSubview:self.myLooksLabel];
     
-    self.myLooksIcons = [[UIScrollView alloc] initWithFrame:(CGRect){ 90, 72, 195, 70 }];
+    self.myLooksIcons = [[UIScrollView alloc] initWithFrame:(CGRect){ 88, 70, 199, 74 }];
     [self.myLooksIcons setShowsVerticalScrollIndicator:NO];
     [self.chooseFromBox addSubview:self.myLooksIcons];
     
@@ -168,7 +168,7 @@
     GTIOUser *currentUser = [GTIOUser currentUser];
     self.currentlySelectedProfileIconURL = currentUser.icon;
     
-    [[GTIOUser currentUser] loadUserIconsWithUserID:currentUser.userID andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+    [[GTIOUser currentUser] loadUserIconsWithUserID:@"0596D58" andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         [self.loadingIconsLabel removeFromSuperview];
         if (!error) {
             BOOL userHasFacebookPicture = NO;
@@ -207,15 +207,15 @@
             }
             [self.chooseFromBox addSubview:self.facebookPicture];
             
-            double iconXPos = 0.0;
-            double iconSpacing = 3.0;
+            double iconXPos = 2.0;
+            double iconSpacing = 5.0;
             int numberOfIcons = [self.profileIconURLs count];
             for (int i = 0; i < numberOfIcons; i++) {
-                GTIOSelectableProfilePicture *icon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){iconXPos,0,55,55} andImageURL:(NSURL*)[self.profileIconURLs objectAtIndex:i]];
+                GTIOSelectableProfilePicture *icon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){iconXPos,2,55,55} andImageURL:(NSURL*)[self.profileIconURLs objectAtIndex:i]];
                 [icon setDelegate:self];
                 [self.profileIconViews addObject:icon];
                 [self.myLooksIcons addSubview:icon];
-                iconXPos += 55 + ((i == (numberOfIcons - 1)) ? 0 : iconSpacing);
+                iconXPos += 55 + ((i == (numberOfIcons - 1)) ? 2.0 : iconSpacing);
             }
             [self.myLooksIcons setContentSize:(CGSize){ numberOfIcons * (55 + iconSpacing), 70 }];
             

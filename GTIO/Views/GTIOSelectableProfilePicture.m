@@ -13,6 +13,8 @@
 @interface GTIOSelectableProfilePicture()
 
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIView *canvas;
+@property (nonatomic, strong) UIView *border;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
@@ -20,22 +22,30 @@
 @implementation GTIOSelectableProfilePicture
 
 @synthesize isSelectable = _isSelectable, isSelected = _isSelected, imageURL = _imageURL, delegate = _delegate, image = _image;
-@synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer;
+@synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer, border = _border, canvas = _canvas;
 
 - (id)initWithFrame:(CGRect)frame andImageURL:(NSURL*)url
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self.layer setCornerRadius:3.0f];
-        [self.layer setMasksToBounds:YES];
+        [self setClipsToBounds:NO];
+        
+        self.canvas = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, frame.size }];
+        [self.canvas.layer setCornerRadius:3.0f];
+        [self.canvas.layer setMasksToBounds:YES];
+        [self addSubview:self.canvas];
         
         self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];
         
         self.imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
         [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
         [self.imageView setImageWithURL:url];
-        [self addSubview:self. imageView];
+        [self.canvas addSubview:self. imageView];
         [self fadeInImageView];
+        
+        self.border = [[UIView alloc] initWithFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
+        [self.border.layer setCornerRadius:3.0f];
+        [self.border setBackgroundColor:[UIColor gtio_greenBorderColor]];
         
         self.isSelected = NO;
         self.isSelectable = YES;
@@ -72,11 +82,10 @@
 {
     _isSelected = isSelected;
     if (self.isSelected) {
-        [self.layer setBorderColor:[UIColor gtio_greenBorderColor].CGColor];
-        [self.layer setBorderWidth:2.0f];
+        [self addSubview:self.border];
+        [self sendSubviewToBack:self.border];
     } else {
-        [self.layer setBorderColor:nil];
-        [self.layer setBorderWidth:0.0f];
+        [self.border removeFromSuperview];
     }
 }
 

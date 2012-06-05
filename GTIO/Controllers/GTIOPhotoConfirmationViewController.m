@@ -8,6 +8,7 @@
 
 #import "GTIOPhotoConfirmationViewController.h"
 
+#import "GTIOCameraViewController.h"
 #import "GTIOPhotoConfirmationToolbarView.h"
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
@@ -32,6 +33,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     if (self) {
         _photoImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_photoImageView setContentMode:UIViewContentModeScaleAspectFit];
+        [self setWantsFullScreenLayout:YES];
     }
     return self;
 }
@@ -40,6 +42,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+    [self.view setBackgroundColor:[UIColor blackColor]];
 }
 
 - (void)viewDidLoad
@@ -55,7 +58,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.photoConfirmationToolbarView.confirmButton setTapHandler:^(id sender) {
-        // TODO open POST view
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:self.photo forKey:@"photo"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPhotoAcceptedNotification object:nil userInfo:userInfo];
     }];
     [self.view addSubview:self.photoConfirmationToolbarView];
 }
@@ -64,18 +68,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 {
     [super viewDidUnload];
     self.photoConfirmationToolbarView = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

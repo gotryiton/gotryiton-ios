@@ -24,6 +24,7 @@
         [self setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:18.0]];
         [self setText:title];
         [self setBackgroundColor:[UIColor clearColor]];
+        [self setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
     }
     return self;
 }
