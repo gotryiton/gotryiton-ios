@@ -1,3 +1,41 @@
+***Tuesday, June 5th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - NA
+
+**Status**
+- NA
+
+**Updates to Planned Work**
+- Work ADDED to Sprint
+ - 158 - updated 'snap' overlay for 12 Upload
+ - 157 - use new active/inactive states for nav bar buttons
+ - 154 - edit profile icon cleared state (screen 7.3)
+ - 151 - 1.7 (and 7.4) text formatting
+ - 135 - /user/signup/janrain api request is not passing http auth
+ - 122 - Post button not enabled initially
+- Work REMOVED from Sprint
+ - 160 - DUPLICATE ISSUE
+
+New Total:
+
+Features: 16
+
+Bugs: 23
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Monday, June 4th - Standup Notes***
 
 **Attendees**
