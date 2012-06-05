@@ -35,7 +35,7 @@
 @implementation GTIOPostALookViewController
 
 @synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, emptyDescriptionAlert = _emptyDescriptionAlert;
-@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage;
+@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage, emptyPostAlert = _emptyPostAlert;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -108,6 +108,8 @@
     [postThisButtonBackground addSubview:self.postThisButton];
     
     [self.scrollView setContentSize:(CGSize){ self.view.bounds.size.width, self.descriptionBox.frame.origin.y + self.descriptionBox.bounds.size.height + 5 }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
 }
 
 - (void)viewDidUnload
@@ -243,7 +245,6 @@
 - (void)setMainImage:(UIImage *)mainImage
 {
     _mainImage = mainImage;
-    
     self.lookSelectorView.singlePhotoView.image = _mainImage;
 }
 

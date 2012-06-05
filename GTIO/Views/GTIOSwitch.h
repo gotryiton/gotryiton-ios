@@ -24,4 +24,6 @@ typedef void(^GTIOSwitchChangeHandler)(BOOL on);
 
 @property (nonatomic, copy) GTIOSwitchChangeHandler changeHandler;
 
+- (void)handleExteriorTapGesture;
+
 @end
