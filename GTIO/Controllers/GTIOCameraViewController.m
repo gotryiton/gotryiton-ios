@@ -48,6 +48,8 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
 
 @property (nonatomic, strong) GTIOPostALookViewController *postALookViewController;
 
+@property (nonatomic, assign, getter = isShootingPhotoShoot) BOOL shootingPhotoShoot;
+
 @end
 
 @implementation GTIOCameraViewController
@@ -62,6 +64,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
 @synthesize startingPhotoCount = _startingPhotoCount;
 @synthesize imagePickerController = _imagePickerController;
 @synthesize postALookViewController = _postALookViewController;
+@synthesize shootingPhotoShoot = _shootingPhotoShoot;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -101,9 +104,25 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
                 [_postALookViewController setMainImage:photo];
                 [self.navigationController pushViewController:_postALookViewController animated:YES];
             }
+        }]; 
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+            if (self.isShootingPhotoShoot) {
+                self.photoShootTimerView.completionHandler = nil;
+                [self.imageWaitTimer invalidate];
+                [self.capturedImages removeAllObjects];
+                [self.photoShootTimerView setHidden:YES];
+                [self resetView];
+                self.shootingPhotoShoot = NO;
+            }
         }];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)loadView
@@ -185,6 +204,11 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
     [self.shutterFlashOverlay setImage:[UIImage imageNamed:@"snap-overlay.png"]];
     [self.shutterFlashOverlay setAlpha:0.0f];
     [self.view addSubview:self.shutterFlashOverlay];
+    
+    // Photo shoot timer
+    self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 74) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 74) / 2, 74, 74 }];
+    [self.photoShootTimerView setHidden:YES];
+    [self.view addSubview:self.photoShootTimerView];
 }
 
 - (void)viewDidUnload
@@ -194,26 +218,18 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
     self.photoToolbarView = nil;
     self.shutterFlashOverlay = nil;
     self.captureVideoPreviewLayer = nil;
+    self.photoShootTimerView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.photoToolbarView setAlpha:1.0f];
-    [self.photoShootProgresToolbarView setAlpha:0.0f];
-    
-    if ([self.capturedImages count] > 0) {
-        [self.photoToolbarView showPhotoShootGrid:YES];
-    } else {
-        [self.photoToolbarView showPhotoShootGrid:NO];
-    }
+    [self resetView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.photoToolbarView enableAllButtons:YES];
-    [self showFlashButton:![self.photoToolbarView.photoModeSwitch isOn]];
     
     double delayInSeconds = 0.1f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -234,6 +250,21 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
 }
 
 #pragma mark - 
+
+- (void)resetView
+{
+    [self.photoToolbarView setAlpha:1.0f];
+    [self.photoShootProgresToolbarView setAlpha:0.0f];
+    
+    if ([self.capturedImages count] > 0) {
+        [self.photoToolbarView showPhotoShootGrid:YES];
+    } else {
+        [self.photoToolbarView showPhotoShootGrid:NO];
+    }
+    
+    [self.photoToolbarView enableAllButtons:YES];
+    [self showFlashButton:![self.photoToolbarView.photoModeSwitch isOn]];
+}
 
 - (void)showFlashButton:(BOOL)showFlashButton
 {
@@ -320,13 +351,16 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
         double delayInSeconds = i * 0.5;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self captureImageWithHandler:^(UIImage *image) {
-                [self.capturedImages addObject:image];
-                [self.photoShootProgresToolbarView setNumberOfDotsOn:[self.capturedImages count]];
-            }];
+            if (self.isShootingPhotoShoot) {
+                [self captureImageWithHandler:^(UIImage *image) {
+                    [self.capturedImages addObject:image];
+                    [self.photoShootProgresToolbarView setNumberOfDotsOn:[self.capturedImages count]];
+                }];
+            }
         });
     }
     
+    // TODO: Add a timeout here
     self.imageWaitTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(waitOnImages:) userInfo:nil repeats:YES];
 }
 
@@ -336,8 +370,8 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
     if ((self.startingPhotoCount == 0 && [self.capturedImages count] == 3) || 
         (self.startingPhotoCount == 3 && [self.capturedImages count] == 6)) {
         
-        [self timerWithDuration:2];
         [self.imageWaitTimer invalidate];
+        [self timerWithDuration:2];
         [self.photoShootTimerView setHidden:NO];
     } else if (self.startingPhotoCount == 6 && [self.capturedImages count] == 9) {
         [self.imageWaitTimer invalidate];
@@ -348,10 +382,10 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
             [resizedImages addObject:resizedImage];
         }];
         self.capturedImages = resizedImages;
-        
         GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
         [photoShootGridViewController setImages:self.capturedImages];
         [self.navigationController pushViewController:photoShootGridViewController animated:YES];
+        self.shootingPhotoShoot = NO;
     }
 }
 
@@ -369,6 +403,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
 
 - (void)photoShootModeButtonPress
 {
+    self.shootingPhotoShoot = YES;
     [self.photoToolbarView enableAllButtons:NO];
     [self changeFlashForceOff:YES];
     [UIView animateWithDuration:0.3 animations:^{
@@ -382,8 +417,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
     [self.photoShootProgresToolbarView setNumberOfDotsOn:0];
     
     // Show timer
-    self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 74) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 74) / 2, 74, 74 }];
-    [self.view addSubview:self.photoShootTimerView];
+    [self.photoShootTimerView setHidden:NO];
 
     GTIOConfig *config = [[GTIOConfigManager sharedManager] config];
     [self timerWithDuration:6];
