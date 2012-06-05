@@ -70,6 +70,7 @@
                     } else {
                         GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                         [self.navigationController pushViewController:almostDone animated:YES];
+                        // then go to 1.8
                     }
                 } else {
                     if (user.hasCompleteProfile) {
@@ -78,6 +79,7 @@
                     } else {
                         GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                         [self.navigationController pushViewController:almostDone animated:YES];
+                        // then go to 8.1
                     }
                 }
             }
