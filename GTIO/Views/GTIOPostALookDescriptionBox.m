@@ -46,7 +46,7 @@
         
         self.nextTextView = nextTextView;
                 
-        self.textView = [[UITextView alloc] initWithFrame:(CGRect){ 5, 0, self.backgroundView.bounds.size.width - 10, self.backgroundView.bounds.size.height - 10 }];
+        self.textView = [[UITextView alloc] initWithFrame:(CGRect){ 5, 0, self.backgroundView.bounds.size.width, self.backgroundView.bounds.size.height - 10 }];
         [self.textView setBackgroundColor:[UIColor clearColor]];
         [self.textView setContentInset:(UIEdgeInsets){ 0, -4, 0, 0 }];
         [self.textView setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:12.0]];

@@ -32,12 +32,13 @@
 @property (nonatomic, strong) UIImageView *previewBoxBackground;
 @property (nonatomic, strong) UIButton *clearProfilePictureButton;
 @property (nonatomic, strong) UIImageView *facebookLogo;
+@property (nonatomic, strong) NSURL *defaultIconURL;
 
 @end
 
 @implementation GTIOEditProfilePictureViewController
 
-@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksLabel = _myLooksLabel, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo;
+@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksLabel = _myLooksLabel, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo, defaultIconURL = _defaultIconURL;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -189,6 +190,9 @@
                 }
             }
             
+            // default icon
+            self.defaultIconURL = [NSURL URLWithString:[loadedObjects objectAtIndex:([loadedObjects count]-1)]];
+            
             self.facebookPicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 16, 72, 55, 55 } andImageURL:nil];
             if (userHasFacebookPicture) {
                 NSURL* facebookPictureURL = (NSURL*)[self.profileIconURLs objectAtIndex:0];
@@ -250,7 +254,7 @@
 
 - (void)clearProfilePicture:(id)sender
 {
-    [self.previewIcon setImage:[UIImage imageNamed:@"no-profile-picture.png"]];
+    [self.previewIcon setImageWithURL:self.defaultIconURL];
     self.currentlySelectedProfileIconURL = nil;
     [self clearSelectedProfilePictures];
 }
