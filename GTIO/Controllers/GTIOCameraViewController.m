@@ -24,6 +24,7 @@
 NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotification";
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
+static NSInteger const kGTIOPhotoResizeWidth = 640;
 
 @interface GTIOCameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -343,7 +344,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         
         NSMutableArray *resizedImages = [NSMutableArray arrayWithCapacity:9];
         [self.capturedImages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            UIImage *resizedImage = [obj resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+            UIImage *resizedImage = [obj resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ kGTIOPhotoResizeWidth, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
             [resizedImages addObject:resizedImage];
         }];
         self.capturedImages = resizedImages;
@@ -360,7 +361,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 {
     [self changeFlashForceOff:NO];
     [self captureImageWithHandler:^(UIImage *image) {
-        UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+        UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ kGTIOPhotoResizeWidth, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
         [self openPhotoConfirmationScreenWithPhoto:resizedImage];
     }];
 }
@@ -420,7 +421,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+    // TODO: How should we handle smaller images than 640?
+    UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ kGTIOPhotoResizeWidth, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
     [self.imagePickerController dismissModalViewControllerAnimated:YES];
     [self openPhotoConfirmationScreenWithPhoto:resizedImage];
 }
