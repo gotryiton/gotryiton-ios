@@ -292,8 +292,10 @@
     if (authToken) {
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:userIconResourcePath usingBlock:^(RKObjectLoader *loader) {
             loader.onDidLoadObjects = ^(NSArray *objects) {
+                NSMutableArray *objectsCopy = [NSMutableArray arrayWithArray:objects];
+                [objectsCopy addObject:[NSString stringWithFormat:@"%@",[[loader.response.body objectFromJSONData] objectForKey:@"default_icon"]]];
                 if (completionHandler) {
-                    completionHandler(objects, nil);
+                    completionHandler(objectsCopy, nil);
                 }
             };
             loader.onDidFailWithError = ^(NSError *error) {

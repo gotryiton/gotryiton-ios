@@ -102,7 +102,7 @@
     [self.view addSubview:postThisButtonBackground];
 
     self.postThisButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePostThis];
-    [self.postThisButton setFrame:(CGRect){ 5, 10, postThisButtonBackground.bounds.size.width - 10, postThisButtonBackground.bounds.size.height - 15 }];
+    [self.postThisButton setFrame:(CGRect){ 5, 11, postThisButtonBackground.bounds.size.width - 10, postThisButtonBackground.bounds.size.height - 15 }];
     [self.postThisButton addTarget:self action:@selector(postThis:) forControlEvents:UIControlEventTouchUpInside];
     [self.postThisButton setEnabled:NO];
     [postThisButtonBackground addSubview:self.postThisButton];
