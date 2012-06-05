@@ -33,5 +33,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_photoBorderColor;
 + (UIColor *)gtio_reallyDarkGrayTextColor;
 + (UIColor *)gtio_progressBarColor;
++ (UIColor *)gtio_lightGrayTextColor;
 
 @end
