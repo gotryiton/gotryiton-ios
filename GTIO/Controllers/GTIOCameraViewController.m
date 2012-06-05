@@ -254,7 +254,6 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
     NSString *imageName = @"upload.flash-OFF.png";
     if (_flashOn) {
         imageName = @"upload.flash-ON.png";
-    } else {
     }
     [self.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
 }
