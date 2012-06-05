@@ -22,8 +22,6 @@
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *descriptionBox;
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *tagBox;
 @property (nonatomic, strong) UIButton *postThisButton;
-@property (nonatomic, strong) UIAlertView *emptyDescriptionAlert;
-@property (nonatomic, strong) UIAlertView *emptyPostAlert;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) CGRect originalFrame;
@@ -34,15 +32,16 @@
 
 @implementation GTIOPostALookViewController
 
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, emptyDescriptionAlert = _emptyDescriptionAlert;
-@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage, emptyPostAlert = _emptyPostAlert;
+@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer;
+@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithTitle:@"post a look" leftNavBarButton:[GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         if (self.postThisButton.enabled) {
-            self.emptyPostAlert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
-            [self.emptyPostAlert show];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
+            [alert setTag:kGTIOEmptyPostAlertTag];
+            [alert show];
         } else {
             [self.navigationController dismissModalViewControllerAnimated:YES];
         }
@@ -187,8 +186,9 @@
 - (void)postThis:(id)sender
 {
     if ([self.descriptionBox.textView.text length] == 0) {
-            self.emptyDescriptionAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to post without a description?" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:@"Cancel", nil];
-            [self.emptyDescriptionAlert show];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to post without a description?" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:@"Cancel", nil];
+        [alert setTag:kGTIOEmptyDescriptionAlertTag];
+        [alert show];
     } else {
         [self savePhotoToDisk];
     }
@@ -232,10 +232,10 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0 && [alertView isEqual:self.emptyDescriptionAlert]) {
+    if (buttonIndex == 0 && alertView.tag == kGTIOEmptyDescriptionAlertTag) {
         [self savePhotoToDisk];
     }
-    if (buttonIndex == 0 && [alertView isEqual:self.emptyPostAlert]) {
+    if (buttonIndex == 0 && alertView.tag == kGTIOEmptyPostAlertTag) {
         [self.navigationController dismissModalViewControllerAnimated:YES];
     }
 }
