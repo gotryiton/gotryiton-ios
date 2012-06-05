@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GTIOViewController.h"
 
-@interface GTIOPostALookViewController : GTIOViewController <UIAlertViewDelegate>
+@interface GTIOPostALookViewController : GTIOViewController <UIAlertViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIImage *mainImage;
 @property (nonatomic, strong) UIImage *secondImage;

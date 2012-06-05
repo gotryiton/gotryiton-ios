@@ -46,6 +46,10 @@ extern NSString * const kGTIOTrackingHeaderKey;
 // Notification Constants
 extern NSString * const kGTIOLooksUpdated;
 
+// Alert Constants
+extern int const kGTIOEmptyPostAlertTag;
+extern int const kGTIOEmptyDescriptionAlertTag;
+
 /** Dismiss handler
  */
 typedef void(^GTIODismissHandler)(UIViewController *viewController);

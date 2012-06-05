@@ -194,4 +194,9 @@ CGFloat const kAnimationDuration = 0.25;
     }
 }
 
+- (void)handleExteriorTapGesture
+{
+    [self handleTapGesture:nil];
+}
+
 @end

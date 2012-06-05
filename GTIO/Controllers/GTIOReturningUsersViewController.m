@@ -170,12 +170,24 @@
         GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:failedSignInViewController animated:YES];
     } else {
-        if (user.isNewUser || !user.hasCompleteProfile) {
-            // load "almost done" screen
-            GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:almostDone animated:YES];
+        if (user.isNewUser) {
+            if (user.hasCompleteProfile) {
+                // load 1.8
+                NSLog(@"Load screen 1.8");
+            } else {
+                GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+                [self.navigationController pushViewController:almostDone animated:YES];
+                // then go to 1.8
+            }
         } else {
-            [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+            if (user.hasCompleteProfile) {
+                // load 1.8
+                NSLog(@"Load screen 1.8");
+            } else {
+                GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+                [self.navigationController pushViewController:almostDone animated:YES];
+                // then go to 8.1
+            }
         }
     }
 }
