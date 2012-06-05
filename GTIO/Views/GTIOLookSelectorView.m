@@ -7,29 +7,25 @@
 //
 
 #import "GTIOLookSelectorView.h"
-#import "GTIOTakePhotoView.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface GTIOLookSelectorView()
 
 @property (nonatomic, strong) UIView *photoSetView;
-@property (nonatomic, strong) GTIOTakePhotoView *singlePhotoView;
-
-@property (nonatomic, strong) GTIOTakePhotoView *tallLeftPhoto;
-@property (nonatomic, strong) GTIOTakePhotoView *tallRightPhoto;
-@property (nonatomic, strong) GTIOTakePhotoView *smallRightPhoto;
 
 @end
 
 @implementation GTIOLookSelectorView
 
 @synthesize  photoSet = _photoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView, tallLeftPhoto = _tallLeftPhoto, tallRightPhoto = _tallRightPhoto, smallRightPhoto = _smallRightPhoto, photoCanvasSize = _photoCanvasSize;
+@synthesize launchCameraHandler = _launchCameraHandler;
 
-- (id)initWithFrame:(CGRect)frame photoSet:(BOOL)photoSet
+- (id)initWithFrame:(CGRect)frame photoSet:(BOOL)photoSet launchCameraHandler:(GTIOLaunchCameraHandler)launchCameraHandler
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.photoSet = photoSet;
+        _launchCameraHandler = launchCameraHandler;
         
         UIImageView *selfBackgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"border-bg.png"] stretchableImageWithLeftCapWidth:1.0 topCapHeight:1.0]];
         [selfBackgroundImageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
@@ -42,6 +38,7 @@
         [self.layer setShadowPath:path.CGPath]; // scroll performance
         
         self.singlePhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 5, 5, self.bounds.size.width - 10, self.bounds.size.height - 10 }];
+        [self.singlePhotoView setLaunchCameraHandler:_launchCameraHandler];
         self.photoCanvasSize = (CGSize){ self.singlePhotoView.frame.size.width, self.singlePhotoView.frame.size.height };
         
         self.photoSetView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.bounds.size.width, self.bounds.size.height }];

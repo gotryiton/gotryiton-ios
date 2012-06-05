@@ -254,6 +254,7 @@
         [self.cameraViewController setDismissHandler:^(UIViewController *viewController) {
             [viewController dismissModalViewControllerAnimated:YES];
         }];
+        [self.cameraViewController setFlashOn:NO];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.cameraViewController];
         [navController setNavigationBarHidden:YES animated:NO];
         [self.tabBarController presentModalViewController:navController animated:YES];

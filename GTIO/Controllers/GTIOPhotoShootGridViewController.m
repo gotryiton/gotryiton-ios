@@ -39,7 +39,7 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     
-    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [bgImageView setImage:[[UIImage imageNamed:@"checkered-bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 0, 0, 0, 0 }]];
     [self.view addSubview:bgImageView];
     
@@ -50,7 +50,11 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"green-pattern-nav-bar.png"] forBarMetrics:UIBarMetricsDefault];
     
     GTIONavigationTitleLabel *titleLabel = [[GTIONavigationTitleLabel alloc] initWithTitle:@"select one photo"];
-    [self.navigationItem setTitleView:titleLabel];
+    // need to shift the label down a bit because of the design
+    UIView *titleView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, titleLabel.bounds.size.width, titleLabel.bounds.size.height + 9 }];
+    [titleLabel setFrame:(CGRect){ 0, 9, titleLabel.bounds.size }];
+    [titleView addSubview:titleLabel];
+    [self.navigationItem setTitleView:titleView];
 
     UIView *topShadow = [[UIView alloc] initWithFrame:(CGRect){0,0,self.view.bounds.size.width,3}];
     [topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
