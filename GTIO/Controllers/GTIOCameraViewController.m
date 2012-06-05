@@ -212,6 +212,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.photoToolbarView enableAllButtons:YES];
     [self showFlashButton:![self.photoToolbarView.photoModeSwitch isOn]];
     
     double delayInSeconds = 0.1f;
@@ -358,6 +359,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
 
 - (void)singleModeButtonPress
 {
+    [self.photoToolbarView enableAllButtons:NO];
     [self changeFlashForceOff:NO];
     [self captureImageWithHandler:^(UIImage *image) {
         UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ kGTIOPhotoResizeWidth, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
@@ -367,6 +369,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
 
 - (void)photoShootModeButtonPress
 {
+    [self.photoToolbarView enableAllButtons:NO];
     [self changeFlashForceOff:YES];
     [UIView animateWithDuration:0.3 animations:^{
         // Switch tool bars
