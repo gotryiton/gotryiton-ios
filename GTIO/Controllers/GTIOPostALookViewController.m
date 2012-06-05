@@ -44,7 +44,7 @@
             self.emptyPostAlert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
             [self.emptyPostAlert show];
         } else {
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController dismissModalViewControllerAnimated:YES];
         }
     }] rightNavBarButton:nil];
     if (self) {
@@ -236,7 +236,7 @@
         [self savePhotoToDisk];
     }
     if (buttonIndex == 0 && [alertView isEqual:self.emptyPostAlert]) {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController dismissModalViewControllerAnimated:YES];
     }
 }
 
