@@ -588,6 +588,8 @@ POST /User (see documentation [ApiUser](ApiUser.md) )
       - mandatory field labels (name, email, gender) - 7pt Proxima Nova Semibold #ff6a72
    - example input text
       - 7pt Proxima Nova Light Italic #a4a4a4
+   - actual input text
+      - 7pt Proxima Nova Regular #8f8f8f
    - text prompting picker controls (select, select year)
       - 7pt Proxima Nova Semibold #8f8f8f
 
@@ -861,6 +863,10 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
          - middle is stretchable
          - 2px nonstretchable on right
          - 8px nonstretchable on left
+   - Font
+         - Proxima Nova Regular
+         - 5.5pt
+         - rgb(143,143,143)
 - Notifications View
    - 'nav.logo.png' as title
       - asset is padded to allow vertical and horizontal centering
@@ -2406,6 +2412,8 @@ previous screen
       - mandatory field labels (name, email, gender) - 7pt Proxima Nova Semibold #ff6a72
    - example input text
       - 7pt Proxima Nova Light Italic #a4a4a4
+   - actual input text
+      - 7pt Proxima Nova Regular #8f8f8f
    - text prompting picker controls (select, select year)
       - 7pt Proxima Nova Semibold #8f8f8f
 
