@@ -35,7 +35,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @property (nonatomic, strong) GTIOCameraToolbarView *photoToolbarView;
 @property (nonatomic, strong) GTIOPhotoShootProgressToolbarView *photoShootProgresToolbarView;
 @property (nonatomic, strong) GTIOButton *flashButton;
-@property (nonatomic, assign, getter = isFlashOn) BOOL flashOn;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
 
@@ -140,15 +139,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     __block typeof(self) blockSelf = self;
     [self.flashButton setTapHandler:^(id sender) {
         blockSelf.flashOn = !blockSelf.isFlashOn;
-        
-        NSString *imageName = @"upload.flash-OFF.png";
-        if (self.isFlashOn) {
-            imageName = @"upload.flash-ON.png";
-            [blockSelf changeFlashMode:AVCaptureFlashModeOn];
-        } else {
-            [blockSelf changeFlashMode:AVCaptureFlashModeOff];
-        }
-        [blockSelf.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     }];
     
     if ([self.captureDevice isFlashAvailable]) {
@@ -184,6 +174,9 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [photoShootGridViewController setImages:self.capturedImages];
         [self.navigationController pushViewController:photoShootGridViewController animated:YES];
     }];
+    [self.photoToolbarView setPhotoModeSwitchChangedHandler:^(BOOL on) {
+        [blockSelf showFlashButton:!on];
+    }];
     [self.view addSubview:self.photoToolbarView];
     
     // Shutter flash overlay
@@ -218,7 +211,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.flashButton setAlpha:1.0f];
+    [self showFlashButton:![self.photoToolbarView.photoModeSwitch isOn]];
     
     double delayInSeconds = 0.1f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -236,6 +229,33 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - 
+
+- (void)showFlashButton:(BOOL)showFlashButton
+{
+    [UIView animateWithDuration:0.15f animations:^{
+        CGFloat alpha = 0.0f;
+        if (showFlashButton) {
+            alpha = 1.0f;
+        }
+        [self.flashButton setAlpha:alpha];
+    }];
+}
+
+#pragma mark - Property
+
+- (void)setFlashOn:(BOOL)flashOn
+{
+    _flashOn = flashOn;
+    
+    NSString *imageName = @"upload.flash-OFF.png";
+    if (_flashOn) {
+        imageName = @"upload.flash-ON.png";
+    } else {
+    }
+    [self.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
 }
 
 #pragma mark - Capture Image
@@ -258,7 +278,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     
     NSLog(@"about to request a capture from: %@", self.stillImageOutput);
     
-    // Show flash overlay
+    // Show shutter overlay
     [UIView animateWithDuration:0.15f animations:^{
         [self.shutterFlashOverlay setAlpha:1.0f];
     } completion:^(BOOL finished) {
@@ -338,6 +358,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 - (void)singleModeButtonPress
 {
+    [self changeFlashForceOff:NO];
     [self captureImageWithHandler:^(UIImage *image) {
         UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
         [self openPhotoConfirmationScreenWithPhoto:resizedImage];
@@ -346,10 +367,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 - (void)photoShootModeButtonPress
 {
+    [self changeFlashForceOff:YES];
     [UIView animateWithDuration:0.3 animations:^{
-        // Hide flash button
-        [self.flashButton setAlpha:0.0f];
-        
         // Switch tool bars
         [self.photoShootProgresToolbarView setAlpha:1.0f];
         [self.photoToolbarView setAlpha:0.0f];
@@ -377,6 +396,15 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 }
 
 #pragma mark - Flash Helpers
+
+- (void)changeFlashForceOff:(BOOL)forceOff
+{
+    if (self.isFlashOn && !forceOff) {
+        [self changeFlashMode:AVCaptureFlashModeOn];
+    } else {
+        [self changeFlashMode:AVCaptureFlashModeOff];
+    }
+}
 
 - (void)changeFlashMode:(AVCaptureFlashMode)flashMode
 {

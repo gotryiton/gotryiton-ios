@@ -16,5 +16,6 @@ extern NSString * const kGTIOPhotoAcceptedNotification;
 @interface GTIOCameraViewController : UIViewController
 
 @property (nonatomic, copy) GTIODismissHandler dismissHandler;
+@property (nonatomic, assign, getter = isFlashOn) BOOL flashOn;
 
 @end
