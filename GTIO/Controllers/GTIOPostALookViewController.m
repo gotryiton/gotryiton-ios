@@ -201,9 +201,7 @@
         [alert setTag:kGTIOEmptyDescriptionAlertTag];
         [alert show];
     } else {
-        self.postButtonPressed = YES;
-        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-        [self postLookToGTIO];
+        [self beginPostLookToGTIO];
     }
 }
 
@@ -265,9 +263,7 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0 && alertView.tag == kGTIOEmptyDescriptionAlertTag) {
-        self.postButtonPressed = YES;
-        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-        [self postLookToGTIO];
+        [self beginPostLookToGTIO];
     }
     if (buttonIndex == 0 && alertView.tag == kGTIOEmptyPostAlertTag) {
         [self cancelPost];
@@ -288,6 +284,13 @@
             }
         }];
     }
+}
+
+- (void)beginPostLookToGTIO
+{
+    self.postButtonPressed = YES;
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self postLookToGTIO];
 }
 
 - (void)cancelPost
