@@ -1,4 +1,4 @@
-***Tuesday, June 5th - Standup Notes***
+***Wednesday, June 6th - Standup Notes***
 
 **Attendees**
 
