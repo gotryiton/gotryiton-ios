@@ -13,6 +13,9 @@
 #import "GTIOPostALookDescriptionBox.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GTIOTakePhotoView.h"
+#import "GTIOPhoto.h"
+#import "GTIOPost.h"
+#import "GTIOProgressHUD.h"
 
 @interface GTIOPostALookViewController()
 
@@ -28,12 +31,17 @@
 
 @property (nonatomic, strong) NSTimer *photoSaveTimer;
 
+@property (nonatomic, strong) GTIOPhoto *photoForCreationRequests;
+@property (nonatomic, strong) GTIOPhoto *photoForPosting;
+@property (nonatomic, assign) BOOL creatingPhoto;
+@property (nonatomic, assign) BOOL postButtonPressed;
+
 @end
 
 @implementation GTIOPostALookViewController
 
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer;
-@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage;
+@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, photoForCreationRequests = _photoForCreationRequests;
+@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage, photoForPosting = _photoForPosting, creatingPhoto = _creatingPhoto, postButtonPressed = _postButtonPressed;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,13 +51,16 @@
             [alert setTag:kGTIOEmptyPostAlertTag];
             [alert show];
         } else {
-            [self.navigationController dismissModalViewControllerAnimated:YES];
+            [self cancelPost];
         }
     }] rightNavBarButton:nil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookSelectorViewUpdated:) name:kGTIOLooksUpdated object:nil];
+        self.photoForCreationRequests = [[GTIOPhoto alloc] init];
+        self.creatingPhoto = NO;
+        self.postButtonPressed = NO;
     }
     return self;
 }
@@ -190,11 +201,48 @@
         [alert setTag:kGTIOEmptyDescriptionAlertTag];
         [alert show];
     } else {
-        [self savePhotoToDisk];
+        self.postButtonPressed = YES;
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+        [self postLookToGTIO];
     }
 }
 
 - (void)savePhotoToDisk
+{
+    UIImage *viewImage = [self getCompositeImage];
+    UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil);
+}
+
+- (void)lookSelectorViewUpdated:(id)sender
+{
+    [self.postThisButton setEnabled:[self.lookSelectorView selectionsComplete]];
+    [self.photoSaveTimer invalidate];
+    self.photoSaveTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(createGTIOPhoto:) userInfo:nil repeats:NO];
+    self.photoForPosting = nil;
+}
+
+- (void)createGTIOPhoto:(id)sender
+{
+    if ([self.lookSelectorView selectionsComplete]) {
+        UIImage *uploadImage = [self getCompositeImage];
+        [self.photoForCreationRequests cancel];
+        self.creatingPhoto = YES;
+        self.photoForCreationRequests = [GTIOPhoto createGTIOPhotoWithUIImage:uploadImage framed:self.lookSelectorView.photoSet filter:@"" completionHandler:^(GTIOPhoto *photo, NSError *error) {
+            self.creatingPhoto = NO;
+            if (!error && photo) {
+                self.photoForPosting = photo;
+                if (self.postButtonPressed) {
+                    self.postButtonPressed = NO;
+                    [self postLookToGTIO];
+                }
+            } else {
+                NSLog(@"There was an error while posting the photo. (Server error:%@)", [error localizedDescription]);
+            }
+        }];
+    }
+}
+
+- (UIImage *)getCompositeImage
 {
     [self.lookSelectorView hideDeleteButtons:YES];
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
@@ -210,34 +258,42 @@
     [[self.lookSelectorView compositeCanvas].layer renderInContext:context];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();   
     UIGraphicsEndImageContext();
-    UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil);
     [self.lookSelectorView hideDeleteButtons:NO];
-}
-
-- (void)lookSelectorViewUpdated:(id)sender
-{
-    [self.postThisButton setEnabled:[self.lookSelectorView selectionsComplete]];
-    [self.photoSaveTimer invalidate];
-    self.photoSaveTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(createGTIOPhoto:) userInfo:nil repeats:NO];
-}
-
-- (void)createGTIOPhoto:(id)sender
-{
-    if ([self.lookSelectorView selectionsComplete]) {
-        NSLog(@"safe to post photo");
-    } else {
-        NSLog(@"NOT SAFE to post photo");
-    }
+    return viewImage;
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0 && alertView.tag == kGTIOEmptyDescriptionAlertTag) {
-        [self savePhotoToDisk];
+        self.postButtonPressed = YES;
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+        [self postLookToGTIO];
     }
     if (buttonIndex == 0 && alertView.tag == kGTIOEmptyPostAlertTag) {
-        [self.navigationController dismissModalViewControllerAnimated:YES];
+        [self cancelPost];
     }
+}
+
+- (void)postLookToGTIO
+{
+    if (!self.creatingPhoto && self.photoForPosting) {
+        [self savePhotoToDisk];
+        [GTIOPost postGTIOPhoto:self.photoForPosting description:self.descriptionBox.textView.text votingEnabled:self.optionsView.votingSwitch.on completionHandler:^(GTIOPost *post, NSError *error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            if (!error && post) {
+                [self.navigationController dismissModalViewControllerAnimated:YES];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There was an error posting your look. Please try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                [alert show];
+            }
+        }];
+    }
+}
+
+- (void)cancelPost
+{
+    [self.photoForCreationRequests cancel];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - Photo Handlers

@@ -171,7 +171,7 @@
         [self.navigationController pushViewController:failedSignInViewController animated:YES];
     } else {
         if (user.isNewUser) {
-            if (user.hasCompleteProfile) {
+            if (!user.hasCompleteProfile) {
                 // load 1.8
                 NSLog(@"Load screen 1.8");
             } else {
@@ -180,7 +180,7 @@
                 // then go to 1.8
             }
         } else {
-            if (user.hasCompleteProfile) {
+            if (!user.hasCompleteProfile) {
                 // load 1.8
                 NSLog(@"Load screen 1.8");
             } else {
