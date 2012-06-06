@@ -12,6 +12,7 @@
 #import "GTIOUser.h"
 #import "GTIOIcon.h"
 #import "GTIOFacebookIcon.h"
+#import "GTIODefaultIcon.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOAlmostDoneViewController.h"
 
@@ -169,12 +170,20 @@
     GTIOUser *currentUser = [GTIOUser currentUser];
     self.currentlySelectedProfileIconURL = currentUser.icon;
     
-    [[GTIOUser currentUser] loadUserIconsWithUserID:currentUser.userID andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+    [[GTIOUser currentUser] loadUserIconsWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         [self.loadingIconsLabel removeFromSuperview];
         if (!error) {
             BOOL userHasFacebookPicture = NO;
             
-            // find the facebook icon first
+            // find the default icon
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIODefaultIcon class]]) {
+                    GTIOIcon *defaultIcon = (GTIOIcon*)object;
+                    self.defaultIconURL = defaultIcon.url;
+                }
+            }
+            
+            // find the facebook icon
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOFacebookIcon class]]) {
                     GTIOIcon *facebookIcon = (GTIOIcon*)object;
@@ -182,6 +191,7 @@
                     userHasFacebookPicture = YES;
                 }
             }
+            
             // grab the rest of the icons
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOIcon class]] && ![object isMemberOfClass:[GTIOFacebookIcon class]]) {

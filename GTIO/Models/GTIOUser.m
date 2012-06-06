@@ -24,7 +24,7 @@
 
 @implementation GTIOUser
 
-@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url;
+@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected;
 @synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
 @synthesize loginHandler = _loginHandler;
 @synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath;
@@ -211,6 +211,7 @@
     self.hasCompleteProfile = user.hasCompleteProfile;
     self.url = user.url;
     self.email = user.email;
+    self.isFacebookConnected = user.isFacebookConnected;
 }
 
 #pragma mark - janrain
@@ -278,12 +279,9 @@
     }
 }
 
-- (void)loadUserIconsWithUserID:(NSString*)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler
+- (void)loadUserIconsWithCompletionHandler:(GTIOCompletionHandler)completionHandler
 {
-    if ([userID length] == 0) {
-        userID = self.userID;
-    }
-    NSString *userIconResourcePath = [NSString stringWithFormat:@"/users/%@/icons", userID];
+    NSString *userIconResourcePath = @"/users/icons";
     
     BOOL authToken = NO;
     if ([[RKObjectManager sharedManager].client.HTTPHeaders objectForKey:kGTIOAuthenticationHeaderKey]) {

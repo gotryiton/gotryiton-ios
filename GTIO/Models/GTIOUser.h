@@ -31,6 +31,7 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 @property (nonatomic, strong) NSNumber *hasCompleteProfile;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSNumber *isFacebookConnected;
 
 @property (nonatomic, strong) Facebook *facebook;
 @property (nonatomic, strong) JREngage *janrain;
@@ -64,6 +65,6 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 
 /** User Icons from API
  */
-- (void)loadUserIconsWithUserID:(NSString*)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler;
+- (void)loadUserIconsWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end
