@@ -6,6 +6,36 @@
 - GTIO - Simon, Matt
 
 **Tasks / To Do List**
+- TT - Review schema for button/alert that Simon posted to Github.  Follow up with Simon if necessary
+- TT - Evaluate effort for dragging main frame / bottom right edge of whole photo (North and South only)
+ - Photo on left would be cut from the bottom up.
+ - Keep ratio of bottom right photo 
+
+**Status**
+- Wrapping up remaininng bug fixes.  Post view animation work remaining
+- 12.3 - keyboard popup feature feels strange.
+ - Resolution: Stop with margin where textboxes are shown (bottom border of page)
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+
+***Tuesday, June 5th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
 - TT - NA
 
 **Status**
