@@ -9,9 +9,9 @@
 #import "GTIOPhotoShootGridView.h"
 
 NSInteger const kGTIONumberOfPhotos = 9;
-CGFloat const kGTIOXOriginStart = 16.0f;
-CGFloat const kGTIOYOriginStart = 15.0f;
-CGFloat const kGTIOHorizontalPhotoPadding = 20.0f;
+CGFloat const kGTIOXOriginStart = 14.0f;
+CGFloat const kGTIOYOriginStart = 17.0f;
+CGFloat const kGTIOHorizontalPhotoPadding = 20.5f;
 CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
 
 @interface GTIOPhotoShootGridView ()
@@ -28,7 +28,7 @@ CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
     self = [super initWithFrame:frame];
     if (self) {        
         UIImageView *gridImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"upload.photoreel.bg.png"]];
-        [gridImageView setFrame:(CGRect){ { 12, 12 }, gridImageView.image.size }];
+        [gridImageView setFrame:(CGRect){ { 10, 14 }, gridImageView.image.size }];
         [self addSubview:gridImageView];
         
         _images = images;
