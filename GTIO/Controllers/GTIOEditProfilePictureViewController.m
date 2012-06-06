@@ -32,12 +32,13 @@
 @property (nonatomic, strong) UIImageView *previewBoxBackground;
 @property (nonatomic, strong) UIButton *clearProfilePictureButton;
 @property (nonatomic, strong) UIImageView *facebookLogo;
+@property (nonatomic, strong) NSURL *defaultIconURL;
 
 @end
 
 @implementation GTIOEditProfilePictureViewController
 
-@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksLabel = _myLooksLabel, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo;
+@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksLabel = _myLooksLabel, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo, defaultIconURL = _defaultIconURL;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -96,7 +97,7 @@
     [self.myLooksLabel setText:@"my looks"];
     [self.chooseFromBox addSubview:self.myLooksLabel];
     
-    self.myLooksIcons = [[UIScrollView alloc] initWithFrame:(CGRect){ 90, 72, 195, 70 }];
+    self.myLooksIcons = [[UIScrollView alloc] initWithFrame:(CGRect){ 88, 70, 199, 74 }];
     [self.myLooksIcons setShowsVerticalScrollIndicator:NO];
     [self.chooseFromBox addSubview:self.myLooksIcons];
     
@@ -189,6 +190,9 @@
                 }
             }
             
+            // default icon
+            self.defaultIconURL = [NSURL URLWithString:[loadedObjects objectAtIndex:([loadedObjects count]-1)]];
+            
             self.facebookPicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 16, 72, 55, 55 } andImageURL:nil];
             if (userHasFacebookPicture) {
                 NSURL* facebookPictureURL = (NSURL*)[self.profileIconURLs objectAtIndex:0];
@@ -207,15 +211,15 @@
             }
             [self.chooseFromBox addSubview:self.facebookPicture];
             
-            double iconXPos = 0.0;
-            double iconSpacing = 3.0;
+            double iconXPos = 2.0;
+            double iconSpacing = 5.0;
             int numberOfIcons = [self.profileIconURLs count];
             for (int i = 0; i < numberOfIcons; i++) {
-                GTIOSelectableProfilePicture *icon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){iconXPos,0,55,55} andImageURL:(NSURL*)[self.profileIconURLs objectAtIndex:i]];
+                GTIOSelectableProfilePicture *icon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){iconXPos,2,55,55} andImageURL:(NSURL*)[self.profileIconURLs objectAtIndex:i]];
                 [icon setDelegate:self];
                 [self.profileIconViews addObject:icon];
                 [self.myLooksIcons addSubview:icon];
-                iconXPos += 55 + ((i == (numberOfIcons - 1)) ? 0 : iconSpacing);
+                iconXPos += 55 + ((i == (numberOfIcons - 1)) ? 2.0 : iconSpacing);
             }
             [self.myLooksIcons setContentSize:(CGSize){ numberOfIcons * (55 + iconSpacing), 70 }];
             
@@ -250,7 +254,7 @@
 
 - (void)clearProfilePicture:(id)sender
 {
-    [self.previewIcon setImage:[UIImage imageNamed:@"no-profile-picture.png"]];
+    [self.previewIcon setImageWithURL:self.defaultIconURL];
     self.currentlySelectedProfileIconURL = nil;
     [self clearSelectedProfilePictures];
 }

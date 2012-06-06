@@ -65,6 +65,9 @@ NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 
 NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
 
+int const kGTIOEmptyPostAlertTag = 0;
+int const kGTIOEmptyDescriptionAlertTag = 1;
+
 #pragma mark - JSON Params Serialization Helper
 
 id GTIOJSONParams(id obj) {

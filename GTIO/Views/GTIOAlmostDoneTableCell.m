@@ -60,8 +60,8 @@
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         [self.cellAccessoryTextMulti setDelegate:self];
         [self.cellAccessoryTextMulti setTextColor:[UIColor gtio_darkGrayTextColor]];
-        [self.cellAccessoryTextMulti setPlaceholderColor:[UIColor gtio_darkGrayTextColor]];
-        [self.cellAccessoryTextMulti setInputAccessoryView:self.accessoryToolBar];
+        [self.cellAccessoryTextMulti setPlaceholderColor:[UIColor gtio_lightGrayTextColor]];
+        [self.cellAccessoryTextMulti setReturnKeyType:UIReturnKeyDone];
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSaveDataMulti:) name:UITextViewTextDidChangeNotification object:self.cellAccessoryTextMulti];
         
@@ -75,14 +75,26 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)keyboardDoneTapped:(id)sender
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    if (self.multiLine) {
-        if ([self.delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
-            [self.delegate resetScrollAfterEditing];
+    if ([text isEqualToString:@"\n"] && [textView isEqual:self.cellAccessoryTextMulti]) {
+        if (self.multiLine) {
+            if ([self.delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
+                [self.delegate resetScrollAfterEditing];
+            }
+            [self.cellAccessoryTextMulti resignFirstResponder];
+            return NO;
         }
-        [self.cellAccessoryTextMulti resignFirstResponder];
     }
+    if (textView.text.length == 1 && text.length == 0) {
+        textView.text = text;
+        [textView setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegularItal size:14.0]];
+        [textView setTextColor:[UIColor gtio_darkGrayTextColor]];
+    } else {
+        [textView setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
+        [textView setTextColor:[UIColor gtio_signInColor]];
+    }
+    return YES;
 }
 
 - (void)pickerNextTapped:(id)sender
@@ -140,6 +152,14 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    if (textField.text.length == 1 && string.length == 0) {
+        textField.text = string;
+        [textField setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegularItal size:14.0]];
+        [textField setTextColor:[UIColor gtio_darkGrayTextColor]];
+    } else {
+        [textField setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
+        [textField setTextColor:[UIColor gtio_signInColor]];
+    }
     if (self.usesPicker) {
         return NO;
     }
@@ -169,9 +189,7 @@
 - (void)setAccessoryTextUsesPicker:(BOOL)usesPicker
 {
     _usesPicker = usesPicker;
-    UIFont *placeHolderFont = (usesPicker) ? [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0] : [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLightItal size:14.0];
     [self.cellAccessoryText setUsesPicker:usesPicker];
-    [self.cellAccessoryText setFont:placeHolderFont];
 }
 
 - (void)setPickerViewItems:(NSArray *)pickerViewItems
@@ -201,6 +219,10 @@
 {
     if (self.multiLine) {
         [self.cellAccessoryTextMulti setText:text];
+        if (text.length > 0) {
+            [self.cellAccessoryTextMulti setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
+            [self.cellAccessoryTextMulti setTextColor:[UIColor gtio_signInColor]];
+        }
     } else {
         [self.cellAccessoryText setText:text];
     }

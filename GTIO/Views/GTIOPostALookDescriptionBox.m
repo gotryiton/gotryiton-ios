@@ -14,13 +14,12 @@
 @property (nonatomic, strong) UIView *placeHolderView;
 @property (nonatomic, strong) UIImageView *backgroundView;
 @property (nonatomic, strong) UITextView *nextTextView;
-@property (nonatomic, strong) GTIODoneToolBar *accessoryToolBar;
 
 @end
 
 @implementation GTIOPostALookDescriptionBox
 
-@synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView, nextTextView = _nextTextView, accessoryToolBar = _accessoryToolBar;
+@synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView, nextTextView = _nextTextView;
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon nextTextView:(UITextView *)nextTextView
 {
@@ -46,30 +45,34 @@
         [self.placeHolderView addSubview:titleLabel];
         
         self.nextTextView = nextTextView;
-        self.accessoryToolBar = [[GTIODoneToolBar alloc] initWithTarget:self action:@selector(accessoryButtonTapped:)];
                 
-        self.textView = [[UITextView alloc] initWithFrame:(CGRect){ 5, 0, self.backgroundView.bounds.size.width - 10, self.backgroundView.bounds.size.height - 10 }];
+        self.textView = [[UITextView alloc] initWithFrame:(CGRect){ 5, 0, self.backgroundView.bounds.size.width, self.backgroundView.bounds.size.height - 10 }];
         [self.textView setBackgroundColor:[UIColor clearColor]];
         [self.textView setContentInset:(UIEdgeInsets){ 0, -4, 0, 0 }];
         [self.textView setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:12.0]];
         [self.textView setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [self.textView setScrollsToTop:NO];
         [self.textView setDelegate:self];
         if (self.nextTextView) {
-            [self.accessoryToolBar useNextButtonWithTarget:self action:@selector(accessoryButtonTapped:)];
+            [self.textView setReturnKeyType:UIReturnKeyNext];
+        } else {
+            [self.textView setReturnKeyType:UIReturnKeyDone];
         }
-        [self.textView setInputAccessoryView:self.accessoryToolBar];
         [self addSubview:self.textView];
     }
     return self;
 }
 
-- (void)accessoryButtonTapped:(id)sender
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    if (self.nextTextView) {
+    if ([text isEqualToString:@"\n"] && self.nextTextView) {
         [self.nextTextView becomeFirstResponder];
-    } else {
+        return NO;
+    } else if([text isEqualToString:@"\n"]) {
         [self.textView resignFirstResponder];
+        return NO;
     }
+    return YES;
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView

@@ -65,4 +65,9 @@
     return UIColorFromRGB(0x5EE4B7);
 }
 
++ (UIColor *)gtio_lightGrayTextColor
+{
+    return UIColorFromRGB(0xB3B3B3);
+}
+
 @end
