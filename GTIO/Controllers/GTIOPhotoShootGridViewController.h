@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOViewController.h"
 
-@interface GTIOPhotoShootGridViewController : UIViewController
+@interface GTIOPhotoShootGridViewController : GTIOViewController
 
 @property (nonatomic, strong) NSArray *images;
 
