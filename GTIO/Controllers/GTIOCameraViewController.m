@@ -111,7 +111,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
                 self.photoShootTimerView.completionHandler = nil;
                 [self.imageWaitTimer invalidate];
                 [self.capturedImages removeAllObjects];
-                [self.photoShootTimerView setHidden:YES];
+                [self.photoShootTimerView setAlpha:0.0f];
                 [self resetView];
                 self.shootingPhotoShoot = NO;
             }
@@ -207,7 +207,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
     
     // Photo shoot timer
     self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 74) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 74) / 2, 74, 74 }];
-    [self.photoShootTimerView setHidden:YES];
+    [self.photoShootTimerView showPhotoShootTimer:NO];
     [self.view addSubview:self.photoShootTimerView];
 }
 
@@ -265,6 +265,8 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
     [self.photoToolbarView enableAllButtons:YES];
     [self showFlashButton:![self.photoToolbarView.photoModeSwitch isOn]];
 }
+
+#pragma mark - View Animations
 
 - (void)showFlashButton:(BOOL)showFlashButton
 {
@@ -372,7 +374,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
         
         [self.imageWaitTimer invalidate];
         [self timerWithDuration:2];
-        [self.photoShootTimerView setHidden:NO];
+        [self.photoShootTimerView showPhotoShootTimer:YES];
     } else if (self.startingPhotoCount == 6 && [self.capturedImages count] == 9) {
         [self.imageWaitTimer invalidate];
         
@@ -417,7 +419,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
     [self.photoShootProgresToolbarView setNumberOfDotsOn:0];
     
     // Show timer
-    [self.photoShootTimerView setHidden:NO];
+    [self.photoShootTimerView showPhotoShootTimer:YES];
 
     GTIOConfig *config = [[GTIOConfigManager sharedManager] config];
     [self timerWithDuration:6];
@@ -427,7 +429,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
 {
     [self.photoShootTimerView startWithDuration:duration completionHandler:^(GTIOPhotoShootTimerView *photoShootTimerView) {
         // Take first batch of photos
-        [self.photoShootTimerView setHidden:YES];
+        [self.photoShootTimerView showPhotoShootTimer:NO];
         [self takePhotoBurstWithNumberOfPhotos:3];
     }];
 }

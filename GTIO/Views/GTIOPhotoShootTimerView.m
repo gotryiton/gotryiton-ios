@@ -78,4 +78,15 @@
     [self setNeedsDisplay];
 }
 
+- (void)showPhotoShootTimer:(BOOL)showPhotoShootTimer
+{
+    [UIView animateWithDuration:0.25f animations:^{
+        CGFloat alpha = 0.0f;
+        if (showPhotoShootTimer) {
+            alpha = 1.0f;
+        }
+        [self setAlpha:alpha];
+    }];
+}
+
 @end
