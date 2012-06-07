@@ -1,3 +1,30 @@
+***Thursday, June 7th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Approve changes to 7.1 gist
+- GTIO - Update gist of 7.1, proceed to updating API 6/8
+
+**Status**
+- Working on 7.1, moving on to Header 
+- Continuing work on Filters
+- Next up: 1.8
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Wednesday, June 6th - Standup Notes***
 
 **Attendees**
