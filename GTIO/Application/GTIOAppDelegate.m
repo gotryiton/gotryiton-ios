@@ -187,12 +187,14 @@
     self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
     [self.tabBarController setDelegate:self];
     
+    UINavigationController *meNavigationController = [[UINavigationController alloc] initWithRootViewController:[[GTIOMeViewController alloc] initWithNibName:nil bundle:nil]];
+    
     NSArray *viewControllers = [NSArray arrayWithObjects:
                                 [[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOCameraTabBarPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOShopViewController alloc] initWithNibName:nil bundle:nil],
-                                [[GTIOMeViewController alloc] initWithNibName:nil bundle:nil],
+                                meNavigationController,
                                 nil];
     [self.tabBarController setViewControllers:viewControllers];
     
@@ -240,7 +242,7 @@
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOShopViewController class]]) {
         [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
-    } else if ([viewController isKindOfClass:[GTIOMeViewController class]]) {
+    } else if ([viewController isKindOfClass:[UINavigationController class]]) {
         [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
     }
 }

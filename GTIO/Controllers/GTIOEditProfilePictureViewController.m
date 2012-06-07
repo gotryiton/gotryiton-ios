@@ -68,7 +68,7 @@
         [self.navigationController popViewControllerAnimated:YES]; 
     }];
     
-    self = [super initWithTitle:@"edit profile picture" leftNavBarButton:doneButton rightNavBarButton:saveButton];
+    self = [super initWithTitle:@"edit profile picture" italic:YES leftNavBarButton:doneButton rightNavBarButton:saveButton];
     if (self) {        
         _profileIconViews = [NSMutableArray array];
         _profileIconURLs = [NSMutableArray array];

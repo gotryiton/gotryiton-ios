@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOViewController.h"
 
-@interface GTIOMeViewController : UIViewController
+@interface GTIOMeViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

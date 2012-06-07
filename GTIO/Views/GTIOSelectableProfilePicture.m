@@ -57,8 +57,14 @@
 - (void)setImageWithURL:(NSURL*)url
 {
     self.imageURL = url;
-    [self.imageView setImageWithURL:url];
-    [self fadeInImageView];
+    
+    __block GTIOSelectableProfilePicture *blockSelf = self;
+    
+    [self.imageView setImageWithURL:url placeholderImage:nil success:^(UIImage *image) {
+        [blockSelf fadeInImageView];
+    } failure:^(NSError *error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }];
 }
 
 - (void)setImage:(UIImage*)image
