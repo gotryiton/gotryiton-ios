@@ -14,6 +14,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GTIOTakePhotoView.h"
 
+#import "GTIOScrollView.h"
+
 @interface GTIOPostALookViewController()
 
 @property (nonatomic, strong) GTIOLookSelectorView *lookSelectorView;
@@ -23,7 +25,7 @@
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *tagBox;
 @property (nonatomic, strong) UIButton *postThisButton;
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) GTIOScrollView *scrollView;
 @property (nonatomic, assign) CGRect originalFrame;
 
 @property (nonatomic, strong) NSTimer *photoSaveTimer;
@@ -47,8 +49,6 @@
         }
     }] rightNavBarButton:nil];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookSelectorViewUpdated:) name:kGTIOLooksUpdated object:nil];
     }
     return self;
@@ -69,7 +69,8 @@
 {
     [super viewDidLoad];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 50 - 44 }];
+    self.scrollView = [[GTIOScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 50 - 44 }];
+    [self.scrollView setOffsetFromBottom:50];
     [self.scrollView setDelegate:self];
     [self.view addSubview:self.scrollView];
     
@@ -136,17 +137,6 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-    [self.scrollView setFrame:(CGRect){ self.originalFrame.origin, self.originalFrame.size.width, self.originalFrame.size.height - 165 }];
-}
-
-- (void)keyboardWillBeHidden:(NSNotification *)notification
-{
-    [self.scrollView setFrame:self.originalFrame];
-    [self.scrollView setContentOffset:(CGPoint){ 0, 0 } animated:YES];
-}
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self snapScrollView:scrollView];
@@ -177,8 +167,6 @@
         if (top) {
             [self.tagBox.textView resignFirstResponder];
             [self.descriptionBox.textView resignFirstResponder];
-        } else {
-            [self.descriptionBox.textView becomeFirstResponder];
         }
     }];
 }

@@ -63,13 +63,19 @@
     return self;
 }
 
+#pragma mark - UITextViewDelegate
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"] && self.nextTextView) {
         [self.nextTextView becomeFirstResponder];
         return NO;
     } else if([text isEqualToString:@"\n"]) {
-        [self.textView resignFirstResponder];
+        if (self.textViewDidEndHandler) {
+            self.textViewDidEndHandler(self.textView);
+        } else {
+            [self.textView resignFirstResponder];
+        }
         return NO;
     }
     return YES;

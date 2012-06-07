@@ -684,6 +684,7 @@
 		D2603E20155AD93A00536BF9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2603E1F155AD93A00536BF9 /* CoreText.framework */; };
 		D26D32AB156C016800C06CA9 /* GTIOProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */; };
 		D27E0C70156AAD9E00BE7C9E /* GTIOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */; };
+		D27E16FE157FD23F0044EC3C /* GTIOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27E16FD157FD23F0044EC3C /* GTIOScrollView.m */; };
 		D27F9D0B1577B43200EAB480 /* GTIOPhotoShootGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D0A1577B43200EAB480 /* GTIOPhotoShootGridViewController.m */; };
 		D27F9D0E1577B45700EAB480 /* GTIOPhotoShootGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D0D1577B45700EAB480 /* GTIOPhotoShootGridView.m */; };
 		D27F9D151577C42B00EAB480 /* GTIONavigationTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D141577C42B00EAB480 /* GTIONavigationTitleLabel.m */; };
@@ -1536,6 +1537,8 @@
 		D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProgressHUD.m; sourceTree = "<group>"; };
 		D27E0C6E156AAD9E00BE7C9E /* GTIOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAuth.h; sourceTree = "<group>"; };
 		D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAuth.m; sourceTree = "<group>"; };
+		D27E16FC157FD23F0044EC3C /* GTIOScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOScrollView.h; sourceTree = "<group>"; };
+		D27E16FD157FD23F0044EC3C /* GTIOScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOScrollView.m; sourceTree = "<group>"; };
 		D27F9D091577B43200EAB480 /* GTIOPhotoShootGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoShootGridViewController.h; sourceTree = "<group>"; };
 		D27F9D0A1577B43200EAB480 /* GTIOPhotoShootGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoShootGridViewController.m; sourceTree = "<group>"; };
 		D27F9D0C1577B45700EAB480 /* GTIOPhotoShootGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoShootGridView.h; sourceTree = "<group>"; };
@@ -1686,6 +1689,8 @@
 			children = (
 				8E12C1F315754E870097CDE9 /* GTIOViewController.h */,
 				8E12C1F415754E870097CDE9 /* GTIOViewController.m */,
+				D27E16FC157FD23F0044EC3C /* GTIOScrollView.h */,
+				D27E16FD157FD23F0044EC3C /* GTIOScrollView.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -4027,6 +4032,7 @@
 				D27F9D151577C42B00EAB480 /* GTIONavigationTitleLabel.m in Sources */,
 				D27F9D181577E41C00EAB480 /* GTIOPhotoConfirmationViewController.m in Sources */,
 				D27F9D1B1577E43800EAB480 /* GTIOPhotoConfirmationToolbarView.m in Sources */,
+				D27E16FE157FD23F0044EC3C /* GTIOScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
