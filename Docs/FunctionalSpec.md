@@ -3309,7 +3309,7 @@ A user can confirm that they want to upload the photo they've taken or selected.
 #### Mockups
 ([wireframe](http://invis.io/9M2OEVED) [2](http://invis.io/2Z2OEWB8) [3](http://invis.io/QB2OEYM7) [4](http://invis.io/4F2OEZGK))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.3.1.Photo.Filter.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.2.3.1.Photo.Filter.png" width=420px/>
 
 12.2.1 Upload confirm with grid button
 
@@ -3344,12 +3344,14 @@ A user can confirm that they want to upload the photo they've taken or selected.
 	- Middle Text: 18px Archer Light Italic rgb(64,64,65) #404041
 		- 22px from top of bar (18px from top if not including bar's shadow overlay)
 - Filter Buttons
-	- 68x68px including shadow
-	- Filter Image: 60x60px with 5px radius (10px @2x)
+	- 69x69px including shadow
+	- Filter Image: 61x61px with 5px radius (10px @2x)
 	- On active state place (upload.filter.overlay.selected.png) behind filter area
 	- 5px padding on left side
 	- 3px padding between each filter button
-	- Text is Verlag Light 10pt rgb(255,255,255) #ffffff
+	- Text is Proxima Nova Semibold 5pt rgb(255,255,255) #ffffff
+      - Selected filter text is 80% opacity
+      - Non-selected filter text is 60% opacity
 - Background shadow
 	- 101px high shadow behind filter buttons using (upload.filter.shadow.bg.png) which should stretch horizontally
 
