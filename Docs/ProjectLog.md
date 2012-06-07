@@ -1,3 +1,34 @@
+***Thursday, June 7th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Approve changes to 7.1 gist
+- GTIO - Update gist of 7.1, proceed to updating API 6/8
+- GTIO - List of links w/ where they go
+
+**Status**
+- Working on 7.1, moving on to Header 
+- Continuing work on Filters
+- Next up: 1.8
+- Not going to allow swiping left and right on the Photo Filter screen when in photo shoot mode
+- 7.1 table view cells now going to load dynamically from API
+- Changes to the photo frame are going to take 2 days
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Wednesday, June 6th - Standup Notes***
 
 **Attendees**
