@@ -1769,6 +1769,11 @@ previous screen
 
 /Invite/Facebook
 
+#### Routing
+gtio://invite-friends
+
+
+
 #### Stories
 - A user can invite friends to GTIO via SMS, Email, Facebook 
    - A user can see buttons to select SMS, Email, Facebook
@@ -1847,6 +1852,10 @@ A user can find friends to follow
 
 /Friends/Search
 
+
+#### Routing
+gtio://find-friends
+
 #### Stories
 - A user can find friends to follow
    - title: find my friends
@@ -1920,6 +1929,8 @@ A user can see a list of suggested users to follow
 #### API Usage
 /Friends/Suggested
 
+#### Routing
+gtio://suggested-friends
 
 #### User Flow
 **entry screens:**   
@@ -1969,6 +1980,7 @@ previous screen
 
 #### API Usage
 /Friends?
+
 
 #### Stories
 - A user can manage their friend relationships via the feed
@@ -2022,6 +2034,9 @@ previous screen
 #### API Usage
 /Friends/Search
 
+#### Routing
+gtio://search-friends
+
 #### Stories
 - A user can search for friends outside of their own network
    - search field
@@ -2061,6 +2076,10 @@ previous screen
 #### API Usage
 /User/Following
 
+#### Routing
+gtio://user/:id/following   
+gtio://my-following   
+
 #### Stories
 - A user can see a list of who they (or another user) are following
    - title (from api)
@@ -2093,6 +2112,11 @@ previous screen
 
 #### API Usage
 /User/Followers
+
+
+#### Routing
+gtio://user/:id/followers   
+gtio://my-followers   
 
 #### Stories
 - A user can see a list of who their (or another user's) followers
@@ -2147,6 +2171,10 @@ any screen with uiTabBar
 Request:  ```GET /user/management```  [api-users](http://gtio-dev.gotryiton.com/docs/api-users)
 
 Response:  Will respond with the extended user object for the currently logged in user.
+
+#### Routing
+
+gtio://my-management
 
 #### Stories
 - A logged in user can see their user info on the management page
@@ -2250,6 +2278,10 @@ previous screen
 #### API Usage
 /User/Settings
 
+#### Routing
+
+gtio://StandardWebview/Settings/http://gtio-dev.gotryiton.com/user/settings
+
 #### Stories
 - A user can edit when they receive notifications from GTIO
    - load a webview which will allow a user to turn on and off notifications
@@ -2282,6 +2314,11 @@ previous screen
 /User/Icon
 
 /User/Facebook-Connect
+
+#### Routing
+
+gtio://edit-my-icon
+
 
 #### Stories
 - A user can edit their profile icon
@@ -2403,6 +2440,11 @@ previous screen
 #### API Usage
 /User/Edit
 
+#### Routing
+
+gtio://edit-my-profile
+
+
 #### Stories
 - A user can edit their profile
    - mimmick existing form
@@ -2457,6 +2499,15 @@ previous screen
 #### API Usage
 /User/Hearts
 
+#### Routing
+
+gtio://my-hearts
+
+or
+
+gtio://hearted-by-user/:user_id
+
+
 #### Stories
 - A logged in user can view their hearted items
    - masonry view of hearts (posts and products)
@@ -2485,7 +2536,14 @@ A logged in user can view their posts
 previous screen    
 
 #### API Usage
-/User/Posts
+/Posts/by-user/:user_id
+
+#### Routing
+gtio://my-posts
+
+or
+
+gtio://posted-by/:user_id
 
 #### Stories
 - A logged in user can view their posted items
@@ -2543,6 +2601,9 @@ previous screen
 
 #### API Usage
 /user/:id/profile  (see documentation [api-users](http://gtio-dev.gotryiton.com/docs/api-users))
+
+#### Routing
+gtio://profile/:user_id
 
 #### Stories
 - a user can view the profile info of another user (or their self)
@@ -2650,6 +2711,9 @@ previous screen
 #### API Usage
 /User/Shopping-list
 
+#### Routing
+gtio://my-shopping-list
+
 #### Stories    
 - Each user has a shopping list page
    - title: shopping list
@@ -2702,7 +2766,15 @@ A logged in user can view their (or someone else's) posts that have been selecte
 previous screen    
 
 #### API Usage
-/Posts/stars-by-user-id/:user_id
+/Posts/stars-by-user/:user_id
+
+#### Routing
+gtio://my-stars
+
+or
+
+gtio://stars-by-user/:user_id
+
 
 #### Stories
 - A logged in user can view their posted items that have editors pick stars
@@ -2787,6 +2859,10 @@ any screen with uiTabBar
 
 #### API Usage
 /Posts/Feed
+
+#### Routing
+gtio://posts/feed
+
 
 #### Stories  
 - A user can see a personalized feed of content
@@ -2980,6 +3056,8 @@ feed: ([view 8.3](#83-default-3rd-party-webview-container))
 
 #### API Usage
 /Posts/Popular
+
+
 
 #### Stories 
 - A user can see a grid of popular looks on GTIO
@@ -3868,7 +3946,7 @@ An error response from the gtio api will include an error object.  The error obj
 
       "alert" : { 
 
-         "message" : "user-facing message about the error",
+         "text" : "user-facing message about the error",
 
          "title" : "Optional title to the dialog",
 
