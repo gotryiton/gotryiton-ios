@@ -14,20 +14,22 @@
 @property (nonatomic, strong) UIButton *leftButton;
 @property (nonatomic, strong) UIButton *rightButton;
 @property (nonatomic, strong) UIView *topShadow;
+@property (nonatomic, assign) BOOL italic;
 
 @end
 
 @implementation GTIOViewController
 
-@synthesize navigationTitle = _navigationTitle, leftButton = _leftButton, rightButton = _rightButton, topShadow = _topShadow;
+@synthesize navigationTitle = _navigationTitle, leftButton = _leftButton, rightButton = _rightButton, topShadow = _topShadow, italic = _italic;
 
--(id)initWithTitle:(NSString *)title leftNavBarButton:(UIButton *)leftButton rightNavBarButton:(UIButton *)rightButton
+-(id)initWithTitle:(NSString *)title italic:(BOOL)italic leftNavBarButton:(UIButton *)leftButton rightNavBarButton:(UIButton *)rightButton
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _navigationTitle = title;
         _rightButton = rightButton;
         _leftButton = leftButton;
+        _italic = italic;
     }
     return self;
 }
@@ -39,7 +41,11 @@
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLightItal size:18.0]];
+    if (self.italic) {
+        [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLightItal size:18.0]];
+    } else {
+        [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLight size:18.0]];
+    }
     [titleLabel setText:self.navigationTitle];
     [titleLabel setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
     [titleLabel sizeToFit];
@@ -56,6 +62,11 @@
     
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.leftButton]];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.rightButton]];
+}
+
+- (void)useTitleView:(UIView *)titleView
+{
+    [self.navigationItem setTitleView:titleView];
 }
 
 - (void)viewWillAppear:(BOOL)animated

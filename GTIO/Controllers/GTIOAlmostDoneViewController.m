@@ -63,7 +63,7 @@
         }
     }];
     
-    self = [super initWithTitle:@"almost done!" leftNavBarButton:nil rightNavBarButton:saveButton];
+    self = [super initWithTitle:@"almost done!" italic:YES leftNavBarButton:nil rightNavBarButton:saveButton];
     if (self) {    
         NSMutableArray *selectableYears = [NSMutableArray array];
         NSDate *currentDate = [NSDate date];

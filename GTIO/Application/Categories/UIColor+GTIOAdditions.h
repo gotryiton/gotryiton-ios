@@ -34,5 +34,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_reallyDarkGrayTextColor;
 + (UIColor *)gtio_progressBarColor;
 + (UIColor *)gtio_lightGrayTextColor;
++ (UIColor *)gtio_groupedTableBorderColor;
++ (UIColor *)gtio_lightestGrayTextColor;
 
 @end
