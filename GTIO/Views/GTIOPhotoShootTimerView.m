@@ -8,6 +8,8 @@
 
 #import "GTIOPhotoShootTimerView.h"
 
+static UIImage *gtio_image = nil;
+
 @interface GTIOPhotoShootTimerView ()
 
 @property (nonatomic, strong) NSTimer *animationTimer;
@@ -18,6 +20,12 @@
 @end
 
 @implementation GTIOPhotoShootTimerView
+
++ (void)initialize {
+    if (self == [GTIOPhotoShootTimerView class]) {
+        
+    }
+}
 
 @synthesize duration = _duration, startTime = _startTime;
 @synthesize animationTimer = _animationTimer, updateTimer = _updateTimer;
