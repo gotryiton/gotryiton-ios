@@ -2608,6 +2608,7 @@ gtio://hearted-by-user/:user_id
       - content area scrolls 'under' tab graphics
 - Photo Grid
    - Images are sized to 94px wide, variable height
+   - Top images are 9px from top of content area
    - Leftmost column images are 7px from left edge of screen
    - Rightmost images are 7px from right edge of screen
    - In columns, images be separated by 12px of vertical gap
@@ -2658,6 +2659,7 @@ gtio://posted-by/:user_id
 #### Design Stories
 - Photo Grid
    - Images are sized to 94px wide, variable height
+   - Top images are 9px from top of content area
    - Leftmost column images are 7px from left edge of screen
    - Rightmost images are 7px from right edge of screen
    - In columns, images be separated by 12px of vertical gap
@@ -2804,6 +2806,7 @@ gtio://profile/:user_id
 		- baseline is 16px from top of tab asset, horizontally centered
 - Photo Grid
    - Images are sized to 94px wide, variable height
+   - Top images are 9px from top of content area
    - Leftmost column images are 7px from left edge of screen
    - Rightmost images are 7px from right edge of screen
    - In columns, images be separated by 12px of vertical gap
@@ -2815,8 +2818,26 @@ gtio://profile/:user_id
       - 4px nonstretchable on top
       - 6px nonstretchable on bottom
 - Empty State
-   - 
+   - Text Callout
+      - text appears overlaid on 'empty.message.container.png'
+      - Archer Book Italic, 14pt, rgb(148,148,148)
+      - 'empty.message.container' is horizontally and vertically centered within content area
+      - baseline of text is 17px up from bottom of 'empty.message.container' asset
 - Viewing Private User (when not following them)
+   - Text Callout
+      - text appears overlaid on 'empty.message.container.png'
+      - Archer Book Italic, 14pt, rgb(148,148,148)
+      - user name is Archer Medium Italic, 14pt, rgb(255,106,114)
+      - 'empty.message.container' is horizontally and vertically centered within content area
+      - stretch 'empty.message.container' to accommodate text
+         - vertical middle is stretchable
+         - 5px nonstretchable at top
+         - 5px nonstretchable at bottom
+         - baseline of 2nd line of text is 17px up from bottom of 'empty.message.container' asset
+         - baseline of 1st line should be 25px away from top of 'empty.message.container' asset
+   - Lock Icon
+      - 'profile-lock.png'
+      - 13px gap between bottom of lock and top of empty.message.container
 
 ### 7.8 Shopping list  
 
@@ -2926,6 +2947,7 @@ gtio://stars-by-user/:user_id
 #### Design Stories
 - Photo Grid
    - Images are sized to 94px wide, variable height
+   - Top images are 9px from top of content area
    - Leftmost column images are 7px from left edge of screen
    - Rightmost images are 7px from right edge of screen
    - In columns, images be separated by 12px of vertical gap
