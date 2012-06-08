@@ -197,12 +197,11 @@
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOIcon class]] && ![object isMemberOfClass:[GTIOFacebookIcon class]]) {
                     GTIOIcon *icon = (GTIOIcon*)object;
-                    [self.profileIconURLs addObject:icon.url];
+                    if (icon.url) {
+                        [self.profileIconURLs addObject:icon.url];
+                    }
                 }
             }
-            
-            // default icon
-            self.defaultIconURL = [NSURL URLWithString:[loadedObjects objectAtIndex:([loadedObjects count]-1)]];
             
             self.facebookPicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 16, 72, 55, 55 } andImageURL:nil];
             if (userHasFacebookPicture) {
