@@ -26,7 +26,7 @@ NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotificatio
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
 
-@interface GTIOCameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface GTIOCameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
@@ -38,6 +38,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @property (nonatomic, strong) GTIOButton *flashButton;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
+@property (nonatomic, strong) UIImageView *focusImageView;
 
 @property (nonatomic, assign) NSInteger capturedImageCount;
 
@@ -65,6 +66,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @synthesize imagePickerController = _imagePickerController;
 @synthesize postALookViewController = _postALookViewController;
 @synthesize shootingPhotoShoot = _shootingPhotoShoot;
+@synthesize focusImageView = _focusImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -117,6 +119,11 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
                 self.shootingPhotoShoot = NO;
             }
         }];
+        
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToFocus:)];
+        [tapGestureRecognizer setNumberOfTapsRequired:1];
+        [tapGestureRecognizer setDelegate:self];
+        [self.view addGestureRecognizer:tapGestureRecognizer];
     }
     return self;
 }
@@ -196,6 +203,12 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }];
     [self.photoToolbarView setPhotoModeSwitchChangedHandler:^(BOOL on) {
         [blockSelf showFlashButton:!on];
+        
+        NSError *error;
+        if ([self.captureDevice lockForConfiguration:&error]) {
+            [self.captureDevice setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+            [self.captureDevice unlockForConfiguration];
+        }
     }];
     [self.view addSubview:self.photoToolbarView];
     
@@ -209,6 +222,10 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 74) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 74) / 2, 74, 74 }];
     [self.photoShootTimerView showPhotoShootTimer:NO];
     [self.view addSubview:self.photoShootTimerView];
+    
+    // Focus
+    self.focusImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"focus-target.png"]];
+    [self.focusImageView setFrame:(CGRect){ CGPointZero, self.focusImageView.image.size }];
 }
 
 - (void)viewDidUnload
@@ -219,6 +236,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     self.shutterFlashOverlay = nil;
     self.captureVideoPreviewLayer = nil;
     self.photoShootTimerView = nil;
+    self.focusImageView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -473,6 +491,116 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
     [photoConfirmationViewController setPhoto:photo];
     [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
+}
+
+#pragma mark - Focus
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([self.captureVideoPreviewLayer containsPoint:[touch locationInView:self.view]] && ![self.photoToolbarView.photoModeSwitch isOn]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)tapToFocus:(UITapGestureRecognizer *)tapGestureRecognizer
+{
+    if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        CGPoint locationInView = [tapGestureRecognizer locationInView:self.view];
+        
+        if ([self.captureVideoPreviewLayer containsPoint:locationInView]) {
+            [self focusAtPoint:locationInView];
+        }
+    }
+}
+
+- (void)focusAtPoint:(CGPoint)point
+{
+    if ([self.captureDevice isFocusPointOfInterestSupported] && [self.captureDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+        [self.focusImageView setCenter:point];
+        [self animateTapToFocusImage];
+        
+        NSError *error;
+        if ([self.captureDevice lockForConfiguration:&error]) {
+            CGPoint focalPoint = (CGPoint){ point.y / self.captureVideoPreviewLayer.frame.size.height, (self.captureVideoPreviewLayer.frame.size.width - point.x) / self.captureVideoPreviewLayer.frame.size.height };
+            [self.captureDevice setFocusPointOfInterest:focalPoint];
+            [self.captureDevice setFocusMode:AVCaptureFocusModeAutoFocus];
+            [self.captureDevice unlockForConfiguration];
+        } else {
+            NSLog(@"Could not focus: %@", [error localizedDescription]);
+        }
+    }
+}
+
+- (void)animateTapToFocusImage
+{
+    [self.view addSubview:self.focusImageView];
+    
+    CALayer *layerToModify = self.focusImageView.layer;
+    
+    CAKeyframeAnimation *pulseAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    
+    CATransform3D startingTransform = CATransform3DScale(layerToModify.transform, 2.0, 2.0, 2.0);
+    CATransform3D scaledTransform = CATransform3DScale(layerToModify.transform, 1.2, 1.2, 1.0);
+    CATransform3D halfScaleTransform = CATransform3DScale(layerToModify.transform, 0.8, 0.8, 1.0);
+    CATransform3D endingTransform = layerToModify.transform;
+    
+    NSArray *animationValues = [NSArray arrayWithObjects:
+                                [NSValue valueWithCATransform3D:startingTransform], 
+                                [NSValue valueWithCATransform3D:halfScaleTransform], 
+                                [NSValue valueWithCATransform3D:scaledTransform],
+                                [NSValue valueWithCATransform3D:endingTransform], 
+                                nil];
+    [pulseAnimation setValues:animationValues];
+    
+    NSArray *timeValues = [NSArray arrayWithObjects:
+                           [NSNumber numberWithFloat:0.0f],
+                           [NSNumber numberWithFloat:0.25f],
+                           [NSNumber numberWithFloat:0.4f],
+                           [NSNumber numberWithFloat:0.5f],
+                           nil];
+    [pulseAnimation setKeyTimes:timeValues];
+    
+    [pulseAnimation setFillMode:kCAFillModeForwards];
+    [pulseAnimation setRemovedOnCompletion:NO];
+    
+    
+    CAKeyframeAnimation *flashAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+    
+    [flashAnimation setValues:[NSArray arrayWithObjects:
+                               [NSNumber numberWithFloat:1.0f],
+                               [NSNumber numberWithFloat:0.0f],
+                               [NSNumber numberWithFloat:1.0f],
+                               [NSNumber numberWithFloat:0.0f],
+                               [NSNumber numberWithFloat:1.0f],
+                               [NSNumber numberWithFloat:0.0f],
+                               nil]];
+    [flashAnimation setKeyTimes:[NSArray arrayWithObjects:
+                                 [NSNumber numberWithFloat:0.0f], 
+                                 [NSNumber numberWithFloat:0.5f], 
+                                 [NSNumber numberWithFloat:0.6f], 
+                                 [NSNumber numberWithFloat:0.7f], 
+                                 [NSNumber numberWithFloat:0.8f], 
+                                 [NSNumber numberWithFloat:0.9f], 
+                                 [NSNumber numberWithFloat:1.0f], 
+                                 nil]];
+    [flashAnimation setFillMode:kCAFillModeForwards];
+    [flashAnimation setRemovedOnCompletion:YES];
+    
+    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+    [animationGroup setAnimations:[NSArray arrayWithObjects:pulseAnimation, flashAnimation, nil]];
+    [animationGroup setDuration:0.75f];
+    [animationGroup setDelegate:self];
+    
+    [layerToModify addAnimation:animationGroup forKey:@"pulseAnimation"];
+}
+
+#pragma mark - CAAnimationDelegate
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    [self.focusImageView removeFromSuperview];
 }
 
 @end
