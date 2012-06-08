@@ -30,21 +30,41 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>4.0.0.0</string>
+	<string>4.0.0.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Archer-Bold.otf</string>
+		<string>Archer-BoldItalic.otf</string>
 		<string>Archer-Book.otf</string>
+		<string>Archer-BookItalic.otf</string>
 		<string>Archer-Light.otf</string>
+		<string>Archer-LightItalic.otf</string>
 		<string>Archer-Medium.otf</string>
+		<string>Archer-MediumItalic.otf</string>
 		<string>Archer-Semibold.otf</string>
+		<string>Archer-SemiboldItalic.otf</string>
 		<string>ProximaNova-Bold.otf</string>
+		<string>ProximaNova-BoldIt.otf</string>
 		<string>ProximaNova-Light.otf</string>
-		<string>ProximaNova-Reg.otf</string>
-		<string>ProximaNova-Sbold.otf</string>
+		<string>ProximaNova-LightIt.otf</string>
+		<string>ProximaNova-Regular.otf</string>
+		<string>ProximaNova-RegularIt.otf</string>
+		<string>ProximaNova-Semibold.otf</string>
+		<string>ProximaNova-SemiboldIt.otf</string>
+		<string>ProximaNova-ThinIt.otf</string>
 		<string>ProximaNova-Thin.otf</string>
+		<string>Verlag-Black.otf</string>
+		<string>Verlag-BlackItalic.otf</string>
+		<string>Verlag-Bold.otf</string>
+		<string>Verlag-BoldItalic.otf</string>
+		<string>Verlag-Book.otf</string>
+		<string>Verlag-BookItalic.otf</string>
+		<string>Verlag-Light.otf</string>
+		<string>Verlag-LightItalic.otf</string>
+		<string>Verlag-XLight.otf</string>
+		<string>Verlag-XLightItalic.otf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

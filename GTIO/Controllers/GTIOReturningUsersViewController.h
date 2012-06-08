@@ -10,4 +10,6 @@
 
 @interface GTIOReturningUsersViewController : UIViewController
 
+- (id)initForReturningUsers:(BOOL)returning;
+
 @end

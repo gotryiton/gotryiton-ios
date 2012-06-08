@@ -51,6 +51,9 @@
    7.5 [My Hearts](#75-my-hearts)   
    7.6 [My Posts](#76-my-posts)   
    7.7 [Profile Page](#77-profile-page)   
+   7.8 [Shopping list](#78-shopping-list)   
+   7.9 [My Stars](#79-my-stars)   
+   7.10 [My Stars](#710-search-tags)   
 8. [The Feed](#8-the-feed)   
    8.1 [Feed view](#81-feed-view)   
    8.3 [Feed verdict view](#83-feed-verdict-view)   
@@ -86,17 +89,17 @@
 
 ### General Questions
 
-1. ~~**progress bars**: Will we be able to show a progress bar during the upload process?  Relatedly, will we be able to show a progress bar during the image download process (after a user's feed API call has returned, but before the user has loaded images from that API response).~~ easy
+---
 
-2.  ~~**retry requests**: Similar to Question 1, We've noticed that Instagram employs a 'retry' button for both uploads and image downloads.  This seems to be so that they can force a strict timeout length on their uploads and downloads and maintain an overal appearance of speed throughout the app.  We'd like to investigate the difficulty of something similar.  (to experience it in instagram, switch to edge and load a feed-- most images will give a 'couldnt load image. tap to retry' message).~~ easy.
+### Api Documentation
 
-3.  ~~On the Popular Looks Grid (view 9.1), We're showing a grid view of a feed of posts.  On the Feed view (view 8.1) we're showing the same data in a feed view.  We'd like for a button on the Popular looks grid (9.1) to allow a user to switch between the feed view and grid view consumption of the list.  (this feature will only be available for view 9.1, view 8.1 will always be consumed in a feed view).  Is this simple to implement or does it add complexity?~~  simple.
+Api docs will be hosted on gotryiton.  The most up-to-date documentaiton can be found at:
 
-4.  ~~In spec'ing out the Share Settings screen (view 7.2), we determined that maintaining flexibility about the fields in the list means that it would be easier to implement as a webview (similar to the FourSquare app).  Since this view will need to make api calls that have a device token (in order to enable and disable push alerts), will there be any issues with Apple approval if that device token is passed in the clear to a webview?  (we're already passing it in the clear to an api in our current app, but wanted to confirm you guys dont see any issues before we revise the design).~~ shouldnt be an issue
+[GTIO Api Docs](http://gtio-dev.gotryiton.com/docs/)   
+user: tt   
+pass: toast   
 
-5. ~~We're interested in customizing the standard iOS dialog message view throughout the app.  What is the scale of complexity to acheive this.  We'd use this dialog for all places in this spec that reference a dialog message.~~ doable.
-
-
+---
 
 ### Deployment Targets
 - iOS 5, iOS 6
@@ -148,7 +151,7 @@ reponse:
 }
 ```
 
-GET /User/me  (see documentation [ApiUsers][ApiUsers.md])
+GET /User/me  (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users) )
 
 response: 
 
@@ -183,7 +186,7 @@ response:
 ```
 
 
-POST /track  (see documentation [ApiTrack](ApiTrack.md) )
+POST /track  (see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track) )
 
 request: 
 
@@ -325,7 +328,7 @@ POST /track
 }
 ```
 
-POST User/Signup/Facebook (see documentation [ApiUser](ApiUser.md) )
+POST User/Signup/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 
 
@@ -381,9 +384,9 @@ previous screen
 
 #### API Usage
 
-POST User/Auth/Facebook (see documentation [ApiUser](ApiUser.md) )
+POST User/Auth/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
-POST User/Auth/Janrain (see documentation [ApiUser](ApiUser.md) )
+POST User/Auth/Janrain (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 #### Stories
 - A returning user is presented with a sign in screen and can sign in
@@ -441,7 +444,7 @@ previous screen
 
 #### API Usage
 
-POST User/Signup/Janrain (see documentation [ApiUser](ApiUser.md) )
+POST User/Signup/Janrain (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 #### Stories
 - new users can sign up with janrain sdk (aol/google/twitter/yahoo options)
@@ -551,7 +554,7 @@ POST /track
 }
 ```
 
-POST /User (see documentation [ApiUser](ApiUser.md) )
+POST /User (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 
 
@@ -756,7 +759,7 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 
 #### API Usage
 
-POST User/Auth/Facebook (see documentation [ApiUser](ApiUser.md) )
+POST User/Auth/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))
 
 #### Stories
 
@@ -816,9 +819,9 @@ previous screen
 
 #### API Usage
 
-POST User/Auth/Facebook (see documentation [ApiUser](ApiUser.md) )   
+POST User/Auth/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))   
 
-POST User/Signup/Facebook (see documentation [ApiUser](ApiUser.md) )   
+POST User/Signup/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api-users))   
 
 #### Stories
 
@@ -1844,6 +1847,11 @@ previous screen
 
 /Invite/Facebook
 
+#### Routing
+gtio://invite-friends
+
+
+
 #### Stories
 - A user can invite friends to GTIO via SMS, Email, Facebook 
    - A user can see buttons to select SMS, Email, Facebook
@@ -1922,6 +1930,10 @@ A user can find friends to follow
 
 /Friends/Search
 
+
+#### Routing
+gtio://find-friends
+
 #### Stories
 - A user can find friends to follow
    - title: find my friends
@@ -1995,6 +2007,8 @@ A user can see a list of suggested users to follow
 #### API Usage
 /Friends/Suggested
 
+#### Routing
+gtio://suggested-friends
 
 #### User Flow
 **entry screens:**   
@@ -2044,6 +2058,7 @@ previous screen
 
 #### API Usage
 /Friends?
+
 
 #### Stories
 - A user can manage their friend relationships via the feed
@@ -2097,6 +2112,9 @@ previous screen
 #### API Usage
 /Friends/Search
 
+#### Routing
+gtio://search-friends
+
 #### Stories
 - A user can search for friends outside of their own network
    - search field
@@ -2136,6 +2154,10 @@ previous screen
 #### API Usage
 /User/Following
 
+#### Routing
+gtio://user/:id/following   
+gtio://my-following   
+
 #### Stories
 - A user can see a list of who they (or another user) are following
    - title (from api)
@@ -2169,6 +2191,11 @@ previous screen
 #### API Usage
 /User/Followers
 
+
+#### Routing
+gtio://user/:id/followers   
+gtio://my-followers   
+
 #### Stories
 - A user can see a list of who their (or another user's) followers
    - title (from api)
@@ -2192,15 +2219,15 @@ A logged in user can manage their profile, share settings, looks, and friends
 #### Mockups
 7.1 Management Page [wireframe1](http://invis.io/TQ2OCXAV) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.1.My.Management.png" width=420px/>
-=========================================================================================
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.png" width=420px/>
+
 7.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.1.My.Management.Scrolled.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.Scrolled.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
-any screen with uiTabBar
+any screen with uiTabBar   
 **exit screens:**   
 ([view 7.3](#73-edit-profile-pic))   
 ([view 6.5](#65-following-list))   
@@ -2209,6 +2236,8 @@ any screen with uiTabBar
 ([view 7.8](#78-shopping-list))   
 ([view 7.5](#75-my-hearts))   
 ([view 7.6](#76-my-looks))   
+([view 7.9](#79-my-stars))   
+([view 7.10](#710-search-tags))   
 ([view 6.1](#61-find-my-friends))   
 ([view 5.1](#51-invite-friends))   
 ([view 7.2](#72-settings))   
@@ -2216,43 +2245,66 @@ any screen with uiTabBar
 
 
 #### API Usage
-/User
+
+Request:  ```GET /user/management```  [api-users](http://gtio-dev.gotryiton.com/docs/api-users)
+
+Response:  Will respond with the extended user object for the currently logged in user.
+
+#### Routing
+
+gtio://my-management
 
 #### Stories
-- A logged in user can see a management page on the 5th tab
-   -  top nav bar
-   - user detail view
-      - thumbnail
-         - **tap** ==> (view 7.3)
-      - name, location
-      - following: x
-         - **tap** ==> (view 6.5)
-      - followers: x
-         - **tap** ==> (view 6.6)
-      - edit btn
-         - **tap** ==> (view 7.4)
+- A logged in user can see their user info on the management page
+   - ```user.name```, ```user.location```, ```user.icon``` are displayed at the top of the page
+- a user can edit their profile icon
+   - profile icon is tappable to edit profile icon
+      - **tap** ==> (view 7.3)
+- a user can edit their profile information
+   - edit button **tap** routes to (view 7.4)
+- a user can see their following count, followers count, and stars count
+   - each button is defined in ```user.following_button```, ```user.followers_button```, and ```user.stars_button``` in api response
+      - button includes count and action for destination tap
+      - buttons tap to (view 6.5), (view 6.6), (view 7.9) respectively
+- a user can tap to their shopping list
    - my shopping list btn
       - **tap** ==> (view 7.8)
+- a user can tap to see their hearted posts
    - my hearts btn
       - **tap** ==> (view 7.5)
+- a user can tap to see their posts
    - my posts
       - **tap** ==> (view 7.6)
-   - find my friends
+- a user can tap to search for tags
+   - search tags button
+      - **tap** ==> (view 7.10)
+- a user can tap to find friends
+   - find my friends button
       - **tap** ==> (view 6.1)
-   - invite friends
+- a user can tap to invite friends
+   - invite friends button
       - **tap** ==> (view 5.1)
-   - share settings
+- a user can edit their settings
+   - settings button
       - **tap** ==> (view 7.2)
-   - sign out
+- a user can sign out
+   - sign out button:
       - confirmation dialog
-         - ok:  api request
-            - **success** ==> (view 1.9)
+         - text: "are you sure you want to log out?""
+         - ok:  api request to ```/user/logout```
+            - on response, discard token and route to (view 1.9)
          - cancel: close dialog
+- a user can toggle their state to private
    - looks are private toggle
+      - confirm dialog if you're turng ON
+         - text: "Are you sure you want to make your posts private? From now on, only followers you approve will see your posts."
       - confirm dialog if you're turng OFF
-      - api request
-   - "messaging about private looks"
-      - this is static copy GTIO will provide
+         - text: "Are you sure you want to make your posts public? From now on, anyone will be able to follow your posts."
+      - api request:
+         - POST to ```/user/update``` with ```public:true``` or ```public:false``` 
+   - text under the toggle should read: "turn this option ON to require your permission before someone can follow your posts."
+      - use this copy not the copy in the mockup!
+
 
 #### Design Stories
 - Top Area
@@ -2304,6 +2356,10 @@ previous screen
 #### API Usage
 /User/Settings
 
+#### Routing
+
+gtio://StandardWebview/Settings/http://gtio-dev.gotryiton.com/user/settings
+
 #### Stories
 - A user can edit when they receive notifications from GTIO
    - load a webview which will allow a user to turn on and off notifications
@@ -2337,11 +2393,16 @@ previous screen
 
 /User/Facebook-Connect
 
+#### Routing
+
+gtio://edit-my-icon
+
+
 #### Stories
 - A user can edit their profile icon
    - a user sees a list of profile icon options
    - a user can tap on each profile icon option and see a preview of their icon with their GTIO display name and location
-   - a user can tap to clear profile icon, which sets the icon to the GTIO default icon
+   - a user can tap to clear profile icon, which sets the icon to the GTIO default icon (```default_icon``` in the api response)
       - api for /User/Icon will provide default icon 
 - If a user is not connected to facebook, they can connect from this screen to add their fb profile icon (GTIOv3 behavior)
    - if the user is not facebook connected, their facebook icon has a 'connect' btn
@@ -2457,6 +2518,11 @@ previous screen
 #### API Usage
 /User/Edit
 
+#### Routing
+
+gtio://edit-my-profile
+
+
 #### Stories
 - A user can edit their profile
    - mimmick existing form
@@ -2513,6 +2579,15 @@ previous screen
 #### API Usage
 /User/Hearts
 
+#### Routing
+
+gtio://my-hearts
+
+or
+
+gtio://hearted-by-user/:user_id
+
+
 #### Stories
 - A logged in user can view their hearted items
    - masonry view of hearts (posts and products)
@@ -2547,7 +2622,14 @@ A logged in user can view their posts
 previous screen    
 
 #### API Usage
-/User/Posts
+/Posts/by-user/:user_id
+
+#### Routing
+gtio://my-posts
+
+or
+
+gtio://posted-by/:user_id
 
 #### Stories
 - A logged in user can view their posted items
@@ -2566,23 +2648,21 @@ Each user has a profile page
 #### Mockups
 7.1 basic: ([wireframe](http://invis.io/732OD3ZH))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.1.My.Management.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.1.Other.Profile.Following.png" width=420px/>
 
 7.7.1 other's profile, not following: ([wireframe](http://invis.io/AD2PMYYW))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Following.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.1.Other.Profile.Following.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.Other.Profile.Not.Following.Bio.Site.png" width=420px/>
-
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.1.other.profile.not.following.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.1.Other.Profile.Not.Following.Bio.Site.png" width=420px/>
 
 7.7.2 other's profile, following requested: ([wireframe](http://invis.io/4Q2PMZHE))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.2.Follow.Requested.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.2.Follow.Requested.png" width=420px/>
 
 7.7.3 other's profile, with banner: ([wireframe](http://invis.io/RW2POUXA))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.3.Banner.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.3.Banner.png" width=420px/>
 
 7.7.4 other's profile, empty state:
 
@@ -2619,51 +2699,60 @@ previous screen
 
 
 #### API Usage
-/User/Profile
+/user/:id/profile  (see documentation [api-users](http://gtio-dev.gotryiton.com/docs/api-users))
+
+#### Routing
+gtio://profile/:user_id
 
 #### Stories
-- a user can view the profile of another user (or their self)
-   - title: profile
-   - settings btn in top right
-      - tapping (if not your own profile) raises actionsheet:
-         - options are:
-            - turn on/off alerts 
-            - follow/unfollow toggle
-            - block/unblock toggle
-         - current on/off states determined by api
-      - tapping if IS your own profile
-         - sends to view 7.1
+- a user can view the profile info of another user (or their self)
+   - user.name, user.location, user.icon are displayed at the top of the page
+      - user.badge is displayed next to name.
+         - path to the badge is defined in api: ```user.badge.path```
+         - file is defined in app
+            - use size "38_38.png" for 2x
+            - use size "17_17.png" for 1x
+- a user can follow another user (but not theirself)
+   - follow button displayed in top right corner
+   - defined in api response ```user.follow_button```
+      - if null (requesting user is the same as profiled user -- or user is just not follow-able for some reason), do not display
+- settings btn
+   - defined in api, ```user.settings```
+      - if null, do not display
+   - tapping raises actionsheet with buttons that are contained in the settings_button object:
+      - items in the actionsheet are defined by those buttons
+         - ```button.text``` defines visible text
+         - ```button.action``` defines api action
 - a user can read another user's bio
-   - see (view 7.7.1)
-   - 'Atlantic-Pacific :-)' will be bio text from API response
-- a user can follow another user from their profile if not already following (view 7.7.1)
-   - follow btn (toggle)
-      - see standard documentation for follow btn
+   - bio is defined as ```user.about```
 - a user can see who another user is following
-   - following btn
+   - ```user.following_button``` defines action and count for the following button
       - **tap** ==> (view 6.5)
-- a user can see who another user follows
-   - followers btn
+- a user can see who another user's followers are
+   - ```user.followers_button``` defines action and count for the followers button
       - **tap** ==> (view 6.6)
+- a user can see who another user's starred posts (editors picks)
+   - ```user.stars_button``` defines action and count for the stars button
+      - **tap** ==> (view 7.9)
 - A user can see additional info about another user 
-   - each profile has a customizable text field (view 7.7.1)
-      - icon (sent from api)
-      - text (sent from api)
-         - supports ```<b>```
+   - each profile has a customizable text fields (view 7.7.1)
+      - defined in api as ```users.profile_callouts``` array
+      - each item has ```icon``` and ```text```
+      - text should support ```<b>``` tags for highlighting bold text
+      - items are not tappable
 - Special branded users can display a banner in their profile
    - banner area (view 7.7.3)
-      - image and link served via api
-      - behavior mimics GTIOv3
+      - image and action defined in api with ```user.banner_ad```
 - A users profile can show a button linking to an external site
-   - button defined by api (view 7.7.1)
-      - two button types
-      - text
-      - action
+   - seen in (view 7.7.1)
+   - button defined by api through ```user.website_button```
+      - button includes ```text``` and ```action``` 
 - A users profile shows a masonry list of their hearts and looks
-   - hearts and looks
-      - sent from api
-      - thumbnails with heart toggle
+   - api responds with ```hearts_list``` and ```posts_list``` which will be identical responses to ```/posts/hearted-by-user/:user_id``` and ```/posts/by-user/:user_id``` respectively
+      - api paginates in the usual manner
+   - each post is displayed as a thumbnail using ```post.thumbnail```
       - **tap** ==> (view 4.1), (view 3.1), or (view 3.6)
+
 
 #### Design Stories
 - Top Area
@@ -2723,6 +2812,9 @@ previous screen
 #### API Usage
 /User/Shopping-list
 
+#### Routing
+gtio://my-shopping-list
+
 #### Stories    
 - Each user has a shopping list page
    - title: shopping list
@@ -2754,6 +2846,62 @@ previous screen
          - ok: api request 
             - **success** ==> show 'emailed' overlay (view 7.8.1)
          - cancel: closes dialog
+
+### 7.9 My Stars
+
+#### Overview
+A logged in user can view their (or someone else's) posts that have been selected as editors picks
+
+#### Mockups
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.9.My.Stars.png" width=420px/>
+
+
+#### User Flow
+**entry screens:**   
+([view 7.1](#71-my-management-page))   
+([view 7.7](#77-profile-page))   
+**exit screens:**   
+([view 3.1](#31-outfit-post-detail-page))   
+([view 3.6](#36-product-post-detail-view))   
+previous screen    
+
+#### API Usage
+/Posts/stars-by-user/:user_id
+
+#### Routing
+gtio://my-stars
+
+or
+
+gtio://stars-by-user/:user_id
+
+
+#### Stories
+- A logged in user can view their posted items that have editors pick stars
+   - masonry view of starred posts
+   - destination link provided in api
+
+
+### 7.10 Search Tags
+
+#### Overview
+A logged in user can view their (or someone else's) posts that have been selected as editors picks
+
+#### Mockups
+Coming soon.
+
+
+#### User Flow
+Coming soon.  
+
+#### API Usage
+GET /tags/search/:query
+
+#### Stories
+- A user can search tags 
+
+
 
 
 ## 8. The Feed 
@@ -2812,6 +2960,10 @@ any screen with uiTabBar
 
 #### API Usage
 /Posts/Feed
+
+#### Routing
+gtio://posts/feed
+
 
 #### Stories  
 - A user can see a personalized feed of content
@@ -3005,6 +3157,8 @@ feed: ([view 8.3](#83-default-3rd-party-webview-container))
 
 #### API Usage
 /Posts/Popular
+
+
 
 #### Stories 
 - A user can see a grid of popular looks on GTIO
@@ -3296,7 +3450,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 
 POST /track
 
-see documentation [Tracking API](ApiTrack.md)
+see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
 
 ```json
 {
@@ -3476,7 +3630,7 @@ A user can add details to their post before they submit.  They can select to use
 
 POST /track  
 
-see documentation [Tracking API](ApiTrack.md)
+see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
 
 
 ```json
@@ -3895,7 +4049,7 @@ An error response from the gtio api will include an error object.  The error obj
 
       "alert" : { 
 
-         "message" : "user-facing message about the error",
+         "text" : "user-facing message about the error",
 
          "title" : "Optional title to the dialog",
 

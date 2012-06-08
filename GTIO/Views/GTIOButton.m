@@ -29,8 +29,23 @@
         case GTIOButtonTypeNewUser: return [self gtio_newUserButton];
         case GTIOButtonTypeTryAgain: return [self gtio_tryAgainButton];
         case GTIOButtonTypeEmailSupport: return [self gtio_emailSupportButton];
-        case GTIOButtonTypeBack: return [self gtio_backButton];
-        default: return nil;
+        case GTIOButtonTypePhotoClose: return [self gtio_photoCloseButton];
+        case GTIOButtonTypePhotoPicker: return [self gtio_photoPickerButton];
+        case GTIOButtonTypePhotoShootGrid: return [self gtio_photoShootGridButton];
+        case GTIOButtonTypePhotoShutter: return [self gtio_photoShutterButton];
+        case GTIOButtonTypePhotoFlash: return [self gtio_photoFlashButton];
+        case GTIOButtonTypePhotoConfirm: return [self gtio_photoConfirmButton];
+        case GTIOButtonTypeBackBottomMargin: return [self gtio_backButtonBottomMargin];
+        case GTIOButtonTypeBackTopMargin: return [self gtio_backButtonTopMargin];
+        case GTIOButtonTypeSaveGreenTopMargin: return [self gtio_saveButtonGreenTopMargin];
+        case GTIOButtonTypeCancelGrayTopMargin: return [self gtio_cancelButtonGrayTopMargin];
+        case GTIOButtonTypeSaveGrayTopMargin: return [self gtio_saveButtonGrayTopMargin];
+        case GTIOButtonTypePhotoSelectBox: return [self gtio_photoSelectBox];
+        case GTIOButtonTypePostThis: return [self gtio_postThisButton];
+        case GTIOButtonTypePhotoDelete: return [self gtio_photoDeleteButton];
+        default: 
+            NSLog(@"Could not find button for type: %i", buttonType);
+            return nil;
     }
 }
 
@@ -56,6 +71,15 @@
     UIImage *buttonImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@-OFF.png", coreImageName]];
     UIImage *buttonHightlightImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@-ON.png", coreImageName]];
     return [self buttonWithImage:buttonImage hightlightImage:buttonHightlightImage];
+}
+
++ (id)photoToolbarButtonWithImageName:(NSString *)photoToolbarButtonName
+{
+    UIButton *button = [self buttonWithImage:[UIImage imageNamed:photoToolbarButtonName] hightlightImage:nil];
+    [button setBackgroundImage:[UIImage imageNamed:@"upload.bottom.bar.button.bg.off.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"upload.bottom.bar.button.bg.on.png"] forState:UIControlStateHighlighted];
+    [button setFrame:(CGRect){ 0, 0, 39, 53}];
+    return button;
 }
 
 #pragma mark - Buttons
@@ -120,9 +144,118 @@
     return [self buttonWithCoreImageName:@"fail-table-3-email-support"];
 }
 
-+ (id)gtio_backButton
++ (id)gtio_backButtonBottomMargin
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"login-nav-back.png"] hightlightImage:nil];
+    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.inactive.bottommargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.active.bottommargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateHighlighted];
+    [button setTitle:@"back" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_darkGrayTextColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(-3.0, 6.5, 0, 0)];
+    [button setFrame:(CGRect){ 0, 0, 45, 30 }];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_saveButtonGreenTopMargin
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"save-button-green-top-margin.png"] hightlightImage:nil];
+}
+
++ (id)gtio_cancelButtonGrayTopMargin
+{
+    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.active.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateHighlighted];
+    [button setTitle:@"cancel" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_darkGrayTextColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 1.0, 0, 0)];
+    [button setFrame:(CGRect){ 0, 0, 50, 30 }];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_saveButtonGrayTopMargin
+{
+    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.active.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateHighlighted];
+    [button setTitle:@"save" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_darkGrayTextColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 1.0, 0, 0)];
+    [button setFrame:(CGRect){ 0, 0, 45, 30 }];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_backButtonTopMargin
+{
+    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.active.topmargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateHighlighted];
+    [button setTitle:@"back" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_darkGrayTextColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(5.0, 6.5, 0, 0)];
+    [button setFrame:(CGRect){ 0, 0, 45, 30 }];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_photoCloseButton
+{
+    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.x.png"];
+}
+
++ (id)gtio_photoPickerButton
+{
+    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.photoroll.png"];
+}
+
++ (id)gtio_photoShootGridButton
+{
+    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.photoshootreel.png"];
+}
+
++ (id)gtio_photoConfirmButton
+{
+    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.check.png"];
+}
+
++ (id)gtio_photoShutterButton
+{
+    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"upload.bottom.bar.camera.button.icon.normal.png"] hightlightImage:nil];
+    [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.off.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.on.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateHighlighted];
+    [button setFrame:(CGRect){ CGPointZero, { 93, 45 } }];
+    return button;
+}
+
++ (id)gtio_photoFlashButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"upload.flash-OFF.png"] hightlightImage:nil];
+}
+
++ (id)gtio_photoSelectBox
+{
+    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"frame-camera-icon-OFF.png"] hightlightImage:[UIImage imageNamed:@"frame-camera-icon-ON.png"]];
+    [button setContentMode:UIViewContentModeCenter];
+    return button;
+}
+
++ (id)gtio_postThisButton
+{
+    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"post-button-OFF.png"] hightlightImage:[UIImage imageNamed:@"post-button-ON.png"]];
+    [button setImage:[UIImage imageNamed:@"post-button-disabled.png"] forState:UIControlStateDisabled];
+    return button;
+}
+
++ (id)gtio_photoDeleteButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"remove-frame-OFF.png"] hightlightImage:[UIImage imageNamed:@"remove-frame-ON.png"]];
 }
 
 #pragma mark - Touch Handling

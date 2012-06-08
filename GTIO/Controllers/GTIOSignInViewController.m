@@ -11,6 +11,9 @@
 #import "GTIOReturningUsersViewController.h"
 #import "GTIOFailedSignInViewController.h"
 #import "GTIOAppDelegate.h"
+#import "GTIOAlmostDoneViewController.h"
+
+#import "GTIOPostALookViewController.h"
 
 #import "GTIOUser.h"
 #import "GTIOTrack.h"
@@ -60,10 +63,25 @@
                 [self.navigationController pushViewController:failedSignInViewController animated:YES];
             } else {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                NSLog(@"Logged in");
-                // TODO: new user go to 1.7
-                // existing user Go to View 8.1
-                [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                if (user.isNewUser) {
+                    if (user.hasCompleteProfile) {
+                        // load 1.8
+                        NSLog(@"Load screen 1.8");
+                    } else {
+                        GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+                        [self.navigationController pushViewController:almostDone animated:YES];
+                        // then go to 1.8
+                    }
+                } else {
+                    if (user.hasCompleteProfile) {
+                        // load 1.8
+                        NSLog(@"Load screen 1.8");
+                    } else {
+                        GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+                        [self.navigationController pushViewController:almostDone animated:YES];
+                        // then go to 8.1
+                    }
+                }
             }
         }];
     }];
@@ -73,7 +91,7 @@
     [self.returningUserButton setFrame:(CGRect){ { (self.view.frame.size.width - self.returningUserButton.frame.size.width) / 2, 300 }, self.returningUserButton.frame.size }];
     [self.returningUserButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.returningUserButton setTapHandler:^(id sender) {
-        GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initWithNibName:nil bundle:nil];
+        GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:YES];
         [self.navigationController pushViewController:returningUsersViewController animated:YES];
     }];
     [self.view addSubview:self.returningUserButton];
@@ -86,14 +104,25 @@
     [signUpLabel setTextAlignment:UITextAlignmentCenter];
     [signUpLabel setBackgroundColor:[UIColor clearColor]];
     [signUpLabel setDataDetectorTypes:UIDataDetectorTypeLink];
-    [signUpLabel setDelegate:self];
-    [signUpLabel setLinkAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSNumber numberWithBool:YES], (NSString *)kCTUnderlineStyleAttributeName,
-                                    [UIColor gtio_linkColor].CGColor, (NSString *)kCTForegroundColorAttributeName,
-                                    nil]];
-    [signUpLabel setText:@"or, sign up with another provider"];
-    NSRange linkRange = [signUpLabel.text rangeOfString:@"sign up with another provider" options:NSCaseInsensitiveSearch];
-    [signUpLabel addLinkToURL:[NSURL URLWithString:@"gtio://signUpWithAnotherProvider"] withRange:linkRange];
+    [signUpLabel setDelegate:self];    
+    [signUpLabel setText:@"or, sign up with another provider" afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+        NSRange pinkRange = [[mutableAttributedString string] rangeOfString:@"sign up with another provider" options:NSCaseInsensitiveSearch];
+        if (pinkRange.location != NSNotFound) {
+            [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[UIColor gtio_pinkTextColor].CGColor range:pinkRange];
+
+        }        
+        return mutableAttributedString;
+    }];
+    UIView *underline = [[UIView alloc] initWithFrame:(CGRect){ 91, signUpLabel.frame.size.height - 3.5, 154, 0.5 }];
+    [underline setBackgroundColor:[UIColor gtio_pinkTextColor]];
+    [underline setAlpha:0.50];
+    [signUpLabel addSubview:underline];
+    
+    UIButton *signUpLink = [UIButton buttonWithType:UIButtonTypeCustom];
+    [signUpLink setFrame:(CGRect){ 91, 0, 154, signUpLabel.frame.size.height }];
+    [signUpLink addTarget:self action:@selector(loadReturningUsersViewController) forControlEvents:UIControlEventTouchUpInside];
+    [signUpLabel addSubview:signUpLink];
+    
     [self.view addSubview:signUpLabel];
 }
 
@@ -117,11 +146,10 @@
     }
 }
 
-#pragma mark - TTTAttributedLabel
-
-- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
+- (void)loadReturningUsersViewController
 {
-    NSLog(@"Link selected");
+    GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:NO];
+    [self.navigationController pushViewController:returningUsersViewController animated:YES];
 }
 
 @end

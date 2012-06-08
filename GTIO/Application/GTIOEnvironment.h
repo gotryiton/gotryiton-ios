@@ -22,7 +22,10 @@ extern NSString * const kGTIOBaseURLString;
 
 // JanRain  (used for authentication via Engage)
 extern NSString * const kGTIOJanRainEngageApplicationID;
-extern NSString * const kGTIOJanRainEngageTokenURLString;
+extern NSString * const kGTIOJanRainProviderAol;
+extern NSString * const kGTIOJanRainProviderGoogle;
+extern NSString * const kGTIOJanRainProviderTwitter;
+extern NSString * const kGTIOJanRainProviderYahoo;
 
 // Facebook
 extern NSString * const kGTIOFacebookAppID;
@@ -39,3 +42,22 @@ extern NSString * const kGTIOHTTPAuthPassword;
 extern NSString * const kGTIOAcceptHeader;
 extern NSString * const kGTIOAuthenticationHeaderKey;
 extern NSString * const kGTIOTrackingHeaderKey;
+
+// Notification Constants
+extern NSString * const kGTIOLooksUpdated;
+
+// Alert Constants
+extern int const kGTIOEmptyPostAlertTag;
+extern int const kGTIOEmptyDescriptionAlertTag;
+
+/** Dismiss handler
+ */
+typedef void(^GTIODismissHandler)(UIViewController *viewController);
+
+// JSON Param Serialization Helper
+id GTIOJSONParams(id obj);
+
+typedef enum GTIODeleteButtonPosition {
+    GTIODeleteButtonPositionLeft = 0,
+    GTIODeleteButtonPositionRight,
+} GTIODeleteButtonPosition;

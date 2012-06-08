@@ -14,6 +14,8 @@
 #import "GTIOTrack.h"
 #import "GTIOUser.h"
 #import "GTIOAuth.h"
+#import "GTIOIcon.h"
+#import "GTIOFacebookIcon.h"
 
 @implementation GTIOMappingProvider
 
@@ -28,6 +30,8 @@
         RKObjectMapping *visitMapping = [RKObjectMapping mappingForClass:[GTIOVisit class]];
         RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[GTIOUser class]];
         RKObjectMapping *authMapping = [RKObjectMapping mappingForClass:[GTIOAuth class]];
+        RKObjectMapping *userIconMapping = [RKObjectMapping mappingForClass:[GTIOIcon class]];
+        RKObjectMapping *facebookUserIconMapping = [RKObjectMapping mappingForClass:[GTIOFacebookIcon class]];
         
         /** Config
          */
@@ -41,6 +45,9 @@
         [configMapping mapKeyPath:@"facebook_permissions_requested" toAttribute:@"facebookPermissions"];
         [configMapping mapKeyPath:@"facebook_share_default_on" toAttribute:@"facebookShareDefaultOn"];
         [configMapping mapKeyPath:@"voting_default_on" toAttribute:@"votingDefaultOn"];
+        [configMapping mapKeyPath:@"photoshoot_first_timer" toAttribute:@"photoShootFirstTimer"];
+        [configMapping mapKeyPath:@"photoshoot_second_timer" toAttribute:@"photoShootSecondTimer"];
+        [configMapping mapKeyPath:@"photoshoot_third_timer" toAttribute:@"photoShootThirdTimer"];
         [configMapping mapKeyPath:@"intro_images" toRelationship:@"introScreens" withMapping:introScreenMapping];
         [self setMapping:configMapping forKeyPath:@"config"];
         
@@ -76,10 +83,10 @@
         // GTIOUser
         [userMapping mapKeyPath:@"id" toAttribute:@"userID"];
         [userMapping mapKeyPath:@"born_in" toAttribute:@"birthYear"];
-        [userMapping mapKeyPath:@"about_me" toAttribute:@"aboutMe"];
+        [userMapping mapKeyPath:@"about" toAttribute:@"aboutMe"];
         [userMapping mapKeyPath:@"is_new_user" toAttribute:@"isNewUser"];
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
-        [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", /*@"auth",*/ nil];
+        [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", nil];
         [self setMapping:userMapping forKeyPath:@"user"];
         
         /** Auth
@@ -88,6 +95,12 @@
         // GTIOAuth
         [authMapping mapAttributes:@"token", nil];
         [self setMapping:authMapping forKeyPath:@"auth"];
+        
+        // User Icons
+        [userIconMapping mapAttributes:@"url", @"width", @"height", nil];
+        [facebookUserIconMapping mapAttributes:@"url", @"width", @"height", nil];
+        [self setMapping:facebookUserIconMapping forKeyPath:@"facebook_icon"];
+        [self setMapping:userIconMapping forKeyPath:@"outfit_icons"];
     }
     return self;
 }

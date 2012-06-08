@@ -1,3 +1,303 @@
+***Thursday, June 7th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Approve changes to 7.1 gist
+- GTIO - Update gist of 7.1, proceed to updating API 6/8
+- GTIO - List of links w/ where they go
+
+**Status**
+- Working on 7.1, moving on to Header 
+- Continuing work on Filters
+- Next up: 1.8
+- Not going to allow swiping left and right on the Photo Filter screen when in photo shoot mode
+- 7.1 table view cells now going to load dynamically from API
+- Changes to the photo frame are going to take 2 days
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Wednesday, June 6th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review schema for button/alert that Simon posted to Github.  Follow up with Simon if necessary
+- TT - Evaluate effort for dragging main frame / bottom right edge of whole photo (North and South only)
+ - Photo on left would be cut from the bottom up.
+ - Keep ratio of bottom right photo 
+
+**Status**
+- Wrapping up remaininng bug fixes.  Post view animation work remaining
+- 12.3 - keyboard popup feature feels strange.
+ - Resolution: Stop with margin where textboxes are shown (bottom border of page)
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+
+***Tuesday, June 5th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - NA
+
+**Status**
+- NA
+
+**Updates to Planned Work**
+- Work ADDED to Sprint
+ - 158 - updated 'snap' overlay for 12 Upload
+ - 157 - use new active/inactive states for nav bar buttons
+ - 154 - edit profile icon cleared state (screen 7.3)
+ - 151 - 1.7 (and 7.4) text formatting
+ - 135 - /user/signup/janrain api request is not passing http auth
+ - 122 - Post button not enabled initially
+- Work REMOVED from Sprint
+ - 160 - DUPLICATE ISSUE
+
+New Total:
+
+Features: 16
+
+Bugs: 23
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Monday, June 4th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review GTIO feedback (github issues), incorporate into Sprint
+- GTIO - Decide what to show with Autofocus
+
+**Status**
+- Plan for iteration looks fine
+- 7.1 / 7.7 updated EOB today
+- 1.8 assets on schedule for EOB 6/6
+
+**Updates to Planned Work**
+- Worked ADDED to Sprint
+ - 153 - 12.4 photoshoot grid layout tweaks
+ - 152 - 12.3 post a look design tweaks
+ - 150 - 7.3 thumbnail styling bugs
+ - 149 - shutter button can be hit multiple times (12.1)
+ - 148 - 'sign up with another provider' target area too small (1.3 Sign In)
+ - 147 - Photos should always fill their frame
+ - 146 - exiting app during photoshoot has bad consequences
+ - 145 - single photo upload on screen 12.3 doesnt have active post button
+ - 142 - cancel button while post button is active (screen 12.3)
+ - 141 - scrolling on description and brands fields (screen 12.3)
+ - 140 - "next" button should appear in the keyboard not a bar over the keyboard (screen 12.3)
+ - 139 - tap to focus should be available during camera capture
+ - 138 - no flash button available during non-photoshoot camera capture
+ - 137 - website and about me not saving correctly on almost done
+
+New Total:
+
+Features: 14
+
+Bugs: 20
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Flashmode on photoshoot? A: NO
+- Auto Focus - place where user taps
+
+---
+
+***Sprint 3 Development Plan (Monday, June 4th 2012 - Friday, June 15th, 2012)***
+
+Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=3&state=open
+
+**Planned Work**
+
+Features planned: 12
+
+Bug Fixes planned: 9
+
+- **Planned Issues**
+ - 134 - 7.1 My Management Table View
+ - 133 - 7.1 My Management Table View Header Styling
+ - 132 - 1.8 Quick Add API
+ - 131 - 1.8 Quick Add styling
+ - 130 - 12.2 Apply Photo Filters to Photos
+ - 129 - 12.2 Photo Filters view
+ - 128 - Nav Bar w/ Noficiations
+ - 127 - Login doesnt respect is_new_user and has_complete_profile states
+ - 126 - Camera Status Bar
+ - 125 - Custom UISwitch styling on Post Photo View
+ - 124 - Post View Nav Bar Styling
+ - 123 - Hard to click switches on Post Photo View
+ - 122 - Post button not enabled initially
+ - 121 - Photo Shoot Countdown View and Flash Animations
+ - 120 - "Select One Photo" view transition
+ - 119 - Post View Switch Default Values
+ - 118 - Burst mode optimize photo processing
+ - 115 - Almost done Text Issues
+ - 99 - 12.3 POST /post
+ - 98 - 12.3 Upload photo
+ - 90 - 12.1 Photo Frame Shooting mode
+
+
+**Important Dates / Deadlines**
+
+- Scott out of office - 6/15
+- Matt out of office - 6/8
+- Assets for 1.8 needed EOB Wednesday
+
+**Open Questions**
+
+- When can we expect the functional spec update for 7.1? Dev slated to start mid-late this week
+
+**Risks**
+
+- None identified at this time
+
+**General Notes**
+
+- Focus first on bugs, photo posting, frame shooting
+
+**Sprint Deliverables**
+
+- Supplemental build containing upload functionality delivered 6/6
+- Miletone build with completed issues delivered 6/15
+
+---
+
+***Friday, June 1st - Standup / Retrospective Notes***
+
+**Attendees**
+
+- TT - Matt, Scott
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review Simon's pull request related to filters
+- GTIO - Updated spec with completed mockups (7.1)
+
+**Status**
+- Build delievered!
+
+**Planned Work Delivered**
+- Please see the ChangeLog document for a list of all delivered work
+ - https://github.com/twotoasters/GTIO-iOS/blob/master/Docs/ChangeLog.md#build-4001---june-1st-2012
+
+**Planned Work Pushed to Next Sprint**
+- NA
+
+**Sprint Retrospective**
+- Pulled back planned work based on undefined work around custom switch, complexity surrounding burst mode
+Tentative plan for next sprint (to be detailed on Monday)
+ - 2.x Nav Bar
+ - remaining sprint 2 stories
+ - 1.8 (finalized?)
+ - Photo Filters
+ - Begin Profile Pages (7.1)
+
+---
+
+***Thursday, May 31st - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - provide examples of UISwitch, how to cut assets
+- TT - Remainining development from Sprint, move to Sprint 3
+ - Photo frame mode (both on post view and camera view)
+ - Photo Picker / camera roll
+ - POST /post
+ - POST /image 
+ - Optimization around burst mode
+- TT - Review Simon's pull request related to filters
+
+**Status**
+- Working on image posting screen, with except of photo frame mode
+- compositing multiple images into one for upload
+- Navigation
+- Burst mode is now taking photos
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Wednesday, May 30th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Reevaluate remaining effort.  Adjust planned work accordingly
+
+**Status**
+- Styling Post View (12.3)
+- Still progressing on taking photo, burst mode, timer
+- Difficulties in photo screens may cause certain issues to be pushed to next sprint
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Burst mode questions
+ - To take photos at required resolution (640 minumum width), currently lag on a iPhone 4 is 1.5-2 seconds
+ - Keep this functionlity so GTIO can play around with it
+
+---
+
 ***Tuesday, May 29th - Standup Notes***
 
 **Attendees**
