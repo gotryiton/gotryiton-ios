@@ -12,6 +12,7 @@
 #import "GTIOUser.h"
 #import "GTIOEditProfileViewController.h"
 #import "GTIOEditProfilePictureViewController.h"
+#import "GTIOSignInViewController.h"
 
 @interface GTIOMeViewController ()
 

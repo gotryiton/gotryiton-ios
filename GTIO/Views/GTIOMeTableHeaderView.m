@@ -31,6 +31,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [[GTIOUser currentUser] prepareForManagement];
         GTIOUser *currentUser = [GTIOUser currentUser];
         
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"profile.top.bg.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:10.0]];
@@ -112,6 +113,7 @@
 
 - (void)refreshData
 {
+    [[GTIOUser currentUser] prepareForManagement];
     GTIOUser *currentUser = [GTIOUser currentUser];
     [self.profileIcon setImageWithURL:currentUser.icon];
     [self.nameLabel setText:currentUser.name];
