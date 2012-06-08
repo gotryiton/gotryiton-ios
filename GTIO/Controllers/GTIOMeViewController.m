@@ -31,7 +31,7 @@
 {
     self = [super initWithTitle:@"GO TRY IT ON" italic:NO leftNavBarButton:nil rightNavBarButton:nil];
     if (self) {
-        self.tableData = [[NSArray alloc] initWithObjects:@"my shopping list", @"my     s", @"my posts", @"find my friends", @"invite friends", @"search tags", @"settings", @"sign out", @"posts are private", nil];
+        _tableData = [[NSArray alloc] initWithObjects:@"my shopping list", @"my     s", @"my posts", @"find my friends", @"invite friends", @"search tags", @"settings", @"sign out", @"posts are private", nil];
     }
     return self;
 }
@@ -40,19 +40,19 @@
 {
     [super viewDidLoad];
     
-    _profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 71.5 }];
-    [_profileHeaderView setDelegate:self];
-    [self.view addSubview:_profileHeaderView];
+    self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
+    [self.profileHeaderView setDelegate:self];
+    [self.view addSubview:self.profileHeaderView];
     
-    _tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 71.5, self.view.bounds.size } style:UITableViewStyleGrouped];
-    [_tableView setBackgroundColor:[UIColor clearColor]];
-    [_tableView setSeparatorColor:[UIColor gtio_groupedTableBorderColor]];
-    [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-    [_tableView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, 165.0, 0)];
-    [_tableView setDelegate:self];
-    [_tableView setDataSource:self];
+    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, self.profileHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.profileHeaderView.bounds.size.height } style:UITableViewStyleGrouped];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    [self.tableView setSeparatorColor:[UIColor gtio_groupedTableBorderColor]];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, 93.0, 0)];
+    [self.tableView setDelegate:self];
+    [self.tableView setDataSource:self];
     
-    UIView *footerView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, _tableView.bounds.size.width, 200 }];
+    UIView *footerView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, _tableView.bounds.size.width, 128 }];
     UILabel *footerNotice = [[UILabel alloc] initWithFrame:(CGRect){ 50, -8, _tableView.bounds.size.width - 100, 40 }];
     [footerNotice setBackgroundColor:[UIColor clearColor]];
     [footerNotice setText:@"turn this option ON to require permission before someone can see what you post."];
@@ -62,15 +62,18 @@
     [footerNotice setNumberOfLines:0];
     [footerNotice setLineBreakMode:UILineBreakModeWordWrap];
     [footerView addSubview:footerNotice];
-    [_tableView setTableFooterView:footerView];
+    [self.tableView setTableFooterView:footerView];
     
-    [self.view addSubview:_tableView];
+    [self.view addSubview:self.tableView];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    
+    self.profileHeaderView = nil;
+    self.tableView = nil;
+    self.tableData = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated

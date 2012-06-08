@@ -622,6 +622,7 @@
 		8E91B1A8156AC197009D70AC /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B0FE156AC197009D70AC /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8EA21B39157FDDC000D5003C /* GTIOPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA21B38157FDDC000D5003C /* GTIOPost.m */; };
 		8EAA14C7156E846C0083884E /* GTIOTextFieldForPickerViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */; };
+		8EB24B2B15828FEF00BC2FE5 /* GTIOQuickAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */; };
 		8EDA556615757777009F0404 /* GTIOLookSelectorControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556515757777009F0404 /* GTIOLookSelectorControl.m */; };
 		8EDA556B15757E8A009F0404 /* GTIOPostALookOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556A15757E8A009F0404 /* GTIOPostALookOptionsView.m */; };
 		8EDA556E15758261009F0404 /* GTIOPostALookDescriptionBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556D15758261009F0404 /* GTIOPostALookDescriptionBox.m */; };
@@ -1450,6 +1451,8 @@
 		8EA21B38157FDDC000D5003C /* GTIOPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPost.m; sourceTree = "<group>"; };
 		8EAA14C5156E846C0083884E /* GTIOTextFieldForPickerViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTextFieldForPickerViews.h; sourceTree = "<group>"; };
 		8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTextFieldForPickerViews.m; sourceTree = "<group>"; };
+		8EB24B2915828FEF00BC2FE5 /* GTIOQuickAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOQuickAddViewController.h; sourceTree = "<group>"; };
+		8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOQuickAddViewController.m; sourceTree = "<group>"; };
 		8EDA556415757777009F0404 /* GTIOLookSelectorControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLookSelectorControl.h; sourceTree = "<group>"; };
 		8EDA556515757777009F0404 /* GTIOLookSelectorControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOLookSelectorControl.m; sourceTree = "<group>"; };
 		8EDA556815757B8A009F0404 /* GTIOLookSelectorControlDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOLookSelectorControlDelegate.h; path = Protocols/GTIOLookSelectorControlDelegate.h; sourceTree = "<group>"; };
@@ -2309,6 +2312,8 @@
 				8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */,
 				8E53B6021582679A00EF138F /* GTIOEditProfileViewController.h */,
 				8E53B6031582679A00EF138F /* GTIOEditProfileViewController.m */,
+				8EB24B2915828FEF00BC2FE5 /* GTIOQuickAddViewController.h */,
+				8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -4087,6 +4092,7 @@
 				8E4332661581286900CD95D0 /* GTIOMeTableHeaderView.m in Sources */,
 				8E53B601158251F900EF138F /* GTIOAlmostDoneViewController.m in Sources */,
 				8E53B6041582679A00EF138F /* GTIOEditProfileViewController.m in Sources */,
+				8EB24B2B15828FEF00BC2FE5 /* GTIOQuickAddViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

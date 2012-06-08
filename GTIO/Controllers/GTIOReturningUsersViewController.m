@@ -9,6 +9,7 @@
 #import "GTIOReturningUsersViewController.h"
 #import "GTIOAlmostDoneViewController.h"
 #import "GTIOFailedSignInViewController.h"
+#import "GTIOQuickAddViewController.h"
 
 #import "GTIOUser.h"
 #import "GTIOAppDelegate.h"
@@ -171,22 +172,19 @@
         [self.navigationController pushViewController:failedSignInViewController animated:YES];
     } else {
         if (user.isNewUser) {
-            if (!user.hasCompleteProfile) {
-                // load 1.8
-                NSLog(@"Load screen 1.8");
+            if (user.hasCompleteProfile) {
+                GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
+                [self.navigationController pushViewController:quickAddViewController animated:YES];
             } else {
                 GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:almostDone animated:YES];
-                // then go to 1.8
             }
         } else {
-            if (!user.hasCompleteProfile) {
-                // load 1.8
-                NSLog(@"Load screen 1.8");
+            if (user.hasCompleteProfile) {
+                [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
             } else {
                 GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:almostDone animated:YES];
-                // then go to 8.1
             }
         }
     }

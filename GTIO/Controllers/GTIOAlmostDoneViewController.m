@@ -15,6 +15,7 @@
 #import "GTIOAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GTIOAlmostDoneTableDataItem.h"
+#import "GTIOQuickAddViewController.h"
 
 @implementation GTIOAlmostDoneViewController
 
@@ -43,7 +44,8 @@
             [[GTIOUser currentUser] updateCurrentUserWithFields:self.saveData withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 if (!error) {
-                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                    GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
+                    [self.navigationController pushViewController:quickAddViewController animated:YES];
                 } else {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to save your profile." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
                     [alert show];
@@ -108,6 +110,9 @@
     [self viewDidUnload];
     self.tableView = nil;
     self.originalContentFrame = CGRectZero;
+    self.profilePicture = nil;
+    self.tableData = nil;
+    self.textFields = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
