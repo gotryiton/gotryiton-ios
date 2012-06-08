@@ -603,8 +603,11 @@ When a new user signs up, they can quickly add people to follow
 
 1.8
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/1.8.Quick.Add.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/1.8.Quick.Add.png" width=420px>
 
+scrolled
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.8.Quick.Add.Scrolled.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -657,6 +660,75 @@ Request should include an array of user objects (nested under ```users```) that 
       - makes api requests
          - POST ```users``` array to ```/users/follow-many```
       - **tap** ==> to (view 8.1)
+
+#### Design Stories
+- Top module (success, user info)
+   - 'top-info-container.png'
+   - place asset (inc. shadow) 4px down from status bar
+   - user icon resized to 46px x 46px, placed underneath mask area of 'top-info-container.png'
+   - user name
+      - Archer Medium Italic, rgb(255,106,114), 20pt
+      - 10px to the right of user icon
+      - if location exists, baseline is 25px up from the bottom of the user icon
+      - if location does not exist, baseline is 6px up from the bottom of the user icon
+   - location
+      - Proxima Nova Regular, rgb(143,143,143), 12pt
+      - 10px to right of user icon
+      - 6px up from bottom of user icon
+   - edit button
+      - 'edit-info.png' with active and inactive versions
+      - place asset (including shadow) 38px from right edge of screen
+      - vertically center inside gray 'info' area
+- 'style is better when shared!'
+   - Archer Book Italic, 17pt, rgb(64,64,65)
+   - baseline is 170px from bottom of status bar
+   - text is horizontally centered
+- 'Connect with friends...'
+   - first line is "Connect with friends, bloggers and brands"
+   - second line is "to discover great style from the start."
+   - Proxima Nova Regular, 11pt, rgb(156,156,156)
+   - baseline of first line is 190px from bottom of status bar
+- suggested user table
+   - cell height is 53px (not including outline)
+   - table width is 302px (not including outline)
+   - border / separator lines are rgb(217,215,206) and 1px thick
+   - user icons
+      - sized to 36px x 36px
+      - 18px from left edge of screen
+      - vertically centered within cell
+      - overlaid by 'mask-user-72.png'
+   - user name
+      - Verlag Book, rgb(114,114,114), 18pt
+      - 10px from right edge of user icon
+      - if location exists, baseline is 18px up from bottom of user icon
+      - if location does not exist, text is vertically centered in cell
+   - location
+      - Proxima Nova Regular, 10pt, rgb (167,167,167)
+      - baseline is 4px up from bottom of user icon
+   - checkbox
+      - 'checkbox.png' with on and off states
+      - 21px from right edge of screen, vertically centered in cell
+- skip link
+   - Proxima Nova Regular, 12pt, rgb(166,166,165)
+   - text is 'or, skip this step'
+   - 'skip this step' portion is underlined and tappable
+   - horizontally centered
+   - baseline is 25px below bottom of suggested user table (including table outline) (should appear to be approximately vertically centered between suggested user table and top of 'following' button background area)
+- scrollable content area is scrollable until bottom of suggested user table is 96px above bottom edge of screen
+- 'follow' button
+   - background
+      - 'post-button-bg.png' asset from 12.3
+      - flush with bottom of screen
+   - button
+      - 'follow-button.png' with on, off, disabled states
+      - label
+         - active/inactive: Archer Medium Italic, 16pt, rgb(85,85,86)
+         - disabled button state: rgb(143,143,144)
+         - baseline is 13px up from bottom of button
+         - horizontally centered
+
+
+
 
 ### 1.9 Sign in screen (2nd load)
 
