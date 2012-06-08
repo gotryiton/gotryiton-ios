@@ -8,13 +8,16 @@
 
 #import "Facebook.h"
 #import "JREngage.h"
+#import <RestKit/RestKit.h>
 
 @class GTIOUser;
 
 typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
 typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
+typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 
-@interface GTIOUser : NSObject <FBSessionDelegate, JREngageDelegate>
+
+@interface GTIOUser : NSObject <FBSessionDelegate, JREngageDelegate, RKRequestDelegate>
 
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *name;
@@ -46,7 +49,7 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 
 /** Logs current user out of GTIO
  */
-- (void)logOut;
+- (void)logOutWithLogoutHandler:(GTIOLogoutHandler)logoutHandler;
 
 /** Update current user
  */
@@ -66,5 +69,9 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 /** User Icons from API
  */
 - (void)loadUserIconsWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
+
+/** Prepare the current user for management
+ */
+- (void)prepareForManagement;
 
 @end
