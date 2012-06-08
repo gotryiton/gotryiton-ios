@@ -473,10 +473,11 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    // TODO: How should we handle smaller images than 640?
-//    UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ kGTIOPhotoResizeWidth, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+    
+    GTIOProcessImageRequest *processImageRequest = [[GTIOProcessImageRequest alloc] init];
+    [processImageRequest setRawImage:image];
     [self.imagePickerController dismissModalViewControllerAnimated:YES];
-//    [self openPhotoConfirmationScreenWithPhoto:resizedImage];
+    [self openPhotoConfirmationScreenWithPhoto:processImageRequest.processedImage];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
