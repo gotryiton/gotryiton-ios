@@ -281,7 +281,7 @@
 
 - (void)loadUserIconsWithCompletionHandler:(GTIOCompletionHandler)completionHandler
 {
-    NSString *userIconResourcePath = @"/users/icons";
+    NSString *userIconResourcePath = @"/user/icons";
     
     BOOL authToken = NO;
     if ([[RKObjectManager sharedManager].client.HTTPHeaders objectForKey:kGTIOAuthenticationHeaderKey]) {
