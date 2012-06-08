@@ -8,11 +8,12 @@
 
 #import "GTIOPhotoShootGridView.h"
 
-NSInteger const kGTIONumberOfPhotos = 9;
-CGFloat const kGTIOXOriginStart = 14.0f;
-CGFloat const kGTIOYOriginStart = 17.0f;
-CGFloat const kGTIOHorizontalPhotoPadding = 20.5f;
-CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
+static NSInteger const kGTIONumberOfPhotos = 9;
+static CGFloat const kGTIOXOriginStart = 14.0f;
+static CGFloat const kGTIOYOriginStart = 17.0f;
+static CGFloat const kGTIOHorizontalPhotoPadding = 20.5f;
+static CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
+static NSInteger const kGTIOStartingPhotoTag = 1000;
 
 @interface GTIOPhotoShootGridView ()
 
@@ -42,6 +43,7 @@ CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
                 [imageButton setFrame:(CGRect){ xOrigin, yOrigin, 84, 112 }];
                 [imageButton setImage:[_images objectAtIndex:i] forState:UIControlStateNormal];
                 [imageButton addTarget:self action:@selector(photoSelected:) forControlEvents:UIControlEventTouchUpInside];
+                [imageButton setTag:kGTIOStartingPhotoTag + i];
                 [self addSubview:imageButton];
                 
                 if ((i + 1) % 3 == 0) { // New line
@@ -60,10 +62,10 @@ CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
 
 - (void)photoSelected:(id)sender
 {
-    UIImage *image = [sender imageForState:UIControlStateNormal];
+    NSInteger tag = [sender tag] - kGTIOStartingPhotoTag;
 
-    if (self.imageSelectedHandler) {
-        self.imageSelectedHandler(image);
+    if (tag >= 0 && self.imageSelectedHandler) {
+        self.imageSelectedHandler(tag);
     }
 }
 

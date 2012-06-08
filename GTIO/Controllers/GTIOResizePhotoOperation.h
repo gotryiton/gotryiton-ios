@@ -7,17 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef void(^GTIOPhotoResizeCompletionHandler)(UIImage *resizedPhoto);
+#import "GTIOProcessImageRequest.h"
 
 @interface GTIOResizePhotoOperation : NSOperation
 
-//@property (nonatomic, readonly, getter = isExecuting) BOOL executing;
-//@property (nonatomic, readonly, getter = isFinished) BOOL finished;
+@property (nonatomic, strong) GTIOProcessImageRequest *processImageRequest;
 
-@property (nonatomic, strong) UIImage *photo;
-@property (nonatomic, copy) GTIOPhotoResizeCompletionHandler completionHandler;
-
-- (id)initWithPhoto:(UIImage *)photo completionHandler:(GTIOPhotoResizeCompletionHandler)completionHandler;
+- (id)initWithPhoto:(GTIOProcessImageRequest *)processImageRequest;
 
 @end

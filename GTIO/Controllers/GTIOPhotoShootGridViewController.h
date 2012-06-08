@@ -11,6 +11,4 @@
 
 @interface GTIOPhotoShootGridViewController : GTIOViewController
 
-@property (nonatomic, strong) NSArray *images;
-
 @end

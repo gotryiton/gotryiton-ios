@@ -15,7 +15,8 @@
 #import "GTIOConfig.h"
 #import "GTIOConfigManager.h"
 
-#import "GTIOResizePhotoOperation.h"
+#import "GTIOPhotoManager.h"
+#import "GTIOProcessImageRequest.h"
 
 #import "GTIOPhotoShootGridViewController.h"
 #import "GTIOPhotoConfirmationViewController.h"
@@ -38,10 +39,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
 
-@property (nonatomic, strong) NSMutableArray *capturedImages;
 @property (nonatomic, assign) NSInteger capturedImageCount;
-@property (nonatomic, strong) NSMutableArray *resizedImages;
-@property (nonatomic, strong) NSOperationQueue *photoResizeQueue;
 
 @property (nonatomic, assign) NSInteger startingPhotoCount;
 @property (nonatomic, strong) NSTimer *imageWaitTimer;
@@ -61,10 +59,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @synthesize flashButton = _flashButton;
 @synthesize flashOn = _flashOn, shutterFlashOverlay = _shutterFlashOverlay;
 @synthesize dismissHandler = _dismissHandler;
-@synthesize capturedImages = _capturedImages;
 @synthesize capturedImageCount = _capturedImageCount;
-@synthesize resizedImages = _resizedImages;
-@synthesize photoResizeQueue = _photoResizeQueue;
 @synthesize imageWaitTimer = _imageWaitTimer;
 @synthesize startingPhotoCount = _startingPhotoCount;
 @synthesize imagePickerController = _imagePickerController;
@@ -82,13 +77,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         [self changeFlashMode:AVCaptureFlashModeOff];
         
-        if ([_captureDevice supportsAVCaptureSessionPreset:AVCaptureSessionPresetHigh]) {
-            NSLog(@"Using preset high");
-            _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
-        } else {
-            NSLog(@"Using preset photo");
-            _captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
-        }
+        _captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
         
         NSError *error = nil;
         AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:_captureDevice error:&error];
@@ -102,11 +91,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
             NSLog(@"Can't add video");
         }
         
-        _capturedImages = [NSMutableArray array];
         _capturedImageCount = 0;
-        _resizedImages = [NSMutableArray array];
-        _photoResizeQueue = [[NSOperationQueue alloc] init];
-        [_photoResizeQueue setMaxConcurrentOperationCount:1];
         
         _imagePickerController = [[UIImagePickerController alloc] init];
         [_imagePickerController setDelegate:self];
@@ -126,7 +111,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
             if (self.isShootingPhotoShoot) {
                 self.photoShootTimerView.completionHandler = nil;
                 [self.imageWaitTimer invalidate];
-                [self.capturedImages removeAllObjects];
+                [[GTIOPhotoManager sharedManager] removeAllPhotos];
                 [self.photoShootTimerView setAlpha:0.0f];
                 [self resetView];
                 self.shootingPhotoShoot = NO;
@@ -207,7 +192,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }];
     [self.photoToolbarView.photoShootGridButton setTapHandler:^(id sender){
         GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
-        [photoShootGridViewController setImages:self.capturedImages];
         [self.navigationController pushViewController:photoShootGridViewController animated:YES];
     }];
     [self.photoToolbarView setPhotoModeSwitchChangedHandler:^(BOOL on) {
@@ -272,7 +256,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [self.photoToolbarView setAlpha:1.0f];
     [self.photoShootProgresToolbarView setAlpha:0.0f];
     
-    if ([self.resizedImages count] > 0) {
+    if ([[GTIOPhotoManager sharedManager] photoCount] > 0) {
         [self.photoToolbarView showPhotoShootGrid:YES];
     } else {
         [self.photoToolbarView showPhotoShootGrid:NO];
@@ -361,7 +345,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     self.startingPhotoCount = self.capturedImageCount;
     
     for (int i = 0; i < numberOfPhotos; i++) {
-        double delayInSeconds = i * 0.5;
+        double delayInSeconds = i * 0.6;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             if (self.isShootingPhotoShoot) {
@@ -369,11 +353,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
                     ++self.capturedImageCount;
                     [self.photoShootProgresToolbarView setNumberOfDotsOn:self.capturedImageCount];
                     
-                    GTIOResizePhotoOperation *resizePhotoOperation = [[GTIOResizePhotoOperation alloc] initWithPhoto:photo completionHandler:^(UIImage *resizedPhoto) {
-                        NSLog(@"adding image to array");
-                        [self.resizedImages addObject:resizedPhoto];
-                    }];
-                    [self.photoResizeQueue addOperation:resizePhotoOperation];
+                    [[GTIOPhotoManager sharedManager] addPhoto:photo];
                 }];
             }
         });
@@ -389,23 +369,20 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     if ((self.startingPhotoCount == 0 && self.capturedImageCount == 3) || 
         (self.startingPhotoCount == 3 && self.capturedImageCount == 6)) {
         
+        NSTimeInterval timerDuration = [[[GTIOConfigManager sharedManager] config].photoShootSecondTimer intValue];
+        if (self.capturedImageCount == 6) {
+            timerDuration = [[[GTIOConfigManager sharedManager] config].photoShootThirdTimer intValue];
+        }
+        
         [self.imageWaitTimer invalidate];
-        [self timerWithDuration:2];
+        [self timerWithDuration:timerDuration];
         [self.photoShootTimerView showPhotoShootTimer:YES];
     } else if (self.startingPhotoCount == 6 && self.capturedImageCount == 9) {
         [self.imageWaitTimer invalidate];
         
-        [self.photoResizeQueue waitUntilAllOperationsAreFinished];
-        
-        // TODO: dispatch this a second later to let the photos add
-        double delayInSeconds = 0.1;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
-            [photoShootGridViewController setImages:self.resizedImages];
-            [self.navigationController pushViewController:photoShootGridViewController animated:YES];
-            self.shootingPhotoShoot = NO;
-        });
+        GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:photoShootGridViewController animated:YES];
+        self.shootingPhotoShoot = NO;
     }
 }
 
@@ -416,10 +393,10 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [self.photoToolbarView enableAllButtons:NO];
     [self changeFlashForceOff:NO];
     [self captureImageWithHandler:^(UIImage *photo) {
-        GTIOResizePhotoOperation *resizePhotoOperation = [[GTIOResizePhotoOperation alloc] initWithPhoto:photo completionHandler:^(UIImage *resizedPhoto) {
-            [self openPhotoConfirmationScreenWithPhoto:resizedPhoto];
-        }];
-        [self.photoResizeQueue addOperation:resizePhotoOperation];
+        // Process image
+        GTIOProcessImageRequest *processImageRequest = [[GTIOProcessImageRequest alloc] init];
+        [processImageRequest setRawImage:photo];
+        [self openPhotoConfirmationScreenWithPhoto:processImageRequest.processedImage];
     }];
 }
 
@@ -435,14 +412,13 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }];
     
     // Clear current photos
-    [self.capturedImages removeAllObjects];
+    [[GTIOPhotoManager sharedManager] removeAllPhotos];
     [self.photoShootProgresToolbarView setNumberOfDotsOn:0];
     
     // Show timer
     [self.photoShootTimerView showPhotoShootTimer:YES];
-
-    GTIOConfig *config = [[GTIOConfigManager sharedManager] config];
-    [self timerWithDuration:6];
+    
+    [self timerWithDuration:[[[GTIOConfigManager sharedManager] config].photoShootFirstTimer intValue]];
 }
 
 - (void)timerWithDuration:(NSTimeInterval)duration

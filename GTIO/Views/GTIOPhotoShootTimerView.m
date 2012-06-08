@@ -8,8 +8,6 @@
 
 #import "GTIOPhotoShootTimerView.h"
 
-static UIImage *gtio_image = nil;
-
 @interface GTIOPhotoShootTimerView ()
 
 @property (nonatomic, strong) NSTimer *animationTimer;
@@ -17,26 +15,25 @@ static UIImage *gtio_image = nil;
 
 @property (nonatomic, strong) NSDate *startTime;
 
+@property (nonatomic, strong) UIImage *backgroundImage;
+
 @end
 
 @implementation GTIOPhotoShootTimerView
 
-+ (void)initialize {
-    if (self == [GTIOPhotoShootTimerView class]) {
-        
-    }
-}
 
 @synthesize duration = _duration, startTime = _startTime;
 @synthesize animationTimer = _animationTimer, updateTimer = _updateTimer;
 @synthesize progress = _progress;
 @synthesize completionHandler = _completionHandler;
+@synthesize backgroundImage = _backgroundImage;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self setBackgroundColor:[UIColor clearColor]];
+        _backgroundImage = [UIImage imageNamed:@"upload.loader.bg.png"];
     }
     return self;
 }
@@ -49,8 +46,7 @@ static UIImage *gtio_image = nil;
     CGContextSetShouldAntialias(context, YES);
     
     // Outer circle
-    UIImage *bgImage = [UIImage imageNamed:@"upload.loader.bg.png"];
-    [bgImage drawInRect:rect];
+    [self.backgroundImage drawInRect:rect];
     
     // Progress bar
     CGContextSetStrokeColorWithColor(context, [UIColor gtio_progressBarColor].CGColor);

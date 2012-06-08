@@ -20,6 +20,7 @@
 @implementation GTIOPostALookDescriptionBox
 
 @synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView, nextTextView = _nextTextView;
+@synthesize textViewDidEndHandler = _textViewDidEndHandler;
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon nextTextView:(UITextView *)nextTextView
 {
