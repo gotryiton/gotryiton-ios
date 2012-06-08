@@ -73,6 +73,7 @@
         _profileIconViews = [NSMutableArray array];
         _profileIconURLs = [NSMutableArray array];
         _currentlySelectedProfileIconURL = [NSString string];
+        self.hidesBottomBarWhenPushed = YES;
     }
     return self;
 }

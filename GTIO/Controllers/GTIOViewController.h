@@ -12,5 +12,6 @@
 
 -(id)initWithTitle:(NSString *)title italic:(BOOL)italic leftNavBarButton:(UIButton *)leftButton rightNavBarButton:(UIButton *)rightButton;
 - (void)useTitleView:(UIView *)titleView;
+- (void)useTitle:(NSString *)title;
 
 @end

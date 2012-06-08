@@ -11,8 +11,21 @@
 #import "UIImageView+WebCache.h"
 #import "GTIOSelectableProfilePicture.h"
 #import <QuartzCore/QuartzCore.h>
+#import "GTIOEditProfilePictureViewController.h"
+
+@interface GTIOMeTableHeaderView()
+
+@property (nonatomic, strong) GTIOSelectableProfilePicture *profileIcon;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *locationLabel;
+
+@end
 
 @implementation GTIOMeTableHeaderView
+
+@synthesize profileIcon = _profileIcon, nameLabel = _nameLabel, locationLabel = _locationLabel;
+
+@synthesize delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,37 +37,37 @@
         [backgroundImageView setFrame:(CGRect){ 0, 0, frame.size }];
         [self addSubview:backgroundImageView];
         
-        GTIOSelectableProfilePicture *profileIcon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 8, 8, 55, 55 } andImageURL:currentUser.icon];
-        [profileIcon setIsSelectable:NO];
-        [self addSubview:profileIcon];
+        _profileIcon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 8, 8, 55, 55 } andImageURL:currentUser.icon];
+        [_profileIcon setIsSelectable:NO];
+        [self addSubview:_profileIcon];
         
-        GTIOButton *profileIconButton = [[GTIOButton alloc] initWithFrame:profileIcon.frame];
+        GTIOButton *profileIconButton = [[GTIOButton alloc] initWithFrame:_profileIcon.frame];
         [profileIconButton setTapHandler:^(id sender) {
-            NSLog(@"tapped profile icon");
+            if ([_delegate respondsToSelector:@selector(pushEditProfilePictureViewController)]) {
+                [_delegate pushEditProfilePictureViewController];
+            }
         }];
         [profileIconButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:profileIconButton];
         
-        UILabel *nameLabel = [[UILabel alloc] initWithFrame:(CGRect){ profileIcon.frame.origin.x + profileIcon.frame.size.width + 7, profileIcon.frame.origin.y, 0, 0 }];
-        [nameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:16.0]];
-        [nameLabel setBackgroundColor:[UIColor clearColor]];
-        [nameLabel setTextColor:[UIColor whiteColor]];
-        [nameLabel setText:currentUser.name];
-        [nameLabel sizeToFit];
-        [self addSubview:nameLabel];
+        _nameLabel = [[UILabel alloc] initWithFrame:(CGRect){ _profileIcon.frame.origin.x + _profileIcon.frame.size.width + 7, _profileIcon.frame.origin.y, 224, 21 }];
+        [_nameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:16.0]];
+        [_nameLabel setBackgroundColor:[UIColor clearColor]];
+        [_nameLabel setTextColor:[UIColor whiteColor]];
+        [_nameLabel setText:currentUser.name];
+        [self addSubview:_nameLabel];
         
-        UILabel *locationLabel = [[UILabel alloc] initWithFrame:(CGRect){ nameLabel.frame.origin.x, nameLabel.frame.origin.y + nameLabel.frame.size.height - 5, 0, 0 }];
-        [locationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
-        [locationLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
-        [locationLabel setText:[currentUser.location uppercaseString]];
-        [locationLabel setBackgroundColor:[UIColor clearColor]];
-        [locationLabel sizeToFit];
-        [self addSubview:locationLabel];
+        _locationLabel = [[UILabel alloc] initWithFrame:(CGRect){ _nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height - 5, 224, 13 }];
+        [_locationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
+        [_locationLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
+        [_locationLabel setText:[currentUser.location uppercaseString]];
+        [_locationLabel setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_locationLabel];
         
         NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
         [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
         
-        UIView *followingLabel = [self buttonWithText:@"following" frame:(CGRect){ locationLabel.frame.origin.x, locationLabel.frame.origin.y + locationLabel.frame.size.height + 6, 53, 20 } dark:YES tapHandler:^(id sender) {
+        UIView *followingLabel = [self buttonWithText:@"following" frame:(CGRect){ _locationLabel.frame.origin.x, _locationLabel.frame.origin.y + _locationLabel.frame.size.height + 6, 53, 20 } dark:YES tapHandler:^(id sender) {
             NSLog(@"tapped following");
         }];
         [self addSubview:followingLabel];
@@ -82,12 +95,27 @@
         GTIOButton *editButton = [[GTIOButton alloc] initWithFrame:(CGRect){ self.bounds.size.width - editPencil.size.width, 3, editPencil.size }];
         [editButton setImage:editPencil forState:UIControlStateNormal];
         [editButton setTapHandler:^(id sender) {
-            NSLog(@"tapped edit");
+            if ([_delegate respondsToSelector:@selector(pushEditProfileViewController)]) {
+                [_delegate pushEditProfileViewController];
+            }
         }];
         [editButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:editButton];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    _delegate = nil;
+}
+
+- (void)refreshData
+{
+    GTIOUser *currentUser = [GTIOUser currentUser];
+    [self.profileIcon setImageWithURL:currentUser.icon];
+    [self.nameLabel setText:currentUser.name];
+    [self.locationLabel setText:currentUser.location];
 }
 
 - (GTIOButton *)buttonWithText:(NSString *)text frame:(CGRect)frame dark:(BOOL)dark tapHandler:(GTIOButtonDidTapHandler)tapHandler

@@ -34,33 +34,29 @@
         [titleLabel setFrame:(CGRect){ 0, 9, titleLabel.bounds.size }];
         [self addSubview:titleLabel];
         
-        if ([notificationCount intValue] > 0) {
-            _notificationCount = notificationCount;
-            _notificationBubble = [GTIOButton buttonWithGTIOType:GTIOButtonTypeNotificationBubble];
-            [_notificationBubble setTapHandler:tapHandler];
-            UILabel *notificationCountLabel = [[UILabel alloc] initWithFrame:(CGRect){ 6, 0, _notificationBubble.bounds.size.width - 7, _notificationBubble.bounds.size.height + 5 }];
-            [notificationCountLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:11.0]];
-            [notificationCountLabel setTextColor:[UIColor whiteColor]];
-            [notificationCountLabel setText:[NSString stringWithFormat:@"%i",[_notificationCount intValue]]];
-            [notificationCountLabel setTextAlignment:UITextAlignmentCenter];
-            [notificationCountLabel setBackgroundColor:[UIColor clearColor]];
-            [notificationCountLabel setAdjustsFontSizeToFitWidth:YES];
-            [_notificationBubble addSubview:notificationCountLabel];
-            [_notificationBubble setFrame:(CGRect){ titleLabel.bounds.size.width + 2, 5, _notificationBubble.bounds.size }];
-            [self addSubview:_notificationBubble];
-            [self setClipsToBounds:NO];
-        }        
+        _notificationCount = notificationCount;
+        _notificationBubble = ([notificationCount intValue] > 0) ? [GTIOButton buttonWithGTIOType:GTIOButtonTypeNotificationBubble] : [GTIOButton buttonWithGTIOType:GTIOButtonTypeNotificationBubbleEmpty];
+        [_notificationBubble setTapHandler:tapHandler];
+        UILabel *notificationCountLabel = [[UILabel alloc] initWithFrame:(CGRect){ 6, 0, _notificationBubble.bounds.size.width - 7, _notificationBubble.bounds.size.height + 5 }];
+        [notificationCountLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:11.0]];
+        [notificationCountLabel setTextColor:[UIColor whiteColor]];
+        [notificationCountLabel setText:[NSString stringWithFormat:@"%@",(([_notificationCount intValue] > 0) ? [NSString stringWithFormat:@"%i",[_notificationCount intValue]] : @"")]];
+        [notificationCountLabel setTextAlignment:UITextAlignmentCenter];
+        [notificationCountLabel setBackgroundColor:[UIColor clearColor]];
+        [notificationCountLabel setAdjustsFontSizeToFitWidth:YES];
+        [_notificationBubble addSubview:notificationCountLabel];
+        [_notificationBubble setFrame:(CGRect){ titleLabel.bounds.size.width + 2, 5, _notificationBubble.bounds.size }];
+        [self addSubview:_notificationBubble];
+        [self setClipsToBounds:NO];      
     }
     return self;
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if ([self.notificationCount intValue] > 0) {
-        if ((point.x <= self.bounds.size.width + self.notificationBubble.bounds.size.width && point.x >= 0) &&
-            (point.y <= self.bounds.size.height && point.y >= 0)) {
-            return YES;
-        }
+    if ((point.x <= self.bounds.size.width + self.notificationBubble.bounds.size.width && point.x >= 0) &&
+        (point.y <= self.bounds.size.height && point.y >= 0)) {
+        return YES;
     }
     return [super pointInside:point withEvent:event];
 }

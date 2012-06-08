@@ -16,17 +16,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GTIOAlmostDoneTableDataItem.h"
 
-@interface GTIOAlmostDoneViewController ()
-
-@property (nonatomic, strong) NSArray *tableData;
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) CGRect originalContentFrame;
-@property (nonatomic, strong) NSURL *profilePicture;
-@property (nonatomic, strong) NSMutableDictionary *saveData;
-@property (nonatomic, strong) NSMutableArray *textFields;
-
-@end
-
 @implementation GTIOAlmostDoneViewController
 
 @synthesize tableData = _tableData, tableView = _tableView, originalContentFrame = _originalContentFrame, profilePicture = _profilePicture, saveData = _saveData, textFields = _textFields;

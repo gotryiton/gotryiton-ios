@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOMeViewController.h"
 
 @interface GTIOMeTableHeaderView : UIView
+
+@property (nonatomic, strong) id<GTIOMeTableHeaderViewDelegate> delegate;
+
+- (void)refreshData;
 
 @end

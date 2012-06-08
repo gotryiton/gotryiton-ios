@@ -10,6 +10,8 @@
 #import "GTIOMeTitleView.h"
 #import "GTIOMeTableHeaderView.h"
 #import "GTIOUser.h"
+#import "GTIOEditProfileViewController.h"
+#import "GTIOEditProfilePictureViewController.h"
 
 @interface GTIOMeViewController ()
 
@@ -38,6 +40,7 @@
     [super viewDidLoad];
     
     _profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 71.5 }];
+    [_profileHeaderView setDelegate:self];
     [self.view addSubview:_profileHeaderView];
     
     _tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 71.5, self.view.bounds.size } style:UITableViewStyleGrouped];
@@ -75,13 +78,15 @@
     
     GTIOMeTitleView *titleView = [[GTIOMeTitleView alloc] initWithTapHandler:^(id sender) {
         NSLog(@"tapped notification bubble");
-    } notificationCount:[NSNumber numberWithInt:12]];
+    } notificationCount:[NSNumber numberWithInt:0]];
     [self useTitleView:titleView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [self.profileHeaderView refreshData];
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -143,6 +148,20 @@
     
     return cell;
 
+}
+
+#pragma mark - GTIOMeTableHeaderViewDelegate Methods
+
+- (void)pushEditProfilePictureViewController
+{
+    GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
+}
+
+- (void)pushEditProfileViewController
+{
+    GTIOEditProfileViewController *editProfileViewController = [[GTIOEditProfileViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:editProfileViewController animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
