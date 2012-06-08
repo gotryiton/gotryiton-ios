@@ -2520,6 +2520,12 @@ previous screen
       - see standard heart toggle behavior
    - destination link provided in api
 
+#### Design Stories
+- Custom Title Bar
+   - 'my.hearts.title.png'
+   - horizontally and vertically centered
+
+
 
 ### 7.6 My posts
 
@@ -2577,6 +2583,19 @@ Each user has a profile page
 7.7.3 other's profile, with banner: ([wireframe](http://invis.io/RW2POUXA))
 
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/7.7.3.Banner.png" width=420px/>
+
+7.7.4 other's profile, empty state:
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.Profile-Empty.png" width=420px/>
+
+7.7.5 other's private profile, posts:
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.Profile-Private-Hearts.png" width=420px/>
+
+7.7.6 other's private profile, hearts:
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.7.Profile-Private-Hearts.png" width=420px/>
+
 
 #### User Flow
 **entry screens:**   
@@ -2665,7 +2684,9 @@ previous screen
 	- All images are profile.tabbar.[position].[state].png
 	- Text: 14px Archer Book Italic 14pt rgb(85,85,85) #555556
 		- 8px from top, centered
-
+- Empty State
+   - 
+- Viewing Private User (when not following them)
 
 ### 7.8 Shopping list  
 
