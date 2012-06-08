@@ -2564,7 +2564,7 @@ A logged in user can view their hearted items
 #### Mockups
 7.5 My hearts ([wireframe](http://invis.io/KD2OD28X))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.5.My.Hearts.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.5.My.Hearts.png" width=420px/>
 
 
 #### User Flow
@@ -2599,8 +2599,25 @@ gtio://hearted-by-user/:user_id
 - Custom Title Bar
    - 'my.hearts.title.png'
    - horizontally and vertically centered
-
-
+- no extra shadow under navigation bar
+- Tab Bar
+   - All images are profile.tabbar.[position].[state].png
+   - Text: 12px Archer Book Italic 14pt rgb(85,85,85) #555556
+      - baseline is 16px from top of tab asset, horizontally centered
+   - Fixed position
+      - content area scrolls 'under' tab graphics
+- Photo Grid
+   - Images are sized to 94px wide, variable height
+   - Leftmost column images are 7px from left edge of screen
+   - Rightmost images are 7px from right edge of screen
+   - In columns, images be separated by 12px of vertical gap
+   - 6px gaps between 1st and 2nd and 3rd columns
+   - 'grid-thumbnail.frame.png'
+      - placed under each image
+      - position relative to image is offset by (-4px,-4px)
+      - vertical middle is stretchable
+      - 4px nonstretchable on top
+      - 6px nonstretchable on bottom
 
 ### 7.6 My posts
 
@@ -2610,7 +2627,7 @@ A logged in user can view their posts
 #### Mockups
 7.6 ([wireframe](http://invis.io/732OD3ZH))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.6.My.Posts.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.6.My.Posts.png" width=420px/>
 
 
 #### User Flow
@@ -2638,7 +2655,19 @@ gtio://posted-by/:user_id
       - see standard heart toggle behavior
    - destination link provided in api
 
-
+#### Design Stories
+- Photo Grid
+   - Images are sized to 94px wide, variable height
+   - Leftmost column images are 7px from left edge of screen
+   - Rightmost images are 7px from right edge of screen
+   - In columns, images be separated by 12px of vertical gap
+   - 6px gaps between 1st and 2nd and 3rd columns
+   - 'grid-thumbnail.frame.png'
+      - placed under each image
+      - position relative to image is offset by (-4px,-4px)
+      - vertical middle is stretchable
+      - 4px nonstretchable on top
+      - 6px nonstretchable on bottom
 
 ### 7.7 Profile page  
 
@@ -2771,8 +2800,20 @@ gtio://profile/:user_id
 		- Text should be have about 5px padding from top to center
 - Tab Bar
 	- All images are profile.tabbar.[position].[state].png
-	- Text: 14px Archer Book Italic 14pt rgb(85,85,85) #555556
-		- 8px from top, centered
+	- Text: 12px Archer Book Italic 14pt rgb(85,85,85) #555556
+		- baseline is 16px from top of tab asset, horizontally centered
+- Photo Grid
+   - Images are sized to 94px wide, variable height
+   - Leftmost column images are 7px from left edge of screen
+   - Rightmost images are 7px from right edge of screen
+   - In columns, images be separated by 12px of vertical gap
+   - 6px gaps between 1st and 2nd and 3rd columns
+   - 'grid-thumbnail.frame.png'
+      - placed under each image
+      - position relative to image is offset by (-4px,-4px)
+      - vertical middle is stretchable
+      - 4px nonstretchable on top
+      - 6px nonstretchable on bottom
 - Empty State
    - 
 - Viewing Private User (when not following them)
@@ -2854,7 +2895,7 @@ A logged in user can view their (or someone else's) posts that have been selecte
 
 #### Mockups
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.9.My.Stars.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/7.9.My.Stars.png" width=420px/>
 
 
 #### User Flow
@@ -2882,6 +2923,23 @@ gtio://stars-by-user/:user_id
    - masonry view of starred posts
    - destination link provided in api
 
+#### Design Stories
+- Photo Grid
+   - Images are sized to 94px wide, variable height
+   - Leftmost column images are 7px from left edge of screen
+   - Rightmost images are 7px from right edge of screen
+   - In columns, images be separated by 12px of vertical gap
+   - 6px gaps between 1st and 2nd and 3rd columns
+   - 'grid-thumbnail.frame.png'
+      - placed under each image
+      - position relative to image is offset by (-4px,-4px)
+      - vertical middle is stretchable
+      - 4px nonstretchable on top
+      - 6px nonstretchable on bottom
+   - Star Ribbon
+      - in Resources/Images/General, 'star-ribbon-grid.png'
+      - placed offset 4px above corresponding grid thumbnail (should appear to slightly overlap frame edge)
+      - 6px from right edge of grid thumbnail
 
 ### 7.10 Search Tags
 
