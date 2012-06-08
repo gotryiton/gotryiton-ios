@@ -4049,6 +4049,48 @@ None.
    - 'snap-overlay.png'
    - flashes as overlay onscreen when photo is taken
 
+### 12.6 Pick A Product
+
+#### Overview
+A user can get a product photo by choosing from a grid with two tabs showing their hearted products and popular products
+
+#### Mockups
+
+**12.6**
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.6.Pick.A.Product.png" width=420px/>
+
+#### API Usage
+
+#### User Flow
+**entry screens:**   
+
+#### Stories 
+
+#### Design Stories
+- Custom Tab Label
+   - 'my.hearts.tab.title.png'
+   - position 19px away from top of content area, horizontally centered within single tab area
+- no extra shadow under navigation bar
+- Tab Bar
+   - All images are profile.tabbar.[position].[state].png (from assets for section 7)
+   - Text: 12px Archer Book Italic 14pt rgb(85,85,85) #555556
+      - baseline is 16px from top of tab asset, horizontally centered
+   - Fixed position
+      - content area scrolls 'under' tab graphics
+- Photo Grid
+   - Images are sized to 94px wide, variable height
+   - Top images are 9px from top of content area
+   - Leftmost column images are 7px from left edge of screen
+   - Rightmost images are 7px from right edge of screen
+   - In columns, images be separated by 12px of vertical gap
+   - 6px gaps between 1st and 2nd and 3rd columns
+   - 'grid-thumbnail.frame.png'
+      - placed under each image
+      - position relative to image is offset by (-4px,-4px)
+      - vertical middle is stretchable
+      - 4px nonstretchable on top
+      - 6px nonstretchable on bottom
+
 ## 13. Universal Elements and Behavior
 
 ### 13.1 UITabBar default behavior  
