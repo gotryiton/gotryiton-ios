@@ -34,12 +34,13 @@
 @property (nonatomic, strong) UIButton *clearProfilePictureButton;
 @property (nonatomic, strong) UIImageView *facebookLogo;
 @property (nonatomic, strong) NSURL *defaultIconURL;
+@property (nonatomic, strong) UIButton *facebookConnectButton;
 
 @end
 
 @implementation GTIOEditProfilePictureViewController
 
-@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksLabel = _myLooksLabel, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo, defaultIconURL = _defaultIconURL;
+@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksLabel = _myLooksLabel, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo, defaultIconURL = _defaultIconURL, facebookConnectButton = _facebookConnectButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -151,6 +152,7 @@
     self.previewNameLabel = nil;
     self.previewUserLocationLabel = nil;
     self.clearProfilePictureButton = nil;
+    self.facebookConnectButton = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -214,10 +216,10 @@
                 [self.facebookPicture setImage:[UIImage imageNamed:@"default-facebook-profile-picture.png"]];
                 [self.facebookPicture setIsSelectable:NO];
                 
-                UIButton *facebookConnectButton = [[UIButton alloc] initWithFrame:(CGRect){ 16, 137, 55, 21 }];
-                [facebookConnectButton setImage:[UIImage imageNamed:@"facebook-connect-button"] forState:UIControlStateNormal];
-                [facebookConnectButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
-                [self.chooseFromBox addSubview:facebookConnectButton];
+                self.facebookConnectButton = [[UIButton alloc] initWithFrame:(CGRect){ 16, 137, 55, 21 }];
+                [self.facebookConnectButton setImage:[UIImage imageNamed:@"facebook-connect-button"] forState:UIControlStateNormal];
+                [self.facebookConnectButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
+                [self.chooseFromBox addSubview:self.facebookConnectButton];
             }
             [self.chooseFromBox addSubview:self.facebookPicture];
             
@@ -254,6 +256,7 @@
 {
     [[GTIOUser currentUser] connectToFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
         if (!error) {
+            [self.facebookConnectButton removeFromSuperview];
             [self refreshContent];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to connect your account to facebook." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
