@@ -620,9 +620,9 @@
 		8E91B1A6156AC197009D70AC /* JRUserLandingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E91B0FA156AC197009D70AC /* JRUserLandingController.xib */; };
 		8E91B1A7156AC197009D70AC /* JRWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E91B0FB156AC197009D70AC /* JRWebViewController.xib */; };
 		8E91B1A8156AC197009D70AC /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B0FE156AC197009D70AC /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8E97DF341586A81300521968 /* GTIOQuickAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */; };
 		8EA21B39157FDDC000D5003C /* GTIOPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA21B38157FDDC000D5003C /* GTIOPost.m */; };
 		8EAA14C7156E846C0083884E /* GTIOTextFieldForPickerViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */; };
-		8EB24B2B15828FEF00BC2FE5 /* GTIOQuickAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */; };
 		8EDA556615757777009F0404 /* GTIOLookSelectorControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556515757777009F0404 /* GTIOLookSelectorControl.m */; };
 		8EDA556B15757E8A009F0404 /* GTIOPostALookOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556A15757E8A009F0404 /* GTIOPostALookOptionsView.m */; };
 		8EDA556E15758261009F0404 /* GTIOPostALookDescriptionBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556D15758261009F0404 /* GTIOPostALookDescriptionBox.m */; };
@@ -3060,8 +3060,6 @@
 				D2D2F6121586309400D6C541 /* GTIONavigationTitleView.m */,
 				8E2498311580FE780019A114 /* GTIONavigationNotificationTitleView.h */,
 				8E2498321580FE780019A114 /* GTIONavigationNotificationTitleView.m */,
-				D27F9D131577C42B00EAB480 /* GTIONavigationTitleLabel.h */,
-				D27F9D141577C42B00EAB480 /* GTIONavigationTitleLabel.m */,
 				8EDC81D815863EBF00A2097A /* GTIOBackgroundView.h */,
 				8EDC81D915863EBF00A2097A /* GTIOBackgroundView.m */,
 			);
@@ -4292,12 +4290,11 @@
 				8E4332661581286900CD95D0 /* GTIOMeTableHeaderView.m in Sources */,
 				8E53B601158251F900EF138F /* GTIOAlmostDoneViewController.m in Sources */,
 				8E53B6041582679A00EF138F /* GTIOEditProfileViewController.m in Sources */,
-				8EB24B2B15828FEF00BC2FE5 /* GTIOQuickAddViewController.m in Sources */,
 				8EDC81D71586380B00A2097A /* GTIOAccountCreatedView.m in Sources */,
 				8EDC81DA15863EBF00A2097A /* GTIOBackgroundView.m in Sources */,
 				8EDC822D1586826E00A2097A /* GTIOQuickAddTableCell.m in Sources */,
-				8EB24B2B15828FEF00BC2FE5 /* GTIOQuickAddViewController.m in Sources */,
 				D2D2F6131586309400D6C541 /* GTIONavigationTitleView.m in Sources */,
+				8E97DF341586A81300521968 /* GTIOQuickAddViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
