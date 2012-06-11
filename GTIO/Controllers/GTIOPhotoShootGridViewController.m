@@ -12,6 +12,8 @@
 
 #import "GTIOPhotoConfirmationViewController.h"
 
+#import "GTIOPhotoManager.h"
+
 @interface GTIOPhotoShootGridViewController ()
 
 @property (nonatomic, strong) GTIOPhotoShootGridView *photoShootGridView;
@@ -20,27 +22,11 @@
 
 @implementation GTIOPhotoShootGridViewController
 
-@synthesize images = _images;
-
 @synthesize photoShootGridView = _photoShootGridView;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)loadView
 {
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    
-    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    [bgImageView setImage:[[UIImage imageNamed:@"checkered-bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 0, 0, 0, 0 }]];
-    [self.view addSubview:bgImageView];
+    [super loadView];
     
     UIImageView *statusBGImageView = [[UIImageView alloc] initWithFrame:(CGRect){ 0, -64, self.view.frame.size.width, 20 }];
     [statusBGImageView setImage:[[UIImage imageNamed:@"checkered-bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 0, 0, 0, 0 }]];
@@ -59,10 +45,11 @@
 {
     [super viewDidLoad];    
     
-    self.photoShootGridView = [[GTIOPhotoShootGridView alloc] initWithFrame:self.view.bounds images:self.images];
-    [self.photoShootGridView setImageSelectedHandler:^(UIImage *selectedImage) {
+    self.photoShootGridView = [[GTIOPhotoShootGridView alloc] initWithFrame:self.view.bounds images:[[GTIOPhotoManager sharedManager] thumbnailPhotos]];
+    [self.photoShootGridView setImageSelectedHandler:^(NSInteger photoIndex) {
+        UIImage *selectedPhoto = [[GTIOPhotoManager sharedManager] photoAtIndex:photoIndex];
         GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
-        [photoConfirmationViewController setPhoto:selectedImage];
+        [photoConfirmationViewController setPhoto:selectedPhoto];
         [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
     }];
     [self.view addSubview:self.photoShootGridView];
@@ -84,6 +71,12 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GTIOPhotoManager sharedManager] resizeAllImages];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

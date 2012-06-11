@@ -24,4 +24,6 @@ typedef void(^GTIOPhotoModeSwitchChangedHandler)(BOOL on);
 
 - (void)showPhotoShootGrid:(BOOL)showPhotoShootGrid;
 
+- (void)enableAllButtons:(BOOL)enable;
+
 @end

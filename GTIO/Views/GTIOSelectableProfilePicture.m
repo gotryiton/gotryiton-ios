@@ -40,7 +40,7 @@
         self.imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
         [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
         [self.imageView setImageWithURL:url];
-        [self.canvas addSubview:self. imageView];
+        [self.canvas addSubview:self.imageView];
         [self fadeInImageView];
         
         self.border = [[UIView alloc] initWithFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
