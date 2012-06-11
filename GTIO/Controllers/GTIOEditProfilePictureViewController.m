@@ -44,6 +44,23 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {        
+        _profileIconViews = [NSMutableArray array];
+        _profileIconURLs = [NSMutableArray array];
+        _currentlySelectedProfileIconURL = [NSString string];
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"edit profile picture" italic:YES];
+    [self useTitleView:navTitleView];
+    
     GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         NSDictionary *fieldsToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -64,24 +81,12 @@
             }
         }];
     }];
+    [self setRightNavigationButton:saveButton];
     
     GTIOButton *doneButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES]; 
     }];
-    
-    self = [super initWithTitle:@"edit profile picture" italic:YES leftNavBarButton:doneButton rightNavBarButton:saveButton];
-    if (self) {        
-        _profileIconViews = [NSMutableArray array];
-        _profileIconURLs = [NSMutableArray array];
-        _currentlySelectedProfileIconURL = [NSString string];
-        self.hidesBottomBarWhenPushed = YES;
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+    [self setLeftNavigationButton:doneButton];
     
     GTIOUser *currentUser = [GTIOUser currentUser];
     self.currentlySelectedProfileIconURL = currentUser.icon;

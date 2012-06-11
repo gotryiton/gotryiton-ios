@@ -19,6 +19,20 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {    
+        [self setHidesBottomBarWhenPushed:YES];
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"edit profile" italic:YES];
+    [self useTitleView:navTitleView];
+    
     GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
         NSMutableArray *missingDataElements = [NSMutableArray array];
         for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
@@ -48,48 +62,12 @@
             }];
         }
     }];
+    [self setRightNavigationButton:saveButton];
     
     GTIOButton *cancelButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
-    
-    self = [super initWithTitle:@"edit profile" italic:YES leftNavBarButton:cancelButton rightNavBarButton:saveButton];
-    if (self) {    
-        NSMutableArray *selectableYears = [NSMutableArray array];
-        NSDate *currentDate = [NSDate date];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy"];
-        for (int i = 0; i < 100; i++) {
-            [selectableYears addObject:[dateFormatter stringFromDate:currentDate]];
-            currentDate = [currentDate dateByAddingTimeInterval:-(60 * 60 * 24 * 365.25)];
-        }
-        
-        NSArray *selectableGenders = [NSArray arrayWithObjects:@"female", @"male", nil];
-        
-        GTIOUser *currentUser = [GTIOUser currentUser];
-        self.profilePicture = [currentUser icon];
-        
-        self.tableData = [NSArray arrayWithObjects:
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"email" andTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:[currentUser email] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"name" andTitleText:@"name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser name] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"city" andTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"state" andTitleText:@"state or country" andPlaceHolderText:@"NY" andAccessoryText:[currentUser state] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"gender" andTitleText:@"gender" andPlaceHolderText:@"select" andAccessoryText:[currentUser gender] andPickerItems:selectableGenders isRequired:YES usesPicker:YES isMultiline:NO],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"born_in" andTitleText:@"year born" andPlaceHolderText:@"select year" andAccessoryText:[NSString stringWithFormat:@"%i",[[currentUser birthYear] intValue]] andPickerItems:selectableYears isRequired:NO usesPicker:YES isMultiline:NO],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"url" andTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:[currentUser url] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"about" andTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" andAccessoryText:[currentUser aboutMe] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:YES],
-                      nil];
-        
-        // prepopulate save data with values from current user
-        self.saveData = [NSMutableDictionary dictionary];
-        for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
-            [self.saveData setValue:[dataItem accessoryText] forKey:[dataItem apiKey]];
-        }
-        
-        self.textFields = [NSMutableArray array];
-        self.hidesBottomBarWhenPushed = YES;
-    }
-    return self;
+    [self setLeftNavigationButton:cancelButton];
 }
 
 @end

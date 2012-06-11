@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GTIONavigationTitleView.h"
+
 @interface GTIOViewController : UIViewController
 
--(id)initWithTitle:(NSString *)title italic:(BOOL)italic leftNavBarButton:(UIButton *)leftButton rightNavBarButton:(UIButton *)rightButton;
+@property (nonatomic, strong) UIButton *leftNavigationButton;
+@property (nonatomic, strong) UIButton *rightNavigationButton;
+
 - (void)useTitleView:(UIView *)titleView;
-- (void)useTitle:(NSString *)title;
 
 @end

@@ -22,39 +22,8 @@
 @synthesize tableData = _tableData, tableView = _tableView, originalContentFrame = _originalContentFrame, profilePicture = _profilePicture, saveData = _saveData, textFields = _textFields;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGreenTopMargin tapHandler:^(id sender) {
-        NSMutableArray *missingDataElements = [NSMutableArray array];
-        for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
-            if ([dataItem required]) {
-                if ([[self.saveData valueForKey:[dataItem apiKey]] length] == 0) {
-                    [missingDataElements addObject:[dataItem titleText]];
-                }
-            }
-        }
-        if ([missingDataElements count] > 0) {
-            UIAlertView *missingRequiredData = [[UIAlertView alloc] initWithTitle:@"Incomplete Profile!" message:[NSString stringWithFormat:@"Please complete the '%@' section%@.",[missingDataElements componentsJoinedByString:@", "], ([missingDataElements count] > 1) ? @"s" : @""] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-            [missingRequiredData show];
-        } else {
-            [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-            NSDictionary *trackingInformation = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                 @"edit_profile", @"id",
-                                                 @"almost_done", @"screen",
-                                                 nil];
-            [[GTIOUser currentUser] updateCurrentUserWithFields:self.saveData withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
-                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                if (!error) {
-                    GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
-                    [self.navigationController pushViewController:quickAddViewController animated:YES];
-                } else {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to save your profile." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-                    [alert show];
-                }
-            }];
-        }
-    }];
-    
-    self = [super initWithTitle:@"almost done!" italic:YES leftNavBarButton:nil rightNavBarButton:saveButton];
+{    
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {    
         NSMutableArray *selectableYears = [NSMutableArray array];
         NSDate *currentDate = [NSDate date];
@@ -95,6 +64,42 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"almost done!" italic:YES];
+    [self useTitleView:navTitleView];
+    
+    GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGreenTopMargin tapHandler:^(id sender) {
+        NSMutableArray *missingDataElements = [NSMutableArray array];
+        for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
+            if ([dataItem required]) {
+                if ([[self.saveData valueForKey:[dataItem apiKey]] length] == 0) {
+                    [missingDataElements addObject:[dataItem titleText]];
+                }
+            }
+        }
+        if ([missingDataElements count] > 0) {
+            UIAlertView *missingRequiredData = [[UIAlertView alloc] initWithTitle:@"Incomplete Profile!" message:[NSString stringWithFormat:@"Please complete the '%@' section%@.",[missingDataElements componentsJoinedByString:@", "], ([missingDataElements count] > 1) ? @"s" : @""] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            [missingRequiredData show];
+        } else {
+            [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+            NSDictionary *trackingInformation = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                 @"edit_profile", @"id",
+                                                 @"almost_done", @"screen",
+                                                 nil];
+            [[GTIOUser currentUser] updateCurrentUserWithFields:self.saveData withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                if (!error) {
+                    GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
+                    [self.navigationController pushViewController:quickAddViewController animated:YES];
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to save your profile." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                    [alert show];
+                }
+            }];
+        }
+    }];
+    [self setRightNavigationButton:saveButton];
+    
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height } style:UITableViewStyleGrouped];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];

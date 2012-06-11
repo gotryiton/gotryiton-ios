@@ -45,15 +45,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithTitle:@"post a look" italic:YES leftNavBarButton:[GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
-        if (self.postThisButton.enabled) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
-            [alert setTag:kGTIOEmptyPostAlertTag];
-            [alert show];
-        } else {
-            [self cancelPost];
-        }
-    }] rightNavBarButton:nil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
@@ -72,13 +64,27 @@
 
 - (void)loadView
 {
-    [super loadView];
-    [self.view setFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 460 } }];
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"post a look" italic:YES];
+    [self useTitleView:navTitleView];
+    
+    GTIOButton *cancelButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
+        if (self.postThisButton.enabled) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
+            [alert setTag:kGTIOEmptyPostAlertTag];
+            [alert show];
+        } else {
+            [self cancelPost];
+        }
+    }];
+    [self setLeftNavigationButton:cancelButton];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 50 - 44 }];
     [self.scrollView setDelegate:self];
