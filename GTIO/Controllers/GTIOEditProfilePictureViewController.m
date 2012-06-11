@@ -12,6 +12,7 @@
 #import "GTIOUser.h"
 #import "GTIOIcon.h"
 #import "GTIOFacebookIcon.h"
+#import "GTIODefaultIcon.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOAlmostDoneViewController.h"
 
@@ -33,12 +34,13 @@
 @property (nonatomic, strong) UIButton *clearProfilePictureButton;
 @property (nonatomic, strong) UIImageView *facebookLogo;
 @property (nonatomic, strong) NSURL *defaultIconURL;
+@property (nonatomic, strong) UIButton *facebookConnectButton;
 
 @end
 
 @implementation GTIOEditProfilePictureViewController
 
-@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksLabel = _myLooksLabel, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo, defaultIconURL = _defaultIconURL;
+@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksLabel = _myLooksLabel, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo, defaultIconURL = _defaultIconURL, facebookConnectButton = _facebookConnectButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,11 +69,12 @@
         [self.navigationController popViewControllerAnimated:YES]; 
     }];
     
-    self = [super initWithTitle:@"edit profile picture" leftNavBarButton:doneButton rightNavBarButton:saveButton];
+    self = [super initWithTitle:@"edit profile picture" italic:YES leftNavBarButton:doneButton rightNavBarButton:saveButton];
     if (self) {        
         _profileIconViews = [NSMutableArray array];
         _profileIconURLs = [NSMutableArray array];
         _currentlySelectedProfileIconURL = [NSString string];
+        self.hidesBottomBarWhenPushed = YES;
     }
     return self;
 }
@@ -149,6 +152,7 @@
     self.previewNameLabel = nil;
     self.previewUserLocationLabel = nil;
     self.clearProfilePictureButton = nil;
+    self.facebookConnectButton = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -169,12 +173,20 @@
     GTIOUser *currentUser = [GTIOUser currentUser];
     self.currentlySelectedProfileIconURL = currentUser.icon;
     
-    [[GTIOUser currentUser] loadUserIconsWithUserID:currentUser.userID andCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+    [[GTIOUser currentUser] loadUserIconsWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         [self.loadingIconsLabel removeFromSuperview];
         if (!error) {
             BOOL userHasFacebookPicture = NO;
             
-            // find the facebook icon first
+            // find the default icon
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIODefaultIcon class]]) {
+                    GTIOIcon *defaultIcon = (GTIOIcon*)object;
+                    self.defaultIconURL = defaultIcon.url;
+                }
+            }
+            
+            // find the facebook icon
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOFacebookIcon class]]) {
                     GTIOIcon *facebookIcon = (GTIOIcon*)object;
@@ -182,16 +194,16 @@
                     userHasFacebookPicture = YES;
                 }
             }
+            
             // grab the rest of the icons
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOIcon class]] && ![object isMemberOfClass:[GTIOFacebookIcon class]]) {
                     GTIOIcon *icon = (GTIOIcon*)object;
-                    [self.profileIconURLs addObject:icon.url];
+                    if (icon.url) {
+                        [self.profileIconURLs addObject:icon.url];
+                    }
                 }
             }
-            
-            // default icon
-            self.defaultIconURL = [NSURL URLWithString:[loadedObjects objectAtIndex:([loadedObjects count]-1)]];
             
             self.facebookPicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 16, 72, 55, 55 } andImageURL:nil];
             if (userHasFacebookPicture) {
@@ -204,10 +216,10 @@
                 [self.facebookPicture setImage:[UIImage imageNamed:@"default-facebook-profile-picture.png"]];
                 [self.facebookPicture setIsSelectable:NO];
                 
-                UIButton *facebookConnectButton = [[UIButton alloc] initWithFrame:(CGRect){ 16, 137, 55, 21 }];
-                [facebookConnectButton setImage:[UIImage imageNamed:@"facebook-connect-button"] forState:UIControlStateNormal];
-                [facebookConnectButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
-                [self.chooseFromBox addSubview:facebookConnectButton];
+                self.facebookConnectButton = [[UIButton alloc] initWithFrame:(CGRect){ 16, 137, 55, 21 }];
+                [self.facebookConnectButton setImage:[UIImage imageNamed:@"facebook-connect-button"] forState:UIControlStateNormal];
+                [self.facebookConnectButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
+                [self.chooseFromBox addSubview:self.facebookConnectButton];
             }
             [self.chooseFromBox addSubview:self.facebookPicture];
             
@@ -244,6 +256,7 @@
 {
     [[GTIOUser currentUser] connectToFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
         if (!error) {
+            [self.facebookConnectButton removeFromSuperview];
             [self refreshContent];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to connect your account to facebook." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];

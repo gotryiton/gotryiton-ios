@@ -8,13 +8,16 @@
 
 #import "Facebook.h"
 #import "JREngage.h"
+#import <RestKit/RestKit.h>
 
 @class GTIOUser;
 
 typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
 typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
+typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 
-@interface GTIOUser : NSObject <FBSessionDelegate, JREngageDelegate>
+
+@interface GTIOUser : NSObject <FBSessionDelegate, JREngageDelegate, RKRequestDelegate>
 
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *name;
@@ -31,6 +34,7 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 @property (nonatomic, strong) NSNumber *hasCompleteProfile;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSNumber *isFacebookConnected;
 
 @property (nonatomic, strong) Facebook *facebook;
 @property (nonatomic, strong) JREngage *janrain;
@@ -45,7 +49,7 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 
 /** Logs current user out of GTIO
  */
-- (void)logOut;
+- (void)logOutWithLogoutHandler:(GTIOLogoutHandler)logoutHandler;
 
 /** Update current user
  */
@@ -64,6 +68,10 @@ typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 
 /** User Icons from API
  */
-- (void)loadUserIconsWithUserID:(NSString*)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler;
+- (void)loadUserIconsWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
+
+/** Prepare the current user for management
+ */
+- (void)prepareForManagement;
 
 @end

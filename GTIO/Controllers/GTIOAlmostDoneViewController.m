@@ -15,17 +15,7 @@
 #import "GTIOAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GTIOAlmostDoneTableDataItem.h"
-
-@interface GTIOAlmostDoneViewController ()
-
-@property (nonatomic, strong) NSArray *tableData;
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) CGRect originalContentFrame;
-@property (nonatomic, strong) NSURL *profilePicture;
-@property (nonatomic, strong) NSMutableDictionary *saveData;
-@property (nonatomic, strong) NSMutableArray *textFields;
-
-@end
+#import "GTIOQuickAddViewController.h"
 
 @implementation GTIOAlmostDoneViewController
 
@@ -54,7 +44,8 @@
             [[GTIOUser currentUser] updateCurrentUserWithFields:self.saveData withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 if (!error) {
-                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                    GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
+                    [self.navigationController pushViewController:quickAddViewController animated:YES];
                 } else {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to save your profile." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
                     [alert show];
@@ -63,7 +54,7 @@
         }
     }];
     
-    self = [super initWithTitle:@"almost done!" leftNavBarButton:nil rightNavBarButton:saveButton];
+    self = [super initWithTitle:@"almost done!" italic:YES leftNavBarButton:nil rightNavBarButton:saveButton];
     if (self) {    
         NSMutableArray *selectableYears = [NSMutableArray array];
         NSDate *currentDate = [NSDate date];
@@ -119,6 +110,9 @@
     [self viewDidUnload];
     self.tableView = nil;
     self.originalContentFrame = CGRectZero;
+    self.profilePicture = nil;
+    self.tableData = nil;
+    self.textFields = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated

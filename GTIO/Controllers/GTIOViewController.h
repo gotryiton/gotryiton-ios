@@ -10,6 +10,8 @@
 
 @interface GTIOViewController : UIViewController
 
--(id)initWithTitle:(NSString *)title leftNavBarButton:(UIButton *)leftButton rightNavBarButton:(UIButton *)rightButton;
+-(id)initWithTitle:(NSString *)title italic:(BOOL)italic leftNavBarButton:(UIButton *)leftButton rightNavBarButton:(UIButton *)rightButton;
+- (void)useTitleView:(UIView *)titleView;
+- (void)useTitle:(NSString *)title;
 
 @end

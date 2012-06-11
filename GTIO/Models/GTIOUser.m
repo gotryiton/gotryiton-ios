@@ -7,11 +7,7 @@
 //
 
 #import "GTIOUser.h"
-
-#import <RestKit/RestKit.h>
-
 #import "GTIOConfigManager.h"
-
 #import "GTIOAuth.h"
 
 @interface GTIOUser ()
@@ -19,12 +15,14 @@
 @property (nonatomic, copy) GTIOLoginHandler loginHandler;
 @property (nonatomic, strong) NSString *facebookAuthResourcePath;
 @property (nonatomic, strong) NSString *janrainAuthResourcePath;
+@property (nonatomic, strong) RKRequest *logoutRequest;
+@property (nonatomic, copy) GTIOLogoutHandler logoutHandler;
 
 @end
 
 @implementation GTIOUser
 
-@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url;
+@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, logoutRequest = _logoutRequest, logoutHandler = _logoutHandler;
 @synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
 @synthesize loginHandler = _loginHandler;
 @synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath;
@@ -90,12 +88,15 @@
     return [authToken length] > 0;
 }
 
-- (void)logOut
+- (void)logOutWithLogoutHandler:(GTIOLogoutHandler)logoutHandler
 {
-    // Remove auth token
+    self.logoutHandler = logoutHandler;
+    
     [GTIOAuth removeToken];
     
-    // Remove all data... user=[[self alloc] init]?
+    self.logoutRequest = [[RKClient sharedClient] requestWithResourcePath:@"/user/logout"];
+    [self.logoutRequest setDelegate:self];
+    [self.logoutRequest send];
 }
 
 #pragma mark - Facebook
@@ -211,6 +212,7 @@
     self.hasCompleteProfile = user.hasCompleteProfile;
     self.url = user.url;
     self.email = user.email;
+    self.isFacebookConnected = user.isFacebookConnected;
 }
 
 #pragma mark - janrain
@@ -278,12 +280,9 @@
     }
 }
 
-- (void)loadUserIconsWithUserID:(NSString*)userID andCompletionHandler:(GTIOCompletionHandler)completionHandler
+- (void)loadUserIconsWithCompletionHandler:(GTIOCompletionHandler)completionHandler
 {
-    if ([userID length] == 0) {
-        userID = self.userID;
-    }
-    NSString *userIconResourcePath = [NSString stringWithFormat:@"/users/%@/icons", userID];
+    NSString *userIconResourcePath = @"/user/icons";
     
     BOOL authToken = NO;
     if ([[RKObjectManager sharedManager].client.HTTPHeaders objectForKey:kGTIOAuthenticationHeaderKey]) {
@@ -306,6 +305,42 @@
         }];
     } else {
         NSLog(@"no auth token");
+    }
+}
+
+- (void)prepareForManagement
+{
+    NSString *managementResourcePath = @"/user/management";
+    
+    BOOL authToken = NO;
+    if ([[RKObjectManager sharedManager].client.HTTPHeaders objectForKey:kGTIOAuthenticationHeaderKey]) {
+        authToken = YES;
+    }
+    if (authToken) {
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:managementResourcePath usingBlock:^(RKObjectLoader *loader) {
+            loader.targetObject = [GTIOUser currentUser];
+        }];
+    } else {
+        NSLog(@"no auth token");
+    }
+}
+
+#pragma mark - RKRequestDelegate Methods
+
+- (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response
+{
+    if ([request isEqual:self.logoutRequest]) {
+        if (self.logoutHandler) {
+            self.logoutHandler(response);
+        }
+    }
+}
+
+-(void)request:(FBRequest *)request didFailWithError:(NSError *)error
+{
+    if (error && [request isEqual:self.logoutRequest]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There was an error while logging you out." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [alert show];
     }
 }
 

@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOViewController.h"
 
-@interface GTIOMeViewController : UIViewController
+@protocol GTIOMeTableHeaderViewDelegate <NSObject>
+
+@required
+- (void)pushEditProfilePictureViewController;
+- (void)pushEditProfileViewController;
+
+@end
+
+@interface GTIOMeViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOMeTableHeaderViewDelegate>
 
 @end
