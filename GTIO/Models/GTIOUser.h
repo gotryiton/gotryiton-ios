@@ -35,6 +35,7 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSNumber *isFacebookConnected;
+@property (nonatomic, assign) BOOL selected;
 
 @property (nonatomic, strong) Facebook *facebook;
 @property (nonatomic, strong) JREngage *janrain;
@@ -73,5 +74,9 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 /** Prepare the current user for management
  */
 - (void)prepareForManagement;
+
+/** Load Quick Add users
+ */
+- (void)loadQuickAddUsersWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end

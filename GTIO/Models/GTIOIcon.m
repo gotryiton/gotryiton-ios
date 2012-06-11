@@ -10,6 +10,6 @@
 
 @implementation GTIOIcon
 
-@synthesize url = _url, width = _width, height = _height;
+@synthesize name = _name, url = _url, width = _width, height = _height;
 
 @end
