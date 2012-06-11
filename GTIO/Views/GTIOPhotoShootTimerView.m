@@ -15,20 +15,25 @@
 
 @property (nonatomic, strong) NSDate *startTime;
 
+@property (nonatomic, strong) UIImage *backgroundImage;
+
 @end
 
 @implementation GTIOPhotoShootTimerView
+
 
 @synthesize duration = _duration, startTime = _startTime;
 @synthesize animationTimer = _animationTimer, updateTimer = _updateTimer;
 @synthesize progress = _progress;
 @synthesize completionHandler = _completionHandler;
+@synthesize backgroundImage = _backgroundImage;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self setBackgroundColor:[UIColor clearColor]];
+        _backgroundImage = [UIImage imageNamed:@"upload.loader.bg.png"];
     }
     return self;
 }
@@ -41,8 +46,7 @@
     CGContextSetShouldAntialias(context, YES);
     
     // Outer circle
-    UIImage *bgImage = [UIImage imageNamed:@"upload.loader.bg.png"];
-    [bgImage drawInRect:rect];
+    [self.backgroundImage drawInRect:rect];
     
     // Progress bar
     CGContextSetStrokeColorWithColor(context, [UIColor gtio_progressBarColor].CGColor);
@@ -76,6 +80,17 @@
         self.progress = delta / self.duration;
     }
     [self setNeedsDisplay];
+}
+
+- (void)showPhotoShootTimer:(BOOL)showPhotoShootTimer
+{
+    [UIView animateWithDuration:0.25f animations:^{
+        CGFloat alpha = 0.0f;
+        if (showPhotoShootTimer) {
+            alpha = 1.0f;
+        }
+        [self setAlpha:alpha];
+    }];
 }
 
 @end

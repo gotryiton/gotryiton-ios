@@ -21,4 +21,6 @@ typedef void(^GTIOPhotoShootTimerCompletionHandler)(GTIOPhotoShootTimerView *pho
 
 - (void)startWithDuration:(NSTimeInterval)duration completionHandler:(GTIOPhotoShootTimerCompletionHandler)completionHandler;
 
+- (void)showPhotoShootTimer:(BOOL)showPhotoShootTimer;
+
 @end

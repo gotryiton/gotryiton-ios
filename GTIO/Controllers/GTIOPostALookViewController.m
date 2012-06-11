@@ -17,6 +17,11 @@
 #import "GTIOPost.h"
 #import "GTIOProgressHUD.h"
 
+#import "GTIOScrollView.h"
+
+static NSInteger const kGTIOBottomButtonSize = 50;
+static NSInteger const kGTIONavBarSize = 44;
+
 @interface GTIOPostALookViewController()
 
 @property (nonatomic, strong) GTIOLookSelectorView *lookSelectorView;
@@ -26,7 +31,7 @@
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *tagBox;
 @property (nonatomic, strong) UIButton *postThisButton;
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) GTIOScrollView *scrollView;
 @property (nonatomic, assign) CGRect originalFrame;
 
 @property (nonatomic, strong) NSTimer *photoSaveTimer;
@@ -45,18 +50,8 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithTitle:@"post a look" italic:YES leftNavBarButton:[GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
-        if (self.postThisButton.enabled) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
-            [alert setTag:kGTIOEmptyPostAlertTag];
-            [alert show];
-        } else {
-            [self cancelPost];
-        }
-    }] rightNavBarButton:nil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookSelectorViewUpdated:) name:kGTIOLooksUpdated object:nil];
         self.photoForCreationRequests = [[GTIOPhoto alloc] init];
         self.creatingPhoto = NO;
@@ -72,15 +67,30 @@
 
 - (void)loadView
 {
-    [super loadView];
-    [self.view setFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 460 } }];
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 50 - 44 }];
+    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"post a look" italic:YES];
+    [self useTitleView:navTitleView];
+    
+    GTIOButton *cancelButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
+        if (self.postThisButton.enabled) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
+            [alert setTag:kGTIOEmptyPostAlertTag];
+            [alert show];
+        } else {
+            [self cancelPost];
+        }
+    }];
+    [self setLeftNavigationButton:cancelButton];
+    
+    self.scrollView = [[GTIOScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kGTIOBottomButtonSize - kGTIONavBarSize }];
+    [self.scrollView setOffsetFromBottom:kGTIOBottomButtonSize];
     [self.scrollView setDelegate:self];
     [self.view addSubview:self.scrollView];
     
@@ -147,17 +157,6 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-    [self.scrollView setFrame:(CGRect){ self.originalFrame.origin, self.originalFrame.size.width, self.originalFrame.size.height - 165 }];
-}
-
-- (void)keyboardWillBeHidden:(NSNotification *)notification
-{
-    [self.scrollView setFrame:self.originalFrame];
-    [self.scrollView setContentOffset:(CGPoint){ 0, 0 } animated:YES];
-}
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self snapScrollView:scrollView];
@@ -188,8 +187,6 @@
         if (top) {
             [self.tagBox.textView resignFirstResponder];
             [self.descriptionBox.textView resignFirstResponder];
-        } else {
-            [self.descriptionBox.textView becomeFirstResponder];
         }
     }];
 }

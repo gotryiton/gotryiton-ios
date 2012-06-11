@@ -1,3 +1,63 @@
+***Monday, June 11th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Update spec for cutting ~10 screens (EOD Monday/Tuesday)
+- GTIO - Images from camera roll that are smaller than 640 what do we want to do?
+
+**Status**
+- Began work on photo filter
+- Spent time refactoring a number of screens for reuability later on in the project
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- 7.1 - What do the following/followers button look like when touched?
+- 7.1 - Can you tough text, number, or both?
+ - On state should just be on label portion
+
+---
+
+***Friday, June 8th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff
+- GTIO - Simon
+
+**Tasks / To Do List**
+- GTIO - 7.1 API Monday
+- GTIO - Update spec for cutting ~10 screens (EOD Monday/Tuesday)
+- GTIO - Images from camera roll that are smaller than 640 what do we want to do?
+
+**Status**
+- Photo optimization complete
+- Tap to focus complete
+- Me screen top bar
+- 7.2 still going to be a web view
+- Going ahead with Post view movable frame (Next sprint)
+- GTIO Cutting ~10 screens out of spec (3.1, 3.2, 4.2-7)
+- Adding auto complete to description/brands on post view
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Thursday, June 7th - Standup Notes***
 
 **Attendees**

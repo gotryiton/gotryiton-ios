@@ -8,11 +8,15 @@
 
 #import "GTIOPhotoShootGridView.h"
 
-NSInteger const kGTIONumberOfPhotos = 9;
-CGFloat const kGTIOXOriginStart = 16.0f;
-CGFloat const kGTIOYOriginStart = 15.0f;
-CGFloat const kGTIOHorizontalPhotoPadding = 20.0f;
-CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
+static NSInteger const kGTIONumberOfPhotos = 9;
+static NSInteger const kGTIONumberOfItemsInRow = 3;
+
+static CGFloat const kGTIOXOriginStart = 14.0f;
+static CGFloat const kGTIOYOriginStart = 17.0f;
+static CGFloat const kGTIOHorizontalPhotoPadding = 20.5f;
+static CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
+
+static NSInteger const kGTIOStartingPhotoTag = 1000;
 
 @interface GTIOPhotoShootGridView ()
 
@@ -28,7 +32,7 @@ CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
     self = [super initWithFrame:frame];
     if (self) {        
         UIImageView *gridImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"upload.photoreel.bg.png"]];
-        [gridImageView setFrame:(CGRect){ { 12, 12 }, gridImageView.image.size }];
+        [gridImageView setFrame:(CGRect){ { 10, 14 }, gridImageView.image.size }];
         [self addSubview:gridImageView];
         
         _images = images;
@@ -42,11 +46,12 @@ CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
                 [imageButton setFrame:(CGRect){ xOrigin, yOrigin, 84, 112 }];
                 [imageButton setImage:[_images objectAtIndex:i] forState:UIControlStateNormal];
                 [imageButton addTarget:self action:@selector(photoSelected:) forControlEvents:UIControlEventTouchUpInside];
+                [imageButton setTag:kGTIOStartingPhotoTag + i];
                 [self addSubview:imageButton];
                 
-                if ((i + 1) % 3 == 0) { // New line
+                if ((i + 1) % kGTIONumberOfItemsInRow == 0) { // New line
                     xOrigin = kGTIOXOriginStart;
-                    yOrigin = kGTIOYOriginStart + ((i + 1) / 3) * imageButton.frame.size.height +  ((i + 1) / 3) * kGTIOVerticalPhotoPadding;
+                    yOrigin = kGTIOYOriginStart + ((i + 1) / kGTIONumberOfItemsInRow) * imageButton.frame.size.height +  ((i + 1) / kGTIONumberOfItemsInRow) * kGTIOVerticalPhotoPadding;
                 } else { // next column
                     xOrigin += imageButton.frame.size.width + kGTIOHorizontalPhotoPadding;
                 }
@@ -60,10 +65,10 @@ CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
 
 - (void)photoSelected:(id)sender
 {
-    UIImage *image = [sender imageForState:UIControlStateNormal];
+    NSInteger tag = [sender tag] - kGTIOStartingPhotoTag;
 
-    if (self.imageSelectedHandler) {
-        self.imageSelectedHandler(image);
+    if (tag >= 0 && self.imageSelectedHandler) {
+        self.imageSelectedHandler(tag);
     }
 }
 
