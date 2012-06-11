@@ -52,6 +52,7 @@
                 // stay on splash till /user/me comes back
                 // TODO: Do we need to track here?
                 [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/me" usingBlock:^(RKObjectLoader *loader) {
+                    loader.targetObject = [GTIOUser currentUser];
                     loader.onDidLoadObject = ^(id object) {
                         [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
                     };

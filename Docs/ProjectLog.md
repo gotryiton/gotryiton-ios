@@ -1,3 +1,96 @@
+***Friday, June 8th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff
+- GTIO - Simon
+
+**Tasks / To Do List**
+- GTIO - 7.1 API Monday
+- GTIO - Update spec for cutting ~10 screens (EOD Monday/Tuesday)
+- GTIO - Images from camera roll that are smaller than 640 what do we want to do?
+
+**Status**
+- Photo optimization complete
+- Tap to focus complete
+- Me screen top bar
+- 7.2 still going to be a web view
+- Going ahead with Post view movable frame (Next sprint)
+- GTIO Cutting ~10 screens out of spec (3.1, 3.2, 4.2-7)
+- Adding auto complete to description/brands on post view
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Thursday, June 7th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Approve changes to 7.1 gist
+- GTIO - Update gist of 7.1, proceed to updating API 6/8
+- GTIO - List of links w/ where they go
+
+**Status**
+- Working on 7.1, moving on to Header 
+- Continuing work on Filters
+- Next up: 1.8
+- Not going to allow swiping left and right on the Photo Filter screen when in photo shoot mode
+- 7.1 table view cells now going to load dynamically from API
+- Changes to the photo frame are going to take 2 days
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Wednesday, June 6th - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review schema for button/alert that Simon posted to Github.  Follow up with Simon if necessary
+- TT - Evaluate effort for dragging main frame / bottom right edge of whole photo (North and South only)
+ - Photo on left would be cut from the bottom up.
+ - Keep ratio of bottom right photo 
+
+**Status**
+- Wrapping up remaininng bug fixes.  Post view animation work remaining
+- 12.3 - keyboard popup feature feels strange.
+ - Resolution: Stop with margin where textboxes are shown (bottom border of page)
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+
 ***Tuesday, June 5th - Standup Notes***
 
 **Attendees**

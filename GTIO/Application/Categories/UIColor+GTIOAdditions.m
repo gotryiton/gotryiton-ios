@@ -70,4 +70,14 @@
     return UIColorFromRGB(0xB3B3B3);
 }
 
++ (UIColor *)gtio_groupedTableBorderColor
+{
+    return UIColorFromRGB(0xD9D7CE);
+}
+
++ (UIColor *)gtio_lightestGrayTextColor
+{
+    return UIColorFromRGB(0xDADADA);
+}
+
 @end

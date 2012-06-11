@@ -9,7 +9,6 @@
 #import "GTIOPhotoShootGridViewController.h"
 
 #import "GTIOPhotoShootGridView.h"
-#import "GTIONavigationTitleLabel.h"
 
 #import "GTIOPhotoConfirmationViewController.h"
 
@@ -25,19 +24,6 @@
 
 @synthesize photoShootGridView = _photoShootGridView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    GTIOButton *backButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
-        [self.navigationController popViewControllerAnimated:YES]; 
-    }];
-    
-    self = [super initWithTitle:@"select one photo" leftNavBarButton:backButton rightNavBarButton:nil];
-    if (self) {
-        
-    }
-    return self;
-}
-
 - (void)loadView
 {
     [super loadView];
@@ -45,6 +31,14 @@
     UIImageView *statusBGImageView = [[UIImageView alloc] initWithFrame:(CGRect){ 0, -64, self.view.frame.size.width, 20 }];
     [statusBGImageView setImage:[[UIImage imageNamed:@"checkered-bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 0, 0, 0, 0 }]];
     [self.view addSubview:statusBGImageView];
+    
+    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"select one photo" italic:NO];
+    [self useTitleView:navTitleView];
+    
+    GTIOButton *backButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [self setLeftNavigationButton:backButton];
 }
 
 - (void)viewDidLoad

@@ -12,6 +12,13 @@
 
 @interface GTIOAlmostDoneViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOAlmostDoneTableCellDelegate>
 
+@property (nonatomic, strong) NSArray *tableData;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) CGRect originalContentFrame;
+@property (nonatomic, strong) NSURL *profilePicture;
+@property (nonatomic, strong) NSMutableDictionary *saveData;
+@property (nonatomic, strong) NSMutableArray *textFields;
+
 - (void)updateDataSourceWithValue:(id)value ForKey:(NSString*)key;
 
 @end

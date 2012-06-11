@@ -7,14 +7,9 @@
 //
 
 #import "GTIOPostALookOptionsView.h"
-#import "GTIOSwitch.h"
-
-@interface GTIOPostALookOptionsView()
-
-@property (nonatomic, strong) GTIOSwitch *votingSwitch;
-@property (nonatomic, strong) GTIOSwitch *facebookSwitch;
-
-@end
+#import "GTIOConfig.h"
+#import "GTIOConfigManager.h"
+#import "GTIOUser.h"
 
 @implementation GTIOPostALookOptionsView
 
@@ -24,6 +19,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        GTIOConfig *currentConfig = [[GTIOConfigManager sharedManager] config];
+        GTIOUser *currentUser = [GTIOUser currentUser];
+        
         UIImage *backgroundImage = [UIImage imageNamed:@"toggle-containers.png"];
         UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:(CGRect){ 0, 0, backgroundImage.size }];
         [backgroundView setImage:backgroundImage];
@@ -38,6 +36,7 @@
         [self.votingSwitch setChangeHandler:^(BOOL on) {
             // stuff
         }];
+        [self.votingSwitch setOn:[currentConfig.votingDefaultOn boolValue]];
         [self addSubview:self.votingSwitch];
         
         UIButton *votingButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -52,8 +51,17 @@
         [self.facebookSwitch setTrackFrameMask:[UIImage imageNamed:@"general.slider.green.mask.png"]];
         [self.facebookSwitch setKnob:[UIImage imageNamed:@"general.slider.green.handle.png"]];
         [self.facebookSwitch setKnobXOffset:-1.5];
+        [self.facebookSwitch setOn:[currentConfig.facebookShareDefaultOn boolValue]];
         [self.facebookSwitch setChangeHandler:^(BOOL on) {
-            // stuff
+            if (on && !currentUser.isFacebookConnected) {
+                [currentUser connectToFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
+                    if (!user.isFacebookConnected) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"We were unable to connect you with facebook." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                        [alert show];
+                        [self.facebookSwitch setOn:NO];
+                    }
+                }];
+            }
         }];        
         [self addSubview:self.facebookSwitch];
         
