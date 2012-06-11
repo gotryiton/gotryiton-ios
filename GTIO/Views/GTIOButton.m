@@ -43,8 +43,6 @@
         case GTIOButtonTypePhotoSelectBox: return [self gtio_photoSelectBox];
         case GTIOButtonTypePostThis: return [self gtio_postThisButton];
         case GTIOButtonTypePhotoDelete: return [self gtio_photoDeleteButton];
-        case GTIOButtonTypeNotificationBubble: return [self gtio_notificationBubbleButton];
-        case GTIOButtonTypeNotificationBubbleEmpty: return [self gtio_notificationBubbleEmptyButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -258,16 +256,6 @@
 + (id)gtio_photoDeleteButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"remove-frame-OFF.png"] hightlightImage:[UIImage imageNamed:@"remove-frame-ON.png"]];
-}
-
-+ (id)gtio_notificationBubbleButton
-{
-    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"nav.counter.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.active.png"]];
-}
-
-+ (id)gtio_notificationBubbleEmptyButton
-{
-    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"nav.counter.empty.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.empty.active.png"]];
 }
 
 #pragma mark - Touch Handling

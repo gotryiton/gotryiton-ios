@@ -7,12 +7,13 @@
 //
 
 #import "GTIOMeViewController.h"
-#import "GTIOMeTitleView.h"
+#import "GTIONavigationNotificationTitleView.h"
 #import "GTIOMeTableHeaderView.h"
 #import "GTIOUser.h"
 #import "GTIOEditProfileViewController.h"
 #import "GTIOEditProfilePictureViewController.h"
 #import "GTIOSignInViewController.h"
+#import "GTIONavigationTitleView.h"
 
 @interface GTIOMeViewController ()
 
@@ -29,7 +30,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithTitle:@"GO TRY IT ON" italic:NO leftNavBarButton:nil rightNavBarButton:nil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _tableData = [[NSArray alloc] initWithObjects:@"my shopping list", @"my     s", @"my posts", @"find my friends", @"invite friends", @"search tags", @"settings", @"sign out", @"posts are private", nil];
     }
@@ -80,9 +81,9 @@
 {
     [super viewWillAppear:animated];
     
-    GTIOMeTitleView *titleView = [[GTIOMeTitleView alloc] initWithTapHandler:^(id sender) {
+    GTIONavigationNotificationTitleView *titleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:1] tapHandler:^{
         NSLog(@"tapped notification bubble");
-    } notificationCount:[NSNumber numberWithInt:0]];
+    }];
     [self useTitleView:titleView];
 }
 
