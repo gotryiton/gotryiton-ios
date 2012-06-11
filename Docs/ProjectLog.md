@@ -1,3 +1,31 @@
+***Monday, June 11th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Update spec for cutting ~10 screens (EOD Monday/Tuesday)
+- GTIO - Images from camera roll that are smaller than 640 what do we want to do?
+
+**Status**
+- Began work on photo filter
+- Spent time refactoring a number of screens for reuability later on in the project
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- 7.1 - What do the following/followers button look like when touched?
+- 7.1 - Can you tough text, number, or both?
+ - On state should just be on label portion
+
+---
+
 ***Friday, June 8th - Standup Notes***
 
 **Attendees**
