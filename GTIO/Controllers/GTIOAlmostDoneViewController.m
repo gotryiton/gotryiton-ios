@@ -44,8 +44,12 @@
             [[GTIOUser currentUser] updateCurrentUserWithFields:self.saveData withTrackingInformation:trackingInformation andLoginHandler:^(GTIOUser *user, NSError *error) {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 if (!error) {
-                    GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
-                    [self.navigationController pushViewController:quickAddViewController animated:YES];
+                    if ([[GTIOUser currentUser] isNewUser]) {
+                        GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
+                        [self.navigationController pushViewController:quickAddViewController animated:YES];
+                    } else {
+                        [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                    }
                 } else {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to save your profile." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
                     [alert show];
@@ -119,6 +123,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self refreshScreenData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -134,7 +139,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self refreshScreenData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

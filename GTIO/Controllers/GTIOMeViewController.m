@@ -84,12 +84,6 @@
         NSLog(@"tapped notification bubble");
     } notificationCount:[NSNumber numberWithInt:0]];
     [self useTitleView:titleView];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
     [self.profileHeaderView refreshData];
 }
 

@@ -34,8 +34,6 @@
         RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[GTIOUser class]];
         RKObjectMapping *authMapping = [RKObjectMapping mappingForClass:[GTIOAuth class]];
         RKObjectMapping *userIconMapping = [RKObjectMapping mappingForClass:[GTIOIcon class]];
-        RKObjectMapping *facebookUserIconMapping = [RKObjectMapping mappingForClass:[GTIOFacebookIcon class]];
-        RKObjectMapping *defaultUserIconMapping = [RKObjectMapping mappingForClass:[GTIODefaultIcon class]];
         RKObjectMapping *userPhotoMapping = [RKObjectMapping mappingForClass:[GTIOPhoto class]];
         RKObjectMapping *postMapping = [RKObjectMapping mappingForClass:[GTIOPost class]];
         
@@ -95,14 +93,11 @@
         [userMapping mapKeyPath:@"is_facebook_connected" toAttribute:@"isFacebookConnected"];
         [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", nil];
         [self setMapping:userMapping forKeyPath:@"user"];
+        [self setMapping:userMapping forKeyPath:@"users"];
         
         // User Icons
-        [userIconMapping mapAttributes:@"url", @"width", @"height", nil];
-        [facebookUserIconMapping mapAttributes:@"url", @"width", @"height", nil];
-        [defaultUserIconMapping mapAttributes:@"url", @"width", @"height", nil];
-        [self setMapping:defaultUserIconMapping forKeyPath:@"default_icon"];
-        [self setMapping:facebookUserIconMapping forKeyPath:@"facebook_icon"];
-        [self setMapping:userIconMapping forKeyPath:@"outfit_icons"];
+        [userIconMapping mapAttributes:@"name", @"url", @"width", @"height", nil];
+        [self setMapping:userIconMapping forKeyPath:@"icons"];
         
         // User Photo
         [userPhotoMapping mapKeyPath:@"id" toAttribute:@"photoID"];

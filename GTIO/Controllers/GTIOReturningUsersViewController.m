@@ -171,8 +171,8 @@
         GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:failedSignInViewController animated:YES];
     } else {
-        if (user.isNewUser) {
-            if (user.hasCompleteProfile) {
+        if ([user.isNewUser boolValue]) {
+            if ([user.hasCompleteProfile boolValue]) {
                 GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:quickAddViewController animated:YES];
             } else {
@@ -180,7 +180,7 @@
                 [self.navigationController pushViewController:almostDone animated:YES];
             }
         } else {
-            if (user.hasCompleteProfile) {
+            if ([user.hasCompleteProfile boolValue]) {
                 [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
             } else {
                 GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];

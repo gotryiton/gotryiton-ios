@@ -20,6 +20,8 @@
 #import "GTIOIntroScreensViewController.h"
 #import "GTIOSignInViewController.h"
 
+#import "GTIOQuickAddViewController.h"
+
 @interface GTIOSplashViewController ()
 
 - (void)displaySignInViewController;

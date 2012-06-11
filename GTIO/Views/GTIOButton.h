@@ -37,7 +37,10 @@ typedef enum GTIOButtonType {
     GTIOButtonTypePostThis,
     GTIOButtonTypePhotoDelete,
     GTIOButtonTypeNotificationBubble,
-    GTIOButtonTypeNotificationBubbleEmpty
+    GTIOButtonTypeNotificationBubbleEmpty,
+    GTIOButtonTypeEditProfilePencilCircle,
+    GTIOButtonTypeQuickAddCheckbox,
+    GTIOButtonTypeFollowButton
 } GTIOButtonType;
 
 @interface GTIOButton : UIButton
