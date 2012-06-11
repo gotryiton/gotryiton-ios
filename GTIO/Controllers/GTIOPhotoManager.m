@@ -27,12 +27,12 @@
 
 + (GTIOPhotoManager *)sharedManager
 {
-    static GTIOPhotoManager *manager = nil;
+    static GTIOPhotoManager *gtio_shared_photoManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [[self alloc] init];
+        gtio_shared_photoManager = [[self alloc] init];
     });
-    return manager;
+    return gtio_shared_photoManager;
 }
 
 - (id)init

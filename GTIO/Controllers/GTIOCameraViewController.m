@@ -100,25 +100,9 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         
         _postALookViewController = [[GTIOPostALookViewController alloc] initWithNibName:nil bundle:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:kGTIOPhotoAcceptedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-            UIImage *photo = [note.userInfo objectForKey:@"photo"];
-            
-            if (photo) {
-                [_postALookViewController setMainImage:photo];
-                [self.navigationController pushViewController:_postALookViewController animated:YES];
-            }
-        }]; 
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-            if (self.isShootingPhotoShoot) {
-                self.photoShootTimerView.completionHandler = nil;
-                [self.imageWaitTimer invalidate];
-                [[GTIOPhotoManager sharedManager] removeAllPhotos];
-                [self.photoShootTimerView setAlpha:0.0f];
-                [self resetView];
-                self.shootingPhotoShoot = NO;
-            }
-        }];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoAcceptedNotification:) name:kGTIOPhotoAcceptedNotification object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
         
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToFocus:)];
         [tapGestureRecognizer setNumberOfTapsRequired:1];
@@ -265,6 +249,30 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - NSNotifications
+
+- (void)didEnterBackgroundNotification:(NSNotification *)notification
+{
+    if (self.isShootingPhotoShoot) {
+        self.photoShootTimerView.completionHandler = nil;
+        [self.imageWaitTimer invalidate];
+        [[GTIOPhotoManager sharedManager] removeAllPhotos];
+        [self.photoShootTimerView setAlpha:0.0f];
+        [self resetView];
+        self.shootingPhotoShoot = NO;
+    }
+}
+
+- (void)photoAcceptedNotification:(NSNotification *)notification
+{
+    UIImage *photo = [notification.userInfo objectForKey:@"photo"];
+    
+    if (photo) {
+        [self.postALookViewController setMainImage:photo];
+        [self.navigationController pushViewController:self.postALookViewController animated:YES];
+    }
 }
 
 #pragma mark - 

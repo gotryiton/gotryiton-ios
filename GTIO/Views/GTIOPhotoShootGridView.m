@@ -9,10 +9,13 @@
 #import "GTIOPhotoShootGridView.h"
 
 static NSInteger const kGTIONumberOfPhotos = 9;
+static NSInteger const kGTIONumberOfItemsInRow = 3;
+
 static CGFloat const kGTIOXOriginStart = 14.0f;
 static CGFloat const kGTIOYOriginStart = 17.0f;
 static CGFloat const kGTIOHorizontalPhotoPadding = 20.5f;
 static CGFloat const kGTIOVerticalPhotoPadding = 23.0f;
+
 static NSInteger const kGTIOStartingPhotoTag = 1000;
 
 @interface GTIOPhotoShootGridView ()
@@ -46,9 +49,9 @@ static NSInteger const kGTIOStartingPhotoTag = 1000;
                 [imageButton setTag:kGTIOStartingPhotoTag + i];
                 [self addSubview:imageButton];
                 
-                if ((i + 1) % 3 == 0) { // New line
+                if ((i + 1) % kGTIONumberOfItemsInRow == 0) { // New line
                     xOrigin = kGTIOXOriginStart;
-                    yOrigin = kGTIOYOriginStart + ((i + 1) / 3) * imageButton.frame.size.height +  ((i + 1) / 3) * kGTIOVerticalPhotoPadding;
+                    yOrigin = kGTIOYOriginStart + ((i + 1) / kGTIONumberOfItemsInRow) * imageButton.frame.size.height +  ((i + 1) / kGTIONumberOfItemsInRow) * kGTIOVerticalPhotoPadding;
                 } else { // next column
                     xOrigin += imageButton.frame.size.width + kGTIOHorizontalPhotoPadding;
                 }

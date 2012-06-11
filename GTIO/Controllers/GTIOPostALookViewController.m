@@ -16,6 +16,9 @@
 
 #import "GTIOScrollView.h"
 
+static NSInteger const kGTIOBottomButtonSize = 50;
+static NSInteger const kGTIONavBarSize = 44;
+
 @interface GTIOPostALookViewController()
 
 @property (nonatomic, strong) GTIOLookSelectorView *lookSelectorView;
@@ -61,16 +64,16 @@
 
 - (void)loadView
 {
-    [super loadView];
-    [self.view setFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 460 } }];
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.scrollView = [[GTIOScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 50 - 44 }];
-    [self.scrollView setOffsetFromBottom:50];
+    self.scrollView = [[GTIOScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kGTIOBottomButtonSize - kGTIONavBarSize }];
+    [self.scrollView setOffsetFromBottom:kGTIOBottomButtonSize];
     [self.scrollView setDelegate:self];
     [self.view addSubview:self.scrollView];
     
