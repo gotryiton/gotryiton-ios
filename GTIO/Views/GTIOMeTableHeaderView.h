@@ -11,7 +11,7 @@
 
 @interface GTIOMeTableHeaderView : UIView
 
-@property (nonatomic, strong) id<GTIOMeTableHeaderViewDelegate> delegate;
+@property (nonatomic, weak) id<GTIOMeTableHeaderViewDelegate> delegate;
 
 - (void)refreshData;
 

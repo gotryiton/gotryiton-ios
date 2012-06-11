@@ -12,10 +12,11 @@
 #import "GTIOPhotoShootProgressToolbarView.h"
 #import "GTIOPhotoShootTimerView.h"
 
-#import "UIImage+Resize.h"
-
 #import "GTIOConfig.h"
 #import "GTIOConfigManager.h"
+
+#import "GTIOPhotoManager.h"
+#import "GTIOProcessImageRequest.h"
 
 #import "GTIOPhotoShootGridViewController.h"
 #import "GTIOPhotoConfirmationViewController.h"
@@ -25,7 +26,7 @@ NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotificatio
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
 
-@interface GTIOCameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface GTIOCameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
@@ -37,8 +38,9 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @property (nonatomic, strong) GTIOButton *flashButton;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
+@property (nonatomic, strong) UIImageView *focusImageView;
 
-@property (nonatomic, strong) NSMutableArray *capturedImages;
+@property (nonatomic, assign) NSInteger capturedImageCount;
 
 @property (nonatomic, assign) NSInteger startingPhotoCount;
 @property (nonatomic, strong) NSTimer *imageWaitTimer;
@@ -46,6 +48,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
 @property (nonatomic, strong) GTIOPostALookViewController *postALookViewController;
+
+@property (nonatomic, assign, getter = isShootingPhotoShoot) BOOL shootingPhotoShoot;
 
 @end
 
@@ -56,11 +60,13 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @synthesize flashButton = _flashButton;
 @synthesize flashOn = _flashOn, shutterFlashOverlay = _shutterFlashOverlay;
 @synthesize dismissHandler = _dismissHandler;
-@synthesize capturedImages = _capturedImages;
+@synthesize capturedImageCount = _capturedImageCount;
 @synthesize imageWaitTimer = _imageWaitTimer;
 @synthesize startingPhotoCount = _startingPhotoCount;
 @synthesize imagePickerController = _imagePickerController;
 @synthesize postALookViewController = _postALookViewController;
+@synthesize shootingPhotoShoot = _shootingPhotoShoot;
+@synthesize focusImageView = _focusImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -69,10 +75,11 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [self setWantsFullScreenLayout:YES];
         
         _captureSession = [[AVCaptureSession alloc] init];
-        _captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
         
         _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         [self changeFlashMode:AVCaptureFlashModeOff];
+        
+        _captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
         
         NSError *error = nil;
         AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:_captureDevice error:&error];
@@ -86,23 +93,28 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
             NSLog(@"Can't add video");
         }
         
-        _capturedImages = [NSMutableArray array];
+        _capturedImageCount = 0;
         
         _imagePickerController = [[UIImagePickerController alloc] init];
         [_imagePickerController setDelegate:self];
         
         _postALookViewController = [[GTIOPostALookViewController alloc] initWithNibName:nil bundle:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:kGTIOPhotoAcceptedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-            UIImage *photo = [note.userInfo objectForKey:@"photo"];
-            
-            if (photo) {
-                [_postALookViewController setMainImage:photo];
-                [self.navigationController pushViewController:_postALookViewController animated:YES];
-            }
-        }];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoAcceptedNotification:) name:kGTIOPhotoAcceptedNotification object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToFocus:)];
+        [tapGestureRecognizer setNumberOfTapsRequired:1];
+        [tapGestureRecognizer setDelegate:self];
+        [self.view addGestureRecognizer:tapGestureRecognizer];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)loadView
@@ -171,11 +183,16 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }];
     [self.photoToolbarView.photoShootGridButton setTapHandler:^(id sender){
         GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
-        [photoShootGridViewController setImages:self.capturedImages];
         [self.navigationController pushViewController:photoShootGridViewController animated:YES];
     }];
     [self.photoToolbarView setPhotoModeSwitchChangedHandler:^(BOOL on) {
         [blockSelf showFlashButton:!on];
+        
+        NSError *error;
+        if ([self.captureDevice lockForConfiguration:&error]) {
+            [self.captureDevice setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+            [self.captureDevice unlockForConfiguration];
+        }
     }];
     [self.view addSubview:self.photoToolbarView];
     
@@ -184,6 +201,15 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [self.shutterFlashOverlay setImage:[UIImage imageNamed:@"snap-overlay.png"]];
     [self.shutterFlashOverlay setAlpha:0.0f];
     [self.view addSubview:self.shutterFlashOverlay];
+    
+    // Photo shoot timer
+    self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 74) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 74) / 2, 74, 74 }];
+    [self.photoShootTimerView showPhotoShootTimer:NO];
+    [self.view addSubview:self.photoShootTimerView];
+    
+    // Focus
+    self.focusImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"focus-target.png"]];
+    [self.focusImageView setFrame:(CGRect){ CGPointZero, self.focusImageView.image.size }];
 }
 
 - (void)viewDidUnload
@@ -193,25 +219,19 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     self.photoToolbarView = nil;
     self.shutterFlashOverlay = nil;
     self.captureVideoPreviewLayer = nil;
+    self.photoShootTimerView = nil;
+    self.focusImageView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.photoToolbarView setAlpha:1.0f];
-    [self.photoShootProgresToolbarView setAlpha:0.0f];
-    
-    if ([self.capturedImages count] > 0) {
-        [self.photoToolbarView showPhotoShootGrid:YES];
-    } else {
-        [self.photoToolbarView showPhotoShootGrid:NO];
-    }
+    [self resetView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self showFlashButton:![self.photoToolbarView.photoModeSwitch isOn]];
     
     double delayInSeconds = 0.1f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -231,7 +251,48 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - NSNotifications
+
+- (void)didEnterBackgroundNotification:(NSNotification *)notification
+{
+    if (self.isShootingPhotoShoot) {
+        self.photoShootTimerView.completionHandler = nil;
+        [self.imageWaitTimer invalidate];
+        [[GTIOPhotoManager sharedManager] removeAllPhotos];
+        [self.photoShootTimerView setAlpha:0.0f];
+        [self resetView];
+        self.shootingPhotoShoot = NO;
+    }
+}
+
+- (void)photoAcceptedNotification:(NSNotification *)notification
+{
+    UIImage *photo = [notification.userInfo objectForKey:@"photo"];
+    
+    if (photo) {
+        [self.postALookViewController setMainImage:photo];
+        [self.navigationController pushViewController:self.postALookViewController animated:YES];
+    }
+}
+
 #pragma mark - 
+
+- (void)resetView
+{
+    [self.photoToolbarView setAlpha:1.0f];
+    [self.photoShootProgresToolbarView setAlpha:0.0f];
+    
+    if ([[GTIOPhotoManager sharedManager] photoCount] > 0) {
+        [self.photoToolbarView showPhotoShootGrid:YES];
+    } else {
+        [self.photoToolbarView showPhotoShootGrid:NO];
+    }
+    
+    [self.photoToolbarView enableAllButtons:YES];
+    [self showFlashButton:![self.photoToolbarView.photoModeSwitch isOn]];
+}
+
+#pragma mark - View Animations
 
 - (void)showFlashButton:(BOOL)showFlashButton
 {
@@ -253,7 +314,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     NSString *imageName = @"upload.flash-OFF.png";
     if (_flashOn) {
         imageName = @"upload.flash-ON.png";
-    } else {
     }
     [self.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
 }
@@ -291,15 +351,10 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
             if (error) {
                 NSLog(@"Error: %@", [error localizedDescription]);
+                [self captureImageWithHandler:capturedImageHandler];
             } else {
-                CFDictionaryRef exifAttachments = CMGetAttachment( imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
-                if (exifAttachments) {
-                    // Do something with the attachments.
-                    NSLog(@"attachements: %@", exifAttachments);
-                } else {
-                    NSLog(@"no attachments");
-                }
-                
+//                CFDictionaryRef exifAttachments = CMGetAttachment( imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
+                NSLog(@"Captured photo");
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
                 UIImage *image = [[UIImage alloc] initWithData:imageData];
                 
@@ -313,44 +368,47 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 - (void)takePhotoBurstWithNumberOfPhotos:(NSInteger)numberOfPhotos
 {
-    self.startingPhotoCount = [self.capturedImages count];
+    self.startingPhotoCount = self.capturedImageCount;
     
     for (int i = 0; i < numberOfPhotos; i++) {
-        double delayInSeconds = i * 0.5;
+        double delayInSeconds = i * 0.6;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self captureImageWithHandler:^(UIImage *image) {
-                [self.capturedImages addObject:image];
-                [self.photoShootProgresToolbarView setNumberOfDotsOn:[self.capturedImages count]];
-            }];
+            if (self.isShootingPhotoShoot) {
+                [self captureImageWithHandler:^(UIImage *photo) {
+                    ++self.capturedImageCount;
+                    [self.photoShootProgresToolbarView setNumberOfDotsOn:self.capturedImageCount];
+                    
+                    [[GTIOPhotoManager sharedManager] addPhoto:photo];
+                }];
+            }
         });
     }
     
+    // TODO: Add a timeout here
     self.imageWaitTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(waitOnImages:) userInfo:nil repeats:YES];
 }
 
 - (void)waitOnImages:(NSTimer *)timer
 {
-    [self.photoShootProgresToolbarView setNumberOfDotsOn:[self.capturedImages count]];
-    if ((self.startingPhotoCount == 0 && [self.capturedImages count] == 3) || 
-        (self.startingPhotoCount == 3 && [self.capturedImages count] == 6)) {
+    [self.photoShootProgresToolbarView setNumberOfDotsOn:self.capturedImageCount];
+    if ((self.startingPhotoCount == 0 && self.capturedImageCount == 3) || 
+        (self.startingPhotoCount == 3 && self.capturedImageCount == 6)) {
         
-        [self timerWithDuration:2];
-        [self.imageWaitTimer invalidate];
-        [self.photoShootTimerView setHidden:NO];
-    } else if (self.startingPhotoCount == 6 && [self.capturedImages count] == 9) {
-        [self.imageWaitTimer invalidate];
+        NSTimeInterval timerDuration = [[[GTIOConfigManager sharedManager] config].photoShootSecondTimer intValue];
+        if (self.capturedImageCount == 6) {
+            timerDuration = [[[GTIOConfigManager sharedManager] config].photoShootThirdTimer intValue];
+        }
         
-        NSMutableArray *resizedImages = [NSMutableArray arrayWithCapacity:9];
-        [self.capturedImages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            UIImage *resizedImage = [obj resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
-            [resizedImages addObject:resizedImage];
-        }];
-        self.capturedImages = resizedImages;
+        [self.imageWaitTimer invalidate];
+        [self timerWithDuration:timerDuration];
+        [self.photoShootTimerView showPhotoShootTimer:YES];
+    } else if (self.startingPhotoCount == 6 && self.capturedImageCount == 9) {
+        [self.imageWaitTimer invalidate];
         
         GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
-        [photoShootGridViewController setImages:self.capturedImages];
         [self.navigationController pushViewController:photoShootGridViewController animated:YES];
+        self.shootingPhotoShoot = NO;
     }
 }
 
@@ -358,15 +416,20 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 - (void)singleModeButtonPress
 {
+    [self.photoToolbarView enableAllButtons:NO];
     [self changeFlashForceOff:NO];
-    [self captureImageWithHandler:^(UIImage *image) {
-        UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
-        [self openPhotoConfirmationScreenWithPhoto:resizedImage];
+    [self captureImageWithHandler:^(UIImage *photo) {
+        // Process image
+        GTIOProcessImageRequest *processImageRequest = [[GTIOProcessImageRequest alloc] init];
+        [processImageRequest setRawImage:photo];
+        [self openPhotoConfirmationScreenWithPhoto:processImageRequest.processedImage];
     }];
 }
 
 - (void)photoShootModeButtonPress
 {
+    self.shootingPhotoShoot = YES;
+    [self.photoToolbarView enableAllButtons:NO];
     [self changeFlashForceOff:YES];
     [UIView animateWithDuration:0.3 animations:^{
         // Switch tool bars
@@ -375,22 +438,20 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }];
     
     // Clear current photos
-    [self.capturedImages removeAllObjects];
+    [[GTIOPhotoManager sharedManager] removeAllPhotos];
     [self.photoShootProgresToolbarView setNumberOfDotsOn:0];
     
     // Show timer
-    self.photoShootTimerView = [[GTIOPhotoShootTimerView alloc] initWithFrame:(CGRect){ (self.view.frame.size.width - 74) / 2, (self.view.frame.size.height - self.photoShootProgresToolbarView.frame.size.height - 74) / 2, 74, 74 }];
-    [self.view addSubview:self.photoShootTimerView];
-
-    GTIOConfig *config = [[GTIOConfigManager sharedManager] config];
-    [self timerWithDuration:6];
+    [self.photoShootTimerView showPhotoShootTimer:YES];
+    
+    [self timerWithDuration:[[[GTIOConfigManager sharedManager] config].photoShootFirstTimer intValue]];
 }
 
 - (void)timerWithDuration:(NSTimeInterval)duration
 {
     [self.photoShootTimerView startWithDuration:duration completionHandler:^(GTIOPhotoShootTimerView *photoShootTimerView) {
         // Take first batch of photos
-        [self.photoShootTimerView setHidden:YES];
+        [self.photoShootTimerView showPhotoShootTimer:NO];
         [self takePhotoBurstWithNumberOfPhotos:3];
     }];
 }
@@ -420,9 +481,11 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    UIImage *resizedImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ 640, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+    
+    GTIOProcessImageRequest *processImageRequest = [[GTIOProcessImageRequest alloc] init];
+    [processImageRequest setRawImage:image];
     [self.imagePickerController dismissModalViewControllerAnimated:YES];
-    [self openPhotoConfirmationScreenWithPhoto:resizedImage];
+    [self openPhotoConfirmationScreenWithPhoto:processImageRequest.processedImage];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -437,6 +500,116 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
     [photoConfirmationViewController setPhoto:photo];
     [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
+}
+
+#pragma mark - Focus
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([self.captureVideoPreviewLayer containsPoint:[touch locationInView:self.view]] && ![self.photoToolbarView.photoModeSwitch isOn]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)tapToFocus:(UITapGestureRecognizer *)tapGestureRecognizer
+{
+    if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        CGPoint locationInView = [tapGestureRecognizer locationInView:self.view];
+        
+        if ([self.captureVideoPreviewLayer containsPoint:locationInView]) {
+            [self focusAtPoint:locationInView];
+        }
+    }
+}
+
+- (void)focusAtPoint:(CGPoint)point
+{
+    if ([self.captureDevice isFocusPointOfInterestSupported] && [self.captureDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+        [self.focusImageView setCenter:point];
+        [self animateTapToFocusImage];
+        
+        NSError *error;
+        if ([self.captureDevice lockForConfiguration:&error]) {
+            CGPoint focalPoint = (CGPoint){ point.y / self.captureVideoPreviewLayer.frame.size.height, (self.captureVideoPreviewLayer.frame.size.width - point.x) / self.captureVideoPreviewLayer.frame.size.height };
+            [self.captureDevice setFocusPointOfInterest:focalPoint];
+            [self.captureDevice setFocusMode:AVCaptureFocusModeAutoFocus];
+            [self.captureDevice unlockForConfiguration];
+        } else {
+            NSLog(@"Could not focus: %@", [error localizedDescription]);
+        }
+    }
+}
+
+- (void)animateTapToFocusImage
+{
+    [self.view addSubview:self.focusImageView];
+    
+    CALayer *layerToModify = self.focusImageView.layer;
+    
+    CAKeyframeAnimation *pulseAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    
+    CATransform3D startingTransform = CATransform3DScale(layerToModify.transform, 2.0, 2.0, 2.0);
+    CATransform3D scaledTransform = CATransform3DScale(layerToModify.transform, 1.2, 1.2, 1.0);
+    CATransform3D halfScaleTransform = CATransform3DScale(layerToModify.transform, 0.8, 0.8, 1.0);
+    CATransform3D endingTransform = layerToModify.transform;
+    
+    NSArray *animationValues = [NSArray arrayWithObjects:
+                                [NSValue valueWithCATransform3D:startingTransform], 
+                                [NSValue valueWithCATransform3D:halfScaleTransform], 
+                                [NSValue valueWithCATransform3D:scaledTransform],
+                                [NSValue valueWithCATransform3D:endingTransform], 
+                                nil];
+    [pulseAnimation setValues:animationValues];
+    
+    NSArray *timeValues = [NSArray arrayWithObjects:
+                           [NSNumber numberWithFloat:0.0f],
+                           [NSNumber numberWithFloat:0.25f],
+                           [NSNumber numberWithFloat:0.4f],
+                           [NSNumber numberWithFloat:0.5f],
+                           nil];
+    [pulseAnimation setKeyTimes:timeValues];
+    
+    [pulseAnimation setFillMode:kCAFillModeForwards];
+    [pulseAnimation setRemovedOnCompletion:NO];
+    
+    
+    CAKeyframeAnimation *flashAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+    
+    [flashAnimation setValues:[NSArray arrayWithObjects:
+                               [NSNumber numberWithFloat:1.0f],
+                               [NSNumber numberWithFloat:0.0f],
+                               [NSNumber numberWithFloat:1.0f],
+                               [NSNumber numberWithFloat:0.0f],
+                               [NSNumber numberWithFloat:1.0f],
+                               [NSNumber numberWithFloat:0.0f],
+                               nil]];
+    [flashAnimation setKeyTimes:[NSArray arrayWithObjects:
+                                 [NSNumber numberWithFloat:0.0f], 
+                                 [NSNumber numberWithFloat:0.5f], 
+                                 [NSNumber numberWithFloat:0.6f], 
+                                 [NSNumber numberWithFloat:0.7f], 
+                                 [NSNumber numberWithFloat:0.8f], 
+                                 [NSNumber numberWithFloat:0.9f], 
+                                 [NSNumber numberWithFloat:1.0f], 
+                                 nil]];
+    [flashAnimation setFillMode:kCAFillModeForwards];
+    [flashAnimation setRemovedOnCompletion:YES];
+    
+    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+    [animationGroup setAnimations:[NSArray arrayWithObjects:pulseAnimation, flashAnimation, nil]];
+    [animationGroup setDuration:0.75f];
+    [animationGroup setDelegate:self];
+    
+    [layerToModify addAnimation:animationGroup forKey:@"pulseAnimation"];
+}
+
+#pragma mark - CAAnimationDelegate
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    [self.focusImageView removeFromSuperview];
 }
 
 @end

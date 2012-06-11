@@ -18,6 +18,9 @@ CGFloat const kAnimationDuration = 0.25;
 @property (nonatomic, strong) UIImageView *trackFrameImageView;
 @property (nonatomic, strong) UIImageView *knobImageView;
 
+@property (nonatomic, strong) UIView *maskedTrackView;
+@property (nonatomic, strong) UIView *maskedKnobView;
+
 - (CGFloat)value;
 
 @end
@@ -29,20 +32,27 @@ CGFloat const kAnimationDuration = 0.25;
 @synthesize on = _on;
 @synthesize changeHandler = _changeHandler;
 @synthesize knobXOffset = _knobXOffset;
+@synthesize maskedTrackView = _maskedTrackView, maskedKnobView = _maskedKnobView;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _maskedTrackView = [[UIView alloc] initWithFrame:self.bounds];
+        _maskedKnobView = [[UIView alloc] initWithFrame:self.bounds];
         _trackImageView = [[UIImageView alloc] init];
         _trackFrameImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         
         _knobImageView = [[UIImageView alloc] init];
         [_knobImageView setUserInteractionEnabled:YES];
         
-        [self addSubview:_trackImageView];
+        [_maskedTrackView addSubview:_trackImageView];
+        [self addSubview:_maskedTrackView];
+        
         [self addSubview:_trackFrameImageView];
-        [self addSubview:_knobImageView];
+        
+        [_maskedKnobView addSubview:_knobImageView];
+        [self addSubview:_maskedKnobView];
         
         [self bringSubviewToFront:_knobImageView];
         [self setClipsToBounds:YES];
@@ -80,7 +90,12 @@ CGFloat const kAnimationDuration = 0.25;
     CALayer *trackOffMaskLayer = [CALayer layer];
     trackOffMaskLayer.frame = self.bounds;
     trackOffMaskLayer.contents = (id)[_trackFrameMask CGImage];
-    self.layer.mask = trackOffMaskLayer;
+    self.maskedTrackView.layer.mask = trackOffMaskLayer;
+    
+    CALayer *trackOffMaskLayer2 = [CALayer layer];
+    trackOffMaskLayer2.frame = self.bounds;
+    trackOffMaskLayer2.contents = (id)[_trackFrameMask CGImage];
+    self.maskedKnobView.layer.mask = trackOffMaskLayer2;
 }
 
 - (void)setKnob:(UIImage *)knob

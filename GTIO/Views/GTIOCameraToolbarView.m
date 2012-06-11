@@ -122,4 +122,13 @@ NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
     [self.shutterButton setFrame:shutterButtonFrame];
 }
 
+- (void)enableAllButtons:(BOOL)enable
+{
+    [self.closeButton setEnabled:enable];
+    [self.photoPickerButton setEnabled:enable];
+    [self.photoShootGridButton setEnabled:enable];
+    [self.shutterButton setEnabled:enable];
+    [self.photoModeSwitch setEnabled:enable];
+}
+
 @end

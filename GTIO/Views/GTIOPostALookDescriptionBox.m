@@ -20,6 +20,7 @@
 @implementation GTIOPostALookDescriptionBox
 
 @synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView, nextTextView = _nextTextView;
+@synthesize textViewDidEndHandler = _textViewDidEndHandler;
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon nextTextView:(UITextView *)nextTextView
 {
@@ -63,13 +64,19 @@
     return self;
 }
 
+#pragma mark - UITextViewDelegate
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"] && self.nextTextView) {
         [self.nextTextView becomeFirstResponder];
         return NO;
     } else if([text isEqualToString:@"\n"]) {
-        [self.textView resignFirstResponder];
+        if (self.textViewDidEndHandler) {
+            self.textViewDidEndHandler(self.textView);
+        } else {
+            [self.textView resignFirstResponder];
+        }
         return NO;
     }
     return YES;

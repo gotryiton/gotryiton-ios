@@ -6,10 +6,8 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GTIOViewController.h"
 
-@interface GTIOPhotoShootGridViewController : UIViewController
-
-@property (nonatomic, strong) NSArray *images;
+@interface GTIOPhotoShootGridViewController : GTIOViewController
 
 @end

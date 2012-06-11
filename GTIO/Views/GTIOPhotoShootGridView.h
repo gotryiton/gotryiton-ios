@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^GTIOImageSelectedHandler)(UIImage *image);
+typedef void(^GTIOImageSelectedHandler)(NSInteger photoIndex);
 
 @interface GTIOPhotoShootGridView : UIView
 

@@ -10,69 +10,29 @@
 
 @interface GTIOViewController ()
 
-@property (nonatomic, copy) NSString *navigationTitle;
-@property (nonatomic, strong) UIButton *leftButton;
-@property (nonatomic, strong) UIButton *rightButton;
 @property (nonatomic, strong) UIView *topShadow;
-@property (nonatomic, assign) BOOL italic;
-@property (nonatomic, strong) UILabel* titleLabel;
 
 @end
 
 @implementation GTIOViewController
 
-@synthesize navigationTitle = _navigationTitle, leftButton = _leftButton, rightButton = _rightButton, topShadow = _topShadow, italic = _italic, titleLabel = _titleLabel;
+@synthesize topShadow = _topShadow;
+@synthesize leftNavigationButton = _leftNavigationButton, rightNavigationButton = _rightNavigationButton;
 
--(id)initWithTitle:(NSString *)title italic:(BOOL)italic leftNavBarButton:(UIButton *)leftButton rightNavBarButton:(UIButton *)rightButton
+- (void)viewDidLoad
 {
-    self = [super initWithNibName:nil bundle:nil];
-    if (self) {
-        _navigationTitle = title;
-        _rightButton = rightButton;
-        _leftButton = leftButton;
-        _italic = italic;
-    }
-    return self;
-}
-
-- (void)loadView
-{
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
+    [super viewDidLoad];
     
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    if (self.italic) {
-        [_titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLightItal size:18.0]];
-    } else {
-        [_titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLight size:18.0]];
-    }
-    [_titleLabel setText:self.navigationTitle];
-    [_titleLabel setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
-    [_titleLabel sizeToFit];
-    [_titleLabel setBackgroundColor:[UIColor clearColor]];
-    // need to shift the label down a bit because of the design
-    UIView *titleView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, _titleLabel.bounds.size.width, _titleLabel.bounds.size.height + 9 }];
-    [_titleLabel setFrame:(CGRect){ 0, 9, _titleLabel.bounds.size }];
-    [titleView addSubview:_titleLabel];
-    [self.navigationItem setTitleView:titleView];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     
     self.topShadow = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 3 }];
     [self.topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
     [self.view addSubview:self.topShadow];
-    
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.leftButton]];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.rightButton]];
 }
 
-- (void)useTitle:(NSString *)title
+- (void)viewDidUnload
 {
-    [self.titleLabel setText:title];
-}
-
-- (void)useTitleView:(UIView *)titleView
-{
-    [self.navigationItem setTitleView:titleView];
+    self.topShadow = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -93,6 +53,25 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Helpers
+
+- (void)useTitleView:(UIView *)titleView
+{
+    [self.navigationItem setTitleView:titleView];
+}
+
+- (void)setLeftNavigationButton:(UIButton *)leftNavigationButton
+{
+    _leftNavigationButton = leftNavigationButton;
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:_leftNavigationButton]];
+}
+
+- (void)setRightNavigationButton:(UIButton *)rightNavigationButton
+{
+    _rightNavigationButton = rightNavigationButton;
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:_rightNavigationButton]];
 }
 
 @end
