@@ -403,7 +403,7 @@
 		8E3F8B9A157E4DF00047937E /* large.profile.overlay.inner.shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F89FC157E4DF00047937E /* large.profile.overlay.inner.shadow.png */; };
 		8E3F8B9B157E4DF00047937E /* large.profile.overlay.inner.shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F89FD157E4DF00047937E /* large.profile.overlay.inner.shadow@2x.png */; };
 		8E3F8B9C157E4DF00047937E /* nav.bar.icon.refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F89FE157E4DF00047937E /* nav.bar.icon.refresh.png */; };
-		8E3F8B9D157E4DF00047937E /* navbar.icon.refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F89FF157E4DF00047937E /* navbar.icon.refresh@2x.png */; };
+		8E3F8B9D157E4DF00047937E /* nav.bar.icon.refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F89FF157E4DF00047937E /* nav.bar.icon.refresh@2x.png */; };
 		8E3F8B9E157E4DF00047937E /* search.field.background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F8A00157E4DF00047937E /* search.field.background.png */; };
 		8E3F8B9F157E4DF00047937E /* search.field.background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F8A01157E4DF00047937E /* search.field.background@2x.png */; };
 		8E3F8BA0157E4DF00047937E /* search.field.mag.icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F8A02157E4DF00047937E /* search.field.mag.icon.png */; };
@@ -1214,7 +1214,7 @@
 		8E3F89FC157E4DF00047937E /* large.profile.overlay.inner.shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = large.profile.overlay.inner.shadow.png; sourceTree = "<group>"; };
 		8E3F89FD157E4DF00047937E /* large.profile.overlay.inner.shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large.profile.overlay.inner.shadow@2x.png"; sourceTree = "<group>"; };
 		8E3F89FE157E4DF00047937E /* nav.bar.icon.refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav.bar.icon.refresh.png; sourceTree = "<group>"; };
-		8E3F89FF157E4DF00047937E /* navbar.icon.refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar.icon.refresh@2x.png"; sourceTree = "<group>"; };
+		8E3F89FF157E4DF00047937E /* nav.bar.icon.refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav.bar.icon.refresh@2x.png"; sourceTree = "<group>"; };
 		8E3F8A00157E4DF00047937E /* search.field.background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.field.background.png; sourceTree = "<group>"; };
 		8E3F8A01157E4DF00047937E /* search.field.background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search.field.background@2x.png"; sourceTree = "<group>"; };
 		8E3F8A02157E4DF00047937E /* search.field.mag.icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.field.mag.icon.png; sourceTree = "<group>"; };
@@ -2266,7 +2266,7 @@
 				8E3F89FC157E4DF00047937E /* large.profile.overlay.inner.shadow.png */,
 				8E3F89FD157E4DF00047937E /* large.profile.overlay.inner.shadow@2x.png */,
 				8E3F89FE157E4DF00047937E /* nav.bar.icon.refresh.png */,
-				8E3F89FF157E4DF00047937E /* navbar.icon.refresh@2x.png */,
+				8E3F89FF157E4DF00047937E /* nav.bar.icon.refresh@2x.png */,
 				8E3F8A00157E4DF00047937E /* search.field.background.png */,
 				8E3F8A01157E4DF00047937E /* search.field.background@2x.png */,
 				8E3F8A02157E4DF00047937E /* search.field.mag.icon.png */,
@@ -3933,7 +3933,7 @@
 				8E3F8B9A157E4DF00047937E /* large.profile.overlay.inner.shadow.png in Resources */,
 				8E3F8B9B157E4DF00047937E /* large.profile.overlay.inner.shadow@2x.png in Resources */,
 				8E3F8B9C157E4DF00047937E /* nav.bar.icon.refresh.png in Resources */,
-				8E3F8B9D157E4DF00047937E /* navbar.icon.refresh@2x.png in Resources */,
+				8E3F8B9D157E4DF00047937E /* nav.bar.icon.refresh@2x.png in Resources */,
 				8E3F8B9E157E4DF00047937E /* search.field.background.png in Resources */,
 				8E3F8B9F157E4DF00047937E /* search.field.background@2x.png in Resources */,
 				8E3F8BA0157E4DF00047937E /* search.field.mag.icon.png in Resources */,

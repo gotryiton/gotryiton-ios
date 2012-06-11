@@ -90,6 +90,7 @@ static NSInteger const kGTIONavBarSize = 44;
     [self setLeftNavigationButton:cancelButton];
     
     self.scrollView = [[GTIOScrollView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kGTIOBottomButtonSize - kGTIONavBarSize }];
+    [self.scrollView setOffsetFromBottom:kGTIOBottomButtonSize];
     [self.scrollView setDelegate:self];
     [self.view addSubview:self.scrollView];
     

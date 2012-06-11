@@ -19,15 +19,20 @@
 @synthesize topShadow = _topShadow;
 @synthesize leftNavigationButton = _leftNavigationButton, rightNavigationButton = _rightNavigationButton;
 
-- (void)loadView
+- (void)viewDidLoad
 {
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+    [super viewDidLoad];
+    
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     
     self.topShadow = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 3 }];
     [self.topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
     [self.view addSubview:self.topShadow];
+}
+
+- (void)viewDidUnload
+{
+    self.topShadow = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
