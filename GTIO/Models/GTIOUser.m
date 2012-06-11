@@ -90,13 +90,13 @@
 
 - (void)logOutWithLogoutHandler:(GTIOLogoutHandler)logoutHandler
 {
+    self.logoutHandler = logoutHandler;
+    
     [GTIOAuth removeToken];
     
     self.logoutRequest = [[RKClient sharedClient] requestWithResourcePath:@"/user/logout"];
     [self.logoutRequest setDelegate:self];
     [self.logoutRequest send];
-    
-    self.logoutHandler = logoutHandler;
 }
 
 #pragma mark - Facebook
