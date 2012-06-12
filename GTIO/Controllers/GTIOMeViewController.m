@@ -14,11 +14,15 @@
 #import "GTIOEditProfilePictureViewController.h"
 #import "GTIOSignInViewController.h"
 #import "GTIONavigationTitleView.h"
+#import "GTIOMyManagementScreen.h"
 
 @interface GTIOMeViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *tableData;
+@property (nonatomic, strong) NSMutableArray *tableData;
+@property (nonatomic, strong) NSArray *userInfoButtons;
+
+@property (nonatomic, strong) NSMutableDictionary *sections;
 
 @property (nonatomic, strong) GTIOMeTableHeaderView *profileHeaderView;
 
@@ -26,13 +30,14 @@
 
 @implementation GTIOMeViewController
 
-@synthesize tableView = _tableView, tableData = _tableData, profileHeaderView = _profileHeaderView;
+@synthesize tableView = _tableView, tableData = _tableData, profileHeaderView = _profileHeaderView, userInfoButtons = _userInfoButtons, sections = _sections;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _tableData = [[NSArray alloc] initWithObjects:@"my shopping list", @"my     s", @"my posts", @"find my friends", @"invite friends", @"search tags", @"settings", @"sign out", @"posts are private", nil];
+        _tableData = [NSMutableArray array];
+        _sections = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -40,6 +45,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        if (!error) {
+            int numberOfRows = 0;
+            int numberOfSections = 0;
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {                    
+                    GTIOMyManagementScreen *screen = (GTIOMyManagementScreen *)object;
+                    self.userInfoButtons = screen.userInfo;
+                    for (GTIOButton *button in screen.management) {
+                        if (![button.name isEqualToString:@"spacer_cell"]) {
+                            [self.tableData addObject:button];
+                            numberOfRows++;
+                        } else {
+                            numberOfSections++;
+                            [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
+                            numberOfRows = 0;
+                        }
+                    }
+                    if (numberOfRows > 0) {
+                        numberOfSections++;
+                        [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
+                    }
+                    [self.tableView reloadData];
+                }
+            }
+        }
+    }];
     
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
     [self.profileHeaderView setDelegate:self];
@@ -112,12 +145,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return self.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return [(NSNumber *)[self.sections objectForKey:[NSString stringWithFormat:@"section-%i", section + 1]] intValue];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -129,20 +162,20 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-
-    [cell.textLabel setText:[self.tableData objectAtIndex:(indexPath.section * 3) + indexPath.row]];
-    [cell.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:16.0]];
-    [cell.textLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
     
-    if (!(indexPath.section == 2 && (indexPath.row == 1 || indexPath.row == 2))) {
-        UIImageView *chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];
-        [cell setAccessoryView:chevron];
-    }
-    
-    if (indexPath.section == 0 && indexPath.row == 1) {
-        UIImageView *heart = [[UIImageView alloc] initWithFrame:(CGRect){ 36, 16, 15, 12 }];
-        [heart setImage:[UIImage imageNamed:@"profile.icon.heart.png"]];
-        [cell.contentView addSubview:heart];
+    if (self.tableData.count > 0) {
+        GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
+        
+        if ([buttonForRow.name isEqualToString:@"custom_cell_hearts"]) {
+            buttonForRow.text = @"my     s";
+            UIImageView *heart = [[UIImageView alloc] initWithFrame:(CGRect){ 36, 16, 15, 12 }];
+            [heart setImage:[UIImage imageNamed:@"profile.icon.heart.png"]];
+            [cell.contentView addSubview:heart];
+        }
+        
+        [cell.textLabel setText:buttonForRow.text];
+        [cell.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:16.0]];
+        [cell.textLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
     }
     
     return cell;

@@ -18,6 +18,8 @@
 #import "GTIOBadge.h"
 #import "GTIOPhoto.h"
 #import "GTIOPost.h"
+#import "GTIOButtonAction.h"
+#import "GTIOMyManagementScreen.h"
 
 @implementation GTIOMappingProvider
 
@@ -36,6 +38,9 @@
         RKObjectMapping *userPhotoMapping = [RKObjectMapping mappingForClass:[GTIOPhoto class]];
         RKObjectMapping *postMapping = [RKObjectMapping mappingForClass:[GTIOPost class]];
         RKObjectMapping *badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
+        RKObjectMapping *buttonMapping = [RKObjectMapping mappingForClass:[GTIOButton class]];
+        RKObjectMapping *buttonActionMapping = [RKObjectMapping mappingForClass:[GTIOButtonAction class]];
+        RKObjectMapping *myManagementScreenMapping = [RKObjectMapping mappingForClass:[GTIOMyManagementScreen class]];
         
         /** Config
          */
@@ -108,6 +113,18 @@
         [userPhotoMapping mapKeyPath:@"user_id" toAttribute:@"userID"];
         [userPhotoMapping mapAttributes:@"url", @"width", @"height", nil];
         [self setMapping:userPhotoMapping forKeyPath:@"photo"];
+        
+        /** Buttons
+         */
+        [buttonActionMapping mapKeyPath:@"destination" toAttribute:@"destination"];
+        
+        [buttonMapping mapAttributes:@"name", @"count", @"text", nil];
+        
+        /** Screens
+         */
+        [myManagementScreenMapping mapKeyPath:@"user_info.buttons" toRelationship:@"userInfo" withMapping:buttonMapping];
+        [myManagementScreenMapping mapKeyPath:@"management.buttons" toRelationship:@"management" withMapping:buttonMapping];
+        [self setMapping:myManagementScreenMapping forKeyPath:@"ui"];
         
         /** Auth
          */

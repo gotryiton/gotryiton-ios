@@ -10,7 +10,7 @@
 
 @implementation GTIOButton
 
-@synthesize tapHandler = _tapHandler;
+@synthesize tapHandler = _tapHandler, name = _name, action = _action, count = _count, text = _text;
 
 #pragma mark - Button creator helpers
 
