@@ -1,3 +1,32 @@
+***Tuesday, June 12th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Continue discussion on filter optimization
+
+**Status**
+- Moving forward on filter development
+- Wrapping up on Quick Add screen
+- Remaining work
+ - Photo Frame shooting
+ - 7.1 wiring
+ - text correction bugs
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA 
+
+---
+
 ***Monday, June 11th - Standup Notes***
 
 **Attendees**
