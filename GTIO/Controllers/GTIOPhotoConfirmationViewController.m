@@ -10,12 +10,14 @@
 
 #import "GTIOCameraViewController.h"
 #import "GTIOPhotoConfirmationToolbarView.h"
+#import "GTIOPhotoFilterSelectorView.h"
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 @interface GTIOPhotoConfirmationViewController ()
 
 @property (nonatomic, strong) GTIOPhotoConfirmationToolbarView *photoConfirmationToolbarView;
+@property (nonatomic, strong) GTIOPhotoFilterSelectorView *photoFilterSelectorView;
 
 @property (nonatomic, strong) UIImageView *photoImageView;
 
@@ -26,6 +28,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @synthesize photo = _photo;
 @synthesize photoImageView = _photoImageView;
 @synthesize photoConfirmationToolbarView = _photoConfirmationToolbarView;
+@synthesize photoFilterSelectorView = _photoFilterSelectorView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +36,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     if (self) {
         _photoImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_photoImageView setContentMode:UIViewContentModeScaleAspectFit];
+        
         [self setWantsFullScreenLayout:YES];
     }
     return self;
@@ -51,6 +55,10 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     
     [self.photoImageView setFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.view.frame.size.height - kGTIOToolbarHeight } }];
     [self.view addSubview:self.photoImageView];
+    
+    // Filter View
+    self.photoFilterSelectorView = [[GTIOPhotoFilterSelectorView alloc] initWithFrame:(CGRect){ 0 , self.photoConfirmationToolbarView.frame.origin.y - 101, { self.view.frame.size.width, 101 } }];
+    [self.view addSubview:self.photoFilterSelectorView];
     
     // Toolbar
     self.photoConfirmationToolbarView = [[GTIOPhotoConfirmationToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
