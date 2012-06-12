@@ -25,7 +25,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setFrame:(CGRect){ frame.origin, { frame.size.width, 101 } }];
-        [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@""]]];
+        [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"upload.filter.shadow.bg.png"]]];
         
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         [self addSubview:_scrollView];
@@ -41,8 +41,6 @@
         [_scrollView addSubview:photoFilterView];
         
         [_scrollView setContentSize:frame.size];
-        
-        [self setBackgroundColor:[UIColor yellowColor]];
     }
     return self;
 }

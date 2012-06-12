@@ -10,8 +10,9 @@
 
 @interface GTIOPhotoFilterView ()
 
-@property (nonatomic, strong) UIImageView *backgroundImageView;
+@property (nonatomic, strong) UIImageView *selectedImageView;
 @property (nonatomic, strong) UIImageView *pictureImageView;
+@property (nonatomic, strong) UIImageView *overlayImageView;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
@@ -19,15 +20,13 @@
 
 @implementation GTIOPhotoFilterView
 
-@synthesize image = _image, name = _name, filterSelected = _filterSelected;
-@synthesize backgroundImageView = _backgroundImageView, pictureImageView = _pictureImageView, titleLabel = _titleLabel;
+@synthesize filter = _filter, filterSelected = _filterSelected;
+@synthesize selectedImageView = _selectedImageView, pictureImageView = _pictureImageView, titleLabel = _titleLabel;
 
 - (id)initWithFrame:(CGRect)frame image:(UIImage *)image name:(NSString *)name filterSelected:(BOOL)filterSelected
 {
     self = [self initWithFrame:frame];
     if (self) {
-        _image = image;
-        _name = [name copy];
         _filterSelected = filterSelected;
     }
     return self;
@@ -39,7 +38,7 @@
     if (self) {
         [self setFrame:(CGRect){ frame.origin, { 70, 90 } }];
         
-        _backgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ CGPointZero, { 69, 69 } }];
+        _selectedImageView = [[UIImageView alloc] initWithFrame:(CGRect){ CGPointZero, { 69, 69 } }];
         [self addSubview:_backgroundImageView];
         
         _pictureImageView = [[UIImageView alloc] initWithFrame:(CGRect){ 3, 3, 61, 61 }];

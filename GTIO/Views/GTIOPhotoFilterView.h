@@ -8,10 +8,33 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum GTIOFilter {
+    GTIOFilterOriginal = 0,
+    GTIOFilterClementine,
+    GTIOFilterColombe,
+    GTIOFilterDiesel,
+    GTIOFilterHenrik,
+    GTIOFilterIIRG,
+    GTIOFilterLafayette,
+    GTIOFilterLispenard,
+    GTIOFilterWalker
+} GTIOFilter;
+
+static NSString * const GTIOFilterName[] = {
+    [GTIOFilterOriginal] = @"Original",
+    [GTIOFilterClementine] = @"Clementine",
+    [GTIOFilterColombe] = @"Colombe",
+    [GTIOFilterDiesel] = @"Diesel",
+    [GTIOFilterHenrik] = @"Henrik",
+    [GTIOFilterIIRG] = @"II-RG",
+    [GTIOFilterLafayette] = @"Lafayette",
+    [GTIOFilterLispenard] = @"Lispenard",
+    [GTIOFilterWalker] = @"Walker"
+};
+
 @interface GTIOPhotoFilterView : UIView
 
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, copy) NSString *name;
+@property (nonatomic, assign) GTIOFilter filter;
 
 @property (nonatomic, assign, getter = isFilterSelected) BOOL filterSelected;
 
