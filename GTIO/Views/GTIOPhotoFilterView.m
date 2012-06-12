@@ -8,11 +8,11 @@
 
 #import "GTIOPhotoFilterView.h"
 
+#import "GTIOFilterButton.h"
+
 @interface GTIOPhotoFilterView ()
 
-@property (nonatomic, strong) UIImageView *selectedImageView;
-@property (nonatomic, strong) UIImageView *pictureImageView;
-@property (nonatomic, strong) UIImageView *overlayImageView;
+@property (nonatomic, strong) UIButton *filterButton;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
@@ -21,36 +21,27 @@
 @implementation GTIOPhotoFilterView
 
 @synthesize filter = _filter, filterSelected = _filterSelected;
-@synthesize selectedImageView = _selectedImageView, pictureImageView = _pictureImageView, titleLabel = _titleLabel;
+@synthesize filterButton = _filterButton, titleLabel = _titleLabel;
 
-- (id)initWithFrame:(CGRect)frame image:(UIImage *)image name:(NSString *)name filterSelected:(BOOL)filterSelected
-{
-    self = [self initWithFrame:frame];
-    if (self) {
-        _filterSelected = filterSelected;
-    }
-    return self;
-}
-
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame filter:(GTIOFilter)filter filterSelected:(BOOL)filterSelected
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setFrame:(CGRect){ frame.origin, { 70, 90 } }];
+        [self setFrame:(CGRect){ frame.origin, { 69, 90 } }];
         
-        _selectedImageView = [[UIImageView alloc] initWithFrame:(CGRect){ CGPointZero, { 69, 69 } }];
-        [self addSubview:_backgroundImageView];
+        _filter = filter;
+        _filterSelected = filterSelected;
         
-        _pictureImageView = [[UIImageView alloc] initWithFrame:(CGRect){ 3, 3, 61, 61 }];
-        [self addSubview:_pictureImageView];
+        _filterButton = [GTIOFilterButton buttonWithFilter:filter tapHandler:nil];
+        [_filterButton setFrame:(CGRect){ { 0, 6 }, _filterButton.frame.size }]; 
+        [self addSubview:_filterButton];
         
-        _titleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 0, _backgroundImageView.frame.size.height, self.frame.size.width, 20}];
-        [_titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:10.0f]];
+        _titleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 0, _filterButton.frame.origin.y + _filterButton.frame.size.height, self.frame.size.width, 14}];
+        [_titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:8.0f]];
+        [_titleLabel setText:[GTIOFilterName[_filter] uppercaseString]];
         [_titleLabel setTextAlignment:UITextAlignmentCenter];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_titleLabel];
-        
-        _filterSelected = NO;
     }
     return self;
 }
@@ -59,37 +50,20 @@
 {
     [super layoutSubviews];
     
-    [self.pictureImageView setImage:self.image];
-    [self.titleLabel setText:[self.name uppercaseString]];
-    
-    CGFloat textAlpha = 60.0f;
-    NSString *bgImageName = @"upload.filter.overlay.png";
+    CGFloat textAlpha = 0.6f;
     if (self.filterSelected) {
-        textAlpha = 80.0f;
-        bgImageName = @"upload.filter.overlay.selected.png";
+        textAlpha = 0.8f;
     }
-    [self.titleLabel setAlpha:textAlpha];
-    [self.backgroundImageView setImage:[UIImage imageNamed:bgImageName]];
+    [self.titleLabel setTextColor:[UIColor colorWithWhite:1.0f alpha:textAlpha]];
+    [self.filterButton setSelected:self.filterSelected];
 }
 
 #pragma mark - Properties
 
-- (void)setImage:(UIImage *)image
-{
-    _image = image;
-    [self setNeedsLayout];
-}
-
-- (void)setName:(NSString *)name
-{
-    _name = name;
-    [self setNeedsLayout];
-}
-
 - (void)setFilterSelected:(BOOL)filterSelected
 {
     _filterSelected = filterSelected;
-    [self setNeedsLayout];   
+    [self setNeedsLayout];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum GTIOFilter {
+typedef enum {
     GTIOFilterOriginal = 0,
     GTIOFilterClementine,
     GTIOFilterColombe,
@@ -37,5 +37,7 @@ static NSString * const GTIOFilterName[] = {
 @property (nonatomic, assign) GTIOFilter filter;
 
 @property (nonatomic, assign, getter = isFilterSelected) BOOL filterSelected;
+
+- (id)initWithFrame:(CGRect)frame filter:(GTIOFilter)filter filterSelected:(BOOL)filterSelected;
 
 @end

@@ -10,6 +10,8 @@
 
 #import "GTIOPhotoFilterView.h"
 
+static CGFloat const kGTIOFilterViewPadding = 5.0f;
+
 @interface GTIOPhotoFilterSelectorView ()
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -30,17 +32,17 @@
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         [self addSubview:_scrollView];
         
-        GTIOPhotoFilterView *originalFilterView = [[GTIOPhotoFilterView alloc] initWithFrame:(CGRect){ { 5, 5 }, { 69, 101 } }];
-        [originalFilterView setImage:[UIImage imageNamed:@"filter-thumb-original.png"]];
-        [originalFilterView setName:@"Original"];
-        [_scrollView addSubview:originalFilterView];
+        NSInteger filters[] = { GTIOFilterHenrik, GTIOFilterDiesel, GTIOFilterColombe, GTIOFilterIIRG, GTIOFilterLafayette };
         
-        GTIOPhotoFilterView *photoFilterView = [[GTIOPhotoFilterView alloc] initWithFrame:(CGRect){ { 80, 5 }, { 69, 101 } }];
-        [photoFilterView setImage:[UIImage imageNamed:@"filter-thumb-diesel.png"]];
-        [photoFilterView setName:@"Diesel"];
-        [_scrollView addSubview:photoFilterView];
+        CGFloat xOrigin = kGTIOFilterViewPadding;
+        for (int i = 0; i < (sizeof filters)/(sizeof filters[0]); i++) {
+            GTIOPhotoFilterView *filterView = [[GTIOPhotoFilterView alloc] initWithFrame:(CGRect){ { xOrigin, 5 }, { 69, 90 } } filter:filters[i] filterSelected:i == 0];
+            [_scrollView addSubview:filterView];
+            xOrigin += filterView.frame.size.width + 3;
+        }
+        xOrigin += kGTIOFilterViewPadding;
         
-        [_scrollView setContentSize:frame.size];
+        [_scrollView setContentSize:(CGSize){ xOrigin, frame.size.height }];
     }
     return self;
 }

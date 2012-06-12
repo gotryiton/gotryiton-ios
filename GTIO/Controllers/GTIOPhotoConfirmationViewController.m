@@ -56,10 +56,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [self.photoImageView setFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.view.frame.size.height - kGTIOToolbarHeight } }];
     [self.view addSubview:self.photoImageView];
     
-    // Filter View
-    self.photoFilterSelectorView = [[GTIOPhotoFilterSelectorView alloc] initWithFrame:(CGRect){ 0 , self.photoConfirmationToolbarView.frame.origin.y - 101, { self.view.frame.size.width, 101 } }];
-    [self.view addSubview:self.photoFilterSelectorView];
-    
     // Toolbar
     self.photoConfirmationToolbarView = [[GTIOPhotoConfirmationToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
     [self.photoConfirmationToolbarView.closeButton setTapHandler:^(id sender) {
@@ -70,6 +66,10 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPhotoAcceptedNotification object:nil userInfo:userInfo];
     }];
     [self.view addSubview:self.photoConfirmationToolbarView];
+    
+    // Filter View
+    self.photoFilterSelectorView = [[GTIOPhotoFilterSelectorView alloc] initWithFrame:(CGRect){ 0 , self.photoConfirmationToolbarView.frame.origin.y - 101, { self.view.frame.size.width, 101 } }];
+    [self.view addSubview:self.photoFilterSelectorView];
 }
 
 - (void)viewDidUnload
