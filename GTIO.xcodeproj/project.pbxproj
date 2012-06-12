@@ -4290,7 +4290,6 @@
 				8E4332661581286900CD95D0 /* GTIOMeTableHeaderView.m in Sources */,
 				8E53B601158251F900EF138F /* GTIOAlmostDoneViewController.m in Sources */,
 				8E53B6041582679A00EF138F /* GTIOEditProfileViewController.m in Sources */,
-				8EB24B2B15828FEF00BC2FE5 /* GTIOQuickAddViewController.m in Sources */,
 				8EDC81D71586380B00A2097A /* GTIOAccountCreatedView.m in Sources */,
 				8EDC81DA15863EBF00A2097A /* GTIOBackgroundView.m in Sources */,
 				8EDC822D1586826E00A2097A /* GTIOQuickAddTableCell.m in Sources */,
