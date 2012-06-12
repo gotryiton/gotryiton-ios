@@ -694,6 +694,10 @@
 		D2603E1E155AD92E00536BF9 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D2603E1D155AD92E00536BF9 /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D2603E20155AD93A00536BF9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2603E1F155AD93A00536BF9 /* CoreText.framework */; };
 		D26D32AB156C016800C06CA9 /* GTIOProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */; };
+		D270EEF61587BDDC00BE08EE /* filter.original.png in Resources */ = {isa = PBXBuildFile; fileRef = D270EEF21587BDDC00BE08EE /* filter.original.png */; };
+		D270EEF71587BDDC00BE08EE /* filter.original.selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D270EEF31587BDDC00BE08EE /* filter.original.selected.png */; };
+		D270EEF81587BDDC00BE08EE /* filter.original.selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D270EEF41587BDDC00BE08EE /* filter.original.selected@2x.png */; };
+		D270EEF91587BDDC00BE08EE /* filter.original@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D270EEF51587BDDC00BE08EE /* filter.original@2x.png */; };
 		D2735BD31586842600563A19 /* GTIOPhotoFilterSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2735BD21586842600563A19 /* GTIOPhotoFilterSelectorView.m */; };
 		D2735BD61586891D00563A19 /* GTIOPhotoFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2735BD51586891D00563A19 /* GTIOPhotoFilterView.m */; };
 		D27E0C70156AAD9E00BE7C9E /* GTIOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */; };
@@ -1602,6 +1606,10 @@
 		D26D32A4156BFDC100C06CA9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Libraries/MBProgressHUD/MBProgressHUD.m; sourceTree = "<group>"; };
 		D26D32A9156C016800C06CA9 /* GTIOProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProgressHUD.h; sourceTree = "<group>"; };
 		D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProgressHUD.m; sourceTree = "<group>"; };
+		D270EEF21587BDDC00BE08EE /* filter.original.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = filter.original.png; path = GTIO/Application/Resources/Images/Filters/filter.original.png; sourceTree = SOURCE_ROOT; };
+		D270EEF31587BDDC00BE08EE /* filter.original.selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = filter.original.selected.png; path = GTIO/Application/Resources/Images/Filters/filter.original.selected.png; sourceTree = SOURCE_ROOT; };
+		D270EEF41587BDDC00BE08EE /* filter.original.selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "filter.original.selected@2x.png"; path = "GTIO/Application/Resources/Images/Filters/filter.original.selected@2x.png"; sourceTree = SOURCE_ROOT; };
+		D270EEF51587BDDC00BE08EE /* filter.original@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "filter.original@2x.png"; path = "GTIO/Application/Resources/Images/Filters/filter.original@2x.png"; sourceTree = SOURCE_ROOT; };
 		D2735BD11586842600563A19 /* GTIOPhotoFilterSelectorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoFilterSelectorView.h; sourceTree = "<group>"; };
 		D2735BD21586842600563A19 /* GTIOPhotoFilterSelectorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoFilterSelectorView.m; sourceTree = "<group>"; };
 		D2735BD41586891D00563A19 /* GTIOPhotoFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoFilterView.h; sourceTree = "<group>"; };
@@ -2116,6 +2124,10 @@
 		8E3F8937157E4DF00047937E /* 12 */ = {
 			isa = PBXGroup;
 			children = (
+				D270EEF21587BDDC00BE08EE /* filter.original.png */,
+				D270EEF31587BDDC00BE08EE /* filter.original.selected.png */,
+				D270EEF41587BDDC00BE08EE /* filter.original.selected@2x.png */,
+				D270EEF51587BDDC00BE08EE /* filter.original@2x.png */,
 				D2DEAE91158792DD0032ED1F /* filter.clementine.png */,
 				D2DEAE94158792DD0032ED1F /* filter.clementine@2x.png */,
 				D2DEAE92158792DD0032ED1F /* filter.clementine.selected.png */,
@@ -4126,6 +4138,10 @@
 				D2DEAECE158792DD0032ED1F /* filter.walker.selected.png in Resources */,
 				D2DEAECF158792DD0032ED1F /* filter.walker.selected@2x.png in Resources */,
 				D2DEAED0158792DD0032ED1F /* filter.walker@2x.png in Resources */,
+				D270EEF61587BDDC00BE08EE /* filter.original.png in Resources */,
+				D270EEF71587BDDC00BE08EE /* filter.original.selected.png in Resources */,
+				D270EEF81587BDDC00BE08EE /* filter.original.selected@2x.png in Resources */,
+				D270EEF91587BDDC00BE08EE /* filter.original@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

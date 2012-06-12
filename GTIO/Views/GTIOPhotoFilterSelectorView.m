@@ -30,9 +30,10 @@ static CGFloat const kGTIOFilterViewPadding = 5.0f;
         [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"upload.filter.shadow.bg.png"]]];
         
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        [_scrollView setShowsHorizontalScrollIndicator:NO];
         [self addSubview:_scrollView];
         
-        NSInteger filters[] = { GTIOFilterHenrik, GTIOFilterDiesel, GTIOFilterColombe, GTIOFilterIIRG, GTIOFilterLafayette };
+        NSInteger filters[] = { GTIOFilterOriginal, GTIOFilterClementine, GTIOFilterColombe, GTIOFilterHenrik, GTIOFilterDiesel, GTIOFilterIIRG, GTIOFilterLafayette, GTIOFilterLispenard, GTIOFilterWalker };
         
         CGFloat xOrigin = kGTIOFilterViewPadding;
         for (int i = 0; i < (sizeof filters)/(sizeof filters[0]); i++) {
