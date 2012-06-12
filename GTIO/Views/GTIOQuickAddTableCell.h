@@ -19,7 +19,6 @@
 @interface GTIOQuickAddTableCell : UITableViewCell
 
 @property (nonatomic, strong) GTIOUser *user;
-@property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, weak) id<GTIOQuickAddTableCellDelegate> delegate;
 
 @end

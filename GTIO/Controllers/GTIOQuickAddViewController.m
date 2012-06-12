@@ -31,7 +31,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self.navigationController setNavigationBarHidden:YES];
-        self.usersToFollowSelected = [self.usersToFollow count];
+        self.usersToFollowSelected = 0;
     }
     return self;
 }
@@ -46,6 +46,10 @@
         if (!error) {
             self.usersToFollow = loadedObjects;
             self.usersToFollowSelected = [self.usersToFollow count];
+            // all users selected by default
+            for (GTIOUser *user in self.usersToFollow) {
+                user.selected = YES;
+            }
             [self.tableView reloadData];
         }
     }];
@@ -67,7 +71,7 @@
     [self.view addSubview:self.tableView];
     
     UIImage *followButtonBackgroundImage = [UIImage imageNamed:@"post-button-bg.png"];
-    UIImageView *followButtonBackground = [[UIImageView alloc] initWithFrame:(CGRect){ 0, self.view.bounds.size.height - followButtonBackgroundImage.size.height - self.navigationController.navigationBar.bounds.size.height, followButtonBackgroundImage.size }];
+    UIImageView *followButtonBackground = [[UIImageView alloc] initWithFrame:(CGRect){ 0, self.view.bounds.size.height - followButtonBackgroundImage.size.height, followButtonBackgroundImage.size }];
     [followButtonBackground setImage:followButtonBackgroundImage];
     [followButtonBackground setUserInteractionEnabled:YES];
     [self.view addSubview:followButtonBackground];

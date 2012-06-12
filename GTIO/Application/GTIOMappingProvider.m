@@ -15,8 +15,7 @@
 #import "GTIOUser.h"
 #import "GTIOAuth.h"
 #import "GTIOIcon.h"
-#import "GTIOFacebookIcon.h"
-#import "GTIODefaultIcon.h"
+#import "GTIOBadge.h"
 #import "GTIOPhoto.h"
 #import "GTIOPost.h"
 
@@ -36,6 +35,7 @@
         RKObjectMapping *userIconMapping = [RKObjectMapping mappingForClass:[GTIOIcon class]];
         RKObjectMapping *userPhotoMapping = [RKObjectMapping mappingForClass:[GTIOPhoto class]];
         RKObjectMapping *postMapping = [RKObjectMapping mappingForClass:[GTIOPost class]];
+        RKObjectMapping *badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
         
         /** Config
          */
@@ -92,12 +92,16 @@
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
         [userMapping mapKeyPath:@"is_facebook_connected" toAttribute:@"isFacebookConnected"];
         [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", nil];
+        [userMapping mapKeyPath:@"badge" toRelationship:@"badge" withMapping:badgeMapping];
         [self setMapping:userMapping forKeyPath:@"user"];
         [self setMapping:userMapping forKeyPath:@"users"];
         
         // User Icons
         [userIconMapping mapAttributes:@"name", @"url", @"width", @"height", nil];
         [self setMapping:userIconMapping forKeyPath:@"icons"];
+        
+        [badgeMapping mapAttributes:@"path", nil];
+        [self setMapping:badgeMapping forKeyPath:@"badge"];
         
         // User Photo
         [userPhotoMapping mapKeyPath:@"id" toAttribute:@"photoID"];

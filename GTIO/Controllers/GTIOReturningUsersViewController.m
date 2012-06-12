@@ -171,7 +171,7 @@
         GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:failedSignInViewController animated:YES];
     } else {
-        if ([user.isNewUser boolValue]) {
+        if (![user.isNewUser boolValue]) {
             if ([user.hasCompleteProfile boolValue]) {
                 GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:quickAddViewController animated:YES];

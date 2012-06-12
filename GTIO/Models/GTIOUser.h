@@ -9,6 +9,7 @@
 #import "Facebook.h"
 #import "JREngage.h"
 #import <RestKit/RestKit.h>
+#import "GTIOBadge.h"
 
 @class GTIOUser;
 
@@ -35,6 +36,8 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSNumber *isFacebookConnected;
+@property (nonatomic, strong) GTIOBadge *badge;
+
 @property (nonatomic, assign) BOOL selected;
 
 @property (nonatomic, strong) Facebook *facebook;

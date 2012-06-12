@@ -13,12 +13,13 @@
 @interface GTIOQuickAddTableCell()
 
 @property (nonatomic, strong) GTIOButton *checkbox;
+@property (nonatomic, strong) UIImageView *badge;
 
 @end
 
 @implementation GTIOQuickAddTableCell
 
-@synthesize user = _user, delegate = _delegate, checkbox = _checkbox, indexPath = _indexPath;
+@synthesize user = _user, delegate = _delegate, checkbox = _checkbox, badge = _badge;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -44,6 +45,10 @@
         _checkbox = [GTIOButton buttonWithGTIOType:GTIOButtonTypeQuickAddCheckbox];
         [_checkbox addTarget:self action:@selector(selectedCheckbox:) forControlEvents:UIControlEventTouchUpInside];
         [self setAccessoryView:_checkbox];
+        
+        // Badge
+        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_badge];
     }
     return self;
 }
@@ -57,13 +62,16 @@
 {
     _user = user;
     
-    [self.textLabel setText:user.name];
-    [self.detailTextLabel setText:user.location];
+    [self.textLabel setText:self.user.name];
+    [self.detailTextLabel setText:self.user.location];
     __block GTIOQuickAddTableCell *blockSelf = self;
-    [self.imageView setImageWithURL:user.icon success:^(UIImage *image) {
+    [self.imageView setImageWithURL:self.user.icon success:^(UIImage *image) {
         [blockSelf setNeedsLayout];
     } failure:nil];
-    [self.checkbox setSelected:user.selected];
+    [self.checkbox setSelected:self.user.selected];
+    if (self.user.badge) {
+        [self.badge setImageWithURL:user.badge.path];
+    }
     [self setNeedsLayout];
 }
 
@@ -86,11 +94,9 @@
     [self.imageView setFrame:(CGRect){ 8, 9, 36, 36 }];
     [self.textLabel setFrame:CGRectOffset(self.textLabel.frame, (self.imageView.image) ? -30.0 : 0.0, 0.0)];
     [self.detailTextLabel setFrame:CGRectOffset(self.detailTextLabel.frame, (self.imageView.image) ? -30.0 : 0.0, -2.0)];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    return;
+    if (self.user.badge) {
+        [self.badge setFrame:(CGRect){ self.textLabel.frame.origin.x + self.textLabel.bounds.size.width + 2.0, self.textLabel.frame.origin.y + 2.0, 15, 15 }];
+    }
 }
 
 @end

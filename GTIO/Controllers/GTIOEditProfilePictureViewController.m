@@ -11,8 +11,6 @@
 #import "GTIOSelectableProfilePicture.h"
 #import "GTIOUser.h"
 #import "GTIOIcon.h"
-#import "GTIOFacebookIcon.h"
-#import "GTIODefaultIcon.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOAlmostDoneViewController.h"
 
