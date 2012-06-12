@@ -92,8 +92,8 @@
     [super layoutSubviews];
     
     [self.imageView setFrame:(CGRect){ 8, 9, 36, 36 }];
-    [self.textLabel setFrame:CGRectOffset(self.textLabel.frame, (self.imageView.image) ? -30.0 : 0.0, 0.0)];
-    [self.detailTextLabel setFrame:CGRectOffset(self.detailTextLabel.frame, (self.imageView.image) ? -30.0 : 0.0, -2.0)];
+    [self.textLabel setFrame:CGRectOffset(self.textLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 0.0)];
+    [self.detailTextLabel setFrame:CGRectOffset(self.detailTextLabel.frame, (self.imageView.image) ? -10.0 : 0.0, -2.0)];
     if (self.user.badge) {
         [self.badge setFrame:(CGRect){ self.textLabel.frame.origin.x + self.textLabel.bounds.size.width + 2.0, self.textLabel.frame.origin.y + 2.0, 15, 15 }];
     }

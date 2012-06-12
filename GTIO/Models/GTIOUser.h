@@ -78,8 +78,9 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
  */
 - (void)prepareForManagement;
 
-/** Load Quick Add users
+/** Follow / Quick Add Functionality
  */
 - (void)loadQuickAddUsersWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
+- (void)followUsers:(NSArray *)userIDs fromScreen:(NSString *)screenTag completionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end

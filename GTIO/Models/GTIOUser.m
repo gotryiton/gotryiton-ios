@@ -352,6 +352,40 @@
     }
 }
 
+- (void)followUsers:(NSArray *)userIDs fromScreen:(NSString *)screenTag completionHandler:(GTIOCompletionHandler)completionHandler
+{
+    NSString *followPath = @"/users/follow-many";
+    
+    BOOL authToken = NO;
+    if ([[RKObjectManager sharedManager].client.HTTPHeaders objectForKey:kGTIOAuthenticationHeaderKey]) {
+        authToken = YES;
+    }
+    if (authToken) {
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:followPath usingBlock:^(RKObjectLoader *loader) {
+            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSDictionary dictionaryWithObject:screenTag forKey:@"screen"], @"track",
+                                    userIDs, @"users",
+                                    nil];
+            loader.params = GTIOJSONParams(params);
+            loader.method = RKRequestMethodPOST;
+            
+            loader.onDidLoadObjects = ^(NSArray *objects) {                
+                if (completionHandler) {
+                    completionHandler(objects, nil);
+                }
+            };
+            
+            loader.onDidFailWithError = ^(NSError *error) {
+                if (completionHandler) {
+                    completionHandler(nil, error);
+                }
+            };
+        }];
+    } else {
+        NSLog(@"no auth token");
+    }
+}
+
 #pragma mark - RKRequestDelegate Methods
 
 - (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response

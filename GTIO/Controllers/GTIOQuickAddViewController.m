@@ -11,20 +11,28 @@
 #import "GTIOEditProfileViewController.h"
 #import "GTIOUser.h"
 #import "UIImageView+WebCache.h"
+#import "GTIOProgressHUD.h"
+#import "GTIOAppDelegate.h"
 
 @interface GTIOQuickAddViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIImageView *followButtonBackground;
+@property (nonatomic, strong) UIView *skipThisStepContainer;
+@property (nonatomic, strong) UIView *skipThisStepUnderline;
+@property (nonatomic, strong) UILabel *skipThisStepLabel;
+@property (nonatomic, strong) UIButton *skipThisStepInvisiButton;
 @property (nonatomic, strong) GTIOAccountCreatedView *accountCreatedView;
+@property (nonatomic, strong) GTIOButton *followButton;
+
 @property (nonatomic, strong) NSArray *usersToFollow;
 @property (nonatomic, assign) int usersToFollowSelected;
-@property (nonatomic, strong) GTIOButton *followButton;
 
 @end
 
 @implementation GTIOQuickAddViewController
 
-@synthesize accountCreatedView = _accountCreatedView, usersToFollow = _usersToFollow, tableView = _tableView, usersToFollowSelected = _usersToFollowSelected, followButton = _followButton;
+@synthesize accountCreatedView = _accountCreatedView, usersToFollow = _usersToFollow, tableView = _tableView, usersToFollowSelected = _usersToFollowSelected, followButton = _followButton, followButtonBackground = _followButtonBackground, skipThisStepContainer = _skipThisStepContainer, skipThisStepLabel = _skipThisStepLabel, skipThisStepUnderline = _skipThisStepUnderline, skipThisStepInvisiButton = _skipThisStepInvisiButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,10 +53,10 @@
     [[GTIOUser currentUser] loadQuickAddUsersWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         if (!error) {
             self.usersToFollow = loadedObjects;
-            self.usersToFollowSelected = [self.usersToFollow count];
             // all users selected by default
             for (GTIOUser *user in self.usersToFollow) {
                 user.selected = YES;
+                self.usersToFollowSelected++;
             }
             [self.tableView reloadData];
         }
@@ -71,10 +79,10 @@
     [self.view addSubview:self.tableView];
     
     UIImage *followButtonBackgroundImage = [UIImage imageNamed:@"post-button-bg.png"];
-    UIImageView *followButtonBackground = [[UIImageView alloc] initWithFrame:(CGRect){ 0, self.view.bounds.size.height - followButtonBackgroundImage.size.height, followButtonBackgroundImage.size }];
-    [followButtonBackground setImage:followButtonBackgroundImage];
-    [followButtonBackground setUserInteractionEnabled:YES];
-    [self.view addSubview:followButtonBackground];
+    self.followButtonBackground = [[UIImageView alloc] initWithFrame:(CGRect){ 0, self.view.bounds.size.height - followButtonBackgroundImage.size.height, followButtonBackgroundImage.size }];
+    [self.followButtonBackground setImage:followButtonBackgroundImage];
+    [self.followButtonBackground setUserInteractionEnabled:YES];
+    [self.view addSubview:self.followButtonBackground];
     
     self.followButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFollowButton];
     if (self.usersToFollowSelected > 0) {
@@ -83,25 +91,29 @@
         [self.followButton setEnabled:NO];
     }
     [self.followButton setFrame:(CGRect){ 8, 13, self.followButton.bounds.size }];
-    [followButtonBackground addSubview:self.followButton];
+    __block GTIOQuickAddViewController *blockSelf = self;
+    [self.followButton setTapHandler:^(id sender) {
+        [blockSelf followButtonPressed];
+    }];
+    [self.followButtonBackground addSubview:self.followButton];
     
-    UIView *skipThisStepContainer = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, 85 }];
-    UILabel *skipThisStep = [[UILabel alloc] initWithFrame:(CGRect){ 0, 3, self.tableView.bounds.size.width, 15 }];
-    [skipThisStep setBackgroundColor:[UIColor clearColor]];
-    [skipThisStep setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [skipThisStep setText:@"or, skip this step"];
-    [skipThisStep setTextColor:[UIColor gtio_lightGrayTextColor]];
-    [skipThisStep setTextAlignment:UITextAlignmentCenter];
-    UIView *underline = [[UIView alloc] initWithFrame:(CGRect){ 133.0, skipThisStep.bounds.size.height - 3, 70.0, 0.5 }];
-    [underline setAlpha:0.60];
-    [underline setBackgroundColor:[UIColor gtio_lightGrayTextColor]];
-    [skipThisStep addSubview:underline];
-    UIButton *skipThisStepInvisiButton = [[UIButton alloc] initWithFrame:(CGRect){ 133.0, 0, 70.0, skipThisStep.bounds.size.height }];
-    [skipThisStepInvisiButton addTarget:self action:@selector(skipThisStep) forControlEvents:UIControlEventTouchUpInside];
-    [skipThisStep setUserInteractionEnabled:YES];
-    [skipThisStep addSubview:skipThisStepInvisiButton];
-    [skipThisStepContainer addSubview:skipThisStep];
-    self.tableView.tableFooterView = skipThisStepContainer;
+    self.skipThisStepContainer = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, 85 }];
+    self.skipThisStepLabel = [[UILabel alloc] initWithFrame:(CGRect){ 0, 3, self.tableView.bounds.size.width, 15 }];
+    [self.skipThisStepLabel setBackgroundColor:[UIColor clearColor]];
+    [self.skipThisStepLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [self.skipThisStepLabel setText:@"or, skip this step"];
+    [self.skipThisStepLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
+    [self.skipThisStepLabel setTextAlignment:UITextAlignmentCenter];
+    self.skipThisStepUnderline = [[UIView alloc] initWithFrame:(CGRect){ 133.0, self.skipThisStepLabel.bounds.size.height - 3, 70.0, 0.5 }];
+    [self.skipThisStepUnderline setAlpha:0.60];
+    [self.skipThisStepUnderline setBackgroundColor:[UIColor gtio_lightGrayTextColor]];
+    [self.skipThisStepLabel addSubview:self.skipThisStepUnderline];
+    self.skipThisStepInvisiButton = [[UIButton alloc] initWithFrame:(CGRect){ 133.0, 0, 70.0, self.skipThisStepLabel.bounds.size.height }];
+    [self.skipThisStepInvisiButton addTarget:self action:@selector(skipThisStep) forControlEvents:UIControlEventTouchUpInside];
+    [self.skipThisStepLabel setUserInteractionEnabled:YES];
+    [self.skipThisStepLabel addSubview:self.skipThisStepInvisiButton];
+    [self.skipThisStepContainer addSubview:self.skipThisStepLabel];
+    self.tableView.tableFooterView = self.skipThisStepContainer;
 }
 
 - (void)viewDidUnload
@@ -112,12 +124,11 @@
     self.accountCreatedView = nil;
     self.usersToFollow = nil;
     self.followButton = nil;
-}
-
-- (void)pushEditProfileViewController
-{
-    GTIOEditProfileViewController *editProfileViewController = [[GTIOEditProfileViewController alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:editProfileViewController animated:YES];
+    self.followButtonBackground = nil;
+    self.skipThisStepContainer = nil;
+    self.skipThisStepLabel = nil;
+    self.skipThisStepInvisiButton = nil;
+    self.skipThisStepUnderline = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -131,6 +142,48 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+#pragma mark - Custom Delegate Methods
+
+- (void)pushEditProfileViewController
+{
+    GTIOEditProfileViewController *editProfileViewController = [[GTIOEditProfileViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:editProfileViewController animated:YES];
+}
+
+- (void)checkboxStateChanged:(GTIOButton *)checkbox
+{
+    (checkbox.selected) ? self.usersToFollowSelected++ : self.usersToFollowSelected--;
+    if (self.usersToFollowSelected > 0) {
+        [self.followButton setEnabled:YES];
+        [self.followButton setTitle:[NSString stringWithFormat:@"follow %i %@", self.usersToFollowSelected, (self.usersToFollowSelected == 1) ? @"person" : @"people"] forState:UIControlStateNormal];
+    } else {
+        [self.followButton setEnabled:NO];
+    }
+}
+
+#pragma mark - Button Methods
+
+- (void)followButtonPressed
+{
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSMutableArray *userIDs = [NSMutableArray array];
+    for (GTIOUser *user in self.usersToFollow) {
+        [userIDs addObject:[NSDictionary dictionaryWithObject:user.userID forKey:@"id"]];
+    }
+    [[GTIOUser currentUser] followUsers:userIDs fromScreen:@"Quick Add" completionHandler:^(NSArray *loadedObjects, NSError *error) {
+        [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+        if (!error) {
+            [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+        }
+    }];
+}
+
+- (void)skipThisStep
+{
+    // Go to 9.1
+    NSLog(@"skipping...");
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -181,22 +234,6 @@
     [cell setDelegate:self];
     
     return cell;
-}
-
-- (void)checkboxStateChanged:(GTIOButton *)checkbox
-{
-    (checkbox.selected) ? self.usersToFollowSelected++ : self.usersToFollowSelected--;
-    if (self.usersToFollowSelected > 0) {
-        [self.followButton setEnabled:YES];
-        [self.followButton setTitle:[NSString stringWithFormat:@"follow %i %@", self.usersToFollowSelected, (self.usersToFollowSelected == 1) ? @"person" : @"people"] forState:UIControlStateNormal];
-    } else {
-        [self.followButton setEnabled:NO];
-    }
-}
-
-- (void)skipThisStep
-{
-    NSLog(@"skipping...");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

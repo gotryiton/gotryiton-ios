@@ -296,6 +296,7 @@
     [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(7.0, 0, 0, 0)];
     [button setTitle:@"follow" forState:UIControlStateDisabled];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 
