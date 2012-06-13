@@ -48,7 +48,7 @@
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    [self.view addSubview:[[GTIOBackgroundView alloc] init]];
+    [self.view addSubview:[[GTIOBackgroundView alloc] initWithFrame:(CGRect){ 0, -20, [[UIScreen mainScreen] bounds].size }]];
 }
 
 - (void)viewDidLoad

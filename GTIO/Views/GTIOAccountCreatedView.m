@@ -91,7 +91,14 @@
 - (void)setDelegate:(id<GTIOAccountCreatedDelegate>)delegate
 {
     _delegate = delegate;
-    [self.editProfileButton addTarget:self.delegate action:@selector(pushEditProfileViewController) forControlEvents:UIControlEventTouchUpInside];
+    [self.editProfileButton addTarget:self action:@selector(pushEditProfileViewController:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)pushEditProfileViewController:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(pushEditProfileViewController)]) {
+        [self.delegate pushEditProfileViewController];
+    }
 }
 
 - (void)refreshUserData
