@@ -10,11 +10,10 @@
 
 @implementation GTIOBackgroundView
 
-- (id)init
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:CGRectZero];
+    self = [super initWithFrame:frame];
     if (self) {
-        [self setFrame:(CGRect){ 0, -20, 320, 480 }];
         [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
         UIImageView *statusBarBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"status-bar-bg.png"]];
         [self addSubview:statusBarBg];
