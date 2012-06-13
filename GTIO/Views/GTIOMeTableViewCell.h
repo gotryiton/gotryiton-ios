@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOSwitch.h"
 
 @interface GTIOMeTableViewCell : UITableViewCell
 
 @property (nonatomic, assign) BOOL hasHeart;
+@property (nonatomic, assign) BOOL hasToggle;
+@property (nonatomic, assign) BOOL hasChevron;
+
+@property (nonatomic, assign) GTIOSwitchChangeHandler toggleHandler;
 
 @end

@@ -16,6 +16,8 @@
 #import "GTIONavigationTitleView.h"
 #import "GTIOMyManagementScreen.h"
 #import "GTIOMeTableViewCell.h"
+#import "GTIORouter.h"
+#import "GTIOProgressHUD.h"
 
 @interface GTIOMeViewController ()
 
@@ -134,6 +136,26 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
+    UIViewController *viewControllerToRouteTo = [[GTIORouter sharedRouter] routeTo:buttonForRow.action.destination];
+    
+    if (viewControllerToRouteTo) {
+        [self.tableView setUserInteractionEnabled:NO];
+        // handle any special cases
+        if ([buttonForRow.action.destination isEqualToString:@"gtio://sign-out"]) {
+            [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+            [[GTIOUser currentUser] logOutWithLogoutHandler:^(NSURLResponse *response) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                if (response) {
+                    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewControllerToRouteTo];
+                    [self.navigationController presentModalViewController:navigationController animated:YES];
+                }
+            }];
+        } else {
+            [self.navigationController pushViewController:viewControllerToRouteTo animated:YES];
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -174,7 +196,16 @@
             [cell setHasHeart:YES];
         }
         
+        if ([buttonForRow.name isEqualToString:@"custom_cell_toggle"]) {
+            [cell setHasToggle:YES];
+            [cell setToggleHandler:^(BOOL on) {
+                NSLog(@"switched to: %i", on);
+            }];
+        }
+        
         [cell.textLabel setText:buttonForRow.text];
+        
+        NSLog(@"%@", buttonForRow.action.destination);
     }
     
     return cell;
