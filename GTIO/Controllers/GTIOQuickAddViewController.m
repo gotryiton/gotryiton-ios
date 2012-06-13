@@ -14,7 +14,7 @@
 #import "GTIOProgressHUD.h"
 #import "GTIOAppDelegate.h"
 
-@interface GTIOQuickAddViewController ()
+@interface GTIOQuickAddViewController () <GTIOAccountCreatedDelegate, UITableViewDelegate, UITableViewDataSource, GTIOQuickAddTableCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIImageView *followButtonBackground;
@@ -49,18 +49,6 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [self.view addSubview:[[GTIOBackgroundView alloc] init]];
-    
-    [[GTIOUser currentUser] loadQuickAddUsersWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
-        if (!error) {
-            self.usersToFollow = loadedObjects;
-            // all users selected by default
-            for (GTIOUser *user in self.usersToFollow) {
-                user.selected = YES;
-                self.usersToFollowSelected++;
-            }
-            [self.tableView reloadData];
-        }
-    }];
 }
 
 - (void)viewDidLoad
@@ -69,13 +57,12 @@
     
     self.accountCreatedView = [[GTIOAccountCreatedView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width - 10, 200 }];
     [self.accountCreatedView setDelegate:self];
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 52 } style:UITableViewStyleGrouped];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSeparatorColor:[UIColor gtio_groupedTableBorderColor]];
     self.tableView.tableHeaderView = self.accountCreatedView;
-    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, 50, 0)];
     [self.view addSubview:self.tableView];
     
     UIImage *followButtonBackgroundImage = [UIImage imageNamed:@"post-button-bg.png"];
@@ -97,7 +84,7 @@
     }];
     [self.followButtonBackground addSubview:self.followButton];
     
-    self.skipThisStepContainer = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, 85 }];
+    self.skipThisStepContainer = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, 30 }];
     self.skipThisStepLabel = [[UILabel alloc] initWithFrame:(CGRect){ 0, 3, self.tableView.bounds.size.width, 15 }];
     [self.skipThisStepLabel setBackgroundColor:[UIColor clearColor]];
     [self.skipThisStepLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
@@ -114,6 +101,21 @@
     [self.skipThisStepLabel addSubview:self.skipThisStepInvisiButton];
     [self.skipThisStepContainer addSubview:self.skipThisStepLabel];
     self.tableView.tableFooterView = self.skipThisStepContainer;
+    
+    [[GTIOUser currentUser] loadQuickAddUsersWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        if (!error) {
+            self.usersToFollow = loadedObjects;
+            // all users selected by default
+            for (GTIOUser *user in self.usersToFollow) {
+                user.selected = YES;
+                self.usersToFollowSelected++;
+            }
+            if (self.usersToFollowSelected > 0) {
+                [self enableAndLabelFollowButton];
+            }
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (void)viewDidUnload
@@ -156,11 +158,16 @@
 {
     (checkbox.selected) ? self.usersToFollowSelected++ : self.usersToFollowSelected--;
     if (self.usersToFollowSelected > 0) {
-        [self.followButton setEnabled:YES];
-        [self.followButton setTitle:[NSString stringWithFormat:@"follow %i %@", self.usersToFollowSelected, (self.usersToFollowSelected == 1) ? @"person" : @"people"] forState:UIControlStateNormal];
+        [self enableAndLabelFollowButton];
     } else {
         [self.followButton setEnabled:NO];
     }
+}
+
+- (void)enableAndLabelFollowButton
+{
+    [self.followButton setEnabled:YES];
+    [self.followButton setTitle:[NSString stringWithFormat:@"follow %i %@", self.usersToFollowSelected, (self.usersToFollowSelected == 1) ? @"person" : @"people"] forState:UIControlStateNormal];
 }
 
 #pragma mark - Button Methods
@@ -176,6 +183,9 @@
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         if (!error) {
             [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:@"There was an error while communicating with the server. Please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            [alert show];
         }
     }];
 }
