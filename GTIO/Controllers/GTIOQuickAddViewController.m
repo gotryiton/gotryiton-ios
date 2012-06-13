@@ -78,7 +78,7 @@
         [self.followButton setEnabled:NO];
     }
     [self.followButton setFrame:(CGRect){ 8, 13, self.followButton.bounds.size }];
-    __block GTIOQuickAddViewController *blockSelf = self;
+    __block typeof(self) blockSelf = self;
     [self.followButton setTapHandler:^(id sender) {
         [blockSelf followButtonPressed];
     }];
