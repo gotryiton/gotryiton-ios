@@ -669,6 +669,8 @@
 		8EDC82291586811700A2097A /* filter-thumb-walker.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDC82151586811700A2097A /* filter-thumb-walker.png */; };
 		8EDC822A1586811700A2097A /* filter-thumb-walker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDC82161586811700A2097A /* filter-thumb-walker@2x.png */; };
 		8EDC822D1586826E00A2097A /* GTIOQuickAddTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDC822C1586826D00A2097A /* GTIOQuickAddTableCell.m */; };
+		8EECB5911589032100025BAD /* GTIOMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EECB5901589032100025BAD /* GTIOMeTableViewCell.m */; };
+		8EECB59415890A2000025BAD /* GTIOMeTableHeaderViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EECB59315890A2000025BAD /* GTIOMeTableHeaderViewLabel.m */; };
 		8EF8FF83156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8FF82156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m */; };
 		8EF8FF9D156C112400AFCE55 /* GTIOAlmostDoneTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8FF9C156C112400AFCE55 /* GTIOAlmostDoneTableCell.m */; };
 		D201C8271561455100C4168D /* GTIOIntroScreensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */; };
@@ -1554,6 +1556,10 @@
 		8EDC82161586811700A2097A /* filter-thumb-walker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter-thumb-walker@2x.png"; sourceTree = "<group>"; };
 		8EDC822B1586826D00A2097A /* GTIOQuickAddTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOQuickAddTableCell.h; sourceTree = "<group>"; };
 		8EDC822C1586826D00A2097A /* GTIOQuickAddTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOQuickAddTableCell.m; sourceTree = "<group>"; };
+		8EECB58F1589032100025BAD /* GTIOMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMeTableViewCell.h; sourceTree = "<group>"; };
+		8EECB5901589032100025BAD /* GTIOMeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMeTableViewCell.m; sourceTree = "<group>"; };
+		8EECB59215890A2000025BAD /* GTIOMeTableHeaderViewLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMeTableHeaderViewLabel.h; sourceTree = "<group>"; };
+		8EECB59315890A2000025BAD /* GTIOMeTableHeaderViewLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMeTableHeaderViewLabel.m; sourceTree = "<group>"; };
 		8EF8FF81156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAlmostDoneTableHeaderCell.h; sourceTree = "<group>"; };
 		8EF8FF82156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAlmostDoneTableHeaderCell.m; sourceTree = "<group>"; };
 		8EF8FF9B156C112400AFCE55 /* GTIOAlmostDoneTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAlmostDoneTableCell.h; sourceTree = "<group>"; };
@@ -2838,6 +2844,10 @@
 				8EDC81D61586380B00A2097A /* GTIOAccountCreatedView.m */,
 				8EDC822B1586826D00A2097A /* GTIOQuickAddTableCell.h */,
 				8EDC822C1586826D00A2097A /* GTIOQuickAddTableCell.m */,
+				8EECB58F1589032100025BAD /* GTIOMeTableViewCell.h */,
+				8EECB5901589032100025BAD /* GTIOMeTableViewCell.m */,
+				8EECB59215890A2000025BAD /* GTIOMeTableHeaderViewLabel.h */,
+				8EECB59315890A2000025BAD /* GTIOMeTableHeaderViewLabel.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -4309,6 +4319,8 @@
 				8E180A63158789DA0074E7C9 /* GTIOBadge.m in Sources */,
 				8ECB2A8C1587DEDC0039A4F1 /* GTIOButtonAction.m in Sources */,
 				8ECB2A901587E0480039A4F1 /* GTIOMyManagementScreen.m in Sources */,
+				8EECB5911589032100025BAD /* GTIOMeTableViewCell.m in Sources */,
+				8EECB59415890A2000025BAD /* GTIOMeTableHeaderViewLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

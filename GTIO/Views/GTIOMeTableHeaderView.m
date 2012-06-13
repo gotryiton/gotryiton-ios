@@ -12,6 +12,7 @@
 #import "GTIOSelectableProfilePicture.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GTIOEditProfilePictureViewController.h"
+#import "GTIOMeTableHeaderViewLabel.h"
 
 @interface GTIOMeTableHeaderView()
 
@@ -68,29 +69,57 @@
         NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
         [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
         
-        UIView *followingLabel = [self buttonWithText:@"following" frame:(CGRect){ _locationLabel.frame.origin.x, _locationLabel.frame.origin.y + _locationLabel.frame.size.height + 6, 53, 20 } dark:YES tapHandler:^(id sender) {
-            NSLog(@"tapped following");
-        }];
+        // following / followers / stars labels
+
+        GTIOMeTableHeaderViewLabel *followingLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ _locationLabel.frame.origin.x, _locationLabel.frame.origin.y + _locationLabel.frame.size.height + 6, 53, 20 }];
+        [followingLabel setText:@"following"];
         [self addSubview:followingLabel];
-        UIButton *followingCountLabel = [self buttonWithText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:0]] frame:(CGRect){ followingLabel.frame.origin.x + followingLabel.frame.size.width, followingLabel.frame.origin.y, 30, 20 } dark:NO tapHandler:nil];
+        
+        GTIOMeTableHeaderViewLabel *followingCountLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ followingLabel.frame.origin.x + followingLabel.frame.size.width, followingLabel.frame.origin.y, 30, 20 }];
+        [followingCountLabel setUsesLightColors:YES];
+        [followingCountLabel setText:[NSString stringWithFormat:@"%i", [[NSNumber numberWithInt:0] intValue]]];
         [self addSubview:followingCountLabel];
         
-        UIButton *followersLabel = [self buttonWithText:@"followers" frame:(CGRect){ followingCountLabel.frame.origin.x + followingCountLabel.frame.size.width + 8, followingCountLabel.frame.origin.y, 53, 20 } dark:YES tapHandler:^(id sender) {
-            NSLog(@"tapped followers");
-        }];
+        GTIOMeTableHeaderViewLabel *followersLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ followingCountLabel.frame.origin.x + followingCountLabel.frame.size.width + 8, followingCountLabel.frame.origin.y, 53, 20 }];
+        [followersLabel setText:@"followers"];
         [self addSubview:followersLabel];
-        UIView *followerCountLabel = [self buttonWithText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:0]] frame:(CGRect){ followersLabel.frame.origin.x + followersLabel.frame.size.width, followersLabel.frame.origin.y, 30, 20 } dark:NO tapHandler:nil];
+        
+        GTIOMeTableHeaderViewLabel *followerCountLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ followersLabel.frame.origin.x + followersLabel.frame.size.width, followersLabel.frame.origin.y, 30, 20 }];
+        [followerCountLabel setUsesLightColors:YES];
+        [followerCountLabel setText:[NSString stringWithFormat:@"%i", [[NSNumber numberWithInt:0] intValue]]];
         [self addSubview:followerCountLabel];
         
-        UIButton *starsLabel = [self buttonWithText:@"" frame:(CGRect){ followerCountLabel.frame.origin.x + followerCountLabel.frame.size.width + 8, followerCountLabel.frame.origin.y, 23, 20 } dark:YES tapHandler:^(id sender) {
-            NSLog(@"tapped stars");
-        }];
+        GTIOMeTableHeaderViewLabel *starsLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ followerCountLabel.frame.origin.x + followerCountLabel.frame.size.width + 8, followerCountLabel.frame.origin.y, 23, 20 }];
+        [starsLabel setUsesStar:YES];
         [self addSubview:starsLabel];
-        UIImageView *star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile.top.buttons.icon.star.png"]];
-        [star setCenter:starsLabel.center];
-        [self addSubview:star];
-        UIView *starCountLabel = [self buttonWithText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:0]] frame:(CGRect){ starsLabel.frame.origin.x + starsLabel.frame.size.width, starsLabel.frame.origin.y, 23, 20 } dark:NO tapHandler:nil];
+        
+        GTIOMeTableHeaderViewLabel *starCountLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ starsLabel.frame.origin.x + starsLabel.frame.size.width, starsLabel.frame.origin.y, 23, 20 }];
+        [starCountLabel setUsesLightColors:YES];
+        [starCountLabel setText:[NSString stringWithFormat:@"%i", [[NSNumber numberWithInt:0] intValue]]];
         [self addSubview:starCountLabel];
+        
+        // following / followers / stars buttons
+        
+        GTIOButton *followingButton = [[GTIOButton alloc] initWithFrame:(CGRect){ followingLabel.frame.origin, followingLabel.bounds.size.width + followingCountLabel.bounds.size.width, followingLabel.bounds.size.height }];
+        followingButton.tapHandler = ^(id sender) {
+            NSLog(@"tapped following");
+        };
+        [followingButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:followingButton];
+        
+        GTIOButton *followersButton = [[GTIOButton alloc] initWithFrame:(CGRect){ followersLabel.frame.origin, followersLabel.bounds.size.width + followerCountLabel.bounds.size.width, followersLabel.bounds.size.height }];
+        followersButton.tapHandler = ^(id sender) {
+            NSLog(@"tapped followers");
+        };
+        [followersButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:followersButton];
+        
+        GTIOButton *starButton = [[GTIOButton alloc] initWithFrame:(CGRect){ starsLabel.frame.origin, starsLabel.bounds.size.width + starCountLabel.bounds.size.width, starsLabel.bounds.size.height }];
+        starButton.tapHandler = ^(id sender) {
+            NSLog(@"tapped stars");
+        };
+        [starButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:starButton];
         
         UIImage *editPencil = [UIImage imageNamed:@"profile.top.icon.edit.png"];
         GTIOButton *editButton = [[GTIOButton alloc] initWithFrame:(CGRect){ self.bounds.size.width - editPencil.size.width, 3, editPencil.size }];
@@ -113,40 +142,10 @@
 
 - (void)refreshData
 {
-
     GTIOUser *currentUser = [GTIOUser currentUser];
     [self.profileIcon setImageWithURL:currentUser.icon];
     [self.nameLabel setText:currentUser.name];
     [self.locationLabel setText:currentUser.location];
-}
-
-- (GTIOButton *)buttonWithText:(NSString *)text frame:(CGRect)frame dark:(BOOL)dark tapHandler:(GTIOButtonDidTapHandler)tapHandler
-{
-    GTIOButton *labelBackground = [self buttonBackgroundWithFrame:frame dark:dark tapHandler:tapHandler];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    [label setFont:(dark) ? [UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:11.0] : [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0]];
-    [label setTextColor:(dark) ? [UIColor gtio_lightGrayTextColor] : [UIColor gtio_lightestGrayTextColor]];
-    [label setText:text];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setTextAlignment:UITextAlignmentCenter];
-    [label sizeToFit];
-    [label setFrame:(CGRect){ 0, 0, labelBackground.frame.size.width - 6, label.frame.size.height }];
-    [label setAdjustsFontSizeToFitWidth:YES];
-    [label setCenter:(CGPoint){ labelBackground.frame.size.width / 2, (frame.size.height / 2) + ((dark) ? 2 : 1) }];
-    [labelBackground addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [labelBackground addSubview:label];
-    if (!tapHandler) {
-        [labelBackground setUserInteractionEnabled:NO];
-    }
-    return labelBackground;
-}
-
-- (GTIOButton *)buttonBackgroundWithFrame:(CGRect)frame dark:(BOOL)dark tapHandler:(GTIOButtonDidTapHandler)tapHandler
-{
-    GTIOButton *background = [[GTIOButton alloc] initWithFrame:frame];
-    background.tapHandler = tapHandler;
-    [background setBackgroundImage:[[UIImage imageNamed:(dark) ? @"inner.shadow.bg.png" : @"inner.shadow.bg.lighter.png"] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0] forState:UIControlStateNormal];
-    return background;
 }
 
 - (void)buttonTapped:(id)sender

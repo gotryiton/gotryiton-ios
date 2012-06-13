@@ -15,6 +15,7 @@
 #import "GTIOSignInViewController.h"
 #import "GTIONavigationTitleView.h"
 #import "GTIOMyManagementScreen.h"
+#import "GTIOMeTableViewCell.h"
 
 @interface GTIOMeViewController ()
 
@@ -68,6 +69,7 @@
                         numberOfSections++;
                         [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
                     }
+                    self.tableView.tableFooterView.hidden = NO;
                     [self.tableView reloadData];
                 }
             }
@@ -97,6 +99,7 @@
     [footerNotice setLineBreakMode:UILineBreakModeWordWrap];
     [footerView addSubview:footerNotice];
     [self.tableView setTableFooterView:footerView];
+    self.tableView.tableFooterView.hidden = YES;
     
     [self.view addSubview:self.tableView];
 }
@@ -157,10 +160,10 @@
 {
     static NSString *CellIdentifier = @"Cell"; 
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    GTIOMeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[GTIOMeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     if (self.tableData.count > 0) {
@@ -168,14 +171,10 @@
         
         if ([buttonForRow.name isEqualToString:@"custom_cell_hearts"]) {
             buttonForRow.text = @"my     s";
-            UIImageView *heart = [[UIImageView alloc] initWithFrame:(CGRect){ 36, 16, 15, 12 }];
-            [heart setImage:[UIImage imageNamed:@"profile.icon.heart.png"]];
-            [cell.contentView addSubview:heart];
+            [cell setHasHeart:YES];
         }
         
         [cell.textLabel setText:buttonForRow.text];
-        [cell.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:16.0]];
-        [cell.textLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
     }
     
     return cell;
