@@ -1,3 +1,33 @@
+***Wednesday, June 13th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Need mask 3 image
+- TT - Add loading spinner if image filter still processing
+- GTIO - Fix followers/following/stars button objects on /user/management endpoint
+- GTIO - Add Chevron BOOL to buttons object (Maybe make this a custom field that we can reuse for other stuff?)
+- GTIO - Quick Add fail silently and go on to next page. Error will contian a alert object if we should show alert.
+ - TT - Revise delivery schedule to speed up feedback
+
+**Status**
+- Filter almost complete
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Next Sprint: Work on non-upload features to help fill out the application
+- Simon visits Durham once again to focus on autocomplete behavior
+
+---
+
 ***Tuesday, June 12th - Standup Notes***
 
 **Attendees**
