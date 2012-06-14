@@ -18,6 +18,7 @@
 #import "GTIOMeTableViewCell.h"
 #import "GTIORouter.h"
 #import "GTIOProgressHUD.h"
+#import "GTIOSignInViewController.h"
 
 @interface GTIOMeViewController ()
 
@@ -49,34 +50,7 @@
 {
     [super viewDidLoad];
     
-    [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
-        if (!error) {
-            int numberOfRows = 0;
-            int numberOfSections = 0;
-            for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {                    
-                    GTIOMyManagementScreen *screen = (GTIOMyManagementScreen *)object;
-                    self.userInfoButtons = screen.userInfo;
-                    for (GTIOButton *button in screen.management) {
-                        if (![button.name isEqualToString:@"spacer_cell"]) {
-                            [self.tableData addObject:button];
-                            numberOfRows++;
-                        } else {
-                            numberOfSections++;
-                            [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
-                            numberOfRows = 0;
-                        }
-                    }
-                    if (numberOfRows > 0) {
-                        numberOfSections++;
-                        [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
-                    }
-                    self.tableView.tableFooterView.hidden = NO;
-                    [self.tableView reloadData];
-                }
-            }
-        }
-    }];
+    [self refreshScreenLayout];
     
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
     [self.profileHeaderView setDelegate:self];
@@ -123,7 +97,41 @@
         NSLog(@"tapped notification bubble");
     }];
     [self useTitleView:titleView];
-    [self.profileHeaderView refreshData];
+    [self.profileHeaderView refreshUserData];
+}
+
+- (void)refreshScreenLayout
+{
+    [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        if (!error) {
+            int numberOfRows = 0;
+            int numberOfSections = 0;
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {                    
+                    GTIOMyManagementScreen *screen = (GTIOMyManagementScreen *)object;
+                    self.userInfoButtons = screen.userInfo;
+                    [self.profileHeaderView setUserInfoButtons:self.userInfoButtons];
+                    for (GTIOButton *button in screen.management) {
+                        if (![button.name isEqualToString:@"spacer_cell"]) {
+                            [self.tableData addObject:button];
+                            numberOfRows++;
+                        } else {
+                            numberOfSections++;
+                            [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
+                            numberOfRows = 0;
+                        }
+                    }
+                    if (numberOfRows > 0) {
+                        numberOfSections++;
+                        [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
+                    }
+                    self.tableView.tableFooterView.hidden = NO;
+                    [self.tableView reloadData];
+                    [self.profileHeaderView refreshUserData];
+                }
+            }
+        }
+    }];
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -148,7 +156,18 @@
             [[GTIOUser currentUser] logOutWithLogoutHandler:^(NSURLResponse *response) {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 if (response) {
-                    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewControllerToRouteTo];
+                    GTIOSignInViewController *signInViewController = (GTIOSignInViewController *)viewControllerToRouteTo;
+                    [signInViewController setLoginHandler:^(GTIOUser *user, NSError *error) {
+                        // need to wait for the janrain screen to fade away before dismissing
+                        double delayInSeconds = 0.25;
+                        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                            [self.navigationController dismissModalViewControllerAnimated:YES];
+                            [self.tableView setUserInteractionEnabled:YES];
+                            [self refreshScreenLayout];
+                        });
+                    }];
+                    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
                     [self.navigationController presentModalViewController:navigationController animated:YES];
                 }
             }];
@@ -194,18 +213,19 @@
         if ([buttonForRow.name isEqualToString:@"custom_cell_hearts"]) {
             buttonForRow.text = @"my     s";
             [cell setHasHeart:YES];
-        }
-        
-        if ([buttonForRow.name isEqualToString:@"custom_cell_toggle"]) {
+        } else if ([buttonForRow.name isEqualToString:@"custom_cell_toggle"]) {
             [cell setHasToggle:YES];
+            [cell setToggleState:[buttonForRow.value intValue]];
             [cell setToggleHandler:^(BOOL on) {
-                NSLog(@"switched to: %i", on);
+                [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    [NSNumber numberWithBool:on], @"public", nil] 
+                                            withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                     @"mymanagement", @"screen", nil]
+                                                    andLoginHandler:nil];
             }];
         }
-        
+        [cell setHasChevron:[buttonForRow.chevron boolValue]];
         [cell.textLabel setText:buttonForRow.text];
-        
-        NSLog(@"%@", buttonForRow.action.destination);
     }
     
     return cell;

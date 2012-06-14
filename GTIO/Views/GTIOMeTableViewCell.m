@@ -11,7 +11,7 @@
 @interface GTIOMeTableViewCell()
 
 @property (nonatomic, strong) UIImageView *heart;
-@property (nonatomic, strong) GTIOSwitch *toggleSwitch;
+@property (nonatomic, strong) UISwitch *toggleSwitch;
 @property (nonatomic, strong) UIImageView *chevron;
 
 @end
@@ -35,13 +35,9 @@
         _chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];
         _hasChevron = NO;
     
-        _toggleSwitch = [[GTIOSwitch alloc] initWithFrame:(CGRect){ 0, 0, 36, 17 }];
-        [_toggleSwitch setTrack:[UIImage imageNamed:@"general.slider.green.rail.png"]];
-        [_toggleSwitch setTrackFrame:[UIImage imageNamed:@"general.slider.green.bg.png"]];
-        [_toggleSwitch setTrackFrameMask:[UIImage imageNamed:@"general.slider.green.mask.png"]];
-        [_toggleSwitch setKnob:[UIImage imageNamed:@"general.slider.green.handle.png"]];
-        [_toggleSwitch setKnobXOffset:-1.5];
+        _toggleSwitch = [[UISwitch alloc] initWithFrame:(CGRect){ 0, 0, 36, 17 }];
         [_toggleSwitch setOn:NO];
+        [_toggleSwitch addTarget:self action:@selector(toggleSwitchChanged:) forControlEvents:UIControlEventValueChanged];
     }
     return self;
 }
@@ -57,10 +53,17 @@
     }
 }
 
-- (void)setToggleHandler:(GTIOSwitchChangeHandler)toggleHandler
+- (void)toggleSwitchChanged:(id)sender
 {
-    _toggleHandler = toggleHandler;
-    [self.toggleSwitch setChangeHandler:_toggleHandler];
+    UISwitch *toggleSwitch = (UISwitch *)sender;
+    if (self.toggleHandler) {
+        self.toggleHandler(toggleSwitch.on);
+    }
+}
+
+- (void)setToggleState:(BOOL)on
+{
+    [self.toggleSwitch setOn:on];
 }
 
 - (void)setHasChevron:(BOOL)hasChevron

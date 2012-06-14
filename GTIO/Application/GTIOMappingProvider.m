@@ -116,13 +116,13 @@
         
         /** Buttons
          */
-        [buttonActionMapping mapKeyPath:@"destination" toAttribute:@"destination"];
+        [buttonActionMapping mapAttributes:@"destination", @"endpoint", nil];
         [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
-        [buttonMapping mapAttributes:@"name", @"count", @"text", nil];
+        [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", nil];
         
         /** Screens
          */
-//        [myManagementScreenMapping mapKeyPath:@"user_info.buttons" toRelationship:@"userInfo" withMapping:buttonMapping];
+        [myManagementScreenMapping mapKeyPath:@"user_info.buttons" toRelationship:@"userInfo" withMapping:buttonMapping];
         [myManagementScreenMapping mapKeyPath:@"management.buttons" toRelationship:@"management" withMapping:buttonMapping];
         [self setMapping:myManagementScreenMapping forKeyPath:@"ui"];
         

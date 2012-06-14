@@ -17,15 +17,31 @@
 @interface GTIOMeTableHeaderView()
 
 @property (nonatomic, strong) GTIOSelectableProfilePicture *profileIcon;
+@property (nonatomic, strong) GTIOButton *profileIconButton;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *locationLabel;
+
+@property (nonatomic, strong) GTIOMeTableHeaderViewLabel *followingLabel;
+@property (nonatomic, strong) GTIOMeTableHeaderViewLabel *followingCountLabel;
+@property (nonatomic, strong) GTIOMeTableHeaderViewLabel *followersLabel;
+@property (nonatomic, strong) GTIOMeTableHeaderViewLabel *followerCountLabel;
+@property (nonatomic, strong) GTIOMeTableHeaderViewLabel *starsLabel;
+@property (nonatomic, strong) GTIOMeTableHeaderViewLabel *starCountLabel;
+
+@property (nonatomic, strong) GTIOButton *followingButton;
+@property (nonatomic, strong) GTIOButton *followersButton;
+@property (nonatomic, strong) GTIOButton *starsButton;
+@property (nonatomic, strong) GTIOButton *editButton;
+
+@property (nonatomic, strong) UIImage *editPencil;
 
 @end
 
 @implementation GTIOMeTableHeaderView
 
-@synthesize profileIcon = _profileIcon, nameLabel = _nameLabel, locationLabel = _locationLabel;
-
+@synthesize profileIcon = _profileIcon, profileIconButton = _profileIconButton, nameLabel = _nameLabel, locationLabel = _locationLabel, userInfoButtons = _userInfoButtons;
+@synthesize followingLabel = _followingLabel, followingCountLabel = _followingCountLabel, followersLabel = _followersLabel, followerCountLabel = _followerCountLabel, starsLabel = _starsLabel, starCountLabel = _starCountLabel;
+@synthesize followingButton = _followingButton, followersButton = _followersButton, starsButton = _starsButton, editButton = _editButton, editPencil = _editPencil;
 @synthesize delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame
@@ -43,94 +59,67 @@
         [_profileIcon setIsSelectable:NO];
         [self addSubview:_profileIcon];
         
-        GTIOButton *profileIconButton = [[GTIOButton alloc] initWithFrame:_profileIcon.frame];
-        [profileIconButton setTapHandler:^(id sender) {
-            if ([_delegate respondsToSelector:@selector(pushEditProfilePictureViewController)]) {
-                [_delegate pushEditProfilePictureViewController];
-            }
-        }];
-        [profileIconButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:profileIconButton];
+        _profileIconButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
+        [_profileIconButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_profileIconButton];
         
-        _nameLabel = [[UILabel alloc] initWithFrame:(CGRect){ _profileIcon.frame.origin.x + _profileIcon.frame.size.width + 7, _profileIcon.frame.origin.y, 224, 21 }];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_nameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:16.0]];
         [_nameLabel setBackgroundColor:[UIColor clearColor]];
         [_nameLabel setTextColor:[UIColor whiteColor]];
         [_nameLabel setText:currentUser.name];
         [self addSubview:_nameLabel];
         
-        _locationLabel = [[UILabel alloc] initWithFrame:(CGRect){ _nameLabel.frame.origin.x, _nameLabel.frame.origin.y + _nameLabel.frame.size.height - 5, 224, 13 }];
+        _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_locationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
         [_locationLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
         [_locationLabel setText:[currentUser.location uppercaseString]];
         [_locationLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_locationLabel];
         
-        NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
-        [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        
         // following / followers / stars labels
 
-        GTIOMeTableHeaderViewLabel *followingLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ _locationLabel.frame.origin.x, _locationLabel.frame.origin.y + _locationLabel.frame.size.height + 6, 53, 20 }];
-        [followingLabel setText:@"following"];
-        [self addSubview:followingLabel];
+        _followingLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:CGRectZero];
+        [self addSubview:_followingLabel];
         
-        GTIOMeTableHeaderViewLabel *followingCountLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ followingLabel.frame.origin.x + followingLabel.frame.size.width, followingLabel.frame.origin.y, 30, 20 }];
-        [followingCountLabel setUsesLightColors:YES];
-        [followingCountLabel setText:[NSString stringWithFormat:@"%i", [[NSNumber numberWithInt:0] intValue]]];
-        [self addSubview:followingCountLabel];
+        _followingCountLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:CGRectZero];
+        [_followingCountLabel setUsesLightColors:YES];
+        [self addSubview:_followingCountLabel];
         
-        GTIOMeTableHeaderViewLabel *followersLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ followingCountLabel.frame.origin.x + followingCountLabel.frame.size.width + 8, followingCountLabel.frame.origin.y, 53, 20 }];
-        [followersLabel setText:@"followers"];
-        [self addSubview:followersLabel];
+        _followersLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:CGRectZero];
+        [self addSubview:_followersLabel];
         
-        GTIOMeTableHeaderViewLabel *followerCountLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ followersLabel.frame.origin.x + followersLabel.frame.size.width, followersLabel.frame.origin.y, 30, 20 }];
-        [followerCountLabel setUsesLightColors:YES];
-        [followerCountLabel setText:[NSString stringWithFormat:@"%i", [[NSNumber numberWithInt:0] intValue]]];
-        [self addSubview:followerCountLabel];
+        _followerCountLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:CGRectZero];
+        [_followerCountLabel setUsesLightColors:YES];
+        [self addSubview:_followerCountLabel];
         
-        GTIOMeTableHeaderViewLabel *starsLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ followerCountLabel.frame.origin.x + followerCountLabel.frame.size.width + 8, followerCountLabel.frame.origin.y, 23, 20 }];
-        [starsLabel setUsesStar:YES];
-        [self addSubview:starsLabel];
+        _starsLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:CGRectZero];
+        [_starsLabel setUsesStar:YES];
+        [self addSubview:_starsLabel];
         
-        GTIOMeTableHeaderViewLabel *starCountLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:(CGRect){ starsLabel.frame.origin.x + starsLabel.frame.size.width, starsLabel.frame.origin.y, 23, 20 }];
-        [starCountLabel setUsesLightColors:YES];
-        [starCountLabel setText:[NSString stringWithFormat:@"%i", [[NSNumber numberWithInt:0] intValue]]];
-        [self addSubview:starCountLabel];
+        _starCountLabel = [[GTIOMeTableHeaderViewLabel alloc] initWithFrame:CGRectZero];
+        [_starCountLabel setUsesLightColors:YES];
+        [self addSubview:_starCountLabel];
         
         // following / followers / stars buttons
         
-        GTIOButton *followingButton = [[GTIOButton alloc] initWithFrame:(CGRect){ followingLabel.frame.origin, followingLabel.bounds.size.width + followingCountLabel.bounds.size.width, followingLabel.bounds.size.height }];
-        followingButton.tapHandler = ^(id sender) {
-            NSLog(@"tapped following");
-        };
-        [followingButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:followingButton];
+        _followingButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
+        [_followingButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_followingButton];
         
-        GTIOButton *followersButton = [[GTIOButton alloc] initWithFrame:(CGRect){ followersLabel.frame.origin, followersLabel.bounds.size.width + followerCountLabel.bounds.size.width, followersLabel.bounds.size.height }];
-        followersButton.tapHandler = ^(id sender) {
-            NSLog(@"tapped followers");
-        };
-        [followersButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:followersButton];
+        _followersButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
+        [_followersButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_followersButton];
         
-        GTIOButton *starButton = [[GTIOButton alloc] initWithFrame:(CGRect){ starsLabel.frame.origin, starsLabel.bounds.size.width + starCountLabel.bounds.size.width, starsLabel.bounds.size.height }];
-        starButton.tapHandler = ^(id sender) {
-            NSLog(@"tapped stars");
-        };
-        [starButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:starButton];
+        _starsButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
+        [_starsButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_starsButton];
         
-        UIImage *editPencil = [UIImage imageNamed:@"profile.top.icon.edit.png"];
-        GTIOButton *editButton = [[GTIOButton alloc] initWithFrame:(CGRect){ self.bounds.size.width - editPencil.size.width, 3, editPencil.size }];
-        [editButton setImage:editPencil forState:UIControlStateNormal];
-        [editButton setTapHandler:^(id sender) {
-            if ([_delegate respondsToSelector:@selector(pushEditProfileViewController)]) {
-                [_delegate pushEditProfileViewController];
-            }
-        }];
-        [editButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:editButton];
+        _editPencil = [UIImage imageNamed:@"profile.top.icon.edit.png"];
+        _editButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
+        [_editButton setImage:_editPencil forState:UIControlStateNormal];
+        [_editButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_editButton];
     }
     return self;
 }
@@ -140,12 +129,76 @@
     _delegate = nil;
 }
 
-- (void)refreshData
+- (void)layoutSubviews
+{
+    [self.profileIconButton setFrame:self.profileIcon.frame];
+    [self.nameLabel setFrame:(CGRect){ self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 7, self.profileIcon.frame.origin.y, 224, 21 }];
+    [self.locationLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height - 5, 224, 13 }];
+    [self.followingLabel setFrame:(CGRect){ self.locationLabel.frame.origin.x, self.locationLabel.frame.origin.y + self.locationLabel.frame.size.height + 6, 53, 20 }];
+    [self.followingCountLabel setFrame:(CGRect){ self.followingLabel.frame.origin.x + self.followingLabel.frame.size.width, self.followingLabel.frame.origin.y, 30, 20 }];
+    [self.followersLabel setFrame:(CGRect){ self.followingCountLabel.frame.origin.x + self.followingCountLabel.frame.size.width + 8, self.followingCountLabel.frame.origin.y, 53, 20 }];
+    [self.followerCountLabel setFrame:(CGRect){ self.followersLabel.frame.origin.x + self.followersLabel.frame.size.width, self.followersLabel.frame.origin.y, 30, 20 }];
+    [self.starsLabel setFrame:(CGRect){ self.followerCountLabel.frame.origin.x + self.followerCountLabel.frame.size.width + 8, self.followerCountLabel.frame.origin.y, 23, 20 }];
+    [self.starCountLabel setFrame:(CGRect){ self.starsLabel.frame.origin.x + self.starsLabel.frame.size.width, self.starsLabel.frame.origin.y, 23, 20 }];
+    [self.followingButton setFrame:(CGRect){ self.followingLabel.frame.origin, self.followingLabel.bounds.size.width + self.followingCountLabel.bounds.size.width, self.followingLabel.bounds.size.height }];
+    [self.followersButton setFrame:(CGRect){ self.followersLabel.frame.origin, self.followersLabel.bounds.size.width + self.followerCountLabel.bounds.size.width, self.followersLabel.bounds.size.height }];
+    [self.starsButton setFrame:(CGRect){ self.starsLabel.frame.origin, self.starsLabel.bounds.size.width + self.starCountLabel.bounds.size.width, self.starsLabel.bounds.size.height }];
+    [self.editButton setFrame:(CGRect){ self.bounds.size.width - self.editPencil.size.width, 3, self.editPencil.size }];
+}
+
+- (void)setDelegate:(id<GTIOMeTableHeaderViewDelegate>)delegate
+{
+    _delegate = delegate;
+    
+    [self.profileIconButton setTapHandler:^(id sender) {
+        if ([self.delegate respondsToSelector:@selector(pushEditProfilePictureViewController)]) {
+            [self.delegate pushEditProfilePictureViewController];
+        }
+    }];
+    
+    [self.editButton setTapHandler:^(id sender) {
+        if ([self.delegate respondsToSelector:@selector(pushEditProfileViewController)]) {
+            [self.delegate pushEditProfileViewController];
+        }
+    }];
+}
+
+- (void)refreshUserData
 {
     GTIOUser *currentUser = [GTIOUser currentUser];
     [self.profileIcon setImageWithURL:currentUser.icon];
     [self.nameLabel setText:currentUser.name];
     [self.locationLabel setText:currentUser.location];
+    [self setNeedsLayout];
+}
+
+- (void)setUserInfoButtons:(NSArray *)userInfoButtons
+{
+    _userInfoButtons = userInfoButtons;
+    for (int i = 0; i < [self.userInfoButtons count]; i++) {
+        GTIOButton *button = [self.userInfoButtons objectAtIndex:i];
+        if (i == 0) {
+            [self.followingLabel setText:button.name];
+            [self.followingCountLabel setText:[NSString stringWithFormat:@"%i", [button.count intValue]]];
+            self.followingButton.tapHandler = ^(id sender) {
+                NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
+            };
+        }
+        if (i == 1) {
+            [self.followersLabel setText:button.name];
+            [self.followerCountLabel setText:[NSString stringWithFormat:@"%i", [button.count intValue]]];
+            _followersButton.tapHandler = ^(id sender) {
+                NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
+            };
+        }
+        if ([button.name isEqualToString:@"stars"]) {
+            [self.starCountLabel setText:[NSString stringWithFormat:@"%i", [button.count intValue]]];
+            _starsButton.tapHandler = ^(id sender) {
+                NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
+            };
+        }
+    }
+    [self setNeedsLayout];
 }
 
 - (void)buttonTapped:(id)sender

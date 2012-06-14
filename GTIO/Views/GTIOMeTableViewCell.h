@@ -17,4 +17,6 @@
 
 @property (nonatomic, assign) GTIOSwitchChangeHandler toggleHandler;
 
+- (void)setToggleState:(BOOL)on;
+
 @end

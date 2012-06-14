@@ -11,5 +11,6 @@
 @interface GTIOButtonAction : NSObject
 
 @property (nonatomic, copy) NSString *destination;
+@property (nonatomic, copy) NSString *endpoint;
 
 @end
