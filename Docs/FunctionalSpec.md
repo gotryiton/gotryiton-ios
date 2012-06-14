@@ -3047,68 +3047,50 @@ gtio://posts/feed
 
 #### Stories  
 - A user can see a personalized feed of content
-   - display details (matt to flesh this out)
-      - User detail area
-         - profile icon 
-         - user name
-         - time since upload
-         - location
-         - description (truncated)
-            - truncation details (??matt??)
-         - user detail area catches during scroll
-            - catches at top of visible area (view 8.1.3)
-            - scrolls out of view and replaced by next user detail of next item in feed (a la instagram)
-   - post area
-      - main image
-         - heart toggle in top left
-      - reviews button w/ reviews count
-         - **tap** ==> (view 3.4)
-- A user can heart an outfit or product post from the feed
-   - heart toggle btn in top left corner of each photo   
-   - see universal heart toggle behavior
-- If a post has voting enabled, a user can vote from the feed
-   - user **tap** on wear it or change it ==> api request
-      - **success** ==> (view 8.3)
+   - each post has a user description bar:
+      - name: ```post.user.name```
+      - location: ```post.user.location```
+         - location may be empty, in which case name is displayed on the base line
+      - created at time: ```post.created_when```
+   - user detail area catches during scroll
+      - catches at top of visible area (view 8.1.3)
+      - scrolls out of view and replaced by next user detail of next item in feed (a la instagram)
+   - each post shows a photo
+      - main image: ```post.photo.main_image```
+      - photo size should be displayed at ???px wide
+      - photo ratio will vary between 1:1 and 3:2 tall
+   - each post may show a description below the photo:
+      - description text: ```post.description```
+      - text may be empty
+      - description text may include html anchor tags 
+         - @ tags:
+            - tap to: ```gtio://profile/:user_id```
+         - # tags:
+            - tap to ```gtio://posts-with-hashtag/:tag```
+         - brand tags:
+            - tap to ```gtio://ShopBrowse/[title (urlencoded)]/[api path (url encoded)]```
+   - each post may include brand buttons
+      - brand buttons are displayed below description text
+      - button objects: ```post.brands[].button```
+- each post can be hearted by the user
+   - heart button object is in the buttons array: ```post.buttons```
+   - heart is displayed in the top left corner of the photo
+- a user can tap to see reviews of the post
+   - reviews button w/ reviews count is included in: ```post.buttons```
+- a user can tap to "shop this look"
+   - shop button is included in: ```post.buttons```
+- If a post has voting enabled (```post.voting.enabled : true```), a user can vote from the feed
+   - vote buttons are included in ```post.voting.buttons```
+   - if the button state is 0, when a button is tapped, the user will see an animation revealing the count (while an api request is made in the background)
+      - see (view 8.3) below for animation details
+   - if the button state is not 0, the post-animation state should be shown.
 - If a post does not have voting enabled, a user can see an indication of this fact
+   - ```post.voting.enabled : false```
    - (view 8.1.1)
 - A user can tap on a '...' btn to see more actions 
-   - see (views 8.1.2)
-      - the ... button
-         - tweet
-            - grab details from above
-         - flag
-             - grab details from above
-         - delete (outfit owner)
-      - wear it / change it btn
-         - api call
-         - show verdict view 8.x??
-      - heart count + heart callouts
-         - users defined by api
-         - tappable to view 3.5
-      - brand keywords
-         - tappable to (view 10.5)
-
-
-      - the ... button
-         - post
-         - suggest
-         - buy
-            - raises actionsheet (see above)
-         - tweet
-            - grab details from above
-         - flag (non outfit owner)
-             - grab details from above
-         - delete (outfit owner)
-      - wear it / change it btn
-         - api call
-         - show verdict view 8.x??
-      - heart count + heart callouts
-         - users defined by api
-         - tappable to view 3.5
-      - brand keywords
-         - tappable defined by api
+   - button options are included in: ```post.dot_options.buttons```
 - A user can paginate through multiple pages of their feed
-   - pagination detail api details to come
+   - pagination details are available in: [Api Docs](http://gtio-dev.gotryiton.com/docs/api-documentation)
 - A user can pull to refresh their feed
    - see (section 13.6)
 - If the user's feed is empty they see messaging encouraging them to add friends
@@ -3128,7 +3110,8 @@ A user can see voting results in the feed
 same as 8.1
 
 #### API Usage
-/Post/Vote
+/post/:post_id/vote/wear-it   
+/post/:post_id/vote/change-it   
 
 #### Stories  
 - A user can see voting results in the feed
