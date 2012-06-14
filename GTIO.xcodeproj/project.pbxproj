@@ -768,6 +768,7 @@
 		D2B8A582158A97BB001D67CA /* GTIOFilterOriginal.m in Sources */ = {isa = PBXBuildFile; fileRef = D28BD7A1158908410074643C /* GTIOFilterOriginal.m */; };
 		D2B8A583158A97BB001D67CA /* GTIOFilterOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D28BD7A8158915370074643C /* GTIOFilterOperation.m */; };
 		D2B8A584158A97CF001D67CA /* GTIOFilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DEAED3158793A20032ED1F /* GTIOFilterButton.m */; };
+		D2C363F2158A999400F476EF /* NSMutableDictionary+FilterTypeKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F78B77158A2E2F00CBB4F2 /* NSMutableDictionary+FilterTypeKeys.m */; };
 		D2CDA96715502F02009B7E24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96615502F02009B7E24 /* UIKit.framework */; };
 		D2CDA96915502F02009B7E24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96815502F02009B7E24 /* Foundation.framework */; };
 		D2CDA96B15502F02009B7E24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */; };
@@ -4578,6 +4579,7 @@
 				D2B8A582158A97BB001D67CA /* GTIOFilterOriginal.m in Sources */,
 				D2B8A583158A97BB001D67CA /* GTIOFilterOperation.m in Sources */,
 				D2B8A584158A97CF001D67CA /* GTIOFilterButton.m in Sources */,
+				D2C363F2158A999400F476EF /* NSMutableDictionary+FilterTypeKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
