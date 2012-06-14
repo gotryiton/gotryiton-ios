@@ -18,7 +18,7 @@
 
 @implementation GTIOMeTableViewCell
 
-@synthesize heart = _heart, hasHeart = _hasHeart, hasToggle = _hasToggle, toggleSwitch = _toggleSwitch, hasChevron = _hasChevron, chevron = _chevron, toggleHandler = _toggleHandler;
+@synthesize heart = _heart, hasHeart = _hasHeart, hasToggle = _hasToggle, toggleSwitch = _toggleSwitch, hasChevron = _hasChevron, chevron = _chevron, indexPath = _indexPath, toggleDelegate = _toggleDelegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -59,9 +59,10 @@
 
 - (void)toggleSwitchChanged:(id)sender
 {
-    UISwitch *toggleSwitch = (UISwitch *)sender;
-    if (self.toggleHandler) {
-        self.toggleHandler(toggleSwitch.on);
+    if (self.indexPath) {
+        if ([self.toggleDelegate respondsToSelector:@selector(updateSwitchAtIndexPath:)]) {
+            [self.toggleDelegate updateSwitchAtIndexPath:self.indexPath];
+        }
     }
 }
 
