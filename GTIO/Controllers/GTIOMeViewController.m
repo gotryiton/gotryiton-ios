@@ -127,7 +127,6 @@
                     }
                     self.tableView.tableFooterView.hidden = NO;
                     [self.tableView reloadData];
-                    [self.profileHeaderView refreshUserData];
                 }
             }
         }
@@ -165,6 +164,7 @@
                             [self.navigationController dismissModalViewControllerAnimated:YES];
                             [self.tableView setUserInteractionEnabled:YES];
                             [self refreshScreenLayout];
+                            [self.profileHeaderView refreshUserData];
                         });
                     }];
                     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:signInViewController];

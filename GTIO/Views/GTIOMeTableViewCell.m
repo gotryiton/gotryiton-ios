@@ -30,16 +30,20 @@
         _heart = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_heart setImage:[UIImage imageNamed:@"profile.icon.heart.png"]];
         [self.contentView addSubview:_heart];
-        _hasHeart = NO;
         
         _chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];
-        _hasChevron = NO;
     
         _toggleSwitch = [[UISwitch alloc] initWithFrame:(CGRect){ 0, 0, 36, 17 }];
-        [_toggleSwitch setOn:NO];
         [_toggleSwitch addTarget:self action:@selector(toggleSwitchChanged:) forControlEvents:UIControlEventValueChanged];
     }
     return self;
+}
+
+- (void)prepareForReuse
+{
+    self.hasToggle = NO;
+    self.hasHeart = NO;
+    self.hasChevron = NO;
 }
 
 - (void)layoutSubviews
