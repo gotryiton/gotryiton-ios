@@ -29,11 +29,13 @@
 
 @property (nonatomic, strong) GTIOMeTableHeaderView *profileHeaderView;
 
+@property (nonatomic, strong) UIViewController *viewControllerToRouteTo;
+
 @end
 
 @implementation GTIOMeViewController
 
-@synthesize tableView = _tableView, tableData = _tableData, profileHeaderView = _profileHeaderView, userInfoButtons = _userInfoButtons, sections = _sections;
+@synthesize tableView = _tableView, tableData = _tableData, profileHeaderView = _profileHeaderView, userInfoButtons = _userInfoButtons, sections = _sections, viewControllerToRouteTo = _viewControllerToRouteTo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -144,34 +146,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
-    UIViewController *viewControllerToRouteTo = [[GTIORouter sharedRouter] routeTo:buttonForRow.action.destination];
+    self.viewControllerToRouteTo = [[GTIORouter sharedRouter] routeTo:buttonForRow.action.destination];
     
-    if (viewControllerToRouteTo) {
+    if (self.viewControllerToRouteTo) {
         [self.tableView setUserInteractionEnabled:NO];
         // handle any special cases
         if ([buttonForRow.action.destination isEqualToString:@"gtio://sign-out"]) {
-            [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-            [[GTIOUser currentUser] logOutWithLogoutHandler:^(NSURLResponse *response) {
-                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                if (response) {
-                    GTIOSignInViewController *signInViewController = (GTIOSignInViewController *)viewControllerToRouteTo;
-                    [signInViewController setLoginHandler:^(GTIOUser *user, NSError *error) {
-                        // need to wait for the janrain screen to fade away before dismissing
-                        double delayInSeconds = 0.25;
-                        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                            [self.navigationController dismissModalViewControllerAnimated:YES];
-                            [self.tableView setUserInteractionEnabled:YES];
-                            [self refreshScreenLayout];
-                            [self.profileHeaderView refreshUserData];
-                        });
-                    }];
-                    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
-                    [self.navigationController presentModalViewController:navigationController animated:YES];
-                }
-            }];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
+            [alert show];
         } else {
-            [self.navigationController pushViewController:viewControllerToRouteTo animated:YES];
+            [self.navigationController pushViewController:self.viewControllerToRouteTo animated:YES];
         }
     }
 }
@@ -256,6 +240,36 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - UIAlertViewDelegate Methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[GTIOUser currentUser] logOutWithLogoutHandler:^(NSURLResponse *response) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            if (response) {
+                GTIOSignInViewController *signInViewController = (GTIOSignInViewController *)self.viewControllerToRouteTo;
+                [signInViewController setLoginHandler:^(GTIOUser *user, NSError *error) {
+                    // need to wait for the janrain screen to fade away before dismissing
+                    double delayInSeconds = 0.25;
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                        [self.navigationController dismissModalViewControllerAnimated:YES];
+                        [self.tableView setUserInteractionEnabled:YES];
+                        [self refreshScreenLayout];
+                        [self.profileHeaderView refreshUserData];
+                    });
+                }];
+                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
+                [self.navigationController presentModalViewController:navigationController animated:YES];
+            }
+        }];
+    } else {
+        [self.tableView setUserInteractionEnabled:YES];
+    }
 }
 
 @end
