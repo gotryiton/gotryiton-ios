@@ -26,6 +26,7 @@
 #import "GTIOTrack.h"
 #import "GTIOUser.h"
 #import "GTIOAuth.h"
+#import "GTIORouter.h"
 
 #import "JREngage.h"
 

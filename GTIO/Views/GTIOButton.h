@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
+#import "GTIOButtonAction.h"
+
 typedef void(^GTIOButtonDidTapHandler)(id sender);
 
 typedef enum GTIOButtonType {
@@ -36,10 +38,22 @@ typedef enum GTIOButtonType {
     GTIOButtonTypePhotoSelectBox,
     GTIOButtonTypePostThis,
     GTIOButtonTypePhotoDelete,
+    GTIOButtonTypeNotificationBubble,
+    GTIOButtonTypeNotificationBubbleEmpty,
+    GTIOButtonTypeEditProfilePencilCircle,
+    GTIOButtonTypeQuickAddCheckbox,
+    GTIOButtonTypeFollowButton
 } GTIOButtonType;
 
 @interface GTIOButton : UIButton
 
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, strong) NSNumber *count;
+@property (nonatomic, copy) NSString *text;
+@property (nonatomic, copy) NSString *attribute;
+@property (nonatomic, strong) NSNumber *value;
+@property (nonatomic, strong) NSNumber *chevron;
+@property (nonatomic, strong) GTIOButtonAction *action;
 @property (nonatomic, copy) GTIOButtonDidTapHandler tapHandler;
 
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType;

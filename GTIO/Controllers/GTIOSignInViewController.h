@@ -7,8 +7,11 @@
 //
 
 #import "TTTAttributedLabel.h"
+#import "GTIOUser.h"
 
 @interface GTIOSignInViewController : UIViewController <TTTAttributedLabelDelegate>
+
+@property (nonatomic, copy) GTIOLoginHandler loginHandler;
 
 - (void)track;
 

@@ -10,6 +10,7 @@
 
 @interface GTIOIcon : NSObject
 
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, retain) NSNumber *width;
 @property (nonatomic, retain) NSNumber *height;

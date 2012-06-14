@@ -11,7 +11,6 @@
 #import "GTIOFailedSignInViewController.h"
 #import "GTIOQuickAddViewController.h"
 
-#import "GTIOUser.h"
 #import "GTIOAppDelegate.h"
 
 #import "GTIOProgressHUD.h"
@@ -33,7 +32,7 @@
 @implementation GTIOReturningUsersViewController
 
 @synthesize facebookButton = _facebookButton, aolButton = _aolButton, googleButton = _googleButton, twitterButton = _twitterButton, yahooButton = _yahooButton;
-@synthesize returningUser = _returningUser;
+@synthesize returningUser = _returningUser, loginHandler = _loginHandler;
 
 - (id)initForReturningUsers:(BOOL)returning 
 {
@@ -171,8 +170,8 @@
         GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:failedSignInViewController animated:YES];
     } else {
-        if (user.isNewUser) {
-            if (user.hasCompleteProfile) {
+        if ([user.isNewUser boolValue]) {
+            if ([user.hasCompleteProfile boolValue]) {
                 GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:quickAddViewController animated:YES];
             } else {
@@ -180,8 +179,12 @@
                 [self.navigationController pushViewController:almostDone animated:YES];
             }
         } else {
-            if (user.hasCompleteProfile) {
-                [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+            if ([user.hasCompleteProfile boolValue]) {
+                if (self.loginHandler) {
+                    self.loginHandler(user, nil);
+                } else {
+                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                }
             } else {
                 GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:almostDone animated:YES];

@@ -14,11 +14,19 @@
 #import "GTIOEditProfilePictureViewController.h"
 #import "GTIOSignInViewController.h"
 #import "GTIONavigationTitleView.h"
+#import "GTIOMyManagementScreen.h"
+#import "GTIOMeTableViewCell.h"
+#import "GTIORouter.h"
+#import "GTIOProgressHUD.h"
+#import "GTIOSignInViewController.h"
 
 @interface GTIOMeViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *tableData;
+@property (nonatomic, strong) NSMutableArray *tableData;
+@property (nonatomic, strong) NSArray *userInfoButtons;
+
+@property (nonatomic, strong) NSMutableDictionary *sections;
 
 @property (nonatomic, strong) GTIOMeTableHeaderView *profileHeaderView;
 
@@ -26,13 +34,14 @@
 
 @implementation GTIOMeViewController
 
-@synthesize tableView = _tableView, tableData = _tableData, profileHeaderView = _profileHeaderView;
+@synthesize tableView = _tableView, tableData = _tableData, profileHeaderView = _profileHeaderView, userInfoButtons = _userInfoButtons, sections = _sections;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _tableData = [[NSArray alloc] initWithObjects:@"my shopping list", @"my     s", @"my posts", @"find my friends", @"invite friends", @"search tags", @"settings", @"sign out", @"posts are private", nil];
+        _tableData = [NSMutableArray array];
+        _sections = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -40,6 +49,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self refreshScreenLayout];
     
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
     [self.profileHeaderView setDelegate:self];
@@ -64,6 +75,7 @@
     [footerNotice setLineBreakMode:UILineBreakModeWordWrap];
     [footerView addSubview:footerNotice];
     [self.tableView setTableFooterView:footerView];
+    self.tableView.tableFooterView.hidden = YES;
     
     [self.view addSubview:self.tableView];
 }
@@ -85,13 +97,40 @@
         NSLog(@"tapped notification bubble");
     }];
     [self useTitleView:titleView];
+    [self.profileHeaderView refreshUserData];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)refreshScreenLayout
 {
-    [super viewDidAppear:animated];
-    
-    [self.profileHeaderView refreshData];
+    [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        if (!error) {
+            int numberOfRows = 0;
+            int numberOfSections = 0;
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {                    
+                    GTIOMyManagementScreen *screen = (GTIOMyManagementScreen *)object;
+                    self.userInfoButtons = screen.userInfo;
+                    [self.profileHeaderView setUserInfoButtons:self.userInfoButtons];
+                    for (GTIOButton *button in screen.management) {
+                        if (![button.name isEqualToString:@"spacer_cell"]) {
+                            [self.tableData addObject:button];
+                            numberOfRows++;
+                        } else {
+                            numberOfSections++;
+                            [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
+                            numberOfRows = 0;
+                        }
+                    }
+                    if (numberOfRows > 0) {
+                        numberOfSections++;
+                        [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
+                    }
+                    self.tableView.tableFooterView.hidden = NO;
+                    [self.tableView reloadData];
+                }
+            }
+        }
+    }];
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -104,6 +143,38 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
+    UIViewController *viewControllerToRouteTo = [[GTIORouter sharedRouter] routeTo:buttonForRow.action.destination];
+    
+    if (viewControllerToRouteTo) {
+        [self.tableView setUserInteractionEnabled:NO];
+        // handle any special cases
+        if ([buttonForRow.action.destination isEqualToString:@"gtio://sign-out"]) {
+            [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+            [[GTIOUser currentUser] logOutWithLogoutHandler:^(NSURLResponse *response) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                if (response) {
+                    GTIOSignInViewController *signInViewController = (GTIOSignInViewController *)viewControllerToRouteTo;
+                    [signInViewController setLoginHandler:^(GTIOUser *user, NSError *error) {
+                        // need to wait for the janrain screen to fade away before dismissing
+                        double delayInSeconds = 0.25;
+                        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                            [self.navigationController dismissModalViewControllerAnimated:YES];
+                            [self.tableView setUserInteractionEnabled:YES];
+                            [self refreshScreenLayout];
+                            [self.profileHeaderView refreshUserData];
+                        });
+                    }];
+                    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
+                    [self.navigationController presentModalViewController:navigationController animated:YES];
+                }
+            }];
+        } else {
+            [self.navigationController pushViewController:viewControllerToRouteTo animated:YES];
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -118,37 +189,43 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return self.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return [(NSNumber *)[self.sections objectForKey:[NSString stringWithFormat:@"section-%i", section + 1]] intValue];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell"; 
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    GTIOMeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-
-    [cell.textLabel setText:[self.tableData objectAtIndex:(indexPath.section * 3) + indexPath.row]];
-    [cell.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:16.0]];
-    [cell.textLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
-    
-    if (!(indexPath.section == 2 && (indexPath.row == 1 || indexPath.row == 2))) {
-        UIImageView *chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];
-        [cell setAccessoryView:chevron];
+        cell = [[GTIOMeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    if (indexPath.section == 0 && indexPath.row == 1) {
-        UIImageView *heart = [[UIImageView alloc] initWithFrame:(CGRect){ 36, 16, 15, 12 }];
-        [heart setImage:[UIImage imageNamed:@"profile.icon.heart.png"]];
-        [cell.contentView addSubview:heart];
+    if (self.tableData.count > 0) {
+        GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
+        
+        if ([buttonForRow.name isEqualToString:@"custom_cell_hearts"]) {
+            buttonForRow.text = @"my     s";
+            [cell setHasHeart:YES];
+        } else if ([buttonForRow.name isEqualToString:@"custom_cell_toggle"]) {
+            [cell setHasToggle:YES];
+            [cell setToggleState:[buttonForRow.value intValue]];
+            [cell setToggleHandler:^(BOOL on) {
+                [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    [NSNumber numberWithBool:on], @"public", nil] 
+                                            withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                     @"mymanagement", @"screen", nil]
+                                                    andLoginHandler:nil];
+            }];
+        }
+        [cell setHasChevron:[buttonForRow.chevron boolValue]];
+        [cell.textLabel setText:buttonForRow.text];
     }
     
     return cell;

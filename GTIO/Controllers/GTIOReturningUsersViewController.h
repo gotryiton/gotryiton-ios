@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOUser.h"
 
 @interface GTIOReturningUsersViewController : UIViewController
+
+@property (nonatomic, copy) GTIOLoginHandler loginHandler;
 
 - (id)initForReturningUsers:(BOOL)returning;
 

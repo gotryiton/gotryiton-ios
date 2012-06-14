@@ -12,10 +12,10 @@
 #import "GTIOFailedSignInViewController.h"
 #import "GTIOAppDelegate.h"
 #import "GTIOAlmostDoneViewController.h"
+#import "GTIOQuickAddViewController.h"
 
 #import "GTIOPostALookViewController.h"
 
-#import "GTIOUser.h"
 #import "GTIOTrack.h"
 
 #import "GTIOProgressHUD.h"
@@ -32,7 +32,7 @@
 @implementation GTIOSignInViewController
 
 @synthesize facebookButton = _facebookButton, returningUserButton = _returningUserButton;
-@synthesize tracked = _tracked;
+@synthesize tracked = _tracked, loginHandler = _loginHandler;
 
 - (void)loadView
 {
@@ -44,8 +44,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login-bg-logo.png"]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
@@ -63,23 +61,24 @@
                 [self.navigationController pushViewController:failedSignInViewController animated:YES];
             } else {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                if (user.isNewUser) {
-                    if (user.hasCompleteProfile) {
-                        // load 1.8
-                        NSLog(@"Load screen 1.8");
+                if ([user.isNewUser boolValue]) {
+                    if ([user.hasCompleteProfile boolValue]) {
+                        GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
+                        [self.navigationController pushViewController:quickAddViewController animated:YES];
                     } else {
                         GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                         [self.navigationController pushViewController:almostDone animated:YES];
-                        // then go to 1.8
                     }
                 } else {
-                    if (user.hasCompleteProfile) {
-                        // load 1.8
-                        NSLog(@"Load screen 1.8");
+                    if ([user.hasCompleteProfile boolValue]) {
+                        if (self.loginHandler) {
+                            self.loginHandler(user, nil);
+                        } else {
+                            [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                        }
                     } else {
                         GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                         [self.navigationController pushViewController:almostDone animated:YES];
-                        // then go to 8.1
                     }
                 }
             }
@@ -92,6 +91,7 @@
     [self.returningUserButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.returningUserButton setTapHandler:^(id sender) {
         GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:YES];
+        [returningUsersViewController setLoginHandler:self.loginHandler];
         [self.navigationController pushViewController:returningUsersViewController animated:YES];
     }];
     [self.view addSubview:self.returningUserButton];
@@ -133,6 +133,12 @@
     self.returningUserButton = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -149,6 +155,7 @@
 - (void)loadReturningUsersViewController
 {
     GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:NO];
+    [returningUsersViewController setLoginHandler:self.loginHandler];
     [self.navigationController pushViewController:returningUsersViewController animated:YES];
 }
 
