@@ -7,37 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOFilter.h"
 
-typedef enum {
-    GTIOFilterOriginal = 0,
-    GTIOFilterClementine,
-    GTIOFilterColombe,
-    GTIOFilterDiesel,
-    GTIOFilterHenrik,
-    GTIOFilterIIRG,
-    GTIOFilterLafayette,
-    GTIOFilterLispenard,
-    GTIOFilterWalker
-} GTIOFilter;
-
-static NSString * const GTIOFilterName[] = {
-    [GTIOFilterOriginal] = @"Original",
-    [GTIOFilterClementine] = @"Clementine",
-    [GTIOFilterColombe] = @"Colombe",
-    [GTIOFilterDiesel] = @"Diesel",
-    [GTIOFilterHenrik] = @"Henrik",
-    [GTIOFilterIIRG] = @"II-RG",
-    [GTIOFilterLafayette] = @"Lafayette",
-    [GTIOFilterLispenard] = @"Lispenard",
-    [GTIOFilterWalker] = @"Walker"
-};
+@protocol GTIOPhotoFilterViewDelegate;
 
 @interface GTIOPhotoFilterView : UIView
 
-@property (nonatomic, assign) GTIOFilter filter;
-
+@property (nonatomic, assign) GTIOFilterType filterType;
 @property (nonatomic, assign, getter = isFilterSelected) BOOL filterSelected;
+@property (nonatomic, weak) id<GTIOPhotoFilterViewDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame filter:(GTIOFilter)filter filterSelected:(BOOL)filterSelected;
+- (id)initWithFrame:(CGRect)frame filterType:(GTIOFilterType)filterType filterSelected:(BOOL)filterSelected;
+
+@end
+
+@protocol GTIOPhotoFilterViewDelegate <NSObject>
+
+@required
+- (void)didSelectFilterView:(GTIOPhotoFilterView *)filterView;
 
 @end

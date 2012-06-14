@@ -18,6 +18,8 @@
 #import "GTIOPhotoManager.h"
 #import "GTIOProcessImageRequest.h"
 
+#import "GTIOFilterManager.h"
+
 #import "GTIOPhotoShootGridViewController.h"
 #import "GTIOPhotoConfirmationViewController.h"
 #import "GTIOPostALookViewController.h"
@@ -108,6 +110,9 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [tapGestureRecognizer setNumberOfTapsRequired:1];
         [tapGestureRecognizer setDelegate:self];
         [self.view addGestureRecognizer:tapGestureRecognizer];
+        
+        // Load the filters so they are ready to go
+        [GTIOFilterManager sharedManager];
     }
     return self;
 }
@@ -218,9 +223,18 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     self.flashButton = nil;
     self.photoToolbarView = nil;
     self.shutterFlashOverlay = nil;
-    self.captureVideoPreviewLayer = nil;
     self.photoShootTimerView = nil;
     self.focusImageView = nil;
+    
+    [self.captureSession removeOutput:self.stillImageOutput];
+    self.stillImageOutput = nil;
+    self.captureVideoPreviewLayer = nil;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    NSLog(@"Warning on camera view");
 }
 
 - (void)viewWillAppear:(BOOL)animated

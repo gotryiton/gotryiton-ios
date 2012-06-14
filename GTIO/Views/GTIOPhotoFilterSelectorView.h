@@ -6,8 +6,12 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GTIOFilter.h"
+
+typedef void(^GTIOPhotoFilterSelectedHandler)(GTIOFilterType filterType);
 
 @interface GTIOPhotoFilterSelectorView : UIView
+
+@property (nonatomic, copy) GTIOPhotoFilterSelectedHandler photoFilterSelectedHandler;
 
 @end

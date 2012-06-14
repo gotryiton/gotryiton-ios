@@ -11,6 +11,6 @@
 
 @interface GTIOFilterButton : GTIOButton
 
-+ (id)buttonWithFilter:(GTIOFilter)filter tapHandler:(GTIOButtonDidTapHandler)tapHandler;
++ (id)buttonWithFilterType:(GTIOFilterType)filterType tapHandler:(GTIOButtonDidTapHandler)tapHandler;
 
 @end

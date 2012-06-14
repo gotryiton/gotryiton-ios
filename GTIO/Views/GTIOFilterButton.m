@@ -10,10 +10,10 @@
 
 @implementation GTIOFilterButton
 
-+ (id)buttonWithFilter:(GTIOFilter)filter tapHandler:(GTIOButtonDidTapHandler)tapHandler
++ (id)buttonWithFilterType:(GTIOFilterType)filterType tapHandler:(GTIOButtonDidTapHandler)tapHandler
 {
-    NSString *imageName = [NSString stringWithFormat:@"filter.%@.png", [GTIOFilterName[filter] lowercaseString]];
-    NSString *selectedImageName = [NSString stringWithFormat:@"filter.%@.selected.png", [GTIOFilterName[filter] lowercaseString]];
+    NSString *imageName = [NSString stringWithFormat:@"filter.%@.png", [GTIOFilterTypeName[filterType] lowercaseString]];
+    NSString *selectedImageName = [NSString stringWithFormat:@"filter.%@.selected.png", [GTIOFilterTypeName[filterType] lowercaseString]];
     
     id button = [self buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];

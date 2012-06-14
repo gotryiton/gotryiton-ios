@@ -9,12 +9,17 @@
 #import "GTIOPhotoConfirmationViewController.h"
 
 #import "GTIOCameraViewController.h"
+
 #import "GTIOPhotoConfirmationToolbarView.h"
 #import "GTIOPhotoFilterSelectorView.h"
+
+#import "GTIOFilterManager.h"
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 @interface GTIOPhotoConfirmationViewController ()
+
+@property (nonatomic, strong) UIImage *filteredPhoto;
 
 @property (nonatomic, strong) GTIOPhotoConfirmationToolbarView *photoConfirmationToolbarView;
 @property (nonatomic, strong) GTIOPhotoFilterSelectorView *photoFilterSelectorView;
@@ -29,6 +34,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @synthesize photoImageView = _photoImageView;
 @synthesize photoConfirmationToolbarView = _photoConfirmationToolbarView;
 @synthesize photoFilterSelectorView = _photoFilterSelectorView;
+@synthesize filteredPhoto = _filteredPhoto;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,16 +65,21 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     // Toolbar
     self.photoConfirmationToolbarView = [[GTIOPhotoConfirmationToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
     [self.photoConfirmationToolbarView.closeButton setTapHandler:^(id sender) {
+        [[GTIOFilterManager sharedManager] clearFilters];
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.photoConfirmationToolbarView.confirmButton setTapHandler:^(id sender) {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:self.photo forKey:@"photo"];
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:self.filteredPhoto forKey:@"photo"];
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPhotoAcceptedNotification object:nil userInfo:userInfo];
+        [[GTIOFilterManager sharedManager] clearFilters];
     }];
     [self.view addSubview:self.photoConfirmationToolbarView];
     
     // Filter View
     self.photoFilterSelectorView = [[GTIOPhotoFilterSelectorView alloc] initWithFrame:(CGRect){ 0 , self.photoConfirmationToolbarView.frame.origin.y - 101, { self.view.frame.size.width, 101 } }];
+    [self.photoFilterSelectorView setPhotoFilterSelectedHandler:^(GTIOFilterType filterType) {
+        self.filteredPhoto = [[GTIOFilterManager sharedManager] photoWithFilterType:filterType];
+    }];
     [self.view addSubview:self.photoFilterSelectorView];
 }
 
@@ -76,6 +87,19 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 {
     [super viewDidUnload];
     self.photoConfirmationToolbarView = nil;
+    self.photoFilterSelectorView = nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GTIOFilterManager sharedManager] applyAllFilters];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    NSLog(@"Warning on photo confirmation");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -87,6 +111,14 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 {
     _photo = photo;
     [self.photoImageView setImage:_photo];
+    
+    [[GTIOFilterManager sharedManager] setOriginalImage:photo];
+}
+
+- (void)setFilteredPhoto:(UIImage *)filteredPhoto
+{
+    _filteredPhoto = filteredPhoto;
+    [self.photoImageView setImage:_filteredPhoto];
 }
 
 @end

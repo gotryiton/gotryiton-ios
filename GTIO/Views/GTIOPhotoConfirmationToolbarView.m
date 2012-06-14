@@ -66,5 +66,4 @@
     [self.closeButton setImage:[UIImage imageNamed:closeImageName] forState:UIControlStateNormal];
 }
 
-
 @end

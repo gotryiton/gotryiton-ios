@@ -20,30 +20,37 @@
 
 @implementation GTIOPhotoFilterView
 
-@synthesize filter = _filter, filterSelected = _filterSelected;
+@synthesize filterType = _filterType, filterSelected = _filterSelected;
 @synthesize filterButton = _filterButton, titleLabel = _titleLabel;
+@synthesize delegate = _delegate;
 
-- (id)initWithFrame:(CGRect)frame filter:(GTIOFilter)filter filterSelected:(BOOL)filterSelected
+- (id)initWithFrame:(CGRect)frame filterType:(GTIOFilterType)filterType filterSelected:(BOOL)filterSelected
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self setFrame:(CGRect){ frame.origin, { 69, 90 } }];
         
-        _filter = filter;
+        _filterType = filterType;
         _filterSelected = filterSelected;
         
-        _filterButton = [GTIOFilterButton buttonWithFilter:filter tapHandler:nil];
-        [_filterButton setFrame:(CGRect){ { 0, 6 }, _filterButton.frame.size }]; 
+        _filterButton = [GTIOFilterButton buttonWithFilterType:filterType tapHandler:nil];
+        [_filterButton setFrame:(CGRect){ { 0, 6 }, _filterButton.frame.size }];
+        [_filterButton addTarget:self action:@selector(didTapFilter:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_filterButton];
         
         _titleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 0, _filterButton.frame.origin.y + _filterButton.frame.size.height, self.frame.size.width, 14}];
         [_titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:8.0f]];
-        [_titleLabel setText:[GTIOFilterName[_filter] uppercaseString]];
+        [_titleLabel setText:[GTIOFilterTypeName[_filterType] uppercaseString]];
         [_titleLabel setTextAlignment:UITextAlignmentCenter];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_titleLabel];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    _delegate = nil;
 }
 
 - (void)layoutSubviews
@@ -64,6 +71,15 @@
 {
     _filterSelected = filterSelected;
     [self setNeedsLayout];
+}
+
+#pragma mark - Button Actions
+
+- (void)didTapFilter:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(didSelectFilterView:)]) {
+        [self.delegate didSelectFilterView:self];
+    }
 }
 
 @end

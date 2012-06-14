@@ -12,15 +12,18 @@
 
 static CGFloat const kGTIOFilterViewPadding = 5.0f;
 
-@interface GTIOPhotoFilterSelectorView ()
+@interface GTIOPhotoFilterSelectorView () <GTIOPhotoFilterViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong, getter = isSelectedPhotoFilterView) GTIOPhotoFilterView *selectedPhotoFilterView;
 
 @end
 
 @implementation GTIOPhotoFilterSelectorView
 
 @synthesize scrollView = _scrollView;
+@synthesize selectedPhotoFilterView = _selectedPhotoFilterView;
+@synthesize photoFilterSelectedHandler = _photoFilterSelectedHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -33,19 +36,35 @@ static CGFloat const kGTIOFilterViewPadding = 5.0f;
         [_scrollView setShowsHorizontalScrollIndicator:NO];
         [self addSubview:_scrollView];
         
-        NSInteger filters[] = { GTIOFilterOriginal, GTIOFilterClementine, GTIOFilterColombe, GTIOFilterHenrik, GTIOFilterDiesel, GTIOFilterIIRG, GTIOFilterLafayette, GTIOFilterLispenard, GTIOFilterWalker };
-        
         CGFloat xOrigin = kGTIOFilterViewPadding;
-        for (int i = 0; i < (sizeof filters)/(sizeof filters[0]); i++) {
-            GTIOPhotoFilterView *filterView = [[GTIOPhotoFilterView alloc] initWithFrame:(CGRect){ { xOrigin, 5 }, { 69, 90 } } filter:filters[i] filterSelected:i == 0];
+        for (int i = 0; i < (sizeof GTIOFilterOrder)/(sizeof GTIOFilterOrder[0]); i++) {
+            GTIOPhotoFilterView *filterView = [[GTIOPhotoFilterView alloc] initWithFrame:(CGRect){ { xOrigin, 5 }, { 69, 90 } } filterType:GTIOFilterOrder[i] filterSelected:i == 0];
+            [filterView setDelegate:self];
             [_scrollView addSubview:filterView];
             xOrigin += filterView.frame.size.width + 3;
+            
+            if (filterView.isFilterSelected) {
+                _selectedPhotoFilterView = filterView;
+            }
         }
         xOrigin += kGTIOFilterViewPadding;
         
         [_scrollView setContentSize:(CGSize){ xOrigin, frame.size.height }];
     }
     return self;
+}
+
+#pragma mark - GTIOPhotoFilterViewDelegate
+
+- (void)didSelectFilterView:(GTIOPhotoFilterView *)filterView
+{
+    [self.selectedPhotoFilterView setFilterSelected:NO];
+    self.selectedPhotoFilterView = filterView;
+    [filterView setFilterSelected:YES];
+    
+    if (self.photoFilterSelectedHandler) {
+        self.photoFilterSelectedHandler(filterView.filterType);
+    }
 }
 
 @end
