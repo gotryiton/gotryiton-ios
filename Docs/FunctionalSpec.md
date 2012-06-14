@@ -3039,7 +3039,7 @@ any screen with uiTabBar
 ([view 8.3](#83-default-3rd-party-webview-container))   
 
 #### API Usage
-/Posts/Feed
+/Posts/Feed  [Post Docs](http://gtio-dev.gotryiton.com/docs/api-posts)
 
 #### Routing
 gtio://posts/feed
