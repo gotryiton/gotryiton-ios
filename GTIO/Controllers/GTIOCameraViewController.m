@@ -452,6 +452,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }];
     
     // Clear current photos
+    self.capturedImageCount = 0;
     [[GTIOPhotoManager sharedManager] removeAllPhotos];
     [self.photoShootProgresToolbarView setNumberOfDotsOn:0];
     
