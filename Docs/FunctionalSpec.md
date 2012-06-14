@@ -3079,6 +3079,7 @@ gtio://posts/feed
    - reviews button w/ reviews count is included in: ```post.buttons```
 - a user can tap to "shop this look"
    - shop button is included in: ```post.buttons```
+   - button is conditionally included.  may be excluded from the ```post.buttons``` array for some posts.
 - If a post has voting enabled (```post.voting.enabled : true```), a user can vote from the feed
    - vote buttons are included in ```post.voting.buttons```
    - if the button state is 0, when a button is tapped, the user will see an animation revealing the count (while an api request is made in the background)
