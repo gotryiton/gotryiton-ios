@@ -3066,20 +3066,23 @@ gtio://posts/feed
          - @ tags:
             - tap to: ```gtio://profile/:user_id```
          - # tags:
-            - tap to ```gtio://posts-with-hashtag/:tag```
+            - tap to ```gtio://explore/posts-with-hashtag/:tag```
          - brand tags:
-            - tap to ```gtio://ShopBrowse/[title (urlencoded)]/[api path (url encoded)]```
+            - tap to ```gtio://explore/posts-with-brand-tag/:tag```
    - each post may include brand buttons
       - brand buttons are displayed below description text
       - button objects: ```post.brands[].button```
+      - routes to ```gtio://ShopBrowse/[title (urlencoded)]/[api path (url encoded)]``` (defined in api)
 - each post can be hearted by the user
    - heart button object is in the buttons array: ```post.buttons```
    - heart is displayed in the top left corner of the photo
 - a user can tap to see reviews of the post
    - reviews button w/ reviews count is included in: ```post.buttons```
+   - routes to ```gtio://reviews-for-post/:post_id``` (defined in api)
 - a user can tap to "shop this look"
    - shop button is included in: ```post.buttons```
    - button is conditionally included.  may be excluded from the ```post.buttons``` array for some posts.
+   - routes to ```gtio://shop-post/:post_id``` (defined in api)
 - If a post has voting enabled (```post.voting.enabled : true```), a user can vote from the feed
    - vote buttons are included in ```post.voting.buttons```
    - if the button state is 0, when a button is tapped, the user will see an animation revealing the count (while an api request is made in the background)
