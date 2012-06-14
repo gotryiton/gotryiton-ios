@@ -3687,6 +3687,7 @@ A user can confirm that they want to upload the photo they've taken or selected.
 - Product Photos / different aspect ratios
    - if a source photo has an aspect ratio that is shorter than that of the available content area (320 x 427), photo should be displayed so that it is screen width, while preserving original aspect ratio (letterboxing top and bottom)
    - if a source photo has an aspect ratio that is taller than that of the available content area, photo should be displayed so that it is 427px high, while preserving original aspect ratio (letterboxing left and right)
+   - if a source photo doesn't fit width or height we will scale the image up to fit either height or width while perserving the original aspect ration
    - content area behind photo (visible wherever source photo is not filling screen) is rgb(100,100,100)
       - overlay edges of letterbox towards source photo with 'filter-letterbox-shadow.png' (has vertical top/bottom, horizontal left/right versions)
 
