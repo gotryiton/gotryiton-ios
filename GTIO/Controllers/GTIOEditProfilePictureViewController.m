@@ -11,8 +11,6 @@
 #import "GTIOSelectableProfilePicture.h"
 #import "GTIOUser.h"
 #import "GTIOIcon.h"
-#import "GTIOFacebookIcon.h"
-#import "GTIODefaultIcon.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOAlmostDoneViewController.h"
 
@@ -185,26 +183,32 @@
             
             // find the default icon
             for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIODefaultIcon class]]) {
-                    GTIOIcon *defaultIcon = (GTIOIcon*)object;
-                    self.defaultIconURL = defaultIcon.url;
+                if ([object isMemberOfClass:[GTIOIcon class]]) {
+                    GTIOIcon *icon = (GTIOIcon *)object;
+                    if ([icon.name isEqualToString:@"default"]) {
+                        self.defaultIconURL = icon.url;
+                        break;
+                    }
                 }
             }
             
             // find the facebook icon
             for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIOFacebookIcon class]]) {
-                    GTIOIcon *facebookIcon = (GTIOIcon*)object;
-                    [self.profileIconURLs addObject:facebookIcon.url];
-                    userHasFacebookPicture = YES;
+                if ([object isMemberOfClass:[GTIOIcon class]]) {
+                    GTIOIcon *icon = (GTIOIcon *)object;
+                    if ([icon.name isEqualToString:@"facebook"]) {
+                        [self.profileIconURLs addObject:icon.url];
+                        userHasFacebookPicture = YES;
+                        break;
+                    }
                 }
             }
             
             // grab the rest of the icons
             for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIOIcon class]] && ![object isMemberOfClass:[GTIOFacebookIcon class]]) {
+                if ([object isMemberOfClass:[GTIOIcon class]]) {
                     GTIOIcon *icon = (GTIOIcon*)object;
-                    if (icon.url) {
+                    if (icon.url && ![icon.name isEqualToString:@"facebook"] && ![icon.name isEqualToString:@"default"]) {
                         [self.profileIconURLs addObject:icon.url];
                     }
                 }

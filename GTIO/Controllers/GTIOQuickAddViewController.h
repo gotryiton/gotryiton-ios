@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOAccountCreatedView.h"
+#import "GTIOQuickAddTableCell.h"
 
 @interface GTIOQuickAddViewController : UIViewController
 

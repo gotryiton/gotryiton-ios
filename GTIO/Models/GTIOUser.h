@@ -9,10 +9,10 @@
 #import "Facebook.h"
 #import "JREngage.h"
 #import <RestKit/RestKit.h>
+#import "GTIOBadge.h"
 
 @class GTIOUser;
 
-typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
 typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 
@@ -35,6 +35,9 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSNumber *isFacebookConnected;
+@property (nonatomic, strong) GTIOBadge *badge;
+
+@property (nonatomic, assign) BOOL selected;
 
 @property (nonatomic, strong) Facebook *facebook;
 @property (nonatomic, strong) JREngage *janrain;
@@ -42,6 +45,7 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 /** The current user that is logged in
  */
 + (GTIOUser *)currentUser;
+- (void)populateWithUser:(GTIOUser *)user;
 
 /** Returns whether current user is authed
  */
@@ -70,8 +74,9 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
  */
 - (void)loadUserIconsWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
 
-/** Prepare the current user for management
+/** Follow / Quick Add Functionality
  */
-- (void)prepareForManagement;
+- (void)loadQuickAddUsersWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
+- (void)followUsers:(NSArray *)userIDs fromScreen:(NSString *)screenTag completionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end

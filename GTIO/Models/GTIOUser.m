@@ -22,10 +22,10 @@
 
 @implementation GTIOUser
 
-@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, logoutRequest = _logoutRequest, logoutHandler = _logoutHandler;
+@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, logoutRequest = _logoutRequest, logoutHandler = _logoutHandler, badge = _badge;
 @synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
 @synthesize loginHandler = _loginHandler;
-@synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath;
+@synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath, selected = _selected;
 
 + (GTIOUser *)currentUser
 {
@@ -213,6 +213,7 @@
     self.url = user.url;
     self.email = user.email;
     self.isFacebookConnected = user.isFacebookConnected;
+    self.badge = user.badge;
 }
 
 #pragma mark - janrain
@@ -291,10 +292,8 @@
     if (authToken) {
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:userIconResourcePath usingBlock:^(RKObjectLoader *loader) {
             loader.onDidLoadObjects = ^(NSArray *objects) {
-                NSMutableArray *objectsCopy = [NSMutableArray arrayWithArray:objects];
-                [objectsCopy addObject:[NSString stringWithFormat:@"%@",[[loader.response.body objectFromJSONData] objectForKey:@"default_icon"]]];
                 if (completionHandler) {
-                    completionHandler(objectsCopy, nil);
+                    completionHandler(objects, nil);
                 }
             };
             loader.onDidFailWithError = ^(NSError *error) {
@@ -308,21 +307,51 @@
     }
 }
 
-- (void)prepareForManagement
+- (void)loadQuickAddUsersWithCompletionHandler:(GTIOCompletionHandler)completionHandler
 {
-    NSString *managementResourcePath = @"/user/management";
+    NSString *quickAddPath = @"/user/quick-add";
     
-    BOOL authToken = NO;
-    if ([[RKObjectManager sharedManager].client.HTTPHeaders objectForKey:kGTIOAuthenticationHeaderKey]) {
-        authToken = YES;
-    }
-    if (authToken) {
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:managementResourcePath usingBlock:^(RKObjectLoader *loader) {
-            loader.targetObject = [GTIOUser currentUser];
-        }];
-    } else {
-        NSLog(@"no auth token");
-    }
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:quickAddPath usingBlock:^(RKObjectLoader *loader) {
+        loader.method = RKRequestMethodPOST;
+        
+        loader.onDidLoadObjects = ^(NSArray *objects) {                
+            if (completionHandler) {
+                completionHandler(objects, nil);
+            }
+        };
+        
+        loader.onDidFailWithError = ^(NSError *error) {
+            if (completionHandler) {
+                completionHandler(nil, error);
+            }
+        };
+    }];
+}
+
+- (void)followUsers:(NSArray *)userIDs fromScreen:(NSString *)screenTag completionHandler:(GTIOCompletionHandler)completionHandler
+{
+    NSString *followPath = @"/users/follow-many";
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:followPath usingBlock:^(RKObjectLoader *loader) {
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSDictionary dictionaryWithObject:screenTag forKey:@"screen"], @"track",
+                                userIDs, @"users",
+                                nil];
+        loader.params = GTIOJSONParams(params);
+        loader.method = RKRequestMethodPOST;
+        
+        loader.onDidLoadObjects = ^(NSArray *objects) {                
+            if (completionHandler) {
+                completionHandler(objects, nil);
+            }
+        };
+        
+        loader.onDidFailWithError = ^(NSError *error) {
+            if (completionHandler) {
+                completionHandler(nil, error);
+            }
+        };
+    }];
 }
 
 #pragma mark - RKRequestDelegate Methods

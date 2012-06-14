@@ -3659,6 +3659,9 @@ A user can confirm that they want to upload the photo they've taken or selected.
       - 'x' button **tap** => (view 12.1)
    - If a user arrived on this screen via the Photoshoot grid, they can return to the grid via a grid icon (seen in view 12.2.1)
       - grid button **tap** => (view 12.4)
+- Product Photos / different aspect ratios
+   - Filter should be applied only to source image and not to any letterboxed areas that may be shown
+   - Filter masks should scale along with particular size and ratio of source image
 
 ### Design Stories
 - Bottom Bar
@@ -3681,6 +3684,12 @@ A user can confirm that they want to upload the photo they've taken or selected.
       - Non-selected filter text is 60% opacity
 - Background shadow
 	- 101px high shadow behind filter buttons using (upload.filter.shadow.bg.png) which should stretch horizontally
+- Product Photos / different aspect ratios
+   - if a source photo has an aspect ratio that is shorter than that of the available content area (320 x 427), photo should be displayed so that it is screen width, while preserving original aspect ratio (letterboxing top and bottom)
+   - if a source photo has an aspect ratio that is taller than that of the available content area, photo should be displayed so that it is 427px high, while preserving original aspect ratio (letterboxing left and right)
+   - if a source photo doesn't fit width or height we will scale the image up to fit either height or width while perserving the original aspect ration
+   - content area behind photo (visible wherever source photo is not filling screen) is rgb(100,100,100)
+      - overlay edges of letterbox towards source photo with 'filter-letterbox-shadow.png' (has vertical top/bottom, horizontal left/right versions)
 
 ### 12.3 Post a look  
 

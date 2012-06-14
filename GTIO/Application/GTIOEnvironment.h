@@ -61,3 +61,6 @@ typedef enum GTIODeleteButtonPosition {
     GTIODeleteButtonPositionLeft = 0,
     GTIODeleteButtonPositionRight,
 } GTIODeleteButtonPosition;
+
+// Generic Completion Handler
+typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);

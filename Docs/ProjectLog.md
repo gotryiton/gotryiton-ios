@@ -1,3 +1,93 @@
+***Thursday, June 14th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Release Sprint Build EOB today
+- GTIO - Provide initial feedback on build 6/15
+- TT - Begin on 8.1 development, start working on build feedback
+
+**Status**
+- Filter functionality has been completed
+ - Memory issues have been identified.  Scott has been troubleshooting crashes for over a day with no progress.
+ - Push further debugging to later Sprint
+- Photo Frame Features
+ - Table until sprint beginning 7/1
+
+**Updates to Planned Work**
+- Mov
+
+**Updates to Important Dates / Deadlines**
+- Scott out of office 6/15
+
+**General Notes**
+- Simon to select dates for travel to NC (Tentatively 25-26)
+- Starting next sprints, builds to be delivered weekly
+
+---
+
+***Wednesday, June 13th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Need mask 3 image
+- TT - Add loading spinner if image filter still processing
+- GTIO - Fix followers/following/stars button objects on /user/management endpoint
+- GTIO - Add Chevron BOOL to buttons object (Maybe make this a custom field that we can reuse for other stuff?)
+- GTIO - Quick Add fail silently and go on to next page. Error will contian a alert object if we should show alert.
+ - TT - Revise delivery schedule to speed up feedback
+
+**Status**
+- Filter almost complete
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Next Sprint: Work on non-upload features to help fill out the application
+- Simon visits Durham once again to focus on autocomplete behavior
+
+---
+
+***Tuesday, June 12th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Continue discussion on filter optimization
+
+**Status**
+- Moving forward on filter development
+- Wrapping up on Quick Add screen
+- Remaining work
+ - Photo Frame shooting
+ - 7.1 wiring
+ - text correction bugs
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA 
+
+---
+
 ***Monday, June 11th - Standup Notes***
 
 **Attendees**

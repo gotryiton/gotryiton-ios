@@ -10,7 +10,7 @@
 
 @implementation GTIOButton
 
-@synthesize tapHandler = _tapHandler;
+@synthesize tapHandler = _tapHandler, name = _name, action = _action, count = _count, text = _text, attribute = _attribute, value = _value, chevron = _chevron;
 
 #pragma mark - Button creator helpers
 
@@ -43,6 +43,11 @@
         case GTIOButtonTypePhotoSelectBox: return [self gtio_photoSelectBox];
         case GTIOButtonTypePostThis: return [self gtio_postThisButton];
         case GTIOButtonTypePhotoDelete: return [self gtio_photoDeleteButton];
+        case GTIOButtonTypeNotificationBubble: return [self gtio_notificationBubbleButton];
+        case GTIOButtonTypeNotificationBubbleEmpty: return [self gtio_notificationBubbleEmptyButton];
+        case GTIOButtonTypeEditProfilePencilCircle: return [self gtio_editProfilePencilCircle];
+        case GTIOButtonTypeQuickAddCheckbox: return [self gtio_quickAddCheckbox];
+        case GTIOButtonTypeFollowButton: return [self gtio_followButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -256,6 +261,43 @@
 + (id)gtio_photoDeleteButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"remove-frame-OFF.png"] hightlightImage:[UIImage imageNamed:@"remove-frame-ON.png"]];
+}
+
++ (id)gtio_notificationBubbleButton
+{
+    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"nav.counter.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.active.png"]];
+}
+
++ (id)gtio_notificationBubbleEmptyButton
+{
+    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"nav.counter.empty.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.empty.active.png"]];
+}
+
++ (id)gtio_editProfilePencilCircle
+{
+    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"edit-info-inactive.png"] hightlightImage:[UIImage imageNamed:@"edit-info-active.png"]];
+}
+
++ (id)gtio_quickAddCheckbox
+{
+    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"checkbox-off.png"] hightlightImage:[UIImage imageNamed:@"checkbox-off.png"]];
+    [button setImage:[UIImage imageNamed:@"checkbox-on.png"] forState:UIControlStateSelected];
+    return button;
+}
+
++ (id)gtio_followButton
+{
+    GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"follow-button-off.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"follow-button-on.png"] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[UIImage imageNamed:@"follow-button-disabled.png"] forState:UIControlStateDisabled];
+    [button setFrame:(CGRect){ 0, 0, [UIImage imageNamed:@"follow-button-off.png"].size }];
+    [button.titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:18.0]];
+    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(7.0, 0, 0, 0)];
+    [button setTitle:@"follow" forState:UIControlStateDisabled];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
 }
 
 #pragma mark - Touch Handling

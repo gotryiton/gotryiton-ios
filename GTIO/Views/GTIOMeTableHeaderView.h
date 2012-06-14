@@ -11,8 +11,9 @@
 
 @interface GTIOMeTableHeaderView : UIView
 
+@property (nonatomic, strong) NSArray *userInfoButtons;
 @property (nonatomic, weak) id<GTIOMeTableHeaderViewDelegate> delegate;
 
-- (void)refreshData;
+- (void)refreshUserData;
 
 @end

@@ -15,10 +15,11 @@
 #import "GTIOUser.h"
 #import "GTIOAuth.h"
 #import "GTIOIcon.h"
-#import "GTIOFacebookIcon.h"
-#import "GTIODefaultIcon.h"
+#import "GTIOBadge.h"
 #import "GTIOPhoto.h"
 #import "GTIOPost.h"
+#import "GTIOButtonAction.h"
+#import "GTIOMyManagementScreen.h"
 
 @implementation GTIOMappingProvider
 
@@ -34,10 +35,12 @@
         RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[GTIOUser class]];
         RKObjectMapping *authMapping = [RKObjectMapping mappingForClass:[GTIOAuth class]];
         RKObjectMapping *userIconMapping = [RKObjectMapping mappingForClass:[GTIOIcon class]];
-        RKObjectMapping *facebookUserIconMapping = [RKObjectMapping mappingForClass:[GTIOFacebookIcon class]];
-        RKObjectMapping *defaultUserIconMapping = [RKObjectMapping mappingForClass:[GTIODefaultIcon class]];
         RKObjectMapping *userPhotoMapping = [RKObjectMapping mappingForClass:[GTIOPhoto class]];
         RKObjectMapping *postMapping = [RKObjectMapping mappingForClass:[GTIOPost class]];
+        RKObjectMapping *badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
+        RKObjectMapping *buttonMapping = [RKObjectMapping mappingForClass:[GTIOButton class]];
+        RKObjectMapping *buttonActionMapping = [RKObjectMapping mappingForClass:[GTIOButtonAction class]];
+        RKObjectMapping *myManagementScreenMapping = [RKObjectMapping mappingForClass:[GTIOMyManagementScreen class]];
         
         /** Config
          */
@@ -94,21 +97,34 @@
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
         [userMapping mapKeyPath:@"is_facebook_connected" toAttribute:@"isFacebookConnected"];
         [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", nil];
+        [userMapping mapKeyPath:@"badge" toRelationship:@"badge" withMapping:badgeMapping];
         [self setMapping:userMapping forKeyPath:@"user"];
+        [self setMapping:userMapping forKeyPath:@"users"];
         
         // User Icons
-        [userIconMapping mapAttributes:@"url", @"width", @"height", nil];
-        [facebookUserIconMapping mapAttributes:@"url", @"width", @"height", nil];
-        [defaultUserIconMapping mapAttributes:@"url", @"width", @"height", nil];
-        [self setMapping:defaultUserIconMapping forKeyPath:@"default_icon"];
-        [self setMapping:facebookUserIconMapping forKeyPath:@"facebook_icon"];
-        [self setMapping:userIconMapping forKeyPath:@"outfit_icons"];
+        [userIconMapping mapAttributes:@"name", @"url", @"width", @"height", nil];
+        [self setMapping:userIconMapping forKeyPath:@"icons"];
+        
+        [badgeMapping mapAttributes:@"path", nil];
+        [self setMapping:badgeMapping forKeyPath:@"badge"];
         
         // User Photo
         [userPhotoMapping mapKeyPath:@"id" toAttribute:@"photoID"];
         [userPhotoMapping mapKeyPath:@"user_id" toAttribute:@"userID"];
         [userPhotoMapping mapAttributes:@"url", @"width", @"height", nil];
         [self setMapping:userPhotoMapping forKeyPath:@"photo"];
+        
+        /** Buttons
+         */
+        [buttonActionMapping mapAttributes:@"destination", @"endpoint", nil];
+        [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", nil];
+        
+        /** Screens
+         */
+        [myManagementScreenMapping mapKeyPath:@"user_info.buttons" toRelationship:@"userInfo" withMapping:buttonMapping];
+        [myManagementScreenMapping mapKeyPath:@"management.buttons" toRelationship:@"management" withMapping:buttonMapping];
+        [self setMapping:myManagementScreenMapping forKeyPath:@"ui"];
         
         /** Auth
          */
