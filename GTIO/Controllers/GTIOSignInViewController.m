@@ -16,7 +16,6 @@
 
 #import "GTIOPostALookViewController.h"
 
-#import "GTIOUser.h"
 #import "GTIOTrack.h"
 
 #import "GTIOProgressHUD.h"
@@ -33,7 +32,7 @@
 @implementation GTIOSignInViewController
 
 @synthesize facebookButton = _facebookButton, returningUserButton = _returningUserButton;
-@synthesize tracked = _tracked;
+@synthesize tracked = _tracked, loginHandler = _loginHandler;
 
 - (void)loadView
 {
@@ -45,8 +44,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login-bg-logo.png"]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
@@ -74,7 +71,11 @@
                     }
                 } else {
                     if ([user.hasCompleteProfile boolValue]) {
-                        [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                        if (self.loginHandler) {
+                            self.loginHandler(user, nil);
+                        } else {
+                            [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                        }
                     } else {
                         GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                         [self.navigationController pushViewController:almostDone animated:YES];
@@ -90,6 +91,7 @@
     [self.returningUserButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.returningUserButton setTapHandler:^(id sender) {
         GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:YES];
+        [returningUsersViewController setLoginHandler:self.loginHandler];
         [self.navigationController pushViewController:returningUsersViewController animated:YES];
     }];
     [self.view addSubview:self.returningUserButton];
@@ -131,6 +133,12 @@
     self.returningUserButton = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -147,6 +155,7 @@
 - (void)loadReturningUsersViewController
 {
     GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:NO];
+    [returningUsersViewController setLoginHandler:self.loginHandler];
     [self.navigationController pushViewController:returningUsersViewController animated:YES];
 }
 

@@ -11,7 +11,6 @@
 #import "GTIOFailedSignInViewController.h"
 #import "GTIOQuickAddViewController.h"
 
-#import "GTIOUser.h"
 #import "GTIOAppDelegate.h"
 
 #import "GTIOProgressHUD.h"
@@ -33,7 +32,7 @@
 @implementation GTIOReturningUsersViewController
 
 @synthesize facebookButton = _facebookButton, aolButton = _aolButton, googleButton = _googleButton, twitterButton = _twitterButton, yahooButton = _yahooButton;
-@synthesize returningUser = _returningUser;
+@synthesize returningUser = _returningUser, loginHandler = _loginHandler;
 
 - (id)initForReturningUsers:(BOOL)returning 
 {
@@ -181,7 +180,11 @@
             }
         } else {
             if ([user.hasCompleteProfile boolValue]) {
-                [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                if (self.loginHandler) {
+                    self.loginHandler(user, nil);
+                } else {
+                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                }
             } else {
                 GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:almostDone animated:YES];

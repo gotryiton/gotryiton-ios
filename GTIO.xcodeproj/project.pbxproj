@@ -622,6 +622,8 @@
 		8E97DF341586A81300521968 /* GTIOQuickAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */; };
 		8EA21B39157FDDC000D5003C /* GTIOPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA21B38157FDDC000D5003C /* GTIOPost.m */; };
 		8EAA14C7156E846C0083884E /* GTIOTextFieldForPickerViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */; };
+		8ECB2A8C1587DEDC0039A4F1 /* GTIOButtonAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB2A8B1587DEDC0039A4F1 /* GTIOButtonAction.m */; };
+		8ECB2A901587E0480039A4F1 /* GTIOMyManagementScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB2A8F1587E0480039A4F1 /* GTIOMyManagementScreen.m */; };
 		8EDA556615757777009F0404 /* GTIOLookSelectorControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556515757777009F0404 /* GTIOLookSelectorControl.m */; };
 		8EDA556B15757E8A009F0404 /* GTIOPostALookOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556A15757E8A009F0404 /* GTIOPostALookOptionsView.m */; };
 		8EDA556E15758261009F0404 /* GTIOPostALookDescriptionBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556D15758261009F0404 /* GTIOPostALookDescriptionBox.m */; };
@@ -667,6 +669,9 @@
 		8EDC82291586811700A2097A /* filter-thumb-walker.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDC82151586811700A2097A /* filter-thumb-walker.png */; };
 		8EDC822A1586811700A2097A /* filter-thumb-walker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDC82161586811700A2097A /* filter-thumb-walker@2x.png */; };
 		8EDC822D1586826E00A2097A /* GTIOQuickAddTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDC822C1586826D00A2097A /* GTIOQuickAddTableCell.m */; };
+		8EECB5911589032100025BAD /* GTIOMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EECB5901589032100025BAD /* GTIOMeTableViewCell.m */; };
+		8EECB59415890A2000025BAD /* GTIOMeTableHeaderViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EECB59315890A2000025BAD /* GTIOMeTableHeaderViewLabel.m */; };
+		8EECB597158916D600025BAD /* GTIORouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EECB596158916D600025BAD /* GTIORouter.m */; };
 		8EF8FF83156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8FF82156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m */; };
 		8EF8FF9D156C112400AFCE55 /* GTIOAlmostDoneTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8FF9C156C112400AFCE55 /* GTIOAlmostDoneTableCell.m */; };
 		D201C8271561455100C4168D /* GTIOIntroScreensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */; };
@@ -1495,6 +1500,10 @@
 		8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTextFieldForPickerViews.m; sourceTree = "<group>"; };
 		8EB24B2915828FEF00BC2FE5 /* GTIOQuickAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOQuickAddViewController.h; sourceTree = "<group>"; };
 		8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOQuickAddViewController.m; sourceTree = "<group>"; };
+		8ECB2A8A1587DEDC0039A4F1 /* GTIOButtonAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOButtonAction.h; sourceTree = "<group>"; };
+		8ECB2A8B1587DEDC0039A4F1 /* GTIOButtonAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOButtonAction.m; sourceTree = "<group>"; };
+		8ECB2A8E1587E0480039A4F1 /* GTIOMyManagementScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMyManagementScreen.h; sourceTree = "<group>"; };
+		8ECB2A8F1587E0480039A4F1 /* GTIOMyManagementScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMyManagementScreen.m; sourceTree = "<group>"; };
 		8EDA556415757777009F0404 /* GTIOLookSelectorControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLookSelectorControl.h; sourceTree = "<group>"; };
 		8EDA556515757777009F0404 /* GTIOLookSelectorControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOLookSelectorControl.m; sourceTree = "<group>"; };
 		8EDA556815757B8A009F0404 /* GTIOLookSelectorControlDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOLookSelectorControlDelegate.h; path = Protocols/GTIOLookSelectorControlDelegate.h; sourceTree = "<group>"; };
@@ -1548,6 +1557,12 @@
 		8EDC82161586811700A2097A /* filter-thumb-walker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter-thumb-walker@2x.png"; sourceTree = "<group>"; };
 		8EDC822B1586826D00A2097A /* GTIOQuickAddTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOQuickAddTableCell.h; sourceTree = "<group>"; };
 		8EDC822C1586826D00A2097A /* GTIOQuickAddTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOQuickAddTableCell.m; sourceTree = "<group>"; };
+		8EECB58F1589032100025BAD /* GTIOMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMeTableViewCell.h; sourceTree = "<group>"; };
+		8EECB5901589032100025BAD /* GTIOMeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMeTableViewCell.m; sourceTree = "<group>"; };
+		8EECB59215890A2000025BAD /* GTIOMeTableHeaderViewLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMeTableHeaderViewLabel.h; sourceTree = "<group>"; };
+		8EECB59315890A2000025BAD /* GTIOMeTableHeaderViewLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMeTableHeaderViewLabel.m; sourceTree = "<group>"; };
+		8EECB595158916D600025BAD /* GTIORouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIORouter.h; sourceTree = "<group>"; };
+		8EECB596158916D600025BAD /* GTIORouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIORouter.m; sourceTree = "<group>"; };
 		8EF8FF81156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAlmostDoneTableHeaderCell.h; sourceTree = "<group>"; };
 		8EF8FF82156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAlmostDoneTableHeaderCell.m; sourceTree = "<group>"; };
 		8EF8FF9B156C112400AFCE55 /* GTIOAlmostDoneTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAlmostDoneTableCell.h; sourceTree = "<group>"; };
@@ -1811,6 +1826,8 @@
 				8E12C1F415754E870097CDE9 /* GTIOViewController.m */,
 				D27E16FC157FD23F0044EC3C /* GTIOScrollView.h */,
 				D27E16FD157FD23F0044EC3C /* GTIOScrollView.m */,
+				8EECB595158916D600025BAD /* GTIORouter.h */,
+				8EECB596158916D600025BAD /* GTIORouter.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -2765,6 +2782,17 @@
 			name = Post;
 			sourceTree = "<group>";
 		};
+		8ECB2A8D1587E0220039A4F1 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				8ECB2A8A1587DEDC0039A4F1 /* GTIOButtonAction.h */,
+				8ECB2A8B1587DEDC0039A4F1 /* GTIOButtonAction.m */,
+				8ECB2A8E1587E0480039A4F1 /* GTIOMyManagementScreen.h */,
+				8ECB2A8F1587E0480039A4F1 /* GTIOMyManagementScreen.m */,
+			);
+			name = Screens;
+			sourceTree = "<group>";
+		};
 		8EDA556715757B6D009F0404 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -2821,6 +2849,10 @@
 				8EDC81D61586380B00A2097A /* GTIOAccountCreatedView.m */,
 				8EDC822B1586826D00A2097A /* GTIOQuickAddTableCell.h */,
 				8EDC822C1586826D00A2097A /* GTIOQuickAddTableCell.m */,
+				8EECB58F1589032100025BAD /* GTIOMeTableViewCell.h */,
+				8EECB5901589032100025BAD /* GTIOMeTableViewCell.m */,
+				8EECB59215890A2000025BAD /* GTIOMeTableHeaderViewLabel.h */,
+				8EECB59315890A2000025BAD /* GTIOMeTableHeaderViewLabel.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -3230,6 +3262,7 @@
 		D2CDA9B015503307009B7E24 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8ECB2A8D1587E0220039A4F1 /* Screens */,
 				8EA21B36157FDDAA00D5003C /* Post */,
 				D239CA7A15750D56004C6D51 /* Table Items */,
 				8E240E1E156ED41E004EA1B8 /* Profile */,
@@ -4289,6 +4322,11 @@
 				D2D2F6131586309400D6C541 /* GTIONavigationTitleView.m in Sources */,
 				8E97DF341586A81300521968 /* GTIOQuickAddViewController.m in Sources */,
 				8E180A63158789DA0074E7C9 /* GTIOBadge.m in Sources */,
+				8ECB2A8C1587DEDC0039A4F1 /* GTIOButtonAction.m in Sources */,
+				8ECB2A901587E0480039A4F1 /* GTIOMyManagementScreen.m in Sources */,
+				8EECB5911589032100025BAD /* GTIOMeTableViewCell.m in Sources */,
+				8EECB59415890A2000025BAD /* GTIOMeTableHeaderViewLabel.m in Sources */,
+				8EECB597158916D600025BAD /* GTIORouter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

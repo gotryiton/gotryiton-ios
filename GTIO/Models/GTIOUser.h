@@ -13,7 +13,6 @@
 
 @class GTIOUser;
 
-typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
 typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
 typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 
@@ -46,6 +45,7 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 /** The current user that is logged in
  */
 + (GTIOUser *)currentUser;
+- (void)populateWithUser:(GTIOUser *)user;
 
 /** Returns whether current user is authed
  */
@@ -73,10 +73,6 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 /** User Icons from API
  */
 - (void)loadUserIconsWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
-
-/** Prepare the current user for management
- */
-- (void)prepareForManagement;
 
 /** Follow / Quick Add Functionality
  */

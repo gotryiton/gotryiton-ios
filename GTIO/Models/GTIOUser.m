@@ -213,6 +213,7 @@
     self.url = user.url;
     self.email = user.email;
     self.isFacebookConnected = user.isFacebookConnected;
+    self.badge = user.badge;
 }
 
 #pragma mark - janrain
@@ -300,23 +301,6 @@
                     completionHandler(nil, error);
                 }
             };
-        }];
-    } else {
-        NSLog(@"no auth token");
-    }
-}
-
-- (void)prepareForManagement
-{
-    NSString *managementResourcePath = @"/user/management";
-    
-    BOOL authToken = NO;
-    if ([[RKObjectManager sharedManager].client.HTTPHeaders objectForKey:kGTIOAuthenticationHeaderKey]) {
-        authToken = YES;
-    }
-    if (authToken) {
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:managementResourcePath usingBlock:^(RKObjectLoader *loader) {
-            loader.targetObject = [GTIOUser currentUser];
         }];
     } else {
         NSLog(@"no auth token");
