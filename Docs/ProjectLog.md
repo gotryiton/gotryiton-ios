@@ -1,3 +1,34 @@
+***Thursday, June 14th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Release Sprint Build EOB today
+- GTIO - Provide initial feedback on build 6/15
+- TT - Begin on 8.1 development, start working on build feedback
+
+**Status**
+- Filter functionality has been completed
+ - Memory issues have been identified.  Scott has been troubleshooting crashes for over a day with no progress.
+ - Push further debugging to later Sprint
+- Photo Frame Features
+ - Table until sprint beginning 7/1
+
+**Updates to Planned Work**
+- Mov
+
+**Updates to Important Dates / Deadlines**
+- Scott out of office 6/15
+
+**General Notes**
+- Simon to select dates for travel to NC (Tentatively 25-26)
+- Starting next sprints, builds to be delivered weekly
+
+---
+
 ***Wednesday, June 13th - Standup Notes***
 
 **Attendees**
