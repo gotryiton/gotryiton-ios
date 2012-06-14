@@ -15,7 +15,6 @@
 #import "GTIOSignInViewController.h"
 #import "GTIONavigationTitleView.h"
 #import "GTIOMyManagementScreen.h"
-#import "GTIOMeTableViewCell.h"
 #import "GTIORouter.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOSignInViewController.h"
@@ -216,13 +215,8 @@
         } else if ([buttonForRow.name isEqualToString:@"custom_cell_toggle"]) {
             [cell setHasToggle:YES];
             [cell setToggleState:[buttonForRow.value intValue]];
-            [cell setToggleHandler:^(BOOL on) {
-                [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                    [NSNumber numberWithBool:on], @"public", nil] 
-                                            withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                     @"mymanagement", @"screen", nil]
-                                                    andLoginHandler:nil];
-            }];
+            [cell setIndexPath:indexPath];
+            [cell setToggleDelegate:self];
         }
         [cell setHasChevron:[buttonForRow.chevron boolValue]];
         [cell.textLabel setText:buttonForRow.text];
@@ -230,6 +224,19 @@
     
     return cell;
 
+}
+
+- (void)updateSwitchAtIndexPath:(NSIndexPath *)indexPath
+{
+    GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    UISwitch *switchView = (UISwitch *)cell.accessoryView;
+    GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
+    buttonForRow.value = [NSNumber numberWithBool:switchView.on];
+    [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                         [NSNumber numberWithBool:switchView.on], @"public", nil] 
+                                withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                         @"mymanagement", @"screen", nil]
+                                        andLoginHandler:nil];
 }
 
 #pragma mark - GTIOMeTableHeaderViewDelegate Methods

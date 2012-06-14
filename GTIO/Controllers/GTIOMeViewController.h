@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GTIOViewController.h"
+#import "GTIOMeTableViewCell.h"
 
 @protocol GTIOMeTableHeaderViewDelegate <NSObject>
 
@@ -17,6 +18,6 @@
 
 @end
 
-@interface GTIOMeViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOMeTableHeaderViewDelegate>
+@interface GTIOMeViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOMeTableHeaderViewDelegate, GTIOMeTableViewCellToggleDelegate>
 
 @end
