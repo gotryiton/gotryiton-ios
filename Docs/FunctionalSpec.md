@@ -3096,6 +3096,27 @@ gtio://posts/feed
 - If the user's feed is empty they see messaging encouraging them to add friends
    - see (view 8.1.4)
 
+#### Design Stories
+- post items
+   - user info area
+      - user icon
+         - 7px from left edge of screen
+         - user icon from API displayed at 42px x 42px
+         - image should be masked by 'user-pic-84-mask.png' (to hide corners)
+         - image should be overlaid by 'user-pic-84-shadow-overlay.png'
+      - name / location
+         - background is 'user-info-bg.png'
+            - 7px to the right of user icon
+         - 
+
+   - top item positioning
+      - user icon is 7px away from bottom of navigation bar
+      - user icon is 7px away 7px from left edge of screen
+   - other items' positioning
+      - user icon is 7px away 24px below bottommost element in previous item
+      - user icon is 7px away 7px from left edge of screen
+
+
 ###  8.3 Feed Verdict view  
 
 #### Overview
