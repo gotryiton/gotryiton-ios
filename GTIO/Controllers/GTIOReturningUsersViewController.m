@@ -179,18 +179,16 @@
                 [self.navigationController pushViewController:almostDone animated:YES];
             }
         } else {
-            GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:almostDone animated:YES];
-//            if ([user.hasCompleteProfile boolValue]) {
-//                if (self.loginHandler) {
-//                    self.loginHandler(user, nil);
-//                } else {
-//                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
-//                }
-//            } else {
-//                GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
-//                [self.navigationController pushViewController:almostDone animated:YES];
-//            }
+            if ([user.hasCompleteProfile boolValue]) {
+                if (self.loginHandler) {
+                    self.loginHandler(user, nil);
+                } else {
+                    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                }
+            } else {
+                GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
+                [self.navigationController pushViewController:almostDone animated:YES];
+            }
         }
     }
 }
