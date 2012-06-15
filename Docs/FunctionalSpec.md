@@ -2994,15 +2994,15 @@ Each user has a personalized feed of content on the first tab.  The content cont
 #### Mockups
 8.1 ([wireframe](http://invis.io/P32OE57R)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/_0000_Feed.AP.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0000_Feed.AP.png" width=420px/>
 
 8.1.a no user location   
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/_0002_Feed.UG.No.Location.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0002_Feed.UG.No.Location.png" width=420px/>
 
 8.1.b short image
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/_0003_Feed.Product.Shot.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0003_Feed.Product.Shot.png" width=420px/>
 
 8.1.1 product in feed with voting disabled: ([wireframe](http://invis.io/NS2PAHQA)) 
 
