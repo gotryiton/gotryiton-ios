@@ -2994,31 +2994,42 @@ Each user has a personalized feed of content on the first tab.  The content cont
 #### Mockups
 8.1 ([wireframe](http://invis.io/P32OE57R)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/_0000_Feed.AP.png" width=420px/>
+
+8.1.a no user location   
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/_0002_Feed.UG.No.Location.png" width=420px/>
+
+8.1.b short image
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/1/_0003_Feed.Product.Shot.png" width=420px/>
 
 8.1.1 product in feed with voting disabled: ([wireframe](http://invis.io/NS2PAHQA)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Further.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0011_Feed.VJ.Scrolled.No.Voting.png" width=420px/>
 
-8.1.2a Outfit dot options: ([outfit item](http://invis.io/N92PN2YP)) 
+8.1.2 Post dot options: ([outfit item](http://invis.io/N92PN2YP)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Dot.Options.png" width=420px/>
-
-8.1.2b Product dot options: ([product item](http://invis.io/WN2PN693)) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Further.Dot.Options.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0004_Feed.Product.Shot.Dot.Options.1.png" width=420px/>
 
 8.1.3 feed scrolled: ([wireframe](http://invis.io/DA2PN3TC)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0010_Feed.VJ.Scrolled.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0012_Feed.VJ.Scrolled.Further.No.Description.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0013_Feed.VJ.Scrolled.Further.Description.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0014_Feed.VJ.Scrolled.Further.Tags.Only.png" width=420px/>
+
+8.1.3.a feed scrolled with next feed item
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0023_Feed---Next-Item.png" width=420px/>
 
 8.1.4 feed empty:  ([wireframe](http://invis.io/3W2OH9G2)) 
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Empty.png" width=420px/>
 
-8.1.3 feed with voting results: 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Verdict.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
