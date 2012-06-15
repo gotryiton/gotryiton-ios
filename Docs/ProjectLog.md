@@ -1,3 +1,67 @@
+***Friday, June 15th - Standup / Retrospective Notes***
+
+**Attendees**
+
+- TT - Matt, Scott
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Continue working on feedback / bug reported by GTIO
+- GTIO - Investigate issue with login attempt hanging.  May be API related
+- GTIO - Update Github with issues related to new build
+- TT - Review pulll request from GTIO team containing updated API calls for profile
+
+**Status**
+- Build delievered!
+- Remaining work on Photo Upload pushed until later build
+
+**Planned Work Delivered**
+- Please see the ChangeLog document for a list of all delivered work
+ - https://github.com/twotoasters/GTIO-iOS/blob/master/Docs/ChangeLog.md#build-4002---june-14-20122
+
+**Planned Work Pushed to Next Sprint**
+- NA
+
+**Sprint Retrospective**
+- Initial build. Good overall with the exception of incomplete screens (Photo Frame)
+- Photo Filter feature at risk, discuss with Simon on the 21/22.
+
+---
+
+***Thursday, May 31st - Standup Notes***
+
+**Attendees**
+
+- TT - Matt, Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - provide examples of UISwitch, how to cut assets
+- TT - Remainining development from Sprint, move to Sprint 3
+ - Photo frame mode (both on post view and camera view)
+ - Photo Picker / camera roll
+ - POST /post
+ - POST /image 
+ - Optimization around burst mode
+- TT - Review Simon's pull request related to filters
+
+**Status**
+- Working on image posting screen, with except of photo frame mode
+- compositing multiple images into one for upload
+- Navigation
+- Burst mode is now taking photos
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Thursday, June 14th - Standup Notes***
 
 **Attendees**
