@@ -619,6 +619,9 @@
 		8E91B1A6156AC197009D70AC /* JRUserLandingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E91B0FA156AC197009D70AC /* JRUserLandingController.xib */; };
 		8E91B1A7156AC197009D70AC /* JRWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E91B0FB156AC197009D70AC /* JRWebViewController.xib */; };
 		8E91B1A8156AC197009D70AC /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B0FE156AC197009D70AC /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8E969F54158BD7F7009E19B3 /* GTIOFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E969F53158BD7F7009E19B3 /* GTIOFeedViewController.m */; };
+		8E969F58158BDD79009E19B3 /* GTIOFeedSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E969F57158BDD79009E19B3 /* GTIOFeedSectionHeaderView.m */; };
+		8E969F5B158BE2C0009E19B3 /* GTIOFeedNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E969F5A158BE2C0009E19B3 /* GTIOFeedNavigationBarView.m */; };
 		8E97DF341586A81300521968 /* GTIOQuickAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */; };
 		8EA21B39157FDDC000D5003C /* GTIOPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA21B38157FDDC000D5003C /* GTIOPost.m */; };
 		8EAA14C7156E846C0083884E /* GTIOTextFieldForPickerViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */; };
@@ -795,7 +798,6 @@
 		D2D96FC7156D2A07009B9A72 /* GTIOCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D96FC6156D2A07009B9A72 /* GTIOCameraViewController.m */; };
 		D2D96FC9156D2A48009B9A72 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D96FC8156D2A48009B9A72 /* AVFoundation.framework */; };
 		D2E3759A1559B86700763A67 /* GTIOExploreLooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */; };
-		D2E3759B1559B86700763A67 /* GTIOFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E375991559B86700763A67 /* GTIOFeedViewController.m */; };
 		D2EC0ED8156ADF1500984838 /* GTIOMailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */; };
 		D2EC0EDA156ADF5800984838 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EC0ED9156ADF5800984838 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
@@ -1494,6 +1496,12 @@
 		8E91B0FB156AC197009D70AC /* JRWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JRWebViewController.xib; sourceTree = "<group>"; };
 		8E91B0FD156AC197009D70AC /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		8E91B0FE156AC197009D70AC /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		8E969F52158BD7F7009E19B3 /* GTIOFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFeedViewController.h; sourceTree = "<group>"; };
+		8E969F53158BD7F7009E19B3 /* GTIOFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFeedViewController.m; sourceTree = "<group>"; };
+		8E969F56158BDD79009E19B3 /* GTIOFeedSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFeedSectionHeaderView.h; sourceTree = "<group>"; };
+		8E969F57158BDD79009E19B3 /* GTIOFeedSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFeedSectionHeaderView.m; sourceTree = "<group>"; };
+		8E969F59158BE2C0009E19B3 /* GTIOFeedNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFeedNavigationBarView.h; sourceTree = "<group>"; };
+		8E969F5A158BE2C0009E19B3 /* GTIOFeedNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFeedNavigationBarView.m; sourceTree = "<group>"; };
 		8EA21B37157FDDC000D5003C /* GTIOPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPost.h; sourceTree = "<group>"; };
 		8EA21B38157FDDC000D5003C /* GTIOPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPost.m; sourceTree = "<group>"; };
 		8EAA14C5156E846C0083884E /* GTIOTextFieldForPickerViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTextFieldForPickerViews.h; sourceTree = "<group>"; };
@@ -1764,8 +1772,6 @@
 		D2D96FC8156D2A48009B9A72 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D2E375961559B86700763A67 /* GTIOExploreLooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOExploreLooksViewController.h; sourceTree = "<group>"; };
 		D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOExploreLooksViewController.m; sourceTree = "<group>"; };
-		D2E375981559B86700763A67 /* GTIOFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFeedViewController.h; sourceTree = "<group>"; };
-		D2E375991559B86700763A67 /* GTIOFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFeedViewController.m; sourceTree = "<group>"; };
 		D2EC0ED6156ADF1500984838 /* GTIOMailComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMailComposer.h; sourceTree = "<group>"; };
 		D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMailComposer.m; sourceTree = "<group>"; };
 		D2EC0ED9156ADF5800984838 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -2771,6 +2777,26 @@
 			path = JREngage/Security;
 			sourceTree = "<group>";
 		};
+		8E969F51158BD7AE009E19B3 /* The Feed */ = {
+			isa = PBXGroup;
+			children = (
+				8E969F52158BD7F7009E19B3 /* GTIOFeedViewController.h */,
+				8E969F53158BD7F7009E19B3 /* GTIOFeedViewController.m */,
+			);
+			name = "The Feed";
+			sourceTree = "<group>";
+		};
+		8E969F55158BDD60009E19B3 /* The Feed */ = {
+			isa = PBXGroup;
+			children = (
+				8E969F56158BDD79009E19B3 /* GTIOFeedSectionHeaderView.h */,
+				8E969F57158BDD79009E19B3 /* GTIOFeedSectionHeaderView.m */,
+				8E969F59158BE2C0009E19B3 /* GTIOFeedNavigationBarView.h */,
+				8E969F5A158BE2C0009E19B3 /* GTIOFeedNavigationBarView.m */,
+			);
+			name = "The Feed";
+			sourceTree = "<group>";
+		};
 		8EA21B36157FDDAA00D5003C /* Post */ = {
 			isa = PBXGroup;
 			children = (
@@ -3241,6 +3267,7 @@
 		D2CDA9AF15503307009B7E24 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8E969F51158BD7AE009E19B3 /* The Feed */,
 				8E12C1F615754E910097CDE9 /* General */,
 				8E12C1EB157544200097CDE9 /* Photo Upload */,
 				D2D96FC4156D29F8009B9A72 /* Camera */,
@@ -3249,8 +3276,6 @@
 				D201C824156144CE00C4168D /* Splash/Intro */,
 				D2E375961559B86700763A67 /* GTIOExploreLooksViewController.h */,
 				D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */,
-				D2E375981559B86700763A67 /* GTIOFeedViewController.h */,
-				D2E375991559B86700763A67 /* GTIOFeedViewController.m */,
 				D2603DC4155AAE4500536BF9 /* GTIOShopViewController.h */,
 				D2603DC5155AAE4500536BF9 /* GTIOShopViewController.m */,
 				D2EC0ED6156ADF1500984838 /* GTIOMailComposer.h */,
@@ -3281,6 +3306,7 @@
 		D2CDA9B115503307009B7E24 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8E969F55158BDD60009E19B3 /* The Feed */,
 				D298588B156543F4005EE3CA /* General */,
 				8E12C1FA1575538F0097CDE9 /* Photo Upload */,
 				D2D96EEE156D275B009B9A72 /* Camera */,
@@ -4215,7 +4241,6 @@
 				D2CDA99E1550307B009B7E24 /* GTIOAppDelegate.m in Sources */,
 				D2CDA9AA155032D7009B7E24 /* main.m in Sources */,
 				D2E3759A1559B86700763A67 /* GTIOExploreLooksViewController.m in Sources */,
-				D2E3759B1559B86700763A67 /* GTIOFeedViewController.m in Sources */,
 				D2603DC6155AAE4500536BF9 /* GTIOShopViewController.m in Sources */,
 				D2603DC9155AAE5100536BF9 /* GTIOMeViewController.m in Sources */,
 				D2603E1E155AD92E00536BF9 /* TTTAttributedLabel.m in Sources */,
@@ -4327,6 +4352,9 @@
 				8EECB5911589032100025BAD /* GTIOMeTableViewCell.m in Sources */,
 				8EECB59415890A2000025BAD /* GTIOMeTableHeaderViewLabel.m in Sources */,
 				8EECB597158916D600025BAD /* GTIORouter.m in Sources */,
+				8E969F54158BD7F7009E19B3 /* GTIOFeedViewController.m in Sources */,
+				8E969F58158BDD79009E19B3 /* GTIOFeedSectionHeaderView.m in Sources */,
+				8E969F5B158BE2C0009E19B3 /* GTIOFeedNavigationBarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
