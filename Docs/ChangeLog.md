@@ -3,7 +3,7 @@
 #### Build 4.0.0.2 - June 14, 2012
 
 ### Build Summary
-This build adds management pages, quick add page, uploading of photos, filtering of photo (currently crashes b/c of memory warning), minor tweaks and bug fixes.
+This build adds management pages, quick add page, uploading of photos, camera focusing, filtering of photo (currently crashes b/c of memory warning), minor tweaks and bug fixes.
 
 ### Completed Development
 
