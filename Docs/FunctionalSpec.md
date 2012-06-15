@@ -2737,52 +2737,56 @@ gtio://profile/:user_id
 
 #### Stories
 - a user can view the profile info of another user (or their self)
-   - user.name, user.location, user.icon are displayed at the top of the page
-      - user.badge is displayed next to name.
+   - ```user.name```, ```user.location```, ```user.icon``` are displayed at the top of the page
+      - ```user.badge``` is displayed next to name.
          - path to the badge is defined in api: ```user.badge.path```
-         - file is defined in app
+         - file is defined in app:
             - use size "38_38.png" for 2x
             - use size "17_17.png" for 1x
 - a user can follow another user (but not theirself)
    - follow button displayed in top right corner
-   - defined in api response ```user.follow_button```
+   - defined in api response ```user.button```
       - if null (requesting user is the same as profiled user -- or user is just not follow-able for some reason), do not display
-- settings btn
-   - defined in api, ```user.settings```
-      - if null, do not display
+- a user can edit the settings of their relationship to the profiled user
+   - button opens an actionsheet if ```ui.settings.buttons``` is not empty
+      - if ```ui.settings``` is null, do not display the settings button
    - tapping raises actionsheet with buttons that are contained in the settings_button object:
-      - items in the actionsheet are defined by those buttons
-         - ```button.text``` defines visible text
-         - ```button.action``` defines api action
+      - items in the actionsheet are defined by the buttons in the array
 - a user can read another user's bio
    - bio is defined as ```user.about```
 - a user can see who another user is following
-   - ```user.following_button``` defines action and count for the following button
-      - **tap** ==> (view 6.5)
+   - ```ui.buttons``` will include a button with ```name:following``` 
+   - button will define destination and count for the following button
+   - routes to ```gtio://user/:user_id/following``` (view 6.5)
 - a user can see who another user's followers are
-   - ```user.followers_button``` defines action and count for the followers button
-      - **tap** ==> (view 6.6)
+   - ```ui.buttons``` will include a button with ```name:followers``` 
+   - button will define destination and count for the followers button
+   - routes to ```gtio://user/:user_id/followers``` (view 6.6)
 - a user can see who another user's starred posts (editors picks)
-   - ```user.stars_button``` defines action and count for the stars button
-      - **tap** ==> (view 7.9)
+    - ```ui.buttons``` will include a button with ```name:stars``` 
+   - button will define destination and count for the stars button
+   - routes to ```gtio://user/:user_id/followers``` (view 6.5)
 - A user can see additional info about another user 
    - each profile has a customizable text fields (view 7.7.1)
-      - defined in api as ```users.profile_callouts``` array
+      - defined in api as ```ui.profile_callouts``` array
       - each item has ```icon``` and ```text```
       - text should support ```<b>``` tags for highlighting bold text
       - items are not tappable
 - Special branded users can display a banner in their profile
    - banner area (view 7.7.3)
-      - image and action defined in api with ```user.banner_ad```
+      - button is defined in the api with ```ui.buttons```
+      - banner button will have ```name:banner-ad```
+      - banner button will have ```image:[url]``` to define the image to display (will be a 2x image)
 - A users profile can show a button linking to an external site
    - seen in (view 7.7.1)
-   - button defined by api through ```user.website_button```
-      - button includes ```text``` and ```action``` 
+   - button defined by api through ```ui.buttons```
+   - button will have ```name:website-button```
+   - button includes ```text``` and ```action``` 
 - A users profile shows a masonry list of their hearts and looks
    - api responds with ```hearts_list``` and ```posts_list``` which will be identical responses to ```/posts/hearted-by-user/:user_id``` and ```/posts/by-user/:user_id``` respectively
       - api paginates in the usual manner
-   - each post is displayed as a thumbnail using ```post.thumbnail```
-      - **tap** ==> (view 4.1), (view 3.1), or (view 3.6)
+   - each post is displayed as a thumbnail using ```post.photo.thumbnail```
+      - **tap** ==> (view 4.1)
 
 
 #### Design Stories
