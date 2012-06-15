@@ -3101,6 +3101,14 @@ gtio://posts/feed
    - see (view 8.1.4)
 
 #### Design Stories
+- accent line
+   - 'accent-line.png'
+      - (assets are designed to show an element exactly 2px wide on both @1x and @2x displays)
+      - vertically stretchable
+      - stretch to form a vertical line 24px from right edge of the screen
+   - line should be interrupted (shows a gap) and overlaid with separators by timestamp (story below)
+   - line should be interrupted (shows a gap) and overlaid with a separator by 'wear this?' callout (story below)
+   - line should be overlaid by various buttons (stories below)
 - post items
    - user info area
       - user icon
@@ -3111,8 +3119,128 @@ gtio://posts/feed
       - name / location
          - background is 'user-info-bg.png'
             - 7px to the right of user icon
-         - 
+         - name is Archer Book Italic, 16pt, rgb(255,106,114)
+            - 7px left padding inside background area
+            - if location exists, baseline is 23px up from bottom of background area
+            - if location does not exist, baseline is 8px up from bottom of background area
+         - location is Proxima Nova Regular, 10pt, rgb(156,156,156)
+            - 7px left padding inside background area
+            - baseline is 8px up from bottom of background area
+   - timestamp
+      - 34px high gap in accent line, vertically centered/aligned with position of user info
+      - text is Archer Medium Italic, 10pt, rgb(143,143,143)
+         - vertically centered inside gap
+         - horizontally centered around accent line
+      - separators
+         - 'accent-line-separator-top.png' horizontally centered around accent line, at top of gap
+         - 'accent-line-separator-bottom.png' horizontally centered around accent line, at bottom of gap
+   - photo
+      - background (big frame) is 'photo-bg.png'
+         - positioning
+            - left edge of frame (not including shadow, including stroke outline) should line up with left edge of user icon
+            - top edge of frame asset (including any transparent area) should be 7px from bottom of user icon
+         - vertical middle is stretchable
+         - 10px nonstretchable on top
+         - 12px nonstretchable on bottom
+         - frame asset should be stretched to height which is sum of:
+            - photo height
+            - 22px (for top and bottom frame edges w/ padding)
+            - total height required to accommodate photo description.  brand buttons and extra padding for those elements (story below)
+         - photo is placed offset 7px down from top of frame asset
+         - photo is placed vertically centered within frame asset (should be 5px from the left edge of asset)
+      - heart toggle
+         - 'heart-toggle.png' with on/off states, each with active and inactive
+         - asset is placed 9px down from top of photo
+         - asset is placed 9px from left edge of photo
+   - post description
+      - shown inside photo frame between bottom edge of frame and bottom edge of photo
+      - Verlag Extra Light, 13pt, rgb(35,35,35), #232323
+      - any tags: Verlag Extra Light, 13pt, rgb(255,106,114), #ff6a72
+      - text area
+         - 240px wide
+         - horizontally centered inside frame background
+         - baseline of first line of text is 19px from bottom of photo
+   - heart info
+      - 'heart-bullet.png'
+         - left edge of heart shape should line up with left edge of photo (approx 13px from left edge of screen, not including 'glow' padding in heart asset)
+         - top edge of heart is 12px down from bottom edge of photo frame
+      - text is Proxima Nova Semibold, 13pt, rgb(172,172,172)
+         - baseline of first line of text is 23px from bottom edge of photo frame
+         - text area is 228px wide, lines should wrap (right edge of text area should be be same as right edge of photo)
+   - buttons
+      - if photo height < 247px and voting is ON, assume photo height is 247px to accommodate max number of buttons and minimum gaps required
+      - brand buttons
+         - 'button-brand.png' with active and inactive versions
+         - horizontal middle is stretchable
+         - 5px nonstretchable on left
+         - 5px nonstretchable on right
+         - positioning
+            - first button is 18px from left edge of screen
+            - top row of buttons are 11px away from baseline of last line of description or bottom of photo
+            - 8px gap between buttons
+            - if a row exceeds 240px, last button should wrap to an additional row
+               - additional rows have 8px padding from previous rows
+      - review button
+         - 'button-review.png' with active and inactive states
+         - top of circle (not including 'glow') should line up with top of photo
+         - horizontally centered around accent line
+      - review button count
+         - Verlag Book, 12pt, rgb(143,204,177)
+         - horizontally centered around accent line
+         - vertically centered within button asset
+      - product info button
+         - 'button-shopbag.png' with active and inactive states
+         - horizontally centered around accent line
+         - circle is 9px away from review circle (not including 'glow' areas)
+      - dot dot dot button
+         - 'button-dot.png' with active and inactive states
+         - horizontally centered around accent line
+         - circle is 9px away from circle of button above (not including 'glow' areas)
+         - triggers 'dot dot dot menu' (see story below)
+      - hanger up button
+         - only present if voting is ON
+         - 'button-hanger-up.png' with active and inactive states
+         - horizontally centered around accent line
+         - circle is 9px away from hanger down button (not including 'glow' areas) which is positioned based on photo height
+         - after tap: see 'verdict' story
+      - hanger down button
+         - only present if voting is ON
+         - 'button-hanger-down.png' with active and inactive states
+         - horizontally centered around accent line
+         - bottom of circle (not including 'glow') should line up with bottom of photo (see minimum height note above)
+         - after tap: see 'verdict' story
+      - 'wear it?'
+         - only present if voting is ON
+         - 23px gap in accent line, placed 11px above top of hanger up button
+         - 'accent-line-separator-buttom.png' horizontally centered around accent line, at bottom of gap
+         - text is Archer Medium Italic, 10pt, rgb(143,143,143)
+            - horizontally centered around accent line
+            - vertically centered within gap area
+      - 'voting off' plaque
+         - 'voting-off.png'
+         - horizontally centered around accent line
+         - bottom of plaque should line up with bottom of photo
+   - dot dot dot menu
+      - assets are 'dot-menu.png' with top/middle/bottom states, each with active and inactive
+      - top cell
+         - position 7px from right edge of screen (point of arrow should appear to be centered inside dot dot dot button)
+         - position 24px from top of dot dot dot button (should overlap about 20% of the dot dot dot button)
+      - middle cell
+         - position flush with bottom of above cell
+         - use multiple instances for menus with more items
+      - bottom cell
+         - position flush with bottom of last 'middle' cell
+      - text is Proxima Nova Regular, 12pt, rgb(88,88,88)
+         - each line vertically and horizontally centered within respective cell
 
+
+
+
+
+
+
+   - reviews button
+      - 
    - top item positioning
       - user icon is 7px away from bottom of navigation bar
       - user icon is 7px away 7px from left edge of screen
