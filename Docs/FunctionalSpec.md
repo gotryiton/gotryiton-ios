@@ -21,19 +21,19 @@
    2.2 [Notifications view](#22-notifications-view)   
 3. [Product Post and Outfit Post Detail pages](#3-product-and-outfit-post-detail-pages)   
    3.1 [Post Detail Page](#31-post-detail-page)   
-   3.2 ~[Post detail with verdict](#32-post-detail-with-verdict)~   
+   3.2 ~~Post detail with verdict~~   
    3.3 [Post detail full screen](#33-post-detail-full-screen)   
    3.4 [Reviews page](#34-reviews-page)   
    3.5 [Who hearted this](#35-who-hearted-this)   
-   3.6 ~Product post detail page~   
+   3.6 ~~Product post detail page~~   
 4. [Product pages](#4-product-pages)   
    4.1 [Product page view](#41-product-page-view)   
-   4.2 ~Suggest a product~   
-   4.3 ~Phone Contact List~   
-   4.4 ~Email Compose~   
-   4.5 ~Facebook Contacts~   
-   4.6 ~Gotryiton Contacts~   
-   4.7 ~Post a product~   
+   4.2 ~~Suggest a product~~   
+   4.3 ~~Phone Contact List~~   
+   4.4 ~~Email Compose~~   
+   4.5 ~~Facebook Contacts~~   
+   4.6 ~~Gotryiton Contacts~~   
+   4.7 ~~Post a product~~   
    4.8 [Shop this look](#48-shop-this-look)   
 5. [Invite](#5-invite)   
    5.1 [Invite friends](#51-invite-friends)   
@@ -57,7 +57,7 @@
    7.10 [My Stars](#710-search-tags)   
 8. [The Feed](#8-the-feed)   
    8.1 [Feed view](#81-feed-view)   
-   8.3 ~Feed verdict view~   
+   8.3 ~~Feed verdict view~~   
    8.4 [Upload in progress view](#84-upload-in-progress-view)   
    8.5 [Feed after completed upload](#85-feed-after-completed-upload)   
 9. [Explore Looks](#9-explore-looks)   
@@ -65,7 +65,7 @@
 10. [Shop Tab](#10-shop-tab)   
    10.1 [Shop landing page](#101-shop-landing-page)   
    10.2 [Shop Browse Webview Container](#102-shop-browse-webview-container)   
-   10.3 ~Shop 3rd Party Webview Container~   
+   10.3 ~~Shop 3rd Party Webview Container~~   
    10.4 [Default 3rd Party Webview Container](#104-default-3rd-party-webview-container)   
    10.5 [Shop Browse Products](#105-shop-browse-products)   
 11. ~~Logged out screens~~
