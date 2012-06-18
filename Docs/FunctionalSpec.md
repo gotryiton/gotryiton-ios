@@ -25,15 +25,15 @@
    3.3 [Post detail full screen](#33-post-detail-full-screen)   
    3.4 [Reviews page](#34-reviews-page)   
    3.5 [Who hearted this](#35-who-hearted-this)   
-   3.6 ~[Product post detail page](#36-product-post-detail-page)~   
+   3.6 ~Product post detail page~   
 4. [Product pages](#4-product-pages)   
    4.1 [Product page view](#41-product-page-view)   
-   4.2 ~[Suggest a product](#42-suggest-a-product)~   
-   4.3 ~[Phone Contact List](#43-phone-contact-list)~   
-   4.4 ~[Email Compose](#44-email-compose)~   
-   4.5 ~[Facebook Contacts](#45-facebook-contacts)~   
-   4.6 ~[Gotryiton Contacts](#46-gotryiton-contacts)~   
-   4.7 ~[Post a product](#47-post-a-product)~   
+   4.2 ~Suggest a product~   
+   4.3 ~Phone Contact List~   
+   4.4 ~Email Compose~   
+   4.5 ~Facebook Contacts~   
+   4.6 ~Gotryiton Contacts~   
+   4.7 ~Post a product~   
    4.8 [Shop this look](#48-shop-this-look)   
 5. [Invite](#5-invite)   
    5.1 [Invite friends](#51-invite-friends)   
@@ -57,7 +57,7 @@
    7.10 [My Stars](#710-search-tags)   
 8. [The Feed](#8-the-feed)   
    8.1 [Feed view](#81-feed-view)   
-   8.3 ~[Feed verdict view](#83-feed-verdict-view)~   
+   8.3 ~Feed verdict view~   
    8.4 [Upload in progress view](#84-upload-in-progress-view)   
    8.5 [Feed after completed upload](#85-feed-after-completed-upload)   
 9. [Explore Looks](#9-explore-looks)   
@@ -65,7 +65,7 @@
 10. [Shop Tab](#10-shop-tab)   
    10.1 [Shop landing page](#101-shop-landing-page)   
    10.2 [Shop Browse Webview Container](#102-shop-browse-webview-container)   
-   10.3 ~[Shop 3rd Party Webview Container](#103-shop-3rd-party-webview-container)~   
+   10.3 ~Shop 3rd Party Webview Container~   
    10.4 [Default 3rd Party Webview Container](#104-default-3rd-party-webview-container)   
    10.5 [Shop Browse Products](#105-shop-browse-products)   
 11. ~~Logged out screens~~
@@ -2548,11 +2548,11 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.b short image
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0003_Feed.Product.Shot.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0003_Feed.Product.Shot.png" width=420px/>
 
-8.1.1 product in feed with voting disabled: ([wireframe](http://invis.io/NS2PAHQA)) 
+8.1.c no shop this look button
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0011_Feed.VJ.Scrolled.No.Voting.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0013_Feed.VJ.Scrolled.No.Shop.png" width=420px/>
 
 8.1.2 Post dot options: ([outfit item](http://invis.io/N92PN2YP)) 
 
@@ -2560,17 +2560,18 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.3 feed scrolled: ([wireframe](http://invis.io/DA2PN3TC)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0010_Feed.VJ.Scrolled.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0010_Feed.VJ.Scrolled.png" width=420px/>
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0012_Feed.VJ.Scrolled.Further.No.Description.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0013_Feed.VJ.Scrolled.Further.Description.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0013_Feed.VJ.Scrolled.Further.Description.png" width=420px/>
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0014_Feed.VJ.Scrolled.Further.Tags.Only.png" width=420px/>
 
 8.1.3.a feed scrolled with next feed item
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0023_Feed---Next-Item.png" width=420px/>
+
 
 8.1.4 feed empty:  ([wireframe](http://invis.io/3W2OH9G2)) 
 
@@ -2640,14 +2641,6 @@ gtio://posts/feed
    - shop button is included in: ```post.buttons```
    - button is conditionally included.  may be excluded from the ```post.buttons``` array for some posts.
    - routes to ```gtio://shop-post/:post_id``` (defined in api)
-- If a post has voting enabled (```post.voting.enabled : true```), a user can vote from the feed
-   - vote buttons are included in ```post.voting.buttons```
-   - if the button state is 0, when a button is tapped, the user will see an animation revealing the count (while an api request is made in the background)
-      - see (view 8.3) below for animation details
-   - if the button state is not 0, the post-animation state should be shown.
-- If a post does not have voting enabled, a user can see an indication of this fact
-   - ```post.voting.enabled : false```
-   - (view 8.1.1)
 - A user can tap on a '...' btn to see more actions 
    - button options are included in: ```post.dot_options.buttons```
 - A user can paginate through multiple pages of their feed
@@ -2752,31 +2745,8 @@ gtio://posts/feed
       - dot dot dot button
          - 'button-dot.png' with active and inactive states
          - horizontally centered around accent line
-         - circle is 9px away from circle of button above (not including 'glow' areas)
-         - triggers 'dot dot dot menu' (see story below)
-      - hanger up button
-         - only present if voting is ON
-         - 'button-hanger-up.png' with active and inactive states
-         - horizontally centered around accent line
-         - circle is 9px away from hanger down button (not including 'glow' areas) which is positioned based on photo height
-         - after tap: see 'verdict' story
-      - hanger down button
-         - only present if voting is ON
-         - 'button-hanger-down.png' with active and inactive states
-         - horizontally centered around accent line
          - bottom of circle (not including 'glow') should line up with bottom of photo (see minimum height note above)
-         - after tap: see 'verdict' story
-      - 'wear it?'
-         - only present if voting is ON
-         - 23px gap in accent line, placed 11px above top of hanger up button
-         - 'accent-line-separator-buttom.png' horizontally centered around accent line, at bottom of gap
-         - text is Archer Medium Italic, 10pt, rgb(143,143,143)
-            - horizontally centered around accent line
-            - vertically centered within gap area
-      - 'voting off' plaque
-         - 'voting-off.png'
-         - horizontally centered around accent line
-         - bottom of plaque should line up with bottom of photo
+         - triggers 'dot dot dot menu' (see story below)
    - dot dot dot menu
       - assets are 'dot-menu.png' with top/middle/bottom states, each with active and inactive
       - top cell
@@ -2998,7 +2968,7 @@ dynamic
 
 
 ### 10.3 ~Shop 3rd Party webview Container ~
-
+ 
 
 ### 10.4 Default 3rd party webview container  
 
