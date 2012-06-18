@@ -521,7 +521,12 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if ([self.captureVideoPreviewLayer containsPoint:[touch locationInView:self.view]] && ![self.photoToolbarView.photoModeSwitch isOn]) {
+    CGRect flashButtonTouchRect = (CGRect){ 0, 0, self.flashButton.frame.origin.x * 2 + self.flashButton.frame.size.width, (self.flashButton.frame.origin.y - 20) * 2 + self.flashButton.frame.size.height };
+    
+    if ([self.captureVideoPreviewLayer containsPoint:[touch locationInView:self.view]] && 
+        ![self.photoToolbarView.photoModeSwitch isOn]  &&
+        !CGRectContainsPoint(flashButtonTouchRect, [touch locationInView:self.view])) {
+        
         return YES;
     } else {
         return NO;
