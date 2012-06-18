@@ -1859,12 +1859,15 @@ gtio://my-management
 	- Height: 72px
 	- Edit Icon (profile.top.icon.edit.png)
 		- 26x26px
-		- Positioned on top right of icon
+		- Asset (including transparent area) positioning
+         - flush to right edge of screen
+         - 2px down from bottom of nav bar
 	- Profile Image
 		- 110x110px without shadow (with shadow background image 128x128)
 		- 4px from top 4px from left (including shadow background)
 	- Name Text: Archer Medium Italics 16pt rgb(255,255,255) #ffffff (11px from top, 3px from profile image)
 	- Location Text: Proxima Nova Regular 10pt rgb(186,186,186) #bababa (6px from top, 3px from profile image)
+      - string should be displayed in ALL UPPERCASE
 	- Following/Followers/Featured Buttons
 		- Should align with bottom of profile image (~7-8px)
 		- 3px from left
@@ -1874,12 +1877,14 @@ gtio://my-management
 			- Featured is 21px wide
 			- Text: Archer Medium Italic 11pt rgb(157,157,157) #9d9d9d
 		- Use profile.top.buttons.bg.right.png for right side
-			- Following/Followers is 31px wide		
-			- Featured is 23px wide
+			- Each has variable width to accommodate length of number 1-99,999
+            - width should accommodate 7px of padding on left of number, 7px of padding on right of number
 			- Text: Proxima Nova Bold 12pt rgb(210,210,210) #d2d2d2
 - Grouped Table View
 	- Border color: rgb(217,215,206) #d9d7ce
 	- Chevron is 10px from right
+   - 'my hearts'
+      - insert apostrophe (U+2019) before the 's' and after the heart graphic in 'my hearts' menu item.  try to ensure at least 1.5px visual gap between heart and apostrophe (3px on Retina looks right).
 
 ### 7.2 Settings  
 
