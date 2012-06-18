@@ -54,7 +54,7 @@
    7.7 [Profile Page](#77-profile-page)   
    7.8 [Shopping list](#78-shopping-list)   
    7.9 [My Stars](#79-my-stars)   
-   7.10 [My Stars](#710-search-tags)   
+   7.10 [Search tags](#710-search-tags)   
 8. [The Feed](#8-the-feed)   
    8.1 [Feed view](#81-feed-view)   
    8.3 ~~Feed verdict view~~   
