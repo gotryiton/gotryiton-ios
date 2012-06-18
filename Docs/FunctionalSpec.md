@@ -1859,9 +1859,7 @@ gtio://my-management
 	- Height: 72px
 	- Edit Icon (profile.top.icon.edit.png)
 		- 26x26px
-		- Asset (including transparent area) positioning
-         - flush to right edge of screen
-         - 2px down from bottom of nav bar
+		- Top right corner of profile area (end of icon should appear approx same distance from top and right edges)
 	- Profile Image
 		- 110x110px without shadow (with shadow background image 128x128)
 		- 4px from top 4px from left (including shadow background)
