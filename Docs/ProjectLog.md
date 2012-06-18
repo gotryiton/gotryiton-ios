@@ -1,4 +1,4 @@
-***Friday, June 18th - Standup Notes***
+***Monday, June 18th - Standup Notes***
 
 **Attendees**
 
@@ -18,7 +18,9 @@
 - 7.7 API missing stuff?
  - Scott to follow up with additional information
 - 7.7 What is the pink checkmark badge?
+ - This is the badge field. It will have a url path string in api and the sizes will be hard coded into app.
 - 7.7 html in about?
+ - No it is just plain text.
 - 7.7/7.9 can you touch heart or star?
  - Hearts should not be there on 7.7.  Stars on 7.9 are not touchable.  Star asset still pending.
 
