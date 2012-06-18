@@ -20,20 +20,21 @@
    2.1 [Navbar with notifications](#21-navbar-with-notifications)   
    2.2 [Notifications view](#22-notifications-view)   
 3. [Product Post and Outfit Post Detail pages](#3-product-and-outfit-post-detail-pages)   
-   3.1 [Outfit Post Detail Page](#31-outfit-post-detail-page)   
-   3.2 [Post detail with verdict](#32-post-detail-with-verdict)   
+   3.1 [Post Detail Page](#31-post-detail-page)   
+   3.2 ~[Post detail with verdict](#32-post-detail-with-verdict)~   
    3.3 [Post detail full screen](#33-post-detail-full-screen)   
    3.4 [Reviews page](#34-reviews-page)   
    3.5 [Who hearted this](#35-who-hearted-this)   
-   3.6 [Product post detail page](#36-product-post-detail-page)   
+   3.6 ~[Product post detail page](#36-product-post-detail-page)~   
 4. [Product pages](#4-product-pages)   
    4.1 [Product page view](#41-product-page-view)   
-   4.2 [Suggest a product](#42-suggest-a-product)   
-   4.3 [Phone Contact List](#43-phone-contact-list)   
-   4.4 [Email Compose](#44-email-compose)   
-   4.5 [Facebook Contacts](#45-facebook-contacts)   
-   4.6 [Gotryiton Contacts](#46-gotryiton-contacts)   
-   4.7 [Post a product](#47-post-a-product)   
+   4.2 ~[Suggest a product](#42-suggest-a-product)~   
+   4.3 ~[Phone Contact List](#43-phone-contact-list)~   
+   4.4 ~[Email Compose](#44-email-compose)~   
+   4.5 ~[Facebook Contacts](#45-facebook-contacts)~   
+   4.6 ~[Gotryiton Contacts](#46-gotryiton-contacts)~   
+   4.7 ~[Post a product](#47-post-a-product)~   
+   4.8 [Shop this look](#48-shop-this-look)   
 5. [Invite](#5-invite)   
    5.1 [Invite friends](#51-invite-friends)   
 6. [Friends Management](#6-friends-management)   
@@ -56,7 +57,7 @@
    7.10 [My Stars](#710-search-tags)   
 8. [The Feed](#8-the-feed)   
    8.1 [Feed view](#81-feed-view)   
-   8.3 [Feed verdict view](#83-feed-verdict-view)   
+   8.3 ~[Feed verdict view](#83-feed-verdict-view)~   
    8.4 [Upload in progress view](#84-upload-in-progress-view)   
    8.5 [Feed after completed upload](#85-feed-after-completed-upload)   
 9. [Explore Looks](#9-explore-looks)   
@@ -64,7 +65,7 @@
 10. [Shop Tab](#10-shop-tab)   
    10.1 [Shop landing page](#101-shop-landing-page)   
    10.2 [Shop Browse Webview Container](#102-shop-browse-webview-container)   
-   10.3 [Shop 3rd Party Webview Container](#103-shop-3rd-party-webview-container)   
+   10.3 ~[Shop 3rd Party Webview Container](#103-shop-3rd-party-webview-container)~   
    10.4 [Default 3rd Party Webview Container](#104-default-3rd-party-webview-container)   
    10.5 [Shop Browse Products](#105-shop-browse-products)   
 11. ~~Logged out screens~~
@@ -74,6 +75,7 @@
    12.3 [Post a look](#123-post-a-look)   
    12.4 [Photoshoot Grid](#124-photoshoot-grid)   
    12.5 [Photoshoot Mode](#125-photoshoot-mode)   
+   12.6 [Select a product](#126-select-a-product)   
 13. [Universal Elements and Behavior](#13-universal-elements-and-behavior)   
    13.1 [UITabBar default behavior](#131-uitabbar-default-behavior)   
    13.2 [UITabBar shopping list animation](#132-uitabbar-shopping-list-animation)   
@@ -1027,29 +1029,19 @@ TBD
 
 ## 3. Product and Outfit Post Detail pages
 
-### 3.1 Outfit Post Detail Page  
+### 3.1 Post Detail Page  
 
 #### Overview 
-A user can see a detailed view of a single outfit post
+A user can see a detailed view of a single post
 
 #### Mockups
-3.1 Outfit Post Detail Page [wireframe](http://invis.io/SX2OBQUG) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.png" width=420px/>
-
-3.1.1 Outfit Detail No Voting ([wireframe](http://invis.io/W22OBRHF) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.No.Voting.png" width=420px/>
+See (view 8.1).  A post detail page is now feed of one item.
 
 
 #### User Flow
 
 **entry screens:**   
-([view 8.1](#81-feed-view))   
-([view 8.4](#84-upload-in-progress-view))   
-([view 8.5](#85-feed-after-completed-upload))   
 ([view 9.1](#91-popular-looks-grid))   
-([view 3.3](#33-post-detail-full-screen))     
 ([view 2.2](#22-notifications-view))    
 
 
@@ -1057,107 +1049,21 @@ A user can see a detailed view of a single outfit post
 ([view 7.7](#77-profile-page))   
 ([view 3.4](#34-reviews-page))   
 ([view 3.5](#35-who-hearted-this))   
-([view 3.2](#32-post-detail-with-verdict))   
-([view 4.2](#42-suggest-a-product))   
 ([view 1.10](#110-facebook-sso))   
 ([view 3.3](#33-post-detail-full-screen))     
 previous screen
 
 
 #### API Usage
-/Outfit
+/post/:post_id
+
 
 #### Stories
-- When a user views an outfit post detail page, they should see details about the outfit post
-   - Name and location in navbar
-   - profile button in top right in navbar
-      - image in button should be user->profileIcon
-      - **tap** ==> (view 7.7)
-   - full description
-   - full brands
-   - reviews button with reviews count
-      - **tap** ==> (view 3.4)
-- A user can heart the outfit from an outfit page
-   - heart action button in top left of image
-      - **tap** ==> api request
-   - heart count + heart icons
-      - **tap** ==> (view 3.5)
-- A user can vote on the outfit from an outfit page (that has voting enabled)
-   - wear it button & change it buttons at bottom of page
-      - conditionally included
-         - reference api ??
-         - if not included see (view 3.1.1)
-      - **tap** ==> api request
-         - upon tap, buttons are not tappable anymore
-         - verdict info (from api response) is displayed (see view 3.2)
-- A user can take additional actions on an outfit
-   - ... btn 
-      - raises custom actionsheet menu
-         - outfit post owner: tweet, facebook, delete
-         - outfit post viewer: tweet, suggest, flag
-- A user can tweet the outfit post from an outfit post page
-   - makes api call for tweet text
-   - conditionally visible based on if twitter is activated
-   - raises twitter compose window
-      - twitter text is given in response from api
-- A user can flag an outfit from an outfit post page
-   - pop up dialog asking to confirm
-      - confirm: sends api request 
-      - cancel: clears dialog
-- An outfit post owner can facebook share the outfit from the outfit post page
-   - if user is not facebook authenticated
-      - kick out to facebook app SSO
-   - dialog asking if they're sure
-      - ok: sends api request
-      - cancel: closes dialog
-- An outfit post owner can delete the outfit from the outfit post page
-   - dialog asking if they're sure
-      - ok: sends api request
-         - kicks user back from outfit post page and reloads list 
-      - cancel: closes dialog
+- Behavior matches the behavior of (view 8.1) with no pagination
+- Top left should include a back button (this view should get added to the stack on the 2nd tab)
 
 
-### 
-
-### 3.2 Post Detail With Verdict
-
-#### Overview 
-A user can vote on an outfit from the outfit detail page and see voting results
-
-#### Mockups
-3.2 Verdict displayed ([wireframe](http://invis.io/HS2PNQD6)) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Mine.Verdict.png" width=420px/>
-
-3.2.1 Verdict displayed on Product Page ([wireframe](http://invis.io/842PNRNU)) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Verdict.png" width=420px/>
-
-
-#### User Flow
-
-**entry screens:**   
-([view 8.1](#81-feed-view))   
-([view 8.4](#84-upload-in-progress-view))   
-([view 8.5](#85-feed-after-completed-upload))   
-([view 9.1](#91-popular-looks-grid))   
-([view 3.3](#33-post-detail-full-screen))     
-
-**exit screens:**   
-([view 7.7](#77-profile-page))   
-([view 3.4](#34-reviews-page))   
-([view 3.5](#35-who-hearted-this))      
-([view 3.3](#33-post-detail-full-screen))      
-([view 4.2](#42-suggest-a-product))   
-([view 1.10](#110-facebook-sso))   
-previous screen
-
-
-#### API Usage
-/Outfit/Vote
-
-#### Stories
-- A user can see voting results after they vote
+### ~3.2 Post Detail With Verdict~
 
 
 ### 3.3 Post Detail Full screen
@@ -1224,7 +1130,7 @@ previous screen
 
 
 #### API Usage
-/Post/Reviews
+/Reviews/for-post/:post_id
 
 /Review/Agree
 
@@ -1321,102 +1227,9 @@ previous screen
    - normal behavior in navigation stack
 
 
-### 3.6 Product Post Detail Page
-
-#### Overview 
-A user can see a detailed view of a Product Post
-
-#### Mockups
-3.6 Product Post Detail ([wireframe](http://invis.io/UA2OBZHJ))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Mine.png" width=420px/>
-
-#### User Flow
-
-**entry screens:**   
-([view 8.1](#81-feed-view))   
-([view 8.4](#84-upload-in-progress-view))   
-([view 8.5](#85-feed-after-completed-upload))   
-([view 9.1](#91-popular-looks-grid))   
-([view 3.3](#33-post-detail-full-screen))     
-([view 2.2](#22-notifications-view))    
+### 3.6 ~Product Post Detail Page~
 
 
-**exit screens:**   
-([view 7.7](#77-profile-page))   
-([view 3.4](#34-reviews-page))   
-([view 3.5](#35-who-hearted-this))   
-([view 3.2](#32-post-detail-with-verdict))   
-([view 1.10](#110-facebook-sso))   
-([view 3.3](#33-post-detail-full-screen))     
-([view 7.8](#78-shopping-list))     
-previous screen
-
-
-#### API Usage
-
-#### Stories
-- When a user views a product post detail page, they should see details about the product post
-   - Name and location in navbar
-      - NOTE: nav bar for product posts is transparent 
-   - profile button in top right in navbar
-      - image in button should be user->profileIcon
-      - **tap** ==> (view 7.7)
-   - full user-generated description text
-      - similar to an outfit description on an outfit page
-   - reviews button with reviews count
-      - **tap** ==> view 3.4 
-   - product name with brand and price
-      - this will be part of the product object in the api
-   - photo aligned to top 
-      - TBD: matt to provide specs
-   - wear it button & change it button 
-      - conditionally included
-         - reference api ??
-         - if not included see (view 3.1.1)
-      - **tap** ==> api request
-         - upon tap, buttons are not tappable anymore
-         - verdict info (from api response) is displayed (see view 3.2)
-
-- A user can take additional actions on an Product Post
-   - ... btn 
-      - raises custom actionsheet menu
-         - post owner: tweet, facebook, delete
-         - post viewer: tweet, suggest, flag
-- A user can tweet the post from an post page
-   - makes api call for tweet text
-   - conditionally visible based on if twitter is activated
-   - raises twitter compose window
-      - twitter text is given in response from api
-- A user can suggest a product from an post page
-   - only available for post viewers
-   - **tap** ==> view 4.2
-- A user can flag a post from an post page
-   - pop up dialog asking to confirm
-      - confirm: sends api request 
-      - cancel: clears dialog
-- An post owner can facebook share the post from the post page
-   - if user is not facebook authenticated
-      - kick out to facebook app SSO
-   - dialog asking if they're sure
-      - ok: sends api request
-      - cancel: closes dialog
-- An post owner can delete the post from the post page
-   - dialog asking if they're sure
-      - ok: sends api request
-         - kicks user back from post page and reloads list 
-      - cancel: closes dialog
-- A user can tap to buy a prodcut in a product post
-  - **tap** raises actionsheet with options:
-     - email to me
-        - dialog confirming
-           - ok: sends api request
-           - cancel closes dialog
-     - go to store site
-        - opens buy url in safari 
-     - view in my shopping list
-        - sends api request
-        - **tap** ==> view 7.8
 
 ## 4. Product Pages
 
@@ -1428,28 +1241,28 @@ A user can view a detailed page about a single product
 #### Mockups
 4.1 Product Page View ([wireframe](http://invis.io/8Y2OC5N7))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.1.Product.Detail.png" width=420px/>
+<img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/Product.Detail.Light.BG.png" width=420px/>
 
 #### User Flow
 
 **entry screens:**   
-([view 10.3](#103-shop-3rd-party-webview-container))   
+([view 4.8](#48-shop-this-look))   
+([view 7.8](#78-shopping-list))   
 ([view 10.5](#105-shop-browse-products))   
 
 **exit screens:**   
   
-([view 4.7](#47-post-a-product))   
+([view 12.3](#123-post-a-look))   
 ([view 3.5](#35-who-hearted-this))   
-([view 4.2](#42-suggest-a-product))   
-([view 10.4](#104-default-3rd-party-webview-container)) via ([view 4.1.1](#411-product-buy-actionsheet))   
-([view 7.8](#78-shopping-list)) via ([view 4.1.1](#411-product-buy-actionsheet))   
+([view 7.8](#78-shopping-list))   
 ([view 4.1.2](#412-product-full-screen))   
 
 previous screen
 
 
 #### API Usage
-/Product
+/product/:product_id
+/product/:product_id/add-to-my-shopping-list/
 
 #### Stories
 - A user can view a detailed page about a single product
@@ -1462,45 +1275,10 @@ previous screen
    - standard heart button with count
    - **tap** on count ==> (view 3.5)
 - A user can post a product from a product page
-   - Post btn **tap** ==> (view 4.7)
-- A user can suggest a product from a product page
-   - suggest btn **tap** ==> (view 4.2)
-- A user can buy a product from a product page
-   - buy btn **tap** ==> raises actionsheet (see view 4.1.1)
+   - Post btn **tap** ==> (view 12.3)
+- A user can add a product to their shopping list
+   - + shopping list button adds the item to their list
 
-### 4.1.1 Product Buy Actionsheet  
-
-#### Overview 
-A user can see options of how to buy the product
-
-#### Mockups
-4.1.1 Product Buy Actionsheet ([wireframe](http://invis.io/PS2QI79V))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.1.Product.Detail.Actionsheet.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 4.1](#41-product-page-view))   
-**exit screens:**   
-([view 10.4](#104-default-3rd-party-webview-container))    
-([view 7.8](#78-shopping-list))   
-([view 4.1](#41-product-page-view))   
-
-
-
-#### API Usage
-TBD
-
-#### Stories
-- A user can email the product to themselves
-   - email btn **tap** raises dialog confirm
-         - ok **tap** ==> api request
-         - cancel: closes dialog
-- A user can go to store mobile site to view the product
-   - 'go to store site' btn **tap** ==> opens buy url in default safari view (view 10.5)
-- A user can view the item in their shopping list
-   - 'view in shopping list' btn **tap** ==> makes api request
-      - upon successful api response: ==> (view 7.8)
 
 
 ### 4.1.2 Product Full Screen  
@@ -1529,283 +1307,51 @@ None.
    - tapping on the full screen view returns the user to the previous screen
 
 
-### 4.2 Suggest a product  
+### ~4.2 Suggest a product~  
 
-#### Overview 
-A user can suggest a product to another user
+
+### ~4.3 Phone contact list~  
+
+### ~4.4 Email compose~  
+
+### ~4.5 Facebook contacts~  
+
+### ~4.6 Gotryiton contacts~  
+
+### ~4.7 Post a product~  
+
+### 4.8 Shop this look
+
+#### Overview
+
+A user can see a list of products contained in a post.  They can tap each one to arrive at a product page
 
 #### Mockups
-4.2 Suggest a product ([wireframe](http://invis.io/NT2OC8QM))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.2.Suggest.A.Product.png" width=420px/>
+<img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/4.8.Shop.This.Look.png" width=420px/>
 
-#### User Flow
-**entry screens:**   
+#### User flow
+
+**entry screens**   
+([view 8.1](#81-feed-view))   
+([view 9.1](#91-popular-looks-grid))   
+([view 3.1](#31-post-detail-page))   
+
+**exit screens**   
 ([view 4.1](#41-product-page-view))   
-**exit screens:**   
-([view 4.6](#46-gotryiton-contacts))    
-([view 4.3](#43-phone-contact-list))   
-([view 4.4](#44-email-compose))   
-([view 4.5](#45-facebook-contacts))   
-([view 4.1.2](#412-product-full-screen))   
 
-#### API Usage
-/Product/Suggest
+#### Routing
+gtio://products/in-post/:post_id
 
-/Product/Suggest/Email
+#### Api usage
+
+/products/in-post/:post_id
 
 #### Stories
-- A user can see details about a product before suggesting it 
-   - product detail area includes:
-      - product name
-      - brand
-      - price
-      - square thumbnail
-         - thumbnail **tap** ==> full screen image (view 4.1.1)
-         - heart toggle in top left
-- A user can select from their GTIO contacts to suggest from the Suggest a Product Page
-   - gotryiton contacts btn **tap** ==> (view 4.6)
-- A user can select from their Phone contacts to SMS a suggestion from the Suggest a Product Page
-   - sms contacts btn **tap** ==> (view 4.3)
-- A user can Email a suggestion from the Suggest a Product Page
-   - email contacts btn **tap** ==> api request
-      - successful api response ==> (view 4.4)
-- A user can select from their Facebook contacts to suggest from the Suggest a Product Page\
-   - facebook btn 
-      - if user is not facebook authenticated
-         - **tap** ==> facebook SSO
-            - success: request authentication api 
-      - else:
-         - **tap** ==> api request
-            - successful response  ==> (view 4.5)
-   
-### 4.3 Phone contact list  
 
-#### Overview 
-A user can select from their phone contacts to SMS a suggestion
+- A user can see a list of products contained in a post
+   - each product taps to ([view 4.1](#41-product-page-view))
 
-#### Mockups
-4.3 ([wireframe](http://invis.io/DW2OC9PN))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.3.Suggest.Phone.Contact.List.png" width=420px/>
-
-4.3.1 ([wireframe](http://invis.io/MR2OCAUP))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.3.1.Suggest.SMS.Compose.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 4.2](#42-suggest-a-product-post-detail-page))    
-**exit screens:**   
-previous screen
-([view 4.2](#42-suggest-a-product-post-detail-page)) via SMS Compose (view 4.3.1)   
-
-
-#### API Usage
-/Product/Suggest/SMS
-
-/Tracking?
-
-#### Stories
-- A user can select from their phone's contacts to suggest a product
-   - List should only include contacts that have phone numbers
-   - List is Alpha sorted and has Alpha shortcuts
-   - list item **tap** => api request
-      - successful response ==> (view 4.3.1)
-- A user can send an SMS from a native SMS compose window to suggest a product
-   - to: filled with users name from (view 4.3)
-   - body: from api call
-   - tracking on send??
-   - after successful send ==> (view 4.2)
-
-
-### 4.4 Email compose  
-
-#### Overview 
-A user can email a product suggestion from a native compose window
-
-#### Mockups
-4.4 ([wireframe](http://invis.io/4R2OCBCW))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.4.Suggest.Email.Compose.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 4.2](#42-suggest-a-product-post-detail-page))    
-**exit screens:**   
-previous screen
-
-#### API Usage
-/Tracking?
-
-#### Stories
-A user can email a product suggestion from a native compose window
-  - to: empty
-   - body: from api response in (view 4.1)
-   - tracking on send???
-   - after successful send ==> (view 4.2)
-
-
-
-### 4.5 Facebook contacts  
-
-#### Overview 
-A user can choose from their facebook contacts and post on their wall to suggest a product
-
-#### Mockups
-4.5 ([wireframe](http://invis.io/AG2OCC3Z))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.5.Suggest.Facebook.Contacts.png" width=420px/>
-
-4.5.1 Facebook post confirm
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.5.Suggest.Facebook.Contacts.Compose.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 4.2](#42-suggest-a-product-post-detail-page))    
-**exit screens:**   
-previous screen
-
-
-#### API Usage
-/Product/Suggest/Facebook
-
-#### Stories
-- A user can see a list of their facebook contacts
-   - alpha sorted with alpha shortcut
-- A user can select a facebook contact and post on their wall
-   - list item **tap** ==> makes api request
-      - On successful response ==> raises facebook post ui using Facbook SDK (view 4.5.1)
-            - post url is populated by api response
-
-
-### 4.6 Gotryiton contacts  
-
-#### Overview 
-A user can select from the users they are following to suggest a product
-
-#### Mockups
-4.6 ([wireframe](http://invis.io/QB2OCDVE))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.Suggest.GTIO.Contacts.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 4.2](#42-suggest-a-product-post-detail-page))    
-([view 4.6.1](#461-gotryiton-contacts-sent-overlay))    
-**exit screens:**   
-([view 4.6.2](#426-suggestion-compose))    
-previous screen
-
-
-#### API Usage
-/Product/Suggest/Following
-
-#### Stories
-- A user can see a list of the users they are following to suggest a product
-   - title (from api)
-   - line of text with connection count (from api)
-   - filter search 
-   - list of contacts (from api) with: 
-      - user icons
-      - name
-- A user can select a user they are following to suggest a product
-   - contact name **tap** ==> (view 4.6.2)
-- After a user sends a suggestion to one GTIO contact, they can send another 
-   - after suggestion is sent, show sent overlay 
-   - show done btn in top right
-       - after sending one suggestion done btn appears 
-       - **tap** ==> back to (view 4.2)
-
-### 4.6.1 Gotryiton contacts (sent overlay)
-
-#### Overview 
-A user sees a confirmation that their suggestion was sent
-
-#### Mockups
-4.6.1  ([wireframe](http://invis.io/UA2OBZHJ))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.1.Suggest.GTIO.Contacts.Confirm.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 4.6.2](#426-suggestion-compose))  
-**exit screens:**   
-([view 4.6](#426-gotryiton-contacts))    
-previous screen
-
-#### API Usage
-None.
-
-#### Stories
-- A user sees a confirmation after they have sent a suggestion
-   - overlay displays temporarily then disappears to (view 4.6)
-
-### 4.6.2 Suggestion compose
-
-#### Overview 
-A user sees a compose window where they can send a message with their suggestion
-
-#### Mockups
-4.6.2 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.6.Suggest.GTIO.Contacts.Description.png" width=420px/>
-
-#### API Usage
-/Product/Suggest
-
-#### Stories
-- A user sees a compose window where they can send a message with their suggestion
-   - the text field has suggestion text that disappears when the user starts typing (and reappears if the text field is empty)
-- A user can send their suggestion 
-   - a send button in the top right
-      - **tap** ==> make api request, (view 4.6.1)
-   - a user can send their suggestion with or with out entering text
-
-
-### 4.7 Post a product  
-
-#### Overview 
-A user can post a product to their feed from a product page
-
-#### Mockups
-([wireframe](http://invis.io/U92OCEF2))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/4.7.Post.A.Product.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 4.1](#41-product-page-view))   
-**exit screens:**   
-([view 8.1](#81-feed-view))    
-([view 4.1.2](#412-product-full-screen))   
-
-#### API Usage
-/Product/Post
-
-#### Stories
-A user can post a product to their feed from a product page
-   - title: post a product
-   - product detail (same behavior as product detail in (view 4.2)) 
-      - product name
-      - brand
-      - price
-      - square thumbnail
-         - thumbnail **tap** ==> (view 4.1.1)
-         - heart toggle button in top left
-            - **tap** makes api request   
-   - post btn
-      - **tap** ==> makes api request
-         - **success** ==> feed (view 8.4)
-         - **error** ==> error dialog
-- A user can optionally add a description to a product post
-   - post description input box
-      - optional input
-      - raises keyboard
-- A user can turn voting on or off on their product post
-   - voting on/off toggle
-      - default state set by api
 
 
 ## 5. Invite 
@@ -3251,27 +2797,7 @@ gtio://posts/feed
       - user icon is 7px away 7px from left edge of screen
 
 
-###  8.3 Feed Verdict view  
-
-#### Overview
-A user can see voting results in the feed
-
-#### Mockups
-8.3 ([wireframe](http://invis.io/EK2OE7BD)) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Scrolled.Verdict.png" width=420px/>
-
-#### User Flow
-same as 8.1
-
-#### API Usage
-/post/:post_id/vote/wear-it   
-/post/:post_id/vote/change-it   
-
-#### Stories  
-- A user can see voting results in the feed
-   - numbers and graph bars
-   - matt will fill y'all in....
+### 8.3 ~Feed verdict view~
 
 ###  8.4 Upload in progress view  
 
@@ -3350,9 +2876,9 @@ A user can see their new upload in their feed
 A user can see a grid of popular looks on GTIO and tab to other groups of looks
 
 #### Mockups
-9.1 Popular looks grid: ([wireframe](http://invis.io/W82OEAFH)) 
+9.1 Popular looks grid:
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/9.1.Explore.Looks.Grid.png" width=420px/>
+<img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Light.Rounded.3.png" width=420px/>
 
 9.1.1 popular as feed: ([wireframe](http://invis.io/HX2PNHZC)) 
 
@@ -3369,34 +2895,23 @@ feed+grid: ([view 3.6](#36-product-post-detail-page))
 feed: ([view 3.4](#34-reviews-page))    
 feed: ([view 3.5](#35-who-hearted-this))   
 feed: ([view 7.7](#77-profile-page))   
-feed: ([view 10.5](#105-shop-browse-products))   
-feed: ([view 10.3](#103-default-3rd-party-webview-container))   
-feed: ([view 8.3](#83-default-3rd-party-webview-container))   
 
 #### API Usage
 /Posts/Popular
 
-
-
 #### Stories 
 - A user can see a grid of popular looks on GTIO
    - Api will respond with items to populate the feed
-      - each item has heart toggle (see standard behavior)
 - A user can switch to a different tab of looks
-   - tab choices can have 2, 3 or 4 items
-   - tab names are specified by api
-   - tab apis are specified by api 
+   - tab choices are driven by api response
       - similar behavior to lists in GTIOv3
 - A user can switch to consume the list of popular looks in a feed view (like view 8.1) rather than a grid view
    - see (view 9.1.1)
    - see question# 3 for clarification
-- A list can have a custom image above the grid
-   - banner area (view TBD)
-      - image and link served via api
 - A user can pull to refresh the list of looks
    - see 13.6
 - A user can tap on a look in a grid and see a post detail page 
-   - the destination is conditional on the type of the post (outfit or product) either (view 3.1) or (view 3.6), respectively
+   - the destination is conditional on the type of the post (view 3.1) 
 
 
 
@@ -3482,56 +2997,7 @@ dynamic
 
 
 
-### 10.3 Shop 3rd Party webview Container 
-
-#### Overview
-A user can browse to a 3rd party site to look for products to heart or post
-
-#### Mockups
-10.3 ([wireframe](http://invis.io/N92OENXT)) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.3.Shop.3rd.Party.WV.png" width=420px/>
-
-#### User Flow
-**entry screens:**   
-([view 10.1](#102-shop-landing-page))   
-([view 10.2](#102-shop-browse-webview-container))   
-([view 10.3](#103-shop-3rd-party-webview-container))   
-**exit screens:**   
-([view 10.3](#103-shop-3rd-party-webview-container))   
-([view 7.8](#78-shopping-list))   
-([view 4.1](#41-product-page-view))   
-([view 4.7](#47-post-a-product))   
-previous screen   
-
-#### API Usage
-/Shop/Scrape
-
-/Product/Heart
-
-/Tracking
-
-#### Stories 
-- A user can browse to a 3rd party site to look for products to heart or post
-   - top nav bar is same as Shop Browse navbar (see view 10.2)
-   - top right btn 'shopping list'
-      - shows count of unread shopping list items
-      - responds to gtio:// trigger for updating shopping list count
-      - see universal behaivor
-   - each user page load trigters api scrape
-      - similar behavior to GTIOv3
-   - default uitabbar is NOT visible
-   - url of webview is customized via gtio:// link that spawned the container
-   - bottom nav:
-      - standard webview forward and back browse buttons 
-      - heart btn
-         - wait for scrape api to finish (with spinner like suggest feature in GTIO3.0)
-            - **tap** ==> make api call to heart api
-               - **success** ==> (view 4.1)
-      - post this btn
-         - wait for scrape api to finish (with spinner like suggest feature in GTIO3.0)
-            - **tap** ==> tracking api call
-            - **tap** ==> (view 4.7)
+### 10.3 ~Shop 3rd Party webview Container ~
 
 
 ### 10.4 Default 3rd party webview container  
