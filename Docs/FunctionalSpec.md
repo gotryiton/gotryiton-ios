@@ -2749,22 +2749,23 @@ gtio://posts/feed
          - triggers 'dot dot dot menu' (see story below)
    - dot dot dot menu
       - assets are 'dot-menu.png' with top/middle/bottom states, each with active and inactive
-      - top cell
-         - position 7px from right edge of screen (point of arrow should appear to be centered inside dot dot dot button)
-         - position 24px from top of dot dot dot button (should overlap about 20% of the dot dot dot button)
-      - middle cell
-         - position flush with bottom of above cell
-         - use multiple instances for menus with more items
       - bottom cell
-         - position flush with bottom of last 'middle' cell
+         - position 7px from right edge of screen (point of arrow should appear to be horizontally centered inside dot dot dot button)
+         - position 24px from bottom of dot dot dot button (should overlap about 20% of the dot dot dot button)
+      - middle cell
+         - position flush with top of below cell
+         - use multiple instances for menus with more items
+      - top cell
+         - position flush with top of topmost 'middle' cell
       - text is Proxima Nova Regular, 12pt, rgb(88,88,88)
          - each line vertically and horizontally centered within respective cell
-   - top item positioning
-      - user icon is 7px away from bottom of navigation bar
-      - user icon is 7px away 7px from left edge of screen
-   - other items' positioning
-      - user icon is 7px away 24px below bottommost element in previous item
-      - user icon is 7px away 7px from left edge of screen
+   - feed posts positioning
+      - top item
+         - user icon is 7px away from bottom of navigation bar
+         - user icon is 7px away 7px from left edge of screen
+      - other items' positioning
+         - user icon is 7px away 24px below bottommost element in previous item
+         - user icon is 7px away 7px from left edge of screen
 
 
 ### 8.3 ~Feed verdict view~
