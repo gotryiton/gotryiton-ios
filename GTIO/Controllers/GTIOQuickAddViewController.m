@@ -154,9 +154,9 @@
     [self.navigationController pushViewController:editProfileViewController animated:YES];
 }
 
-- (void)checkboxStateChanged:(GTIOButton *)checkbox
+- (void)checkboxStateChanged:(BOOL)checked
 {
-    (checkbox.selected) ? self.usersToFollowSelected++ : self.usersToFollowSelected--;
+    (checked) ? self.usersToFollowSelected++ : self.usersToFollowSelected--;
     if (self.usersToFollowSelected > 0) {
         [self enableAndLabelFollowButton];
     } else {
@@ -182,7 +182,7 @@
     [[GTIOUser currentUser] followUsers:userIDs fromScreen:@"Quick Add" completionHandler:^(NSArray *loadedObjects, NSError *error) {
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         if (!error) {
-            [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+            [self loadTabBarWithTabSelectedAtIndex:0];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:@"There was an error while communicating with the server. Please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [alert show];
@@ -192,8 +192,14 @@
 
 - (void)skipThisStep
 {
-    // Go to 9.1
-    NSLog(@"skipping...");
+    [self loadTabBarWithTabSelectedAtIndex:1];
+}
+
+- (void)loadTabBarWithTabSelectedAtIndex:(NSUInteger)index
+{
+    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) selectTabAtIndex:index];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -205,7 +211,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    GTIOUser *userForRow = (GTIOUser *)[self.usersToFollow objectAtIndex:(indexPath.section + indexPath.row)];
+    userForRow.selected = !userForRow.selected;
+    [self checkboxStateChanged:userForRow.selected];
+    [tableView reloadData];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

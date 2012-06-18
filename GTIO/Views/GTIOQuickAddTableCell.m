@@ -49,6 +49,8 @@
         // Badge
         _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_badge];
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -81,7 +83,7 @@
     [button setSelected:!button.selected];
     
     if ([self.delegate respondsToSelector:@selector(checkboxStateChanged:)]) {
-        [self.delegate checkboxStateChanged:button];
+        [self.delegate checkboxStateChanged:button.selected];
     }
     
     [self.user setSelected:button.selected];

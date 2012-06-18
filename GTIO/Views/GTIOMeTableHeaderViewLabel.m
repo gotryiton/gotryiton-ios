@@ -25,6 +25,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self setClipsToBounds:YES];
+        
         _shadowyBackground = [[UIImageView alloc] init];
         [self addSubview:_shadowyBackground];
         

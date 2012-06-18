@@ -16,5 +16,6 @@
 /** This is called when you are ready to display the tab bar.
  */
 - (void)addTabBarToWindow;
+- (void)selectTabAtIndex:(NSUInteger)index;
 
 @end

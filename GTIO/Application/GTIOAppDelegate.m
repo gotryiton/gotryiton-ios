@@ -42,6 +42,8 @@
 @property (nonatomic, strong) UIImageView *tab4ImageView;
 @property (nonatomic, strong) UIImageView *tab5ImageView;
 
+@property (nonatomic, strong) NSArray *tabBarViewControllers;
+
 - (void)setupTabBar;
 - (void)setupRestKit;
 
@@ -54,6 +56,7 @@
 @synthesize splashViewController = _splashViewController;
 @synthesize cameraViewController = _cameraViewController;
 @synthesize tab1ImageView = _tab1ImageView, tab2ImageView = _tab2ImageView, tab3ImageView = _tab3ImageView, tab4ImageView = _tab4ImageView, tab5ImageView = _tab5ImageView;
+@synthesize tabBarViewControllers = _tabBarViewControllers;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -183,6 +186,12 @@
     [self.window setRootViewController:self.tabBarController];
 }
 
+- (void)selectTabAtIndex:(NSUInteger)index
+{
+    [self.tabBarController setSelectedIndex:index];
+    [self tabBarController:self.tabBarController didSelectViewController:[self.tabBarViewControllers objectAtIndex:index]];
+}
+
 - (void)setupTabBar
 {
     self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
@@ -190,14 +199,14 @@
     
     UINavigationController *meNavigationController = [[UINavigationController alloc] initWithRootViewController:[[GTIOMeViewController alloc] initWithNibName:nil bundle:nil]];
     
-    NSArray *viewControllers = [NSArray arrayWithObjects:
+    self.tabBarViewControllers = [NSArray arrayWithObjects:
                                 [[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOCameraTabBarPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOShopViewController alloc] initWithNibName:nil bundle:nil],
                                 meNavigationController,
                                 nil];
-    [self.tabBarController setViewControllers:viewControllers];
+    [self.tabBarController setViewControllers:self.tabBarViewControllers];
     
     for(UIView *view in self.tabBarController.view.subviews) {
         if(![view isKindOfClass:[UITabBar class]]) {
@@ -228,12 +237,13 @@
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
+    [viewController viewDidAppear:YES];
+    
     [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-OFF.png"]];
     [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-OFF.png"]];
     [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-OFF.png"]];
     [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-OFF.png"]];
     [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-OFF.png"]];
-    
     
     if ([viewController isKindOfClass:[GTIOFeedViewController class]]) {
         [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];

@@ -120,6 +120,8 @@
         [_editButton setImage:_editPencil forState:UIControlStateNormal];
         [_editButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_editButton];
+        
+        [self refreshButtons];
     }
     return self;
 }
@@ -136,14 +138,37 @@
     [self.locationLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height - 5, 224, 13 }];
     [self.followingLabel setFrame:(CGRect){ self.locationLabel.frame.origin.x, self.locationLabel.frame.origin.y + self.locationLabel.frame.size.height + 6, 53, 20 }];
     [self.followingCountLabel setFrame:(CGRect){ self.followingLabel.frame.origin.x + self.followingLabel.frame.size.width, self.followingLabel.frame.origin.y, 30, 20 }];
+    [self.followingButton setFrame:(CGRect){ self.followingLabel.frame.origin, self.followingLabel.bounds.size.width + self.followingCountLabel.bounds.size.width, self.followingLabel.bounds.size.height }];
     [self.followersLabel setFrame:(CGRect){ self.followingCountLabel.frame.origin.x + self.followingCountLabel.frame.size.width + 8, self.followingCountLabel.frame.origin.y, 53, 20 }];
     [self.followerCountLabel setFrame:(CGRect){ self.followersLabel.frame.origin.x + self.followersLabel.frame.size.width, self.followersLabel.frame.origin.y, 30, 20 }];
+    [self.followersButton setFrame:(CGRect){ self.followersLabel.frame.origin, self.followersLabel.bounds.size.width + self.followerCountLabel.bounds.size.width, self.followersLabel.bounds.size.height }];
     [self.starsLabel setFrame:(CGRect){ self.followerCountLabel.frame.origin.x + self.followerCountLabel.frame.size.width + 8, self.followerCountLabel.frame.origin.y, 23, 20 }];
     [self.starCountLabel setFrame:(CGRect){ self.starsLabel.frame.origin.x + self.starsLabel.frame.size.width, self.starsLabel.frame.origin.y, 23, 20 }];
-    [self.followingButton setFrame:(CGRect){ self.followingLabel.frame.origin, self.followingLabel.bounds.size.width + self.followingCountLabel.bounds.size.width, self.followingLabel.bounds.size.height }];
-    [self.followersButton setFrame:(CGRect){ self.followersLabel.frame.origin, self.followersLabel.bounds.size.width + self.followerCountLabel.bounds.size.width, self.followersLabel.bounds.size.height }];
     [self.starsButton setFrame:(CGRect){ self.starsLabel.frame.origin, self.starsLabel.bounds.size.width + self.starCountLabel.bounds.size.width, self.starsLabel.bounds.size.height }];
     [self.editButton setFrame:(CGRect){ self.bounds.size.width - self.editPencil.size.width, 3, self.editPencil.size }];
+}
+
+- (void)refreshButtons
+{
+    self.followingLabel.hidden = ![self userInfoButtonsHasButtonwWithName:@"following"];
+    self.followingCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:@"following"];
+    self.followingButton.hidden = ![self userInfoButtonsHasButtonwWithName:@"following"];
+    self.followersLabel.hidden = ![self userInfoButtonsHasButtonwWithName:@"followers"];
+    self.followerCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:@"followers"];
+    self.followersButton.hidden = ![self userInfoButtonsHasButtonwWithName:@"followers"];
+    self.starsLabel.hidden = ![self userInfoButtonsHasButtonwWithName:@"stars"];
+    self.starCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:@"stars"];
+    self.starsButton.hidden = ![self userInfoButtonsHasButtonwWithName:@"stars"];
+}
+
+- (BOOL)userInfoButtonsHasButtonwWithName:(NSString *)name
+{
+    for (GTIOButton *button in self.userInfoButtons) {
+        if ([button.name isEqualToString:name]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)setDelegate:(id<GTIOMeTableHeaderViewDelegate>)delegate
@@ -169,6 +194,7 @@
     [self.profileIcon setImageWithURL:currentUser.icon];
     [self.nameLabel setText:currentUser.name];
     [self.locationLabel setText:currentUser.location];
+    [self refreshButtons];
     [self setNeedsLayout];
 }
 
@@ -177,15 +203,15 @@
     _userInfoButtons = userInfoButtons;
     for (int i = 0; i < [self.userInfoButtons count]; i++) {
         GTIOButton *button = [self.userInfoButtons objectAtIndex:i];
-        if (i == 0) {
-            [self.followingLabel setText:button.name];
+        if ([button.name isEqualToString:@"following"]) {
+            [self.followingLabel setText:@"following"];
             [self.followingCountLabel setText:[NSString stringWithFormat:@"%i", [button.count intValue]]];
             self.followingButton.tapHandler = ^(id sender) {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
             };
         }
-        if (i == 1) {
-            [self.followersLabel setText:button.name];
+        if ([button.name isEqualToString:@"followers"]) {
+            [self.followersLabel setText:@"followers"];
             [self.followerCountLabel setText:[NSString stringWithFormat:@"%i", [button.count intValue]]];
             _followersButton.tapHandler = ^(id sender) {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
@@ -198,6 +224,7 @@
             };
         }
     }
+    [self refreshButtons];
     [self setNeedsLayout];
 }
 

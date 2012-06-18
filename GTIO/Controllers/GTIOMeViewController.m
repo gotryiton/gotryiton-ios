@@ -101,6 +101,12 @@
     [self.profileHeaderView refreshUserData];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.tableView setUserInteractionEnabled:YES];
+}
+
 - (void)refreshScreenLayout
 {
     [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
