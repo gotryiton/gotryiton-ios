@@ -1,3 +1,38 @@
+***Friday, June 18th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Reopen issues that have been closed incorrectly
+- TT - Restructure sprint schedule to resolve bug/issues prior to spinning up on new development
+- TT - Create additional issues in Github for feature development
+- GTIO - Revisit API endpoints for 6.x by the end of the week
+
+**Status**
+- Additional questions:
+- 7.7 someone wants to follow you (how many can there be?)
+ - There can only be one line ex "Blair wants to follow you"
+- 7.7 API missing stuff?
+ - Scott to follow up with additional information
+- 7.7 What is the pink checkmark badge?
+- 7.7 html in about?
+- 7.7/7.9 can you touch heart or star?
+ - Hearts should not be there on 7.7.  Stars on 7.9 are not touchable.  Star asset still pending.
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Introduce bug fix build as needed as first deliverable during an iteration?
+
+---
+
 ***Sprint 4 Development Plan (Monday, June 18th 2012 - Friday, June 29th, 2012)***
 
 Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=5&state=open
