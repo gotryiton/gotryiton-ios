@@ -2540,7 +2540,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 #### Mockups
 8.1 ([wireframe](http://invis.io/P32OE57R)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0000_Feed.AP.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0000_Feed.AP.png" width=420px/>
 
 8.1.a no user location   
 
@@ -2548,7 +2548,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.b short image
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0003_Feed.Product.Shot.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0015_Feed.Product.Shot.png" width=420px/>
 
 8.1.c no shop this look button
 
@@ -2564,7 +2564,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0012_Feed.VJ.Scrolled.Further.No.Description.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0013_Feed.VJ.Scrolled.Further.Description.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0014_Feed.VJ.Scrolled.Further.Description.png" width=420px/>
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0014_Feed.VJ.Scrolled.Further.Tags.Only.png" width=420px/>
 
