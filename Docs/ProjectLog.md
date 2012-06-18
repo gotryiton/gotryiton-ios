@@ -1,3 +1,41 @@
+***Sprint 4 Development Plan (Monday, June 18th 2012 - Friday, June 29th, 2012)***
+
+Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=5&state=open
+
+**Planned Work**
+
+- Feature Development Planned
+ - Complete 8.1 The Feed
+ - Complete 7.7 Profile Page
+ - Complete 7.5 My Hearts
+ - Complete 7.6 My Posts
+ - Complete 7.9 My Stars
+ - Start on 6.x Friends Management
+
+**Important Dates / Deadlines**
+
+- Matt out of office - 6/21 - 6/22
+- Scott out of office - 6/28 - 6/29
+
+**Open Questions**
+
+- When will the updates to 8.1 section of the functional spec be completed?
+
+**Risks**
+
+- Unknown effort with implementing mason grid with new library.  This would impact how much of 7.x we can complete
+
+**General Notes**
+
+- NA
+
+**Sprint Deliverables**
+
+- Build on 6/21
+- Second build  by 6/29
+
+---
+
 ***Friday, June 15th - Standup / Retrospective Notes***
 
 **Attendees**
