@@ -28,40 +28,6 @@
 
 ---
 
-***Thursday, May 31st - Standup Notes***
-
-**Attendees**
-
-- TT - Matt, Scott, Geoff
-- GTIO - Simon, Matt
-
-**Tasks / To Do List**
-- TT - provide examples of UISwitch, how to cut assets
-- TT - Remainining development from Sprint, move to Sprint 3
- - Photo frame mode (both on post view and camera view)
- - Photo Picker / camera roll
- - POST /post
- - POST /image 
- - Optimization around burst mode
-- TT - Review Simon's pull request related to filters
-
-**Status**
-- Working on image posting screen, with except of photo frame mode
-- compositing multiple images into one for upload
-- Navigation
-- Burst mode is now taking photos
-
-**Updates to Planned Work**
-- NA
-
-**Updates to Important Dates / Deadlines**
-- NA
-
-**General Notes**
-- NA
-
----
-
 ***Thursday, June 14th - Standup Notes***
 
 **Attendees**
