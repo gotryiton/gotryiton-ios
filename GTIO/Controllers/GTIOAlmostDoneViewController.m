@@ -69,6 +69,9 @@
     [self useTitleView:navTitleView];
     
     GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGreenTopMargin tapHandler:^(id sender) {
+        // dismiss keyboard
+        [self dismissKeyboard];
+        // form validation
         NSMutableArray *missingDataElements = [NSMutableArray array];
         for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
             if ([dataItem required]) {
@@ -131,10 +134,7 @@
 {
     [super viewDidDisappear:animated];
     // get rid of the pesky keyboard
-    for (UITextField *textField in self.textFields) {
-        [textField resignFirstResponder];
-    }
-    [self resetScrollAfterEditing];
+    [self dismissKeyboard];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -145,6 +145,14 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)dismissKeyboard
+{
+    for (id object in self.textFields) {
+        [object resignFirstResponder];
+    }
+    [self resetScrollAfterEditing];
 }
 
 #pragma mark - TableViewDelegate Methods
@@ -203,6 +211,7 @@
             [cell setAccessoryTextPlaceholderText:[dataItemForRow placeHolderText]];
             [cell setApiKey:[dataItemForRow apiKey]];
             [cell setTag:(indexPath.section+indexPath.row)];
+            [cell setIndexPath:indexPath];
             [cell setDelegate:self];
             
             if ([dataItemForRow usesPicker]) {
@@ -239,13 +248,12 @@
 
 #pragma mark - Helpers
 
-- (void)moveResponderToNextCellFromCell:(NSUInteger)cellIdentifier
+- (void)moveResponderToNextCellFromCellAtIndexPath:(NSIndexPath *)indexPath
 {
-    cellIdentifier++;
-    GTIOAlmostDoneTableCell *cellToActivate = (GTIOAlmostDoneTableCell *)[self.tableView viewWithTag:cellIdentifier];
-    if (cellToActivate) {
-        [cellToActivate becomeFirstResponder];
-    }
+    NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row+1) inSection:1];
+    [self.tableView scrollToRowAtIndexPath:nextIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    GTIOAlmostDoneTableCell *cellToFocus = (GTIOAlmostDoneTableCell *)[self.tableView cellForRowAtIndexPath:nextIndexPath];
+    [cellToFocus becomeFirstResponder];
 }
 
 - (void)scrollUpWhileEditing:(NSUInteger)cellIdentifier
@@ -264,6 +272,11 @@
 - (void)updateDataSourceWithValue:(id)value ForKey:(NSString*)key
 {
     [self.saveData setValue:value forKey:key];
+    for (GTIOAlmostDoneTableDataItem *rowDataItem in self.tableData) {
+        if ([rowDataItem.apiKey isEqualToString:key]) {
+            rowDataItem.accessoryText = value;
+        }
+    }
 }
 
 - (void)refreshScreenData
@@ -281,6 +294,7 @@
 {
     [self.tableView setFrame:self.originalContentFrame];
     [self adjustContentSizeToFit];
+    [self scrollToBottom];
 }
 
 - (void)adjustContentSizeToFit
@@ -289,6 +303,11 @@
     CGRect lastRowRect= [self.tableView rectForRowAtIndexPath:[indexPaths objectAtIndex:[indexPaths count] - 1]];
     CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height;
     [self.tableView setContentSize:(CGSize){ self.tableView.contentSize.width, contentHeight + 55 }];
+}
+
+- (void)scrollToBottom
+{
+    [self.tableView scrollRectToVisible:(CGRect){ 0, self.tableView.contentSize.height - 1, self.tableView.bounds.size.width, 1 } animated:NO];
 }
 
 @end
