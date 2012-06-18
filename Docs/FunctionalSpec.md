@@ -2556,7 +2556,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.2 Post dot options: ([outfit item](http://invis.io/N92PN2YP)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0004_Feed.Product.Shot.Dot.Options.1.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0004_Feed.Product.Shot.Dot.Options.1.png" width=420px/>
 
 8.1.3 feed scrolled: ([wireframe](http://invis.io/DA2PN3TC)) 
 
