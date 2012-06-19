@@ -23,7 +23,7 @@ static NSInteger const kGTIOBottomButtonSize = 50;
 static NSInteger const kGTIONavBarSize = 44;
 static NSInteger const kGTIOMaskingViewTag = 100;
 
-@interface GTIOPostALookViewController()
+@interface GTIOPostALookViewController() <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) GTIOLookSelectorView *lookSelectorView;
 @property (nonatomic, strong) GTIOLookSelectorControl *lookSelectorControl;
@@ -153,6 +153,10 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     
     [self.scrollView setContentSize:(CGSize){ self.view.bounds.size.width, self.descriptionBox.frame.origin.y + self.descriptionBox.bounds.size.height + 5 }];
     
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapNavigationBar:)];
+    [tapGestureRecognizer setDelegate:self];
+    [self.navigationController.navigationBar addGestureRecognizer:tapGestureRecognizer];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
 }
 
@@ -179,6 +183,8 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
+
+#pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
@@ -232,6 +238,8 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         }
     }];
 }
+
+#pragma mark -
 
 - (void)postThis:(id)sender
 {
@@ -344,6 +352,19 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     _mainImage = mainImage;
     self.lookSelectorView.singlePhotoView.image = _mainImage;
+}
+
+#pragma mark - UINavigationBar
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return (![[[touch view] class] isSubclassOfClass:[UIControl class]]);
+}
+
+- (void)tapNavigationBar:(UIGestureRecognizer *)gesture
+{
+    [self.descriptionBox.textView resignFirstResponder];
+    [self.scrollView scrollRectToVisible:(CGRect){ 0, 0, 1, 1 } animated:YES];
 }
 
 @end
