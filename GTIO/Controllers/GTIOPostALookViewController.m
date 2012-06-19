@@ -21,6 +21,7 @@
 
 static NSInteger const kGTIOBottomButtonSize = 50;
 static NSInteger const kGTIONavBarSize = 44;
+static NSInteger const kGTIOMaskingViewTag = 100;
 
 @interface GTIOPostALookViewController()
 
@@ -41,12 +42,15 @@ static NSInteger const kGTIONavBarSize = 44;
 @property (nonatomic, assign) BOOL creatingPhoto;
 @property (nonatomic, assign) BOOL postButtonPressed;
 
+@property (nonatomic, strong) UIView *maskView;
+
 @end
 
 @implementation GTIOPostALookViewController
 
 @synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, photoForCreationRequests = _photoForCreationRequests;
 @synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage, photoForPosting = _photoForPosting, creatingPhoto = _creatingPhoto, postButtonPressed = _postButtonPressed;
+@synthesize maskView = _maskView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -111,7 +115,7 @@ static NSInteger const kGTIONavBarSize = 44;
     [self.scrollView addSubview:self.tagBox];
     
     self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, 186, 120 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"] nextTextView:self.tagBox.textView];
-    [self.descriptionBox setTextViewDidBecomeActiveHandler:^(GTIOPostALookDescriptionBox *textView) {        
+    [self.descriptionBox setTextViewWillBecomeActiveHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {        
         CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
         
         if (self.scrollView.contentOffset.y == bottomOffset) {
@@ -123,6 +127,12 @@ static NSInteger const kGTIONavBarSize = 44;
         } else {
             [self.scrollView scrollRectToVisible:(CGRect){ 0, self.scrollView.contentSize.height - 1, 1, 1 } animated:YES];
         }
+    }];
+    [self.descriptionBox setTextViewDidBecomeActiveHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {
+        [self.lookSelectorView setUserInteractionEnabled:NO];
+    }];
+    [self.descriptionBox setTextViewDidEndHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {
+        [self.lookSelectorView setUserInteractionEnabled:YES];
     }];
     [self.scrollView addSubview:self.descriptionBox];
 

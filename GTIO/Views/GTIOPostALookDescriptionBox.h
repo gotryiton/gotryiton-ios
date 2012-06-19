@@ -10,13 +10,15 @@
 
 @class GTIOPostALookDescriptionBox;
 
-typedef void(^GTIOTextViewDidEndHandler)(UITextView *textView);
-typedef void(^GTIOTextViewDidBecomeActiveHandler)(GTIOPostALookDescriptionBox *textView);
+typedef void(^GTIOTextViewDidEndHandler)(GTIOPostALookDescriptionBox *descriptionBox);
+typedef void(^GTIOTextViewWillBecomeActiveHandler)(GTIOPostALookDescriptionBox *descriptionBox);
+typedef void(^GTIOTextViewDidBecomeActiveHandler)(GTIOPostALookDescriptionBox *descriptionBox);
 
 @interface GTIOPostALookDescriptionBox : UIView <UITextViewDelegate>
 
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, copy) GTIOTextViewDidEndHandler textViewDidEndHandler;
+@property (nonatomic, copy) GTIOTextViewWillBecomeActiveHandler textViewWillBecomeActiveHandler;
 @property (nonatomic, copy) GTIOTextViewDidBecomeActiveHandler textViewDidBecomeActiveHandler;
 @property (nonatomic, assign) BOOL forceBecomeFirstResponder;
 

@@ -20,7 +20,7 @@
 @implementation GTIOPostALookDescriptionBox
 
 @synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView, nextTextView = _nextTextView;
-@synthesize textViewDidEndHandler = _textViewDidEndHandler, textViewDidBecomeActiveHandler = _textViewDidBecomeActiveHandler;
+@synthesize textViewDidEndHandler = _textViewDidEndHandler, textViewWillBecomeActiveHandler = _textViewWillBecomeActiveHandler, textViewDidBecomeActiveHandler = _textViewDidBecomeActiveHandler;
 @synthesize forceBecomeFirstResponder = _forceBecomeFirstResponder;
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon nextTextView:(UITextView *)nextTextView
@@ -74,7 +74,7 @@
         return NO;
     } else if([text isEqualToString:@"\n"]) {
         if (self.textViewDidEndHandler) {
-            self.textViewDidEndHandler(self.textView);
+            self.textViewDidEndHandler(self);
         } else {
             [self.textView resignFirstResponder];
         }
@@ -85,9 +85,9 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    if (self.textViewDidBecomeActiveHandler && !self.forceBecomeFirstResponder) {
+    if (self.textViewWillBecomeActiveHandler && !self.forceBecomeFirstResponder) {
         [self setForceBecomeFirstResponder:YES];
-        self.textViewDidBecomeActiveHandler(self);
+        self.textViewWillBecomeActiveHandler(self);
         return NO;
     } else {
         [self setForceBecomeFirstResponder:NO];
@@ -97,11 +97,17 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
+    if (self.textViewDidBecomeActiveHandler) {
+        self.textViewDidBecomeActiveHandler(self);
+    }
     [self.textView setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
+    if (self.textViewDidEndHandler) {
+        self.textViewDidEndHandler(self);
+    }
     [self.textView setTextColor:[UIColor gtio_darkGrayTextColor]];
 }
 
