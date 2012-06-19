@@ -22,7 +22,7 @@
 
 @implementation GTIOUser
 
-@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, logoutRequest = _logoutRequest, logoutHandler = _logoutHandler, badge = _badge;
+@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, logoutRequest = _logoutRequest, logoutHandler = _logoutHandler, badge = _badge, userDescription = _userDescription;
 @synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
 @synthesize loginHandler = _loginHandler;
 @synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath, selected = _selected;
