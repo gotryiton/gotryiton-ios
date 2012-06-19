@@ -101,6 +101,7 @@
         [userMapping mapKeyPath:@"is_new_user" toAttribute:@"isNewUser"];
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
         [userMapping mapKeyPath:@"is_facebook_connected" toAttribute:@"isFacebookConnected"];
+        [userMapping mapKeyPath:@"description" toAttribute:@"userDescription"];
         [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", nil];
         [userMapping mapKeyPath:@"badge" toRelationship:@"badge" withMapping:badgeMapping];
         [userMapping mapKeyPath:@"button" toRelationship:@"button" withMapping:buttonMapping];
