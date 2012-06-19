@@ -657,7 +657,7 @@ Request should include an array of user objects (nested under ```users```) that 
       - users default to checked state
       - unchecking all contacts greys out follow x people btn and changes button text to 'follow'
       - selecting and deselecting increments/decrements follow x people btn
-   - invite friends **tap** ==> (view 5.1)
+      - each user has ```user.description``` attribute which should be used in place of location
    - skip **tap** ==> (view 9.1)
    - follow button 
       - makes api requests
@@ -705,8 +705,9 @@ Request should include an array of user objects (nested under ```users```) that 
       - 10px from right edge of user icon
       - if location exists, baseline is 18px up from bottom of user icon
       - if location does not exist, text is vertically centered in cell
-   - location
+   - description
       - Proxima Nova Regular, 10pt, rgb (167,167,167)
+      - all caps
       - baseline is 4px up from bottom of user icon
    - checkbox
       - 'checkbox.png' with on and off states
@@ -2005,7 +2006,7 @@ A user can see a list of suggested users to follow
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
 
 #### API Usage
-/Friends/Suggested
+/user/suggested-friends  [api-users](http://gtio-dev.gotryiton.com/docs/api-users)
 
 #### Routing
 gtio://suggested-friends
@@ -2022,17 +2023,27 @@ previous screen
 #### Stories
 - A user can see a list of suggested users to follow
    - page loads a list of users
-   - list items have profile icon, name, tappable to profile (view 7.7)
+   - list items have: ```user.icon```, ```user.name```, and ```user.description``` tappable to profile (view 7.7)
    - following btn (toggles state)
 - A user can refresh the list of suggested users to see a different set
    - refresh btn top right
-       - **tap** ==> api request
-          - **success** ==> replaces list with new users
+      - **tap** ==> api request to the pagination endpoint (```pagination.next```)
+      - during request, replace refresh button with a spinner (centered where the button was)
+      - **success** ==> replaces list with new users
 
 #### Design Stories
 - Refresh Icon
 	- 16px from top, 9px from right
-- For cells and button placement, refer to 6.1 design stories
+- For cells and button placement, refer to 6.1 design stories, with the following exceptions:
+   - user name
+      - Verlag Book, rgb(114,114,114), 18pt
+      - 10px from right edge of user icon
+      - if description exists, baseline is 18px up from bottom of user icon
+      - if description does not exist, text is vertically centered in cell
+   - description
+      - Proxima Nova Regular, 10pt, rgb (167,167,167)
+      - All caps
+      - baseline is 4px up from bottom of user icon
 
 ### 6.3 Friends management page
 
@@ -2737,52 +2748,56 @@ gtio://profile/:user_id
 
 #### Stories
 - a user can view the profile info of another user (or their self)
-   - user.name, user.location, user.icon are displayed at the top of the page
-      - user.badge is displayed next to name.
+   - ```user.name```, ```user.location```, ```user.icon``` are displayed at the top of the page
+      - ```user.badge``` is displayed next to name.
          - path to the badge is defined in api: ```user.badge.path```
-         - file is defined in app
+         - file is defined in app:
             - use size "38_38.png" for 2x
             - use size "17_17.png" for 1x
 - a user can follow another user (but not theirself)
    - follow button displayed in top right corner
-   - defined in api response ```user.follow_button```
+   - defined in api response ```user.button```
       - if null (requesting user is the same as profiled user -- or user is just not follow-able for some reason), do not display
-- settings btn
-   - defined in api, ```user.settings```
-      - if null, do not display
+- a user can edit the settings of their relationship to the profiled user
+   - button opens an actionsheet if ```ui.settings.buttons``` is not empty
+      - if ```ui.settings``` is null, do not display the settings button
    - tapping raises actionsheet with buttons that are contained in the settings_button object:
-      - items in the actionsheet are defined by those buttons
-         - ```button.text``` defines visible text
-         - ```button.action``` defines api action
+      - items in the actionsheet are defined by the buttons in the array
 - a user can read another user's bio
    - bio is defined as ```user.about```
 - a user can see who another user is following
-   - ```user.following_button``` defines action and count for the following button
-      - **tap** ==> (view 6.5)
+   - ```ui.buttons``` will include a button with ```name:following``` 
+   - button will define destination and count for the following button
+   - routes to ```gtio://user/:user_id/following``` (view 6.5)
 - a user can see who another user's followers are
-   - ```user.followers_button``` defines action and count for the followers button
-      - **tap** ==> (view 6.6)
+   - ```ui.buttons``` will include a button with ```name:followers``` 
+   - button will define destination and count for the followers button
+   - routes to ```gtio://user/:user_id/followers``` (view 6.6)
 - a user can see who another user's starred posts (editors picks)
-   - ```user.stars_button``` defines action and count for the stars button
-      - **tap** ==> (view 7.9)
+    - ```ui.buttons``` will include a button with ```name:stars``` 
+   - button will define destination and count for the stars button
+   - routes to ```gtio://user/:user_id/followers``` (view 6.5)
 - A user can see additional info about another user 
    - each profile has a customizable text fields (view 7.7.1)
-      - defined in api as ```users.profile_callouts``` array
+      - defined in api as ```ui.profile_callouts``` array
       - each item has ```icon``` and ```text```
       - text should support ```<b>``` tags for highlighting bold text
       - items are not tappable
 - Special branded users can display a banner in their profile
    - banner area (view 7.7.3)
-      - image and action defined in api with ```user.banner_ad```
+      - button is defined in the api with ```ui.buttons```
+      - banner button will have ```name:banner-ad```
+      - banner button will have ```image:[url]``` to define the image to display (will be a 2x image)
 - A users profile can show a button linking to an external site
    - seen in (view 7.7.1)
-   - button defined by api through ```user.website_button```
-      - button includes ```text``` and ```action``` 
+   - button defined by api through ```ui.buttons```
+   - button will have ```name:website-button```
+   - button includes ```text``` and ```action``` 
 - A users profile shows a masonry list of their hearts and looks
    - api responds with ```hearts_list``` and ```posts_list``` which will be identical responses to ```/posts/hearted-by-user/:user_id``` and ```/posts/by-user/:user_id``` respectively
       - api paginates in the usual manner
-   - each post is displayed as a thumbnail using ```post.thumbnail```
-      - **tap** ==> (view 4.1), (view 3.1), or (view 3.6)
+   - each post is displayed as a thumbnail using ```post.photo.thumbnail```
+      - **tap** ==> (view 4.1)
 
 
 #### Design Stories
@@ -3659,6 +3674,9 @@ A user can confirm that they want to upload the photo they've taken or selected.
       - 'x' button **tap** => (view 12.1)
    - If a user arrived on this screen via the Photoshoot grid, they can return to the grid via a grid icon (seen in view 12.2.1)
       - grid button **tap** => (view 12.4)
+- Product Photos / different aspect ratios
+   - Filter should be applied only to source image and not to any letterboxed areas that may be shown
+   - Filter masks should scale along with particular size and ratio of source image
 
 ### Design Stories
 - Bottom Bar
@@ -3681,6 +3699,12 @@ A user can confirm that they want to upload the photo they've taken or selected.
       - Non-selected filter text is 60% opacity
 - Background shadow
 	- 101px high shadow behind filter buttons using (upload.filter.shadow.bg.png) which should stretch horizontally
+- Product Photos / different aspect ratios
+   - if a source photo has an aspect ratio that is shorter than that of the available content area (320 x 427), photo should be displayed so that it is screen width, while preserving original aspect ratio (letterboxing top and bottom)
+   - if a source photo has an aspect ratio that is taller than that of the available content area, photo should be displayed so that it is 427px high, while preserving original aspect ratio (letterboxing left and right)
+   - if a source photo doesn't fit width or height we will scale the image up to fit either height or width while perserving the original aspect ration
+   - content area behind photo (visible wherever source photo is not filling screen) is rgb(100,100,100)
+      - overlay edges of letterbox towards source photo with 'filter-letterbox-shadow.png' (has vertical top/bottom, horizontal left/right versions)
 
 ### 12.3 Post a look  
 
