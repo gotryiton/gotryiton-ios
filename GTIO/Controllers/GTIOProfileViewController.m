@@ -28,7 +28,7 @@
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
         
-        _profileHeaderView = [[GTIOProfileHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 100 }];
+        _profileHeaderView = [[GTIOProfileHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 0 }];
         [self.view addSubview:_profileHeaderView];
     }
     return self;

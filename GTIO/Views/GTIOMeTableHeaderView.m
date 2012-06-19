@@ -206,7 +206,7 @@
     [self.nameLabel setText:self.user.name];
     [self.locationLabel setText:[self.user.location uppercaseString]];
     if (self.user.badge) {
-        [self.badge setImageWithURL:self.user.badge.path];
+        [self.badge setImageWithURL:[self.user.badge badgeImageURL]];
     }
     [self refreshButtons];
     [self setNeedsLayout];

@@ -54,6 +54,7 @@ typedef enum GTIOButtonType {
 @property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, strong) NSNumber *chevron;
 @property (nonatomic, strong) NSNumber *state;
+@property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) GTIOButtonAction *action;
 @property (nonatomic, copy) GTIOButtonDidTapHandler tapHandler;
 
