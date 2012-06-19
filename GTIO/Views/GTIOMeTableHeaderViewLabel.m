@@ -71,7 +71,7 @@
 - (void)sizeToFitText
 {
     [self.textLabel sizeToFit];
-    [self.textLabel setFrame:(CGRect){ self.textLabel.frame.origin.x + 1.0, self.textLabel.frame.origin.y, self.textLabel.bounds.size.width + 12, self.bounds.size.height }];
+    [self.textLabel setFrame:(CGRect){ 2.0, self.textLabel.frame.origin.y, self.textLabel.bounds.size.width + 12, self.bounds.size.height }];
     if (self.textLabel.bounds.size.width > 31) {
         [self.textLabel setAdjustsFontSizeToFitWidth:YES];
         [self.textLabel setFrame:(CGRect){ self.textLabel.frame.origin.x, self.textLabel.frame.origin.y, 27, self.bounds.size.height }];
