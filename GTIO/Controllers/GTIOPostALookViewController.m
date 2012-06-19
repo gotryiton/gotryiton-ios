@@ -110,7 +110,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ 253, 174, 60, 143 }];
     [self.scrollView addSubview:self.optionsView];
     
-    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, 186, 120 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"]];
+    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, self.scrollView.frame.size.width - (6 * 2), 120 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"]];
     [self.descriptionBox setTextViewWillBecomeActiveHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {        
         CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
         
@@ -221,6 +221,8 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     } completion:^(BOOL finished) {
         if (top) {
             [self.descriptionBox.textView resignFirstResponder];
+        } else {
+            [self.descriptionBox.textView becomeFirstResponder];
         }
     }];
 }
