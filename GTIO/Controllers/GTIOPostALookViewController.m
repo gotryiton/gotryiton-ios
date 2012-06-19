@@ -29,7 +29,6 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 @property (nonatomic, strong) GTIOLookSelectorControl *lookSelectorControl;
 @property (nonatomic, strong) GTIOPostALookOptionsView *optionsView;
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *descriptionBox;
-@property (nonatomic, strong) GTIOPostALookDescriptionBox *tagBox;
 @property (nonatomic, strong) UIButton *postThisButton;
 
 @property (nonatomic, strong) GTIOScrollView *scrollView;
@@ -48,7 +47,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 @implementation GTIOPostALookViewController
 
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, photoForCreationRequests = _photoForCreationRequests;
+@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, photoForCreationRequests = _photoForCreationRequests;
 @synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage, photoForPosting = _photoForPosting, creatingPhoto = _creatingPhoto, postButtonPressed = _postButtonPressed;
 @synthesize maskView = _maskView;
 
@@ -111,10 +110,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ 253, 174, 60, 143 }];
     [self.scrollView addSubview:self.optionsView];
     
-    self.tagBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 195, 330, 119, 120 } title:@"tag brands" icon:[UIImage imageNamed:@"brands-box-icon.png"] nextTextView:nil];
-    [self.scrollView addSubview:self.tagBox];
-    
-    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, 186, 120 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"] nextTextView:self.tagBox.textView];
+    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, 186, 120 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"]];
     [self.descriptionBox setTextViewWillBecomeActiveHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {        
         CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
         
@@ -131,8 +127,13 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [self.descriptionBox setTextViewDidBecomeActiveHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {
         [self.lookSelectorView setUserInteractionEnabled:NO];
     }];
-    [self.descriptionBox setTextViewDidEndHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {
+    [self.descriptionBox setTextViewDidEndHandler:^(GTIOPostALookDescriptionBox *descriptionBox, BOOL scrollToTop) {
+        [self.descriptionBox.textView resignFirstResponder];
         [self.lookSelectorView setUserInteractionEnabled:YES];
+        
+        if (scrollToTop) {
+            [self.scrollView scrollRectToVisible:(CGRect){ 0, 0, 1, 1 } animated:YES];
+        }
     }];
     [self.scrollView addSubview:self.descriptionBox];
 
@@ -164,7 +165,6 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self.lookSelectorControl = nil;
     self.optionsView = nil;
     self.descriptionBox = nil;
-    self.tagBox = nil;
     self.postThisButton = nil;
 }
 
@@ -220,7 +220,6 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         [scrollView scrollRectToVisible:scrollToRect animated:YES];
     } completion:^(BOOL finished) {
         if (top) {
-            [self.tagBox.textView resignFirstResponder];
             [self.descriptionBox.textView resignFirstResponder];
         }
     }];

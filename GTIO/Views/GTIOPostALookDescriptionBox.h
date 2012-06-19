@@ -10,7 +10,7 @@
 
 @class GTIOPostALookDescriptionBox;
 
-typedef void(^GTIOTextViewDidEndHandler)(GTIOPostALookDescriptionBox *descriptionBox);
+typedef void(^GTIOTextViewDidEndHandler)(GTIOPostALookDescriptionBox *descriptionBox, BOOL scrollToTop);
 typedef void(^GTIOTextViewWillBecomeActiveHandler)(GTIOPostALookDescriptionBox *descriptionBox);
 typedef void(^GTIOTextViewDidBecomeActiveHandler)(GTIOPostALookDescriptionBox *descriptionBox);
 
@@ -22,6 +22,6 @@ typedef void(^GTIOTextViewDidBecomeActiveHandler)(GTIOPostALookDescriptionBox *d
 @property (nonatomic, copy) GTIOTextViewDidBecomeActiveHandler textViewDidBecomeActiveHandler;
 @property (nonatomic, assign) BOOL forceBecomeFirstResponder;
 
-- (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon nextTextView:(UITextView *)nextTextView;
+- (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon;
 
 @end
