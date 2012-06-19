@@ -16,14 +16,16 @@
 @property (nonatomic, strong) NSString *facebookAuthResourcePath;
 @property (nonatomic, strong) NSString *janrainAuthResourcePath;
 @property (nonatomic, strong) RKRequest *logoutRequest;
+@property (nonatomic, strong) RKRequest *userProfileRequest;
 @property (nonatomic, copy) GTIOLogoutHandler logoutHandler;
+@property (nonatomic, copy) GTIOCompletionHandler userProfileCompletionHandler;
 
 @end
 
 @implementation GTIOUser
 
-@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, logoutRequest = _logoutRequest, logoutHandler = _logoutHandler, badge = _badge;
-@synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
+@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, logoutRequest = _logoutRequest, logoutHandler = _logoutHandler, badge = _badge, userDescription = _userDescription, button = _button, userProfileRequest = _userProfileRequest;
+@synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath, userProfileCompletionHandler = _userProfileCompletionHandler;
 @synthesize loginHandler = _loginHandler;
 @synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath, selected = _selected;
 
@@ -214,6 +216,7 @@
     self.email = user.email;
     self.isFacebookConnected = user.isFacebookConnected;
     self.badge = user.badge;
+    self.userDescription = user.userDescription;
 }
 
 #pragma mark - janrain
@@ -354,10 +357,30 @@
     }];
 }
 
+- (void)loadUserProfileWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler
+{    
+    self.userProfileCompletionHandler = completionHandler;
+    NSString *userProfilePath = [NSString stringWithFormat:@"/user/%@/profile", userID];
+    self.userProfileRequest = [[RKClient sharedClient] requestWithResourcePath:userProfilePath];
+    self.userProfileRequest.method = RKRequestMethodGET;
+    self.userProfileRequest.delegate = self;
+    [self.userProfileRequest send];
+}
+
 #pragma mark - RKRequestDelegate Methods
 
-- (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response
+- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
 {
+    if ([request isEqual:self.userProfileRequest]) {
+        NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
+        RKObjectMappingProvider* provider = [RKObjectManager sharedManager].mappingProvider;
+        NSDictionary *userProfile = [NSDictionary dictionaryWithObject:parsedBody forKey:@"userProfile"];
+        RKObjectMapper* mapper = [RKObjectMapper mapperWithObject:userProfile mappingProvider:provider];
+        RKObjectMappingResult* result = [mapper performMapping];
+        if (self.userProfileCompletionHandler) {
+            self.userProfileCompletionHandler([NSArray arrayWithObject:[result asObject]], nil);
+        }
+    }
     if ([request isEqual:self.logoutRequest]) {
         if (self.logoutHandler) {
             self.logoutHandler(response);
@@ -365,7 +388,7 @@
     }
 }
 
--(void)request:(FBRequest *)request didFailWithError:(NSError *)error
+- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error
 {
     if (error && [request isEqual:self.logoutRequest]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There was an error while logging you out." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];

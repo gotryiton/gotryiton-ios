@@ -50,12 +50,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     [self refreshScreenLayout];
-    
+
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
     [self.profileHeaderView setDelegate:self];
-    [self.view addSubview:self.profileHeaderView];
+    [self.profileHeaderView setUser:[GTIOUser currentUser]];
+    [self.profileHeaderView setEditButtonTapHandler:^(id sender) {
+        GTIOEditProfileViewController *editProfileViewController = [[GTIOEditProfileViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:editProfileViewController animated:YES];
+    }];
+    [self.profileHeaderView setProfilePictureTapHandler:^(id sender) {
+        GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
+    }];
+
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"profile.top.bg.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:10.0]];
+    [backgroundImageView setFrame:(CGRect){ 0, 0, self.profileHeaderView.bounds.size }];
+    [backgroundImageView setUserInteractionEnabled:YES];
+    [self.view addSubview:backgroundImageView];
+    [backgroundImageView addSubview:self.profileHeaderView];
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, self.profileHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.profileHeaderView.bounds.size.height } style:UITableViewStyleGrouped];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
@@ -231,16 +245,9 @@
 
 #pragma mark - GTIOMeTableHeaderViewDelegate Methods
 
-- (void)pushEditProfilePictureViewController
+- (void)pushViewController:(UIViewController *)viewController
 {
-    GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
-}
-
-- (void)pushEditProfileViewController
-{
-    GTIOEditProfileViewController *editProfileViewController = [[GTIOEditProfileViewController alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:editProfileViewController animated:YES];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -254,7 +261,7 @@
 {
     if (buttonIndex == 0) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[GTIOUser currentUser] logOutWithLogoutHandler:^(NSURLResponse *response) {
+        [[GTIOUser currentUser] logOutWithLogoutHandler:^(RKResponse *response) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             if (response) {
                 GTIOSignInViewController *signInViewController = (GTIOSignInViewController *)self.viewControllerToRouteTo;

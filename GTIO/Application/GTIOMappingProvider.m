@@ -20,6 +20,8 @@
 #import "GTIOPost.h"
 #import "GTIOButtonAction.h"
 #import "GTIOMyManagementScreen.h"
+#import "GTIOUserProfile.h"
+#import "GTIOProfileCallout.h"
 
 @implementation GTIOMappingProvider
 
@@ -41,6 +43,8 @@
         RKObjectMapping *buttonMapping = [RKObjectMapping mappingForClass:[GTIOButton class]];
         RKObjectMapping *buttonActionMapping = [RKObjectMapping mappingForClass:[GTIOButtonAction class]];
         RKObjectMapping *myManagementScreenMapping = [RKObjectMapping mappingForClass:[GTIOMyManagementScreen class]];
+        RKObjectMapping *userProfileMapping = [RKObjectMapping mappingForClass:[GTIOUserProfile class]];
+        RKObjectMapping *profileCalloutMapping = [RKObjectMapping mappingForClass:[GTIOProfileCallout class]];
         
         /** Config
          */
@@ -93,11 +97,13 @@
         [userMapping mapKeyPath:@"id" toAttribute:@"userID"];
         [userMapping mapKeyPath:@"born_in" toAttribute:@"birthYear"];
         [userMapping mapKeyPath:@"about" toAttribute:@"aboutMe"];
+        [userMapping mapKeyPath:@"description" toAttribute:@"userDescription"];
         [userMapping mapKeyPath:@"is_new_user" toAttribute:@"isNewUser"];
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
         [userMapping mapKeyPath:@"is_facebook_connected" toAttribute:@"isFacebookConnected"];
         [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", nil];
         [userMapping mapKeyPath:@"badge" toRelationship:@"badge" withMapping:badgeMapping];
+        [userMapping mapKeyPath:@"button" toRelationship:@"button" withMapping:buttonMapping];
         [self setMapping:userMapping forKeyPath:@"user"];
         [self setMapping:userMapping forKeyPath:@"users"];
         
@@ -114,11 +120,21 @@
         [userPhotoMapping mapAttributes:@"url", @"width", @"height", nil];
         [self setMapping:userPhotoMapping forKeyPath:@"photo"];
         
+        // Profile callouts
+        [profileCalloutMapping mapAttributes:@"icon", @"text", nil];
+        
+        // User Profile
+        [userProfileMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping];
+        [userProfileMapping mapKeyPath:@"ui.buttons" toRelationship:@"userInfoButtons" withMapping:buttonMapping];
+        [userProfileMapping mapKeyPath:@"ui.profile_callouts" toRelationship:@"profileCallOuts" withMapping:profileCalloutMapping];
+        [userProfileMapping mapKeyPath:@"ui.settings.buttons" toRelationship:@"settingsButtons" withMapping:buttonMapping];
+        [self setMapping:userProfileMapping forKeyPath:@"userProfile"];
+        
         /** Buttons
          */
         [buttonActionMapping mapAttributes:@"destination", @"endpoint", nil];
         [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
-        [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", nil];
+        [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", @"state", nil];
         
         /** Screens
          */

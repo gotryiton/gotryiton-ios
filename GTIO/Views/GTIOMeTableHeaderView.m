@@ -13,6 +13,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GTIOEditProfilePictureViewController.h"
 #import "GTIOMeTableHeaderViewLabel.h"
+#import "GTIOProfileViewController.h"
+#import "GTIOEditProfileViewController.h"
 
 @interface GTIOMeTableHeaderView()
 
@@ -20,6 +22,7 @@
 @property (nonatomic, strong) GTIOButton *profileIconButton;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *locationLabel;
+@property (nonatomic, strong) UIImageView *badge;
 
 @property (nonatomic, strong) GTIOMeTableHeaderViewLabel *followingLabel;
 @property (nonatomic, strong) GTIOMeTableHeaderViewLabel *followingCountLabel;
@@ -33,29 +36,22 @@
 @property (nonatomic, strong) GTIOButton *starsButton;
 @property (nonatomic, strong) GTIOButton *editButton;
 
-@property (nonatomic, strong) UIImage *editPencil;
+@property (nonatomic, strong) UIImage *editImage;
 
 @end
 
 @implementation GTIOMeTableHeaderView
 
-@synthesize profileIcon = _profileIcon, profileIconButton = _profileIconButton, nameLabel = _nameLabel, locationLabel = _locationLabel, userInfoButtons = _userInfoButtons;
-@synthesize followingLabel = _followingLabel, followingCountLabel = _followingCountLabel, followersLabel = _followersLabel, followerCountLabel = _followerCountLabel, starsLabel = _starsLabel, starCountLabel = _starCountLabel;
-@synthesize followingButton = _followingButton, followersButton = _followersButton, starsButton = _starsButton, editButton = _editButton, editPencil = _editPencil;
+@synthesize profileIcon = _profileIcon, profileIconButton = _profileIconButton, nameLabel = _nameLabel, locationLabel = _locationLabel, userInfoButtons = _userInfoButtons, badge = _badge;
+@synthesize followingLabel = _followingLabel, followingCountLabel = _followingCountLabel, followersLabel = _followersLabel, followerCountLabel = _followerCountLabel, starsLabel = _starsLabel, starCountLabel = _starCountLabel, user = _user, usesGearInsteadOfPencil = _usesGearInsteadOfPencil;
+@synthesize followingButton = _followingButton, followersButton = _followersButton, starsButton = _starsButton, editButton = _editButton, editImage = _editImage, editButtonTapHandler = _editButtonTapHandler, profilePictureTapHandler = _profilePictureTapHandler;
 @synthesize delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
-        GTIOUser *currentUser = [GTIOUser currentUser];
-        
-        UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"profile.top.bg.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:10.0]];
-        [backgroundImageView setFrame:(CGRect){ 0, 0, frame.size }];
-        [self addSubview:backgroundImageView];
-        
-        _profileIcon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 8, 8, 55, 55 } andImageURL:currentUser.icon];
+        _profileIcon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 8, 8, 55, 55 } andImageURL:nil];
         [_profileIcon setIsSelectable:NO];
         [_profileIcon setHasOuterShadow:YES];
         [self addSubview:_profileIcon];
@@ -68,13 +64,14 @@
         [_nameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0]];
         [_nameLabel setBackgroundColor:[UIColor clearColor]];
         [_nameLabel setTextColor:[UIColor whiteColor]];
-        [_nameLabel setText:currentUser.name];
         [self addSubview:_nameLabel];
+        
+        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_badge];
         
         _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_locationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
         [_locationLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
-        [_locationLabel setText:[currentUser.location uppercaseString]];
         [_locationLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_locationLabel];
         
@@ -116,15 +113,27 @@
         [_starsButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_starsButton];
         
-        _editPencil = [UIImage imageNamed:@"profile.top.icon.edit.png"];
         _editButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
-        [_editButton setImage:_editPencil forState:UIControlStateNormal];
         [_editButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self setUsesGearInsteadOfPencil:NO];
         [self addSubview:_editButton];
         
         [self refreshButtons];
     }
     return self;
+}
+
+- (void)setUsesGearInsteadOfPencil:(BOOL)usesGearInsteadOfPencil
+{
+    _usesGearInsteadOfPencil = usesGearInsteadOfPencil;
+    self.editImage = (usesGearInsteadOfPencil) ? [UIImage imageNamed:@"profile.top.icon.cog.png"] : [UIImage imageNamed:@"profile.top.icon.edit.png"];
+    [self.editButton setImage:self.editImage forState:UIControlStateNormal];
+}
+
+- (void)setUser:(GTIOUser *)user
+{
+    _user = user;
+    [self refreshUserData];
 }
 
 - (void)dealloc
@@ -135,7 +144,11 @@
 - (void)layoutSubviews
 {
     [self.profileIconButton setFrame:self.profileIcon.frame];
-    [self.nameLabel setFrame:(CGRect){ self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 7, self.profileIcon.frame.origin.y, 224, 21 }];
+    [self.nameLabel sizeToFit];
+    [self.nameLabel setFrame:(CGRect){ self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 7, self.profileIcon.frame.origin.y, (self.nameLabel.bounds.size.width < 204) ? self.nameLabel.bounds.size.width : 204, 21 }];
+    if (self.user.badge) {
+        [self.badge setFrame:(CGRect){ self.nameLabel.frame.origin.x + self.nameLabel.bounds.size.width + 3, self.nameLabel.frame.origin.y - 1, 17, 17 }];
+    }
     [self.locationLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height - 5, 224, 13 }];
     [self.followingLabel setFrame:(CGRect){ self.locationLabel.frame.origin.x, self.locationLabel.frame.origin.y + self.locationLabel.frame.size.height + 6, 53, 20 }];
     [self.followingCountLabel setFrame:(CGRect){ self.followingLabel.frame.origin.x + self.followingLabel.frame.size.width, self.followingLabel.frame.origin.y, 0, 20 }];
@@ -149,7 +162,7 @@
     [self.starCountLabel setFrame:(CGRect){ self.starsLabel.frame.origin.x + self.starsLabel.frame.size.width, self.starsLabel.frame.origin.y, 0, 20 }];
     [self.starCountLabel sizeToFitText];
     [self.starsButton setFrame:(CGRect){ self.starsLabel.frame.origin, self.starsLabel.bounds.size.width + self.starCountLabel.bounds.size.width, self.starsLabel.bounds.size.height }];
-    [self.editButton setFrame:(CGRect){ self.bounds.size.width - self.editPencil.size.width, 3, self.editPencil.size }];
+    [self.editButton setFrame:(CGRect){ self.bounds.size.width - self.editImage.size.width, 3, self.editImage.size }];
 }
 
 - (void)refreshButtons
@@ -175,29 +188,26 @@
     return NO;
 }
 
-- (void)setDelegate:(id<GTIOMeTableHeaderViewDelegate>)delegate
+- (void)setProfilePictureTapHandler:(GTIOButtonDidTapHandler)profilePictureTapHandler
 {
-    _delegate = delegate;
-    
-    [self.profileIconButton setTapHandler:^(id sender) {
-        if ([self.delegate respondsToSelector:@selector(pushEditProfilePictureViewController)]) {
-            [self.delegate pushEditProfilePictureViewController];
-        }
-    }];
-    
-    [self.editButton setTapHandler:^(id sender) {
-        if ([self.delegate respondsToSelector:@selector(pushEditProfileViewController)]) {
-            [self.delegate pushEditProfileViewController];
-        }
-    }];
+    _profilePictureTapHandler = profilePictureTapHandler;
+    [self.profileIconButton setTapHandler:self.profilePictureTapHandler];
+}
+
+- (void)setEditButtonTapHandler:(GTIOButtonDidTapHandler)editButtonTapHandler
+{
+    _editButtonTapHandler = editButtonTapHandler;
+    [self.editButton setTapHandler:self.editButtonTapHandler];
 }
 
 - (void)refreshUserData
 {
-    GTIOUser *currentUser = [GTIOUser currentUser];
-    [self.profileIcon setImageWithURL:currentUser.icon];
-    [self.nameLabel setText:currentUser.name];
-    [self.locationLabel setText:[currentUser.location uppercaseString]];
+    [self.profileIcon setImageWithURL:self.user.icon];
+    [self.nameLabel setText:self.user.name];
+    [self.locationLabel setText:[self.user.location uppercaseString]];
+    if (self.user.badge) {
+        [self.badge setImageWithURL:self.user.badge.path];
+    }
     [self refreshButtons];
     [self setNeedsLayout];
 }
@@ -214,6 +224,11 @@
             [self.followingCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             self.followingButton.tapHandler = ^(id sender) {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
+                if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
+                    GTIOProfileViewController *profileViewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+                    [profileViewController setUserID:[GTIOUser currentUser].userID];
+                    [self.delegate pushViewController:profileViewController];
+                }
             };
         }
         if ([button.name isEqualToString:@"followers"]) {

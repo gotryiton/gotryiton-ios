@@ -30,6 +30,7 @@
         [_titleLabel setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_titleLabel];
+        [self refreshView];
     }
     return self;
 }
