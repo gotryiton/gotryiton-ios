@@ -443,6 +443,7 @@
 		8E43326A15814AC100CD95D0 /* inner.shadow.bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E43326815814AC100CD95D0 /* inner.shadow.bg@2x.png */; };
 		8E43326D1581525C00CD95D0 /* inner.shadow.bg.lighter.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E43326B1581525C00CD95D0 /* inner.shadow.bg.lighter.png */; };
 		8E43326E1581525C00CD95D0 /* inner.shadow.bg.lighter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E43326C1581525C00CD95D0 /* inner.shadow.bg.lighter@2x.png */; };
+		8E436990159124E8002DBF57 /* GTIOFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E969F53158BD7F7009E19B3 /* GTIOFeedViewController.m */; };
 		8E53238B157FC33E003B7B73 /* GTIOPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E53238A157FC33E003B7B73 /* GTIOPhoto.m */; };
 		8E53B601158251F900EF138F /* GTIOAlmostDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E53B600158251F900EF138F /* GTIOAlmostDoneViewController.m */; };
 		8E53B6041582679A00EF138F /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E53B6031582679A00EF138F /* GTIOEditProfileViewController.m */; };
@@ -617,7 +618,6 @@
 		8E91B1A6156AC197009D70AC /* JRUserLandingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E91B0FA156AC197009D70AC /* JRUserLandingController.xib */; };
 		8E91B1A7156AC197009D70AC /* JRWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E91B0FB156AC197009D70AC /* JRWebViewController.xib */; };
 		8E91B1A8156AC197009D70AC /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B0FE156AC197009D70AC /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		8E969F54158BD7F7009E19B3 /* GTIOFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E969F53158BD7F7009E19B3 /* GTIOFeedViewController.m */; };
 		8E97DF341586A81300521968 /* GTIOQuickAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */; };
 		8EA21B39157FDDC000D5003C /* GTIOPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA21B38157FDDC000D5003C /* GTIOPost.m */; };
 		8EAA14C7156E846C0083884E /* GTIOTextFieldForPickerViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */; };
@@ -4460,7 +4460,6 @@
 				D2CDA99E1550307B009B7E24 /* GTIOAppDelegate.m in Sources */,
 				D2CDA9AA155032D7009B7E24 /* main.m in Sources */,
 				D2E3759A1559B86700763A67 /* GTIOExploreLooksViewController.m in Sources */,
-				D2E3759B1559B86700763A67 /* GTIOFeedViewController.m in Sources */,
 				D2603DC6155AAE4500536BF9 /* GTIOShopViewController.m in Sources */,
 				D2603DC9155AAE5100536BF9 /* GTIOMeViewController.m in Sources */,
 				D2603E1E155AD92E00536BF9 /* TTTAttributedLabel.m in Sources */,
@@ -4588,6 +4587,7 @@
 				D2B8A583158A97BB001D67CA /* GTIOFilterOperation.m in Sources */,
 				D2B8A584158A97CF001D67CA /* GTIOFilterButton.m in Sources */,
 				D2C363F2158A999400F476EF /* NSMutableDictionary+FilterTypeKeys.m in Sources */,
+				8E436990159124E8002DBF57 /* GTIOFeedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
