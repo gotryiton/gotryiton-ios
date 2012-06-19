@@ -97,7 +97,6 @@
         [userMapping mapKeyPath:@"id" toAttribute:@"userID"];
         [userMapping mapKeyPath:@"born_in" toAttribute:@"birthYear"];
         [userMapping mapKeyPath:@"about" toAttribute:@"aboutMe"];
-        [userMapping mapKeyPath:@"description" toAttribute:@"userDescription"];
         [userMapping mapKeyPath:@"is_new_user" toAttribute:@"isNewUser"];
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
         [userMapping mapKeyPath:@"is_facebook_connected" toAttribute:@"isFacebookConnected"];
