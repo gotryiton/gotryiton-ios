@@ -707,6 +707,7 @@ Request should include an array of user objects (nested under ```users```) that 
       - if location does not exist, text is vertically centered in cell
    - description
       - Proxima Nova Regular, 10pt, rgb (167,167,167)
+      - all caps
       - baseline is 4px up from bottom of user icon
    - checkbox
       - 'checkbox.png' with on and off states
@@ -2041,6 +2042,7 @@ previous screen
       - if description does not exist, text is vertically centered in cell
    - description
       - Proxima Nova Regular, 10pt, rgb (167,167,167)
+      - All caps
       - baseline is 4px up from bottom of user icon
 
 ### 6.3 Friends management page
