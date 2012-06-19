@@ -29,7 +29,7 @@
         [self.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:18.0]];
         [self.textLabel setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
         
-        // Location
+        // Description
         [self.detailTextLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0]];
         [self.detailTextLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
         
@@ -65,7 +65,7 @@
     _user = user;
     
     [self.textLabel setText:self.user.name];
-    [self.detailTextLabel setText:self.user.location];
+    [self.detailTextLabel setText:self.user.description];
     __block GTIOQuickAddTableCell *blockSelf = self;
     [self.imageView setImageWithURL:self.user.icon success:^(UIImage *image) {
         [blockSelf setNeedsLayout];

@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *innerShadow;
+@property (nonatomic, strong) UIImageView *outerShadow;
 @property (nonatomic, strong) UIView *canvas;
 @property (nonatomic, strong) UIView *border;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
@@ -22,14 +23,19 @@
 
 @implementation GTIOSelectableProfilePicture
 
-@synthesize isSelectable = _isSelectable, isSelected = _isSelected, imageURL = _imageURL, delegate = _delegate, image = _image, hasShadow = _hasShadow;
-@synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer, border = _border, canvas = _canvas, innerShadow = _innerShadow;
+@synthesize isSelectable = _isSelectable, isSelected = _isSelected, imageURL = _imageURL, delegate = _delegate, image = _image, hasInnerShadow = _hasInnerShadow, hasOuterShadow = _hasOuterShadow;
+@synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer, border = _border, canvas = _canvas, innerShadow = _innerShadow, outerShadow = _outerShadow;
 
 - (id)initWithFrame:(CGRect)frame andImageURL:(NSURL*)url
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self setClipsToBounds:NO];
+        
+        _outerShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile.top.profile.bg.png"]];
+        [_outerShadow setFrame:(CGRect){ -5, -5, self.frame.size.width + 10, self.frame.size.height + 10 }];
+        _outerShadow.hidden = YES;
+        [self addSubview:_outerShadow];
         
         _canvas = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, frame.size }];
         [_canvas.layer setCornerRadius:3.0f];
@@ -55,6 +61,8 @@
         _isSelected = NO;
         _isSelectable = YES;
         _imageURL = url;
+        _hasInnerShadow = YES;
+        _hasOuterShadow = NO;
     }
     return self;
 }
@@ -100,8 +108,16 @@
     }
 }
 
-- (void)setHasShadow:(BOOL)hasShadow
+- (void)setHasInnerShadow:(BOOL)hasInnerShadow
 {
+    _hasInnerShadow = hasInnerShadow;
+    self.innerShadow.hidden = !hasInnerShadow;
+}
+
+- (void)setHasOuterShadow:(BOOL)hasOuterShadow
+{
+    _hasOuterShadow = hasOuterShadow;
+    self.outerShadow.hidden = !hasOuterShadow;
     
 }
 
