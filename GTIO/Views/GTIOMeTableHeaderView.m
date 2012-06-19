@@ -64,7 +64,7 @@
         [self addSubview:_profileIconButton];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [_nameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:16.0]];
+        [_nameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0]];
         [_nameLabel setBackgroundColor:[UIColor clearColor]];
         [_nameLabel setTextColor:[UIColor whiteColor]];
         [_nameLabel setText:currentUser.name];

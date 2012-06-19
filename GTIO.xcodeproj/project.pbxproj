@@ -123,8 +123,6 @@
 		8E3F8A83157E4DF00047937E /* search.no.results.empty.sadface@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F88DF157E4DF00047937E /* search.no.results.empty.sadface@2x.png */; };
 		8E3F8A84157E4DF00047937E /* cancel-button-gray-top-margin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F88E1157E4DF00047937E /* cancel-button-gray-top-margin.png */; };
 		8E3F8A85157E4DF00047937E /* cancel-button-gray-top-margin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F88E2157E4DF00047937E /* cancel-button-gray-top-margin@2x.png */; };
-		8E3F8A86157E4DF00047937E /* clear-profile-picture-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F88E3157E4DF00047937E /* clear-profile-picture-button.png */; };
-		8E3F8A87157E4DF00047937E /* clear-profile-picture-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F88E4157E4DF00047937E /* clear-profile-picture-button@2x.png */; };
 		8E3F8A88157E4DF00047937E /* default-facebook-profile-picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F88E5157E4DF00047937E /* default-facebook-profile-picture.png */; };
 		8E3F8A89157E4DF00047937E /* default-facebook-profile-picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F88E6157E4DF00047937E /* default-facebook-profile-picture@2x.png */; };
 		8E3F8A8A157E4DF00047937E /* edit.profile.pic.clear.active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3F88E7157E4DF00047937E /* edit.profile.pic.clear.active.png */; };
@@ -978,8 +976,6 @@
 		8E3F88DF157E4DF00047937E /* search.no.results.empty.sadface@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search.no.results.empty.sadface@2x.png"; sourceTree = "<group>"; };
 		8E3F88E1157E4DF00047937E /* cancel-button-gray-top-margin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button-gray-top-margin.png"; sourceTree = "<group>"; };
 		8E3F88E2157E4DF00047937E /* cancel-button-gray-top-margin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button-gray-top-margin@2x.png"; sourceTree = "<group>"; };
-		8E3F88E3157E4DF00047937E /* clear-profile-picture-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear-profile-picture-button.png"; sourceTree = "<group>"; };
-		8E3F88E4157E4DF00047937E /* clear-profile-picture-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear-profile-picture-button@2x.png"; sourceTree = "<group>"; };
 		8E3F88E5157E4DF00047937E /* default-facebook-profile-picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-facebook-profile-picture.png"; sourceTree = "<group>"; };
 		8E3F88E6157E4DF00047937E /* default-facebook-profile-picture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-facebook-profile-picture@2x.png"; sourceTree = "<group>"; };
 		8E3F88E7157E4DF00047937E /* edit.profile.pic.clear.active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.profile.pic.clear.active.png; sourceTree = "<group>"; };
@@ -2049,8 +2045,6 @@
 				8E43326815814AC100CD95D0 /* inner.shadow.bg@2x.png */,
 				8E3F88E1157E4DF00047937E /* cancel-button-gray-top-margin.png */,
 				8E3F88E2157E4DF00047937E /* cancel-button-gray-top-margin@2x.png */,
-				8E3F88E3157E4DF00047937E /* clear-profile-picture-button.png */,
-				8E3F88E4157E4DF00047937E /* clear-profile-picture-button@2x.png */,
 				8E3F88E5157E4DF00047937E /* default-facebook-profile-picture.png */,
 				8E3F88E6157E4DF00047937E /* default-facebook-profile-picture@2x.png */,
 				8E3F88E7157E4DF00047937E /* edit.profile.pic.clear.active.png */,
@@ -3835,8 +3829,6 @@
 				8E3F8A83157E4DF00047937E /* search.no.results.empty.sadface@2x.png in Resources */,
 				8E3F8A84157E4DF00047937E /* cancel-button-gray-top-margin.png in Resources */,
 				8E3F8A85157E4DF00047937E /* cancel-button-gray-top-margin@2x.png in Resources */,
-				8E3F8A86157E4DF00047937E /* clear-profile-picture-button.png in Resources */,
-				8E3F8A87157E4DF00047937E /* clear-profile-picture-button@2x.png in Resources */,
 				8E3F8A88157E4DF00047937E /* default-facebook-profile-picture.png in Resources */,
 				8E3F8A89157E4DF00047937E /* default-facebook-profile-picture@2x.png in Resources */,
 				8E3F8A8A157E4DF00047937E /* edit.profile.pic.clear.active.png in Resources */,
