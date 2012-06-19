@@ -2005,7 +2005,7 @@ A user can see a list of suggested users to follow
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
 
 #### API Usage
-/user/suggested-friends
+/user/suggested-friends  [api-users](http://gtio-dev.gotryiton.com/docs/api-users)
 
 #### Routing
 gtio://suggested-friends
