@@ -111,8 +111,21 @@ static NSInteger const kGTIONavBarSize = 44;
     [self.scrollView addSubview:self.tagBox];
     
     self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, 186, 120 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"] nextTextView:self.tagBox.textView];
+    [self.descriptionBox setTextViewDidBecomeActiveHandler:^(GTIOPostALookDescriptionBox *textView) {        
+        CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
+        
+        if (self.scrollView.contentOffset.y == bottomOffset) {
+            double delayInSeconds = 0.1;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self.descriptionBox.textView becomeFirstResponder];
+            });
+        } else {
+            [self.scrollView scrollRectToVisible:(CGRect){ 0, self.scrollView.contentSize.height - 1, 1, 1 } animated:YES];
+        }
+    }];
     [self.scrollView addSubview:self.descriptionBox];
-    
+
     self.originalFrame = self.scrollView.frame;
     
     UIImage *postThisButtonBackgroundImage = [UIImage imageNamed:@"post-button-bg.png"];
@@ -166,6 +179,18 @@ static NSInteger const kGTIONavBarSize = 44;
 {
     if (!decelerate) {
         [self snapScrollView:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    if (self.descriptionBox.forceBecomeFirstResponder) {
+        double delayInSeconds = 0.1;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.descriptionBox.textView becomeFirstResponder];
+            [self.descriptionBox setForceBecomeFirstResponder:NO];
+        });
     }
 }
 

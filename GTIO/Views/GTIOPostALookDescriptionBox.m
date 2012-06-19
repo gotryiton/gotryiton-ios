@@ -20,7 +20,8 @@
 @implementation GTIOPostALookDescriptionBox
 
 @synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView, nextTextView = _nextTextView;
-@synthesize textViewDidEndHandler = _textViewDidEndHandler;
+@synthesize textViewDidEndHandler = _textViewDidEndHandler, textViewDidBecomeActiveHandler = _textViewDidBecomeActiveHandler;
+@synthesize forceBecomeFirstResponder = _forceBecomeFirstResponder;
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon nextTextView:(UITextView *)nextTextView
 {
@@ -80,6 +81,18 @@
         return NO;
     }
     return YES;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    if (self.textViewDidBecomeActiveHandler && !self.forceBecomeFirstResponder) {
+        [self setForceBecomeFirstResponder:YES];
+        self.textViewDidBecomeActiveHandler(self);
+        return NO;
+    } else {
+        [self setForceBecomeFirstResponder:NO];
+        return YES;
+    }
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView

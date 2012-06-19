@@ -48,6 +48,7 @@
         case GTIOButtonTypeEditProfilePencilCircle: return [self gtio_editProfilePencilCircle];
         case GTIOButtonTypeQuickAddCheckbox: return [self gtio_quickAddCheckbox];
         case GTIOButtonTypeFollowButton: return [self gtio_followButton];
+        case GTIOButtonTypeMask: return [self gtio_maskButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -296,6 +297,13 @@
     [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(7.0, 0, 0, 0)];
     [button setTitle:@"follow" forState:UIControlStateDisabled];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_maskButton
+{
+    GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
