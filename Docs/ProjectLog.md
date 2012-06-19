@@ -1,3 +1,28 @@
+***Tuesday, June 19th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Complete remaining bug fixes then proceed to cut build
+
+**Status**
+- Remove brand box from Post View
+- Working on bug fixes and tweaks to existing functionality.  Completed all but Post View changes.
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Introduce bug fix build as needed as first deliverable during an iteration?
+
+---
+
 ***Monday, June 18th - Standup Notes***
 
 **Attendees**
