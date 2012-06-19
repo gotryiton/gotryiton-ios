@@ -204,6 +204,12 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     }
 }
 
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    [self.descriptionBox.textView resignFirstResponder];
+    return YES;
+}
+
 - (void)snapScrollView:(UIScrollView *)scrollView
 {
     CGPoint contentOffset = scrollView.contentOffset;
