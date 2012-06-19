@@ -221,7 +221,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     CGPoint contentOffset = scrollView.contentOffset;
     CGRect scrollToRect;
     BOOL top = NO;
-    if (contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height) / 2 ) {
+    if (contentOffset.y > (scrollView.contentSize.height - (scrollView.frame.size.height - scrollView.scrollIndicatorInsets.bottom)) / 2 ) {
         scrollToRect = CGRectMake(0, scrollView.contentSize.height - 1, 1, 1);
     } else {
         scrollToRect = CGRectMake(0, 0, 1, 1);
