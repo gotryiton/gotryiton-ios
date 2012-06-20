@@ -14,9 +14,15 @@
 #import "GTIOEditProfilePictureViewController.h"
 #import "GTIOMeTableHeaderViewLabel.h"
 
-NSString *GTIOUserInfoButtonFollowing = @"following";
-NSString *GTIOUserInfoButtonFollowers = @"followers";
-NSString *GTIOUserInfoButtonStars = @"stars";
+NSString *GTIOUserInfoButtonNameFollowing = @"following";
+NSString *GTIOUserInfoButtonNameFollowers = @"followers";
+NSString *GTIOUserInfoButtonNameStars = @"stars";
+
+typedef enum {
+    GTIOUserInfoButtonTagFollowing = 0,
+    GTIOUserInfoButtonTagFollowers,
+    GTIOUserInfoButtonTagStars
+} GTIOUserInfoButtonTag;
 
 @interface GTIOMeTableHeaderView()
 
@@ -158,21 +164,21 @@ NSString *GTIOUserInfoButtonStars = @"stars";
 
 - (void)refreshButtons
 {
-    self.followingLabel.hidden = ![self userInfoButtonsHasButtonwWithName:GTIOUserInfoButtonFollowing];
-    self.followingCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:GTIOUserInfoButtonFollowing];
-    self.followingButton.hidden = ![self userInfoButtonsHasButtonwWithName:GTIOUserInfoButtonFollowing];
-    self.followersLabel.hidden = ![self userInfoButtonsHasButtonwWithName:GTIOUserInfoButtonFollowers];
-    self.followerCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:GTIOUserInfoButtonFollowers];
-    self.followersButton.hidden = ![self userInfoButtonsHasButtonwWithName:GTIOUserInfoButtonFollowers];
-    self.starsLabel.hidden = ![self userInfoButtonsHasButtonwWithName:GTIOUserInfoButtonStars];
-    self.starCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:GTIOUserInfoButtonStars];
-    self.starsButton.hidden = ![self userInfoButtonsHasButtonwWithName:GTIOUserInfoButtonStars];
+    self.followingLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowing];
+    self.followingCountLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowing];
+    self.followingButton.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowing];
+    self.followersLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowers];
+    self.followerCountLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowers];
+    self.followersButton.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowers];
+    self.starsLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagStars];
+    self.starCountLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagStars];
+    self.starsButton.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagStars];
 }
 
-- (BOOL)userInfoButtonsHasButtonwWithName:(NSString *)name
+- (BOOL)userInfoButtonsHasButtonwWithTag:(GTIOUserInfoButtonTag)tag
 {
     for (GTIOButton *button in self.userInfoButtons) {
-        if ([button.name isEqualToString:name]) {
+        if (button.tag == tag) {
             return YES;
         }
     }
@@ -213,21 +219,24 @@ NSString *GTIOUserInfoButtonStars = @"stars";
     _userInfoButtons = userInfoButtons;
     for (int i = 0; i < [self.userInfoButtons count]; i++) {
         GTIOButton *button = [self.userInfoButtons objectAtIndex:i];
-        if ([button.name isEqualToString:GTIOUserInfoButtonFollowing]) {
+        if ([button.name isEqualToString:GTIOUserInfoButtonNameFollowing]) {
+            button.tag = GTIOUserInfoButtonTagFollowing;
             [self.followingLabel setText:@"following"];
             [self.followingCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             self.followingButton.tapHandler = ^(id sender) {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
             };
         }
-        if ([button.name isEqualToString:GTIOUserInfoButtonFollowers]) {
+        if ([button.name isEqualToString:GTIOUserInfoButtonNameFollowers]) {
+            button.tag = GTIOUserInfoButtonTagFollowers;
             [self.followersLabel setText:@"followers"];
             [self.followerCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             _followersButton.tapHandler = ^(id sender) {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
             };
         }
-        if ([button.name isEqualToString:GTIOUserInfoButtonStars]) {
+        if ([button.name isEqualToString:GTIOUserInfoButtonNameStars]) {
+            button.tag = GTIOUserInfoButtonTagStars;
             [self.starCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             _starsButton.tapHandler = ^(id sender) {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
