@@ -65,6 +65,13 @@ NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 
 NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
 
+NSString * const kGTIOUserInfoButtonNameFollowing = @"following";
+NSString * const kGTIOUserInfoButtonNameFollowers = @"followers";
+NSString * const kGTIOUserInfoButtonNameStars = @"stars";
+NSString * const kGTIOUserInfoButtonNameWebsite = @"website-button";
+NSString * const kGTIOUserInfoButtonNameFollow = @"follow-button";
+NSString * const kGTIOUserInfoButtonNameBannerAd = @"banner-ad";
+
 int const kGTIOEmptyPostAlertTag = 0;
 int const kGTIOEmptyDescriptionAlertTag = 1;
 

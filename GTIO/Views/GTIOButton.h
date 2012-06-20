@@ -42,8 +42,20 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeNotificationBubbleEmpty,
     GTIOButtonTypeEditProfilePencilCircle,
     GTIOButtonTypeQuickAddCheckbox,
-    GTIOButtonTypeFollowButton
+    GTIOButtonTypeFollowButton,
+    GTIOButtonTypeAccept,
+    GTIOButtonTypeBlock,
+    GTIOButtonTypeWebsiteLink,
+    GTIOButtonTypeFollowButtonForNavBar,
+    GTIOButtonTypeFollowingButtonForNavBar,
+    GTIOButtonTypeRequestedButtonForNavBar
 } GTIOButtonType;
+
+typedef enum GTIOFollowButtonState {
+    GTIOFollowButtonStateFollow = 0,
+    GTIOFollowButtonStateFollowing,
+    GTIOFollowButtonStateRequested
+} GTIOFollowButtonState;
 
 @interface GTIOButton : UIButton
 

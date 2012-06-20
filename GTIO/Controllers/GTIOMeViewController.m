@@ -18,6 +18,7 @@
 #import "GTIORouter.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOSignInViewController.h"
+#import "GTIOProgressHUD.h"
 
 @interface GTIOMeViewController ()
 
@@ -50,8 +51,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [self refreshScreenLayout];
 
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
     [self.profileHeaderView setDelegate:self];
@@ -112,19 +111,22 @@
         NSLog(@"tapped notification bubble");
     }];
     [self useTitleView:titleView];
-    [self.profileHeaderView refreshUserData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.tableView setUserInteractionEnabled:YES];
+    [self refreshScreenLayout];
 }
 
 - (void)refreshScreenLayout
 {
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         if (!error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            
             int numberOfRows = 0;
             int numberOfSections = 0;
             for (id object in loadedObjects) {

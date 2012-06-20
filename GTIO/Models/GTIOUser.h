@@ -85,4 +85,8 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
  */
 - (void)loadUserProfileWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler;
 
+/** Generalized GET request for a supplied endpoint
+ */
+- (void)hitEndpoint:(NSString *)endpoint completionHandler:(GTIOCompletionHandler)completionHandler;
+
 @end

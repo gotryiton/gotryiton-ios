@@ -16,10 +16,6 @@
 #import "GTIOProfileViewController.h"
 #import "GTIOEditProfileViewController.h"
 
-NSString *GTIOUserInfoButtonNameFollowing = @"following";
-NSString *GTIOUserInfoButtonNameFollowers = @"followers";
-NSString *GTIOUserInfoButtonNameStars = @"stars";
-
 typedef enum {
     GTIOUserInfoButtonTagFollowing = 0,
     GTIOUserInfoButtonTagFollowers,
@@ -229,7 +225,7 @@ typedef enum {
     _userInfoButtons = userInfoButtons;
     for (int i = 0; i < [self.userInfoButtons count]; i++) {
         GTIOButton *button = [self.userInfoButtons objectAtIndex:i];
-        if ([button.name isEqualToString:GTIOUserInfoButtonNameFollowing]) {
+        if ([button.name isEqualToString:kGTIOUserInfoButtonNameFollowing]) {
             button.tag = GTIOUserInfoButtonTagFollowing;
             [self.followingLabel setText:@"following"];
             [self.followingCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
@@ -242,7 +238,7 @@ typedef enum {
                 }
             };
         }
-        if ([button.name isEqualToString:GTIOUserInfoButtonNameFollowers]) {
+        if ([button.name isEqualToString:kGTIOUserInfoButtonNameFollowers]) {
             button.tag = GTIOUserInfoButtonTagFollowers;
             [self.followersLabel setText:@"followers"];
             [self.followerCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
@@ -250,7 +246,7 @@ typedef enum {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
             };
         }
-        if ([button.name isEqualToString:GTIOUserInfoButtonNameStars]) {
+        if ([button.name isEqualToString:kGTIOUserInfoButtonNameStars]) {
             button.tag = GTIOUserInfoButtonTagStars;
             [self.starCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             _starsButton.tapHandler = ^(id sender) {

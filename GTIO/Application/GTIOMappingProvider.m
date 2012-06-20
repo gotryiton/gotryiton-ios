@@ -132,7 +132,7 @@
         
         /** Buttons
          */
-        [buttonActionMapping mapAttributes:@"destination", @"endpoint", nil];
+        [buttonActionMapping mapAttributes:@"destination", @"endpoint", @"spinner", nil];
         [buttonMapping mapKeyPath:@"image" toAttribute:@"imageURL"];
         [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", @"state", nil];

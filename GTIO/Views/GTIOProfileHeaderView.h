@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "GTIOUserProfile.h"
 
+typedef void(^GTIOProfileInitCompletionHandler)(id sender);
+
 @interface GTIOProfileHeaderView : UIView
 
 @property (nonatomic, strong) GTIOUserProfile *userProfile;
+
+- (void)setUserProfile:(GTIOUserProfile *)userProfile completionHandler:(GTIOProfileInitCompletionHandler)completionHandler;
 
 @end

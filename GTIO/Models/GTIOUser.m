@@ -217,6 +217,7 @@
     self.isFacebookConnected = user.isFacebookConnected;
     self.badge = user.badge;
     self.userDescription = user.userDescription;
+    self.button = user.button;
 }
 
 #pragma mark - janrain
@@ -367,6 +368,23 @@
     [self.userProfileRequest send];
 }
 
+- (void)hitEndpoint:(NSString *)endpoint completionHandler:(GTIOCompletionHandler)completionHandler
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:endpoint usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {                
+            if (completionHandler) {
+                completionHandler(objects, nil);
+            }
+        };
+        
+        loader.onDidFailWithError = ^(NSError *error) {
+            if (completionHandler) {
+                completionHandler(nil, error);
+            }
+        };
+    }];
+}
+
 #pragma mark - RKRequestDelegate Methods
 
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
@@ -378,7 +396,7 @@
         RKObjectMapper* mapper = [RKObjectMapper mapperWithObject:userProfile mappingProvider:provider];
         RKObjectMappingResult* result = [mapper performMapping];
         if (self.userProfileCompletionHandler) {
-            self.userProfileCompletionHandler([NSArray arrayWithObject:[result asObject]], nil);
+            self.userProfileCompletionHandler([result asCollection], nil);
         }
     }
     if ([request isEqual:self.logoutRequest]) {
