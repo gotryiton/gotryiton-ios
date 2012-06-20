@@ -20,6 +20,7 @@
 #import "GTIOPost.h"
 #import "GTIOButtonAction.h"
 #import "GTIOMyManagementScreen.h"
+#import "GTIOPagination.h"
 
 @implementation GTIOMappingProvider
 
@@ -41,6 +42,7 @@
         RKObjectMapping *buttonMapping = [RKObjectMapping mappingForClass:[GTIOButton class]];
         RKObjectMapping *buttonActionMapping = [RKObjectMapping mappingForClass:[GTIOButtonAction class]];
         RKObjectMapping *myManagementScreenMapping = [RKObjectMapping mappingForClass:[GTIOMyManagementScreen class]];
+        RKObjectMapping *paginationMapping = [RKObjectMapping mappingForClass:[GTIOPagination class]];
         
         /** Config
          */
@@ -126,6 +128,12 @@
         [myManagementScreenMapping mapKeyPath:@"management.buttons" toRelationship:@"management" withMapping:buttonMapping];
         [self setMapping:myManagementScreenMapping forKeyPath:@"ui"];
         
+        /** Pagination
+         */
+        [paginationMapping mapKeyPath:@"previous_page" toAttribute:@"previousPage"];
+        [paginationMapping mapKeyPath:@"next_page" toAttribute:@"nextPage"];
+        [self setMapping:paginationMapping forKeyPath:@"pagination"];
+        
         /** Auth
          */
         
@@ -138,6 +146,15 @@
         
         // GTIOPost
         [postMapping mapKeyPath:@"id" toAttribute:@"postID"];
+        [postMapping mapKeyPath:@"description" toAttribute:@"postDescription"];
+        [postMapping mapKeyPath:@"created_at" toAttribute:@"createdAt"];
+        [postMapping mapKeyPath:@"created_when" toAttribute:@"createdWhen"];
+        [postMapping mapKeyPath:@"star" toAttribute:@"stared"];
+        [postMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
+        [postMapping mapKeyPath:@"dot_options.buttons" toRelationship:@"dotOptionsButtons" withMapping:buttonMapping];
+        [postMapping mapKeyPath:@"who_hearted.buttons" toRelationship:@"whoHeartedButtons" withMapping:buttonMapping];
+        [postMapping mapKeyPath:@"brands.buttons" toRelationship:@"brandsButtons" withMapping:buttonMapping];
+        [postMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
         [postMapping mapRelationship:@"user" withMapping:userMapping];
         [self setMapping:postMapping forKeyPath:@"post"];
     }

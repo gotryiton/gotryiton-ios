@@ -11,7 +11,8 @@
 
 @implementation GTIOPost
 
-@synthesize postID = _postID, user = _user;
+@synthesize postID = _postID, user = _user, postDescription = _postDescription, photo = _photo, createdAt = _createdAt, createdWhen = _createdWhen, stared = _stared;
+@synthesize dotOptionsButtons = _dotOptionsButtons, buttons = _buttons, whoHeartedButtons = _whoHeartedButtons, brandsButtons = _brandsButtons, pagination = _pagination;
 
 + (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description votingEnabled:(BOOL)votingEnabled completionHandler:(GTIOPostCompletionHandler)completionHandler
 {
@@ -28,7 +29,7 @@
         loader.method = RKRequestMethodPOST;
         
         loader.onDidLoadObjects = ^(NSArray *objects) {
-            // Find user object
+            // Find post object
             GTIOPost *post = nil;
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOPost class]]) {

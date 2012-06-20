@@ -26,14 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    [self.view setBackgroundColor:[UIColor redColor]];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:(CGRect){ 0, 390, 320, 40 }];
-    [label setText:@"TEST THE JAMS"];
-    [label setFont:[UIFont boldSystemFontOfSize:30.0f]];
-    [label setClipsToBounds:NO];
-    [self.view addSubview:label];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -42,6 +35,8 @@
     [self.view setFrame:(CGRect){ 0, 0, 600, 600 }];
     [self.view setBounds:(CGRect) { 0, 0, 600, 600 }];
     [self.view setClipsToBounds:NO];
+    
+    
 }
 
 - (void)viewDidUnload

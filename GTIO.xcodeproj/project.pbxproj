@@ -835,6 +835,7 @@
 		D2E3759B1559B86700763A67 /* GTIOFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E375991559B86700763A67 /* GTIOFeedViewController.m */; };
 		D2EC0ED8156ADF1500984838 /* GTIOMailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */; };
 		D2EC0EDA156ADF5800984838 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EC0ED9156ADF5800984838 /* MessageUI.framework */; };
+		D2F2F1851592235900414E82 /* GTIOPagination.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F2F1841592235900414E82 /* GTIOPagination.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1878,6 +1879,8 @@
 		D2EC0ED6156ADF1500984838 /* GTIOMailComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMailComposer.h; sourceTree = "<group>"; };
 		D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMailComposer.m; sourceTree = "<group>"; };
 		D2EC0ED9156ADF5800984838 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		D2F2F1831592235900414E82 /* GTIOPagination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPagination.h; sourceTree = "<group>"; };
+		D2F2F1841592235900414E82 /* GTIOPagination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPagination.m; sourceTree = "<group>"; };
 		D2F78B76158A2E2F00CBB4F2 /* NSMutableDictionary+FilterTypeKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+FilterTypeKeys.h"; sourceTree = "<group>"; };
 		D2F78B77158A2E2F00CBB4F2 /* NSMutableDictionary+FilterTypeKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+FilterTypeKeys.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3457,6 +3460,8 @@
 				D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */,
 				D2D3A1B41581455E00D72820 /* GTIOProcessImageRequest.h */,
 				D2D3A1B51581455E00D72820 /* GTIOProcessImageRequest.m */,
+				D2F2F1831592235900414E82 /* GTIOPagination.h */,
+				D2F2F1841592235900414E82 /* GTIOPagination.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4580,6 +4585,7 @@
 				D2B8A583158A97BB001D67CA /* GTIOFilterOperation.m in Sources */,
 				D2B8A584158A97CF001D67CA /* GTIOFilterButton.m in Sources */,
 				D2C363F2158A999400F476EF /* NSMutableDictionary+FilterTypeKeys.m in Sources */,
+				D2F2F1851592235900414E82 /* GTIOPagination.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
