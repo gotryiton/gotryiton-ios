@@ -34,7 +34,7 @@
         self.layer.shadowPath = shadowPath;
         [self.layer setOpaque:YES];
         
-        _profilePicture = [[UIImageView alloc] initWithFrame:(CGRect){ 22, 15, 59, 59 }];
+        _profilePicture = [[UIImageView alloc] initWithFrame:(CGRect){ 26, 17, 55, 55 }];
         [_profilePicture setBackgroundColor:[UIColor clearColor]];
         [_profilePicture.layer setBorderColor:[UIColor gtio_profilePictureBorderColor].CGColor];
         [_profilePicture.layer setBorderWidth:2.0f];

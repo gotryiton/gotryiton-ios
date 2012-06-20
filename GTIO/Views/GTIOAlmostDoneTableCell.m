@@ -28,7 +28,7 @@
 @implementation GTIOAlmostDoneTableCell
 
 @synthesize apiKey = _apiKey, pickerViewItems = _pickerViewItems, delegate = _delegate, cellAccessoryText = _cellAccessoryText;
-@synthesize cellTitleLabel = _cellTitleLabel, cellAccessoryTextMulti = _cellAccessoryTextMulti, placeHolderText = _placeHolderText, accessoryToolBar = _accessoryToolBar, flexibleSpace = _flexibleSpace, pickerView = _pickerView, usesPicker = _usesPicker, multiLine = _multiLine;
+@synthesize cellTitleLabel = _cellTitleLabel, cellAccessoryTextMulti = _cellAccessoryTextMulti, placeHolderText = _placeHolderText, accessoryToolBar = _accessoryToolBar, flexibleSpace = _flexibleSpace, pickerView = _pickerView, usesPicker = _usesPicker, multiLine = _multiLine, indexPath = _indexPath;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -112,8 +112,8 @@
 
 - (void)moveToNextCell
 {
-    if ([self.delegate respondsToSelector:@selector(moveResponderToNextCellFromCell:)]) {
-        [self.delegate moveResponderToNextCellFromCell:[self tag]];
+    if ([self.delegate respondsToSelector:@selector(moveResponderToNextCellFromCellAtIndexPath:)]) {
+        [self.delegate moveResponderToNextCellFromCellAtIndexPath:self.indexPath];
     }
 }
 

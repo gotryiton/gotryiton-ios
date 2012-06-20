@@ -12,7 +12,7 @@
 @protocol GTIOQuickAddTableCellDelegate <NSObject>
 
 @required
-- (void)checkboxStateChanged:(GTIOButton *)checkbox;
+- (void)checkboxStateChanged:(BOOL)checked;
 
 @end
 

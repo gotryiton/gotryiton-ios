@@ -101,6 +101,12 @@
     [self.profileHeaderView refreshUserData];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.tableView setUserInteractionEnabled:YES];
+}
+
 - (void)refreshScreenLayout
 {
     [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
@@ -194,7 +200,7 @@
         GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
         
         if ([buttonForRow.name isEqualToString:@"custom_cell_hearts"]) {
-            buttonForRow.text = @"my     s";
+            buttonForRow.text = @"my     's";
             [cell setHasHeart:YES];
         } else if ([buttonForRow.name isEqualToString:@"custom_cell_toggle"]) {
             [cell setHasToggle:YES];

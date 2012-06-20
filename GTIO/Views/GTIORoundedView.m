@@ -24,7 +24,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self.layer setBorderColor:[UIColor gtio_lightGrayBorderColor].CGColor];
+        [self.layer setBorderColor:[UIColor gtio_groupedTableBorderColor].CGColor];
         [self.layer setBorderWidth:1.0f];
         [self.layer setCornerRadius:10.0f];
         [self setBackgroundColor:[UIColor whiteColor]];

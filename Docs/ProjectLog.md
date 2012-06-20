@@ -1,3 +1,133 @@
+***Tuesday, June 19th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Complete remaining bug fixes then proceed to cut build
+
+**Status**
+- Remove brand box from Post View
+- Working on bug fixes and tweaks to existing functionality.  Completed all but Post View changes.
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Introduce bug fix build as needed as first deliverable during an iteration?
+
+---
+
+***Monday, June 18th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Reopen issues that have been closed incorrectly
+- TT - Restructure sprint schedule to resolve bug/issues prior to spinning up on new development
+- TT - Create additional issues in Github for feature development
+- GTIO - Revisit API endpoints for 6.x by the end of the week
+
+**Status**
+- Additional questions:
+- 7.7 someone wants to follow you (how many can there be?)
+ - There can only be one line ex "Blair wants to follow you"
+- 7.7 API missing stuff?
+ - Scott to follow up with additional information
+- 7.7 What is the pink checkmark badge?
+ - This is the badge field. It will have a url path string in api and the sizes will be hard coded into app.
+- 7.7 html in about?
+ - No it is just plain text.
+- 7.7/7.9 can you touch heart or star?
+ - Hearts should not be there on 7.7.  Stars on 7.9 are not touchable.  Star asset still pending.
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Introduce bug fix build as needed as first deliverable during an iteration?
+
+---
+
+***Sprint 4 Development Plan (Monday, June 18th 2012 - Friday, June 29th, 2012)***
+
+Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=5&state=open
+
+**Planned Work**
+
+- Feature Development Planned
+ - Complete 8.1 The Feed
+ - Complete 7.7 Profile Page
+ - Complete 7.5 My Hearts
+ - Complete 7.6 My Posts
+ - Complete 7.9 My Stars
+ - Start on 6.x Friends Management
+
+**Important Dates / Deadlines**
+
+- Matt out of office - 6/21 - 6/22
+- Scott out of office - 6/28 - 6/29
+
+**Open Questions**
+
+- When will the updates to 8.1 section of the functional spec be completed?
+
+**Risks**
+
+- Unknown effort with implementing mason grid with new library.  This would impact how much of 7.x we can complete
+
+**General Notes**
+
+- NA
+
+**Sprint Deliverables**
+
+- Build on 6/21
+- Second build  by 6/29
+
+---
+
+***Friday, June 15th - Standup / Retrospective Notes***
+
+**Attendees**
+
+- TT - Matt, Scott
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Continue working on feedback / bug reported by GTIO
+- GTIO - Investigate issue with login attempt hanging.  May be API related
+- GTIO - Update Github with issues related to new build
+- TT - Review pulll request from GTIO team containing updated API calls for profile
+
+**Status**
+- Build delievered!
+- Remaining work on Photo Upload pushed until later build
+
+**Planned Work Delivered**
+- Please see the ChangeLog document for a list of all delivered work
+ - https://github.com/twotoasters/GTIO-iOS/blob/master/Docs/ChangeLog.md#build-4002---june-14-20122
+
+**Planned Work Pushed to Next Sprint**
+- NA
+
+**Sprint Retrospective**
+- Initial build. Good overall with the exception of incomplete screens (Photo Frame)
+- Photo Filter feature at risk, discuss with Simon on the 21/22.
+
+---
+
 ***Thursday, June 14th - Standup Notes***
 
 **Attendees**
