@@ -98,7 +98,7 @@
     [self.chooseFromBox addSubview:self.facebookLogo];
     
     self.myLooksLabel = [[UILabel alloc] initWithFrame:(CGRect){ 90, 53, 100, 11}];
-    [self.myLooksLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:11.0]];
+    [self.myLooksLabel setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:11.0]];
     [self.myLooksLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
     [self.myLooksLabel setText:@"my looks"];
     [self.chooseFromBox addSubview:self.myLooksLabel];
@@ -117,7 +117,7 @@
     [self.previewBox setTitle:@"preview"];
     [self.view addSubview:self.previewBox];
     
-    self.previewBoxBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"preview-box-bg.png"]];
+    self.previewBoxBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"edit.profile.pic.preview.cell.png"]];
     [self.previewBoxBackground setFrame:(CGRect){ { 17, 55 }, self.previewBoxBackground.bounds.size }];
     [self.previewBox addSubview:self.previewBoxBackground];
     
@@ -137,7 +137,8 @@
     [self.previewBoxBackground addSubview:self.previewUserLocationLabel];
     
     self.clearProfilePictureButton = [[UIButton alloc] initWithFrame:(CGRect){ 17, 151, 118, 24 }];
-    [self.clearProfilePictureButton setImage:[UIImage imageNamed:@"clear-profile-picture-button.png"] forState:UIControlStateNormal];
+    [self.clearProfilePictureButton setImage:[UIImage imageNamed:@"edit.profile.pic.clear.inactive.png"] forState:UIControlStateNormal];
+    [self.clearProfilePictureButton setImage:[UIImage imageNamed:@"edit.profile.pic.clear.active.png"] forState:UIControlStateHighlighted];
     [self.clearProfilePictureButton addTarget:self action:@selector(clearProfilePicture:) forControlEvents:UIControlEventTouchUpInside];
     [self.previewBox addSubview:self.clearProfilePictureButton];
 }
@@ -221,10 +222,10 @@
                 [self.profileIconViews addObject:self.facebookPicture];
                 [self.profileIconURLs removeObject:facebookPictureURL];
                 [self.facebookPicture setDelegate:self];
+                [self.facebookPicture setIsSelectable:YES];
             } else {
                 [self.facebookPicture setImage:[UIImage imageNamed:@"default-facebook-profile-picture.png"]];
                 [self.facebookPicture setIsSelectable:NO];
-                
                 self.facebookConnectButton = [[UIButton alloc] initWithFrame:(CGRect){ 16, 137, 55, 21 }];
                 [self.facebookConnectButton setImage:[UIImage imageNamed:@"facebook-connect-button"] forState:UIControlStateNormal];
                 [self.facebookConnectButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
@@ -258,7 +259,7 @@
     }
     
     [self.previewNameLabel setText:currentUser.name];
-    [self.previewUserLocationLabel setText:[NSString stringWithFormat:@"%@%@%@", currentUser.city, ([currentUser.state length] > 0) ? @", " : @"", currentUser.state]];
+    [self.previewUserLocationLabel setText:[currentUser.location uppercaseString]];
 }
 
 - (void)connectToFacebook:(id)sender

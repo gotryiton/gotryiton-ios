@@ -24,6 +24,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        [self setBackgroundColor:[UIColor whiteColor]];
+        
         [self.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:16.0]];
         [self.textLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
         

@@ -29,7 +29,7 @@
         [self.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:18.0]];
         [self.textLabel setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
         
-        // Location
+        // Description
         [self.detailTextLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0]];
         [self.detailTextLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
         
@@ -49,6 +49,8 @@
         // Badge
         _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_badge];
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -63,7 +65,7 @@
     _user = user;
     
     [self.textLabel setText:self.user.name];
-    [self.detailTextLabel setText:self.user.location];
+    [self.detailTextLabel setText:self.user.userDescription];
     __block GTIOQuickAddTableCell *blockSelf = self;
     [self.imageView setImageWithURL:self.user.icon success:^(UIImage *image) {
         [blockSelf setNeedsLayout];
@@ -81,7 +83,7 @@
     [button setSelected:!button.selected];
     
     if ([self.delegate respondsToSelector:@selector(checkboxStateChanged:)]) {
-        [self.delegate checkboxStateChanged:button];
+        [self.delegate checkboxStateChanged:button.selected];
     }
     
     [self.user setSelected:button.selected];

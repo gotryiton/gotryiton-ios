@@ -14,4 +14,6 @@
 @property (nonatomic, assign) BOOL usesLightColors;
 @property (nonatomic, assign) BOOL usesStar;
 
+- (void)sizeToFitText;
+
 @end
