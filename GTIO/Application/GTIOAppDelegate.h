@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    GTIOTabBarTabFeed = 0,
+    GTIOTabBarTabLooks,
+    GTIOTabBarTabShop,
+    GTIOTabBarTabMe
+} GTIOTabBarTab;
+
 @interface GTIOAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -16,6 +23,6 @@
 /** This is called when you are ready to display the tab bar.
  */
 - (void)addTabBarToWindow;
-- (void)selectTabAtIndex:(NSUInteger)index;
+- (void)selectTabAtIndex:(GTIOTabBarTab)index;
 
 @end

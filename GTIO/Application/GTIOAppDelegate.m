@@ -186,10 +186,10 @@
     [self.window setRootViewController:self.tabBarController];
 }
 
-- (void)selectTabAtIndex:(NSUInteger)index
+- (void)selectTabAtIndex:(GTIOTabBarTab)tab
 {
-    [self.tabBarController setSelectedIndex:index];
-    [self tabBarController:self.tabBarController didSelectViewController:[self.tabBarViewControllers objectAtIndex:index]];
+    [self.tabBarController setSelectedIndex:tab];
+    [self tabBarController:self.tabBarController didSelectViewController:[self.tabBarViewControllers objectAtIndex:tab]];
 }
 
 - (void)setupTabBar

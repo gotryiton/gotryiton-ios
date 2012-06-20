@@ -182,7 +182,7 @@
     [[GTIOUser currentUser] followUsers:userIDs fromScreen:@"Quick Add" completionHandler:^(NSArray *loadedObjects, NSError *error) {
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         if (!error) {
-            [self loadTabBarWithTabSelectedAtIndex:0];
+            [self loadTabBarWithTabSelectedAtIndex:GTIOTabBarTabMe];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:@"There was an error while communicating with the server. Please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [alert show];
@@ -192,10 +192,10 @@
 
 - (void)skipThisStep
 {
-    [self loadTabBarWithTabSelectedAtIndex:1];
+    [self loadTabBarWithTabSelectedAtIndex:GTIOTabBarTabLooks];
 }
 
-- (void)loadTabBarWithTabSelectedAtIndex:(NSUInteger)index
+- (void)loadTabBarWithTabSelectedAtIndex:(GTIOTabBarTab)index
 {
     [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
     [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) selectTabAtIndex:index];
