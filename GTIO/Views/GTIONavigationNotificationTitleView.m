@@ -32,6 +32,7 @@
         _bubbleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav.counter.inactive.png"]];
         
         GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"GO TRY IT ON" italic:NO];
+        [navTitleView useTitleFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:18.0]];
         [navTitleView setFrame:(CGRect){ { _bubbleImageView.image.size.width + 2, 0 }, navTitleView.frame.size }];
         [self addSubview:navTitleView];
         

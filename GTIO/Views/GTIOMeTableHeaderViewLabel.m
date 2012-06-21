@@ -12,26 +12,28 @@
 
 @property (nonatomic, strong) UIImageView *shadowyBackground;
 @property (nonatomic, strong) UILabel *textLabel;
-
 @property (nonatomic, strong) UIImageView *star;
+
+@property (nonatomic, assign) BOOL sizesToFitText;
 
 @end
 
 @implementation GTIOMeTableHeaderViewLabel
 
-@synthesize shadowyBackground = _shadowyBackground, textLabel = _textLabel, text = _text, usesLightColors = _usesLightColors, star = _star, usesStar = _usesStar;
+@synthesize shadowyBackground = _shadowyBackground, textLabel = _textLabel, text = _text, usesLightColors = _usesLightColors, star = _star, usesStar = _usesStar, sizesToFitText = _sizesToFitText;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self setClipsToBounds:YES];
+        
         _shadowyBackground = [[UIImageView alloc] init];
         [self addSubview:_shadowyBackground];
         
         _textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_textLabel setTextAlignment:UITextAlignmentCenter];
         [_textLabel setBackgroundColor:[UIColor clearColor]];
-        [_textLabel setAdjustsFontSizeToFitWidth:YES];
         [_shadowyBackground addSubview:_textLabel];
         
         _usesStar = NO;
@@ -41,6 +43,8 @@
         
         _usesLightColors = NO;
         [self adjustColors];
+        
+        _sizesToFitText = NO;
     }
     return self;
 }
@@ -54,12 +58,26 @@
         [self.textLabel setFrame:CGRectZero];
     } else {
         [self.star setFrame:CGRectZero];
-        if (self.usesLightColors) {
-            [self.textLabel setFrame:(CGRect){ 1.0, 0, self.bounds.size.width - 4.0, self.bounds.size.height }];
-        } else {
-            [self.textLabel setFrame:(CGRect){ 2.0, 1.0, self.bounds.size.width - 4.0, self.bounds.size.height }];
+        if (!self.sizesToFitText) {
+            if (self.usesLightColors) {
+                [self.textLabel setFrame:(CGRect){ 1.0, 0, self.bounds.size.width - 4.0, self.bounds.size.height }];
+            } else {
+                [self.textLabel setFrame:(CGRect){ 2.0, 1.0, self.bounds.size.width - 4.0, self.bounds.size.height }];
+            }
         }
     }
+}
+
+- (void)sizeToFitText
+{
+    [self.textLabel sizeToFit];
+    [self.textLabel setFrame:(CGRect){ 2.0, self.textLabel.frame.origin.y, self.textLabel.bounds.size.width + 12, self.bounds.size.height }];
+    if (self.textLabel.bounds.size.width > 31) {
+        [self.textLabel setAdjustsFontSizeToFitWidth:YES];
+        [self.textLabel setFrame:(CGRect){ self.textLabel.frame.origin.x, self.textLabel.frame.origin.y, 27, self.bounds.size.height }];
+    }
+    [self setFrame:(CGRect){ self.frame.origin, self.textLabel.bounds.size.width + 4.0, self.bounds.size.height }];
+    self.sizesToFitText = YES;
 }
 
 - (void)setText:(NSString *)text
@@ -80,11 +98,11 @@
     if (self.usesLightColors) {
         [self.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0]];
         [self.textLabel setTextColor:[UIColor gtio_lightestGrayTextColor]];
-        [self.shadowyBackground setImage:[UIImage imageNamed:@"inner.shadow.bg.lighter.png"]];
+        [self.shadowyBackground setImage:[[UIImage imageNamed:@"profile.top.buttons.bg.right.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, 5.0)]];
     } else {
         [self.textLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:11.0]];
         [self.textLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
-        [self.shadowyBackground setImage:[UIImage imageNamed:@"inner.shadow.bg.png"]];
+        [self.shadowyBackground setImage:[[UIImage imageNamed:@"profile.top.buttons.bg.left.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 5.0, 0.0, 0.0)]];
     }
 }
 

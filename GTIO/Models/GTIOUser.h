@@ -36,6 +36,7 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSNumber *isFacebookConnected;
 @property (nonatomic, strong) GTIOBadge *badge;
+@property (nonatomic, copy) NSString *userDescription;
 
 @property (nonatomic, assign) BOOL selected;
 

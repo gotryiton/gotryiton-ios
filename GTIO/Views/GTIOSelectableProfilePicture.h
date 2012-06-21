@@ -19,6 +19,8 @@
 
 @property (nonatomic, assign) BOOL isSelectable;
 @property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, assign) BOOL hasInnerShadow;
+@property (nonatomic, assign) BOOL hasOuterShadow;
 @property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, weak) id<GTIOSelectableProfilePictureDelegate> delegate;

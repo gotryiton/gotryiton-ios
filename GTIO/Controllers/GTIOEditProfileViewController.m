@@ -34,6 +34,7 @@
     [self useTitleView:navTitleView];
     
     GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
+        [self dismissKeyboard];
         NSMutableArray *missingDataElements = [NSMutableArray array];
         for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
             if ([dataItem required]) {

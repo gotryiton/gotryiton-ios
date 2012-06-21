@@ -17,15 +17,16 @@
 @optional
 - (void)scrollUpWhileEditing:(NSUInteger)cellIdentifier;
 - (void)resetScrollAfterEditing;
-- (void)moveResponderToNextCellFromCell:(NSUInteger)cellIdentifier;
+- (void)moveResponderToNextCellFromCellAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
 @interface GTIOAlmostDoneTableCell : UITableViewCell <UITextFieldDelegate, UITextViewDelegate>
 
-@property (nonatomic, retain) NSArray *pickerViewItems;
+@property (nonatomic, strong) NSArray *pickerViewItems;
 @property (nonatomic, copy) NSString* apiKey;
-@property (nonatomic, retain) GTIOTextFieldForPickerViews* cellAccessoryText;
+@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, strong) GTIOTextFieldForPickerViews* cellAccessoryText;
 @property (nonatomic, weak) id<GTIOAlmostDoneTableCellDelegate> delegate;
 
 - (void)setCellTitle:(NSString*)title;
