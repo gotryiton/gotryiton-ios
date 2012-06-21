@@ -311,7 +311,6 @@
     GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.accept.off.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.accept.on.png"] forState:UIControlStateHighlighted];
-    [button setTitle:@"accept" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0]];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -323,7 +322,6 @@
     GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.block.off.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.block.on.png"] forState:UIControlStateHighlighted];
-    [button setTitle:@"block" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0]];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];

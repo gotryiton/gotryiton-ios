@@ -233,7 +233,7 @@ typedef enum {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
                 if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
                     GTIOProfileViewController *profileViewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
-                    [profileViewController setUserID:[GTIOUser currentUser].userID];
+                    [profileViewController setUserID:@"0596D58"];
                     [self.delegate pushViewController:profileViewController];
                 }
             };

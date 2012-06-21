@@ -22,6 +22,8 @@
 #import "GTIOMyManagementScreen.h"
 #import "GTIOUserProfile.h"
 #import "GTIOProfileCallout.h"
+#import "GTIOFollowRequestAcceptBar.h"
+#import "GTIOPostList.h"
 
 @implementation GTIOMappingProvider
 
@@ -45,6 +47,9 @@
         RKObjectMapping *myManagementScreenMapping = [RKObjectMapping mappingForClass:[GTIOMyManagementScreen class]];
         RKObjectMapping *userProfileMapping = [RKObjectMapping mappingForClass:[GTIOUserProfile class]];
         RKObjectMapping *profileCalloutMapping = [RKObjectMapping mappingForClass:[GTIOProfileCallout class]];
+        RKObjectMapping *followRequestAcceptBarMapping = [RKObjectMapping mappingForClass:[GTIOFollowRequestAcceptBar class]];
+        RKObjectMapping *postListMapping = [RKObjectMapping mappingForClass:[GTIOPostList class]];
+        RKObjectMapping *paginationMapping = [RKObjectMapping mappingForClass:[GTIOPagination class]];
         
         /** Config
          */
@@ -123,12 +128,27 @@
         // Profile callouts
         [profileCalloutMapping mapAttributes:@"icon", @"text", nil];
         
+        // Post list
+        [postListMapping mapKeyPath:@"posts" toRelationship:@"posts" withMapping:postMapping];
+        [postListMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
+        
+        // Pagination
+        [paginationMapping mapKeyPath:@"previous_page" toAttribute:@"previousPage"];
+        [paginationMapping mapKeyPath:@"next_page" toAttribute:@"nextPage"];
+        
         // User Profile
         [userProfileMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping];
         [userProfileMapping mapKeyPath:@"ui.buttons" toRelationship:@"userInfoButtons" withMapping:buttonMapping];
         [userProfileMapping mapKeyPath:@"ui.profile_callouts" toRelationship:@"profileCallOuts" withMapping:profileCalloutMapping];
         [userProfileMapping mapKeyPath:@"ui.settings.buttons" toRelationship:@"settingsButtons" withMapping:buttonMapping];
+        [userProfileMapping mapKeyPath:@"ui.accept_bar" toRelationship:@"acceptBar" withMapping:followRequestAcceptBarMapping];
+        [userProfileMapping mapKeyPath:@"posts_list" toRelationship:@"postsList" withMapping:postListMapping];
+        [userProfileMapping mapKeyPath:@"hearts_list" toRelationship:@"heartsList" withMapping:postListMapping];
         [self setMapping:userProfileMapping forKeyPath:@"userProfile"];
+        
+        // Follow request accept bar
+        [followRequestAcceptBarMapping mapKeyPath:@"text" toAttribute:@"text"];
+        [followRequestAcceptBarMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         
         /** Buttons
          */

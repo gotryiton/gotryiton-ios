@@ -126,7 +126,6 @@
     [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         if (!error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            
             int numberOfRows = 0;
             int numberOfSections = 0;
             for (id object in loadedObjects) {

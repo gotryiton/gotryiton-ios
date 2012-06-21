@@ -8,28 +8,31 @@
 
 #import "GTIOProfileHeaderView.h"
 #import "GTIOMeTableHeaderView.h"
-#import "GTIOWantsToFollowYouView.h"
+#import "GTIOProfileCalloutView.h"
 
 #import "UIImageView+WebCache.h"
 
 @interface GTIOProfileHeaderView()
 
 @property (nonatomic, strong) UIImageView *banner;
-@property (nonatomic, strong) GTIOWantsToFollowYouView *wantsToFollowYouView;
+@property (nonatomic, strong) GTIOFollowRequestAcceptBarView *followRequestAcceptBarView;
 @property (nonatomic, strong) GTIOMeTableHeaderView *basicUserInfoView;
 @property (nonatomic, strong) UIImageView *basicUserInfoBackgroundImageView;
 @property (nonatomic, strong) UILabel *profileDescription;
 @property (nonatomic, strong) GTIOButton *websiteLinkButton;
+@property (nonatomic, strong) NSMutableArray *profileCalloutViews;
 
 @end
 
 @implementation GTIOProfileHeaderView
 
 @synthesize banner = _banner;
-@synthesize wantsToFollowYouView = _wantsToFollowYouView;
+@synthesize followRequestAcceptBarView = _followRequestAcceptBarView;
 @synthesize basicUserInfoView = _basicUserInfoView, basicUserInfoBackgroundImageView = _basicUserInfoBackgroundImageView, userProfile = _userProfile;
 @synthesize profileDescription = _profileDescription;
 @synthesize websiteLinkButton = _websiteLinkButton;
+@synthesize profileCalloutViews = _profileCalloutViews;
+@synthesize delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -46,8 +49,9 @@
         [self addSubview:_basicUserInfoBackgroundImageView];
         [_basicUserInfoBackgroundImageView addSubview:_basicUserInfoView];
         
-        _wantsToFollowYouView = [[GTIOWantsToFollowYouView alloc] initWithFrame:CGRectZero];
-        [_basicUserInfoBackgroundImageView addSubview:_wantsToFollowYouView];
+        _followRequestAcceptBarView = [[GTIOFollowRequestAcceptBarView alloc] initWithFrame:CGRectZero];
+        [_followRequestAcceptBarView setDelegate:self];
+        [_basicUserInfoBackgroundImageView addSubview:_followRequestAcceptBarView];
         
         _profileDescription = [[UILabel alloc] initWithFrame:CGRectZero];
         [_profileDescription setBackgroundColor:[UIColor clearColor]];
@@ -59,6 +63,8 @@
         
         _websiteLinkButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeWebsiteLink];
         [_basicUserInfoBackgroundImageView addSubview:_websiteLinkButton];
+        
+        _profileCalloutViews = [NSMutableArray array];
     }
     return self;
 }
@@ -68,20 +74,41 @@
     if (self.banner.bounds.size.height > 0) {
         [self.banner setFrame:(CGRect){ 0, 0, self.bounds.size.width, self.banner.bounds.size.height }];
     }
-    if (FALSE) {
-        [self.wantsToFollowYouView setFrame:(CGRect){ 0, 0, self.bounds.size.width, 32 }];
+    
+    // waiting for API to be fixed to do this logic correctly
+    if (self.userProfile.acceptBar) {
+        [self.followRequestAcceptBarView setFrame:(CGRect){ 0, 0, self.bounds.size.width, 32 }];
+    } else {
+        [self.followRequestAcceptBarView setFrame:CGRectZero];
     }
-    [self.basicUserInfoView setFrame:(CGRect){ 0, self.wantsToFollowYouView.frame.origin.y + self.wantsToFollowYouView.bounds.size.height, self.bounds.size.width, 72 }];
+    [self.basicUserInfoView setFrame:(CGRect){ 0, self.followRequestAcceptBarView.frame.origin.y + self.followRequestAcceptBarView.bounds.size.height, self.bounds.size.width, 72 }];
     [self.profileDescription sizeToFit];
     [self.profileDescription setFrame:(CGRect){ 12, self.basicUserInfoView.frame.origin.y + self.basicUserInfoView.bounds.size.height, self.bounds.size.width - 24, (self.userProfile.user.aboutMe.length > 0) ? self.profileDescription.bounds.size.height : 0 }];
-    [self.websiteLinkButton setFrame:(CGRect){ 8, self.profileDescription.frame.origin.y + self.profileDescription.bounds.size.height + 3, self.bounds.size.width - 16, (self.websiteLinkButton.titleLabel.text.length > 0) ? 24 : 0 }];
-    [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + 10 }];
+    [self.websiteLinkButton setFrame:(CGRect){ 8, self.profileDescription.frame.origin.y + self.profileDescription.bounds.size.height + ((self.websiteLinkButton.titleLabel.text.length > 0) ? 3 : 0), self.bounds.size.width - 16, (self.websiteLinkButton.titleLabel.text.length > 0) ? 24 : 0 }];
+    
+    double profileCalloutsYPosition = self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + 5;
+    double profileCalloutsHeight = 11.0;
+    GTIOProfileCalloutView *lastProfileCalloutView = nil;
+    for (GTIOProfileCalloutView *profileCalloutView in self.profileCalloutViews) {
+        [profileCalloutView setFrame:(CGRect){ 12, profileCalloutsYPosition, self.profileDescription.bounds.size.width, profileCalloutsHeight }];
+        profileCalloutsYPosition += profileCalloutsHeight + 3;
+        lastProfileCalloutView = profileCalloutView;
+    }
+    
+    if (lastProfileCalloutView) {
+        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, lastProfileCalloutView.frame.origin.y + lastProfileCalloutView.bounds.size.height + 10 }];
+    } else {
+        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((self.websiteLinkButton.text.length > 0 || self.profileDescription.text.length > 0) ? 10 : 0) }];
+    }
     [self setFrame:(CGRect){ self.frame.origin, self.bounds.size.width, self.basicUserInfoBackgroundImageView.bounds.size.height }];
 }
 
 - (void)setUserProfile:(GTIOUserProfile *)userProfile completionHandler:(GTIOProfileInitCompletionHandler)completionHandler
 {
     _userProfile = userProfile;
+    if (self.userProfile.acceptBar) {
+        [self.followRequestAcceptBarView setFollowRequestAcceptBar:self.userProfile.acceptBar];
+    }
     for (GTIOButton *button in self.userProfile.userInfoButtons) {
         __block typeof(self) blockSelf = self;
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameBannerAd]) {
@@ -104,8 +131,24 @@
         NSLog(@"pull up the settings action sheet");
     }];
     [self.profileDescription setText:self.userProfile.user.aboutMe];
+    
+    for (GTIOProfileCallout *profileCallout in self.userProfile.profileCallOuts) {
+        GTIOProfileCalloutView *profileCalloutView = [[GTIOProfileCalloutView alloc] initWithFrame:CGRectZero];
+        [profileCalloutView setProfileCallout:profileCallout user:self.userProfile.user];
+        [self addSubview:profileCalloutView];
+        [self.profileCalloutViews addObject:profileCalloutView];
+    }
     [self layoutSubviews];
     completionHandler(self);
+}
+
+- (void)removeAcceptBar
+{
+    self.userProfile.acceptBar = nil;
+    [self layoutSubviews];
+    if ([self.delegate respondsToSelector:@selector(acceptBarRemoved)]) {
+        [self.delegate acceptBarRemoved];
+    }
 }
 
 - (void)openURLWithSafari:(NSString *)url

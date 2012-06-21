@@ -14,5 +14,8 @@
 @synthesize userInfoButtons = _userInfoButtons;
 @synthesize profileCallOuts = _profileCallOuts;
 @synthesize settingsButtons = _settingsButtons;
+@synthesize acceptBar = _acceptBar;
+@synthesize postsList = _postsList;
+@synthesize heartsList = _heartsList;
 
 @end

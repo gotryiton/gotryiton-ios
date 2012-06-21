@@ -57,6 +57,7 @@ extern NSString * const kGTIOUserInfoButtonNameStars;
 extern NSString * const kGTIOUserInfoButtonNameWebsite;
 extern NSString * const kGTIOUserInfoButtonNameFollow;
 extern NSString * const kGTIOUserInfoButtonNameBannerAd;
+extern NSString * const kGTIOUserInfoButtonNameAcceptRelationship;
 
 /** Dismiss handler
  */

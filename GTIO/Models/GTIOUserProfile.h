@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "GTIOUser.h"
+#import "GTIOFollowRequestAcceptBar.h"
+#import "GTIOPostList.h"
 
 @interface GTIOUserProfile : NSObject
 
@@ -15,5 +17,8 @@
 @property (nonatomic, strong) NSArray *userInfoButtons;
 @property (nonatomic, strong) NSArray *profileCallOuts;
 @property (nonatomic, strong) NSArray *settingsButtons;
+@property (nonatomic, strong) GTIOFollowRequestAcceptBar *acceptBar;
+@property (nonatomic, strong) GTIOPostList *postsList;
+@property (nonatomic, strong) GTIOPostList *heartsList;
 
 @end

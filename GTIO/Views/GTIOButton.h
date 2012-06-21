@@ -57,6 +57,11 @@ typedef enum GTIOFollowButtonState {
     GTIOFollowButtonStateRequested
 } GTIOFollowButtonState;
 
+typedef enum GTIOAcceptRelationshipButtonState {
+    GTIOAcceptRelationshipButtonStateBlock = 0,
+    GTIOAcceptRelationshipButtonStateAccept
+} GTIOAcceptRelationshipButtonState;
+
 @interface GTIOButton : UIButton
 
 @property (nonatomic, copy) NSString *name;
