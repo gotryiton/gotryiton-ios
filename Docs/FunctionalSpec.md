@@ -974,7 +974,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 #### Mockups
 2.2 Notifications ([wireframe](http://invis.io/QR2OBP8N))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/2.2.notifications.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/2.2.notifications.png" width=420px/>
 
 #### User Flow
 
@@ -1244,6 +1244,7 @@ A user can view a detailed page about a single product
 
 <img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/Product.Detail.Light.BG.png" width=420px/>
 
+
 #### User Flow
 
 **entry screens:**   
@@ -1280,7 +1281,52 @@ previous screen
 - A user can add a product to their shopping list
    - + shopping list button adds the item to their list
 
+#### Design Stories
+- Navigation Bar
+	- Background (4/product.nav.bar.bg.png) (48px high with shadow)
+	- Back button 11px from top, 5px from left
+	- When tapped to full screen product image, display product.nav.bar.top.png (4px high)
+- Heart Button
+	- Background (product.heart.inactive.png)
+		- On tap (product.heart.active.png)
+		- Highlighted (product.heart.highlight.png)
+			- On tap (product.heart.highlight.active.png)
+	- 89x34px
+	- 4px from left
+	- 3px from navigation bar (51px from top of screen)
+	- Count Text: Verlag bold 15px rgb(88,88,88) #585858
+		- Right aligned
+		- 11px from edge of element
+		- Vertically aligned in element
+- Bottom Info
+	- Background (product.info.overlay.bg.png)--stretch image horizontally
+	- 260px high including shadow
+	- Inner info area 
+		- 8px below the start of bottom area (including shadow in product.info.overlay.bg.png image)
+		- Background (product.info.rounded.bg.png), image is anchored 5px top/bottom and 5px left/right so you stretch only the inner most 1px
+		- Width: 310px
+		- Height: 66px
+		- Text - Starts 10px from left and 12px from top
+			- Product name: Verlag Book 15px rgb(8,8,8), #585858
+			- Brand: Proxima Nova Semibold 12px rgb(143,143,143) #8f8f8f
+			- Price: Verlag 22px Bold 22px rgb(88,88,88) #585858
+				- 10px from right, 10px from bottom
+		- Social Icons (product.social.fb.active.png) & (product.social.twit.active.png)
+			- 18x18px
+			- 9px from top/right
+			- 7px in between
+		- Bottom Buttons
+			- Background (product.info.button.bg.inactive.png) stretch image
+				- On tap (product.info.button.bg.active.png)
+				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
+					- On tap (product.info.button.bg.highlight.active.png)
+			- Text: Archer Medium 16px rgb(85,85,86) #555556
+			- 5px padding
+			- 4px in between buttons
+			- Width: 153x46px
+		
 
+	
 
 ### 4.1.2 Product Full Screen  
 
@@ -1369,7 +1415,7 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 
 5.1.1 invite friends actionsheet  ([wireframe](http://invis.io/NB2PNCHD))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/5.1.1.invite.actionsheet.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/5.1.1.invite.actionsheet.png" width=420px/>
 
 5.1.2 invite friends SMS ([wireframe](http://invis.io/YX2PND9V))
 
@@ -3939,7 +3985,7 @@ In many places where there is a user's name, there may be a badge icon next to a
 ### 13.8 Custom UIActionSheet
 
 #### Mockups
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/13.8.actionsheet.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/13.8.actionsheet.png" width=420px/>
 
 #### Design Stories
 - Buttons (use general/large.button.[color].[state].png)
@@ -3958,7 +4004,7 @@ In many places where there is a user's name, there may be a badge icon next to a
 ### 13.9 Custom UIAlertView
 
 #### Mockups
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/13.9.custom.dialog.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/13.9.custom.dialog.png" width=420px/>
 
 #### Design Stories
 - Background Stretchable Image (general/alert.bg.png)
