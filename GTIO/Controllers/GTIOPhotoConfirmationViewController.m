@@ -110,7 +110,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)setPhoto:(UIImage *)photo
 {
     _photo = photo;
-    [self.photoImageView setImage:_photo];
+    [self setFilteredPhoto:_photo];
     
     [[GTIOFilterManager sharedManager] setOriginalImage:photo];
 }

@@ -13,16 +13,16 @@
 
 @property (nonatomic, strong) UIView *placeHolderView;
 @property (nonatomic, strong) UIImageView *backgroundView;
-@property (nonatomic, strong) UITextView *nextTextView;
 
 @end
 
 @implementation GTIOPostALookDescriptionBox
 
-@synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView, nextTextView = _nextTextView;
-@synthesize textViewDidEndHandler = _textViewDidEndHandler;
+@synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView;
+@synthesize textViewDidEndHandler = _textViewDidEndHandler, textViewWillBecomeActiveHandler = _textViewWillBecomeActiveHandler, textViewDidBecomeActiveHandler = _textViewDidBecomeActiveHandler;
+@synthesize forceBecomeFirstResponder = _forceBecomeFirstResponder;
 
-- (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon nextTextView:(UITextView *)nextTextView
+- (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -44,8 +44,6 @@
         [titleLabel setText:title];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [self.placeHolderView addSubview:titleLabel];
-        
-        self.nextTextView = nextTextView;
                 
         self.textView = [[UITextView alloc] initWithFrame:(CGRect){ 5, 0, self.backgroundView.bounds.size.width, self.backgroundView.bounds.size.height - 10 }];
         [self.textView setBackgroundColor:[UIColor clearColor]];
@@ -54,11 +52,7 @@
         [self.textView setTextColor:[UIColor gtio_darkGrayTextColor]];
         [self.textView setScrollsToTop:NO];
         [self.textView setDelegate:self];
-        if (self.nextTextView) {
-            [self.textView setReturnKeyType:UIReturnKeyNext];
-        } else {
-            [self.textView setReturnKeyType:UIReturnKeyDone];
-        }
+        [self.textView setReturnKeyType:UIReturnKeyDone];
         [self addSubview:self.textView];
     }
     return self;
@@ -68,12 +62,9 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    if ([text isEqualToString:@"\n"] && self.nextTextView) {
-        [self.nextTextView becomeFirstResponder];
-        return NO;
-    } else if([text isEqualToString:@"\n"]) {
+    if([text isEqualToString:@"\n"]) {
         if (self.textViewDidEndHandler) {
-            self.textViewDidEndHandler(self.textView);
+            self.textViewDidEndHandler(self, YES);
         } else {
             [self.textView resignFirstResponder];
         }
@@ -82,8 +73,23 @@
     return YES;
 }
 
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    if (self.textViewWillBecomeActiveHandler && !self.forceBecomeFirstResponder) {
+        [self setForceBecomeFirstResponder:YES];
+        self.textViewWillBecomeActiveHandler(self);
+        return NO;
+    } else {
+        [self setForceBecomeFirstResponder:NO];
+        return YES;
+    }
+}
+
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
+    if (self.textViewDidBecomeActiveHandler) {
+        self.textViewDidBecomeActiveHandler(self);
+    }
     [self.textView setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
 }
 
