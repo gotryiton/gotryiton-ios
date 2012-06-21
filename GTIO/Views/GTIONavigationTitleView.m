@@ -26,6 +26,7 @@
     if (self) {
         _title = title;
         _italic = italic;
+        
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_titleLabel setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];

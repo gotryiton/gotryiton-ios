@@ -869,6 +869,8 @@
 		D2E3759A1559B86700763A67 /* GTIOExploreLooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */; };
 		D2EC0ED8156ADF1500984838 /* GTIOMailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */; };
 		D2EC0EDA156ADF5800984838 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EC0ED9156ADF5800984838 /* MessageUI.framework */; };
+		D2FF1B151592287600702982 /* checkered-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D2FF1B131592287600702982 /* checkered-bg.png */; };
+		D2FF1B161592287600702982 /* checkered-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2FF1B141592287600702982 /* checkered-bg@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1960,6 +1962,8 @@
 		D2EC0ED9156ADF5800984838 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		D2F78B76158A2E2F00CBB4F2 /* NSMutableDictionary+FilterTypeKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+FilterTypeKeys.h"; sourceTree = "<group>"; };
 		D2F78B77158A2E2F00CBB4F2 /* NSMutableDictionary+FilterTypeKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+FilterTypeKeys.m"; sourceTree = "<group>"; };
+		D2FF1B131592287600702982 /* checkered-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkered-bg.png"; sourceTree = "<group>"; };
+		D2FF1B141592287600702982 /* checkered-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkered-bg@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2241,14 +2245,6 @@
 		8E3F88E0157E4DF00047937E /* 7 */ = {
 			isa = PBXGroup;
 			children = (
-				8E89EA5F15925A2700303A04 /* empty.message.container.png */,
-				8E89EA6015925A2700303A04 /* empty.message.container@2x.png */,
-				8E89EA6115925A2700303A04 /* profile-lock.png */,
-				8E89EA6215925A2700303A04 /* profile-lock@2x.png */,
-				8E89EA6315925A2700303A04 /* profile.tabbar.left.separator.png */,
-				8E89EA6415925A2700303A04 /* profile.tabbar.left.separator@2x.png */,
-				8E89EA6515925A2700303A04 /* profile.tabbar.right.separator.png */,
-				8E89EA6615925A2700303A04 /* profile.tabbar.right.separator@2x.png */,
 				8E43326B1581525C00CD95D0 /* inner.shadow.bg.lighter.png */,
 				8E43326C1581525C00CD95D0 /* inner.shadow.bg.lighter@2x.png */,
 				8E43326715814AC100CD95D0 /* inner.shadow.bg.png */,

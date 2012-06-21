@@ -54,6 +54,7 @@
         case GTIOButtonTypeFollowButtonForNavBar: return [self gtio_followButtonForNavBar];
         case GTIOButtonTypeFollowingButtonForNavBar: return [self gtio_followingButtonForNavBar];
         case GTIOButtonTypeRequestedButtonForNavBar: return [self gtio_requestedButtonForNavBar];
+        case GTIOButtonTypeMask: return [self gtio_maskButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -377,6 +378,13 @@
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:(CGRect){ 0, 0, 70, 30 }];
+    return button;
+}
+
++ (id)gtio_maskButton
+{
+    GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 

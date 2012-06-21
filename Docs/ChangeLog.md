@@ -1,5 +1,26 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.3 - June 14, 2012
+
+### Build Summary
+This is a bugfix build.
+
+### Completed Development
+
+**Bug Fixes**
+- 215 - Use description in place of location on Quick Add Screen
+- 213 - 7.1 Styling tweaks
+- 211 - 1.7 styling bugs
+- 210 - 7.3 styling bugs
+- 178 - management screen, following, followers, stars buttons (screen 7.1)
+- 177 - quick add follow button does not route (screen 1.8)
+- 176 - Quick add table rows should not be tappable (screen 1.8)
+- 180 - app crashes when attempting to **not** add filters (screen 12.2)
+- 179, 138 - flash button is not tappable because the focus indicator supercedes it (screen 12.1)
+- 141 - scrolling on description and brands fields (screen 12.3)
+
+---
+
 #### Build 4.0.0.2 - June 14, 2012
 
 ### Build Summary

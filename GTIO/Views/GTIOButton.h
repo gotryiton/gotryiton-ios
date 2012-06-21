@@ -49,6 +49,8 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeFollowButtonForNavBar,
     GTIOButtonTypeFollowingButtonForNavBar,
     GTIOButtonTypeRequestedButtonForNavBar
+    GTIOButtonTypeFollowButton,
+    GTIOButtonTypeMask
 } GTIOButtonType;
 
 typedef enum GTIOFollowButtonState {

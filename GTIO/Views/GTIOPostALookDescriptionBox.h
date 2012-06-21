@@ -8,13 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^GTIOTextViewDidEndHandler)(UITextView *textView);
+@class GTIOPostALookDescriptionBox;
+
+typedef void(^GTIOTextViewDidEndHandler)(GTIOPostALookDescriptionBox *descriptionBox, BOOL scrollToTop);
+typedef void(^GTIOTextViewWillBecomeActiveHandler)(GTIOPostALookDescriptionBox *descriptionBox);
+typedef void(^GTIOTextViewDidBecomeActiveHandler)(GTIOPostALookDescriptionBox *descriptionBox);
 
 @interface GTIOPostALookDescriptionBox : UIView <UITextViewDelegate>
 
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, copy) GTIOTextViewDidEndHandler textViewDidEndHandler;
+@property (nonatomic, copy) GTIOTextViewWillBecomeActiveHandler textViewWillBecomeActiveHandler;
+@property (nonatomic, copy) GTIOTextViewDidBecomeActiveHandler textViewDidBecomeActiveHandler;
+@property (nonatomic, assign) BOOL forceBecomeFirstResponder;
 
-- (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon nextTextView:(UITextView *)nextTextView;
+- (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon;
 
 @end
