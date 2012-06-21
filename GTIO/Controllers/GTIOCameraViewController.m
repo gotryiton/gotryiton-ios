@@ -485,9 +485,10 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)changeFlashMode:(AVCaptureFlashMode)flashMode
 {
     NSError *error = nil;
-    if ([self.captureDevice lockForConfiguration:&error]) {
-        [self.captureDevice setFlashMode:flashMode];
-        [self.captureDevice unlockForConfiguration];
+    if ([self.captureDevice isFlashModeSupported:flashMode] &&
+            [self.captureDevice lockForConfiguration:&error]) {
+            [self.captureDevice setFlashMode:flashMode];
+            [self.captureDevice unlockForConfiguration];
     }
 }
 
