@@ -312,6 +312,7 @@
 
 - (void)buttonWasTouchedUpInside:(id)sender
 {
+    NSLog(@"touch");
     if (self.tapHandler) {
         self.tapHandler(sender);
     }

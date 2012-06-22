@@ -68,7 +68,7 @@ static NSString * const GTIOFontVerlagName[] = {
 }
 
 
-+ (CTFontRef)gtio_proximaNovaCoreTextFontWithWeight:(GTIOFontVerlag)proximaNova size:(CGFloat)size
++ (CTFontRef)gtio_proximaNovaCoreTextFontWithWeight:(GTIOFontProximaNova)proximaNova size:(CGFloat)size
 {
     return [self newCustomFontWithName:GTIOFontProximaNovaName[proximaNova] 
         ofType: @"otf"

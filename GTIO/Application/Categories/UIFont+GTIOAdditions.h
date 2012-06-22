@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
+#import <CoreText/CoreText.h>
+#import <QuartzCore/QuartzCore.h>
+
 typedef enum GTIOFontProximaNova {
     GTIOFontProximaNovaRegular = 0,
     GTIOFontProximaNovaRegularItal,
@@ -50,5 +53,10 @@ typedef enum GTIOFontVerlag {
 + (UIFont *)gtio_proximaNovaFontWithWeight:(GTIOFontProximaNova)proximaNova size:(CGFloat)size;
 + (UIFont *)gtio_archerFontWithWeight:(GTIOFontArcher)archer size:(CGFloat)size;
 + (UIFont *)gtio_verlagFontWithWeight:(GTIOFontVerlag)verlag size:(CGFloat)size;
+
++ (CTFontRef)gtio_proximaNovaCoreTextFontWithWeight:(GTIOFontProximaNova)proximaNova size:(CGFloat)size;
++ (CTFontRef)gtio_archerCoreTextFontWithWeight:(GTIOFontArcher)archer size:(CGFloat)size;
++ (CTFontRef)gtio_verlagCoreTextFontWithWeight:(GTIOFontVerlag)verlag size:(CGFloat)size;
+
 
 @end

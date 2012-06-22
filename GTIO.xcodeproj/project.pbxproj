@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CDFD9031593BA4600994416 /* GTIOAutoCompleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */; };
+		5CDFD9061593BA7B00994416 /* GTIOAutoCompleteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */; };
+		5CDFD9091593BAAD00994416 /* GTIOAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */; };
+		5CDFD90C1593C53C00994416 /* GTIOAutoCompleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD90B1593C53C00994416 /* GTIOAutoCompleteButton.m */; };
 		8E12C1F2157547190097CDE9 /* GTIOPostALookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */; };
 		8E12C1F515754E880097CDE9 /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F415754E870097CDE9 /* GTIOViewController.m */; };
 		8E12C1F9157553800097CDE9 /* GTIOLookSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F8157553800097CDE9 /* GTIOLookSelectorView.m */; };
@@ -909,6 +913,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5CDFD9011593BA4600994416 /* GTIOAutoCompleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteView.h; sourceTree = "<group>"; };
+		5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleteView.m; sourceTree = "<group>"; };
+		5CDFD9041593BA7B00994416 /* GTIOAutoCompleteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteScrollView.h; sourceTree = "<group>"; };
+		5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleteScrollView.m; sourceTree = "<group>"; };
+		5CDFD9071593BAAD00994416 /* GTIOAutoCompleter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleter.h; sourceTree = "<group>"; };
+		5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleter.m; sourceTree = "<group>"; };
+		5CDFD90A1593C53C00994416 /* GTIOAutoCompleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteButton.h; sourceTree = "<group>"; };
+		5CDFD90B1593C53C00994416 /* GTIOAutoCompleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleteButton.m; sourceTree = "<group>"; };
 		8E12C1F0157547190097CDE9 /* GTIOPostALookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostALookViewController.h; sourceTree = "<group>"; };
 		8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostALookViewController.m; sourceTree = "<group>"; };
 		8E12C1F315754E870097CDE9 /* GTIOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOViewController.h; sourceTree = "<group>"; };
@@ -1955,6 +1967,10 @@
 				8EDA556A15757E8A009F0404 /* GTIOPostALookOptionsView.m */,
 				8EDA556C15758261009F0404 /* GTIOPostALookDescriptionBox.h */,
 				8EDA556D15758261009F0404 /* GTIOPostALookDescriptionBox.m */,
+				5CDFD9011593BA4600994416 /* GTIOAutoCompleteView.h */,
+				5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */,
+				5CDFD9041593BA7B00994416 /* GTIOAutoCompleteScrollView.h */,
+				5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */,
 			);
 			name = "Photo Upload";
 			sourceTree = "<group>";
@@ -2931,6 +2947,8 @@
 				8ECB2A8B1587DEDC0039A4F1 /* GTIOButtonAction.m */,
 				8ECB2A8E1587E0480039A4F1 /* GTIOMyManagementScreen.h */,
 				8ECB2A8F1587E0480039A4F1 /* GTIOMyManagementScreen.m */,
+				5CDFD9071593BAAD00994416 /* GTIOAutoCompleter.h */,
+				5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -3586,6 +3604,8 @@
 				D298588D15654403005EE3CA /* GTIOButton.m */,
 				D2DEAED2158793A20032ED1F /* GTIOFilterButton.h */,
 				D2DEAED3158793A20032ED1F /* GTIOFilterButton.m */,
+				5CDFD90A1593C53C00994416 /* GTIOAutoCompleteButton.h */,
+				5CDFD90B1593C53C00994416 /* GTIOAutoCompleteButton.m */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -4588,6 +4608,10 @@
 				D2B8A584158A97CF001D67CA /* GTIOFilterButton.m in Sources */,
 				D2C363F2158A999400F476EF /* NSMutableDictionary+FilterTypeKeys.m in Sources */,
 				8E436990159124E8002DBF57 /* GTIOFeedViewController.m in Sources */,
+				5CDFD9031593BA4600994416 /* GTIOAutoCompleteView.m in Sources */,
+				5CDFD9061593BA7B00994416 /* GTIOAutoCompleteScrollView.m in Sources */,
+				5CDFD9091593BAAD00994416 /* GTIOAutoCompleter.m in Sources */,
+				5CDFD90C1593C53C00994416 /* GTIOAutoCompleteButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

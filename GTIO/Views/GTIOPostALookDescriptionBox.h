@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GTIOAutoCompleteView.h"
+
 @class GTIOPostALookDescriptionBox;
 
 typedef void(^GTIOTextViewDidEndHandler)(GTIOPostALookDescriptionBox *descriptionBox, BOOL scrollToTop);
@@ -16,7 +18,7 @@ typedef void(^GTIOTextViewDidBecomeActiveHandler)(GTIOPostALookDescriptionBox *d
 
 @interface GTIOPostALookDescriptionBox : UIView <UITextViewDelegate>
 
-@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) GTIOAutoCompleteView *textView;
 @property (nonatomic, copy) GTIOTextViewDidEndHandler textViewDidEndHandler;
 @property (nonatomic, copy) GTIOTextViewWillBecomeActiveHandler textViewWillBecomeActiveHandler;
 @property (nonatomic, copy) GTIOTextViewDidBecomeActiveHandler textViewDidBecomeActiveHandler;
