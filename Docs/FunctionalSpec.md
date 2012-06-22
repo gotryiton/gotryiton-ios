@@ -86,6 +86,7 @@
    13.7 [User Badges](#137-user-badges)   
    13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)   
    13.9 [Custom UIAlertView](#139-custom-uialertview) 
+   13.10 [Unified autocomplete](#1310-unified-autocomplete)
 
 ---
 
@@ -3984,3 +3985,37 @@ In many places where there is a user's name, there may be a badge icon next to a
 		- Proxima Nova Bold/Regular rgb(85,85,86) #555556
 		- Cancel button: rgb(143,143,143) #8f8f8f
 		- Vertically/horizontally centered in button
+
+### 13.10 Unified Autocomplete
+
+#### Mockups
+
+Control hidden/lowered
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.1.Input.png" width=420px/>
+
+Control raised, populating brands
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.2.Input.Brands.png" width=420px/>
+
+Control raised, populating users
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.3.Input.People.png" width=420px/>
+
+#### Design Stories
+- Background Area
+   - 'keyboard-top-control-bg.png'
+   - when 'expanded', is placed directly above keyboard
+   - 'collapsed' state should show 6px of top of asset above keyboard
+   - should animate in and out from underneath the keyboard when needed/not needed
+- Buttons
+   - 'keyboard-top-control-button.png' with active and inactive states
+   - horizontal middle is stretchable
+      - 3px nonstretchable on left
+      - 3px nonstretchable on right
+   - 5px of padding on top, bottom, left, right (5px gaps between buttons)
+   - text is Proxima Nova Regular, 14pt, rgb(64,64,64)
+   - Brands
+      - allow 12px of padding on left and right of text inside button
+   - Users
+      - user icon is displayed at 26px x 26px with 'user-icon-overlay-52.png' placed directly over (masks edges and overlays a shadow)
+         - 4px of padding from top, bottom and left edges of button
+      - user name
+         - allow 6px of padding from right edge of user icon and right edge of button
