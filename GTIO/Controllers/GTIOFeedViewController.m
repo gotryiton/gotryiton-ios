@@ -194,8 +194,19 @@
             rectForView.origin.y + self.tableView.sectionHeaderHeight < scrollViewTopPoint.y) {
 
             [headerView setShowingShadow:YES];
+            [headerView setClearBackground:NO];
+        } else if (headerView == currentHeaderView) {
+            [headerView setShowingShadow:NO];
+            [headerView setClearBackground:YES];
         } else {
             [headerView setShowingShadow:NO];
+            
+            // Don't show clear background for cells above current cell
+            if (rectForView.origin.y + self.tableView.sectionHeaderHeight > scrollViewTopPoint.y) {
+                [headerView setClearBackground:NO];
+            } else {
+                [headerView setClearBackground:YES];
+            }
         }
     }];
     

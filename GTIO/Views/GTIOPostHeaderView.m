@@ -33,14 +33,15 @@ static CGFloat const kGTIOAccessLineGap = 28.0f;
 
 @synthesize post = _post;
 @synthesize iconImageView = _iconImageView, iconFrameImageView = _iconFrameImageView, nameLabel = _nameLabel, locationLabel = _locationLabel, createdAtLabel = _createdAtLabel, shadowImageView = _shadowImageView;
-@synthesize showingShadow = _showingShadow;
+@synthesize showingShadow = _showingShadow, clearBackground = _clearBackground;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Background
-        [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
+        [self setBackgroundColor:[UIColor clearColor]];
+        _clearBackground = YES;
         
         // Shadow
         _shadowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header-shadow.png"]];
@@ -95,6 +96,8 @@ static CGFloat const kGTIOAccessLineGap = 28.0f;
         CGFloat createdAtOriginX = nameBGImageView.frame.origin.x + nameBGImageView.frame.size.width + createdAtPadding;
         _createdAtLabel = [[UILabel alloc] initWithFrame:(CGRect){ createdAtOriginX, (self.frame.size.height - kGTIOAccessLineGap) / 2, self.frame.size.width - createdAtOriginX - (kGTIOPadding - createdAtPadding), kGTIOAccessLineGap }];
         [_createdAtLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:10.0f]];
+        [_createdAtLabel setMinimumFontSize:6.0f];
+        [_createdAtLabel setAdjustsFontSizeToFitWidth:YES];
         [_createdAtLabel setTextColor:[UIColor gtio_grayTextColor]];
         [_createdAtLabel setTextAlignment:UITextAlignmentCenter];
         [_createdAtLabel setBackgroundColor:[UIColor clearColor]];
@@ -155,6 +158,16 @@ static CGFloat const kGTIOAccessLineGap = 28.0f;
         [self addSubview:self.shadowImageView];
     } else {
         [self.shadowImageView removeFromSuperview];
+    }
+}
+
+- (void)setClearBackground:(BOOL)clearBackground
+{
+    _clearBackground = clearBackground;
+    if (_clearBackground) {
+        [self setBackgroundColor:[UIColor clearColor]];
+    } else {
+        [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     }
 }
 

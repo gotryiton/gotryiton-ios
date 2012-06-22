@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) GTIOPost *post;
 @property (nonatomic, assign, getter = isShowingShadow) BOOL showingShadow;
+@property (nonatomic, assign) BOOL clearBackground;
 
 - (void)prepareForReuse;
 
