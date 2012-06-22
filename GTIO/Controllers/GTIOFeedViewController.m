@@ -116,7 +116,9 @@
             post.user = [GTIOUser currentUser];
             [self.posts addObject:post];
 #warning end test
+            
             [self.tableView reloadData];
+            [self headerSectionViewsStyling];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             NSLog(@"Error: %@", [error localizedDescription]);
@@ -180,8 +182,12 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self headerViewDequeueing];
-    
-    CGPoint scrollViewTopPoint = scrollView.contentOffset;
+    [self headerSectionViewsStyling];
+}
+
+- (void)headerSectionViewsStyling
+{
+    CGPoint scrollViewTopPoint = self.tableView.contentOffset;
     scrollViewTopPoint.y += self.tableView.sectionHeaderHeight; // Offset by first header
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollViewTopPoint];
     GTIOPostHeaderView *currentHeaderView = [self.onScreenHeaderViews objectForKey:[NSString stringWithFormat:@"%i", indexPath.section]];
@@ -192,7 +198,7 @@
         GTIOPostHeaderView *headerView = [self.onScreenHeaderViews objectForKey:key];
         if (headerView == currentHeaderView &&
             rectForView.origin.y + self.tableView.sectionHeaderHeight < scrollViewTopPoint.y) {
-
+            
             [headerView setShowingShadow:YES];
             [headerView setClearBackground:NO];
         } else if (headerView == currentHeaderView) {
@@ -209,7 +215,6 @@
             }
         }
     }];
-    
 }
 
 #pragma mark - Header View Dequeue
