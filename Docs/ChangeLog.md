@@ -1,6 +1,19 @@
 #### GTIO Build Changelog
 
-#### Build 4.0.0.3 - June 14, 2012
+#### Build 4.0.0.4 - June 22, 2012
+
+### Build Summary
+This is a build of scott's work on the post feed. I ran into some merging problems getting Geoff's code in and didn't want to delay the build till monday. That is why I am release this with only my code. I plan on doing another build monday with merged code.
+
+### Work In Progress
+
+- 183 - 8.1 Table section header
+- 184 - 8.1 Photo of person/product
+- 185 - 8.1 Description text
+
+---
+
+#### Build 4.0.0.3 - June 20, 2012
 
 ### Build Summary
 This is a bugfix build.
