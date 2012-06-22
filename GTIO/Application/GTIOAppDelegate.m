@@ -164,10 +164,12 @@
     // Headers
     [objectManager.client setValue:@"142" forHTTPHeaderField:kGTIOTrackingHeaderKey];
     
-    NSString *authToken = [[GTIOAuth alloc] init].token;
-    if ([authToken length] > 0) {
-        [[RKObjectManager sharedManager].client.HTTPHeaders setObject:authToken forKey:kGTIOAuthenticationHeaderKey];
-    }
+//    NSString *authToken = [[GTIOAuth alloc] init].token;
+//    if ([authToken length] > 0) {
+//        [[RKObjectManager sharedManager].client.HTTPHeaders setObject:authToken forKey:kGTIOAuthenticationHeaderKey];
+//    }
+#warning test code
+    [[RKObjectManager sharedManager].client.HTTPHeaders setObject:@"f8c3ff8684d637f21a016444c3d1bd31" forKey:kGTIOAuthenticationHeaderKey];
     
     // Auth for dev/staging
     [objectManager.client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];

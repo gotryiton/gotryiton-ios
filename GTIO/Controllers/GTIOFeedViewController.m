@@ -90,11 +90,12 @@
 
 - (void)loadFeed
 {
-    [self.posts removeAllObjects];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/posts/feed" usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
         loader.onDidLoadObjects = ^(NSArray *objects) {
             NSLog(@"Objects: %@", objects);
+            
+            [self.posts removeAllObjects];
             
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOPost class]])
@@ -106,16 +107,14 @@
             }
             
 #warning This is used for testing.
-            if ([self.posts count] < 2) {
-                // Manually add post
-                GTIOPost *post = [[GTIOPost alloc] init];
-                post.postID = @"123";
-                post.postDescription = @"Test the jams";
-                post.createdWhen = @"2 weeks";
-                post.stared = NO;
-                post.user = [GTIOUser currentUser];
-                [self.posts addObject:post];
-            }
+            // Manually add post
+            GTIOPost *post = [[GTIOPost alloc] init];
+            post.postID = @"123";
+            post.photo = ((GTIOPost *)[self.posts objectAtIndex:4]).photo;
+            post.createdWhen = @"2 weeks";
+            post.stared = NO;
+            post.user = [GTIOUser currentUser];
+            [self.posts addObject:post];
 #warning end test
             [self.tableView reloadData];
         };
