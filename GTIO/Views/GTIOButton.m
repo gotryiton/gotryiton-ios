@@ -8,12 +8,6 @@
 
 #import "GTIOButton.h"
 
-typedef enum GTIOLargeButtonType {
-    GTIOLargeButtonTypeGray = 0,
-    GTIOLargeButtonTypeGreen,
-    GTIOLargeButtonTypeRed
-} GTIOLargeButtonType;
-
 @implementation GTIOButton
 
 @synthesize tapHandler = _tapHandler, name = _name, action = _action, count = _count, text = _text, attribute = _attribute, value = _value, chevron = _chevron, state = _state, imageURL = _imageURL;
@@ -61,6 +55,7 @@ typedef enum GTIOLargeButtonType {
         case GTIOButtonTypeFollowingButtonForNavBar: return [self gtio_followingButtonForNavBar];
         case GTIOButtonTypeRequestedButtonForNavBar: return [self gtio_requestedButtonForNavBar];
         case GTIOButtonTypeMask: return [self gtio_maskButton];
+        case GTIOButtonTypeActionSheetCancel: return [self gtio_largeCancelButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -100,22 +95,22 @@ typedef enum GTIOLargeButtonType {
     return button;
 }
 
-+ (id)gtio_largeButtonWithType:(GTIOLargeButtonType)largeButtonType
++ (id)largeButtonWithGTIOStyle:(GTIOLargeButtonStyle)largeButtonStyle
 {
     GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
     
     NSString *backgroundImageNormal;
     NSString *backgroundImageHighlighted;
-    switch (largeButtonType) {
-        case GTIOLargeButtonTypeGray:
+    switch (largeButtonStyle) {
+        case GTIOLargeButtonStyleGray:
             backgroundImageNormal = @"large.button.grey.off.png";
             backgroundImageHighlighted = @"large.button.grey.on.png";
             break;
-        case GTIOLargeButtonTypeGreen:
+        case GTIOLargeButtonStyleGreen:
             backgroundImageNormal = @"large.button.green.off.png";
             backgroundImageHighlighted = @"large.button.green.on.png";
             break;
-        case GTIOLargeButtonTypeRed:
+        case GTIOLargeButtonStyleRed:
             backgroundImageNormal = @"large.button.red.off.png";
             backgroundImageHighlighted = @"large.button.red.on.png";
             break;
@@ -125,9 +120,9 @@ typedef enum GTIOLargeButtonType {
             break;
     }
     
-    [button setBackgroundImage:[UIImage imageNamed:backgroundImageNormal] forState:UIControlStateNormal];
-    [button setBackgroundImage:[UIImage imageNamed:backgroundImageHighlighted] forState:UIControlStateHighlighted];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:backgroundImageNormal] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:backgroundImageHighlighted] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0] forState:UIControlStateHighlighted];
+    [button setTitleColor:[UIColor gtio_ActionSheetButtonTextColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
@@ -429,7 +424,7 @@ typedef enum GTIOLargeButtonType {
 
 + (id)gtio_largeCancelButton
 {
-    GTIOButton *button = [self gtio_largeButtonWithType:GTIOLargeButtonTypeGray];
+    GTIOButton *button = [self largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray];
     [button setTitleColor:[UIColor gtio_signInColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:14.0]];
     [button setTitle:@"cancel" forState:UIControlStateNormal];

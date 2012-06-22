@@ -49,7 +49,8 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeFollowButtonForNavBar,
     GTIOButtonTypeFollowingButtonForNavBar,
     GTIOButtonTypeRequestedButtonForNavBar,
-    GTIOButtonTypeMask
+    GTIOButtonTypeMask,
+    GTIOButtonTypeActionSheetCancel
 } GTIOButtonType;
 
 typedef enum GTIOFollowButtonState {
@@ -62,6 +63,12 @@ typedef enum GTIOAcceptRelationshipButtonState {
     GTIOAcceptRelationshipButtonStateBlock = 0,
     GTIOAcceptRelationshipButtonStateAccept
 } GTIOAcceptRelationshipButtonState;
+
+typedef enum GTIOLargeButtonStyle {
+    GTIOLargeButtonStyleGray = 0,
+    GTIOLargeButtonStyleGreen,
+    GTIOLargeButtonStyleRed
+} GTIOLargeButtonStyle;
 
 @interface GTIOButton : UIButton
 
@@ -78,5 +85,6 @@ typedef enum GTIOAcceptRelationshipButtonState {
 
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType;
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType tapHandler:(GTIOButtonDidTapHandler)tapHandler;
++ (id)largeButtonWithGTIOStyle:(GTIOLargeButtonStyle)largeButtonStyle;
 
 @end

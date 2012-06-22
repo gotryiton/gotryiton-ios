@@ -8,7 +8,6 @@
 
 #import "GTIOProfileViewController.h"
 #import "GTIONavigationNotificationTitleView.h"
-#import "GTIOProfileHeaderView.h"
 #import "GTIOUserProfile.h"
 #import "GTIOSegmentedControl.h"
 #import "GTIOProgressHUD.h"
@@ -59,6 +58,7 @@
     
     self.profileHeaderView = [[GTIOProfileHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 0 }];
     [self.profileHeaderView setDelegate:self];
+    [self.profileHeaderView setAcceptBarDelegate:self];
     [self.view addSubview:self.profileHeaderView];
     
     NSArray *segmentedControlItems = [NSArray arrayWithObjects:@"posts", @"hearts", nil];
@@ -105,6 +105,7 @@
 - (void)refreshUserProfile
 {
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self screenEnabled:NO];
     [[GTIOUser currentUser] loadUserProfileWithUserID:self.userID completionHandler:^(NSArray *loadedObjects, NSError *error) {
         [self screenEnabled:YES];
         if (!error) {

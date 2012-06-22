@@ -12,10 +12,18 @@
 
 typedef void(^GTIOProfileInitCompletionHandler)(id sender);
 
+@protocol GTIOProfileHeaderViewDelegate <NSObject>
+
+@required
+- (void)refreshUserProfile;
+
+@end
+
 @interface GTIOProfileHeaderView : UIView <GTIOFollowRequestAcceptBarViewDelegate>
 
 @property (nonatomic, strong) GTIOUserProfile *userProfile;
-@property (nonatomic, weak) id<GTIOFollowRequestAcceptBarViewDelegate> delegate;
+@property (nonatomic, weak) id<GTIOFollowRequestAcceptBarViewDelegate> acceptBarDelegate;
+@property (nonatomic, weak) id<GTIOProfileHeaderViewDelegate> delegate;
 
 - (void)setUserProfile:(GTIOUserProfile *)userProfile completionHandler:(GTIOProfileInitCompletionHandler)completionHandler;
 

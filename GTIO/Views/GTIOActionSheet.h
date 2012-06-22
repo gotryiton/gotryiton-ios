@@ -12,11 +12,20 @@
 @class GTIOActionSheet;
 
 typedef void(^GTIOActionSheetBlock)(GTIOActionSheet *actionSheet);
-typedef void(^GTIOActionSheetIndexBlock)(GTIOActionSheet *actionSheet, NSUInteger index);
 
 @interface GTIOActionSheet : UIView
 
-- (id)initWithCancelButton:(GTIOButton *)cancelButton otherButtons:(GTIOButton *)otherButtons, ... NS_REQUIRES_NIL_TERMINATION;
-- (void)showWithBlock:(GTIOActionSheetBlock)block;
+@property (nonatomic, copy) GTIOActionSheetBlock willDismiss;
+@property (nonatomic, copy) GTIOActionSheetBlock didDismiss;
+@property (nonatomic, copy) GTIOActionSheetBlock willPresent;
+@property (nonatomic, copy) GTIOActionSheetBlock didPresent;
+@property (nonatomic, copy) GTIOActionSheetBlock willCancel;
+
+@property (nonatomic, strong) UIView *windowMask;
+
+- (id)initWithCancelButton:(GTIOButton *)cancelButton otherButtons:(NSArray *)otherButtons;
+- (void)show;
+- (void)showWithConfigurationBlock:(GTIOActionSheetBlock)configurationBlock;
+- (void)dismiss;
 
 @end

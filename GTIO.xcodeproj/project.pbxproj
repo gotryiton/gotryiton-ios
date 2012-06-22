@@ -4868,8 +4868,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Mackey (T8C25P5HWY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geoffrey Mackey (T8C25P5HWY)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4893,8 +4893,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
+				PROVISIONING_PROFILE = "503545A1-A847-4483-82B2-7F95D1A3E977";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "503545A1-A847-4483-82B2-7F95D1A3E977";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4904,8 +4904,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Mackey (T8C25P5HWY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geoffrey Mackey (T8C25P5HWY)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
@@ -4927,8 +4927,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
+				PROVISIONING_PROFILE = "503545A1-A847-4483-82B2-7F95D1A3E977";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "503545A1-A847-4483-82B2-7F95D1A3E977";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

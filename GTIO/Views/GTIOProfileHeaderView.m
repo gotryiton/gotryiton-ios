@@ -9,7 +9,8 @@
 #import "GTIOProfileHeaderView.h"
 #import "GTIOMeTableHeaderView.h"
 #import "GTIOProfileCalloutView.h"
-
+#import "GTIOActionSheet.h"
+#import "GTIOProgressHUD.h"
 #import "UIImageView+WebCache.h"
 
 @interface GTIOProfileHeaderView()
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) UILabel *profileDescription;
 @property (nonatomic, strong) GTIOButton *websiteLinkButton;
 @property (nonatomic, strong) NSMutableArray *profileCalloutViews;
+@property (nonatomic, strong) GTIOActionSheet *actionSheet;
 
 @end
 
@@ -33,6 +35,8 @@
 @synthesize websiteLinkButton = _websiteLinkButton;
 @synthesize profileCalloutViews = _profileCalloutViews;
 @synthesize delegate = _delegate;
+@synthesize acceptBarDelegate = _acceptBarDelegate;
+@synthesize actionSheet = _actionSheet;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -128,7 +132,38 @@
     [self.basicUserInfoView setUser:self.userProfile.user];
     [self.basicUserInfoView setUserInfoButtons:self.userProfile.userInfoButtons];
     [self.basicUserInfoView setEditButtonTapHandler:^(id sender) {
-        NSLog(@"pull up the settings action sheet");
+        GTIOButton *cancelButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeActionSheetCancel];
+        
+        NSMutableArray *otherButtons = [NSMutableArray array];
+        for (GTIOButton *button in self.userProfile.settingsButtons) {
+            GTIOButton *actionSheetButton;
+            switch (button.state.intValue) {
+                case 0: actionSheetButton = [GTIOButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
+                case 1: actionSheetButton = [GTIOButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGreen]; break;
+                case 2: actionSheetButton = [GTIOButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleRed]; break;
+                default: actionSheetButton = [GTIOButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
+            }
+            [actionSheetButton setTitle:button.text forState:UIControlStateNormal];
+            [actionSheetButton setAction:button.action];
+            [actionSheetButton setState:button.state];
+            actionSheetButton.tapHandler = ^(id sender) {
+                [GTIOProgressHUD showHUDAddedTo:self.actionSheet.windowMask animated:YES];
+                [[GTIOUser currentUser] hitEndpoint:actionSheetButton.action.endpoint completionHandler:^(NSArray *loadedObjects, NSError *error) {
+                    [GTIOProgressHUD hideHUDForView:self.actionSheet.windowMask animated:YES];
+                    [self.actionSheet dismiss];
+                    if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
+                        [self.delegate refreshUserProfile];
+                    }
+                    if (error) {
+                        NSLog(@"%@", [error localizedDescription]);
+                    }
+                }];
+            };
+            [otherButtons addObject:actionSheetButton];
+        }
+        
+        self.actionSheet = [[GTIOActionSheet alloc] initWithCancelButton:cancelButton otherButtons:otherButtons];
+        [self.actionSheet show];
     }];
     [self.profileDescription setText:self.userProfile.user.aboutMe];
     
@@ -146,8 +181,8 @@
 {
     self.userProfile.acceptBar = nil;
     [self layoutSubviews];
-    if ([self.delegate respondsToSelector:@selector(acceptBarRemoved)]) {
-        [self.delegate acceptBarRemoved];
+    if ([self.acceptBarDelegate respondsToSelector:@selector(acceptBarRemoved)]) {
+        [self.acceptBarDelegate acceptBarRemoved];
     }
 }
 
