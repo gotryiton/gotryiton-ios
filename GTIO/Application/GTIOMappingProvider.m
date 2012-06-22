@@ -21,6 +21,7 @@
 #import "GTIOButtonAction.h"
 #import "GTIOMyManagementScreen.h"
 #import "GTIOPagination.h"
+#import "GTIOButton.h"
 
 @implementation GTIOMappingProvider
 
@@ -114,6 +115,9 @@
         // User Photo
         [userPhotoMapping mapKeyPath:@"id" toAttribute:@"photoID"];
         [userPhotoMapping mapKeyPath:@"user_id" toAttribute:@"userID"];
+        [userPhotoMapping mapKeyPath:@"main_image" toAttribute:@"mainImageURL"];
+        [userPhotoMapping mapKeyPath:@"small_thumbnail" toAttribute:@"smallThumbnailURL"];
+        [userPhotoMapping mapKeyPath:@"square_thumbnail" toAttribute:@"squareThumbnailURL"];
         [userPhotoMapping mapAttributes:@"url", @"width", @"height", nil];
         [self setMapping:userPhotoMapping forKeyPath:@"photo"];
         
@@ -121,7 +125,7 @@
          */
         [buttonActionMapping mapAttributes:@"destination", @"endpoint", nil];
         [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
-        [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", nil];
+        [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", @"state", nil];
         
         /** Screens
          */
@@ -156,8 +160,10 @@
         [postMapping mapKeyPath:@"who_hearted.buttons" toRelationship:@"whoHeartedButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"brands.buttons" toRelationship:@"brandsButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
+        [postMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
         [postMapping mapRelationship:@"user" withMapping:userMapping];
         [self setMapping:postMapping forKeyPath:@"post"];
+        [self setMapping:postMapping forKeyPath:@"feed"];
     }
     return self;
 }

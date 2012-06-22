@@ -37,7 +37,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 @property (nonatomic, strong) GTIOCameraToolbarView *photoToolbarView;
 @property (nonatomic, strong) GTIOPhotoShootProgressToolbarView *photoShootProgresToolbarView;
-@property (nonatomic, strong) GTIOButton *flashButton;
+@property (nonatomic, strong) GTIOUIButton *flashButton;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
 @property (nonatomic, strong) UIImageView *focusImageView;
@@ -151,7 +151,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [self.captureSession addOutput:self.stillImageOutput];
     
     // Flash button
-    self.flashButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoFlash];
+    self.flashButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoFlash];
     [self.flashButton setFrame:(CGRect){ { 5, 26 }, self.flashButton.frame.size }];
     __block typeof(self) blockSelf = self;
     [self.flashButton setTapHandler:^(id sender) {

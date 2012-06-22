@@ -14,6 +14,7 @@
 #import "GTIOPagination.h"
 
 #import "GTIOPostHeaderView.h"
+#import "GTIOFeedCell.h"
 
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -54,8 +55,13 @@
 {
     [super viewDidLoad];
     
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
+    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSectionHeaderHeight:56.0f];
+    [self.tableView setRowHeight:200.0f];
+    [self.tableView setSeparatorStyle:UITableViewCellSelectionStyleNone];
     [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.tableView setContentInset:self.tableView.scrollIndicatorInsets];
     [self.tableView setDelegate:self];
@@ -84,6 +90,7 @@
 
 - (void)loadFeed
 {
+    [self.posts removeAllObjects];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/posts/feed" usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
         loader.onDidLoadObjects = ^(NSArray *objects) {
@@ -99,7 +106,7 @@
             }
             
 #warning This is used for testing.
-            if ([self.posts count] == 0) {
+            if ([self.posts count] < 2) {
                 // Manually add post
                 GTIOPost *post = [[GTIOPost alloc] init];
                 post.postID = @"123";
@@ -107,13 +114,6 @@
                 post.createdWhen = @"2 weeks";
                 post.stared = NO;
                 post.user = [GTIOUser currentUser];
-                [self.posts addObject:post];
-                [self.posts addObject:post];
-                [self.posts addObject:post];
-                [self.posts addObject:post];
-                [self.posts addObject:post];
-                [self.posts addObject:post];
-                [self.posts addObject:post];
                 [self.posts addObject:post];
             }
 #warning end test
@@ -126,6 +126,11 @@
 }
 
 #pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [GTIOFeedCell cellHeightWithPost:[self.posts objectAtIndex:indexPath.section]];
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section 
 {
@@ -159,14 +164,14 @@
 {
     static NSString *cellIdentifier = @"PostCellIdentifier";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    GTIOFeedCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        cell = [[GTIOFeedCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
     }
     
     GTIOPost *post = [self.posts objectAtIndex:indexPath.section];
-    cell.textLabel.text = post.postDescription;
+    cell.post = post;
     
     return cell;
 }

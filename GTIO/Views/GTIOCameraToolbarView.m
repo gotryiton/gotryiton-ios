@@ -35,7 +35,7 @@ NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
         [self addSubview:backgroundImageView];
         
         // Close Button
-        _closeButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoClose];
+        _closeButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoClose];
         [_closeButton setFrame:(CGRect){ CGPointZero, _closeButton.frame.size }];
         [self addSubview:_closeButton];
         
@@ -44,7 +44,7 @@ NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
         [self addSubview:closeButtonDivider];
         
         // Photo Picker Button
-        _photoPickerButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoPicker];
+        _photoPickerButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoPicker];
         [_photoPickerButton setFrame:(CGRect){ { _closeButton.frame.origin.x + _closeButton.frame.size.width + 1, 0 }, _photoPickerButton.frame.size }];
         [self addSubview:_photoPickerButton];
         
@@ -53,7 +53,7 @@ NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
         [self addSubview:photoPickerDivider];
         
         // Photo Shoot Grid button
-        _photoShootGridButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoShootGrid];
+        _photoShootGridButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoShootGrid];
         [_photoShootGridButton setFrame:(CGRect){ { _photoPickerButton.frame.origin.x + _photoPickerButton.frame.size.width + 1, 0 }, _photoShootGridButton.frame.size }];
         [self addSubview:_photoShootGridButton];
         
@@ -62,7 +62,7 @@ NSString * const kGTIODividerImageName = @"upload.bottom.bar.divider.png";
         [self addSubview:_photoShootGridDivider];
         
         // Shutter Button
-        _shutterButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoShutter];
+        _shutterButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoShutter];
         [_shutterButton setFrame:(CGRect){ { (self.frame.size.width - _shutterButton.frame.size.width) / 2, 6 }, _shutterButton.frame.size }];
         [self addSubview:_shutterButton];
         

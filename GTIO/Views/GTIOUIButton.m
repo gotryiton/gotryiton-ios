@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
-#import "GTIOButton.h"
+#import "GTIOUIButton.h"
 
-@implementation GTIOButton
+@implementation GTIOUIButton
 
-@synthesize tapHandler = _tapHandler, name = _name, action = _action, count = _count, text = _text, attribute = _attribute, value = _value, chevron = _chevron;
+@synthesize tapHandler = _tapHandler;
 
 #pragma mark - Button creator helpers
 
@@ -152,7 +152,7 @@
 
 + (id)gtio_backButtonBottomMargin
 {
-    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.inactive.bottommargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.active.bottommargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateHighlighted];
     [button setTitle:@"back" forState:UIControlStateNormal];
@@ -171,7 +171,7 @@
 
 + (id)gtio_cancelButtonGrayTopMargin
 {
-    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.active.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateHighlighted];
     [button setTitle:@"cancel" forState:UIControlStateNormal];
@@ -185,7 +185,7 @@
 
 + (id)gtio_saveButtonGrayTopMargin
 {
-    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.active.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateHighlighted];
     [button setTitle:@"save" forState:UIControlStateNormal];
@@ -199,7 +199,7 @@
 
 + (id)gtio_backButtonTopMargin
 {
-    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.active.topmargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateHighlighted];
     [button setTitle:@"back" forState:UIControlStateNormal];
@@ -233,7 +233,7 @@
 
 + (id)gtio_photoShutterButton
 {
-    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"upload.bottom.bar.camera.button.icon.normal.png"] hightlightImage:nil];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"upload.bottom.bar.camera.button.icon.normal.png"] hightlightImage:nil];
     [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.off.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.on.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateHighlighted];
     [button setFrame:(CGRect){ CGPointZero, { 93, 45 } }];
@@ -247,14 +247,14 @@
 
 + (id)gtio_photoSelectBox
 {
-    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"frame-camera-icon-OFF.png"] hightlightImage:[UIImage imageNamed:@"frame-camera-icon-ON.png"]];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"frame-camera-icon-OFF.png"] hightlightImage:[UIImage imageNamed:@"frame-camera-icon-ON.png"]];
     [button setContentMode:UIViewContentModeCenter];
     return button;
 }
 
 + (id)gtio_postThisButton
 {
-    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"post-button-OFF.png"] hightlightImage:[UIImage imageNamed:@"post-button-ON.png"]];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"post-button-OFF.png"] hightlightImage:[UIImage imageNamed:@"post-button-ON.png"]];
     [button setImage:[UIImage imageNamed:@"post-button-disabled.png"] forState:UIControlStateDisabled];
     return button;
 }
@@ -266,29 +266,29 @@
 
 + (id)gtio_notificationBubbleButton
 {
-    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"nav.counter.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"nav.counter.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.active.png"]];
 }
 
 + (id)gtio_notificationBubbleEmptyButton
 {
-    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"nav.counter.empty.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.empty.active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"nav.counter.empty.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.empty.active.png"]];
 }
 
 + (id)gtio_editProfilePencilCircle
 {
-    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"edit-info-inactive.png"] hightlightImage:[UIImage imageNamed:@"edit-info-active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"edit-info-inactive.png"] hightlightImage:[UIImage imageNamed:@"edit-info-active.png"]];
 }
 
 + (id)gtio_quickAddCheckbox
 {
-    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"checkbox-off.png"] hightlightImage:[UIImage imageNamed:@"checkbox-off.png"]];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"checkbox-off.png"] hightlightImage:[UIImage imageNamed:@"checkbox-off.png"]];
     [button setImage:[UIImage imageNamed:@"checkbox-on.png"] forState:UIControlStateSelected];
     return button;
 }
 
 + (id)gtio_followButton
 {
-    GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-off.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-on.png"] forState:UIControlStateHighlighted];
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-disabled.png"] forState:UIControlStateDisabled];
@@ -303,7 +303,7 @@
 
 + (id)gtio_maskButton
 {
-    GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }

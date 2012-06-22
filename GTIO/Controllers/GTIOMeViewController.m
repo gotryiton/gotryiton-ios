@@ -18,6 +18,7 @@
 #import "GTIORouter.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOSignInViewController.h"
+#import "GTIOButton.h"
 
 @interface GTIOMeViewController ()
 

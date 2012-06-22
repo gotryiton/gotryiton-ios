@@ -35,7 +35,7 @@
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"select one photo" italic:NO];
     [self useTitleView:navTitleView];
     
-    GTIOButton *backButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
+    GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self setLeftNavigationButton:backButton];

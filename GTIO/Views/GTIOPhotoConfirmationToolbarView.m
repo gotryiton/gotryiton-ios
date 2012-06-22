@@ -29,7 +29,7 @@
         [self addSubview:backgroundImageView];
 
         // Close Button
-        _closeButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoClose];
+        _closeButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoClose];
         [_closeButton setFrame:(CGRect){ CGPointZero, { 50, _closeButton.frame.size.height } }];
         [self addSubview:_closeButton];
         
@@ -38,7 +38,7 @@
         [self addSubview:closeButtonDivider];
         
         // Confirm Button
-        _confirmButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoConfirm];
+        _confirmButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoConfirm];
         [_confirmButton setFrame:(CGRect){ { self.frame.size.width - 50, 0 }, { 50, _confirmButton.frame.size.height } }];
         [self addSubview:_confirmButton];
         

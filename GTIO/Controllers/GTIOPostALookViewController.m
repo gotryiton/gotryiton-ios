@@ -81,7 +81,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"post a look" italic:YES];
     [self useTitleView:navTitleView];
     
-    GTIOButton *cancelButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
+    GTIOUIButton *cancelButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         if (self.postThisButton.enabled) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
             [alert setTag:kGTIOEmptyPostAlertTag];
@@ -145,7 +145,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [postThisButtonBackground setUserInteractionEnabled:YES];
     [self.view addSubview:postThisButtonBackground];
 
-    self.postThisButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePostThis];
+    self.postThisButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePostThis];
     [self.postThisButton setFrame:(CGRect){ 5, 11, postThisButtonBackground.bounds.size.width - 10, postThisButtonBackground.bounds.size.height - 15 }];
     [self.postThisButton addTarget:self action:@selector(postThis:) forControlEvents:UIControlEventTouchUpInside];
     [self.postThisButton setEnabled:NO];

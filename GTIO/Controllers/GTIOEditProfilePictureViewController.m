@@ -59,7 +59,7 @@
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"edit profile picture" italic:YES];
     [self useTitleView:navTitleView];
     
-    GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
+    GTIOUIButton *saveButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         NSDictionary *fieldsToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
                                         (self.currentlySelectedProfileIconURL) ? [self.currentlySelectedProfileIconURL absoluteString] : @"", @"icon",
@@ -81,7 +81,7 @@
     }];
     [self setRightNavigationButton:saveButton];
     
-    GTIOButton *doneButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
+    GTIOUIButton *doneButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES]; 
     }];
     [self setLeftNavigationButton:doneButton];
