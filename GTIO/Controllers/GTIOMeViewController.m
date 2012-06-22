@@ -19,6 +19,7 @@
 #import "GTIOProgressHUD.h"
 #import "GTIOSignInViewController.h"
 #import "GTIOProgressHUD.h"
+#import "GTIOActionSheet.h"
 
 @interface GTIOMeViewController ()
 
@@ -32,11 +33,14 @@
 
 @property (nonatomic, strong) UIViewController *viewControllerToRouteTo;
 
+@property (nonatomic, strong) GTIOActionSheet *actionSheet;
+
 @end
 
 @implementation GTIOMeViewController
 
 @synthesize tableView = _tableView, tableData = _tableData, profileHeaderView = _profileHeaderView, userInfoButtons = _userInfoButtons, sections = _sections, viewControllerToRouteTo = _viewControllerToRouteTo;
+@synthesize actionSheet = _actionSheet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -92,6 +96,13 @@
     self.tableView.tableFooterView.hidden = YES;
     
     [self.view addSubview:self.tableView];
+    
+    GTIOButton *button1 = [[GTIOButton alloc] initWithFrame:CGRectZero];
+    GTIOButton *button2 = [[GTIOButton alloc] initWithFrame:CGRectZero];
+    GTIOButton *button3 = [[GTIOButton alloc] initWithFrame:CGRectZero];
+    
+    self.actionSheet = [[GTIOActionSheet alloc] initWithCancelButton:nil otherButtons:button1, button2, button3, button1, nil];
+    [self.view addSubview:self.actionSheet];
 }
 
 - (void)viewDidUnload
@@ -108,7 +119,7 @@
     [super viewWillAppear:animated];
     
     GTIONavigationNotificationTitleView *titleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:1] tapHandler:^{
-        NSLog(@"tapped notification bubble");
+        [self.actionSheet showWithBlock:nil];
     }];
     [self useTitleView:titleView];
 }
