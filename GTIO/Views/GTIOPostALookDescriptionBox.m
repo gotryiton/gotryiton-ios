@@ -58,6 +58,7 @@
             GTIOAutoCompleter *obj = [[GTIOAutoCompleter alloc] init];
             obj.name = name;
             obj.type = @"@";
+            obj.icon = [[NSURL alloc] initWithString:@"http://stage.assets.gotryiton.s3.amazonaws.com/outfits/6cddd37ef45dc3c73d87dfb7b96de0c3_110_110.jpg"];
             obj.completer_id = [NSString stringWithFormat:@"id%i", i];
             [initoptions addObject: obj];
             i++;
@@ -78,17 +79,19 @@
         GTIOAutoCompleter *obj = [[GTIOAutoCompleter alloc] init];
             obj.name = @"Same Name";
             obj.type = @"@";
+            obj.icon = [[NSURL alloc] initWithString:@"http://assets.gotryiton.com/img/profile-default.png"];
             obj.completer_id = @"ABC123";
         [initoptions addObject: obj];
 
          GTIOAutoCompleter *obj2 = [[GTIOAutoCompleter alloc] init];
             obj2.name = @"Same Name";
+            obj2.icon = [[NSURL alloc] initWithString:@"http://profile.ak.fbcdn.net/hprofile-ak-ash2/41710_18605102_1732504808_q.jpg"];
             obj2.type = @"@";
             obj2.completer_id = @"XYZ456";
         [initoptions addObject: obj2];
 
 
-        self.textView = [[GTIOAutoCompleteView alloc] initWithFrame:(CGRect){ 12, 4, self.backgroundView.bounds.size.width - 12, self.backgroundView.bounds.size.height - 10 } withOuterBox:(CGRect){0, 4, self.bounds.size.width, self.backgroundView.bounds.size.height } withData:initoptions];
+        self.textView = [[GTIOAutoCompleteView alloc] initWithFrame:(CGRect){ 12, 4, self.backgroundView.bounds.size.width - 12, self.backgroundView.bounds.size.height - 10 } withOuterBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height } withData:initoptions];
 
         // [self.textView setBackgroundColor:[UIColor clearColor]];
 //        [self.textView setContentInset:(UIEdgeInsets){ 5, 10, 5, 10 }];

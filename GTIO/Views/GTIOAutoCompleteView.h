@@ -41,6 +41,8 @@
 @property (assign) NSRange positionOfLastWordTyped;
 @property (assign) NSRange positionOfLastTwoWordsTyped;
 
+@property (assign) BOOL isScrollViewShowing;
+
 -(UIView *) initWithFrame:(CGRect) frame withOuterBox:(CGRect) outerFrame withData:(NSMutableArray *) arr;
 
 @end

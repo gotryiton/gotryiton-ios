@@ -80,4 +80,9 @@
     return UIColorFromRGB(0xDADADA);
 }
 
++ (UIColor *)gtio_404040GrayTextColor
+{
+    return UIColorFromRGB(0x404040);
+}
+
 @end

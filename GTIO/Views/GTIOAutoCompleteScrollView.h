@@ -22,7 +22,7 @@
 @property (nonatomic, assign) id<GTIOAutoCompleteScrollViewDelegate> autoCompleteDelegate;
 
 -(void) showButtonsWithAutoCompleters:(NSArray *) buttons;
--(void) hideScrollView;
+-(void) clearScrollView;
 
 
 @end

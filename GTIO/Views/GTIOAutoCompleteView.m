@@ -34,7 +34,7 @@
 @synthesize ACHighlightFont = _ACHighlightFont;
 @synthesize ACHighlightColor = _ACHighlightColor;
 
-
+@synthesize isScrollViewShowing = _isScrollViewShowing;
 
 
 - (id)initWithFrame:(CGRect)frame withOuterBox:(CGRect) outerFrame withData:(NSMutableArray *)arr
@@ -43,9 +43,10 @@
     if (self) {
         
         // Initialization code
-        self.layer.borderWidth = 1;
-        self.layer.borderColor = [UIColor redColor].CGColor;
+        // self.layer.borderWidth = 1;
+        // self.layer.borderColor = [UIColor redColor].CGColor;
 
+        
         // the autoCompleteArray 
         _autoCompleteArray = arr;
         
@@ -86,11 +87,7 @@
         [self addSubview:self.textInput];
         _textInput.textColor = [UIColor clearColor];
 
-        _textInput.layer.borderWidth = 1;
-        _textInput.layer.borderColor = [UIColor greenColor].CGColor;
-
-
-
+        
         _ACInputColor = CGColorRetain([UIColor gtio_darkGrayTextColor].CGColor);
         _ACPlaceholderColor = CGColorRetain([UIColor gtio_lightGrayTextColor].CGColor);
         _ACHighlightColor = CGColorRetain([UIColor gtio_linkColor].CGColor);
@@ -126,9 +123,9 @@
         /****
         add a scroll view for the autocomplete buttons to be viewable in
         *****/
-
-        CGRect scrollFrameBox = CGRectMake( CGRectGetMinX(outerFrame), CGRectGetHeight(outerFrame)-45, CGRectGetWidth(outerFrame), CGRectGetHeight(outerFrame) );
-
+        _isScrollViewShowing = NO;
+        
+        CGRect scrollFrameBox = CGRectMake( 0, CGRectGetHeight(self.bounds)-6, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + 44);
         _scrollView = [[GTIOAutoCompleteScrollView alloc] initWithFrame:scrollFrameBox];
         _scrollView.autoCompleteDelegate = self;
         [self addSubview:self.scrollView];
@@ -136,11 +133,6 @@
         _scrollView.canCancelContentTouches = YES;
         _scrollView.delaysContentTouches = YES;
         _scrollView.userInteractionEnabled = YES;
-//        self.scrollView.layer.borderWidth = 1;
-        _scrollView.hidden = YES;
-
-        _scrollView.layer.borderWidth = 1;
-        _scrollView.layer.borderColor = [UIColor grayColor].CGColor;
 
 
         //set up attr string
@@ -153,6 +145,7 @@
 }
 
 
+
 - (void)dealloc
 {
     
@@ -163,6 +156,47 @@
  
 }
 
+- (void) showScrollView 
+{
+
+    if (!self.isScrollViewShowing){
+        self.isScrollViewShowing = YES;
+        
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+            CGRect scrollFrameBox = CGRectMake( 0, self.bounds.size.height-50, self.bounds.size.width, self.bounds.size.height);
+            [self.scrollView setFrame:scrollFrameBox];
+        } completion:^(BOOL finished) {
+        }];
+    }
+    
+}
+
+- (void) hideScrollView 
+{
+    if (self.isScrollViewShowing){
+        self.isScrollViewShowing = NO;
+        
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+            CGRect scrollFrameBox = CGRectMake( 0, self.bounds.size.height-6, self.bounds.size.width, self.bounds.size.height + 44);
+            [self.scrollView setFrame:scrollFrameBox];
+        } completion:^(BOOL finished) {
+            [self.scrollView clearScrollView];
+        }];
+
+        
+    }
+
+  
+}
+
+- (void) showButtonsWithAutoCompleters:(NSArray *) foundAutoCompleters
+{
+    
+    [self.scrollView showButtonsWithAutoCompleters: foundAutoCompleters];
+    if ([foundAutoCompleters count]>0)
+        [self showScrollView];
+
+}
 
 #pragma mark UITextViewDelegate methods
 - (BOOL)textView:(UITextView *)field shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)inputString 
@@ -175,7 +209,9 @@
         
         //close the keyboard and hide the text input
         [field resignFirstResponder];
-        self.scrollView.hidden = YES;
+        
+        [self hideScrollView];
+        
         //self.textInput.textColor = [UIColor clearColor];
         
         //TODO:
@@ -196,14 +232,14 @@
         NSArray *foundAutoCompleters = [self searchLastTypedWordsForAutoCompletes];
 
         if ([foundAutoCompleters count]>0){
-            [self.scrollView showButtonsWithAutoCompleters: foundAutoCompleters];
+            [self showButtonsWithAutoCompleters: foundAutoCompleters];
             if ([foundAutoCompleters count]==1)  {
                 NSLog(@"do something exciting");
             }
         }
         else {
             if (![self showAtTagButtons])
-                [self.scrollView hideScrollView];
+                [self hideScrollView];
         }
         
         [self cleanUpAttrString];
@@ -417,12 +453,12 @@
 
 - (BOOL) startedTypingCompleterInLastTwoWords:(GTIOAutoCompleter *) completer{
     // NSLog(@"lastword %@", [self lastWordTypedInText:self.inputText]);
-    if ([[completer.completer_id lowercaseString] rangeOfString:[self getLastTwoWordsTyped]].location == 0 && [self getLastTwoWordsTyped].length>1 ) {
+    if ([[completer.name lowercaseString] rangeOfString:[self getLastTwoWordsTyped]].location == 0 && [self getLastTwoWordsTyped].length>1 ) {
         return true; 
         // NSLog(@"found %@", completer.key);
     }
     else if ([[[self getLastTwoWordsTyped] substringWithRange:NSMakeRange(0,1)] isEqualToString:@"@"] && [self getLastTwoWordsTyped].length>1 ){
-        NSRange substringRange = [[completer.completer_id lowercaseString] rangeOfString:[[self getLastTwoWordsTyped] substringWithRange:NSMakeRange(1, [self getLastTwoWordsTyped].length-1)]];
+        NSRange substringRange = [[completer.name lowercaseString] rangeOfString:[[self getLastTwoWordsTyped] substringWithRange:NSMakeRange(1, [self getLastTwoWordsTyped].length-1)]];
         if (substringRange.location == 0 && [completer.type isEqualToString:@"@"]){
             // NSLog(@"found %@", completer.key);
             return true; 
@@ -433,11 +469,11 @@
 
 - (BOOL) startedTypingCompleterInLastWord:(GTIOAutoCompleter *) completer{
     // NSLog(@"lastword %@", [self lastWordTypedInText:self.inputText]);
-    if ([[completer.completer_id lowercaseString] rangeOfString:[self getLastWordTyped]].location == 0 && [self getLastWordTyped].length>1) {
+    if ([[completer.name lowercaseString] rangeOfString:[self getLastWordTyped]].location == 0 && [self getLastWordTyped].length>1) {
         return true;
     }
     else if ([[[self getLastWordTyped] substringWithRange:NSMakeRange(0,1)] isEqualToString:@"@"] && [self getLastWordTyped].length>1 ){
-        NSRange substringRange = [[completer.completer_id lowercaseString] rangeOfString:[[self getLastWordTyped] substringWithRange:NSMakeRange(1, [self getLastWordTyped].length-1)]];
+        NSRange substringRange = [[completer.name lowercaseString] rangeOfString:[[self getLastWordTyped] substringWithRange:NSMakeRange(1, [self getLastWordTyped].length-1)]];
         if (substringRange.location == 0 && [completer.type isEqualToString:@"@"]){
             return true;
         }
@@ -457,12 +493,12 @@
         [self doAutoCompleteWithCompleter:completer inRange:self.positionOfLastTwoWordsTyped];
         [self highlightInputTextInRange:self.positionOfLastTwoWordsTyped withId:completer.completer_id withType:completer.type];
     }
-    
+    [self hideScrollView];
 }
 
 
 - (GTIOAutoCompleter *) getCompleterWithId: (NSString *) completer_id {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id like %@",
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"completer_id like %@",
         completer_id];
 
     NSArray * results = [self.autoCompleteArray filteredArrayUsingPredicate:predicate];
@@ -477,11 +513,11 @@
 
 - (void) doAutoCompleteWithCompleter: (GTIOAutoCompleter *) completer  inRange:(NSRange) range{
 
-    self.inputText = [self.inputText stringByReplacingCharactersInRange:range withString:completer.name];
+    self.inputText = [self.inputText stringByReplacingCharactersInRange:range withString:[completer getCompleterString]];
 
-    [self updateInputDisplayTextInRange:range withString:completer.name];
+    [self updateInputDisplayTextInRange:range withString:[completer getCompleterString]];
 
-    range.length = range.length + (completer.name.length - range.length);
+    range.length = range.length + ([completer getCompleterString].length - range.length);
 
     [self highlightInputTextInRange:range withId:completer.completer_id withType:completer.type];
 
@@ -511,7 +547,8 @@
     if([[self getLastWordTyped] isEqualToString:@"@"]) {
         NSArray *completers = [self getAtTagCompleters];
         if ([completers count]>0){
-            [self.scrollView showButtonsWithAutoCompleters:[self getAtTagCompleters]];
+            [self showButtonsWithAutoCompleters:[self getAtTagCompleters]];
+
             return true;
         }
     }
@@ -543,7 +580,7 @@
                 }
             }
             // if its some other tag, make sure the string still matches
-            else if (![[[self.attrString string] substringWithRange:effectiveRange] isEqualToString:completer.name]){
+            else if (![[[self.attrString string] substringWithRange:effectiveRange] isEqualToString:[completer getCompleterString]]){
                 [self unHighlightInputTextInRange:effectiveRange];
             }
 

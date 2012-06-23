@@ -13,5 +13,8 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *completer_id;
 @property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSURL *icon;
+
+- (NSString *) getCompleterString;
 
 @end
