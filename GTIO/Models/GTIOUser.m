@@ -15,17 +15,13 @@
 @property (nonatomic, copy) GTIOLoginHandler loginHandler;
 @property (nonatomic, strong) NSString *facebookAuthResourcePath;
 @property (nonatomic, strong) NSString *janrainAuthResourcePath;
-@property (nonatomic, strong) RKRequest *logoutRequest;
-@property (nonatomic, strong) RKRequest *userProfileRequest;
-@property (nonatomic, copy) GTIOLogoutHandler logoutHandler;
-@property (nonatomic, copy) GTIOCompletionHandler userProfileCompletionHandler;
 
 @end
 
 @implementation GTIOUser
 
-@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, logoutRequest = _logoutRequest, logoutHandler = _logoutHandler, badge = _badge, userDescription = _userDescription, button = _button, userProfileRequest = _userProfileRequest;
-@synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath, userProfileCompletionHandler = _userProfileCompletionHandler;
+@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, badge = _badge, userDescription = _userDescription, button = _button;
+@synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
 @synthesize loginHandler = _loginHandler;
 @synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath, selected = _selected;
 
@@ -92,13 +88,17 @@
 
 - (void)logOutWithLogoutHandler:(GTIOLogoutHandler)logoutHandler
 {
-    self.logoutHandler = logoutHandler;
-    
     [GTIOAuth removeToken];
-    
-    self.logoutRequest = [[RKClient sharedClient] requestWithResourcePath:@"/user/logout"];
-    [self.logoutRequest setDelegate:self];
-    [self.logoutRequest send];
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/logout" usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadResponse = ^(RKResponse *response) {
+            if (logoutHandler) {
+                logoutHandler(response);
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
 }
 
 #pragma mark - Facebook
@@ -359,59 +359,24 @@
 }
 
 - (void)loadUserProfileWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler
-{    
-    self.userProfileCompletionHandler = completionHandler;
-    NSString *userProfilePath = [NSString stringWithFormat:@"/user/%@/profile", userID];
-    self.userProfileRequest = [[RKClient sharedClient] requestWithResourcePath:userProfilePath];
-    self.userProfileRequest.method = RKRequestMethodGET;
-    self.userProfileRequest.delegate = self;
-    [self.userProfileRequest send];
-}
-
-- (void)hitEndpoint:(NSString *)endpoint completionHandler:(GTIOCompletionHandler)completionHandler
 {
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:endpoint usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadObjects = ^(NSArray *objects) {                
+    NSString *userProfilePath = [NSString stringWithFormat:@"/user/%@/profile", userID];
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:userProfilePath usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadResponse = ^(RKResponse *response) {
+            NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
+            RKObjectMappingProvider* provider = [RKObjectManager sharedManager].mappingProvider;
+            NSDictionary *userProfile = [NSDictionary dictionaryWithObject:parsedBody forKey:@"userProfile"];
+            RKObjectMapper* mapper = [RKObjectMapper mapperWithObject:userProfile mappingProvider:provider];
+            RKObjectMappingResult* result = [mapper performMapping];
             if (completionHandler) {
-                completionHandler(objects, nil);
+                completionHandler([result asCollection], nil);
             }
         };
-        
         loader.onDidFailWithError = ^(NSError *error) {
-            if (completionHandler) {
-                completionHandler(nil, error);
-            }
+            NSLog(@"%@", [error localizedDescription]);
         };
     }];
-}
-
-#pragma mark - RKRequestDelegate Methods
-
-- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
-{
-    if ([request isEqual:self.userProfileRequest]) {
-        NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
-        RKObjectMappingProvider* provider = [RKObjectManager sharedManager].mappingProvider;
-        NSDictionary *userProfile = [NSDictionary dictionaryWithObject:parsedBody forKey:@"userProfile"];
-        RKObjectMapper* mapper = [RKObjectMapper mapperWithObject:userProfile mappingProvider:provider];
-        RKObjectMappingResult* result = [mapper performMapping];
-        if (self.userProfileCompletionHandler) {
-            self.userProfileCompletionHandler([result asCollection], nil);
-        }
-    }
-    if ([request isEqual:self.logoutRequest]) {
-        if (self.logoutHandler) {
-            self.logoutHandler(response);
-        }
-    }
-}
-
-- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error
-{
-    if (error && [request isEqual:self.logoutRequest]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There was an error while logging you out." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-        [alert show];
-    }
 }
 
 @end

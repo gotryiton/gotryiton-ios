@@ -25,7 +25,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _icon = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _icon = [[UIImageView alloc] initWithFrame:(CGRect){ 0, 0, 13, 13 }];
         [self addSubview:_icon];
         
         _calloutText = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
@@ -39,7 +39,8 @@
 
 - (void)layoutSubviews
 {
-    [self.icon setFrame:(CGRect){ 0, 0, 13, 13 }];
+    [super layoutSubviews];
+    
     [self.calloutText sizeToFit];
     [self.calloutText setFrame:(CGRect){ self.icon.frame.origin.x + self.icon.bounds.size.width + 3, self.icon.frame.origin.y, self.bounds.size.width - self.icon.bounds.size.width - 3, self.calloutText.bounds.size.height }];
 }
@@ -50,9 +51,7 @@
     self.user = user;
     
     __block typeof(self) blockSelf = self;
-    [self.icon setImageWithURL:self.profileCallout.icon success:^(UIImage *image) {
-        [blockSelf setNeedsLayout];
-    } failure:nil];
+    [self.icon setImageWithURL:self.profileCallout.icon];
     
     [self.calloutText setText:[self.profileCallout.text uppercaseString] afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange whiteRange = [[mutableAttributedString string] rangeOfString:blockSelf.user.name options:NSCaseInsensitiveSearch];

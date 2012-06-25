@@ -22,6 +22,9 @@
 @property (nonatomic, strong) GTIOButton *websiteLinkButton;
 @property (nonatomic, strong) NSMutableArray *profileCalloutViews;
 
+@property (nonatomic, copy) GTIOProfileInitCompletionHandler userProfileLayoutCompletionHandler;
+@property (nonatomic, assign) BOOL waitingForUserProfileLayout;
+
 @end
 
 @implementation GTIOProfileHeaderView
@@ -33,6 +36,8 @@
 @synthesize websiteLinkButton = _websiteLinkButton;
 @synthesize profileCalloutViews = _profileCalloutViews;
 @synthesize delegate = _delegate;
+@synthesize waitingForUserProfileLayout = _waitingForUserProfileLayout;
+@synthesize userProfileLayoutCompletionHandler = _userProfileLayoutCompletionHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -71,6 +76,8 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     if (self.banner.bounds.size.height > 0) {
         [self.banner setFrame:(CGRect){ 0, 0, self.bounds.size.width, self.banner.bounds.size.height }];
     }
@@ -101,6 +108,12 @@
         [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((self.websiteLinkButton.text.length > 0 || self.profileDescription.text.length > 0) ? 10 : 0) }];
     }
     [self setFrame:(CGRect){ self.frame.origin, self.bounds.size.width, self.basicUserInfoBackgroundImageView.bounds.size.height }];
+    if (self.waitingForUserProfileLayout) {
+        self.waitingForUserProfileLayout = NO;
+        if (self.userProfileLayoutCompletionHandler) {
+            self.userProfileLayoutCompletionHandler(self);
+        }
+    }
 }
 
 - (void)setUserProfile:(GTIOUserProfile *)userProfile completionHandler:(GTIOProfileInitCompletionHandler)completionHandler
@@ -138,8 +151,9 @@
         [self addSubview:profileCalloutView];
         [self.profileCalloutViews addObject:profileCalloutView];
     }
-    [self layoutSubviews];
-    completionHandler(self);
+    self.userProfileLayoutCompletionHandler = completionHandler;
+    self.waitingForUserProfileLayout = YES;
+    [self setNeedsLayout];
 }
 
 - (void)removeAcceptBar

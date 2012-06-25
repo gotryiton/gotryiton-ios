@@ -63,12 +63,8 @@
         GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
     }];
-
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"profile.top.bg.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:10.0]];
-    [backgroundImageView setFrame:(CGRect){ 0, 0, self.profileHeaderView.bounds.size }];
-    [backgroundImageView setUserInteractionEnabled:YES];
-    [self.view addSubview:backgroundImageView];
-    [backgroundImageView addSubview:self.profileHeaderView];
+    [self.profileHeaderView setHasBackground:YES];
+    [self.view addSubview:self.profileHeaderView];
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, self.profileHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.profileHeaderView.bounds.size.height } style:UITableViewStyleGrouped];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
