@@ -2725,6 +2725,7 @@ gtio://posts/feed
       - if photo height < 247px and voting is ON, assume photo height is 247px to accommodate max number of buttons and minimum gaps required
       - brand buttons
          - 'button-brand.png' with active and inactive versions
+         - text is 13pt Archer Book Italic, rgb(88,88,88)
          - horizontal middle is stretchable
          - 5px nonstretchable on left
          - 5px nonstretchable on right
