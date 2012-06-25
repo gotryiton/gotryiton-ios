@@ -15,5 +15,5 @@
     #import "GTIOEnvironment.h"
     #import "UIFont+GTIOAdditions.h"
     #import "UIColor+GTIOAdditions.h"
-    #import "GTIOButton.h"
+    #import "GTIOUIButton.h"
 #endif

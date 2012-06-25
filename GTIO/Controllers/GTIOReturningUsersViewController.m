@@ -17,11 +17,11 @@
 
 @interface GTIOReturningUsersViewController ()
 
-@property (nonatomic, strong) GTIOButton *facebookButton;
-@property (nonatomic, strong) GTIOButton *aolButton;
-@property (nonatomic, strong) GTIOButton *googleButton;
-@property (nonatomic, strong) GTIOButton *twitterButton;
-@property (nonatomic, strong) GTIOButton *yahooButton;
+@property (nonatomic, strong) GTIOUIButton *facebookButton;
+@property (nonatomic, strong) GTIOUIButton *aolButton;
+@property (nonatomic, strong) GTIOUIButton *googleButton;
+@property (nonatomic, strong) GTIOUIButton *twitterButton;
+@property (nonatomic, strong) GTIOUIButton *yahooButton;
 
 @property (nonatomic, assign, getter = isReturningUser) BOOL returningUser;
 
@@ -65,7 +65,7 @@
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -64)];
     [self.view addSubview:backgroundImageView];
 
-    GTIOButton *backButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBackBottomMargin tapHandler:^(id sender) {
+    GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackBottomMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
@@ -78,7 +78,7 @@
     };
     
     if (_returningUser) {
-        self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignIn];
+        self.facebookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFacebookSignIn];
         [self.facebookButton setFrame:(CGRect){ {(self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 80 }, self.facebookButton.frame.size }];
         [self.facebookButton setTapHandler:^(id sender) {
             [[GTIOUser currentUser] signInWithFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
@@ -90,7 +90,7 @@
     
     double signinOptionsTableYPos = (self.returningUser) ? 145.0 : 116.0;
     
-    self.aolButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeAOL];
+    self.aolButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeAOL];
     [self.aolButton setFrame:(CGRect){ { (self.view.frame.size.width - self.aolButton.frame.size.width) / 2, signinOptionsTableYPos }, self.aolButton.frame.size }];
     [self.aolButton setTapHandler:^(id sender) {
         if (blockReturningUser) {
@@ -101,7 +101,7 @@
     }];
     [self.view addSubview:self.aolButton];
     
-    self.googleButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeGoogle];
+    self.googleButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeGoogle];
     [self.googleButton setFrame:(CGRect){ {(self.view.frame.size.width - self.googleButton.frame.size.width) / 2, self.aolButton.frame.origin.y + self.aolButton.frame.size.height }, self.googleButton.frame.size }];
     [self.googleButton setTapHandler:^(id sender) {
         if (blockReturningUser) {
@@ -112,7 +112,7 @@
     }];
     [self.view addSubview:self.googleButton];
     
-    self.twitterButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeTwitter];
+    self.twitterButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeTwitter];
     [self.twitterButton setFrame:(CGRect){ {(self.view.frame.size.width - self.twitterButton.frame.size.width) / 2, self.googleButton.frame.origin.y + self.googleButton.frame.size.height }, self.twitterButton.frame.size }];
     [self.twitterButton setTapHandler:^(id sender) {
         if (blockReturningUser) {
@@ -123,7 +123,7 @@
     }];
     [self.view addSubview:self.twitterButton];
     
-    self.yahooButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeYahoo];
+    self.yahooButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeYahoo];
     [self.yahooButton setFrame:(CGRect){ {(self.view.frame.size.width - self.yahooButton.frame.size.width) / 2, self.twitterButton.frame.origin.y + self.twitterButton.frame.size.height }, self.yahooButton.frame.size }];
     [self.yahooButton setTapHandler:^(id sender) {
         if (blockReturningUser) {

@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UILabel *skipThisStepLabel;
 @property (nonatomic, strong) UIButton *skipThisStepInvisiButton;
 @property (nonatomic, strong) GTIOAccountCreatedView *accountCreatedView;
-@property (nonatomic, strong) GTIOButton *followButton;
+@property (nonatomic, strong) GTIOUIButton *followButton;
 
 @property (nonatomic, strong) NSArray *usersToFollow;
 @property (nonatomic, assign) int usersToFollowSelected;
@@ -71,7 +71,7 @@
     [self.followButtonBackground setUserInteractionEnabled:YES];
     [self.view addSubview:self.followButtonBackground];
     
-    self.followButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFollowButton];
+    self.followButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowButton];
     if (self.usersToFollowSelected > 0) {
         [self.followButton setTitle:[NSString stringWithFormat:@"follow %i %@", self.usersToFollowSelected, (self.usersToFollowSelected == 1) ? @"person" : @"people"] forState:UIControlStateNormal];
     } else {

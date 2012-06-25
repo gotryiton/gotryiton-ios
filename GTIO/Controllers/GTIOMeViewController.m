@@ -18,7 +18,11 @@
 #import "GTIORouter.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOSignInViewController.h"
+#import "GTIOButton.h"
 #import "GTIOProgressHUD.h"
+
+static NSString * const kGTIOCustomHeartsCell = @"custom_cell_hearts";
+static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 
 @interface GTIOMeViewController ()
 
@@ -210,10 +214,10 @@
     if (self.tableData.count > 0) {
         GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
         
-        if ([buttonForRow.name isEqualToString:@"custom_cell_hearts"]) {
+        if ([buttonForRow.name isEqualToString:kGTIOCustomHeartsCell]) {
             buttonForRow.text = @"my     's";
             [cell setHasHeart:YES];
-        } else if ([buttonForRow.name isEqualToString:@"custom_cell_toggle"]) {
+        } else if ([buttonForRow.name isEqualToString:kGTIOCustomToggleCell]) {
             [cell setHasToggle:YES];
             [cell setToggleState:[buttonForRow.value intValue]];
             [cell setIndexPath:indexPath];

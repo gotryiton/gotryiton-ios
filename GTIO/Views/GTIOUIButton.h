@@ -52,31 +52,13 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeMask
 } GTIOButtonType;
 
-typedef enum GTIOFollowButtonState {
-    GTIOFollowButtonStateFollow = 0,
-    GTIOFollowButtonStateFollowing,
-    GTIOFollowButtonStateRequested
-} GTIOFollowButtonState;
+@interface GTIOUIButton : UIButton
 
-typedef enum GTIOAcceptRelationshipButtonState {
-    GTIOAcceptRelationshipButtonStateBlock = 0,
-    GTIOAcceptRelationshipButtonStateAccept
-} GTIOAcceptRelationshipButtonState;
-
-@interface GTIOButton : UIButton
-
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) NSNumber *count;
-@property (nonatomic, copy) NSString *text;
-@property (nonatomic, copy) NSString *attribute;
-@property (nonatomic, strong) NSNumber *value;
-@property (nonatomic, strong) NSNumber *chevron;
-@property (nonatomic, strong) NSNumber *state;
-@property (nonatomic, strong) NSURL *imageURL;
-@property (nonatomic, strong) GTIOButtonAction *action;
 @property (nonatomic, copy) GTIOButtonDidTapHandler tapHandler;
 
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType;
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType tapHandler:(GTIOButtonDidTapHandler)tapHandler;
+
++ (id)gtio_navBarTopMarginWithText:(NSString *)text tapHandler:(GTIOButtonDidTapHandler)tapHandler;
 
 @end

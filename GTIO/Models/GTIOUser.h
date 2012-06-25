@@ -10,6 +10,7 @@
 #import "JREngage.h"
 #import <RestKit/RestKit.h>
 #import "GTIOBadge.h"
+#import "GTIOButton.h"
 
 @class GTIOUser;
 
