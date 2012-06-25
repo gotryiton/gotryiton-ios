@@ -12,6 +12,7 @@
 #import "GTIOActionSheet.h"
 #import "GTIOProgressHUD.h"
 #import "UIImageView+WebCache.h"
+#import <RestKit/RestKit.h>
 
 @interface GTIOProfileHeaderView()
 
@@ -161,15 +162,18 @@
             [actionSheetButton setState:button.state];
             actionSheetButton.tapHandler = ^(id sender) {
                 [GTIOProgressHUD showHUDAddedTo:self.actionSheet.windowMask animated:YES];
-                [[GTIOUser currentUser] hitEndpoint:actionSheetButton.action.endpoint completionHandler:^(NSArray *loadedObjects, NSError *error) {
-                    [GTIOProgressHUD hideHUDForView:self.actionSheet.windowMask animated:YES];
-                    [self.actionSheet dismiss];
-                    if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
-                        [self.delegate refreshUserProfile];
-                    }
-                    if (error) {
+                [[RKObjectManager sharedManager] loadObjectsAtResourcePath:actionSheetButton.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+                    loader.onDidLoadResponse = ^(RKResponse *response) {
+                        [GTIOProgressHUD hideHUDForView:self.actionSheet.windowMask animated:YES];
+                        [self.actionSheet dismiss];
+                        if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
+                            [self.delegate refreshUserProfile];
+                        }
+                    };
+                    loader.onDidFailWithError = ^(NSError *error) {
+                        [GTIOProgressHUD hideHUDForView:self.actionSheet.windowMask animated:YES];
                         NSLog(@"%@", [error localizedDescription]);
-                    }
+                    };
                 }];
             };
             [otherButtons addObject:actionSheetButton];
