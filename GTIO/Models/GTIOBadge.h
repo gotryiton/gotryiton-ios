@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) NSURL *path;
 
+- (NSURL *)badgeImageURL;
+
 @end

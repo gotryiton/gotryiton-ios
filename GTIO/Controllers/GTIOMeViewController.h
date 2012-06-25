@@ -13,8 +13,7 @@
 @protocol GTIOMeTableHeaderViewDelegate <NSObject>
 
 @required
-- (void)pushEditProfilePictureViewController;
-- (void)pushEditProfileViewController;
+- (void)pushViewController:(UIViewController *)viewController;
 
 @end
 

@@ -80,4 +80,14 @@
     return UIColorFromRGB(0xDADADA);
 }
 
++ (UIColor *)gtio_profileDescriptionTextColor
+{
+    return UIColorFromRGB(0xBABABA);
+}
+
++ (UIColor *)gtio_semiTransparentBackgroundColor
+{
+    return [UIColor colorWithRed:0 green:0 blue:0 alpha:0.22];
+}
+
 @end

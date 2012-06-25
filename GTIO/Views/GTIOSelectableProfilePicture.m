@@ -46,13 +46,12 @@
         
         _imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [_imageView setImageWithURL:url];
-        [_canvas addSubview:_imageView];
-        [self fadeInImageView];
-        
         _innerShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"edit.profile.pic.thumb.mask.png"]];
         [_innerShadow setFrame:(CGRect){ 0, 0, frame.size }];
+        _innerShadow.hidden = YES;
         [_imageView addSubview:_innerShadow];
+        [self setImageWithURL:url];
+        [_canvas addSubview:_imageView];
         
         _border = [[UIView alloc] initWithFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
         [_border.layer setCornerRadius:3.0f];
@@ -70,9 +69,7 @@
 - (void)setImageWithURL:(NSURL*)url
 {
     self.imageURL = url;
-    
     __block GTIOSelectableProfilePicture *blockSelf = self;
-    
     [self.imageView setImageWithURL:url placeholderImage:nil success:^(UIImage *image) {
         [blockSelf fadeInImageView];
     } failure:^(NSError *error) {
@@ -108,19 +105,6 @@
     }
 }
 
-- (void)setHasInnerShadow:(BOOL)hasInnerShadow
-{
-    _hasInnerShadow = hasInnerShadow;
-    self.innerShadow.hidden = !hasInnerShadow;
-}
-
-- (void)setHasOuterShadow:(BOOL)hasOuterShadow
-{
-    _hasOuterShadow = hasOuterShadow;
-    self.outerShadow.hidden = !hasOuterShadow;
-    
-}
-
 - (void)setIsSelectedGesture:(UITapGestureRecognizer *)sender
 {
     if ([self.delegate respondsToSelector:@selector(pictureWasTapped:)]) {
@@ -132,8 +116,14 @@
 - (void)fadeInImageView
 {
     [self.imageView setAlpha:0.0];
+    [self.innerShadow setAlpha:0.0];
+    [self.outerShadow setAlpha:0.0];
+    self.innerShadow.hidden = !self.hasInnerShadow;
+    self.outerShadow.hidden = !self.hasOuterShadow;
     [UIView animateWithDuration:0.25 animations:^{
         [self.imageView setAlpha:1.0];
+        [self.innerShadow setAlpha:1.0];
+        [self.outerShadow setAlpha:1.0];
     }];
 }
 

@@ -43,8 +43,25 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeEditProfilePencilCircle,
     GTIOButtonTypeQuickAddCheckbox,
     GTIOButtonTypeFollowButton,
+    GTIOButtonTypeAccept,
+    GTIOButtonTypeBlock,
+    GTIOButtonTypeWebsiteLink,
+    GTIOButtonTypeFollowButtonForNavBar,
+    GTIOButtonTypeFollowingButtonForNavBar,
+    GTIOButtonTypeRequestedButtonForNavBar,
     GTIOButtonTypeMask
 } GTIOButtonType;
+
+typedef enum GTIOFollowButtonState {
+    GTIOFollowButtonStateFollow = 0,
+    GTIOFollowButtonStateFollowing,
+    GTIOFollowButtonStateRequested
+} GTIOFollowButtonState;
+
+typedef enum GTIOAcceptRelationshipButtonState {
+    GTIOAcceptRelationshipButtonStateBlock = 0,
+    GTIOAcceptRelationshipButtonStateAccept
+} GTIOAcceptRelationshipButtonState;
 
 @interface GTIOButton : UIButton
 
@@ -54,6 +71,8 @@ typedef enum GTIOButtonType {
 @property (nonatomic, copy) NSString *attribute;
 @property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, strong) NSNumber *chevron;
+@property (nonatomic, strong) NSNumber *state;
+@property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) GTIOButtonAction *action;
 @property (nonatomic, copy) GTIOButtonDidTapHandler tapHandler;
 

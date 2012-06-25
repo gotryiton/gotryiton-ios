@@ -14,7 +14,7 @@
 @class GTIOUser;
 
 typedef void(^GTIOLoginHandler)(GTIOUser *user, NSError *error);
-typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
+typedef void(^GTIOLogoutHandler)(RKResponse *response);
 
 
 @interface GTIOUser : NSObject <FBSessionDelegate, JREngageDelegate, RKRequestDelegate>
@@ -36,7 +36,8 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSNumber *isFacebookConnected;
 @property (nonatomic, strong) GTIOBadge *badge;
-@property (nonatomic, copy) NSString *userDescription;
+@property (nonatomic, strong) NSString *userDescription;
+@property (nonatomic, strong) GTIOButton *button;
 
 @property (nonatomic, assign) BOOL selected;
 
@@ -79,5 +80,9 @@ typedef void(^GTIOLogoutHandler)(NSURLResponse *response);
  */
 - (void)loadQuickAddUsersWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
 - (void)followUsers:(NSArray *)userIDs fromScreen:(NSString *)screenTag completionHandler:(GTIOCompletionHandler)completionHandler;
+
+/** Load user by user ID
+ */
+- (void)loadUserProfileWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end

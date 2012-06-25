@@ -12,4 +12,14 @@
 
 @synthesize path = _path;
 
+- (NSURL *)badgeImageURL
+{
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
+        ([UIScreen mainScreen].scale == 2.0)) {
+        return [NSString stringWithFormat:@"%@38_38.png", self.path];
+    } else {
+        return [NSString stringWithFormat:@"%@17_17.png", self.path];
+    }
+}
+
 @end
