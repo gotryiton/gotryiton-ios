@@ -1324,9 +1324,6 @@ previous screen
 			- 5px padding
 			- 4px in between buttons
 			- Width: 153x46px
-		
-
-	
 
 ### 4.1.2 Product Full Screen  
 
@@ -1399,7 +1396,19 @@ gtio://products/in-post/:post_id
 - A user can see a list of products contained in a post
    - each product taps to ([view 4.1](#41-product-page-view))
 
-
+#### Design Stories
+- Cell
+	- Background (4/shop.cell.png)
+	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
+	- Chevron (general/general.chevron.png)
+	- Image
+		- 106x101px
+		- Position on top left of cell
+		- Overlay with 7/shopping.cell.image.overlay.png
+	- Text 
+		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
+		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72		
 
 ## 5. Invite 
 
@@ -2518,6 +2527,54 @@ gtio://my-shopping-list
          - ok: api request 
             - **success** ==> show 'emailed' overlay (view 7.8.1)
          - cancel: closes dialog
+
+#### Design Stories
+- Cell
+	- Background (7/shopping.cell.png)
+	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
+	- Chevron (7/shopping.chevron.png)
+	- Text 
+		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
+		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
+	- Image
+		- 106x101px
+		- Position on top left of cell
+		- Overlay with 7/shopping.cell.image.overlay.png
+	- X Button
+		- Use 7/shopping.cell.close.inactive.png
+			- 7/shopping.cell.close.active.png for tap state
+		- 12x11px
+		- 4px from top and right edge of cell
+	- Buy Button
+		- Background (7/shopping.button.buy.inactive.png)
+			- Active state (7/shopping.button.buy.active.png)
+		- 39x21px
+		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
+		- 15px from bottom
+		- 10px from right
+	- Email Button
+		- Background (7/shopping.button.email.inactive.png)
+			- Active state (7/shopping.button.email.active.png)
+		- 39x21px
+		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
+		- 15px from bottom
+		- 6px padding from buy button
+- Nav bar share button
+	- 33x26px
+	- Background (7/shopping.navigation.bar.button.share.inactive.png)
+		- Active state (7/shopping.navigation.bar.button.share.active.png)
+- Bottom Area
+	- Background (7/shopping.bottom.bg.png) stretch/repeat horizontally
+	- 74px high
+	- Cells
+		- Overlay (7/shopping.bottom.image.overlay.png)
+			- Active (7/shopping.bottom.image.overlay.active.png)
+		- 60x60px
+		- Images are 55x55px
+		- Can clip image using (7/shopping.bottom.image.alpha.png) as an alpha
+		- Plus Button (7/shopping.bottom.plus.inactive.png)
+			- Active (7/shopping.bottom.plus.active.png)
 
 ### 7.9 My Stars
 
