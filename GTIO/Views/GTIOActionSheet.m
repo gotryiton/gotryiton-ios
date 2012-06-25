@@ -7,6 +7,10 @@
 //
 
 #import "GTIOActionSheet.h"
+#import "GTIOButton.h"
+#import "GTIOUIButton.h"
+#import "GTIOProgressHUD.h"
+#import <RestKit/RestKit.h>
 
 static double const containerPadding = 14.0;
 static double const buttonSpacing = 8.0;
@@ -16,8 +20,8 @@ static double const buttonWidth = 292.0;
 
 @interface GTIOActionSheet()
 
-@property (nonatomic, strong) GTIOButton *cancelButton;
-@property (nonatomic, strong) NSArray *otherButtons;
+@property (nonatomic, strong) GTIOUIButton *cancelButton;
+@property (nonatomic, strong) NSMutableArray *otherButtons;
 @property (nonatomic, strong) UIImageView *buttonsContainer;
 
 @property (nonatomic, assign) BOOL buttonsVisible;
@@ -28,21 +32,22 @@ static double const buttonWidth = 292.0;
 @implementation GTIOActionSheet
 
 @synthesize cancelButton = _cancelButton, otherButtons = _otherButtons, windowMask = _windowMask, buttonsContainer = _buttonsContainer, buttonsVisible = _buttonsVisible, buttonsContainerHeight = _buttonsContainerHeight;
-@synthesize willDismiss = _willDismiss, didDismiss = _didDismiss, willPresent = _willPresent, didPresent = _didPresent, willCancel = _willCancel;
+@synthesize willDismiss = _willDismiss, didDismiss = _didDismiss, willPresent = _willPresent, didPresent = _didPresent, willCancel = _willCancel, wasCancelled = _wasCancelled;
 
-- (id)initWithCancelButton:(GTIOButton *)cancelButton otherButtons:(NSArray *)otherButtons
+- (id)initWithButtons:(NSArray *)buttons
 {
     self = [super initWithFrame:[[UIApplication sharedApplication] keyWindow].frame];
     if (self) {
-        _cancelButton = cancelButton;
+        _cancelButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeActionSheetCancel];
         __block typeof(self) blockSelf = self;
         _cancelButton.tapHandler = ^(id sender) {
             if (blockSelf.willCancel) {
                 blockSelf.willCancel(blockSelf);
             }
+            self.wasCancelled = YES;
             [blockSelf dismiss];
         };
-        _otherButtons = otherButtons;
+        _otherButtons = [NSMutableArray array];
         
         _windowMask = [[UIView alloc] initWithFrame:CGRectZero];
         _windowMask.backgroundColor = [UIColor colorWithWhite:0 alpha:0.50];
@@ -54,11 +59,35 @@ static double const buttonWidth = 292.0;
         [_windowMask addSubview:_buttonsContainer];
         
         [_buttonsContainer addSubview:_cancelButton];
-        for (GTIOButton *button in _otherButtons) {
-            [_buttonsContainer addSubview:button];
+        for (GTIOButton *button in buttons) {
+            GTIOUIButton *actionSheetButton = nil;
+            switch (button.state.intValue) {
+                case 0: actionSheetButton = [GTIOUIButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
+                case 1: actionSheetButton = [GTIOUIButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGreen]; break;
+                case 2: actionSheetButton = [GTIOUIButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleRed]; break;
+                default: actionSheetButton = [GTIOUIButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
+            }
+            [actionSheetButton setTitle:button.text forState:UIControlStateNormal];
+            actionSheetButton.tapHandler = ^(id sender) {
+                [GTIOProgressHUD showHUDAddedTo:self.windowMask animated:YES];
+                [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+                    loader.onDidLoadResponse = ^(RKResponse *response) {
+                        [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
+                        [self dismiss];
+                    };
+                    loader.onDidFailWithError = ^(NSError *error) {
+                        [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
+                        NSLog(@"%@", [error localizedDescription]);
+                    };
+                }];
+            };
+            [_otherButtons addObject:actionSheetButton];
+            [_buttonsContainer addSubview:actionSheetButton];
         }
         
         _buttonsContainerHeight = containerPadding * 2 + (_otherButtons.count + ((_cancelButton) ? 1 : 0)) * (buttonSpacing + buttonHeight) + ((_cancelButton) ? cancelButtonTopMargin : 0);
+        
+        _wasCancelled = NO;
     }
     return self;
 }
@@ -77,7 +106,7 @@ static double const buttonWidth = 292.0;
     [self.windowMask setFrame:(CGRect){ 0, 0, mainWindow.bounds.size }];
     [self.cancelButton setFrame:(CGRect){ containerPadding, self.buttonsContainerHeight - buttonHeight - containerPadding, buttonWidth, buttonHeight }];
     double otherButtonsYPosition = self.cancelButton.frame.origin.y - cancelButtonTopMargin - buttonHeight;
-    for (GTIOButton *button in self.otherButtons) {
+    for (GTIOUIButton *button in self.otherButtons) {
         [button setFrame:(CGRect){ containerPadding, otherButtonsYPosition, buttonWidth, buttonHeight }];
         otherButtonsYPosition -= buttonSpacing - buttonHeight;
     }

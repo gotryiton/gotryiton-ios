@@ -97,7 +97,7 @@
 
 + (id)largeButtonWithGTIOStyle:(GTIOLargeButtonStyle)largeButtonStyle
 {
-    GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     
     NSString *backgroundImageNormal;
     NSString *backgroundImageHighlighted;
@@ -424,7 +424,7 @@
 
 + (id)gtio_largeCancelButton
 {
-    GTIOButton *button = [self largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray];
+    GTIOUIButton *button = [self largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray];
     [button setTitleColor:[UIColor gtio_signInColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:14.0]];
     [button setTitle:@"cancel" forState:UIControlStateNormal];

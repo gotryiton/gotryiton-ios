@@ -146,41 +146,22 @@
     [self.basicUserInfoView setUser:self.userProfile.user];
     [self.basicUserInfoView setUserInfoButtons:self.userProfile.userInfoButtons];
     [self.basicUserInfoView setEditButtonTapHandler:^(id sender) {
-        GTIOButton *cancelButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeActionSheetCancel];
-        
-        NSMutableArray *otherButtons = [NSMutableArray array];
+        NSMutableArray *actionsheetButtons = [NSMutableArray array];
         for (GTIOButton *button in self.userProfile.settingsButtons) {
-            GTIOButton *actionSheetButton;
-            switch (button.state.intValue) {
-                case 0: actionSheetButton = [GTIOButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
-                case 1: actionSheetButton = [GTIOButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGreen]; break;
-                case 2: actionSheetButton = [GTIOButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleRed]; break;
-                default: actionSheetButton = [GTIOButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
-            }
-            [actionSheetButton setTitle:button.text forState:UIControlStateNormal];
-            [actionSheetButton setAction:button.action];
-            [actionSheetButton setState:button.state];
-            actionSheetButton.tapHandler = ^(id sender) {
-                [GTIOProgressHUD showHUDAddedTo:self.actionSheet.windowMask animated:YES];
-                [[RKObjectManager sharedManager] loadObjectsAtResourcePath:actionSheetButton.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                    loader.onDidLoadResponse = ^(RKResponse *response) {
-                        [GTIOProgressHUD hideHUDForView:self.actionSheet.windowMask animated:YES];
-                        [self.actionSheet dismiss];
-                        if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
-                            [self.delegate refreshUserProfile];
-                        }
-                    };
-                    loader.onDidFailWithError = ^(NSError *error) {
-                        [GTIOProgressHUD hideHUDForView:self.actionSheet.windowMask animated:YES];
-                        NSLog(@"%@", [error localizedDescription]);
-                    };
-                }];
-            };
-            [otherButtons addObject:actionSheetButton];
+            [button setAction:button.action];
+            [button setState:button.state];
+            [actionsheetButtons addObject:button];
         }
-        
-        self.actionSheet = [[GTIOActionSheet alloc] initWithCancelButton:cancelButton otherButtons:otherButtons];
-        [self.actionSheet show];
+        self.actionSheet = [[GTIOActionSheet alloc] initWithButtons:actionsheetButtons];
+        [self.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
+            actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
+                if (!actionSheet.wasCancelled) {
+                    if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
+                        [self.delegate refreshUserProfile];
+                    }
+                }
+            };
+        }];
     }];
     [self.profileDescription setText:self.userProfile.user.aboutMe];
     

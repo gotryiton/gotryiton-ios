@@ -53,6 +53,12 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeActionSheetCancel
 } GTIOButtonType;
 
+typedef enum GTIOLargeButtonStyle {
+    GTIOLargeButtonStyleGray = 0,
+    GTIOLargeButtonStyleGreen,
+    GTIOLargeButtonStyleRed
+} GTIOLargeButtonStyle;
+
 @interface GTIOUIButton : UIButton
 
 @property (nonatomic, copy) GTIOButtonDidTapHandler tapHandler;

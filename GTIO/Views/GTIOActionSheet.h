@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GTIOButton.h"
 
 @class GTIOActionSheet;
 
@@ -23,7 +22,9 @@ typedef void(^GTIOActionSheetBlock)(GTIOActionSheet *actionSheet);
 
 @property (nonatomic, strong) UIView *windowMask;
 
-- (id)initWithCancelButton:(GTIOButton *)cancelButton otherButtons:(NSArray *)otherButtons;
+@property (nonatomic, assign) BOOL wasCancelled;
+
+- (id)initWithButtons:(NSArray *)buttons;
 - (void)show;
 - (void)showWithConfigurationBlock:(GTIOActionSheetBlock)configurationBlock;
 - (void)dismiss;

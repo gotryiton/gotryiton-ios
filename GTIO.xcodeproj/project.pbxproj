@@ -28,6 +28,8 @@
 		8E53B6041582679A00EF138F /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E53B6031582679A00EF138F /* GTIOEditProfileViewController.m */; };
 		8E7C984A15936969006347DE /* GTIOProfileCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C984915936969006347DE /* GTIOProfileCalloutView.m */; };
 		8E7C984D15937BFF006347DE /* GTIOFollowRequestAcceptBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C984C15937BFF006347DE /* GTIOFollowRequestAcceptBar.m */; };
+		8E89BAE91599187B00CB3094 /* GTIOActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAFB59B1594BFB40080A961 /* GTIOActionSheet.m */; };
+		8E89BAEA159919E000CB3094 /* GTIOPagination.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F7C7AE159900A900ADAF92 /* GTIOPagination.m */; };
 		8E89EA5E15924E5000303A04 /* GTIOSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89EA5D15924E5000303A04 /* GTIOSegmentedControl.m */; };
 		8E8A906B156EA202000732CC /* GTIOEditProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */; };
 		8E8E6EC615756DD0009750E2 /* GTIOTakePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E6EC515756DD0009750E2 /* GTIOTakePhotoView.m */; };
@@ -203,7 +205,6 @@
 		8E97DF341586A81300521968 /* GTIOQuickAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */; };
 		8EA21B39157FDDC000D5003C /* GTIOPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA21B38157FDDC000D5003C /* GTIOPost.m */; };
 		8EAA14C7156E846C0083884E /* GTIOTextFieldForPickerViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */; };
-		8EAFB59C1594BFB40080A961 /* GTIOActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAFB59B1594BFB40080A961 /* GTIOActionSheet.m */; };
 		8EB0F8151590E76300794042 /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0F8141590E76200794042 /* GTIOProfileHeaderView.m */; };
 		8EB0F8181590E8D300794042 /* GTIOProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0F8171590E8D300794042 /* GTIOProfileViewController.m */; };
 		8EB0F81F159102CC00794042 /* GTIOUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0F81E159102CC00794042 /* GTIOUserProfile.m */; };
@@ -975,7 +976,6 @@
 		D2E3759A1559B86700763A67 /* GTIOExploreLooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */; };
 		D2EC0ED8156ADF1500984838 /* GTIOMailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */; };
 		D2EC0EDA156ADF5800984838 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EC0ED9156ADF5800984838 /* MessageUI.framework */; };
-		D2F7C7AF159900A900ADAF92 /* GTIOPagination.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F7C7AE159900A900ADAF92 /* GTIOPagination.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -5236,6 +5236,8 @@
 				8EC203751598F28900685686 /* GTIOMasonGridView.m in Sources */,
 				8EC203861598FDF400685686 /* GTIOMasonGridColumn.m in Sources */,
 				8EC2038A1598FE9C00685686 /* GTIOMasonGridItem.m in Sources */,
+				8E89BAE91599187B00CB3094 /* GTIOActionSheet.m in Sources */,
+				8E89BAEA159919E000CB3094 /* GTIOPagination.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
