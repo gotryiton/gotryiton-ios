@@ -15,6 +15,8 @@
 
 #import "GTIOPostHeaderView.h"
 #import "GTIOFeedCell.h"
+#import "GTIONavigationNotificationTitleView.h"
+#import "GTIOFeedNavigationBarView.h"
 
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -67,6 +69,20 @@
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.view addSubview:self.tableView];
+    
+//    GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:10] tapHandler:nil];
+//    [self useTitleView:navTitleView];
+//    GTIOUIButton *friendsButton = [GTIOUIButton gtio_navBarTopMarginWithText:@"friends" tapHandler:^(id sender) {
+//        // TODO: handle friends tap
+//        NSLog(@"Friends button tapped");
+//    }];
+//    [self setRightNavigationButton:friendsButton];
+
+    GTIOFeedNavigationBarView *navView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
+    [navView.friendsButton setTapHandler:^(id sender) {
+        NSLog(@"Friends button tapped");
+    }];
+    [self.tableView setTableHeaderView:navView];
 }
 
 - (void)viewDidUnload
@@ -78,7 +94,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self loadFeed];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+//    [self.view setFrame:(CGRect){0, -self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, [[UIScreen mainScreen] applicationFrame].size.height}];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

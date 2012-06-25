@@ -169,32 +169,32 @@
     return [self buttonWithImage:[UIImage imageNamed:@"save-button-green-top-margin.png"] hightlightImage:nil];
 }
 
-+ (id)gtio_cancelButtonGrayTopMargin
++ (id)gtio_navBarTopMarginWithText:(NSString *)text tapHandler:(GTIOButtonDidTapHandler)tapHandler
 {
     GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.active.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateHighlighted];
-    [button setTitle:@"cancel" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor gtio_darkGrayTextColor] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 1.0, 0, 0)];
-    [button setFrame:(CGRect){ 0, 0, 50, 30 }];
+    [button setTitle:text forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:11.0]];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(5.0, 1.0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTapHandler:tapHandler];
+    
+    CGSize textSize = [text sizeWithFont:button.titleLabel.font forWidth:200 lineBreakMode:UILineBreakModeTailTruncation];
+    [button setFrame:(CGRect){ 0, 0, textSize.width + 14, 30 }];
+    
     return button;
+}
+
++ (id)gtio_cancelButtonGrayTopMargin
+{
+    return [self gtio_navBarTopMarginWithText:@"cancel" tapHandler:nil];
 }
 
 + (id)gtio_saveButtonGrayTopMargin
 {
-    GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateNormal];
-    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.active.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateHighlighted];
-    [button setTitle:@"save" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor gtio_darkGrayTextColor] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 1.0, 0, 0)];
-    [button setFrame:(CGRect){ 0, 0, 45, 30 }];
-    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    return button;
+    return [self gtio_navBarTopMarginWithText:@"save" tapHandler:nil];
 }
 
 + (id)gtio_backButtonTopMargin

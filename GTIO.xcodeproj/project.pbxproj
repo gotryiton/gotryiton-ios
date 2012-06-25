@@ -792,6 +792,7 @@
 		D270EF171587C62100BE08EE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D270EF161587C62100BE08EE /* OpenGLES.framework */; };
 		D270EF1A1587C63800BE08EE /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D270EF131587C60500BE08EE /* libGPUImage.a */; };
 		D270EF1C1587C65200BE08EE /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D270EF1B1587C65200BE08EE /* CoreVideo.framework */; };
+		D27C2FA01598A3DA006C9ACB /* GTIOFeedNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C2F9F1598A3DA006C9ACB /* GTIOFeedNavigationBarView.m */; };
 		D27E0C70156AAD9E00BE7C9E /* GTIOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */; };
 		D27E16FE157FD23F0044EC3C /* GTIOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27E16FD157FD23F0044EC3C /* GTIOScrollView.m */; };
 		D27F9D0B1577B43200EAB480 /* GTIOPhotoShootGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D0A1577B43200EAB480 /* GTIOPhotoShootGridViewController.m */; };
@@ -1875,6 +1876,8 @@
 		D2735BD21586842600563A19 /* GTIOPhotoFilterSelectorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoFilterSelectorView.m; sourceTree = "<group>"; };
 		D2735BD41586891D00563A19 /* GTIOPhotoFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoFilterView.h; sourceTree = "<group>"; };
 		D2735BD51586891D00563A19 /* GTIOPhotoFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoFilterView.m; sourceTree = "<group>"; };
+		D27C2F9F1598A3DA006C9ACB /* GTIOFeedNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFeedNavigationBarView.m; sourceTree = "<group>"; };
+		D27C2FA11598B99B006C9ACB /* GTIOFeedNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFeedNavigationBarView.h; sourceTree = "<group>"; };
 		D27E0C6E156AAD9E00BE7C9E /* GTIOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAuth.h; sourceTree = "<group>"; };
 		D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAuth.m; sourceTree = "<group>"; };
 		D27E16FC157FD23F0044EC3C /* GTIOScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOScrollView.h; sourceTree = "<group>"; };
@@ -2684,10 +2687,10 @@
 				8E3F8BE3157E591A0047937E /* nav.button.back.active.bottommargin.png */,
 				8E3F8BE4157E591A0047937E /* nav.button.back.active.bottommargin@2x.png */,
 				8E3F8BE5157E591A0047937E /* nav.button.back.active.topmargin.png */,
-				8E3F8BE6157E591A0047937E /* nav.button.back.inactive.topmargin.png */,
-				8E3F8BE7157E591A0047937E /* nav.button.back.inactive.topmargin@2x.png */,
 				8E3F8BE8157E591A0047937E /* nav.button.back.inactive.bottommargin.png */,
 				8E3F8BE9157E591A0047937E /* nav.button.back.inactive.bottommargin@2x.png */,
+				8E3F8BE6157E591A0047937E /* nav.button.back.inactive.topmargin.png */,
+				8E3F8BE7157E591A0047937E /* nav.button.back.inactive.topmargin@2x.png */,
 				8E3F8BEA157E591A0047937E /* nav.button.inactive.bottommargin.png */,
 				8E3F8BEB157E591A0047937E /* nav.button.inactive.bottommargin@2x.png */,
 				8E3F8BEC157E591A0047937E /* nav.button.inactive.topmargin.png */,
@@ -3057,12 +3060,14 @@
 		8E969F55158BDD60009E19B3 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				D22D73D21593CCA10018AD6B /* GTIOPostHeaderView.h */,
-				D22D73D31593CCA10018AD6B /* GTIOPostHeaderView.m */,
-				D22D73CC1593BBE70018AD6B /* GTIOPostFrameView.h */,
-				D22D73CD1593BBE70018AD6B /* GTIOPostFrameView.m */,
 				D22D73CF1593C1960018AD6B /* GTIOFeedCell.h */,
 				D22D73D01593C1960018AD6B /* GTIOFeedCell.m */,
+				D27C2FA11598B99B006C9ACB /* GTIOFeedNavigationBarView.h */,
+				D27C2F9F1598A3DA006C9ACB /* GTIOFeedNavigationBarView.m */,
+				D22D73CC1593BBE70018AD6B /* GTIOPostFrameView.h */,
+				D22D73CD1593BBE70018AD6B /* GTIOPostFrameView.m */,
+				D22D73D21593CCA10018AD6B /* GTIOPostHeaderView.h */,
+				D22D73D31593CCA10018AD6B /* GTIOPostHeaderView.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -4892,6 +4897,7 @@
 				D22D73D41593CCA10018AD6B /* GTIOPostHeaderView.m in Sources */,
 				D22D73D71594B66F0018AD6B /* GTIOHeartButton.m in Sources */,
 				D22D73DA1594BEF70018AD6B /* GTIOButton.m in Sources */,
+				D27C2FA01598A3DA006C9ACB /* GTIOFeedNavigationBarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
