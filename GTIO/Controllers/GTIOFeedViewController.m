@@ -130,7 +130,7 @@
             }
             
 #warning This is used for testing.
-            // Manually add post
+//            // Manually add post
 //            GTIOPost *post = [[GTIOPost alloc] init];
 //            post.postID = @"123";
 //            post.photo = ((GTIOPost *)[self.posts objectAtIndex:4]).photo;

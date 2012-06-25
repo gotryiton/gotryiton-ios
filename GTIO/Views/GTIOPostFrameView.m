@@ -11,9 +11,11 @@
 #import "TTTAttributedLabel.h"
 #import "UIImageView+WebCache.h"
 
-#import "GTIOHeartButton.h"
 #import "GTIOPhoto.h"
 #import "GTIOButton.h"
+
+#import "GTIOHeartButton.h"
+#import "GTIOPostBrandButtonsView.h"
 
 static CGFloat const kGTIOFrameWidth = 270.0f;
 static CGFloat const kGTIOFrameHeightPadding = 16.0f;
@@ -29,13 +31,14 @@ static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
 @property (nonatomic, strong) TTTAttributedLabel *descriptionLabel;
 @property (nonatomic, strong) GTIOHeartButton *heartButton;
 @property (nonatomic, strong) GTIOButton *photoHeartButtonModel;
+@property (nonatomic, strong) GTIOPostBrandButtonsView *brandButtonsView;
 
 @end
 
 @implementation GTIOPostFrameView
 
 @synthesize post = _post;
-@synthesize frameImageView = _frameImageView, photoImageView = _photoImageView, descriptionLabel = _descriptionLabel, heartButton = _heartButton, photoHeartButtonModel = _photoHeartButtonModel;
+@synthesize frameImageView = _frameImageView, photoImageView = _photoImageView, descriptionLabel = _descriptionLabel, heartButton = _heartButton, photoHeartButtonModel = _photoHeartButtonModel, brandButtonsView = _brandButtonsView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -61,6 +64,9 @@ static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
         [_descriptionLabel setTextColor:[UIColor gtio_darkGray3TextColor]];
         [_descriptionLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_descriptionLabel];
+        
+        _brandButtonsView = [[GTIOPostBrandButtonsView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIODescriptionTextWidth, 0 } }];
+        [self addSubview:_brandButtonsView];
     }
     return self;
 }
@@ -82,7 +88,13 @@ static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
         [self.descriptionLabel setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.photoImageView.frame.origin.y + self.photoImageView.frame.size.height, kGTIODescriptionTextWidth, descriptionTextSize.height}];
     }
     
-    [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height + kGTIOFrameHeightPadding } }];
+    if (self.brandButtonsView.frame.size.height > 0) {
+        [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height + kGTIODescriptionLabelTopPadding, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
+    } else {
+        [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
+    }
+    
+    [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.brandButtonsView.frame.origin.y + self.brandButtonsView.frame.size.height + kGTIOFrameHeightPadding } }];
     
     [self setFrame:(CGRect){ self.frame.origin, self.frameImageView.frame.size }];
 }
@@ -108,7 +120,14 @@ static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
         }
     }
     
+    // Description
     [self.descriptionLabel setText:_post.postDescription];
+    
+    // Brand buttons
+    [self.brandButtonsView setButtons:_post.brandsButtons];
+    [self.brandButtonsView setTapHandler:^(GTIOButton *button) {
+        NSLog(@"Button with text: %@", button.text);
+    }];
 }
 
 #pragma mark - Height

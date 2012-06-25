@@ -793,6 +793,8 @@
 		D270EF1A1587C63800BE08EE /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D270EF131587C60500BE08EE /* libGPUImage.a */; };
 		D270EF1C1587C65200BE08EE /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D270EF1B1587C65200BE08EE /* CoreVideo.framework */; };
 		D27C2FA01598A3DA006C9ACB /* GTIOFeedNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C2F9F1598A3DA006C9ACB /* GTIOFeedNavigationBarView.m */; };
+		D27C2FA41598CE01006C9ACB /* GTIOPostBrandButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C2FA31598CE01006C9ACB /* GTIOPostBrandButtonsView.m */; };
+		D27C2FA71598E20F006C9ACB /* GTIOBrandButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C2FA61598E20F006C9ACB /* GTIOBrandButton.m */; };
 		D27E0C70156AAD9E00BE7C9E /* GTIOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */; };
 		D27E16FE157FD23F0044EC3C /* GTIOScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27E16FD157FD23F0044EC3C /* GTIOScrollView.m */; };
 		D27F9D0B1577B43200EAB480 /* GTIOPhotoShootGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D0A1577B43200EAB480 /* GTIOPhotoShootGridViewController.m */; };
@@ -1878,6 +1880,10 @@
 		D2735BD51586891D00563A19 /* GTIOPhotoFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoFilterView.m; sourceTree = "<group>"; };
 		D27C2F9F1598A3DA006C9ACB /* GTIOFeedNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFeedNavigationBarView.m; sourceTree = "<group>"; };
 		D27C2FA11598B99B006C9ACB /* GTIOFeedNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFeedNavigationBarView.h; sourceTree = "<group>"; };
+		D27C2FA21598CE01006C9ACB /* GTIOPostBrandButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostBrandButtonsView.h; sourceTree = "<group>"; };
+		D27C2FA31598CE01006C9ACB /* GTIOPostBrandButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostBrandButtonsView.m; sourceTree = "<group>"; };
+		D27C2FA51598E20F006C9ACB /* GTIOBrandButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBrandButton.h; sourceTree = "<group>"; };
+		D27C2FA61598E20F006C9ACB /* GTIOBrandButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBrandButton.m; sourceTree = "<group>"; };
 		D27E0C6E156AAD9E00BE7C9E /* GTIOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAuth.h; sourceTree = "<group>"; };
 		D27E0C6F156AAD9E00BE7C9E /* GTIOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAuth.m; sourceTree = "<group>"; };
 		D27E16FC157FD23F0044EC3C /* GTIOScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOScrollView.h; sourceTree = "<group>"; };
@@ -3068,6 +3074,8 @@
 				D22D73CD1593BBE70018AD6B /* GTIOPostFrameView.m */,
 				D22D73D21593CCA10018AD6B /* GTIOPostHeaderView.h */,
 				D22D73D31593CCA10018AD6B /* GTIOPostHeaderView.m */,
+				D27C2FA21598CE01006C9ACB /* GTIOPostBrandButtonsView.h */,
+				D27C2FA31598CE01006C9ACB /* GTIOPostBrandButtonsView.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -3824,6 +3832,8 @@
 				D2DEAED3158793A20032ED1F /* GTIOFilterButton.m */,
 				D22D73D51594B66F0018AD6B /* GTIOHeartButton.h */,
 				D22D73D61594B66F0018AD6B /* GTIOHeartButton.m */,
+				D27C2FA51598E20F006C9ACB /* GTIOBrandButton.h */,
+				D27C2FA61598E20F006C9ACB /* GTIOBrandButton.m */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -4898,6 +4908,8 @@
 				D22D73D71594B66F0018AD6B /* GTIOHeartButton.m in Sources */,
 				D22D73DA1594BEF70018AD6B /* GTIOButton.m in Sources */,
 				D27C2FA01598A3DA006C9ACB /* GTIOFeedNavigationBarView.m in Sources */,
+				D27C2FA41598CE01006C9ACB /* GTIOPostBrandButtonsView.m in Sources */,
+				D27C2FA71598E20F006C9ACB /* GTIOBrandButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
