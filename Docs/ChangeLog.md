@@ -4,7 +4,7 @@
 June 25, 2012
 
 ### Build Summary
-This is a build of Geoff's work on the profile pages. There are also a few additions to The Feed view from Scott.
+This is a build of Geoff's work on the profile pages. If you go to the me tab and then click on following it is hard coded to take you to Rachit's profile. There are also a few additions to The Feed view from Scott.
 
 ### Work In Progress
 
