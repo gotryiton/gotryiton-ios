@@ -8,6 +8,6 @@
 
 #import "GTIOViewController.h"
 
-@interface GTIOFeedViewController : UIViewController
+@interface GTIOFeedViewController : GTIOViewController
 
 @end

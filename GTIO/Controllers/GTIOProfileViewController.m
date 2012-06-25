@@ -17,9 +17,9 @@
 
 @interface GTIOProfileViewController ()
 
-@property (nonatomic, strong) GTIOButton *followButton;
-@property (nonatomic, strong) GTIOButton *followingButton;
-@property (nonatomic, strong) GTIOButton *requestedButton;
+@property (nonatomic, strong) GTIOUIButton *followButton;
+@property (nonatomic, strong) GTIOUIButton *followingButton;
+@property (nonatomic, strong) GTIOUIButton *requestedButton;
 @property (nonatomic, strong) GTIOProfileHeaderView *profileHeaderView;
 @property (nonatomic, strong) GTIOUserProfile *userProfile;
 @property (nonatomic, strong) GTIODualViewSegmentedControlView *postsHeartsWithSegmentedControlView;
@@ -46,14 +46,14 @@
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"profile" italic:YES];
     [self useTitleView:navTitleView];
     
-    GTIOButton *backButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
+    GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self setLeftNavigationButton:backButton];
     
-    self.followButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFollowButtonForNavBar];
-    self.followingButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFollowingButtonForNavBar];
-    self.requestedButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeRequestedButtonForNavBar];
+    self.followButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowButtonForNavBar];
+    self.followingButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowingButtonForNavBar];
+    self.requestedButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeRequestedButtonForNavBar];
     
     self.profileHeaderView = [[GTIOProfileHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 0 }];
     [self.profileHeaderView setDelegate:self];
@@ -108,7 +108,7 @@
 - (void)refreshFollowButton
 {
     if (self.userProfile.user.button) {
-        GTIOButton *followButton = nil;
+        GTIOUIButton *followButton = nil;
         if ([self.userProfile.user.button.name isEqualToString:kGTIOUserInfoButtonNameFollow]) {
             if ([self.userProfile.user.button.state intValue] == GTIOFollowButtonStateFollowing) {
                 followButton = self.followingButton;

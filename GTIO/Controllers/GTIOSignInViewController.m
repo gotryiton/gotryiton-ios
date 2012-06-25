@@ -22,8 +22,8 @@
 
 @interface GTIOSignInViewController ()
 
-@property (nonatomic, strong) GTIOButton *facebookButton;
-@property (nonatomic, strong) GTIOButton *returningUserButton;
+@property (nonatomic, strong) GTIOUIButton *facebookButton;
+@property (nonatomic, strong) GTIOUIButton *returningUserButton;
 
 @property (nonatomic, assign, getter = isTracked) BOOL tracked;
 
@@ -49,7 +49,7 @@
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
     [self.view addSubview:backgroundImageView];
     
-    self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignUp];
+    self.facebookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFacebookSignUp];
     [self.facebookButton setFrame:(CGRect){ { (self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 245 }, self.facebookButton.frame.size }];
     [self.facebookButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.facebookButton setTapHandler:^(id sender) {
@@ -86,7 +86,7 @@
     }];
     [self.view addSubview:self.facebookButton];
     
-    self.returningUserButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeReturningUser];
+    self.returningUserButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeReturningUser];
     [self.returningUserButton setFrame:(CGRect){ { (self.view.frame.size.width - self.returningUserButton.frame.size.width) / 2, 300 }, self.returningUserButton.frame.size }];
     [self.returningUserButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.returningUserButton setTapHandler:^(id sender) {

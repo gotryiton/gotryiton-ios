@@ -14,10 +14,10 @@ typedef void(^GTIOPhotoModeSwitchChangedHandler)(BOOL on);
 
 @interface GTIOCameraToolbarView : UIView
 
-@property (nonatomic, strong) GTIOButton *closeButton;
-@property (nonatomic, strong) GTIOButton *photoPickerButton;
-@property (nonatomic, strong) GTIOButton *photoShootGridButton;
-@property (nonatomic, strong) GTIOButton *shutterButton;
+@property (nonatomic, strong) GTIOUIButton *closeButton;
+@property (nonatomic, strong) GTIOUIButton *photoPickerButton;
+@property (nonatomic, strong) GTIOUIButton *photoShootGridButton;
+@property (nonatomic, strong) GTIOUIButton *shutterButton;
 @property (nonatomic, strong) GTIOSwitch *photoModeSwitch;
 
 @property (nonatomic, copy) GTIOPhotoModeSwitchChangedHandler photoModeSwitchChangedHandler;

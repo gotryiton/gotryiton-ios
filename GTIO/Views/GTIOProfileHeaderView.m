@@ -21,7 +21,7 @@
 @property (nonatomic, strong) GTIOMeTableHeaderView *basicUserInfoView;
 @property (nonatomic, strong) UIImageView *basicUserInfoBackgroundImageView;
 @property (nonatomic, strong) UILabel *profileDescription;
-@property (nonatomic, strong) GTIOButton *websiteLinkButton;
+@property (nonatomic, strong) GTIOUIButton *websiteLinkButton;
 @property (nonatomic, strong) NSMutableArray *profileCalloutViews;
 @property (nonatomic, strong) GTIOActionSheet *actionSheet;
 
@@ -71,7 +71,7 @@
         [_profileDescription setLineBreakMode:UILineBreakModeWordWrap];
         [_basicUserInfoBackgroundImageView addSubview:_profileDescription];
         
-        _websiteLinkButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeWebsiteLink];
+        _websiteLinkButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeWebsiteLink];
         [_basicUserInfoBackgroundImageView addSubview:_websiteLinkButton];
         
         _profileCalloutViews = [NSMutableArray array];
@@ -110,7 +110,7 @@
     if (lastProfileCalloutView) {
         [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, lastProfileCalloutView.frame.origin.y + lastProfileCalloutView.bounds.size.height + 10 }];
     } else {
-        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((self.websiteLinkButton.text.length > 0 || self.profileDescription.text.length > 0) ? 10 : 0) }];
+        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((self.websiteLinkButton.titleLabel.text.length > 0 || self.profileDescription.text.length > 0) ? 10 : 0) }];
     }
     [self setFrame:(CGRect){ self.frame.origin, self.bounds.size.width, self.basicUserInfoBackgroundImageView.bounds.size.height }];
     if (self.waitingForUserProfileLayout) {

@@ -86,6 +86,7 @@
    13.7 [User Badges](#137-user-badges)   
    13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)   
    13.9 [Custom UIAlertView](#139-custom-uialertview) 
+   13.10 [Unified autocomplete](#1310-unified-autocomplete)
 
 ---
 
@@ -974,7 +975,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 #### Mockups
 2.2 Notifications ([wireframe](http://invis.io/QR2OBP8N))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/2.2.notifications.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/2.2.notifications.png" width=420px/>
 
 #### User Flow
 
@@ -1170,6 +1171,52 @@ previous screen
                - **success** ==> button is left in on state (no other action)
             - cancel: close dialog
 
+#### Design Stories
+- Top Area
+	- Background (3/reviews.top.bg.png) Repeat/stretch background horizontal
+	- 87px tall
+	- Avatar
+		- Overlay (3/reviews.top.avatar.overlay.png)
+		- 75x75px
+		- 5px from left, 6px from top and bottom
+	- Text
+		- Name: Archer Book Italic 16px rgb(255,106,114) #ff6a72
+		- Time Stamp: Proxima Nova Regular 10px rgb(156,156,156) #9c9c9c
+	- Comment input
+		- Background (3/reviews.top.input.box.png)
+		- 230x35px
+		- Verlag Light Italic 14px rgb(183,183,183) #b7b7b7
+- Comment
+	- Background: (3/reviews.cell.bg.png)
+		- Stretch it from the middle, 4px top and 7px bottom anchors
+	- 314px wide
+	- Padding includes shadows from image
+		- 12px padding on right/left
+		- 12px padding on top
+		- 15px padding on bottom
+	- Text
+		- Comment: 14px Verlag Light rgb(64,64,65) #404041
+		- Hashtags/@replies: 14px Verlag Book rgb(255,106,114) #ff6a72
+		- Author: Proxima Nova Regular 11px rgb(255,106,114) #ff6a72
+		- Time Stamp: Proxima Nova Regular 8px rgb(188,188,188) #bcbcbc
+		- Heart #: Proxima Nova Regular 12px rgb(214,214,214) #d6d6d6
+	- Delete X
+		- 3/reviews.cell.delete.inactive.png
+			- Active: 3/reviews.cell.delete.active.png
+		- 9x9px
+	- Flag
+		- 3/reviews.cell.flag.inactive.png
+			- Active: 3/reviews.cell.flag.active.png
+		- Flagged: 3/reviews.cell.flag.flagged.inactive.png
+			- Active: 3/reviews.cell.flag.flagged.active.png
+	- Heart Button
+		- 3/reviews.cell.heart.inactive.png
+			- Active: 3/reviews.cell.heart.active.png
+		- Hearted: 3/reviews.cell.heart.hearted.inactive.png
+			- Active: 3/reviews.cell.heart.hearted.active.png
+	- Avatar 
+		- Overlay (3/reviews.cell.avatar.overlay.png)
+		- 27x27px
 
 ### 3.5 Who hearted this 
 
@@ -1244,6 +1291,7 @@ A user can view a detailed page about a single product
 
 <img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/Product.Detail.Light.BG.png" width=420px/>
 
+
 #### User Flow
 
 **entry screens:**   
@@ -1280,7 +1328,49 @@ previous screen
 - A user can add a product to their shopping list
    - + shopping list button adds the item to their list
 
-
+#### Design Stories
+- Navigation Bar
+	- Background (4/product.nav.bar.bg.png) (48px high with shadow)
+	- Back button 11px from top, 5px from left
+	- When tapped to full screen product image, display product.nav.bar.top.png (4px high)
+- Heart Button
+	- Background (product.heart.inactive.png)
+		- On tap (product.heart.active.png)
+		- Highlighted (product.heart.highlight.png)
+			- On tap (product.heart.highlight.active.png)
+	- 89x34px
+	- 4px from left
+	- 3px from navigation bar (51px from top of screen)
+	- Count Text: Verlag bold 15px rgb(88,88,88) #585858
+		- Right aligned
+		- 11px from edge of element
+		- Vertically aligned in element
+- Bottom Info
+	- Background (product.info.overlay.bg.png)--stretch image horizontally
+	- 260px high including shadow
+	- Inner info area 
+		- 8px below the start of bottom area (including shadow in product.info.overlay.bg.png image)
+		- Background (product.info.rounded.bg.png), image is anchored 5px top/bottom and 5px left/right so you stretch only the inner most 1px
+		- Width: 310px
+		- Height: 66px
+		- Text - Starts 10px from left and 12px from top
+			- Product name: Verlag Book 15px rgb(8,8,8), #585858
+			- Brand: Proxima Nova Semibold 12px rgb(143,143,143) #8f8f8f
+			- Price: Verlag 22px Bold 22px rgb(88,88,88) #585858
+				- 10px from right, 10px from bottom
+		- Social Icons (product.social.fb.active.png) & (product.social.twit.active.png)
+			- 18x18px
+			- 9px from top/right
+			- 7px in between
+		- Bottom Buttons
+			- Background (product.info.button.bg.inactive.png) stretch image
+				- On tap (product.info.button.bg.active.png)
+				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
+					- On tap (product.info.button.bg.highlight.active.png)
+			- Text: Archer Medium 16px rgb(85,85,86) #555556
+			- 5px padding
+			- 4px in between buttons
+			- Width: 153x46px
 
 ### 4.1.2 Product Full Screen  
 
@@ -1353,7 +1443,19 @@ gtio://products/in-post/:post_id
 - A user can see a list of products contained in a post
    - each product taps to ([view 4.1](#41-product-page-view))
 
-
+#### Design Stories
+- Cell
+	- Background (4/shop.cell.png)
+	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
+	- Chevron (general/general.chevron.png)
+	- Image
+		- 106x101px
+		- Position on top left of cell
+		- Overlay with 7/shopping.cell.image.overlay.png
+	- Text 
+		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
+		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72		
 
 ## 5. Invite 
 
@@ -1369,7 +1471,7 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 
 5.1.1 invite friends actionsheet  ([wireframe](http://invis.io/NB2PNCHD))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/5.1.1.invite.actionsheet.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/5.1.1.invite.actionsheet.png" width=420px/>
 
 5.1.2 invite friends SMS ([wireframe](http://invis.io/YX2PND9V))
 
@@ -2473,6 +2575,54 @@ gtio://my-shopping-list
             - **success** ==> show 'emailed' overlay (view 7.8.1)
          - cancel: closes dialog
 
+#### Design Stories
+- Cell
+	- Background (7/shopping.cell.png)
+	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
+	- Chevron (7/shopping.chevron.png)
+	- Text 
+		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
+		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
+	- Image
+		- 106x101px
+		- Position on top left of cell
+		- Overlay with 7/shopping.cell.image.overlay.png
+	- X Button
+		- Use 7/shopping.cell.close.inactive.png
+			- 7/shopping.cell.close.active.png for tap state
+		- 12x11px
+		- 4px from top and right edge of cell
+	- Buy Button
+		- Background (7/shopping.button.buy.inactive.png)
+			- Active state (7/shopping.button.buy.active.png)
+		- 39x21px
+		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
+		- 15px from bottom
+		- 10px from right
+	- Email Button
+		- Background (7/shopping.button.email.inactive.png)
+			- Active state (7/shopping.button.email.active.png)
+		- 39x21px
+		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
+		- 15px from bottom
+		- 6px padding from buy button
+- Nav bar share button
+	- 33x26px
+	- Background (7/shopping.navigation.bar.button.share.inactive.png)
+		- Active state (7/shopping.navigation.bar.button.share.active.png)
+- Bottom Area
+	- Background (7/shopping.bottom.bg.png) stretch/repeat horizontally
+	- 74px high
+	- Cells
+		- Overlay (7/shopping.bottom.image.overlay.png)
+			- Active (7/shopping.bottom.image.overlay.active.png)
+		- 60x60px
+		- Images are 55x55px
+		- Can clip image using (7/shopping.bottom.image.alpha.png) as an alpha
+		- Plus Button (7/shopping.bottom.plus.inactive.png)
+			- Active (7/shopping.bottom.plus.active.png)
+
 ### 7.9 My Stars
 
 #### Overview
@@ -2739,6 +2889,7 @@ gtio://posts/feed
       - if photo height < 247px and voting is ON, assume photo height is 247px to accommodate max number of buttons and minimum gaps required
       - brand buttons
          - 'button-brand.png' with active and inactive versions
+         - text is 13pt Archer Book Italic, rgb(88,88,88)
          - horizontal middle is stretchable
          - 5px nonstretchable on left
          - 5px nonstretchable on right
@@ -3939,7 +4090,7 @@ In many places where there is a user's name, there may be a badge icon next to a
 ### 13.8 Custom UIActionSheet
 
 #### Mockups
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/13.8.actionsheet.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/13.8.actionsheet.png" width=420px/>
 
 #### Design Stories
 - Buttons (use general/large.button.[color].[state].png)
@@ -3958,7 +4109,7 @@ In many places where there is a user's name, there may be a badge icon next to a
 ### 13.9 Custom UIAlertView
 
 #### Mockups
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/13.9.custom.dialog.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/13.9.custom.dialog.png" width=420px/>
 
 #### Design Stories
 - Background Stretchable Image (general/alert.bg.png)
@@ -3984,3 +4135,37 @@ In many places where there is a user's name, there may be a badge icon next to a
 		- Proxima Nova Bold/Regular rgb(85,85,86) #555556
 		- Cancel button: rgb(143,143,143) #8f8f8f
 		- Vertically/horizontally centered in button
+
+### 13.10 Unified Autocomplete
+
+#### Mockups
+
+Control hidden/lowered
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.1.Input.png" width=420px/>
+
+Control raised, populating brands
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.2.Input.Brands.png" width=420px/>
+
+Control raised, populating users
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.3.Input.People.png" width=420px/>
+
+#### Design Stories
+- Background Area
+   - 'keyboard-top-control-bg.png'
+   - when 'expanded', is placed directly above keyboard
+   - 'collapsed' state should show 6px of top of asset above keyboard
+   - should animate in and out from underneath the keyboard when needed/not needed
+- Buttons
+   - 'keyboard-top-control-button.png' with active and inactive states
+   - horizontal middle is stretchable
+      - 3px nonstretchable on left
+      - 3px nonstretchable on right
+   - 5px of padding on top, bottom, left, right (5px gaps between buttons)
+   - text is Proxima Nova Regular, 14pt, rgb(64,64,64)
+   - Brands
+      - allow 12px of padding on left and right of text inside button
+   - Users
+      - user icon is displayed at 26px x 26px with 'user-icon-overlay-52.png' placed directly over (masks edges and overlays a shadow)
+         - 4px of padding from top, bottom and left edges of button
+      - user name
+         - allow 6px of padding from right edge of user icon and right edge of button

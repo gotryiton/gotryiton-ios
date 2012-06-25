@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import "GTIOButton.h"
+#import "GTIOUIButton.h"
 #import "GTIOPhotoFilterView.h"
 
-@interface GTIOFilterButton : GTIOButton
+@interface GTIOFilterButton : GTIOUIButton
 
 + (id)buttonWithFilterType:(GTIOFilterType)filterType tapHandler:(GTIOButtonDidTapHandler)tapHandler;
 

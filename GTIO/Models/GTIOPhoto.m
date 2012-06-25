@@ -19,6 +19,7 @@
 @implementation GTIOPhoto
 
 @synthesize photoID = _photoID, userID = _userID, url = _url, width = _width, height = _height, currentCreatePhotoRequest = _currentCreatePhotoRequest;
+@synthesize mainImageURL = _mainImageURL, squareThumbnailURL = _squareThumbnailURL, smallThumbnailURL = _smallThumbnailURL;
 
 + (GTIOPhoto *)createGTIOPhotoWithUIImage:(UIImage *)image framed:(BOOL)framed filter:(NSString *)filterName completionHandler:(GTIOPhotoCreationHandler)completionHandler
 {
@@ -65,5 +66,22 @@
 {
     [self.currentCreatePhotoRequest cancel];
 }
+
+- (CGSize)photoSize
+{
+    return (CGSize){ [self.width intValue], [self.height intValue] };
+}
+
+#warning Used for testing
+- (NSNumber *)width
+{
+    return [NSNumber numberWithInt:454];
+}
+
+- (NSNumber *)height
+{
+    return [NSNumber numberWithInt:604];
+}
+#warning End Used for testing
 
 @end

@@ -11,9 +11,10 @@
 #import "GTIOFilterManager.h"
 #import "GTIOFilterOperation.h"
 
+#import "UIImage+Blend.h"
+
 @interface GTIOFilter ()
 
-- (UIImage *)blendWithTopImage:(UIImage *)topImage bottomImage:(UIImage *)bottomImage;
 - (UIImage *)filterImage:(UIImage *)image WithFilters:(NSMutableArray *)filters;
 
 @end
@@ -59,7 +60,7 @@
         [filteredGPUImage processImage];
         UIImage *filteredMaskedImage = [maskFilter imageFromCurrentlyProcessedOutput];
         
-        return [self blendWithTopImage:filteredMaskedImage bottomImage:filteredBackgroundImage];
+        return [UIImage blendTopImage:filteredMaskedImage bottomImage:filteredBackgroundImage blendMode:self.blendMode];
     } else {
         return filteredBackgroundImage;
     }
@@ -88,20 +89,6 @@
     } else {
         return image;
     }
-}
-
-- (UIImage *)blendWithTopImage:(UIImage *)topImage bottomImage:(UIImage *)bottomImage
-{
-    UIGraphicsBeginImageContextWithOptions(bottomImage.size, YES, [[UIScreen mainScreen] scale]);
-    
-    [bottomImage drawInRect:(CGRect){ CGPointZero, bottomImage.size }];
-    [topImage drawInRect:(CGRect){ CGPointZero, bottomImage.size } blendMode:self.blendMode alpha:1.0];
-    
-    UIImage *blendedImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return blendedImage;
 }
 
 #pragma mark - Properties

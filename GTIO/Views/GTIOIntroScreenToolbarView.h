@@ -12,8 +12,8 @@
 
 @property (nonatomic, strong) GTIOPageControl *pageControl;
 
-@property (nonatomic, strong) GTIOButton *signInButton;
-@property (nonatomic, strong) GTIOButton *nextButton;
+@property (nonatomic, strong) GTIOUIButton *signInButton;
+@property (nonatomic, strong) GTIOUIButton *nextButton;
 
 - (void)hideButtons:(BOOL)hidden;
 

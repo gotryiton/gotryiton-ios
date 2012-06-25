@@ -13,8 +13,8 @@
 @interface GTIOFollowRequestAcceptBarView()
 
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) GTIOButton *acceptButton;
-@property (nonatomic, strong) GTIOButton *blockButton;
+@property (nonatomic, strong) GTIOUIButton *acceptButton;
+@property (nonatomic, strong) GTIOUIButton *blockButton;
 
 @end
 
@@ -36,10 +36,10 @@
         [_titleLabel setTextColor:[UIColor whiteColor]];
         [self addSubview:_titleLabel];
         
-        _acceptButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeAccept];
+        _acceptButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeAccept];
         [self addSubview:_acceptButton];
         
-        _blockButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeBlock];
+        _blockButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBlock];
         [self addSubview:_blockButton];
     }
     return self;

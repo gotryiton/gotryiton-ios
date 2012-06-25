@@ -13,21 +13,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GTIOEditProfilePictureViewController.h"
 #import "GTIOMeTableHeaderViewLabel.h"
+#import "GTIOButton.h"
 #import "GTIOProfileViewController.h"
 #import "GTIOEditProfileViewController.h"
-
-typedef enum {
-    GTIOUserInfoButtonTagFollowing = 0,
-    GTIOUserInfoButtonTagFollowers,
-    GTIOUserInfoButtonTagStars
-} GTIOUserInfoButtonTag;
 
 @interface GTIOMeTableHeaderView()
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 
 @property (nonatomic, strong) GTIOSelectableProfilePicture *profileIcon;
-@property (nonatomic, strong) GTIOButton *profileIconButton;
+@property (nonatomic, strong) GTIOUIButton *profileIconButton;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *locationLabel;
 @property (nonatomic, strong) UIImageView *badge;
@@ -39,10 +34,10 @@ typedef enum {
 @property (nonatomic, strong) GTIOMeTableHeaderViewLabel *starsLabel;
 @property (nonatomic, strong) GTIOMeTableHeaderViewLabel *starCountLabel;
 
-@property (nonatomic, strong) GTIOButton *followingButton;
-@property (nonatomic, strong) GTIOButton *followersButton;
-@property (nonatomic, strong) GTIOButton *starsButton;
-@property (nonatomic, strong) GTIOButton *editButton;
+@property (nonatomic, strong) GTIOUIButton *followingButton;
+@property (nonatomic, strong) GTIOUIButton *followersButton;
+@property (nonatomic, strong) GTIOUIButton *starsButton;
+@property (nonatomic, strong) GTIOUIButton *editButton;
 
 @property (nonatomic, strong) UIImage *editImage;
 
@@ -69,7 +64,7 @@ typedef enum {
         [_profileIcon setHasOuterShadow:YES];
         [self addSubview:_profileIcon];
         
-        _profileIconButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
+        _profileIconButton = [[GTIOUIButton alloc] initWithFrame:CGRectZero];
         [_profileIconButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_profileIconButton];
         
@@ -114,19 +109,19 @@ typedef enum {
         
         // following / followers / stars buttons
         
-        _followingButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
+        _followingButton = [[GTIOUIButton alloc] initWithFrame:CGRectZero];
         [_followingButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_followingButton];
         
-        _followersButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
+        _followersButton = [[GTIOUIButton alloc] initWithFrame:CGRectZero];
         [_followersButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_followersButton];
         
-        _starsButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
+        _starsButton = [[GTIOUIButton alloc] initWithFrame:CGRectZero];
         [_starsButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_starsButton];
         
-        _editButton = [[GTIOButton alloc] initWithFrame:CGRectZero];
+        _editButton = [[GTIOUIButton alloc] initWithFrame:CGRectZero];
         [_editButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self setUsesGearInsteadOfPencil:NO];
         [self addSubview:_editButton];
@@ -185,21 +180,21 @@ typedef enum {
 
 - (void)refreshButtons
 {
-    self.followingLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowing];
-    self.followingCountLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowing];
-    self.followingButton.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowing];
-    self.followersLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowers];
-    self.followerCountLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowers];
-    self.followersButton.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagFollowers];
-    self.starsLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagStars];
-    self.starCountLabel.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagStars];
-    self.starsButton.hidden = ![self userInfoButtonsHasButtonwWithTag:GTIOUserInfoButtonTagStars];
+    self.followingLabel.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameFollowing];
+    self.followingCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameFollowing];
+    self.followingButton.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameFollowing];
+    self.followersLabel.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameFollowers];
+    self.followerCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameFollowers];
+    self.followersButton.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameFollowers];
+    self.starsLabel.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameStars];
+    self.starCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameStars];
+    self.starsButton.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameStars];
 }
 
-- (BOOL)userInfoButtonsHasButtonwWithTag:(GTIOUserInfoButtonTag)tag
+- (BOOL)userInfoButtonsHasButtonwWithName:(NSString *)name
 {
     for (GTIOButton *button in self.userInfoButtons) {
-        if (button.tag == tag) {
+        if ([button.name isEqualToString:name]) {
             return YES;
         }
     }
@@ -238,7 +233,6 @@ typedef enum {
     for (int i = 0; i < [self.userInfoButtons count]; i++) {
         GTIOButton *button = [self.userInfoButtons objectAtIndex:i];
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameFollowing]) {
-            button.tag = GTIOUserInfoButtonTagFollowing;
             [self.followingLabel setText:@"following"];
             [self.followingCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             self.followingButton.tapHandler = ^(id sender) {
@@ -251,7 +245,6 @@ typedef enum {
             };
         }
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameFollowers]) {
-            button.tag = GTIOUserInfoButtonTagFollowers;
             [self.followersLabel setText:@"followers"];
             [self.followerCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             _followersButton.tapHandler = ^(id sender) {
@@ -259,7 +252,6 @@ typedef enum {
             };
         }
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameStars]) {
-            button.tag = GTIOUserInfoButtonTagStars;
             [self.starCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             _starsButton.tapHandler = ^(id sender) {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
@@ -272,7 +264,7 @@ typedef enum {
 
 - (void)buttonTapped:(id)sender
 {
-    GTIOButton *button = (GTIOButton *)sender;
+    GTIOUIButton *button = (GTIOUIButton *)sender;
     if (button.tapHandler) {
         button.tapHandler(button);
     }

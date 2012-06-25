@@ -33,7 +33,7 @@
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"edit profile" italic:YES];
     [self useTitleView:navTitleView];
     
-    GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
+    GTIOUIButton *saveButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
         [self dismissKeyboard];
         NSMutableArray *missingDataElements = [NSMutableArray array];
         for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
@@ -65,7 +65,7 @@
     }];
     [self setRightNavigationButton:saveButton];
     
-    GTIOButton *cancelButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
+    GTIOUIButton *cancelButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self setLeftNavigationButton:cancelButton];
