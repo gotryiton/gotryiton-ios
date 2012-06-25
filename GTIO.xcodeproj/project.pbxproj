@@ -210,6 +210,9 @@
 		8EB0F81F159102CC00794042 /* GTIOUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0F81E159102CC00794042 /* GTIOUserProfile.m */; };
 		8EB0F8221591080400794042 /* GTIOProfileCallout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0F8211591080400794042 /* GTIOProfileCallout.m */; };
 		8EB3BF7A159229B8002EE762 /* GTIOFollowRequestAcceptBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BF79159229B8002EE762 /* GTIOFollowRequestAcceptBarView.m */; };
+		8EC203751598F28900685686 /* GTIOMasonGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EC203741598F28900685686 /* GTIOMasonGridView.m */; };
+		8EC203861598FDF400685686 /* GTIOMasonGridColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EC203851598FDF400685686 /* GTIOMasonGridColumn.m */; };
+		8EC2038A1598FE9C00685686 /* GTIOMasonGridItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EC203891598FE9C00685686 /* GTIOMasonGridItem.m */; };
 		8ECB2A8C1587DEDC0039A4F1 /* GTIOButtonAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB2A8B1587DEDC0039A4F1 /* GTIOButtonAction.m */; };
 		8ECB2A901587E0480039A4F1 /* GTIOMyManagementScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB2A8F1587E0480039A4F1 /* GTIOMyManagementScreen.m */; };
 		8ED009541598D8EC00E50B09 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED006EB1598D8EC00E50B09 /* Default.png */; };
@@ -1288,6 +1291,12 @@
 		8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOQuickAddViewController.m; sourceTree = "<group>"; };
 		8EB3BF78159229B8002EE762 /* GTIOFollowRequestAcceptBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFollowRequestAcceptBarView.h; sourceTree = "<group>"; };
 		8EB3BF79159229B8002EE762 /* GTIOFollowRequestAcceptBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFollowRequestAcceptBarView.m; sourceTree = "<group>"; };
+		8EC203731598F28900685686 /* GTIOMasonGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMasonGridView.h; sourceTree = "<group>"; };
+		8EC203741598F28900685686 /* GTIOMasonGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMasonGridView.m; sourceTree = "<group>"; };
+		8EC203841598FDF400685686 /* GTIOMasonGridColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMasonGridColumn.h; sourceTree = "<group>"; };
+		8EC203851598FDF400685686 /* GTIOMasonGridColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMasonGridColumn.m; sourceTree = "<group>"; };
+		8EC203881598FE9C00685686 /* GTIOMasonGridItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMasonGridItem.h; sourceTree = "<group>"; };
+		8EC203891598FE9C00685686 /* GTIOMasonGridItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMasonGridItem.m; sourceTree = "<group>"; };
 		8ECB2A8A1587DEDC0039A4F1 /* GTIOButtonAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOButtonAction.h; sourceTree = "<group>"; };
 		8ECB2A8B1587DEDC0039A4F1 /* GTIOButtonAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOButtonAction.m; sourceTree = "<group>"; };
 		8ECB2A8E1587E0480039A4F1 /* GTIOMyManagementScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMyManagementScreen.h; sourceTree = "<group>"; };
@@ -2622,6 +2631,19 @@
 			name = Post;
 			sourceTree = "<group>";
 		};
+		8EC203871598FE0600685686 /* Mason Grid */ = {
+			isa = PBXGroup;
+			children = (
+				8EC203731598F28900685686 /* GTIOMasonGridView.h */,
+				8EC203741598F28900685686 /* GTIOMasonGridView.m */,
+				8EC203841598FDF400685686 /* GTIOMasonGridColumn.h */,
+				8EC203851598FDF400685686 /* GTIOMasonGridColumn.m */,
+				8EC203881598FE9C00685686 /* GTIOMasonGridItem.h */,
+				8EC203891598FE9C00685686 /* GTIOMasonGridItem.m */,
+			);
+			name = "Mason Grid";
+			sourceTree = "<group>";
+		};
 		8ECB2A8D1587E0220039A4F1 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -3719,6 +3741,7 @@
 		D298588B156543F4005EE3CA /* General */ = {
 			isa = PBXGroup;
 			children = (
+				8EC203871598FE0600685686 /* Mason Grid */,
 				D2DEAED11587938F0032ED1F /* Buttons */,
 				D25F9937156EAA2C004B705E /* GTIOSwitch.h */,
 				D25F9938156EAA2C004B705E /* GTIOSwitch.m */,
@@ -5152,6 +5175,9 @@
 				8E3174811593C0BF00271FFB /* GTIOPagination.m in Sources */,
 				8EAFB59C1594BFB40080A961 /* GTIOActionSheet.m in Sources */,
 				8EEC04561598B4C400324E72 /* GTIODualViewSegmentedControlView.m in Sources */,
+				8EC203751598F28900685686 /* GTIOMasonGridView.m in Sources */,
+				8EC203861598FDF400685686 /* GTIOMasonGridColumn.m in Sources */,
+				8EC2038A1598FE9C00685686 /* GTIOMasonGridItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

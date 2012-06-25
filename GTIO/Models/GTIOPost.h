@@ -10,6 +10,12 @@
 #import "GTIOUser.h"
 #import "GTIOPhoto.h"
 
+typedef enum GTIOPostType {
+    GTIOPostTypeNone = 0,
+    GTIOPostTypeHeart,
+    GTIOPostTypeStar
+} GTIOPostType;
+
 @interface GTIOPost : NSObject
 
 @property (nonatomic, copy) NSString *postID;
