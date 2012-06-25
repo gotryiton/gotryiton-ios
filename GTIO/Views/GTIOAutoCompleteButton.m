@@ -16,10 +16,12 @@
 @synthesize completer = _completer;
 
 
-- (id)initWithFrame:(CGRect) frame withCompleter:(GTIOAutoCompleter *) completer
+- (id)initWithFrame:(CGRect) frame tapHandler:(GTIOButtonDidTapHandler)tapHandler withCompleter:(GTIOAutoCompleter *) completer
 {
     self = [super initWithFrame:frame];
     if (self) {
+
+    	[self setTapHandler:tapHandler];
 
         _completer = completer;
 
@@ -43,15 +45,12 @@
 	        [self addSubview:outerShadow];
 
             [icon setImageWithURL:completer.icon placeholderImage:nil success:^(UIImage *image) {
-               icon.hidden = NO;
-                outerShadow.hidden = NO;
-
-               // 
+            	icon.hidden = NO;
+            	outerShadow.hidden = NO;
             } failure:^(NSError *error) {
                 //NSLog(@"%@", [error localizedDescription]);
             }];
             
-	        
 
 	        //fix positioning of text:
 	        [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
@@ -73,14 +72,7 @@
        	[self setTitleEdgeInsets:UIEdgeInsetsMake(2, 12, 2, 12)];
 
 
-    	
-
-    	//NSLog(@"created button: %@ with size:%@", completer.name, NSStringFromCGSize(displayNameTextSize));
         [self setFrame:(CGRect){ CGRectGetMinX(frame), CGRectGetMinY(frame), displayNameTextSize.width + 10, CGRectGetHeight(frame) } ];
-
-        [self addTarget:self action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
-
-      
         
     }
     return self;

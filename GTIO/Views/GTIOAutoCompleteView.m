@@ -16,6 +16,7 @@
 @synthesize autoCompleteArray = _autoCompleteArray;
 @synthesize autoCompleteButtonOptions = _autoCompleteButtonOptions;
 @synthesize scrollView = _scrollView;
+@synthesize scrollViewBackground = _scrollViewBackground;
 @synthesize textInput = _textInput;
 @synthesize textView = _textView;
 @synthesize previewTextView = _previewTextView;
@@ -37,7 +38,7 @@
 @synthesize isScrollViewShowing = _isScrollViewShowing;
 
 
-- (id)initWithFrame:(CGRect)frame withOuterBox:(CGRect) outerFrame withData:(NSMutableArray *)arr
+- (id)initWithFrame:(CGRect)frame withOuterBox:(CGRect) outerFrame 
 {
     self = [super initWithFrame:outerFrame];
     if (self) {
@@ -48,7 +49,7 @@
 
         
         // the autoCompleteArray 
-        _autoCompleteArray = arr;
+        _autoCompleteArray = [[NSMutableArray alloc] init];
         
         // the array of visible autocomplete buttons in the scroll view
         _autoCompleteButtonOptions = [[NSMutableArray alloc] init];
@@ -70,7 +71,7 @@
 
         
         CGRect editingFrame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), CGRectGetHeight(frame) - 45);
-        CGRect inputFrame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame)+11, CGRectGetHeight(frame) - 45);
+        CGRect inputFrame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame) + 16, CGRectGetHeight(frame) - 45);
         
 
         /****
@@ -85,7 +86,7 @@
         [_textInput  setFont: [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.f]];
         // [self.textInput  setFont: [UIFont fontWithName:@"ArialMT" size:15]];
         [self addSubview:self.textInput];
-        _textInput.textColor = [UIColor clearColor];
+        _textInput.textColor = [UIColor greenColor];
 
         
         _ACInputColor = CGColorRetain([UIColor gtio_darkGrayTextColor].CGColor);
@@ -125,16 +126,16 @@
         *****/
         _isScrollViewShowing = NO;
         
-        CGRect scrollFrameBox = CGRectMake( 0, CGRectGetHeight(self.bounds)-6, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + 44);
+        CGRect scrollFrameBox = CGRectMake( 0, CGRectGetHeight(self.bounds)-4, CGRectGetWidth(self.bounds), 50);
+
+        _scrollViewBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"keyboard-top-control-bg.png"]];
+        [_scrollViewBackground setFrame:scrollFrameBox];
+        [self addSubview:self.scrollViewBackground];
+        
         _scrollView = [[GTIOAutoCompleteScrollView alloc] initWithFrame:scrollFrameBox];
         _scrollView.autoCompleteDelegate = self;
         [self addSubview:self.scrollView];
         
-        _scrollView.canCancelContentTouches = YES;
-        _scrollView.delaysContentTouches = YES;
-        _scrollView.userInteractionEnabled = YES;
-
-
         //set up attr string
         _attrString = [[NSMutableAttributedString alloc] initWithString:@""];
         
@@ -151,9 +152,17 @@
     
     _textInput = nil;
     _scrollView = nil;
+    _scrollViewBackground = nil;
     _autoCompleteArray = nil;
     _autoCompleteButtonOptions = nil;
  
+}
+
+- (void) addCompleters:(NSMutableArray *) completers
+{
+    for (GTIOAutoCompleter * completer in completers){
+        [self.autoCompleteArray addObject:completer];    
+    }
 }
 
 - (void) showScrollView 
@@ -163,8 +172,9 @@
         self.isScrollViewShowing = YES;
         
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-            CGRect scrollFrameBox = CGRectMake( 0, self.bounds.size.height-50, self.bounds.size.width, self.bounds.size.height);
+            CGRect scrollFrameBox = CGRectMake( 0, self.bounds.size.height-48, self.bounds.size.width, 50);
             [self.scrollView setFrame:scrollFrameBox];
+            [self.scrollViewBackground setFrame:scrollFrameBox];
         } completion:^(BOOL finished) {
         }];
     }
@@ -177,8 +187,9 @@
         self.isScrollViewShowing = NO;
         
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-            CGRect scrollFrameBox = CGRectMake( 0, self.bounds.size.height-6, self.bounds.size.width, self.bounds.size.height + 44);
+            CGRect scrollFrameBox = CGRectMake( 0, self.bounds.size.height-4, self.bounds.size.width, 50);
             [self.scrollView setFrame:scrollFrameBox];
+            [self.scrollViewBackground setFrame:scrollFrameBox];
         } completion:^(BOOL finished) {
             [self.scrollView clearScrollView];
         }];
@@ -316,11 +327,11 @@
 }
 
 - (void)updateInputDisplayTextInRange:(NSRange) range withString:(NSString *) string
-{
-
+{   
+    
         NSDictionary *inputTextAttr = [NSDictionary dictionaryWithObjectsAndKeys:
                                     (id)self.ACInputFont, (id)kCTFontAttributeName,
-                                       [NSNumber numberWithFloat:0.03], kCTKernAttributeName,
+                                       [NSNumber numberWithFloat:0.0], kCTKernAttributeName,                                
                                     self.ACInputColor, (id)kCTForegroundColorAttributeName, nil];
 
 
@@ -355,17 +366,15 @@
 - (void)unHighlightInputTextInRange:(NSRange) range 
 {
     
-    NSLog(@"range: %@", NSStringFromRange(range));
-    NSLog(@"replacing: %@", [[self.attrString string] substringWithRange:range]);
-    
     [self updateInputDisplayTextInRange:range withString:[[self.attrString string] substringWithRange:range]];
     
 }
 
 - (void)displayPlaceholderText {
 
-    NSArray *highlights = [[NSArray alloc] initWithObjects: @"#highlights", @"@simon", nil];
-    [self displayPlaceholderText:@"this is my placeholder with #highlights, @simon" withHighlightedStrings:highlights];
+    // NSArray *highlights = [[NSArray alloc] initWithObjects: @"#highlights", @"@simon", nil];
+    NSArray *highlights = [[NSArray alloc] init];
+    [self displayPlaceholderText:@"How does this Zara top look? @Becky #wedding" withHighlightedStrings:highlights];
 
     if (self.previewTextView.opacity ==0){
         [UIView beginAnimations:nil context:nil];
@@ -383,7 +392,7 @@
 
         NSDictionary *placeholderTextAttr = [NSDictionary dictionaryWithObjectsAndKeys:
                                     (id)self.ACPlaceholderFont, (id)kCTFontAttributeName,
-                                             [NSNumber numberWithFloat:0.03], kCTKernAttributeName,
+                                             [NSNumber numberWithFloat:0.0], kCTKernAttributeName,
                                     self.ACPlaceholderColor, (id)kCTForegroundColorAttributeName, nil];
 
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:text attributes:placeholderTextAttr];
@@ -616,16 +625,8 @@
 
             
             if ([attributes objectForKey:@"completerType"] ){
-               
-                response = [response stringByAppendingString:@"{"];
-                response = [response stringByAppendingString:[attributes objectForKey:@"completerType"]];
-                response = [response stringByAppendingString:@"{"];
-                response = [response stringByAppendingString:[attributes objectForKey:@"completerId"]];
-                response = [response stringByAppendingString:@"{"];
-                response = [response stringByAppendingString:[[self.attrString string] substringWithRange:effectiveRange]];
-                response = [response stringByAppendingString:@"}}}"];
                 
-                [response stringByAppendingFormat:@"{%@{%@{%@}}}", [attributes objectForKey:@"completerType"], [attributes objectForKey:@"completerId"], [[self.attrString string] substringWithRange:effectiveRange]];
+                response = [response stringByAppendingFormat:@"{%@{%@{%@}}}", [attributes objectForKey:@"completerType"], [attributes objectForKey:@"completerId"], [[self.attrString string] substringWithRange:effectiveRange]];
             }
             else {
                 response = [response stringByAppendingString:[[self.attrString string] substringWithRange:effectiveRange]];    

@@ -20,6 +20,7 @@
 #import "GTIOPost.h"
 #import "GTIOButtonAction.h"
 #import "GTIOMyManagementScreen.h"
+#import "GTIOAutoCompleter.h"
 
 @implementation GTIOMappingProvider
 
@@ -41,6 +42,7 @@
         RKObjectMapping *buttonMapping = [RKObjectMapping mappingForClass:[GTIOButton class]];
         RKObjectMapping *buttonActionMapping = [RKObjectMapping mappingForClass:[GTIOButtonAction class]];
         RKObjectMapping *myManagementScreenMapping = [RKObjectMapping mappingForClass:[GTIOMyManagementScreen class]];
+        RKObjectMapping *autocompleterMapping = [RKObjectMapping mappingForClass:[GTIOAutoCompleter class]];
         
         /** Config
          */
@@ -141,8 +143,20 @@
         [postMapping mapKeyPath:@"id" toAttribute:@"postID"];
         [postMapping mapRelationship:@"user" withMapping:userMapping];
         [self setMapping:postMapping forKeyPath:@"post"];
+
+
+        // GTIOAutoCompleter
+        [autocompleterMapping mapKeyPath:@"id" toAttribute:@"completer_id"];
+        [autocompleterMapping mapKeyPath:@"name" toAttribute:@"name"];
+        [autocompleterMapping mapKeyPath:@"icon" toAttribute:@"icon"];
+        [self setMapping:autocompleterMapping forKeyPath:@"dictionary"];
+
+
+
     }
     return self;
 }
 
 @end
+
+

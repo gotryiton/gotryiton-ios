@@ -20,6 +20,7 @@
 
 @property (nonatomic, strong) NSMutableArray *autoCompleteArray;
 @property (nonatomic, strong) GTIOAutoCompleteScrollView *scrollView;
+@property (nonatomic, strong) UIImageView *scrollViewBackground;
 @property (nonatomic, strong) NSMutableArray *autoCompleteButtonOptions;
 @property (nonatomic, strong) UITextView *textInput;
 
@@ -43,6 +44,8 @@
 
 @property (assign) BOOL isScrollViewShowing;
 
--(UIView *) initWithFrame:(CGRect) frame withOuterBox:(CGRect) outerFrame withData:(NSMutableArray *) arr;
+-(UIView *) initWithFrame:(CGRect) frame withOuterBox:(CGRect) outerFrame;
+
+-(void) addCompleters:(NSMutableArray * ) completers;
 
 @end

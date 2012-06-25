@@ -23,6 +23,7 @@
 
 -(void) showButtonsWithAutoCompleters:(NSArray *) buttons;
 -(void) clearScrollView;
-
+-(BOOL) touchesShouldCancelInContentView:(UIView *) view;
+-(void) touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event;
 
 @end

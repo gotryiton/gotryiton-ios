@@ -14,17 +14,18 @@
 
 @synthesize autoCompleteDelegate = _autoCompleteDelegate;
 
+
 - (id)initWithFrame:(CGRect)frame 
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         
-        UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"keyboard-top-control-bg.png"]];
-        [backgroundImageView setFrame:(CGRect){0,0,self.bounds.size.width, 50}];
-        [self addSubview:backgroundImageView];
-
         self.canCancelContentTouches = YES;
+        self.userInteractionEnabled = YES;
+        self.delaysContentTouches = YES;
+        self.showsHorizontalScrollIndicator = NO;
+        self.exclusiveTouch = NO;
     }
     return self;
 }
@@ -32,6 +33,16 @@
 
 - (BOOL)touchesShouldCancelInContentView:(UIView *)view { 
     return ![view isKindOfClass:[UISlider class]]; 
+}
+
+- (void) touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 
+{   
+    NSLog(@"hi");
+  // If not dragging, send event to next responder
+  if (!self.dragging) 
+    [self.nextResponder touchesEnded: touches withEvent:event]; 
+  else
+    [super touchesEnded: touches withEvent: event];
 }
 
 
@@ -68,17 +79,20 @@
         
         
 
-        GTIOAutoCompleteButton *optionButton = [[GTIOAutoCompleteButton alloc] initWithFrame:(CGRect){ btnWidth,11,30,34 } withCompleter:option];
-
-        [optionButton setTapHandler:^(id sender) {
-            [self AutoCompleterButtonTouched:((GTIOAutoCompleteButton *)sender).completer];
+        GTIOAutoCompleteButton *optionButton = [[GTIOAutoCompleteButton alloc] initWithFrame:(CGRect){ btnWidth,11,30,34 } tapHandler:^(id sender) {
             NSLog(@"touch!!");
-        }];
+            [self AutoCompleterButtonTouched:((GTIOAutoCompleteButton *)sender)];
+        } withCompleter:option];
+
+        [optionButton addTarget:self action:@selector(AutoCompleterButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+
 
         [self addSubview:optionButton];
         
         btnWidth += CGRectGetWidth(optionButton.frame) + 5;
         
+        [self setContentSize:CGSizeMake( btnWidth, 50 )];
+
         i++;
     }
             
@@ -86,8 +100,9 @@
 
 #pragma mark - Buttons
 
-- (void)AutoCompleterButtonTouched:(GTIOAutoCompleter* )completer
+- (void)AutoCompleterButtonTouched:(GTIOAutoCompleteButton* )button
 {
+    GTIOAutoCompleter* completer = button.completer;
     if([self.autoCompleteDelegate respondsToSelector:@selector(autoCompleterIdSelected:)]) {
         
         [self.autoCompleteDelegate autoCompleterIdSelected:completer.completer_id];

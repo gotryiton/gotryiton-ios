@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
 
 @interface GTIOAutoCompleter : NSObject
 
@@ -16,5 +17,8 @@
 @property (nonatomic, strong) NSURL *icon;
 
 - (NSString *) getCompleterString;
+
++ (void) loadBrandDictionaryWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
++ (void) loadUsersDictionaryWithCompletionHandler:(GTIOCompletionHandler)completionHandler withUserId:(NSString *) user_id;
 
 @end

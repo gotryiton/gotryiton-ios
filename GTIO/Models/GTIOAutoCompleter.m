@@ -8,6 +8,7 @@
 
 #import "GTIOAutoCompleter.h"
 
+
 @implementation GTIOAutoCompleter
 
 
@@ -31,6 +32,50 @@
 		return [@"@" stringByAppendingString:self.name];
 	}
 	return self.name;
+}
+
+
+
++ (void)loadBrandDictionaryWithCompletionHandler:(GTIOCompletionHandler)completionHandler
+{
+    NSString *dictionaryPath = @"/autocomplete-dictionary/brands";
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:dictionaryPath usingBlock:^(RKObjectLoader *loader) {
+        loader.method = RKRequestMethodPOST;
+        
+        loader.onDidLoadObjects = ^(NSArray *objects) {                
+            if (completionHandler) {
+                completionHandler(objects, nil);
+            }
+        };
+        
+        loader.onDidFailWithError = ^(NSError *error) {
+            if (completionHandler) {
+                completionHandler(nil, error);
+            }
+        };
+    }];
+}
+
++ (void)loadUsersDictionaryWithCompletionHandler:(GTIOCompletionHandler)completionHandler withUserId:(NSString *) user_id
+{
+    NSString *dictionaryPath = [@"" stringByAppendingFormat:@"/autocomplete-dictionary/users/%@/post", user_id];
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:dictionaryPath usingBlock:^(RKObjectLoader *loader) {
+        loader.method = RKRequestMethodPOST;
+        
+        loader.onDidLoadObjects = ^(NSArray *objects) {                
+            if (completionHandler) {
+                completionHandler(objects, nil);
+            }
+        };
+        
+        loader.onDidFailWithError = ^(NSError *error) {
+            if (completionHandler) {
+                completionHandler(nil, error);
+            }
+        };
+    }];
 }
 
 
