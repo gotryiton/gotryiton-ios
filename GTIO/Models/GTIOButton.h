@@ -10,6 +10,17 @@
 
 static NSString * const kGTIOPhotoHeartButton = @"photo-heart-button";
 
+typedef enum GTIOFollowButtonState {
+    GTIOFollowButtonStateFollow = 0,
+    GTIOFollowButtonStateFollowing,
+    GTIOFollowButtonStateRequested
+} GTIOFollowButtonState;
+
+typedef enum GTIOAcceptRelationshipButtonState {
+    GTIOAcceptRelationshipButtonStateBlock = 0,
+    GTIOAcceptRelationshipButtonStateAccept
+} GTIOAcceptRelationshipButtonState;
+
 @interface GTIOButton : NSObject
 
 @property (nonatomic, copy) NSString *name;
@@ -19,6 +30,7 @@ static NSString * const kGTIOPhotoHeartButton = @"photo-heart-button";
 @property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, strong) NSNumber *chevron;
 @property (nonatomic, strong) NSNumber *state;
+@property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) GTIOButtonAction *action;
 
 @end

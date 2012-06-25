@@ -38,5 +38,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_lightestGrayTextColor;
 + (UIColor *)gtio_grayTextColor;
 + (UIColor *)gtio_darkGray3TextColor;
++ (UIColor *)gtio_semiTransparentBackgroundColor;
++ (UIColor *)gtio_profileDescriptionTextColor;
 
 @end

@@ -12,5 +12,6 @@
 
 @property (nonatomic, copy) NSString *destination;
 @property (nonatomic, copy) NSString *endpoint;
+@property (nonatomic, strong) NSNumber *spinner;
 
 @end

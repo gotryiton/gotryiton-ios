@@ -43,6 +43,12 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeEditProfilePencilCircle,
     GTIOButtonTypeQuickAddCheckbox,
     GTIOButtonTypeFollowButton,
+    GTIOButtonTypeAccept,
+    GTIOButtonTypeBlock,
+    GTIOButtonTypeWebsiteLink,
+    GTIOButtonTypeFollowButtonForNavBar,
+    GTIOButtonTypeFollowingButtonForNavBar,
+    GTIOButtonTypeRequestedButtonForNavBar,
     GTIOButtonTypeMask
 } GTIOButtonType;
 

@@ -79,6 +79,8 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     [self.profilePicture setFrame:(CGRect){ 30, 70, 46, 46 }];
     [self.viewLayout setFrame:(CGRect){ 5, 5, self.viewLayout.bounds.size }];
     [self.userName setFrame:(CGRect){ 83, ([GTIOUser currentUser].location.length > 0) ? 70 : 82, 167, 22 }];

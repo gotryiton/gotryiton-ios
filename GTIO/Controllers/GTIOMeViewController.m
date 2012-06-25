@@ -19,6 +19,7 @@
 #import "GTIOProgressHUD.h"
 #import "GTIOSignInViewController.h"
 #import "GTIOButton.h"
+#import "GTIOProgressHUD.h"
 
 @interface GTIOMeViewController ()
 
@@ -51,11 +52,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self refreshScreenLayout];
-    
+
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
     [self.profileHeaderView setDelegate:self];
+    [self.profileHeaderView setUser:[GTIOUser currentUser]];
+    [self.profileHeaderView setEditButtonTapHandler:^(id sender) {
+        GTIOEditProfileViewController *editProfileViewController = [[GTIOEditProfileViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:editProfileViewController animated:YES];
+    }];
+    [self.profileHeaderView setProfilePictureTapHandler:^(id sender) {
+        GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
+    }];
+    [self.profileHeaderView setHasBackground:YES];
     [self.view addSubview:self.profileHeaderView];
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, self.profileHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.profileHeaderView.bounds.size.height } style:UITableViewStyleGrouped];
@@ -99,19 +108,21 @@
         NSLog(@"tapped notification bubble");
     }];
     [self useTitleView:titleView];
-    [self.profileHeaderView refreshUserData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.tableView setUserInteractionEnabled:YES];
+    [self refreshScreenLayout];
 }
 
 - (void)refreshScreenLayout
 {
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         if (!error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             int numberOfRows = 0;
             int numberOfSections = 0;
             for (id object in loadedObjects) {
@@ -232,16 +243,9 @@
 
 #pragma mark - GTIOMeTableHeaderViewDelegate Methods
 
-- (void)pushEditProfilePictureViewController
+- (void)pushViewController:(UIViewController *)viewController
 {
-    GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
-}
-
-- (void)pushEditProfileViewController
-{
-    GTIOEditProfileViewController *editProfileViewController = [[GTIOEditProfileViewController alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:editProfileViewController animated:YES];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -255,7 +259,7 @@
 {
     if (buttonIndex == 0) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[GTIOUser currentUser] logOutWithLogoutHandler:^(NSURLResponse *response) {
+        [[GTIOUser currentUser] logOutWithLogoutHandler:^(RKResponse *response) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             if (response) {
                 GTIOSignInViewController *signInViewController = (GTIOSignInViewController *)self.viewControllerToRouteTo;

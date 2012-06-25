@@ -48,6 +48,12 @@
         case GTIOButtonTypeEditProfilePencilCircle: return [self gtio_editProfilePencilCircle];
         case GTIOButtonTypeQuickAddCheckbox: return [self gtio_quickAddCheckbox];
         case GTIOButtonTypeFollowButton: return [self gtio_followButton];
+        case GTIOButtonTypeAccept: return [self gtio_acceptButton];
+        case GTIOButtonTypeBlock: return [self gtio_blockButton];
+        case GTIOButtonTypeWebsiteLink: return [self gtio_websiteLinkButton];
+        case GTIOButtonTypeFollowButtonForNavBar: return [self gtio_followButtonForNavBar];
+        case GTIOButtonTypeFollowingButtonForNavBar: return [self gtio_followingButtonForNavBar];
+        case GTIOButtonTypeRequestedButtonForNavBar: return [self gtio_requestedButtonForNavBar];
         case GTIOButtonTypeMask: return [self gtio_maskButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
@@ -298,6 +304,80 @@
     [button setTitleEdgeInsets:UIEdgeInsetsMake(7.0, 0, 0, 0)];
     [button setTitle:@"follow" forState:UIControlStateDisabled];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_acceptButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.accept.off.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.accept.on.png"] forState:UIControlStateHighlighted];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0]];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_blockButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.block.off.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.block.on.png"] forState:UIControlStateHighlighted];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0]];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_websiteLinkButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"profile.top.link.bg.png"] stretchableImageWithLeftCapWidth:2.0 topCapHeight:0.0] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
+    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_followButtonForNavBar
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"follow-OFF-top-margin.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"follow-ON-top-margin.png"] forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitle:@"follow" forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:(CGRect){ 0, 0, 70, 30 }];
+    return button;
+}
+
++ (id)gtio_followingButtonForNavBar
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"following-OFF-top-margin.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"following-ON-top-margin.png"] forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitle:@"following" forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:(CGRect){ 0, 0, 70, 30 }];
+    return button;
+}
+
++ (id)gtio_requestedButtonForNavBar
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"requested-OFF-top-margin.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"requested-ON-top-margin.png"] forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitle:@"requested" forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:(CGRect){ 0, 0, 70, 30 }];
     return button;
 }
 

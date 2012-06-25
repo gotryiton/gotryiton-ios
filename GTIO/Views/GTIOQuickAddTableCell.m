@@ -72,7 +72,7 @@
     } failure:nil];
     [self.checkbox setSelected:self.user.selected];
     if (self.user.badge) {
-        [self.badge setImageWithURL:user.badge.path];
+        [self.badge setImageWithURL:[user.badge badgeImageURL]];
     }
     [self setNeedsLayout];
 }

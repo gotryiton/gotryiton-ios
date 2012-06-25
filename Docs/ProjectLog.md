@@ -1,3 +1,30 @@
+***Monday, June 25th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review pull requests for updates to functional spec and newly sliced assets
+- GTIO - Simon working Autocomplete functionality
+- TT/GTIO - Discuss potential screen development for Simon to pick up on
+- TT - Identify dates for Scott to travel to NY
+
+**Status**
+- Reviewed open source library (waterfall view) and it does not seem very promising.  Will proceed with custom development
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Tuesday, June 19th - Standup Notes***
 
 **Attendees**
