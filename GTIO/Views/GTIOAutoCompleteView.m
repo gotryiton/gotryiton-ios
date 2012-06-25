@@ -86,7 +86,7 @@
         [_textInput  setFont: [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.f]];
         // [self.textInput  setFont: [UIFont fontWithName:@"ArialMT" size:15]];
         [self addSubview:self.textInput];
-        _textInput.textColor = [UIColor greenColor];
+        _textInput.textColor = [UIColor clearColor];
 
         
         _ACInputColor = CGColorRetain([UIColor gtio_darkGrayTextColor].CGColor);
@@ -328,7 +328,7 @@
 
 - (void)updateInputDisplayTextInRange:(NSRange) range withString:(NSString *) string
 {   
-    
+
         NSDictionary *inputTextAttr = [NSDictionary dictionaryWithObjectsAndKeys:
                                     (id)self.ACInputFont, (id)kCTFontAttributeName,
                                        [NSNumber numberWithFloat:0.0], kCTKernAttributeName,                                
