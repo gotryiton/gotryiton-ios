@@ -1,6 +1,7 @@
 #### GTIO Build Changelog
 
-#### Build 4.0.0.5 - June 22, 2012
+#### Build 4.0.0.5 
+June 25, 2012
 
 ### Build Summary
 This is a build of Geoff's work on the profile pages. There are also a few additions to The Feed view from Scott.
