@@ -137,10 +137,6 @@
         [postListMapping mapKeyPath:@"posts" toRelationship:@"posts" withMapping:postMapping];
         [postListMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
         
-        // Pagination
-        [paginationMapping mapKeyPath:@"previous_page" toAttribute:@"previousPage"];
-        [paginationMapping mapKeyPath:@"next_page" toAttribute:@"nextPage"];
-        
         // User Profile
         [userProfileMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping];
         [userProfileMapping mapKeyPath:@"ui.buttons" toRelationship:@"userInfoButtons" withMapping:buttonMapping];
