@@ -51,6 +51,8 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     [self.shadowyBackground setFrame:(CGRect){ 0, 0, self.bounds.size }];
     if (self.usesStar) {
         [self.star sizeToFit];

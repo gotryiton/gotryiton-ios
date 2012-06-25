@@ -13,6 +13,7 @@
 #import "GTIOProgressHUD.h"
 #import "GTIOFollowRequestAcceptBar.h"
 #import "GTIOPostMasonryView.h"
+#import "GTIODualViewSegmentedControlView.h"
 
 @interface GTIOProfileViewController ()
 
@@ -21,15 +22,13 @@
 @property (nonatomic, strong) GTIOButton *requestedButton;
 @property (nonatomic, strong) GTIOProfileHeaderView *profileHeaderView;
 @property (nonatomic, strong) GTIOUserProfile *userProfile;
-@property (nonatomic, strong) GTIOSegmentedControl *postsHeartsSegmentedControl;
-@property (nonatomic, strong) GTIOPostMasonryView *postsView;
-@property (nonatomic, strong) GTIOPostMasonryView *heartsView;
+@property (nonatomic, strong) GTIODualViewSegmentedControlView *postsHeartsWithSegmentedControlView;
 
 @end
 
 @implementation GTIOProfileViewController
 
-@synthesize followButton = _followButton, followingButton = _followingButton, requestedButton = _requestedButton, profileHeaderView = _profileHeaderView, userID = _userID, userProfile = _userProfile, postsHeartsSegmentedControl = _postsHeartsSegmentedControl, postsView = _postsView, heartsView = _heartsView;
+@synthesize followButton = _followButton, followingButton = _followingButton, requestedButton = _requestedButton, profileHeaderView = _profileHeaderView, userID = _userID, userProfile = _userProfile, postsHeartsWithSegmentedControlView = _postsHeartsWithSegmentedControlView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,21 +60,13 @@
     [self.profileHeaderView setAcceptBarDelegate:self];
     [self.view addSubview:self.profileHeaderView];
     
-    NSArray *segmentedControlItems = [NSArray arrayWithObjects:@"posts", @"hearts", nil];
-    self.postsHeartsSegmentedControl = [[GTIOSegmentedControl alloc] initWithItems:segmentedControlItems];
-    [self.postsHeartsSegmentedControl setFrame:CGRectZero];
-    [self.postsHeartsSegmentedControl setSelectedSegmentIndex:0];
-    [self.postsHeartsSegmentedControl addTarget:self action:@selector(segmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:self.postsHeartsSegmentedControl];
-    
-    self.postsView = [[GTIOPostMasonryView alloc] initWithGTIOPostType:GTIOPostTypeNone];
-    [self.view addSubview:self.postsView];
-    self.heartsView = [[GTIOPostMasonryView alloc] initWithGTIOPostType:GTIOPostTypeHeart];
-    self.heartsView.hidden = YES;
-    [self.view addSubview:self.heartsView];
-    
-    [self.view sendSubviewToBack:self.postsView];
-    [self.view sendSubviewToBack:self.heartsView];
+    self.postsHeartsWithSegmentedControlView = [[GTIODualViewSegmentedControlView alloc] 
+                                                initWithFrame:CGRectZero 
+                                                leftControlTitle:@"posts" 
+                                                leftControlPostsType:GTIOPostTypeNone 
+                                                rightControlTitle:@"hearts" 
+                                                rightControlPostsType:GTIOPostTypeHeart];
+    [self.view addSubview:self.postsHeartsWithSegmentedControlView];
 }
 
 - (void)viewDidUnload
@@ -85,21 +76,7 @@
     self.followButton = nil;
     self.followingButton = nil;
     self.profileHeaderView = nil;
-    self.postsHeartsSegmentedControl = nil;
-    self.postsView = nil;
-    self.heartsView = nil;
-}
-
-- (void)segmentedControlChanged:(id)sender
-{
-    GTIOSegmentedControl *segmentedControl = (GTIOSegmentedControl *)sender;
-    if (segmentedControl.selectedSegmentIndex == 0) {
-        self.heartsView.hidden = YES;
-        self.postsView.hidden = NO;
-    } else if (segmentedControl.selectedSegmentIndex == 1) {
-        self.heartsView.hidden = NO;
-        self.postsView.hidden = YES;
-    }
+    self.postsHeartsWithSegmentedControlView = nil;
 }
 
 - (void)refreshUserProfile
@@ -114,8 +91,8 @@
                     self.userProfile = (GTIOUserProfile *)object;
                     __block typeof(self) blockSelf = self;
                     [self.profileHeaderView setUserProfile:self.userProfile completionHandler:^(id sender) {
-                        [blockSelf.postsView setPosts:blockSelf.userProfile.postsList.posts user:blockSelf.userProfile.user];
-                        [blockSelf.heartsView setPosts:blockSelf.userProfile.heartsList.posts user:blockSelf.userProfile.user];
+                        [blockSelf.postsHeartsWithSegmentedControlView setPosts:blockSelf.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone user:blockSelf.userProfile.user];
+                        [blockSelf.postsHeartsWithSegmentedControlView setPosts:blockSelf.userProfile.heartsList.posts GTIOPostType:GTIOPostTypeHeart user:blockSelf.userProfile.user];
                         [blockSelf adjustVerticalLayout];
                     }];
                     [self refreshFollowButton];
@@ -147,19 +124,21 @@
         [followButton setTapHandler:^(id sender) {
             [blockSelf screenEnabled:NO];
             [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-            [[GTIOUser currentUser] hitEndpoint:self.userProfile.user.button.action.endpoint completionHandler:^(NSArray *loadedObjects, NSError *error) {
-                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                if (!error) {
-                    for (id object in loadedObjects) {
+            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.userProfile.user.button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+                loader.onDidLoadObjects = ^(NSArray *objects) {
+                    [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                    for (id object in objects) {
                         if ([object isMemberOfClass:[GTIOUser class]]) {
                             blockSelf.userProfile.user = (GTIOUser *)object;
                             [blockSelf refreshFollowButton];
                             [blockSelf refreshUserProfile];
                         }
                     }
-                } else {
+                };
+                loader.onDidFailWithError = ^(NSError *error) {
+                    [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                     NSLog(@"%@", [error localizedDescription]);
-                }
+                };
             }];
         }];
     }
@@ -184,9 +163,7 @@
 
 - (void)adjustVerticalLayout
 {
-    [self.postsHeartsSegmentedControl setFrame:(CGRect){ 0, self.profileHeaderView.frame.origin.y + self.profileHeaderView.bounds.size.height, self.view.bounds.size.width, 30 }];
-    [self.postsView setFrame:(CGRect){ 0, self.postsHeartsSegmentedControl.frame.origin.y + self.postsHeartsSegmentedControl.bounds.size.height - 4, self.view.bounds.size.width, self.view.bounds.size.height - self.postsHeartsSegmentedControl.frame.origin.y - self.postsHeartsSegmentedControl.bounds.size.height + 3 }];
-    [self.heartsView setFrame:(CGRect){ 0, self.postsHeartsSegmentedControl.frame.origin.y + self.postsHeartsSegmentedControl.bounds.size.height - 4, self.view.bounds.size.width, self.view.bounds.size.height - self.postsHeartsSegmentedControl.frame.origin.y - self.postsHeartsSegmentedControl.bounds.size.height + 3 }];
+    [self.postsHeartsWithSegmentedControlView setFrame:(CGRect){ 0, self.profileHeaderView.frame.origin.y + self.profileHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.profileHeaderView.bounds.size.height }];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

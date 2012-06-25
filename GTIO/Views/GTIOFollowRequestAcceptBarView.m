@@ -47,6 +47,8 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     [self.titleLabel setFrame:(CGRect){ 12, 12, 183, 11 }];
     [self.acceptButton setFrame:(CGRect){ 200, 6, 55, 21 }];
     [self.blockButton setFrame:(CGRect){ 261, 6, 55, 21 }];
@@ -80,7 +82,7 @@
     if ([self.delegate respondsToSelector:@selector(removeAcceptBar)]) {
         [self.delegate removeAcceptBar];
     }
-    [[GTIOUser currentUser] hitEndpoint:button.action.endpoint completionHandler:nil];
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:nil];
 }
 
 @end

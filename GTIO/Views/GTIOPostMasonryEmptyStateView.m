@@ -60,6 +60,8 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     double lockPadding = 0.0;
     if (self.displayLock) {
         [self.lockImageView sizeToFit];

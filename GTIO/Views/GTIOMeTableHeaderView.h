@@ -18,6 +18,7 @@
 @property (nonatomic, copy) GTIOButtonDidTapHandler profilePictureTapHandler;
 @property (nonatomic, assign) BOOL usesGearInsteadOfPencil;
 @property (nonatomic, weak) id<GTIOMeTableHeaderViewDelegate> delegate;
+@property (nonatomic, assign) BOOL hasBackground;
 
 - (void)refreshUserData;
 

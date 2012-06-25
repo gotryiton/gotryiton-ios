@@ -24,6 +24,8 @@ typedef enum {
 
 @interface GTIOMeTableHeaderView()
 
+@property (nonatomic, strong) UIImageView *backgroundImageView;
+
 @property (nonatomic, strong) GTIOSelectableProfilePicture *profileIcon;
 @property (nonatomic, strong) GTIOButton *profileIconButton;
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -48,6 +50,7 @@ typedef enum {
 
 @implementation GTIOMeTableHeaderView
 
+@synthesize backgroundImageView = _backgroundImageView, hasBackground = _hasBackground;
 @synthesize profileIcon = _profileIcon, profileIconButton = _profileIconButton, nameLabel = _nameLabel, locationLabel = _locationLabel, userInfoButtons = _userInfoButtons, badge = _badge;
 @synthesize followingLabel = _followingLabel, followingCountLabel = _followingCountLabel, followersLabel = _followersLabel, followerCountLabel = _followerCountLabel, starsLabel = _starsLabel, starCountLabel = _starCountLabel, user = _user, usesGearInsteadOfPencil = _usesGearInsteadOfPencil;
 @synthesize followingButton = _followingButton, followersButton = _followersButton, starsButton = _starsButton, editButton = _editButton, editImage = _editImage, editButtonTapHandler = _editButtonTapHandler, profilePictureTapHandler = _profilePictureTapHandler;
@@ -57,6 +60,10 @@ typedef enum {
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _backgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"profile.top.bg.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:10.0]];
+        [_backgroundImageView setFrame:CGRectZero];
+        [self addSubview:_backgroundImageView];
+        
         _profileIcon = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 8, 8, 55, 55 } andImageURL:nil];
         [_profileIcon setIsSelectable:NO];
         [_profileIcon setHasOuterShadow:YES];
@@ -149,6 +156,11 @@ typedef enum {
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
+    if (self.hasBackground) {
+        [self.backgroundImageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
+    }
     [self.profileIconButton setFrame:self.profileIcon.frame];
     [self.nameLabel sizeToFit];
     [self.nameLabel setFrame:(CGRect){ self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 7, self.profileIcon.frame.origin.y, (self.nameLabel.bounds.size.width < 204) ? self.nameLabel.bounds.size.width : 204, 21 }];
