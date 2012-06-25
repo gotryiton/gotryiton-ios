@@ -1170,6 +1170,52 @@ previous screen
                - **success** ==> button is left in on state (no other action)
             - cancel: close dialog
 
+#### Design Stories
+- Top Area
+	- Background (3/reviews.top.bg.png) Repeat/stretch background horizontal
+	- 87px tall
+	- Avatar
+		- Overlay (3/reviews.top.avatar.overlay.png)
+		- 75x75px
+		- 5px from left, 6px from top and bottom
+	- Text
+		- Name: Archer Book Italic 16px rgb(255,106,114) #ff6a72
+		- Time Stamp: Proxima Nova Regular 10px rgb(156,156,156) #9c9c9c
+	- Comment input
+		- Background (3/reviews.top.input.box.png)
+		- 230x35px
+		- Verlag Light Italic 14px rgb(183,183,183) #b7b7b7
+- Comment
+	- Background: (3/reviews.cell.bg.png)
+		- Stretch it from the middle, 4px top and 7px bottom anchors
+	- 314px wide
+	- Padding includes shadows from image
+		- 12px padding on right/left
+		- 12px padding on top
+		- 15px padding on bottom
+	- Text
+		- Comment: 14px Verlag Light rgb(64,64,65) #404041
+		- Hashtags/@replies: 14px Verlag Book rgb(255,106,114) #ff6a72
+		- Author: Proxima Nova Regular 11px rgb(255,106,114) #ff6a72
+		- Time Stamp: Proxima Nova Regular 8px rgb(188,188,188) #bcbcbc
+		- Heart #: Proxima Nova Regular 12px rgb(214,214,214) #d6d6d6
+	- Delete X
+		- 3/reviews.cell.delete.inactive.png
+			- Active: 3/reviews.cell.delete.active.png
+		- 9x9px
+	- Flag
+		- 3/reviews.cell.flag.inactive.png
+			- Active: 3/reviews.cell.flag.active.png
+		- Flagged: 3/reviews.cell.flag.flagged.inactive.png
+			- Active: 3/reviews.cell.flag.flagged.active.png
+	- Heart Button
+		- 3/reviews.cell.heart.inactive.png
+			- Active: 3/reviews.cell.heart.active.png
+		- Hearted: 3/reviews.cell.heart.hearted.inactive.png
+			- Active: 3/reviews.cell.heart.hearted.active.png
+	- Avatar 
+		- Overlay (3/reviews.cell.avatar.overlay.png)
+		- 27x27px
 
 ### 3.5 Who hearted this 
 
