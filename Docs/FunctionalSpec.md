@@ -1073,13 +1073,13 @@ previous screen
 A user can see a full screen detail of an outfit
 
 #### Mockups
-3.3 Outfit Full Screen ([wireframe](http://invis.io/F72PNPKB))
+3.3 Post Full Screen ([wireframe](http://invis.io/F72PNPKB))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.No.Voting.Fullscreen.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.3.Full.Screen.Full.Height.png" width=420px/>
 
-3.3.1 Product Post Full Screen ([wireframe](http://invis.io/XB2PNTT9))   
+3.3.1 Post Full Screen - square aspect ratio ([wireframe](http://invis.io/XB2PNTT9))   
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Fullscreen.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.3.Full.Screen.Min.Height.png" width=420px/>
 
 #### User Flow
 
@@ -1100,6 +1100,12 @@ None.
    - If a user is looking at a product full screen, then the nav bar disappears too
 - A user can dismiss the full screen image by tapping anywhere on the image.
    - state of the post view returns to prior state
+
+#### Design Stories
+- Image
+   - display at 640px wide, original aspect ratio is preserved
+   - vertically centered within content area (does not include status bar)
+   - background is white
 
 
 ### 3.4 Reviews page  
