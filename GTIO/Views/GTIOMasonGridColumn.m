@@ -28,7 +28,7 @@
     self = [super init];
     if (self) {
         self.items = [NSMutableArray array];
-        self.imageSpacer = 5.0f;
+        self.imageSpacer = 12.0f;
     }
     return self;
 }

@@ -47,6 +47,7 @@
         if (_posts.count > 0) {
             // display posts in mason grid
             self.masonGridView = [[GTIOMasonGridView alloc] initWithFrame:CGRectZero];
+            [self.masonGridView setPosts:posts postsType:self.postType];
             [self addSubview:self.masonGridView];
         } else {
             GTIOPostMasonryEmptyStateView *followingNoPosts = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:@"nothing here yet!" userName:nil locked:NO];
@@ -74,7 +75,7 @@
     [super layoutSubviews];
 
     [self.emptyStateView setFrame:(CGRect){ 60, 90, self.emptyStateView.bounds.size }];
-    [self.masonGridView setFrame:(CGRect){ 0, 0, self.bounds.size }];
+    [self.masonGridView setFrame:(CGRect){ 7, 9, self.bounds.size.width - 7, self.bounds.size.height }];
 }
 
 - (void)refreshAndCenterGTIOEmptyStateView:(GTIOPostMasonryEmptyStateView *)emptyStateView
