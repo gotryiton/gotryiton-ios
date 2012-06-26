@@ -100,6 +100,11 @@
     return UIColorFromRGB(0xBABABA);
 }
 
++ (UIColor *)gtio_ActionSheetButtonTextColor
+{
+    return UIColorFromRGB(0x555556);
+}
+
 + (UIColor *)gtio_semiTransparentBackgroundColor
 {
     return [UIColor colorWithRed:0 green:0 blue:0 alpha:0.22];
