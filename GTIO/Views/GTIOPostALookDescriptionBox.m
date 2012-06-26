@@ -32,7 +32,7 @@
         [self addSubview:self.backgroundView];
         
      
-        self.textView = [[GTIOAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 4, self.backgroundView.bounds.size.width - (16*2), self.backgroundView.bounds.size.height - 10 } withOuterBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height }];
+        self.textView = [[GTIOAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 4, self.backgroundView.bounds.size.width - (16*2), self.backgroundView.bounds.size.height  } withOuterBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height }];
 
 
         [GTIOAutoCompleter loadBrandDictionaryWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {

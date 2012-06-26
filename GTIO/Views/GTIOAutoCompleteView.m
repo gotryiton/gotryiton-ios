@@ -70,8 +70,8 @@
         _positionOfLastTwoWordsTyped = NSMakeRange(0,1);
 
         
-        CGRect editingFrame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), CGRectGetHeight(frame) - 45);
-        CGRect inputFrame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame) + 16, CGRectGetHeight(frame) - 45);
+        CGRect editingFrame = CGRectMake(CGRectGetMinX(frame) , CGRectGetMinY(frame), CGRectGetWidth(frame), CGRectGetHeight(frame) -50);
+        CGRect inputFrame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame) + 16, CGRectGetHeight(frame) - 50);
         
 
         /****
@@ -82,14 +82,14 @@
         _textInput.backgroundColor = [UIColor clearColor];
         _textInput.contentInset =  UIEdgeInsetsMake(-10,-8,0,0);
         _textInput.autocorrectionType = UITextAutocorrectionTypeNo;
+        _textInput.scrollEnabled = NO;
         [_textInput setDelegate:self];
         [_textInput  setFont: [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.f]];
-        // [self.textInput  setFont: [UIFont fontWithName:@"ArialMT" size:15]];
         [self addSubview:self.textInput];
         _textInput.textColor = [UIColor clearColor];
 
         
-        _ACInputColor = CGColorRetain([UIColor gtio_darkGrayTextColor].CGColor);
+        _ACInputColor = CGColorRetain([UIColor gtio_404040GrayTextColor].CGColor);
         _ACPlaceholderColor = CGColorRetain([UIColor gtio_lightGrayTextColor].CGColor);
         _ACHighlightColor = CGColorRetain([UIColor gtio_linkColor].CGColor);
 
@@ -229,6 +229,10 @@
         return NO;
     }
     
+    if ([field.text stringByReplacingCharactersInRange:range withString:inputString].length>255) {
+        return NO;
+    }
+
     self.inputText = [field.text stringByReplacingCharactersInRange:range withString:inputString];
     
     [self updateInputDisplayTextInRange:range withString:inputString];
