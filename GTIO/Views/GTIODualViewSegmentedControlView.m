@@ -57,8 +57,8 @@
     [super layoutSubviews];
     
     [self.dualViewSegmentedControl setFrame:(CGRect){ 0, 0, self.bounds.size.width, 30 }];
-    [self.leftPostsView setFrame:(CGRect){ 0, self.dualViewSegmentedControl.frame.origin.y + self.dualViewSegmentedControl.bounds.size.height - 4, self.bounds.size.width, self.bounds.size.height - self.dualViewSegmentedControl.frame.origin.y - self.dualViewSegmentedControl.bounds.size.height + 3 }];
-    [self.rightPostsView setFrame:(CGRect){ 0, self.dualViewSegmentedControl.frame.origin.y + self.dualViewSegmentedControl.bounds.size.height - 4, self.bounds.size.width, self.bounds.size.height - self.dualViewSegmentedControl.frame.origin.y - self.dualViewSegmentedControl.bounds.size.height + 3 }];
+    [self.leftPostsView setFrame:(CGRect){ 0, self.dualViewSegmentedControl.frame.origin.y + self.dualViewSegmentedControl.bounds.size.height - 4, self.bounds.size.width, self.bounds.size.height - self.dualViewSegmentedControl.frame.origin.y - self.dualViewSegmentedControl.bounds.size.height + 4 }];
+    [self.rightPostsView setFrame:(CGRect){ 0, self.dualViewSegmentedControl.frame.origin.y + self.dualViewSegmentedControl.bounds.size.height - 4, self.bounds.size.width, self.bounds.size.height - self.dualViewSegmentedControl.frame.origin.y - self.dualViewSegmentedControl.bounds.size.height + 4 }];
 }
 
 - (void)segmentedControlChanged:(id)sender

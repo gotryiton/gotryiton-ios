@@ -11,6 +11,12 @@
 #import "GTIOPhoto.h"
 #import "GTIOPagination.h"
 
+typedef enum GTIOPostType {
+    GTIOPostTypeNone = 0,
+    GTIOPostTypeHeart,
+    GTIOPostTypeStar
+} GTIOPostType;
+
 @interface GTIOPost : NSObject
 
 // Fields

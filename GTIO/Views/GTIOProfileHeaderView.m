@@ -9,8 +9,10 @@
 #import "GTIOProfileHeaderView.h"
 #import "GTIOMeTableHeaderView.h"
 #import "GTIOProfileCalloutView.h"
-
+#import "GTIOActionSheet.h"
+#import "GTIOProgressHUD.h"
 #import "UIImageView+WebCache.h"
+#import <RestKit/RestKit.h>
 
 @interface GTIOProfileHeaderView()
 
@@ -21,6 +23,7 @@
 @property (nonatomic, strong) UILabel *profileDescription;
 @property (nonatomic, strong) GTIOUIButton *websiteLinkButton;
 @property (nonatomic, strong) NSMutableArray *profileCalloutViews;
+@property (nonatomic, strong) GTIOActionSheet *actionSheet;
 
 @property (nonatomic, copy) GTIOProfileInitCompletionHandler userProfileLayoutCompletionHandler;
 @property (nonatomic, assign) BOOL waitingForUserProfileLayout;
@@ -36,6 +39,8 @@
 @synthesize websiteLinkButton = _websiteLinkButton;
 @synthesize profileCalloutViews = _profileCalloutViews;
 @synthesize delegate = _delegate;
+@synthesize acceptBarDelegate = _acceptBarDelegate;
+@synthesize actionSheet = _actionSheet;
 @synthesize waitingForUserProfileLayout = _waitingForUserProfileLayout;
 @synthesize userProfileLayoutCompletionHandler = _userProfileLayoutCompletionHandler;
 
@@ -141,7 +146,22 @@
     [self.basicUserInfoView setUser:self.userProfile.user];
     [self.basicUserInfoView setUserInfoButtons:self.userProfile.userInfoButtons];
     [self.basicUserInfoView setEditButtonTapHandler:^(id sender) {
-        NSLog(@"pull up the settings action sheet");
+        NSMutableArray *actionsheetButtons = [NSMutableArray array];
+        for (GTIOButton *button in self.userProfile.settingsButtons) {
+            [button setAction:button.action];
+            [button setState:button.state];
+            [actionsheetButtons addObject:button];
+        }
+        self.actionSheet = [[GTIOActionSheet alloc] initWithButtons:actionsheetButtons];
+        [self.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
+            actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
+                if (!actionSheet.wasCancelled) {
+                    if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
+                        [self.delegate refreshUserProfile];
+                    }
+                }
+            };
+        }];
     }];
     [self.profileDescription setText:self.userProfile.user.aboutMe];
     
@@ -160,8 +180,8 @@
 {
     self.userProfile.acceptBar = nil;
     [self layoutSubviews];
-    if ([self.delegate respondsToSelector:@selector(acceptBarRemoved)]) {
-        [self.delegate acceptBarRemoved];
+    if ([self.acceptBarDelegate respondsToSelector:@selector(acceptBarRemoved)]) {
+        [self.acceptBarDelegate acceptBarRemoved];
     }
 }
 

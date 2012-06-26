@@ -90,9 +90,19 @@
     return UIColorFromRGB(0xDADADA);
 }
 
++ (UIColor *)gtio_404040GrayTextColor
+{
+    return UIColorFromRGB(0x404040);
+}
+
 + (UIColor *)gtio_profileDescriptionTextColor
 {
     return UIColorFromRGB(0xBABABA);
+}
+
++ (UIColor *)gtio_ActionSheetButtonTextColor
+{
+    return UIColorFromRGB(0x555556);
 }
 
 + (UIColor *)gtio_semiTransparentBackgroundColor
