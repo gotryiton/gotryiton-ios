@@ -13,7 +13,7 @@
 
 @interface GTIOAccountCreatedView()
 
-@property (nonatomic, strong) GTIOButton *editProfileButton;
+@property (nonatomic, strong) GTIOUIButton *editProfileButton;
 @property (nonatomic, strong) UIImageView *profilePicture;
 @property (nonatomic, strong) UIImageView *viewLayout;
 @property (nonatomic, strong) UILabel *userName;
@@ -53,7 +53,7 @@
         [_userLocation setText:[[GTIOUser currentUser].location uppercaseString]];
         [self addSubview:_userLocation];
         
-        _editProfileButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeEditProfilePencilCircle];
+        _editProfileButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeEditProfilePencilCircle];
         [self addSubview:_editProfileButton];
         
         _betterWhenShared = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -79,6 +79,8 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     [self.profilePicture setFrame:(CGRect){ 30, 70, 46, 46 }];
     [self.viewLayout setFrame:(CGRect){ 5, 5, self.viewLayout.bounds.size }];
     [self.userName setFrame:(CGRect){ 83, ([GTIOUser currentUser].location.length > 0) ? 70 : 82, 167, 22 }];

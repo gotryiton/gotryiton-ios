@@ -10,8 +10,8 @@
 
 @interface GTIOPhotoConfirmationToolbarView : UIView
 
-@property (nonatomic, strong) GTIOButton *closeButton;
-@property (nonatomic, strong) GTIOButton *confirmButton;
+@property (nonatomic, strong) GTIOUIButton *closeButton;
+@property (nonatomic, strong) GTIOUIButton *confirmButton;
 
 - (void)showPhotoShootGridButton:(BOOL)showPhotoShootGridButton;
 

@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
-#import "GTIOButton.h"
+#import "GTIOUIButton.h"
 
-@implementation GTIOButton
+@implementation GTIOUIButton
 
-@synthesize tapHandler = _tapHandler, name = _name, action = _action, count = _count, text = _text, attribute = _attribute, value = _value, chevron = _chevron;
+@synthesize tapHandler = _tapHandler;
 
 #pragma mark - Button creator helpers
 
@@ -48,6 +48,12 @@
         case GTIOButtonTypeEditProfilePencilCircle: return [self gtio_editProfilePencilCircle];
         case GTIOButtonTypeQuickAddCheckbox: return [self gtio_quickAddCheckbox];
         case GTIOButtonTypeFollowButton: return [self gtio_followButton];
+        case GTIOButtonTypeAccept: return [self gtio_acceptButton];
+        case GTIOButtonTypeBlock: return [self gtio_blockButton];
+        case GTIOButtonTypeWebsiteLink: return [self gtio_websiteLinkButton];
+        case GTIOButtonTypeFollowButtonForNavBar: return [self gtio_followButtonForNavBar];
+        case GTIOButtonTypeFollowingButtonForNavBar: return [self gtio_followingButtonForNavBar];
+        case GTIOButtonTypeRequestedButtonForNavBar: return [self gtio_requestedButtonForNavBar];
         case GTIOButtonTypeMask: return [self gtio_maskButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
@@ -152,7 +158,7 @@
 
 + (id)gtio_backButtonBottomMargin
 {
-    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.inactive.bottommargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.active.bottommargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateHighlighted];
     [button setTitle:@"back" forState:UIControlStateNormal];
@@ -169,37 +175,37 @@
     return [self buttonWithImage:[UIImage imageNamed:@"save-button-green-top-margin.png"] hightlightImage:nil];
 }
 
-+ (id)gtio_cancelButtonGrayTopMargin
++ (id)gtio_navBarTopMarginWithText:(NSString *)text tapHandler:(GTIOButtonDidTapHandler)tapHandler
 {
-    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.active.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateHighlighted];
-    [button setTitle:@"cancel" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor gtio_darkGrayTextColor] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 1.0, 0, 0)];
-    [button setFrame:(CGRect){ 0, 0, 50, 30 }];
+    [button setTitle:text forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:11.0]];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(5.0, 1.0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTapHandler:tapHandler];
+    
+    CGSize textSize = [text sizeWithFont:button.titleLabel.font forWidth:200 lineBreakMode:UILineBreakModeTailTruncation];
+    [button setFrame:(CGRect){ 0, 0, textSize.width + 14, 30 }];
+    
     return button;
+}
+
++ (id)gtio_cancelButtonGrayTopMargin
+{
+    return [self gtio_navBarTopMarginWithText:@"cancel" tapHandler:nil];
 }
 
 + (id)gtio_saveButtonGrayTopMargin
 {
-    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateNormal];
-    [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.active.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateHighlighted];
-    [button setTitle:@"save" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor gtio_darkGrayTextColor] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 1.0, 0, 0)];
-    [button setFrame:(CGRect){ 0, 0, 45, 30 }];
-    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    return button;
+    return [self gtio_navBarTopMarginWithText:@"save" tapHandler:nil];
 }
 
 + (id)gtio_backButtonTopMargin
 {
-    GTIOButton *button = [self buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.active.topmargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateHighlighted];
     [button setTitle:@"back" forState:UIControlStateNormal];
@@ -233,7 +239,7 @@
 
 + (id)gtio_photoShutterButton
 {
-    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"upload.bottom.bar.camera.button.icon.normal.png"] hightlightImage:nil];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"upload.bottom.bar.camera.button.icon.normal.png"] hightlightImage:nil];
     [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.off.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.on.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateHighlighted];
     [button setFrame:(CGRect){ CGPointZero, { 93, 45 } }];
@@ -247,14 +253,14 @@
 
 + (id)gtio_photoSelectBox
 {
-    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"frame-camera-icon-OFF.png"] hightlightImage:[UIImage imageNamed:@"frame-camera-icon-ON.png"]];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"frame-camera-icon-OFF.png"] hightlightImage:[UIImage imageNamed:@"frame-camera-icon-ON.png"]];
     [button setContentMode:UIViewContentModeCenter];
     return button;
 }
 
 + (id)gtio_postThisButton
 {
-    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"post-button-OFF.png"] hightlightImage:[UIImage imageNamed:@"post-button-ON.png"]];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"post-button-OFF.png"] hightlightImage:[UIImage imageNamed:@"post-button-ON.png"]];
     [button setImage:[UIImage imageNamed:@"post-button-disabled.png"] forState:UIControlStateDisabled];
     return button;
 }
@@ -266,29 +272,29 @@
 
 + (id)gtio_notificationBubbleButton
 {
-    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"nav.counter.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"nav.counter.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.active.png"]];
 }
 
 + (id)gtio_notificationBubbleEmptyButton
 {
-    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"nav.counter.empty.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.empty.active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"nav.counter.empty.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.empty.active.png"]];
 }
 
 + (id)gtio_editProfilePencilCircle
 {
-    return [GTIOButton buttonWithImage:[UIImage imageNamed:@"edit-info-inactive.png"] hightlightImage:[UIImage imageNamed:@"edit-info-active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"edit-info-inactive.png"] hightlightImage:[UIImage imageNamed:@"edit-info-active.png"]];
 }
 
 + (id)gtio_quickAddCheckbox
 {
-    GTIOButton *button = [GTIOButton buttonWithImage:[UIImage imageNamed:@"checkbox-off.png"] hightlightImage:[UIImage imageNamed:@"checkbox-off.png"]];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"checkbox-off.png"] hightlightImage:[UIImage imageNamed:@"checkbox-off.png"]];
     [button setImage:[UIImage imageNamed:@"checkbox-on.png"] forState:UIControlStateSelected];
     return button;
 }
 
 + (id)gtio_followButton
 {
-    GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-off.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-on.png"] forState:UIControlStateHighlighted];
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-disabled.png"] forState:UIControlStateDisabled];
@@ -301,9 +307,83 @@
     return button;
 }
 
++ (id)gtio_acceptButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.accept.off.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.accept.on.png"] forState:UIControlStateHighlighted];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0]];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_blockButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.block.off.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"profile.top.button.block.on.png"] forState:UIControlStateHighlighted];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0]];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_websiteLinkButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"profile.top.link.bg.png"] stretchableImageWithLeftCapWidth:2.0 topCapHeight:0.0] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
+    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_followButtonForNavBar
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"follow-OFF-top-margin.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"follow-ON-top-margin.png"] forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitle:@"follow" forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:(CGRect){ 0, 0, 70, 30 }];
+    return button;
+}
+
++ (id)gtio_followingButtonForNavBar
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"following-OFF-top-margin.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"following-ON-top-margin.png"] forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitle:@"following" forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:(CGRect){ 0, 0, 70, 30 }];
+    return button;
+}
+
++ (id)gtio_requestedButtonForNavBar
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"requested-OFF-top-margin.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"requested-ON-top-margin.png"] forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitle:@"requested" forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:(CGRect){ 0, 0, 70, 30 }];
+    return button;
+}
+
 + (id)gtio_maskButton
 {
-    GTIOButton *button = [GTIOButton buttonWithType:UIButtonTypeCustom];
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }

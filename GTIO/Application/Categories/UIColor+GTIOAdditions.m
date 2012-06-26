@@ -12,12 +12,12 @@
 
 + (UIColor *)gtio_linkColor
 {
-    return UIColorFromRGB(0xFF6A72);
+    return [self gtio_pinkTextColor];
 }
 
 + (UIColor *)gtio_signInColor
 {
-    return UIColorFromRGB(0x8F8F8F);
+    return [self gtio_grayTextColor];
 }
 
 + (UIColor *)gtio_toolbarBGColor
@@ -30,14 +30,24 @@
     return UIColorFromRGB(0xE6E6E6);
 }
 
++ (UIColor *)gtio_grayTextColor
+{
+    return UIColorFromRGB(0x8F8F8F);
+}
+
 + (UIColor *)gtio_darkGrayTextColor
 {
-    return UIColorFromRGB(0xA0A0A0);
+    return UIColorFromRGB(0x9C9C9C);
 }
 
 + (UIColor *)gtio_reallyDarkGrayTextColor
 {
     return UIColorFromRGB(0x515152);
+}
+
++ (UIColor *)gtio_darkGray3TextColor 
+{
+    return UIColorFromRGB(0x232323);
 }
 
 + (UIColor *)gtio_photoBorderColor
@@ -52,7 +62,7 @@
 
 + (UIColor *)gtio_pinkTextColor
 {
-    return UIColorFromRGB(0xFF8285);
+    return UIColorFromRGB(0xFF6A72);
 }
 
 + (UIColor *)gtio_greenBorderColor
@@ -83,6 +93,16 @@
 + (UIColor *)gtio_404040GrayTextColor
 {
     return UIColorFromRGB(0x404040);
+}
+
++ (UIColor *)gtio_profileDescriptionTextColor
+{
+    return UIColorFromRGB(0xBABABA);
+}
+
++ (UIColor *)gtio_semiTransparentBackgroundColor
+{
+    return [UIColor colorWithRed:0 green:0 blue:0 alpha:0.22];
 }
 
 @end

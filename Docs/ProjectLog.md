@@ -1,3 +1,63 @@
+***Tuesday, June 26th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Write schema for Find My Friends by EOB Wednesday
+- GTIO - Simon to start reworking on updating filtering
+
+**Status**
+- Profile view nearing completion
+- Mason grid completed this morning
+- Continuous loading / Pull to refresh tabled for not, Find My Friends screen prioritized to be built out next
+- Plan on dedicating time to GTIO code reviews on future sprints.  Pay mind to overhead with managing client resources for development.
+
+**Updates to Planned Work**
+- Time spent working on adding in Simon's work 
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Submission / Support Goals
+ - Submit MVP week of 7/23
+ - Proceed to in depth user testing
+ - Want TT on hand for second submission 7/30 or 7/6
+ - Simon out of office 8/3-8/14
+ - Additional feature development in early september
+
+---
+
+***Monday, June 25th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review pull requests for updates to functional spec and newly sliced assets
+- GTIO - Simon working Autocomplete functionality
+- TT/GTIO - Discuss potential screen development for Simon to pick up on
+- TT - Identify dates for Scott to travel to NY
+
+**Status**
+- Reviewed open source library (waterfall view) and it does not seem very promising.  Will proceed with custom development
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scott out of the office June 28th-29th
+
+**General Notes**
+- NA
+
+---
+
 ***Tuesday, June 19th - Standup Notes***
 
 **Attendees**

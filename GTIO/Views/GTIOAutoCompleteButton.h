@@ -10,7 +10,7 @@
 
 #import "GTIOAutoCompleter.h"
 
-@interface GTIOAutoCompleteButton : GTIOButton
+@interface GTIOAutoCompleteButton : GTIOUIButton
 
 @property (nonatomic, strong) GTIOAutoCompleter *completer;
 

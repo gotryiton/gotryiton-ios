@@ -54,7 +54,7 @@
         [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         displayNameTextSize.width += 32;
     } else {
-        displayNameTextSize.width += 12;
+        displayNameTextSize.width += 14;
     }
 
     [button setFrame:(CGRect){ CGPointZero, displayNameTextSize.width + 10, 34 } ];

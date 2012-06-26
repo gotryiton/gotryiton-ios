@@ -10,6 +10,6 @@
 
 @implementation GTIOButtonAction
 
-@synthesize destination = _destination, endpoint = _endpoint;
+@synthesize destination = _destination, endpoint = _endpoint, spinner = _spinner;
 
 @end

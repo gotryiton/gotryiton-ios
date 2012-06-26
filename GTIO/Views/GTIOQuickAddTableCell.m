@@ -12,7 +12,7 @@
 
 @interface GTIOQuickAddTableCell()
 
-@property (nonatomic, strong) GTIOButton *checkbox;
+@property (nonatomic, strong) GTIOUIButton *checkbox;
 @property (nonatomic, strong) UIImageView *badge;
 
 @end
@@ -42,7 +42,7 @@
         [self.imageView.layer setMasksToBounds:YES];
         
         // Checkbox
-        _checkbox = [GTIOButton buttonWithGTIOType:GTIOButtonTypeQuickAddCheckbox];
+        _checkbox = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeQuickAddCheckbox];
         [_checkbox addTarget:self action:@selector(selectedCheckbox:) forControlEvents:UIControlEventTouchUpInside];
         [self setAccessoryView:_checkbox];
         
@@ -72,14 +72,14 @@
     } failure:nil];
     [self.checkbox setSelected:self.user.selected];
     if (self.user.badge) {
-        [self.badge setImageWithURL:user.badge.path];
+        [self.badge setImageWithURL:[user.badge badgeImageURL]];
     }
     [self setNeedsLayout];
 }
 
 - (void)selectedCheckbox:(id)sender
 {
-    GTIOButton *button = (GTIOButton *)sender;
+    GTIOUIButton *button = (GTIOUIButton *)sender;
     [button setSelected:!button.selected];
     
     if ([self.delegate respondsToSelector:@selector(checkboxStateChanged:)]) {

@@ -15,14 +15,12 @@
 @property (nonatomic, copy) GTIOLoginHandler loginHandler;
 @property (nonatomic, strong) NSString *facebookAuthResourcePath;
 @property (nonatomic, strong) NSString *janrainAuthResourcePath;
-@property (nonatomic, strong) RKRequest *logoutRequest;
-@property (nonatomic, copy) GTIOLogoutHandler logoutHandler;
 
 @end
 
 @implementation GTIOUser
 
-@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, logoutRequest = _logoutRequest, logoutHandler = _logoutHandler, badge = _badge, userDescription = _userDescription;
+@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, badge = _badge, userDescription = _userDescription, button = _button;
 @synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
 @synthesize loginHandler = _loginHandler;
 @synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath, selected = _selected;
@@ -90,13 +88,17 @@
 
 - (void)logOutWithLogoutHandler:(GTIOLogoutHandler)logoutHandler
 {
-    self.logoutHandler = logoutHandler;
-    
     [GTIOAuth removeToken];
-    
-    self.logoutRequest = [[RKClient sharedClient] requestWithResourcePath:@"/user/logout"];
-    [self.logoutRequest setDelegate:self];
-    [self.logoutRequest send];
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/logout" usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadResponse = ^(RKResponse *response) {
+            if (logoutHandler) {
+                logoutHandler(response);
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
 }
 
 #pragma mark - Facebook
@@ -214,6 +216,8 @@
     self.email = user.email;
     self.isFacebookConnected = user.isFacebookConnected;
     self.badge = user.badge;
+    self.userDescription = user.userDescription;
+    self.button = user.button;
 }
 
 #pragma mark - janrain
@@ -354,23 +358,25 @@
     }];
 }
 
-#pragma mark - RKRequestDelegate Methods
-
-- (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response
+- (void)loadUserProfileWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler
 {
-    if ([request isEqual:self.logoutRequest]) {
-        if (self.logoutHandler) {
-            self.logoutHandler(response);
-        }
-    }
-}
-
--(void)request:(FBRequest *)request didFailWithError:(NSError *)error
-{
-    if (error && [request isEqual:self.logoutRequest]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There was an error while logging you out." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-        [alert show];
-    }
+    NSString *userProfilePath = [NSString stringWithFormat:@"/user/%@/profile", userID];
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:userProfilePath usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadResponse = ^(RKResponse *response) {
+            NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
+            RKObjectMappingProvider* provider = [RKObjectManager sharedManager].mappingProvider;
+            NSDictionary *userProfile = [NSDictionary dictionaryWithObject:parsedBody forKey:@"userProfile"];
+            RKObjectMapper* mapper = [RKObjectMapper mapperWithObject:userProfile mappingProvider:provider];
+            RKObjectMappingResult* result = [mapper performMapping];
+            if (completionHandler) {
+                completionHandler([result asCollection], nil);
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
 }
 
 @end
