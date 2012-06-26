@@ -14,8 +14,9 @@
 #import "GTIOEditProfilePictureViewController.h"
 #import "GTIOMeTableHeaderViewLabel.h"
 #import "GTIOButton.h"
-#import "GTIOProfileViewController.h"
 #import "GTIOEditProfileViewController.h"
+
+#import "GTIOFindMyFriendsViewController.h"
 
 @interface GTIOMeTableHeaderView()
 
@@ -238,9 +239,8 @@
             self.followingButton.tapHandler = ^(id sender) {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
                 if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
-                    GTIOProfileViewController *profileViewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
-                    [profileViewController setUserID:@"0596D58"];
-                    [self.delegate pushViewController:profileViewController];
+                    GTIOFindMyFriendsViewController *findMyFriendsController = [[GTIOFindMyFriendsViewController alloc] initWithNibName:nil bundle:nil];
+                    [self.delegate pushViewController:findMyFriendsController];
                 }
             };
         }

@@ -105,4 +105,9 @@
     return [UIColor colorWithRed:0 green:0 blue:0 alpha:0.22];
 }
 
++ (UIColor *)gtio_findMyFriendsTableCellActiveColor
+{
+    return UIColorFromRGB(0xEDEBE0);
+}
+
 @end

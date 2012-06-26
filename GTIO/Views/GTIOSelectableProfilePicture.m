@@ -32,9 +32,15 @@
     if (self) {
         [self setClipsToBounds:NO];
         
-        _outerShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile.top.profile.bg.png"]];
+        _isSelected = NO;
+        _isSelectable = YES;
+        _imageURL = url;
+        _hasInnerShadow = YES;
+        _hasOuterShadow = NO;
+        
+        _outerShadow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"profile.top.profile.bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5.0, 5.0, 5.0, 5.0 }]];
         [_outerShadow setFrame:(CGRect){ -5, -5, self.frame.size.width + 10, self.frame.size.height + 10 }];
-        _outerShadow.hidden = YES;
+        _outerShadow.hidden = !_hasOuterShadow;
         [self addSubview:_outerShadow];
         
         _canvas = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, frame.size }];
@@ -46,22 +52,16 @@
         
         _imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
-        _innerShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"edit.profile.pic.thumb.mask.png"]];
+        _innerShadow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"edit.profile.pic.thumb.mask.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5.0, 5.0, 5.0, 5.0 }]];
         [_innerShadow setFrame:(CGRect){ 0, 0, frame.size }];
-        _innerShadow.hidden = YES;
-        [_imageView addSubview:_innerShadow];
+        _innerShadow.hidden = !_hasInnerShadow;
         [self setImageWithURL:url];
         [_canvas addSubview:_imageView];
+        [_canvas addSubview:_innerShadow];
         
         _border = [[UIView alloc] initWithFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
         [_border.layer setCornerRadius:3.0f];
         [_border setBackgroundColor:[UIColor gtio_greenBorderColor]];
-        
-        _isSelected = NO;
-        _isSelectable = YES;
-        _imageURL = url;
-        _hasInnerShadow = YES;
-        _hasOuterShadow = NO;
     }
     return self;
 }
