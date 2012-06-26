@@ -22,8 +22,8 @@
 
 @property (nonatomic, assign) id<GTIOAutoCompleteScrollViewDelegate> autoCompleteDelegate;
 
--(void)showButtonsWithAutoCompleters:(NSArray *) buttons;
--(void)clearScrollView;
--(BOOL)touchesShouldCancelInContentView:(UIView *) view;
+- (void)showButtonsWithAutoCompleters:(NSArray *)buttons;
+- (void)clearScrollView;
+- (BOOL)touchesShouldCancelInContentView:(UIView *)view;
 
 @end

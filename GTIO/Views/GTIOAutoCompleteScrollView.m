@@ -56,9 +56,10 @@ static CGFloat const kGTIOHorizontalButtonPadding = 5.0f;
     int xOrigin = kGTIOHorizontalButtonPadding;
     
     for (GTIOAutoCompleter *option in buttons) {
-        GTIOAutoCompleteButton *optionButton = [[GTIOAutoCompleteButton alloc] initWithFrame:(CGRect){ xOrigin, 11, 30, 34 } completer:option];
+        GTIOAutoCompleteButton *optionButton = [GTIOAutoCompleteButton gtio_autoCompleteButtonWithCompleter:option];
+        [optionButton setFrame:(CGRect){ { xOrigin, 11 }, optionButton.frame.size }];        
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-        [optionButton addGestureRecognizer: singleTap];
+        [optionButton addGestureRecognizer:singleTap];
         [self addSubview:optionButton];
         
         xOrigin += optionButton.frame.size.width + kGTIOHorizontalButtonPadding;
@@ -67,21 +68,14 @@ static CGFloat const kGTIOHorizontalButtonPadding = 5.0f;
     [self setContentSize:CGSizeMake( xOrigin, 50 )];
 }
 
-#pragma mark - Buttons
-
-- (void)autoCompleterButtonTouched:(GTIOAutoCompleteButton* )button
+- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer
 {
-    GTIOAutoCompleter *completer = button.completer;
+    GTIOAutoCompleter *completer = ((GTIOAutoCompleteButton *)gestureRecognizer.view).completer;
     if([self.autoCompleteDelegate respondsToSelector:@selector(autoCompleterIDSelected:)]) {
         [self.autoCompleteDelegate autoCompleterIDSelected:completer.completerID];
     }
     
     [self clearScrollView];
-}
-
-- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer 
-{
-    [self autoCompleterButtonTouched:(GTIOAutoCompleteButton *)gestureRecognizer.view];
 }
 
 @end

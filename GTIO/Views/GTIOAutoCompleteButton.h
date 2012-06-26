@@ -14,6 +14,6 @@
 
 @property (nonatomic, strong) GTIOAutoCompleter *completer;
 
-- (id)initWithFrame:(CGRect)frame completer:(GTIOAutoCompleter *)completer;
++ (id)gtio_autoCompleteButtonWithCompleter:(GTIOAutoCompleter *)completer;
 
 @end
