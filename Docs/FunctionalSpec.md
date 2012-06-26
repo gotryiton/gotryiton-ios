@@ -2508,10 +2508,12 @@ gtio://stars-by-user/:user_id
       - vertical middle is stretchable
       - 4px nonstretchable on top
       - 6px nonstretchable on bottom
-   - Star Ribbon
-      - in Resources/Images/General, 'star-ribbon-grid.png'
-      - placed offset 4px above corresponding grid thumbnail (should appear to slightly overlap frame edge)
-      - 6px from right edge of grid thumbnail
+   - Star Corner
+      - 'star-corner-grid.png'
+      - placed at top right corner of post image (should appear to curve seamlessly into photo frame)
+   - Accent Line
+      - place accent line behind grid in same position as appears on (and spec'd from) Feed type view
+
 
 ### 7.10 Search Tags
 
@@ -2852,9 +2854,17 @@ A user can see their new upload in their feed
 A user can see a grid of popular looks on GTIO and tab to other groups of looks
 
 #### Mockups
-9.1 Popular looks grid:
+9.1 Popular looks grid (three tabs):
 
-<img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Light.Rounded.3.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Light.Rounded.3.tabs.png" width=420px/>
+
+9.1 Popular looks grid (four tabs, scrolled left):
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Light.Rounded.4.tabs.scrolled.left.png" width=420px/>
+
+9.1 Popular looks grid (four tabs, scrolled right):
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Light.Rounded.4.tabs.scrolled.right.png" width=420px/>
 
 9.1.1 popular as feed: ([wireframe](http://invis.io/HX2PNHZC)) 
 
@@ -2888,6 +2898,64 @@ feed: ([view 7.7](#77-profile-page))
    - see 13.6
 - A user can tap on a look in a grid and see a post detail page 
    - the destination is conditional on the type of the post (view 3.1) 
+
+#### Design Stories
+- Nav Bar Toggle
+   - 'nav-toggle.png' in Feed and Grid/Active and Inactive versions
+   - vertically centered within nav bar area
+   - 12px from left edge of screen
+- Tabs
+   - leftmost tab is 'tab-left.png' in selected/unselected versions, with active and inactive
+      - horizontal middle is stretchable
+      - 1px nonstretchable on right
+      - 3px nonstretchable on left
+   - middle tab is 'tab-middle.png' in selected/unselected versions, with active and inactive
+      - horizontal middle is stretchable
+      - 2px nonstretchable on right and left
+      - multiple instances OK
+   - rightmost tab is 'tab-right.png' in selected/unselected versions, with active and inactive
+      - horizontal middle is stretchable
+      - 1px nonstretchable on left
+      - 3px nonstretchable on right
+   - positioning
+      - leftmost tab is 4px away from left edge of screen (or left edge of scrollable area)
+      - rightmost tab is 4px away from right edge of screen (or right edge of scrollable area)
+      - -1px gaps (adjoining buttons should overlap by 1px)
+         - 'selected' tab should always be placed over 'unselected' tabs
+   - sizing
+      - if three tabs:
+         - leftmost tab should be minimum 104px wide
+         - middle tab should be minimum 103px wide
+         - rightmost tab should be minimum 104px wide
+      - if four or more tabs:
+         - each tab should be minimum 90px wide
+   - labels
+      - horizontally centered within tab with at least 12px left and right padding (respecting minimum widths listed above, stretching if necessary)
+      - baseline of text is 5px above bottom edge of tab (not including pointer)
+      - unselected: Archer Book Italic, 11pt, rgb(135,135,135)
+      - selected: Archer Book Italic, 11pt, rgb(85,85,86)
+      - star icon
+         - 2px distance from right of accompanying label
+         - bottom of asset is 4px below baseline of accompanying label
+- Photo Grid
+   - Images are sized to 94px wide, variable height
+   - Top images are 9px from top of content area
+   - Leftmost column images are 7px from left edge of screen
+   - Rightmost images are 7px from right edge of screen
+   - In columns, images be separated by 12px of vertical gap
+   - 6px gaps between 1st and 2nd and 3rd columns
+   - 'grid-thumbnail.frame.png'
+      - placed under each image
+      - position relative to image is offset by (-4px,-4px)
+      - vertical middle is stretchable
+      - 4px nonstretchable on top
+      - 6px nonstretchable on bottom
+   - Star Corner
+      - 'star-corner-grid.png'
+      - placed at top right corner of post image (should appear to curve seamlessly into photo frame)
+   - Accent Line
+      - place accent line behind grid in same position as appears on Feed type view
+      - top should end at background asset for tabs
 
 
 
