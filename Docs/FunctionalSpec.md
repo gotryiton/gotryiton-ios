@@ -2708,6 +2708,9 @@ gtio://posts/feed
          - 'heart-toggle.png' with on/off states, each with active and inactive
          - asset is placed 9px down from top of photo
          - asset is placed 9px from left edge of photo
+      - Star Corner
+         - 'star-corner-feed.png'
+         - placed at top right corner of post image (should appear to curve seamlessly into photo frame)
    - post description
       - shown inside photo frame between bottom edge of frame and bottom edge of photo
       - Verlag Extra Light, 13pt, rgb(35,35,35), #232323
