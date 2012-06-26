@@ -2517,9 +2517,9 @@ Each user has a shopping list
 #### Mockups
 7.8 Shopping list ([wireframe](http://invis.io/8W2OD45T))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/7.8.shopping.list.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/7.8.shopping.list.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/7.8.shopping.list.empty.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/7.8.shopping.list.empty.png" width=420px/>
 
 
 7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))
@@ -2955,7 +2955,9 @@ A user can see their pending upload in their feed
 8.4 ([wireframe](http://invis.io/642OE8AC)) 
 
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.png" width=420px/>
+
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.finalizing.png" width=420px/>
+
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.success.png" width=420px/>
 
 
