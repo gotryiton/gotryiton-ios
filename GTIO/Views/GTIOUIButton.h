@@ -49,15 +49,8 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeFollowButtonForNavBar,
     GTIOButtonTypeFollowingButtonForNavBar,
     GTIOButtonTypeRequestedButtonForNavBar,
-    GTIOButtonTypeMask,
-    GTIOButtonTypeActionSheetCancel
+    GTIOButtonTypeMask
 } GTIOButtonType;
-
-typedef enum GTIOLargeButtonStyle {
-    GTIOLargeButtonStyleGray = 0,
-    GTIOLargeButtonStyleGreen,
-    GTIOLargeButtonStyleRed
-} GTIOLargeButtonStyle;
 
 @interface GTIOUIButton : UIButton
 
@@ -65,7 +58,6 @@ typedef enum GTIOLargeButtonStyle {
 
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType;
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType tapHandler:(GTIOButtonDidTapHandler)tapHandler;
-+ (id)largeButtonWithGTIOStyle:(GTIOLargeButtonStyle)largeButtonStyle;
 
 + (id)gtio_navBarTopMarginWithText:(NSString *)text tapHandler:(GTIOButtonDidTapHandler)tapHandler;
 

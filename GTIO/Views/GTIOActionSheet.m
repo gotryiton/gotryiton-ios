@@ -8,9 +8,9 @@
 
 #import "GTIOActionSheet.h"
 #import "GTIOButton.h"
-#import "GTIOUIButton.h"
 #import "GTIOProgressHUD.h"
 #import <RestKit/RestKit.h>
+#import "GTIOLargeButton.h"
 
 static double const containerPadding = 14.0;
 static double const buttonSpacing = 8.0;
@@ -38,7 +38,7 @@ static double const buttonWidth = 292.0;
 {
     self = [super initWithFrame:[[UIApplication sharedApplication] keyWindow].frame];
     if (self) {
-        _cancelButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeActionSheetCancel];
+        _cancelButton = [GTIOLargeButton gtio_largeCancelButton];
         __block typeof(self) blockSelf = self;
         _cancelButton.tapHandler = ^(id sender) {
             if (blockSelf.willCancel) {
@@ -62,10 +62,10 @@ static double const buttonWidth = 292.0;
         for (GTIOButton *button in buttons) {
             GTIOUIButton *actionSheetButton = nil;
             switch (button.state.intValue) {
-                case 0: actionSheetButton = [GTIOUIButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
-                case 1: actionSheetButton = [GTIOUIButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGreen]; break;
-                case 2: actionSheetButton = [GTIOUIButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleRed]; break;
-                default: actionSheetButton = [GTIOUIButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
+                case 0: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
+                case 1: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGreen]; break;
+                case 2: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleRed]; break;
+                default: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
             }
             [actionSheetButton setTitle:button.text forState:UIControlStateNormal];
             actionSheetButton.tapHandler = ^(id sender) {
@@ -85,7 +85,7 @@ static double const buttonWidth = 292.0;
             [_buttonsContainer addSubview:actionSheetButton];
         }
         
-        _buttonsContainerHeight = containerPadding * 2 + (_otherButtons.count + ((_cancelButton) ? 1 : 0)) * (buttonSpacing + buttonHeight) + ((_cancelButton) ? cancelButtonTopMargin : 0);
+        _buttonsContainerHeight = containerPadding * 2 + (_otherButtons.count + 1) * (buttonSpacing + buttonHeight) + cancelButtonTopMargin;
         
         _wasCancelled = NO;
     }
