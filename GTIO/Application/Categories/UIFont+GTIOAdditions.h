@@ -58,5 +58,4 @@ typedef enum GTIOFontVerlag {
 + (CTFontRef)gtio_archerCoreTextFontWithWeight:(GTIOFontArcher)archer size:(CGFloat)size;
 + (CTFontRef)gtio_verlagCoreTextFontWithWeight:(GTIOFontVerlag)verlag size:(CGFloat)size;
 
-
 @end

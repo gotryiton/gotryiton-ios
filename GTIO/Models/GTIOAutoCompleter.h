@@ -12,13 +12,13 @@
 @interface GTIOAutoCompleter : NSObject
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *completer_id;
+@property (nonatomic, strong) NSString *completerID;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSURL *icon;
 
-- (NSString *) getCompleterString;
+- (NSString *)completerString;
 
 + (void) loadBrandDictionaryWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
-+ (void) loadUsersDictionaryWithCompletionHandler:(GTIOCompletionHandler)completionHandler withUserId:(NSString *) user_id;
++ (void)loadUsersDictionaryWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end

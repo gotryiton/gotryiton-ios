@@ -12,18 +12,18 @@
 @class GTIOAutoCompleteScrollView;
 
 @protocol GTIOAutoCompleteScrollViewDelegate <NSObject>
+
 @optional
 - (void)autoCompleterIdSelected:(NSString*)completer_id;
-@end
 
+@end
 
 @interface GTIOAutoCompleteScrollView : UIScrollView
 
 @property (nonatomic, assign) id<GTIOAutoCompleteScrollViewDelegate> autoCompleteDelegate;
 
--(void) showButtonsWithAutoCompleters:(NSArray *) buttons;
--(void) clearScrollView;
--(BOOL) touchesShouldCancelInContentView:(UIView *) view;
-
+-(void)showButtonsWithAutoCompleters:(NSArray *) buttons;
+-(void)clearScrollView;
+-(BOOL)touchesShouldCancelInContentView:(UIView *) view;
 
 @end

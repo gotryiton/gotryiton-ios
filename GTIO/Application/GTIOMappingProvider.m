@@ -144,15 +144,10 @@
         [postMapping mapRelationship:@"user" withMapping:userMapping];
         [self setMapping:postMapping forKeyPath:@"post"];
 
-
         // GTIOAutoCompleter
-        [autocompleterMapping mapKeyPath:@"id" toAttribute:@"completer_id"];
-        [autocompleterMapping mapKeyPath:@"name" toAttribute:@"name"];
-        [autocompleterMapping mapKeyPath:@"icon" toAttribute:@"icon"];
+        [autocompleterMapping mapKeyPath:@"id" toAttribute:@"completerID"];
+        [autocompleterMapping mapAttributes:@"name", @"icon", nil];
         [self setMapping:autocompleterMapping forKeyPath:@"dictionary"];
-
-
-
     }
     return self;
 }

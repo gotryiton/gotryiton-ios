@@ -8,33 +8,20 @@
 
 #import "GTIOAutoCompleter.h"
 
-
 @implementation GTIOAutoCompleter
-
 
 @synthesize name = _name;
 @synthesize type = _type;
 @synthesize icon = _icon;
-@synthesize completer_id = _completer_id;
+@synthesize completerID = _completerID;
 
-- (void)dealloc
-{
-    _name = nil;
-    _type = nil;
-    _icon = nil;
-    _completer_id = nil;
-    
-}
-
-- (NSString *) getCompleterString 
+- (NSString *)completerString 
 {
 	if ([self.type isEqualToString:@"@"]){
 		return [@"@" stringByAppendingString:self.name];
 	}
 	return self.name;
 }
-
-
 
 + (void)loadBrandDictionaryWithCompletionHandler:(GTIOCompletionHandler)completionHandler
 {
@@ -57,9 +44,9 @@
     }];
 }
 
-+ (void)loadUsersDictionaryWithCompletionHandler:(GTIOCompletionHandler)completionHandler withUserId:(NSString *) user_id
++ (void)loadUsersDictionaryWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler
 {
-    NSString *dictionaryPath = [@"" stringByAppendingFormat:@"/autocomplete-dictionary/users/%@/post", user_id];
+    NSString *dictionaryPath = [@"" stringByAppendingFormat:@"/autocomplete-dictionary/users/%@/post", userID];
     
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:dictionaryPath usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodPOST;
@@ -77,6 +64,5 @@
         };
     }];
 }
-
 
 @end

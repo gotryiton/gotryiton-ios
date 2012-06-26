@@ -14,9 +14,7 @@
 #import "GTIOAutoCompleteScrollView.h"
 #import "GTIOAutoCompleter.h"
 
-
 @interface GTIOAutoCompleteView : UIView <UITextViewDelegate, GTIOAutoCompleteScrollViewDelegate>
-
 
 @property (nonatomic, strong) NSMutableArray *autoCompleteArray;
 @property (nonatomic, strong) GTIOAutoCompleteScrollView *scrollView;
@@ -27,7 +25,6 @@
 @property (nonatomic, strong) CATextLayer *previewTextView;
 @property (nonatomic, strong) CATextLayer *textView;
 @property (nonatomic, strong) NSMutableAttributedString *attrString;
-
 
 @property (assign) CTFontRef ACInputFont;
 @property (assign) CGColorRef ACInputColor;
@@ -44,9 +41,8 @@
 
 @property (assign) BOOL isScrollViewShowing;
 
--(UIView *) initWithFrame:(CGRect) frame withOuterBox:(CGRect) outerFrame;
-
--(void) addCompleters:(NSMutableArray * ) completers;
-- (NSString *) processDescriptionString;
+- (UIView *)initWithFrame:(CGRect)frame outerBox:(CGRect) outerFrame;
+- (void)addCompleters:(NSMutableArray *)completers;
+- (NSString *)processDescriptionString;
 
 @end

@@ -31,9 +31,7 @@
         [self.backgroundView setFrame:(CGRect){ 6, 0, self.bounds.size.width- (6 * 2), self.bounds.size.height }];
         [self addSubview:self.backgroundView];
         
-     
-        self.textView = [[GTIOAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 4, self.backgroundView.bounds.size.width - (16*2), self.backgroundView.bounds.size.height  } withOuterBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height }];
-
+        self.textView = [[GTIOAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 4, self.backgroundView.bounds.size.width - (16 * 2), self.backgroundView.bounds.size.height  } outerBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height }];
 
         [GTIOAutoCompleter loadBrandDictionaryWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
             if (!error) {
@@ -46,7 +44,7 @@
             }
         }];
 
-        [GTIOAutoCompleter loadUsersDictionaryWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        [GTIOAutoCompleter loadUsersDictionaryWithUserID:[GTIOUser currentUser].userID completionHandler:^(NSArray *loadedObjects, NSError *error) {
             if (!error) {
                 NSMutableArray *users = [[NSMutableArray alloc] init];
                 for (GTIOAutoCompleter *completer in loadedObjects) {
@@ -55,7 +53,7 @@
                 }
                 [self.textView addCompleters:users];
             }
-        } withUserId:[GTIOUser currentUser].userID ];
+        }];
 
         [self addSubview:self.textView];
     }
