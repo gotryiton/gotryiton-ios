@@ -110,25 +110,25 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ 253, 174, 60, 143 }];
     [self.scrollView addSubview:self.optionsView];
     
-    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, self.scrollView.frame.size.width - (6 * 2), 120 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"]];
-    [self.descriptionBox setTextViewWillBecomeActiveHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {        
+    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 155 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"]];
+    [self.descriptionBox.textView setTextViewWillBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {        
         CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
         
         if (self.scrollView.contentOffset.y == bottomOffset) {
             double delayInSeconds = 0.1;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self.descriptionBox.textView becomeFirstResponder];
+                [self.descriptionBox.textView.textInput becomeFirstResponder];
             });
         } else {
             [self.scrollView scrollRectToVisible:(CGRect){ 0, self.scrollView.contentSize.height - 1, 1, 1 } animated:YES];
         }
     }];
-    [self.descriptionBox setTextViewDidBecomeActiveHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {
+    [self.descriptionBox.textView setTextViewDidBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {
         [self.lookSelectorView setUserInteractionEnabled:NO];
     }];
-    [self.descriptionBox setTextViewDidEndHandler:^(GTIOPostALookDescriptionBox *descriptionBox, BOOL scrollToTop) {
-        [self.descriptionBox.textView resignFirstResponder];
+    [self.descriptionBox.textView setTextViewDidEndHandler:^(GTIOPostAutoCompleteView *descriptionBox, BOOL scrollToTop) {
+        [self.descriptionBox.textView.textInput resignFirstResponder];
         [self.lookSelectorView setUserInteractionEnabled:YES];
         
         if (scrollToTop) {
@@ -200,19 +200,19 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    if (self.descriptionBox.forceBecomeFirstResponder) {
+    if (self.descriptionBox.textView.forceBecomeFirstResponder) {
         double delayInSeconds = 0.1;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.descriptionBox.textView becomeFirstResponder];
-            [self.descriptionBox setForceBecomeFirstResponder:NO];
+            [self.descriptionBox.textView.textInput becomeFirstResponder];
+            [self.descriptionBox.textView setForceBecomeFirstResponder:NO];
         });
     }
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
-    [self.descriptionBox.textView resignFirstResponder];
+    [self.descriptionBox.textView.textInput resignFirstResponder];
     return YES;
 }
 
@@ -232,9 +232,9 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         [scrollView scrollRectToVisible:scrollToRect animated:YES];
     } completion:^(BOOL finished) {
         if (top) {
-            [self.descriptionBox.textView resignFirstResponder];
+            [self.descriptionBox.textView.textInput resignFirstResponder];
         } else {
-            [self.descriptionBox.textView becomeFirstResponder];
+            [self.descriptionBox.textView.textInput becomeFirstResponder];
         }
     }];
 }
@@ -243,11 +243,13 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)postThis:(id)sender
 {
-    if ([self.descriptionBox.textView.text length] == 0) {
+    if ([[self.descriptionBox.textView processDescriptionString] length] == 0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to post without a description?" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:@"Cancel", nil];
         [alert setTag:kGTIOEmptyDescriptionAlertTag];
         [alert show];
     } else {
+        NSLog(@"description submissionText: %@", [self.descriptionBox.textView processDescriptionString] );
+        
         [self beginPostLookToGTIO];
     }
 }
@@ -321,7 +323,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     if (!self.creatingPhoto && self.photoForPosting) {
         [self savePhotoToDisk];
-        [GTIOPost postGTIOPhoto:self.photoForPosting description:self.descriptionBox.textView.text votingEnabled:self.optionsView.votingSwitch.on completionHandler:^(GTIOPost *post, NSError *error) {
+        [GTIOPost postGTIOPhoto:self.photoForPosting description:[self.descriptionBox.textView processDescriptionString] votingEnabled:self.optionsView.votingSwitch.on completionHandler:^(GTIOPost *post, NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             if (!error && post) {
                 [self.navigationController dismissModalViewControllerAnimated:YES];

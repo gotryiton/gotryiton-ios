@@ -8,14 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "GTIOUser.h"
+#import "GTIOPost.h"
 
-typedef enum GTIOPostType {
-    GTIOPostTypeNone = 0,
-    GTIOPostTypeHeart,
-    GTIOPostTypeStar
-} GTIOPostType;
-
-@interface GTIOPostMasonryView : UIScrollView
+@interface GTIOPostMasonryView : UIView
 
 @property (nonatomic, strong) NSArray *posts;
 @property (nonatomic, strong) GTIOUser *user;
