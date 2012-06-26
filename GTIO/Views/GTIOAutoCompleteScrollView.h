@@ -14,7 +14,7 @@
 @protocol GTIOAutoCompleteScrollViewDelegate <NSObject>
 
 @optional
-- (void)autoCompleterIdSelected:(NSString*)completer_id;
+- (void)autoCompleterIDSelected:(NSString*)completerID;
 
 @end
 

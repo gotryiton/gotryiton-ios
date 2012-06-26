@@ -69,11 +69,11 @@ static CGFloat const kGTIOHorizontalButtonPadding = 5.0f;
 
 #pragma mark - Buttons
 
-- (void)AutoCompleterButtonTouched:(GTIOAutoCompleteButton* )button
+- (void)autoCompleterButtonTouched:(GTIOAutoCompleteButton* )button
 {
     GTIOAutoCompleter *completer = button.completer;
-    if([self.autoCompleteDelegate respondsToSelector:@selector(autoCompleterIdSelected:)]) {
-        [self.autoCompleteDelegate autoCompleterIdSelected:completer.completerID];
+    if([self.autoCompleteDelegate respondsToSelector:@selector(autoCompleterIDSelected:)]) {
+        [self.autoCompleteDelegate autoCompleterIDSelected:completer.completerID];
     }
     
     [self clearScrollView];
@@ -81,7 +81,7 @@ static CGFloat const kGTIOHorizontalButtonPadding = 5.0f;
 
 - (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer 
 {
-    [self AutoCompleterButtonTouched:(GTIOAutoCompleteButton *)gestureRecognizer.view];
+    [self autoCompleterButtonTouched:(GTIOAutoCompleteButton *)gestureRecognizer.view];
 }
 
 @end

@@ -36,7 +36,7 @@
 
 @synthesize isScrollViewShowing = _isScrollViewShowing;
 
-- (id)initWithFrame:(CGRect)frame outerBox:(CGRect) outerFrame 
+- (id)initWithFrame:(CGRect)frame outerBox:(CGRect)outerFrame 
 {
     self = [super initWithFrame:outerFrame];
     if (self) {
@@ -407,10 +407,12 @@
     return false;
 }
 
+#pragma mark - GTIOAutoCompleteViewDelegate
+
 - (void)autoCompleterIDSelected:(NSString*)completerID 
 {
     GTIOAutoCompleter *completer = [self completerWithID:completerID];
-
+    
     if ([self startedTypingCompleterInLastWord:completer] | [[self lastWordTyped] isEqualToString:@"@"] ) {
         [self doAutoCompleteWithCompleter:completer inRange:self.positionOfLastWordTyped];
         [self highlightInputTextInRange:self.positionOfLastWordTyped completerID:completer.completerID type:completer.type];
@@ -422,6 +424,7 @@
     [self hideScrollView];
 }
 
+#pragma mark -
 
 - (GTIOAutoCompleter *)completerWithID:(NSString *)completerID 
 {
@@ -434,7 +437,6 @@
     
     return nil;
 }
-
 
 - (void)doAutoCompleteWithCompleter:(GTIOAutoCompleter *)completer inRange:(NSRange)range
 {

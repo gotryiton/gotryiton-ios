@@ -20,8 +20,6 @@
 @implementation GTIOPostALookDescriptionBox
 
 @synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView;
-@synthesize textViewDidEndHandler = _textViewDidEndHandler, textViewWillBecomeActiveHandler = _textViewWillBecomeActiveHandler, textViewDidBecomeActiveHandler = _textViewDidBecomeActiveHandler;
-@synthesize forceBecomeFirstResponder = _forceBecomeFirstResponder;
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon
 {
@@ -31,7 +29,7 @@
         [self.backgroundView setFrame:(CGRect){ 6, 0, self.bounds.size.width- (6 * 2), self.bounds.size.height }];
         [self addSubview:self.backgroundView];
         
-        self.textView = [[GTIOAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 4, self.backgroundView.bounds.size.width - (16 * 2), self.backgroundView.bounds.size.height  } outerBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height }];
+        self.textView = [[GTIOPostAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 4, self.backgroundView.bounds.size.width - (16 * 2), self.backgroundView.bounds.size.height  } outerBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height }];
 
         [GTIOAutoCompleter loadBrandDictionaryWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
             if (!error) {
@@ -59,54 +57,5 @@
     }
     return self;
 }
-
-#pragma mark - UITextViewDelegate
-
-// - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-// {
-//     if([text isEqualToString:@"\n"]) {
-//         if (self.textViewDidEndHandler) {
-//             self.textViewDidEndHandler(self, YES);
-//         } else {
-//             [self.textView resignFirstResponder];
-//         }
-//         return NO;
-//     }
-//     return YES;
-// }
-
-// - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-// {
-//     if (self.textViewWillBecomeActiveHandler && !self.forceBecomeFirstResponder) {
-//         [self setForceBecomeFirstResponder:YES];
-//         self.textViewWillBecomeActiveHandler(self);
-//         return NO;
-//     } else {
-//         [self setForceBecomeFirstResponder:NO];
-//         return YES;
-//     }
-// }
-
-// - (void)textViewDidBeginEditing:(UITextView *)textView
-// {
-//     if (self.textViewDidBecomeActiveHandler) {
-//         self.textViewDidBecomeActiveHandler(self);
-//     }
-//     [self.textView setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
-// }
-
-// - (void)textViewDidEndEditing:(UITextView *)textView
-// {
-//     [self.textView setTextColor:[UIColor gtio_darkGrayTextColor]];
-// }
-
-// - (void)textViewDidChange:(UITextView *)textView
-// {
-//     if ([[textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] > 0) {
-//         [self.placeHolderView removeFromSuperview];
-//     } else {
-//         [self addSubview:self.placeHolderView];
-//     }
-// }
 
 @end

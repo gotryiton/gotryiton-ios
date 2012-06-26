@@ -667,6 +667,7 @@
 		D201C83715614C8400C4168D /* GTIOConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D201C83615614C8400C4168D /* GTIOConfigManager.m */; };
 		D201C85615615C1300C4168D /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D201C85515615C1300C4168D /* ImageIO.framework */; };
 		D201C85815615C1B00C4168D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D201C85715615C1A00C4168D /* MapKit.framework */; };
+		D2066FBC159A1194003E8193 /* GTIOPostAutoCompleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2066FBB159A1194003E8193 /* GTIOPostAutoCompleteView.m */; };
 		D20C2267155B0FBC0079D7D9 /* GTIOIntroScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = D20C2266155B0FBC0079D7D9 /* GTIOIntroScreen.m */; };
 		D20C226B155B10800079D7D9 /* GTIOConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D20C226A155B10800079D7D9 /* GTIOConfig.m */; };
 		D20C228B155B14440079D7D9 /* GTIOMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D20C228A155B14440079D7D9 /* GTIOMappingProvider.m */; };
@@ -1635,6 +1636,8 @@
 		D201C83615614C8400C4168D /* GTIOConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOConfigManager.m; path = Application/GTIOConfigManager.m; sourceTree = "<group>"; };
 		D201C85515615C1300C4168D /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		D201C85715615C1A00C4168D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D2066FBA159A1194003E8193 /* GTIOPostAutoCompleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostAutoCompleteView.h; sourceTree = "<group>"; };
+		D2066FBB159A1194003E8193 /* GTIOPostAutoCompleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostAutoCompleteView.m; sourceTree = "<group>"; };
 		D20C2265155B0FBC0079D7D9 /* GTIOIntroScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIntroScreen.h; sourceTree = "<group>"; };
 		D20C2266155B0FBC0079D7D9 /* GTIOIntroScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroScreen.m; sourceTree = "<group>"; };
 		D20C2269155B10800079D7D9 /* GTIOConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOConfig.h; sourceTree = "<group>"; };
@@ -1998,10 +2001,8 @@
 				8EDA556A15757E8A009F0404 /* GTIOPostALookOptionsView.m */,
 				8EDA556C15758261009F0404 /* GTIOPostALookDescriptionBox.h */,
 				8EDA556D15758261009F0404 /* GTIOPostALookDescriptionBox.m */,
-				5CDFD9011593BA4600994416 /* GTIOAutoCompleteView.h */,
-				5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */,
-				5CDFD9041593BA7B00994416 /* GTIOAutoCompleteScrollView.h */,
-				5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */,
+				D2066FBA159A1194003E8193 /* GTIOPostAutoCompleteView.h */,
+				D2066FBB159A1194003E8193 /* GTIOPostAutoCompleteView.m */,
 			);
 			name = "Photo Upload";
 			sourceTree = "<group>";
@@ -3073,6 +3074,17 @@
 			name = SDWebImage;
 			sourceTree = "<group>";
 		};
+		D2066FBD159A1584003E8193 /* Auto Complete */ = {
+			isa = PBXGroup;
+			children = (
+				5CDFD9011593BA4600994416 /* GTIOAutoCompleteView.h */,
+				5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */,
+				5CDFD9041593BA7B00994416 /* GTIOAutoCompleteScrollView.h */,
+				5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */,
+			);
+			name = "Auto Complete";
+			sourceTree = "<group>";
+		};
 		D20C2268155B106F0079D7D9 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -3522,6 +3534,7 @@
 		D2CDA9B115503307009B7E24 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D2066FBD159A1584003E8193 /* Auto Complete */,
 				8E969F55158BDD60009E19B3 /* The Feed */,
 				D298588B156543F4005EE3CA /* General */,
 				8E12C1FA1575538F0097CDE9 /* Photo Upload */,
@@ -4652,6 +4665,7 @@
 				5CDFD9061593BA7B00994416 /* GTIOAutoCompleteScrollView.m in Sources */,
 				5CDFD9091593BAAD00994416 /* GTIOAutoCompleter.m in Sources */,
 				5CDFD90C1593C53C00994416 /* GTIOAutoCompleteButton.m in Sources */,
+				D2066FBC159A1194003E8193 /* GTIOPostAutoCompleteView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

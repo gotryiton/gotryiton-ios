@@ -41,7 +41,7 @@
 
 @property (assign) BOOL isScrollViewShowing;
 
-- (UIView *)initWithFrame:(CGRect)frame outerBox:(CGRect) outerFrame;
+- (UIView *)initWithFrame:(CGRect)frame outerBox:(CGRect)outerFrame;
 - (void)addCompleters:(NSMutableArray *)completers;
 - (NSString *)processDescriptionString;
 

@@ -111,7 +111,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [self.scrollView addSubview:self.optionsView];
     
     self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 155 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"]];
-    [self.descriptionBox setTextViewWillBecomeActiveHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {        
+    [self.descriptionBox.textView setTextViewWillBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {        
         CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
         
         if (self.scrollView.contentOffset.y == bottomOffset) {
@@ -124,10 +124,10 @@ static NSInteger const kGTIOMaskingViewTag = 100;
             [self.scrollView scrollRectToVisible:(CGRect){ 0, self.scrollView.contentSize.height - 1, 1, 1 } animated:YES];
         }
     }];
-    [self.descriptionBox setTextViewDidBecomeActiveHandler:^(GTIOPostALookDescriptionBox *descriptionBox) {
+    [self.descriptionBox.textView setTextViewDidBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {
         [self.lookSelectorView setUserInteractionEnabled:NO];
     }];
-    [self.descriptionBox setTextViewDidEndHandler:^(GTIOPostALookDescriptionBox *descriptionBox, BOOL scrollToTop) {
+    [self.descriptionBox.textView setTextViewDidEndHandler:^(GTIOPostAutoCompleteView *descriptionBox, BOOL scrollToTop) {
         [self.descriptionBox.textView.textInput resignFirstResponder];
         [self.lookSelectorView setUserInteractionEnabled:YES];
         
@@ -200,19 +200,19 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    if (self.descriptionBox.forceBecomeFirstResponder) {
+    if (self.descriptionBox.textView.forceBecomeFirstResponder) {
         double delayInSeconds = 0.1;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.descriptionBox.textView becomeFirstResponder];
-            [self.descriptionBox setForceBecomeFirstResponder:NO];
+            [self.descriptionBox.textView.textInput becomeFirstResponder];
+            [self.descriptionBox.textView setForceBecomeFirstResponder:NO];
         });
     }
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
-    [self.descriptionBox.textView resignFirstResponder];
+    [self.descriptionBox.textView.textInput resignFirstResponder];
     return YES;
 }
 
@@ -232,9 +232,9 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         [scrollView scrollRectToVisible:scrollToRect animated:YES];
     } completion:^(BOOL finished) {
         if (top) {
-            [self.descriptionBox.textView resignFirstResponder];
+            [self.descriptionBox.textView.textInput resignFirstResponder];
         } else {
-            [self.descriptionBox.textView becomeFirstResponder];
+            [self.descriptionBox.textView.textInput becomeFirstResponder];
         }
     }];
 }
