@@ -818,6 +818,7 @@
 		8EDC81D71586380B00A2097A /* GTIOAccountCreatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDC81D61586380B00A2097A /* GTIOAccountCreatedView.m */; };
 		8EDC81DA15863EBF00A2097A /* GTIOBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDC81D915863EBF00A2097A /* GTIOBackgroundView.m */; };
 		8EDC822D1586826E00A2097A /* GTIOQuickAddTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDC822C1586826D00A2097A /* GTIOQuickAddTableCell.m */; };
+		8EE68CBB159A00B100DE2E68 /* GTIOLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE68CBA159A00B100DE2E68 /* GTIOLargeButton.m */; };
 		8EEC04561598B4C400324E72 /* GTIODualViewSegmentedControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEC04551598B4C400324E72 /* GTIODualViewSegmentedControlView.m */; };
 		8EECB5911589032100025BAD /* GTIOMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EECB5901589032100025BAD /* GTIOMeTableViewCell.m */; };
 		8EECB59415890A2000025BAD /* GTIOMeTableHeaderViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EECB59315890A2000025BAD /* GTIOMeTableHeaderViewLabel.m */; };
@@ -1920,6 +1921,8 @@
 		8EDC81D915863EBF00A2097A /* GTIOBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBackgroundView.m; sourceTree = "<group>"; };
 		8EDC822B1586826D00A2097A /* GTIOQuickAddTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOQuickAddTableCell.h; sourceTree = "<group>"; };
 		8EDC822C1586826D00A2097A /* GTIOQuickAddTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOQuickAddTableCell.m; sourceTree = "<group>"; };
+		8EE68CB9159A00B100DE2E68 /* GTIOLargeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLargeButton.h; sourceTree = "<group>"; };
+		8EE68CBA159A00B100DE2E68 /* GTIOLargeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOLargeButton.m; sourceTree = "<group>"; };
 		8EEC04541598B4C400324E72 /* GTIODualViewSegmentedControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIODualViewSegmentedControlView.h; sourceTree = "<group>"; };
 		8EEC04551598B4C400324E72 /* GTIODualViewSegmentedControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIODualViewSegmentedControlView.m; sourceTree = "<group>"; };
 		8EECB58F1589032100025BAD /* GTIOMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMeTableViewCell.h; sourceTree = "<group>"; };
@@ -4119,6 +4122,8 @@
 				D22D73D61594B66F0018AD6B /* GTIOHeartButton.m */,
 				D27C2FA51598E20F006C9ACB /* GTIOBrandButton.h */,
 				D27C2FA61598E20F006C9ACB /* GTIOBrandButton.m */,
+				8EE68CB9159A00B100DE2E68 /* GTIOLargeButton.h */,
+				8EE68CBA159A00B100DE2E68 /* GTIOLargeButton.m */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -5238,6 +5243,7 @@
 				8EC2038A1598FE9C00685686 /* GTIOMasonGridItem.m in Sources */,
 				8E89BAE91599187B00CB3094 /* GTIOActionSheet.m in Sources */,
 				8E89BAEA159919E000CB3094 /* GTIOPagination.m in Sources */,
+				8EE68CBB159A00B100DE2E68 /* GTIOLargeButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

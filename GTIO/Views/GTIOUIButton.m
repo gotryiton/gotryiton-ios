@@ -55,7 +55,6 @@
         case GTIOButtonTypeFollowingButtonForNavBar: return [self gtio_followingButtonForNavBar];
         case GTIOButtonTypeRequestedButtonForNavBar: return [self gtio_requestedButtonForNavBar];
         case GTIOButtonTypeMask: return [self gtio_maskButton];
-        case GTIOButtonTypeActionSheetCancel: return [self gtio_largeCancelButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -92,39 +91,6 @@
     [button setBackgroundImage:[UIImage imageNamed:@"upload.bottom.bar.button.bg.off.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"upload.bottom.bar.button.bg.on.png"] forState:UIControlStateHighlighted];
     [button setFrame:(CGRect){ 0, 0, 39, 53}];
-    return button;
-}
-
-+ (id)largeButtonWithGTIOStyle:(GTIOLargeButtonStyle)largeButtonStyle
-{
-    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
-    
-    NSString *backgroundImageNormal;
-    NSString *backgroundImageHighlighted;
-    switch (largeButtonStyle) {
-        case GTIOLargeButtonStyleGray:
-            backgroundImageNormal = @"large.button.grey.off.png";
-            backgroundImageHighlighted = @"large.button.grey.on.png";
-            break;
-        case GTIOLargeButtonStyleGreen:
-            backgroundImageNormal = @"large.button.green.off.png";
-            backgroundImageHighlighted = @"large.button.green.on.png";
-            break;
-        case GTIOLargeButtonStyleRed:
-            backgroundImageNormal = @"large.button.red.off.png";
-            backgroundImageHighlighted = @"large.button.red.on.png";
-            break;
-        default:
-            backgroundImageNormal = @"large.button.grey.off.png";
-            backgroundImageHighlighted = @"large.button.grey.on.png";
-            break;
-    }
-    
-    [button setBackgroundImage:[[UIImage imageNamed:backgroundImageNormal] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0] forState:UIControlStateNormal];
-    [button setBackgroundImage:[[UIImage imageNamed:backgroundImageHighlighted] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0] forState:UIControlStateHighlighted];
-    [button setTitleColor:[UIColor gtio_ActionSheetButtonTextColor] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
-    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 
@@ -419,15 +385,6 @@
 {
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    return button;
-}
-
-+ (id)gtio_largeCancelButton
-{
-    GTIOUIButton *button = [self largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray];
-    [button setTitleColor:[UIColor gtio_signInColor] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:14.0]];
-    [button setTitle:@"cancel" forState:UIControlStateNormal];
     return button;
 }
 
