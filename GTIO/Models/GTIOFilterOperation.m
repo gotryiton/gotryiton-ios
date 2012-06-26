@@ -29,12 +29,10 @@
     if (![self isCancelled]) {
         NSLog(@"Start filter: %@", GTIOFilterTypeName[self.filterType]);
         
-        Class filterClass = NSClassFromString(GTIOFilterTypeClass[self.filterType]);
-        if (filterClass) {
-            GTIOFilter *filter = [[filterClass alloc] init];
-            [filter setOriginalImage:self.originalImage];
-            self.filteredImage = [filter applyFilters];
-            filter = nil;
+        SEL selector = NSSelectorFromString(GTIOFilterTypeSelectors[self.filterType]);
+        if ([self.originalImage respondsToSelector:selector]) {
+
+            self.filteredImage = [self.originalImage performSelector:selector];
             
             if (self.finishedHandler) {
                 self.finishedHandler(self.filterType, self.filteredImage);

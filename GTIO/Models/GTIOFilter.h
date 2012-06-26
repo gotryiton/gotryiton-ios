@@ -32,7 +32,7 @@ static NSString * const GTIOFilterTypeName[] = {
     [GTIOFilterTypeWalker] = @"Walker"
 };
 
-static NSString * const GTIOFilterTypeClass[] = {
+static NSString * const GTIOFilterTypeSelectors[] = {
     [GTIOFilterTypeOriginal] = @"GTIOFilterOriginal",
     [GTIOFilterTypeClementine] = @"GTIOFilterClementine",
     [GTIOFilterTypeColombe] = @"GTIOFilterColombe",
@@ -59,6 +59,5 @@ static NSInteger const GTIOFilterOrder[] = { GTIOFilterTypeOriginal, GTIOFilterT
 
 @property (nonatomic, assign) GTIOFilterType filterType;
 
-- (UIImage *)applyFilters;
 
 @end

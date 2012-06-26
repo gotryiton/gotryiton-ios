@@ -12,6 +12,8 @@
 #import "GTIOFilterOperation.h"
 
 #import "UIImage+Blend.h"
+#import "UIImage+GTIOFilters.h"
+#import "UIImage+Filter.h"
 
 @interface GTIOFilter ()
 
@@ -43,28 +45,7 @@
     return self;
 }
 
-- (UIImage *)applyFilters
-{    
-    UIImage *filteredBaseImage = [self filterImage:self.originalImage WithFilters:self.baseFilters];
-    UIImage *filteredBackgroundImage = [self filterImage:filteredBaseImage WithFilters:self.backgroundFilters];
-    UIImage *filteredTopImage = [self filterImage:filteredBaseImage WithFilters:self.maskingFilters];
-    
-    if (self.maskImage) {
-        // GPU masking
-        GPUImagePicture *filteredGPUImage = [[GPUImagePicture alloc] initWithImage:filteredTopImage];
-        GPUImageMaskFilter *maskFilter = [[GPUImageMaskFilter alloc] init];
-        [filteredGPUImage addTarget:maskFilter];
-        
-        GPUImagePicture *maskGPUImage = [[GPUImagePicture alloc] initWithImage:self.maskImage];
-        [maskGPUImage addTarget:maskFilter];
-        [filteredGPUImage processImage];
-        UIImage *filteredMaskedImage = [maskFilter imageFromCurrentlyProcessedOutput];
-        
-        return [UIImage blendTopImage:filteredMaskedImage bottomImage:filteredBackgroundImage blendMode:self.blendMode];
-    } else {
-        return filteredBackgroundImage;
-    }
-}
+
 
 - (UIImage *)filterImage:(UIImage *)image WithFilters:(NSMutableArray *)filters
 {
