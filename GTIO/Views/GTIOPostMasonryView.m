@@ -75,7 +75,7 @@
     [super layoutSubviews];
 
     [self.emptyStateView setFrame:(CGRect){ 60, 90, self.emptyStateView.bounds.size }];
-    [self.masonGridView setFrame:(CGRect){ 7, 9, self.bounds.size.width - 7, self.bounds.size.height }];
+    [self.masonGridView setFrame:(CGRect){ 7, 9, self.bounds.size.width - 7, self.bounds.size.height - 9 }];
 }
 
 - (void)refreshAndCenterGTIOEmptyStateView:(GTIOPostMasonryEmptyStateView *)emptyStateView

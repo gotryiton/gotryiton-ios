@@ -37,7 +37,6 @@
 
 - (void)imageDownloader:(SDWebImageDownloader *)downloader didFailWithError:(NSError *)error
 {
-    NSLog(@"Image failed to download");
     if ([self.delegate respondsToSelector:@selector(gridItem:didFailToLoadWithError:)]) {
         [self.delegate gridItem:self didFailToLoadWithError:error];
     }

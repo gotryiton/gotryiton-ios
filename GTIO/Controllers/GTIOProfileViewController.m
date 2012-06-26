@@ -75,6 +75,7 @@
     
     self.followButton = nil;
     self.followingButton = nil;
+    self.requestedButton = nil;
     self.profileHeaderView = nil;
     self.postsHeartsWithSegmentedControlView = nil;
 }

@@ -11,7 +11,7 @@
 #import "GTIOProgressHUD.h"
 
 static double const imageWidth = 94.0;
-static double const spacerWidth = 12.0;
+static double const horizontalSpacing = 12.0;
 
 @interface GTIOMasonGridView()
 
@@ -42,6 +42,7 @@ static double const spacerWidth = 12.0;
 - (void)didFinishLoadingGridItem:(GTIOMasonGridItem *)gridItem
 {
     [GTIOProgressHUD hideHUDForView:self animated:YES];
+    
     // Find shortest column
     GTIOMasonGridColumn *shortestColumn = nil;
     for (GTIOMasonGridColumn *column in self.columns) {
@@ -50,15 +51,22 @@ static double const spacerWidth = 12.0;
         }
     }
     
+    // Image frame with shadow
     UIImageView *gridFrameImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"grid-thumbnail-frame.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0, 0.0, 6.0, 0.0)]];
     gridFrameImageView.alpha = 0.0;
+    
+    // Actual image
     UIImageView *imageView = [[UIImageView alloc] initWithImage:gridItem.image];
-    [imageView setFrame:(CGRect){ shortestColumn.columnNumber * imageWidth + shortestColumn.columnNumber * spacerWidth, shortestColumn.height == 0 ? 0.0 :shortestColumn.height + shortestColumn.imageSpacer, imageWidth, imageView.bounds.size.height }];
+    imageView.alpha = 0.0;
+    
+    // Size and position
+    [imageView setFrame:(CGRect){ shortestColumn.columnNumber * imageWidth + shortestColumn.columnNumber * horizontalSpacing, shortestColumn.height == 0 ? 0.0 :shortestColumn.height + shortestColumn.imageSpacer, imageWidth, imageView.bounds.size.height }];
     [gridFrameImageView setFrame:(CGRect){ imageView.frame.origin.x - 4, imageView.frame.origin.y - 4, imageView.bounds.size.width + 8, imageView.bounds.size.height + 9 }];
+    
     [self addSubview:gridFrameImageView];
     [self addSubview:imageView];
     
-    // Add items to grid and animate
+    // Add item to grid
     [shortestColumn.items addObject:gridItem];
     
     // Change content size
@@ -68,11 +76,12 @@ static double const spacerWidth = 12.0;
             tallestColumnHeight = column.height;
         }
     }
+    [self setContentSize:(CGSize){ self.frame.size.width, tallestColumnHeight + 12 }];
     
-    [self setContentSize:(CGSize){ self.frame.size.width, tallestColumnHeight + 19 }];
-    
+    // Fade in
     [UIView animateWithDuration:0.25 animations:^{
         gridFrameImageView.alpha = 1.0;
+        imageView.alpha = 1.0;
     }];
 }
 
@@ -84,6 +93,7 @@ static double const spacerWidth = 12.0;
 - (void)setPosts:(NSArray *)posts postsType:(GTIOPostType)postsType
 {
     [GTIOProgressHUD showHUDAddedTo:self animated:YES];
+    
     for (GTIOPost *post in posts) {
         GTIOMasonGridItem *item = [[GTIOMasonGridItem alloc] init];
         item.delegate = self;

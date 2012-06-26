@@ -9,6 +9,8 @@
 #import "GTIOMasonGridColumn.h"
 #import "GTIOMasonGridItem.h"
 
+static double const defaultVerticalSpacing = 12.0;
+
 @implementation GTIOMasonGridColumn
 
 @synthesize items = _items;
@@ -28,7 +30,7 @@
     self = [super init];
     if (self) {
         self.items = [NSMutableArray array];
-        self.imageSpacer = 12.0f;
+        self.imageSpacer = defaultVerticalSpacing;
     }
     return self;
 }
@@ -41,7 +43,6 @@
             totalHeight += item.image.size.height;
         }
     }
-    NSLog(@"column height: %f", totalHeight + (([self.items count] - 1) * self.imageSpacer));
     if (totalHeight == 0) {
         return 0.0f;
     } else {
