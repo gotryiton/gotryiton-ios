@@ -1111,7 +1111,11 @@ A user can read reviews from an outfit post or a product post page
 #### Mockups
 3.4 Reviews Page ([wireframe](http://invis.io/NE2OBV7J))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/2/3.4.Reviews.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/3.4.reviews.png" width=420px/>
+
+3.4 Reviews with direct link 
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/3.4.reviews.direct.link.png" width=420px/>
 
 3.4.1 Reviews with keyboard 
 
@@ -2513,7 +2517,10 @@ Each user has a shopping list
 #### Mockups
 7.8 Shopping list ([wireframe](http://invis.io/8W2OD45T))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.8.Shopping.List.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/7.8.shopping.list.png" width=420px/>
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/7.8.shopping.list.empty.png" width=420px/>
+
 
 7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))
 
@@ -2947,7 +2954,15 @@ A user can see their pending upload in their feed
 #### Mockups
 8.4 ([wireframe](http://invis.io/642OE8AC)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.4.Upload.In.Progress.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.finalizing.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.success.png" width=420px/>
+
+
+
+Upload Fail
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.fail.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2974,7 +2989,13 @@ A user can see their pending upload in their feed
    - on **success** from upload api ==> (view 8.5)
    - on **fail** ==> retry?
 
-
+#### Design Stories
+- Text
+	- left side: Archer Medium Italic 11px rgb(156,156,156) #9c9c9c
+	- right side: Archer Medium Italic 11px rgb(88,88,88) #585858
+- Retry Overlay
+	- 8/uploading.fail.avatar.overlay.inactive.png
+		- Active (8/uploading.fail.avatar.overlay.active.png)
 
 ###  8.5 Feed after completed upload  
 
