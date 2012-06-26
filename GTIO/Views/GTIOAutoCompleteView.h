@@ -47,5 +47,6 @@
 -(UIView *) initWithFrame:(CGRect) frame withOuterBox:(CGRect) outerFrame;
 
 -(void) addCompleters:(NSMutableArray * ) completers;
+- (NSString *) processDescriptionString;
 
 @end

@@ -223,8 +223,6 @@
         
         [self hideScrollView];
         
-        //self.textInput.textColor = [UIColor clearColor];
-        
         //TODO:
         //this should prob kick off an event of some kind to alert the view's owner that we're done with the keyboard (and to animate and such)
 
@@ -244,9 +242,6 @@
 
         if ([foundAutoCompleters count]>0){
             [self showButtonsWithAutoCompleters: foundAutoCompleters];
-            if ([foundAutoCompleters count]==1)  {
-                NSLog(@"do something exciting");
-            }
         }
         else {
             if (![self showAtTagButtons])
@@ -606,34 +601,31 @@
 }
 
 
-- (NSString *) getSubmissionText {
+- (NSString *) processDescriptionString {
 
     NSString *response = [[NSString alloc] initWithString: @""];
     
    
-    
+    NSDictionary *attributes;
+    NSRange effectiveRange = { 0, 0 }; 
+    do { 
+        NSRange range;
+        range = NSMakeRange (NSMaxRange(effectiveRange), [self.attrString length] - NSMaxRange(effectiveRange));
+        
+        
+        attributes = [self.attrString attributesAtIndex:range.location longestEffectiveRange: &effectiveRange inRange:range ];
 
-    
-        NSDictionary *attributes;
-        NSRange effectiveRange = { 0, 0 }; 
-        do { 
-            NSRange range;
-            range = NSMakeRange (NSMaxRange(effectiveRange), [self.attrString length] - NSMaxRange(effectiveRange));
+        
+        if ([attributes objectForKey:@"completerType"] ){
             
-            
-            attributes = [self.attrString attributesAtIndex:range.location longestEffectiveRange: &effectiveRange inRange:range ];
-
-            
-            if ([attributes objectForKey:@"completerType"] ){
-                
-                response = [response stringByAppendingFormat:@"{%@{%@{%@}}}", [attributes objectForKey:@"completerType"], [attributes objectForKey:@"completerId"], [[self.attrString string] substringWithRange:effectiveRange]];
-            }
-            else {
-                response = [response stringByAppendingString:[[self.attrString string] substringWithRange:effectiveRange]];    
-            }
-            
+            response = [response stringByAppendingFormat:@"{%@{%@{%@}}}", [attributes objectForKey:@"completerType"], [attributes objectForKey:@"completerId"], [[self.attrString string] substringWithRange:effectiveRange]];
         }
-        while (NSMaxRange(effectiveRange) < [self.attrString length]); 
+        else {
+            response = [response stringByAppendingString:[[self.attrString string] substringWithRange:effectiveRange]];    
+        }
+        
+    }
+    while (NSMaxRange(effectiveRange) < [self.attrString length]); 
 
 
 

@@ -23,33 +23,27 @@
         
         self.canCancelContentTouches = YES;
         self.userInteractionEnabled = YES;
-        self.delaysContentTouches = YES;
+        self.delaysContentTouches = NO;
         self.showsHorizontalScrollIndicator = NO;
         self.exclusiveTouch = NO;
+
+       
     }
     return self;
 }
 
 
-- (BOOL)touchesShouldCancelInContentView:(UIView *)view { 
+- (BOOL)touchesShouldCancelInContentView:(UIView *)view 
+{ 
     return ![view isKindOfClass:[UISlider class]]; 
-}
-
-- (void) touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 
-{   
-    NSLog(@"hi");
-  // If not dragging, send event to next responder
-  if (!self.dragging) 
-    [self.nextResponder touchesEnded: touches withEvent:event]; 
-  else
-    [super touchesEnded: touches withEvent: event];
 }
 
 
 
 #pragma mark UIScrollView methods
 
-- (void) clearScrollView {
+- (void) clearScrollView 
+{
     for (UIView *view in self.subviews) {
         if ([view isKindOfClass:[GTIOAutoCompleteButton class]])
             [view removeFromSuperview];
@@ -60,7 +54,8 @@
 
 
 
-- (void) showButtonsWithAutoCompleters:(NSArray *) buttons {
+- (void) showButtonsWithAutoCompleters:(NSArray *) buttons 
+{
         
     [self clearScrollView];
     
@@ -70,21 +65,19 @@
 
 
 
-- (void) addButtonOptionsToScrollViewWithAutoCompleters:(NSArray *) buttons{
+- (void) addButtonOptionsToScrollViewWithAutoCompleters:(NSArray *) buttons
+{
     
     int btnWidth = 5;
     int i = 0;
     
     for (GTIOAutoCompleter *option in buttons){
         
-        
+        GTIOAutoCompleteButton *optionButton = [[GTIOAutoCompleteButton alloc] initWithFrame:(CGRect){ btnWidth,11,30,34 }  withCompleter:option];
 
-        GTIOAutoCompleteButton *optionButton = [[GTIOAutoCompleteButton alloc] initWithFrame:(CGRect){ btnWidth,11,30,34 } tapHandler:^(id sender) {
-            NSLog(@"touch!!");
-            [self AutoCompleterButtonTouched:((GTIOAutoCompleteButton *)sender)];
-        } withCompleter:option];
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
 
-        [optionButton addTarget:self action:@selector(AutoCompleterButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [optionButton addGestureRecognizer: singleTap];
 
 
         [self addSubview:optionButton];
@@ -111,6 +104,12 @@
     [self clearScrollView];
 }
 
+
+- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer 
+{
+    [self AutoCompleterButtonTouched:(GTIOAutoCompleteButton *)gestureRecognizer.view];
+
+}
 
 
 @end

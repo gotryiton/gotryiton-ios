@@ -16,17 +16,14 @@
 @synthesize completer = _completer;
 
 
-- (id)initWithFrame:(CGRect) frame tapHandler:(GTIOButtonDidTapHandler)tapHandler withCompleter:(GTIOAutoCompleter *) completer
+- (id)initWithFrame:(CGRect) frame  withCompleter:(GTIOAutoCompleter *) completer
 {
     self = [super initWithFrame:frame];
     if (self) {
 
-    	[self setTapHandler:tapHandler];
-
         _completer = completer;
 
-        
-        [self setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
+        [self.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
         
         CGSize displayNameTextSize;
         displayNameTextSize = [completer.name sizeWithFont:[UIFont boldSystemFontOfSize:14.0f] forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
@@ -73,6 +70,7 @@
 
 
         [self setFrame:(CGRect){ CGRectGetMinX(frame), CGRectGetMinY(frame), displayNameTextSize.width + 10, CGRectGetHeight(frame) } ];
+
         
     }
     return self;

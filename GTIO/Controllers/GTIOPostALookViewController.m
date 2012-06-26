@@ -243,12 +243,12 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)postThis:(id)sender
 {
-    if ([self.descriptionBox.textView.submissionText length] == 0) {
+    if ([[self.descriptionBox.textView processDescriptionString] length] == 0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to post without a description?" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:@"Cancel", nil];
         [alert setTag:kGTIOEmptyDescriptionAlertTag];
         [alert show];
     } else {
-        NSLog(@"description submissionText: %@", self.descriptionBox.textView.submissionText );
+        NSLog(@"description submissionText: %@", [self.descriptionBox.textView processDescriptionString] );
         
         [self beginPostLookToGTIO];
     }
@@ -323,7 +323,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     if (!self.creatingPhoto && self.photoForPosting) {
         [self savePhotoToDisk];
-        [GTIOPost postGTIOPhoto:self.photoForPosting description:self.descriptionBox.textView.submissionText votingEnabled:self.optionsView.votingSwitch.on completionHandler:^(GTIOPost *post, NSError *error) {
+        [GTIOPost postGTIOPhoto:self.photoForPosting description:[self.descriptionBox.textView processDescriptionString] votingEnabled:self.optionsView.votingSwitch.on completionHandler:^(GTIOPost *post, NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             if (!error && post) {
                 [self.navigationController dismissModalViewControllerAnimated:YES];
