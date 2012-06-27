@@ -239,8 +239,7 @@
             self.followingButton.tapHandler = ^(id sender) {
                 NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
                 if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
-                    GTIOFindMyFriendsViewController *findMyFriendsController = [[GTIOFindMyFriendsViewController alloc] initWithNibName:nil bundle:nil];
-                    [self.delegate pushViewController:findMyFriendsController];
+                    // view following (6.5)
                 }
             };
         }

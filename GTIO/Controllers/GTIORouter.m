@@ -8,6 +8,7 @@
 
 #import "GTIORouter.h"
 #import "GTIOSignInViewController.h"
+#import "GTIOFindMyFriendsViewController.h"
 
 @interface GTIORouter()
 
@@ -24,9 +25,11 @@
     self = [super init];
     if (self) {
         GTIOSignInViewController *signInViewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
+        GTIOFindMyFriendsViewController *findMyFriendsViewController = [[GTIOFindMyFriendsViewController alloc] initWithNibName:nil bundle:nil];
         
         _routingMap = [NSDictionary dictionaryWithObjectsAndKeys:
                        signInViewController, @"gtio://sign-out", 
+                       findMyFriendsViewController, @"gtio://find-friends",
                        nil];
     }
     return self;

@@ -110,4 +110,9 @@
     return UIColorFromRGB(0xEDEBE0);
 }
 
++ (UIColor *)gtio_friendsGreenCellColor
+{
+    return UIColorFromRGB(0xEBF2EF);
+}
+
 @end

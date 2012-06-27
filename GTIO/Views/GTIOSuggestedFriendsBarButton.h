@@ -10,6 +10,8 @@
 
 @interface GTIOSuggestedFriendsBarButton : UIButton
 
+@property (nonatomic, copy) NSString *barTitle;
+@property (nonatomic, assign) BOOL hasGreenBackgroundColor;
 @property (nonatomic, strong) NSArray *suggestedFriends;
 
 @end

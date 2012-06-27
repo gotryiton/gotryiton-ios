@@ -32,6 +32,8 @@
 		8E89BAEA159919E000CB3094 /* GTIOPagination.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F7C7AE159900A900ADAF92 /* GTIOPagination.m */; };
 		8E89EA5E15924E5000303A04 /* GTIOSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89EA5D15924E5000303A04 /* GTIOSegmentedControl.m */; };
 		8E8A906B156EA202000732CC /* GTIOEditProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */; };
+		8E8C35C4159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C35C3159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.m */; };
+		8E8C35C6159BA1D500F6CCD5 /* search.no.results.empty.sadface.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C35C5159BA1D500F6CCD5 /* search.no.results.empty.sadface.png */; };
 		8E8E6EC615756DD0009750E2 /* GTIOTakePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E6EC515756DD0009750E2 /* GTIOTakePhotoView.m */; };
 		8E91B0FF156AC197009D70AC /* JRActivityObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B037156AC197009D70AC /* JRActivityObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E91B100156AC197009D70AC /* JRConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B039156AC197009D70AC /* JRConnectionManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -204,7 +206,7 @@
 		8E91B1A8156AC197009D70AC /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B0FE156AC197009D70AC /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E97DF341586A81300521968 /* GTIOQuickAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */; };
 		8EA02719159A2D0800FDC45E /* GTIOFindMyFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA02718159A2D0800FDC45E /* GTIOFindMyFriendsViewController.m */; };
-		8EA0271D159A369000FDC45E /* GTIOFindMyFriendsTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0271C159A369000FDC45E /* GTIOFindMyFriendsTableHeaderView.m */; };
+		8EA0271D159A369000FDC45E /* GTIOFriendsTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0271C159A369000FDC45E /* GTIOFriendsTableHeaderView.m */; };
 		8EA02720159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0271F159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m */; };
 		8EA02723159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA02722159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m */; };
 		8EA21B39157FDDC000D5003C /* GTIOPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA21B38157FDDC000D5003C /* GTIOPost.m */; };
@@ -1100,6 +1102,9 @@
 		8E89EA5D15924E5000303A04 /* GTIOSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSegmentedControl.m; sourceTree = "<group>"; };
 		8E8A9069156EA202000732CC /* GTIOEditProfilePictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOEditProfilePictureViewController.h; sourceTree = "<group>"; };
 		8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOEditProfilePictureViewController.m; sourceTree = "<group>"; };
+		8E8C35C2159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFriendsNoSearchResultsView.h; sourceTree = "<group>"; };
+		8E8C35C3159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFriendsNoSearchResultsView.m; sourceTree = "<group>"; };
+		8E8C35C5159BA1D500F6CCD5 /* search.no.results.empty.sadface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.no.results.empty.sadface.png; sourceTree = "<group>"; };
 		8E8E6EC415756DD0009750E2 /* GTIOTakePhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTakePhotoView.h; sourceTree = "<group>"; };
 		8E8E6EC515756DD0009750E2 /* GTIOTakePhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTakePhotoView.m; sourceTree = "<group>"; };
 		8E91B036156AC197009D70AC /* JRActivityObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRActivityObject.h; sourceTree = "<group>"; };
@@ -1289,8 +1294,8 @@
 		8E969F53158BD7F7009E19B3 /* GTIOFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFeedViewController.m; sourceTree = "<group>"; };
 		8EA02717159A2D0800FDC45E /* GTIOFindMyFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFindMyFriendsViewController.h; sourceTree = "<group>"; };
 		8EA02718159A2D0800FDC45E /* GTIOFindMyFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFindMyFriendsViewController.m; sourceTree = "<group>"; };
-		8EA0271B159A369000FDC45E /* GTIOFindMyFriendsTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFindMyFriendsTableHeaderView.h; sourceTree = "<group>"; };
-		8EA0271C159A369000FDC45E /* GTIOFindMyFriendsTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFindMyFriendsTableHeaderView.m; sourceTree = "<group>"; };
+		8EA0271B159A369000FDC45E /* GTIOFriendsTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFriendsTableHeaderView.h; sourceTree = "<group>"; };
+		8EA0271C159A369000FDC45E /* GTIOFriendsTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFriendsTableHeaderView.m; sourceTree = "<group>"; };
 		8EA0271E159A374900FDC45E /* GTIOSuggestedFriendsBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSuggestedFriendsBarButton.h; sourceTree = "<group>"; };
 		8EA0271F159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSuggestedFriendsBarButton.m; sourceTree = "<group>"; };
 		8EA02721159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFindMyFriendsSearchBoxView.h; sourceTree = "<group>"; };
@@ -2686,14 +2691,16 @@
 		8EA0271A159A2DBB00FDC45E /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				8EA0271B159A369000FDC45E /* GTIOFindMyFriendsTableHeaderView.h */,
-				8EA0271C159A369000FDC45E /* GTIOFindMyFriendsTableHeaderView.m */,
+				8EA0271B159A369000FDC45E /* GTIOFriendsTableHeaderView.h */,
+				8EA0271C159A369000FDC45E /* GTIOFriendsTableHeaderView.m */,
 				8EA0271E159A374900FDC45E /* GTIOSuggestedFriendsBarButton.h */,
 				8EA0271F159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m */,
 				8EA02721159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.h */,
 				8EA02722159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m */,
 				8EF4600F159A647800E00994 /* GTIOFindMyFriendsTableViewCell.h */,
 				8EF46010159A647800E00994 /* GTIOFindMyFriendsTableViewCell.m */,
+				8E8C35C2159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.h */,
+				8E8C35C3159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.m */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -3224,6 +3231,7 @@
 		8ED008541598D8EC00E50B09 /* 6 */ = {
 			isa = PBXGroup;
 			children = (
+				8E8C35C5159BA1D500F6CCD5 /* search.no.results.empty.sadface.png */,
 				8ED008551598D8EC00E50B09 /* find.friends.search.empty.png */,
 				8ED008561598D8EC00E50B09 /* find.friends.search.empty@2x.png */,
 				8ED008571598D8EC00E50B09 /* search.area.background.shadow.png */,
@@ -5092,6 +5100,7 @@
 				8ED00BA51598D8EC00E50B09 /* star-ribbon-grid.png in Resources */,
 				8ED00BA61598D8EC00E50B09 /* star-ribbon-grid@2x.png in Resources */,
 				8ED00BA71598D8EC00E50B09 /* ui.empty.pixel.png in Resources */,
+				8E8C35C6159BA1D500F6CCD5 /* search.no.results.empty.sadface.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5286,10 +5295,11 @@
 				8E89BAEA159919E000CB3094 /* GTIOPagination.m in Sources */,
 				8EE68CBB159A00B100DE2E68 /* GTIOLargeButton.m in Sources */,
 				8EA02719159A2D0800FDC45E /* GTIOFindMyFriendsViewController.m in Sources */,
-				8EA0271D159A369000FDC45E /* GTIOFindMyFriendsTableHeaderView.m in Sources */,
+				8EA0271D159A369000FDC45E /* GTIOFriendsTableHeaderView.m in Sources */,
 				8EA02720159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m in Sources */,
 				8EA02723159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m in Sources */,
 				8EF46011159A647800E00994 /* GTIOFindMyFriendsTableViewCell.m in Sources */,
+				8E8C35C4159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

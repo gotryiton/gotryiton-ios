@@ -19,7 +19,7 @@
 
 @implementation GTIOFindMyFriendsSearchBoxView
 
-@synthesize backgroundImageView = _backgroundImageView, followingFriendsLabel = _followingFriendsLabel, numberOfFriendsFollowing = _numberOfFriendsFollowing, searchBar = _searchBar;
+@synthesize backgroundImageView = _backgroundImageView, followingFriendsLabel = _followingFriendsLabel, numberOfFriendsFollowing = _numberOfFriendsFollowing, searchBar = _searchBar, searchBarDelegate = _searchBarDelegate, showFollowingLabel = _showFollowingLabel, numberOfFollowers = _numberOfFollowers, searchBarPlaceholder = _searchBarPlaceholder;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -42,7 +42,7 @@
         [_searchBar setImage:[UIImage imageNamed:@"search.field.mag.icon.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
         [_searchBar setPositionAdjustment:UIOffsetMake(0.0, -1.0) forSearchBarIcon:UISearchBarIconSearch];
         [_searchBar setPlaceholder:@"search through friends I follow"];
-        // remove search bar default background / set custom font
+        // remove search bar default background / set custom font / use done button
         for (UIView *view in _searchBar.subviews) {
             if ([view isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
                 [view removeFromSuperview];
@@ -50,9 +50,13 @@
             if ([view isKindOfClass:NSClassFromString(@"UITextField")]) {
                 UITextField *textField = (UITextField *)view;
                 [textField setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.0]];
+                [textField setTextColor:[UIColor gtio_grayTextColor]];
+                [textField setReturnKeyType:UIReturnKeyDone];
             }
         }
+
         [self addSubview:_searchBar];
+        _showFollowingLabel = YES;
     }
     return self;
 }
@@ -60,7 +64,7 @@
 - (void)layoutSubviews
 {
     [self.backgroundImageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
-    [self.followingFriendsLabel setFrame:(CGRect){ 9, 6, self.bounds.size.width - 16, 15 }];
+    [self.followingFriendsLabel setFrame:(CGRect){ 9, 6, self.bounds.size.width - 16, (self.showFollowingLabel) ? 15 : 0 }];
     [self.searchBar setFrame:(CGRect){ 0, self.followingFriendsLabel.frame.origin.y + self.followingFriendsLabel.bounds.size.height + 7, self.bounds.size.width, 31 }];
 }
 
@@ -69,6 +73,10 @@
     _numberOfFriendsFollowing = numberOfFriendsFollowing;
     NSString *followingText = [NSString stringWithFormat:@"%i FRIENDS", _numberOfFriendsFollowing];
     NSString *followingLabelText = [NSString stringWithFormat:@"FOLLOWING %@", followingText];
+    if (_numberOfFollowers > 0) {
+        followingText = [NSString stringWithFormat:@"%i FOLLOWERS", _numberOfFollowers];
+        followingLabelText = [NSString stringWithFormat:@"YOU HAVE %@", followingText];
+    }
     __block typeof(followingText) blockFollowingText = followingText;
     [_followingFriendsLabel setText:followingLabelText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange boldRange = [[mutableAttributedString string] rangeOfString:blockFollowingText options:NSCaseInsensitiveSearch];
@@ -80,6 +88,30 @@
         }
         return mutableAttributedString;
     }];
+}
+
+- (void)setNumberOfFollowers:(int)numberOfFollowers
+{
+    _numberOfFollowers = numberOfFollowers;
+    [self setNumberOfFriendsFollowing:0];
+}
+
+- (void)setSearchBarPlaceholder:(NSString *)searchBarPlaceholder
+{
+    _searchBarPlaceholder = searchBarPlaceholder;
+    [self.searchBar setPlaceholder:_searchBarPlaceholder];
+}
+
+- (void)setSearchBarDelegate:(id<UISearchBarDelegate>)searchBarDelegate
+{
+    _searchBarDelegate = searchBarDelegate;
+    [self.searchBar setDelegate:_searchBarDelegate];
+}
+
+- (void)setShowFollowingLabel:(BOOL)showFollowingLabel
+{
+    _showFollowingLabel = showFollowingLabel;
+    [self setNeedsLayout];
 }
 
 @end

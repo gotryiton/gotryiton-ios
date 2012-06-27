@@ -15,13 +15,17 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIImageView *chevron;
 
+@property (nonatomic, strong) GTIOUIButton *followingButton;
+@property (nonatomic, strong) GTIOUIButton *followButton;
+@property (nonatomic, strong) GTIOUIButton *requestedButton;
+
 @property (nonatomic, strong) UIView *bottomBorder;
 
 @end
 
 @implementation GTIOFindMyFriendsTableViewCell
 
-@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, chevron = _chevron, bottomBorder = _bottomBorder;
+@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, chevron = _chevron, bottomBorder = _bottomBorder, followingButton = _followingButton, followButton = _followButton, requestedButton = _requestedButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -35,6 +39,18 @@
         _nameLabel.textColor = [UIColor gtio_grayTextColor];
         _nameLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_nameLabel];
+        
+        _followingButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowingButtonRegular];
+        _followingButton.hidden = YES;
+        [self.contentView addSubview:_followingButton];
+        
+        _followButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowButtonRegular];
+        _followButton.hidden = YES;
+        [self.contentView addSubview:_followButton];
+        
+        _requestedButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeRequestedButtonRegular];
+        _requestedButton.hidden = YES;
+        [self.contentView addSubview:_requestedButton];
         
         _chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];
         [_chevron setFrame:(CGRect){ 306, 18, _chevron.image.size }];
@@ -52,25 +68,29 @@
 {
     [super prepareForReuse];
     
-    self.profilePicture = nil;
-    self.nameLabel = nil;
-    self.chevron = nil;
+    self.nameLabel.text = @"";
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    [self.nameLabel setFrame:(CGRect){ self.profilePicture.frame.origin.x + self.profilePicture.bounds.size.width + 10, 17, 200, 20 }];
+    [self.followingButton setFrame:(CGRect){ self.chevron.frame.origin.x - self.followingButton.bounds.size.width - 9, 9, self.followingButton.bounds.size }];
+    [self.followButton setFrame:(CGRect){ self.chevron.frame.origin.x - self.followButton.bounds.size.width - 9, 9, self.followButton.bounds.size }];
+    [self.requestedButton setFrame:(CGRect){ self.chevron.frame.origin.x - self.requestedButton.bounds.size.width - 9, 9, self.requestedButton.bounds.size }];
+    
+    double nameLableXPosition = self.profilePicture.frame.origin.x + self.profilePicture.bounds.size.width + 10;
+    [self.nameLabel setFrame:(CGRect){ nameLableXPosition, 17, self.followingButton.frame.origin.x - nameLableXPosition - 10, 20 }];
     [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - 1, self.contentView.bounds.size.width, 1 }];
 }
 
 - (void)setUser:(GTIOUser *)user
 {
     _user = user;
-    
     [self.profilePicture setImageWithURL:_user.icon];
     self.nameLabel.text = _user.name;
+    self.followingButton.hidden = NO;
+    [self setNeedsLayout];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
