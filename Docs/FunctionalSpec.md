@@ -708,6 +708,11 @@ Request should include an array of user objects (nested under ```users```) that 
       - 10px from right edge of user icon
       - if location exists, baseline is 18px up from bottom of user icon
       - if location does not exist, text is vertically centered in cell
+   - User Badge
+      - use size "32_32.png" for 2x
+      - use size "16_16.png" for 1x
+      - 4px away from right edge of user name
+      - bottom of asset is 2px below baseline of user name
    - location
       - Proxima Nova Regular, 10pt, rgb (167,167,167)
       - baseline is 4px up from bottom of user icon
@@ -1176,6 +1181,17 @@ previous screen
                - **success** ==> button is left in on state (no other action)
             - cancel: close dialog
 
+#### Design Stories
+- User Badge (post owner)
+   - use size "28_28.png" for 2x
+   - use size "14_14.png" for 1x
+   - 4px away from right edge of user name
+   - bottom of asset is 2px below baseline of user name   
+- User Badge (commenter)
+   - use size "20_20.png" for 2x
+   - use size "10_10.png" for 1x
+   - 3px away from right edge of user name
+   - bottom of asset is 1px below baseline of user name
 
 ### 3.5 Who hearted this 
 
@@ -1518,6 +1534,11 @@ gtio://find-friends
 		- Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
 		- Bottom border: 1px rgba(217,215,206) #d9d7ce
 		- Chevrons: 8px from the right and vertically centered within the cell
+      - User Badge
+         - use size "32_32.png" for 2x
+         - use size "16_16.png" for 1x
+         - 4px away from right edge of user name
+         - bottom of asset is 2px below baseline of user name
 	- "Suggested Friends" Cell
 		- No bottom border
 		- Profile Icons are 25px with an inner shadow overlay (general/small-profile-overlay-inner-shadow.png), 6px padding between profile icon
@@ -1873,6 +1894,11 @@ gtio://my-management
 	- Name Text: Archer Medium Italics 16pt rgb(255,255,255) #ffffff (11px from top, 3px from profile image)
 	- Location Text: Proxima Nova Regular 10pt rgb(186,186,186) #bababa (6px from top, 3px from profile image)
       - string should be displayed in ALL UPPERCASE
+   - User Badge
+      - use size "38_38.png" for 2x
+      - use size "17_17.png" for 1x
+      - 2px away from right edge of user name
+      - bottom of asset is 4px below baseline of user name
 	- Following/Followers/Featured Buttons
 		- Should align with bottom of profile image (~7-8px)
 		- 3px from left
@@ -2348,6 +2374,11 @@ gtio://profile/:user_id
 		- 8px from top and right
 	- Profile Text
 		- 11pt Proxima Nova Regular rgb(186,186,186) #bababa
+   - User Badge
+      - use size "38_38.png" for 2x
+      - use size "17_17.png" for 1x
+      - 2px away from right edge of user name
+      - bottom of asset is 4px below baseline of user name
 - Friend Request
 	- 32px high rgb(0,0,0) 0.22 alpha
 	- Text: 11pt Proxima Nova Regular rgb(255,255,255) #ffffff
@@ -2688,6 +2719,11 @@ gtio://posts/feed
          - location is Proxima Nova Regular, 10pt, rgb(156,156,156)
             - 7px left padding inside background area
             - baseline is 8px up from bottom of background area
+         - User Badge
+            - use size "28_28.png" for 2x
+            - use size "14_14.png" for 1x
+            - 4px away from right edge of user name
+            - bottom of asset is 2px below baseline of user name            
    - timestamp
       - 34px high gap in accent line, vertically centered/aligned with position of user info
       - text is Archer Medium Italic, 10pt, rgb(143,143,143)
