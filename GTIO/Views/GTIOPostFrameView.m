@@ -102,14 +102,9 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
             extraHeight += kGTIOBrandButtonsTopPaddingNoDescription;
         }
         
-        NSLog(@"Photo frame: %@", NSStringFromCGRect(self.photoImageView.frame));
-        NSLog(@"Description frame: %@", NSStringFromCGRect(self.descriptionLabel.frame));
-        
         [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height + extraHeight, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
         
         extraParentFrameHeight += kGTIOBrandButtonsBottomPadding;
-        
-        NSLog(@"Brand frame: %@", NSStringFromCGRect(self.brandButtonsView.frame));
     } else {
         [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
     }
