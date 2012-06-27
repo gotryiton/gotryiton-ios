@@ -6,13 +6,12 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import "GTIOFindMyFriendsViewController.h"
-#import "GTIOFriendsTableHeaderView.h"
+#import "GTIOFriendsViewController.h"
 #import "GTIOFindMyFriendsTableViewCell.h"
 #import "GTIOUser.h"
 #import "GTIOFriendsNoSearchResultsView.h"
 
-@interface GTIOFindMyFriendsViewController ()
+@interface GTIOFriendsViewController ()
 
 @property (nonatomic, strong) UITableView *friendsTableView;
 @property (nonatomic, strong) GTIOFriendsTableHeaderView *friendsTableHeaderView;
@@ -23,16 +22,19 @@
 @property (nonatomic, copy) NSString *currentSearchQuery;
 @property (nonatomic, strong) GTIOFriendsNoSearchResultsView *noSearchResultsView;
 
+@property (nonatomic, assign) GTIOFriendsTableHeaderViewType tableHeaderViewType;
+
 @end
 
-@implementation GTIOFindMyFriendsViewController
+@implementation GTIOFriendsViewController
 
-@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView;
+@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)tableHeaderViewType
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
+        _tableHeaderViewType = tableHeaderViewType;
         self.hidesBottomBarWhenPushed = YES;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     }
@@ -66,19 +68,44 @@
     /**** END TEST CODE ****/
     
     [super viewDidLoad];
+    
+    NSString *title;
+    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFollowers) {
+        title = @"followers";
+    } else if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFollowing) {
+        title = @"following";
+    } else if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindMyFriends) {
+        title = @"find my friends";
+    } else if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFriends) {
+        title = @"friends";
+    } else if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeSuggested) {
+        title = @"suggested friends";
+    } else if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends) {
+        title = @"find friends";
+    }
 	
-    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"find my friends" italic:YES];
+    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:title italic:YES];
     [self useTitleView:navTitleView];
     
     GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
+    GTIOUIButton *closeButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeCloseButtonForNavBar tapHandler:^(id sender) {
+        [self dismissModalViewControllerAnimated:YES];
+    }];
     [self setLeftNavigationButton:backButton];
+    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFriends) {
+        [self setLeftNavigationButton:closeButton];
+    }
     
-    CGFloat friendsTableHeaderViewHeight = [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindMyFriends];
-    self.friendsTableHeaderView = [[GTIOFriendsTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, friendsTableHeaderViewHeight } type:GTIOFriendsTableHeaderViewTypeFindMyFriends];
+    CGFloat friendsTableHeaderViewHeight = [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType];
+    self.friendsTableHeaderView = [[GTIOFriendsTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, friendsTableHeaderViewHeight } type:self.tableHeaderViewType];
     [self.friendsTableHeaderView setSuggestedFriends:superHeroes];
     [self.friendsTableHeaderView setNumberOfFriendsFollowing:superHeroes.count];
+    [self.friendsTableHeaderView setDelegate:self];
+    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFollowers) {
+        [self.friendsTableHeaderView setNumberOfFollowers:superHeroes.count];
+    }
     [self.friendsTableHeaderView setSearchBarDelegate:self];
     
     self.friendsTableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
@@ -103,6 +130,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - GTIOFriendsTableHeaderViewDelegate methods
+
+- (void)pushViewController:(UIViewController *)viewController
+{
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
 #pragma mark - UISearchBarDelegate methods
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)text
@@ -123,7 +157,7 @@
         }
     }
     if (self.searchResults.count == 0 && self.searching) {
-        [self.noSearchResultsView setFrame:(CGRect){ 0, 116, self.friendsTableView.bounds.size.width, self.friendsTableView.bounds.size.height - 116 }];
+        [self.noSearchResultsView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.bounds.size.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
         [self.noSearchResultsView setFailedQuery:self.currentSearchQuery];
         [self.friendsTableView addSubview:self.noSearchResultsView];
     } else {

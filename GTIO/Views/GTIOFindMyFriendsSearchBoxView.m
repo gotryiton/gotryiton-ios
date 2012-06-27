@@ -25,6 +25,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.clipsToBounds = YES;
+        
         _backgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"search.area.background.shadow.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0)]];
         [self addSubview:_backgroundImageView];
         

@@ -58,6 +58,7 @@
         case GTIOButtonTypeFollowButtonRegular: return [self gtio_followButtonRegular];
         case GTIOButtonTypeFollowingButtonRegular: return [self gtio_followingButtonRegular];
         case GTIOButtonTypeRequestedButtonRegular: return [self gtio_requestedButtonRegular];
+        case GTIOButtonTypeCloseButtonForNavBar: return [self gtio_closeButtonGrayTopMargin];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -199,6 +200,11 @@
 + (id)gtio_cancelButtonGrayTopMargin
 {
     return [self gtio_navBarTopMarginWithText:@"cancel" tapHandler:nil];
+}
+
++ (id)gtio_closeButtonGrayTopMargin
+{
+    return [self gtio_navBarTopMarginWithText:@"close" tapHandler:nil];
 }
 
 + (id)gtio_saveButtonGrayTopMargin

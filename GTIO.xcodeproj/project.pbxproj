@@ -205,7 +205,7 @@
 		8E91B1A7156AC197009D70AC /* JRWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E91B0FB156AC197009D70AC /* JRWebViewController.xib */; };
 		8E91B1A8156AC197009D70AC /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B0FE156AC197009D70AC /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E97DF341586A81300521968 /* GTIOQuickAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */; };
-		8EA02719159A2D0800FDC45E /* GTIOFindMyFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA02718159A2D0800FDC45E /* GTIOFindMyFriendsViewController.m */; };
+		8EA02719159A2D0800FDC45E /* GTIOFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA02718159A2D0800FDC45E /* GTIOFriendsViewController.m */; };
 		8EA0271D159A369000FDC45E /* GTIOFriendsTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0271C159A369000FDC45E /* GTIOFriendsTableHeaderView.m */; };
 		8EA02720159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0271F159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m */; };
 		8EA02723159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA02722159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m */; };
@@ -1292,8 +1292,8 @@
 		8E91B0FE156AC197009D70AC /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		8E969F52158BD7F7009E19B3 /* GTIOFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFeedViewController.h; sourceTree = "<group>"; };
 		8E969F53158BD7F7009E19B3 /* GTIOFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFeedViewController.m; sourceTree = "<group>"; };
-		8EA02717159A2D0800FDC45E /* GTIOFindMyFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFindMyFriendsViewController.h; sourceTree = "<group>"; };
-		8EA02718159A2D0800FDC45E /* GTIOFindMyFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFindMyFriendsViewController.m; sourceTree = "<group>"; };
+		8EA02717159A2D0800FDC45E /* GTIOFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFriendsViewController.h; sourceTree = "<group>"; };
+		8EA02718159A2D0800FDC45E /* GTIOFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFriendsViewController.m; sourceTree = "<group>"; };
 		8EA0271B159A369000FDC45E /* GTIOFriendsTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFriendsTableHeaderView.h; sourceTree = "<group>"; };
 		8EA0271C159A369000FDC45E /* GTIOFriendsTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFriendsTableHeaderView.m; sourceTree = "<group>"; };
 		8EA0271E159A374900FDC45E /* GTIOSuggestedFriendsBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSuggestedFriendsBarButton.h; sourceTree = "<group>"; };
@@ -2682,8 +2682,8 @@
 		8EA02716159A2CF100FDC45E /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				8EA02717159A2D0800FDC45E /* GTIOFindMyFriendsViewController.h */,
-				8EA02718159A2D0800FDC45E /* GTIOFindMyFriendsViewController.m */,
+				8EA02717159A2D0800FDC45E /* GTIOFriendsViewController.h */,
+				8EA02718159A2D0800FDC45E /* GTIOFriendsViewController.m */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -5294,7 +5294,7 @@
 				8E89BAE91599187B00CB3094 /* GTIOActionSheet.m in Sources */,
 				8E89BAEA159919E000CB3094 /* GTIOPagination.m in Sources */,
 				8EE68CBB159A00B100DE2E68 /* GTIOLargeButton.m in Sources */,
-				8EA02719159A2D0800FDC45E /* GTIOFindMyFriendsViewController.m in Sources */,
+				8EA02719159A2D0800FDC45E /* GTIOFriendsViewController.m in Sources */,
 				8EA0271D159A369000FDC45E /* GTIOFriendsTableHeaderView.m in Sources */,
 				8EA02720159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m in Sources */,
 				8EA02723159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m in Sources */,
