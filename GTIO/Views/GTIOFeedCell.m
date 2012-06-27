@@ -43,6 +43,11 @@
 //    [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
 }
 
+- (void)prepareForReuse
+{
+    [self.frameView prepareForReuse];
+}
+
 #pragma mark - Properties
 
 - (void)setPost:(GTIOPost *)post

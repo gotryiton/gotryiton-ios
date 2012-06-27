@@ -14,4 +14,6 @@
 
 + (CGFloat)heightWithPost:(GTIOPost *)post;
 
+- (void)prepareForReuse;
+
 @end

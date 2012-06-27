@@ -23,6 +23,9 @@ static CGFloat const kGTIOFrameHeightWithShadowPadding = 22.0f;
 static CGFloat const kGTIOHeartButtonPadding = 9.0f;
 static CGFloat const kGTIODescriptionTextWidth = 240.0f;
 static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
+static CGFloat const kGTIOBrandButtonsTopPadding = 6.0f;
+static CGFloat const kGTIOBrandButtonsTopPaddingNoDescription = 11.0f;
+static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 
 @interface GTIOPostFrameView ()
 
@@ -74,6 +77,9 @@ static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    CGFloat extraHeight = 0.0f; // This height is used for placing view frames
+    CGFloat extraParentFrameHeight = 0.0f; // This height is used for making container frame bigger
 
     CGSize photoSize = [GTIOPostFrameView scalePhotoSize:self.post.photo.photoSize];
 
@@ -87,16 +93,35 @@ static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
         // Set description label to bottom of photo view to be able to use for height of frame
         [self.descriptionLabel setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.photoImageView.frame.origin.y + self.photoImageView.frame.size.height, kGTIODescriptionTextWidth, descriptionTextSize.height}];
     }
-    
+
     if (self.brandButtonsView.frame.size.height > 0) {
-        [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height + kGTIODescriptionLabelTopPadding, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
+        // Add extra brand button padding if no description
+        if (descriptionTextSize.height > 0) {
+            extraHeight += kGTIOBrandButtonsTopPadding;
+        } else {
+            extraHeight += kGTIOBrandButtonsTopPaddingNoDescription;
+        }
+        
+        NSLog(@"Photo frame: %@", NSStringFromCGRect(self.photoImageView.frame));
+        NSLog(@"Description frame: %@", NSStringFromCGRect(self.descriptionLabel.frame));
+        
+        [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height + extraHeight, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
+        
+        extraParentFrameHeight += kGTIOBrandButtonsBottomPadding;
+        
+        NSLog(@"Brand frame: %@", NSStringFromCGRect(self.brandButtonsView.frame));
     } else {
         [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
     }
     
-    [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.brandButtonsView.frame.origin.y + self.brandButtonsView.frame.size.height + kGTIOFrameHeightPadding } }];
+    [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.brandButtonsView.frame.origin.y + self.brandButtonsView.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
     
     [self setFrame:(CGRect){ self.frame.origin, self.frameImageView.frame.size }];
+}
+
+- (void)prepareForReuse
+{
+    
 }
 
 #pragma mark - Properties
@@ -125,9 +150,6 @@ static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
     
     // Brand buttons
     [self.brandButtonsView setButtons:_post.brandsButtons];
-    [self.brandButtonsView setTapHandler:^(GTIOButton *button) {
-        NSLog(@"Button with text: %@", button.text);
-    }];
 }
 
 #pragma mark - Height
@@ -149,18 +171,28 @@ static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
 {
     return [text sizeWithFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagXLight size:13.0f] constrainedToSize:(CGSize){ kGTIODescriptionTextWidth, CGFLOAT_MAX }];
 }
-    
 
 + (CGFloat)heightWithPost:(GTIOPost *)post
 {
     CGSize photoSize = [GTIOPostFrameView scalePhotoSize:post.photo.photoSize];
-    CGSize descriptionTextSize = [GTIOPostFrameView descriptionTextSize:post.postDescription];
     
+    CGSize descriptionTextSize = [GTIOPostFrameView descriptionTextSize:post.postDescription];
     if (descriptionTextSize.height > 0) {
-        descriptionTextSize.height += kGTIODescriptionLabelTopPadding; // Extra padding to make sure height is correct of cell
+        descriptionTextSize.height += kGTIODescriptionLabelTopPadding;
     }
     
-    return photoSize.height + descriptionTextSize.height + kGTIOFrameHeightWithShadowPadding;
+    CGFloat brandButtonsHeight = [GTIOPostBrandButtonsView heightWithWidth:kGTIODescriptionTextWidth buttons:post.brandsButtons];
+    if (brandButtonsHeight > 0) {
+        // Add brand button padding
+        if (descriptionTextSize.height > 0) {
+            brandButtonsHeight += kGTIOBrandButtonsTopPadding;
+        } else {
+            brandButtonsHeight += kGTIOBrandButtonsTopPaddingNoDescription;
+        }
+        brandButtonsHeight += kGTIOBrandButtonsBottomPadding;
+    }
+    
+    return photoSize.height + descriptionTextSize.height + brandButtonsHeight + kGTIOFrameHeightWithShadowPadding;
 }
 
 @end
