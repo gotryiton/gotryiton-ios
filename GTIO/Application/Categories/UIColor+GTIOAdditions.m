@@ -100,6 +100,11 @@
     return UIColorFromRGB(0x585858);
 }
 
++ (UIColor *)gtio_grayTextColorACACAC
+{
+    return UIColorFromRGB(0xACACAC);
+}
+
 + (UIColor *)gtio_profileDescriptionTextColor
 {
     return UIColorFromRGB(0xBABABA);

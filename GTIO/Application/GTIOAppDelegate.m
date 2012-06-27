@@ -69,7 +69,7 @@
     NSLog(@"\n*****\nGTIO Started in %@ mode.\n*****", kGTIOEnvironmentName);
     
     // List all fonts on iPhone
-//    [self listAllFonts];
+    [self listAllFonts];
     
     // Appearance setup
     [GTIOAppearance setupAppearance];

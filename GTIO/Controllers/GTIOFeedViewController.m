@@ -68,6 +68,7 @@
     [self.tableView setContentInset:self.tableView.scrollIndicatorInsets];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
+    [self.tableView setAllowsSelection:NO];
     [self.view addSubview:self.tableView];
     
 //    GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:10] tapHandler:nil];
@@ -115,9 +116,7 @@
 {
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/posts/feed" usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
-        loader.onDidLoadObjects = ^(NSArray *objects) {
-            NSLog(@"Objects: %@", objects);
-            
+        loader.onDidLoadObjects = ^(NSArray *objects) {            
             [self.posts removeAllObjects];
             
             for (id object in objects) {
@@ -170,6 +169,10 @@
     [self.onScreenHeaderViews setValue:headerView forKey:[NSString stringWithFormat:@"%i", section]];
     
     return headerView;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
 }
 
 #pragma mark - UITableViewDataSource

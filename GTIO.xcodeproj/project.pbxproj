@@ -878,12 +878,15 @@
 		D245E0D4157666C6009DBCF7 /* Verlag-XLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = D245E0B6157666C6009DBCF7 /* Verlag-XLightItalic.otf */; };
 		D245E0D7157666E6009DBCF7 /* GTIOPhotoShootTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D245E0D6157666E6009DBCF7 /* GTIOPhotoShootTimerView.m */; };
 		D245E10A1576B3D6009DBCF7 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */; };
+		D2465987159B743F00A43238 /* libDTCoreText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D246597E159B740300A43238 /* libDTCoreText.a */; };
+		D2465989159B74D700A43238 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2465988159B74D700A43238 /* libxml2.dylib */; };
 		D246B087155C037C00E5546A /* GTIOAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B086155C037C00E5546A /* GTIOAppearance.m */; };
 		D246B08A155C0AE400E5546A /* GTIOVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B089155C0AE400E5546A /* GTIOVisit.m */; };
 		D246B08C155C134900E5546A /* GTIOVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B089155C0AE400E5546A /* GTIOVisit.m */; };
 		D246B091155C140900E5546A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA9ED1550579A009B7E24 /* CoreData.framework */; };
 		D246B0E4155C54EE00E5546A /* GTIOTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B0E3155C54EE00E5546A /* GTIOTrack.m */; };
 		D246B0EB155C683000E5546A /* GTIOSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B0EA155C683000E5546A /* GTIOSplashViewController.m */; };
+		D255805F159B600900A5BD06 /* GTIOWhoHeartedThisView.m in Sources */ = {isa = PBXBuildFile; fileRef = D255805E159B600900A5BD06 /* GTIOWhoHeartedThisView.m */; };
 		D2569BF41566CA6F0045B508 /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = D2569BE21566CA6F0045B508 /* SDWebImageDownloader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D2569BF51566CA6F0045B508 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D2569BE51566CA6F0045B508 /* SDImageCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D2569BF61566CA6F0045B508 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2569BE81566CA6F0045B508 /* SDWebImageManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -997,6 +1000,55 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D2465979159B740300A43238 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D246596B159B740300A43238 /* DTCoreText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1D6058910D05DD3D006BFB54;
+			remoteInfo = DemoApp;
+		};
+		D246597B159B740300A43238 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D246596B159B740300A43238 /* DTCoreText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A70F119B14863198009202BF;
+			remoteInfo = "Static Framework";
+		};
+		D246597D159B740300A43238 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D246596B159B740300A43238 /* DTCoreText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A70F11DE148632CD009202BF;
+			remoteInfo = "Static Library";
+		};
+		D246597F159B740300A43238 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D246596B159B740300A43238 /* DTCoreText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A788CA681486456100E1AFD9;
+			remoteInfo = UnitTest;
+		};
+		D2465981159B740300A43238 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D246596B159B740300A43238 /* DTCoreText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A7949A5814CC456000A8CCDE;
+			remoteInfo = MacUnitTest;
+		};
+		D2465983159B740300A43238 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D246596B159B740300A43238 /* DTCoreText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A7F7EFCD1573603100F5A4D0;
+			remoteInfo = "Static Library (no DTFoundation)";
+		};
+		D2465985159B743600A43238 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D246596B159B740300A43238 /* DTCoreText.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A70F11DD148632CD009202BF;
+			remoteInfo = "Static Library";
+		};
 		D246B097155C143B00E5546A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D2CDA95915502F01009B7E24 /* Project object */;
@@ -2026,6 +2078,8 @@
 		D245E0D6157666E6009DBCF7 /* GTIOPhotoShootTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoShootTimerView.m; sourceTree = "<group>"; };
 		D245E1081576B3D6009DBCF7 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		D246596B159B740300A43238 /* DTCoreText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTCoreText.xcodeproj; path = Libraries/DTCoreText/DTCoreText.xcodeproj; sourceTree = "<group>"; };
+		D2465988159B74D700A43238 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D246B085155C037C00E5546A /* GTIOAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOAppearance.h; path = Application/GTIOAppearance.h; sourceTree = "<group>"; };
 		D246B086155C037C00E5546A /* GTIOAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOAppearance.m; path = Application/GTIOAppearance.m; sourceTree = "<group>"; };
 		D246B088155C0AE400E5546A /* GTIOVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOVisit.h; sourceTree = "<group>"; };
@@ -2034,6 +2088,8 @@
 		D246B0E3155C54EE00E5546A /* GTIOTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTrack.m; sourceTree = "<group>"; };
 		D246B0E9155C683000E5546A /* GTIOSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSplashViewController.h; sourceTree = "<group>"; };
 		D246B0EA155C683000E5546A /* GTIOSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSplashViewController.m; sourceTree = "<group>"; };
+		D255805D159B600900A5BD06 /* GTIOWhoHeartedThisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOWhoHeartedThisView.h; sourceTree = "<group>"; };
+		D255805E159B600900A5BD06 /* GTIOWhoHeartedThisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWhoHeartedThisView.m; sourceTree = "<group>"; };
 		D2569BDC1566CA6F0045B508 /* SDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDWebImageCompat.h; path = Libraries/SDWebImage/SDWebImage/SDWebImageCompat.h; sourceTree = "<group>"; };
 		D2569BE11566CA6F0045B508 /* SDWebImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDownloader.h; sourceTree = "<group>"; };
 		D2569BE21566CA6F0045B508 /* SDWebImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageDownloader.m; sourceTree = "<group>"; };
@@ -2238,6 +2294,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2465989159B74D700A43238 /* libxml2.dylib in Frameworks */,
+				D2465987159B743F00A43238 /* libDTCoreText.a in Frameworks */,
 				D270EF1C1587C65200BE08EE /* CoreVideo.framework in Frameworks */,
 				D270EF1A1587C63800BE08EE /* libGPUImage.a in Frameworks */,
 				D270EF171587C62100BE08EE /* OpenGLES.framework in Frameworks */,
@@ -2696,6 +2754,8 @@
 				D22D73D31593CCA10018AD6B /* GTIOPostHeaderView.m */,
 				D27C2FA21598CE01006C9ACB /* GTIOPostBrandButtonsView.h */,
 				D27C2FA31598CE01006C9ACB /* GTIOPostBrandButtonsView.m */,
+				D255805D159B600900A5BD06 /* GTIOWhoHeartedThisView.h */,
+				D255805E159B600900A5BD06 /* GTIOWhoHeartedThisView.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -3631,6 +3691,27 @@
 			name = "Table Items";
 			sourceTree = "<group>";
 		};
+		D246596A159B73F800A43238 /* DTCoreText */ = {
+			isa = PBXGroup;
+			children = (
+				D246596B159B740300A43238 /* DTCoreText.xcodeproj */,
+			);
+			name = DTCoreText;
+			sourceTree = "<group>";
+		};
+		D246596C159B740300A43238 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D246597A159B740300A43238 /* DemoApp.app */,
+				D246597C159B740300A43238 /* DTCoreText.framework */,
+				D246597E159B740300A43238 /* libDTCoreText.a */,
+				D2465980159B740300A43238 /* UnitTest.octest */,
+				D2465982159B740300A43238 /* MacUnitTest.octest */,
+				D2465984159B740300A43238 /* libDTCoreText_no_DTFoundation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D246B099155C3D2500E5546A /* Tracking */ = {
 			isa = PBXGroup;
 			children = (
@@ -3873,6 +3954,7 @@
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
+				D2465988159B74D700A43238 /* libxml2.dylib */,
 				D2CDA96C15502F02009B7E24 /* GTIO */,
 				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
 				D2CDA99B15503058009B7E24 /* Libraries */,
@@ -3973,6 +4055,7 @@
 		D2CDA99B15503058009B7E24 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D246596A159B73F800A43238 /* DTCoreText */,
 				D270EF081587C5D200BE08EE /* GPUImage */,
 				D26D32A2156BFDA000C06CA9 /* MBProgressHUD */,
 				8E91ABE7156AC119009D70AC /* janrain */,
@@ -4211,6 +4294,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D2465986159B743600A43238 /* PBXTargetDependency */,
 				D270EF191587C63400BE08EE /* PBXTargetDependency */,
 				D2CDA9EA1550577E009B7E24 /* PBXTargetDependency */,
 			);
@@ -4263,6 +4347,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = D246596C159B740300A43238 /* Products */;
+					ProjectRef = D246596B159B740300A43238 /* DTCoreText.xcodeproj */;
+				},
+				{
 					ProductGroup = D270EF0A1587C60500BE08EE /* Products */;
 					ProjectRef = D270EF091587C60500BE08EE /* GPUImage.xcodeproj */;
 				},
@@ -4280,6 +4368,48 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D246597A159B740300A43238 /* DemoApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = DemoApp.app;
+			remoteRef = D2465979159B740300A43238 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D246597C159B740300A43238 /* DTCoreText.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DTCoreText.framework;
+			remoteRef = D246597B159B740300A43238 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D246597E159B740300A43238 /* libDTCoreText.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDTCoreText.a;
+			remoteRef = D246597D159B740300A43238 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2465980159B740300A43238 /* UnitTest.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTest.octest;
+			remoteRef = D246597F159B740300A43238 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2465982159B740300A43238 /* MacUnitTest.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MacUnitTest.octest;
+			remoteRef = D2465981159B740300A43238 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2465984159B740300A43238 /* libDTCoreText_no_DTFoundation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDTCoreText_no_DTFoundation.a;
+			remoteRef = D2465983159B740300A43238 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D270EF131587C60500BE08EE /* libGPUImage.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -5330,6 +5460,7 @@
 				8E89BAE91599187B00CB3094 /* GTIOActionSheet.m in Sources */,
 				8E89BAEA159919E000CB3094 /* GTIOPagination.m in Sources */,
 				8EE68CBB159A00B100DE2E68 /* GTIOLargeButton.m in Sources */,
+				D255805F159B600900A5BD06 /* GTIOWhoHeartedThisView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5345,6 +5476,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D2465986159B743600A43238 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Static Library";
+			targetProxy = D2465985159B743600A43238 /* PBXContainerItemProxy */;
+		};
 		D246B098155C143B00E5546A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D2CDA96115502F02009B7E24 /* Go Try It On */;
@@ -5434,6 +5570,7 @@
 		D2CDA99015502F02009B7E24 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
@@ -5463,6 +5600,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
+				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -5470,6 +5608,7 @@
 		D2CDA99115502F02009B7E24 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
@@ -5497,6 +5636,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
+				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

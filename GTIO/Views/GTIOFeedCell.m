@@ -9,17 +9,25 @@
 #import "GTIOFeedCell.h"
 
 #import "GTIOPostFrameView.h"
+#import "GTIOWhoHeartedThisView.h"
+
+static CGFloat const kGTIOFrameOriginX = 3.5f;
+static CGFloat const kGTIOWhoHeartedThisOriginX = 13.0f;
+static CGFloat const kGTIOWhoHeartedThisTopPadding = 2.0f;
+static CGFloat const kGTIOWhoHeartedThisWidth = 250.0f;
+static CGFloat const kGTIOWhoHeartedThisBottomPadding = 11.0f;
 
 @interface GTIOFeedCell ()
 
 @property (nonatomic, strong) GTIOPostFrameView *frameView;
+@property (nonatomic, strong) GTIOWhoHeartedThisView *whoHeartedThisView;
 
 @end
 
 @implementation GTIOFeedCell
 
 @synthesize post = _post;
-@synthesize frameView = _frameView;
+@synthesize frameView = _frameView, whoHeartedThisView = _whoHeartedThisView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -30,7 +38,11 @@
         
         // Post Frame View
         _frameView = [[GTIOPostFrameView alloc] initWithFrame:(CGRect){ 3.5, 0, CGSizeZero }];
-        [self addSubview:_frameView];
+        [self.contentView addSubview:_frameView];
+        
+        // Who Hearted this View
+        _whoHeartedThisView = [[GTIOWhoHeartedThisView alloc] initWithFrame:(CGRect){ kGTIOWhoHeartedThisOriginX, 0, CGSizeZero }];
+        [self.contentView addSubview:_whoHeartedThisView];
     }
     return self;
 }
@@ -40,7 +52,6 @@
     [super layoutSubviews];
     
     [self setBackgroundColor:[UIColor clearColor]];
-//    [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
 }
 
 - (void)prepareForReuse
@@ -56,6 +67,10 @@
         _post = post;
         
         [self.frameView setPost:_post];
+        
+        CGFloat photoFrameHeight = [GTIOPostFrameView heightWithPost:post];
+        [self.whoHeartedThisView setWhoHeartedThisButtons:_post.buttons];
+        [self.whoHeartedThisView setFrame:(CGRect){ { self.whoHeartedThisView.frame.origin.x, self.frameView.frame.origin.y + photoFrameHeight + kGTIOWhoHeartedThisTopPadding }, { kGTIOWhoHeartedThisWidth, self.whoHeartedThisView.frame.size.height } }];
     }
 }
 
@@ -64,7 +79,11 @@
 + (CGFloat)cellHeightWithPost:(GTIOPost *)post
 {
     CGFloat photoFrameHeight = [GTIOPostFrameView heightWithPost:post];
-    return photoFrameHeight;
+    CGFloat whoHeartedThisViewHeight = [GTIOWhoHeartedThisView heightWithWhoHeartedThisButtons:post.whoHeartedButtons];
+    if (whoHeartedThisViewHeight > 0) {
+        whoHeartedThisViewHeight += kGTIOWhoHeartedThisBottomPadding;
+    }
+    return photoFrameHeight + whoHeartedThisViewHeight;
 }
 
 @end
