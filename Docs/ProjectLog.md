@@ -1,3 +1,29 @@
+***Wednesday, June 27th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Find My Friends API by EOB Wednesday
+
+**Status**
+- Find my friends styled
+- Brand buttons and Who hearted done
+- Filter refactor going well and all filters now take 2 seconds
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Tuesday, June 26th - Standup Notes***
 
 **Attendees**
