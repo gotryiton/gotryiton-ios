@@ -14,25 +14,40 @@
 #import "GTIOEditProfilePictureViewController.h"
 #import "GTIOSignInViewController.h"
 #import "GTIONavigationTitleView.h"
+#import "GTIOMyManagementScreen.h"
+#import "GTIORouter.h"
+#import "GTIOProgressHUD.h"
+#import "GTIOSignInViewController.h"
+#import "GTIOButton.h"
+#import "GTIOProgressHUD.h"
+
+static NSString * const kGTIOCustomHeartsCell = @"custom_cell_hearts";
+static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 
 @interface GTIOMeViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *tableData;
+@property (nonatomic, strong) NSMutableArray *tableData;
+@property (nonatomic, strong) NSArray *userInfoButtons;
+
+@property (nonatomic, strong) NSMutableDictionary *sections;
 
 @property (nonatomic, strong) GTIOMeTableHeaderView *profileHeaderView;
+
+@property (nonatomic, strong) UIViewController *viewControllerToRouteTo;
 
 @end
 
 @implementation GTIOMeViewController
 
-@synthesize tableView = _tableView, tableData = _tableData, profileHeaderView = _profileHeaderView;
+@synthesize tableView = _tableView, tableData = _tableData, profileHeaderView = _profileHeaderView, userInfoButtons = _userInfoButtons, sections = _sections, viewControllerToRouteTo = _viewControllerToRouteTo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _tableData = [[NSArray alloc] initWithObjects:@"my shopping list", @"my     s", @"my posts", @"find my friends", @"invite friends", @"search tags", @"settings", @"sign out", @"posts are private", nil];
+        _tableData = [NSMutableArray array];
+        _sections = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -40,9 +55,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
     [self.profileHeaderView setDelegate:self];
+    [self.profileHeaderView setUser:[GTIOUser currentUser]];
+    [self.profileHeaderView setEditButtonTapHandler:^(id sender) {
+        GTIOEditProfileViewController *editProfileViewController = [[GTIOEditProfileViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:editProfileViewController animated:YES];
+    }];
+    [self.profileHeaderView setProfilePictureTapHandler:^(id sender) {
+        GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
+    }];
+    [self.profileHeaderView setHasBackground:YES];
     [self.view addSubview:self.profileHeaderView];
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, self.profileHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.profileHeaderView.bounds.size.height } style:UITableViewStyleGrouped];
@@ -64,6 +89,7 @@
     [footerNotice setLineBreakMode:UILineBreakModeWordWrap];
     [footerView addSubview:footerNotice];
     [self.tableView setTableFooterView:footerView];
+    self.tableView.tableFooterView.hidden = YES;
     
     [self.view addSubview:self.tableView];
 }
@@ -90,8 +116,43 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [self.profileHeaderView refreshData];
+    [self.tableView setUserInteractionEnabled:YES];
+    [self refreshScreenLayout];
+}
+
+- (void)refreshScreenLayout
+{
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        if (!error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            int numberOfRows = 0;
+            int numberOfSections = 0;
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {                    
+                    GTIOMyManagementScreen *screen = (GTIOMyManagementScreen *)object;
+                    self.userInfoButtons = screen.userInfo;
+                    [self.profileHeaderView setUserInfoButtons:self.userInfoButtons];
+                    for (GTIOButton *button in screen.management) {
+                        if (![button.name isEqualToString:@"spacer_cell"]) {
+                            [self.tableData addObject:button];
+                            numberOfRows++;
+                        } else {
+                            numberOfSections++;
+                            [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
+                            numberOfRows = 0;
+                        }
+                    }
+                    if (numberOfRows > 0) {
+                        numberOfSections++;
+                        [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
+                    }
+                    self.tableView.tableFooterView.hidden = NO;
+                    [self.tableView reloadData];
+                }
+            }
+        }
+    }];
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -104,6 +165,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
+    self.viewControllerToRouteTo = [[GTIORouter sharedRouter] routeTo:buttonForRow.action.destination];
+    
+    if (self.viewControllerToRouteTo) {
+        [self.tableView setUserInteractionEnabled:NO];
+        // handle any special cases
+        if ([buttonForRow.action.destination isEqualToString:@"gtio://sign-out"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
+            [alert show];
+        } else {
+            [self.navigationController pushViewController:self.viewControllerToRouteTo animated:YES];
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -118,60 +193,97 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return self.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return [(NSNumber *)[self.sections objectForKey:[NSString stringWithFormat:@"section-%i", section + 1]] intValue];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell"; 
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    GTIOMeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-
-    [cell.textLabel setText:[self.tableData objectAtIndex:(indexPath.section * 3) + indexPath.row]];
-    [cell.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:16.0]];
-    [cell.textLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
-    
-    if (!(indexPath.section == 2 && (indexPath.row == 1 || indexPath.row == 2))) {
-        UIImageView *chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];
-        [cell setAccessoryView:chevron];
+        cell = [[GTIOMeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    if (indexPath.section == 0 && indexPath.row == 1) {
-        UIImageView *heart = [[UIImageView alloc] initWithFrame:(CGRect){ 36, 16, 15, 12 }];
-        [heart setImage:[UIImage imageNamed:@"profile.icon.heart.png"]];
-        [cell.contentView addSubview:heart];
+    if (self.tableData.count > 0) {
+        GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
+        
+        if ([buttonForRow.name isEqualToString:kGTIOCustomHeartsCell]) {
+            buttonForRow.text = @"my     's";
+            [cell setHasHeart:YES];
+        } else if ([buttonForRow.name isEqualToString:kGTIOCustomToggleCell]) {
+            [cell setHasToggle:YES];
+            [cell setToggleState:[buttonForRow.value intValue]];
+            [cell setIndexPath:indexPath];
+            [cell setToggleDelegate:self];
+        }
+        [cell setHasChevron:[buttonForRow.chevron boolValue]];
+        [cell.textLabel setText:buttonForRow.text];
     }
     
     return cell;
 
 }
 
-#pragma mark - GTIOMeTableHeaderViewDelegate Methods
-
-- (void)pushEditProfilePictureViewController
+- (void)updateSwitchAtIndexPath:(NSIndexPath *)indexPath
 {
-    GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
+    GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    UISwitch *switchView = (UISwitch *)cell.accessoryView;
+    GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
+    buttonForRow.value = [NSNumber numberWithBool:switchView.on];
+    [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                         [NSNumber numberWithBool:switchView.on], @"public", nil] 
+                                withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                         @"mymanagement", @"screen", nil]
+                                        andLoginHandler:nil];
 }
 
-- (void)pushEditProfileViewController
+#pragma mark - GTIOMeTableHeaderViewDelegate Methods
+
+- (void)pushViewController:(UIViewController *)viewController
 {
-    GTIOEditProfileViewController *editProfileViewController = [[GTIOEditProfileViewController alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:editProfileViewController animated:YES];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - UIAlertViewDelegate Methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[GTIOUser currentUser] logOutWithLogoutHandler:^(RKResponse *response) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            if (response) {
+                GTIOSignInViewController *signInViewController = (GTIOSignInViewController *)self.viewControllerToRouteTo;
+                [signInViewController setLoginHandler:^(GTIOUser *user, NSError *error) {
+                    // need to wait for the janrain screen to fade away before dismissing
+                    double delayInSeconds = 0.25;
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                        [self.navigationController dismissModalViewControllerAnimated:YES];
+                        [self.tableView setUserInteractionEnabled:YES];
+                        [self refreshScreenLayout];
+                        [self.profileHeaderView refreshUserData];
+                    });
+                }];
+                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
+                [self.navigationController presentModalViewController:navigationController animated:YES];
+            }
+        }];
+    } else {
+        [self.tableView setUserInteractionEnabled:YES];
+    }
 }
 
 @end

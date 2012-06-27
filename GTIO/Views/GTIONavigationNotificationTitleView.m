@@ -31,17 +31,17 @@
         
         _bubbleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav.counter.inactive.png"]];
         
-        GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"GO TRY IT ON" italic:NO];
-        [navTitleView setFrame:(CGRect){ { _bubbleImageView.image.size.width + 2, 0 }, navTitleView.frame.size }];
-        [self addSubview:navTitleView];
+        UIImageView *gtioTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav.logo.png"]];
+        [gtioTextImageView setFrame:(CGRect){ { _bubbleImageView.image.size.width + 1, 0 }, gtioTextImageView.image.size }];
+        [self addSubview:gtioTextImageView];
         
-        [_bubbleImageView setFrame:(CGRect){ { navTitleView.frame.origin.x + navTitleView.bounds.size.width + 2, 2 }, _bubbleImageView.image.size }];
+        [_bubbleImageView setFrame:(CGRect){ { gtioTextImageView.frame.origin.x + gtioTextImageView.bounds.size.width + 1, -5 }, _bubbleImageView.image.size }];
         [self addSubview:_bubbleImageView];
         
         [self updateBubbleImage:NO];
         
-        UILabel *notificationCountLabel = [[UILabel alloc] initWithFrame:(CGRect){ 5, 0, _bubbleImageView.bounds.size.width - 7, _bubbleImageView.bounds.size.height + 5 }];
-        [notificationCountLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:11.0]];
+        UILabel *notificationCountLabel = [[UILabel alloc] initWithFrame:(CGRect){ 5, 7, _bubbleImageView.bounds.size.width - 5, 20 }];
+        [notificationCountLabel setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagBook size:14.0]];
         [notificationCountLabel setTextColor:[UIColor whiteColor]];
         [notificationCountLabel setText:[NSString stringWithFormat:@"%@",(([_notificationCount intValue] > 0) ? [NSString stringWithFormat:@"%i",[_notificationCount intValue]] : @"")]];
         [notificationCountLabel setTextAlignment:UITextAlignmentCenter];
@@ -50,7 +50,7 @@
         [_bubbleImageView addSubview:notificationCountLabel];
         
         // Offset left side by notification bubble
-        [self setFrame:(CGRect){ CGPointZero, { navTitleView.frame.size.width + (navTitleView.frame.origin.x * 2), navTitleView.frame.size.height } }];
+        [self setFrame:(CGRect){ CGPointZero, { gtioTextImageView.frame.size.width + (gtioTextImageView.frame.origin.x * 2), gtioTextImageView.frame.size.height } }];
     }
     return self;
 }

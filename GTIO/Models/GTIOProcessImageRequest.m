@@ -48,7 +48,7 @@ static CGSize const kGTIOThumbnailSize = { 84, 112 };
     }
     
     @synchronized(self) {
-        NSLog(@"--Start processing image");
+        NSLog(@"--Start processing image");       
         _processedImage = [_rawImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ kGTIOPhotoResizeWidth, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
         _rawImage = nil;
         NSLog(@"--End processing image");

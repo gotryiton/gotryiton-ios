@@ -2,12 +2,12 @@
 //  GTIOFeedViewController.h
 //  GTIO
 //
-//  Created by Scott Penrose on 5/8/12.
-//  Copyright (c) 2012 . All rights reserved.
+//  Created by Geoffrey Mackey on 6/15/12.
+//  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GTIOViewController.h"
 
-@interface GTIOFeedViewController : UIViewController
+@interface GTIOFeedViewController : GTIOViewController
 
 @end

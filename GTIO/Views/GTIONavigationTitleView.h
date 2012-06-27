@@ -13,6 +13,7 @@
 @property (nonatomic, assign, getter = isItalic) BOOL italic;
 @property (nonatomic, strong) NSString *title;
 
-- (id)initWithTitle:(NSString*)title italic:(BOOL)italic;
+- (id)initWithTitle:(NSString *)title italic:(BOOL)italic;
+- (void)useTitleFont:(UIFont *)font;
 
 @end

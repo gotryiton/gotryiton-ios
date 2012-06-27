@@ -18,6 +18,8 @@
 #import "GTIOPhotoManager.h"
 #import "GTIOProcessImageRequest.h"
 
+#import "GTIOFilterManager.h"
+
 #import "GTIOPhotoShootGridViewController.h"
 #import "GTIOPhotoConfirmationViewController.h"
 #import "GTIOPostALookViewController.h"
@@ -35,7 +37,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 @property (nonatomic, strong) GTIOCameraToolbarView *photoToolbarView;
 @property (nonatomic, strong) GTIOPhotoShootProgressToolbarView *photoShootProgresToolbarView;
-@property (nonatomic, strong) GTIOButton *flashButton;
+@property (nonatomic, strong) GTIOUIButton *flashButton;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
 @property (nonatomic, strong) UIImageView *focusImageView;
@@ -108,6 +110,9 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [tapGestureRecognizer setNumberOfTapsRequired:1];
         [tapGestureRecognizer setDelegate:self];
         [self.view addGestureRecognizer:tapGestureRecognizer];
+        
+        // Load the filters so they are ready to go
+        [GTIOFilterManager sharedManager];
     }
     return self;
 }
@@ -146,7 +151,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [self.captureSession addOutput:self.stillImageOutput];
     
     // Flash button
-    self.flashButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoFlash];
+    self.flashButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoFlash];
     [self.flashButton setFrame:(CGRect){ { 5, 26 }, self.flashButton.frame.size }];
     __block typeof(self) blockSelf = self;
     [self.flashButton setTapHandler:^(id sender) {
@@ -218,9 +223,18 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     self.flashButton = nil;
     self.photoToolbarView = nil;
     self.shutterFlashOverlay = nil;
-    self.captureVideoPreviewLayer = nil;
     self.photoShootTimerView = nil;
     self.focusImageView = nil;
+    
+    [self.captureSession removeOutput:self.stillImageOutput];
+    self.stillImageOutput = nil;
+    self.captureVideoPreviewLayer = nil;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    NSLog(@"Warning on camera view");
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -438,6 +452,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }];
     
     // Clear current photos
+    self.capturedImageCount = 0;
     [[GTIOPhotoManager sharedManager] removeAllPhotos];
     [self.photoShootProgresToolbarView setNumberOfDotsOn:0];
     
@@ -470,9 +485,10 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)changeFlashMode:(AVCaptureFlashMode)flashMode
 {
     NSError *error = nil;
-    if ([self.captureDevice lockForConfiguration:&error]) {
-        [self.captureDevice setFlashMode:flashMode];
-        [self.captureDevice unlockForConfiguration];
+    if ([self.captureDevice isFlashModeSupported:flashMode] &&
+            [self.captureDevice lockForConfiguration:&error]) {
+            [self.captureDevice setFlashMode:flashMode];
+            [self.captureDevice unlockForConfiguration];
     }
 }
 
@@ -506,7 +522,12 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if ([self.captureVideoPreviewLayer containsPoint:[touch locationInView:self.view]] && ![self.photoToolbarView.photoModeSwitch isOn]) {
+    CGRect flashButtonTouchRect = (CGRect){ 0, 0, self.flashButton.frame.origin.x * 2 + self.flashButton.frame.size.width, (self.flashButton.frame.origin.y - 20) * 2 + self.flashButton.frame.size.height };
+    
+    if ([self.captureVideoPreviewLayer containsPoint:[touch locationInView:self.view]] && 
+        ![self.photoToolbarView.photoModeSwitch isOn]  &&
+        !CGRectContainsPoint(flashButtonTouchRect, [touch locationInView:self.view])) {
+        
         return YES;
     } else {
         return NO;

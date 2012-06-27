@@ -21,14 +21,14 @@
 
 static NSInteger const kGTIOBottomButtonSize = 50;
 static NSInteger const kGTIONavBarSize = 44;
+static NSInteger const kGTIOMaskingViewTag = 100;
 
-@interface GTIOPostALookViewController()
+@interface GTIOPostALookViewController() <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) GTIOLookSelectorView *lookSelectorView;
 @property (nonatomic, strong) GTIOLookSelectorControl *lookSelectorControl;
 @property (nonatomic, strong) GTIOPostALookOptionsView *optionsView;
 @property (nonatomic, strong) GTIOPostALookDescriptionBox *descriptionBox;
-@property (nonatomic, strong) GTIOPostALookDescriptionBox *tagBox;
 @property (nonatomic, strong) UIButton *postThisButton;
 
 @property (nonatomic, strong) GTIOScrollView *scrollView;
@@ -41,12 +41,15 @@ static NSInteger const kGTIONavBarSize = 44;
 @property (nonatomic, assign) BOOL creatingPhoto;
 @property (nonatomic, assign) BOOL postButtonPressed;
 
+@property (nonatomic, strong) UIView *maskView;
+
 @end
 
 @implementation GTIOPostALookViewController
 
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, tagBox = _tagBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, photoForCreationRequests = _photoForCreationRequests;
+@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, photoForCreationRequests = _photoForCreationRequests;
 @synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage, photoForPosting = _photoForPosting, creatingPhoto = _creatingPhoto, postButtonPressed = _postButtonPressed;
+@synthesize maskView = _maskView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -78,7 +81,7 @@ static NSInteger const kGTIONavBarSize = 44;
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"post a look" italic:YES];
     [self useTitleView:navTitleView];
     
-    GTIOButton *cancelButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
+    GTIOUIButton *cancelButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         if (self.postThisButton.enabled) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
             [alert setTag:kGTIOEmptyPostAlertTag];
@@ -107,12 +110,33 @@ static NSInteger const kGTIONavBarSize = 44;
     self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ 253, 174, 60, 143 }];
     [self.scrollView addSubview:self.optionsView];
     
-    self.tagBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 195, 330, 119, 120 } title:@"tag brands" icon:[UIImage imageNamed:@"brands-box-icon.png"] nextTextView:nil];
-    [self.scrollView addSubview:self.tagBox];
-    
-    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 6, 330, 186, 120 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"] nextTextView:self.tagBox.textView];
+    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 155 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"]];
+    [self.descriptionBox.textView setTextViewWillBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {        
+        CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
+        
+        if (self.scrollView.contentOffset.y == bottomOffset) {
+            double delayInSeconds = 0.1;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self.descriptionBox.textView.textInput becomeFirstResponder];
+            });
+        } else {
+            [self.scrollView scrollRectToVisible:(CGRect){ 0, self.scrollView.contentSize.height - 1, 1, 1 } animated:YES];
+        }
+    }];
+    [self.descriptionBox.textView setTextViewDidBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {
+        [self.lookSelectorView setUserInteractionEnabled:NO];
+    }];
+    [self.descriptionBox.textView setTextViewDidEndHandler:^(GTIOPostAutoCompleteView *descriptionBox, BOOL scrollToTop) {
+        [self.descriptionBox.textView.textInput resignFirstResponder];
+        [self.lookSelectorView setUserInteractionEnabled:YES];
+        
+        if (scrollToTop) {
+            [self.scrollView scrollRectToVisible:(CGRect){ 0, 0, 1, 1 } animated:YES];
+        }
+    }];
     [self.scrollView addSubview:self.descriptionBox];
-    
+
     self.originalFrame = self.scrollView.frame;
     
     UIImage *postThisButtonBackgroundImage = [UIImage imageNamed:@"post-button-bg.png"];
@@ -121,13 +145,17 @@ static NSInteger const kGTIONavBarSize = 44;
     [postThisButtonBackground setUserInteractionEnabled:YES];
     [self.view addSubview:postThisButtonBackground];
 
-    self.postThisButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePostThis];
+    self.postThisButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePostThis];
     [self.postThisButton setFrame:(CGRect){ 5, 11, postThisButtonBackground.bounds.size.width - 10, postThisButtonBackground.bounds.size.height - 15 }];
     [self.postThisButton addTarget:self action:@selector(postThis:) forControlEvents:UIControlEventTouchUpInside];
     [self.postThisButton setEnabled:NO];
     [postThisButtonBackground addSubview:self.postThisButton];
     
     [self.scrollView setContentSize:(CGSize){ self.view.bounds.size.width, self.descriptionBox.frame.origin.y + self.descriptionBox.bounds.size.height + 5 }];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapNavigationBar:)];
+    [tapGestureRecognizer setDelegate:self];
+    [self.navigationController.navigationBar addGestureRecognizer:tapGestureRecognizer];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
 }
@@ -141,7 +169,6 @@ static NSInteger const kGTIONavBarSize = 44;
     self.lookSelectorControl = nil;
     self.optionsView = nil;
     self.descriptionBox = nil;
-    self.tagBox = nil;
     self.postThisButton = nil;
 }
 
@@ -157,6 +184,8 @@ static NSInteger const kGTIONavBarSize = 44;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
+#pragma mark - UIScrollViewDelegate
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self snapScrollView:scrollView];
@@ -169,12 +198,30 @@ static NSInteger const kGTIONavBarSize = 44;
     }
 }
 
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    if (self.descriptionBox.textView.forceBecomeFirstResponder) {
+        double delayInSeconds = 0.1;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.descriptionBox.textView.textInput becomeFirstResponder];
+            [self.descriptionBox.textView setForceBecomeFirstResponder:NO];
+        });
+    }
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    [self.descriptionBox.textView.textInput resignFirstResponder];
+    return YES;
+}
+
 - (void)snapScrollView:(UIScrollView *)scrollView
 {
     CGPoint contentOffset = scrollView.contentOffset;
     CGRect scrollToRect;
     BOOL top = NO;
-    if (contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height) / 2 ) {
+    if (contentOffset.y > (scrollView.contentSize.height - (scrollView.frame.size.height - scrollView.scrollIndicatorInsets.bottom)) / 2 ) {
         scrollToRect = CGRectMake(0, scrollView.contentSize.height - 1, 1, 1);
     } else {
         scrollToRect = CGRectMake(0, 0, 1, 1);
@@ -185,19 +232,24 @@ static NSInteger const kGTIONavBarSize = 44;
         [scrollView scrollRectToVisible:scrollToRect animated:YES];
     } completion:^(BOOL finished) {
         if (top) {
-            [self.tagBox.textView resignFirstResponder];
-            [self.descriptionBox.textView resignFirstResponder];
+            [self.descriptionBox.textView.textInput resignFirstResponder];
+        } else {
+            [self.descriptionBox.textView.textInput becomeFirstResponder];
         }
     }];
 }
 
+#pragma mark -
+
 - (void)postThis:(id)sender
 {
-    if ([self.descriptionBox.textView.text length] == 0) {
+    if ([[self.descriptionBox.textView processDescriptionString] length] == 0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to post without a description?" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:@"Cancel", nil];
         [alert setTag:kGTIOEmptyDescriptionAlertTag];
         [alert show];
     } else {
+        NSLog(@"description submissionText: %@", [self.descriptionBox.textView processDescriptionString] );
+        
         [self beginPostLookToGTIO];
     }
 }
@@ -271,7 +323,7 @@ static NSInteger const kGTIONavBarSize = 44;
 {
     if (!self.creatingPhoto && self.photoForPosting) {
         [self savePhotoToDisk];
-        [GTIOPost postGTIOPhoto:self.photoForPosting description:self.descriptionBox.textView.text votingEnabled:self.optionsView.votingSwitch.on completionHandler:^(GTIOPost *post, NSError *error) {
+        [GTIOPost postGTIOPhoto:self.photoForPosting description:[self.descriptionBox.textView processDescriptionString] votingEnabled:self.optionsView.votingSwitch.on completionHandler:^(GTIOPost *post, NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             if (!error && post) {
                 [self.navigationController dismissModalViewControllerAnimated:YES];
@@ -302,6 +354,19 @@ static NSInteger const kGTIONavBarSize = 44;
 {
     _mainImage = mainImage;
     self.lookSelectorView.singlePhotoView.image = _mainImage;
+}
+
+#pragma mark - UINavigationBar
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return (![[[touch view] class] isSubclassOfClass:[UIControl class]]);
+}
+
+- (void)tapNavigationBar:(UIGestureRecognizer *)gesture
+{
+    [self.descriptionBox.textView resignFirstResponder];
+    [self.scrollView scrollRectToVisible:(CGRect){ 0, 0, 1, 1 } animated:YES];
 }
 
 @end

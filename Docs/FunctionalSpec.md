@@ -660,7 +660,7 @@ Request should include an array of user objects (nested under ```users```) that 
       - users default to checked state
       - unchecking all contacts greys out follow x people btn and changes button text to 'follow'
       - selecting and deselecting increments/decrements follow x people btn
-   - invite friends **tap** ==> (view 5.1)
+      - each user has ```user.description``` attribute which should be used in place of location
    - skip **tap** ==> (view 9.1)
    - follow button 
       - makes api requests
@@ -714,7 +714,9 @@ Request should include an array of user objects (nested under ```users```) that 
       - 4px away from right edge of user name
       - bottom of asset is 2px below baseline of user name
    - location
+   - description
       - Proxima Nova Regular, 10pt, rgb (167,167,167)
+      - all caps
       - baseline is 4px up from bottom of user icon
    - checkbox
       - 'checkbox.png' with on and off states
@@ -979,7 +981,7 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 #### Mockups
 2.2 Notifications ([wireframe](http://invis.io/QR2OBP8N))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/2.2.notifications.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/2.2.notifications.png" width=420px/>
 
 #### User Flow
 
@@ -1121,7 +1123,11 @@ A user can read reviews from an outfit post or a product post page
 #### Mockups
 3.4 Reviews Page ([wireframe](http://invis.io/NE2OBV7J))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/2/3.4.Reviews.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/3.4.reviews.png" width=420px/>
+
+3.4 Reviews with direct link 
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/3.4.reviews.direct.link.png" width=420px/>
 
 3.4.1 Reviews with keyboard 
 
@@ -1182,16 +1188,62 @@ previous screen
             - cancel: close dialog
 
 #### Design Stories
-- User Badge (post owner)
-   - use size "28_28.png" for 2x
-   - use size "14_14.png" for 1x
-   - 4px away from right edge of user name
-   - bottom of asset is 2px below baseline of user name   
-- User Badge (commenter)
-   - use size "20_20.png" for 2x
-   - use size "10_10.png" for 1x
-   - 3px away from right edge of user name
-   - bottom of asset is 1px below baseline of user name
+
+- Top Area
+	- Background (3/reviews.top.bg.png) Repeat/stretch background horizontal
+	- 87px tall
+	- Avatar
+		- Overlay (3/reviews.top.avatar.overlay.png)
+		- 75x75px
+		- 5px from left, 6px from top and bottom
+	- Text
+		- Name: Archer Book Italic 16px rgb(255,106,114) #ff6a72
+		- Time Stamp: Proxima Nova Regular 10px rgb(156,156,156) #9c9c9c
+	- Comment input
+		- Background (3/reviews.top.input.box.png)
+		- 230x35px
+		- Verlag Light Italic 14px rgb(183,183,183) #b7b7b7
+- Comment
+	- Background: (3/reviews.cell.bg.png)
+		- Stretch it from the middle, 4px top and 7px bottom anchors
+	- 314px wide
+	- Padding includes shadows from image
+		- 12px padding on right/left
+		- 12px padding on top
+		- 15px padding on bottom
+	- Text
+		- Comment: 14px Verlag Light rgb(64,64,65) #404041
+		- Hashtags/@replies: 14px Verlag Book rgb(255,106,114) #ff6a72
+		- Author: Proxima Nova Regular 11px rgb(255,106,114) #ff6a72
+		- Time Stamp: Proxima Nova Regular 8px rgb(188,188,188) #bcbcbc
+		- Heart #: Proxima Nova Regular 12px rgb(214,214,214) #d6d6d6
+	- Delete X
+		- 3/reviews.cell.delete.inactive.png
+			- Active: 3/reviews.cell.delete.active.png
+		- 9x9px
+	- Flag
+		- 3/reviews.cell.flag.inactive.png
+			- Active: 3/reviews.cell.flag.active.png
+		- Flagged: 3/reviews.cell.flag.flagged.inactive.png
+			- Active: 3/reviews.cell.flag.flagged.active.png
+	- Heart Button
+		- 3/reviews.cell.heart.inactive.png
+			- Active: 3/reviews.cell.heart.active.png
+		- Hearted: 3/reviews.cell.heart.hearted.inactive.png
+			- Active: 3/reviews.cell.heart.hearted.active.png
+	- Avatar 
+		- Overlay (3/reviews.cell.avatar.overlay.png)
+		- 27x27px
+   - User Badge (post owner)
+      - use size "28_28.png" for 2x
+      - use size "14_14.png" for 1x
+      - 4px away from right edge of user name
+      - bottom of asset is 2px below baseline of user name   
+   - User Badge (commenter)
+      - use size "20_20.png" for 2x
+      - use size "10_10.png" for 1x
+      - 3px away from right edge of user name
+      - bottom of asset is 1px below baseline of user name
 
 ### 3.5 Who hearted this 
 
@@ -1266,6 +1318,7 @@ A user can view a detailed page about a single product
 
 <img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/Product.Detail.Light.BG.png" width=420px/>
 
+
 #### User Flow
 
 **entry screens:**   
@@ -1302,7 +1355,49 @@ previous screen
 - A user can add a product to their shopping list
    - + shopping list button adds the item to their list
 
-
+#### Design Stories
+- Navigation Bar
+	- Background (4/product.nav.bar.bg.png) (48px high with shadow)
+	- Back button 11px from top, 5px from left
+	- When tapped to full screen product image, display product.nav.bar.top.png (4px high)
+- Heart Button
+	- Background (product.heart.inactive.png)
+		- On tap (product.heart.active.png)
+		- Highlighted (product.heart.highlight.png)
+			- On tap (product.heart.highlight.active.png)
+	- 89x34px
+	- 4px from left
+	- 3px from navigation bar (51px from top of screen)
+	- Count Text: Verlag bold 15px rgb(88,88,88) #585858
+		- Right aligned
+		- 11px from edge of element
+		- Vertically aligned in element
+- Bottom Info
+	- Background (product.info.overlay.bg.png)--stretch image horizontally
+	- 260px high including shadow
+	- Inner info area 
+		- 8px below the start of bottom area (including shadow in product.info.overlay.bg.png image)
+		- Background (product.info.rounded.bg.png), image is anchored 5px top/bottom and 5px left/right so you stretch only the inner most 1px
+		- Width: 310px
+		- Height: 66px
+		- Text - Starts 10px from left and 12px from top
+			- Product name: Verlag Book 15px rgb(8,8,8), #585858
+			- Brand: Proxima Nova Semibold 12px rgb(143,143,143) #8f8f8f
+			- Price: Verlag 22px Bold 22px rgb(88,88,88) #585858
+				- 10px from right, 10px from bottom
+		- Social Icons (product.social.fb.active.png) & (product.social.twit.active.png)
+			- 18x18px
+			- 9px from top/right
+			- 7px in between
+		- Bottom Buttons
+			- Background (product.info.button.bg.inactive.png) stretch image
+				- On tap (product.info.button.bg.active.png)
+				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
+					- On tap (product.info.button.bg.highlight.active.png)
+			- Text: Archer Medium 16px rgb(85,85,86) #555556
+			- 5px padding
+			- 4px in between buttons
+			- Width: 153x46px
 
 ### 4.1.2 Product Full Screen  
 
@@ -1351,7 +1446,7 @@ A user can see a list of products contained in a post.  They can tap each one to
 
 #### Mockups
 
-<img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/4.8.Shop.This.Look.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/4.8.shop.this.look.png" width=420px/>
 
 #### User flow
 
@@ -1375,7 +1470,19 @@ gtio://products/in-post/:post_id
 - A user can see a list of products contained in a post
    - each product taps to ([view 4.1](#41-product-page-view))
 
-
+#### Design Stories
+- Cell
+	- Background (4/shop.cell.png)
+	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
+	- Chevron (general/general.chevron.png)
+	- Image
+		- 106x101px
+		- Position on top left of cell
+		- Overlay with 7/shopping.cell.image.overlay.png
+	- Text 
+		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
+		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72		
 
 ## 5. Invite 
 
@@ -1391,7 +1498,7 @@ A user can invite friends to GTIO via SMS, Email, Facebook
 
 5.1.1 invite friends actionsheet  ([wireframe](http://invis.io/NB2PNCHD))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/5.1.1.invite.actionsheet.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/5.1.1.invite.actionsheet.png" width=420px/>
 
 5.1.2 invite friends SMS ([wireframe](http://invis.io/YX2PND9V))
 
@@ -1579,7 +1686,7 @@ A user can see a list of suggested users to follow
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
 
 #### API Usage
-/Friends/Suggested
+/user/suggested-friends  [api-users](http://gtio-dev.gotryiton.com/docs/api-users)
 
 #### Routing
 gtio://suggested-friends
@@ -1596,17 +1703,27 @@ previous screen
 #### Stories
 - A user can see a list of suggested users to follow
    - page loads a list of users
-   - list items have profile icon, name, tappable to profile (view 7.7)
+   - list items have: ```user.icon```, ```user.name```, and ```user.description``` tappable to profile (view 7.7)
    - following btn (toggles state)
 - A user can refresh the list of suggested users to see a different set
    - refresh btn top right
-       - **tap** ==> api request
-          - **success** ==> replaces list with new users
+      - **tap** ==> api request to the pagination endpoint (```pagination.next```)
+      - during request, replace refresh button with a spinner (centered where the button was)
+      - **success** ==> replaces list with new users
 
 #### Design Stories
 - Refresh Icon
 	- 16px from top, 9px from right
-- For cells and button placement, refer to 6.1 design stories
+- For cells and button placement, refer to 6.1 design stories, with the following exceptions:
+   - user name
+      - Verlag Book, rgb(114,114,114), 18pt
+      - 10px from right edge of user icon
+      - if description exists, baseline is 18px up from bottom of user icon
+      - if description does not exist, text is vertically centered in cell
+   - description
+      - Proxima Nova Regular, 10pt, rgb (167,167,167)
+      - All caps
+      - baseline is 4px up from bottom of user icon
 
 ### 6.3 Friends management page
 
@@ -2319,52 +2436,56 @@ gtio://profile/:user_id
 
 #### Stories
 - a user can view the profile info of another user (or their self)
-   - user.name, user.location, user.icon are displayed at the top of the page
-      - user.badge is displayed next to name.
+   - ```user.name```, ```user.location```, ```user.icon``` are displayed at the top of the page
+      - ```user.badge``` is displayed next to name.
          - path to the badge is defined in api: ```user.badge.path```
-         - file is defined in app
+         - file is defined in app:
             - use size "38_38.png" for 2x
             - use size "17_17.png" for 1x
 - a user can follow another user (but not theirself)
    - follow button displayed in top right corner
-   - defined in api response ```user.follow_button```
+   - defined in api response ```user.button```
       - if null (requesting user is the same as profiled user -- or user is just not follow-able for some reason), do not display
-- settings btn
-   - defined in api, ```user.settings```
-      - if null, do not display
+- a user can edit the settings of their relationship to the profiled user
+   - button opens an actionsheet if ```ui.settings.buttons``` is not empty
+      - if ```ui.settings``` is null, do not display the settings button
    - tapping raises actionsheet with buttons that are contained in the settings_button object:
-      - items in the actionsheet are defined by those buttons
-         - ```button.text``` defines visible text
-         - ```button.action``` defines api action
+      - items in the actionsheet are defined by the buttons in the array
 - a user can read another user's bio
    - bio is defined as ```user.about```
 - a user can see who another user is following
-   - ```user.following_button``` defines action and count for the following button
-      - **tap** ==> (view 6.5)
+   - ```ui.buttons``` will include a button with ```name:following``` 
+   - button will define destination and count for the following button
+   - routes to ```gtio://user/:user_id/following``` (view 6.5)
 - a user can see who another user's followers are
-   - ```user.followers_button``` defines action and count for the followers button
-      - **tap** ==> (view 6.6)
+   - ```ui.buttons``` will include a button with ```name:followers``` 
+   - button will define destination and count for the followers button
+   - routes to ```gtio://user/:user_id/followers``` (view 6.6)
 - a user can see who another user's starred posts (editors picks)
-   - ```user.stars_button``` defines action and count for the stars button
-      - **tap** ==> (view 7.9)
+    - ```ui.buttons``` will include a button with ```name:stars``` 
+   - button will define destination and count for the stars button
+   - routes to ```gtio://user/:user_id/followers``` (view 6.5)
 - A user can see additional info about another user 
    - each profile has a customizable text fields (view 7.7.1)
-      - defined in api as ```users.profile_callouts``` array
+      - defined in api as ```ui.profile_callouts``` array
       - each item has ```icon``` and ```text```
       - text should support ```<b>``` tags for highlighting bold text
       - items are not tappable
 - Special branded users can display a banner in their profile
    - banner area (view 7.7.3)
-      - image and action defined in api with ```user.banner_ad```
+      - button is defined in the api with ```ui.buttons```
+      - banner button will have ```name:banner-ad```
+      - banner button will have ```image:[url]``` to define the image to display (will be a 2x image)
 - A users profile can show a button linking to an external site
    - seen in (view 7.7.1)
-   - button defined by api through ```user.website_button```
-      - button includes ```text``` and ```action``` 
+   - button defined by api through ```ui.buttons```
+   - button will have ```name:website-button```
+   - button includes ```text``` and ```action``` 
 - A users profile shows a masonry list of their hearts and looks
    - api responds with ```hearts_list``` and ```posts_list``` which will be identical responses to ```/posts/hearted-by-user/:user_id``` and ```/posts/by-user/:user_id``` respectively
       - api paginates in the usual manner
-   - each post is displayed as a thumbnail using ```post.thumbnail```
-      - **tap** ==> (view 4.1), (view 3.1), or (view 3.6)
+   - each post is displayed as a thumbnail using ```post.photo.thumbnail```
+      - **tap** ==> (view 4.1)
 
 
 #### Design Stories
@@ -2434,7 +2555,10 @@ Each user has a shopping list
 #### Mockups
 7.8 Shopping list ([wireframe](http://invis.io/8W2OD45T))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.8.Shopping.List.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/7.8.shopping.list.png" width=420px/>
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/7.8.shopping.list.empty.png" width=420px/>
+
 
 7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))
 
@@ -2495,6 +2619,54 @@ gtio://my-shopping-list
          - ok: api request 
             - **success** ==> show 'emailed' overlay (view 7.8.1)
          - cancel: closes dialog
+
+#### Design Stories
+- Cell
+	- Background (7/shopping.cell.png)
+	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
+	- Chevron (7/shopping.chevron.png)
+	- Text 
+		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
+		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
+	- Image
+		- 106x101px
+		- Position on top left of cell
+		- Overlay with 7/shopping.cell.image.overlay.png
+	- X Button
+		- Use 7/shopping.cell.close.inactive.png
+			- 7/shopping.cell.close.active.png for tap state
+		- 12x11px
+		- 4px from top and right edge of cell
+	- Buy Button
+		- Background (7/shopping.button.buy.inactive.png)
+			- Active state (7/shopping.button.buy.active.png)
+		- 39x21px
+		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
+		- 15px from bottom
+		- 10px from right
+	- Email Button
+		- Background (7/shopping.button.email.inactive.png)
+			- Active state (7/shopping.button.email.active.png)
+		- 39x21px
+		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
+		- 15px from bottom
+		- 6px padding from buy button
+- Nav bar share button
+	- 33x26px
+	- Background (7/shopping.navigation.bar.button.share.inactive.png)
+		- Active state (7/shopping.navigation.bar.button.share.active.png)
+- Bottom Area
+	- Background (7/shopping.bottom.bg.png) stretch/repeat horizontally
+	- 74px high
+	- Cells
+		- Overlay (7/shopping.bottom.image.overlay.png)
+			- Active (7/shopping.bottom.image.overlay.active.png)
+		- 60x60px
+		- Images are 55x55px
+		- Can clip image using (7/shopping.bottom.image.alpha.png) as an alpha
+		- Plus Button (7/shopping.bottom.plus.inactive.png)
+			- Active (7/shopping.bottom.plus.active.png)
 
 ### 7.9 My Stars
 
@@ -2830,7 +3002,17 @@ A user can see their pending upload in their feed
 #### Mockups
 8.4 ([wireframe](http://invis.io/642OE8AC)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.4.Upload.In.Progress.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.png" width=420px/>
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.finalizing.png" width=420px/>
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.success.png" width=420px/>
+
+
+
+Upload Fail
+
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/8.4.upload.in.progress.fail.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2857,7 +3039,13 @@ A user can see their pending upload in their feed
    - on **success** from upload api ==> (view 8.5)
    - on **fail** ==> retry?
 
-
+#### Design Stories
+- Text
+	- left side: Archer Medium Italic 11px rgb(156,156,156) #9c9c9c
+	- right side: Archer Medium Italic 11px rgb(88,88,88) #585858
+- Retry Overlay
+	- 8/uploading.fail.avatar.overlay.inactive.png
+		- Active (8/uploading.fail.avatar.overlay.active.png)
 
 ###  8.5 Feed after completed upload  
 
@@ -3352,6 +3540,9 @@ A user can confirm that they want to upload the photo they've taken or selected.
       - 'x' button **tap** => (view 12.1)
    - If a user arrived on this screen via the Photoshoot grid, they can return to the grid via a grid icon (seen in view 12.2.1)
       - grid button **tap** => (view 12.4)
+- Product Photos / different aspect ratios
+   - Filter should be applied only to source image and not to any letterboxed areas that may be shown
+   - Filter masks should scale along with particular size and ratio of source image
 
 ### Design Stories
 - Bottom Bar
@@ -3374,6 +3565,12 @@ A user can confirm that they want to upload the photo they've taken or selected.
       - Non-selected filter text is 60% opacity
 - Background shadow
 	- 101px high shadow behind filter buttons using (upload.filter.shadow.bg.png) which should stretch horizontally
+- Product Photos / different aspect ratios
+   - if a source photo has an aspect ratio that is shorter than that of the available content area (320 x 427), photo should be displayed so that it is screen width, while preserving original aspect ratio (letterboxing top and bottom)
+   - if a source photo has an aspect ratio that is taller than that of the available content area, photo should be displayed so that it is 427px high, while preserving original aspect ratio (letterboxing left and right)
+   - if a source photo doesn't fit width or height we will scale the image up to fit either height or width while perserving the original aspect ration
+   - content area behind photo (visible wherever source photo is not filling screen) is rgb(100,100,100)
+      - overlay edges of letterbox towards source photo with 'filter-letterbox-shadow.png' (has vertical top/bottom, horizontal left/right versions)
 
 ### 12.3 Post a look  
 
@@ -4028,7 +4225,7 @@ In many places where there is a user's name, there may be a badge icon next to a
 ### 13.8 Custom UIActionSheet
 
 #### Mockups
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/13.8.actionsheet.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/13.8.actionsheet.png" width=420px/>
 
 #### Design Stories
 - Buttons (use general/large.button.[color].[state].png)
@@ -4047,7 +4244,7 @@ In many places where there is a user's name, there may be a badge icon next to a
 ### 13.9 Custom UIAlertView
 
 #### Mockups
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-function-spec-updates/GTIO/Application/Resources/Mockups/13.9.custom.dialog.png" width=420px/>
+<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/13.9.custom.dialog.png" width=420px/>
 
 #### Design Stories
 - Background Stretchable Image (general/alert.bg.png)

@@ -12,18 +12,18 @@
 #import "GTIOFailedSignInViewController.h"
 #import "GTIOAppDelegate.h"
 #import "GTIOAlmostDoneViewController.h"
+#import "GTIOQuickAddViewController.h"
 
 #import "GTIOPostALookViewController.h"
 
-#import "GTIOUser.h"
 #import "GTIOTrack.h"
 
 #import "GTIOProgressHUD.h"
 
 @interface GTIOSignInViewController ()
 
-@property (nonatomic, strong) GTIOButton *facebookButton;
-@property (nonatomic, strong) GTIOButton *returningUserButton;
+@property (nonatomic, strong) GTIOUIButton *facebookButton;
+@property (nonatomic, strong) GTIOUIButton *returningUserButton;
 
 @property (nonatomic, assign, getter = isTracked) BOOL tracked;
 
@@ -32,7 +32,7 @@
 @implementation GTIOSignInViewController
 
 @synthesize facebookButton = _facebookButton, returningUserButton = _returningUserButton;
-@synthesize tracked = _tracked;
+@synthesize tracked = _tracked, loginHandler = _loginHandler;
 
 - (void)loadView
 {
@@ -45,13 +45,11 @@
 {
     [super viewDidLoad];
     
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login-bg-logo.png"]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
     [self.view addSubview:backgroundImageView];
     
-    self.facebookButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeFacebookSignUp];
+    self.facebookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFacebookSignUp];
     [self.facebookButton setFrame:(CGRect){ { (self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 245 }, self.facebookButton.frame.size }];
     [self.facebookButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.facebookButton setTapHandler:^(id sender) {
@@ -63,23 +61,24 @@
                 [self.navigationController pushViewController:failedSignInViewController animated:YES];
             } else {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                if (user.isNewUser) {
-                    if (user.hasCompleteProfile) {
-                        // load 1.8
-                        NSLog(@"Load screen 1.8");
+                if ([user.isNewUser boolValue]) {
+                    if ([user.hasCompleteProfile boolValue]) {
+                        GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
+                        [self.navigationController pushViewController:quickAddViewController animated:YES];
                     } else {
                         GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                         [self.navigationController pushViewController:almostDone animated:YES];
-                        // then go to 1.8
                     }
                 } else {
-                    if (user.hasCompleteProfile) {
-                        // load 1.8
-                        NSLog(@"Load screen 1.8");
+                    if ([user.hasCompleteProfile boolValue]) {
+                        if (self.loginHandler) {
+                            self.loginHandler(user, nil);
+                        } else {
+                            [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                        }
                     } else {
                         GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];
                         [self.navigationController pushViewController:almostDone animated:YES];
-                        // then go to 8.1
                     }
                 }
             }
@@ -87,11 +86,12 @@
     }];
     [self.view addSubview:self.facebookButton];
     
-    self.returningUserButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeReturningUser];
+    self.returningUserButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeReturningUser];
     [self.returningUserButton setFrame:(CGRect){ { (self.view.frame.size.width - self.returningUserButton.frame.size.width) / 2, 300 }, self.returningUserButton.frame.size }];
     [self.returningUserButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.returningUserButton setTapHandler:^(id sender) {
         GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:YES];
+        [returningUsersViewController setLoginHandler:self.loginHandler];
         [self.navigationController pushViewController:returningUsersViewController animated:YES];
     }];
     [self.view addSubview:self.returningUserButton];
@@ -133,6 +133,12 @@
     self.returningUserButton = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -149,6 +155,7 @@
 - (void)loadReturningUsersViewController
 {
     GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:NO];
+    [returningUsersViewController setLoginHandler:self.loginHandler];
     [self.navigationController pushViewController:returningUsersViewController animated:YES];
 }
 

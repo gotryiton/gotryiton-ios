@@ -11,8 +11,6 @@
 #import "GTIOSelectableProfilePicture.h"
 #import "GTIOUser.h"
 #import "GTIOIcon.h"
-#import "GTIOFacebookIcon.h"
-#import "GTIODefaultIcon.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOAlmostDoneViewController.h"
 
@@ -61,7 +59,7 @@
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"edit profile picture" italic:YES];
     [self useTitleView:navTitleView];
     
-    GTIOButton *saveButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
+    GTIOUIButton *saveButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeSaveGrayTopMargin tapHandler:^(id sender) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         NSDictionary *fieldsToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
                                         (self.currentlySelectedProfileIconURL) ? [self.currentlySelectedProfileIconURL absoluteString] : @"", @"icon",
@@ -83,7 +81,7 @@
     }];
     [self setRightNavigationButton:saveButton];
     
-    GTIOButton *doneButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
+    GTIOUIButton *doneButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES]; 
     }];
     [self setLeftNavigationButton:doneButton];
@@ -100,7 +98,7 @@
     [self.chooseFromBox addSubview:self.facebookLogo];
     
     self.myLooksLabel = [[UILabel alloc] initWithFrame:(CGRect){ 90, 53, 100, 11}];
-    [self.myLooksLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:11.0]];
+    [self.myLooksLabel setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:11.0]];
     [self.myLooksLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
     [self.myLooksLabel setText:@"my looks"];
     [self.chooseFromBox addSubview:self.myLooksLabel];
@@ -119,7 +117,7 @@
     [self.previewBox setTitle:@"preview"];
     [self.view addSubview:self.previewBox];
     
-    self.previewBoxBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"preview-box-bg.png"]];
+    self.previewBoxBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"edit.profile.pic.preview.cell.png"]];
     [self.previewBoxBackground setFrame:(CGRect){ { 17, 55 }, self.previewBoxBackground.bounds.size }];
     [self.previewBox addSubview:self.previewBoxBackground];
     
@@ -139,7 +137,8 @@
     [self.previewBoxBackground addSubview:self.previewUserLocationLabel];
     
     self.clearProfilePictureButton = [[UIButton alloc] initWithFrame:(CGRect){ 17, 151, 118, 24 }];
-    [self.clearProfilePictureButton setImage:[UIImage imageNamed:@"clear-profile-picture-button.png"] forState:UIControlStateNormal];
+    [self.clearProfilePictureButton setImage:[UIImage imageNamed:@"edit.profile.pic.clear.inactive.png"] forState:UIControlStateNormal];
+    [self.clearProfilePictureButton setImage:[UIImage imageNamed:@"edit.profile.pic.clear.active.png"] forState:UIControlStateHighlighted];
     [self.clearProfilePictureButton addTarget:self action:@selector(clearProfilePicture:) forControlEvents:UIControlEventTouchUpInside];
     [self.previewBox addSubview:self.clearProfilePictureButton];
 }
@@ -185,26 +184,32 @@
             
             // find the default icon
             for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIODefaultIcon class]]) {
-                    GTIOIcon *defaultIcon = (GTIOIcon*)object;
-                    self.defaultIconURL = defaultIcon.url;
+                if ([object isMemberOfClass:[GTIOIcon class]]) {
+                    GTIOIcon *icon = (GTIOIcon *)object;
+                    if ([icon.name isEqualToString:@"default"]) {
+                        self.defaultIconURL = icon.url;
+                        break;
+                    }
                 }
             }
             
             // find the facebook icon
             for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIOFacebookIcon class]]) {
-                    GTIOIcon *facebookIcon = (GTIOIcon*)object;
-                    [self.profileIconURLs addObject:facebookIcon.url];
-                    userHasFacebookPicture = YES;
+                if ([object isMemberOfClass:[GTIOIcon class]]) {
+                    GTIOIcon *icon = (GTIOIcon *)object;
+                    if ([icon.name isEqualToString:@"facebook"]) {
+                        [self.profileIconURLs addObject:icon.url];
+                        userHasFacebookPicture = YES;
+                        break;
+                    }
                 }
             }
             
             // grab the rest of the icons
             for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIOIcon class]] && ![object isMemberOfClass:[GTIOFacebookIcon class]]) {
+                if ([object isMemberOfClass:[GTIOIcon class]]) {
                     GTIOIcon *icon = (GTIOIcon*)object;
-                    if (icon.url) {
+                    if (icon.url && ![icon.name isEqualToString:@"facebook"] && ![icon.name isEqualToString:@"default"]) {
                         [self.profileIconURLs addObject:icon.url];
                     }
                 }
@@ -217,10 +222,10 @@
                 [self.profileIconViews addObject:self.facebookPicture];
                 [self.profileIconURLs removeObject:facebookPictureURL];
                 [self.facebookPicture setDelegate:self];
+                [self.facebookPicture setIsSelectable:YES];
             } else {
                 [self.facebookPicture setImage:[UIImage imageNamed:@"default-facebook-profile-picture.png"]];
                 [self.facebookPicture setIsSelectable:NO];
-                
                 self.facebookConnectButton = [[UIButton alloc] initWithFrame:(CGRect){ 16, 137, 55, 21 }];
                 [self.facebookConnectButton setImage:[UIImage imageNamed:@"facebook-connect-button"] forState:UIControlStateNormal];
                 [self.facebookConnectButton addTarget:self action:@selector(connectToFacebook:) forControlEvents:UIControlEventTouchUpInside];
@@ -254,7 +259,7 @@
     }
     
     [self.previewNameLabel setText:currentUser.name];
-    [self.previewUserLocationLabel setText:[NSString stringWithFormat:@"%@%@%@", currentUser.city, ([currentUser.state length] > 0) ? @", " : @"", currentUser.state]];
+    [self.previewUserLocationLabel setText:[currentUser.location uppercaseString]];
 }
 
 - (void)connectToFacebook:(id)sender

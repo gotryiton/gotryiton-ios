@@ -16,10 +16,16 @@
 @property (nonatomic, strong) NSNumber *width;
 @property (nonatomic, strong) NSNumber *height;
 
+@property (nonatomic, strong) NSURL *mainImageURL;
+@property (nonatomic, strong) NSURL *squareThumbnailURL;
+@property (nonatomic, strong) NSURL *smallThumbnailURL;
+
 typedef void(^GTIOPhotoCreationHandler)(GTIOPhoto *photo, NSError *error);
 
 + (GTIOPhoto *)createGTIOPhotoWithUIImage:(UIImage *)image framed:(BOOL)framed filter:(NSString *)filterName completionHandler:(GTIOPhotoCreationHandler)completionHandler;
 
 - (void)cancel;
+
+- (CGSize)photoSize;
 
 @end

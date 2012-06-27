@@ -10,8 +10,8 @@
 
 @interface GTIOTakePhotoView()
 
-@property (nonatomic, strong) GTIOButton *photoSelectButton;
-@property (nonatomic, strong) UIButton *deleteButton;
+@property (nonatomic, strong) GTIOUIButton *photoSelectButton;
+@property (nonatomic, strong) GTIOUIButton *deleteButton;
 @property (nonatomic, strong) UIView *canvas;
 
 @property (nonatomic, assign) CGFloat lastScale;
@@ -50,12 +50,12 @@
         [pinchRecognizer setDelegate:self];
         [self.canvas addGestureRecognizer:pinchRecognizer];
         
-        self.photoSelectButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoSelectBox];
+        self.photoSelectButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoSelectBox];
         [self.photoSelectButton setFrame:(CGRect){ 0, 0, self.bounds.size }];
         [self.photoSelectButton addTarget:self action:@selector(getImageFromCamera:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.photoSelectButton];
         
-        self.deleteButton = [GTIOButton buttonWithGTIOType:GTIOButtonTypePhotoDelete];
+        self.deleteButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoDelete];
         [self.deleteButton setFrame:(CGRect){ -10, -10, self.deleteButton.frame.size }];
         [self.deleteButton addTarget:self action:@selector(removePhoto:) forControlEvents:UIControlEventTouchUpInside];
     }

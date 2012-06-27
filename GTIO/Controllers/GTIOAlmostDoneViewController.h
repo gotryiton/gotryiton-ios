@@ -20,5 +20,6 @@
 @property (nonatomic, strong) NSMutableArray *textFields;
 
 - (void)updateDataSourceWithValue:(id)value ForKey:(NSString*)key;
+- (void)dismissKeyboard;
 
 @end

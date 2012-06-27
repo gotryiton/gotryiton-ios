@@ -8,6 +8,9 @@
 
 #import "UIFont+GTIOAdditions.h"
 
+#import <CoreText/CoreText.h>
+#import <QuartzCore/QuartzCore.h>
+
 static NSString * const GTIOFontProximaNovaName[] = {
     [GTIOFontProximaNovaBold] = @"ProximaNova-Bold",
     [GTIOFontProximaNovaBoldItal] = @"ProximaNova-BoldIt",
@@ -62,6 +65,41 @@ static NSString * const GTIOFontVerlagName[] = {
 + (UIFont *)gtio_verlagFontWithWeight:(GTIOFontVerlag)verlag size:(CGFloat)size
 {
     return [UIFont fontWithName:GTIOFontVerlagName[verlag] size:size];
+}
+
++ (CTFontRef)gtio_proximaNovaCoreTextFontWithWeight:(GTIOFontProximaNova)proximaNova size:(CGFloat)size
+{
+    return [self newCustomFontWithName:GTIOFontProximaNovaName[proximaNova] ofType: @"otf" size:size];
+}
+
++ (CTFontRef)gtio_archerCoreTextFontWithWeight:(GTIOFontArcher)archer size:(CGFloat)size
+{
+    return [self newCustomFontWithName:GTIOFontArcherName[archer] ofType: @"otf" size:size];
+}
+
++ (CTFontRef)gtio_verlagCoreTextFontWithWeight:(GTIOFontVerlag)verlag size:(CGFloat)size
+{
+    return [self newCustomFontWithName:GTIOFontVerlagName[verlag] ofType: @"otf" size:size];
+}
+
+// custom font loading for CoreText
++ (CTFontRef)newCustomFontWithName:(NSString *)fontName ofType:(NSString *)type size:(CGFloat)size
+{
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat: size] forKey:(NSString *)kCTFontSizeAttribute];
+
+    NSString *fontPath = [[NSBundle mainBundle] pathForResource:fontName ofType:type];
+
+    NSData *data = [[NSData alloc] initWithContentsOfFile:fontPath];
+    CGDataProviderRef fontProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
+
+    CGFontRef cgFont = CGFontCreateWithDataProvider(fontProvider);
+    CGDataProviderRelease(fontProvider);
+
+    CTFontDescriptorRef fontDescriptor = CTFontDescriptorCreateWithAttributes((__bridge CFDictionaryRef)attributes);
+    CTFontRef font = CTFontCreateWithGraphicsFont(cgFont, 0, NULL, fontDescriptor);
+    CFRelease(fontDescriptor);
+    CGFontRelease(cgFont);
+    return font;
 }
 
 @end

@@ -50,6 +50,15 @@ extern NSString * const kGTIOLooksUpdated;
 extern int const kGTIOEmptyPostAlertTag;
 extern int const kGTIOEmptyDescriptionAlertTag;
 
+// Button Name Constants
+extern NSString * const kGTIOUserInfoButtonNameFollowing;
+extern NSString * const kGTIOUserInfoButtonNameFollowers;
+extern NSString * const kGTIOUserInfoButtonNameStars;
+extern NSString * const kGTIOUserInfoButtonNameWebsite;
+extern NSString * const kGTIOUserInfoButtonNameFollow;
+extern NSString * const kGTIOUserInfoButtonNameBannerAd;
+extern NSString * const kGTIOUserInfoButtonNameAcceptRelationship;
+
 /** Dismiss handler
  */
 typedef void(^GTIODismissHandler)(UIViewController *viewController);
@@ -61,3 +70,6 @@ typedef enum GTIODeleteButtonPosition {
     GTIODeleteButtonPositionLeft = 0,
     GTIODeleteButtonPositionRight,
 } GTIODeleteButtonPosition;
+
+// Generic Completion Handler
+typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);

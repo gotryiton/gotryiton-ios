@@ -26,6 +26,7 @@
 #import "GTIOTrack.h"
 #import "GTIOUser.h"
 #import "GTIOAuth.h"
+#import "GTIORouter.h"
 
 #import "JREngage.h"
 
@@ -41,6 +42,8 @@
 @property (nonatomic, strong) UIImageView *tab4ImageView;
 @property (nonatomic, strong) UIImageView *tab5ImageView;
 
+@property (nonatomic, strong) NSArray *tabBarViewControllers;
+
 - (void)setupTabBar;
 - (void)setupRestKit;
 
@@ -53,6 +56,7 @@
 @synthesize splashViewController = _splashViewController;
 @synthesize cameraViewController = _cameraViewController;
 @synthesize tab1ImageView = _tab1ImageView, tab2ImageView = _tab2ImageView, tab3ImageView = _tab3ImageView, tab4ImageView = _tab4ImageView, tab5ImageView = _tab5ImageView;
+@synthesize tabBarViewControllers = _tabBarViewControllers;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -164,6 +168,8 @@
     if ([authToken length] > 0) {
         [[RKObjectManager sharedManager].client.HTTPHeaders setObject:authToken forKey:kGTIOAuthenticationHeaderKey];
     }
+#warning test code
+//    [[RKObjectManager sharedManager].client.HTTPHeaders setObject:@"f8c3ff8684d637f21a016444c3d1bd31" forKey:kGTIOAuthenticationHeaderKey];
     
     // Auth for dev/staging
     [objectManager.client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];
@@ -182,21 +188,28 @@
     [self.window setRootViewController:self.tabBarController];
 }
 
+- (void)selectTabAtIndex:(GTIOTabBarTab)tab
+{
+    [self.tabBarController setSelectedIndex:tab];
+    [self tabBarController:self.tabBarController didSelectViewController:[self.tabBarViewControllers objectAtIndex:tab]];
+}
+
 - (void)setupTabBar
 {
     self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
     [self.tabBarController setDelegate:self];
     
     UINavigationController *meNavigationController = [[UINavigationController alloc] initWithRootViewController:[[GTIOMeViewController alloc] initWithNibName:nil bundle:nil]];
+    UINavigationController *feedNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil]];
     
-    NSArray *viewControllers = [NSArray arrayWithObjects:
-                                [[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil],
+    self.tabBarViewControllers = [NSArray arrayWithObjects:
+                                feedNavController,
                                 [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOCameraTabBarPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOShopViewController alloc] initWithNibName:nil bundle:nil],
                                 meNavigationController,
                                 nil];
-    [self.tabBarController setViewControllers:viewControllers];
+    [self.tabBarController setViewControllers:self.tabBarViewControllers];
     
     for(UIView *view in self.tabBarController.view.subviews) {
         if(![view isKindOfClass:[UITabBar class]]) {
@@ -233,17 +246,23 @@
     [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-OFF.png"]];
     [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-OFF.png"]];
     
-    
-    if ([viewController isKindOfClass:[GTIOFeedViewController class]]) {
-        [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];
+    if ([viewController isKindOfClass:[UINavigationController class]] && 
+        [((UINavigationController *)viewController).viewControllers count] > 0) {
+        
+        UINavigationController *navController = (UINavigationController *)viewController;
+        UIViewController *rootViewController = [navController.viewControllers objectAtIndex:0];
+        
+        if ([rootViewController isKindOfClass:[GTIOFeedViewController class]]) {
+            [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];
+        } else if ([rootViewController isKindOfClass:[GTIOMeViewController class]]) {
+            [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
+        }
     } else if ([viewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
         [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOCameraViewController class]]) {
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOShopViewController class]]) {
         [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
-    } else if ([viewController isKindOfClass:[UINavigationController class]]) {
-        [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
     }
 }
 

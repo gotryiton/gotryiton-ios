@@ -13,6 +13,8 @@
 @interface GTIOSelectableProfilePicture()
 
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *innerShadow;
+@property (nonatomic, strong) UIImageView *outerShadow;
 @property (nonatomic, strong) UIView *canvas;
 @property (nonatomic, strong) UIView *border;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
@@ -21,8 +23,8 @@
 
 @implementation GTIOSelectableProfilePicture
 
-@synthesize isSelectable = _isSelectable, isSelected = _isSelected, imageURL = _imageURL, delegate = _delegate, image = _image;
-@synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer, border = _border, canvas = _canvas;
+@synthesize isSelectable = _isSelectable, isSelected = _isSelected, imageURL = _imageURL, delegate = _delegate, image = _image, hasInnerShadow = _hasInnerShadow, hasOuterShadow = _hasOuterShadow;
+@synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer, border = _border, canvas = _canvas, innerShadow = _innerShadow, outerShadow = _outerShadow;
 
 - (id)initWithFrame:(CGRect)frame andImageURL:(NSURL*)url
 {
@@ -30,26 +32,36 @@
     if (self) {
         [self setClipsToBounds:NO];
         
-        self.canvas = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, frame.size }];
-        [self.canvas.layer setCornerRadius:3.0f];
-        [self.canvas.layer setMasksToBounds:YES];
-        [self addSubview:self.canvas];
+        _outerShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile.top.profile.bg.png"]];
+        [_outerShadow setFrame:(CGRect){ -5, -5, self.frame.size.width + 10, self.frame.size.height + 10 }];
+        _outerShadow.hidden = YES;
+        [self addSubview:_outerShadow];
         
-        self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];
+        _canvas = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, frame.size }];
+        [_canvas.layer setCornerRadius:3.0f];
+        [_canvas.layer setMasksToBounds:YES];
+        [self addSubview:_canvas];
         
-        self.imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
-        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [self.imageView setImageWithURL:url];
-        [self.canvas addSubview:self.imageView];
-        [self fadeInImageView];
+        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];
         
-        self.border = [[UIView alloc] initWithFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
-        [self.border.layer setCornerRadius:3.0f];
-        [self.border setBackgroundColor:[UIColor gtio_greenBorderColor]];
+        _imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
+        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
+        _innerShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"edit.profile.pic.thumb.mask.png"]];
+        [_innerShadow setFrame:(CGRect){ 0, 0, frame.size }];
+        _innerShadow.hidden = YES;
+        [_imageView addSubview:_innerShadow];
+        [self setImageWithURL:url];
+        [_canvas addSubview:_imageView];
         
-        self.isSelected = NO;
-        self.isSelectable = YES;
-        self.imageURL = url;
+        _border = [[UIView alloc] initWithFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
+        [_border.layer setCornerRadius:3.0f];
+        [_border setBackgroundColor:[UIColor gtio_greenBorderColor]];
+        
+        _isSelected = NO;
+        _isSelectable = YES;
+        _imageURL = url;
+        _hasInnerShadow = YES;
+        _hasOuterShadow = NO;
     }
     return self;
 }
@@ -57,9 +69,7 @@
 - (void)setImageWithURL:(NSURL*)url
 {
     self.imageURL = url;
-    
     __block GTIOSelectableProfilePicture *blockSelf = self;
-    
     [self.imageView setImageWithURL:url placeholderImage:nil success:^(UIImage *image) {
         [blockSelf fadeInImageView];
     } failure:^(NSError *error) {
@@ -106,8 +116,14 @@
 - (void)fadeInImageView
 {
     [self.imageView setAlpha:0.0];
+    [self.innerShadow setAlpha:0.0];
+    [self.outerShadow setAlpha:0.0];
+    self.innerShadow.hidden = !self.hasInnerShadow;
+    self.outerShadow.hidden = !self.hasOuterShadow;
     [UIView animateWithDuration:0.25 animations:^{
         [self.imageView setAlpha:1.0];
+        [self.innerShadow setAlpha:1.0];
+        [self.outerShadow setAlpha:1.0];
     }];
 }
 
