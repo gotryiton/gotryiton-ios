@@ -3383,15 +3383,13 @@ A user can add details to their post before they submit.  They can select to use
 #### Mockups
 ([wireframe](http://invis.io/J92OF18E)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.a.Post.A.Look.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.a.Post.A.Look.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.f.Post.A.Look.Filled.Text.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.f.Post.A.Look.Filled.Text.png" width=420px/>
 
 12.3.1 Post a look (Description with keyboard) ([wireframe](http://invis.io/AC2OF2GX))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.d.Post.A.Look.Description.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.e.Post.A.Look.Brands.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.d.Post.A.Look.Description.png" width=420px/>
 
 12.3.2 Post a look (Photo preview with frames) ([wireframe](http://invis.io/5K2OF0W8))  
 
@@ -3565,12 +3563,12 @@ response:
    - no tap 'ON' state, switches between SINGLE and MULTIPLE versions after tap
    - 7px from right edge of screen
    - 12px from bottom of nav bar
-- Toggle Containers
-   - 'toggle-containers.png'
-   - place asset 174px from bottom of nav bar, 7px from right edge of screen
+- Facebook Toggle Container
+   - 'toggle-fb-container.png'
+      - right side of asset is 7px from right edge of screen
+      - bottom of asset is 6px below bottom of post photo
    - Toggles
       - 'switch-....png' assets
-      - VOTING: 228px from bottom of nav bar, 17px from right edge of screen
       - FACEBOOK: 287px from bottom of nav bar, 17px from right edge of screen
       - Tap area is entire container, not just toggle switch
 - Text Boxes
