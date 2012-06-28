@@ -1,5 +1,20 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.5 
+June 25, 2012
+
+### Build Summary
+This is a build of Geoff's work on the profile pages. If you go to the me tab and then click on following it is hard coded to take you to Rachit's profile. There are also a few additions to The Feed view from Scott.
+
+### Work In Progress
+
+- 192 - 7.7 Follow you view
+- 193 - 7.7 Profile Header Callout View
+- 195 - 7.7.5-6 Others Private Profile View
+- 182 - Nav Bar (After talking to Matt this needs to be changed)
+
+---
+
 #### Build 4.0.0.4 - June 22, 2012
 
 ### Build Summary
