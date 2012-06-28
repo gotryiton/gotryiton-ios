@@ -58,6 +58,10 @@ extern NSString * const kGTIOUserInfoButtonNameWebsite;
 extern NSString * const kGTIOUserInfoButtonNameFollow;
 extern NSString * const kGTIOUserInfoButtonNameBannerAd;
 extern NSString * const kGTIOUserInfoButtonNameAcceptRelationship;
+extern NSString * const kGTIOPostSideReviewsButton;
+extern NSString * const kGTIOPostSideShopButton;
+extern NSString * const kGTIOPostDotOptionButton;
+
 
 /** Dismiss handler
  */

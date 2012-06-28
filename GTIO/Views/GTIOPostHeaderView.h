@@ -8,6 +8,8 @@
 
 #import "GTIOPost.h"
 
+extern CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen;
+
 @interface GTIOPostHeaderView : UIView
 
 @property (nonatomic, strong) GTIOPost *post;

@@ -44,5 +44,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_semiTransparentBackgroundColor;
 + (UIColor *)gtio_profileDescriptionTextColor;
 + (UIColor *)gtio_ActionSheetButtonTextColor;
++ (UIColor *)gtio_postReviewCountButtonTextColor;
 
 @end

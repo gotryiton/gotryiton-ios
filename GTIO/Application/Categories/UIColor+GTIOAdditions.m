@@ -120,4 +120,10 @@
     return [UIColor colorWithRed:0 green:0 blue:0 alpha:0.22];
 }
 
++ (UIColor *)gtio_postReviewCountButtonTextColor
+{
+    // R: 143, G: 204, B: 177
+    return UIColorFromRGB(0x8FCCB1);
+}
+
 @end

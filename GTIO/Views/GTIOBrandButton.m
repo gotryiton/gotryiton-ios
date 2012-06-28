@@ -12,7 +12,7 @@
 
 @synthesize buttonModel = _buttonModel;
 
-+ (id)gtio_brandButton:(GTIOButton *)buttonModel tapHandler:(GTIOButtonDidTapHandler)tapHandler;
++ (id)gtio_brandButton:(GTIOButton *)buttonModel tapHandler:(GTIOButtonDidTapHandler)tapHandler
 {
     GTIOBrandButton *uiButton = [self buttonWithType:UIButtonTypeCustom];
     [uiButton setButtonModel:buttonModel];

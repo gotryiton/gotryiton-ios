@@ -11,9 +11,9 @@
 @interface GTIOPostFrameView : UIView
 
 @property (nonatomic, strong) GTIOPost *post;
+@property (nonatomic, strong) UIImageView *photoImageView;
 
 + (CGFloat)heightWithPost:(GTIOPost *)post;
-
-- (void)prepareForReuse;
++ (CGSize)scalePhotoSize:(CGSize)actualPhotoSize;
 
 @end

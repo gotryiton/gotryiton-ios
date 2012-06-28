@@ -20,6 +20,7 @@
 static CGFloat const kGTIOFrameWidth = 270.0f;
 static CGFloat const kGTIOFrameHeightPadding = 16.0f;
 static CGFloat const kGTIOFrameHeightWithShadowPadding = 22.0f;
+static CGFloat const kGTIOPhotoTopPadding = 7.0f;
 static CGFloat const kGTIOHeartButtonPadding = 9.0f;
 static CGFloat const kGTIODescriptionTextWidth = 240.0f;
 static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
@@ -30,7 +31,6 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 @interface GTIOPostFrameView ()
 
 @property (nonatomic, strong) UIImageView *frameImageView;
-@property (nonatomic, strong) UIImageView *photoImageView;
 @property (nonatomic, strong) TTTAttributedLabel *descriptionLabel;
 @property (nonatomic, strong) GTIOHeartButton *heartButton;
 @property (nonatomic, strong) GTIOButton *photoHeartButtonModel;
@@ -83,7 +83,7 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 
     CGSize photoSize = [GTIOPostFrameView scalePhotoSize:self.post.photo.photoSize];
 
-    [self.photoImageView setFrame:(CGRect){ 10, 7, photoSize }];
+    [self.photoImageView setFrame:(CGRect){ 10, kGTIOPhotoTopPadding, photoSize }];
     [self.heartButton setFrame:(CGRect){ { self.photoImageView.frame.origin.x + kGTIOHeartButtonPadding, self.photoImageView.frame.origin.y + kGTIOHeartButtonPadding }, self.heartButton.frame.size }];
     
     CGSize descriptionTextSize = [GTIOPostFrameView descriptionTextSize:self.post.postDescription];
@@ -112,11 +112,6 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
     [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.brandButtonsView.frame.origin.y + self.brandButtonsView.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
     
     [self setFrame:(CGRect){ self.frame.origin, self.frameImageView.frame.size }];
-}
-
-- (void)prepareForReuse
-{
-    
 }
 
 #pragma mark - Properties

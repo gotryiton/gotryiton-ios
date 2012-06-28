@@ -62,7 +62,6 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSectionHeaderHeight:56.0f];
-    [self.tableView setRowHeight:200.0f];
     [self.tableView setSeparatorStyle:UITableViewCellSelectionStyleNone];
     [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.tableView setContentInset:self.tableView.scrollIndicatorInsets];
@@ -175,6 +174,14 @@
     return nil;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([cell isKindOfClass:[GTIOFeedCell class]]) {
+        GTIOPost *post = [self.posts objectAtIndex:indexPath.section];
+        ((GTIOFeedCell *)cell).post = post;
+    }
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -196,9 +203,6 @@
     if (!cell) {
         cell = [[GTIOFeedCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
     }
-    
-    GTIOPost *post = [self.posts objectAtIndex:indexPath.section];
-    cell.post = post;
     
     return cell;
 }

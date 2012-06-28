@@ -10,6 +10,7 @@
 
 #import "GTIOPostFrameView.h"
 #import "GTIOWhoHeartedThisView.h"
+#import "GTIOPostButtonColumnView.h"
 
 static CGFloat const kGTIOFrameOriginX = 3.5f;
 static CGFloat const kGTIOWhoHeartedThisOriginX = 13.0f;
@@ -21,13 +22,14 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 11.0f;
 
 @property (nonatomic, strong) GTIOPostFrameView *frameView;
 @property (nonatomic, strong) GTIOWhoHeartedThisView *whoHeartedThisView;
+@property (nonatomic, strong) GTIOPostButtonColumnView *postButtonColumnView;
 
 @end
 
 @implementation GTIOFeedCell
 
 @synthesize post = _post;
-@synthesize frameView = _frameView, whoHeartedThisView = _whoHeartedThisView;
+@synthesize frameView = _frameView, whoHeartedThisView = _whoHeartedThisView, postButtonColumnView = _postButtonColumnView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -43,6 +45,10 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 11.0f;
         // Who Hearted this View
         _whoHeartedThisView = [[GTIOWhoHeartedThisView alloc] initWithFrame:(CGRect){ kGTIOWhoHeartedThisOriginX, 0, CGSizeZero }];
         [self.contentView addSubview:_whoHeartedThisView];
+        
+        // Right column button view
+        _postButtonColumnView = [[GTIOPostButtonColumnView alloc] initWithFrame:(CGRectZero)];
+        [self.contentView addSubview:_postButtonColumnView];
     }
     return self;
 }
@@ -56,7 +62,7 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 11.0f;
 
 - (void)prepareForReuse
 {
-    [self.frameView prepareForReuse];
+    [self.postButtonColumnView prepareForReuse];
 }
 
 #pragma mark - Properties
@@ -71,6 +77,10 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 11.0f;
         CGFloat photoFrameHeight = [GTIOPostFrameView heightWithPost:post];
         [self.whoHeartedThisView setWhoHeartedThisButtons:_post.buttons];
         [self.whoHeartedThisView setFrame:(CGRect){ { self.whoHeartedThisView.frame.origin.x, self.frameView.frame.origin.y + photoFrameHeight + kGTIOWhoHeartedThisTopPadding }, { kGTIOWhoHeartedThisWidth, self.whoHeartedThisView.frame.size.height } }];
+        
+        CGFloat postButtonColumnViewOriginX = self.frameView.frame.origin.x + self.frameView.frame.size.width;
+        [self.postButtonColumnView setFrame:(CGRect){ { postButtonColumnViewOriginX, 0 }, { self.frame.size.width - postButtonColumnViewOriginX, self.frame.size.height } }];
+        [self.postButtonColumnView setPost:_post];
     }
 }
 

@@ -680,14 +680,6 @@
 		8ED00B1E1598D8EC00E50B09 /* button-dot-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008C71598D8EC00E50B09 /* button-dot-active@2x.png */; };
 		8ED00B1F1598D8EC00E50B09 /* button-dot-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008C81598D8EC00E50B09 /* button-dot-inactive.png */; };
 		8ED00B201598D8EC00E50B09 /* button-dot-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008C91598D8EC00E50B09 /* button-dot-inactive@2x.png */; };
-		8ED00B211598D8EC00E50B09 /* button-hanger-down-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008CA1598D8EC00E50B09 /* button-hanger-down-active.png */; };
-		8ED00B221598D8EC00E50B09 /* button-hanger-down-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008CB1598D8EC00E50B09 /* button-hanger-down-active@2x.png */; };
-		8ED00B231598D8EC00E50B09 /* button-hanger-down-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008CC1598D8EC00E50B09 /* button-hanger-down-inactive.png */; };
-		8ED00B241598D8EC00E50B09 /* button-hanger-down-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008CD1598D8EC00E50B09 /* button-hanger-down-inactive@2x.png */; };
-		8ED00B251598D8EC00E50B09 /* button-hanger-up-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008CE1598D8EC00E50B09 /* button-hanger-up-active.png */; };
-		8ED00B261598D8EC00E50B09 /* button-hanger-up-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008CF1598D8EC00E50B09 /* button-hanger-up-active@2x.png */; };
-		8ED00B271598D8EC00E50B09 /* button-hanger-up-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008D01598D8EC00E50B09 /* button-hanger-up-inactive.png */; };
-		8ED00B281598D8EC00E50B09 /* button-hanger-up-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008D11598D8EC00E50B09 /* button-hanger-up-inactive@2x.png */; };
 		8ED00B291598D8EC00E50B09 /* button-review-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008D21598D8EC00E50B09 /* button-review-active.png */; };
 		8ED00B2A1598D8EC00E50B09 /* button-review-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008D31598D8EC00E50B09 /* button-review-active@2x.png */; };
 		8ED00B2B1598D8EC00E50B09 /* button-review-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ED008D41598D8EC00E50B09 /* button-review-inactive.png */; };
@@ -880,6 +872,7 @@
 		D245E10A1576B3D6009DBCF7 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */; };
 		D2465987159B743F00A43238 /* libDTCoreText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D246597E159B740300A43238 /* libDTCoreText.a */; };
 		D2465989159B74D700A43238 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2465988159B74D700A43238 /* libxml2.dylib */; };
+		D2465993159BA1EB00A43238 /* GTIOPostButtonColumnView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2465992159BA1EB00A43238 /* GTIOPostButtonColumnView.m */; };
 		D246B087155C037C00E5546A /* GTIOAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B086155C037C00E5546A /* GTIOAppearance.m */; };
 		D246B08A155C0AE400E5546A /* GTIOVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B089155C0AE400E5546A /* GTIOVisit.m */; };
 		D246B08C155C134900E5546A /* GTIOVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D246B089155C0AE400E5546A /* GTIOVisit.m */; };
@@ -994,6 +987,7 @@
 		D2D96EF1156D2774009B9A72 /* GTIOCameraToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D96EF0156D2774009B9A72 /* GTIOCameraToolbarView.m */; };
 		D2D96FC7156D2A07009B9A72 /* GTIOCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D96FC6156D2A07009B9A72 /* GTIOCameraViewController.m */; };
 		D2D96FC9156D2A48009B9A72 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D96FC8156D2A48009B9A72 /* AVFoundation.framework */; };
+		D2DCF4C9159BDD17006E5AF0 /* GTIOPostSideButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DCF4C8159BDD17006E5AF0 /* GTIOPostSideButton.m */; };
 		D2E3759A1559B86700763A67 /* GTIOExploreLooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */; };
 		D2EC0ED8156ADF1500984838 /* GTIOMailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */; };
 		D2EC0EDA156ADF5800984838 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EC0ED9156ADF5800984838 /* MessageUI.framework */; };
@@ -1848,14 +1842,6 @@
 		8ED008C71598D8EC00E50B09 /* button-dot-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-dot-active@2x.png"; sourceTree = "<group>"; };
 		8ED008C81598D8EC00E50B09 /* button-dot-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-dot-inactive.png"; sourceTree = "<group>"; };
 		8ED008C91598D8EC00E50B09 /* button-dot-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-dot-inactive@2x.png"; sourceTree = "<group>"; };
-		8ED008CA1598D8EC00E50B09 /* button-hanger-down-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-hanger-down-active.png"; sourceTree = "<group>"; };
-		8ED008CB1598D8EC00E50B09 /* button-hanger-down-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-hanger-down-active@2x.png"; sourceTree = "<group>"; };
-		8ED008CC1598D8EC00E50B09 /* button-hanger-down-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-hanger-down-inactive.png"; sourceTree = "<group>"; };
-		8ED008CD1598D8EC00E50B09 /* button-hanger-down-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-hanger-down-inactive@2x.png"; sourceTree = "<group>"; };
-		8ED008CE1598D8EC00E50B09 /* button-hanger-up-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-hanger-up-active.png"; sourceTree = "<group>"; };
-		8ED008CF1598D8EC00E50B09 /* button-hanger-up-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-hanger-up-active@2x.png"; sourceTree = "<group>"; };
-		8ED008D01598D8EC00E50B09 /* button-hanger-up-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-hanger-up-inactive.png"; sourceTree = "<group>"; };
-		8ED008D11598D8EC00E50B09 /* button-hanger-up-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-hanger-up-inactive@2x.png"; sourceTree = "<group>"; };
 		8ED008D21598D8EC00E50B09 /* button-review-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-review-active.png"; sourceTree = "<group>"; };
 		8ED008D31598D8EC00E50B09 /* button-review-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-review-active@2x.png"; sourceTree = "<group>"; };
 		8ED008D41598D8EC00E50B09 /* button-review-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-review-inactive.png"; sourceTree = "<group>"; };
@@ -2080,6 +2066,8 @@
 		D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		D246596B159B740300A43238 /* DTCoreText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTCoreText.xcodeproj; path = Libraries/DTCoreText/DTCoreText.xcodeproj; sourceTree = "<group>"; };
 		D2465988159B74D700A43238 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		D2465991159BA1EB00A43238 /* GTIOPostButtonColumnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostButtonColumnView.h; sourceTree = "<group>"; };
+		D2465992159BA1EB00A43238 /* GTIOPostButtonColumnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostButtonColumnView.m; sourceTree = "<group>"; };
 		D246B085155C037C00E5546A /* GTIOAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOAppearance.h; path = Application/GTIOAppearance.h; sourceTree = "<group>"; };
 		D246B086155C037C00E5546A /* GTIOAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTIOAppearance.m; path = Application/GTIOAppearance.m; sourceTree = "<group>"; };
 		D246B088155C0AE400E5546A /* GTIOVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOVisit.h; sourceTree = "<group>"; };
@@ -2276,6 +2264,8 @@
 		D2D96FC5156D2A07009B9A72 /* GTIOCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCameraViewController.h; sourceTree = "<group>"; };
 		D2D96FC6156D2A07009B9A72 /* GTIOCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCameraViewController.m; sourceTree = "<group>"; };
 		D2D96FC8156D2A48009B9A72 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D2DCF4C7159BDD17006E5AF0 /* GTIOPostSideButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostSideButton.h; sourceTree = "<group>"; };
+		D2DCF4C8159BDD17006E5AF0 /* GTIOPostSideButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostSideButton.m; sourceTree = "<group>"; };
 		D2DEAED2158793A20032ED1F /* GTIOFilterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterButton.h; sourceTree = "<group>"; };
 		D2DEAED3158793A20032ED1F /* GTIOFilterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterButton.m; sourceTree = "<group>"; };
 		D2E375961559B86700763A67 /* GTIOExploreLooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOExploreLooksViewController.h; sourceTree = "<group>"; };
@@ -2748,12 +2738,14 @@
 				D22D73D01593C1960018AD6B /* GTIOFeedCell.m */,
 				D27C2FA11598B99B006C9ACB /* GTIOFeedNavigationBarView.h */,
 				D27C2F9F1598A3DA006C9ACB /* GTIOFeedNavigationBarView.m */,
+				D27C2FA21598CE01006C9ACB /* GTIOPostBrandButtonsView.h */,
+				D27C2FA31598CE01006C9ACB /* GTIOPostBrandButtonsView.m */,
+				D2465991159BA1EB00A43238 /* GTIOPostButtonColumnView.h */,
+				D2465992159BA1EB00A43238 /* GTIOPostButtonColumnView.m */,
 				D22D73CC1593BBE70018AD6B /* GTIOPostFrameView.h */,
 				D22D73CD1593BBE70018AD6B /* GTIOPostFrameView.m */,
 				D22D73D21593CCA10018AD6B /* GTIOPostHeaderView.h */,
 				D22D73D31593CCA10018AD6B /* GTIOPostHeaderView.m */,
-				D27C2FA21598CE01006C9ACB /* GTIOPostBrandButtonsView.h */,
-				D27C2FA31598CE01006C9ACB /* GTIOPostBrandButtonsView.m */,
 				D255805D159B600900A5BD06 /* GTIOWhoHeartedThisView.h */,
 				D255805E159B600900A5BD06 /* GTIOWhoHeartedThisView.m */,
 			);
@@ -3419,14 +3411,6 @@
 				8ED008C71598D8EC00E50B09 /* button-dot-active@2x.png */,
 				8ED008C81598D8EC00E50B09 /* button-dot-inactive.png */,
 				8ED008C91598D8EC00E50B09 /* button-dot-inactive@2x.png */,
-				8ED008CA1598D8EC00E50B09 /* button-hanger-down-active.png */,
-				8ED008CB1598D8EC00E50B09 /* button-hanger-down-active@2x.png */,
-				8ED008CC1598D8EC00E50B09 /* button-hanger-down-inactive.png */,
-				8ED008CD1598D8EC00E50B09 /* button-hanger-down-inactive@2x.png */,
-				8ED008CE1598D8EC00E50B09 /* button-hanger-up-active.png */,
-				8ED008CF1598D8EC00E50B09 /* button-hanger-up-active@2x.png */,
-				8ED008D01598D8EC00E50B09 /* button-hanger-up-inactive.png */,
-				8ED008D11598D8EC00E50B09 /* button-hanger-up-inactive@2x.png */,
 				8ED008D21598D8EC00E50B09 /* button-review-active.png */,
 				8ED008D31598D8EC00E50B09 /* button-review-active@2x.png */,
 				8ED008D41598D8EC00E50B09 /* button-review-inactive.png */,
@@ -4276,6 +4260,8 @@
 				D27C2FA61598E20F006C9ACB /* GTIOBrandButton.m */,
 				8EE68CB9159A00B100DE2E68 /* GTIOLargeButton.h */,
 				8EE68CBA159A00B100DE2E68 /* GTIOLargeButton.m */,
+				D2DCF4C7159BDD17006E5AF0 /* GTIOPostSideButton.h */,
+				D2DCF4C8159BDD17006E5AF0 /* GTIOPostSideButton.m */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -5115,14 +5101,6 @@
 				8ED00B1E1598D8EC00E50B09 /* button-dot-active@2x.png in Resources */,
 				8ED00B1F1598D8EC00E50B09 /* button-dot-inactive.png in Resources */,
 				8ED00B201598D8EC00E50B09 /* button-dot-inactive@2x.png in Resources */,
-				8ED00B211598D8EC00E50B09 /* button-hanger-down-active.png in Resources */,
-				8ED00B221598D8EC00E50B09 /* button-hanger-down-active@2x.png in Resources */,
-				8ED00B231598D8EC00E50B09 /* button-hanger-down-inactive.png in Resources */,
-				8ED00B241598D8EC00E50B09 /* button-hanger-down-inactive@2x.png in Resources */,
-				8ED00B251598D8EC00E50B09 /* button-hanger-up-active.png in Resources */,
-				8ED00B261598D8EC00E50B09 /* button-hanger-up-active@2x.png in Resources */,
-				8ED00B271598D8EC00E50B09 /* button-hanger-up-inactive.png in Resources */,
-				8ED00B281598D8EC00E50B09 /* button-hanger-up-inactive@2x.png in Resources */,
 				8ED00B291598D8EC00E50B09 /* button-review-active.png in Resources */,
 				8ED00B2A1598D8EC00E50B09 /* button-review-active@2x.png in Resources */,
 				8ED00B2B1598D8EC00E50B09 /* button-review-inactive.png in Resources */,
@@ -5461,6 +5439,8 @@
 				8E89BAEA159919E000CB3094 /* GTIOPagination.m in Sources */,
 				8EE68CBB159A00B100DE2E68 /* GTIOLargeButton.m in Sources */,
 				D255805F159B600900A5BD06 /* GTIOWhoHeartedThisView.m in Sources */,
+				D2465993159BA1EB00A43238 /* GTIOPostButtonColumnView.m in Sources */,
+				D2DCF4C9159BDD17006E5AF0 /* GTIOPostSideButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
