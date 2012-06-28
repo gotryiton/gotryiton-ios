@@ -59,12 +59,20 @@
         case UIViewContentModeScaleAspectFit:
             ratio = MIN(horizontalRatio, verticalRatio);
             break;
-            
+        case  UIViewContentModeScaleToFill:
+            ratio = 0.0;
+            break;
         default:
             [NSException raise:NSInvalidArgumentException format:@"Unsupported content mode: %d", contentMode];
     }
+    CGSize newSize;
+    if (ratio==0.0){
+        newSize = CGSizeMake(bounds.width, bounds.height );
+    }
+    else {
+        newSize = CGSizeMake(self.size.width * ratio, self.size.height * ratio);
+    }
     
-    CGSize newSize = CGSizeMake(self.size.width * ratio, self.size.height * ratio);
     
     return [self resizedImage:newSize interpolationQuality:quality];
 }
