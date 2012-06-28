@@ -11,7 +11,6 @@
 @interface UIImage (GTIOFilters)
 
 #pragma mark Filter
-- (UIImage*)scaleToSize:(CGSize)size;
 - (UIImage *) GTIOFilterOriginal;
 - (UIImage *) GTIOFilterClementine;
 - (UIImage *) GTIOFilterColombe;

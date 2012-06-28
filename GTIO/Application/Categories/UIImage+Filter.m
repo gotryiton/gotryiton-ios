@@ -7,19 +7,25 @@
 //
 
 #import "UIImage+Filter.h"
+#import "UIImage+Resize.h"
+#import <QuartzCore/QuartzCore.h>
+
+static NSInteger const kGTIOPhotoResizeWidth = 640;
 
 #define SAFE(color) MIN(255,MAX(0,color))
 
 @implementation UIImage (Filter)
-- (CGContextRef) ImageToContex: (UIImage *) image {
+- (CGContextRef) ImageToContext: (UIImage *) image {
     // Get sizeof data buffer
     CGImageRef imageRef = image.CGImage;
+
     size_t pixelsWide = CGImageGetWidth(imageRef);
     size_t pixelsHigh = CGImageGetHeight(imageRef);
     size_t step = 4;
     int bufferSize = pixelsHigh * pixelsWide * step;
+   
     
-    // Alloc data buffer and Create contex
+    // Alloc data buffer and Create context
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     void * buffer = malloc(bufferSize);
     CGContextRef context = CGBitmapContextCreate (
@@ -43,8 +49,8 @@
 }
 
 
-- (UIImage *) ContexToImage:(CGContextRef)contex {
-    CGImageRef mCGImage = CGBitmapContextCreateImage(contex);
+- (UIImage *) ContextToImage:(CGContextRef)context {
+    CGImageRef mCGImage = CGBitmapContextCreateImage(context);
     UIImage * mUIImage = [UIImage imageWithCGImage: mCGImage];
     CGImageRelease(mCGImage);
     return mUIImage;
@@ -72,43 +78,61 @@
     return result;    
 }
 
+- (UIImage*)resizeForFiltering  {
+
+    return [self resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:(CGSize){ kGTIOPhotoResizeWidth, CGFLOAT_MAX } interpolationQuality:kCGInterpolationHigh];
+}
+
+
+- (UIImage*)resizeForFilteringToMatch: (UIImage *) image 
+{
+
+    return [self resizedImageWithContentMode:UIViewContentModeScaleToFill bounds:(CGSize){ (int)image.size.width, (int)image.size.height } interpolationQuality:kCGInterpolationHigh];
+}
+
+
+
 
 - (UIImage *) applyBlend:(UIImage *) image Callback: (void (^)(unsigned char *, unsigned char *)) fn{
+    
+    image = [image resizeForFilteringToMatch:self];
+
     size_t width0 = CGImageGetWidth(self.CGImage);
     size_t height0 = CGImageGetHeight(self.CGImage);
     size_t width1 = CGImageGetWidth(image.CGImage);
     size_t height1 = CGImageGetHeight(image.CGImage);
     size_t step = 4;
+
     if (width0 != width1 || height0 != height1) {
         return NULL;
     }
     
-    CGContextRef contex0 = [self ImageToContex:self];
-    CGContextRef contex1 = [self ImageToContex:image];
-    unsigned char * data0 = (unsigned char *) CGBitmapContextGetData(contex0);
-    unsigned char * data1 = (unsigned char *) CGBitmapContextGetData(contex1);
+    CGContextRef context0 = [self ImageToContext:self];
+    CGContextRef context1 = [self ImageToContext:image];
+    unsigned char * data0 = (unsigned char *) CGBitmapContextGetData(context0);
+    unsigned char * data1 = (unsigned char *) CGBitmapContextGetData(context1);
     
     int length = height0 * width0 * step;
     for (int i = 0; i < length; i += step) {
         fn(data0 + i, data1 + i);
     }
-    UIImage * finalImage = [self ContexToImage:contex0];
+    UIImage * finalImage = [self ContextToImage:context0];
     
-    CGContextRelease(contex0);
-    CGContextRelease(contex1);
+    CGContextRelease(context0);
+    CGContextRelease(context1);
     free(data0);
     free(data1);
     
     return finalImage;
 }
 
-- (UIImage *) applyCurve:(Curve)curve {
+- (UIImage *) applyRGBCurve:(RGBCurve)curve {
     size_t width = CGImageGetWidth(self.CGImage);
     size_t height = CGImageGetHeight(self.CGImage);
     size_t step = 4;
     
-    CGContextRef contex = [self ImageToContex:self];
-    unsigned char * data = (unsigned char *) CGBitmapContextGetData(contex);
+    CGContextRef context = [self ImageToContext:self];
+    unsigned char * data = (unsigned char *) CGBitmapContextGetData(context);
     
     int length = height * width * step;
     for (int i = 0; i < length; i += step) {
@@ -117,27 +141,130 @@
         data[i + 3] = SAFE(curve.b[data[i+3]]);
     }
     
-    UIImage * finalImage = [self ContexToImage:contex];
-    CGContextRelease(contex);
+    UIImage * finalImage = [self ContextToImage:context];
+    CGContextRelease(context);
     free(data);
     return finalImage;
 }
+
+- (UIImage *) applyValueCurve:(Curve)curve {
+    size_t width = CGImageGetWidth(self.CGImage);
+    size_t height = CGImageGetHeight(self.CGImage);
+    size_t step = 4;
+    
+    CGContextRef context = [self ImageToContext:self];
+    unsigned char * data = (unsigned char *) CGBitmapContextGetData(context);
+    
+    int length = height * width * step;
+    for (int i = 0; i < length; i += step) {
+        int current_intensity = SAFE(.3 * data[i+1] + .59  * data[i+2] +.11 * data[i+3]);
+        int delta_intensity =  (curve[current_intensity] - current_intensity);
+        
+        data[i + 1] = SAFE( (int)( .3 * (float)delta_intensity)  + data[i+1] );
+        data[i + 2] = SAFE( (int)(.59  * (float)delta_intensity)  + data[i+2] );
+        data[i + 3] = SAFE( (int)(.11 * (float)delta_intensity )  + data[i+3] );
+    }
+    
+    UIImage * finalImage = [self ContextToImage:context];
+    CGContextRelease(context);
+    free(data);
+    return finalImage;
+}
+
+- (UIImage *) desaturateThroughRed {
+    size_t width = CGImageGetWidth(self.CGImage);
+    size_t height = CGImageGetHeight(self.CGImage);
+    size_t step = 4;
+    
+    CGContextRef context = [self ImageToContext:self];
+    unsigned char * data = (unsigned char *) CGBitmapContextGetData(context);
+    
+    int length = height * width * step;
+    for (int i = 0; i < length; i += step) {
+        
+        data[i + 1] = data[i+1];
+        data[i + 2] = data[i+1];
+        data[i + 3] = data[i+1];
+    }
+    
+    UIImage * finalImage = [self ContextToImage:context];
+    CGContextRelease(context);
+    free(data);
+    return finalImage;
+}
+
+- (UIImage *) desaturate {
+    return [self desaturateWithRatio:1];
+}
+
+- (UIImage *)desaturateWithRatio: (double) ratio{
+    size_t width = CGImageGetWidth(self.CGImage);
+    size_t height = CGImageGetHeight(self.CGImage);
+    size_t step = 4 ;
+    
+
+    CGContextRef context = [self ImageToContext:self];
+    unsigned char * data = (unsigned char *) CGBitmapContextGetData(context);
+    
+    int length = height * width * step ;
+    for (int i = 0; i < length; i += step) {
+        
+        int current_intensity = SAFE(.3 * data[i+1] + .59  * data[i+2] +.11 * data[i+3]);
+        
+        data[i + 1] = (int) (ratio*(current_intensity - data[i+1] )) + data[i+1];
+        data[i + 2] = (int) (ratio*(current_intensity - data[i+2] )) + data[i+2];
+        data[i + 3] = (int) (ratio*(current_intensity - data[i+3] )) + data[i+3];
+    }
+    
+    UIImage * finalImage = [self ContextToImage:context];
+    CGContextRelease(context);
+    free(data);
+    return finalImage;
+}
+
+- (UIImage *)tvtime{
+    size_t width = CGImageGetWidth(self.CGImage);
+    size_t height = CGImageGetHeight(self.CGImage);
+    size_t step = 4 ;
+    
+
+    CGContextRef context = [self ImageToContext:self];
+    unsigned char * data = (unsigned char *) CGBitmapContextGetData(context);
+    
+    int length = height * width * step ;
+    for (int i = 0; i < length; i += step) {
+        
+        int current_intensity = SAFE(.3 * data[i+1] + .59  * data[i+2] +.11 * data[i+3]);
+        
+        data[i + 1] = current_intensity;
+        data[i + 2] = current_intensity;
+        data[i + 3] = current_intensity;
+        
+        i = MIN(i+4, length);
+    }
+    
+    UIImage * finalImage = [self ContextToImage:context];
+    CGContextRelease(context);
+    free(data);
+    return finalImage;
+}
+
 
 - (UIImage *) applyFilter:(void (^)(unsigned char *))fn {
     size_t width = CGImageGetWidth(self.CGImage);
     size_t height = CGImageGetHeight(self.CGImage);
     size_t step = 4;
     
-    CGContextRef contex = [self ImageToContex:self];
-    unsigned char * data = (unsigned char *) CGBitmapContextGetData(contex);
+    CGContextRef context = [self ImageToContext:self];
+    unsigned char * data = (unsigned char *) CGBitmapContextGetData(context);
     
     int length = height * width * step;
     for (int i = 0; i < length; i += step) {
         fn(data + i);
     }
     
-    UIImage * finalImage = [self ContexToImage:contex];
-    CGContextRelease(contex);
+    UIImage * finalImage = [self ContextToImage:context];
+    CGContextRelease(context);
     free(data);
     return finalImage;
 }

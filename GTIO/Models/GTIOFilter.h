@@ -44,7 +44,7 @@ static NSString * const GTIOFilterTypeSelectors[] = {
     [GTIOFilterTypeWalker] = @"GTIOFilterWalker"
 };
 
-static NSInteger const GTIOFilterOrder[] = { GTIOFilterTypeOriginal, GTIOFilterTypeClementine, GTIOFilterTypeColombe, GTIOFilterTypeHenrik, GTIOFilterTypeDiesel, GTIOFilterTypeIIRG, GTIOFilterTypeLafayette, GTIOFilterTypeLispenard, GTIOFilterTypeWalker };
+static NSInteger const GTIOFilterOrder[] = { GTIOFilterTypeOriginal,  GTIOFilterTypeColombe, GTIOFilterTypeHenrik, GTIOFilterTypeDiesel, GTIOFilterTypeIIRG, GTIOFilterTypeWalker, GTIOFilterTypeClementine, GTIOFilterTypeLafayette, GTIOFilterTypeLispenard };
 
 @interface GTIOFilter : NSObject
 

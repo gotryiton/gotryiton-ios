@@ -10,6 +10,9 @@
 
 #import "GTIOFilterOperation.h"
 
+#import "UIImage+GTIOFilters.h"
+#import "UIImage+Filter.h"
+
 @interface GTIOFilterManager : NSObject
 
 @property (nonatomic, strong) UIImage *originalImage;

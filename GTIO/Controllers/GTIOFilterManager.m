@@ -58,7 +58,7 @@
             }];
             [self.filterQueue addOperation:filterOperation];
         } else {
-            NSLog(@"Could not load filter: %@", filterType);
+            NSLog(@"Could not load filter: %@", GTIOFilterTypeSelectors[filterType]);
         }
     }
 }

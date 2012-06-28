@@ -11,6 +11,16 @@
 		5CDFD9061593BA7B00994416 /* GTIOAutoCompleteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */; };
 		5CDFD9091593BAAD00994416 /* GTIOAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */; };
 		5CDFD90C1593C53C00994416 /* GTIOAutoCompleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD90B1593C53C00994416 /* GTIOAutoCompleteButton.m */; };
+		5CECED7B159A64AD0051FA94 /* GTIOFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CECED7A159A64AD0051FA94 /* GTIOFilter.m */; };
+		5CECED7C159A78260051FA94 /* UIImage+GTIOFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CECED76159A5D720051FA94 /* UIImage+GTIOFilters.m */; };
+		5CECED7D159A78310051FA94 /* UIImage+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CECED74159A5D720051FA94 /* UIImage+Filter.m */; };
+		5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CECED7E159B76EC0051FA94 /* CoreImage.framework */; };
+		5CECED88159B80BB0051FA94 /* mask-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED86159B80BB0051FA94 /* mask-4.png */; };
+		5CECED89159B80BB0051FA94 /* mask-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED87159B80BB0051FA94 /* mask-5.png */; };
+		5CECED8D159B8B2F0051FA94 /* mask-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED8A159B8B2F0051FA94 /* mask-6.png */; };
+		5CECED8E159B8B2F0051FA94 /* mask-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED8B159B8B2F0051FA94 /* mask-7.png */; };
+		5CECED8F159B8B2F0051FA94 /* mask-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED8C159B8B2F0051FA94 /* mask-8.png */; };
+		5CECED95159BB5E10051FA94 /* mask-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED94159BB5E10051FA94 /* mask-9.png */; };
 		8E12C1F2157547190097CDE9 /* GTIOPostALookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */; };
 		8E12C1F515754E880097CDE9 /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F415754E870097CDE9 /* GTIOViewController.m */; };
 		8E12C1F9157553800097CDE9 /* GTIOLookSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F8157553800097CDE9 /* GTIOLookSelectorView.m */; };
@@ -936,16 +946,6 @@
 		D2B8A576158A9792001D67CA /* GTIOFilterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF361587DF8600BE08EE /* GTIOFilterManager.m */; };
 		D2B8A577158A97A8001D67CA /* GTIOPhotoFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2735BD51586891D00563A19 /* GTIOPhotoFilterView.m */; };
 		D2B8A578158A97AB001D67CA /* GTIOPhotoFilterSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2735BD21586842600563A19 /* GTIOPhotoFilterSelectorView.m */; };
-		D2B8A579158A97BB001D67CA /* GTIOFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF061587C4D200BE08EE /* GTIOFilter.m */; };
-		D2B8A57A158A97BB001D67CA /* GTIOFilterClementine.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF1E1587CFE200BE08EE /* GTIOFilterClementine.m */; };
-		D2B8A57B158A97BB001D67CA /* GTIOFilterColombe.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF201587CFE200BE08EE /* GTIOFilterColombe.m */; };
-		D2B8A57C158A97BB001D67CA /* GTIOFilterDiesel.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF221587CFE200BE08EE /* GTIOFilterDiesel.m */; };
-		D2B8A57D158A97BB001D67CA /* GTIOFilterHenrik.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF241587CFE200BE08EE /* GTIOFilterHenrik.m */; };
-		D2B8A57E158A97BB001D67CA /* GTIOFilterIIRG.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF261587CFE200BE08EE /* GTIOFilterIIRG.m */; };
-		D2B8A57F158A97BB001D67CA /* GTIOFilterLafayette.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF281587CFE200BE08EE /* GTIOFilterLafayette.m */; };
-		D2B8A580158A97BB001D67CA /* GTIOFilterLispenard.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF2A1587CFE200BE08EE /* GTIOFilterLispenard.m */; };
-		D2B8A581158A97BB001D67CA /* GTIOFilterWalker.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF2C1587CFE300BE08EE /* GTIOFilterWalker.m */; };
-		D2B8A582158A97BB001D67CA /* GTIOFilterOriginal.m in Sources */ = {isa = PBXBuildFile; fileRef = D28BD7A1158908410074643C /* GTIOFilterOriginal.m */; };
 		D2B8A583158A97BB001D67CA /* GTIOFilterOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D28BD7A8158915370074643C /* GTIOFilterOperation.m */; };
 		D2B8A584158A97CF001D67CA /* GTIOFilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DEAED3158793A20032ED1F /* GTIOFilterButton.m */; };
 		D2C363F2158A999400F476EF /* NSMutableDictionary+FilterTypeKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F78B77158A2E2F00CBB4F2 /* NSMutableDictionary+FilterTypeKeys.m */; };
@@ -1066,6 +1066,19 @@
 		5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleter.m; sourceTree = "<group>"; };
 		5CDFD90A1593C53C00994416 /* GTIOAutoCompleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteButton.h; sourceTree = "<group>"; };
 		5CDFD90B1593C53C00994416 /* GTIOAutoCompleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleteButton.m; sourceTree = "<group>"; };
+		5CECED73159A5D720051FA94 /* UIImage+Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filter.h"; sourceTree = "<group>"; };
+		5CECED74159A5D720051FA94 /* UIImage+Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filter.m"; sourceTree = "<group>"; };
+		5CECED75159A5D720051FA94 /* UIImage+GTIOFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GTIOFilters.h"; sourceTree = "<group>"; };
+		5CECED76159A5D720051FA94 /* UIImage+GTIOFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GTIOFilters.m"; sourceTree = "<group>"; };
+		5CECED79159A64AD0051FA94 /* GTIOFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilter.h; sourceTree = "<group>"; };
+		5CECED7A159A64AD0051FA94 /* GTIOFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilter.m; sourceTree = "<group>"; };
+		5CECED7E159B76EC0051FA94 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		5CECED86159B80BB0051FA94 /* mask-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-4.png"; sourceTree = "<group>"; };
+		5CECED87159B80BB0051FA94 /* mask-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-5.png"; sourceTree = "<group>"; };
+		5CECED8A159B8B2F0051FA94 /* mask-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-6.png"; sourceTree = "<group>"; };
+		5CECED8B159B8B2F0051FA94 /* mask-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-7.png"; sourceTree = "<group>"; };
+		5CECED8C159B8B2F0051FA94 /* mask-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-8.png"; sourceTree = "<group>"; };
+		5CECED94159BB5E10051FA94 /* mask-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-9.png"; sourceTree = "<group>"; };
 		8E12C1F0157547190097CDE9 /* GTIOPostALookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostALookViewController.h; sourceTree = "<group>"; };
 		8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostALookViewController.m; sourceTree = "<group>"; };
 		8E12C1F315754E870097CDE9 /* GTIOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOViewController.h; sourceTree = "<group>"; };
@@ -2061,27 +2074,9 @@
 		D26D32A4156BFDC100C06CA9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Libraries/MBProgressHUD/MBProgressHUD.m; sourceTree = "<group>"; };
 		D26D32A9156C016800C06CA9 /* GTIOProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProgressHUD.h; sourceTree = "<group>"; };
 		D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProgressHUD.m; sourceTree = "<group>"; };
-		D270EF051587C4D200BE08EE /* GTIOFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilter.h; sourceTree = "<group>"; };
-		D270EF061587C4D200BE08EE /* GTIOFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilter.m; sourceTree = "<group>"; };
 		D270EF091587C60500BE08EE /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = Libraries/GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		D270EF161587C62100BE08EE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D270EF1B1587C65200BE08EE /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		D270EF1D1587CFE200BE08EE /* GTIOFilterClementine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterClementine.h; sourceTree = "<group>"; };
-		D270EF1E1587CFE200BE08EE /* GTIOFilterClementine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterClementine.m; sourceTree = "<group>"; };
-		D270EF1F1587CFE200BE08EE /* GTIOFilterColombe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterColombe.h; sourceTree = "<group>"; };
-		D270EF201587CFE200BE08EE /* GTIOFilterColombe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterColombe.m; sourceTree = "<group>"; };
-		D270EF211587CFE200BE08EE /* GTIOFilterDiesel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterDiesel.h; sourceTree = "<group>"; };
-		D270EF221587CFE200BE08EE /* GTIOFilterDiesel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterDiesel.m; sourceTree = "<group>"; };
-		D270EF231587CFE200BE08EE /* GTIOFilterHenrik.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterHenrik.h; sourceTree = "<group>"; };
-		D270EF241587CFE200BE08EE /* GTIOFilterHenrik.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterHenrik.m; sourceTree = "<group>"; };
-		D270EF251587CFE200BE08EE /* GTIOFilterIIRG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterIIRG.h; sourceTree = "<group>"; };
-		D270EF261587CFE200BE08EE /* GTIOFilterIIRG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterIIRG.m; sourceTree = "<group>"; };
-		D270EF271587CFE200BE08EE /* GTIOFilterLafayette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterLafayette.h; sourceTree = "<group>"; };
-		D270EF281587CFE200BE08EE /* GTIOFilterLafayette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterLafayette.m; sourceTree = "<group>"; };
-		D270EF291587CFE200BE08EE /* GTIOFilterLispenard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterLispenard.h; sourceTree = "<group>"; };
-		D270EF2A1587CFE200BE08EE /* GTIOFilterLispenard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterLispenard.m; sourceTree = "<group>"; };
-		D270EF2B1587CFE200BE08EE /* GTIOFilterWalker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterWalker.h; sourceTree = "<group>"; };
-		D270EF2C1587CFE300BE08EE /* GTIOFilterWalker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterWalker.m; sourceTree = "<group>"; };
 		D270EF351587DF8600BE08EE /* GTIOFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterManager.h; sourceTree = "<group>"; };
 		D270EF361587DF8600BE08EE /* GTIOFilterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterManager.m; sourceTree = "<group>"; };
 		D2735BD11586842600563A19 /* GTIOPhotoFilterSelectorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoFilterSelectorView.h; sourceTree = "<group>"; };
@@ -2131,8 +2126,6 @@
 		D289CB2C1566957300909FC1 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		D289CB2D1566957300909FC1 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		D289CB2E1566957300909FC1 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		D28BD7A0158908410074643C /* GTIOFilterOriginal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterOriginal.h; sourceTree = "<group>"; };
-		D28BD7A1158908410074643C /* GTIOFilterOriginal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterOriginal.m; sourceTree = "<group>"; };
 		D28BD7A7158915370074643C /* GTIOFilterOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterOperation.h; sourceTree = "<group>"; };
 		D28BD7A8158915370074643C /* GTIOFilterOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilterOperation.m; sourceTree = "<group>"; };
 		D28FB46D157547C2002298A2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -2214,6 +2207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */,
 				D270EF1C1587C65200BE08EE /* CoreVideo.framework in Frameworks */,
 				D270EF1A1587C63800BE08EE /* libGPUImage.a in Frameworks */,
 				D270EF171587C62100BE08EE /* OpenGLES.framework in Frameworks */,
@@ -2907,6 +2901,12 @@
 		8ED007551598D8EC00E50B09 /* 12 */ = {
 			isa = PBXGroup;
 			children = (
+				5CECED94159BB5E10051FA94 /* mask-9.png */,
+				5CECED8A159B8B2F0051FA94 /* mask-6.png */,
+				5CECED8B159B8B2F0051FA94 /* mask-7.png */,
+				5CECED8C159B8B2F0051FA94 /* mask-8.png */,
+				5CECED86159B80BB0051FA94 /* mask-4.png */,
+				5CECED87159B80BB0051FA94 /* mask-5.png */,
 				8ED007561598D8EC00E50B09 /* filter-letterbox-shadow-horizontal-bottom.png */,
 				8ED007571598D8EC00E50B09 /* filter-letterbox-shadow-horizontal-bottom@2x.png */,
 				8ED007581598D8EC00E50B09 /* filter-letterbox-shadow-horizontal-top.png */,
@@ -3725,26 +3725,8 @@
 		D270EF041587C4BB00BE08EE /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				D270EF051587C4D200BE08EE /* GTIOFilter.h */,
-				D270EF061587C4D200BE08EE /* GTIOFilter.m */,
-				D270EF1D1587CFE200BE08EE /* GTIOFilterClementine.h */,
-				D270EF1E1587CFE200BE08EE /* GTIOFilterClementine.m */,
-				D270EF1F1587CFE200BE08EE /* GTIOFilterColombe.h */,
-				D270EF201587CFE200BE08EE /* GTIOFilterColombe.m */,
-				D270EF211587CFE200BE08EE /* GTIOFilterDiesel.h */,
-				D270EF221587CFE200BE08EE /* GTIOFilterDiesel.m */,
-				D270EF231587CFE200BE08EE /* GTIOFilterHenrik.h */,
-				D270EF241587CFE200BE08EE /* GTIOFilterHenrik.m */,
-				D270EF251587CFE200BE08EE /* GTIOFilterIIRG.h */,
-				D270EF261587CFE200BE08EE /* GTIOFilterIIRG.m */,
-				D270EF271587CFE200BE08EE /* GTIOFilterLafayette.h */,
-				D270EF281587CFE200BE08EE /* GTIOFilterLafayette.m */,
-				D270EF291587CFE200BE08EE /* GTIOFilterLispenard.h */,
-				D270EF2A1587CFE200BE08EE /* GTIOFilterLispenard.m */,
-				D270EF2B1587CFE200BE08EE /* GTIOFilterWalker.h */,
-				D270EF2C1587CFE300BE08EE /* GTIOFilterWalker.m */,
-				D28BD7A0158908410074643C /* GTIOFilterOriginal.h */,
-				D28BD7A1158908410074643C /* GTIOFilterOriginal.m */,
+				5CECED79159A64AD0051FA94 /* GTIOFilter.h */,
+				5CECED7A159A64AD0051FA94 /* GTIOFilter.m */,
 				D28BD7A7158915370074643C /* GTIOFilterOperation.h */,
 				D28BD7A8158915370074643C /* GTIOFilterOperation.m */,
 			);
@@ -3837,6 +3819,7 @@
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
+				5CECED7E159B76EC0051FA94 /* CoreImage.framework */,
 				D2CDA96C15502F02009B7E24 /* GTIO */,
 				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
 				D2CDA99B15503058009B7E24 /* Libraries */,
@@ -3961,6 +3944,10 @@
 		D2CDA9AC155032F7009B7E24 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				5CECED73159A5D720051FA94 /* UIImage+Filter.h */,
+				5CECED74159A5D720051FA94 /* UIImage+Filter.m */,
+				5CECED75159A5D720051FA94 /* UIImage+GTIOFilters.h */,
+				5CECED76159A5D720051FA94 /* UIImage+GTIOFilters.m */,
 				D2D0485515643F970034E04F /* UIFont+GTIOAdditions.h */,
 				D2D0485615643F970034E04F /* UIFont+GTIOAdditions.m */,
 				D2D0485815643FB40034E04F /* UIColor+GTIOAdditions.h */,
@@ -5084,6 +5071,12 @@
 				8ED00BA51598D8EC00E50B09 /* star-ribbon-grid.png in Resources */,
 				8ED00BA61598D8EC00E50B09 /* star-ribbon-grid@2x.png in Resources */,
 				8ED00BA71598D8EC00E50B09 /* ui.empty.pixel.png in Resources */,
+				5CECED88159B80BB0051FA94 /* mask-4.png in Resources */,
+				5CECED89159B80BB0051FA94 /* mask-5.png in Resources */,
+				5CECED8D159B8B2F0051FA94 /* mask-6.png in Resources */,
+				5CECED8E159B8B2F0051FA94 /* mask-7.png in Resources */,
+				5CECED8F159B8B2F0051FA94 /* mask-8.png in Resources */,
+				5CECED95159BB5E10051FA94 /* mask-9.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5239,16 +5232,6 @@
 				D2B8A576158A9792001D67CA /* GTIOFilterManager.m in Sources */,
 				D2B8A577158A97A8001D67CA /* GTIOPhotoFilterView.m in Sources */,
 				D2B8A578158A97AB001D67CA /* GTIOPhotoFilterSelectorView.m in Sources */,
-				D2B8A579158A97BB001D67CA /* GTIOFilter.m in Sources */,
-				D2B8A57A158A97BB001D67CA /* GTIOFilterClementine.m in Sources */,
-				D2B8A57B158A97BB001D67CA /* GTIOFilterColombe.m in Sources */,
-				D2B8A57C158A97BB001D67CA /* GTIOFilterDiesel.m in Sources */,
-				D2B8A57D158A97BB001D67CA /* GTIOFilterHenrik.m in Sources */,
-				D2B8A57E158A97BB001D67CA /* GTIOFilterIIRG.m in Sources */,
-				D2B8A57F158A97BB001D67CA /* GTIOFilterLafayette.m in Sources */,
-				D2B8A580158A97BB001D67CA /* GTIOFilterLispenard.m in Sources */,
-				D2B8A581158A97BB001D67CA /* GTIOFilterWalker.m in Sources */,
-				D2B8A582158A97BB001D67CA /* GTIOFilterOriginal.m in Sources */,
 				D2B8A583158A97BB001D67CA /* GTIOFilterOperation.m in Sources */,
 				D2B8A584158A97CF001D67CA /* GTIOFilterButton.m in Sources */,
 				D2C363F2158A999400F476EF /* NSMutableDictionary+FilterTypeKeys.m in Sources */,
@@ -5282,6 +5265,8 @@
 				8E89BAE91599187B00CB3094 /* GTIOActionSheet.m in Sources */,
 				8E89BAEA159919E000CB3094 /* GTIOPagination.m in Sources */,
 				8EE68CBB159A00B100DE2E68 /* GTIOLargeButton.m in Sources */,
+				5CECED7C159A78260051FA94 /* UIImage+GTIOFilters.m in Sources */,
+				5CECED7D159A78310051FA94 /* UIImage+Filter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5291,6 +5276,7 @@
 			files = (
 				D2CDA9BB155033B6009B7E24 /* GTIOTests.m in Sources */,
 				D246B08C155C134900E5546A /* GTIOVisit.m in Sources */,
+				5CECED7B159A64AD0051FA94 /* GTIOFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5388,8 +5374,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Mackey (T8C25P5HWY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geoffrey Mackey (T8C25P5HWY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5413,8 +5399,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "503545A1-A847-4483-82B2-7F95D1A3E977";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "503545A1-A847-4483-82B2-7F95D1A3E977";
+				PROVISIONING_PROFILE = "A3350B3D-0A26-463B-9D48-B753A71335B0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3350B3D-0A26-463B-9D48-B753A71335B0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -5424,8 +5410,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Mackey (T8C25P5HWY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geoffrey Mackey (T8C25P5HWY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
@@ -5447,8 +5433,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "503545A1-A847-4483-82B2-7F95D1A3E977";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "503545A1-A847-4483-82B2-7F95D1A3E977";
+				PROVISIONING_PROFILE = "A3350B3D-0A26-463B-9D48-B753A71335B0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3350B3D-0A26-463B-9D48-B753A71335B0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

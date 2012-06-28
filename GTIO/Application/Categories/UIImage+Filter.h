@@ -6,23 +6,37 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
+typedef unsigned char Curve[256];
 
 typedef struct {
-    unsigned char b[256];
-    unsigned char g[256];
-    unsigned char r[256];
-} Curve;
+    Curve r;
+    Curve g;
+    Curve b;
+} RGBCurve;
+
+
 @interface UIImage (Filter)
 
 #pragma mark Base Method
-- (CGContextRef) ImageToContex: (UIImage *) image;
-- (UIImage *) ContexToImage: (CGContextRef) contex;
+- (CGContextRef) ImageToContext: (UIImage *) image;
+- (UIImage *) ContextToImage: (CGContextRef) context;
 - (UIImage *) normalize;
+
+#pragma mark Resizing
+
+- (UIImage *) resizeForFiltering;
+- (UIImage *) resizeForFilteringToMatch: (UIImage *) image;
 
 #pragma mark Core Method
 - (UIImage *) applyBlend:(UIImage *) image Callback: (void (^)(unsigned char *, unsigned char *)) fn;
-- (UIImage *) applyCurve:(Curve) curve;
+- (UIImage *) applyRGBCurve:(RGBCurve) curve;
+- (UIImage *) applyValueCurve:(Curve) curve;
+- (UIImage *) desaturateThroughRed;
+- (UIImage *) tvtime;
+- (UIImage *) desaturate;
+- (UIImage *) desaturateWithRatio: (double) ratio;
 - (UIImage *) applyFilter: (void (^)(unsigned char * )) fn;
 
 #pragma mark Blend Effect
