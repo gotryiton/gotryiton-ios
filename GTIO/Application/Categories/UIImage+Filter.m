@@ -222,7 +222,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
     return finalImage;
 }
 
-- (UIImage *)tvtime{
+- (UIImage *)addLinesWithrightness:(double) brightness{
     size_t width = CGImageGetWidth(self.CGImage);
     size_t height = CGImageGetHeight(self.CGImage);
     size_t step = 4 ;
@@ -234,7 +234,7 @@ static NSInteger const kGTIOPhotoResizeWidth = 640;
     int length = height * width * step ;
     for (int i = 0; i < length; i += step) {
         
-        int current_intensity = SAFE(.3 * data[i+1] + .59  * data[i+2] +.11 * data[i+3]);
+        int current_intensity = SAFE(brightness * (.3 * data[i+1] + .59  * data[i+2] +.11 * data[i+3]));
         
         data[i + 1] = current_intensity;
         data[i + 2] = current_intensity;
@@ -325,6 +325,8 @@ unsigned char calcMultiply(unsigned char a, unsigned char b) {
     }];    
 }
 
+
+
 unsigned char calcLighten(unsigned char a, unsigned char b) {
     return SAFE(a > b ? a : b);
 }
@@ -336,6 +338,7 @@ unsigned char calcLighten(unsigned char a, unsigned char b) {
         }
     }];    
 }
+
 
 
 unsigned char calcLinearDodge(unsigned char a, unsigned char b) {

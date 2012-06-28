@@ -34,7 +34,7 @@ typedef struct {
 - (UIImage *) applyRGBCurve:(RGBCurve) curve;
 - (UIImage *) applyValueCurve:(Curve) curve;
 - (UIImage *) desaturateThroughRed;
-- (UIImage *) tvtime;
+- (UIImage *) addLinesWithrightness: (double) brightness;
 - (UIImage *) desaturate;
 - (UIImage *) desaturateWithRatio: (double) ratio;
 - (UIImage *) applyFilter: (void (^)(unsigned char * )) fn;
