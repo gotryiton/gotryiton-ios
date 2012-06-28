@@ -32,7 +32,10 @@
         SEL selector = NSSelectorFromString(GTIOFilterTypeSelectors[self.filterType]);
         if ([self.originalImage respondsToSelector:selector]) {
 
+            #pragma clang diagnostic push
+            #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             self.filteredImage = [self.originalImage performSelector:selector];
+            #pragma clang diagnostic pop
             
             if (self.finishedHandler) {
                 self.finishedHandler(self.filterType, self.filteredImage);
