@@ -17,10 +17,7 @@
 		5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CECED7E159B76EC0051FA94 /* CoreImage.framework */; };
 		5CECED88159B80BB0051FA94 /* mask-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED86159B80BB0051FA94 /* mask-4.png */; };
 		5CECED89159B80BB0051FA94 /* mask-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED87159B80BB0051FA94 /* mask-5.png */; };
-		5CECED8D159B8B2F0051FA94 /* mask-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED8A159B8B2F0051FA94 /* mask-6.png */; };
 		5CECED8E159B8B2F0051FA94 /* mask-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED8B159B8B2F0051FA94 /* mask-7.png */; };
-		5CECED8F159B8B2F0051FA94 /* mask-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED8C159B8B2F0051FA94 /* mask-8.png */; };
-		5CECED95159BB5E10051FA94 /* mask-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED94159BB5E10051FA94 /* mask-9.png */; };
 		8E12C1F2157547190097CDE9 /* GTIOPostALookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */; };
 		8E12C1F515754E880097CDE9 /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F415754E870097CDE9 /* GTIOViewController.m */; };
 		8E12C1F9157553800097CDE9 /* GTIOLookSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F8157553800097CDE9 /* GTIOLookSelectorView.m */; };
@@ -1075,10 +1072,7 @@
 		5CECED7E159B76EC0051FA94 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		5CECED86159B80BB0051FA94 /* mask-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-4.png"; sourceTree = "<group>"; };
 		5CECED87159B80BB0051FA94 /* mask-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-5.png"; sourceTree = "<group>"; };
-		5CECED8A159B8B2F0051FA94 /* mask-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-6.png"; sourceTree = "<group>"; };
 		5CECED8B159B8B2F0051FA94 /* mask-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-7.png"; sourceTree = "<group>"; };
-		5CECED8C159B8B2F0051FA94 /* mask-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-8.png"; sourceTree = "<group>"; };
-		5CECED94159BB5E10051FA94 /* mask-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-9.png"; sourceTree = "<group>"; };
 		8E12C1F0157547190097CDE9 /* GTIOPostALookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostALookViewController.h; sourceTree = "<group>"; };
 		8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostALookViewController.m; sourceTree = "<group>"; };
 		8E12C1F315754E870097CDE9 /* GTIOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOViewController.h; sourceTree = "<group>"; };
@@ -2901,10 +2895,7 @@
 		8ED007551598D8EC00E50B09 /* 12 */ = {
 			isa = PBXGroup;
 			children = (
-				5CECED94159BB5E10051FA94 /* mask-9.png */,
-				5CECED8A159B8B2F0051FA94 /* mask-6.png */,
 				5CECED8B159B8B2F0051FA94 /* mask-7.png */,
-				5CECED8C159B8B2F0051FA94 /* mask-8.png */,
 				5CECED86159B80BB0051FA94 /* mask-4.png */,
 				5CECED87159B80BB0051FA94 /* mask-5.png */,
 				8ED007561598D8EC00E50B09 /* filter-letterbox-shadow-horizontal-bottom.png */,
@@ -5073,10 +5064,7 @@
 				8ED00BA71598D8EC00E50B09 /* ui.empty.pixel.png in Resources */,
 				5CECED88159B80BB0051FA94 /* mask-4.png in Resources */,
 				5CECED89159B80BB0051FA94 /* mask-5.png in Resources */,
-				5CECED8D159B8B2F0051FA94 /* mask-6.png in Resources */,
 				5CECED8E159B8B2F0051FA94 /* mask-7.png in Resources */,
-				5CECED8F159B8B2F0051FA94 /* mask-8.png in Resources */,
-				5CECED95159BB5E10051FA94 /* mask-9.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
