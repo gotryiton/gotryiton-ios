@@ -45,6 +45,10 @@ extern NSString * const kGTIOTrackingHeaderKey;
 
 // Notification Constants
 extern NSString * const kGTIOLooksUpdated;
+extern NSString * const kGTIOPostFeedOpenLinkNotification;
+
+// Notification Dictionary Constants
+extern NSString * const kGTIOURL;
 
 // Alert Constants
 extern int const kGTIOEmptyPostAlertTag;

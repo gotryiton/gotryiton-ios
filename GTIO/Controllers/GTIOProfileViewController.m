@@ -79,6 +79,12 @@
     self.postsHeartsWithSegmentedControlView = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 - (void)refreshUserProfile
 {
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];

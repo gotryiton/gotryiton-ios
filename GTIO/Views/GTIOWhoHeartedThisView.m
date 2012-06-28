@@ -94,8 +94,7 @@ static CGFloat const kGTIOTextWidth = 228.0f;
 
 - (void)linkPushed:(DTLinkButton *)button
 {
-	NSURL *URL = button.URL;
-	NSLog(@"Load url: %@", URL);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPostFeedOpenLinkNotification object:nil userInfo:[NSDictionary dictionaryWithObject:button.URL forKey:kGTIOURL]];
 }
 
 #pragma mark - Height

@@ -7,30 +7,17 @@
 //
 
 #import "GTIORouter.h"
+
 #import "GTIOSignInViewController.h"
+#import "GTIOProfileViewController.h"
 
-@interface GTIORouter()
+static NSString * const kGTIOURLScheme = @"gtio";
 
-@property (nonatomic, strong) NSDictionary *routingMap;
-
-@end
+static NSString * const kGTIOURLHostProfile = @"profile";
+static NSString * const kGTIOURLHostSignOut = @"sign-out";
+static NSString * const kGTIOURLHostWhoHeartedPost = @"who-hearted-post";
 
 @implementation GTIORouter
-
-@synthesize routingMap = _routingMap;
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        GTIOSignInViewController *signInViewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
-        
-        _routingMap = [NSDictionary dictionaryWithObjectsAndKeys:
-                       signInViewController, @"gtio://sign-out", 
-                       nil];
-    }
-    return self;
-}
 
 + (GTIORouter *)sharedRouter
 {
@@ -42,10 +29,35 @@
     return router;
 }
 
-- (UIViewController *)routeTo:(NSString *)path
+- (UIViewController *)viewControllerForURLString:(NSString*)URLString
 {
-    UIViewController *viewControllerToReturn = (UIViewController *)[self.routingMap objectForKey:path];
-    return viewControllerToReturn;
+    NSURL *URL = [NSURL URLWithString:URLString];
+    return [self viewControllerForURL:URL];
+}
+
+- (UIViewController *)viewControllerForURL:(NSURL *)URL
+{
+    if (![[URL scheme] isEqualToString:kGTIOURLScheme]) {
+        return nil;
+    }
+    
+    NSString *urlHost = [URL host];
+    NSArray *pathComponents = [URL pathComponents];
+    UIViewController *viewController = nil;
+    
+    if ([urlHost isEqualToString:kGTIOURLHostProfile]) {
+        if ([pathComponents count] >= 2) {
+            viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+            [((GTIOProfileViewController *)viewController) setUserID:[pathComponents objectAtIndex:1]];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostSignOut]) {
+        viewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
+    } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedPost]) {
+        // TODO: handle this
+        NSLog(@"Still need to handle opening who hearted post");
+    }
+    
+    return viewController;
 }
 
 @end

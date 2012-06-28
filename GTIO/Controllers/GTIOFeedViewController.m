@@ -10,6 +10,8 @@
 
 #import <RestKit/RestKit.h>
 
+#import "GTIORouter.h"
+
 #import "GTIOPost.h"
 #import "GTIOPagination.h"
 
@@ -43,8 +45,15 @@
         
         _offScreenHeaderViews = [NSMutableSet set];
         _onScreenHeaderViews = [NSMutableDictionary dictionary];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)loadView
@@ -94,7 +103,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self loadFeed];
 }
 
@@ -284,6 +293,19 @@
             [self.offScreenHeaderViews addObject:postHeaderView];
         }
     }];
+}
+
+#pragma mark - NSNotifications
+
+- (void)openURL:(NSNotification *)notification
+{
+    NSURL *URL = [[notification userInfo] objectForKey:kGTIOURL];
+    if (URL) {
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURL:URL];
+        if (viewController) {
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+    }
 }
 
 @end

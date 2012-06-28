@@ -64,6 +64,9 @@ NSString * const kGTIOJanRainProviderTwitter = @"twitter";
 NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 
 NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
+NSString * const kGTIOPostFeedOpenLinkNotification = @"kGTIOPostFeedOpenLinkNotification";
+ 
+NSString * const kGTIOURL = @"kGTIOURL";
 
 NSString * const kGTIOUserInfoButtonNameFollowing = @"following";
 NSString * const kGTIOUserInfoButtonNameFollowers = @"followers";
