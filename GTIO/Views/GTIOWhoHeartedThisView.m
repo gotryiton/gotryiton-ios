@@ -25,14 +25,14 @@ static CGFloat const kGTIOTextWidth = 228.0f;
 
 @implementation GTIOWhoHeartedThisView
 
-@synthesize whoHeartedThisButtons = _whoHeartedThisButtons;
+@synthesize whoHeartedThis = _whoHeartedThis;
 @synthesize heartImageView = _heartImageView, namesAttributedTextView = _namesAttributedTextView, namesAttributeTextOptions = _namesAttributedTextOptions;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:[UIColor redColor]];
+        [self setClipsToBounds:YES];
         
         _heartImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"heart-bullet.png"]];
         [_heartImageView setFrame:(CGRect){ { -3, 0 }, _heartImageView.image.size }];
@@ -64,13 +64,11 @@ static CGFloat const kGTIOTextWidth = 228.0f;
 
 #pragma mark - Properties
 
-- (void)setWhoHeartedThisButtons:(NSArray *)whoHeartedThisButtons
+- (void)setWhoHeartedThis:(NSString *)whoHeartedThis
 {
-    _whoHeartedThisButtons = whoHeartedThisButtons;
+    _whoHeartedThis = whoHeartedThis;
     
-#warning Hardcoded text
-    NSString *html = @"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\"><a href=\"/profile/1\">147 hearted this</a> <a href=\"/profile/1\">Scott</a>, <a href=\"/profile/2\">Josh</a>, <a href=\"/profile/1\">Scott B.</a>, <a href=\"/profile/2\">Jams</a>, <a href=\"/profile/1\">Duncan</a>, <a href=\"/profile/2\">Matt</a></span>";
-//    NSString *html = @"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\"><a href=\"/profile/1\">147 hearted this</a></span>";
+    NSString *html = [NSString stringWithFormat:@"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\">%@</a></span>", whoHeartedThis];
     NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.namesAttributeTextOptions documentAttributes:NULL];
@@ -102,8 +100,12 @@ static CGFloat const kGTIOTextWidth = 228.0f;
 
 #pragma mark - Height
 
-+ (CGFloat)heightWithWhoHeartedThisButtons:(NSArray *)whoHeartedThisButtons
++ (CGFloat)heightWithWhoHeartedThis:(NSString *)whoHeartedThis
 {
+    if ([whoHeartedThis length] == 0) {
+        return 0.0f;
+    }
+    
     [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
     DTAttributedTextView *namesAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIOTextWidth, 0 } }];
     namesAttributedTextView.contentView.edgeInsets = (UIEdgeInsets){ -5, 0, 8, 0 };
@@ -114,9 +116,7 @@ static CGFloat const kGTIOTextWidth = 228.0f;
                                                 [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
                                                 nil];
     
-#warning Hardcoded text
-    NSString *html = @"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\"><a href=\"/profile/1\">147 hearted this</a> <a href=\"/profile/1\">Scott</a>, <a href=\"/profile/2\">Josh</a>, <a href=\"/profile/1\">Scott B.</a>, <a href=\"/profile/2\">Jams</a>, <a href=\"/profile/1\">Duncan</a>, <a href=\"/profile/2\">Matt</a></span>";
-//    NSString *html = @"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\"><a href=\"/profile/1\">147 hearted this</a></span>";
+    NSString *html = [NSString stringWithFormat:@"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\">%@</a></span>", whoHeartedThis];
     NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:namesAttributedTextOptions documentAttributes:NULL];

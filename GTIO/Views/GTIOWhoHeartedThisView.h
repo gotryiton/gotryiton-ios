@@ -10,8 +10,8 @@
 
 @interface GTIOWhoHeartedThisView : UIView <DTAttributedTextContentViewDelegate>
 
-@property (nonatomic, strong) NSArray *whoHeartedThisButtons;
+@property (nonatomic, strong) NSString *whoHeartedThis;
 
-+ (CGFloat)heightWithWhoHeartedThisButtons:(NSArray *)whoHeartedThisButtons;
++ (CGFloat)heightWithWhoHeartedThis:(NSString *)whoHeartedThis;
 
 @end

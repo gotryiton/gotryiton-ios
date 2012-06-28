@@ -75,8 +75,12 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 11.0f;
         [self.frameView setPost:_post];
         
         CGFloat photoFrameHeight = [GTIOPostFrameView heightWithPost:post];
-        [self.whoHeartedThisView setWhoHeartedThisButtons:_post.buttons];
-        [self.whoHeartedThisView setFrame:(CGRect){ { self.whoHeartedThisView.frame.origin.x, self.frameView.frame.origin.y + photoFrameHeight + kGTIOWhoHeartedThisTopPadding }, { kGTIOWhoHeartedThisWidth, self.whoHeartedThisView.frame.size.height } }];
+        if (photoFrameHeight > 0) {
+            [self.whoHeartedThisView setWhoHeartedThis:_post.whoHearted];
+            [self.whoHeartedThisView setFrame:(CGRect){ { self.whoHeartedThisView.frame.origin.x, self.frameView.frame.origin.y + photoFrameHeight + kGTIOWhoHeartedThisTopPadding }, { kGTIOWhoHeartedThisWidth, self.whoHeartedThisView.frame.size.height } }];
+        } else {
+            [self.whoHeartedThisView setFrame:(CGRect){ { self.whoHeartedThisView.frame.origin.x, self.frameView.frame.origin.y + photoFrameHeight + kGTIOWhoHeartedThisTopPadding }, { kGTIOWhoHeartedThisWidth, 0 } }];
+        }
         
         CGFloat postButtonColumnViewOriginX = self.frameView.frame.origin.x + self.frameView.frame.size.width;
         [self.postButtonColumnView setFrame:(CGRect){ { postButtonColumnViewOriginX, 0 }, { self.frame.size.width - postButtonColumnViewOriginX, self.frame.size.height } }];
@@ -89,7 +93,7 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 11.0f;
 + (CGFloat)cellHeightWithPost:(GTIOPost *)post
 {
     CGFloat photoFrameHeight = [GTIOPostFrameView heightWithPost:post];
-    CGFloat whoHeartedThisViewHeight = [GTIOWhoHeartedThisView heightWithWhoHeartedThisButtons:post.whoHeartedButtons];
+    CGFloat whoHeartedThisViewHeight = [GTIOWhoHeartedThisView heightWithWhoHeartedThis:post.whoHearted];
     if (whoHeartedThisViewHeight > 0) {
         whoHeartedThisViewHeight += kGTIOWhoHeartedThisBottomPadding;
     }

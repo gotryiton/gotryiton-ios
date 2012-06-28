@@ -11,8 +11,8 @@
 
 @implementation GTIOPost
 
-@synthesize postID = _postID, user = _user, postDescription = _postDescription, photo = _photo, createdAt = _createdAt, createdWhen = _createdWhen, stared = _stared;
-@synthesize dotOptionsButtons = _dotOptionsButtons, buttons = _buttons, whoHeartedButtons = _whoHeartedButtons, brandsButtons = _brandsButtons, pagination = _pagination;
+@synthesize postID = _postID, user = _user, postDescription = _postDescription, photo = _photo, createdAt = _createdAt, createdWhen = _createdWhen, stared = _stared, whoHearted = _whoHearted;
+@synthesize dotOptionsButtons = _dotOptionsButtons, buttons = _buttons, brandsButtons = _brandsButtons, pagination = _pagination;
 
 + (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description votingEnabled:(BOOL)votingEnabled completionHandler:(GTIOPostCompletionHandler)completionHandler
 {
