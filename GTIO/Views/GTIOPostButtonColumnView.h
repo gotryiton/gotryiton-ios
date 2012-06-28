@@ -8,9 +8,13 @@
 
 #import "GTIOPost.h"
 
+#import "GTIOPostSideButton.h"
+
 @interface GTIOPostButtonColumnView : UIView
 
 @property (nonatomic, strong) GTIOPost *post;
+@property (nonatomic, copy) GTIOButtonDidTapHandler dotdotdotButtonTapHandler;
+@property (nonatomic, strong) GTIOPostSideButton *dotdotdotButton;
 
 - (void)prepareForReuse;
 

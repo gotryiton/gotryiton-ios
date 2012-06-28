@@ -10,7 +10,7 @@
 
 #import "GTIOPostFrameView.h"
 #import "GTIOPostHeaderView.h"
-#import "GTIOPostSideButton.h"
+#import "GTIOPopOverView.h"
 
 static CGFloat const kGTIOTopButtonPadding = 4.0f;
 static CGFloat const kGTIOButtonOriginX = 0.75f;
@@ -20,7 +20,6 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
 @property (nonatomic, strong) UIImageView *accentLine;
 
 @property (nonatomic, strong) GTIOPostSideButton *reviewButton;
-@property (nonatomic, strong) GTIOPostSideButton *dotdotdotButton;
 @property (nonatomic, strong) GTIOPostSideButton *shopbagButton;
 
 @property (nonatomic, strong) GTIOButton *reviewButtonModel;
@@ -34,6 +33,7 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
 @synthesize post = _post;
 @synthesize accentLine = _accentLine;
 @synthesize reviewButton = _reviewButton, dotdotdotButton = _dotdotdotButton, shopbagButton = _shopbagButton;
+@synthesize dotdotdotButtonTapHandler = _dotdotdotButtonTapHandler;
 @synthesize reviewButtonModel = _reviewButtonModel, dotdotdotButtonModel = _dotdotdotButtonModel, shopbagButtonModel = _shopbagButtonModel;
 
 - (id)initWithFrame:(CGRect)frame
@@ -64,7 +64,7 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
 
 #pragma mark - Properties
 
-- (void)setPost:(GTIOPost *)post
+- (void)setPost:(GTIOPost *)post 
 {
     _post = post;
     
@@ -86,6 +86,9 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
     // Review button
     [self.reviewButton setFrame:(CGRect){ { kGTIOButtonOriginX, topButtonOriginY }, self.reviewButton.frame.size }];
     [self.reviewButton setTitle:@"17" forState:UIControlStateNormal];
+    [self.reviewButton setTapHandler:^(id sender){
+        NSLog(@"test");
+    }];
     topButtonOriginY += self.reviewButton.frame.size.height;
     
     // Shopping button
@@ -94,6 +97,14 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
     // ... button
     CGSize scaledPhotoSize = [GTIOPostFrameView scalePhotoSize:(CGSize){ [_post.photo.width floatValue], [_post.photo.height floatValue]} ];
     [self.dotdotdotButton setFrame:(CGRect){ { kGTIOButtonOriginX, kGTIOTopButtonPadding + 6 + scaledPhotoSize.height - self.dotdotdotButton.frame.size.height }, self.dotdotdotButton.frame.size }];
+
+    [self.dotdotdotButton setTapHandler:self.dotdotdotButtonTapHandler];
+}
+
+- (void)setDotdotdotButtonTapHandler:(GTIOButtonDidTapHandler)dotdotdotButtonTapHandler
+{
+    _dotdotdotButtonTapHandler = dotdotdotButtonTapHandler;
+    [self.dotdotdotButton setTapHandler:_dotdotdotButtonTapHandler];
 }
 
 - (void)setFrame:(CGRect)frame

@@ -940,6 +940,8 @@
 		D298588A15653E71005EE3CA /* GTIOReturningUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D298588915653E71005EE3CA /* GTIOReturningUsersViewController.m */; };
 		D298588E15654403005EE3CA /* GTIOUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D298588D15654403005EE3CA /* GTIOUIButton.m */; };
 		D29858B115657CC6005EE3CA /* GTIOFailedSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D29858B015657CC6005EE3CA /* GTIOFailedSignInViewController.m */; };
+		D29AD734159CEE3B00C23AA4 /* GTIOPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D29AD733159CEE3B00C23AA4 /* GTIOPopOverView.m */; };
+		D29AD737159CF0D100C23AA4 /* GTIOPopOverButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D29AD736159CF0D100C23AA4 /* GTIOPopOverButton.m */; };
 		D29F4CFA1580F502009F7BB7 /* GTIOResizePhotoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */; };
 		D2B8A576158A9792001D67CA /* GTIOFilterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF361587DF8600BE08EE /* GTIOFilterManager.m */; };
 		D2B8A577158A97A8001D67CA /* GTIOPhotoFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2735BD51586891D00563A19 /* GTIOPhotoFilterView.m */; };
@@ -2214,6 +2216,10 @@
 		D298588D15654403005EE3CA /* GTIOUIButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUIButton.m; sourceTree = "<group>"; };
 		D29858AF15657CC6005EE3CA /* GTIOFailedSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFailedSignInViewController.h; sourceTree = "<group>"; };
 		D29858B015657CC6005EE3CA /* GTIOFailedSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFailedSignInViewController.m; sourceTree = "<group>"; };
+		D29AD732159CEE3B00C23AA4 /* GTIOPopOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPopOverView.h; sourceTree = "<group>"; };
+		D29AD733159CEE3B00C23AA4 /* GTIOPopOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPopOverView.m; sourceTree = "<group>"; };
+		D29AD735159CF0D100C23AA4 /* GTIOPopOverButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPopOverButton.h; sourceTree = "<group>"; };
+		D29AD736159CF0D100C23AA4 /* GTIOPopOverButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPopOverButton.m; sourceTree = "<group>"; };
 		D29F4CF81580F502009F7BB7 /* GTIOResizePhotoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOResizePhotoOperation.h; sourceTree = "<group>"; };
 		D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOResizePhotoOperation.m; sourceTree = "<group>"; };
 		D2CDA96215502F02009B7E24 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3931,6 +3937,8 @@
 				8EDC81D915863EBF00A2097A /* GTIOBackgroundView.m */,
 				8EAFB59A1594BFB40080A961 /* GTIOActionSheet.h */,
 				8EAFB59B1594BFB40080A961 /* GTIOActionSheet.m */,
+				D29AD732159CEE3B00C23AA4 /* GTIOPopOverView.h */,
+				D29AD733159CEE3B00C23AA4 /* GTIOPopOverView.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -4262,6 +4270,8 @@
 				8EE68CBA159A00B100DE2E68 /* GTIOLargeButton.m */,
 				D2DCF4C7159BDD17006E5AF0 /* GTIOPostSideButton.h */,
 				D2DCF4C8159BDD17006E5AF0 /* GTIOPostSideButton.m */,
+				D29AD735159CF0D100C23AA4 /* GTIOPopOverButton.h */,
+				D29AD736159CF0D100C23AA4 /* GTIOPopOverButton.m */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -5441,6 +5451,8 @@
 				D255805F159B600900A5BD06 /* GTIOWhoHeartedThisView.m in Sources */,
 				D2465993159BA1EB00A43238 /* GTIOPostButtonColumnView.m in Sources */,
 				D2DCF4C9159BDD17006E5AF0 /* GTIOPostSideButton.m in Sources */,
+				D29AD734159CEE3B00C23AA4 /* GTIOPopOverView.m in Sources */,
+				D29AD737159CF0D100C23AA4 /* GTIOPopOverButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
