@@ -12,6 +12,7 @@
 #import "GTIOWhoHeartedThisView.h"
 #import "GTIOPostButtonColumnView.h"
 #import "GTIOPopOverView.h"
+#import "GTIOPopOverButton.h"
 
 static CGFloat const kGTIOFrameOriginX = 3.5f;
 static CGFloat const kGTIOWhoHeartedThisOriginX = 13.0f;
@@ -141,8 +142,10 @@ static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
     if ([touch.view isEqual:self.postButtonColumnView.dotdotdotButton]) {
         // Disallow recognition of tap gestures in the button but do not remove overlay
         return NO;
-    }
-    if ([[touch.view class] isSubclassOfClass:[UIButton class]]) {
+    } else if ([[touch.view class] isSubclassOfClass:[GTIOPopOverButton class]]) {
+        // Disallow recognition of tap gestures in the pop over button but do not remove overlay
+        return NO;
+    } else if ([[touch.view class] isSubclassOfClass:[UIButton class]]) {
         // Disallow recognition of tap gestures in the button and remove overlay
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissDotDotDotPopOverViewNotification object:nil];
         return NO;

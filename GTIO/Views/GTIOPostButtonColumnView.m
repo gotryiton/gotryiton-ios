@@ -78,27 +78,43 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
     }
     self.dotdotdotButtonModel = _post.dotOptionsButtons;
     
-    // TODO: Connect up all buttons to API and hide them if not available
-    
     // Buttons
     CGFloat topButtonOriginY = kGTIOTopButtonPadding;
     
     // Review button
-    [self.reviewButton setFrame:(CGRect){ { kGTIOButtonOriginX, topButtonOriginY }, self.reviewButton.frame.size }];
-    [self.reviewButton setTitle:@"17" forState:UIControlStateNormal];
-    [self.reviewButton setTapHandler:^(id sender){
-        NSLog(@"test");
-    }];
-    topButtonOriginY += self.reviewButton.frame.size.height;
+    if (self.reviewButtonModel) {
+        [self.reviewButton setFrame:(CGRect){ { kGTIOButtonOriginX, topButtonOriginY }, self.reviewButton.frame.size }];
+        [self.reviewButton setTitle:[NSString stringWithFormat:@"%@", [self.reviewButtonModel.count intValue] > 0 ? self.reviewButtonModel.count : @""] forState:UIControlStateNormal];
+        [self.reviewButton setTapHandler:^(id sender){
+            NSLog(@"Review button tapped");
+        }];
+        topButtonOriginY += self.reviewButton.frame.size.height;
+        [self.reviewButton setHidden:NO];
+    } else {
+        [self.reviewButton setHidden:YES];
+    }
     
     // Shopping button
-    [self.shopbagButton setFrame:(CGRect){ { kGTIOButtonOriginX, topButtonOriginY }, self.reviewButton.frame.size }];
+    if (self.shopbagButtonModel) {
+        [self.shopbagButton setFrame:(CGRect){ { kGTIOButtonOriginX, topButtonOriginY }, self.reviewButton.frame.size }];
+        [self.shopbagButton setTapHandler:^(id sender){
+            NSLog(@"Shopbag button tapped");
+        }];
+        [self.shopbagButton setHidden:NO];
+    } else {
+        [self.shopbagButton setHidden:YES];
+    }
     
     // ... button
-    CGSize scaledPhotoSize = [GTIOPostFrameView scalePhotoSize:(CGSize){ [_post.photo.width floatValue], [_post.photo.height floatValue]} ];
-    [self.dotdotdotButton setFrame:(CGRect){ { kGTIOButtonOriginX, kGTIOTopButtonPadding + 6 + scaledPhotoSize.height - self.dotdotdotButton.frame.size.height }, self.dotdotdotButton.frame.size }];
-
-    [self.dotdotdotButton setTapHandler:self.dotdotdotButtonTapHandler];
+    if ([_post.dotOptionsButtons count] > 0) {
+        CGSize scaledPhotoSize = [GTIOPostFrameView scalePhotoSize:(CGSize){ [_post.photo.width floatValue], [_post.photo.height floatValue]} ];
+        [self.dotdotdotButton setFrame:(CGRect){ { kGTIOButtonOriginX, kGTIOTopButtonPadding + 6 + scaledPhotoSize.height - self.dotdotdotButton.frame.size.height }, self.dotdotdotButton.frame.size }];
+        
+        [self.dotdotdotButton setTapHandler:self.dotdotdotButtonTapHandler];
+        [self.dotdotdotButton setHidden:NO];
+    } else {
+        [self.dotdotdotButton setHidden:YES];
+    }
 }
 
 - (void)setDotdotdotButtonTapHandler:(GTIOButtonDidTapHandler)dotdotdotButtonTapHandler
