@@ -9,8 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "GTIOUser.h"
 
+@protocol GTIOFindMyFriendsTableViewCellDelegate <NSObject>
+
+@required
+- (void)updateDataSourceWithUser:(GTIOUser *)user atIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 @interface GTIOFindMyFriendsTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) GTIOUser *user;
+@property (nonatomic, weak) id<GTIOFindMyFriendsTableViewCellDelegate> delegate;
+
+- (void)setUser:(GTIOUser *)user indexPath:(NSIndexPath *)indexPath;
 
 @end

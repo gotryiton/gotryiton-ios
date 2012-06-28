@@ -70,6 +70,11 @@ static int const maximumNumberOfSuggestedFriends = 5;
 - (void)setSuggestedFriends:(NSArray *)suggestedFriends
 {
     _suggestedFriends = suggestedFriends;
+    for (GTIOSelectableProfilePicture *suggestedFriendProfilePicture in self.suggestedFriendsProfilePictures) {
+        [suggestedFriendProfilePicture removeFromSuperview];
+    }
+    self.suggestedFriendsProfilePictures = [NSMutableArray array];
+    
     [_suggestedFriends enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if (idx == (maximumNumberOfSuggestedFriends - 1)) {
             *stop = YES;

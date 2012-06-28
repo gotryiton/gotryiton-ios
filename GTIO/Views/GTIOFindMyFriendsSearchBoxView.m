@@ -15,11 +15,13 @@
 @property (nonatomic, strong) TTTAttributedLabel *followingFriendsLabel;
 @property (nonatomic, strong) UISearchBar *searchBar;
 
+@property (nonatomic, assign) BOOL shouldDisplayFollowers;
+
 @end
 
 @implementation GTIOFindMyFriendsSearchBoxView
 
-@synthesize backgroundImageView = _backgroundImageView, followingFriendsLabel = _followingFriendsLabel, numberOfFriendsFollowing = _numberOfFriendsFollowing, searchBar = _searchBar, searchBarDelegate = _searchBarDelegate, showFollowingLabel = _showFollowingLabel, numberOfFollowers = _numberOfFollowers, searchBarPlaceholder = _searchBarPlaceholder;
+@synthesize backgroundImageView = _backgroundImageView, followingFriendsLabel = _followingFriendsLabel, numberOfFriendsFollowing = _numberOfFriendsFollowing, searchBar = _searchBar, searchBarDelegate = _searchBarDelegate, showFollowingLabel = _showFollowingLabel, numberOfFollowers = _numberOfFollowers, searchBarPlaceholder = _searchBarPlaceholder, shouldDisplayFollowers = _shouldDisplayFollowers;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -59,6 +61,7 @@
 
         [self addSubview:_searchBar];
         _showFollowingLabel = YES;
+        _shouldDisplayFollowers = NO;
     }
     return self;
 }
@@ -73,10 +76,10 @@
 - (void)setNumberOfFriendsFollowing:(int)numberOfFriendsFollowing
 {
     _numberOfFriendsFollowing = numberOfFriendsFollowing;
-    NSString *followingText = [NSString stringWithFormat:@"%i FRIENDS", _numberOfFriendsFollowing];
+    NSString *followingText = [NSString stringWithFormat:@"%i FRIEND%@", _numberOfFriendsFollowing, (_numberOfFriendsFollowing == 1) ? @"" : @"S"];
     NSString *followingLabelText = [NSString stringWithFormat:@"FOLLOWING %@", followingText];
-    if (_numberOfFollowers > 0) {
-        followingText = [NSString stringWithFormat:@"%i FOLLOWERS", _numberOfFollowers];
+    if (self.shouldDisplayFollowers) {
+        followingText = [NSString stringWithFormat:@"%i FOLLOWER%@", _numberOfFollowers, (_numberOfFollowers == 1) ? @"" : @"S"];
         followingLabelText = [NSString stringWithFormat:@"YOU HAVE %@", followingText];
     }
     __block typeof(followingText) blockFollowingText = followingText;
@@ -95,6 +98,7 @@
 - (void)setNumberOfFollowers:(int)numberOfFollowers
 {
     _numberOfFollowers = numberOfFollowers;
+    self.shouldDisplayFollowers = YES;
     [self setNumberOfFriendsFollowing:0];
 }
 

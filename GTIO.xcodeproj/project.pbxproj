@@ -26,6 +26,7 @@
 		8E53238B157FC33E003B7B73 /* GTIOPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E53238A157FC33E003B7B73 /* GTIOPhoto.m */; };
 		8E53B601158251F900EF138F /* GTIOAlmostDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E53B600158251F900EF138F /* GTIOAlmostDoneViewController.m */; };
 		8E53B6041582679A00EF138F /* GTIOEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E53B6031582679A00EF138F /* GTIOEditProfileViewController.m */; };
+		8E794FCC159CAE4000A0D192 /* GTIOSuggestedFriendsIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E794FCB159CAE4000A0D192 /* GTIOSuggestedFriendsIcon.m */; };
 		8E7C984A15936969006347DE /* GTIOProfileCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C984915936969006347DE /* GTIOProfileCalloutView.m */; };
 		8E7C984D15937BFF006347DE /* GTIOFollowRequestAcceptBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C984C15937BFF006347DE /* GTIOFollowRequestAcceptBar.m */; };
 		8E89BAE91599187B00CB3094 /* GTIOActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAFB59B1594BFB40080A961 /* GTIOActionSheet.m */; };
@@ -1094,6 +1095,8 @@
 		8E53B600158251F900EF138F /* GTIOAlmostDoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAlmostDoneViewController.m; sourceTree = "<group>"; };
 		8E53B6021582679A00EF138F /* GTIOEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOEditProfileViewController.h; sourceTree = "<group>"; };
 		8E53B6031582679A00EF138F /* GTIOEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOEditProfileViewController.m; sourceTree = "<group>"; };
+		8E794FCA159CAE4000A0D192 /* GTIOSuggestedFriendsIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSuggestedFriendsIcon.h; sourceTree = "<group>"; };
+		8E794FCB159CAE4000A0D192 /* GTIOSuggestedFriendsIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSuggestedFriendsIcon.m; sourceTree = "<group>"; };
 		8E7C984815936969006347DE /* GTIOProfileCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProfileCalloutView.h; sourceTree = "<group>"; };
 		8E7C984915936969006347DE /* GTIOProfileCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProfileCalloutView.m; sourceTree = "<group>"; };
 		8E7C984B15937BFF006347DE /* GTIOFollowRequestAcceptBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFollowRequestAcceptBar.h; sourceTree = "<group>"; };
@@ -2308,6 +2311,8 @@
 				8EB0F8211591080400794042 /* GTIOProfileCallout.m */,
 				8E7C984B15937BFF006347DE /* GTIOFollowRequestAcceptBar.h */,
 				8E7C984C15937BFF006347DE /* GTIOFollowRequestAcceptBar.m */,
+				8E794FCA159CAE4000A0D192 /* GTIOSuggestedFriendsIcon.h */,
+				8E794FCB159CAE4000A0D192 /* GTIOSuggestedFriendsIcon.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -5300,6 +5305,7 @@
 				8EA02723159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m in Sources */,
 				8EF46011159A647800E00994 /* GTIOFindMyFriendsTableViewCell.m in Sources */,
 				8E8C35C4159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.m in Sources */,
+				8E794FCC159CAE4000A0D192 /* GTIOSuggestedFriendsIcon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,11 +21,13 @@
 
 @property (nonatomic, strong) UIView *bottomBorder;
 
+@property (nonatomic, strong) NSIndexPath *indexPath;
+
 @end
 
 @implementation GTIOFindMyFriendsTableViewCell
 
-@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, chevron = _chevron, bottomBorder = _bottomBorder, followingButton = _followingButton, followButton = _followButton, requestedButton = _requestedButton;
+@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, chevron = _chevron, bottomBorder = _bottomBorder, followingButton = _followingButton, followButton = _followButton, requestedButton = _requestedButton, indexPath = _indexPath, delegate = _delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -84,12 +86,54 @@
     [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - 1, self.contentView.bounds.size.width, 1 }];
 }
 
-- (void)setUser:(GTIOUser *)user
+- (void)setUser:(GTIOUser *)user indexPath:(NSIndexPath *)indexPath
 {
     _user = user;
+    self.indexPath = indexPath;
     [self.profilePicture setImageWithURL:_user.icon];
     self.nameLabel.text = _user.name;
-    self.followingButton.hidden = NO;
+    
+    self.followButton.hidden = YES;
+    self.followingButton.hidden = YES;
+    self.requestedButton.hidden = YES;
+    
+    GTIOUIButton *followButton;
+    if ([_user.button.name isEqualToString:kGTIOUserInfoButtonNameFollow]) {
+        if ([_user.button.state intValue] == GTIOFollowButtonStateFollowing) {
+            followButton = self.followingButton;
+        } else if ([_user.button.state intValue] == GTIOFollowButtonStateFollow) {
+            followButton = self.followButton;
+        } else if ([_user.button.state intValue] == GTIOFollowButtonStateRequested) {
+            followButton = self.requestedButton;
+        }
+    }
+    
+    followButton.hidden = NO;
+    
+    __block typeof(self) blockSelf = self;
+    [followButton setTapHandler:^(id sender) {
+        GTIOUIButton *button = (GTIOUIButton *)sender;
+        button.enabled = NO;
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:_user.button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+            loader.onDidLoadObjects = ^(NSArray *objects) {
+                button.enabled = YES;
+                for (id object in objects) {
+                    if ([object isMemberOfClass:[GTIOUser class]]) {
+                        GTIOUser *newUser = (GTIOUser *)object;
+                        [blockSelf setUser:newUser indexPath:blockSelf.indexPath];
+                        if ([blockSelf.delegate respondsToSelector:@selector(updateDataSourceWithUser:atIndexPath:)]) {
+                            [blockSelf.delegate updateDataSourceWithUser:newUser atIndexPath:blockSelf.indexPath];
+                        }
+                    }
+                }
+            };
+            loader.onDidFailWithError = ^(NSError *error) {
+                button.enabled = YES;
+                NSLog(@"%@", [error localizedDescription]);
+            };
+        }];
+    }];
+    
     [self setNeedsLayout];
 }
 
