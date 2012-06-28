@@ -708,6 +708,12 @@ Request should include an array of user objects (nested under ```users```) that 
       - 10px from right edge of user icon
       - if location exists, baseline is 18px up from bottom of user icon
       - if location does not exist, text is vertically centered in cell
+   - User Badge
+      - use size "32_32.png" for 2x
+      - use size "16_16.png" for 1x
+      - 4px away from right edge of user name
+      - bottom of asset is 2px below baseline of user name
+   - location
    - description
       - Proxima Nova Regular, 10pt, rgb (167,167,167)
       - all caps
@@ -1074,13 +1080,13 @@ previous screen
 A user can see a full screen detail of an outfit
 
 #### Mockups
-3.3 Outfit Full Screen ([wireframe](http://invis.io/F72PNPKB))
+3.3 Post Full Screen ([wireframe](http://invis.io/F72PNPKB))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.No.Voting.Fullscreen.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.3.Full.Screen.Full.Height.png" width=420px/>
 
-3.3.1 Product Post Full Screen ([wireframe](http://invis.io/XB2PNTT9))   
+3.3.1 Post Full Screen - square aspect ratio ([wireframe](http://invis.io/XB2PNTT9))   
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.6.Product.Post.Detail.Fullscreen.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.3.Full.Screen.Min.Height.png" width=420px/>
 
 #### User Flow
 
@@ -1101,6 +1107,12 @@ None.
    - If a user is looking at a product full screen, then the nav bar disappears too
 - A user can dismiss the full screen image by tapping anywhere on the image.
    - state of the post view returns to prior state
+
+#### Design Stories
+- Image
+   - display at 640px wide, original aspect ratio is preserved
+   - vertically centered within content area (does not include status bar)
+   - background is white
 
 
 ### 3.4 Reviews page  
@@ -1176,6 +1188,7 @@ previous screen
             - cancel: close dialog
 
 #### Design Stories
+
 - Top Area
 	- Background (3/reviews.top.bg.png) Repeat/stretch background horizontal
 	- 87px tall
@@ -1221,6 +1234,16 @@ previous screen
 	- Avatar 
 		- Overlay (3/reviews.cell.avatar.overlay.png)
 		- 27x27px
+   - User Badge (post owner)
+      - use size "28_28.png" for 2x
+      - use size "14_14.png" for 1x
+      - 4px away from right edge of user name
+      - bottom of asset is 2px below baseline of user name   
+   - User Badge (commenter)
+      - use size "20_20.png" for 2x
+      - use size "10_10.png" for 1x
+      - 3px away from right edge of user name
+      - bottom of asset is 1px below baseline of user name
 
 ### 3.5 Who hearted this 
 
@@ -1618,6 +1641,11 @@ gtio://find-friends
 		- Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
 		- Bottom border: 1px rgba(217,215,206) #d9d7ce
 		- Chevrons: 8px from the right and vertically centered within the cell
+      - User Badge
+         - use size "32_32.png" for 2x
+         - use size "16_16.png" for 1x
+         - 4px away from right edge of user name
+         - bottom of asset is 2px below baseline of user name
 	- "Suggested Friends" Cell
 		- No bottom border
 		- Profile Icons are 25px with an inner shadow overlay (general/small-profile-overlay-inner-shadow.png), 6px padding between profile icon
@@ -1983,6 +2011,11 @@ gtio://my-management
 	- Name Text: Archer Medium Italics 16pt rgb(255,255,255) #ffffff (11px from top, 3px from profile image)
 	- Location Text: Proxima Nova Regular 10pt rgb(186,186,186) #bababa (6px from top, 3px from profile image)
       - string should be displayed in ALL UPPERCASE
+   - User Badge
+      - use size "38_38.png" for 2x
+      - use size "17_17.png" for 1x
+      - 2px away from right edge of user name
+      - bottom of asset is 4px below baseline of user name
 	- Following/Followers/Featured Buttons
 		- Should align with bottom of profile image (~7-8px)
 		- 3px from left
@@ -2462,6 +2495,11 @@ gtio://profile/:user_id
 		- 8px from top and right
 	- Profile Text
 		- 11pt Proxima Nova Regular rgb(186,186,186) #bababa
+   - User Badge
+      - use size "38_38.png" for 2x
+      - use size "17_17.png" for 1x
+      - 2px away from right edge of user name
+      - bottom of asset is 4px below baseline of user name
 - Friend Request
 	- 32px high rgb(0,0,0) 0.22 alpha
 	- Text: 11pt Proxima Nova Regular rgb(255,255,255) #ffffff
@@ -2679,10 +2717,12 @@ gtio://stars-by-user/:user_id
       - vertical middle is stretchable
       - 4px nonstretchable on top
       - 6px nonstretchable on bottom
-   - Star Ribbon
-      - in Resources/Images/General, 'star-ribbon-grid.png'
-      - placed offset 4px above corresponding grid thumbnail (should appear to slightly overlap frame edge)
-      - 6px from right edge of grid thumbnail
+   - Star Corner
+      - 'star-corner-grid.png'
+      - placed at top right corner of post image (should appear to curve seamlessly into photo frame)
+   - Accent Line
+      - place accent line behind grid in same position as appears on (and spec'd from) Feed type view
+
 
 ### 7.10 Search Tags
 
@@ -2851,6 +2891,11 @@ gtio://posts/feed
          - location is Proxima Nova Regular, 10pt, rgb(156,156,156)
             - 7px left padding inside background area
             - baseline is 8px up from bottom of background area
+         - User Badge
+            - use size "28_28.png" for 2x
+            - use size "14_14.png" for 1x
+            - 4px away from right edge of user name
+            - bottom of asset is 2px below baseline of user name            
    - timestamp
       - 34px high gap in accent line, vertically centered/aligned with position of user info
       - text is Archer Medium Italic, 10pt, rgb(143,143,143)
@@ -2877,6 +2922,9 @@ gtio://posts/feed
          - 'heart-toggle.png' with on/off states, each with active and inactive
          - asset is placed 9px down from top of photo
          - asset is placed 9px from left edge of photo
+      - Star Corner
+         - 'star-corner-feed.png'
+         - placed at top right corner of post image (should appear to curve seamlessly into photo frame)
    - post description
       - shown inside photo frame between bottom edge of frame and bottom edge of photo
       - Verlag Extra Light, 13pt, rgb(35,35,35), #232323
@@ -3039,9 +3087,17 @@ A user can see their new upload in their feed
 A user can see a grid of popular looks on GTIO and tab to other groups of looks
 
 #### Mockups
-9.1 Popular looks grid:
+9.1 Popular looks grid (three tabs):
 
-<img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Light.Rounded.3.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Light.Rounded.3.tabs.png" width=420px/>
+
+9.1 Popular looks grid (four tabs, scrolled left):
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Light.Rounded.4.tabs.scrolled.left.png" width=420px/>
+
+9.1 Popular looks grid (four tabs, scrolled right):
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Light.Rounded.4.tabs.scrolled.right.png" width=420px/>
 
 9.1.1 popular as feed: ([wireframe](http://invis.io/HX2PNHZC)) 
 
@@ -3075,6 +3131,64 @@ feed: ([view 7.7](#77-profile-page))
    - see 13.6
 - A user can tap on a look in a grid and see a post detail page 
    - the destination is conditional on the type of the post (view 3.1) 
+
+#### Design Stories
+- Nav Bar Toggle
+   - 'nav-toggle.png' in Feed and Grid/Active and Inactive versions
+   - vertically centered within nav bar area
+   - 12px from left edge of screen
+- Tabs
+   - leftmost tab is 'tab-left.png' in selected/unselected versions, with active and inactive
+      - horizontal middle is stretchable
+      - 1px nonstretchable on right
+      - 3px nonstretchable on left
+   - middle tab is 'tab-middle.png' in selected/unselected versions, with active and inactive
+      - horizontal middle is stretchable
+      - 2px nonstretchable on right and left
+      - multiple instances OK
+   - rightmost tab is 'tab-right.png' in selected/unselected versions, with active and inactive
+      - horizontal middle is stretchable
+      - 1px nonstretchable on left
+      - 3px nonstretchable on right
+   - positioning
+      - leftmost tab is 4px away from left edge of screen (or left edge of scrollable area)
+      - rightmost tab is 4px away from right edge of screen (or right edge of scrollable area)
+      - -1px gaps (adjoining buttons should overlap by 1px)
+         - 'selected' tab should always be placed over 'unselected' tabs
+   - sizing
+      - if three tabs:
+         - leftmost tab should be minimum 104px wide
+         - middle tab should be minimum 103px wide
+         - rightmost tab should be minimum 104px wide
+      - if four or more tabs:
+         - each tab should be minimum 90px wide
+   - labels
+      - horizontally centered within tab with at least 12px left and right padding (respecting minimum widths listed above, stretching if necessary)
+      - baseline of text is 5px above bottom edge of tab (not including pointer)
+      - unselected: Archer Book Italic, 11pt, rgb(135,135,135)
+      - selected: Archer Book Italic, 11pt, rgb(85,85,86)
+      - star icon
+         - 2px distance from right of accompanying label
+         - bottom of asset is 4px below baseline of accompanying label
+- Photo Grid
+   - Images are sized to 94px wide, variable height
+   - Top images are 9px from top of content area
+   - Leftmost column images are 7px from left edge of screen
+   - Rightmost images are 7px from right edge of screen
+   - In columns, images be separated by 12px of vertical gap
+   - 6px gaps between 1st and 2nd and 3rd columns
+   - 'grid-thumbnail.frame.png'
+      - placed under each image
+      - position relative to image is offset by (-4px,-4px)
+      - vertical middle is stretchable
+      - 4px nonstretchable on top
+      - 6px nonstretchable on bottom
+   - Star Corner
+      - 'star-corner-grid.png'
+      - placed at top right corner of post image (should appear to curve seamlessly into photo frame)
+   - Accent Line
+      - place accent line behind grid in same position as appears on Feed type view
+      - top should end at background asset for tabs
 
 
 
@@ -3466,15 +3580,13 @@ A user can add details to their post before they submit.  They can select to use
 #### Mockups
 ([wireframe](http://invis.io/J92OF18E)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.a.Post.A.Look.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.a.Post.A.Look.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.f.Post.A.Look.Filled.Text.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.f.Post.A.Look.Filled.Text.png" width=420px/>
 
 12.3.1 Post a look (Description with keyboard) ([wireframe](http://invis.io/AC2OF2GX))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.d.Post.A.Look.Description.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.e.Post.A.Look.Brands.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.d.Post.A.Look.Description.png" width=420px/>
 
 12.3.2 Post a look (Photo preview with frames) ([wireframe](http://invis.io/5K2OF0W8))  
 
@@ -3648,12 +3760,12 @@ response:
    - no tap 'ON' state, switches between SINGLE and MULTIPLE versions after tap
    - 7px from right edge of screen
    - 12px from bottom of nav bar
-- Toggle Containers
-   - 'toggle-containers.png'
-   - place asset 174px from bottom of nav bar, 7px from right edge of screen
+- Facebook Toggle Container
+   - 'toggle-fb-container.png'
+      - right side of asset is 7px from right edge of screen
+      - bottom of asset is 6px below bottom of post photo
    - Toggles
       - 'switch-....png' assets
-      - VOTING: 228px from bottom of nav bar, 17px from right edge of screen
       - FACEBOOK: 287px from bottom of nav bar, 17px from right edge of screen
       - Tap area is entire container, not just toggle switch
 - Text Boxes
