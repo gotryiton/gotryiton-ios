@@ -239,6 +239,9 @@
             self.followingButton.tapHandler = ^(id sender) {
                 if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
                     GTIOFriendsViewController *followingFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFollowing];
+                    if (![self.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
+                        [followingFriendsViewController setUserID:self.user.userID];
+                    }
                     [self.delegate pushViewController:followingFriendsViewController];
                 }
             };
@@ -249,6 +252,9 @@
             _followersButton.tapHandler = ^(id sender) {
                 if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
                     GTIOFriendsViewController *followersFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFollowers];
+                    if (![self.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
+                        [followersFriendsViewController setUserID:self.user.userID];
+                    }
                     [self.delegate pushViewController:followersFriendsViewController];
                 }
             };

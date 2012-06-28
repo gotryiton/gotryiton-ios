@@ -71,6 +71,9 @@
     [super prepareForReuse];
     
     self.nameLabel.text = @"";
+    self.followButton.userInteractionEnabled = YES;
+    self.followingButton.userInteractionEnabled = YES;
+    self.requestedButton.userInteractionEnabled = YES;
 }
 
 - (void)layoutSubviews
@@ -110,29 +113,33 @@
     
     followButton.hidden = NO;
     
-    __block typeof(self) blockSelf = self;
-    [followButton setTapHandler:^(id sender) {
-        GTIOUIButton *button = (GTIOUIButton *)sender;
-        button.enabled = NO;
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:_user.button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-            loader.onDidLoadObjects = ^(NSArray *objects) {
-                button.enabled = YES;
-                for (id object in objects) {
-                    if ([object isMemberOfClass:[GTIOUser class]]) {
-                        GTIOUser *newUser = (GTIOUser *)object;
-                        [blockSelf setUser:newUser indexPath:blockSelf.indexPath];
-                        if ([blockSelf.delegate respondsToSelector:@selector(updateDataSourceWithUser:atIndexPath:)]) {
-                            [blockSelf.delegate updateDataSourceWithUser:newUser atIndexPath:blockSelf.indexPath];
+    if (_user.button.action.endpoint.length > 0) {
+        __block typeof(self) blockSelf = self;
+        [followButton setTapHandler:^(id sender) {
+            GTIOUIButton *button = (GTIOUIButton *)sender;
+            button.enabled = NO;
+            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:_user.button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+                loader.onDidLoadObjects = ^(NSArray *objects) {
+                    button.enabled = YES;
+                    for (id object in objects) {
+                        if ([object isMemberOfClass:[GTIOUser class]]) {
+                            GTIOUser *newUser = (GTIOUser *)object;
+                            [blockSelf setUser:newUser indexPath:blockSelf.indexPath];
+                            if ([blockSelf.delegate respondsToSelector:@selector(updateDataSourceWithUser:atIndexPath:)]) {
+                                [blockSelf.delegate updateDataSourceWithUser:newUser atIndexPath:blockSelf.indexPath];
+                            }
                         }
                     }
-                }
-            };
-            loader.onDidFailWithError = ^(NSError *error) {
-                button.enabled = YES;
-                NSLog(@"%@", [error localizedDescription]);
-            };
+                };
+                loader.onDidFailWithError = ^(NSError *error) {
+                    button.enabled = YES;
+                    NSLog(@"%@", [error localizedDescription]);
+                };
+            }];
         }];
-    }];
+    } else {
+        followButton.userInteractionEnabled = NO;
+    }
     
     [self setNeedsLayout];
 }

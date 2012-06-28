@@ -10,8 +10,7 @@
 
 @interface GTIOFindMyFriendsSearchBoxView : UIView
 
-@property (nonatomic, assign) int numberOfFriendsFollowing;
-@property (nonatomic, assign) int numberOfFollowers;
+@property (nonatomic, copy) NSString *subTitleText;
 @property (nonatomic, copy) NSString *searchBarPlaceholder;
 @property (nonatomic, weak) id<UISearchBarDelegate> searchBarDelegate;
 

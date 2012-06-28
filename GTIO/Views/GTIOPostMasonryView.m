@@ -11,6 +11,9 @@
 #import "GTIOPost.h"
 #import "GTIOMasonGridView.h"
 
+static double const kGTIOLeftPadding = 7.0;
+static double const kGTIOTopPadding = 9.0;
+
 @interface GTIOPostMasonryView()
 
 @property (nonatomic, strong) GTIOPostMasonryEmptyStateView *emptyStateView;
@@ -75,7 +78,7 @@
     [super layoutSubviews];
 
     [self.emptyStateView setFrame:(CGRect){ 60, 90, self.emptyStateView.bounds.size }];
-    [self.masonGridView setFrame:(CGRect){ 7, 9, self.bounds.size.width - 7, self.bounds.size.height - 9 }];
+    [self.masonGridView setFrame:(CGRect){ kGTIOLeftPadding, kGTIOTopPadding, self.bounds.size.width - kGTIOLeftPadding, self.bounds.size.height - kGTIOTopPadding }];
 }
 
 - (void)refreshAndCenterGTIOEmptyStateView:(GTIOPostMasonryEmptyStateView *)emptyStateView

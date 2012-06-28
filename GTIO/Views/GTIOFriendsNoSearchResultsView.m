@@ -86,6 +86,11 @@
     label.backgroundColor = [UIColor clearColor];
 }
 
+- (CGFloat)height
+{
+    return self.searchCommunityUnderline.frame.origin.y + self.searchCommunityUnderline.bounds.size.height + 15;
+}
+
 - (void)searchCommunityButtonTapped:(id)sender
 {
     NSLog(@"go to screen 6.4");

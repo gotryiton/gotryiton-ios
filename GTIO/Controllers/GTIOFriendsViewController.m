@@ -11,6 +11,8 @@
 #import "GTIOFriendsNoSearchResultsView.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOSuggestedFriendsIcon.h"
+#import "GTIOProfileViewController.h"
+#import "GTIOSearchEntireCommunityView.h"
 
 @interface GTIOFriendsViewController ()
 
@@ -25,16 +27,20 @@
 @property (nonatomic, assign) BOOL searching;
 @property (nonatomic, copy) NSString *currentSearchQuery;
 @property (nonatomic, strong) GTIOFriendsNoSearchResultsView *noSearchResultsView;
+@property (nonatomic, strong) GTIOSearchEntireCommunityView *searchCommunityView;
 
 @property (nonatomic, assign) GTIOFriendsTableHeaderViewType tableHeaderViewType;
 
-@property (nonatomic, assign) int numberOfFriendsFollowing;
+@property (nonatomic, copy) NSString *subTitleText;
+@property (nonatomic, strong) UISearchBar *searchBar;
+
+@property (nonatomic, strong) GTIOUIButton *reloadButton;
 
 @end
 
 @implementation GTIOFriendsViewController
 
-@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, numberOfFriendsFollowing = _numberOfFriendsFollowing;
+@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, subTitleText = _subTitleText, userID = _userID, searchCommunityView = _searchCommunityView, searchBar = _searchBar, reloadButton = _reloadButton;
 
 - (id)initWithGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)tableHeaderViewType
 {
@@ -45,40 +51,16 @@
         _buttons = [NSMutableArray array];
         _searchResults = [NSMutableArray array];
         _friends = [NSMutableArray array];
-        _numberOfFriendsFollowing = 0;
         
         self.hidesBottomBarWhenPushed = YES;
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     }
     return self;
 }
 
 - (void)viewDidLoad
-{
-    /**** TEST CODE ****/
-    GTIOUser *testUser1 = [[GTIOUser alloc] init];
-    testUser1.name = @"Anna Marie";
-    testUser1.icon = [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Rogue_Vol_3.jpg/250px-Rogue_Vol_3.jpg"];
-    
-    GTIOUser *testUser2 = [[GTIOUser alloc] init];
-    testUser2.name = @"Peter Parker";
-    testUser2.icon = [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/en/5/52/Spider-Man.jpg"];
-    
-    GTIOUser *testUser3 = [[GTIOUser alloc] init];
-    testUser3.name = @"Bruce Banner";
-    testUser3.icon = [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/en/thumb/3/3e/Incredible-hulk-20060221015639117.jpg/250px-Incredible-hulk-20060221015639117.jpg"];
-    
-    GTIOUser *testUser4 = [[GTIOUser alloc] init];
-    testUser4.name = @"Clark Kent";
-    testUser4.icon = [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/en/thumb/7/72/Superman.jpg/250px-Superman.jpg"];
-    
-    GTIOUser *testUser5 = [[GTIOUser alloc] init];
-    testUser5.name = @"Bruce Wayne";
-    testUser5.icon = [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Batman_Lee.png/250px-Batman_Lee.png"];
-    
-    NSArray *superHeroes = [NSArray arrayWithObjects:testUser1, testUser2, testUser3, testUser4, testUser5, nil];
-    /**** END TEST CODE ****/
-    
+{    
     [super viewDidLoad];
     
     NSString *title;
@@ -109,6 +91,12 @@
     if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFriends) {
         [self setLeftNavigationButton:closeButton];
     }
+    self.reloadButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeReload tapHandler:^(id sender) {
+        [self loadUsersForTable];
+    }];
+    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeSuggested) {
+        [self setRightNavigationButton:self.reloadButton];
+    }
     
     CGFloat friendsTableHeaderViewHeight = [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType];
     self.friendsTableHeaderView = [[GTIOFriendsTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, friendsTableHeaderViewHeight } type:self.tableHeaderViewType];
@@ -124,6 +112,7 @@
     [self.view addSubview:self.friendsTableView];
     
     self.noSearchResultsView = [[GTIOFriendsNoSearchResultsView alloc] initWithFrame:CGRectZero];
+    self.searchCommunityView = [[GTIOSearchEntireCommunityView alloc] initWithFrame:CGRectZero];
     
     [self.view sendSubviewToBack:self.friendsTableView];
 }
@@ -135,16 +124,31 @@
     self.friendsTableHeaderView = nil;
     self.friendsTableView = nil;
     self.noSearchResultsView = nil;
+    self.searchCommunityView = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [self loadUsersForTable];
+    [super viewWillAppear:animated];
+    
+    if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
+        [self loadUsersForTable];
+    } else {
+        [self displaySearchCommunityView];
+    }
+    [self resetTableViewFrame];
 }
 
-#pragma mark - GTIOFriendsTableHeaderViewDelegate methods
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.searchBar resignFirstResponder];
+}
+
+#pragma mark - GTIOFriendsTableHeaderViewDelegate / GTIOMeTableHeaderViewDelegate methods
 
 - (void)pushViewController:(UIViewController *)viewController
 {
@@ -152,6 +156,11 @@
 }
 
 #pragma mark - UISearchBarDelegate methods
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    self.searchBar = searchBar;
+}
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)text
 {
@@ -170,20 +179,62 @@
             }
         }
     }
+    
     if (self.searchResults.count == 0 && self.searching) {
-        [self.noSearchResultsView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.bounds.size.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
-        [self.noSearchResultsView setFailedQuery:self.currentSearchQuery];
-        [self.friendsTableView addSubview:self.noSearchResultsView];
+        if (self.currentSearchQuery.length > 0 && self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
+            [self displayNoResultsView];
+        } else {
+            if (self.friends.count == 0 && self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends) {
+                [self displaySearchCommunityView];
+            } else {
+                [self displayNoResultsView];
+            }
+        }
     } else {
         [self.noSearchResultsView removeFromSuperview];
+        [self.searchCommunityView removeFromSuperview];
+        if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends && self.friends.count == 0) {
+            [self displaySearchCommunityView];
+        }
     }
+    
     [self.friendsTableView reloadData];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
-    [self.friendsTableView setFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height }];
+    [self resetTableViewFrame];
+    
+    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends && self.currentSearchQuery.length > 0) {
+        NSString *resourcePath = [NSString stringWithFormat:@"/users/search-community/%@", [self.currentSearchQuery URLEscaped]];
+        
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+        [self.noSearchResultsView removeFromSuperview];
+        [self.searchCommunityView removeFromSuperview];
+        
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
+            loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                self.friends = [NSMutableArray array];
+                self.searchResults = [NSMutableArray array];
+                for (id object in loadedObjects) {
+                    if ([object isMemberOfClass:[GTIOUser class]]) {
+                        [self.friends addObject:object];
+                        [self.searchResults addObject:object];
+                    }
+                }
+                if (self.friends.count == 0) {
+                    [self displayNoResultsView];
+                }
+                [self.friendsTableView reloadData];
+            };
+            loader.onDidFailWithError = ^(NSError *error) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                NSLog(@"%@", [error localizedDescription]);
+            };
+        }];
+    }
 }
 
 #pragma mark - UITableViewDelegate methods
@@ -196,6 +247,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    GTIOProfileViewController *profileViewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+    GTIOUser *userForRow;
+    if (self.searching) {
+        userForRow = (GTIOUser *)[self.searchResults objectAtIndex:indexPath.row];
+    } else {
+        userForRow = (GTIOUser *)[self.friends objectAtIndex:indexPath.row];
+    }
+    [profileViewController setUserID:userForRow.userID];
+    
+    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -236,33 +298,47 @@
     return self.friends.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if ([[self.noSearchResultsView superview] isEqual:self.friendsTableView]) {
+        return [self.noSearchResultsView height];
+    }
+    if ([[self.searchCommunityView superview] isEqual:self.friendsTableView]) {
+        return [self.searchCommunityView height];
+    }
+    return 0.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [[UIView alloc] initWithFrame:CGRectZero];
+}
+
 #pragma mark - Keyboard Notification methods
 
 - (void)keyboardDidShow:(NSNotification *)notification
 {
     [self.friendsTableView setFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 215 }];
+    [self.friendsTableView reloadData];
+    if (self.searching && self.searchResults.count > 0) {
+        [self.friendsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    } else if (self.friends.count > 0 && !self.searching) {
+        [self.friendsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    } else {
+        [self.friendsTableView scrollRectToVisible: CGRectOffset(self.friendsTableHeaderView.searchBoxView.frame, 0.0, 15.0) animated:YES];
+    }
 }
 
 #pragma mark - GTIOFindMyFriendsTableViewCellDelegate method
 
 - (void)updateDataSourceWithUser:(GTIOUser *)user atIndexPath:(NSIndexPath *)indexPath
 {
-    if (user.button.state.intValue == GTIOFollowButtonStateFollow) {
-        self.numberOfFriendsFollowing--;
-    } else if (user.button.state.intValue == GTIOFollowButtonStateFollowing) {
-        self.numberOfFriendsFollowing++;
-    }
-    
     if (self.searching) {
         [self.searchResults removeObjectAtIndex:indexPath.row];
         [self.searchResults insertObject:user atIndex:indexPath.row];
     } else {
         [self.friends removeObjectAtIndex:indexPath.row];
         [self.friends insertObject:user atIndex:indexPath.row];
-    }
-    
-    if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFollowers) {
-        [self updateFollowingText];
     }
 }
 
@@ -276,27 +352,51 @@
         case GTIOFriendsTableHeaderViewTypeFriends:
             resourcePath = @"/users/friends/manage";
             break;
+        case GTIOFriendsTableHeaderViewTypeFollowers:
+            resourcePath = [NSString stringWithFormat:@"/user/%@/followers", (self.userID.length > 0) ? self.userID : [GTIOUser currentUser].userID];
+            break;
+        case GTIOFriendsTableHeaderViewTypeFollowing:
+            resourcePath = [NSString stringWithFormat:@"/user/%@/following", (self.userID.length > 0) ? self.userID : [GTIOUser currentUser].userID];
+            break;
+        case GTIOFriendsTableHeaderViewTypeSuggested:
+            resourcePath = @"/user/suggested-friends";
+            break;
         default:
             resourcePath = @"/users/friends";
             break;
     }
-    
-    self.friends = [NSMutableArray array];
-    self.buttons = [NSMutableArray array];
-    self.suggestedFriends = [NSMutableArray array];
+
     self.searchResults = [NSMutableArray array];
-    self.numberOfFriendsFollowing = 0;
+    self.subTitleText = @"";
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    if (self.reloadButton) {
+        self.reloadButton.userInteractionEnabled = NO;
+    }
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadResponse = ^(RKResponse *response) {
+            NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
+            if ([parsedBody valueForKeyPath:@"ui.search_box.text"]) {
+                self.subTitleText = [[[parsedBody objectForKey:@"ui"] objectForKey:@"search_box"] objectForKey:@"text"];
+            } else if ([parsedBody valueForKeyPath:@"ui.subtitle"]) {
+                self.subTitleText = [[parsedBody objectForKey:@"ui"] objectForKey:@"subtitle"];
+            }
+            [self updateFollowingText];
+        };
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            if (self.reloadButton) {
+                self.reloadButton.userInteractionEnabled = YES;
+            }
+            
+            // wipe out old data
+            self.friends = [NSMutableArray array];
+            self.suggestedFriends = [NSMutableArray array];
+            self.buttons = [NSMutableArray array];
+            
+            // load new data
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOUser class]]) {
-                    GTIOUser *friend = (GTIOUser *)object;
-                    if (friend.button.state.intValue == GTIOFollowButtonStateFollowing) {
-                        self.numberOfFriendsFollowing++;
-                    }
                     [self.friends addObject:object];
                 }
                 if ([object isMemberOfClass:[GTIOButton class]]) {
@@ -311,12 +411,16 @@
                     }
                 }
             }
+            
+            // refresh screen with new data
             [self.friendsTableHeaderView setSuggestedFriends:self.suggestedFriends];
-            [self updateFollowingText];
             [self.friendsTableView reloadData];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            if (self.reloadButton) {
+                self.reloadButton.userInteractionEnabled = YES;
+            }
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
@@ -324,11 +428,27 @@
 
 - (void)updateFollowingText
 {
-    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFollowers) {
-        [self.friendsTableHeaderView setNumberOfFollowers:self.friends.count];
-    } else {
-        [self.friendsTableHeaderView setNumberOfFriendsFollowing:self.numberOfFriendsFollowing];
-    }
+    [self.friendsTableHeaderView setSubTitleText:self.subTitleText];
+}
+
+- (void)displaySearchCommunityView
+{
+    [self.searchCommunityView removeFromSuperview];
+    [self.searchCommunityView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
+    [self.friendsTableView addSubview:self.searchCommunityView];
+}
+
+- (void)displayNoResultsView
+{
+    [self.noSearchResultsView removeFromSuperview];
+    [self.noSearchResultsView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
+    [self.noSearchResultsView setFailedQuery:self.currentSearchQuery];
+    [self.friendsTableView addSubview:self.noSearchResultsView];
+}
+
+- (void)resetTableViewFrame
+{
+    [self.friendsTableView setFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height }];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -9,8 +9,11 @@
 #import "GTIOViewController.h"
 #import "GTIOFriendsTableHeaderView.h"
 #import "GTIOFindMyFriendsTableViewCell.h"
+#import "GTIOMeTableHeaderView.h"
 
-@interface GTIOFriendsViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, GTIOFriendsTableHeaderViewDelegate, GTIOFindMyFriendsTableViewCellDelegate>
+@interface GTIOFriendsViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, GTIOFriendsTableHeaderViewDelegate, GTIOFindMyFriendsTableViewCellDelegate, GTIOMeTableHeaderViewDelegate>
+
+@property (nonatomic, copy) NSString *userID;
 
 - (id)initWithGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)tableHeaderViewType;
 

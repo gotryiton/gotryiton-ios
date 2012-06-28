@@ -9,7 +9,7 @@
 #import "GTIOMasonGridColumn.h"
 #import "GTIOMasonGridItem.h"
 
-static double const defaultVerticalSpacing = 12.0;
+static double const kGTIODefaultVerticalSpacing = 12.0;
 
 @implementation GTIOMasonGridColumn
 
@@ -30,7 +30,7 @@ static double const defaultVerticalSpacing = 12.0;
     self = [super init];
     if (self) {
         self.items = [NSMutableArray array];
-        self.imageSpacer = defaultVerticalSpacing;
+        self.imageSpacer = kGTIODefaultVerticalSpacing;
     }
     return self;
 }

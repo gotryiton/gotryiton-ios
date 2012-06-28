@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOFindMyFriendsSearchBoxView.h"
 
 typedef enum GTIOFriendsTableHeaderViewType {
     GTIOFriendsTableHeaderViewTypeFindMyFriends = 0,
@@ -27,8 +28,8 @@ typedef enum GTIOFriendsTableHeaderViewType {
 @interface GTIOFriendsTableHeaderView : UIView
 
 @property (nonatomic, strong) NSArray *suggestedFriends;
-@property (nonatomic, assign) int numberOfFriendsFollowing;
-@property (nonatomic, assign) int numberOfFollowers;
+@property (nonatomic, copy) NSString *subTitleText;
+@property (nonatomic, strong) GTIOFindMyFriendsSearchBoxView *searchBoxView;
 @property (nonatomic, weak) id<UISearchBarDelegate> searchBarDelegate;
 @property (nonatomic, weak) id<GTIOFriendsTableHeaderViewDelegate> delegate;
 

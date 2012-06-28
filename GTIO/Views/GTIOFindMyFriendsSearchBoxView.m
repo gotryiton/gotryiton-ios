@@ -21,7 +21,7 @@
 
 @implementation GTIOFindMyFriendsSearchBoxView
 
-@synthesize backgroundImageView = _backgroundImageView, followingFriendsLabel = _followingFriendsLabel, numberOfFriendsFollowing = _numberOfFriendsFollowing, searchBar = _searchBar, searchBarDelegate = _searchBarDelegate, showFollowingLabel = _showFollowingLabel, numberOfFollowers = _numberOfFollowers, searchBarPlaceholder = _searchBarPlaceholder, shouldDisplayFollowers = _shouldDisplayFollowers;
+@synthesize backgroundImageView = _backgroundImageView, followingFriendsLabel = _followingFriendsLabel, searchBar = _searchBar, searchBarDelegate = _searchBarDelegate, showFollowingLabel = _showFollowingLabel, searchBarPlaceholder = _searchBarPlaceholder, shouldDisplayFollowers = _shouldDisplayFollowers, subTitleText = _subTitleText;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -46,7 +46,7 @@
         [_searchBar setImage:[UIImage imageNamed:@"search.field.mag.icon.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
         [_searchBar setPositionAdjustment:UIOffsetMake(0.0, -1.0) forSearchBarIcon:UISearchBarIconSearch];
         [_searchBar setPlaceholder:@"search through friends I follow"];
-        // remove search bar default background / set custom font / use done button
+        // remove search bar default background / set custom font
         for (UIView *view in _searchBar.subviews) {
             if ([view isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
                 [view removeFromSuperview];
@@ -55,7 +55,6 @@
                 UITextField *textField = (UITextField *)view;
                 [textField setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.0]];
                 [textField setTextColor:[UIColor gtio_grayTextColor]];
-                [textField setReturnKeyType:UIReturnKeyDone];
             }
         }
 
@@ -73,33 +72,28 @@
     [self.searchBar setFrame:(CGRect){ 0, self.followingFriendsLabel.frame.origin.y + self.followingFriendsLabel.bounds.size.height + 7, self.bounds.size.width, 31 }];
 }
 
-- (void)setNumberOfFriendsFollowing:(int)numberOfFriendsFollowing
+- (void)setSubTitleText:(NSString *)subTitleText
 {
-    _numberOfFriendsFollowing = numberOfFriendsFollowing;
-    NSString *followingText = [NSString stringWithFormat:@"%i FRIEND%@", _numberOfFriendsFollowing, (_numberOfFriendsFollowing == 1) ? @"" : @"S"];
-    NSString *followingLabelText = [NSString stringWithFormat:@"FOLLOWING %@", followingText];
-    if (self.shouldDisplayFollowers) {
-        followingText = [NSString stringWithFormat:@"%i FOLLOWER%@", _numberOfFollowers, (_numberOfFollowers == 1) ? @"" : @"S"];
-        followingLabelText = [NSString stringWithFormat:@"YOU HAVE %@", followingText];
-    }
-    __block typeof(followingText) blockFollowingText = followingText;
-    [_followingFriendsLabel setText:followingLabelText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-        NSRange boldRange = [[mutableAttributedString string] rangeOfString:blockFollowingText options:NSCaseInsensitiveSearch];
-        UIFont *boldSystemFont = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:10.0];
-        CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
-        if (font) {
-            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
-            CFRelease(font);
+    _subTitleText = [subTitleText uppercaseString];
+    __block typeof(_subTitleText) blockSubTitleText = _subTitleText;
+    __block typeof(self) blockSelf = self;
+    [_followingFriendsLabel setText:blockSubTitleText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+        // read the bold tags and apply a bold font
+        NSString *boldString = [blockSelf stringBetweenString:@"<b>" andString:@"</b>" insideString:blockSubTitleText];
+        if (boldString.length > 0) {
+            NSRange boldRange = [[mutableAttributedString string] rangeOfString:boldString options:NSCaseInsensitiveSearch];
+            UIFont *boldSystemFont = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:10.0];
+            CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+            if (font) {
+                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
+                CFRelease(font);
+            }
+            // remove the bold tags
+            [mutableAttributedString deleteCharactersInRange:[[mutableAttributedString string] rangeOfString:@"<b>" options:NSCaseInsensitiveSearch]];
+            [mutableAttributedString deleteCharactersInRange:[[mutableAttributedString string] rangeOfString:@"</b>" options:NSCaseInsensitiveSearch]];
         }
         return mutableAttributedString;
     }];
-}
-
-- (void)setNumberOfFollowers:(int)numberOfFollowers
-{
-    _numberOfFollowers = numberOfFollowers;
-    self.shouldDisplayFollowers = YES;
-    [self setNumberOfFriendsFollowing:0];
 }
 
 - (void)setSearchBarPlaceholder:(NSString *)searchBarPlaceholder
@@ -119,5 +113,19 @@
     _showFollowingLabel = showFollowingLabel;
     [self setNeedsLayout];
 }
+
+- (NSString*)stringBetweenString:(NSString*)start andString:(NSString *)end insideString:(NSString *)string {
+    NSScanner* scanner = [NSScanner scannerWithString:string];
+    [scanner setCharactersToBeSkipped:nil];
+    [scanner scanUpToString:start intoString:NULL];
+    if ([scanner scanString:start intoString:NULL]) {
+        NSString* result = nil;
+        if ([scanner scanUpToString:end intoString:&result]) {
+            return result;
+        }
+    }
+    return nil;
+}
+
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "GTIOProfileHeaderView.h"
-#import "GTIOMeTableHeaderView.h"
 #import "GTIOProfileCalloutView.h"
 #import "GTIOActionSheet.h"
 #import "GTIOProgressHUD.h"
@@ -43,6 +42,7 @@
 @synthesize actionSheet = _actionSheet;
 @synthesize waitingForUserProfileLayout = _waitingForUserProfileLayout;
 @synthesize userProfileLayoutCompletionHandler = _userProfileLayoutCompletionHandler;
+@synthesize meTableHeaderViewDelegate = _meTableHeaderViewDelegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -113,12 +113,6 @@
         [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((self.websiteLinkButton.titleLabel.text.length > 0 || self.profileDescription.text.length > 0) ? 10 : 0) }];
     }
     [self setFrame:(CGRect){ self.frame.origin, self.bounds.size.width, self.basicUserInfoBackgroundImageView.bounds.size.height }];
-    if (self.waitingForUserProfileLayout) {
-        self.waitingForUserProfileLayout = NO;
-        if (self.userProfileLayoutCompletionHandler) {
-            self.userProfileLayoutCompletionHandler(self);
-        }
-    }
 }
 
 - (void)setUserProfile:(GTIOUserProfile *)userProfile completionHandler:(GTIOProfileInitCompletionHandler)completionHandler
@@ -172,8 +166,16 @@
         [self.profileCalloutViews addObject:profileCalloutView];
     }
     self.userProfileLayoutCompletionHandler = completionHandler;
-    self.waitingForUserProfileLayout = YES;
-    [self setNeedsLayout];
+    [self layoutSubviews];
+    if (self.userProfileLayoutCompletionHandler) {
+        self.userProfileLayoutCompletionHandler(self);
+    }
+}
+
+- (void)setMeTableHeaderViewDelegate:(id<GTIOMeTableHeaderViewDelegate>)meTableHeaderViewDelegate
+{
+    _meTableHeaderViewDelegate = meTableHeaderViewDelegate;
+    [self.basicUserInfoView setDelegate:_meTableHeaderViewDelegate];
 }
 
 - (void)removeAcceptBar

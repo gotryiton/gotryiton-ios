@@ -8,10 +8,11 @@
 
 #import "GTIOMasonGridView.h"
 #import "GTIOMasonGridColumn.h"
+#import "GTIOMasonGridItemWithFrameView.h"
 #import "GTIOProgressHUD.h"
 
-static double const imageWidth = 94.0;
-static double const horizontalSpacing = 12.0;
+static double const kGTIOImageWidth = 94.0;
+static double const kGTIOHorizontalSpacing = 12.0;
 
 @interface GTIOMasonGridView()
 
@@ -51,20 +52,9 @@ static double const horizontalSpacing = 12.0;
         }
     }
     
-    // Image frame with shadow
-    UIImageView *gridFrameImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"grid-thumbnail-frame.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0, 0.0, 6.0, 0.0)]];
-    gridFrameImageView.alpha = 0.0;
-    
-    // Actual image
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:gridItem.image];
-    imageView.alpha = 0.0;
-    
-    // Size and position
-    [imageView setFrame:(CGRect){ shortestColumn.columnNumber * imageWidth + shortestColumn.columnNumber * horizontalSpacing, shortestColumn.height == 0 ? 0.0 :shortestColumn.height + shortestColumn.imageSpacer, imageWidth, imageView.bounds.size.height }];
-    [gridFrameImageView setFrame:(CGRect){ imageView.frame.origin.x - 4, imageView.frame.origin.y - 4, imageView.bounds.size.width + 8, imageView.bounds.size.height + 9 }];
-    
-    [self addSubview:gridFrameImageView];
-    [self addSubview:imageView];
+    GTIOMasonGridItemWithFrameView *gridItemWithFrameView = [[GTIOMasonGridItemWithFrameView alloc] initWithFrame:(CGRect){ shortestColumn.columnNumber * kGTIOImageWidth + shortestColumn.columnNumber * kGTIOHorizontalSpacing, shortestColumn.height == 0 ? 0.0 :shortestColumn.height + shortestColumn.imageSpacer, kGTIOImageWidth, gridItem.image.size.height } image:gridItem.image];
+    gridItemWithFrameView.alpha = 0.0;
+    [self addSubview:gridItemWithFrameView];
     
     // Add item to grid
     [shortestColumn.items addObject:gridItem];
@@ -80,8 +70,7 @@ static double const horizontalSpacing = 12.0;
     
     // Fade in
     [UIView animateWithDuration:0.25 animations:^{
-        gridFrameImageView.alpha = 1.0;
-        imageView.alpha = 1.0;
+        gridItemWithFrameView.alpha = 1.0;
     }];
 }
 

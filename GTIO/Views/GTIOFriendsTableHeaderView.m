@@ -8,7 +8,6 @@
 
 #import "GTIOFriendsTableHeaderView.h"
 #import "GTIOSuggestedFriendsBarButton.h"
-#import "GTIOFindMyFriendsSearchBoxView.h"
 #import "GTIOFriendsViewController.h"
 
 @interface GTIOFriendsTableHeaderView()
@@ -17,14 +16,13 @@
 @property (nonatomic, strong) GTIOSuggestedFriendsBarButton *inviteFriendsBarButton;
 @property (nonatomic, strong) GTIOSuggestedFriendsBarButton *findFriendsBarButton;
 
-@property (nonatomic, strong) GTIOFindMyFriendsSearchBoxView *searchBoxView;
 @property (nonatomic, assign) GTIOFriendsTableHeaderViewType type;
 
 @end
 
 @implementation GTIOFriendsTableHeaderView
 
-@synthesize suggestedFriendsBarButton = _suggestedFriendsBarButton, searchBoxView = _searchBoxView, suggestedFriends = _suggestedFriends, numberOfFriendsFollowing = _numberOfFriendsFollowing, searchBarDelegate = _searchBarDelegate, type = _type, numberOfFollowers = _numberOfFollowers, inviteFriendsBarButton = _inviteFriendsBarButton, findFriendsBarButton = _findFriendsBarButton, delegate = _delegate;
+@synthesize suggestedFriendsBarButton = _suggestedFriendsBarButton, searchBoxView = _searchBoxView, suggestedFriends = _suggestedFriends, searchBarDelegate = _searchBarDelegate, type = _type, inviteFriendsBarButton = _inviteFriendsBarButton, findFriendsBarButton = _findFriendsBarButton, delegate = _delegate, subTitleText = _subTitleText;
 
 + (CGFloat)heightForGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)type
 {
@@ -98,29 +96,26 @@
 - (void)pushFindFriendsViewController:(id)sender
 {
     GTIOFriendsViewController *findFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindFriends];
-    if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
-        [self.delegate pushViewController:findFriendsViewController];
-    }
+    [self messageDelegateToPushViewController:findFriendsViewController];
 }
 
 - (void)pushSuggestedFriendsViewController:(id)sender
 {
     GTIOFriendsViewController *suggestedFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeSuggested];
+    [self messageDelegateToPushViewController:suggestedFriendsViewController];
+}
+
+- (void)messageDelegateToPushViewController:(UIViewController *)viewController
+{
     if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
-        [self.delegate pushViewController:suggestedFriendsViewController];
+        [self.delegate pushViewController:viewController];
     }
 }
 
-- (void)setNumberOfFriendsFollowing:(int)numberOfFriendsFollowing
+- (void)setSubTitleText:(NSString *)subTitleText
 {
-    _numberOfFriendsFollowing = numberOfFriendsFollowing;
-    [self.searchBoxView setNumberOfFriendsFollowing:_numberOfFriendsFollowing];
-}
-
-- (void)setNumberOfFollowers:(int)numberOfFollowers
-{
-    _numberOfFollowers = numberOfFollowers;
-    [self.searchBoxView setNumberOfFollowers:_numberOfFollowers];
+    _subTitleText = subTitleText;
+    [self.searchBoxView setSubTitleText:_subTitleText];
 }
 
 - (void)setSuggestedFriends:(NSArray *)suggestedFriends

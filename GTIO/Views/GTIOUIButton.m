@@ -59,6 +59,7 @@
         case GTIOButtonTypeFollowingButtonRegular: return [self gtio_followingButtonRegular];
         case GTIOButtonTypeRequestedButtonRegular: return [self gtio_requestedButtonRegular];
         case GTIOButtonTypeCloseButtonForNavBar: return [self gtio_closeButtonGrayTopMargin];
+        case GTIOButtonTypeReload: return [self gtio_reloadButtonTopMargin];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -422,6 +423,11 @@
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
+}
+
++ (id)gtio_reloadButtonTopMargin
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.icon.refresh.png"] hightlightImage:nil];
 }
 
 #pragma mark - Touch Handling
