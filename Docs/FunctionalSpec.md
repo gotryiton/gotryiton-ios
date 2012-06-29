@@ -3394,13 +3394,11 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 
 12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.1.Upload.Start.Frame.Left.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.2.Upload.Start.Frame.Top.Right.png" width=420px/>
-
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.3.Upload.Start.Frame.Bottom.Right.png" width=420px/>
 
 12.1.2 Upload Start in Photoshoot Mode
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.2.Upload.Photoshoot.without.reel.png" width=420px/>
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.2.Upload.Photoshoot.without.reel.png" width=420px/>
 
