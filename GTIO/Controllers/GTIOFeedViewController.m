@@ -19,6 +19,7 @@
 #import "GTIOFeedCell.h"
 #import "GTIONavigationNotificationTitleView.h"
 #import "GTIOFeedNavigationBarView.h"
+#import "GTIOFriendsViewController.h"
 
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -77,8 +78,11 @@
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     
     self.navBarView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
+    __block typeof(self) blockSelf = self;
     [self.navBarView.friendsButton setTapHandler:^(id sender) {
-        NSLog(@"Friends button tapped");
+        GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
+        [blockSelf presentModalViewController:navController animated:YES];
     }];
     [self.view addSubview:self.navBarView];
     

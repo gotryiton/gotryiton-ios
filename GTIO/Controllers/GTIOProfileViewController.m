@@ -58,6 +58,7 @@
     self.profileHeaderView = [[GTIOProfileHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 0 }];
     [self.profileHeaderView setDelegate:self];
     [self.profileHeaderView setAcceptBarDelegate:self];
+    [self.profileHeaderView setMeTableHeaderViewDelegate:self];
     [self.view addSubview:self.profileHeaderView];
     
     self.postsHeartsWithSegmentedControlView = [[GTIODualViewSegmentedControlView alloc] 
@@ -75,6 +76,7 @@
     
     self.followButton = nil;
     self.followingButton = nil;
+    self.requestedButton = nil;
     self.profileHeaderView = nil;
     self.postsHeartsWithSegmentedControlView = nil;
 }
@@ -83,6 +85,11 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+- (void)pushViewController:(UIViewController *)viewController
+{
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)refreshUserProfile

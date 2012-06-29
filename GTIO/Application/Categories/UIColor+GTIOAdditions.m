@@ -126,4 +126,14 @@
     return UIColorFromRGB(0x8FCCB1);
 }
 
++ (UIColor *)gtio_findMyFriendsTableCellActiveColor
+{
+    return UIColorFromRGB(0xEDEBE0);
+}
+
++ (UIColor *)gtio_friendsGreenCellColor
+{
+    return UIColorFromRGB(0xEBF2EF);
+}
+
 @end

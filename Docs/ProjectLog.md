@@ -1,3 +1,55 @@
+***Thursday, June 27th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- NA
+
+**Status**
+- Geoff tieing APIs to find my friends screens
+- Scott gtio:// router and ... overlay view
+- Simon finishing up filters refactor
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- TT - Release build around lunch on friday
+
+**General Notes**
+- NA
+
+---
+
+***Wednesday, June 27th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - Find My Friends API by EOB Wednesday
+
+**Status**
+- Find my friends styled
+- Brand buttons and Who hearted done
+- Filter refactor going well and all filters now take 2 seconds
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Tuesday, June 26th - Standup Notes***
 
 **Attendees**

@@ -10,12 +10,14 @@
 
 #import "GTIOSignInViewController.h"
 #import "GTIOProfileViewController.h"
+#import "GTIOFriendsViewController.h"
 
 static NSString * const kGTIOURLScheme = @"gtio";
 
 static NSString * const kGTIOURLHostProfile = @"profile";
 static NSString * const kGTIOURLHostSignOut = @"sign-out";
 static NSString * const kGTIOURLHostWhoHeartedPost = @"who-hearted-post";
+static NSString * const kGTIOURLHostFindFriends = @"find-friends";
 
 @implementation GTIORouter
 
@@ -55,6 +57,8 @@ static NSString * const kGTIOURLHostWhoHeartedPost = @"who-hearted-post";
     } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedPost]) {
         // TODO: handle this
         NSLog(@"Still need to handle opening who hearted post");
+    } else if ([urlHost isEqualToString:kGTIOURLHostFindFriends]) {
+        viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindMyFriends];
     }
     
     return viewController;

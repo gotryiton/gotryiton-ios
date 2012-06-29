@@ -26,5 +26,6 @@
 @property (nonatomic, weak) id<GTIOMasonGridItemDelegate>delegate;
 
 + (id)itemWithURL:(NSURL *)URL;
+- (void)downloadImage;
 
 @end

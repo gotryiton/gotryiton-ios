@@ -14,8 +14,9 @@
 #import "GTIOEditProfilePictureViewController.h"
 #import "GTIOMeTableHeaderViewLabel.h"
 #import "GTIOButton.h"
-#import "GTIOProfileViewController.h"
 #import "GTIOEditProfileViewController.h"
+
+#import "GTIOFriendsViewController.h"
 
 @interface GTIOMeTableHeaderView()
 
@@ -236,11 +237,12 @@
             [self.followingLabel setText:@"following"];
             [self.followingCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             self.followingButton.tapHandler = ^(id sender) {
-                NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
                 if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
-                    GTIOProfileViewController *profileViewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
-                    [profileViewController setUserID:@"0596D58"];
-                    [self.delegate pushViewController:profileViewController];
+                    GTIOFriendsViewController *followingFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFollowing];
+                    if (![self.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
+                        [followingFriendsViewController setUserID:self.user.userID];
+                    }
+                    [self.delegate pushViewController:followingFriendsViewController];
                 }
             };
         }
@@ -248,7 +250,13 @@
             [self.followersLabel setText:@"followers"];
             [self.followerCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             _followersButton.tapHandler = ^(id sender) {
-                NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
+                if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
+                    GTIOFriendsViewController *followersFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFollowers];
+                    if (![self.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
+                        [followersFriendsViewController setUserID:self.user.userID];
+                    }
+                    [self.delegate pushViewController:followersFriendsViewController];
+                }
             };
         }
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameStars]) {

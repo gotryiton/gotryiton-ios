@@ -45,5 +45,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_profileDescriptionTextColor;
 + (UIColor *)gtio_ActionSheetButtonTextColor;
 + (UIColor *)gtio_postReviewCountButtonTextColor;
++ (UIColor *)gtio_findMyFriendsTableCellActiveColor;
++ (UIColor *)gtio_friendsGreenCellColor;
 
 @end

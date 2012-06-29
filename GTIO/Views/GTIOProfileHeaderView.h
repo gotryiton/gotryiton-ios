@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GTIOUserProfile.h"
 #import "GTIOFollowRequestAcceptBarView.h"
+#import "GTIOMeTableHeaderView.h"
 
 typedef void(^GTIOProfileInitCompletionHandler)(id sender);
 
@@ -23,6 +24,7 @@ typedef void(^GTIOProfileInitCompletionHandler)(id sender);
 
 @property (nonatomic, strong) GTIOUserProfile *userProfile;
 @property (nonatomic, weak) id<GTIOFollowRequestAcceptBarViewDelegate> acceptBarDelegate;
+@property (nonatomic, weak) id<GTIOMeTableHeaderViewDelegate> meTableHeaderViewDelegate;
 @property (nonatomic, weak) id<GTIOProfileHeaderViewDelegate> delegate;
 
 - (void)setUserProfile:(GTIOUserProfile *)userProfile completionHandler:(GTIOProfileInitCompletionHandler)completionHandler;

@@ -132,6 +132,7 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
                 if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {                    
                     GTIOMyManagementScreen *screen = (GTIOMyManagementScreen *)object;
                     self.userInfoButtons = screen.userInfo;
+                    [self.profileHeaderView setUser:[GTIOUser currentUser]];
                     [self.profileHeaderView setUserInfoButtons:self.userInfoButtons];
                     for (GTIOButton *button in screen.management) {
                         if (![button.name isEqualToString:@"spacer_cell"]) {
