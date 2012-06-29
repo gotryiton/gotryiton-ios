@@ -2790,7 +2790,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.4 feed empty:  ([wireframe](http://invis.io/3W2OH9G2)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Empty.png" width=420px/>
   
 
 #### User Flow
