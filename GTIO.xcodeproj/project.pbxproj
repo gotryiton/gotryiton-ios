@@ -958,6 +958,7 @@
 		D2B8A582158A97BB001D67CA /* GTIOFilterOriginal.m in Sources */ = {isa = PBXBuildFile; fileRef = D28BD7A1158908410074643C /* GTIOFilterOriginal.m */; };
 		D2B8A583158A97BB001D67CA /* GTIOFilterOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D28BD7A8158915370074643C /* GTIOFilterOperation.m */; };
 		D2B8A584158A97CF001D67CA /* GTIOFilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DEAED3158793A20032ED1F /* GTIOFilterButton.m */; };
+		D2C1C860159DFF23001026BC /* PostDescription.css in Resources */ = {isa = PBXBuildFile; fileRef = D2C1C85F159DFF23001026BC /* PostDescription.css */; };
 		D2C363F2158A999400F476EF /* NSMutableDictionary+FilterTypeKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F78B77158A2E2F00CBB4F2 /* NSMutableDictionary+FilterTypeKeys.m */; };
 		D2CDA96715502F02009B7E24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96615502F02009B7E24 /* UIKit.framework */; };
 		D2CDA96915502F02009B7E24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96815502F02009B7E24 /* Foundation.framework */; };
@@ -2222,6 +2223,7 @@
 		D29AD736159CF0D100C23AA4 /* GTIOPopOverButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPopOverButton.m; sourceTree = "<group>"; };
 		D29F4CF81580F502009F7BB7 /* GTIOResizePhotoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOResizePhotoOperation.h; sourceTree = "<group>"; };
 		D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOResizePhotoOperation.m; sourceTree = "<group>"; };
+		D2C1C85F159DFF23001026BC /* PostDescription.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PostDescription.css; path = CSS/PostDescription.css; sourceTree = "<group>"; };
 		D2CDA96215502F02009B7E24 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2CDA96615502F02009B7E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D2CDA96815502F02009B7E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -3943,10 +3945,17 @@
 			name = General;
 			sourceTree = "<group>";
 		};
+		D2C1C85E159DFF08001026BC /* CSS */ = {
+			isa = PBXGroup;
+			children = (
+				D2C1C85F159DFF23001026BC /* PostDescription.css */,
+			);
+			name = CSS;
+			sourceTree = "<group>";
+		};
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
-				D2465988159B74D700A43238 /* libxml2.dylib */,
 				D2CDA96C15502F02009B7E24 /* GTIO */,
 				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
 				D2CDA99B15503058009B7E24 /* Libraries */,
@@ -3967,6 +3976,7 @@
 		D2CDA96515502F02009B7E24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2465988159B74D700A43238 /* libxml2.dylib */,
 				D270EF1B1587C65200BE08EE /* CoreVideo.framework */,
 				D270EF161587C62100BE08EE /* OpenGLES.framework */,
 				D28FB46D157547C2002298A2 /* CoreMedia.framework */,
@@ -4092,6 +4102,7 @@
 		D2CDA9AE155032F7009B7E24 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D2C1C85E159DFF08001026BC /* CSS */,
 				8ED006E91598D8EC00E50B09 /* Images */,
 				D2603DD7155ABE2600536BF9 /* Fonts */,
 			);
@@ -5250,6 +5261,7 @@
 				D27ACF82159B481F003047CF /* uploading.min.track@2x.png in Resources */,
 				D27ACF83159B481F003047CF /* uploading.thumb.png in Resources */,
 				D27ACF84159B481F003047CF /* uploading.thumb@2x.png in Resources */,
+				D2C1C860159DFF23001026BC /* PostDescription.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

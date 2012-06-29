@@ -8,14 +8,14 @@
 
 #import "GTIOWhoHeartedThisView.h"
 
-#import "TTTAttributedLabel.h"
-
 #import "GTIOButton.h"
+
+#import "DTCoreText.h"
 
 static CGFloat const kGTIOTextTopPadding = 4.0f;
 static CGFloat const kGTIOTextWidth = 228.0f;
 
-@interface GTIOWhoHeartedThisView ()
+@interface GTIOWhoHeartedThisView () <DTAttributedTextContentViewDelegate>
 
 @property (nonatomic, strong) UIImageView *heartImageView;
 @property (nonatomic, strong) DTAttributedTextView *namesAttributedTextView;
@@ -42,6 +42,8 @@ static CGFloat const kGTIOTextWidth = 228.0f;
         _namesAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ _heartImageView.image.size.width + 1, kGTIOTextTopPadding, { kGTIOTextWidth, 0 } }];
         _namesAttributedTextView.textDelegate = self;
         _namesAttributedTextView.contentView.edgeInsets = (UIEdgeInsets){ -4, 0, 8, 0 };
+        [_namesAttributedTextView setScrollEnabled:NO];
+        [_namesAttributedTextView setScrollsToTop:NO];
         [_namesAttributedTextView setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_namesAttributedTextView];
     
@@ -68,7 +70,7 @@ static CGFloat const kGTIOTextWidth = 228.0f;
 {
     _whoHeartedThis = whoHeartedThis;
     
-    NSString *html = [NSString stringWithFormat:@"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\">%@</a></span>", whoHeartedThis];
+    NSString *html = [NSString stringWithFormat:@"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\">%@</span>", whoHeartedThis];
     NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.namesAttributeTextOptions documentAttributes:NULL];
@@ -107,7 +109,7 @@ static CGFloat const kGTIOTextWidth = 228.0f;
     
     [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
     DTAttributedTextView *namesAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIOTextWidth, 0 } }];
-    namesAttributedTextView.contentView.edgeInsets = (UIEdgeInsets){ -5, 0, 8, 0 };
+    namesAttributedTextView.contentView.edgeInsets = (UIEdgeInsets){ -4, 0, 8, 0 };
     
     NSDictionary *namesAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
                                                 [NSNumber numberWithFloat:1.0], NSTextSizeMultiplierDocumentOption,
@@ -115,7 +117,7 @@ static CGFloat const kGTIOTextWidth = 228.0f;
                                                 [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
                                                 nil];
     
-    NSString *html = [NSString stringWithFormat:@"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\">%@</a></span>", whoHeartedThis];
+    NSString *html = [NSString stringWithFormat:@"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\">%@</span>", whoHeartedThis];
     NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:namesAttributedTextOptions documentAttributes:NULL];

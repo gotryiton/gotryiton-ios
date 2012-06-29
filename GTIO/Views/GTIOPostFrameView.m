@@ -8,7 +8,7 @@
 
 #import "GTIOPostFrameView.h"
 
-#import "TTTAttributedLabel.h"
+#import "DTCoreText.h"
 #import "UIImageView+WebCache.h"
 
 #import "GTIOPhoto.h"
@@ -23,15 +23,16 @@ static CGFloat const kGTIOFrameHeightWithShadowPadding = 22.0f;
 static CGFloat const kGTIOPhotoTopPadding = 7.0f;
 static CGFloat const kGTIOHeartButtonPadding = 9.0f;
 static CGFloat const kGTIODescriptionTextWidth = 240.0f;
-static CGFloat const kGTIODescriptionLabelTopPadding = 8.0f;
+static CGFloat const kGTIODescriptionLabelTopPadding = 5.0f;
 static CGFloat const kGTIOBrandButtonsTopPadding = 6.0f;
 static CGFloat const kGTIOBrandButtonsTopPaddingNoDescription = 11.0f;
 static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 
-@interface GTIOPostFrameView ()
+@interface GTIOPostFrameView ()  <DTAttributedTextContentViewDelegate>
 
 @property (nonatomic, strong) UIImageView *frameImageView;
-@property (nonatomic, strong) TTTAttributedLabel *descriptionLabel;
+@property (nonatomic, strong) DTAttributedTextView *descriptionTextView;
+@property (nonatomic, strong) NSDictionary *descriptionAttributeTextOptions;
 @property (nonatomic, strong) GTIOHeartButton *heartButton;
 @property (nonatomic, strong) GTIOButton *photoHeartButtonModel;
 @property (nonatomic, strong) GTIOPostBrandButtonsView *brandButtonsView;
@@ -41,7 +42,8 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 @implementation GTIOPostFrameView
 
 @synthesize post = _post;
-@synthesize frameImageView = _frameImageView, photoImageView = _photoImageView, descriptionLabel = _descriptionLabel, heartButton = _heartButton, photoHeartButtonModel = _photoHeartButtonModel, brandButtonsView = _brandButtonsView;
+@synthesize frameImageView = _frameImageView, photoImageView = _photoImageView, descriptionTextView = _descriptionTextView, heartButton = _heartButton, photoHeartButtonModel = _photoHeartButtonModel, brandButtonsView = _brandButtonsView;
+@synthesize descriptionAttributeTextOptions = _descriptionAttributeTextOptions;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -62,11 +64,27 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
         }];
         [self addSubview:_heartButton];
         
-        _descriptionLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-        [_descriptionLabel setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagXLight size:13.0f]];
-        [_descriptionLabel setTextColor:[UIColor gtio_darkGray3TextColor]];
-        [_descriptionLabel setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:_descriptionLabel];
+        [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
+        _descriptionTextView = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
+        _descriptionTextView.textDelegate = self;
+        _descriptionTextView.contentView.edgeInsets = (UIEdgeInsets) { -5, 0, 0, 0 };
+        [_descriptionTextView setScrollEnabled:NO];
+        [_descriptionTextView setScrollsToTop:NO];
+        [_descriptionTextView setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_descriptionTextView];
+        
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"PostDescription" ofType:@"css"];  
+        NSData *cssData = [NSData dataWithContentsOfFile:filePath];
+        NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
+        DTCSSStylesheet *defaultDTCSSStylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
+        
+        _descriptionAttributeTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
+                                            [UIColor gtio_darkGray3TextColor], DTDefaultTextColor,
+                                            [UIColor gtio_pinkTextColor], DTDefaultLinkColor,
+                                            [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
+                                            defaultDTCSSStylesheet, DTDefaultStyleSheet,
+                                            nil];
         
         _brandButtonsView = [[GTIOPostBrandButtonsView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIODescriptionTextWidth, 0 } }];
         [self addSubview:_brandButtonsView];
@@ -86,12 +104,12 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
     [self.photoImageView setFrame:(CGRect){ 10, kGTIOPhotoTopPadding, photoSize }];
     [self.heartButton setFrame:(CGRect){ { self.photoImageView.frame.origin.x + kGTIOHeartButtonPadding, self.photoImageView.frame.origin.y + kGTIOHeartButtonPadding }, self.heartButton.frame.size }];
     
-    CGSize descriptionTextSize = [GTIOPostFrameView descriptionTextSize:self.post.postDescription];
+    CGSize descriptionTextSize = [self.descriptionTextView.contentView sizeThatFits:(CGSize){ kGTIODescriptionTextWidth, CGFLOAT_MAX }];
     if (descriptionTextSize.height > 0) {
-        [self.descriptionLabel setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.photoImageView.frame.origin.y + self.photoImageView.frame.size.height + kGTIODescriptionLabelTopPadding, kGTIODescriptionTextWidth, descriptionTextSize.height}];
+        [self.descriptionTextView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.photoImageView.frame.origin.y + self.photoImageView.frame.size.height + kGTIODescriptionLabelTopPadding, kGTIODescriptionTextWidth, descriptionTextSize.height}];
     } else {
         // Set description label to bottom of photo view to be able to use for height of frame
-        [self.descriptionLabel setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.photoImageView.frame.origin.y + self.photoImageView.frame.size.height, kGTIODescriptionTextWidth, descriptionTextSize.height}];
+        [self.descriptionTextView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.photoImageView.frame.origin.y + self.photoImageView.frame.size.height, kGTIODescriptionTextWidth, descriptionTextSize.height}];
     }
 
     if (self.brandButtonsView.frame.size.height > 0) {
@@ -102,11 +120,11 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
             extraHeight += kGTIOBrandButtonsTopPaddingNoDescription;
         }
         
-        [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height + extraHeight, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
+        [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + extraHeight, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
         
         extraParentFrameHeight += kGTIOBrandButtonsBottomPadding;
     } else {
-        [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
+        [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
     }
     
     [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.brandButtonsView.frame.origin.y + self.brandButtonsView.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
@@ -136,10 +154,36 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
     }
     
     // Description
-    [self.descriptionLabel setText:_post.postDescription];
+//#warning hardcoded
+//    _post.postDescription  = @"<a href=\"/profile/1\">@Marissa E</a>, don't I look awesome in this <a href=\"/tag/1\">#summer</a> outfit from <a href=\"/test\">Gap?</a> If you don't aggree you should tell me why in the comments. Do it, seriously. Thanks! And I am considering a pair of shoes from <a href=\"/brand/1\">Banana Republic</a>...";
+//    _post.postDescription = @"<a href=\"/profile/1\">@Marissa E</a>, don't I look awesome in";
+//    _post.postDescription  = @"<a href=\"/profile/1\">@Marissa E</a>, don't I look awesome in this really great dress from GAP";
+
+    NSData *data = [_post.postDescription dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.descriptionAttributeTextOptions documentAttributes:NULL];
+    self.descriptionTextView.attributedString = string;
     
     // Brand buttons
     [self.brandButtonsView setButtons:_post.brandsButtons];
+}
+
+#pragma mark Custom Views on Text
+- (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame
+{
+	DTLinkButton *button = [[DTLinkButton alloc] initWithFrame:frame];
+	button.URL = url;
+	button.minimumHitSize = CGSizeMake(20, 20); // adjusts it's bounds so that button is always large enough
+	button.GUID = identifier;
+	[button addTarget:self action:@selector(linkPushed:) forControlEvents:UIControlEventTouchUpInside];
+	return button;
+}
+
+#pragma mark Actions
+
+- (void)linkPushed:(DTLinkButton *)button
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPostFeedOpenLinkNotification object:nil userInfo:[NSDictionary dictionaryWithObject:button.URL forKey:kGTIOURL]];
 }
 
 #pragma mark - Height
@@ -159,7 +203,30 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 
 + (CGSize)descriptionTextSize:(NSString *)text
 {
-    return [text sizeWithFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagXLight size:13.0f] constrainedToSize:(CGSize){ kGTIODescriptionTextWidth, CGFLOAT_MAX }];
+//#warning hardcoded
+//    text = @"<a href=\"/profile/1\">@Marissa E</a>, don't I look awesome in this <a href=\"/tag/1\">#summer</a> outfit from <a href=\"/test\">Gap?</a> If you don't aggree you should tell me why in the comments. Do it, seriously. Thanks! And I am considering a pair of shoes from <a href=\"/brand/1\">Banana Republic</a>...";
+    [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
+    DTAttributedTextView *desciptionAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIODescriptionTextWidth, 0 } }];
+    desciptionAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 8, 0 };
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"PostDescription" ofType:@"css"];  
+    NSData *cssData = [NSData dataWithContentsOfFile:filePath];
+    NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
+    DTCSSStylesheet *stylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
+    
+    NSDictionary *descriptionAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                      [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
+                                                      [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
+                                                      stylesheet, DTDefaultStyleSheet,
+                                                      nil];
+    
+    NSData *data = [text dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:descriptionAttributedTextOptions documentAttributes:NULL];
+    desciptionAttributedTextView.attributedString = string;
+    
+    CGSize descriptionTextSize = [desciptionAttributedTextView.contentView sizeThatFits:(CGSize){ kGTIODescriptionTextWidth, CGFLOAT_MAX }];
+
+    return descriptionTextSize;
 }
 
 + (CGFloat)heightWithPost:(GTIOPost *)post

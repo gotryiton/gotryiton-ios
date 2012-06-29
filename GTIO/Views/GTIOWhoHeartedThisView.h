@@ -6,9 +6,7 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import "DTCoreText.h"
-
-@interface GTIOWhoHeartedThisView : UIView <DTAttributedTextContentViewDelegate>
+@interface GTIOWhoHeartedThisView : UIView 
 
 @property (nonatomic, strong) NSString *whoHeartedThis;
 

@@ -224,7 +224,7 @@
     CGPoint scrollViewTopPoint = self.tableView.contentOffset;
     
     // Nav Bar
-    NSLog(@"Content offset: %@", NSStringFromCGPoint(scrollViewTopPoint));
+//    NSLog(@"Content offset: %@", NSStringFromCGPoint(scrollViewTopPoint));
     if ((scrollViewTopPoint.y <= self.removeNavToHeaderOffsetXOrigin) && self.tableView.tableHeaderView) {
         [self.tableView setContentInset:(UIEdgeInsets){ self.navBarView.frame.size.height, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
         [self.tableView setTableHeaderView:nil];
