@@ -3582,19 +3582,19 @@ A user can add details to their post before they submit.  They can select to use
 #### Mockups
 ([wireframe](http://invis.io/J92OF18E)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.a.Post.A.Look.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.f.Post.A.Look.Filled.Text.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.Filled.Text.png" width=420px/>
 
 12.3.1 Post a look (Description with keyboard) ([wireframe](http://invis.io/AC2OF2GX))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.d.Post.A.Look.Description.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.Description.png" width=420px/>
 
 12.3.2 Post a look (Photo preview with frames) ([wireframe](http://invis.io/5K2OF0W8))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.c.Post.A.Look.Framed.With.Photos.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.Framed.With.Photos.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.b.1.Post.A.Look.Framed.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.Framed.png" width=420px/>
 
 #### API Usage
 
@@ -3743,17 +3743,21 @@ response:
          - photo 1 is 13px from left edge of screen, 13px from bottom edge of nav bar
          - photo 2 (upper right) is 129px from left edge of screen, 13px from bottom edge of nav bar
          - photo 3 (lower right) is 129px from left edge of screen, 204px from bottom edge of nav bar
-- Remove Frame Controls (X buttons)
-   - 'remove-frame.png' (on and off states)
+   - Resize Handle
+      - 'photo-frame-handle.png' active and inactive versions
+      - bottom of asset should be 10px below bottom edge of user's photo (not the frame)
+      - asset should be horizontally centered within entire photo frame
+- Edit Photo Controls (camera icon in circle)
+   - 'edit-photo-button.png' (on and off states)
    - Control 1 (for leftmost frame or single photo)
-      - 1px from left edge of screen
-      - 1px from bottom of nav bar
+      - 6px from left side of user photo
+      - 6px from top of user photo
    - Control 2 (for upper right frame)
-      - 227px from left edge of screen
-      - 1px from bottom of nav bar
+      - 6px from right side of top right framed photo
+      - 6px from top of user photo
    - Control 3 (for lower right frame)
-      - 227px from left edge of screen
-      - 192px from bottom of nav bar
+      - 6px from right side of bottom right framed photo
+      - 6px from top of bottom right framed photo
 - Empty Frame Icon
    - 'frame-camera-icon.png' with ON and OFF states
    - horizontally and vertically centered within framed image areas when no image is yet present
