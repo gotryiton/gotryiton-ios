@@ -8,6 +8,7 @@
 
 #import "GTIOFriendsNoSearchResultsView.h"
 #import "TTTAttributedLabel.h"
+#import "GTIOFriendsViewController.h"
 
 @interface GTIOFriendsNoSearchResultsView()
 
@@ -21,7 +22,7 @@
 
 @implementation GTIOFriendsNoSearchResultsView
 
-@synthesize failedQuery = _failedQuery, sadFaceImageView = _sadFaceImageView, couldNotFindLabel = _couldNotFindLabel, doYouWantLabel = _doYouWantLabel, searchCommunityButton = _searchCommunityButton, searchCommunityUnderline = _searchCommunityUnderline;
+@synthesize failedQuery = _failedQuery, sadFaceImageView = _sadFaceImageView, couldNotFindLabel = _couldNotFindLabel, doYouWantLabel = _doYouWantLabel, searchCommunityButton = _searchCommunityButton, searchCommunityUnderline = _searchCommunityUnderline, delegate = _delegate, hideSearchCommunityText = _hideSearchCommunityText;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -61,6 +62,10 @@
     [self.doYouWantLabel setFrame:(CGRect){ 9, self.couldNotFindLabel.frame.origin.y + self.couldNotFindLabel.bounds.size.height + 15, self.bounds.size.width - 18, 20 }];
     [self.searchCommunityButton setFrame:(CGRect){ 9, self.doYouWantLabel.frame.origin.y + self.doYouWantLabel.bounds.size.height - 3, self.bounds.size.width - 18, 20 }];
     [self.searchCommunityUnderline setFrame:(CGRect){ self.searchCommunityButton.frame.origin.x + self.searchCommunityButton.titleLabel.frame.origin.x, self.searchCommunityButton.frame.origin.y + self.searchCommunityButton.bounds.size.height - 3, self.searchCommunityButton.titleLabel.bounds.size.width, 0.50 }];
+    
+    if ([self.delegate respondsToSelector:@selector(reloadTableData)]) {
+        [self.delegate reloadTableData];
+    }
 }
 
 - (void)setFailedQuery:(NSString *)failedQuery
@@ -78,6 +83,14 @@
     }];
 }
 
+- (void)setHideSearchCommunityText:(BOOL)hideSearchCommunityText
+{
+    _hideSearchCommunityText = hideSearchCommunityText;
+    self.doYouWantLabel.hidden = hideSearchCommunityText;
+    self.searchCommunityButton.hidden = hideSearchCommunityText;
+    self.searchCommunityUnderline.hidden = hideSearchCommunityText;
+}
+
 - (void)styleLabel:(UILabel *)label fontSize:(CGFloat)size
 {
     label.font = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:size];
@@ -93,7 +106,10 @@
 
 - (void)searchCommunityButtonTapped:(id)sender
 {
-    NSLog(@"go to screen 6.4");
+    if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
+        GTIOFriendsViewController *findFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindFriends];
+        [self.delegate pushViewController:findFriendsViewController];
+    }
 }
 
 @end

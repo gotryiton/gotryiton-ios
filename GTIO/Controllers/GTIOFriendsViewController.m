@@ -112,7 +112,12 @@
     [self.view addSubview:self.friendsTableView];
     
     self.noSearchResultsView = [[GTIOFriendsNoSearchResultsView alloc] initWithFrame:CGRectZero];
+    [self.noSearchResultsView setDelegate:self];
+    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends) {
+        [self.noSearchResultsView setHideSearchCommunityText:YES];
+    }
     self.searchCommunityView = [[GTIOSearchEntireCommunityView alloc] initWithFrame:CGRectZero];
+    [self.searchCommunityView setDelegate:self];
     
     [self.view sendSubviewToBack:self.friendsTableView];
 }
@@ -133,6 +138,13 @@
 {
     [super viewWillAppear:animated];
     
+    // clear any previous searches
+    self.searchBar.text = @"";
+    self.searchResults = [NSMutableArray array];
+    self.searching = NO;
+    [self.noSearchResultsView removeFromSuperview];
+    [self.searchCommunityView removeFromSuperview];
+    
     if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
         [self loadUsersForTable];
     } else {
@@ -148,11 +160,16 @@
     [self.searchBar resignFirstResponder];
 }
 
-#pragma mark - GTIOFriendsTableHeaderViewDelegate / GTIOMeTableHeaderViewDelegate methods
+#pragma mark - GTIOFriendsTableHeaderViewDelegate / GTIOMeTableHeaderViewDelegate / GTIOFriendsSearchEmptyStateViewDelegate methods
 
 - (void)pushViewController:(UIViewController *)viewController
 {
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)reloadTableData
+{
+    [self.friendsTableView reloadData];
 }
 
 #pragma mark - UISearchBarDelegate methods
@@ -197,7 +214,6 @@
             [self displaySearchCommunityView];
         }
     }
-    
     [self.friendsTableView reloadData];
 }
 
@@ -272,17 +288,20 @@
         cell = [[GTIOFindMyFriendsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     GTIOUser *userForRow;
     if (self.searching) {
         userForRow = [self.searchResults objectAtIndex:indexPath.row];
     } else {
         userForRow = [self.friends objectAtIndex:indexPath.row];
     }
-    
-    [cell setDelegate:self];
-    [cell setUser:userForRow indexPath:indexPath];
-    
-    return cell;
+    GTIOFindMyFriendsTableViewCell *customCell = (GTIOFindMyFriendsTableViewCell *)cell;
+    [customCell setDelegate:self];
+    [customCell setUser:userForRow indexPath:indexPath];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -433,17 +452,21 @@
 
 - (void)displaySearchCommunityView
 {
+    [self.noSearchResultsView removeFromSuperview];
     [self.searchCommunityView removeFromSuperview];
     [self.searchCommunityView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
     [self.friendsTableView addSubview:self.searchCommunityView];
+    [self.friendsTableView bringSubviewToFront:self.searchCommunityView];
 }
 
 - (void)displayNoResultsView
 {
     [self.noSearchResultsView removeFromSuperview];
+    [self.searchCommunityView removeFromSuperview];
     [self.noSearchResultsView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
     [self.noSearchResultsView setFailedQuery:self.currentSearchQuery];
     [self.friendsTableView addSubview:self.noSearchResultsView];
+    [self.friendsTableView bringSubviewToFront:self.noSearchResultsView];
 }
 
 - (void)resetTableViewFrame

@@ -216,6 +216,7 @@
 		8EA0271D159A369000FDC45E /* GTIOFriendsTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0271C159A369000FDC45E /* GTIOFriendsTableHeaderView.m */; };
 		8EA02720159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0271F159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m */; };
 		8EA02723159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA02722159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m */; };
+		8EA1D31A159E0B9B00E93577 /* NSString+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1D319159E0B9B00E93577 /* NSString+GTIOAdditions.m */; };
 		8EA21B39157FDDC000D5003C /* GTIOPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA21B38157FDDC000D5003C /* GTIOPost.m */; };
 		8EAA14C7156E846C0083884E /* GTIOTextFieldForPickerViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */; };
 		8EB0F8151590E76300794042 /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0F8141590E76200794042 /* GTIOProfileHeaderView.m */; };
@@ -1318,6 +1319,9 @@
 		8EA0271F159A374900FDC45E /* GTIOSuggestedFriendsBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSuggestedFriendsBarButton.m; sourceTree = "<group>"; };
 		8EA02721159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFindMyFriendsSearchBoxView.h; sourceTree = "<group>"; };
 		8EA02722159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFindMyFriendsSearchBoxView.m; sourceTree = "<group>"; };
+		8EA1D318159E0B9B00E93577 /* NSString+GTIOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GTIOAdditions.h"; sourceTree = "<group>"; };
+		8EA1D319159E0B9B00E93577 /* NSString+GTIOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GTIOAdditions.m"; sourceTree = "<group>"; };
+		8EA1D31C159E183400E93577 /* GTIOFriendsSearchEmptyStateViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOFriendsSearchEmptyStateViewDelegate.h; path = Protocols/GTIOFriendsSearchEmptyStateViewDelegate.h; sourceTree = "<group>"; };
 		8EA21B37157FDDC000D5003C /* GTIOPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPost.h; sourceTree = "<group>"; };
 		8EA21B38157FDDC000D5003C /* GTIOPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPost.m; sourceTree = "<group>"; };
 		8EAA14C5156E846C0083884E /* GTIOTextFieldForPickerViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTextFieldForPickerViews.h; sourceTree = "<group>"; };
@@ -3547,6 +3551,7 @@
 		8EDA556715757B6D009F0404 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				8EA1D31C159E183400E93577 /* GTIOFriendsSearchEmptyStateViewDelegate.h */,
 				8EDA556815757B8A009F0404 /* GTIOLookSelectorControlDelegate.h */,
 			);
 			name = Protocols;
@@ -4031,6 +4036,8 @@
 				D20CAD2815937B1C00CE2795 /* UIImage+Mask.m */,
 				D20CAD2A15937C5C00CE2795 /* UIImage+Blend.h */,
 				D20CAD2B15937C5C00CE2795 /* UIImage+Blend.m */,
+				8EA1D318159E0B9B00E93577 /* NSString+GTIOAdditions.h */,
+				8EA1D319159E0B9B00E93577 /* NSString+GTIOAdditions.m */,
 			);
 			name = Categories;
 			path = Application/Categories;
@@ -5348,6 +5355,7 @@
 				8E794FCC159CAE4000A0D192 /* GTIOSuggestedFriendsIcon.m in Sources */,
 				8E658732159CF48D00292F4E /* GTIOSearchEntireCommunityView.m in Sources */,
 				8E658735159D152100292F4E /* GTIOMasonGridItemWithFrameView.m in Sources */,
+				8EA1D31A159E0B9B00E93577 /* NSString+GTIOAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

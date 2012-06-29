@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOFriendsSearchEmptyStateViewDelegate.h"
 
 @interface GTIOFriendsNoSearchResultsView : UIView
 
 @property (nonatomic, copy) NSString *failedQuery;
+@property (nonatomic, assign) BOOL hideSearchCommunityText;
+@property (nonatomic, weak) id<GTIOFriendsSearchEmptyStateViewDelegate> delegate;
 
 - (CGFloat)height;
 

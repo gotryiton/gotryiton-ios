@@ -8,6 +8,7 @@
 
 #import "GTIOFindMyFriendsSearchBoxView.h"
 #import "TTTAttributedLabel.h"
+#import "NSString+GTIOAdditions.h"
 
 @interface GTIOFindMyFriendsSearchBoxView()
 
@@ -76,21 +77,21 @@
 {
     _subTitleText = [subTitleText uppercaseString];
     __block typeof(_subTitleText) blockSubTitleText = _subTitleText;
-    __block typeof(self) blockSelf = self;
     [_followingFriendsLabel setText:blockSubTitleText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-        // read the bold tags and apply a bold font
-        NSString *boldString = [blockSelf stringBetweenString:@"<b>" andString:@"</b>" insideString:blockSubTitleText];
-        if (boldString.length > 0) {
-            NSRange boldRange = [[mutableAttributedString string] rangeOfString:boldString options:NSCaseInsensitiveSearch];
+        NSArray *boldRanges = [blockSubTitleText rangesOfHTMLBoldedText];
+        for (NSValue *value in boldRanges) {
+            NSRange boldRange = [value rangeValue];
             UIFont *boldSystemFont = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:10.0];
             CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
             if (font) {
                 [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
                 CFRelease(font);
             }
-            // remove the bold tags
-            [mutableAttributedString deleteCharactersInRange:[[mutableAttributedString string] rangeOfString:@"<b>" options:NSCaseInsensitiveSearch]];
-            [mutableAttributedString deleteCharactersInRange:[[mutableAttributedString string] rangeOfString:@"</b>" options:NSCaseInsensitiveSearch]];
+        }
+        // remove HTML bold tags
+        for (NSValue *value in boldRanges) {
+            [mutableAttributedString deleteCharactersInRange:[[mutableAttributedString string] rangeOfString:@"<B>"]];
+            [mutableAttributedString deleteCharactersInRange:[[mutableAttributedString string] rangeOfString:@"</B>"]];
         }
         return mutableAttributedString;
     }];
@@ -112,19 +113,6 @@
 {
     _showFollowingLabel = showFollowingLabel;
     [self setNeedsLayout];
-}
-
-- (NSString*)stringBetweenString:(NSString*)start andString:(NSString *)end insideString:(NSString *)string {
-    NSScanner* scanner = [NSScanner scannerWithString:string];
-    [scanner setCharactersToBeSkipped:nil];
-    [scanner scanUpToString:start intoString:NULL];
-    if ([scanner scanString:start intoString:NULL]) {
-        NSString* result = nil;
-        if ([scanner scanUpToString:end intoString:&result]) {
-            return result;
-        }
-    }
-    return nil;
 }
 
 

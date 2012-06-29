@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOFriendsSearchEmptyStateViewDelegate.h"
 
 @interface GTIOSearchEntireCommunityView : UIView
+
+@property (nonatomic, weak) id<GTIOFriendsSearchEmptyStateViewDelegate> delegate;
 
 - (CGFloat)height;
 

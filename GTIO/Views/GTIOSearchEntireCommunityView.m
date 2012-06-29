@@ -19,7 +19,7 @@
 
 @implementation GTIOSearchEntireCommunityView
 
-@synthesize magnifyingGlassImageView = _magnifyingGlassImageView, searchEntireLabel = _searchEntireLabel, gtioCommunityLabel = _gtioCommunityLabel;
+@synthesize magnifyingGlassImageView = _magnifyingGlassImageView, searchEntireLabel = _searchEntireLabel, gtioCommunityLabel = _gtioCommunityLabel, delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -47,6 +47,10 @@
     [self.magnifyingGlassImageView setFrame:(CGRect){ self.bounds.size.width / 2 - self.magnifyingGlassImageView.bounds.size.width / 2, 64, self.magnifyingGlassImageView.bounds.size }];
     [self.searchEntireLabel setFrame:(CGRect){ 9, self.magnifyingGlassImageView.frame.origin.y + self.magnifyingGlassImageView.bounds.size.height + 16, self.bounds.size.width - 18, 20 }];
     [self.gtioCommunityLabel setFrame:(CGRect){ 9, self.searchEntireLabel.frame.origin.y + self.searchEntireLabel.bounds.size.height, self.bounds.size.width - 18, 20 }];
+    
+    if ([self.delegate respondsToSelector:@selector(reloadTableData)]) {
+        [self.delegate reloadTableData];
+    }
 }
 
 - (void)styleLabel:(UILabel *)label fontSize:(CGFloat)size

@@ -25,7 +25,7 @@
 @property (nonatomic, strong) GTIOActionSheet *actionSheet;
 
 @property (nonatomic, copy) GTIOProfileInitCompletionHandler userProfileLayoutCompletionHandler;
-@property (nonatomic, assign) BOOL waitingForUserProfileLayout;
+@property (nonatomic, assign) BOOL userProfileImageDownloadProcessComplete;
 
 @end
 
@@ -40,7 +40,7 @@
 @synthesize delegate = _delegate;
 @synthesize acceptBarDelegate = _acceptBarDelegate;
 @synthesize actionSheet = _actionSheet;
-@synthesize waitingForUserProfileLayout = _waitingForUserProfileLayout;
+@synthesize userProfileImageDownloadProcessComplete = _userProfileImageDownloadProcessComplete;
 @synthesize userProfileLayoutCompletionHandler = _userProfileLayoutCompletionHandler;
 @synthesize meTableHeaderViewDelegate = _meTableHeaderViewDelegate;
 
@@ -75,6 +75,7 @@
         [_basicUserInfoBackgroundImageView addSubview:_websiteLinkButton];
         
         _profileCalloutViews = [NSMutableArray array];
+        _userProfileImageDownloadProcessComplete = NO;
     }
     return self;
 }
@@ -113,6 +114,14 @@
         [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((self.websiteLinkButton.titleLabel.text.length > 0 || self.profileDescription.text.length > 0) ? 10 : 0) }];
     }
     [self setFrame:(CGRect){ self.frame.origin, self.bounds.size.width, self.basicUserInfoBackgroundImageView.bounds.size.height }];
+    
+    if (self.userProfileLayoutCompletionHandler && self.userProfileImageDownloadProcessComplete) {
+        self.userProfileLayoutCompletionHandler(self);
+    }
+    
+    if ([self.acceptBarDelegate respondsToSelector:@selector(acceptBarRemoved)] && self.userProfile.acceptBar == nil) {
+        [self.acceptBarDelegate acceptBarRemoved];
+    }
 }
 
 - (void)setUserProfile:(GTIOUserProfile *)userProfile completionHandler:(GTIOProfileInitCompletionHandler)completionHandler
@@ -127,8 +136,12 @@
             [self.banner setImageWithURL:button.imageURL placeholderImage:nil success:^(UIImage *image) {
                 [blockSelf.banner setImage:image];
                 [blockSelf.banner sizeToFit];
+                blockSelf.userProfileImageDownloadProcessComplete = YES;
                 [blockSelf setNeedsLayout];
-            } failure:nil];
+            } failure:^(NSError *error) {
+                blockSelf.userProfileImageDownloadProcessComplete = YES;
+                [blockSelf setNeedsLayout];
+            }];
         }
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameWebsite]) {
             [self.websiteLinkButton setTitle:[button.text uppercaseString] forState:UIControlStateNormal];
@@ -166,10 +179,7 @@
         [self.profileCalloutViews addObject:profileCalloutView];
     }
     self.userProfileLayoutCompletionHandler = completionHandler;
-    [self layoutSubviews];
-    if (self.userProfileLayoutCompletionHandler) {
-        self.userProfileLayoutCompletionHandler(self);
-    }
+    [self setNeedsLayout];
 }
 
 - (void)setMeTableHeaderViewDelegate:(id<GTIOMeTableHeaderViewDelegate>)meTableHeaderViewDelegate
@@ -181,10 +191,7 @@
 - (void)removeAcceptBar
 {
     self.userProfile.acceptBar = nil;
-    [self layoutSubviews];
-    if ([self.acceptBarDelegate respondsToSelector:@selector(acceptBarRemoved)]) {
-        [self.acceptBarDelegate acceptBarRemoved];
-    }
+    [self setNeedsLayout];
 }
 
 - (void)openURLWithSafari:(NSString *)url
