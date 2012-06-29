@@ -77,6 +77,10 @@
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     
+    UIImageView *statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, -20 }, { self.view.frame.size.width, 20 } }];
+    [statusBarBackgroundImageView setImage:[UIImage imageNamed:@"status-bar-bg.png"]];
+    [self.view addSubview:statusBarBackgroundImageView];
+    
     self.navBarView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
     __block typeof(self) blockSelf = self;
     [self.navBarView.friendsButton setTapHandler:^(id sender) {
@@ -84,17 +88,18 @@
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
         [blockSelf presentModalViewController:navController animated:YES];
     }];
-    [self.view addSubview:self.navBarView];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSectionHeaderHeight:56.0f];
     [self.tableView setSeparatorStyle:UITableViewCellSelectionStyleNone];
-    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ self.navBarView.frame.size.height, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+//    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ self.navBarView.frame.size.height, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.tableView setContentInset:self.tableView.scrollIndicatorInsets];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setAllowsSelection:NO];
+    [self.tableView setTableHeaderView:self.navBarView];
     [self.view addSubview:self.tableView];
 }
 
@@ -229,19 +234,19 @@
     
     // Nav Bar
 //    NSLog(@"Content offset: %@", NSStringFromCGPoint(scrollViewTopPoint));
-    if ((scrollViewTopPoint.y <= self.removeNavToHeaderOffsetXOrigin) && self.tableView.tableHeaderView) {
-        [self.tableView setContentInset:(UIEdgeInsets){ self.navBarView.frame.size.height, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
-        [self.tableView setTableHeaderView:nil];
-        [self.view addSubview:self.navBarView];
-        self.addNavToHeaderOffsetXOrigin = -0;
-        self.removeNavToHeaderOffsetXOrigin = -44.0;
-    } else if (scrollViewTopPoint.y > self.addNavToHeaderOffsetXOrigin && !self.tableView.tableHeaderView) {
-        [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
-        [self.navBarView removeFromSuperview];
-        [self.tableView setTableHeaderView:self.navBarView];
-        self.addNavToHeaderOffsetXOrigin = -44;
-        self.removeNavToHeaderOffsetXOrigin = 0;
-    }
+//    if ((scrollViewTopPoint.y <= self.removeNavToHeaderOffsetXOrigin) && self.tableView.tableHeaderView) {
+//        [self.tableView setContentInset:(UIEdgeInsets){ self.navBarView.frame.size.height, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+//        [self.tableView setTableHeaderView:nil];
+//        [self.view addSubview:self.navBarView];
+//        self.addNavToHeaderOffsetXOrigin = -0;
+//        self.removeNavToHeaderOffsetXOrigin = -44.0;
+//    } else if (scrollViewTopPoint.y > self.addNavToHeaderOffsetXOrigin && !self.tableView.tableHeaderView) {
+//        [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+//        [self.navBarView removeFromSuperview];
+//        [self.tableView setTableHeaderView:self.navBarView];
+//        self.addNavToHeaderOffsetXOrigin = -44;
+//        self.removeNavToHeaderOffsetXOrigin = 0;
+//    }
     
     // Section Header
     scrollViewTopPoint.y += self.tableView.sectionHeaderHeight; // Offset by first header
