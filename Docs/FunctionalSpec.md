@@ -2928,7 +2928,7 @@ gtio://posts/feed
    - post description
       - shown inside photo frame between bottom edge of frame and bottom edge of photo
       - Verlag Extra Light, 13pt, rgb(35,35,35), #232323
-      - any tags: Verlag Extra Light, 13pt, rgb(255,106,114), #ff6a72
+      - any tags: Verlag Book, 13pt, rgb(255,106,114), #ff6a72
       - text area
          - 240px wide
          - horizontally centered inside frame background
