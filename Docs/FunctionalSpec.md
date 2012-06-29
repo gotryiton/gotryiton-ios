@@ -2990,6 +2990,8 @@ gtio://posts/feed
       - other items' positioning
          - user icon is 7px away 24px below bottommost element in previous item
          - user icon is 7px away 7px from left edge of screen
+   - empty state (screen 8.1.4)
+      - use 'empty-bg-overlay.png' in content area
 
 
 ### 8.3 ~Feed verdict view~
