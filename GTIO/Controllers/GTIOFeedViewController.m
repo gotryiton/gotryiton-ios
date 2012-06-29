@@ -23,8 +23,12 @@
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) GTIOPagination *pagination;
+
+@property (nonatomic, assign) CGFloat addNavToHeaderOffsetXOrigin;
+@property (nonatomic, assign) CGFloat removeNavToHeaderOffsetXOrigin;
 
 @property (nonatomic, strong) NSMutableSet *offScreenHeaderViews;
 @property (nonatomic, strong) NSMutableDictionary *onScreenHeaderViews;
@@ -33,7 +37,8 @@
 
 @implementation GTIOFeedViewController
 
-@synthesize tableView = _tableView;
+@synthesize tableView = _tableView, navBarView = _navBarView;
+@synthesize addNavToHeaderOffsetXOrigin = _addNavToHeaderOffsetXOrigin, removeNavToHeaderOffsetXOrigin = _removeNavToHeaderOffsetXOrigin;
 @synthesize posts = _posts, pagination = _pagination;
 @synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews;
 
@@ -45,6 +50,9 @@
         
         _offScreenHeaderViews = [NSMutableSet set];
         _onScreenHeaderViews = [NSMutableDictionary dictionary];
+        
+        _addNavToHeaderOffsetXOrigin = -44.0f;
+        _removeNavToHeaderOffsetXOrigin = 0.0f;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
     }
@@ -68,36 +76,29 @@
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     
+    self.navBarView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
+    [self.navBarView.friendsButton setTapHandler:^(id sender) {
+        NSLog(@"Friends button tapped");
+    }];
+    [self.view addSubview:self.navBarView];
+    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSectionHeaderHeight:56.0f];
     [self.tableView setSeparatorStyle:UITableViewCellSelectionStyleNone];
-    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ self.navBarView.frame.size.height, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.tableView setContentInset:self.tableView.scrollIndicatorInsets];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setAllowsSelection:NO];
     [self.view addSubview:self.tableView];
-    
-//    GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:10] tapHandler:nil];
-//    [self useTitleView:navTitleView];
-//    GTIOUIButton *friendsButton = [GTIOUIButton gtio_navBarTopMarginWithText:@"friends" tapHandler:^(id sender) {
-//        // TODO: handle friends tap
-//        NSLog(@"Friends button tapped");
-//    }];
-//    [self setRightNavigationButton:friendsButton];
-
-    GTIOFeedNavigationBarView *navView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
-    [navView.friendsButton setTapHandler:^(id sender) {
-        NSLog(@"Friends button tapped");
-    }];
-    [self.tableView setTableHeaderView:navView];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     self.tableView = nil;
+    self.navBarView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -105,12 +106,6 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self loadFeed];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-//    [self.view setFrame:(CGRect){0, -self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, [[UIScreen mainScreen] applicationFrame].size.height}];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -227,6 +222,24 @@
 - (void)headerSectionViewsStyling
 {
     CGPoint scrollViewTopPoint = self.tableView.contentOffset;
+    
+    // Nav Bar
+    NSLog(@"Content offset: %@", NSStringFromCGPoint(scrollViewTopPoint));
+    if ((scrollViewTopPoint.y <= self.removeNavToHeaderOffsetXOrigin) && self.tableView.tableHeaderView) {
+        [self.tableView setContentInset:(UIEdgeInsets){ self.navBarView.frame.size.height, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+        [self.tableView setTableHeaderView:nil];
+        [self.view addSubview:self.navBarView];
+        self.addNavToHeaderOffsetXOrigin = -0;
+        self.removeNavToHeaderOffsetXOrigin = -44.0;
+    } else if (scrollViewTopPoint.y > self.addNavToHeaderOffsetXOrigin && !self.tableView.tableHeaderView) {
+        [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+        [self.navBarView removeFromSuperview];
+        [self.tableView setTableHeaderView:self.navBarView];
+        self.addNavToHeaderOffsetXOrigin = -44;
+        self.removeNavToHeaderOffsetXOrigin = 0;
+    }
+    
+    // Section Header
     scrollViewTopPoint.y += self.tableView.sectionHeaderHeight; // Offset by first header
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollViewTopPoint];
     GTIOPostHeaderView *currentHeaderView = [self.onScreenHeaderViews objectForKey:[NSString stringWithFormat:@"%i", indexPath.section]];
