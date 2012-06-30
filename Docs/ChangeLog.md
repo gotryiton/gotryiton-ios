@@ -1,6 +1,6 @@
 #### GTIO Build Changelog
 
-#### Build 4.0.0.6
+#### Build 4.0.0.6/7
 June 29, 2012
 
 ### Build Summary
