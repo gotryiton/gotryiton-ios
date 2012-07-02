@@ -1,5 +1,5 @@
 //
-//  UIImage+UIImage_Filter_m.m
+//  UIImage+Filter.m
 //  GTIO
 //
 //  Updated by Simon Holroyd on 6/26/12.
