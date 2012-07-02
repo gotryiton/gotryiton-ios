@@ -11,6 +11,9 @@
 #import "GTIOPost.h"
 #import "GTIOMasonGridView.h"
 
+static double const kGTIOLeftPadding = 7.0;
+static double const kGTIOTopPadding = 9.0;
+
 @interface GTIOPostMasonryView()
 
 @property (nonatomic, strong) GTIOPostMasonryEmptyStateView *emptyStateView;
@@ -47,6 +50,7 @@
         if (_posts.count > 0) {
             // display posts in mason grid
             self.masonGridView = [[GTIOMasonGridView alloc] initWithFrame:CGRectZero];
+            [self.masonGridView setPosts:posts postsType:self.postType];
             [self addSubview:self.masonGridView];
         } else {
             GTIOPostMasonryEmptyStateView *followingNoPosts = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:@"nothing here yet!" userName:nil locked:NO];
@@ -74,7 +78,7 @@
     [super layoutSubviews];
 
     [self.emptyStateView setFrame:(CGRect){ 60, 90, self.emptyStateView.bounds.size }];
-    [self.masonGridView setFrame:(CGRect){ 0, 0, self.bounds.size }];
+    [self.masonGridView setFrame:(CGRect){ kGTIOLeftPadding, kGTIOTopPadding, self.bounds.size.width - kGTIOLeftPadding, self.bounds.size.height - kGTIOTopPadding }];
 }
 
 - (void)refreshAndCenterGTIOEmptyStateView:(GTIOPostMasonryEmptyStateView *)emptyStateView

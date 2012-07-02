@@ -72,6 +72,7 @@ NSString * const kGTIOUserInfoButtonNameWebsite = @"website-button";
 NSString * const kGTIOUserInfoButtonNameFollow = @"follow-button";
 NSString * const kGTIOUserInfoButtonNameBannerAd = @"banner-ad";
 NSString * const kGTIOUserInfoButtonNameAcceptRelationship = @"accept-relationship-button";
+NSString * const kGTIOSuggestedFriendsButtonName = @"suggested-friends-button";
 
 int const kGTIOEmptyPostAlertTag = 0;
 int const kGTIOEmptyDescriptionAlertTag = 1;

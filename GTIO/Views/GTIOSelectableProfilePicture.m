@@ -32,9 +32,15 @@
     if (self) {
         [self setClipsToBounds:NO];
         
-        _outerShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile.top.profile.bg.png"]];
+        _isSelected = NO;
+        _isSelectable = YES;
+        _imageURL = url;
+        _hasInnerShadow = YES;
+        _hasOuterShadow = NO;
+        
+        _outerShadow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"profile.top.profile.bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5.0, 5.0, 5.0, 5.0 }]];
         [_outerShadow setFrame:(CGRect){ -5, -5, self.frame.size.width + 10, self.frame.size.height + 10 }];
-        _outerShadow.hidden = YES;
+        _outerShadow.hidden = !_hasOuterShadow;
         [self addSubview:_outerShadow];
         
         _canvas = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, frame.size }];
@@ -46,32 +52,28 @@
         
         _imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
-        _innerShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"edit.profile.pic.thumb.mask.png"]];
+        _innerShadow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"edit.profile.pic.thumb.mask.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5.0, 5.0, 5.0, 5.0 }]];
         [_innerShadow setFrame:(CGRect){ 0, 0, frame.size }];
-        _innerShadow.hidden = YES;
-        [_imageView addSubview:_innerShadow];
-        [self setImageWithURL:url];
+        _innerShadow.hidden = !_hasInnerShadow;
         [_canvas addSubview:_imageView];
+        [_canvas addSubview:_innerShadow];
         
         _border = [[UIView alloc] initWithFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
         [_border.layer setCornerRadius:3.0f];
         [_border setBackgroundColor:[UIColor gtio_greenBorderColor]];
         
-        _isSelected = NO;
-        _isSelectable = YES;
-        _imageURL = url;
-        _hasInnerShadow = YES;
-        _hasOuterShadow = NO;
+        [self setImageWithURL:url];
     }
     return self;
 }
 
 - (void)setImageWithURL:(NSURL*)url
 {
+    BOOL animated = ![self.imageURL isEqual:url];
     self.imageURL = url;
     __block GTIOSelectableProfilePicture *blockSelf = self;
     [self.imageView setImageWithURL:url placeholderImage:nil success:^(UIImage *image) {
-        [blockSelf fadeInImageView];
+        [blockSelf showImageViewAnimated:animated];
     } failure:^(NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
     }];
@@ -81,7 +83,7 @@
 {
     _image = image;
     [_imageView setImage:image];
-    [self fadeInImageView];
+    [self showImageViewAnimated:YES];
 }
 
 - (void)setIsSelectable:(BOOL)isSelectable
@@ -113,18 +115,27 @@
     [self setIsSelected:!self.isSelected];
 }
 
-- (void)fadeInImageView
+- (void)showImageViewAnimated:(BOOL)animated
 {
+    self.innerShadow.hidden = !self.hasInnerShadow;
+    self.outerShadow.hidden = !self.hasOuterShadow;
     [self.imageView setAlpha:0.0];
     [self.innerShadow setAlpha:0.0];
     [self.outerShadow setAlpha:0.0];
-    self.innerShadow.hidden = !self.hasInnerShadow;
-    self.outerShadow.hidden = !self.hasOuterShadow;
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.imageView setAlpha:1.0];
-        [self.innerShadow setAlpha:1.0];
-        [self.outerShadow setAlpha:1.0];
-    }];
+    if (animated) {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self showImageView];
+        }];
+    } else {
+        [self showImageView];
+    }
+}
+
+- (void)showImageView
+{
+    [self.imageView setAlpha:1.0];
+    [self.innerShadow setAlpha:1.0];
+    [self.outerShadow setAlpha:1.0];
 }
 
 @end

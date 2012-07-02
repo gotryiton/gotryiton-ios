@@ -32,5 +32,6 @@ typedef enum GTIOAcceptRelationshipButtonState {
 @property (nonatomic, strong) NSNumber *state;
 @property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) GTIOButtonAction *action;
+@property (nonatomic, strong) NSArray *icons;
 
 @end
