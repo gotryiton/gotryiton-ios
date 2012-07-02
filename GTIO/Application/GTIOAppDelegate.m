@@ -69,7 +69,9 @@
     NSLog(@"\n*****\nGTIO Started in %@ mode.\n*****", kGTIOEnvironmentName);
     
     // List all fonts on iPhone
+#if DEBUG
     [self listAllFonts];
+#endif
     
     // Appearance setup
     [GTIOAppearance setupAppearance];
@@ -153,7 +155,7 @@
 - (void)setupRestKit
 {
 //    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
-    RKLogConfigureByName("RestKit/Network", kGTIONetworkLogLevel)
+//    RKLogConfigureByName("RestKit/Network", kGTIONetworkLogLevel)
 //    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace)
     
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURLString:kGTIOBaseURLString];
