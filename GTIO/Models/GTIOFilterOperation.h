@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import "GTIOFilter.h"
+#import "GTIOFilterManager.h"
 
 typedef void(^GTIOFilterOperationFinishedHandler)(GTIOFilterType filterType, UIImage *filteredImage);
 

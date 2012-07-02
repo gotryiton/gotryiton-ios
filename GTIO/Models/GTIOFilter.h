@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import "GPUImage.h"
-
 typedef enum {
     GTIOFilterTypeOriginal = 0,
     GTIOFilterTypeClementine,
@@ -32,7 +30,7 @@ static NSString * const GTIOFilterTypeName[] = {
     [GTIOFilterTypeWalker] = @"Walker"
 };
 
-static NSString * const GTIOFilterTypeClass[] = {
+static NSString * const GTIOFilterTypeSelectors[] = {
     [GTIOFilterTypeOriginal] = @"GTIOFilterOriginal",
     [GTIOFilterTypeClementine] = @"GTIOFilterClementine",
     [GTIOFilterTypeColombe] = @"GTIOFilterColombe",
@@ -44,7 +42,7 @@ static NSString * const GTIOFilterTypeClass[] = {
     [GTIOFilterTypeWalker] = @"GTIOFilterWalker"
 };
 
-static NSInteger const GTIOFilterOrder[] = { GTIOFilterTypeOriginal, GTIOFilterTypeClementine, GTIOFilterTypeColombe, GTIOFilterTypeHenrik, GTIOFilterTypeDiesel, GTIOFilterTypeIIRG, GTIOFilterTypeLafayette, GTIOFilterTypeLispenard, GTIOFilterTypeWalker };
+static NSInteger const GTIOFilterOrder[] = { GTIOFilterTypeOriginal,  GTIOFilterTypeColombe, GTIOFilterTypeHenrik, GTIOFilterTypeDiesel, GTIOFilterTypeIIRG, GTIOFilterTypeWalker, GTIOFilterTypeClementine, GTIOFilterTypeLafayette, GTIOFilterTypeLispenard };
 
 @interface GTIOFilter : NSObject
 
@@ -59,6 +57,5 @@ static NSInteger const GTIOFilterOrder[] = { GTIOFilterTypeOriginal, GTIOFilterT
 
 @property (nonatomic, assign) GTIOFilterType filterType;
 
-- (UIImage *)applyFilters;
 
 @end

@@ -12,12 +12,8 @@
 #import "GTIOFilterOperation.h"
 
 #import "UIImage+Blend.h"
-
-@interface GTIOFilter ()
-
-- (UIImage *)filterImage:(UIImage *)image WithFilters:(NSMutableArray *)filters;
-
-@end
+#import "UIImage+GTIOFilters.h"
+#import "UIImage+Filter.h"
 
 @implementation GTIOFilter
 
@@ -41,54 +37,6 @@
         _blendMode = kCGBlendModeNormal;
     }
     return self;
-}
-
-- (UIImage *)applyFilters
-{    
-    UIImage *filteredBaseImage = [self filterImage:self.originalImage WithFilters:self.baseFilters];
-    UIImage *filteredBackgroundImage = [self filterImage:filteredBaseImage WithFilters:self.backgroundFilters];
-    UIImage *filteredTopImage = [self filterImage:filteredBaseImage WithFilters:self.maskingFilters];
-    
-    if (self.maskImage) {
-        // GPU masking
-        GPUImagePicture *filteredGPUImage = [[GPUImagePicture alloc] initWithImage:filteredTopImage];
-        GPUImageMaskFilter *maskFilter = [[GPUImageMaskFilter alloc] init];
-        [filteredGPUImage addTarget:maskFilter];
-        
-        GPUImagePicture *maskGPUImage = [[GPUImagePicture alloc] initWithImage:self.maskImage];
-        [maskGPUImage addTarget:maskFilter];
-        [filteredGPUImage processImage];
-        UIImage *filteredMaskedImage = [maskFilter imageFromCurrentlyProcessedOutput];
-        
-        return [UIImage blendTopImage:filteredMaskedImage bottomImage:filteredBackgroundImage blendMode:self.blendMode];
-    } else {
-        return filteredBackgroundImage;
-    }
-}
-
-- (UIImage *)filterImage:(UIImage *)image WithFilters:(NSMutableArray *)filters
-{
-    if ([filters count] > 0) {
-        GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
-        
-        [filters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if (0 == idx) {
-                [stillImageSource addTarget:obj];
-            } else {
-                [[filters objectAtIndex:idx-1] addTarget:obj];
-            }
-        }];
-        
-        id lastFilter = [filters objectAtIndex:[filters count] - 1];
-        
-        [stillImageSource addTarget:lastFilter];
-        [stillImageSource processImage];
-
-        UIImage *filteredImage = [lastFilter imageFromCurrentlyProcessedOutput];
-        return filteredImage;
-    } else {
-        return image;
-    }
 }
 
 #pragma mark - Properties
