@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import "GPUImage.h"
-
 typedef enum {
     GTIOFilterTypeOriginal = 0,
     GTIOFilterTypeClementine,

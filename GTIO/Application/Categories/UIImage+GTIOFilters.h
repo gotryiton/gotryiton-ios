@@ -11,15 +11,14 @@
 @interface UIImage (GTIOFilters)
 
 #pragma mark Filter
-- (UIImage *) GTIOFilterOriginal;
-- (UIImage *) GTIOFilterClementine;
-- (UIImage *) GTIOFilterColombe;
-- (UIImage *) GTIOFilterDiesel;
-- (UIImage *) GTIOFilterHenrik;
-- (UIImage *) GTIOFilterIIRG;
-- (UIImage *) GTIOFilterLafayette;
-- (UIImage *) GTIOFilterLispenard;
-- (UIImage *) GTIOFilterWalker;
-
+- (UIImage *)GTIOFilterOriginal;
+- (UIImage *)GTIOFilterClementine;
+- (UIImage *)GTIOFilterColombe;
+- (UIImage *)GTIOFilterDiesel;
+- (UIImage *)GTIOFilterHenrik;
+- (UIImage *)GTIOFilterIIRG;
+- (UIImage *)GTIOFilterLafayette;
+- (UIImage *)GTIOFilterLispenard;
+- (UIImage *)GTIOFilterWalker;
 
 @end

@@ -11,9 +11,6 @@
 		5CDFD9061593BA7B00994416 /* GTIOAutoCompleteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */; };
 		5CDFD9091593BAAD00994416 /* GTIOAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */; };
 		5CDFD90C1593C53C00994416 /* GTIOAutoCompleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD90B1593C53C00994416 /* GTIOAutoCompleteButton.m */; };
-		5CECED7B159A64AD0051FA94 /* GTIOFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CECED7A159A64AD0051FA94 /* GTIOFilter.m */; };
-		5CECED7C159A78260051FA94 /* UIImage+GTIOFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CECED76159A5D720051FA94 /* UIImage+GTIOFilters.m */; };
-		5CECED7D159A78310051FA94 /* UIImage+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CECED74159A5D720051FA94 /* UIImage+Filter.m */; };
 		5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CECED7E159B76EC0051FA94 /* CoreImage.framework */; };
 		5CECED88159B80BB0051FA94 /* mask-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED86159B80BB0051FA94 /* mask-4.png */; };
 		5CECED89159B80BB0051FA94 /* mask-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CECED87159B80BB0051FA94 /* mask-5.png */; };
@@ -909,9 +906,6 @@
 		D2603E1E155AD92E00536BF9 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D2603E1D155AD92E00536BF9 /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D2603E20155AD93A00536BF9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2603E1F155AD93A00536BF9 /* CoreText.framework */; };
 		D26D32AB156C016800C06CA9 /* GTIOProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */; };
-		D270EF171587C62100BE08EE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D270EF161587C62100BE08EE /* OpenGLES.framework */; };
-		D270EF1A1587C63800BE08EE /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D270EF131587C60500BE08EE /* libGPUImage.a */; };
-		D270EF1C1587C65200BE08EE /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D270EF1B1587C65200BE08EE /* CoreVideo.framework */; };
 		D27C2FA01598A3DA006C9ACB /* GTIOFeedNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C2F9F1598A3DA006C9ACB /* GTIOFeedNavigationBarView.m */; };
 		D27C2FA41598CE01006C9ACB /* GTIOPostBrandButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C2FA31598CE01006C9ACB /* GTIOPostBrandButtonsView.m */; };
 		D27C2FA71598E20F006C9ACB /* GTIOBrandButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C2FA61598E20F006C9ACB /* GTIOBrandButton.m */; };
@@ -933,13 +927,14 @@
 		D289CB381566957300909FC1 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB2A1566957300909FC1 /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D289CB391566957300909FC1 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB2C1566957300909FC1 /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D289CB3A1566957300909FC1 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB2E1566957300909FC1 /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D28FB46E157547C2002298A2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28FB46D157547C2002298A2 /* CoreMedia.framework */; };
 		D29483CB15756BBB00FCDB86 /* GTIOPhotoShootProgressToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D29483CA15756BBB00FCDB86 /* GTIOPhotoShootProgressToolbarView.m */; };
 		D29483CE1575718000FCDB86 /* GTIOCameraTabBarPlaceholderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D29483CD1575718000FCDB86 /* GTIOCameraTabBarPlaceholderViewController.m */; };
 		D298588A15653E71005EE3CA /* GTIOReturningUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D298588915653E71005EE3CA /* GTIOReturningUsersViewController.m */; };
 		D298588E15654403005EE3CA /* GTIOUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D298588D15654403005EE3CA /* GTIOUIButton.m */; };
 		D29858B115657CC6005EE3CA /* GTIOFailedSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D29858B015657CC6005EE3CA /* GTIOFailedSignInViewController.m */; };
 		D29F4CFA1580F502009F7BB7 /* GTIOResizePhotoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */; };
+		D2B7ACEA15A21C2400711AE8 /* UIImage+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7ACE715A21C2400711AE8 /* UIImage+Filter.m */; };
+		D2B7ACEB15A21C2400711AE8 /* UIImage+GTIOFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7ACE915A21C2400711AE8 /* UIImage+GTIOFilters.m */; };
 		D2B8A576158A9792001D67CA /* GTIOFilterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D270EF361587DF8600BE08EE /* GTIOFilterManager.m */; };
 		D2B8A577158A97A8001D67CA /* GTIOPhotoFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2735BD51586891D00563A19 /* GTIOPhotoFilterView.m */; };
 		D2B8A578158A97AB001D67CA /* GTIOPhotoFilterSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2735BD21586842600563A19 /* GTIOPhotoFilterSelectorView.m */; };
@@ -988,27 +983,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D2CDA96115502F02009B7E24;
 			remoteInfo = "Go Try It On";
-		};
-		D270EF121587C60500BE08EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D270EF091587C60500BE08EE /* GPUImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BCF1A33414DDB1EC00852800;
-			remoteInfo = GPUImage;
-		};
-		D270EF141587C60500BE08EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D270EF091587C60500BE08EE /* GPUImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BCF1A34414DDB1EC00852800;
-			remoteInfo = GPUImageTests;
-		};
-		D270EF181587C63400BE08EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D270EF091587C60500BE08EE /* GPUImage.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BCF1A33314DDB1EC00852800;
-			remoteInfo = GPUImage;
 		};
 		D2CDA9DB1550429C009B7E24 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1063,12 +1037,6 @@
 		5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleter.m; sourceTree = "<group>"; };
 		5CDFD90A1593C53C00994416 /* GTIOAutoCompleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteButton.h; sourceTree = "<group>"; };
 		5CDFD90B1593C53C00994416 /* GTIOAutoCompleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleteButton.m; sourceTree = "<group>"; };
-		5CECED73159A5D720051FA94 /* UIImage+Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filter.h"; sourceTree = "<group>"; };
-		5CECED74159A5D720051FA94 /* UIImage+Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filter.m"; sourceTree = "<group>"; };
-		5CECED75159A5D720051FA94 /* UIImage+GTIOFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GTIOFilters.h"; sourceTree = "<group>"; };
-		5CECED76159A5D720051FA94 /* UIImage+GTIOFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GTIOFilters.m"; sourceTree = "<group>"; };
-		5CECED79159A64AD0051FA94 /* GTIOFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilter.h; sourceTree = "<group>"; };
-		5CECED7A159A64AD0051FA94 /* GTIOFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFilter.m; sourceTree = "<group>"; };
 		5CECED7E159B76EC0051FA94 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		5CECED86159B80BB0051FA94 /* mask-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-4.png"; sourceTree = "<group>"; };
 		5CECED87159B80BB0051FA94 /* mask-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mask-5.png"; sourceTree = "<group>"; };
@@ -2068,7 +2036,6 @@
 		D26D32A4156BFDC100C06CA9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Libraries/MBProgressHUD/MBProgressHUD.m; sourceTree = "<group>"; };
 		D26D32A9156C016800C06CA9 /* GTIOProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProgressHUD.h; sourceTree = "<group>"; };
 		D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProgressHUD.m; sourceTree = "<group>"; };
-		D270EF091587C60500BE08EE /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = Libraries/GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		D270EF161587C62100BE08EE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D270EF1B1587C65200BE08EE /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		D270EF351587DF8600BE08EE /* GTIOFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterManager.h; sourceTree = "<group>"; };
@@ -2135,6 +2102,10 @@
 		D29858B015657CC6005EE3CA /* GTIOFailedSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFailedSignInViewController.m; sourceTree = "<group>"; };
 		D29F4CF81580F502009F7BB7 /* GTIOResizePhotoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOResizePhotoOperation.h; sourceTree = "<group>"; };
 		D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOResizePhotoOperation.m; sourceTree = "<group>"; };
+		D2B7ACE615A21C2400711AE8 /* UIImage+Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filter.h"; sourceTree = "<group>"; };
+		D2B7ACE715A21C2400711AE8 /* UIImage+Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filter.m"; sourceTree = "<group>"; };
+		D2B7ACE815A21C2400711AE8 /* UIImage+GTIOFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GTIOFilters.h"; sourceTree = "<group>"; };
+		D2B7ACE915A21C2400711AE8 /* UIImage+GTIOFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GTIOFilters.m"; sourceTree = "<group>"; };
 		D2CDA96215502F02009B7E24 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2CDA96615502F02009B7E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D2CDA96815502F02009B7E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2202,10 +2173,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */,
-				D270EF1C1587C65200BE08EE /* CoreVideo.framework in Frameworks */,
-				D270EF1A1587C63800BE08EE /* libGPUImage.a in Frameworks */,
-				D270EF171587C62100BE08EE /* OpenGLES.framework in Frameworks */,
-				D28FB46E157547C2002298A2 /* CoreMedia.framework in Frameworks */,
 				D201C85615615C1300C4168D /* ImageIO.framework in Frameworks */,
 				D2D96FC9156D2A48009B9A72 /* AVFoundation.framework in Frameworks */,
 				D2EC0EDA156ADF5800984838 /* MessageUI.framework in Frameworks */,
@@ -3716,29 +3683,10 @@
 		D270EF041587C4BB00BE08EE /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				5CECED79159A64AD0051FA94 /* GTIOFilter.h */,
-				5CECED7A159A64AD0051FA94 /* GTIOFilter.m */,
 				D28BD7A7158915370074643C /* GTIOFilterOperation.h */,
 				D28BD7A8158915370074643C /* GTIOFilterOperation.m */,
 			);
 			name = Filters;
-			sourceTree = "<group>";
-		};
-		D270EF081587C5D200BE08EE /* GPUImage */ = {
-			isa = PBXGroup;
-			children = (
-				D270EF091587C60500BE08EE /* GPUImage.xcodeproj */,
-			);
-			name = GPUImage;
-			sourceTree = "<group>";
-		};
-		D270EF0A1587C60500BE08EE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D270EF131587C60500BE08EE /* libGPUImage.a */,
-				D270EF151587C60500BE08EE /* GPUImageTests.octest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		D289CB141566954000909FC1 /* Facebook-iOS-SDK */ = {
@@ -3810,7 +3758,6 @@
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
-				5CECED7E159B76EC0051FA94 /* CoreImage.framework */,
 				D2CDA96C15502F02009B7E24 /* GTIO */,
 				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
 				D2CDA99B15503058009B7E24 /* Libraries */,
@@ -3831,6 +3778,7 @@
 		D2CDA96515502F02009B7E24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5CECED7E159B76EC0051FA94 /* CoreImage.framework */,
 				D270EF1B1587C65200BE08EE /* CoreVideo.framework */,
 				D270EF161587C62100BE08EE /* OpenGLES.framework */,
 				D28FB46D157547C2002298A2 /* CoreMedia.framework */,
@@ -3911,7 +3859,6 @@
 		D2CDA99B15503058009B7E24 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D270EF081587C5D200BE08EE /* GPUImage */,
 				D26D32A2156BFDA000C06CA9 /* MBProgressHUD */,
 				8E91ABE7156AC119009D70AC /* janrain */,
 				D2569BFC1566CE200045B508 /* TestFlight */,
@@ -3935,22 +3882,22 @@
 		D2CDA9AC155032F7009B7E24 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				5CECED73159A5D720051FA94 /* UIImage+Filter.h */,
-				5CECED74159A5D720051FA94 /* UIImage+Filter.m */,
-				5CECED75159A5D720051FA94 /* UIImage+GTIOFilters.h */,
-				5CECED76159A5D720051FA94 /* UIImage+GTIOFilters.m */,
-				D2D0485515643F970034E04F /* UIFont+GTIOAdditions.h */,
-				D2D0485615643F970034E04F /* UIFont+GTIOAdditions.m */,
-				D2D0485815643FB40034E04F /* UIColor+GTIOAdditions.h */,
-				D2D0485915643FB40034E04F /* UIColor+GTIOAdditions.m */,
-				D245E1081576B3D6009DBCF7 /* UIImage+Resize.h */,
-				D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */,
+				D2B7ACE615A21C2400711AE8 /* UIImage+Filter.h */,
+				D2B7ACE715A21C2400711AE8 /* UIImage+Filter.m */,
+				D2B7ACE815A21C2400711AE8 /* UIImage+GTIOFilters.h */,
+				D2B7ACE915A21C2400711AE8 /* UIImage+GTIOFilters.m */,
 				D2F78B76158A2E2F00CBB4F2 /* NSMutableDictionary+FilterTypeKeys.h */,
 				D2F78B77158A2E2F00CBB4F2 /* NSMutableDictionary+FilterTypeKeys.m */,
-				D20CAD2715937B1C00CE2795 /* UIImage+Mask.h */,
-				D20CAD2815937B1C00CE2795 /* UIImage+Mask.m */,
+				D2D0485815643FB40034E04F /* UIColor+GTIOAdditions.h */,
+				D2D0485915643FB40034E04F /* UIColor+GTIOAdditions.m */,
+				D2D0485515643F970034E04F /* UIFont+GTIOAdditions.h */,
+				D2D0485615643F970034E04F /* UIFont+GTIOAdditions.m */,
 				D20CAD2A15937C5C00CE2795 /* UIImage+Blend.h */,
 				D20CAD2B15937C5C00CE2795 /* UIImage+Blend.m */,
+				D20CAD2715937B1C00CE2795 /* UIImage+Mask.h */,
+				D20CAD2815937B1C00CE2795 /* UIImage+Mask.m */,
+				D245E1081576B3D6009DBCF7 /* UIImage+Resize.h */,
+				D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */,
 			);
 			name = Categories;
 			path = Application/Categories;
@@ -4153,7 +4100,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D270EF191587C63400BE08EE /* PBXTargetDependency */,
 				D2CDA9EA1550577E009B7E24 /* PBXTargetDependency */,
 			);
 			name = "Go Try It On";
@@ -4205,10 +4151,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D270EF0A1587C60500BE08EE /* Products */;
-					ProjectRef = D270EF091587C60500BE08EE /* GPUImage.xcodeproj */;
-				},
-				{
 					ProductGroup = D2CDA9D11550429B009B7E24 /* Products */;
 					ProjectRef = D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */;
 				},
@@ -4222,20 +4164,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D270EF131587C60500BE08EE /* libGPUImage.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libGPUImage.a;
-			remoteRef = D270EF121587C60500BE08EE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D270EF151587C60500BE08EE /* GPUImageTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GPUImageTests.octest;
-			remoteRef = D270EF141587C60500BE08EE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		D2CDA9DC1550429C009B7E24 /* libRestKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -5253,8 +5181,8 @@
 				8E89BAE91599187B00CB3094 /* GTIOActionSheet.m in Sources */,
 				8E89BAEA159919E000CB3094 /* GTIOPagination.m in Sources */,
 				8EE68CBB159A00B100DE2E68 /* GTIOLargeButton.m in Sources */,
-				5CECED7C159A78260051FA94 /* UIImage+GTIOFilters.m in Sources */,
-				5CECED7D159A78310051FA94 /* UIImage+Filter.m in Sources */,
+				D2B7ACEA15A21C2400711AE8 /* UIImage+Filter.m in Sources */,
+				D2B7ACEB15A21C2400711AE8 /* UIImage+GTIOFilters.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5264,7 +5192,6 @@
 			files = (
 				D2CDA9BB155033B6009B7E24 /* GTIOTests.m in Sources */,
 				D246B08C155C134900E5546A /* GTIOVisit.m in Sources */,
-				5CECED7B159A64AD0051FA94 /* GTIOFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5275,11 +5202,6 @@
 			isa = PBXTargetDependency;
 			target = D2CDA96115502F02009B7E24 /* Go Try It On */;
 			targetProxy = D246B097155C143B00E5546A /* PBXContainerItemProxy */;
-		};
-		D270EF191587C63400BE08EE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = GPUImage;
-			targetProxy = D270EF181587C63400BE08EE /* PBXContainerItemProxy */;
 		};
 		D2CDA9EA1550577E009B7E24 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5362,8 +5284,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5387,8 +5309,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A3350B3D-0A26-463B-9D48-B753A71335B0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3350B3D-0A26-463B-9D48-B753A71335B0";
+				PROVISIONING_PROFILE = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -5398,8 +5320,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
@@ -5421,8 +5343,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A3350B3D-0A26-463B-9D48-B753A71335B0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3350B3D-0A26-463B-9D48-B753A71335B0";
+				PROVISIONING_PROFILE = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

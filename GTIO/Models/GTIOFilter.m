@@ -15,12 +15,6 @@
 #import "UIImage+GTIOFilters.h"
 #import "UIImage+Filter.h"
 
-@interface GTIOFilter ()
-
-- (UIImage *)filterImage:(UIImage *)image WithFilters:(NSMutableArray *)filters;
-
-@end
-
 @implementation GTIOFilter
 
 @synthesize maskImage = _maskImage;
@@ -43,33 +37,6 @@
         _blendMode = kCGBlendModeNormal;
     }
     return self;
-}
-
-
-
-- (UIImage *)filterImage:(UIImage *)image WithFilters:(NSMutableArray *)filters
-{
-    if ([filters count] > 0) {
-        GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
-        
-        [filters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if (0 == idx) {
-                [stillImageSource addTarget:obj];
-            } else {
-                [[filters objectAtIndex:idx-1] addTarget:obj];
-            }
-        }];
-        
-        id lastFilter = [filters objectAtIndex:[filters count] - 1];
-        
-        [stillImageSource addTarget:lastFilter];
-        [stillImageSource processImage];
-
-        UIImage *filteredImage = [lastFilter imageFromCurrentlyProcessedOutput];
-        return filteredImage;
-    } else {
-        return image;
-    }
 }
 
 #pragma mark - Properties

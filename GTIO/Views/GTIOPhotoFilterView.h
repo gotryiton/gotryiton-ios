@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GTIOFilter.h"
+#import "GTIOFilterManager.h"
 
 @protocol GTIOPhotoFilterViewDelegate;
 

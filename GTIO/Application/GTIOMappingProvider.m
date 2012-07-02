@@ -190,7 +190,7 @@
         [postMapping mapKeyPath:@"star" toAttribute:@"stared"];
         [postMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"dot_options.buttons" toRelationship:@"dotOptionsButtons" withMapping:buttonMapping];
-        [postMapping mapKeyPath:@"who_hearted.buttons" toRelationship:@"whoHeartedButtons" withMapping:buttonMapping];
+//        [postMapping mapKeyPath:@"who_hearted.buttons" toRelationship:@"whoHeartedButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"brands.buttons" toRelationship:@"brandsButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
         [postMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
