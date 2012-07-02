@@ -38,11 +38,6 @@
         _hasInnerShadow = YES;
         _hasOuterShadow = NO;
         
-        _outerShadow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"profile.top.profile.bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5.0, 5.0, 5.0, 5.0 }]];
-        [_outerShadow setFrame:(CGRect){ -5, -5, self.frame.size.width + 10, self.frame.size.height + 10 }];
-        _outerShadow.hidden = !_hasOuterShadow;
-        [self addSubview:_outerShadow];
-        
         _canvas = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, frame.size }];
         [_canvas.layer setCornerRadius:3.0f];
         [_canvas.layer setMasksToBounds:YES];
@@ -54,15 +49,22 @@
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
         _innerShadow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"edit.profile.pic.thumb.mask.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5.0, 5.0, 5.0, 5.0 }]];
         [_innerShadow setFrame:(CGRect){ 0, 0, frame.size }];
+        
         _innerShadow.hidden = !_hasInnerShadow;
         [_canvas addSubview:_imageView];
         [_canvas addSubview:_innerShadow];
+        
+        [self.layer setShadowRadius:5.0];
+        [self.layer setShadowOffset:(CGSize){ 0, 0 }];
+        [self.layer setShadowOpacity:0.20];
         
         _border = [[UIView alloc] initWithFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
         [_border.layer setCornerRadius:3.0f];
         [_border setBackgroundColor:[UIColor gtio_greenBorderColor]];
         
         [self setImageWithURL:url];
+        
+        [self bringSubviewToFront:_outerShadow];
     }
     return self;
 }
