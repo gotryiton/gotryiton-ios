@@ -3388,24 +3388,21 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 #### Mockups
 12.1 ([wireframe](http://invis.io/WD2OERMP))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.png" width=420px/>
-
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.On.States.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.0.Upload.Start.png" width=420px/>
 
 12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.3.Upload.Start.Frame.Bottom.Right.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.Upload.Start.Frame.Bottom.Right.png" width=420px/>
 
 12.1.2 Upload Start in Photoshoot Mode
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.2.Upload.Photoshoot.without.reel.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.B.Upload.Start.Photoshoot.Popup.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.2.Upload.Photoshoot.without.reel.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.C.Upload.Start.Photoshoot.png" width=420px/>
 
-12.1.3 Upload Start in Photoshoot Mode with Grid button
+12.1.3 Upload Start with Grid button
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.1.Upload.Photoshoot.with.reel.png" width=420px/>
-
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.E.Upload.Start.with.Grid.png" width=420px/>
 
 #### API Usage
 
@@ -3428,17 +3425,19 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
    - After camera capture button is pressed
       - capture photo @ 640px wide
       - route to (view 12.2)
-- A user can select a photo from their photo library
-   - tapping on photoroll button opens the users photo roll
+- A user can select a source to import a photo
+   - tapping on photoroll button opens a custom menu with camera roll, hearted products, and popular products selections
       - after a photo is selected:
          - resize photo to 640px wide
          - route to (view 12.2)
 - A user can use their camera to take subsequent photos (for framed uploads)
-   - The camera has a guide overlay that matches frame (view 12.1.1)
    - The camera has a mini-map of frame with current frame highlighted (view 12.1.1)
 - A user can turn on Photoshoot Mode
-   - toggling the photoshoot toggle in the bottom right turns on and off Photoshoot mode
+   - toggling the photoshoot toggle button within the camera capture button turns on and off Photoshoot mode
       - with photoshoot mode on, shutter button changes to represent photoshoot mode (view 12.1.2)
+      - the first two times a user activates photoshoot mode, an info popup should appear (view 12.1.2)
+         - popup only appears max of once per session
+         - popup should simultaneously fade out and animate moving upwards after 2 seconds
    - capture button routes to (view 12.5)
 - A user can select a photo from their photoshoot grid (if available)
    - if a user has previously done a photoshoot, they can access the grid to choose a photo
@@ -3448,7 +3447,7 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
 ### Design Stories
 - Bottom Bar
 	- Height: 58px (with shadow) (non-shadow portion is only: 53px high)
-	- Background: (12/upload.bottom.bar.bg) repeating-X
+	- Background: (12/upload.bottom.bar.bg)
 	- Capture Button
 		- 10px from top of bar (including bar's shadow overlay, only 6px from top if don't include bar's shadow overlay)
 		- Horizontally Centered when no photoshoot reel button icon
