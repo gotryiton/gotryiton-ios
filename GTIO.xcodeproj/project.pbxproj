@@ -2218,11 +2218,11 @@
 		D29AD736159CF0D100C23AA4 /* GTIOPopOverButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPopOverButton.m; sourceTree = "<group>"; };
 		D29F4CF81580F502009F7BB7 /* GTIOResizePhotoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOResizePhotoOperation.h; sourceTree = "<group>"; };
 		D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOResizePhotoOperation.m; sourceTree = "<group>"; };
-		D2C1C85F159DFF23001026BC /* PostDescription.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PostDescription.css; path = CSS/PostDescription.css; sourceTree = "<group>"; };
 		D2B7ACE615A21C2400711AE8 /* UIImage+Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filter.h"; sourceTree = "<group>"; };
 		D2B7ACE715A21C2400711AE8 /* UIImage+Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filter.m"; sourceTree = "<group>"; };
 		D2B7ACE815A21C2400711AE8 /* UIImage+GTIOFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GTIOFilters.h"; sourceTree = "<group>"; };
 		D2B7ACE915A21C2400711AE8 /* UIImage+GTIOFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GTIOFilters.m"; sourceTree = "<group>"; };
+		D2C1C85F159DFF23001026BC /* PostDescription.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PostDescription.css; path = CSS/PostDescription.css; sourceTree = "<group>"; };
 		D2CDA96215502F02009B7E24 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2CDA96615502F02009B7E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D2CDA96815502F02009B7E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -4314,7 +4314,6 @@
 			);
 			dependencies = (
 				D2465986159B743600A43238 /* PBXTargetDependency */,
-				D270EF191587C63400BE08EE /* PBXTargetDependency */,
 				D2CDA9EA1550577E009B7E24 /* PBXTargetDependency */,
 			);
 			name = "Go Try It On";
@@ -4370,10 +4369,6 @@
 					ProjectRef = D246596B159B740300A43238 /* DTCoreText.xcodeproj */;
 				},
 				{
-					ProductGroup = D270EF0A1587C60500BE08EE /* Products */;
-					ProjectRef = D270EF091587C60500BE08EE /* GPUImage.xcodeproj */;
-				},
-				{
 					ProductGroup = D2CDA9D11550429B009B7E24 /* Products */;
 					ProjectRef = D2CDA9D01550429B009B7E24 /* RestKit.xcodeproj */;
 				},
@@ -4427,20 +4422,6 @@
 			fileType = archive.ar;
 			path = libDTCoreText_no_DTFoundation.a;
 			remoteRef = D2465983159B740300A43238 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D270EF131587C60500BE08EE /* libGPUImage.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libGPUImage.a;
-			remoteRef = D270EF121587C60500BE08EE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D270EF151587C60500BE08EE /* GPUImageTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GPUImageTests.octest;
-			remoteRef = D270EF141587C60500BE08EE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D2CDA9DC1550429C009B7E24 /* libRestKit.a */ = {
@@ -5615,8 +5596,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
+				PROVISIONING_PROFILE = "BF02CD06-8B7F-42C9-86D1-56A641560166";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF02CD06-8B7F-42C9-86D1-56A641560166";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5651,8 +5632,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D8CFD66-FC83-4911-9E6B-3B46853D7F83";
+				PROVISIONING_PROFILE = "BF02CD06-8B7F-42C9-86D1-56A641560166";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF02CD06-8B7F-42C9-86D1-56A641560166";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
