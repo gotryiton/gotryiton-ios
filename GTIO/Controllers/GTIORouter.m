@@ -18,6 +18,14 @@ static NSString * const kGTIOURLHostProfile = @"profile";
 static NSString * const kGTIOURLHostSignOut = @"sign-out";
 static NSString * const kGTIOURLHostWhoHeartedPost = @"who-hearted-post";
 static NSString * const kGTIOURLHostFindFriends = @"find-friends";
+static NSString * const kGTIOURLHostUser = @"user";
+static NSString * const kGTIOURLHostMyFollowing = @"my-following";
+static NSString * const kGTIOURLHostMyFollowers = @"my-followers";
+static NSString * const kGTIOURLHostMyStars = @"my-stars";
+
+static NSString * const kGTIOURLSubPathFollowing = @"following";
+static NSString * const KGTIOURLSubPathFollowers = @"followers";
+static NSString * const kGTIOURLSubPathStars = @"stars";
 
 @implementation GTIORouter
 
@@ -59,6 +67,28 @@ static NSString * const kGTIOURLHostFindFriends = @"find-friends";
         NSLog(@"Still need to handle opening who hearted post");
     } else if ([urlHost isEqualToString:kGTIOURLHostFindFriends]) {
         viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindMyFriends];
+    } else if ([urlHost isEqualToString:kGTIOURLHostUser]) {
+        if ([pathComponents count] >= 3) {
+            if ([[pathComponents objectAtIndex:2] isEqualToString:kGTIOURLSubPathFollowing]) {
+                viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFollowing];
+                [((GTIOFriendsViewController *)viewController) setUserID:[pathComponents objectAtIndex:1]];
+            }
+            if ([[pathComponents objectAtIndex:2] isEqualToString:KGTIOURLSubPathFollowers]) {
+                viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFollowers];
+                [((GTIOFriendsViewController *)viewController) setUserID:[pathComponents objectAtIndex:1]];
+            }
+            if ([[pathComponents objectAtIndex:2] isEqualToString:kGTIOURLSubPathStars]) {
+                // Stars view controller
+            }
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostMyFollowers]) {
+        viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFollowers];
+        [((GTIOFriendsViewController *)viewController) setUserID:[GTIOUser currentUser].userID];
+    } else if ([urlHost isEqualToString:kGTIOURLHostMyFollowing]) {
+        viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFollowers];
+        [((GTIOFriendsViewController *)viewController) setUserID:[pathComponents objectAtIndex:1]];
+    } else if ([urlHost isEqualToString:kGTIOURLHostMyStars]) {
+        // Stars view controller
     }
     
     return viewController;

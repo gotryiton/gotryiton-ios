@@ -15,6 +15,7 @@
 #import "GTIOMeTableHeaderViewLabel.h"
 #import "GTIOButton.h"
 #import "GTIOEditProfileViewController.h"
+#import "GTIORouter.h"
 
 #import "GTIOFriendsViewController.h"
 
@@ -237,11 +238,8 @@
             [self.followingLabel setText:@"following"];
             [self.followingCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             self.followingButton.tapHandler = ^(id sender) {
-                if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
-                    GTIOFriendsViewController *followingFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFollowing];
-                    if (![self.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
-                        [followingFriendsViewController setUserID:self.user.userID];
-                    }
+                if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {                    
+                    UIViewController *followingFriendsViewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
                     [self.delegate pushViewController:followingFriendsViewController];
                 }
             };
@@ -251,11 +249,8 @@
             [self.followerCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             _followersButton.tapHandler = ^(id sender) {
                 if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
-                    GTIOFriendsViewController *followersFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFollowers];
-                    if (![self.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
-                        [followersFriendsViewController setUserID:self.user.userID];
-                    }
-                    [self.delegate pushViewController:followersFriendsViewController];
+                    UIViewController *followingFriendsViewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+                    [self.delegate pushViewController:followingFriendsViewController];
                 }
             };
         }

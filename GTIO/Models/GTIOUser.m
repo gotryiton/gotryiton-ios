@@ -24,6 +24,7 @@
 @synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
 @synthesize loginHandler = _loginHandler;
 @synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath, selected = _selected;
+@synthesize action = _action;
 
 + (GTIOUser *)currentUser
 {
