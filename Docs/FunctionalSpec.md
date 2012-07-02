@@ -3594,6 +3594,10 @@ A user can add details to their post before they submit.  They can select to use
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.Framed.png" width=420px/>
 
+12.3.3 Post a look (edit actionsheet) ([wireframe](http://invis.io/5K2OF0W8))  
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.B.Post.A.Look.Framed.Edit.Actionsheet.png" width=420px/>
+
 #### API Usage
 
 POST /track  
@@ -3684,11 +3688,19 @@ response:
 - A user can edit the photos in their Post
    - empty frame camera buttons
       - **tap** ==> (view 12.1.1)
-   - frame (x) cancel btn
-      - clears the photo stored in that frame
-      - **tap** ==> (view 12.1.1)
+   - frame edit btn (camera icon in circle)
+      - raises actionsheet (view 12.3.3)
+         - replace photo ==> (view 12.1.1)
+         - add a filter ==> (view 12.2)
+         - swap with A
+            - swaps current framed photo with next framed section (next over, clockwise)
+         - swap with B
+            - swaps current framed photo with previous framed section (previous, counter-clockwise)
 - A user can edit the photo in their single image Post
-   - main image (x) button **tap** ==> (view 12.1)
+   - edit button (camera icon in circle)
+         - raises actionsheet (view 12.3.3)
+            - replace photo ==> (view 12.1.1)
+            - add a filter ==> (view 12.2)
 - A user cannot post their upload if they have frames turned on but fewer than 3 photos 
    - if frames enabled and < 3 photos 
       - post button is grayed out and disabled
