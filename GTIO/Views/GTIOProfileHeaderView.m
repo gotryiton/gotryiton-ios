@@ -25,7 +25,8 @@
 @property (nonatomic, strong) GTIOActionSheet *actionSheet;
 
 @property (nonatomic, copy) GTIOProfileInitCompletionHandler userProfileLayoutCompletionHandler;
-@property (nonatomic, assign) BOOL userProfileImageDownloadProcessComplete;
+@property (nonatomic, assign) BOOL bannerImageDownloadProcessComplete;
+@property (nonatomic, assign) BOOL hasBannerImage;
 
 @end
 
@@ -40,9 +41,10 @@
 @synthesize delegate = _delegate;
 @synthesize acceptBarDelegate = _acceptBarDelegate;
 @synthesize actionSheet = _actionSheet;
-@synthesize userProfileImageDownloadProcessComplete = _userProfileImageDownloadProcessComplete;
 @synthesize userProfileLayoutCompletionHandler = _userProfileLayoutCompletionHandler;
 @synthesize meTableHeaderViewDelegate = _meTableHeaderViewDelegate;
+@synthesize hasBannerImage = _hasBannerImage;
+@synthesize bannerImageDownloadProcessComplete = _bannerImageDownloadProcessComplete;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -75,7 +77,8 @@
         [_basicUserInfoBackgroundImageView addSubview:_websiteLinkButton];
         
         _profileCalloutViews = [NSMutableArray array];
-        _userProfileImageDownloadProcessComplete = NO;
+        _bannerImageDownloadProcessComplete = NO;
+        _hasBannerImage = NO;
     }
     return self;
 }
@@ -115,8 +118,12 @@
     }
     [self setFrame:(CGRect){ self.frame.origin, self.bounds.size.width, self.basicUserInfoBackgroundImageView.bounds.size.height }];
     
-    if (self.userProfileLayoutCompletionHandler && self.userProfileImageDownloadProcessComplete) {
+    if (self.userProfileLayoutCompletionHandler && !self.hasBannerImage) {
         self.userProfileLayoutCompletionHandler(self);
+        self.userProfileLayoutCompletionHandler = nil;
+    } else if (self.userProfileLayoutCompletionHandler && self.bannerImageDownloadProcessComplete) {
+        self.userProfileLayoutCompletionHandler(self);
+        self.userProfileLayoutCompletionHandler = nil;
     }
     
     if ([self.acceptBarDelegate respondsToSelector:@selector(acceptBarRemoved)] && self.userProfile.acceptBar == nil) {
@@ -136,10 +143,10 @@
             [self.banner setImageWithURL:button.imageURL placeholderImage:nil success:^(UIImage *image) {
                 [blockSelf.banner setImage:image];
                 [blockSelf.banner sizeToFit];
-                blockSelf.userProfileImageDownloadProcessComplete = YES;
+                blockSelf.bannerImageDownloadProcessComplete = YES;
                 [blockSelf setNeedsLayout];
             } failure:^(NSError *error) {
-                blockSelf.userProfileImageDownloadProcessComplete = YES;
+                blockSelf.bannerImageDownloadProcessComplete = YES;
                 [blockSelf setNeedsLayout];
             }];
         }
