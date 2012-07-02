@@ -20,21 +20,21 @@ typedef struct {
 @interface UIImage (Filter)
 
 #pragma mark Base Method
-- (CGContextRef) ImageToContext: (UIImage *) image;
-- (UIImage *) ContextToImage: (CGContextRef) context;
+- (CGContextRef) imageToContext: (UIImage *) image;
+- (UIImage *) contextToImage: (CGContextRef) context;
 - (UIImage *) normalize;
 
 #pragma mark Resizing
 
 - (UIImage *) resizeForFiltering;
-- (UIImage *) resizeForFilteringToMatch: (UIImage *) image;
+- (UIImage *) resizeForFilteringToMatchImage: (UIImage *) image;
 
 #pragma mark Core Method
 - (UIImage *) applyBlend:(UIImage *) image Callback: (void (^)(unsigned char *, unsigned char *)) fn;
 - (UIImage *) applyRGBCurve:(RGBCurve) curve;
 - (UIImage *) applyValueCurve:(Curve) curve;
 - (UIImage *) desaturateThroughRed;
-- (UIImage *) addLinesWithrightness: (double) brightness;
+- (UIImage *) addLinesWithBrightness: (double) brightness;
 - (UIImage *) desaturate;
 - (UIImage *) desaturateWithRatio: (double) ratio;
 - (UIImage *) applyFilter: (void (^)(unsigned char * )) fn;
@@ -48,6 +48,5 @@ typedef struct {
 - (UIImage *) linearDodge: (UIImage *) image ratio: (double) ratio;
 - (UIImage *) mask: (UIImage *) image;
 
-#pragma mark Common Effect
-- (UIImage *) ink;
+
 @end
