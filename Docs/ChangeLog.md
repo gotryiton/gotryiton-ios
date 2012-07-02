@@ -1,5 +1,13 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.8
+July 2, 2012
+
+### Build Summary
+New filters merged in. Updated JSON for UI keys.
+
+---
+
 #### Build 4.0.0.6/7
 June 29, 2012
 
