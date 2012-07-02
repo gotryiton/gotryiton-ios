@@ -11,6 +11,7 @@
 #import <RestKit/RestKit.h>
 #import "GTIOBadge.h"
 #import "GTIOButton.h"
+#import "GTIOButtonAction.h"
 
 @class GTIOUser;
 
@@ -39,6 +40,7 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
 @property (nonatomic, strong) GTIOBadge *badge;
 @property (nonatomic, strong) NSString *userDescription;
 @property (nonatomic, strong) GTIOButton *button;
+@property (nonatomic, strong) GTIOButtonAction *action;
 
 @property (nonatomic, assign) BOOL selected;
 

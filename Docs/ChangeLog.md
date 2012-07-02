@@ -1,5 +1,42 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.6/7
+June 29, 2012
+
+### Build Summary
+Sprint 5 build. Post feed view, find my friends view and profile views.
+
+### Planned Work
+
+- Post Feed View
+- Find My Friends Views
+- Profile views
+
+### Ongoing Development
+
+**Known Issues**
+- 232 - ... Pop over buttons not connected to actions
+- 233 - Shopping bag, reviews button actions aren't connected to actions
+- 234 - Post feed pull to refresh
+- 235 - Post feed load more
+- 236 - Post feed section header background goes clear on navigation
+- 237 - Who hearted "147 hearted this" button not connected to page
+- 238 - brand buttons not connected to page
+- 239 - Post Description/Who hearted text sizing, text origin, link actions
+- 240 - Post feed cell loading is jerky
+- 243 - Post Feed loading spinner
+
+**Screens / Features**
+- 199 - 7.6 My Posts
+- 198 - 7.5 My Hearts
+- 197 - 7.9 My Stars
+- 188 - 8.1 Empty feed
+- 182 - 8.1 Nav Bar
+- 241 - Mason Grid Pull to refresh
+- 242 - Mason Grid Load More
+
+---
+
 #### Build 4.0.0.5 
 June 25, 2012
 
