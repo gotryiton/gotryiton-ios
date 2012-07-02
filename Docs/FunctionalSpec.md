@@ -4174,17 +4174,11 @@ A user can refresh a feed
 
 #### Mockups
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.1.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.6.Pull.To.Refresh.1.Pull.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.2.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.6.Pull.To.Refresh.2.Release.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.3.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.1.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.2.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.3.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.6.Pull.To.Refresh.3.Update.png" width=420px/>
 
 
 
@@ -4195,8 +4189,24 @@ Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
 - A user can refresh a feed
    - pull to refresh is active on the feed in (view 8.1) and the popular lists in (view 9.1) only
 
-
-
+#### Design Stories
+- Background area
+   - 'ptr-bg.png'
+      - pulling down 55px of this is sufficient to activate (before release), but user can pull a bit further
+- Arrow
+   - 'arrow.png', placed 13px above bottom of background area and vertically centered around 'accent line' on background
+   - points down on 'PULL' instruction, spins, points up on RELEASE instruction
+- Text
+   - right aligned, right edge of this text is 51px away from right edge of screen
+      - right edge should appear to line up with right edge of user info box and photo frame on feed
+   - baseline is 14px up from bottom of background area
+   - PULL/RELEASE states: Archer Medium Italic 10pt, rgb(143,143,143)
+   - UPDATING state: Archer Medium Italic 10pt, rgb(88,88,88)
+- Spinner (UPDATING state only)
+   - 15px x 15px
+   - rgb(154,154,153)
+   - top of spinner is 27px away from bottom of background area
+   - right of spinner is 6px away from left edge of text
 
 
 ### 13.7 User badges
