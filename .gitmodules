@@ -16,9 +16,6 @@
 [submodule "Libraries/janrain"]
 	path = Libraries/janrain
 	url = git@github.com:twotoasters/engage.iphone.git
-[submodule "Libraries/GPUImage"]
-	path = Libraries/GPUImage
-	url = https://github.com/BradLarson/GPUImage.git
 [submodule "Libraries/DTCoreText"]
 	path = Libraries/DTCoreText
 	url = https://github.com/Cocoanetics/DTCoreText.git
