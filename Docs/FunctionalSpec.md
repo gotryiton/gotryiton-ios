@@ -3768,6 +3768,12 @@ response:
    - Control 3 (for lower right frame)
       - 6px from right side of bottom right framed photo
       - 6px from top of bottom right framed photo
+- Edit Photo Actionsheet
+   - 'swap with' shows minimap
+      - 'swap-map.png' with 1,2,3 versions
+         - 9px from edge of accompanying text
+         - vertically centered within button
+         - swap-map and text together should be horizontally centered within button 
 - Empty Frame Icon
    - 'frame-camera-icon.png' with ON and OFF states
    - horizontally and vertically centered within framed image areas when no image is yet present
