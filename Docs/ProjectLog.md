@@ -1,3 +1,29 @@
+***Monday, July 2nd - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- NA
+
+**Status**
+- Reviewed Simon's filter code.  Removed outdated code, getting ready to merge
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- For issues that require a screenshot, images should be uploaded to dropbox and the link should be added to the story
+- Continue to create new Issues for bugs/minor feature tweaks
+- Add Delivered tag to new stories that are closed in new builds
+
+---
+
 ***Sprint 5 Development Plan (Monday, July 2nd 2012 - Friday, July 6th, 2012)***
 
 Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=6&state=open
