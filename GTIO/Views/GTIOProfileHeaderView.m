@@ -140,6 +140,7 @@
     for (GTIOButton *button in self.userProfile.userInfoButtons) {
         __block typeof(self) blockSelf = self;
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameBannerAd]) {
+            self.hasBannerImage = YES;
             [self.banner setImageWithURL:button.imageURL placeholderImage:nil success:^(UIImage *image) {
                 [blockSelf.banner setImage:image];
                 [blockSelf.banner sizeToFit];
