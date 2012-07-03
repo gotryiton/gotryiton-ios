@@ -4171,19 +4171,15 @@ A user can refresh a feed
 
 #### Mockups
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.1.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.2.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.3.png" width=420px/>
-
+Pull to Refresh in Feed view
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.1.png" width=420px/>
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.2.png" width=420px/>
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.3.png" width=420px/>
 
-
+Pull to Refresh in Explore Looks view
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.PTR.png" width=420px/>
 
 #### API Usage
 Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
