@@ -1071,7 +1071,7 @@ previous screen
 - Top left should include a back button (this view should get added to the stack on the 2nd tab)
 
 
-### ~3.2 Post Detail With Verdict~
+### ~~3.2 Post Detail With Verdict~~
 
 
 ### 3.3 Post Detail Full screen
@@ -1302,7 +1302,7 @@ previous screen
    - normal behavior in navigation stack
 
 
-### 3.6 ~Product Post Detail Page~
+### 3.6 ~~Product Post Detail Page~~
 
 
 
@@ -1425,18 +1425,18 @@ None.
    - tapping on the full screen view returns the user to the previous screen
 
 
-### ~4.2 Suggest a product~  
+### ~~4.2 Suggest a product~~   
 
 
-### ~4.3 Phone contact list~  
+### ~~4.3 Phone contact list~~  
 
-### ~4.4 Email compose~  
+### ~~4.4 Email compose~~  
 
-### ~4.5 Facebook contacts~  
+### ~~4.5 Facebook contacts~~  
 
-### ~4.6 Gotryiton contacts~  
+### ~~4.6 Gotryiton contacts~~  
 
-### ~4.7 Post a product~  
+### ~~4.7 Post a product~~  
 
 ### 4.8 Shop this look
 
@@ -2994,7 +2994,7 @@ gtio://posts/feed
       - use 'empty-bg-overlay.png' in content area
 
 
-### 8.3 ~Feed verdict view~
+### 8.3 ~~Feed verdict view~~   
 
 ###  8.4 Upload in progress view  
 
@@ -3276,7 +3276,7 @@ dynamic
 
 
 
-### 10.3 ~Shop 3rd Party webview Container ~
+### 10.3 ~~Shop 3rd Party webview Container~~   
  
 
 ### 10.4 Default 3rd party webview container  
@@ -3425,13 +3425,22 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
    - After camera capture button is pressed
       - capture photo @ 640px wide
       - route to (view 12.2)
+
 - A user can select a source to import a photo
-   - tapping on photoroll button opens a custom menu with camera roll, hearted products, and popular products selections
-      - after a photo is selected:
-         - resize photo to 640px wide
-         - route to (view 12.2)
+   - A user can select a photo from multiple sources
+   - tapping on photoroll button opens a custom menu with:
+      - "camera roll"
+         - opens camera roll for selection
+      - "hearted products"
+         - routes to (view 12.6)
+      - "popular products"
+         - routes to (view 12.6)
+   - after a photo is selected:
+      - resize photo to 640px wide
+      - route to (view 12.2)
 - A user can use their camera to take subsequent photos (for framed uploads)
    - The camera has a mini-map of frame with current frame highlighted (view 12.1.1)
+   - ~~The camera has a guide overlay that matches frame (view 12.1.1)~~
 - A user can turn on Photoshoot Mode
    - toggling the photoshoot toggle button within the camera capture button turns on and off Photoshoot mode
       - with photoshoot mode on, shutter button changes to represent photoshoot mode (view 12.1.2)
@@ -3660,8 +3669,6 @@ response:
 - A user can add details to their post before they submit.
    - description (optional)
       - page slides down and keyboard is raised (view 12.3.1)
-   - tag brands
-      - page slides down and keyboard is raised (view 12.3.1)
 - A user can select to use frames in their upload
    - frames buttons
       - multi frame button converts to (view 12.3.2)
@@ -3673,9 +3680,6 @@ response:
       - **tap** ==> Facebook SSO
          - **success** ==> api request /User/Facebook-Connect
          - toggles on state
-- A user can toggle voting on or off
-   - initial toggle state set by API
-      - ```/config``` object will include Voting Toggle status: ```voting_default_on```
 - A user can cancel their post
    - cancel btn (if post button is INACTIVE)
       - **tap** ==> returns you to your previous tab in previous state
@@ -3691,15 +3695,19 @@ response:
       - raises actionsheet (view 12.3.3)
          - replace photo ==> (view 12.1.1)
          - add a filter ==> (view 12.2)
+            - user is returned to filter screen with same filters available
+            - filters should not be reapplied, the user can just switch which filter is used.
          - swap with A
             - swaps current framed photo with next framed section (next over, clockwise)
          - swap with B
             - swaps current framed photo with previous framed section (previous, counter-clockwise)
 - A user can edit the photo in their single image Post
    - edit button (camera icon in circle)
-         - raises actionsheet (view 12.3.3)
-            - replace photo ==> (view 12.1.1)
-            - add a filter ==> (view 12.2)
+      - raises actionsheet (view 12.3.3)
+         - replace photo ==> (view 12.1.1)
+         - add a filter ==> (view 12.2)
+            - user is returned to filter screen with same filters available
+            - filters should not be reapplied, the user can just switch which filter is used. 
 - A user cannot post their upload if they have frames turned on but fewer than 3 photos 
    - if frames enabled and < 3 photos 
       - post button is grayed out and disabled
