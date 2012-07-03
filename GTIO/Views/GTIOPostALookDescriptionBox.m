@@ -29,7 +29,7 @@
         [self.backgroundView setFrame:(CGRect){ 6, 0, self.bounds.size.width- (6 * 2), self.bounds.size.height }];
         [self addSubview:self.backgroundView];
         
-        self.textView = [[GTIOPostAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 4, self.backgroundView.bounds.size.width - (16 * 2), self.backgroundView.bounds.size.height  } outerBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height }];
+        self.textView = [[GTIOPostAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 7, self.backgroundView.bounds.size.width - (12 * 2), self.backgroundView.bounds.size.height  } outerBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height }];
 
         [GTIOAutoCompleter loadBrandDictionaryWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
             if (!error) {
