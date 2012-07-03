@@ -3988,7 +3988,8 @@ A user can get a product photo by choosing from a grid with two tabs showing the
 
 #### Mockups
 
-**12.6**
+**12.6**   
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.6.Pick.A.Product.png" width=420px/>
 
 #### API Usage
