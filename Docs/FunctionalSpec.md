@@ -3977,11 +3977,19 @@ A user can get a product photo by choosing from a grid with two tabs showing the
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.6.Pick.A.Product.png" width=420px/>
 
 #### API Usage
+GET /products/post-options
 
 #### User Flow
 **entry screens:**   
 
 #### Stories 
+- a user can select a product photo to use in their post
+   - the first tab is comprised of products the user has hearted ```hearted_products.products```
+   - the second tab is comprised of popular products ```popular_products.products```
+   - both lists paginate
+- a user can select a product
+   - tapping on an item routes to (view 12.2)
+   - (view 12.2) should use ```product.main_image``` as its source
 
 #### Design Stories
 - Custom Tab Label
