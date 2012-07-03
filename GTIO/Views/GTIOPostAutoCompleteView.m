@@ -108,8 +108,6 @@
     
 }
 
-
-
 - (void)hidePlaceholderLabel
 {
     
@@ -120,6 +118,12 @@
     }];
 }
 
+
+- (void) resetView 
+{
+    [super resetView];
+    [self showPlaceholderLabel];
+}
 
 
 @end

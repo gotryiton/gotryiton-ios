@@ -23,8 +23,6 @@
 @synthesize attrString = _attrString;
 @synthesize positionOfLastWordTyped =_positionOfLastWordTyped;
 @synthesize positionOfLastTwoWordsTyped =_positionOfLastTwoWordsTyped;
-@synthesize submissionText = _submissionText;
-@synthesize dataText = _dataText;
 @synthesize inputText = _inputText;
 
 @synthesize ACInputFont = _ACInputFont;
@@ -45,12 +43,6 @@
         
         // the array of visible autocomplete buttons in the scroll view
         _autoCompleteButtonOptions = [[NSMutableArray alloc] init];
-        
-        // keep track of a string that the user is typing that uses the dictionary's keys in place of the dictionary's display_text
-        _dataText = [[NSString alloc] initWithString:@" "];
-        
-        // keep track of text this view will pass along to the server
-        _submissionText = [[NSString alloc] initWithString:@""];
         
         // keep track of text in the input box
         _inputText = [[NSString alloc] initWithString:@""];
@@ -525,5 +517,15 @@
     NSLog (@"submission string: %@ ", response);
     return response;
 }
+
+- (void)resetView
+{
+    self.inputText = @"";
+    self.attrString = [[NSMutableAttributedString alloc] initWithString:@""];
+    self.textInput.text = @"";
+    self.textView.string = self.attrString;
+
+}
+
 
 @end
