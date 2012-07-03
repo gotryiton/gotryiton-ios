@@ -233,25 +233,18 @@
     self.positionOfLastWordTyped = NSMakeRange(0, str.length);
     self.positionOfLastTwoWordsTyped = NSMakeRange(0, str.length);
     
-    NSUInteger count = 0, words = 0, length = [str length];
-    NSRange range = NSMakeRange(0, length); 
-    while(range.location != NSNotFound && words < 2 && count < 3) {
-        range = [str rangeOfString: @" " options:NSBackwardsSearch range:range];
-        if(range.location != NSNotFound) {
-            if (range.location <= (length - 1) && words == 1){
-                self.positionOfLastTwoWordsTyped = NSMakeRange(range.location+1, length-range.location-1);
-                words++;
-            }
 
-            if (range.location < (length - 1) && words == 0){
-                self.positionOfLastWordTyped = NSMakeRange(range.location+1, length-range.location-1);
-                words++;
-            }
-            
-            range = NSMakeRange(0, range.location - 1);
-            count++; 
-        }
+    NSRegularExpression* regex = [[NSRegularExpression alloc] initWithPattern:@"\\ ?([\\w\\@\\#&-]*?\\ ?([\\w\\@\\#&-]+))\\ ?$" options:NSRegularExpressionCaseInsensitive error:nil];
+
+    NSArray *matches = [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
+
+    for (NSTextCheckingResult *match in matches) {
+       
+        self.positionOfLastTwoWordsTyped =  [match rangeAtIndex:1];
+        self.positionOfLastWordTyped = [match rangeAtIndex:2];
+        
     }
+
 }
 
 - (NSString *)lastWordTyped
