@@ -3275,8 +3275,7 @@ dynamic
 
 
 
-### 10.3 ~Shop 3rd Party webview Container ~
- 
+### 10.3 ~~Shop 3rd Party webview Container~~   
 
 ### 10.4 Default 3rd party webview container  
 
@@ -3285,12 +3284,13 @@ A user can browse to a 3rd party site with a default browsing experience
 
 #### Mockups
 10.4 ([wireframe](http://invis.io/XF2OEOYU)) 
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.A.Default.Webview.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.4.Default.3rd.Party.WV.png" width=420px/>
+disabled button
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.B.Default.Webview.Disabled.Button.png" width=420px/>
 
 10.4.1 actionsheet: ([wireframe](http://invis.io/F32PNLA5)) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.4.Default.3rd.Party.WV.Actionsheet.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.C.Default.Webview.Actionsheet.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -3310,7 +3310,23 @@ None.
    - standard options button
       - raises actionsheet as (view 10.4.1)
    
-
+#### Design Stories
+- Nav bar with custom title (see spec for 2.2)
+- Custom Tab Bar for webview
+   - background is 'webview-tab-bg.png'
+   - Buttons
+      - Back
+         - 'webview-button-back.png' with active/inactive/disabled states
+         - 22px from left edge of screen
+         - 9px from bottom of screen
+      - Forward
+         - 'webview-button-forward.png' with active/inactive/disabled states
+         - 84px from left edge of screen
+         - 9px from bottom of screen
+      - Options
+         - 'webview-button-options.png' with active/inactive/disabled states
+         - 17px from right edge of screen
+         - 10px from bottom of screen
 
 ### 10.5 Shop Browse Products  
 
