@@ -13,11 +13,32 @@
 @synthesize textViewDidEndHandler = _textViewDidEndHandler, textViewWillBecomeActiveHandler = _textViewWillBecomeActiveHandler, textViewDidBecomeActiveHandler = _textViewDidBecomeActiveHandler;
 @synthesize forceBecomeFirstResponder = _forceBecomeFirstResponder;
 
-- (id)initWithFrame:(CGRect)frame outerBox:(CGRect) outerFrame
+@synthesize placeHolderLabelView = _placeHolderLabelView;
+
+- (id)initWithFrame:(CGRect)frame outerBox:(CGRect) outerFrame title:(NSString *)title icon:(UIImage *)icon
 {
     self = [super initWithFrame:frame outerBox:outerFrame];
     if (self) {
         [self.textInput setDelegate:self];
+
+
+        self.placeHolderLabelView = [[UIView alloc] initWithFrame:(CGRect){ CGRectGetMinX(frame) , 0, frame.size.width, 30 }];
+        [self addSubview:self.placeHolderLabelView];
+       
+        UIImageView *iconView = [[UIImageView alloc] initWithImage:icon];
+        [iconView setFrame:(CGRect){ self.placeHolderLabelView.bounds.size.width - iconView.bounds.size.width , 5, iconView.bounds.size }];
+        [self.placeHolderLabelView addSubview:iconView];
+
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 0, 9, self.placeHolderLabelView.bounds.size.width - iconView.bounds.size.width - 17, 15 }];
+        [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:12.0]];
+        [titleLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [titleLabel setAlpha:0.5];
+        [titleLabel setText:title];
+        [titleLabel setBackgroundColor:[UIColor clearColor]];
+        [self.placeHolderLabelView addSubview:titleLabel];
+
+        [self bringSubviewToFront:self.textInput];
+
     }
     return self;
 }
@@ -29,6 +50,7 @@
     [super textView:textView shouldChangeTextInRange:range replacementText:text];
     
     if([text isEqualToString:@"\n"]) {
+        [self hideOrShowPlaceholderLabel];
         if (self.textViewDidEndHandler) {
             self.textViewDidEndHandler(self, YES);
         } else {
@@ -36,13 +58,20 @@
         }
         return NO;
     }
+    else {
+        [self hidePlaceholderLabel];
+    }
     return YES;
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
+    [self hidePlaceholderLabel];
     if (self.textViewWillBecomeActiveHandler && !self.forceBecomeFirstResponder) {
         [self setForceBecomeFirstResponder:YES];
+        
+        [self showPlaceholderText];
+
         self.textViewWillBecomeActiveHandler(self);
         return NO;
     } else {
@@ -57,5 +86,40 @@
         self.textViewDidBecomeActiveHandler(self);
     }
 }
+
+- (void)hideOrShowPlaceholderLabel
+{
+    if ([[self.textInput.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] > 0) {
+        [self hidePlaceholderLabel];
+    } else {
+        [self showPlaceholderLabel];
+    }
+}
+
+- (void)showPlaceholderLabel
+{
+    
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^{
+        self.placeHolderLabelView.alpha = 1;
+    } completion:^(BOOL finished) {
+         [self hidePlaceholderText];
+    }];
+
+    
+}
+
+
+
+- (void)hidePlaceholderLabel
+{
+    
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^{
+        self.placeHolderLabelView.alpha = 0;
+    } completion:^(BOOL finished) {
+         [self showPlaceholderText];
+    }];
+}
+
+
 
 @end

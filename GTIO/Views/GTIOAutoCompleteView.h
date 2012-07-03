@@ -44,5 +44,7 @@
 - (UIView *)initWithFrame:(CGRect)frame outerBox:(CGRect)outerFrame;
 - (void)addCompleters:(NSMutableArray *)completers;
 - (NSString *)processDescriptionString;
+- (void) showPlaceholderText;
+- (void) hidePlaceholderText;
 
 @end

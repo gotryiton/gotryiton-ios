@@ -104,10 +104,9 @@
         _previewTextView.frame = editingFrame;
         _previewTextView.contentsScale = [[UIScreen mainScreen] scale]; 
         _previewTextView.alignmentMode = kCAAlignmentLeft;
-        _previewTextView.opacity = 1.0;
+        _previewTextView.opacity = 0;
         [self.layer addSublayer:self.previewTextView];
         
-        [self displayPlaceholderText];
 
         /** Add a scroll view for the autocomplete buttons to be viewable in
          */
@@ -338,9 +337,18 @@
 
 - (void) hidePlaceholderText 
 {
-    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^{
-        self.previewTextView.opacity = 0;
-    } completion:nil];
+    if (self.previewTextView.opacity==1){
+        [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^{
+            self.previewTextView.opacity = 0;
+        } completion:nil];    
+    }
+}
+
+- (void) showPlaceholderText
+{
+    if (self.inputText.length == 0) {
+        [self displayPlaceholderText];
+    }
 }
 
 - (void) highlightHashTag
