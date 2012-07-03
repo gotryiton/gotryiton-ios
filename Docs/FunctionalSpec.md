@@ -3528,11 +3528,15 @@ A user can confirm that they want to upload the photo they've taken or selected.
 #### Mockups
 ([wireframe](http://invis.io/9M2OEVED) [2](http://invis.io/2Z2OEWB8) [3](http://invis.io/QB2OEYM7) [4](http://invis.io/4F2OEZGK))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.2.3.1.Photo.Filter.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.2.3.1.Photo.Filter.png" width=420px/>
 
 12.2.1 Upload confirm with grid button
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.3.2.Photo.Filter.Back.To.Grid.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.2.3.2.Photo.Filter.Back.To.Grid.png" width=420px/>
+
+12.2.2 Upload confirm for product photo
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.2.3.1.Photo.Filter.Product.png" width=420px/>
 
 #### API Usage
 /Tracking
