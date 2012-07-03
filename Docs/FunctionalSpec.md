@@ -2793,6 +2793,11 @@ Each user has a personalized feed of content on the first tab.  The content cont
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Empty.png" width=420px/>
   
 
+8.1.5 feed loading more
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Loading.More.png" width=420px/>
+
+
 #### User Flow
 **entry screens:**   
 any screen with uiTabBar
@@ -2991,6 +2996,15 @@ gtio://posts/feed
       - other items' positioning
          - user icon is 7px away 24px below bottommost element in previous item
          - user icon is 7px away 7px from left edge of screen
+   - loading more
+      - Archer Medium Italic 10pt, rgb(88,88,88)
+      - right aligned, right edge of this text is 51px away from right edge of screen
+         - right edge should appear to line up with right edge of user info box and photo frame on feed
+      - Spinner
+         - 15px x 15px
+         - rgb(154,154,153)
+         - bottom of spinner is 3x below baseline of accompanying text
+         - right of spinner is 6px away from left edge of text
 
 
 ### 8.3 ~Feed verdict view~
