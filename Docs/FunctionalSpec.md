@@ -3378,7 +3378,7 @@ dynamic
 
 ### User flow
 
-[User Flow Diagram PDF](http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/pdf/12.Upload.FlowChart.pdf)
+[User Flow Diagram PDF](http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/pdf/12.Upload.FlowChart.2.pdf)
 
 [Upload Transitions Diagram PDF](http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/pdf/12.Upload.Transitions.pdf)
 
