@@ -3465,56 +3465,52 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
 	- Height: 58px (with shadow) (non-shadow portion is only: 53px high)
 	- Background: (12/upload.bottom.bar.bg)
 	- Capture Button
-		- 10px from top of bar (including bar's shadow overlay, only 6px from top if don't include bar's shadow overlay)
-		- Horizontally Centered when no photoshoot reel button icon
-			- Move 20px to the right when icon is present
-		- Background: Stretch image (12/upload.bottom.bar.camera.button.bg.off.png)
-		- Activate state: Stretch image (12/upload.bottom.bar.camera.button.bg.on.png)
-		- Width: 93px (Including shadow in image)
-		- Height: 45px (Including shadow in image)
-		- Capture Icon: Centered, 11px from top of button (12/upload.bottom.bar.camera.button.icon.normal.png)
-		- Photoshoot Icon: Centered, 10px from top of button (12/upload.bottom.bar.camera.button.icon.photoshoot.png)
-	- Divider (12/upload.bottom.bar.divider.png) repeating-y
-		- 1px wide
-		- 53px high
-	- X Button (12/upload.bottom.bar.icon.x.png)
-		- 22px from top of bar (18px from top if not including bar's shadow overlay)
-		- 11px left/right padding
-	- Photoroll Button (12/upload.bottom.bar.icon.photoroll.png)
-		- 19px from top of bar (15px from top if not including bar's shadow overlay)
-		- 9px left/right padding
-	- Photoshoot Reel Button (12/upload.bottom.bar.icon.photoshootreel.png)
-		- 19px from top of bar (15px from top if not including bar's shadow overlay)
-		- 8px left/right padding
-	- Photo capture mode switch
-		- Switch
-			- Background: image (12/upload.bottom.bar.switch.bg.png)
-			- 9px left/right padding
-			- 8px from bottom
-			- Width: 61px
-			- Height: 17px
-			- Button: image (12/upload.bottom.bar.switch.png)
-				- Width: 35px
-				- Height: 32px
-				- Clip entire button in 61x17px area with borders that have 5px radius (rounded)
-				- When switch button is on either side, move button another 2px within clipping mask to hide the shadow in the image
-		- Normal Small Icon
-			- 14px from top of bar (10px from top if not including bar's shadow overlay)
-			- 13px from left
-		- Photoshoot Small Icon
-			- 14px from tp of bar (10px from top if not including bar's shadow overlay)
-			- 13px from right
-- Flash Icon
-	- Background: image (upload.flash.off.png)
-		- Active State: (upload.flash.on.png)
-	- Height: 42px
-	- Width: 78px
-	- 6px from top
-	- 5px from left
+		- 'capture.png' (with normal/pro versions, active and inactive states)
+		- vertically centered within bottom bar (non-shadow portion)
+      - horizontally centered when no shootgrid button
+			- move 20px to the right when shootgrid button is present
+		- Mode Switch/Toggle Area
+         - rightmost 50px of capture asset area switches between normal and photoshoot
+         - switches directly back and forth between 'capture.normal.inactive.png' and 'capture.pro.inactive.png' -- this area should not trigger 'active' ('tapped' state) asset
+            - only tapping on remainder of button area uses 'active' states
+   - Photoshoot info popup
+      - 'photoshoot-info-popup.png'
+      - 30px up from bottom of screen
+      - 25px from right edge of screen
+         - pointer of asset should appear to be horizontally centered on circular Photoshoot toggle button
+      - shows for 2 seconds, then simultaneously fades out and animates upwards
+   - Dividers
+      - '12/divider.png'
+      - Vertically centered within bottom bar
+		- Normal
+         - instance 1: 50px from left edge of screen
+         - instance 2: 50px from right edge of screen
+      - w/ Shoot Grid button
+         - instance 1: 89px from left edge of screen
+         - instance 2: 50px from right edge of screen   
+	- X Button (12/button.x.png)
+		- 18px from bottom of screen
+		- 16px from right edge of screen
+	- Source Button (12/button.source.png)
+		- 14px from bottom of screen
+		- 13px from left edge of screen
+   - Source Menu
+      - stack 'source-menu.png' (top/middle/bottom versions)
+      - 4px from left edge of screen
+      - 42px from bottom edge of screen
+	- Photoshoot Grid ('shootgrid') Button (12/button.shootgrid.png)
+      - 16px from bottom of screen
+      - 53px from left edge of screen
+- Camera Switch Button
+   - 'camera-overlay-switcher.png'
+   - 4px from left edge of screen
+   - 5px from bottom of status bar
+- Flash Toggle Button
+	- 'camera-overlay-flash.png'
+	- 4px from left edge of screen
+	- asset immediately below Camera Switch button asset -- buttons not including shadow area should be approx 9px apart
 - Frame Indication Icon
-	- Background images (upload.frames.indicator.photo.overlay.[location].png)
-	- Height: 53px
-	- Width: 56px
+	- 'camera-overlay-minimap.png' with 1,2,3 versions)
 	- 10px from top and right
 - Loader
 	- Vertically and horizontally center in viewfinder
@@ -3562,13 +3558,21 @@ A user can confirm that they want to upload the photo they've taken or selected.
 ### Design Stories
 - Bottom Bar
 	- X Button
-		- 17px padding left/right
-		- 22px from top of bar (18px from top if not including bar's shadow overlay)
+		- 16px from left edge of screen
+		- 18px from bottom of screen
 	- Check Button
-		- 13px padding left/right
-		- 22px from top of bar (18px from top if not including bar's shadow overlay)
-	- Middle Text: 18px Archer Light Italic rgb(64,64,65) #404041
-		- 22px from top of bar (18px from top if not including bar's shadow overlay)
+      - '12/button.check.png'
+		- 13px from right edge of screen
+		- 18px from bottom of screen
+	- Middle Text: 16px Archer Light Italic rgb(143,143,143)
+		- baseline is 23px from bottom of screen
+      - horizontally centered
+   - Dividers
+      - '12/divider.png'
+      - Vertically centered within bottom bar
+      - Normal
+         - instance 1: 50px from left edge of screen
+         - instance 2: 50px from right edge of screen
 - Filter Buttons
 	- 69x69px including shadow
 	- Filter Image: 61x61px with 5px radius (10px @2x)
