@@ -22,7 +22,7 @@
         [self.textInput setDelegate:self];
 
 
-        self.placeHolderLabelView = [[UIView alloc] initWithFrame:(CGRect){ CGRectGetMinX(frame) , 0, frame.size.width, 30 }];
+        self.placeHolderLabelView = [[UIView alloc] initWithFrame:(CGRect){ CGRectGetMinX(frame) , 0, frame.size.width + 5, 30 }];
         [self addSubview:self.placeHolderLabelView];
        
         UIImageView *iconView = [[UIImageView alloc] initWithImage:icon];
