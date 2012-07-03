@@ -3426,7 +3426,6 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
    - After camera capture button is pressed
       - capture photo @ 640px wide
       - route to (view 12.2)
-
 - A user can select a source to import a photo
    - A user can select a photo from multiple sources
    - tapping on photoroll button opens a custom menu with:
@@ -3453,6 +3452,12 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
    - if a user has previously done a photoshoot, they can access the grid to choose a photo
       - grid button **tap** ==> (view 12.4)
    - the toggle state is remembered the next time this view is accessed
+- A user can toggle between the front and back side cameras
+   - the front/back toggle button should switch the camera state 
+   - the animation between the states should mimic that of the native camera app
+   - When the front camera is enabled, the flash button is disabled (and not shown)
+   - When photoshoot mode is enabled, the front/back toggle button is available (while flash is not)
+   - Once a photoshoot starts, this button is not visible (and a user cannot change their camera)
 
 ### Design Stories
 - Bottom Bar
