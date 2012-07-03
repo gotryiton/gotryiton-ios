@@ -3335,12 +3335,30 @@ A user can browse to a native list of products
 
 #### Mockups
 10.5 ([wireframe](http://invis.io/E22OEQDR)) 
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.B.Browse.Products.Standard.Nav.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.5.Shop.Browse.Products.png" width=420px/>
+10.5.1 Shop Browse Products without Picker ([wireframe](http://invis.io/GP2OEPH9))
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.A.Browse.Products.Standard.Nav.No.Picker.png" width=420px/>
 
-10.5.1 Shop Browse Products without standard cell ([wireframe](http://invis.io/GP2OEPH9))
+10.5.2 Shop Browse Products without Picker (scrolled)
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.C.Browse.Products.Standard.Nav.Scrolled.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.5.Shop.Browse.Products.No.Link.png" width=420px/>
+10.5.3 Shop Browse Products without Picker (empty)
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.D.Browse.Products.Standard.Nav.Empty.png" width=420px/>
+
+10.5.4 Shop Browse Products with Standard Cell Link ([wireframe](http://invis.io/GP2OEPH9))
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.E.Browse.Products.Standard.Nav.Standard.Link.png" width=420px/>
+
+10.5.5 Shop Browse Products with Custom Link
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.F.Browse.Products.Standard.Nav.Custom.Link.png" width=420px/>
+
+10.5.6 Shop Browse Products with Custom Nav and Standard Link
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.G.Browse.Products.Custom.Nav.Standard.Link.png" width=420px/>
+
+10.5.6 Shop Browse Products with Custom Nav and Standard Link
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.H.1.Browse.Products.Custom.Nav.Custom.Link.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.H.2.Browse.Products.Custom.Nav.Custom.Link.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -3383,9 +3401,45 @@ dynamic
       - api path for each item defined by api
       - api design will be similar to list tabs in GTIOv3
 
-
-
-
+#### Design Stories
+- Standard Nav
+   - Custom styled Nav bar title (see spec for 2.2)
+- Custom Nav
+   - Custom Nav bar background
+      - '?/nav-bg.png'
+   - Custom back button
+      - '?/nav-back-inactive.png'
+      - '?/nav-back-active.png'
+- Standard Cell Link
+   - 50px high
+   - Verlag Book 16pt rgb(143,143,143) vertically centered within cell
+   - 'general/general.chevron' 9px from right edge of screen, vertically centered within cell
+- Custom Link
+   - 320px x 50px
+- Grid
+   - Gradient Overlay
+      - only present if picker is enabled
+      - flush with bottom of nav bar
+      - products can scroll underneath
+   - Picker
+      - products can scroll underneath
+      - 'shop-products-picker.png'
+         - 7px from bottom of nav bar (including shadow portion)
+         - 9px from right edge of screen (right of button should appear to align with right edge of product thumbnails)
+         - 17px nonstretchable on right
+         - 8px nonstretchable on left
+         - vertical middle is stretchable
+         - minimum width is 123px
+      - text is Proxima Nova Semibold 10pt rgb(166,166,166)
+         - string displayed in all caps
+         - 9px from left edge of button asset
+         - left aligned, minimum 24px margin between end of text and end of button asset (button should stretch to accommodate)
+   - Background
+      - 'products-grid-bg.png'
+      - top of background asset should always start from top of viewable grid area (viewable area changes depending on if custom link and/or picker are enabled)
+   - Empty
+      - 'shop-products-empty.png'
+      - vertically and horizontally centered within viewable grid area (viewable area changes depending on if custom link and/or picker are enabled)
 
 ## 12. Upload
 
