@@ -8,6 +8,8 @@
 
 #import "GTIOFilterManager.h"
 
+#import "GTIOFilterOperation.h"
+
 #import "NSMutableDictionary+FilterTypeKeys.h"
 
 @interface GTIOFilterManager ()
@@ -49,17 +51,12 @@
 {
     for (int i = 0; i < (sizeof GTIOFilterOrder)/(sizeof GTIOFilterOrder[0]); i++) {
         GTIOFilterType filterType = GTIOFilterOrder[i];
-        Class filterClass = NSClassFromString(GTIOFilterTypeClass[filterType]);
-        if (filterClass) {
-            GTIOFilterOperation *filterOperation = [[GTIOFilterOperation alloc] initWithFilterType:filterType];
-            [filterOperation setOriginalImage:self.originalImage];
-            [filterOperation setFinishedHandler:^(GTIOFilterType filterType, UIImage *filteredImage) {
-                [self.filteredImages setObject:filteredImage forFilterType:filterType];
-            }];
-            [self.filterQueue addOperation:filterOperation];
-        } else {
-            NSLog(@"Could not load filter class: %@", GTIOFilterTypeClass[filterType]);
-        }
+        GTIOFilterOperation *filterOperation = [[GTIOFilterOperation alloc] initWithFilterType:filterType];
+        [filterOperation setOriginalImage:self.originalImage];
+        [filterOperation setFinishedHandler:^(GTIOFilterType filterType, UIImage *filteredImage) {
+            [self.filteredImages setObject:filteredImage forFilterType:filterType];
+        }];
+        [self.filterQueue addOperation:filterOperation];
     }
 }
 

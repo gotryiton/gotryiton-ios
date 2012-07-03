@@ -27,6 +27,7 @@
 #import "GTIOProfileCallout.h"
 #import "GTIOFollowRequestAcceptBar.h"
 #import "GTIOPostList.h"
+#import "GTIOSuggestedFriendsIcon.h"
 
 @implementation GTIOMappingProvider
 
@@ -54,6 +55,7 @@
         RKObjectMapping *followRequestAcceptBarMapping = [RKObjectMapping mappingForClass:[GTIOFollowRequestAcceptBar class]];
         RKObjectMapping *postListMapping = [RKObjectMapping mappingForClass:[GTIOPostList class]];
         RKObjectMapping *paginationMapping = [RKObjectMapping mappingForClass:[GTIOPagination class]];
+        RKObjectMapping *suggestedFriendIconMapping = [RKObjectMapping mappingForClass:[GTIOSuggestedFriendsIcon class]];
         
         /** Config
          */
@@ -155,10 +157,13 @@
         
         /** Buttons
          */
+        [suggestedFriendIconMapping mapKeyPath:@"icon" toAttribute:@"iconPath"];
+        [buttonMapping mapKeyPath:@"icons" toRelationship:@"icons" withMapping:suggestedFriendIconMapping];
         [buttonActionMapping mapAttributes:@"destination", @"endpoint", @"spinner", nil];
         [buttonMapping mapKeyPath:@"image" toAttribute:@"imageURL"];
         [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", @"state", nil];
+        [self setMapping:buttonMapping forKeyPath:@"ui.buttons"];
         
         /** Screens
          */
@@ -190,7 +195,7 @@
         [postMapping mapKeyPath:@"star" toAttribute:@"stared"];
         [postMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"dot_options.buttons" toRelationship:@"dotOptionsButtons" withMapping:buttonMapping];
-        [postMapping mapKeyPath:@"who_hearted.buttons" toRelationship:@"whoHeartedButtons" withMapping:buttonMapping];
+//        [postMapping mapKeyPath:@"who_hearted.buttons" toRelationship:@"whoHeartedButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"brands.buttons" toRelationship:@"brandsButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
         [postMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];

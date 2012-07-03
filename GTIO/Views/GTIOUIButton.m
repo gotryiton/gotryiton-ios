@@ -55,6 +55,11 @@
         case GTIOButtonTypeFollowingButtonForNavBar: return [self gtio_followingButtonForNavBar];
         case GTIOButtonTypeRequestedButtonForNavBar: return [self gtio_requestedButtonForNavBar];
         case GTIOButtonTypeMask: return [self gtio_maskButton];
+        case GTIOButtonTypeFollowButtonRegular: return [self gtio_followButtonRegular];
+        case GTIOButtonTypeFollowingButtonRegular: return [self gtio_followingButtonRegular];
+        case GTIOButtonTypeRequestedButtonRegular: return [self gtio_requestedButtonRegular];
+        case GTIOButtonTypeCloseButtonForNavBar: return [self gtio_closeButtonGrayTopMargin];
+        case GTIOButtonTypeReload: return [self gtio_reloadButtonTopMargin];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -196,6 +201,11 @@
 + (id)gtio_cancelButtonGrayTopMargin
 {
     return [self gtio_navBarTopMarginWithText:@"cancel" tapHandler:nil];
+}
+
++ (id)gtio_closeButtonGrayTopMargin
+{
+    return [self gtio_navBarTopMarginWithText:@"close" tapHandler:nil];
 }
 
 + (id)gtio_saveButtonGrayTopMargin
@@ -367,6 +377,33 @@
     return button;
 }
 
++ (id)gtio_followButtonRegular
+{
+    GTIOUIButton *button = [self gtio_followButtonForNavBar];
+    [button setBackgroundImage:[UIImage imageNamed:@"follow-OFF.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"follow-ON.png"] forState:UIControlStateHighlighted];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    return button;
+}
+
++ (id)gtio_followingButtonRegular
+{
+    GTIOUIButton *button = [self gtio_followingButtonForNavBar];
+    [button setBackgroundImage:[UIImage imageNamed:@"following-OFF.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"following-ON.png"] forState:UIControlStateHighlighted];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    return button;
+}
+
++ (id)gtio_requestedButtonRegular
+{
+    GTIOUIButton *button = [self gtio_requestedButtonForNavBar];
+    [button setBackgroundImage:[UIImage imageNamed:@"requested-OFF.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"requested-ON.png"] forState:UIControlStateHighlighted];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    return button;
+}
+
 + (id)gtio_requestedButtonForNavBar
 {
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
@@ -386,6 +423,11 @@
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
+}
+
++ (id)gtio_reloadButtonTopMargin
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.icon.refresh.png"] hightlightImage:nil];
 }
 
 #pragma mark - Touch Handling

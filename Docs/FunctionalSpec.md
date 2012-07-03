@@ -2859,6 +2859,7 @@ gtio://posts/feed
    - routes to ```gtio://shop-post/:post_id``` (defined in api)
 - A user can tap on a '...' btn to see more actions 
    - button options are included in: ```post.dot_options.buttons```
+   - once overlay is displayed wait until user taps on screen somewhere else. if tap is on a button it should take that action also on the screen then it closes. scrolling should not revmoe overlay.
 - A user can paginate through multiple pages of their feed
    - pagination details are available in: [Api Docs](http://gtio-dev.gotryiton.com/docs/api-documentation)
 - A user can pull to refresh their feed

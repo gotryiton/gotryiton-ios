@@ -17,6 +17,7 @@
 #import "GTIOFeedCell.h"
 #import "GTIONavigationNotificationTitleView.h"
 #import "GTIOFeedNavigationBarView.h"
+#import "GTIOFriendsViewController.h"
 
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -80,7 +81,9 @@
 
     GTIOFeedNavigationBarView *navView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
     [navView.friendsButton setTapHandler:^(id sender) {
-        NSLog(@"Friends button tapped");
+        GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
+        [self presentModalViewController:navController animated:YES];
     }];
     [self.tableView setTableHeaderView:navView];
 }

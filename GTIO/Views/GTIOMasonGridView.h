@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOPost.h"
+#import "GTIOMasonGridItem.h"
 
-@interface GTIOMasonGridView : UIScrollView
+@interface GTIOMasonGridView : UIScrollView <GTIOMasonGridItemDelegate>
+
+- (void)setPosts:(NSArray *)posts postsType:(GTIOPostType)postsType;
 
 @end
