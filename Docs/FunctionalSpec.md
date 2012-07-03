@@ -4181,6 +4181,9 @@ Pull to Refresh in Feed view
 Pull to Refresh in Explore Looks view
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.PTR.png" width=420px/>
 
+Pull to Refresh in Reviews
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.6.Pull.To.Refresh.Reviews.png" width=420px/>
+
 #### API Usage
 Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
 
