@@ -1352,6 +1352,7 @@ previous screen
    - **tap** on count ==> (view 3.5)
 - A user can post a product from a product page
    - Post btn **tap** ==> (view 12.3)
+   - (view 12.3) should use ```product.main_image``` as its source image
 - A user can add a product to their shopping list
    - + shopping list button adds the item to their list
 
