@@ -234,7 +234,7 @@
     self.positionOfLastTwoWordsTyped = NSMakeRange(0, str.length);
     
 
-    NSRegularExpression* regex = [[NSRegularExpression alloc] initWithPattern:@"\\ ?([\\w\\@\\#&-]*?\\ ?([\\w\\@\\#&-]+))\\ ?$" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSRegularExpression* regex = [[NSRegularExpression alloc] initWithPattern:@"\\ ?([\\w\\.\\@\\#&-]*?\\ ?([\\w\\.\\@\\#&-]+))\\ ?$" options:NSRegularExpressionCaseInsensitive error:nil];
 
     NSArray *matches = [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
 
