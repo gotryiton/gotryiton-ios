@@ -348,7 +348,7 @@
     NSString *lastword = [self.inputText substringWithRange:self.positionOfLastWordTyped];
 
     if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
-        [self highlightInputTextInRange:self.positionOfLastWordTyped completerID:[self lastWordTyped] type:@"#" ];    
+        [self highlightInputTextInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
     }
 }
 
