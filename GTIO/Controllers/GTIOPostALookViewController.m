@@ -326,12 +326,12 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         [GTIOPost postGTIOPhoto:self.photoForPosting description:[self.descriptionBox.textView processDescriptionString] votingEnabled:self.optionsView.votingSwitch.on completionHandler:^(GTIOPost *post, NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             if (!error && post) {
-                [self.descriptionBox.textView resetView];
                 [self.navigationController dismissModalViewControllerAnimated:YES];
             } else {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There was an error posting your look. Please try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
                 [alert show];
             }
+            [self.descriptionBox.textView resetView];
         }];
     }
 }
