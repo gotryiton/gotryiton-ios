@@ -2774,7 +2774,7 @@ GET /tags/search/:query
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
    - Text vertically centered within cell, 6px from left edge of screen
 - Brand tag icon
-   - 'brand-tag.png'
+   - 17px x 17px
    - bottom of asset is 4px below baseline of accompanying text
    - 11px horizontal gap between asset and accompanying text
 
