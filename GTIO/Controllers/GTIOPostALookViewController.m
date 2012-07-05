@@ -110,7 +110,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ 253, 174, 60, 143 }];
     [self.scrollView addSubview:self.optionsView];
     
-    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 155 } title:@"add a description" icon:[UIImage imageNamed:@"description-box-icon.png"]];
+    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 155 } title:@"add a description, tags, and brands..." icon:[UIImage imageNamed:@"description-box-icon.png"]];
     [self.descriptionBox.textView setTextViewWillBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {        
         CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
         
@@ -331,6 +331,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There was an error posting your look. Please try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
                 [alert show];
             }
+            [self.descriptionBox.textView resetView];
         }];
     }
 }
@@ -344,6 +345,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)cancelPost
 {
+    [self.descriptionBox.textView resetView];
     [self.photoForCreationRequests cancel];
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
