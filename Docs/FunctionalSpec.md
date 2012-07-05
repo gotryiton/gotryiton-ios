@@ -2746,6 +2746,8 @@ GET /tags/search
 
 GET /tags/search/:query
 
+[docs](http://gtio-dev.gotryiton.com/docs/api-tags)
+
 #### Stories
 - A user can select from previously searched tags and trending tags
     - the page should request from ```/tags/search``` to recieve this list
