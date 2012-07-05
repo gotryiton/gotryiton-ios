@@ -21,7 +21,6 @@
     if (self) {
         [self.textInput setDelegate:self];
 
-
         self.placeHolderLabelView = [[UIView alloc] initWithFrame:(CGRect){ CGRectGetMinX(frame) , 0, frame.size.width + 5, 30 }];
         [self addSubview:self.placeHolderLabelView];
        
@@ -38,7 +37,6 @@
         [self.placeHolderLabelView addSubview:titleLabel];
 
         [self bringSubviewToFront:self.textInput];
-
     }
     return self;
 }
@@ -104,8 +102,6 @@
     } completion:^(BOOL finished) {
          [self hidePlaceholderText];
     }];
-
-    
 }
 
 - (void)hidePlaceholderLabel
@@ -118,12 +114,10 @@
     }];
 }
 
-
 - (void) resetView 
 {
     [super resetView];
     [self showPlaceholderLabel];
 }
-
 
 @end

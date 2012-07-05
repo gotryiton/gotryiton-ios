@@ -224,18 +224,14 @@
     self.positionOfLastWordTyped = NSMakeRange(0, str.length);
     self.positionOfLastTwoWordsTyped = NSMakeRange(0, str.length);
     
-
     NSRegularExpression* regex = [[NSRegularExpression alloc] initWithPattern:@"\\ ?([\\w\\.\\@\\#&-]*?\\ ?([\\w\\.\\@\\#&-]+))\\ ?$" options:NSRegularExpressionCaseInsensitive error:nil];
 
     NSArray *matches = [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
 
     for (NSTextCheckingResult *match in matches) {
-       
         self.positionOfLastTwoWordsTyped =  [match rangeAtIndex:1];
         self.positionOfLastWordTyped = [match rangeAtIndex:2];
-        
     }
-
 }
 
 - (NSString *)lastWordTyped
@@ -524,8 +520,6 @@
     self.attrString = [[NSMutableAttributedString alloc] initWithString:@""];
     self.textInput.text = @"";
     self.textView.string = self.attrString;
-
 }
-
 
 @end
