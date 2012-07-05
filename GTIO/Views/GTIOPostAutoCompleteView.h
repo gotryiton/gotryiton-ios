@@ -23,7 +23,6 @@ typedef void(^GTIOTextViewDidBecomeActiveHandler)(GTIOPostAutoCompleteView *desc
 
 @property (nonatomic, strong) UIView *placeHolderLabelView;
 
-
 - (id)initWithFrame:(CGRect)frame outerBox:(CGRect) outerFrame title:(NSString *)title icon:(UIImage *)icon;
 
 @end
