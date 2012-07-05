@@ -4243,10 +4243,12 @@ A user can refresh a feed
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.6.Pull.To.Refresh.3.Update.png" width=420px/>
 
-****Pull to Refresh in Explore Looks view
+Pull to Refresh in Explore Looks view
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.PTR.png" width=420px/>
 
-****Pull to Refresh in Reviews
+Pull to Refresh in Reviews
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.6.Pull.To.Refresh.Reviews.png" width=420px/>
 
 #### API Usage
