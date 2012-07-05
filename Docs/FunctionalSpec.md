@@ -3293,7 +3293,6 @@ dynamic
 
 
 ### 10.3 ~~Shop 3rd Party webview Container~~   
- 
 
 ### 10.4 Default 3rd party webview container  
 
@@ -3302,12 +3301,13 @@ A user can browse to a 3rd party site with a default browsing experience
 
 #### Mockups
 10.4 ([wireframe](http://invis.io/XF2OEOYU)) 
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.A.Default.Webview.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.4.Default.3rd.Party.WV.png" width=420px/>
+disabled button
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.B.Default.Webview.Disabled.Button.png" width=420px/>
 
 10.4.1 actionsheet: ([wireframe](http://invis.io/F32PNLA5)) 
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.4.Default.3rd.Party.WV.Actionsheet.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.C.Default.Webview.Actionsheet.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -3327,7 +3327,23 @@ None.
    - standard options button
       - raises actionsheet as (view 10.4.1)
    
-
+#### Design Stories
+- Nav bar with custom title (see spec for 2.2)
+- Custom Tab Bar for webview
+   - background is 'webview-tab-bg.png'
+   - Buttons
+      - Back
+         - 'webview-button-back.png' with active/inactive/disabled states
+         - 22px from left edge of screen
+         - 9px from bottom of screen
+      - Forward
+         - 'webview-button-forward.png' with active/inactive/disabled states
+         - 84px from left edge of screen
+         - 9px from bottom of screen
+      - Options
+         - 'webview-button-options.png' with active/inactive/disabled states
+         - 17px from right edge of screen
+         - 10px from bottom of screen
 
 ### 10.5 Shop Browse Products  
 
@@ -3335,13 +3351,40 @@ None.
 A user can browse to a native list of products
 
 #### Mockups
-10.5 ([wireframe](http://invis.io/E22OEQDR)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.5.Shop.Browse.Products.png" width=420px/>
+10.5 ([wireframe](http://invis.io/E22OEQDR))
 
-10.5.1 Shop Browse Products without standard cell ([wireframe](http://invis.io/GP2OEPH9))
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.B.Browse.Products.Standard.Nav.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.5.Shop.Browse.Products.No.Link.png" width=420px/>
+10.5.1 Shop Browse Products without Picker ([wireframe](http://invis.io/GP2OEPH9))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.A.Browse.Products.Standard.Nav.No.Picker.png" width=420px/>
+
+10.5.2 Shop Browse Products without Picker (scrolled)
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.C.Browse.Products.Standard.Nav.Scrolled.png" width=420px/>
+
+10.5.3 Shop Browse Products without Picker (empty)
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.D.Browse.Products.Standard.Nav.Empty.png" width=420px/>
+
+10.5.4 Shop Browse Products with Standard Cell Link ([wireframe](http://invis.io/GP2OEPH9))
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.E.Browse.Products.Standard.Nav.Standard.Link.png" width=420px/>
+
+10.5.5 Shop Browse Products with Custom Link
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.F.Browse.Products.Standard.Nav.Custom.Link.png" width=420px/>
+
+10.5.6 Shop Browse Products with Custom Nav and Standard Link
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.G.Browse.Products.Custom.Nav.Standard.Link.png" width=420px/>
+
+10.5.6 Shop Browse Products with Custom Nav and Standard Link
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.H.1.Browse.Products.Custom.Nav.Custom.Link.png" width=420px/>
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.H.2.Browse.Products.Custom.Nav.Custom.Link.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -3384,9 +3427,45 @@ dynamic
       - api path for each item defined by api
       - api design will be similar to list tabs in GTIOv3
 
-
-
-
+#### Design Stories
+- Standard Nav
+   - Custom styled Nav bar title (see spec for 2.2)
+- Custom Nav
+   - Custom Nav bar background
+      - '?/nav-bg.png'
+   - Custom back button
+      - '?/nav-back-inactive.png'
+      - '?/nav-back-active.png'
+- Standard Cell Link
+   - 50px high
+   - Verlag Book 16pt rgb(143,143,143) vertically centered within cell
+   - 'general/general.chevron' 9px from right edge of screen, vertically centered within cell
+- Custom Link
+   - 320px x 50px
+- Grid
+   - Gradient Overlay
+      - only present if picker is enabled
+      - flush with bottom of nav bar
+      - products can scroll underneath
+   - Picker
+      - products can scroll underneath
+      - 'shop-products-picker.png'
+         - 7px from bottom of nav bar (including shadow portion)
+         - 9px from right edge of screen (right of button should appear to align with right edge of product thumbnails)
+         - 17px nonstretchable on right
+         - 8px nonstretchable on left
+         - vertical middle is stretchable
+         - minimum width is 123px
+      - text is Proxima Nova Semibold 10pt rgb(166,166,166)
+         - string displayed in all caps
+         - 9px from left edge of button asset
+         - left aligned, minimum 24px margin between end of text and end of button asset (button should stretch to accommodate)
+   - Background
+      - 'products-grid-bg.png'
+      - top of background asset should always start from top of viewable grid area (viewable area changes depending on if custom link and/or picker are enabled)
+   - Empty
+      - 'shop-products-empty.png'
+      - vertically and horizontally centered within viewable grid area (viewable area changes depending on if custom link and/or picker are enabled)
 
 ## 12. Upload
 
