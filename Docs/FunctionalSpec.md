@@ -347,7 +347,7 @@ POST User/Signup/Facebook (see documentation [Api-Users](http://gtio-dev.gotryit
 	      - swiping backwards brings user to the previous intro screen
          - uiPageControl nav is absent if there are no intro screens
 
-#### Graphical Assets / Usage
+#### Design Stories
    - Background
       - 'login-bg-logo.png'
       - includes status bar area for UIStatusBarStyleBlackTranslucent
@@ -362,6 +362,9 @@ POST User/Signup/Facebook (see documentation [Api-Users](http://gtio-dev.gotryit
       - normal: 6pt Proxima Nova Regular #8f8f8f
       - link portion: 6pt Proxima Nova Regular #ff6a72 underlined
       - horizontally centered, baseline is 405px down from top of screen
+   - Spinner
+      - use 'fullscreen spinner w/ info text' style for loading (see 13.11 spec)
+         - info text is 'creating new account...'
 
 
 ### 1.4 Returning users 
@@ -801,6 +804,9 @@ POST User/Auth/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton
       - normal: 6pt Proxima Nova Regular #8f8f8f
       - link portion: 6pt Proxima Nova Regular #ff6a72 underlined
       - horizontally centered, baseline is 405px down from top of screen
+   - Spinner
+      - use 'fullscreen spinner w/ info text' style for loading (see 13.11 spec)
+         - info text is 'creating new account...'
 
 
 ### 1.10 Facebook SSO
@@ -4509,16 +4515,24 @@ Control raised, populating users
 #### Mockups
 
 13.11 Standard spinner
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.Standard.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/13.11.Spinner.Standard.png" width=420px/>
 
-13.11.1 Spinner blocking screen
+13.11.1 Spinner with container
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.With.Container.png" width=420px/>
+
+13.11.2 Spinner blocking screen
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.Screen.Blocked.png" width=420px/>
 
-13.11.2 Spinner blocking screen with info text
+13.11.3 Spinner blocking screen with info text
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.Screen.Blocked.With.Description.png" width=420px/>
 
 #### Design Stories
 - Standard spinner
+   - no background
+   - 20px x 20px spinner #6e6e6e
+      - horizontally and vertically centered within main content area
+         - 'main content area' should not include nav bar, UI tab bar, status bar areas if present
+- Spinner with container
    - 'spinner-normal-bg.png' as background
       - horizontally centered
       - vertically centered within main content area
