@@ -64,6 +64,10 @@ NSString * const kGTIOJanRainProviderTwitter = @"twitter";
 NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 
 NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
+NSString * const kGTIOPostFeedOpenLinkNotification = @"kGTIOPostFeedOpenLinkNotification";
+NSString * const kGTIODismissDotDotDotPopOverViewNotification = @"kGTIODismissDotDotDotPopOverViewNotification";
+ 
+NSString * const kGTIOURL = @"kGTIOURL";
 
 NSString * const kGTIOUserInfoButtonNameFollowing = @"following";
 NSString * const kGTIOUserInfoButtonNameFollowers = @"followers";
@@ -72,6 +76,9 @@ NSString * const kGTIOUserInfoButtonNameWebsite = @"website-button";
 NSString * const kGTIOUserInfoButtonNameFollow = @"follow-button";
 NSString * const kGTIOUserInfoButtonNameBannerAd = @"banner-ad";
 NSString * const kGTIOUserInfoButtonNameAcceptRelationship = @"accept-relationship-button";
+NSString * const kGTIOPostSideReviewsButton = @"post-side-reviews-button";
+NSString * const kGTIOPostSideShopButton = @"post-side-shop-button";
+NSString * const kGTIOPostDotOptionButton = @"post-dot-option-button";
 NSString * const kGTIOSuggestedFriendsButtonName = @"suggested-friends-button";
 
 int const kGTIOEmptyPostAlertTag = 0;

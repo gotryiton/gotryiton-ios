@@ -11,6 +11,9 @@
 @interface GTIORouter : NSObject
 
 + (GTIORouter *)sharedRouter;
-- (UIViewController *)routeTo:(NSString *)path;
+
+- (UIViewController *)viewControllerForURLString:(NSString*)URLString;
+- (UIViewController *)viewControllerForURL:(NSURL *)URL;
+
 
 @end
