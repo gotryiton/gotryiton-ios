@@ -1125,19 +1125,19 @@ A user can read reviews from an outfit post or a product post page
 
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/3.4.reviews.png" width=420px/>
 
-3.4 Reviews with direct link 
+3.4.1 Reviews with direct link 
 
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/3.4.reviews.direct.link.png" width=420px/>
 
-3.4.1 Reviews Empty
+3.4.2 Reviews (empty)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/2/3.4.Reviews.Empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.Empty.png" width=420px/>
 
-3.4.2 Reviews input screen (no input)
+3.4.3 Reviews input screen (no input)
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.1.Input.png" width=420px/>
 
-3.4.3 Reviews input screen (typing, brands)
+3.4.4 Reviews input screen (typing, brands)
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.2.Input.Brands.png" width=420px/>
 
