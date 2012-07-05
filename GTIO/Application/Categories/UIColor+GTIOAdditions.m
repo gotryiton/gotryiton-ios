@@ -95,6 +95,16 @@
     return UIColorFromRGB(0x404040);
 }
 
++ (UIColor *)gtio_grayTextColor585858
+{
+    return UIColorFromRGB(0x585858);
+}
+
++ (UIColor *)gtio_grayTextColorACACAC
+{
+    return UIColorFromRGB(0xACACAC);
+}
+
 + (UIColor *)gtio_profileDescriptionTextColor
 {
     return UIColorFromRGB(0xBABABA);
@@ -108,6 +118,12 @@
 + (UIColor *)gtio_semiTransparentBackgroundColor
 {
     return [UIColor colorWithRed:0 green:0 blue:0 alpha:0.22];
+}
+
++ (UIColor *)gtio_postReviewCountButtonTextColor
+{
+    // R: 143, G: 204, B: 177
+    return UIColorFromRGB(0x8FCCB1);
 }
 
 + (UIColor *)gtio_findMyFriendsTableCellActiveColor

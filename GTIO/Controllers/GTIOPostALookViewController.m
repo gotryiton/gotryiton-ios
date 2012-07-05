@@ -323,7 +323,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     if (!self.creatingPhoto && self.photoForPosting) {
         [self savePhotoToDisk];
-        [GTIOPost postGTIOPhoto:self.photoForPosting description:[self.descriptionBox.textView processDescriptionString] votingEnabled:self.optionsView.votingSwitch.on completionHandler:^(GTIOPost *post, NSError *error) {
+        [GTIOPost postGTIOPhoto:self.photoForPosting description:[self.descriptionBox.textView processDescriptionString] completionHandler:^(GTIOPost *post, NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             if (!error && post) {
                 [self.navigationController dismissModalViewControllerAnimated:YES];

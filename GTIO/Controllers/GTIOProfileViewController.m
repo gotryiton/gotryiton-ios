@@ -81,6 +81,12 @@
     self.postsHeartsWithSegmentedControlView = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 - (void)pushViewController:(UIViewController *)viewController
 {
     [self.navigationController pushViewController:viewController animated:YES];

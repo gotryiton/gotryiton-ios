@@ -69,7 +69,9 @@
     NSLog(@"\n*****\nGTIO Started in %@ mode.\n*****", kGTIOEnvironmentName);
     
     // List all fonts on iPhone
-//    [self listAllFonts];
+#if DEBUG
+    [self listAllFonts];
+#endif
     
     // Appearance setup
     [GTIOAppearance setupAppearance];
@@ -153,7 +155,7 @@
 - (void)setupRestKit
 {
 //    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
-    RKLogConfigureByName("RestKit/Network", kGTIONetworkLogLevel)
+//    RKLogConfigureByName("RestKit/Network", kGTIONetworkLogLevel)
 //    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace)
     
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURLString:kGTIOBaseURLString];
@@ -168,7 +170,7 @@
     if ([authToken length] > 0) {
         [[RKObjectManager sharedManager].client.HTTPHeaders setObject:authToken forKey:kGTIOAuthenticationHeaderKey];
     }
-#warning test code
+//#warning test code
 //    [[RKObjectManager sharedManager].client.HTTPHeaders setObject:@"f8c3ff8684d637f21a016444c3d1bd31" forKey:kGTIOAuthenticationHeaderKey];
     
     // Auth for dev/staging
