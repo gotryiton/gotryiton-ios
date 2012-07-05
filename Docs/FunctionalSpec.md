@@ -3334,28 +3334,36 @@ None.
 A user can browse to a native list of products
 
 #### Mockups
-10.5 ([wireframe](http://invis.io/E22OEQDR)) 
+
+**10.5** ([wireframe](http://invis.io/E22OEQDR)) 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.B.Browse.Products.Standard.Nav.png" width=420px/>
 
 10.5.1 Shop Browse Products without Picker ([wireframe](http://invis.io/GP2OEPH9))
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.A.Browse.Products.Standard.Nav.No.Picker.png" width=420px/>
 
 10.5.2 Shop Browse Products without Picker (scrolled)
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.C.Browse.Products.Standard.Nav.Scrolled.png" width=420px/>
 
 10.5.3 Shop Browse Products without Picker (empty)
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.D.Browse.Products.Standard.Nav.Empty.png" width=420px/>
 
 10.5.4 Shop Browse Products with Standard Cell Link ([wireframe](http://invis.io/GP2OEPH9))
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.E.Browse.Products.Standard.Nav.Standard.Link.png" width=420px/>
 
 10.5.5 Shop Browse Products with Custom Link
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.F.Browse.Products.Standard.Nav.Custom.Link.png" width=420px/>
 
 10.5.6 Shop Browse Products with Custom Nav and Standard Link
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.G.Browse.Products.Custom.Nav.Standard.Link.png" width=420px/>
 
 10.5.6 Shop Browse Products with Custom Nav and Standard Link
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.H.1.Browse.Products.Custom.Nav.Custom.Link.png" width=420px/>
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.H.2.Browse.Products.Custom.Nav.Custom.Link.png" width=420px/>
