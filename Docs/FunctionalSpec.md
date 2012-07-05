@@ -87,6 +87,7 @@
    13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)   
    13.9 [Custom UIAlertView](#139-custom-uialertview) 
    13.10 [Unified autocomplete](#1310-unified-autocomplete)
+   13.11 [Spinners](#1311-spinners)
 
 ---
 
@@ -4502,3 +4503,49 @@ Control raised, populating users
          - 4px of padding from top, bottom and left edges of button
       - user name
          - allow 6px of padding from right edge of user icon and right edge of button
+
+### 13.11 Spinners
+
+#### Mockups
+
+13.11 Standard spinner
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.Standard.png" width=420px/>
+
+13.11.1 Spinner blocking screen
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.Screen.Blocked.png" width=420px/>
+
+13.11.2 Spinner blocking screen with info text
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.Screen.Blocked.With.Description.png" width=420px/>
+
+#### Design Stories
+- Standard spinner
+   - 'spinner-normal-bg.png' as background
+      - horizontally centered
+      - vertically centered within main content area
+         - 'main content area' should not include nav bar, UI tab bar, status bar areas if present
+   - 20px x 20px spinner #6e6e6e
+      - horizontally and vertically centered within background area
+- Fullscreen spinner
+   - 'spinner-dark-bg.png' overlay on screen
+   - 'spinner-normal-bg.png' as spinner background
+      - horizontally centered
+      - vertically centered within main content area
+         - 'main content area' should not include nav bar, UI tab bar, status bar areas if present
+   - 20px x 20px spinner #6e6e6e
+      - horizontally and vertically centered within background area
+- Fullscreen spinner w/ info text
+   - 'spinner-dark-bg.png' overlay on screen
+   - 'spinner-info-bg.png' as spinner background
+      - horizontally centered
+      - vertically centered within main content area
+         - 'main content area' should not include nav bar, UI tab bar, status bar areas if present
+      - vertical middle is stretchable
+         - 30px nonstretchable on top and bottom
+         - minimum height 110px
+            - maintain 16px top and bottom padding between spinner/text and visual edges of white background (not including shadow portion)
+   - 20px x 20px spinner #6e6e6e
+      - horizontally and vertically centered within background area
+   - Text
+      - Archer Medium Italic 13pt rgb(266,106,114)
+      - Text area is 150px wide (wrap to additional lines if necessary)
+      - Horizontally centered
