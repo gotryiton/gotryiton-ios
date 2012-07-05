@@ -73,7 +73,7 @@
     [self.view addSubview:self.postsHeartsWithSegmentedControlView];
     
     self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView delegate:self];
-    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 51 }];
+    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
 }
 
 - (void)viewDidUnload

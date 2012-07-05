@@ -84,19 +84,27 @@ static double const kGTIOHorizontalSpacing = 12.0;
 {
     [GTIOProgressHUD showHUDAddedTo:self animated:YES];
     
+    // cancel any image downloads, reset items array
+    for (GTIOMasonGridItem *item in self.items) {
+        [item cancelImageDownload];
+    }
+    self.items = [NSMutableArray array];
+    
+    // clear the view
     for (UIView *subview in self.subviews) {
         if ([subview isMemberOfClass:[GTIOMasonGridItemWithFrameView class]]) {
             [subview removeFromSuperview];
         }
     }
-        
+    
+    // reset columns
     self.columns = [NSMutableArray arrayWithObjects:
                 [GTIOMasonGridColumn gridColumnWithColumnNumber:0],
                 [GTIOMasonGridColumn gridColumnWithColumnNumber:1],
                 [GTIOMasonGridColumn gridColumnWithColumnNumber:2],
                 nil];
-    self.items = [NSMutableArray array];
     
+    // bring in the new data
     for (GTIOPost *post in posts) {
         GTIOMasonGridItem *item = [[GTIOMasonGridItem alloc] init];
         item.delegate = self;
