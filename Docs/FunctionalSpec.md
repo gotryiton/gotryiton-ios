@@ -2742,10 +2742,19 @@ A logged in user can view their (or someone else's) posts that have been selecte
 Coming soon.  
 
 #### API Usage
+GET /tags/search
+
 GET /tags/search/:query
 
 #### Stories
+- A user can select from previously searched tags and trending tags
+    - the page should request from ```/tags/search``` to recieve this list
+    - each tag will include text and an action
+    - tags may include an icon (```tag.icon```)
 - A user can search tags 
+   - when a user enters a search query in the search bar and taps 'search', the app should request to ```/tags/search/:query```
+   - the results should replace the list of recent and trending tags
+   - the 'x' button in the search bar should return the screen to its initially loaded state (with recent and trending visible again)
 
 #### Design Stories
 - Search area
