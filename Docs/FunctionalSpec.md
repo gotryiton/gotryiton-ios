@@ -2731,20 +2731,56 @@ gtio://stars-by-user/:user_id
 A logged in user can view their (or someone else's) posts that have been selected as editors picks
 
 #### Mockups
-Coming soon.
+7.10 Search Tags
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.10.Search.Tags.png" width=420px/>
+
+7.10.1 Search Tags - results
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/7.10.Search.Tags.Results.png" width=420px/>
 
 #### User Flow
 Coming soon.  
 
 #### API Usage
+GET /tags/search
+
 GET /tags/search/:query
 
+[docs](http://gtio-dev.gotryiton.com/docs/api-tags)
+
 #### Stories
+- A user can select from previously searched tags and trending tags
+    - the page should request from ```/tags/search``` to recieve this list
+    - each tag will include text and an action
+    - tags may include an icon (```tag.icon```)
 - A user can search tags 
+   - when a user enters a search query in the search bar and taps 'search', the app should request to ```/tags/search/:query```
+   - the results should replace the list of recent and trending tags
+   - the 'x' button in the search bar should return the screen to its initially loaded state (with recent and trending visible again)
 
-
-
+#### Design Stories
+- Search area
+   - Height: 45px
+   - Background transparent, with image (6/search.area.background.shadow.png)
+   - Search Field
+      - Field is 320x31px (with border), use background image to draw (general/search.field.background.png)
+      - Font: Proxima Nova light 12pt rgb(143,143,143) #8f8f8f
+      - When field is unselected, text has a 0.6 alpha
+      - Mag icon is 5px from top and 5px from left
+      - after text is input, show standard 'x' button on right to allow clearing of field
+- Header cells
+   - Height: 10px (without borders)
+   - Background: rgb(235,242,239) #ebf2ef
+   - Top Border: 1px rgb(243,247,245) #f3f7f5
+   - Bottom Border: 1px rgb(211,217,215) #d3d9d7
+   - Font: Proxima Nova Bold 10pt rgb(143,143,143)
+      - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
+   - Text vertically centered within cell, 6px from left edge of screen
+- Brand tag icon
+   - 17px x 17px
+   - bottom of asset is 4px below baseline of accompanying text
+   - 11px horizontal gap between asset and accompanying text
 
 ## 8. The Feed 
 
