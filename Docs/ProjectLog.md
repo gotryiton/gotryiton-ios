@@ -1,3 +1,150 @@
+***Thursday, July 5th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review revised GTIO priority supplied by Simon/Matt
+- TT - Merge in autocomplete work
+- TT - Put together build with latest feature development and bug fixes by 2pm 7/6
+
+**Status**
+- Working on new requirements for photo upload
+- Reviewed Pull Requests, new work discovered
+ - Search tags
+ - Revamped post views
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Discussed remaining schedule
+ - Orginally TT/GTIO target was 7/13 for completion
+ - Based on additional work and changes to previous screens, 1.5 Iterations will need to be added on top of original completion date
+ - Geoff will be working through 7/20 (.5 Iterations)
+ - Scott will be working through 7/27 (1 Iteration)
+ 
+
+---
+
+***Monday, July 3rd - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review revised GTIO priority supplied by Simon/Matt
+
+**Status**
+- Working on resolving bugs 
+- Developing 8.4 Upload in Process
+ - Required some code refactor, about to begin styling
+- Next target, Pagination/Pull to Refresh
+- Mason Grid Pull to Refresh
+ - View will completely refresh, with additional items being added to the bottom
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Monday, July 2nd - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- NA
+
+**Status**
+- Reviewed Simon's filter code.  Removed outdated code, getting ready to merge
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- For issues that require a screenshot, images should be uploaded to dropbox and the link should be added to the story
+- Continue to create new Issues for bugs/minor feature tweaks
+- Add Delivered tag to new stories that are closed in new builds
+
+---
+
+***Sprint 5 Development Plan (Monday, July 2nd 2012 - Friday, July 6th, 2012)***
+
+Iteration Milestone - https://github.com/twotoasters/GTIO-iOS/issues?milestone=6&state=open
+
+**Planned Work**
+
+- Feature Development Planned
+- Complete The Following Screens 
+- 2.2 
+- 3.3
+- 3.4
+- 3.5
+- 4.x
+- 5.x
+- 7.1 (just links)
+- 7.5,6,9
+- 7.8
+- 8.1 Empty View, button actions
+- 8.4
+- 8.5
+- 9.x
+- 10.x
+- 12.1-5 Multi image / Movable frame
+- 12.6
+- 13.2
+- 13.3 This uses 13.9 correct?
+- 13.6 (Need mock up)
+- 13.9
+
+Focus for week 1 will be on more complex features such as pull to refresh, load more, 12.1 multi image, and moveable frame
+ 
+**Important Dates / Deadlines**
+
+- Office Closed July 4th
+- Scott to Travel to GTIO HQ - July 9th
+
+**Open Questions**
+
+- We can currently working on mason grid view.  Is there a GTIO priority for this week in terms of screens?
+- How is testing going on the GTIO front? When can we expect bulk of feedback in GH?
+- When can we expect styling for mason grid / pull to refresh (13.6)?
+
+
+**Risks**
+
+- Schedule is agressive based on the number of screen remaining though no major complexities have been identified that can impede development
+
+**General Notes**
+
+- NA
+
+**Sprint Deliverables**
+
+- Build with completed screens on 7/6
+- Feature complete build on 7/13 
+
+---
+
 ***Thursday, June 27th - Standup Notes***
 
 **Attendees**

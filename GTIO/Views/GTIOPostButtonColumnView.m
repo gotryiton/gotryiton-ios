@@ -110,7 +110,6 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
         CGSize scaledPhotoSize = [GTIOPostFrameView scalePhotoSize:(CGSize){ [_post.photo.width floatValue], [_post.photo.height floatValue]} ];
         [self.dotdotdotButton setFrame:(CGRect){ { kGTIOButtonOriginX, kGTIOTopButtonPadding + 6 + scaledPhotoSize.height - self.dotdotdotButton.frame.size.height }, self.dotdotdotButton.frame.size }];
         
-        [self.dotdotdotButton setTapHandler:self.dotdotdotButtonTapHandler];
         [self.dotdotdotButton setHidden:NO];
     } else {
         [self.dotdotdotButton setHidden:YES];
@@ -119,7 +118,7 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
 
 - (void)setDotdotdotButtonTapHandler:(GTIOButtonDidTapHandler)dotdotdotButtonTapHandler
 {
-    _dotdotdotButtonTapHandler = dotdotdotButtonTapHandler;
+    _dotdotdotButtonTapHandler = [dotdotdotButtonTapHandler copy];
     [self.dotdotdotButton setTapHandler:_dotdotdotButtonTapHandler];
 }
 
