@@ -77,7 +77,7 @@
         _textInput.textColor = [UIColor clearColor];
         [self addSubview:self.textInput];
         
-        _ACInputColor = CGColorRetain([UIColor gtio_404040GrayTextColor].CGColor);
+        _ACInputColor = CGColorRetain([UIColor gtio_grayTextColor404040].CGColor);
         _ACPlaceholderColor = CGColorRetain([UIColor gtio_lightGrayTextColor].CGColor);
         _ACHighlightColor = CGColorRetain([UIColor gtio_linkColor].CGColor);
 
@@ -506,8 +506,11 @@
 
 - (NSString *)processDescriptionString
 {
-    NSString *response = [[NSString alloc] initWithString: @""];
+    if ([self.attrString length] == 0) {
+        return @"";
+    }
     
+    NSString *response = @"";
     NSDictionary *attributes;
     NSRange effectiveRange = { 0, 0 }; 
     do { 

@@ -10,16 +10,21 @@
 
 #import <RestKit/RestKit.h>
 
+#import "GTIOPostManager.h"
 #import "GTIORouter.h"
 
 #import "GTIOPost.h"
 #import "GTIOPagination.h"
+#import "GTIOPostUpload.h"
 
 #import "GTIOPostHeaderView.h"
+#import "GTIOPostUploadView.h"
 #import "GTIOFeedCell.h"
 #import "GTIONavigationNotificationTitleView.h"
 #import "GTIOFeedNavigationBarView.h"
 #import "GTIOFriendsViewController.h"
+
+static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -27,6 +32,9 @@
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) GTIOPagination *pagination;
+
+@property (nonatomic, strong) GTIOPostUpload *postUpload;
+@property (nonatomic, strong) GTIOPostUploadView *uploadView;
 
 @property (nonatomic, assign) CGFloat addNavToHeaderOffsetXOrigin;
 @property (nonatomic, assign) CGFloat removeNavToHeaderOffsetXOrigin;
@@ -42,6 +50,7 @@
 @synthesize addNavToHeaderOffsetXOrigin = _addNavToHeaderOffsetXOrigin, removeNavToHeaderOffsetXOrigin = _removeNavToHeaderOffsetXOrigin;
 @synthesize posts = _posts, pagination = _pagination;
 @synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews;
+@synthesize uploadView = _uploadView, postUpload = _postUpload;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,9 +62,12 @@
         _onScreenHeaderViews = [NSMutableDictionary dictionary];
         
         _addNavToHeaderOffsetXOrigin = -44.0f;
-        _removeNavToHeaderOffsetXOrigin = 0.0f;
+        _removeNavToHeaderOffsetXOrigin = -0.0f;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
+        
+        [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:NULL];
+        [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -93,14 +105,17 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSectionHeaderHeight:56.0f];
     [self.tableView setSeparatorStyle:UITableViewCellSelectionStyleNone];
-//    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ self.navBarView.frame.size.height, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
-    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
-    [self.tableView setContentInset:self.tableView.scrollIndicatorInsets];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ self.navBarView.frame.size.height, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setAllowsSelection:NO];
     [self.tableView setTableHeaderView:self.navBarView];
     [self.view addSubview:self.tableView];
+
+    self.uploadView = [[GTIOPostUploadView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight } }];
+    
+    [self loadFeed];
 }
 
 - (void)viewDidUnload
@@ -114,7 +129,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [self loadFeed];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -140,17 +154,6 @@
                 }
             }
             
-#warning This is used for testing.
-//            // Manually add post
-//            GTIOPost *post = [[GTIOPost alloc] init];
-//            post.postID = @"123";
-//            post.photo = ((GTIOPost *)[self.posts objectAtIndex:4]).photo;
-//            post.createdWhen = @"2 weeks";
-//            post.stared = NO;
-//            post.user = [GTIOUser currentUser];
-//            [self.posts addObject:post];
-#warning end test
-            
             [self.tableView reloadData];
             [self headerSectionViewsStyling];
         };
@@ -169,6 +172,10 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section 
 {
+    if (self.postUpload && section == 0) {
+        return self.uploadView;
+    }
+    
     GTIOPostHeaderView *headerView = [self.offScreenHeaderViews anyObject];
 
     if (!headerView) {
@@ -199,6 +206,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (self.postUpload && section == 0) {
+        return 0;
+    }
     return 1;
 }
 
@@ -225,28 +235,25 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self headerViewDequeueing];
+    [self navBarStyling];
     [self headerSectionViewsStyling];
+}
+
+- (void)navBarStyling
+{
+    CGPoint scrollViewTopPoint = self.tableView.contentOffset;
+
+    if (scrollViewTopPoint.y < 0 && self.tableView.tableHeaderView == self.navBarView) {
+        [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:self.tableView.tableHeaderView.bounds]];
+        [self.view addSubview:self.navBarView];
+    } else if (scrollViewTopPoint.y >= 0 && self.tableView.tableHeaderView != self.navBarView) {
+        [self.tableView setTableHeaderView:self.navBarView];
+    }
 }
 
 - (void)headerSectionViewsStyling
 {
     CGPoint scrollViewTopPoint = self.tableView.contentOffset;
-    
-    // Nav Bar
-//    NSLog(@"Content offset: %@", NSStringFromCGPoint(scrollViewTopPoint));
-//    if ((scrollViewTopPoint.y <= self.removeNavToHeaderOffsetXOrigin) && self.tableView.tableHeaderView) {
-//        [self.tableView setContentInset:(UIEdgeInsets){ self.navBarView.frame.size.height, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
-//        [self.tableView setTableHeaderView:nil];
-//        [self.view addSubview:self.navBarView];
-//        self.addNavToHeaderOffsetXOrigin = -0;
-//        self.removeNavToHeaderOffsetXOrigin = -44.0;
-//    } else if (scrollViewTopPoint.y > self.addNavToHeaderOffsetXOrigin && !self.tableView.tableHeaderView) {
-//        [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
-//        [self.navBarView removeFromSuperview];
-//        [self.tableView setTableHeaderView:self.navBarView];
-//        self.addNavToHeaderOffsetXOrigin = -44;
-//        self.removeNavToHeaderOffsetXOrigin = 0;
-//    }
     
     // Section Header
     scrollViewTopPoint.y += self.tableView.sectionHeaderHeight; // Offset by first header
@@ -328,6 +335,83 @@
             [self.navigationController pushViewController:viewController animated:YES];
         }
     }
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@%@:", keyPath, kGTIOKVOSuffix]);
+    if ([self respondsToSelector:selector]) {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self performSelector:selector withObject:change];
+        #pragma clang diagnostic pop
+    }   
+}
+
+- (void)progressValueChanged:(NSDictionary *)change
+{
+    CGFloat progress = [[change objectForKey:@"new"] floatValue];
+    [self.uploadView setProgress:progress];
+}
+
+- (void)stateValueChanged:(NSDictionary *)change
+{
+    GTIOPostState postState = [[change objectForKey:@"new"] integerValue];
+    NSLog(@"State: %i", postState);
+    
+    [self.uploadView setState:postState];
+    
+    switch (postState) {
+        case GTIOPostStateUploadingImage:
+            [self addUploadView];
+            break;
+        case GTIOPostStateUploadingImageComplete:
+            break;
+        case GTIOPostStateSavingPost:
+            break;
+        case GTIOPostStateComplete:
+        {
+            double delayInSeconds = 1.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self removeUploadView];
+            });
+            
+            break;
+        }
+        case GTIOPostStateError:
+            break;
+        case GTIOPostStateCancelled:
+            [self removeUploadView];
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - Upload View Helpers
+
+- (void)addUploadView
+{
+    self.postUpload = [[GTIOPostUpload alloc] init];
+    [self.posts insertObject:self.postUpload atIndex:0];
+    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)removeUploadView
+{
+    self.postUpload = nil;
+    [self.posts removeObjectAtIndex:0];
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    GTIOPost *newPost = [GTIOPostManager sharedManager].post;
+    if (newPost) {
+        [self.posts insertObject:newPost atIndex:0];
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    
 }
 
 @end

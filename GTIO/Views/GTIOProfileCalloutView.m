@@ -30,7 +30,7 @@
         
         _calloutText = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         [_calloutText setBackgroundColor:[UIColor clearColor]];
-        [_calloutText setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [_calloutText setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [_calloutText setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:11.0]];
         [self addSubview:_calloutText];
     }

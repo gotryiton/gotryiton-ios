@@ -7,17 +7,21 @@
 //
 
 #import "GTIOPostALookViewController.h"
+
+#import <QuartzCore/QuartzCore.h>
+
 #import "GTIOLookSelectorView.h"
 #import "GTIOLookSelectorControl.h"
 #import "GTIOPostALookOptionsView.h"
 #import "GTIOPostALookDescriptionBox.h"
-#import <QuartzCore/QuartzCore.h>
 #import "GTIOTakePhotoView.h"
+#import "GTIOProgressHUD.h"
+#import "GTIOScrollView.h"
+
+#import "GTIOPostManager.h"
+
 #import "GTIOPhoto.h"
 #import "GTIOPost.h"
-#import "GTIOProgressHUD.h"
-
-#import "GTIOScrollView.h"
 
 static NSInteger const kGTIOBottomButtonSize = 50;
 static NSInteger const kGTIONavBarSize = 44;
@@ -36,10 +40,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 @property (nonatomic, strong) NSTimer *photoSaveTimer;
 
-@property (nonatomic, strong) GTIOPhoto *photoForCreationRequests;
 @property (nonatomic, strong) GTIOPhoto *photoForPosting;
-@property (nonatomic, assign) BOOL creatingPhoto;
-@property (nonatomic, assign) BOOL postButtonPressed;
 
 @property (nonatomic, strong) UIView *maskView;
 
@@ -47,8 +48,8 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 @implementation GTIOPostALookViewController
 
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer, photoForCreationRequests = _photoForCreationRequests;
-@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage, photoForPosting = _photoForPosting, creatingPhoto = _creatingPhoto, postButtonPressed = _postButtonPressed;
+@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer;
+@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage, photoForPosting = _photoForPosting;
 @synthesize maskView = _maskView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -56,9 +57,6 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookSelectorViewUpdated:) name:kGTIOLooksUpdated object:nil];
-        self.photoForCreationRequests = [[GTIOPhoto alloc] init];
-        self.creatingPhoto = NO;
-        self.postButtonPressed = NO;
     }
     return self;
 }
@@ -254,12 +252,6 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     }
 }
 
-- (void)savePhotoToDisk
-{
-    UIImage *viewImage = [self getCompositeImage];
-    UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil);
-}
-
 - (void)lookSelectorViewUpdated:(id)sender
 {
     [self.postThisButton setEnabled:[self.lookSelectorView selectionsComplete]];
@@ -272,20 +264,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     if ([self.lookSelectorView selectionsComplete]) {
         UIImage *uploadImage = [self getCompositeImage];
-        [self.photoForCreationRequests cancel];
-        self.creatingPhoto = YES;
-        self.photoForCreationRequests = [GTIOPhoto createGTIOPhotoWithUIImage:uploadImage framed:self.lookSelectorView.photoSet filter:@"" completionHandler:^(GTIOPhoto *photo, NSError *error) {
-            self.creatingPhoto = NO;
-            if (!error && photo) {
-                self.photoForPosting = photo;
-                if (self.postButtonPressed) {
-                    self.postButtonPressed = NO;
-                    [self postLookToGTIO];
-                }
-            } else {
-                NSLog(@"There was an error while posting the photo. (Server error:%@)", [error localizedDescription]);
-            }
-        }];
+        [[GTIOPostManager sharedManager] uploadImage:uploadImage framed:self.lookSelectorView.photoSet filterName:@""];
     }
 }
 
@@ -319,32 +298,16 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     }
 }
 
-- (void)postLookToGTIO
-{
-    if (!self.creatingPhoto && self.photoForPosting) {
-        [self savePhotoToDisk];
-        [GTIOPost postGTIOPhoto:self.photoForPosting description:[self.descriptionBox.textView processDescriptionString] completionHandler:^(GTIOPost *post, NSError *error) {
-            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            if (!error && post) {
-                [self.navigationController dismissModalViewControllerAnimated:YES];
-            } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There was an error posting your look. Please try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-                [alert show];
-            }
-        }];
-    }
-}
-
 - (void)beginPostLookToGTIO
 {
-    self.postButtonPressed = YES;
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    [self postLookToGTIO];
+    [[GTIOPostManager sharedManager] setPostPhotoButtonTouched:YES];
+    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] completionHandler:nil];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)cancelPost
 {
-    [self.photoForCreationRequests cancel];
+    [[GTIOPostManager sharedManager] cancelUploadImage];
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 

@@ -167,7 +167,7 @@
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.inactive.bottommargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.active.bottommargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateHighlighted];
     [button setTitle:@"back" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor gtio_darkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor9C9C9C] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(-3.0, 6.5, 0, 0)];
     [button setFrame:(CGRect){ 0, 0, 45, 30 }];
@@ -219,7 +219,7 @@
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.back.active.topmargin.png"] stretchableImageWithLeftCapWidth:8.0 topCapHeight:5.0] forState:UIControlStateHighlighted];
     [button setTitle:@"back" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor gtio_darkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor9C9C9C] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(5.0, 6.5, 0, 0)];
     [button setFrame:(CGRect){ 0, 0, 45, 30 }];

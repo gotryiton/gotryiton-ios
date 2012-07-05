@@ -83,7 +83,7 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
     [footerNotice setBackgroundColor:[UIColor clearColor]];
     [footerNotice setText:@"turn this option ON to require permission before someone can see what you post."];
     [footerNotice setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [footerNotice setTextColor:[UIColor gtio_darkGrayTextColor]];
+    [footerNotice setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
     [footerNotice setTextAlignment:UITextAlignmentCenter];
     [footerNotice setNumberOfLines:0];
     [footerNotice setLineBreakMode:UILineBreakModeWordWrap];

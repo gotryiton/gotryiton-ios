@@ -69,7 +69,7 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
         
         _locationLabel = [[UILabel alloc] initWithFrame:(CGRect){ nameBGImageView.frame.origin.x + kGTIOPadding, 0, nameBGImageView.frame.size.width - 2 * kGTIOPadding, 20 }];
         [_locationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0f]];
-        [_locationLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [_locationLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [_locationLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_locationLabel];
         

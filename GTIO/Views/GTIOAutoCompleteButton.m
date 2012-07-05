@@ -20,7 +20,7 @@
     GTIOAutoCompleteButton *button = [self buttonWithType:UIButtonTypeCustom];
     button.completer = completer;
 
-    [button setTitleColor:[UIColor gtio_404040GrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor404040] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
     [button setTitle:completer.name forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(2, 12, 2, 12)];
