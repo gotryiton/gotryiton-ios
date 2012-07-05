@@ -2736,7 +2736,7 @@ A logged in user can view their (or someone else's) posts that have been selecte
 
 7.10.1 Search Tags - results
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.10.Search.Tags.Results.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/7.10.Search.Tags.Results.png" width=420px/>
 
 #### User Flow
 Coming soon.  
@@ -2765,6 +2765,7 @@ GET /tags/search/:query
       - Font: Proxima Nova light 12pt rgb(143,143,143) #8f8f8f
       - When field is unselected, text has a 0.6 alpha
       - Mag icon is 5px from top and 5px from left
+      - after text is input, show standard 'x' button on right to allow clearing of field
 - Header cells
    - Height: 10px (without borders)
    - Background: rgb(235,242,239) #ebf2ef
