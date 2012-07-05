@@ -8,11 +8,10 @@
 
 #import "GTIOButton.h"
 
-typedef void(^GTIOBrandButtonTapHandler)(GTIOButton *button);
-
 @interface GTIOPostBrandButtonsView : UIView
 
 @property (nonatomic, strong) NSArray *buttons;
-@property (nonatomic, copy) GTIOBrandButtonTapHandler tapHandler;
+
++ (CGFloat)heightWithWidth:(CGFloat)width buttons:(NSArray *)buttons;
 
 @end

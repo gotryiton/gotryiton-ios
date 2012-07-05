@@ -37,11 +37,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_groupedTableBorderColor;
 + (UIColor *)gtio_lightestGrayTextColor;
 + (UIColor *)gtio_404040GrayTextColor;
++ (UIColor *)gtio_grayTextColor585858;
++ (UIColor *)gtio_grayTextColorACACAC;
 + (UIColor *)gtio_grayTextColor;
 + (UIColor *)gtio_darkGray3TextColor;
 + (UIColor *)gtio_semiTransparentBackgroundColor;
 + (UIColor *)gtio_profileDescriptionTextColor;
 + (UIColor *)gtio_ActionSheetButtonTextColor;
++ (UIColor *)gtio_postReviewCountButtonTextColor;
 + (UIColor *)gtio_findMyFriendsTableCellActiveColor;
 + (UIColor *)gtio_friendsGreenCellColor;
 

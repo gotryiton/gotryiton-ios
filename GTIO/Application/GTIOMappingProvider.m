@@ -28,6 +28,10 @@
 #import "GTIOFollowRequestAcceptBar.h"
 #import "GTIOPostList.h"
 #import "GTIOSuggestedFriendsIcon.h"
+#import "GTIOFriendsManagementScreen.h"
+#import "GTIOSearchBox.h"
+#import "GTIOFollowingScreen.h"
+#import "GTIOFollowersScreen.h"
 
 @implementation GTIOMappingProvider
 
@@ -56,6 +60,10 @@
         RKObjectMapping *postListMapping = [RKObjectMapping mappingForClass:[GTIOPostList class]];
         RKObjectMapping *paginationMapping = [RKObjectMapping mappingForClass:[GTIOPagination class]];
         RKObjectMapping *suggestedFriendIconMapping = [RKObjectMapping mappingForClass:[GTIOSuggestedFriendsIcon class]];
+        RKObjectMapping *friendsManagementScreenMapping = [RKObjectMapping mappingForClass:[GTIOFriendsManagementScreen class]];
+        RKObjectMapping *searchBoxMapping = [RKObjectMapping mappingForClass:[GTIOSearchBox class]];
+        RKObjectMapping *followingScreenMapping = [RKObjectMapping mappingForClass:[GTIOFollowingScreen class]];
+        RKObjectMapping *followersScreenMapping = [RKObjectMapping mappingForClass:[GTIOFollowersScreen class]];
         
         /** Config
          */
@@ -115,6 +123,7 @@
         [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", nil];
         [userMapping mapKeyPath:@"badge" toRelationship:@"badge" withMapping:badgeMapping];
         [userMapping mapKeyPath:@"button" toRelationship:@"button" withMapping:buttonMapping];
+        [userMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [self setMapping:userMapping forKeyPath:@"user"];
         [self setMapping:userMapping forKeyPath:@"users"];
         
@@ -143,10 +152,10 @@
         
         // User Profile
         [userProfileMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping];
-        [userProfileMapping mapKeyPath:@"ui.buttons" toRelationship:@"userInfoButtons" withMapping:buttonMapping];
-        [userProfileMapping mapKeyPath:@"ui.profile_callouts" toRelationship:@"profileCallOuts" withMapping:profileCalloutMapping];
-        [userProfileMapping mapKeyPath:@"ui.settings.buttons" toRelationship:@"settingsButtons" withMapping:buttonMapping];
-        [userProfileMapping mapKeyPath:@"ui.accept_bar" toRelationship:@"acceptBar" withMapping:followRequestAcceptBarMapping];
+        [userProfileMapping mapKeyPath:@"ui-profile.buttons" toRelationship:@"userInfoButtons" withMapping:buttonMapping];
+        [userProfileMapping mapKeyPath:@"ui-profile.profile_callouts" toRelationship:@"profileCallOuts" withMapping:profileCalloutMapping];
+        [userProfileMapping mapKeyPath:@"ui-profile.settings.buttons" toRelationship:@"settingsButtons" withMapping:buttonMapping];
+        [userProfileMapping mapKeyPath:@"ui-profile.accept_bar" toRelationship:@"acceptBar" withMapping:followRequestAcceptBarMapping];
         [userProfileMapping mapKeyPath:@"posts_list" toRelationship:@"postsList" withMapping:postListMapping];
         [userProfileMapping mapKeyPath:@"hearts_list" toRelationship:@"heartsList" withMapping:postListMapping];
         [self setMapping:userProfileMapping forKeyPath:@"userProfile"];
@@ -163,19 +172,35 @@
         [buttonMapping mapKeyPath:@"image" toAttribute:@"imageURL"];
         [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", @"state", nil];
-        [self setMapping:buttonMapping forKeyPath:@"ui.buttons"];
+        [self setMapping:buttonMapping forKeyPath:@"buttons"];
         
         /** Screens
          */
         [myManagementScreenMapping mapKeyPath:@"user_info.buttons" toRelationship:@"userInfo" withMapping:buttonMapping];
         [myManagementScreenMapping mapKeyPath:@"management.buttons" toRelationship:@"management" withMapping:buttonMapping];
-        [self setMapping:myManagementScreenMapping forKeyPath:@"ui"];
+        [self setMapping:myManagementScreenMapping forKeyPath:@"ui-user-management"];
+        
+        [friendsManagementScreenMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
+        [friendsManagementScreenMapping mapKeyPath:@"search_box" toRelationship:@"searchBox" withMapping:searchBoxMapping];
+        [self setMapping:friendsManagementScreenMapping forKeyPath:@"ui-friends-management"];
+        
+        [followingScreenMapping mapAttributes:@"title", @"subtitle", nil];
+        [followingScreenMapping mapKeyPath:@"include_filter_search" toAttribute:@"includeFilterSearch"];
+        [self setMapping:followingScreenMapping forKeyPath:@"ui-following"];
+        
+        [followersScreenMapping mapAttributes:@"title", @"subtitle", nil];
+        [followersScreenMapping mapKeyPath:@"include_filter_search" toAttribute:@"includeFilterSearch"];
+        [self setMapping:followersScreenMapping forKeyPath:@"ui-followers"];
         
         /** Pagination
          */
         [paginationMapping mapKeyPath:@"previous_page" toAttribute:@"previousPage"];
         [paginationMapping mapKeyPath:@"next_page" toAttribute:@"nextPage"];
         [self setMapping:paginationMapping forKeyPath:@"pagination"];
+        
+        /** Search Box
+         */
+        [searchBoxMapping mapKeyPath:@"text" toAttribute:@"text"];
         
         /** Auth
          */
@@ -193,9 +218,9 @@
         [postMapping mapKeyPath:@"created_at" toAttribute:@"createdAt"];
         [postMapping mapKeyPath:@"created_when" toAttribute:@"createdWhen"];
         [postMapping mapKeyPath:@"star" toAttribute:@"stared"];
+        [postMapping mapKeyPath:@"who_hearted" toAttribute:@"whoHearted"];
         [postMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"dot_options.buttons" toRelationship:@"dotOptionsButtons" withMapping:buttonMapping];
-//        [postMapping mapKeyPath:@"who_hearted.buttons" toRelationship:@"whoHeartedButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"brands.buttons" toRelationship:@"brandsButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
         [postMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];

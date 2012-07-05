@@ -1071,7 +1071,7 @@ previous screen
 - Top left should include a back button (this view should get added to the stack on the 2nd tab)
 
 
-### ~3.2 Post Detail With Verdict~
+### ~~3.2 Post Detail With Verdict~~
 
 
 ### 3.3 Post Detail Full screen
@@ -1302,7 +1302,7 @@ previous screen
    - normal behavior in navigation stack
 
 
-### 3.6 ~Product Post Detail Page~
+### 3.6 ~~Product Post Detail Page~~
 
 
 
@@ -1352,6 +1352,7 @@ previous screen
    - **tap** on count ==> (view 3.5)
 - A user can post a product from a product page
    - Post btn **tap** ==> (view 12.3)
+   - (view 12.3) should use ```product.main_image``` as its source image
 - A user can add a product to their shopping list
    - + shopping list button adds the item to their list
 
@@ -1425,18 +1426,18 @@ None.
    - tapping on the full screen view returns the user to the previous screen
 
 
-### ~4.2 Suggest a product~  
+### ~~4.2 Suggest a product~~   
 
 
-### ~4.3 Phone contact list~  
+### ~~4.3 Phone contact list~~  
 
-### ~4.4 Email compose~  
+### ~~4.4 Email compose~~  
 
-### ~4.5 Facebook contacts~  
+### ~~4.5 Facebook contacts~~  
 
-### ~4.6 Gotryiton contacts~  
+### ~~4.6 Gotryiton contacts~~  
 
-### ~4.7 Post a product~  
+### ~~4.7 Post a product~~  
 
 ### 4.8 Shop this look
 
@@ -2790,8 +2791,13 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.4 feed empty:  ([wireframe](http://invis.io/3W2OH9G2)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Empty.png" width=420px/>
   
+
+8.1.5 feed loading more
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Loading.More.png" width=420px/>
+
 
 #### User Flow
 **entry screens:**   
@@ -2929,7 +2935,7 @@ gtio://posts/feed
    - post description
       - shown inside photo frame between bottom edge of frame and bottom edge of photo
       - Verlag Extra Light, 13pt, rgb(35,35,35), #232323
-      - any tags: Verlag Extra Light, 13pt, rgb(255,106,114), #ff6a72
+      - any tags: Verlag Book, 13pt, rgb(255,106,114), #ff6a72
       - text area
          - 240px wide
          - horizontally centered inside frame background
@@ -2991,9 +2997,20 @@ gtio://posts/feed
       - other items' positioning
          - user icon is 7px away 24px below bottommost element in previous item
          - user icon is 7px away 7px from left edge of screen
+   - loading more
+      - Archer Medium Italic 10pt, rgb(88,88,88)
+      - right aligned, right edge of this text is 51px away from right edge of screen
+         - right edge should appear to line up with right edge of user info box and photo frame on feed
+      - Spinner
+         - 15px x 15px
+         - rgb(154,154,153)
+         - bottom of spinner is 3x below baseline of accompanying text
+         - right of spinner is 6px away from left edge of text
+   - empty state (screen 8.1.4)
+      - use 'empty-bg-overlay.png' in content area
 
 
-### 8.3 ~Feed verdict view~
+### 8.3 ~~Feed verdict view~~   
 
 ###  8.4 Upload in progress view  
 
@@ -3454,7 +3471,7 @@ dynamic
 
 ### User flow
 
-[User Flow Diagram PDF](http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/pdf/12.Upload.FlowChart.pdf)
+[User Flow Diagram PDF](http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/pdf/12.Upload.FlowChart.2.pdf)
 
 [Upload Transitions Diagram PDF](http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/pdf/12.Upload.Transitions.pdf)
 
@@ -3466,26 +3483,21 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 #### Mockups
 12.1 ([wireframe](http://invis.io/WD2OERMP))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.png" width=420px/>
-
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/12.1.0.Upload.Start.On.States.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.0.Upload.Start.png" width=420px/>
 
 12.1.1 Upload start (with frames) ([wireframe1](http://invis.io/HB2OESTA) [2](http://invis.io/NW2OETS6) [3](http://invis.io/WE2OEUV5))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.1.Upload.Start.Frame.Left.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.2.Upload.Start.Frame.Top.Right.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.3.Upload.Start.Frame.Bottom.Right.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.Upload.Start.Frame.Bottom.Right.png" width=420px/>
 
 12.1.2 Upload Start in Photoshoot Mode
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.2.Upload.Photoshoot.without.reel.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.B.Upload.Start.Photoshoot.Popup.png" width=420px/>
 
-12.1.3 Upload Start in Photoshoot Mode with Grid button
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.C.Upload.Start.Photoshoot.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.1.1.Upload.Photoshoot.with.reel.png" width=420px/>
+12.1.3 Upload Start with Grid button
 
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.E.Upload.Start.with.Grid.png" width=420px/>
 
 #### API Usage
 
@@ -3508,78 +3520,90 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
    - After camera capture button is pressed
       - capture photo @ 640px wide
       - route to (view 12.2)
-- A user can select a photo from their photo library
-   - tapping on photoroll button opens the users photo roll
-      - after a photo is selected:
-         - resize photo to 640px wide
-         - route to (view 12.2)
+- A user can select a source to import a photo
+   - A user can select a photo from multiple sources
+   - tapping on photoroll button opens a custom menu with:
+      - "camera roll"
+         - opens camera roll for selection
+      - "hearted products"
+         - routes to (view 12.6)
+      - "popular products"
+         - routes to (view 12.6)
+   - after a photo is selected:
+      - resize photo to 640px wide
+      - route to (view 12.2)
 - A user can use their camera to take subsequent photos (for framed uploads)
-   - The camera has a guide overlay that matches frame (view 12.1.1)
    - The camera has a mini-map of frame with current frame highlighted (view 12.1.1)
+   - ~~The camera has a guide overlay that matches frame (view 12.1.1)~~
 - A user can turn on Photoshoot Mode
-   - toggling the photoshoot toggle in the bottom right turns on and off Photoshoot mode
+   - toggling the photoshoot toggle button within the camera capture button turns on and off Photoshoot mode
       - with photoshoot mode on, shutter button changes to represent photoshoot mode (view 12.1.2)
+      - the first two times a user activates photoshoot mode, an info popup should appear (view 12.1.2)
+         - popup only appears max of once per session
+         - popup should simultaneously fade out and animate moving upwards after 2 seconds
    - capture button routes to (view 12.5)
 - A user can select a photo from their photoshoot grid (if available)
    - if a user has previously done a photoshoot, they can access the grid to choose a photo
       - grid button **tap** ==> (view 12.4)
    - the toggle state is remembered the next time this view is accessed
+- A user can toggle between the front and back side cameras
+   - the front/back toggle button should switch the camera state 
+   - the animation between the states should mimic that of the native camera app
+   - When the front camera is enabled, the flash button is disabled (and not shown)
+   - When photoshoot mode is enabled, the front/back toggle button is available (while flash is not)
+   - Once a photoshoot starts, this button is not visible (and a user cannot change their camera)
 
 ### Design Stories
 - Bottom Bar
 	- Height: 58px (with shadow) (non-shadow portion is only: 53px high)
-	- Background: (12/upload.bottom.bar.bg) repeating-X
+	- Background: (12/upload.bottom.bar.bg)
 	- Capture Button
-		- 10px from top of bar (including bar's shadow overlay, only 6px from top if don't include bar's shadow overlay)
-		- Horizontally Centered when no photoshoot reel button icon
-			- Move 20px to the right when icon is present
-		- Background: Stretch image (12/upload.bottom.bar.camera.button.bg.off.png)
-		- Activate state: Stretch image (12/upload.bottom.bar.camera.button.bg.on.png)
-		- Width: 93px (Including shadow in image)
-		- Height: 45px (Including shadow in image)
-		- Capture Icon: Centered, 11px from top of button (12/upload.bottom.bar.camera.button.icon.normal.png)
-		- Photoshoot Icon: Centered, 10px from top of button (12/upload.bottom.bar.camera.button.icon.photoshoot.png)
-	- Divider (12/upload.bottom.bar.divider.png) repeating-y
-		- 1px wide
-		- 53px high
-	- X Button (12/upload.bottom.bar.icon.x.png)
-		- 22px from top of bar (18px from top if not including bar's shadow overlay)
-		- 11px left/right padding
-	- Photoroll Button (12/upload.bottom.bar.icon.photoroll.png)
-		- 19px from top of bar (15px from top if not including bar's shadow overlay)
-		- 9px left/right padding
-	- Photoshoot Reel Button (12/upload.bottom.bar.icon.photoshootreel.png)
-		- 19px from top of bar (15px from top if not including bar's shadow overlay)
-		- 8px left/right padding
-	- Photo capture mode switch
-		- Switch
-			- Background: image (12/upload.bottom.bar.switch.bg.png)
-			- 9px left/right padding
-			- 8px from bottom
-			- Width: 61px
-			- Height: 17px
-			- Button: image (12/upload.bottom.bar.switch.png)
-				- Width: 35px
-				- Height: 32px
-				- Clip entire button in 61x17px area with borders that have 5px radius (rounded)
-				- When switch button is on either side, move button another 2px within clipping mask to hide the shadow in the image
-		- Normal Small Icon
-			- 14px from top of bar (10px from top if not including bar's shadow overlay)
-			- 13px from left
-		- Photoshoot Small Icon
-			- 14px from tp of bar (10px from top if not including bar's shadow overlay)
-			- 13px from right
-- Flash Icon
-	- Background: image (upload.flash.off.png)
-		- Active State: (upload.flash.on.png)
-	- Height: 42px
-	- Width: 78px
-	- 6px from top
-	- 5px from left
+		- 'capture.png' (with normal/pro versions, active and inactive states)
+		- vertically centered within bottom bar (non-shadow portion)
+      - horizontally centered when no shootgrid button
+			- move 20px to the right when shootgrid button is present
+		- Mode Switch/Toggle Area
+         - rightmost 50px of capture asset area switches between normal and photoshoot
+         - switches directly back and forth between 'capture.normal.inactive.png' and 'capture.pro.inactive.png' -- this area should not trigger 'active' ('tapped' state) asset
+            - only tapping on remainder of button area uses 'active' states
+   - Photoshoot info popup
+      - 'photoshoot-info-popup.png'
+      - 30px up from bottom of screen
+      - 25px from right edge of screen
+         - pointer of asset should appear to be horizontally centered on circular Photoshoot toggle button
+      - shows for 2 seconds, then simultaneously fades out and animates upwards
+   - Dividers
+      - '12/divider.png'
+      - Vertically centered within bottom bar
+		- Normal
+         - instance 1: 50px from left edge of screen
+         - instance 2: 50px from right edge of screen
+      - w/ Shoot Grid button
+         - instance 1: 89px from left edge of screen
+         - instance 2: 50px from right edge of screen   
+	- X Button (12/button.x.png)
+		- 18px from bottom of screen
+		- 16px from right edge of screen
+	- Source Button (12/button.source.png)
+		- 14px from bottom of screen
+		- 13px from left edge of screen
+   - Source Menu
+      - stack 'source-menu.png' (top/middle/bottom versions)
+      - 4px from left edge of screen
+      - 42px from bottom edge of screen
+	- Photoshoot Grid ('shootgrid') Button (12/button.shootgrid.png)
+      - 16px from bottom of screen
+      - 53px from left edge of screen
+- Camera Switch Button
+   - 'camera-overlay-switcher.png'
+   - 4px from left edge of screen
+   - 5px from bottom of status bar
+- Flash Toggle Button
+	- 'camera-overlay-flash.png'
+	- 4px from left edge of screen
+	- asset immediately below Camera Switch button asset -- buttons not including shadow area should be approx 9px apart
 - Frame Indication Icon
-	- Background images (upload.frames.indicator.photo.overlay.[location].png)
-	- Height: 53px
-	- Width: 56px
+	- 'camera-overlay-minimap.png' with 1,2,3 versions)
 	- 10px from top and right
 - Loader
 	- Vertically and horizontally center in viewfinder
@@ -3597,11 +3621,15 @@ A user can confirm that they want to upload the photo they've taken or selected.
 #### Mockups
 ([wireframe](http://invis.io/9M2OEVED) [2](http://invis.io/2Z2OEWB8) [3](http://invis.io/QB2OEYM7) [4](http://invis.io/4F2OEZGK))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.2.3.1.Photo.Filter.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.2.3.1.Photo.Filter.png" width=420px/>
 
 12.2.1 Upload confirm with grid button
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.2.3.2.Photo.Filter.Back.To.Grid.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.2.3.2.Photo.Filter.Back.To.Grid.png" width=420px/>
+
+12.2.2 Upload confirm for product photo
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.2.3.1.Photo.Filter.Product.png" width=420px/>
 
 #### API Usage
 /Tracking
@@ -3627,13 +3655,21 @@ A user can confirm that they want to upload the photo they've taken or selected.
 ### Design Stories
 - Bottom Bar
 	- X Button
-		- 17px padding left/right
-		- 22px from top of bar (18px from top if not including bar's shadow overlay)
+		- 16px from left edge of screen
+		- 18px from bottom of screen
 	- Check Button
-		- 13px padding left/right
-		- 22px from top of bar (18px from top if not including bar's shadow overlay)
-	- Middle Text: 18px Archer Light Italic rgb(64,64,65) #404041
-		- 22px from top of bar (18px from top if not including bar's shadow overlay)
+      - '12/button.check.png'
+		- 13px from right edge of screen
+		- 18px from bottom of screen
+	- Middle Text: 16px Archer Light Italic rgb(143,143,143)
+		- baseline is 23px from bottom of screen
+      - horizontally centered
+   - Dividers
+      - '12/divider.png'
+      - Vertically centered within bottom bar
+      - Normal
+         - instance 1: 50px from left edge of screen
+         - instance 2: 50px from right edge of screen
 - Filter Buttons
 	- 69x69px including shadow
 	- Filter Image: 61x61px with 5px radius (10px @2x)
@@ -3660,19 +3696,23 @@ A user can add details to their post before they submit.  They can select to use
 #### Mockups
 ([wireframe](http://invis.io/J92OF18E)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.a.Post.A.Look.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.f.Post.A.Look.Filled.Text.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.Filled.Text.png" width=420px/>
 
 12.3.1 Post a look (Description with keyboard) ([wireframe](http://invis.io/AC2OF2GX))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.3.d.Post.A.Look.Description.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.Description.png" width=420px/>
 
 12.3.2 Post a look (Photo preview with frames) ([wireframe](http://invis.io/5K2OF0W8))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.c.Post.A.Look.Framed.With.Photos.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.Framed.With.Photos.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.b.1.Post.A.Look.Framed.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.3.Post.A.Look.Framed.png" width=420px/>
+
+12.3.3 Post a look (edit actionsheet) ([wireframe](http://invis.io/5K2OF0W8))  
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.3.B.Post.A.Look.Framed.Edit.Actionsheet.png" width=420px/>
 
 #### API Usage
 
@@ -3737,8 +3777,6 @@ response:
 - A user can add details to their post before they submit.
    - description (optional)
       - page slides down and keyboard is raised (view 12.3.1)
-   - tag brands
-      - page slides down and keyboard is raised (view 12.3.1)
 - A user can select to use frames in their upload
    - frames buttons
       - multi frame button converts to (view 12.3.2)
@@ -3750,9 +3788,6 @@ response:
       - **tap** ==> Facebook SSO
          - **success** ==> api request /User/Facebook-Connect
          - toggles on state
-- A user can toggle voting on or off
-   - initial toggle state set by API
-      - ```/config``` object will include Voting Toggle status: ```voting_default_on```
 - A user can cancel their post
    - cancel btn (if post button is INACTIVE)
       - **tap** ==> returns you to your previous tab in previous state
@@ -3764,11 +3799,23 @@ response:
 - A user can edit the photos in their Post
    - empty frame camera buttons
       - **tap** ==> (view 12.1.1)
-   - frame (x) cancel btn
-      - clears the photo stored in that frame
-      - **tap** ==> (view 12.1.1)
+   - frame edit btn (camera icon in circle)
+      - raises actionsheet (view 12.3.3)
+         - replace photo ==> (view 12.1.1)
+         - add a filter ==> (view 12.2)
+            - user is returned to filter screen with same filters available
+            - filters should not be reapplied, the user can just switch which filter is used.
+         - swap with A
+            - swaps current framed photo with next framed section (next over, clockwise)
+         - swap with B
+            - swaps current framed photo with previous framed section (previous, counter-clockwise)
 - A user can edit the photo in their single image Post
-   - main image (x) button **tap** ==> (view 12.1)
+   - edit button (camera icon in circle)
+      - raises actionsheet (view 12.3.3)
+         - replace photo ==> (view 12.1.1)
+         - add a filter ==> (view 12.2)
+            - user is returned to filter screen with same filters available
+            - filters should not be reapplied, the user can just switch which filter is used. 
 - A user cannot post their upload if they have frames turned on but fewer than 3 photos 
    - if frames enabled and < 3 photos 
       - post button is grayed out and disabled
@@ -3821,17 +3868,27 @@ response:
          - photo 1 is 13px from left edge of screen, 13px from bottom edge of nav bar
          - photo 2 (upper right) is 129px from left edge of screen, 13px from bottom edge of nav bar
          - photo 3 (lower right) is 129px from left edge of screen, 204px from bottom edge of nav bar
-- Remove Frame Controls (X buttons)
-   - 'remove-frame.png' (on and off states)
+   - Resize Handle
+      - 'photo-frame-handle.png' active and inactive versions
+      - bottom of asset should be 10px below bottom edge of user's photo (not the frame)
+      - asset should be horizontally centered within entire photo frame
+- Edit Photo Controls (camera icon in circle)
+   - 'edit-photo-button.png' (on and off states)
    - Control 1 (for leftmost frame or single photo)
-      - 1px from left edge of screen
-      - 1px from bottom of nav bar
+      - 6px from left side of user photo
+      - 6px from top of user photo
    - Control 2 (for upper right frame)
-      - 227px from left edge of screen
-      - 1px from bottom of nav bar
+      - 6px from right side of top right framed photo
+      - 6px from top of user photo
    - Control 3 (for lower right frame)
-      - 227px from left edge of screen
-      - 192px from bottom of nav bar
+      - 6px from right side of bottom right framed photo
+      - 6px from top of bottom right framed photo
+- Edit Photo Actionsheet
+   - 'swap with' shows minimap
+      - 'swap-map.png' with 1,2,3 versions
+         - 9px from edge of accompanying text
+         - vertically centered within button
+         - swap-map and text together should be horizontally centered within button 
 - Empty Frame Icon
    - 'frame-camera-icon.png' with ON and OFF states
    - horizontally and vertically centered within framed image areas when no image is yet present
@@ -4024,15 +4081,24 @@ A user can get a product photo by choosing from a grid with two tabs showing the
 
 #### Mockups
 
-**12.6**
+**12.6**   
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.6.Pick.A.Product.png" width=420px/>
 
 #### API Usage
+GET /products/post-options
 
 #### User Flow
 **entry screens:**   
 
 #### Stories 
+- a user can select a product photo to use in their post
+   - the first tab is comprised of products the user has hearted ```hearted_products.products```
+   - the second tab is comprised of popular products ```popular_products.products```
+   - both lists paginate
+- a user can select a product
+   - tapping on an item routes to (view 12.2)
+   - (view 12.2) should use ```product.main_image``` as its source
 
 #### Design Stories
 - Custom Tab Label
@@ -4250,19 +4316,19 @@ A user can refresh a feed
 
 #### Mockups
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.1.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.6.Pull.To.Refresh.1.Pull.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.2.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.6.Pull.To.Refresh.2.Release.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/3.1.Outfit.Detail.Refresh.3.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.6.Pull.To.Refresh.3.Update.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.1.png" width=420px/>
+Pull to Refresh in Explore Looks view
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.2.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.PTR.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/8.1.Feed.Refresh.3.png" width=420px/>
+Pull to Refresh in Reviews
 
-
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.6.Pull.To.Refresh.Reviews.png" width=420px/>
 
 #### API Usage
 Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
@@ -4271,8 +4337,24 @@ Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
 - A user can refresh a feed
    - pull to refresh is active on the feed in (view 8.1) and the popular lists in (view 9.1) only
 
-
-
+#### Design Stories
+- Background area
+   - 'ptr-bg.png'
+      - pulling down 55px of this is sufficient to activate (before release), but user can pull a bit further
+- Arrow
+   - 'arrow.png', placed 13px above bottom of background area and vertically centered around 'accent line' on background
+   - points down on 'PULL' instruction, spins, points up on RELEASE instruction
+- Text
+   - right aligned, right edge of this text is 51px away from right edge of screen
+      - right edge should appear to line up with right edge of user info box and photo frame on feed
+   - baseline is 14px up from bottom of background area
+   - PULL/RELEASE states: Archer Medium Italic 10pt, rgb(143,143,143)
+   - UPDATING state: Archer Medium Italic 10pt, rgb(88,88,88)
+- Spinner (UPDATING state only)
+   - 15px x 15px
+   - rgb(154,154,153)
+   - top of spinner is 27px away from bottom of background area
+   - right of spinner is 6px away from left edge of text
 
 
 ### 13.7 User badges

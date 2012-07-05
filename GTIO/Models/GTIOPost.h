@@ -25,18 +25,18 @@ typedef enum GTIOPostType {
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, copy) NSString *createdWhen;
 @property (nonatomic, assign, getter = isStared) BOOL stared;
+@property (nonatomic, strong) NSString *whoHearted;
 
 // Relationships
 @property (nonatomic, strong) GTIOUser *user;
 @property (nonatomic, strong) GTIOPhoto *photo;
 @property (nonatomic, strong) NSArray *dotOptionsButtons;
 @property (nonatomic, strong) NSArray *buttons;
-@property (nonatomic, strong) NSArray *whoHeartedButtons;
 @property (nonatomic, strong) NSArray *brandsButtons;
 @property (nonatomic, strong) GTIOPagination *pagination;
 
 typedef void(^GTIOPostCompletionHandler)(GTIOPost *post, NSError *error);
 
-+ (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description votingEnabled:(BOOL)votingEnabled completionHandler:(GTIOPostCompletionHandler)completionHandler;
++ (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description completionHandler:(GTIOPostCompletionHandler)completionHandler;
 
 @end
