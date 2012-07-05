@@ -168,7 +168,7 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
-    self.viewControllerToRouteTo = [[GTIORouter sharedRouter] routeTo:buttonForRow.action.destination];
+    self.viewControllerToRouteTo = [[GTIORouter sharedRouter] viewControllerForURLString:buttonForRow.action.destination];
     
     if (self.viewControllerToRouteTo) {
         [self.tableView setUserInteractionEnabled:NO];

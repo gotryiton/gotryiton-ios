@@ -1,3 +1,32 @@
+***Monday, July 3rd - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review revised GTIO priority supplied by Simon/Matt
+
+**Status**
+- Working on resolving bugs 
+- Developing 8.4 Upload in Process
+ - Required some code refactor, about to begin styling
+- Next target, Pagination/Pull to Refresh
+- Mason Grid Pull to Refresh
+ - View will completely refresh, with additional items being added to the bottom
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Monday, July 2nd - Standup Notes***
 
 **Attendees**

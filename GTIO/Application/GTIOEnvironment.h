@@ -45,6 +45,11 @@ extern NSString * const kGTIOTrackingHeaderKey;
 
 // Notification Constants
 extern NSString * const kGTIOLooksUpdated;
+extern NSString * const kGTIOPostFeedOpenLinkNotification;
+extern NSString * const kGTIODismissDotDotDotPopOverViewNotification;
+
+// Notification Dictionary Constants
+extern NSString * const kGTIOURL;
 
 // Alert Constants
 extern int const kGTIOEmptyPostAlertTag;
@@ -58,6 +63,9 @@ extern NSString * const kGTIOUserInfoButtonNameWebsite;
 extern NSString * const kGTIOUserInfoButtonNameFollow;
 extern NSString * const kGTIOUserInfoButtonNameBannerAd;
 extern NSString * const kGTIOUserInfoButtonNameAcceptRelationship;
+extern NSString * const kGTIOPostSideReviewsButton;
+extern NSString * const kGTIOPostSideShopButton;
+extern NSString * const kGTIOPostDotOptionButton;
 extern NSString * const kGTIOSuggestedFriendsButtonName;
 
 /** Dismiss handler

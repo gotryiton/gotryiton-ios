@@ -15,8 +15,9 @@
 #import "UIImage+Resize.h"
 
 static CGFloat const kGTIOPadding = 7.0f;
-static CGFloat const kGTIOAccessLinePixelsFromRightSizeOfScreen = 25.0f;
-static CGFloat const kGTIOAccessLineGap = 28.0f;
+static CGFloat const kGTIOAccentLineGap = 28.0f;
+
+CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
 
 @interface GTIOPostHeaderView () <SDWebImageManagerDelegate>
 
@@ -73,28 +74,28 @@ static CGFloat const kGTIOAccessLineGap = 28.0f;
         [self addSubview:_locationLabel];
         
         // Accent line
-        CGFloat accessLineOriginX = self.frame.size.width - kGTIOAccessLinePixelsFromRightSizeOfScreen;
+        CGFloat accentLineOriginX = self.frame.size.width - kGTIOAccentLinePixelsFromRightSizeOfScreen;
         
-        UIImageView *topAccessLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line.png"]];
-        [topAccessLine setFrame:(CGRect){ { accessLineOriginX, 0 }, { topAccessLine.image.size.width, 11 } }];
-        [self addSubview:topAccessLine];
+        UIImageView *topAccentLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line.png"]];
+        [topAccentLine setFrame:(CGRect){ { accentLineOriginX, 0 }, { topAccentLine.image.size.width, 11 } }];
+        [self addSubview:topAccentLine];
         
-        UIImageView *topAccessLineCap = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line-separator-top.png"]];
-        [topAccessLineCap setFrame:(CGRect){ { accessLineOriginX - ((topAccessLineCap.image.size.width - 2) / 2), topAccessLine.frame.origin.y + topAccessLine.frame.size.height }, topAccessLineCap.image.size }];
-        [self addSubview:topAccessLineCap];
+        UIImageView *topAccentLineCap = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line-separator-top.png"]];
+        [topAccentLineCap setFrame:(CGRect){ { accentLineOriginX - ((topAccentLineCap.image.size.width - 2) / 2), topAccentLine.frame.origin.y + topAccentLine.frame.size.height }, topAccentLineCap.image.size }];
+        [self addSubview:topAccentLineCap];
         
-        UIImageView *bottomAccessLineCap = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line-separator-bottom.png"]];
-        [bottomAccessLineCap setFrame:(CGRect){ { topAccessLineCap.frame.origin.x, topAccessLineCap.frame.origin.y + topAccessLineCap.frame.size.height + kGTIOAccessLineGap }, bottomAccessLineCap.image.size }];
-        [self addSubview:bottomAccessLineCap];
+        UIImageView *bottomAccentLineCap = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line-separator-bottom.png"]];
+        [bottomAccentLineCap setFrame:(CGRect){ { topAccentLineCap.frame.origin.x, topAccentLineCap.frame.origin.y + topAccentLineCap.frame.size.height + kGTIOAccentLineGap }, bottomAccentLineCap.image.size }];
+        [self addSubview:bottomAccentLineCap];
         
-        UIImageView *bottomAccessLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line.png"]];
-        [bottomAccessLine setFrame:(CGRect){ { accessLineOriginX, bottomAccessLineCap.frame.origin.y + bottomAccessLineCap.frame.size.height }, { bottomAccessLine.image.size.width, 11 } }];
-        [self addSubview:bottomAccessLine];
+        UIImageView *bottomAccentLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line.png"]];
+        [bottomAccentLine setFrame:(CGRect){ { accentLineOriginX, bottomAccentLineCap.frame.origin.y + bottomAccentLineCap.frame.size.height }, { bottomAccentLine.image.size.width, 11 } }];
+        [self addSubview:bottomAccentLine];
         
         // Created At Label
         CGFloat createdAtPadding = kGTIOPadding - 3;
         CGFloat createdAtOriginX = nameBGImageView.frame.origin.x + nameBGImageView.frame.size.width + createdAtPadding;
-        _createdAtLabel = [[UILabel alloc] initWithFrame:(CGRect){ createdAtOriginX, (self.frame.size.height - kGTIOAccessLineGap) / 2, self.frame.size.width - createdAtOriginX - (kGTIOPadding - createdAtPadding), kGTIOAccessLineGap }];
+        _createdAtLabel = [[UILabel alloc] initWithFrame:(CGRect){ createdAtOriginX, (self.frame.size.height - kGTIOAccentLineGap) / 2, self.frame.size.width - createdAtOriginX - (kGTIOPadding - createdAtPadding), kGTIOAccentLineGap }];
         [_createdAtLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:10.0f]];
         [_createdAtLabel setMinimumFontSize:6.0f];
         [_createdAtLabel setAdjustsFontSizeToFitWidth:YES];

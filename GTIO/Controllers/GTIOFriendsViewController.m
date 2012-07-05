@@ -13,6 +13,11 @@
 #import "GTIOSuggestedFriendsIcon.h"
 #import "GTIOProfileViewController.h"
 #import "GTIOSearchEntireCommunityView.h"
+#import "GTIORouter.h"
+
+#import "GTIOFriendsManagementScreen.h"
+#import "GTIOFollowingScreen.h"
+#import "GTIOFollowersScreen.h"
 
 @interface GTIOFriendsViewController ()
 
@@ -263,16 +268,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    GTIOProfileViewController *profileViewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+
     GTIOUser *userForRow;
     if (self.searching) {
         userForRow = (GTIOUser *)[self.searchResults objectAtIndex:indexPath.row];
     } else {
         userForRow = (GTIOUser *)[self.friends objectAtIndex:indexPath.row];
     }
-    [profileViewController setUserID:userForRow.userID];
-    
+    UIViewController *profileViewController = [[GTIORouter sharedRouter] viewControllerForURLString:userForRow.action.destination];
     [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
@@ -393,15 +396,6 @@
         self.reloadButton.userInteractionEnabled = NO;
     }
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadResponse = ^(RKResponse *response) {
-            NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
-            if ([parsedBody valueForKeyPath:@"ui.search_box.text"]) {
-                self.subTitleText = [[[parsedBody objectForKey:@"ui"] objectForKey:@"search_box"] objectForKey:@"text"];
-            } else if ([parsedBody valueForKeyPath:@"ui.subtitle"]) {
-                self.subTitleText = [[parsedBody objectForKey:@"ui"] objectForKey:@"subtitle"];
-            }
-            [self updateFollowingText];
-        };
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             if (self.reloadButton) {
@@ -415,6 +409,18 @@
             
             // load new data
             for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOFriendsManagementScreen class]]) {
+                    GTIOFriendsManagementScreen *friendsManagementScreen = (GTIOFriendsManagementScreen *)object;
+                    self.subTitleText = friendsManagementScreen.searchBox.text;
+                }
+                if ([object isMemberOfClass:[GTIOFollowingScreen class]]) {
+                    GTIOFollowingScreen *followingScreen = (GTIOFollowingScreen *)object;
+                    self.subTitleText = followingScreen.subtitle;
+                }
+                if ([object isMemberOfClass:[GTIOFollowersScreen class]]) {
+                    GTIOFollowersScreen *followingScreen = (GTIOFollowersScreen *)object;
+                    self.subTitleText = followingScreen.subtitle;
+                }
                 if ([object isMemberOfClass:[GTIOUser class]]) {
                     [self.friends addObject:object];
                 }
@@ -432,6 +438,7 @@
             }
             
             // refresh screen with new data
+            [self updateFollowingText];
             [self.friendsTableHeaderView setSuggestedFriends:self.suggestedFriends];
             [self.friendsTableView reloadData];
         };
