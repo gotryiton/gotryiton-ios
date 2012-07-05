@@ -3335,7 +3335,8 @@ A user can browse to a native list of products
 
 #### Mockups
 
-**10.5** ([wireframe](http://invis.io/E22OEQDR)) 
+10.5 ([wireframe](http://invis.io/E22OEQDR))
+
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.B.Browse.Products.Standard.Nav.png" width=420px/>
 
 10.5.1 Shop Browse Products without Picker ([wireframe](http://invis.io/GP2OEPH9))
