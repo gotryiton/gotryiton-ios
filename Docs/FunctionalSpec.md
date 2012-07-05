@@ -1684,7 +1684,7 @@ A user can see a list of suggested users to follow
 #### Mockups
 6.2 Suggested Friends ([wireframe](http://invis.io/VD2OCR5H))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.2.suggested.friends.png" width=420px/>
 
 #### API Usage
 /user/suggested-friends  [api-users](http://gtio-dev.gotryiton.com/docs/api-users)
@@ -1734,7 +1734,7 @@ A user can manage their friend relationships via the feed
 #### Mockups
 6.3 ([wireframe](http://invis.io/R62OCSKJ))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.3.friends.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.3.friends.png" width=420px/>
 
 
 #### User Flow
@@ -1778,7 +1778,10 @@ previous screen
 	- Background: rgb(235,242,239) #ebf2ef
 	- Top Border: 1px rgb(243,247,245) #f3f7f5
 	- Bottom Border: 1px rgb(211,217,215) #d3d9d7
-	- "suggested friend" cell has no bottom border and has height of 49px
+   - find friends icon
+      - 'find.friends.item.icon.png'
+      - 10px gap from accompanying text
+      - bottom of asset is 2px below baseline of accompanying text
 - For cells and button placement, refer to 6.1 design stories
 
 ### 6.4 Find out-of-network Friends  
@@ -1789,9 +1792,15 @@ A user can search for friends outside of their own network
 #### Mockups
 6.4 ([wireframe](http://invis.io/MH2OCTA9))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.4.0.Search.Start.Empty.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>
+6.4.1 search results
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.4.2.search.results.png" width=420px/>
+
+6.4.1 no search results
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.4.1.Search.Results.Empty.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1818,11 +1827,12 @@ gtio://search-friends
 #### Design Stories
 - Search area
 	- Background transparent with image (6/search.area.background.shadow.small.png)
-- Search Empty
-	- 64px from top, 169px from left
-	- Text begins 16px below icon
-	- "search through the entire" 16pt Proxima Nova Light rgb(143,143,143) #8f8f8f
-	- "Go Try It On community" 16pt Proxima Nova Bold rgb(143,143,143) #8f8f8f
+- Search Start
+	- 'search.area.start.png'
+      - 164px from bottom of nav bar, vertically centered
+- Search Empty Results
+   - 'search.area.no.results.png'
+      - 193px from bottom of nav bar, horizontally centered
 - For cells and button placement, refer to 6.1 design stories	
 
 ### 6.5 Following List  
@@ -1833,7 +1843,7 @@ A User A can see a list of who a User B is following.  User A and User B can be 
 #### Mockups
 6.5 ([wireframe](http://invis.io/CS2OCU2W))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.5.following.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.5.following.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1860,6 +1870,10 @@ gtio://my-following
       - following toggle
 
 #### Design Stories
+- Search icon button
+   - 'nav.search.icon.png'
+      - 10px from right edge of screen
+      - vertically centered within nav bar
 - For cells and button placement, refer to 6.1 design stories
 
 ### 6.6 Followers List  
@@ -1870,7 +1884,7 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 #### Mockups
 6.6 Followers List ([wireframe](http://invis.io/Y92OCV3E))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.6.followers.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.6.followers.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1898,6 +1912,10 @@ gtio://my-followers
       - following toggle
 
 #### Design Stories
+- Search icon button
+   - 'nav.search.icon.png'
+      - 10px from right edge of screen
+      - vertically centered within nav bar
 - For cells and button placement, refer to 6.1 design stories
 
 ## 7. Profile pages
