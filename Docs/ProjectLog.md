@@ -1,3 +1,37 @@
+***Thursday, July 5th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Review revised GTIO priority supplied by Simon/Matt
+- TT - Merge in autocomplete work
+- TT - Put together build with latest feature development and bug fixes by 2pm 7/6
+
+**Status**
+- Working on new requirements for photo upload
+- Reviewed Pull Requests, new work discovered
+ - Search tags
+ - Revamped post views
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Discussed remaining schedule
+ - Orginally TT/GTIO target was 7/13 for completion
+ - Based on additional work and changes to previous screens, 1.5 Iterations will need to be added on top of original completion date
+ - Geoff will be working through 7/20 (.5 Iterations)
+ - Scott will be working through 7/27 (1 Iteration)
+ 
+
+---
+
 ***Monday, July 3rd - Standup Notes***
 
 **Attendees**
