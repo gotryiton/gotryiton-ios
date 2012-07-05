@@ -75,6 +75,16 @@
     return [self resizedImage:newSize interpolationQuality:quality];
 }
 
+- (UIImage *)imageScaledToSize:(CGSize)newSize
+{
+    // Create a bitmap context.
+    UIGraphicsBeginImageContextWithOptions(newSize, YES, [UIScreen mainScreen].scale + 1);
+    [self drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 #pragma mark -
 #pragma mark Private helper methods
 

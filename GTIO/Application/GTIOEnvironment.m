@@ -80,6 +80,8 @@ NSString * const kGTIOPostSideReviewsButton = @"post-side-reviews-button";
 NSString * const kGTIOPostSideShopButton = @"post-side-shop-button";
 NSString * const kGTIOPostDotOptionButton = @"post-dot-option-button";
 NSString * const kGTIOSuggestedFriendsButtonName = @"suggested-friends-button";
+NSString * const kGTIOInviteFriendsButtonName = @"invite-friends-button";
+NSString * const kGTIOFindFriendsButtonName = @"find-friends-button";
 
 int const kGTIOEmptyPostAlertTag = 0;
 int const kGTIOEmptyDescriptionAlertTag = 1;

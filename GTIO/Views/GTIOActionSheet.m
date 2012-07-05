@@ -108,7 +108,7 @@ static double const buttonWidth = 292.0;
     double otherButtonsYPosition = self.cancelButton.frame.origin.y - cancelButtonTopMargin - buttonHeight;
     for (GTIOUIButton *button in self.otherButtons) {
         [button setFrame:(CGRect){ containerPadding, otherButtonsYPosition, buttonWidth, buttonHeight }];
-        otherButtonsYPosition -= buttonSpacing - buttonHeight;
+        otherButtonsYPosition -= buttonSpacing + buttonHeight;
     }
     [self.buttonsContainer setFrame:(CGRect){ 0, self.windowMask.bounds.size.height, self.windowMask.bounds.size.width, self.buttonsContainerHeight }];
     [mainWindow insertSubview:self.windowMask aboveSubview:mainWindow];

@@ -14,7 +14,6 @@
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *innerShadow;
-@property (nonatomic, strong) UIImageView *outerShadow;
 @property (nonatomic, strong) UIView *canvas;
 @property (nonatomic, strong) UIView *border;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
@@ -24,7 +23,7 @@
 @implementation GTIOSelectableProfilePicture
 
 @synthesize isSelectable = _isSelectable, isSelected = _isSelected, imageURL = _imageURL, delegate = _delegate, image = _image, hasInnerShadow = _hasInnerShadow, hasOuterShadow = _hasOuterShadow;
-@synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer, border = _border, canvas = _canvas, innerShadow = _innerShadow, outerShadow = _outerShadow;
+@synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer, border = _border, canvas = _canvas, innerShadow = _innerShadow;
 
 - (id)initWithFrame:(CGRect)frame andImageURL:(NSURL*)url
 {
@@ -44,27 +43,24 @@
         [self addSubview:_canvas];
         
         _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];
+        if (_isSelectable) {
+            [self addGestureRecognizer:_tapGestureRecognizer];
+        }
         
         _imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
         _innerShadow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"edit.profile.pic.thumb.mask.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5.0, 5.0, 5.0, 5.0 }]];
         [_innerShadow setFrame:(CGRect){ 0, 0, frame.size }];
-        
+        _innerShadow.opaque = YES;
         _innerShadow.hidden = !_hasInnerShadow;
         [_canvas addSubview:_imageView];
         [_canvas addSubview:_innerShadow];
-        
-        [self.layer setShadowRadius:5.0];
-        [self.layer setShadowOffset:(CGSize){ 0, 0 }];
-        [self.layer setShadowOpacity:0.20];
         
         _border = [[UIView alloc] initWithFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
         [_border.layer setCornerRadius:3.0f];
         [_border setBackgroundColor:[UIColor gtio_greenBorderColor]];
         
         [self setImageWithURL:url];
-        
-        [self bringSubviewToFront:_outerShadow];
     }
     return self;
 }
@@ -91,6 +87,8 @@
 - (void)setIsSelectable:(BOOL)isSelectable
 {
     _isSelectable = isSelectable;
+    self.userInteractionEnabled = _isSelectable;
+    [self removeGestureRecognizer:_tapGestureRecognizer];
     if (self.isSelectable) {
         [self addGestureRecognizer:_tapGestureRecognizer];
     } else {
@@ -109,6 +107,20 @@
     }
 }
 
+- (void)setHasOuterShadow:(BOOL)hasOuterShadow
+{
+    _hasOuterShadow = hasOuterShadow;
+    if (_hasOuterShadow) {
+        [self.layer setShadowRadius:5.0];
+        [self.layer setShadowOffset:(CGSize){ 0, 0 }];
+        [self.layer setShadowOpacity:0.20];
+    } else {
+        [self.layer setShadowRadius:0.0];
+        [self.layer setShadowOffset:(CGSize){ 0, 0 }];
+        [self.layer setShadowOpacity:0.0];
+    }
+}
+
 - (void)setIsSelectedGesture:(UITapGestureRecognizer *)sender
 {
     if ([self.delegate respondsToSelector:@selector(pictureWasTapped:)]) {
@@ -120,10 +132,8 @@
 - (void)showImageViewAnimated:(BOOL)animated
 {
     self.innerShadow.hidden = !self.hasInnerShadow;
-    self.outerShadow.hidden = !self.hasOuterShadow;
     [self.imageView setAlpha:0.0];
     [self.innerShadow setAlpha:0.0];
-    [self.outerShadow setAlpha:0.0];
     if (animated) {
         [UIView animateWithDuration:0.25 animations:^{
             [self showImageView];
@@ -137,7 +147,6 @@
 {
     [self.imageView setAlpha:1.0];
     [self.innerShadow setAlpha:1.0];
-    [self.outerShadow setAlpha:1.0];
 }
 
 @end

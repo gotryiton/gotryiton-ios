@@ -51,7 +51,7 @@
 @synthesize profileIcon = _profileIcon, profileIconButton = _profileIconButton, nameLabel = _nameLabel, locationLabel = _locationLabel, userInfoButtons = _userInfoButtons, badge = _badge;
 @synthesize followingLabel = _followingLabel, followingCountLabel = _followingCountLabel, followersLabel = _followersLabel, followerCountLabel = _followerCountLabel, starsLabel = _starsLabel, starCountLabel = _starCountLabel, user = _user, usesGearInsteadOfPencil = _usesGearInsteadOfPencil;
 @synthesize followingButton = _followingButton, followersButton = _followersButton, starsButton = _starsButton, editButton = _editButton, editImage = _editImage, editButtonTapHandler = _editButtonTapHandler, profilePictureTapHandler = _profilePictureTapHandler;
-@synthesize delegate = _delegate;
+@synthesize delegate = _delegate, settingsButtonHidden = _settingsButtonHidden;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -132,6 +132,12 @@
         [self refreshButtons];
     }
     return self;
+}
+
+- (void)setSettingsButtonHidden:(BOOL)settingsButtonHidden
+{
+    _settingsButtonHidden = settingsButtonHidden;
+    self.editButton.hidden = _settingsButtonHidden;
 }
 
 - (void)setUsesGearInsteadOfPencil:(BOOL)usesGearInsteadOfPencil

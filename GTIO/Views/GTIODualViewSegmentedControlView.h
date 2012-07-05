@@ -12,6 +12,9 @@
 
 @interface GTIODualViewSegmentedControlView : UIView
 
+@property (nonatomic, strong) GTIOPostMasonryView *leftPostsView;
+@property (nonatomic, strong) GTIOPostMasonryView *rightPostsView;
+
 - (id)initWithFrame:(CGRect)frame leftControlTitle:(NSString *)leftControlTitle leftControlPostsType:(GTIOPostType)leftControlPostsType rightControlTitle:(NSString *)rightControlTitle rightControlPostsType:(GTIOPostType)rightControlPostsType;
 - (void)setPosts:(NSArray *)posts GTIOPostType:(GTIOPostType)postType user:(GTIOUser *)user;
 

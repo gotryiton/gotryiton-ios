@@ -170,8 +170,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - 
-
 - (void)refreshContent
 {        
     GTIOUser *currentUser = [GTIOUser currentUser];
@@ -222,7 +220,6 @@
                 [self.profileIconViews addObject:self.facebookPicture];
                 [self.profileIconURLs removeObject:facebookPictureURL];
                 [self.facebookPicture setDelegate:self];
-                [self.facebookPicture setIsSelectable:YES];
             } else {
                 [self.facebookPicture setImage:[UIImage imageNamed:@"default-facebook-profile-picture.png"]];
                 [self.facebookPicture setIsSelectable:NO];

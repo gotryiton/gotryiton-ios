@@ -9,7 +9,6 @@
 #import "GTIOPostMasonryView.h"
 #import "GTIOPostMasonryEmptyStateView.h"
 #import "GTIOPost.h"
-#import "GTIOMasonGridView.h"
 
 static double const kGTIOLeftPadding = 7.0;
 static double const kGTIOTopPadding = 9.0;
@@ -17,7 +16,6 @@ static double const kGTIOTopPadding = 9.0;
 @interface GTIOPostMasonryView()
 
 @property (nonatomic, strong) GTIOPostMasonryEmptyStateView *emptyStateView;
-@property (nonatomic, strong) GTIOMasonGridView *masonGridView;
 
 @end
 
@@ -33,6 +31,7 @@ static double const kGTIOTopPadding = 9.0;
     if (self) {
         self.clipsToBounds = YES;
         _postType = postType;
+        _masonGridView = [[GTIOMasonGridView alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -49,7 +48,6 @@ static double const kGTIOTopPadding = 9.0;
     if ([self.user.button.state intValue] == GTIOFollowButtonStateFollowing || [self.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
         if (_posts.count > 0) {
             // display posts in mason grid
-            self.masonGridView = [[GTIOMasonGridView alloc] initWithFrame:CGRectZero];
             [self.masonGridView setPosts:posts postsType:self.postType];
             [self addSubview:self.masonGridView];
         } else {
@@ -58,7 +56,6 @@ static double const kGTIOTopPadding = 9.0;
         }
     } else {
         NSString *userName = user.name;
-        NSString *userGenderQualifier = ([user.gender isEqualToString:@"female"]) ? @"her" : @"his";
         NSString *postTypePlural = nil;
         if (self.postType == GTIOPostTypeNone) {
             postTypePlural = @"posts";
@@ -67,7 +64,7 @@ static double const kGTIOTopPadding = 9.0;
         } else if (self.postType == GTIOPostTypeStar) {
             postTypePlural = @"stars";
         }
-        NSString *notFollowingTitle = [NSString stringWithFormat:@"follow %@\nto see %@ %@!", userName, userGenderQualifier, postTypePlural];
+        NSString *notFollowingTitle = [NSString stringWithFormat:@"follow %@\nto see their %@!", userName, postTypePlural];
         GTIOPostMasonryEmptyStateView *notFollowing = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:notFollowingTitle userName:userName locked:YES];
         [self refreshAndCenterGTIOEmptyStateView:notFollowing];
     }
