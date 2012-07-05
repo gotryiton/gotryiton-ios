@@ -30,8 +30,9 @@
     [button setBackgroundImage:[[UIImage imageNamed:@"keyboard-top-control-button-active.png"] resizableImageWithCapInsets:insets] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"keyboard-top-control-button-inactive.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
     
-    CGSize displayNameTextSize = [completer.name sizeWithFont:[UIFont boldSystemFontOfSize:14.0f] forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
-    
+    CGSize displayNameTextSize = [completer.name sizeWithFont:button.titleLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
+
+
     if (completer.icon) {
         UIImageView *icon = [[UIImageView alloc] initWithFrame:(CGRect){4,4,26,26}];
         [icon setContentMode:UIViewContentModeScaleAspectFill];
@@ -52,9 +53,9 @@
         
         // fix positioning of text:
         [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        displayNameTextSize.width += 32;
+        displayNameTextSize.width += 38;
     } else {
-        displayNameTextSize.width += 14;
+        displayNameTextSize.width += 24;
     }
 
     [button setFrame:(CGRect){ CGPointZero, displayNameTextSize.width + 10, 34 } ];
