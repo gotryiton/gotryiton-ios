@@ -79,6 +79,10 @@
             self.statusLabel.text = @"updating...";
             self.statusLabel.textColor = [UIColor gtio_grayTextColor585858];
             self.activityIndicatorView.hidden = NO;
+            [self.activityIndicatorView startAnimating];
+            break;
+        case SSPullToRefreshViewStateClosing:
+            [self.activityIndicatorView stopAnimating];
             break;
         default:
             self.statusLabel.text = @"pull down to update";

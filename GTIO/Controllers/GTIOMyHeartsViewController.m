@@ -10,7 +10,6 @@
 #import "GTIOProgressHUD.h"
 #import "GTIODualViewSegmentedControlView.h"
 #import "GTIOUserProfile.h"
-#import "GTIOPullToRefreshContentView.h"
 
 @interface GTIOMyHeartsViewController ()
 
@@ -19,14 +18,11 @@
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) NSMutableArray *products;
 
-@property (nonatomic, strong) SSPullToRefreshView *pullToRefreshViewPosts;
-@property (nonatomic, strong) SSPullToRefreshView *pullToRefreshViewProducts;
-
 @end
 
 @implementation GTIOMyHeartsViewController
 
-@synthesize segmentedControl = _segmentedControl, pullToRefreshViewPosts = _pullToRefreshViewPosts, posts = _posts, products = _products, pullToRefreshViewProducts = _pullToRefreshViewProducts;
+@synthesize segmentedControl = _segmentedControl, posts = _posts, products = _products;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,16 +52,6 @@
     self.segmentedControl = [[GTIODualViewSegmentedControlView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } leftControlTitle:@"posts" leftControlPostsType:GTIOPostTypeHeart rightControlTitle:@"products" rightControlPostsType:GTIOPostTypeHeartedProducts];
     [self.view addSubview:self.segmentedControl];
     
-    self.pullToRefreshViewProducts = [[SSPullToRefreshView alloc] initWithScrollView:self.segmentedControl.rightPostsView.masonGridView delegate:self];
-    self.pullToRefreshViewProducts.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
-    
-    self.pullToRefreshViewPosts = [[SSPullToRefreshView alloc] initWithScrollView:self.segmentedControl.leftPostsView.masonGridView delegate:self];
-    self.pullToRefreshViewPosts.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
-    [self.pullToRefreshViewPosts startLoading];
-}
-
-- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
-{
     self.posts = [NSMutableArray array];
     self.products = [NSMutableArray array];
     
@@ -73,8 +59,6 @@
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/posts/hearted-by-user/%@", [GTIOUser currentUser].userID] usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadResponse = ^(RKResponse *response) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            [self.pullToRefreshViewPosts finishLoading];
-            [self.pullToRefreshViewProducts finishLoading];
         };
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             for (id object in loadedObjects) {

@@ -21,6 +21,8 @@
 #import "GTIOFeedNavigationBarView.h"
 #import "GTIOFriendsViewController.h"
 
+#import "GTIOPullToRefreshContentView.h"
+
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -34,6 +36,9 @@
 @property (nonatomic, strong) NSMutableSet *offScreenHeaderViews;
 @property (nonatomic, strong) NSMutableDictionary *onScreenHeaderViews;
 
+@property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
+@property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
+
 @end
 
 @implementation GTIOFeedViewController
@@ -41,7 +46,7 @@
 @synthesize tableView = _tableView, navBarView = _navBarView;
 @synthesize addNavToHeaderOffsetXOrigin = _addNavToHeaderOffsetXOrigin, removeNavToHeaderOffsetXOrigin = _removeNavToHeaderOffsetXOrigin;
 @synthesize posts = _posts, pagination = _pagination;
-@synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews;
+@synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshContentView = _pullToRefreshContentView, pullToRefreshView = _pullToRefreshView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -101,6 +106,9 @@
     [self.tableView setAllowsSelection:NO];
     [self.tableView setTableHeaderView:self.navBarView];
     [self.view addSubview:self.tableView];
+    
+    self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.tableView delegate:self];
+    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
 }
 
 - (void)viewDidUnload
@@ -114,12 +122,19 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [self loadFeed];
+    [self.pullToRefreshView startLoading];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
+{
+    [self loadFeed];
 }
 
 #pragma mark - Load Data
@@ -128,7 +143,10 @@
 {
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/posts/feed" usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
-        loader.onDidLoadObjects = ^(NSArray *objects) {            
+        loader.onDidLoadResponse = ^(RKResponse *response) {
+            [self.pullToRefreshView finishLoading];
+        };
+        loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];
             
             for (id object in objects) {

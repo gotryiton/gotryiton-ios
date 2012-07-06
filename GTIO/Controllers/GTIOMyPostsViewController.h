@@ -7,10 +7,9 @@
 //
 
 #import "GTIOViewController.h"
-#import "SSPullToRefresh.h"
 #import "GTIOPost.h"
 
-@interface GTIOMyPostsViewController : GTIOViewController <SSPullToRefreshViewDelegate>
+@interface GTIOMyPostsViewController : GTIOViewController
 
 - (id)initWithGTIOPostType:(GTIOPostType)postsType forUserID:(NSString *)userID;
 

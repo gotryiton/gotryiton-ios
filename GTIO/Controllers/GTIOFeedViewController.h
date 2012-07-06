@@ -7,7 +7,8 @@
 //
 
 #import "GTIOViewController.h"
+#import "SSPullToRefresh.h"
 
-@interface GTIOFeedViewController : GTIOViewController
+@interface GTIOFeedViewController : GTIOViewController <SSPullToRefreshViewDelegate>
 
 @end

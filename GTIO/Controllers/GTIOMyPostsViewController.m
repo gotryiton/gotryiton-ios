@@ -12,14 +12,11 @@
 #import "GTIOUser.h"
 #import "GTIOPostMasonryView.h"
 #import "GTIOProgressHUD.h"
-#import "GTIOPullToRefreshContentView.h"
 
 @interface GTIOMyPostsViewController ()
 
 @property (nonatomic, strong) GTIOPostMasonryView *postMasonGrid;
 @property (nonatomic, strong) NSMutableArray *posts;
-
-@property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
 
 @property (nonatomic, assign) GTIOPostType postsType;
 @property (nonatomic, copy) NSString *userID;
@@ -28,7 +25,7 @@
 
 @implementation GTIOMyPostsViewController
 
-@synthesize postMasonGrid = _postMasonGrid, posts = _posts, pullToRefreshView = _pullToRefreshView, postsType = _postsType, userID = _userID;
+@synthesize postMasonGrid = _postMasonGrid, posts = _posts, postsType = _postsType, userID = _userID;
 
 - (id)initWithGTIOPostType:(GTIOPostType)postsType forUserID:(NSString *)userID
 {
@@ -66,26 +63,6 @@
     [self.postMasonGrid setFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height }];
     [self.view addSubview:self.postMasonGrid];
     
-    self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.postMasonGrid.masonGridView delegate:self];
-    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
-    [self.pullToRefreshView startLoading];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    
-    self.postMasonGrid = nil;
-    self.pullToRefreshView = nil;
-}
-
-- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
-{
-    [self refreshPosts];
-}
-
-- (void)refreshPosts
-{
     self.posts = [NSMutableArray array];
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *resourcePath = [NSString stringWithFormat:@"posts/by-user/%@", self.userID];
@@ -95,7 +72,6 @@
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            [self.pullToRefreshView finishLoading];
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOPost class]]) {
                     [self.posts addObject:object];
@@ -105,10 +81,16 @@
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            [self.pullToRefreshView finishLoading];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    
+    self.postMasonGrid = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
