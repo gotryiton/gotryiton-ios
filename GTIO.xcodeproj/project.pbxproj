@@ -1065,6 +1065,7 @@
 		8EC2038A1598FE9C00685686 /* GTIOMasonGridItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EC203891598FE9C00685686 /* GTIOMasonGridItem.m */; };
 		8ECB2A8C1587DEDC0039A4F1 /* GTIOButtonAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB2A8B1587DEDC0039A4F1 /* GTIOButtonAction.m */; };
 		8ECB2A901587E0480039A4F1 /* GTIOMyManagementScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB2A8F1587E0480039A4F1 /* GTIOMyManagementScreen.m */; };
+		8ECF289815A74CF50069FD93 /* GTIOMyPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECF289715A74CF50069FD93 /* GTIOMyPostsViewController.m */; };
 		8EDA556615757777009F0404 /* GTIOLookSelectorControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556515757777009F0404 /* GTIOLookSelectorControl.m */; };
 		8EDA556B15757E8A009F0404 /* GTIOPostALookOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556A15757E8A009F0404 /* GTIOPostALookOptionsView.m */; };
 		8EDA556E15758261009F0404 /* GTIOPostALookDescriptionBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA556D15758261009F0404 /* GTIOPostALookDescriptionBox.m */; };
@@ -1077,6 +1078,7 @@
 		8EECB5911589032100025BAD /* GTIOMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EECB5901589032100025BAD /* GTIOMeTableViewCell.m */; };
 		8EECB59415890A2000025BAD /* GTIOMeTableHeaderViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EECB59315890A2000025BAD /* GTIOMeTableHeaderViewLabel.m */; };
 		8EECB597158916D600025BAD /* GTIORouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EECB596158916D600025BAD /* GTIORouter.m */; };
+		8EF0719115A7760800FD517D /* GTIOFindMyFriendsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0719015A7760800FD517D /* GTIOFindMyFriendsScreen.m */; };
 		8EF46011159A647800E00994 /* GTIOFindMyFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF46010159A647800E00994 /* GTIOFindMyFriendsTableViewCell.m */; };
 		8EF8FF83156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8FF82156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.m */; };
 		8EF8FF9D156C112400AFCE55 /* GTIOAlmostDoneTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8FF9C156C112400AFCE55 /* GTIOAlmostDoneTableCell.m */; };
@@ -2466,6 +2468,8 @@
 		8ECB2A8B1587DEDC0039A4F1 /* GTIOButtonAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOButtonAction.m; sourceTree = "<group>"; };
 		8ECB2A8E1587E0480039A4F1 /* GTIOMyManagementScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMyManagementScreen.h; sourceTree = "<group>"; };
 		8ECB2A8F1587E0480039A4F1 /* GTIOMyManagementScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMyManagementScreen.m; sourceTree = "<group>"; };
+		8ECF289615A74CF50069FD93 /* GTIOMyPostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMyPostsViewController.h; sourceTree = "<group>"; };
+		8ECF289715A74CF50069FD93 /* GTIOMyPostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMyPostsViewController.m; sourceTree = "<group>"; };
 		8EDA556415757777009F0404 /* GTIOLookSelectorControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLookSelectorControl.h; sourceTree = "<group>"; };
 		8EDA556515757777009F0404 /* GTIOLookSelectorControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOLookSelectorControl.m; sourceTree = "<group>"; };
 		8EDA556815757B8A009F0404 /* GTIOLookSelectorControlDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOLookSelectorControlDelegate.h; path = Protocols/GTIOLookSelectorControlDelegate.h; sourceTree = "<group>"; };
@@ -2491,6 +2495,8 @@
 		8EECB59315890A2000025BAD /* GTIOMeTableHeaderViewLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMeTableHeaderViewLabel.m; sourceTree = "<group>"; };
 		8EECB595158916D600025BAD /* GTIORouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIORouter.h; sourceTree = "<group>"; };
 		8EECB596158916D600025BAD /* GTIORouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIORouter.m; sourceTree = "<group>"; };
+		8EF0718F15A7760800FD517D /* GTIOFindMyFriendsScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFindMyFriendsScreen.h; sourceTree = "<group>"; };
+		8EF0719015A7760800FD517D /* GTIOFindMyFriendsScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFindMyFriendsScreen.m; sourceTree = "<group>"; };
 		8EF4600F159A647800E00994 /* GTIOFindMyFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFindMyFriendsTableViewCell.h; sourceTree = "<group>"; };
 		8EF46010159A647800E00994 /* GTIOFindMyFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFindMyFriendsTableViewCell.m; sourceTree = "<group>"; };
 		8EF8FF81156BEEB000AFCE55 /* GTIOAlmostDoneTableHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAlmostDoneTableHeaderCell.h; sourceTree = "<group>"; };
@@ -2886,6 +2892,8 @@
 				8EB0F8171590E8D300794042 /* GTIOProfileViewController.m */,
 				8EFAE87615A60E820075F530 /* GTIOMyHeartsViewController.h */,
 				8EFAE87715A60E820075F530 /* GTIOMyHeartsViewController.m */,
+				8ECF289615A74CF50069FD93 /* GTIOMyPostsViewController.h */,
+				8ECF289715A74CF50069FD93 /* GTIOMyPostsViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -4322,6 +4330,8 @@
 				8EBD90BA15A23B32006E387B /* GTIOFollowingScreen.m */,
 				8EBD90BC15A23DC1006E387B /* GTIOFollowersScreen.h */,
 				8EBD90BD15A23DC1006E387B /* GTIOFollowersScreen.m */,
+				8EF0718F15A7760800FD517D /* GTIOFindMyFriendsScreen.h */,
+				8EF0719015A7760800FD517D /* GTIOFindMyFriendsScreen.m */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -6477,6 +6487,8 @@
 				8EFAE87515A5F8220075F530 /* SSPullToRefreshView.m in Sources */,
 				8EFAE87815A60E820075F530 /* GTIOMyHeartsViewController.m in Sources */,
 				8EFAE87C15A61ACC0075F530 /* GTIOPullToRefreshContentView.m in Sources */,
+				8ECF289815A74CF50069FD93 /* GTIOMyPostsViewController.m in Sources */,
+				8EF0719115A7760800FD517D /* GTIOFindMyFriendsScreen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

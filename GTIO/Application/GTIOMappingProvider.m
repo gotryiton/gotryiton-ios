@@ -32,6 +32,7 @@
 #import "GTIOSearchBox.h"
 #import "GTIOFollowingScreen.h"
 #import "GTIOFollowersScreen.h"
+#import "GTIOFindMyFriendsScreen.h"
 
 @implementation GTIOMappingProvider
 
@@ -64,6 +65,7 @@
         RKObjectMapping *searchBoxMapping = [RKObjectMapping mappingForClass:[GTIOSearchBox class]];
         RKObjectMapping *followingScreenMapping = [RKObjectMapping mappingForClass:[GTIOFollowingScreen class]];
         RKObjectMapping *followersScreenMapping = [RKObjectMapping mappingForClass:[GTIOFollowersScreen class]];
+        RKObjectMapping *findMyFriendsScreenMapping = [RKObjectMapping mappingForClass:[GTIOFindMyFriendsScreen class]];
         
         /** Config
          */
@@ -192,6 +194,10 @@
         [followersScreenMapping mapKeyPath:@"include_filter_search" toAttribute:@"includeFilterSearch"];
         [self setMapping:followersScreenMapping forKeyPath:@"ui-followers"];
         
+        [findMyFriendsScreenMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
+        [findMyFriendsScreenMapping mapKeyPath:@"search_box" toRelationship:@"searchBox" withMapping:searchBoxMapping];
+        [self setMapping:findMyFriendsScreenMapping forKeyPath:@"ui-friends"];
+        
         /** Pagination
          */
         [paginationMapping mapKeyPath:@"previous_page" toAttribute:@"previousPage"];
@@ -226,6 +232,7 @@
         [postMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
         [postMapping mapRelationship:@"user" withMapping:userMapping];
         [self setMapping:postMapping forKeyPath:@"post"];
+        [self setMapping:postMapping forKeyPath:@"posts"];
         [self setMapping:postMapping forKeyPath:@"feed"];
 
         // GTIOAutoCompleter

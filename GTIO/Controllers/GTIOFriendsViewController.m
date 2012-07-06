@@ -19,6 +19,7 @@
 #import "GTIOFriendsManagementScreen.h"
 #import "GTIOFollowingScreen.h"
 #import "GTIOFollowersScreen.h"
+#import "GTIOFindMyFriendsScreen.h"
 
 @interface GTIOFriendsViewController ()
 
@@ -435,6 +436,9 @@
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadResponse = ^(RKResponse *response) {
+            NSLog(@"%@", [response bodyAsString]);
+        };
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             
@@ -466,6 +470,16 @@
                         }
                     }
                     self.subTitleText = friendsManagementScreen.searchBox.text;
+                }
+                if ([object isMemberOfClass:[GTIOFindMyFriendsScreen class]]) {
+                    GTIOFindMyFriendsScreen *findMyFriendsScreen = (GTIOFindMyFriendsScreen *)object;
+                    for (id object in findMyFriendsScreen.buttons) {
+                        GTIOButton *button = (GTIOButton *)object;
+                        if ([button.name isEqualToString:kGTIOSuggestedFriendsButtonName]) {
+                            self.friendsTableHeaderView.suggestedFriendsURL = button.action.destination;
+                        }
+                    }
+                    self.subTitleText = findMyFriendsScreen.searchBox.text;
                 }
                 if ([object isMemberOfClass:[GTIOFollowingScreen class]]) {
                     GTIOFollowingScreen *followingScreen = (GTIOFollowingScreen *)object;

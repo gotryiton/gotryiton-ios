@@ -16,7 +16,7 @@ typedef void(^GTIOProfileInitCompletionHandler)(id sender);
 @protocol GTIOProfileHeaderViewDelegate <NSObject>
 
 @required
-- (void)refreshUserProfile;
+- (void)refreshUserProfileRefreshPostsOnly:(BOOL)refreshPostsOnly;
 
 @end
 

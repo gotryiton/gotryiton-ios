@@ -264,7 +264,8 @@
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameStars]) {
             [self.starCountLabel setText:[NSString stringWithFormat:@"%@", [numberFormatter stringFromNumber:button.count]]];
             _starsButton.tapHandler = ^(id sender) {
-                NSLog(@"tapped %@, use endpoint: %@", button.name, button.action.endpoint);
+                UIViewController *starsViewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+                [self.delegate pushViewController:starsViewController];
             };
         }
     }
