@@ -13,5 +13,6 @@
 @property (nonatomic, copy) NSString *barTitle;
 @property (nonatomic, assign) BOOL hasGreenBackgroundColor;
 @property (nonatomic, strong) NSArray *suggestedFriends;
+@property (nonatomic, copy) NSString *routingURL;
 
 @end

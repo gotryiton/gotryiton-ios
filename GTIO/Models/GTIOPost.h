@@ -14,7 +14,8 @@
 typedef enum GTIOPostType {
     GTIOPostTypeNone = 0,
     GTIOPostTypeHeart,
-    GTIOPostTypeStar
+    GTIOPostTypeStar,
+    GTIOPostTypeHeartedProducts
 } GTIOPostType;
 
 @interface GTIOPost : NSObject

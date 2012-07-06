@@ -10,8 +10,9 @@
 #import "GTIOFollowRequestAcceptBarView.h"
 #import "GTIOProfileHeaderView.h"
 #import "GTIOMeTableHeaderView.h"
+#import "SSPullToRefresh.h"
 
-@interface GTIOProfileViewController : GTIOViewController <GTIOFollowRequestAcceptBarViewDelegate, GTIOProfileHeaderViewDelegate, GTIOMeTableHeaderViewDelegate>
+@interface GTIOProfileViewController : GTIOViewController <GTIOFollowRequestAcceptBarViewDelegate, GTIOProfileHeaderViewDelegate, GTIOMeTableHeaderViewDelegate, SSPullToRefreshViewDelegate>
 
 @property (nonatomic, copy) NSString *userID;
 

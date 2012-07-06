@@ -117,13 +117,12 @@
     [underline setBackgroundColor:[UIColor gtio_pinkTextColor]];
     [underline setAlpha:0.50];
     [signUpLabel addSubview:underline];
+    [self.view addSubview:signUpLabel];
     
     UIButton *signUpLink = [UIButton buttonWithType:UIButtonTypeCustom];
-    [signUpLink setFrame:(CGRect){ 91, 0, 154, signUpLabel.frame.size.height }];
+    [signUpLink setFrame:(CGRect){ 47, 360, 228, 45 }];
     [signUpLink addTarget:self action:@selector(loadReturningUsersViewController) forControlEvents:UIControlEventTouchUpInside];
-    [signUpLabel addSubview:signUpLink];
-    
-    [self.view addSubview:signUpLabel];
+    [self.view addSubview:signUpLink];
 }
 
 - (void)viewDidUnload

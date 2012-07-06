@@ -10,6 +10,7 @@
 #import "GTIOMasonGridColumn.h"
 #import "GTIOMasonGridItemWithFrameView.h"
 #import "GTIOProgressHUD.h"
+#import "UIImage+Resize.h"
 
 static double const kGTIOImageWidth = 94.0;
 static double const kGTIOHorizontalSpacing = 12.0;
@@ -30,12 +31,6 @@ static double const kGTIOHorizontalSpacing = 12.0;
     self = [super initWithFrame:frame];
     if (self) {
         self.clipsToBounds = NO;
-        _columns = [NSMutableArray arrayWithObjects:
-                    [GTIOMasonGridColumn gridColumnWithColumnNumber:0],
-                    [GTIOMasonGridColumn gridColumnWithColumnNumber:1],
-                    [GTIOMasonGridColumn gridColumnWithColumnNumber:2],
-                    nil];
-        _items = [NSMutableArray array];
     }
     return self;
 }
@@ -43,6 +38,9 @@ static double const kGTIOHorizontalSpacing = 12.0;
 - (void)didFinishLoadingGridItem:(GTIOMasonGridItem *)gridItem
 {
     [GTIOProgressHUD hideHUDForView:self animated:YES];
+    
+    double widthRatio = kGTIOImageWidth / gridItem.image.size.width;
+    gridItem.image = [gridItem.image imageScaledToSize:(CGSize){ kGTIOImageWidth, gridItem.image.size.height * widthRatio }];
     
     // Find shortest column
     GTIOMasonGridColumn *shortestColumn = nil;
@@ -66,6 +64,9 @@ static double const kGTIOHorizontalSpacing = 12.0;
             tallestColumnHeight = column.height;
         }
     }
+    if (tallestColumnHeight + 12 < self.bounds.size.height) {
+        tallestColumnHeight = self.bounds.size.height - 11;
+    }
     [self setContentSize:(CGSize){ self.frame.size.width, tallestColumnHeight + 12 }];
     
     // Fade in
@@ -83,6 +84,27 @@ static double const kGTIOHorizontalSpacing = 12.0;
 {
     [GTIOProgressHUD showHUDAddedTo:self animated:YES];
     
+    // cancel any image downloads, reset items array
+    for (GTIOMasonGridItem *item in self.items) {
+        [item cancelImageDownload];
+    }
+    self.items = [NSMutableArray array];
+    
+    // clear the view
+    for (UIView *subview in self.subviews) {
+        if ([subview isMemberOfClass:[GTIOMasonGridItemWithFrameView class]]) {
+            [subview removeFromSuperview];
+        }
+    }
+    
+    // reset columns
+    self.columns = [NSMutableArray arrayWithObjects:
+                [GTIOMasonGridColumn gridColumnWithColumnNumber:0],
+                [GTIOMasonGridColumn gridColumnWithColumnNumber:1],
+                [GTIOMasonGridColumn gridColumnWithColumnNumber:2],
+                nil];
+    
+    // bring in the new data
     for (GTIOPost *post in posts) {
         GTIOMasonGridItem *item = [[GTIOMasonGridItem alloc] init];
         item.delegate = self;

@@ -8,6 +8,7 @@
 
 #import "GTIOFriendsViewController.h"
 #import "GTIOUser.h"
+#import "GTIOPagination.h"
 #import "GTIOFriendsNoSearchResultsView.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOSuggestedFriendsIcon.h"
@@ -41,11 +42,13 @@
 
 @property (nonatomic, strong) GTIOUIButton *reloadButton;
 
+@property (nonatomic, copy) NSString *paginationNextPageResourcePath;
+
 @end
 
 @implementation GTIOFriendsViewController
 
-@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, subTitleText = _subTitleText, userID = _userID, searchCommunityView = _searchCommunityView, searchBar = _searchBar, reloadButton = _reloadButton;
+@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, subTitleText = _subTitleText, userID = _userID, searchCommunityView = _searchCommunityView, searchBar = _searchBar, reloadButton = _reloadButton, paginationNextPageResourcePath = _paginationNextPageResourcePath;
 
 - (id)initWithGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)tableHeaderViewType
 {
@@ -97,7 +100,7 @@
         [self setLeftNavigationButton:closeButton];
     }
     self.reloadButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeReload tapHandler:^(id sender) {
-        [self loadUsersForTable];
+        [self paginateUsersForTable];
     }];
     if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeSuggested) {
         [self setRightNavigationButton:self.reloadButton];
@@ -143,19 +146,21 @@
 {
     [super viewWillAppear:animated];
     
-    // clear any previous searches
-    self.searchBar.text = @"";
-    self.searchResults = [NSMutableArray array];
-    self.searching = NO;
-    [self.noSearchResultsView removeFromSuperview];
-    [self.searchCommunityView removeFromSuperview];
-    
-    if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
-        [self loadUsersForTable];
-    } else {
-        [self displaySearchCommunityView];
+    if (self.searchResults.count == 0) {
+        // clear any previous searches
+        self.searchBar.text = @"";
+        self.searchResults = [NSMutableArray array];
+        self.searching = NO;
+        [self.noSearchResultsView removeFromSuperview];
+        [self.searchCommunityView removeFromSuperview];
+        
+        if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
+            [self loadUsersForTable];
+        } else {
+            [self displaySearchCommunityView];
+        }
+        [self resetTableViewFrame];
     }
-    [self resetTableViewFrame];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -364,6 +369,39 @@
     }
 }
 
+- (void)paginateUsersForTable
+{
+    if (self.paginationNextPageResourcePath.length > 0) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.reloadButton.userInteractionEnabled = NO;
+        
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.paginationNextPageResourcePath usingBlock:^(RKObjectLoader *loader) {
+            loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                self.reloadButton.userInteractionEnabled = YES;
+                
+                self.friends = [NSMutableArray array];
+                
+                for (id object in loadedObjects) {
+                    if ([object isMemberOfClass:[GTIOUser class]]) {
+                        [self.friends addObject:object];
+                    }
+                    
+                    if ([object isMemberOfClass:[GTIOPagination class]]) {
+                        self.paginationNextPageResourcePath = [(GTIOPagination *)object nextPage];
+                    }
+                }
+                
+                [self.friendsTableView reloadData];
+            };
+            loader.onDidFailWithError = ^(NSError *error) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                self.reloadButton.userInteractionEnabled = YES;
+            };
+        }];
+    }
+}
+
 - (void)loadUsersForTable
 {
     NSString *resourcePath;
@@ -392,15 +430,9 @@
     self.subTitleText = @"";
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    if (self.reloadButton) {
-        self.reloadButton.userInteractionEnabled = NO;
-    }
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            if (self.reloadButton) {
-                self.reloadButton.userInteractionEnabled = YES;
-            }
             
             // wipe out old data
             self.friends = [NSMutableArray array];
@@ -411,6 +443,24 @@
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOFriendsManagementScreen class]]) {
                     GTIOFriendsManagementScreen *friendsManagementScreen = (GTIOFriendsManagementScreen *)object;
+                    for (id object in friendsManagementScreen.buttons) {
+                        [self.buttons addObject:object];
+                        GTIOButton *button = (GTIOButton *)object;
+                        if ([button.name isEqualToString:kGTIOSuggestedFriendsButtonName]) {                            
+                            for (GTIOSuggestedFriendsIcon *icon in button.icons) {
+                                GTIOUser *userWithOnlyAProfilePicture = [[GTIOUser alloc] init];
+                                userWithOnlyAProfilePicture.icon = [NSURL URLWithString:icon.iconPath];
+                                [self.suggestedFriends addObject:userWithOnlyAProfilePicture];
+                            }
+                            self.friendsTableHeaderView.suggestedFriendsURL = button.action.destination;
+                        }
+                        if ([button.name isEqualToString:kGTIOFindFriendsButtonName]) {
+                            self.friendsTableHeaderView.findFriendsURL = button.action.destination;
+                        }
+                        if ([button.name isEqualToString:kGTIOInviteFriendsButtonName]) {
+                            self.friendsTableHeaderView.inviteFriendsURL = button.action.destination;
+                        }
+                    }
                     self.subTitleText = friendsManagementScreen.searchBox.text;
                 }
                 if ([object isMemberOfClass:[GTIOFollowingScreen class]]) {
@@ -424,16 +474,8 @@
                 if ([object isMemberOfClass:[GTIOUser class]]) {
                     [self.friends addObject:object];
                 }
-                if ([object isMemberOfClass:[GTIOButton class]]) {
-                    [self.buttons addObject:object];
-                    GTIOButton *button = (GTIOButton *)object;
-                    if ([button.name isEqualToString:kGTIOSuggestedFriendsButtonName]) {
-                        for (GTIOSuggestedFriendsIcon *icon in button.icons) {
-                            GTIOUser *userWithOnlyAProfilePicture = [[GTIOUser alloc] init];
-                            userWithOnlyAProfilePicture.icon = [NSURL URLWithString:icon.iconPath];
-                            [self.suggestedFriends addObject:userWithOnlyAProfilePicture];
-                        }
-                    }
+                if ([object isMemberOfClass:[GTIOPagination class]]) {
+                    self.paginationNextPageResourcePath = [(GTIOPagination *)object nextPage];
                 }
             }
             

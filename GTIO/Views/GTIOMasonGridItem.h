@@ -27,5 +27,6 @@
 
 + (id)itemWithURL:(NSURL *)URL;
 - (void)downloadImage;
+- (void)cancelImageDownload;
 
 @end

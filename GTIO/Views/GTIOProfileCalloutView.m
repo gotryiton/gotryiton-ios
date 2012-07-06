@@ -9,6 +9,7 @@
 #import "GTIOProfileCalloutView.h"
 #import "TTTAttributedLabel.h"
 #import "UIImageView+WebCache.h"
+#import "NSString+GTIOAdditions.h"
 
 @interface GTIOProfileCalloutView()
 
@@ -56,6 +57,16 @@
     [self.calloutText setText:[self.profileCallout.text uppercaseString] afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange whiteRange = [[mutableAttributedString string] rangeOfString:blockSelf.user.name options:NSCaseInsensitiveSearch];
         [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[UIColor whiteColor].CGColor range:whiteRange];
+        NSArray *boldRanges = [blockSelf.profileCallout.text rangesOfHTMLBoldedText];
+        for (NSValue *value in boldRanges) {
+            NSRange boldRange = [value rangeValue];
+            UIFont *boldSystemFont = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0];
+            CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+            if (font) {
+                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
+                CFRelease(font);
+            }
+        }
         return mutableAttributedString;
     }];
     [self setNeedsLayout];

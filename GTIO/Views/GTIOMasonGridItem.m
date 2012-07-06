@@ -8,9 +8,15 @@
 
 #import "GTIOMasonGridItem.h"
 
+@interface GTIOMasonGridItem()
+
+@property (nonatomic, strong) SDWebImageDownloader *imageDownloader;
+
+@end
+
 @implementation GTIOMasonGridItem
 
-@synthesize URL = _URL, image = _image, delegate = _delegate;
+@synthesize URL = _URL, image = _image, delegate = _delegate, imageDownloader = _imageDownloader;
 
 + (id)itemWithURL:(NSURL *)URL
 {
@@ -21,7 +27,12 @@
 
 - (void)downloadImage
 {
-    [SDWebImageDownloader downloaderWithURL:self.URL delegate:self];
+    self.imageDownloader = [SDWebImageDownloader downloaderWithURL:self.URL delegate:self];
+}
+
+- (void)cancelImageDownload
+{
+    [self.imageDownloader cancel];
 }
 
 #pragma mark - SDWebImageDownloaderDelegate

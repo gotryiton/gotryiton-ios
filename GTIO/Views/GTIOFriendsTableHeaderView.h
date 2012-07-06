@@ -33,6 +33,10 @@ typedef enum GTIOFriendsTableHeaderViewType {
 @property (nonatomic, weak) id<UISearchBarDelegate> searchBarDelegate;
 @property (nonatomic, weak) id<GTIOFriendsTableHeaderViewDelegate> delegate;
 
+@property (nonatomic, copy) NSString *inviteFriendsURL;
+@property (nonatomic, copy) NSString *findFriendsURL;
+@property (nonatomic, copy) NSString *suggestedFriendsURL;
+
 - (id)initWithFrame:(CGRect)frame type:(GTIOFriendsTableHeaderViewType)type;
 + (CGFloat)heightForGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)type;
 
