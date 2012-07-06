@@ -27,10 +27,14 @@ typedef enum GTIOPostState {
 @property (nonatomic, assign, readonly) GTIOPostState state;
 @property (nonatomic, assign, readonly) CGFloat progress;
 @property (nonatomic, strong, readonly) GTIOPost *post;
+@property (nonatomic, assign) BOOL framed;
+@property (nonatomic, strong) NSString *filterName;
 
 + (GTIOPostManager *)sharedManager;
 
-- (void)uploadImage:(UIImage *)image framed:(BOOL)framed filterName:(NSString *)filterName;
+- (void)retry;
+
+- (void)uploadImage:(UIImage *)image framed:(BOOL)framed filterName:(NSString *)filterName forceSavePost:(BOOL)forceSavePost;
 - (void)cancelUploadImage;
 
 - (void)savePostWithDescription:(NSString *)description completionHandler:(GTIOPostCompletionHandler)completionHandler;

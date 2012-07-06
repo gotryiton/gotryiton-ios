@@ -30,6 +30,7 @@
 @synthesize state = _state;
 @synthesize progress = _progress;
 @synthesize post = _post;
+@synthesize framed = _framed, filterName = _filterName;
 
 + (GTIOPostManager *)sharedManager
 {
@@ -51,19 +52,25 @@
     return self;
 }
 
-- (void)uploadImage:(UIImage *)image framed:(BOOL)framed filterName:(NSString *)filterName 
+- (void)uploadImage:(UIImage *)image framed:(BOOL)framed filterName:(NSString *)filterName forceSavePost:(BOOL)forceSavePost
 {
+    [self.uploadImageRequest cancel];
+    
+    self.image = image;
+    self.framed = framed;
+    self.filterName = filterName;
+    
     _post = nil;
+    self.photo = nil;
     [self changeState:GTIOPostStateUploadingImage];
     [self changeProgress:0.0f];
-    [self.uploadImageRequest cancel];
     
     [[RKClient sharedClient] post:@"/photo/create" usingBlock:^(RKRequest *request) {
         self.uploadImageRequest = request;
         
         RKParams *params = [RKParams params];
-        [params setValue:filterName forParam:@"using_filter"];
-        [params setValue:[NSNumber numberWithBool:framed] forParam:@"using_frame"];
+        [params setValue:self.filterName forParam:@"using_filter"];
+        [params setValue:[NSNumber numberWithBool:self.framed] forParam:@"using_frame"];
         NSData* imageData = UIImagePNGRepresentation(image);
         [params setData:imageData MIMEType:@"image/jpeg" forParam:@"image"];
         
@@ -82,7 +89,7 @@
                 self.photo = (GTIOPhoto *)[result asObject];
             }
             
-            if (self.postPhotoButtonTouched) {
+            if (self.postPhotoButtonTouched || forceSavePost) {
                 self.postPhotoButtonTouched = NO;
                 [self savePostWithDescription:self.postDescription completionHandler:self.postCompletionHandler];
             }
@@ -125,6 +132,11 @@
             }
         }];
     }
+}
+
+- (void)retry
+{
+    [self uploadImage:self.image framed:self.framed filterName:self.filterName forceSavePost:YES];
 }
 
 - (void)savePhotoToDisk

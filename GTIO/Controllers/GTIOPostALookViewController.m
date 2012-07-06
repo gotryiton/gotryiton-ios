@@ -264,7 +264,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     if ([self.lookSelectorView selectionsComplete]) {
         UIImage *uploadImage = [self getCompositeImage];
-        [[GTIOPostManager sharedManager] uploadImage:uploadImage framed:self.lookSelectorView.photoSet filterName:@""];
+        [[GTIOPostManager sharedManager] uploadImage:uploadImage framed:self.lookSelectorView.photoSet filterName:@"" forceSavePost:NO];
     }
 }
 

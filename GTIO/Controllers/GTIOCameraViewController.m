@@ -282,6 +282,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)photoAcceptedNotification:(NSNotification *)notification
 {
     UIImage *photo = [notification.userInfo objectForKey:@"photo"];
+    GTIOFilterType filterType = [[notification.userInfo objectForKey:@"filterType"] integerValue];
     
     if (photo) {
         [self.postALookViewController setMainImage:photo];

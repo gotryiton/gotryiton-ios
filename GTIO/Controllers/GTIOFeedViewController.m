@@ -359,7 +359,6 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 - (void)stateValueChanged:(NSDictionary *)change
 {
     GTIOPostState postState = [[change objectForKey:@"new"] integerValue];
-    NSLog(@"State: %i", postState);
     
     [self.uploadView setState:postState];
     
@@ -378,7 +377,6 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                 [self removeUploadView];
             });
-            
             break;
         }
         case GTIOPostStateError:
@@ -395,23 +393,26 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 - (void)addUploadView
 {
-    self.postUpload = [[GTIOPostUpload alloc] init];
-    [self.posts insertObject:self.postUpload atIndex:0];
-    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (!self.postUpload) {
+        self.postUpload = [[GTIOPostUpload alloc] init];
+        [self.posts insertObject:self.postUpload atIndex:0];
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 - (void)removeUploadView
 {
-    self.postUpload = nil;
-    [self.posts removeObjectAtIndex:0];
-    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-    
-    GTIOPost *newPost = [GTIOPostManager sharedManager].post;
-    if (newPost) {
-        [self.posts insertObject:newPost atIndex:0];
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (self.postUpload) {
+        self.postUpload = nil;
+        [self.posts removeObjectAtIndex:0];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        GTIOPost *newPost = [GTIOPostManager sharedManager].post;
+        if (newPost) {
+            [self.posts insertObject:newPost atIndex:0];
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
     }
-    
 }
 
 @end

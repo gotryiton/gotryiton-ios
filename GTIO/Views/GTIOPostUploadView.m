@@ -30,6 +30,7 @@ static CGFloat const kGTIOTextYOrigin = 23.0f;
 @property (nonatomic, strong) UILabel *doneLabel;
 @property (nonatomic, strong) UIImageView *shadowImageView;
 @property (nonatomic, strong) UIProgressView *progressView;
+@property (nonatomic, strong) GTIOUIButton *retryButton;
 
 @end
 
@@ -38,6 +39,7 @@ static CGFloat const kGTIOTextYOrigin = 23.0f;
 @synthesize iconImageView = _iconImageView, iconFrameImageView = _iconFrameImageView, statusLabel = _statusLabel, doneLabel = _doneLabel, shadowImageView = _shadowImageView, progressView = _progressView;
 @synthesize showingShadow = _showingShadow, clearBackground = _clearBackground;
 @synthesize state = _state, progress = _progress;
+@synthesize retryButton = _retryButton;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -89,6 +91,12 @@ static CGFloat const kGTIOTextYOrigin = 23.0f;
         [_progressView setProgressImage:[[UIImage imageNamed:@"uploading.max.track.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 3, 3, 3, 3 }]];
         [self addSubview:_progressView];
         
+        _retryButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePostRetry tapHandler:^(id sender) {
+            NSLog(@"Retry post");
+            [[GTIOPostManager sharedManager] retry];
+        }];
+        [_retryButton setFrame:(CGRect){ _iconImageView.frame.origin, _retryButton.frame.size }];
+        
         // Accent line
         UIImageView *accentLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line.png"]];
         [accentLine setFrame:(CGRect){ { self.frame.size.width - kGTIOAccentLinePixelsFromRightSizeOfScreen, 0 }, { accentLine.image.size.width, self.frame.size.height } }];
@@ -118,6 +126,7 @@ static CGFloat const kGTIOTextYOrigin = 23.0f;
     
     NSString *status = @"";
     NSString *done = @"";
+    [self.retryButton removeFromSuperview];
     
     switch (_state) {
         case GTIOPostStateUploadingImage:
@@ -135,6 +144,7 @@ static CGFloat const kGTIOTextYOrigin = 23.0f;
             break;
         case GTIOPostStateError:
             status = @"upload failed. retry?";
+            [self addSubview:self.retryButton];
             break;
         default:
             break;

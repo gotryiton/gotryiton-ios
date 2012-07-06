@@ -60,6 +60,7 @@
         case GTIOButtonTypeRequestedButtonRegular: return [self gtio_requestedButtonRegular];
         case GTIOButtonTypeCloseButtonForNavBar: return [self gtio_closeButtonGrayTopMargin];
         case GTIOButtonTypeReload: return [self gtio_reloadButtonTopMargin];
+        case GTIOButtonTypePostRetry: return [self gtio_postRetryButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -428,6 +429,11 @@
 + (id)gtio_reloadButtonTopMargin
 {
     return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.icon.refresh.png"] hightlightImage:nil];
+}
+
++ (id)gtio_postRetryButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"uploading.fail.avatar.overlay.inactive.png"] hightlightImage:[UIImage imageNamed:@"uploading.fail.avatar.overlay.active.png"]];
 }
 
 #pragma mark - Touch Handling

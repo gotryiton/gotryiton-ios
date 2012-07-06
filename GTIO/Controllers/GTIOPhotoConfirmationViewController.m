@@ -26,6 +26,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 @property (nonatomic, strong) UIImageView *photoImageView;
 
+@property (nonatomic, assign) GTIOFilterType currentFilterType;
+
 @end
 
 @implementation GTIOPhotoConfirmationViewController
@@ -34,7 +36,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @synthesize photoImageView = _photoImageView;
 @synthesize photoConfirmationToolbarView = _photoConfirmationToolbarView;
 @synthesize photoFilterSelectorView = _photoFilterSelectorView;
-@synthesize filteredPhoto = _filteredPhoto;
+@synthesize filteredPhoto = _filteredPhoto, currentFilterType = _currentFilterType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -69,7 +71,10 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.photoConfirmationToolbarView.confirmButton setTapHandler:^(id sender) {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:self.filteredPhoto forKey:@"photo"];
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  self.filteredPhoto, @"photo",
+                                  [NSNumber numberWithInteger:self.currentFilterType], @"filterType",
+                                  nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPhotoAcceptedNotification object:nil userInfo:userInfo];
         [[GTIOFilterManager sharedManager] clearFilters];
     }];
@@ -78,6 +83,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     // Filter View
     self.photoFilterSelectorView = [[GTIOPhotoFilterSelectorView alloc] initWithFrame:(CGRect){ 0 , self.photoConfirmationToolbarView.frame.origin.y - 101, { self.view.frame.size.width, 101 } }];
     [self.photoFilterSelectorView setPhotoFilterSelectedHandler:^(GTIOFilterType filterType) {
+        self.currentFilterType = filterType;
         self.filteredPhoto = [[GTIOFilterManager sharedManager] photoWithFilterType:filterType];
     }];
     [self.view addSubview:self.photoFilterSelectorView];
