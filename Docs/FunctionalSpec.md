@@ -3527,13 +3527,17 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 
 12.1.2 Upload Start in Photoshoot Mode
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.B.Upload.Start.Photoshoot.Popup.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.1.B.Upload.Start.Photoshoot.Popup.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.C.Upload.Start.Photoshoot.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.1.C.Upload.Start.Photoshoot.png" width=420px/>
 
 12.1.3 Upload Start with Grid button
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.E.Upload.Start.with.Grid.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.1.E.Upload.Start.with.Grid.png" width=420px/>
+
+12.1.4 Upload Start with Source Menu
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.D.Upload.Start.Source.Menu.png" width=420px/>
 
 #### API Usage
 
