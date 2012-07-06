@@ -39,8 +39,8 @@ static double const kGTIOHorizontalSpacing = 12.0;
 {
     [GTIOProgressHUD hideHUDForView:self animated:YES];
     
-    double imageSizeRatio = gridItem.image.size.height / gridItem.image.size.width;
-    gridItem.image = [gridItem.image imageScaledToSize:(CGSize){ kGTIOImageWidth, kGTIOImageWidth * imageSizeRatio }];
+    double widthRatio = kGTIOImageWidth / gridItem.image.size.width;
+    gridItem.image = [gridItem.image imageScaledToSize:(CGSize){ kGTIOImageWidth, gridItem.image.size.height * widthRatio }];
     
     // Find shortest column
     GTIOMasonGridColumn *shortestColumn = nil;

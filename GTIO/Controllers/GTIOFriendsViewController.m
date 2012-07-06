@@ -371,42 +371,36 @@
 
 - (void)paginateUsersForTable
 {
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     if (self.reloadButton) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         self.reloadButton.userInteractionEnabled = NO;
-    }
-    if (self.paginationNextPageResourcePath.length > 0) {
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.paginationNextPageResourcePath usingBlock:^(RKObjectLoader *loader) {
-            loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                if (self.reloadButton) {
+        if (self.paginationNextPageResourcePath.length > 0) {
+            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.paginationNextPageResourcePath usingBlock:^(RKObjectLoader *loader) {
+                loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+                    [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                     self.reloadButton.userInteractionEnabled = YES;
-                }
-                
-                self.friends = [NSMutableArray array];
-                
-                for (id object in loadedObjects) {
-                    if ([object isMemberOfClass:[GTIOUser class]]) {
-                        [self.friends addObject:object];
+                    
+                    self.friends = [NSMutableArray array];
+                    
+                    for (id object in loadedObjects) {
+                        if ([object isMemberOfClass:[GTIOUser class]]) {
+                            [self.friends addObject:object];
+                        }
+                        
+                        if ([object isMemberOfClass:[GTIOPagination class]]) {
+                            self.paginationNextPageResourcePath = [(GTIOPagination *)object nextPage];
+                        }
                     }
                     
-                    if ([object isMemberOfClass:[GTIOPagination class]]) {
-                        self.paginationNextPageResourcePath = [(GTIOPagination *)object nextPage];
-                    }
-                }
-                
-                [self.friendsTableView reloadData];
-            };
-            loader.onDidFailWithError = ^(NSError *error) {
-                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                if (self.reloadButton) {
+                    [self.friendsTableView reloadData];
+                };
+                loader.onDidFailWithError = ^(NSError *error) {
+                    [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                     self.reloadButton.userInteractionEnabled = YES;
-                }
-            };
-        }];
-    } else {
-        [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-        if (self.reloadButton) {
+                };
+            }];
+        } else {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             self.reloadButton.userInteractionEnabled = YES;
         }
     }
