@@ -85,9 +85,9 @@
    13.6 [Pull to refresh behavior](#136-pull-to-refresh-behavior)   
    13.7 [User Badges](#137-user-badges)   
    13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)   
-   13.9 [Custom UIAlertView](#139-custom-uialertview) 
-   13.10 [Unified autocomplete](#1310-unified-autocomplete)
-   13.11 [Spinners](#1311-spinners)
+   13.9 [Custom UIAlertView](#139-custom-uialertview)   
+   13.10 [Unified autocomplete](#1310-unified-autocomplete)   
+   13.11 [Spinners](#1311-spinners)   
 
 ---
 
@@ -4514,16 +4514,16 @@ Control raised, populating users
 
 #### Mockups
 
-13.11 Standard spinner
+13.11 Standard spinner   
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/13.11.Spinner.Standard.png" width=420px/>
 
-13.11.1 Spinner with container
+13.11.1 Spinner with container   
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.With.Container.png" width=420px/>
 
-13.11.2 Spinner blocking screen
+13.11.2 Spinner blocking screen   
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.Screen.Blocked.png" width=420px/>
 
-13.11.3 Spinner blocking screen with info text
+13.11.3 Spinner blocking screen with info text   
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.Screen.Blocked.With.Description.png" width=420px/>
 
 #### Design Stories
