@@ -1,5 +1,34 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.9
+July 06, 2012
+
+### Build Summary
+Sprint 5 mid build. Lots of bug fixes, post a photo upload progress, pull to refresh on mason grids.
+
+### Development
+
+**Bug Fixes**
+- 264 - On Find Friends screen becomes untappable
+- 263 - Masonry photo sizing issue
+- 262 - Profile empty state should say 'their' not 'his'
+- 261 - Endless spinner on profile/management pages
+- 260 - Custom Actionsheet doesnt support more than 3 buttons
+- 259 - Settings button on profile should not exist if null in api response
+- 258 - My looks icons on Edit Profile Picture screen are not tappable
+- 254 - <b> tags not rendered correctly on user profile_callouts
+- 250 - 7.1 following/followers/stars button asset tweak
+- 247 - Suggested friends button icons (find my friends view) is not tappable
+- 246 - suggested friends does not paginate correctly
+- 212 - 7.1 styling bugs
+- 148 - 'sign up with another provider' target area too small (1.3 Sign In)
+
+**Screens / Features**
+- 287 - 13.6 Pull to refresh
+- 276 - 8.4-5 Feed Upload Progress View
+
+---
+
 #### Build 4.0.0.8
 July 2, 2012
 
