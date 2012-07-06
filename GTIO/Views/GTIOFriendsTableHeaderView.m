@@ -9,6 +9,7 @@
 #import "GTIOFriendsTableHeaderView.h"
 #import "GTIOSuggestedFriendsBarButton.h"
 #import "GTIOFriendsViewController.h"
+#import "GTIORouter.h"
 
 @interface GTIOFriendsTableHeaderView()
 
@@ -23,6 +24,7 @@
 @implementation GTIOFriendsTableHeaderView
 
 @synthesize suggestedFriendsBarButton = _suggestedFriendsBarButton, searchBoxView = _searchBoxView, suggestedFriends = _suggestedFriends, searchBarDelegate = _searchBarDelegate, type = _type, inviteFriendsBarButton = _inviteFriendsBarButton, findFriendsBarButton = _findFriendsBarButton, delegate = _delegate, subTitleText = _subTitleText;
+@synthesize inviteFriendsURL = _inviteFriendsURL, suggestedFriendsURL = _suggestedFriendsURL, findFriendsURL = _findFriendsURL;
 
 + (CGFloat)heightForGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)type
 {
@@ -59,12 +61,13 @@
         _inviteFriendsBarButton = [GTIOSuggestedFriendsBarButton buttonWithType:UIButtonTypeCustom];
         _inviteFriendsBarButton.barTitle = @"invite friends";
         _inviteFriendsBarButton.hasGreenBackgroundColor = YES;
+        [_inviteFriendsBarButton addTarget:self action:@selector(pushViewController:) forControlEvents:UIControlEventTouchUpInside];
         _findFriendsBarButton = [GTIOSuggestedFriendsBarButton buttonWithType:UIButtonTypeCustom];
         _findFriendsBarButton.barTitle = @"find friends";
         _findFriendsBarButton.hasGreenBackgroundColor = YES;
-        [_findFriendsBarButton addTarget:self action:@selector(pushFindFriendsViewController:) forControlEvents:UIControlEventTouchUpInside];
+        [_findFriendsBarButton addTarget:self action:@selector(pushViewController:) forControlEvents:UIControlEventTouchUpInside];
         _suggestedFriendsBarButton = [GTIOSuggestedFriendsBarButton buttonWithType:UIButtonTypeCustom];
-        [_suggestedFriendsBarButton addTarget:self action:@selector(pushSuggestedFriendsViewController:) forControlEvents:UIControlEventTouchUpInside];
+        [_suggestedFriendsBarButton addTarget:self action:@selector(pushViewController:) forControlEvents:UIControlEventTouchUpInside];
         if (type == GTIOFriendsTableHeaderViewTypeFriends) {
             _suggestedFriendsBarButton.hasGreenBackgroundColor = YES;
         }
@@ -93,22 +96,32 @@
     [self.searchBoxView setFrame:(CGRect){ 0, self.suggestedFriendsBarButton.frame.origin.y + self.suggestedFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeSuggested) ? 0 : ((self.searchBoxView.showFollowingLabel) ? 66 : 55) }];
 }
 
-- (void)pushFindFriendsViewController:(id)sender
+- (void)setSuggestedFriendsURL:(NSString *)suggestedFriendsURL
 {
-    GTIOFriendsViewController *findFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindFriends];
-    [self messageDelegateToPushViewController:findFriendsViewController];
+    _suggestedFriendsURL = suggestedFriendsURL;
+    _suggestedFriendsBarButton.routingURL = _suggestedFriendsURL;
 }
 
-- (void)pushSuggestedFriendsViewController:(id)sender
+- (void)setInviteFriendsURL:(NSString *)inviteFriendsURL
 {
-    GTIOFriendsViewController *suggestedFriendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeSuggested];
-    [self messageDelegateToPushViewController:suggestedFriendsViewController];
+    _inviteFriendsURL = inviteFriendsURL;
+    _inviteFriendsBarButton.routingURL = _inviteFriendsURL;
 }
 
-- (void)messageDelegateToPushViewController:(UIViewController *)viewController
+- (void)setFindFriendsURL:(NSString *)findFriendsURL
 {
-    if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
-        [self.delegate pushViewController:viewController];
+    _findFriendsURL = findFriendsURL;
+    _findFriendsBarButton.routingURL = _findFriendsURL;
+}
+
+- (void)pushViewController:(id)sender
+{
+    GTIOSuggestedFriendsBarButton *button = (GTIOSuggestedFriendsBarButton *)sender;
+    if (button.routingURL.length > 0) {
+        UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.routingURL];
+        if ([self.delegate respondsToSelector:@selector(pushViewController:)]) {
+            [self.delegate pushViewController:viewController];
+        }
     }
 }
 

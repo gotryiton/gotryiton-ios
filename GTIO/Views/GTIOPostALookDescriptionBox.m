@@ -12,14 +12,13 @@
 
 @interface GTIOPostALookDescriptionBox()
 
-@property (nonatomic, strong) UIView *placeHolderView;
 @property (nonatomic, strong) UIImageView *backgroundView;
 
 @end
 
 @implementation GTIOPostALookDescriptionBox
 
-@synthesize textView = _textView, placeHolderView = _placeHolderView, backgroundView = _backgroundView;
+@synthesize textView = _textView, backgroundView = _backgroundView;
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title icon:(UIImage *)icon
 {
@@ -29,7 +28,7 @@
         [self.backgroundView setFrame:(CGRect){ 6, 0, self.bounds.size.width- (6 * 2), self.bounds.size.height }];
         [self addSubview:self.backgroundView];
         
-        self.textView = [[GTIOPostAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 4, self.backgroundView.bounds.size.width - (16 * 2), self.backgroundView.bounds.size.height  } outerBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height }];
+        self.textView = [[GTIOPostAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 7, self.backgroundView.bounds.size.width - (12 * 2), self.backgroundView.bounds.size.height  } outerBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height } title:title icon:icon];
 
         [GTIOAutoCompleter loadBrandDictionaryWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
             if (!error) {
@@ -57,5 +56,6 @@
     }
     return self;
 }
+
 
 @end

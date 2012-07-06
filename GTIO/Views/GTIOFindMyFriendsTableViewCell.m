@@ -34,6 +34,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _profilePicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 6, 6, 36, 36 } andImageURL:nil];
+        _profilePicture.hasInnerShadow = YES;
+        _profilePicture.hasOuterShadow = NO;
+        _profilePicture.isSelectable = NO;
         [self.contentView addSubview:_profilePicture];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -91,7 +94,9 @@
 
 - (void)setUser:(GTIOUser *)user indexPath:(NSIndexPath *)indexPath
 {
-    _user = user;
+    if (![_user isEqual:user]) {
+        _user = user;
+    }
     self.indexPath = indexPath;
     [self.profilePicture setImageWithURL:_user.icon];
     self.nameLabel.text = _user.name;

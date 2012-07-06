@@ -160,24 +160,22 @@
     }
     [self.basicUserInfoView setUser:self.userProfile.user];
     [self.basicUserInfoView setUserInfoButtons:self.userProfile.userInfoButtons];
-    [self.basicUserInfoView setEditButtonTapHandler:^(id sender) {
-        NSMutableArray *actionsheetButtons = [NSMutableArray array];
-        for (GTIOButton *button in self.userProfile.settingsButtons) {
-            [button setAction:button.action];
-            [button setState:button.state];
-            [actionsheetButtons addObject:button];
-        }
-        self.actionSheet = [[GTIOActionSheet alloc] initWithButtons:actionsheetButtons];
-        [self.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
-            actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
-                if (!actionSheet.wasCancelled) {
-                    if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
-                        [self.delegate refreshUserProfile];
+    if (self.userProfile.settingsButtons.count > 0) {
+        [self.basicUserInfoView setEditButtonTapHandler:^(id sender) {
+            self.actionSheet = [[GTIOActionSheet alloc] initWithButtons:self.userProfile.settingsButtons];
+            [self.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
+                actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
+                    if (!actionSheet.wasCancelled) {
+                        if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
+                            [self.delegate refreshUserProfile];
+                        }
                     }
-                }
-            };
+                };
+            }];
         }];
-    }];
+    } else {
+        [self.basicUserInfoView setSettingsButtonHidden:YES];
+    }
     [self.profileDescription setText:self.userProfile.user.aboutMe];
     
     for (GTIOProfileCallout *profileCallout in self.userProfile.profileCallOuts) {

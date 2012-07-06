@@ -23,8 +23,6 @@
 @synthesize attrString = _attrString;
 @synthesize positionOfLastWordTyped =_positionOfLastWordTyped;
 @synthesize positionOfLastTwoWordsTyped =_positionOfLastTwoWordsTyped;
-@synthesize submissionText = _submissionText;
-@synthesize dataText = _dataText;
 @synthesize inputText = _inputText;
 
 @synthesize ACInputFont = _ACInputFont;
@@ -45,12 +43,6 @@
         
         // the array of visible autocomplete buttons in the scroll view
         _autoCompleteButtonOptions = [[NSMutableArray alloc] init];
-        
-        // keep track of a string that the user is typing that uses the dictionary's keys in place of the dictionary's display_text
-        _dataText = [[NSString alloc] initWithString:@" "];
-        
-        // keep track of text this view will pass along to the server
-        _submissionText = [[NSString alloc] initWithString:@""];
         
         // keep track of text in the input box
         _inputText = [[NSString alloc] initWithString:@""];
@@ -104,10 +96,9 @@
         _previewTextView.frame = editingFrame;
         _previewTextView.contentsScale = [[UIScreen mainScreen] scale]; 
         _previewTextView.alignmentMode = kCAAlignmentLeft;
-        _previewTextView.opacity = 1.0;
+        _previewTextView.opacity = 0;
         [self.layer addSublayer:self.previewTextView];
         
-        [self displayPlaceholderText];
 
         /** Add a scroll view for the autocomplete buttons to be viewable in
          */
@@ -233,24 +224,13 @@
     self.positionOfLastWordTyped = NSMakeRange(0, str.length);
     self.positionOfLastTwoWordsTyped = NSMakeRange(0, str.length);
     
-    NSUInteger count = 0, words = 0, length = [str length];
-    NSRange range = NSMakeRange(0, length); 
-    while(range.location != NSNotFound && words < 2 && count < 3) {
-        range = [str rangeOfString: @" " options:NSBackwardsSearch range:range];
-        if(range.location != NSNotFound) {
-            if (range.location <= (length - 1) && words == 1){
-                self.positionOfLastTwoWordsTyped = NSMakeRange(range.location+1, length-range.location-1);
-                words++;
-            }
+    NSRegularExpression* regex = [[NSRegularExpression alloc] initWithPattern:@"\\ ?([\\w\\.\\@\\#&-]*?\\ ?([\\w\\.\\@\\#&-]+))\\ ?$" options:NSRegularExpressionCaseInsensitive error:nil];
 
-            if (range.location < (length - 1) && words == 0){
-                self.positionOfLastWordTyped = NSMakeRange(range.location+1, length-range.location-1);
-                words++;
-            }
-            
-            range = NSMakeRange(0, range.location - 1);
-            count++; 
-        }
+    NSArray *matches = [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
+
+    for (NSTextCheckingResult *match in matches) {
+        self.positionOfLastTwoWordsTyped =  [match rangeAtIndex:1];
+        self.positionOfLastWordTyped = [match rangeAtIndex:2];
     }
 }
 
@@ -345,9 +325,18 @@
 
 - (void) hidePlaceholderText 
 {
-    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^{
-        self.previewTextView.opacity = 0;
-    } completion:nil];
+    if (self.previewTextView.opacity==1){
+        [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^{
+            self.previewTextView.opacity = 0;
+        } completion:nil];    
+    }
+}
+
+- (void) showPlaceholderText
+{
+    if (self.inputText.length == 0) {
+        [self displayPlaceholderText];
+    }
 }
 
 - (void) highlightHashTag
@@ -355,7 +344,7 @@
     NSString *lastword = [self.inputText substringWithRange:self.positionOfLastWordTyped];
 
     if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
-        [self highlightInputTextInRange:self.positionOfLastWordTyped completerID:[self lastWordTyped] type:@"#" ];    
+        [self highlightInputTextInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
     }
 }
 
@@ -526,6 +515,14 @@
 
     NSLog (@"submission string: %@ ", response);
     return response;
+}
+
+- (void)resetView
+{
+    self.inputText = @"";
+    self.attrString = [[NSMutableAttributedString alloc] initWithString:@""];
+    self.textInput.text = @"";
+    self.textView.string = self.attrString;
 }
 
 @end

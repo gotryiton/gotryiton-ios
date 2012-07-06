@@ -13,8 +13,6 @@
 @interface GTIODualViewSegmentedControlView()
 
 @property (nonatomic, strong) GTIOSegmentedControl *dualViewSegmentedControl;
-@property (nonatomic, strong) GTIOPostMasonryView *leftPostsView;
-@property (nonatomic, strong) GTIOPostMasonryView *rightPostsView;
 
 @property (nonatomic, assign) GTIOPostType leftConrolPostsType;
 @property (nonatomic, assign) GTIOPostType rightControlPostsType;

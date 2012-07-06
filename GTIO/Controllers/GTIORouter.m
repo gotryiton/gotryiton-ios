@@ -11,6 +11,7 @@
 #import "GTIOSignInViewController.h"
 #import "GTIOProfileViewController.h"
 #import "GTIOFriendsViewController.h"
+#import "GTIOMyHeartsViewController.h"
 
 static NSString * const kGTIOURLScheme = @"gtio";
 
@@ -22,6 +23,10 @@ static NSString * const kGTIOURLHostUser = @"user";
 static NSString * const kGTIOURLHostMyFollowing = @"my-following";
 static NSString * const kGTIOURLHostMyFollowers = @"my-followers";
 static NSString * const kGTIOURLHostMyStars = @"my-stars";
+static NSString * const kGTIOURLHostSuggestedFriends = @"suggested-friends";
+static NSString * const kGTIOURLHostInviteFriends = @"invite-friends";
+static NSString * const kGTIOURLHostSearchFriends = @"search-friends";
+static NSString * const kGTIOURLHostMyHearts = @"my-hearts";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
@@ -89,6 +94,16 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
         [((GTIOFriendsViewController *)viewController) setUserID:[pathComponents objectAtIndex:1]];
     } else if ([urlHost isEqualToString:kGTIOURLHostMyStars]) {
         // Stars view controller
+    } else if ([urlHost isEqualToString:kGTIOURLHostSearchFriends]) {
+        viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindFriends];
+        [((GTIOFriendsViewController *)viewController) setUserID:[GTIOUser currentUser].userID];
+    } else if ([urlHost isEqualToString:kGTIOURLHostInviteFriends]) {
+        // Invite friends view controller
+    } else if ([urlHost isEqualToString:kGTIOURLHostSuggestedFriends]) {
+        viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeSuggested];
+        [((GTIOFriendsViewController *)viewController) setUserID:[GTIOUser currentUser].userID];
+    } else if ([urlHost isEqualToString:kGTIOURLHostMyHearts]) {
+        viewController = [[GTIOMyHeartsViewController alloc] initWithNibName:nil bundle:nil];
     }
     
     return viewController;

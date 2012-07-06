@@ -25,7 +25,7 @@ static int const maximumNumberOfSuggestedFriends = 5;
 
 @implementation GTIOSuggestedFriendsBarButton
 
-@synthesize suggestedFriendsLabel = _suggestedFriendsLabel, chevron = _chevron, suggestedFriends = _suggestedFriends, suggestedFriendsProfilePictures = _suggestedFriendsProfilePictures, barTitle = _barTitle, hasGreenBackgroundColor = _hasGreenBackgroundColor, bottomBorder = _bottomBorder;
+@synthesize suggestedFriendsLabel = _suggestedFriendsLabel, chevron = _chevron, suggestedFriends = _suggestedFriends, suggestedFriendsProfilePictures = _suggestedFriendsProfilePictures, barTitle = _barTitle, hasGreenBackgroundColor = _hasGreenBackgroundColor, bottomBorder = _bottomBorder, routingURL = _routingURL;
 
 - (id)initWithFrame:(CGRect)frame
 {

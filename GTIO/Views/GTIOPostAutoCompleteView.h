@@ -21,4 +21,8 @@ typedef void(^GTIOTextViewDidBecomeActiveHandler)(GTIOPostAutoCompleteView *desc
 @property (nonatomic, copy) GTIOTextViewDidBecomeActiveHandler textViewDidBecomeActiveHandler;
 @property (nonatomic, assign) BOOL forceBecomeFirstResponder;
 
+@property (nonatomic, strong) UIView *placeHolderLabelView;
+
+- (id)initWithFrame:(CGRect)frame outerBox:(CGRect) outerFrame title:(NSString *)title icon:(UIImage *)icon;
+
 @end

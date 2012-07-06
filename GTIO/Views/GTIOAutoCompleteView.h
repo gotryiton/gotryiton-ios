@@ -34,8 +34,6 @@
 @property (assign) CGColorRef ACHighlightColor;
 
 @property (copy) NSString *inputText;
-@property (copy) NSString *submissionText;
-@property (copy) NSString *dataText;
 @property (assign) NSRange positionOfLastWordTyped;
 @property (assign) NSRange positionOfLastTwoWordsTyped;
 
@@ -44,5 +42,8 @@
 - (UIView *)initWithFrame:(CGRect)frame outerBox:(CGRect)outerFrame;
 - (void)addCompleters:(NSMutableArray *)completers;
 - (NSString *)processDescriptionString;
+- (void) showPlaceholderText;
+- (void) hidePlaceholderText;
+- (void) resetView;
 
 @end

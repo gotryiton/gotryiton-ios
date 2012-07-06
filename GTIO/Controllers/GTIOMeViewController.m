@@ -216,7 +216,7 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
         GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
         
         if ([buttonForRow.name isEqualToString:kGTIOCustomHeartsCell]) {
-            buttonForRow.text = @"my     's";
+            buttonForRow.text = @"my     \u2019s";
             [cell setHasHeart:YES];
         } else if ([buttonForRow.name isEqualToString:kGTIOCustomToggleCell]) {
             [cell setHasToggle:YES];

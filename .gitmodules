@@ -19,3 +19,6 @@
 [submodule "Libraries/DTCoreText"]
 	path = Libraries/DTCoreText
 	url = https://github.com/Cocoanetics/DTCoreText.git
+[submodule "Libraries/sspulltorefresh"]
+	path = Libraries/sspulltorefresh
+	url = git://github.com/samsoffes/sspulltorefresh.git
