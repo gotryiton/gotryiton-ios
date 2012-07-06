@@ -1,3 +1,28 @@
+***Friday, July 6th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - working on products endpoint
+- TT - define work scheduled for development in NC vs NY over the next two weeks
+
+**Status**
+- Gearing up for deployment
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+ 
+---
+
 ***Thursday, July 5th - Standup Notes***
 
 **Attendees**

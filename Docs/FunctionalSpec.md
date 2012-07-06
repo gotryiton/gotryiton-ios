@@ -1125,18 +1125,21 @@ A user can read reviews from an outfit post or a product post page
 
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/3.4.reviews.png" width=420px/>
 
-3.4 Reviews with direct link 
+3.4.1 Reviews with direct link 
 
 <img src="https://github.com/twotoasters/GTIO-iOS/raw/6afe6be3f1d8879dbc9d7522c8357e40c43caaf7/GTIO/Application/Resources/Mockups/3.4.reviews.direct.link.png" width=420px/>
 
-3.4.1 Reviews with keyboard 
+3.4.2 Reviews (empty)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/2/3.4.Reviews.Keyboard.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.Empty.png" width=420px/>
 
-3.4.2 Reviews Empty
+3.4.3 Reviews input screen (no input)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/2/3.4.Reviews.Empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.1.Input.png" width=420px/>
 
+3.4.4 Reviews input screen (typing, brands)
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.2.Input.Brands.png" width=420px/>
 
 **entry screens:**   
 ([view 3.1](#31-outfit-post-detail-page))    
@@ -1244,6 +1247,19 @@ previous screen
       - use size "10_10.png" for 1x
       - 3px away from right edge of user name
       - bottom of asset is 1px below baseline of user name
+- Empty (no comments yet)
+   - 'comments-empty.png'
+      - horizontally centered
+      - vertically centered within viewable comments area
+- Comment Input page
+   - use '12.3/description-box.png'
+      - vertical + horizontal middle is stretchable
+      - 10px of nonstretchable area on all sides
+      - stretch to 309px x 188px
+      - 5px from left edge of screen
+      - 8px from bottom of navigation bar
+   - text input area has same parameters as 12.3 post a look description box
+
 
 ### 3.5 Who hearted this 
 
