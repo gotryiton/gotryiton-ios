@@ -30,7 +30,7 @@ static CGFloat const kGTIODividerPadding = 50.0f;
         [self setFrame:(CGRect){ frame.origin, { frame.size.width, 53 } }];
         
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ 0, -5, frame.size.width, 58 }];
-        [backgroundImageView setImage:[[UIImage imageNamed:@"upload.bottom.bar.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 0, 0, 0, 0 }]];
+        [backgroundImageView setImage:[UIImage imageNamed:@"upload.bottom.bar.png"]];
         [self addSubview:backgroundImageView];
         
         // Close Button
