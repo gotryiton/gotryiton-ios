@@ -37,9 +37,7 @@ static CGFloat const kGTIOButtonHeight = 26.0f;
 - (void)setButtons:(NSArray *)buttons
 {
     // Remove current buttons
-    for (GTIOBrandButton *brandButton in self.uiButtons) {
-        [brandButton removeFromSuperview];
-    }
+    [self.uiButtons makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self.uiButtons removeAllObjects];
     
     _buttons = buttons;

@@ -49,7 +49,7 @@
         _userLocation = [[UILabel alloc] initWithFrame:CGRectZero];
         [_userLocation setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
         [_userLocation setBackgroundColor:[UIColor clearColor]];
-        [_userLocation setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [_userLocation setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [_userLocation setText:[[GTIOUser currentUser].location uppercaseString]];
         [self addSubview:_userLocation];
         
@@ -69,7 +69,7 @@
         [_connectWithFriends setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:11.0]];
         [_connectWithFriends setLineBreakMode:UILineBreakModeWordWrap];
         [_connectWithFriends setNumberOfLines:0];
-        [_connectWithFriends setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [_connectWithFriends setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [_connectWithFriends setText:@"Connect with friends, bloggers and brands\nto discover great style from the start."];
         [_connectWithFriends setTextAlignment:UITextAlignmentCenter];
         [self addSubview:_connectWithFriends];

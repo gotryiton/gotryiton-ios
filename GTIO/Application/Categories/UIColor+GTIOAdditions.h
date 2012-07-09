@@ -26,7 +26,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_signInColor;
 + (UIColor *)gtio_toolbarBGColor;
 + (UIColor *)gtio_lightGrayBorderColor;
-+ (UIColor *)gtio_darkGrayTextColor;
++ (UIColor *)gtio_grayTextColor9C9C9C;
 + (UIColor *)gtio_profilePictureBorderColor;
 + (UIColor *)gtio_pinkTextColor;
 + (UIColor *)gtio_greenBorderColor;
@@ -36,7 +36,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_lightGrayTextColor;
 + (UIColor *)gtio_groupedTableBorderColor;
 + (UIColor *)gtio_lightestGrayTextColor;
-+ (UIColor *)gtio_404040GrayTextColor;
++ (UIColor *)gtio_grayTextColor404040;
 + (UIColor *)gtio_grayTextColor585858;
 + (UIColor *)gtio_grayTextColorACACAC;
 + (UIColor *)gtio_grayTextColor;

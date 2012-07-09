@@ -27,7 +27,7 @@
         [self setBackgroundColor:[UIColor whiteColor]];
         
         [self.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:16.0]];
-        [self.textLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [self.textLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         
         _heart = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_heart setImage:[UIImage imageNamed:@"profile.icon.heart.png"]];

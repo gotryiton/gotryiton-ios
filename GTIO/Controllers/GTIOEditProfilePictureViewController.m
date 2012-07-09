@@ -99,7 +99,7 @@
     
     self.myLooksLabel = [[UILabel alloc] initWithFrame:(CGRect){ 90, 53, 100, 11}];
     [self.myLooksLabel setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:11.0]];
-    [self.myLooksLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+    [self.myLooksLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
     [self.myLooksLabel setText:@"my looks"];
     [self.chooseFromBox addSubview:self.myLooksLabel];
     
@@ -109,7 +109,7 @@
     
     self.loadingIconsLabel = [[UILabel alloc] initWithFrame:(CGRect){ 0, 0, 50, 10 }];
     [self.loadingIconsLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0]];
-    [self.loadingIconsLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+    [self.loadingIconsLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
     [self.loadingIconsLabel setText:@"Loading..."];
     [self.myLooksIcons addSubview:self.loadingIconsLabel];
     
@@ -133,7 +133,7 @@
     self.previewUserLocationLabel = [[UILabel alloc] initWithFrame:(CGRect){ 80, 45, 174, 14 }];
     [self.previewUserLocationLabel setBackgroundColor:[UIColor clearColor]];
     [self.previewUserLocationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [self.previewUserLocationLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+    [self.previewUserLocationLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
     [self.previewBoxBackground addSubview:self.previewUserLocationLabel];
     
     self.clearProfilePictureButton = [[UIButton alloc] initWithFrame:(CGRect){ 17, 151, 118, 24 }];

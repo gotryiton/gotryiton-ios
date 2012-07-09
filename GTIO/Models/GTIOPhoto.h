@@ -22,10 +22,6 @@
 
 typedef void(^GTIOPhotoCreationHandler)(GTIOPhoto *photo, NSError *error);
 
-+ (GTIOPhoto *)createGTIOPhotoWithUIImage:(UIImage *)image framed:(BOOL)framed filter:(NSString *)filterName completionHandler:(GTIOPhotoCreationHandler)completionHandler;
-
-- (void)cancel;
-
 - (CGSize)photoSize;
 
 @end
