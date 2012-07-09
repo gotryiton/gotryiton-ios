@@ -174,14 +174,14 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
             blockSelf.dismissHandler(blockSelf);
         }
     }];
-    [self.photoToolbarView.shutterButton setTapHandler:^(id sender) {
-        if (self.photoToolbarView.photoModeSwitch.isOn) {
+    [self.photoToolbarView.shutterButton setShutterButtonTapHandler:^(id sender) {
+        if (self.photoToolbarView.shutterButton.isPhotoShootMode) {
             [blockSelf photoShootModeButtonPress];
         } else {
             [blockSelf singleModeButtonPress];
         }
     }];
-    [self.photoToolbarView.photoPickerButton setTapHandler:^(id sender) {
+    [self.photoToolbarView.photoSourceButton setTapHandler:^(id sender) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
             [blockSelf presentViewController:self.imagePickerController animated:YES completion:nil];
         }
@@ -190,7 +190,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:photoShootGridViewController animated:YES];
     }];
-    [self.photoToolbarView setPhotoModeSwitchChangedHandler:^(BOOL on) {
+    [self.photoToolbarView.shutterButton setPhotoModeSwitchChangedHandler:^(BOOL on) {
         [blockSelf showFlashButton:!on];
         
         NSError *error;
@@ -282,6 +282,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)photoAcceptedNotification:(NSNotification *)notification
 {
     UIImage *photo = [notification.userInfo objectForKey:@"photo"];
+#warning How should we handle filter type if multiple photos?
     GTIOFilterType filterType = [[notification.userInfo objectForKey:@"filterType"] integerValue];
     
     if (photo) {
@@ -304,7 +305,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }
     
     [self.photoToolbarView enableAllButtons:YES];
-    [self showFlashButton:![self.photoToolbarView.photoModeSwitch isOn]];
+    [self showFlashButton:!self.photoToolbarView.shutterButton.isPhotoShootMode];
 }
 
 #pragma mark - View Animations
@@ -526,7 +527,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     CGRect flashButtonTouchRect = (CGRect){ 0, 0, self.flashButton.frame.origin.x * 2 + self.flashButton.frame.size.width, (self.flashButton.frame.origin.y - 20) * 2 + self.flashButton.frame.size.height };
     
     if ([self.captureVideoPreviewLayer containsPoint:[touch locationInView:self.view]] && 
-        ![self.photoToolbarView.photoModeSwitch isOn]  &&
+        !self.photoToolbarView.shutterButton.isPhotoShootMode  &&
         !CGRectContainsPoint(flashButtonTouchRect, [touch locationInView:self.view])) {
         
         return YES;

@@ -10,7 +10,7 @@
 
 @implementation GTIOUIButton
 
-@synthesize tapHandler = _tapHandler;
+@synthesize tapHandler = _tapHandler, touchDownHandler = _touchDownHandler, touchDragExitHandler = _touchDragExitHandler;
 
 #pragma mark - Button creator helpers
 
@@ -30,7 +30,7 @@
         case GTIOButtonTypeTryAgain: return [self gtio_tryAgainButton];
         case GTIOButtonTypeEmailSupport: return [self gtio_emailSupportButton];
         case GTIOButtonTypePhotoClose: return [self gtio_photoCloseButton];
-        case GTIOButtonTypePhotoPicker: return [self gtio_photoPickerButton];
+        case GTIOButtonTypePhotoSource: return [self gtio_photoSourceButton];
         case GTIOButtonTypePhotoShootGrid: return [self gtio_photoShootGridButton];
         case GTIOButtonTypePhotoShutter: return [self gtio_photoShutterButton];
         case GTIOButtonTypePhotoFlash: return [self gtio_photoFlashButton];
@@ -89,15 +89,6 @@
     UIImage *buttonImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@-OFF.png", coreImageName]];
     UIImage *buttonHightlightImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@-ON.png", coreImageName]];
     return [self buttonWithImage:buttonImage hightlightImage:buttonHightlightImage];
-}
-
-+ (id)photoToolbarButtonWithImageName:(NSString *)photoToolbarButtonName
-{
-    UIButton *button = [self buttonWithImage:[UIImage imageNamed:photoToolbarButtonName] hightlightImage:nil];
-    [button setBackgroundImage:[UIImage imageNamed:@"upload.bottom.bar.button.bg.off.png"] forState:UIControlStateNormal];
-    [button setBackgroundImage:[UIImage imageNamed:@"upload.bottom.bar.button.bg.on.png"] forState:UIControlStateHighlighted];
-    [button setFrame:(CGRect){ 0, 0, 39, 53}];
-    return button;
 }
 
 #pragma mark - Buttons
@@ -230,22 +221,22 @@
 
 + (id)gtio_photoCloseButton
 {
-    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.x.png"];
+    return [self buttonWithImage:[UIImage imageNamed:@"button.x.inactive.png"] hightlightImage:[UIImage imageNamed:@"button.x.active.png"]];
 }
 
-+ (id)gtio_photoPickerButton
++ (id)gtio_photoSourceButton
 {
-    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.photoroll.png"];
+    return [self buttonWithImage:[UIImage imageNamed:@"button.source.inactive.png"] hightlightImage:[UIImage imageNamed:@"button.source.active.png"]];
 }
 
 + (id)gtio_photoShootGridButton
 {
-    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.photoshootreel.png"];
+    return [self buttonWithImage:[UIImage imageNamed:@"button.shootgrid.inactive.png"] hightlightImage:[UIImage imageNamed:@"button.shootgrid.active.png"]];
 }
 
 + (id)gtio_photoConfirmButton
 {
-    return [self photoToolbarButtonWithImageName:@"upload.bottom.bar.icon.check.png"];
+    return [self buttonWithImage:[UIImage imageNamed:@"button.check.inactive.png"] hightlightImage:[UIImage imageNamed:@"button.check.active.png"]];
 }
 
 + (id)gtio_photoShutterButton
@@ -423,6 +414,8 @@
 {
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:button action:@selector(buttonWasTouchedDownInside:) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:button action:@selector(buttonWasTouchedDraggedExited:) forControlEvents:UIControlEventTouchDragExit];
     return button;
 }
 
@@ -442,6 +435,20 @@
 {
     if (self.tapHandler) {
         self.tapHandler(sender);
+    }
+}
+
+- (void)buttonWasTouchedDownInside:(id)sender
+{
+    if (self.touchDownHandler) {
+        self.touchDownHandler(sender);
+    }
+}
+
+- (void)buttonWasTouchedDraggedExited:(id)sender
+{
+    if (self.touchDragExitHandler) {
+        self.touchDragExitHandler(sender);
     }
 }
 
