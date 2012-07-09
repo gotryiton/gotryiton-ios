@@ -3924,6 +3924,9 @@ response:
 #### Design Stories
 - Photo Frame
    - 'photo-frame.png'
+      - 14 px nonstretchable top
+      - 1 px stretchable middle
+      - 135 px nonstretchable bottom
    - 3px from left edge of screen, 4px from bottom edge of nav bar
    - should be overlaid by applicable photos
       - if user has single photo, vertically and horizontally centered within frame
