@@ -13,6 +13,7 @@
 #import "GTIOFriendsViewController.h"
 #import "GTIOMyHeartsViewController.h"
 #import "GTIOMyPostsViewController.h"
+#import "GTIOReviewsViewController.h"
 
 static NSString * const kGTIOURLScheme = @"gtio";
 
@@ -31,6 +32,7 @@ static NSString * const kGTIOURLHostMyHearts = @"my-hearts";
 static NSString * const kGTIOURLHostMyPosts = @"my-posts";
 static NSString * const kGTIOURLHostPosts = @"posts";
 static NSString * const kGTIOURLHostPostedBy = @"posted-by";
+static NSString * const kGTIOURLHostReviewsForPost = @"reviews-for-post";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
@@ -118,6 +120,10 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
             if ([[pathComponents objectAtIndex:1] isEqualToString:kGTIOURLSubPathStarsByUser]) {
                 viewController = [[GTIOMyPostsViewController alloc] initWithGTIOPostType:GTIOPostTypeStar forUserID:[pathComponents objectAtIndex:2]];
             }
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostReviewsForPost]) {
+        if ([pathComponents count] >= 2) {
+            viewController = [[GTIOReviewsViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
         }
     }
     

@@ -50,6 +50,16 @@
     return UIColorFromRGB(0x232323);
 }
 
++ (UIColor *)gtio_grayTextColorB7B7B7
+{
+    return UIColorFromRGB(0xB7B7B7);
+}
+
++ (UIColor *)gtio_grayTextColorBCBCBC
+{
+    return UIColorFromRGB(0xBCBCBC);
+}
+
 + (UIColor *)gtio_photoBorderColor
 {
     return UIColorFromRGB(0xCCCBC6);

@@ -37,7 +37,7 @@
         _hasInnerShadow = YES;
         _hasOuterShadow = NO;
         
-        _canvas = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, frame.size }];
+        _canvas = [[UIView alloc] initWithFrame:CGRectZero];
         [_canvas.layer setCornerRadius:3.0f];
         [_canvas.layer setMasksToBounds:YES];
         [self addSubview:_canvas];
@@ -47,22 +47,31 @@
             [self addGestureRecognizer:_tapGestureRecognizer];
         }
         
-        _imageView = [[UIImageView alloc] initWithFrame:(CGRect){0,0,frame.size}];
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
         _innerShadow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"edit.profile.pic.thumb.mask.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5.0, 5.0, 5.0, 5.0 }]];
-        [_innerShadow setFrame:(CGRect){ 0, 0, frame.size }];
+        [_innerShadow setFrame:CGRectZero];
         _innerShadow.opaque = YES;
         _innerShadow.hidden = !_hasInnerShadow;
         [_canvas addSubview:_imageView];
         [_canvas addSubview:_innerShadow];
         
-        _border = [[UIView alloc] initWithFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
+        _border = [[UIView alloc] initWithFrame:CGRectZero];
         [_border.layer setCornerRadius:3.0f];
         [_border setBackgroundColor:[UIColor gtio_greenBorderColor]];
         
         [self setImageWithURL:url];
     }
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [self.canvas setFrame:(CGRect){ 0, 0, self.bounds.size }];
+    [self.imageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
+    [self.innerShadow setFrame:(CGRect){ 0, 0, self.bounds.size }];
+    [self.border setFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
+    [self.layer setShadowPath:[UIBezierPath bezierPathWithRect:self.bounds].CGPath];
 }
 
 - (void)setImageWithURL:(NSURL*)url
@@ -113,7 +122,7 @@
     if (_hasOuterShadow) {
         [self.layer setShadowRadius:5.0];
         [self.layer setShadowOffset:(CGSize){ 0, 0 }];
-        [self.layer setShadowOpacity:0.20];
+        [self.layer setShadowOpacity:0.50];
     } else {
         [self.layer setShadowRadius:0.0];
         [self.layer setShadowOffset:(CGSize){ 0, 0 }];

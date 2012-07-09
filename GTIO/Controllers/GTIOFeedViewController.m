@@ -23,6 +23,8 @@
 
 #import "GTIOPullToRefreshContentView.h"
 
+#import "GTIOReviewsViewController.h"
+
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -152,6 +154,19 @@
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOPost class]])
                 {
+                    GTIOPost *post = (GTIOPost *)object;
+                    post.reviewsButtonTapHandler = ^(id sender) {
+                        UIViewController *reviewsViewController;
+                        for (id object in post.buttons) {
+                            if ([object isMemberOfClass:[GTIOButton class]]) {
+                                GTIOButton *button = (GTIOButton *)object;
+                                if ([button.name isEqualToString:kGTIOPostSideReviewsButton]) {
+                                    reviewsViewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+                                }
+                            }
+                        }
+                        [self.navigationController pushViewController:reviewsViewController animated:YES];
+                    };
                     [self.posts addObject:object];
                 } else if ([object isKindOfClass:[GTIOPagination class]]) {
                     self.pagination = object;

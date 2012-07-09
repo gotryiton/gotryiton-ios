@@ -35,6 +35,7 @@ typedef enum GTIOPostType {
 @property (nonatomic, strong) NSArray *buttons;
 @property (nonatomic, strong) NSArray *brandsButtons;
 @property (nonatomic, strong) GTIOPagination *pagination;
+@property (nonatomic, copy) GTIOButtonDidTapHandler reviewsButtonTapHandler;
 
 typedef void(^GTIOPostCompletionHandler)(GTIOPost *post, NSError *error);
 

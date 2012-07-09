@@ -50,14 +50,11 @@
 {
     _profileCallout = profileCallout;
     self.user = user;
-    
-    __block typeof(self) blockSelf = self;
+
     [self.icon setImageWithURL:self.profileCallout.icon];
     
     [self.calloutText setText:[self.profileCallout.text uppercaseString] afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-        NSRange whiteRange = [[mutableAttributedString string] rangeOfString:blockSelf.user.name options:NSCaseInsensitiveSearch];
-        [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[UIColor whiteColor].CGColor range:whiteRange];
-        NSArray *boldRanges = [blockSelf.profileCallout.text rangesOfHTMLBoldedText];
+        NSArray *boldRanges = [[self.profileCallout.text uppercaseString] rangesOfHTMLBoldedText];
         for (NSValue *value in boldRanges) {
             NSRange boldRange = [value rangeValue];
             UIFont *boldSystemFont = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0];
@@ -65,7 +62,13 @@
             if (font) {
                 [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
                 CFRelease(font);
+                [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[UIColor whiteColor].CGColor range:boldRange];
             }
+        }
+        // remove HTML bold tags
+        for (NSValue *value in boldRanges) {
+            [mutableAttributedString deleteCharactersInRange:[[mutableAttributedString string] rangeOfString:@"<B>"]];
+            [mutableAttributedString deleteCharactersInRange:[[mutableAttributedString string] rangeOfString:@"</B>"]];
         }
         return mutableAttributedString;
     }];
