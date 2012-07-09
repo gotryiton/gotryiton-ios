@@ -1,3 +1,55 @@
+***Monday, July 9th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - finish reviewing previous build. enter feedback accordingly
+- TT - Work to resolve bugs/issues as they are reported from new build
+
+**Status**
+- Working on camera page.  Making new UI changes.  Moving on to frame
+ - build late tomorrow?
+- GTIO reopened a few issues.  all relatively minor bugs in nature
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+ 
+---
+
+***Friday, July 6th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - working on products endpoint
+- TT - define work scheduled for development in NC vs NY over the next two weeks
+
+**Status**
+- Gearing up for deployment
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+ 
+---
+
 ***Thursday, July 5th - Standup Notes***
 
 **Attendees**
