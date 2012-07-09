@@ -2089,7 +2089,7 @@ gtio://StandardWebview/Settings/http://gtio-dev.gotryiton.com/user/settings
 
 
 ### 7.3 Edit profile pic  
-
+12.3
 #### Overview
 A logged in user can edit their profile icon
 
@@ -3924,6 +3924,9 @@ response:
 #### Design Stories
 - Photo Frame
    - 'photo-frame.png'
+      - 14 px nonstretchable top
+      - 1 px stretchable middle
+      - 135 px nonstretchable bottom
    - 3px from left edge of screen, 4px from bottom edge of nav bar
    - should be overlaid by applicable photos
       - if user has single photo, vertically and horizontally centered within frame
@@ -3935,6 +3938,9 @@ response:
       - 'photo-frame-handle.png' active and inactive versions
       - bottom of asset should be 10px below bottom edge of user's photo (not the frame)
       - asset should be horizontally centered within entire photo frame
+- Photo Frame Backdrop
+   - 'photo-frame-backdrop.png'
+   - positioning should be identical to frame asset (non-shadow portion)
 - Edit Photo Controls (camera icon in circle)
    - 'edit-photo-button.png' (on and off states)
    - Control 1 (for leftmost frame or single photo)
