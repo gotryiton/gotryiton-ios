@@ -2089,7 +2089,7 @@ gtio://StandardWebview/Settings/http://gtio-dev.gotryiton.com/user/settings
 
 
 ### 7.3 Edit profile pic  
-
+12.3
 #### Overview
 A logged in user can edit their profile icon
 
@@ -3935,6 +3935,9 @@ response:
       - 'photo-frame-handle.png' active and inactive versions
       - bottom of asset should be 10px below bottom edge of user's photo (not the frame)
       - asset should be horizontally centered within entire photo frame
+- Photo Frame Backdrop
+   - 'photo-frame-backdrop.png'
+   - positioning should be identical to frame asset (non-shadow portion)
 - Edit Photo Controls (camera icon in circle)
    - 'edit-photo-button.png' (on and off states)
    - Control 1 (for leftmost frame or single photo)
