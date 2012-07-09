@@ -1,3 +1,30 @@
+***Monday, July 9th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- GTIO - finish reviewing previous build. enter feedback accordingly
+- TT - Work to resolve bugs/issues as they are reported from new build
+
+**Status**
+- Working on camera page.  Making new UI changes.  Moving on to frame
+ - build late tomorrow?
+- GTIO reopened a few issues.  all relatively minor bugs in nature
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+ 
+---
+
 ***Friday, July 6th - Standup Notes***
 
 **Attendees**
