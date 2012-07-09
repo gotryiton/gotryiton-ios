@@ -105,7 +105,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [self.lookSelectorControl setDelegate:self.lookSelectorView];
     [self.scrollView addSubview:self.lookSelectorControl];
     
-    self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ 253, 174, 60, 143 }];
+    self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ { 253, 262 }, CGSizeZero }];
     [self.scrollView addSubview:self.optionsView];
     
     self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 155 } title:@"add a description, tags, and brands..." icon:[UIImage imageNamed:@"description-box-icon.png"]];
