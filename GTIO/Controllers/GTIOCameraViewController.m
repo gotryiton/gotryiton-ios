@@ -30,6 +30,11 @@ NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotificatio
 static CGFloat const kGTIOToolbarHeight = 53.0f;
 static CGFloat const kGTIOSourcePopOverXOriginPadding = 4.0f;
 static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
+static CGFloat const kGTIOPhotoShootModePopOverXOriginPadding = 25.5f;
+static CGFloat const kGTIOPhotoShootModePopOverYOriginPadding = 30.0f;
+
+NSString * const kGTIOPhotoShootModeCountUserDefaults = @"GTIOPhotoShootModeCountUserDefaults";
+static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 
 @interface GTIOCameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -45,8 +50,11 @@ static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
 @property (nonatomic, strong) UIImageView *focusImageView;
 @property (nonatomic, strong) GTIOPopOverView *sourcePopOverView;
+@property (nonatomic, strong) UIImageView *photoShootPopOverView;
 
 @property (nonatomic, assign) NSInteger capturedImageCount;
+@property (nonatomic, assign) NSInteger photoShootModeCount;
+@property (nonatomic, assign, getter = isPhotoShootModeFirstToggle) BOOL photoShootModeFirstToggle;
 
 @property (nonatomic, assign) NSInteger startingPhotoCount;
 @property (nonatomic, strong) NSTimer *imageWaitTimer;
@@ -62,7 +70,7 @@ static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
 @implementation GTIOCameraViewController
 
 @synthesize captureSession = _captureSession, stillImageOutput = _stillImageOutput, captureVideoPreviewLayer = _captureVideoPreviewLayer, captureDevice = _captureDevice;
-@synthesize photoToolbarView = _photoToolbarView, photoShootProgresToolbarView = _photoShootProgresToolbarView, photoShootTimerView = _photoShootTimerView, sourcePopOverView = _sourcePopOverView;
+@synthesize photoToolbarView = _photoToolbarView, photoShootProgresToolbarView = _photoShootProgresToolbarView, photoShootTimerView = _photoShootTimerView, sourcePopOverView = _sourcePopOverView, photoShootPopOverView = _photoShootPopOverView;
 @synthesize flashButton = _flashButton;
 @synthesize flashOn = _flashOn, shutterFlashOverlay = _shutterFlashOverlay;
 @synthesize dismissHandler = _dismissHandler;
@@ -73,6 +81,8 @@ static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
 @synthesize postALookViewController = _postALookViewController;
 @synthesize shootingPhotoShoot = _shootingPhotoShoot;
 @synthesize focusImageView = _focusImageView;
+@synthesize photoShootModeCount = _photoShootModeCount;
+@synthesize photoShootModeFirstToggle = _photoShootModeFirstToggle;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -117,6 +127,9 @@ static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
         
         // Load the filters so they are ready to go
         [GTIOFilterManager sharedManager];
+        
+        _photoShootModeCount = [[[NSUserDefaults standardUserDefaults] objectForKey:kGTIOPhotoShootModeCountUserDefaults] integerValue];
+        _photoShootModeFirstToggle = YES;
     }
     return self;
 }
@@ -165,6 +178,9 @@ static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
     if ([self.captureDevice isFlashAvailable]) {
         [self.view addSubview:self.flashButton];
     }
+    
+    // Photo Shoot Pop Over
+    self.photoShootPopOverView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photoshoot-info-callout.png"]];
     
     // Photo Shoot Toolbar
     self.photoShootProgresToolbarView = [[GTIOPhotoShootProgressToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
@@ -217,6 +233,8 @@ static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
             [self.captureDevice setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
             [self.captureDevice unlockForConfiguration];
         }
+        
+        [blockSelf showPhotoShootModePopOverView];
     }];
     [self.view addSubview:self.photoToolbarView];
     
@@ -265,6 +283,8 @@ static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    self.photoShootModeFirstToggle = YES;
     
     double delayInSeconds = 0.1f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -340,6 +360,27 @@ static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
     }];
 }
 
+- (void)showPhotoShootModePopOverView
+{
+    if (self.isPhotoShootModeFirstToggle && 
+        self.photoShootModeCount < kGTIOShowPhotoShootModeHelperCount) {
+        
+        self.photoShootModeFirstToggle = NO;
+        self.photoShootModeCount++;
+        
+        [self.photoShootPopOverView setAlpha:1.0f];
+        [self.photoShootPopOverView setFrame:(CGRect){ { self.view.frame.size.width - self.photoShootPopOverView.image.size.width - kGTIOPhotoShootModePopOverXOriginPadding, self.view.frame.size.height - self.photoShootPopOverView.image.size.height - kGTIOPhotoShootModePopOverYOriginPadding }, self.photoShootPopOverView.image.size }];
+        [self.view addSubview:self.photoShootPopOverView];
+        
+        [UIView animateWithDuration:1.5f delay:0.25f options:0 animations:^{
+            [self.photoShootPopOverView setFrame:CGRectOffset(self.photoShootPopOverView.frame, 0, -24.0f)];
+            [self.photoShootPopOverView setAlpha:0.0f];
+        } completion:^(BOOL finished) {
+            [self.photoShootPopOverView removeFromSuperview];
+        }];
+    }
+}
+
 #pragma mark - Property
 
 - (void)setFlashOn:(BOOL)flashOn
@@ -351,6 +392,14 @@ static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
         imageName = @"upload.flash-ON.png";
     }
     [self.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+}
+
+- (void)setPhotoShootModeCount:(NSInteger)photoShootModeCount
+{
+    _photoShootModeCount = photoShootModeCount;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:photoShootModeCount] forKey:kGTIOPhotoShootModeCountUserDefaults];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Capture Image
