@@ -3117,6 +3117,9 @@ Upload Fail
    - on **fail** ==> retry?
 
 #### Design Stories
+- Icon
+   - instead of user icon, show the user's pending upload in this space
+      - image should be resized to 42px wide, maintaining aspect ratio, then cropped to TOP 42px x 42px of result.
 - Text
 	- left side: Archer Medium Italic 11px rgb(156,156,156) #9c9c9c
 	- right side: Archer Medium Italic 11px rgb(88,88,88) #585858
