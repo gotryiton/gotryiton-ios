@@ -10,31 +10,39 @@
 #import "GTIOReviewsTableViewHeader.h"
 #import "GTIOPost.h"
 #import "GTIOReviewsTableViewCell.h"
+#import "GTIOReview.h"
+#import "GTIOProgressHUD.h"
+#import "GTIOPostMasonryEmptyStateView.h"
+#import "GTIOCommentViewController.h"
+#import "GTIOReviewPostPictureViewer.h"
 
 @interface GTIOReviewsViewController ()
 
+@property (nonatomic, copy) NSString *postID;
 @property (nonatomic, strong) GTIOPost *post;
+@property (nonatomic, strong) NSMutableArray *reviews;
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *comments;
 
 @property (nonatomic, strong) GTIOReviewsTableViewHeader *tableViewHeader;
+@property (nonatomic, strong) GTIOPostMasonryEmptyStateView *emptyStateView;
+@property (nonatomic, strong) UIView *tableFooterView;
+
+@property (nonatomic, strong) GTIOReviewPostPictureViewer *reviewPostPictureViewer;
 
 @end
 
 @implementation GTIOReviewsViewController
 
-@synthesize post = _post, tableView = _tableView, comments = _comments, tableViewHeader = _tableViewHeader;
+@synthesize postID = _postID, post = _post, tableView = _tableView, tableViewHeader = _tableViewHeader, reviews = _reviews, emptyStateView = _emptyStateView, tableFooterView = _tableFooterView, reviewPostPictureViewer = _reviewPostPictureViewer;
 
 - (id)initWithPostID:(NSString *)postID
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _comments = [NSArray arrayWithObjects:@"Test 1", @"Test 2", @"Test 3", @"Test 4", nil];
-        
+        _postID = postID;
+        _reviews = [NSMutableArray array];
         self.hidesBottomBarWhenPushed = YES;
-        
-        NSLog(@"POST ID: %@", postID);
     }
     return self;
 }
@@ -52,6 +60,10 @@
     self.leftNavigationButton = backButton;
     
     self.tableViewHeader = [[GTIOReviewsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 87 }];
+    self.tableViewHeader.commentButtonTapHandler = ^(id sender) {
+        GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:commentViewController animated:YES];
+    };
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -60,24 +72,82 @@
     self.tableView.dataSource = self;
     self.tableView.tableHeaderView = self.tableViewHeader;
     [self.view addSubview:self.tableView];
+    
+    self.tableFooterView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height - self.tableViewHeader.bounds.size.height - 70 }];
+    self.emptyStateView = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:@"be the first to\nsay something!" userName:nil locked:NO];
+    [self.tableFooterView addSubview:self.emptyStateView];
+    [self.emptyStateView setCenter:(CGPoint){ self.tableFooterView.bounds.size.width / 2, self.tableFooterView.bounds.size.height / 2 }];
+    
+    [self loadReviews];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    
+    self.tableView = nil;
+    self.tableViewHeader = nil;
+}
+
+- (void)loadReviews
+{
+    [self.reviews removeAllObjects];
+    
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"reviews/on/%@", self.postID] usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadResponse = ^(RKResponse *response) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+        };
+        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOReview class]]) {
+                    [self.reviews addObject:object];
+                }
+                if ([object isMemberOfClass:[GTIOPost class]]) {
+                    self.post = (GTIOPost *)object;
+                    [self.tableViewHeader setPost:self.post];
+                    self.reviewPostPictureViewer = [[GTIOReviewPostPictureViewer alloc] initWithPhotoURL:self.post.photo.mainImageURL];
+                    self.tableViewHeader.postImageTapHandler = ^(id sender) {
+                        [self.reviewPostPictureViewer show];
+                    };
+                }
+            }
+            if (self.reviews.count == 0) {
+                self.tableView.tableFooterView = self.tableFooterView;
+            }
+            [self.tableView reloadData];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
+#pragma mark - GTIOReviewTableViewCellDelegate Methods
+
+- (void)updateDataSourceWithReview:(GTIOReview *)review atIndexPath:(NSIndexPath *)indexPath
+{
+    [self.reviews removeObjectAtIndex:indexPath.row];
+    [self.reviews insertObject:review atIndex:indexPath.row];
+}
+
+- (void)removeReviewAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.reviews removeObjectAtIndex:indexPath.row];
+    [self.tableView reloadData];
+}
+
+- (UIView *)viewForSpinner
+{
+    return self.view;
 }
 
 #pragma mark - UITableViewDelegate Methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100.0f;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+    GTIOReview *review = (GTIOReview *)[self.reviews objectAtIndex:indexPath.row];
+    return [GTIOReviewsTableViewCell heightWithReview:review];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -110,7 +180,10 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.textLabel.text = [self.comments objectAtIndex:indexPath.row];
+    GTIOReviewsTableViewCell *theCell = (GTIOReviewsTableViewCell *)cell;
+    [theCell setReview:[self.reviews objectAtIndex:indexPath.row]];
+    [theCell setDelegate:self];
+    [theCell setIndexPath:indexPath];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -120,7 +193,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.comments.count;
+    return self.reviews.count;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -7,7 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOReview.h"
+#import "DTCoreText.h"
 
-@interface GTIOReviewsTableViewCell : UITableViewCell
+@protocol GTIOReviewsTableViewCellDelegate <NSObject>
+
+@required
+- (void)updateDataSourceWithReview:(GTIOReview *)review atIndexPath:(NSIndexPath *)indexPath;
+- (void)removeReviewAtIndexPath:(NSIndexPath *)indexPath;
+- (UIView *)viewForSpinner;
+
+@end
+
+@interface GTIOReviewsTableViewCell : UITableViewCell <DTAttributedTextContentViewDelegate, UIAlertViewDelegate>
+
+@property (nonatomic, strong) GTIOReview *review;
+@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, weak) id<GTIOReviewsTableViewCellDelegate> delegate;
+
++ (CGFloat)heightWithReview:(GTIOReview *)review;
 
 @end

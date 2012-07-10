@@ -33,6 +33,7 @@
 #import "GTIOFollowingScreen.h"
 #import "GTIOFollowersScreen.h"
 #import "GTIOFindMyFriendsScreen.h"
+#import "GTIOReview.h"
 
 @implementation GTIOMappingProvider
 
@@ -66,6 +67,7 @@
         RKObjectMapping *followingScreenMapping = [RKObjectMapping mappingForClass:[GTIOFollowingScreen class]];
         RKObjectMapping *followersScreenMapping = [RKObjectMapping mappingForClass:[GTIOFollowersScreen class]];
         RKObjectMapping *findMyFriendsScreenMapping = [RKObjectMapping mappingForClass:[GTIOFindMyFriendsScreen class]];
+        RKObjectMapping *reviewMapping = [RKObjectMapping mappingForClass:[GTIOReview class]];
         
         /** Config
          */
@@ -234,6 +236,18 @@
         [self setMapping:postMapping forKeyPath:@"post"];
         [self setMapping:postMapping forKeyPath:@"posts"];
         [self setMapping:postMapping forKeyPath:@"feed"];
+        
+        /** Review
+         */
+        
+        // GTIOReview
+        [reviewMapping mapKeyPath:@"id" toAttribute:@"reviewID"];
+        [reviewMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping];
+        [reviewMapping mapKeyPath:@"text" toAttribute:@"text"];
+        [reviewMapping mapKeyPath:@"created_when" toAttribute:@"createdWhen"];
+        [reviewMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
+        [self setMapping:reviewMapping forKeyPath:@"reviews"];
+        [self setMapping:reviewMapping forKeyPath:@"review"];
 
         // GTIOAutoCompleter
         [autocompleterMapping mapKeyPath:@"id" toAttribute:@"completerID"];

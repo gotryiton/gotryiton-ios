@@ -60,6 +60,10 @@
         case GTIOButtonTypeRequestedButtonRegular: return [self gtio_requestedButtonRegular];
         case GTIOButtonTypeCloseButtonForNavBar: return [self gtio_closeButtonGrayTopMargin];
         case GTIOButtonTypeReload: return [self gtio_reloadButtonTopMargin];
+        case GTIOButtonTypeHeart: return [self gtio_heartButton];
+        case GTIOButtonTypeFlag: return [self gtio_flagButton];
+        case GTIOButtonTypeRemove: return [self gtio_removeButton];
+        case GTIOButtonTypeLeaveAComment: return [self gtio_leaveACommentButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -415,6 +419,53 @@
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:(CGRect){ 0, 0, 70, 30 }];
+    return button;
+}
+
++ (id)gtio_heartButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"reviews.cell.heart.inactive.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"reviews.cell.heart.active.png"] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[UIImage imageNamed:@"reviews.cell.heart.hearted.inactive.png"] forState:UIControlStateSelected];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button sizeToFit];
+    return button;
+}
+
++ (id)gtio_flagButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"reviews.cell.flag.inactive.png"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"reviews.cell.flag.active.png"] forState:UIControlStateHighlighted];
+    [button setImage:[UIImage imageNamed:@"reviews.cell.flag.flagged.inactive.png"] forState:UIControlStateSelected];
+    [button setContentMode:UIViewContentModeScaleAspectFit];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button sizeToFit];
+    return button;
+}
+
++ (id)gtio_removeButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"reviews.cell.delete.inactive.png"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"reviews.cell.delete.active.png"] forState:UIControlStateHighlighted];
+    [button setContentMode:UIViewContentModeScaleAspectFit];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button sizeToFit];
+    return button;
+}
+
++ (id)gtio_leaveACommentButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"reviews.top.input.box.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"reviews.top.input.box.png"] forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLightItalic size:14.0];
+    [button setTitleColor:[UIColor gtio_grayTextColorB7B7B7] forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:(UIEdgeInsets){ -5, -125, 0, 0 }];
+    [button setTitle:@"leave a comment!" forState:UIControlStateNormal];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 

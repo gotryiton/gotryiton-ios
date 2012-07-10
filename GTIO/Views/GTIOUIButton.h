@@ -54,7 +54,11 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeFollowingButtonRegular,
     GTIOButtonTypeRequestedButtonRegular,
     GTIOButtonTypeCloseButtonForNavBar,
-    GTIOButtonTypeReload
+    GTIOButtonTypeReload,
+    GTIOButtonTypeHeart,
+    GTIOButtonTypeFlag,
+    GTIOButtonTypeRemove,
+    GTIOButtonTypeLeaveAComment
 } GTIOButtonType;
 
 @interface GTIOUIButton : UIButton

@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTIOPost.h"
 
 @interface GTIOReviewsTableViewHeader : UIView
+
+@property (nonatomic, strong) GTIOPost *post;
+@property (nonatomic, copy) GTIOButtonDidTapHandler commentButtonTapHandler;
+@property (nonatomic, copy) GTIOButtonDidTapHandler postImageTapHandler;
 
 @end

@@ -82,6 +82,9 @@ NSString * const kGTIOPostDotOptionButton = @"post-dot-option-button";
 NSString * const kGTIOSuggestedFriendsButtonName = @"suggested-friends-button";
 NSString * const kGTIOInviteFriendsButtonName = @"invite-friends-button";
 NSString * const kGTIOFindFriendsButtonName = @"find-friends-button";
+NSString * const kGTIOReviewAgreeButton = @"review-agree-button";
+NSString * const kGTIOReviewFlagButton = @"review-flag-button";
+NSString * const kGTIOReviewRemoveButton = @"review-delete-button";
 
 int const kGTIOEmptyPostAlertTag = 0;
 int const kGTIOEmptyDescriptionAlertTag = 1;

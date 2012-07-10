@@ -7,8 +7,9 @@
 //
 
 #import "GTIOViewController.h"
+#import "GTIOReviewsTableViewCell.h"
 
-@interface GTIOReviewsViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GTIOReviewsViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOReviewsTableViewCellDelegate>
 
 - (id)initWithPostID:(NSString *)postID;
 
