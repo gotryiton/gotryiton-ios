@@ -30,7 +30,7 @@
 
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 0, 9, self.placeHolderLabelView.bounds.size.width - iconView.bounds.size.width - 17, 15 }];
         [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:12.0]];
-        [titleLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [titleLabel setTextColor:[UIColor gtio_darkGray3TextColor]];
         [titleLabel setAlpha:0.5];
         [titleLabel setText:title];
         [titleLabel setBackgroundColor:[UIColor clearColor]];

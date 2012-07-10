@@ -85,8 +85,9 @@
    13.6 [Pull to refresh behavior](#136-pull-to-refresh-behavior)   
    13.7 [User Badges](#137-user-badges)   
    13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)   
-   13.9 [Custom UIAlertView](#139-custom-uialertview) 
-   13.10 [Unified autocomplete](#1310-unified-autocomplete)
+   13.9 [Custom UIAlertView](#139-custom-uialertview)   
+   13.10 [Unified autocomplete](#1310-unified-autocomplete)   
+   13.11 [Spinners](#1311-spinners)   
 
 ---
 
@@ -346,7 +347,7 @@ POST User/Signup/Facebook (see documentation [Api-Users](http://gtio-dev.gotryit
 	      - swiping backwards brings user to the previous intro screen
          - uiPageControl nav is absent if there are no intro screens
 
-#### Graphical Assets / Usage
+#### Design Stories
    - Background
       - 'login-bg-logo.png'
       - includes status bar area for UIStatusBarStyleBlackTranslucent
@@ -361,6 +362,9 @@ POST User/Signup/Facebook (see documentation [Api-Users](http://gtio-dev.gotryit
       - normal: 6pt Proxima Nova Regular #8f8f8f
       - link portion: 6pt Proxima Nova Regular #ff6a72 underlined
       - horizontally centered, baseline is 405px down from top of screen
+   - Spinner
+      - use 'fullscreen spinner w/ info text' style for loading (see 13.11 spec)
+         - info text is 'creating new account...'
 
 
 ### 1.4 Returning users 
@@ -800,6 +804,9 @@ POST User/Auth/Facebook (see documentation [Api-Users](http://gtio-dev.gotryiton
       - normal: 6pt Proxima Nova Regular #8f8f8f
       - link portion: 6pt Proxima Nova Regular #ff6a72 underlined
       - horizontally centered, baseline is 405px down from top of screen
+   - Spinner
+      - use 'fullscreen spinner w/ info text' style for loading (see 13.11 spec)
+         - info text is 'creating new account...'
 
 
 ### 1.10 Facebook SSO
@@ -2082,7 +2089,7 @@ gtio://StandardWebview/Settings/http://gtio-dev.gotryiton.com/user/settings
 
 
 ### 7.3 Edit profile pic  
-
+12.3
 #### Overview
 A logged in user can edit their profile icon
 
@@ -3110,6 +3117,9 @@ Upload Fail
    - on **fail** ==> retry?
 
 #### Design Stories
+- Icon
+   - instead of user icon, show the user's pending upload in this space
+      - image should be resized to 42px wide, maintaining aspect ratio, then cropped to TOP 42px x 42px of result.
 - Text
 	- left side: Archer Medium Italic 11px rgb(156,156,156) #9c9c9c
 	- right side: Archer Medium Italic 11px rgb(88,88,88) #585858
@@ -3543,13 +3553,17 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 
 12.1.2 Upload Start in Photoshoot Mode
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.B.Upload.Start.Photoshoot.Popup.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.1.B.Upload.Start.Photoshoot.Popup.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.C.Upload.Start.Photoshoot.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.1.C.Upload.Start.Photoshoot.png" width=420px/>
 
 12.1.3 Upload Start with Grid button
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.E.Upload.Start.with.Grid.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/12.1.E.Upload.Start.with.Grid.png" width=420px/>
+
+12.1.4 Upload Start with Source Menu
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.D.Upload.Start.Source.Menu.png" width=420px/>
 
 #### API Usage
 
@@ -3913,6 +3927,9 @@ response:
 #### Design Stories
 - Photo Frame
    - 'photo-frame.png'
+      - 14 px nonstretchable top
+      - 1 px stretchable middle
+      - 135 px nonstretchable bottom
    - 3px from left edge of screen, 4px from bottom edge of nav bar
    - should be overlaid by applicable photos
       - if user has single photo, vertically and horizontally centered within frame
@@ -3924,6 +3941,9 @@ response:
       - 'photo-frame-handle.png' active and inactive versions
       - bottom of asset should be 10px below bottom edge of user's photo (not the frame)
       - asset should be horizontally centered within entire photo frame
+- Photo Frame Backdrop
+   - 'photo-frame-backdrop.png'
+   - positioning should be identical to frame asset (non-shadow portion)
 - Edit Photo Controls (camera icon in circle)
    - 'edit-photo-button.png' (on and off states)
    - Control 1 (for leftmost frame or single photo)
@@ -4518,3 +4538,57 @@ Control raised, populating users
          - 4px of padding from top, bottom and left edges of button
       - user name
          - allow 6px of padding from right edge of user icon and right edge of button
+
+### 13.11 Spinners
+
+#### Mockups
+
+13.11 Standard spinner   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/13.11.Spinner.Standard.png" width=420px/>
+
+13.11.1 Spinner with container   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.With.Container.png" width=420px/>
+
+13.11.2 Spinner blocking screen   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.Screen.Blocked.png" width=420px/>
+
+13.11.3 Spinner blocking screen with info text   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.11.Spinner.Screen.Blocked.With.Description.png" width=420px/>
+
+#### Design Stories
+- Standard spinner
+   - no background
+   - 20px x 20px spinner #6e6e6e
+      - horizontally and vertically centered within main content area
+         - 'main content area' should not include nav bar, UI tab bar, status bar areas if present
+- Spinner with container
+   - 'spinner-normal-bg.png' as background
+      - horizontally centered
+      - vertically centered within main content area
+         - 'main content area' should not include nav bar, UI tab bar, status bar areas if present
+   - 20px x 20px spinner #6e6e6e
+      - horizontally and vertically centered within background area
+- Fullscreen spinner
+   - 'spinner-dark-bg.png' overlay on screen
+   - 'spinner-normal-bg.png' as spinner background
+      - horizontally centered
+      - vertically centered within main content area
+         - 'main content area' should not include nav bar, UI tab bar, status bar areas if present
+   - 20px x 20px spinner #6e6e6e
+      - horizontally and vertically centered within background area
+- Fullscreen spinner w/ info text
+   - 'spinner-dark-bg.png' overlay on screen
+   - 'spinner-info-bg.png' as spinner background
+      - horizontally centered
+      - vertically centered within main content area
+         - 'main content area' should not include nav bar, UI tab bar, status bar areas if present
+      - vertical middle is stretchable
+         - 30px nonstretchable on top and bottom
+         - minimum height 110px
+            - maintain 16px top and bottom padding between spinner/text and visual edges of white background (not including shadow portion)
+   - 20px x 20px spinner #6e6e6e
+      - horizontally and vertically centered within background area
+   - Text
+      - Archer Medium Italic 13pt rgb(266,106,114)
+      - Text area is 150px wide (wrap to additional lines if necessary)
+      - Horizontally centered

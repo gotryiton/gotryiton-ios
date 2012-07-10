@@ -46,7 +46,7 @@
         UILabel *editProfilePictureTitle = [[UILabel alloc] initWithFrame:CGRectZero];
         [editProfilePictureTitle setText:@"edit profile picture?"];
         [editProfilePictureTitle setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
-        [editProfilePictureTitle setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [editProfilePictureTitle setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [editProfilePictureTitle sizeToFit];
         [editProfilePictureTitle setFrame:(CGRect){ _profilePicture.frame.origin.x + _profilePicture.frame.size.width + 10, _profilePicture.frame.origin.y + (_profilePicture.frame.size.height / 2 - editProfilePictureTitle.frame.size.height / 2), editProfilePictureTitle.frame.size}];
         [self addSubview:editProfilePictureTitle];

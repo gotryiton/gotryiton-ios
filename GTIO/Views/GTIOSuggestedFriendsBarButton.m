@@ -38,7 +38,7 @@ static int const maximumNumberOfSuggestedFriends = 5;
         _suggestedFriendsLabel.backgroundColor = [UIColor clearColor];
         _suggestedFriendsLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:16.0];
         _suggestedFriendsLabel.text = @"suggested friends";
-        _suggestedFriendsLabel.textColor = [UIColor gtio_darkGrayTextColor];
+        _suggestedFriendsLabel.textColor = [UIColor gtio_grayTextColor9C9C9C];
         [self addSubview:_suggestedFriendsLabel];
 
         _chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];

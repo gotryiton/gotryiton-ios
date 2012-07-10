@@ -33,7 +33,7 @@
         _titleLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
         [_titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:14.0]];
-        [_titleLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [_titleLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [_titleLabel setLineHeightMultiple:0.70];
         [_titleLabel setNumberOfLines:0];
         [_titleLabel setLineBreakMode:UILineBreakModeWordWrap];

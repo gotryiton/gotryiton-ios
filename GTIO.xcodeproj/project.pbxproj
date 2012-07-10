@@ -1175,6 +1175,7 @@
 		D2603E1E155AD92E00536BF9 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D2603E1D155AD92E00536BF9 /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D2603E20155AD93A00536BF9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2603E1F155AD93A00536BF9 /* CoreText.framework */; };
 		D26D32AB156C016800C06CA9 /* GTIOProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */; };
+		D270D23015A33A4700775A22 /* GTIOPostManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D270D22F15A33A4600775A22 /* GTIOPostManager.m */; };
 		D27C2FA01598A3DA006C9ACB /* GTIOFeedNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C2F9F1598A3DA006C9ACB /* GTIOFeedNavigationBarView.m */; };
 		D27C2FA41598CE01006C9ACB /* GTIOPostBrandButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C2FA31598CE01006C9ACB /* GTIOPostBrandButtonsView.m */; };
 		D27C2FA71598E20F006C9ACB /* GTIOBrandButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C2FA61598E20F006C9ACB /* GTIOBrandButton.m */; };
@@ -1184,6 +1185,8 @@
 		D27F9D0E1577B45700EAB480 /* GTIOPhotoShootGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D0D1577B45700EAB480 /* GTIOPhotoShootGridView.m */; };
 		D27F9D181577E41C00EAB480 /* GTIOPhotoConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D171577E41C00EAB480 /* GTIOPhotoConfirmationViewController.m */; };
 		D27F9D1B1577E43800EAB480 /* GTIOPhotoConfirmationToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27F9D1A1577E43800EAB480 /* GTIOPhotoConfirmationToolbarView.m */; };
+		D2880B8915A5EAC2004DFC70 /* GTIOPostUploadView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2880B8815A5EAC2004DFC70 /* GTIOPostUploadView.m */; };
+		D2880B8C15A5F128004DFC70 /* GTIOPostUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = D2880B8B15A5F128004DFC70 /* GTIOPostUpload.m */; };
 		D289CB2F1566957300909FC1 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB161566957300909FC1 /* Facebook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D289CB301566957300909FC1 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D289CB181566957300909FC1 /* FBDialog.bundle */; };
 		D289CB311566957300909FC1 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D289CB1A1566957300909FC1 /* FBDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -2659,6 +2662,8 @@
 		D26D32A4156BFDC100C06CA9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Libraries/MBProgressHUD/MBProgressHUD.m; sourceTree = "<group>"; };
 		D26D32A9156C016800C06CA9 /* GTIOProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProgressHUD.h; sourceTree = "<group>"; };
 		D26D32AA156C016800C06CA9 /* GTIOProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProgressHUD.m; sourceTree = "<group>"; };
+		D270D22E15A33A4600775A22 /* GTIOPostManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostManager.h; sourceTree = "<group>"; };
+		D270D22F15A33A4600775A22 /* GTIOPostManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostManager.m; sourceTree = "<group>"; };
 		D270EF161587C62100BE08EE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D270EF1B1587C65200BE08EE /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		D270EF351587DF8600BE08EE /* GTIOFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFilterManager.h; sourceTree = "<group>"; };
@@ -2685,6 +2690,10 @@
 		D27F9D171577E41C00EAB480 /* GTIOPhotoConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoConfirmationViewController.m; sourceTree = "<group>"; };
 		D27F9D191577E43700EAB480 /* GTIOPhotoConfirmationToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoConfirmationToolbarView.h; sourceTree = "<group>"; };
 		D27F9D1A1577E43800EAB480 /* GTIOPhotoConfirmationToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoConfirmationToolbarView.m; sourceTree = "<group>"; };
+		D2880B8715A5EAC2004DFC70 /* GTIOPostUploadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostUploadView.h; sourceTree = "<group>"; };
+		D2880B8815A5EAC2004DFC70 /* GTIOPostUploadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostUploadView.m; sourceTree = "<group>"; };
+		D2880B8A15A5F128004DFC70 /* GTIOPostUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostUpload.h; sourceTree = "<group>"; };
+		D2880B8B15A5F128004DFC70 /* GTIOPostUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostUpload.m; sourceTree = "<group>"; };
 		D289CB151566957300909FC1 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Facebook.h; path = "Libraries/facebook-iOS-SDK/src/Facebook.h"; sourceTree = "<group>"; };
 		D289CB161566957300909FC1 /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Facebook.m; path = "Libraries/facebook-iOS-SDK/src/Facebook.m"; sourceTree = "<group>"; };
 		D289CB171566957300909FC1 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBConnect.h; path = "Libraries/facebook-iOS-SDK/src/FBConnect.h"; sourceTree = "<group>"; };
@@ -2843,6 +2852,8 @@
 			children = (
 				8E12C1F0157547190097CDE9 /* GTIOPostALookViewController.h */,
 				8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */,
+				D270D22E15A33A4600775A22 /* GTIOPostManager.h */,
+				D270D22F15A33A4600775A22 /* GTIOPostManager.m */,
 			);
 			name = "Photo Upload";
 			sourceTree = "<group>";
@@ -3278,6 +3289,8 @@
 				D22D73D31593CCA10018AD6B /* GTIOPostHeaderView.m */,
 				D255805D159B600900A5BD06 /* GTIOWhoHeartedThisView.h */,
 				D255805E159B600900A5BD06 /* GTIOWhoHeartedThisView.m */,
+				D2880B8715A5EAC2004DFC70 /* GTIOPostUploadView.h */,
+				D2880B8815A5EAC2004DFC70 /* GTIOPostUploadView.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -3319,6 +3332,8 @@
 				8EA21B38157FDDC000D5003C /* GTIOPost.m */,
 				8E31747C1593C0A300271FFB /* GTIOPostList.h */,
 				8E31747D1593C0A300271FFB /* GTIOPostList.m */,
+				D2880B8A15A5F128004DFC70 /* GTIOPostUpload.h */,
+				D2880B8B15A5F128004DFC70 /* GTIOPostUpload.m */,
 			);
 			name = Post;
 			sourceTree = "<group>";
@@ -6545,6 +6560,9 @@
 				8EBD90B815A23797006E387B /* GTIOSearchBox.m in Sources */,
 				8EBD90BB15A23B32006E387B /* GTIOFollowingScreen.m in Sources */,
 				8EBD90BE15A23DC2006E387B /* GTIOFollowersScreen.m in Sources */,
+				D270D23015A33A4700775A22 /* GTIOPostManager.m in Sources */,
+				D2880B8915A5EAC2004DFC70 /* GTIOPostUploadView.m in Sources */,
+				D2880B8C15A5F128004DFC70 /* GTIOPostUpload.m in Sources */,
 				8EFAE87315A5F8220075F530 /* SSPullToRefreshDefaultContentView.m in Sources */,
 				8EFAE87415A5F8220075F530 /* SSPullToRefreshSimpleContentView.m in Sources */,
 				8EFAE87515A5F8220075F530 /* SSPullToRefreshView.m in Sources */,

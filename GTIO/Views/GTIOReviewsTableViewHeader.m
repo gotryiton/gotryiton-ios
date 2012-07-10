@@ -41,7 +41,7 @@
         [self addSubview:_userNameLabel];
         
         _postedAtLabel = [[UILabel alloc] initWithFrame:(CGRect){ _userNameLabel.frame.origin.x + 1, _userNameLabel.frame.origin.y + _userNameLabel.bounds.size.height - 6, _userNameLabel.bounds.size.width - 1, 20 }];
-        _postedAtLabel.textColor = [UIColor gtio_darkGrayTextColor];
+        _postedAtLabel.textColor = [UIColor gtio_grayTextColor9C9C9C];
         _postedAtLabel.font = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0];
         _postedAtLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_postedAtLabel];

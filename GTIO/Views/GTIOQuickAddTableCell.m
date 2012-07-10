@@ -31,7 +31,7 @@
         
         // Description
         [self.detailTextLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0]];
-        [self.detailTextLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [self.detailTextLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         
         // Profile Picture
         UIImageView *innerShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mask-user-72.png"]];

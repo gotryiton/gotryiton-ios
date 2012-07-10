@@ -39,13 +39,13 @@
         _cellTitleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 10, self.frame.size.height / 2 - 8, 0, 0 }];
         [self.cellTitleLabel setBackgroundColor:[UIColor clearColor]];
         [self.cellTitleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
-        [self.cellTitleLabel setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [self.cellTitleLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [self.contentView addSubview:self.cellTitleLabel];
         
         _cellAccessoryText = [[GTIOTextFieldForPickerViews alloc] initWithFrame:CGRectZero];
         [self.cellAccessoryText setBackgroundColor:[UIColor clearColor]];
         [self.cellAccessoryText setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLightItal size:14.0]];
-        [self.cellAccessoryText setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [self.cellAccessoryText setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [self.cellAccessoryText setTextAlignment:UITextAlignmentRight];
         [self.cellAccessoryText setDelegate:self];
         [self.cellAccessoryText setReturnKeyType:UIReturnKeyNext];
@@ -59,7 +59,7 @@
         [self.cellAccessoryTextMulti setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLightItal size:14.0]];
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         [self.cellAccessoryTextMulti setDelegate:self];
-        [self.cellAccessoryTextMulti setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [self.cellAccessoryTextMulti setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [self.cellAccessoryTextMulti setPlaceholderColor:[UIColor gtio_lightGrayTextColor]];
         [self.cellAccessoryTextMulti setReturnKeyType:UIReturnKeyDone];
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
@@ -89,7 +89,7 @@
     if (textView.text.length == 1 && text.length == 0) {
         textView.text = text;
         [textView setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegularItal size:14.0]];
-        [textView setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [textView setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
     } else {
         [textView setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
         [textView setTextColor:[UIColor gtio_signInColor]];
@@ -155,7 +155,7 @@
     if (textField.text.length == 1 && string.length == 0) {
         textField.text = string;
         [textField setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegularItal size:14.0]];
-        [textField setTextColor:[UIColor gtio_darkGrayTextColor]];
+        [textField setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
     } else {
         [textField setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
         [textField setTextColor:[UIColor gtio_signInColor]];
@@ -182,7 +182,7 @@
 
 - (void)setRequired:(BOOL)required
 {
-    UIColor *textColor = (required) ? [UIColor gtio_pinkTextColor] : [UIColor gtio_darkGrayTextColor];
+    UIColor *textColor = (required) ? [UIColor gtio_pinkTextColor] : [UIColor gtio_grayTextColor9C9C9C];
     [self.cellTitleLabel setTextColor:textColor];
 }
 
