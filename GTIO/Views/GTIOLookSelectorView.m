@@ -10,23 +10,31 @@
 #import <QuartzCore/QuartzCore.h>
 
 static CGFloat const kGTIOTopPadding = 9.0f;
+static CGFloat const kGTIOBottomPadding = 5.0f;
 static CGFloat const kGTIORightFrameXOrigin = 126.0f;
 static CGFloat const kGTIOFrameImageWidth = 109.0f;
 static CGFloat const kGTIOTopImageMaxHeight = 184.0f;
 static CGFloat const kGTIOMainImageMaxHeight = 300.0f;
 static CGFloat const kGTIOMainImageXOrigin = 10.0f;
 static CGFloat const kGTIOSingleImageWidth = 225.0f;
+static CGFloat const kGTIOMinHeight = 249.0f;
+static CGFloat const kGTIOMaxHeight = 324.0f;
 
 @interface GTIOLookSelectorView()
 
 @property (nonatomic, strong) UIView *photoSetView;
+@property (nonatomic, strong) UIImageView *frameImageView;
+
+@property (nonatomic, strong) UIImageView *resizeHandle;
 
 @end
 
 @implementation GTIOLookSelectorView
 
 @synthesize  photoSet = _photoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView, mainPhotoView = _mainPhotoView, topPhotoView = _topPhotoView, bottomPhotoView = _bottomPhotoView, photoCanvasSize = _photoCanvasSize;
+@synthesize frameImageView = _frameImageView;
 @synthesize launchCameraHandler = _launchCameraHandler, addFilterHandler = _addFilterHandler;
+@synthesize resizeHandle = _resizeHandle;
 
 - (id)initWithFrame:(CGRect)frame photoSet:(BOOL)photoSet launchCameraHandler:(GTIOLaunchCameraHandler)launchCameraHandler
 {
@@ -35,9 +43,11 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
         self.photoSet = photoSet;
         _launchCameraHandler = launchCameraHandler;
         
-        UIImageView *frameImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"photo-frame.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 14, 0, 135, 0 }]];
-        [frameImageView setFrame:self.bounds];
-        [self addSubview:frameImageView];
+        [self setFrame:(CGRect){ self.frame.origin, { self.frame.size.width, kGTIOMaxHeight } }];
+        
+        _frameImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"photo-frame.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 14, 0, 135, 0 }]];
+        [_frameImageView setFrame:self.bounds];
+        [self addSubview:_frameImageView];
         
         // Single Image
         _singlePhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIOMainImageXOrigin, kGTIOTopPadding, kGTIOSingleImageWidth, kGTIOMainImageMaxHeight }];
@@ -94,6 +104,15 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
         [_bottomPhotoView setSwapPhotoHandler:swapPhotoHandler];
         [_bottomPhotoView setEditPhotoButtonPosition:GTIOEditPhotoButtonPositionRight];
         [_photoSetView addSubview:self.bottomPhotoView];
+        
+        // Resize Handle
+        _resizeHandle = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photo-frame-handle-inactive.png"]];
+        [_resizeHandle setFrame:(CGRect){ { (self.frame.size.width - _resizeHandle.image.size.width) / 2, self.frame.size.height - _resizeHandle.image.size.height - kGTIOBottomPadding }, _resizeHandle.image.size }];
+        [_resizeHandle setUserInteractionEnabled:YES];
+        [self addSubview:_resizeHandle];
+        
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleResizeGesture:)];
+        [_resizeHandle addGestureRecognizer:panGesture];
         
         [self refreshView];
     }
@@ -159,6 +178,7 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
         [self addSubview:self.singlePhotoView];
         [self bringSubviewToFront:self.singlePhotoView];
     }
+    [self bringSubviewToFront:self.resizeHandle];
 }
 
 #pragma mark - Properties
@@ -181,6 +201,43 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
     [self.mainPhotoView setAddFilterHandler:_addFilterHandler];
     [self.topPhotoView setAddFilterHandler:_addFilterHandler];
     [self.bottomPhotoView setAddFilterHandler:_addFilterHandler];
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    CGFloat heightDelta = frame.size.height - self.frame.size.height;
+    [super setFrame:frame];
+    
+    NSLog(@"height delta: %f", heightDelta);
+    
+    [self.frameImageView setFrame:self.bounds];
+    [self.resizeHandle setFrame:(CGRect){ { (self.frame.size.width - self.resizeHandle.image.size.width) / 2, self.frame.size.height - self.resizeHandle.image.size.height - kGTIOBottomPadding }, self.resizeHandle.image.size }];
+    
+    [self.singlePhotoView setFrame:(CGRect){ self.singlePhotoView.frame.origin, { self.singlePhotoView.frame.size.width, self.singlePhotoView.frame.size.height + heightDelta } }];
+    [self.mainPhotoView setFrame:(CGRect){ self.mainPhotoView.frame.origin, { self.mainPhotoView.frame.size.width, self.mainPhotoView.frame.size.height + heightDelta } }];
+    [self.topPhotoView setFrame:(CGRect){ self.topPhotoView.frame.origin, { self.topPhotoView.frame.size.width, self.topPhotoView.frame.size.height + heightDelta } }];
+    [self.bottomPhotoView setFrame:(CGRect){ { self.bottomPhotoView.frame.origin.x, self.bottomPhotoView.frame.origin.y + heightDelta }, self.bottomPhotoView.frame.size }];
+}
+
+#pragma mark - UIPanGestureRecognizer
+
+- (void)handleResizeGesture:(UIPanGestureRecognizer *)gesture
+{
+    UIView *view = [[gesture view] superview];
+    CGPoint translation = [gesture translationInView:view];
+    
+    CGFloat height = view.frame.size.height + translation.y;
+    if (height > kGTIOMaxHeight) {
+        height = kGTIOMaxHeight;
+    } else if (height < kGTIOMinHeight) {
+        height = kGTIOMinHeight;
+    }
+    
+    NSLog(@"Height: %f", height);
+    
+    [view setFrame:(CGRect){ view.frame.origin, { view.frame.size.width, height } }];
+    [gesture setTranslation:CGPointMake(0, 0) inView:view];
+        
 }
 
 @end
