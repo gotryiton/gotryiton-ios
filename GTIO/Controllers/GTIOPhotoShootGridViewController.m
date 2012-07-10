@@ -49,7 +49,7 @@
     [self.photoShootGridView setImageSelectedHandler:^(NSInteger photoIndex) {
         UIImage *selectedPhoto = [[GTIOPhotoManager sharedManager] photoAtIndex:photoIndex];
         GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
-        [photoConfirmationViewController setPhoto:selectedPhoto];
+        [photoConfirmationViewController setOriginalPhoto:selectedPhoto];
         [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
     }];
     [self.view addSubview:self.photoShootGridView];

@@ -23,15 +23,17 @@
 #import "GTIOPhoto.h"
 #import "GTIOPost.h"
 
+#import "GTIOPhotoConfirmationViewController.h"
+
 static NSInteger const kGTIOBottomButtonSize = 50;
 static NSInteger const kGTIONavBarSize = 44;
 static NSInteger const kGTIOMaskingViewTag = 100;
 
 @interface GTIOPostALookViewController() <UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) UIImage *mainImage;
-@property (nonatomic, strong) UIImage *topImage;
-@property (nonatomic, strong) UIImage *bottomImage;
+@property (nonatomic, strong) UIImage *mainOriginalImage;
+@property (nonatomic, strong) UIImage *mainFilteredImage;
+@property (nonatomic, strong) NSString *mainFilterName;
 
 @property (nonatomic, strong) GTIOLookSelectorView *lookSelectorView;
 @property (nonatomic, strong) GTIOLookSelectorControl *lookSelectorControl;
@@ -53,7 +55,8 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 @implementation GTIOPostALookViewController
 
 @synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer;
-@synthesize mainImage = _mainImage, topImage = _topImage, bottomImage = _bottomImage, photoForPosting = _photoForPosting;
+@synthesize mainOriginalImage = _mainOriginalImage, mainFilteredImage = _mainFilteredImage, mainFilterName = _mainFilterName;
+@synthesize photoForPosting = _photoForPosting;
 @synthesize maskView = _maskView;
 @synthesize currentSection = _currentSection;
 
@@ -115,7 +118,13 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         self.currentSection = photoSection;
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];
-    [self setImage:self.mainImage]; // Now that view is loaded refresh image
+    [self.lookSelectorView setAddFilterHandler:^(GTIOPostPhotoSection photoSection, UIImage *originalPhoto) {
+        self.currentSection = photoSection;
+        GTIOPhotoConfirmationViewController *confirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
+        [confirmationViewController setOriginalPhoto:originalPhoto];
+        [self.navigationController pushViewController:confirmationViewController animated:YES];
+    }];
+    [self setOriginalImage:self.mainOriginalImage filteredImage:self.mainFilteredImage filterName:self.mainFilterName]; // Now that view is loaded refresh image
     [self.scrollView addSubview:self.lookSelectorView];
     
     self.lookSelectorControl = [[GTIOLookSelectorControl alloc] initWithFrame:(CGRect){ 253, 13, 60, 107 }];
@@ -260,12 +269,12 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     self.currentSection = GTIOPostPhotoSectionMain;
     
-    self.mainImage = nil;
-    self.topImage = nil;
-    self.bottomImage = nil;
+    self.mainOriginalImage = nil;
+    self.mainFilteredImage = nil;
     
     [self.descriptionBox.textView resetView];
     [self.lookSelectorControl reset];
+    [self.lookSelectorView reset];
 }
 
 - (void)postThis:(id)sender
@@ -299,7 +308,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (UIImage *)getCompositeImage
 {
-    [self.lookSelectorView hideDeleteButtons:YES];
+    [self.lookSelectorView hideEditPhotoButtons:YES];
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
         UIGraphicsBeginImageContextWithOptions(self.lookSelectorView.photoCanvasSize, NO, [UIScreen mainScreen].scale);
     } else {
@@ -313,7 +322,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [[self.lookSelectorView compositeCanvas].layer renderInContext:context];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();   
     UIGraphicsEndImageContext();
-    [self.lookSelectorView hideDeleteButtons:NO];
+    [self.lookSelectorView hideEditPhotoButtons:NO];
     return viewImage;
 }
 
@@ -346,33 +355,30 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 #pragma mark - Photo Handlers
 
-- (void)setImage:(UIImage *)image
+- (void)setOriginalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName
 {
     switch (self.currentSection) {
-        case GTIOPostPhotoSectionMain: self.mainImage = image; break;
-        case GTIOPostPhotoSectionTop: self.topImage = image; break;
-        case GTIOPostPhotoSectionBottom: self.bottomImage = image; break;
+        case GTIOPostPhotoSectionMain:
+            self.mainOriginalImage = originalImage;
+            self.mainFilteredImage = filteredImage;
+            [self updateTakePhotoView:self.lookSelectorView.mainPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            [self updateTakePhotoView:self.lookSelectorView.singlePhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            break;
+        case GTIOPostPhotoSectionTop: 
+            [self updateTakePhotoView:self.lookSelectorView.topPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            break;
+        case GTIOPostPhotoSectionBottom: 
+            [self updateTakePhotoView:self.lookSelectorView.bottomPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            break;
         default: break;
     }
 }
 
-- (void)setMainImage:(UIImage *)mainImage
+- (void)updateTakePhotoView:(GTIOTakePhotoView *)takePhotoView originalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName
 {
-    _mainImage = mainImage;
-    [self.lookSelectorView.mainPhotoView setImage:_mainImage];
-    [self.lookSelectorView.singlePhotoView setImage:_mainImage];
-}
-
-- (void)setTopImage:(UIImage *)topImage
-{
-    _topImage = topImage;
-    [self.lookSelectorView.topPhotoView setImage:_topImage];
-}
-
-- (void)setBottomImage:(UIImage *)bottomImage
-{
-    _bottomImage = bottomImage;
-    [self.lookSelectorView.bottomPhotoView setImage:_bottomImage];
+    [takePhotoView setOriginalImage:originalImage];
+    [takePhotoView setFilteredImage:filteredImage];
+    [takePhotoView setFilterName:filterName];
 }
 
 #pragma mark - UINavigationBar

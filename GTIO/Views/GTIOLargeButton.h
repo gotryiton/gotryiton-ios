@@ -19,4 +19,6 @@ typedef enum GTIOLargeButtonStyle {
 + (id)largeButtonWithGTIOStyle:(GTIOLargeButtonStyle)largeButtonStyle;
 + (id)gtio_largeCancelButton;
 
+- (void)setSwapSuffixImage:(UIImage *)suffixImage;
+
 @end

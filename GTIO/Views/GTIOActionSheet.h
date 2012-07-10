@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @class GTIOActionSheet;
+@class GTIOButton;
 
 typedef void(^GTIOActionSheetBlock)(GTIOActionSheet *actionSheet);
+typedef void(^GTIOActionSheetButtonTapHandler)(GTIOButton *buttonModel);
 
 @interface GTIOActionSheet : UIView
 
@@ -19,12 +21,13 @@ typedef void(^GTIOActionSheetBlock)(GTIOActionSheet *actionSheet);
 @property (nonatomic, copy) GTIOActionSheetBlock willPresent;
 @property (nonatomic, copy) GTIOActionSheetBlock didPresent;
 @property (nonatomic, copy) GTIOActionSheetBlock willCancel;
+@property (nonatomic, copy) GTIOActionSheetButtonTapHandler buttonTapHandler;
 
 @property (nonatomic, strong) UIView *windowMask;
 
 @property (nonatomic, assign) BOOL wasCancelled;
 
-- (id)initWithButtons:(NSArray *)buttons;
+- (id)initWithButtons:(NSArray *)buttons buttonTapHandler:(GTIOActionSheetButtonTapHandler)buttonTapHandler;
 - (void)show;
 - (void)showWithConfigurationBlock:(GTIOActionSheetBlock)configurationBlock;
 - (void)dismiss;

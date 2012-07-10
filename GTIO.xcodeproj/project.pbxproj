@@ -4060,8 +4060,6 @@
 		8EB5A30A15A629E000163F84 /* 12.3 */ = {
 			isa = PBXGroup;
 			children = (
-				D2F7E17715AB830A00E93B82 /* photo-frame-backdrop.png */,
-				D2F7E17815AB830A00E93B82 /* photo-frame-backdrop@2x.png */,
 				8EB5A30B15A629E000163F84 /* border-bg.png */,
 				8EB5A30C15A629E000163F84 /* border-bg@2x.png */,
 				8EB5A30D15A629E000163F84 /* brands-box-icon.png */,
@@ -4084,6 +4082,8 @@
 				8EB5A31E15A629E000163F84 /* frames-toggle-multiple@2x.png */,
 				8EB5A31F15A629E000163F84 /* frames-toggle-single.png */,
 				8EB5A32015A629E000163F84 /* frames-toggle-single@2x.png */,
+				D2F7E17715AB830A00E93B82 /* photo-frame-backdrop.png */,
+				D2F7E17815AB830A00E93B82 /* photo-frame-backdrop@2x.png */,
 				8EB5A32115A629E000163F84 /* photo-frame-handle-active.png */,
 				8EB5A32215A629E000163F84 /* photo-frame-handle-active@2x.png */,
 				8EB5A32315A629E000163F84 /* photo-frame-handle-inactive.png */,

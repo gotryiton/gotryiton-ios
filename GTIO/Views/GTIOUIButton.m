@@ -41,6 +41,7 @@
         case GTIOButtonTypeCancelGrayTopMargin: return [self gtio_cancelButtonGrayTopMargin];
         case GTIOButtonTypeSaveGrayTopMargin: return [self gtio_saveButtonGrayTopMargin];
         case GTIOButtonTypePhotoSelectBox: return [self gtio_photoSelectBox];
+        case GTIOButtonTypeEditPhoto: return [self gtio_editPhotoButton];
         case GTIOButtonTypePostThis: return [self gtio_postThisButton];
         case GTIOButtonTypePhotoDelete: return [self gtio_photoDeleteButton];
         case GTIOButtonTypeNotificationBubble: return [self gtio_notificationBubbleButton];
@@ -258,6 +259,11 @@
     GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"frame-camera-icon-OFF.png"] hightlightImage:[UIImage imageNamed:@"frame-camera-icon-ON.png"]];
     [button setContentMode:UIViewContentModeCenter];
     return button;
+}
+
++ (id)gtio_editPhotoButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"edit-photo-button-inactive.png"] hightlightImage:[UIImage imageNamed:@"edit-photo-button-active.png"]];
 }
 
 + (id)gtio_postThisButton

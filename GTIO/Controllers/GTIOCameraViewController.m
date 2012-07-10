@@ -314,12 +314,19 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 
 - (void)photoAcceptedNotification:(NSNotification *)notification
 {
-    UIImage *photo = [notification.userInfo objectForKey:@"photo"];
+    UIImage *originalPhoto = [notification.userInfo objectForKey:@"originalPhoto"];
+    UIImage *filteredPhoto = [notification.userInfo objectForKey:@"filteredPhoto"];
 #warning How should we handle filter type if multiple photos?
     GTIOFilterType filterType = [[notification.userInfo objectForKey:@"filterType"] integerValue];
     
-    if (photo) {
-        [self.postALookViewController setImage:photo];
+    if (filteredPhoto) {
+        [self.postALookViewController setOriginalImage:originalPhoto filteredImage:filteredPhoto filterName:GTIOFilterTypeName[filterType]];
+    }
+    
+    if ([self.navigationController.viewControllers containsObject:self.postALookViewController]) {
+        // Pop filter view controller
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
         [self.navigationController pushViewController:self.postALookViewController animated:YES];
     }
 }
@@ -340,6 +347,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     [self.photoToolbarView enableAllButtons:YES];
     [self showFlashButton:!self.photoToolbarView.shutterButton.isPhotoShootMode];
     [self.sourcePopOverView removeFromSuperview];
+    [self.photoToolbarView.shutterButton setPhotoShootMode:NO];
 }
 
 #pragma mark - View Animations
@@ -579,7 +587,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 - (void)openPhotoConfirmationScreenWithPhoto:(UIImage *)photo
 {
     GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
-    [photoConfirmationViewController setPhoto:photo];
+    [photoConfirmationViewController setOriginalPhoto:photo];
     [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
 }
 

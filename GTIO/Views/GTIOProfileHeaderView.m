@@ -162,7 +162,7 @@
     [self.basicUserInfoView setUserInfoButtons:self.userProfile.userInfoButtons];
     if (self.userProfile.settingsButtons.count > 0) {
         [self.basicUserInfoView setEditButtonTapHandler:^(id sender) {
-            self.actionSheet = [[GTIOActionSheet alloc] initWithButtons:self.userProfile.settingsButtons];
+            self.actionSheet = [[GTIOActionSheet alloc] initWithButtons:self.userProfile.settingsButtons buttonTapHandler:nil];
             [self.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
                 actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
                     if (!actionSheet.wasCancelled) {

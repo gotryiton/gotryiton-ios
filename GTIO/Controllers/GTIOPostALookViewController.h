@@ -10,7 +10,7 @@
 #import "GTIOViewController.h"
 
 typedef enum GTIOPostPhotoSection {
-    GTIOPostPhotoSectionMain = 0,
+    GTIOPostPhotoSectionMain = 1,
     GTIOPostPhotoSectionTop,
     GTIOPostPhotoSectionBottom
 } GTIOPostPhotoSection;
@@ -19,6 +19,6 @@ typedef enum GTIOPostPhotoSection {
 
 @property (nonatomic, assign) GTIOPostPhotoSection currentSection;
 
-- (void)setImage:(UIImage *)image;
+- (void)setOriginalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName;
 
 @end

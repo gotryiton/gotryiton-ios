@@ -22,10 +22,13 @@
 @property (nonatomic, strong) GTIOTakePhotoView *bottomPhotoView;
 
 @property (nonatomic, copy) GTIOLaunchCameraHandler launchCameraHandler;
+@property (nonatomic, copy) GTIOAddFilterHandler addFilterHandler;
 
 - (id)initWithFrame:(CGRect)frame photoSet:(BOOL)photoSet launchCameraHandler:(GTIOLaunchCameraHandler)launchCameraHandler;
-- (void)hideDeleteButtons:(BOOL)hidden;
+- (void)hideEditPhotoButtons:(BOOL)hidden;
 - (BOOL)selectionsComplete;
 - (UIView *)compositeCanvas;
+
+- (void)reset;
 
 @end

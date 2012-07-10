@@ -77,10 +77,5 @@ typedef void(^GTIODismissHandler)(UIViewController *viewController);
 // JSON Param Serialization Helper
 id GTIOJSONParams(id obj);
 
-typedef enum GTIODeleteButtonPosition {
-    GTIODeleteButtonPositionLeft = 0,
-    GTIODeleteButtonPositionRight,
-} GTIODeleteButtonPosition;
-
 // Generic Completion Handler
 typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
