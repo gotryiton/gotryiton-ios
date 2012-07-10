@@ -24,12 +24,13 @@
 
 @synthesize photoSelectButton = _photoSelectButton, deleteButton = _deleteButton, canvas = _canvas, imageView = _imageView, lastScale = _lastScale, firstX = _firstX, firstY = _firstY, image = _image, deleteButtonPosition = _deleteButtonPosition;
 @synthesize launchCameraHandler = _launchCameraHandler;
+@synthesize photoSection = _photoSection;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.canvas = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.bounds.size }];
+        self.canvas = [[UIView alloc] initWithFrame:self.bounds];
         [self.canvas setClipsToBounds:YES];
         [self addSubview:self.canvas];
         
@@ -37,8 +38,6 @@
         [self.imageView setUserInteractionEnabled:YES];
         [self.imageView setClipsToBounds:YES];
         [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
-        
-        [self setClipsToBounds:NO];
         
         UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
         [panRecognizer setMinimumNumberOfTouches:1];
@@ -110,7 +109,7 @@
 - (void)getImageFromCamera:(id)sender
 {
     if (self.launchCameraHandler) {
-        self.launchCameraHandler();
+        self.launchCameraHandler(self.photoSection);
     }
 }
 

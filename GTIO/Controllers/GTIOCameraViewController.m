@@ -268,12 +268,6 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     self.captureVideoPreviewLayer = nil;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    NSLog(@"Warning on camera view");
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -325,7 +319,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     GTIOFilterType filterType = [[notification.userInfo objectForKey:@"filterType"] integerValue];
     
     if (photo) {
-        [self.postALookViewController setMainImage:photo];
+        [self.postALookViewController setImage:photo];
         [self.navigationController pushViewController:self.postALookViewController animated:YES];
     }
 }
@@ -345,6 +339,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     
     [self.photoToolbarView enableAllButtons:YES];
     [self showFlashButton:!self.photoToolbarView.shutterButton.isPhotoShootMode];
+    [self.sourcePopOverView removeFromSuperview];
 }
 
 #pragma mark - View Animations

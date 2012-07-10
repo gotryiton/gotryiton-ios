@@ -17,9 +17,9 @@
 
 @property (nonatomic, strong) GTIOTakePhotoView *singlePhotoView;
 
-@property (nonatomic, strong) GTIOTakePhotoView *tallLeftPhoto;
-@property (nonatomic, strong) GTIOTakePhotoView *tallRightPhoto;
-@property (nonatomic, strong) GTIOTakePhotoView *smallRightPhoto;
+@property (nonatomic, strong) GTIOTakePhotoView *mainPhotoView;
+@property (nonatomic, strong) GTIOTakePhotoView *topPhotoView;
+@property (nonatomic, strong) GTIOTakePhotoView *bottomPhotoView;
 
 @property (nonatomic, copy) GTIOLaunchCameraHandler launchCameraHandler;
 

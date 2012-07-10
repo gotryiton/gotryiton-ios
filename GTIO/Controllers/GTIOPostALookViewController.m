@@ -29,6 +29,10 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 @interface GTIOPostALookViewController() <UIGestureRecognizerDelegate>
 
+@property (nonatomic, strong) UIImage *mainImage;
+@property (nonatomic, strong) UIImage *topImage;
+@property (nonatomic, strong) UIImage *bottomImage;
+
 @property (nonatomic, strong) GTIOLookSelectorView *lookSelectorView;
 @property (nonatomic, strong) GTIOLookSelectorControl *lookSelectorControl;
 @property (nonatomic, strong) GTIOPostALookOptionsView *optionsView;
@@ -49,14 +53,17 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 @implementation GTIOPostALookViewController
 
 @synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer;
-@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage, photoForPosting = _photoForPosting;
+@synthesize mainImage = _mainImage, topImage = _topImage, bottomImage = _bottomImage, photoForPosting = _photoForPosting;
 @synthesize maskView = _maskView;
+@synthesize currentSection = _currentSection;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookSelectorViewUpdated:) name:kGTIOLooksUpdated object:nil];
+        
+        _currentSection = GTIOPostPhotoSectionMain;
     }
     return self;
 }
@@ -95,10 +102,20 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [self.scrollView setDelegate:self];
     [self.view addSubview:self.scrollView];
     
-    self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ 8, 8, 237, 312 } photoSet:NO launchCameraHandler:^{
+    UIImageView *backdropImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photo-frame-backdrop.png"]];
+    [backdropImageView setFrame:(CGRect){ { 8, 8 }, backdropImageView.image.size }];
+    [self.scrollView addSubview:backdropImageView];
+    
+    /** w = 678 (640), h = 898 (852) (size of image for composite)
+        17, 19, 29, 19 = insets for composite
+        245 , 324 = size of everythign scaled down
+        .361356932, .360801782 scale
+     */
+    self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ { 4, 5 }, { 245, 324 } } photoSet:NO launchCameraHandler:^(GTIOPostPhotoSection photoSection){
+        self.currentSection = photoSection;
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];
-    [self.lookSelectorView.singlePhotoView setImage:self.mainImage];
+    [self setImage:self.mainImage]; // Now that view is loaded refresh image
     [self.scrollView addSubview:self.lookSelectorView];
     
     self.lookSelectorControl = [[GTIOLookSelectorControl alloc] initWithFrame:(CGRect){ 253, 13, 60, 107 }];
@@ -239,6 +256,18 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 #pragma mark -
 
+- (void)reset
+{
+    self.currentSection = GTIOPostPhotoSectionMain;
+    
+    self.mainImage = nil;
+    self.topImage = nil;
+    self.bottomImage = nil;
+    
+    [self.descriptionBox.textView resetView];
+    [self.lookSelectorControl reset];
+}
+
 - (void)postThis:(id)sender
 {
     if ([[self.descriptionBox.textView processDescriptionString] length] == 0) {
@@ -301,27 +330,49 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 - (void)beginPostLookToGTIO
 {
     [[GTIOPostManager sharedManager] setPostPhotoButtonTouched:YES];
-    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] completionHandler:^(GTIOPost *post, NSError *error) {
-        if (!error) {
-            [self.descriptionBox.textView resetView];
-        }
+    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] completionHandler:nil];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        [self reset];
     }];
-    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)cancelPost
 {
     [[GTIOPostManager sharedManager] cancelUploadImage];
-    [self.descriptionBox.textView resetView];
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        [self reset];
+    }];
 }
 
 #pragma mark - Photo Handlers
 
+- (void)setImage:(UIImage *)image
+{
+    switch (self.currentSection) {
+        case GTIOPostPhotoSectionMain: self.mainImage = image; break;
+        case GTIOPostPhotoSectionTop: self.topImage = image; break;
+        case GTIOPostPhotoSectionBottom: self.bottomImage = image; break;
+        default: break;
+    }
+}
+
 - (void)setMainImage:(UIImage *)mainImage
 {
     _mainImage = mainImage;
-    self.lookSelectorView.singlePhotoView.image = _mainImage;
+    [self.lookSelectorView.mainPhotoView setImage:_mainImage];
+    [self.lookSelectorView.singlePhotoView setImage:_mainImage];
+}
+
+- (void)setTopImage:(UIImage *)topImage
+{
+    _topImage = topImage;
+    [self.lookSelectorView.topPhotoView setImage:_topImage];
+}
+
+- (void)setBottomImage:(UIImage *)bottomImage
+{
+    _bottomImage = bottomImage;
+    [self.lookSelectorView.bottomPhotoView setImage:_bottomImage];
 }
 
 #pragma mark - UINavigationBar

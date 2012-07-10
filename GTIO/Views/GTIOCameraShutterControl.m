@@ -74,15 +74,10 @@
         }];
         [self addSubview:_shutterButton];
         
-        [self updateButtons];
+        // Starting state
+        [self.buttonImageView setImage:[UIImage imageNamed:@"capture.normal.inactive.png"]];
     }
     return self;
-}
-
-- (void)updateButtons
-{
-    NSString *imageName = @"capture.normal.active.png";
-    [self.buttonImageView setImage:[UIImage imageNamed:imageName]];
 }
 
 #pragma mark - Properties

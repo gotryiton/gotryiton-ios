@@ -9,6 +9,14 @@
 #import "GTIOLookSelectorView.h"
 #import <QuartzCore/QuartzCore.h>
 
+static CGFloat const kGTIOTopPadding = 9.0f;
+static CGFloat const kGTIORightFrameXOrigin = 126.0f;
+static CGFloat const kGTIOFrameImageWidth = 109.0f;
+static CGFloat const kGTIOTopImageMaxHeight = 184.0f;
+static CGFloat const kGTIOMainImageMaxHeight = 300.0f;
+static CGFloat const kGTIOMainImageXOrigin = 10.0f;
+static CGFloat const kGTIOSingleImageWidth = 225.0f;
+
 @interface GTIOLookSelectorView()
 
 @property (nonatomic, strong) UIView *photoSetView;
@@ -17,7 +25,7 @@
 
 @implementation GTIOLookSelectorView
 
-@synthesize  photoSet = _photoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView, tallLeftPhoto = _tallLeftPhoto, tallRightPhoto = _tallRightPhoto, smallRightPhoto = _smallRightPhoto, photoCanvasSize = _photoCanvasSize;
+@synthesize  photoSet = _photoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView, mainPhotoView = _mainPhotoView, topPhotoView = _topPhotoView, bottomPhotoView = _bottomPhotoView, photoCanvasSize = _photoCanvasSize;
 @synthesize launchCameraHandler = _launchCameraHandler;
 
 - (id)initWithFrame:(CGRect)frame photoSet:(BOOL)photoSet launchCameraHandler:(GTIOLaunchCameraHandler)launchCameraHandler
@@ -27,37 +35,38 @@
         self.photoSet = photoSet;
         _launchCameraHandler = launchCameraHandler;
         
-        UIImageView *selfBackgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"border-bg.png"] stretchableImageWithLeftCapWidth:1.0 topCapHeight:1.0]];
-        [selfBackgroundImageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
-        [self addSubview:selfBackgroundImageView];
-        [self.layer setShadowColor:[UIColor grayColor].CGColor];
-        [self.layer setShadowOffset:(CGSize){ 0.1, 3.0 }];
-        [self.layer setShadowOpacity:0.20];
-        [self.layer setShadowRadius:2.0];
-        UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds];
-        [self.layer setShadowPath:path.CGPath]; // scroll performance
+        UIImageView *frameImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"photo-frame.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 14, 0, 135, 0 }]];
+        [frameImageView setFrame:self.bounds];
+        [self addSubview:frameImageView];
         
-        self.singlePhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 5, 5, self.bounds.size.width - 10, self.bounds.size.height - 10 }];
-        [self.singlePhotoView setLaunchCameraHandler:_launchCameraHandler];
-        self.photoCanvasSize = (CGSize){ self.singlePhotoView.frame.size.width, self.singlePhotoView.frame.size.height };
+        // Single Image
+        _singlePhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIOMainImageXOrigin, kGTIOTopPadding, kGTIOSingleImageWidth, kGTIOMainImageMaxHeight }];
+        [_singlePhotoView setPhotoSection:GTIOPostPhotoSectionMain];
+        [_singlePhotoView setLaunchCameraHandler:_launchCameraHandler];
         
-        self.photoSetView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.bounds.size.width, self.bounds.size.height }];
-        UIImage *backgroundImage = [UIImage imageNamed:@"photo-frame.png"];
-        UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
-        [backgroundImageView.layer setBorderColor:[UIColor gtio_photoBorderColor].CGColor];
-        [backgroundImageView.layer setBorderWidth:0.5];
-        [backgroundImageView setFrame:(CGRect){ 0, 0, self.photoSetView.bounds.size }];
-        [self.photoSetView addSubview:backgroundImageView];
-        self.tallLeftPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 6, 6, 109, 300 }];
-        [self.photoSetView addSubview:self.tallLeftPhoto];
-        self.tallRightPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 122, 6, 109, 184 }];
-        [self.tallRightPhoto setDeleteButtonPosition:GTIODeleteButtonPositionRight];
-        [self.photoSetView addSubview:self.tallRightPhoto];
-        self.smallRightPhoto = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ 122, 197, 109, 109 }];
-        [self.smallRightPhoto setDeleteButtonPosition:GTIODeleteButtonPositionRight];
-        [self.photoSetView addSubview:self.smallRightPhoto];
+        _photoCanvasSize = (CGSize){ self.singlePhotoView.frame.size.width, self.singlePhotoView.frame.size.height };
         
-        [self refreshView]; 
+        // Photo Set
+        _photoSetView = [[UIView alloc] initWithFrame:self.bounds];
+        
+        _mainPhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIOMainImageXOrigin, kGTIOTopPadding, kGTIOFrameImageWidth, kGTIOMainImageMaxHeight }];
+        [_mainPhotoView setPhotoSection:GTIOPostPhotoSectionMain];
+        [_mainPhotoView setLaunchCameraHandler:_launchCameraHandler];
+        [_photoSetView addSubview:self.mainPhotoView];
+        
+        _topPhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIORightFrameXOrigin, kGTIOTopPadding, kGTIOFrameImageWidth, kGTIOTopImageMaxHeight }];
+        [_topPhotoView setPhotoSection:GTIOPostPhotoSectionTop];
+        [_topPhotoView setLaunchCameraHandler:_launchCameraHandler];
+        [_topPhotoView setDeleteButtonPosition:GTIODeleteButtonPositionRight];
+        [_photoSetView addSubview:self.topPhotoView];
+        
+        _bottomPhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIORightFrameXOrigin, 200, kGTIOFrameImageWidth, kGTIOFrameImageWidth }];
+        [_bottomPhotoView setPhotoSection:GTIOPostPhotoSectionBottom];
+        [_bottomPhotoView setLaunchCameraHandler:_launchCameraHandler];
+        [_bottomPhotoView setDeleteButtonPosition:GTIODeleteButtonPositionRight];
+        [_photoSetView addSubview:self.bottomPhotoView];
+        
+        [self refreshView];
     }
     return self;
 }
@@ -65,9 +74,9 @@
 - (void)hideDeleteButtons:(BOOL)hidden
 {
     [self.singlePhotoView hideDeleteButton:hidden];
-    [self.tallLeftPhoto hideDeleteButton:hidden];
-    [self.tallRightPhoto hideDeleteButton:hidden];
-    [self.smallRightPhoto hideDeleteButton:hidden];
+    [self.mainPhotoView hideDeleteButton:hidden];
+    [self.topPhotoView hideDeleteButton:hidden];
+    [self.bottomPhotoView hideDeleteButton:hidden];
 }
 
 - (UIView *)compositeCanvas
@@ -89,7 +98,7 @@
 - (BOOL)selectionsComplete
 {
     if (self.photoSet) {
-        return (self.tallLeftPhoto.imageView.image && self.tallRightPhoto.imageView.image && self.smallRightPhoto.imageView.image);
+        return (self.mainPhotoView.imageView.image && self.topPhotoView.imageView.image && self.bottomPhotoView.imageView.image);
     } else {
         return (self.singlePhotoView.imageView.image != nil);
     }
@@ -101,14 +110,14 @@
     [self.photoSetView removeFromSuperview];
     
     if (self.photoSet) {
-        if (self.singlePhotoView.imageView.image && !self.tallLeftPhoto.imageView.image) {
-            [self.tallLeftPhoto setImage:self.singlePhotoView.imageView.image];
+        if (self.singlePhotoView.imageView.image && !self.mainPhotoView.imageView.image) {
+            [self.mainPhotoView setImage:self.singlePhotoView.imageView.image];
         }
         [self addSubview:self.photoSetView];
         [self bringSubviewToFront:self.photoSetView];
     } else {
-        if (!self.singlePhotoView.imageView.image && self.tallLeftPhoto.imageView.image) {
-            [self.singlePhotoView setImage:self.tallLeftPhoto.imageView.image];
+        if (!self.singlePhotoView.imageView.image && self.mainPhotoView.imageView.image) {
+            [self.singlePhotoView setImage:self.mainPhotoView.imageView.image];
         }
         [self addSubview:self.singlePhotoView];
         [self bringSubviewToFront:self.singlePhotoView];

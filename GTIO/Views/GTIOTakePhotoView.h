@@ -8,13 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^GTIOLaunchCameraHandler)();
+#import "GTIOPostALookViewController.h"
+
+typedef void(^GTIOLaunchCameraHandler)(GTIOPostPhotoSection photoSection);
 
 @interface GTIOTakePhotoView : UIView <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, assign) GTIODeleteButtonPosition deleteButtonPosition;
+
+@property (nonatomic, assign) GTIOPostPhotoSection photoSection;
 
 @property (nonatomic, copy) GTIOLaunchCameraHandler launchCameraHandler;
 
