@@ -13,5 +13,6 @@
 @interface GTIOMasonGridView : UIScrollView <GTIOMasonGridItemDelegate>
 
 - (void)setPosts:(NSArray *)posts postsType:(GTIOPostType)postsType;
+- (void)cancelAllItemDownloads;
 
 @end

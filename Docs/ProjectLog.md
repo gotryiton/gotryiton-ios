@@ -1,3 +1,32 @@
+***Tuesday, July 10th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Release build EOB
+- GTIO / TT - Update schedule or remaining screens. Update 4.8/10.5 priority based on changes
+
+**Status**
+- Complete 3.4 by EOB, possibly 3.3
+- Scott working on Multiframe / Action Sheet / Filter
+- Remaining work on post
+ - resizing
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- 4.8 / 10.5 - Changing forthcoming.  Trying to consolidate screens / effort
+ - Remove masonry grid
+ 
+---
+
 ***Monday, July 9th - Standup Notes***
 
 **Attendees**

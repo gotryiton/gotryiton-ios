@@ -166,8 +166,8 @@
             [self.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
                 actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
                     if (!actionSheet.wasCancelled) {
-                        if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
-                            [self.delegate refreshUserProfile];
+                        if ([self.delegate respondsToSelector:@selector(refreshUserProfileRefreshPostsOnly:)]) {
+                            [self.delegate refreshUserProfileRefreshPostsOnly:NO];
                         }
                     }
                 };

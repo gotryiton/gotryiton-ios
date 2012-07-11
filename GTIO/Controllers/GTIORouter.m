@@ -12,6 +12,8 @@
 #import "GTIOProfileViewController.h"
 #import "GTIOFriendsViewController.h"
 #import "GTIOMyHeartsViewController.h"
+#import "GTIOMyPostsViewController.h"
+#import "GTIOReviewsViewController.h"
 
 static NSString * const kGTIOURLScheme = @"gtio";
 
@@ -27,9 +29,14 @@ static NSString * const kGTIOURLHostSuggestedFriends = @"suggested-friends";
 static NSString * const kGTIOURLHostInviteFriends = @"invite-friends";
 static NSString * const kGTIOURLHostSearchFriends = @"search-friends";
 static NSString * const kGTIOURLHostMyHearts = @"my-hearts";
+static NSString * const kGTIOURLHostMyPosts = @"my-posts";
+static NSString * const kGTIOURLHostPosts = @"posts";
+static NSString * const kGTIOURLHostPostedBy = @"posted-by";
+static NSString * const kGTIOURLHostReviewsForPost = @"reviews-for-post";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
+static NSString * const kGTIOURLSubPathStarsByUser = @"stars-by-user";
 static NSString * const kGTIOURLSubPathStars = @"stars";
 
 @implementation GTIORouter
@@ -83,7 +90,7 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
                 [((GTIOFriendsViewController *)viewController) setUserID:[pathComponents objectAtIndex:1]];
             }
             if ([[pathComponents objectAtIndex:2] isEqualToString:kGTIOURLSubPathStars]) {
-                // Stars view controller
+                viewController = [[GTIOMyPostsViewController alloc] initWithGTIOPostType:GTIOPostTypeStar forUserID:[pathComponents objectAtIndex:1]];
             }
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostMyFollowers]) {
@@ -104,6 +111,20 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
         [((GTIOFriendsViewController *)viewController) setUserID:[GTIOUser currentUser].userID];
     } else if ([urlHost isEqualToString:kGTIOURLHostMyHearts]) {
         viewController = [[GTIOMyHeartsViewController alloc] initWithNibName:nil bundle:nil];
+    } else if ([urlHost isEqualToString:kGTIOURLHostMyPosts]) {
+        viewController = [[GTIOMyPostsViewController alloc] initWithGTIOPostType:GTIOPostTypeNone forUserID:nil];
+    } else if ([urlHost isEqualToString:kGTIOURLHostMyStars]) {
+        viewController = [[GTIOMyPostsViewController alloc] initWithGTIOPostType:GTIOPostTypeStar forUserID:nil];
+    } else if ([urlHost isEqualToString:kGTIOURLHostPosts]) {
+        if ([pathComponents count] >= 3) {
+            if ([[pathComponents objectAtIndex:1] isEqualToString:kGTIOURLSubPathStarsByUser]) {
+                viewController = [[GTIOMyPostsViewController alloc] initWithGTIOPostType:GTIOPostTypeStar forUserID:[pathComponents objectAtIndex:2]];
+            }
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostReviewsForPost]) {
+        if ([pathComponents count] >= 2) {
+            viewController = [[GTIOReviewsViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
+        }
     }
     
     return viewController;

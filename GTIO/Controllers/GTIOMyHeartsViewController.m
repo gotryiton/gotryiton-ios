@@ -15,17 +15,20 @@
 
 @property (nonatomic, strong) GTIODualViewSegmentedControlView *segmentedControl;
 
+@property (nonatomic, strong) NSMutableArray *posts;
+@property (nonatomic, strong) NSMutableArray *products;
+
 @end
 
 @implementation GTIOMyHeartsViewController
 
-@synthesize segmentedControl = _segmentedControl;
+@synthesize segmentedControl = _segmentedControl, posts = _posts, products = _products;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.hidesBottomBarWhenPushed = YES;
     }
     return self;
 }
@@ -46,14 +49,27 @@
     }];
     [self setLeftNavigationButton:backButton];
     
-    self.segmentedControl = [[GTIODualViewSegmentedControlView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 30 } leftControlTitle:@"posts" leftControlPostsType:GTIOPostTypeHeart rightControlTitle:@"products" rightControlPostsType:GTIOPostTypeHeartedProducts];
+    self.segmentedControl = [[GTIODualViewSegmentedControlView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } leftControlTitle:@"posts" leftControlPostsType:GTIOPostTypeHeart rightControlTitle:@"products" rightControlPostsType:GTIOPostTypeHeartedProducts];
     [self.view addSubview:self.segmentedControl];
     
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/hearts" usingBlock:^(RKObjectLoader *loader) {
+    self.posts = [NSMutableArray array];
+    self.products = [NSMutableArray array];
+    
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/posts/hearted-by-user/%@", [GTIOUser currentUser].userID] usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             for (id object in loadedObjects) {
-                // set posts for segmented control
+                if ([object isMemberOfClass:[GTIOPost class]]) {
+                    [self.posts addObject:object];
+                }
             }
+            [self.segmentedControl setPosts:self.posts GTIOPostType:GTIOPostTypeHeart user:[GTIOUser currentUser]];
+            [self.segmentedControl setPosts:self.products GTIOPostType:GTIOPostTypeHeartedProducts user:[GTIOUser currentUser]];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            NSLog(@"%@", [error localizedDescription]);
         };
     }];
 }

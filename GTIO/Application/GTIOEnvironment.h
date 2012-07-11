@@ -69,6 +69,9 @@ extern NSString * const kGTIOPostDotOptionButton;
 extern NSString * const kGTIOSuggestedFriendsButtonName;
 extern NSString * const kGTIOInviteFriendsButtonName;
 extern NSString * const kGTIOFindFriendsButtonName;
+extern NSString * const kGTIOReviewAgreeButton;
+extern NSString * const kGTIOReviewFlagButton;
+extern NSString * const kGTIOReviewRemoveButton;
 
 /** Dismiss handler
  */

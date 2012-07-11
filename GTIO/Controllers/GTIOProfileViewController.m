@@ -14,7 +14,6 @@
 #import "GTIOFollowRequestAcceptBar.h"
 #import "GTIOPostMasonryView.h"
 #import "GTIODualViewSegmentedControlView.h"
-#import "GTIOPullToRefreshContentView.h"
 
 @interface GTIOProfileViewController ()
 
@@ -24,13 +23,12 @@
 @property (nonatomic, strong) GTIOProfileHeaderView *profileHeaderView;
 @property (nonatomic, strong) GTIOUserProfile *userProfile;
 @property (nonatomic, strong) GTIODualViewSegmentedControlView *postsHeartsWithSegmentedControlView;
-@property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
 
 @end
 
 @implementation GTIOProfileViewController
 
-@synthesize followButton = _followButton, followingButton = _followingButton, requestedButton = _requestedButton, profileHeaderView = _profileHeaderView, userID = _userID, userProfile = _userProfile, postsHeartsWithSegmentedControlView = _postsHeartsWithSegmentedControlView, pullToRefreshView = _pullToRefreshView;
+@synthesize followButton = _followButton, followingButton = _followingButton, requestedButton = _requestedButton, profileHeaderView = _profileHeaderView, userID = _userID, userProfile = _userProfile, postsHeartsWithSegmentedControlView = _postsHeartsWithSegmentedControlView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,6 +48,8 @@
     
     GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+        [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView cancelAllItemDownloads];
+        [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView cancelAllItemDownloads];
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self setLeftNavigationButton:backButton];
@@ -71,9 +71,6 @@
                                                 rightControlTitle:@"hearts" 
                                                 rightControlPostsType:GTIOPostTypeHeart];
     [self.view addSubview:self.postsHeartsWithSegmentedControlView];
-    
-    self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView delegate:self];
-    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
 }
 
 - (void)viewDidUnload
@@ -85,7 +82,6 @@
     self.requestedButton = nil;
     self.profileHeaderView = nil;
     self.postsHeartsWithSegmentedControlView = nil;
-    self.pullToRefreshView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -99,22 +95,15 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
-{
-    [self refreshUserProfileRefreshPostsOnly:YES];
-}
-
 - (void)refreshUserProfileRefreshPostsOnly:(BOOL)refreshPostsOnly
 {
-    [self.pullToRefreshView startLoading];
     if (!refreshPostsOnly) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-        [self screenEnabled:NO];
     }
+    [self screenEnabled:NO];
     [[GTIOUser currentUser] loadUserProfileWithUserID:self.userID completionHandler:^(NSArray *loadedObjects, NSError *error) {
         [self screenEnabled:YES];
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-        [self.pullToRefreshView finishLoading];
         if (!error) {
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOUserProfile class]]) {
@@ -131,7 +120,6 @@
                         [self.postsHeartsWithSegmentedControlView setPosts:self.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone user:self.userProfile.user];
                         [self.postsHeartsWithSegmentedControlView setPosts:self.userProfile.heartsList.posts GTIOPostType:GTIOPostTypeHeart user:self.userProfile.user];
                     }
-
                 }
             }
         } else {

@@ -12,7 +12,7 @@
 @implementation GTIOPost
 
 @synthesize postID = _postID, user = _user, postDescription = _postDescription, photo = _photo, createdAt = _createdAt, createdWhen = _createdWhen, stared = _stared, whoHearted = _whoHearted;
-@synthesize dotOptionsButtons = _dotOptionsButtons, buttons = _buttons, brandsButtons = _brandsButtons, pagination = _pagination;
+@synthesize dotOptionsButtons = _dotOptionsButtons, buttons = _buttons, brandsButtons = _brandsButtons, pagination = _pagination, reviewsButtonTapHandler = _reviewsButtonTapHandler;
 
 + (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description completionHandler:(GTIOPostCompletionHandler)completionHandler
 {

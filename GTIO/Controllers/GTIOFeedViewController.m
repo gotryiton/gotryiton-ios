@@ -24,6 +24,10 @@
 #import "GTIOFeedNavigationBarView.h"
 #import "GTIOFriendsViewController.h"
 
+#import "GTIOPullToRefreshContentView.h"
+
+#import "GTIOReviewsViewController.h"
+
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -42,6 +46,9 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @property (nonatomic, strong) NSMutableSet *offScreenHeaderViews;
 @property (nonatomic, strong) NSMutableDictionary *onScreenHeaderViews;
 
+@property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
+@property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
+
 @end
 
 @implementation GTIOFeedViewController
@@ -49,7 +56,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @synthesize tableView = _tableView, navBarView = _navBarView;
 @synthesize addNavToHeaderOffsetXOrigin = _addNavToHeaderOffsetXOrigin, removeNavToHeaderOffsetXOrigin = _removeNavToHeaderOffsetXOrigin;
 @synthesize posts = _posts, pagination = _pagination;
-@synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews;
+@synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshContentView = _pullToRefreshContentView, pullToRefreshView = _pullToRefreshView;
 @synthesize uploadView = _uploadView, postUpload = _postUpload;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -112,10 +119,11 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [self.tableView setAllowsSelection:NO];
     [self.tableView setTableHeaderView:self.navBarView];
     [self.view addSubview:self.tableView];
+    
+    self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.tableView delegate:self];
+    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
 
     self.uploadView = [[GTIOPostUploadView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight } }];
-    
-    [self loadFeed];
 }
 
 - (void)viewDidUnload
@@ -129,11 +137,19 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [self.pullToRefreshView startLoading];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
+{
+    [self loadFeed];
 }
 
 #pragma mark - Load Data
@@ -142,12 +158,25 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 {
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/posts/feed" usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
-        loader.onDidLoadObjects = ^(NSArray *objects) {            
+        loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];
             
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOPost class]])
                 {
+                    GTIOPost *post = (GTIOPost *)object;
+                    post.reviewsButtonTapHandler = ^(id sender) {
+                        UIViewController *reviewsViewController;
+                        for (id object in post.buttons) {
+                            if ([object isMemberOfClass:[GTIOButton class]]) {
+                                GTIOButton *button = (GTIOButton *)object;
+                                if ([button.name isEqualToString:kGTIOPostSideReviewsButton]) {
+                                    reviewsViewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+                                }
+                            }
+                        }
+                        [self.navigationController pushViewController:reviewsViewController animated:YES];
+                    };
                     [self.posts addObject:object];
                 } else if ([object isKindOfClass:[GTIOPagination class]]) {
                     self.pagination = object;
@@ -156,8 +185,10 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
             
             [self.tableView reloadData];
             [self headerSectionViewsStyling];
+            [self.pullToRefreshView finishLoading];
         };
         loader.onDidFailWithError = ^(NSError *error) {
+            [self.pullToRefreshView finishLoading];
             NSLog(@"Error: %@", [error localizedDescription]);
         };
     }];

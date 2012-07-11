@@ -36,9 +36,7 @@ static double const kGTIOHorizontalSpacing = 12.0;
 }
 
 - (void)didFinishLoadingGridItem:(GTIOMasonGridItem *)gridItem
-{
-    [GTIOProgressHUD hideHUDForView:self animated:YES];
-    
+{    
     double widthRatio = kGTIOImageWidth / gridItem.image.size.width;
     gridItem.image = [gridItem.image imageScaledToSize:(CGSize){ kGTIOImageWidth, gridItem.image.size.height * widthRatio }];
     
@@ -82,12 +80,8 @@ static double const kGTIOHorizontalSpacing = 12.0;
 
 - (void)setPosts:(NSArray *)posts postsType:(GTIOPostType)postsType
 {
-    [GTIOProgressHUD showHUDAddedTo:self animated:YES];
-    
     // cancel any image downloads, reset items array
-    for (GTIOMasonGridItem *item in self.items) {
-        [item cancelImageDownload];
-    }
+    [self cancelAllItemDownloads];
     self.items = [NSMutableArray array];
     
     // clear the view
@@ -111,6 +105,13 @@ static double const kGTIOHorizontalSpacing = 12.0;
         item.URL = post.photo.smallThumbnailURL;
         [item downloadImage];
         [self.items addObject:item];
+    }
+}
+
+- (void)cancelAllItemDownloads
+{
+    for (GTIOMasonGridItem *item in self.items) {
+        [item cancelImageDownload];
     }
 }
 

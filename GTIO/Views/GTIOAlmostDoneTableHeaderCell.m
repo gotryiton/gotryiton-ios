@@ -36,12 +36,12 @@
         
         _profilePicture = [[UIImageView alloc] initWithFrame:(CGRect){ 26, 17, 55, 55 }];
         [_profilePicture setBackgroundColor:[UIColor clearColor]];
-        [_profilePicture.layer setBorderColor:[UIColor gtio_profilePictureBorderColor].CGColor];
-        [_profilePicture.layer setBorderWidth:2.0f];
-        [_profilePicture.layer setCornerRadius:5.0f];
         [_profilePicture.layer setOpaque:YES];
-        [_profilePicture.layer setMasksToBounds:YES];
         [self addSubview:_profilePicture];
+        
+        UIImageView *overlay = [[UIImageView alloc] initWithFrame:(CGRect){ 23, 14, 60, 60 }];
+        [overlay setImage:[UIImage imageNamed:@"icon-mask-110.png"]];
+        [self addSubview:overlay];
         
         UILabel *editProfilePictureTitle = [[UILabel alloc] initWithFrame:CGRectZero];
         [editProfilePictureTitle setText:@"edit profile picture?"];
