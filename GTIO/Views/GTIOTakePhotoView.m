@@ -55,20 +55,6 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
         [self.scrollView setBackgroundColor:[UIColor whiteColor]];
         [self addSubview:self.scrollView];
         
-//        self.canvas = [[UIView alloc] initWithFrame:self.bounds];
-//        [self.canvas setClipsToBounds:YES];
-//        [self addSubview:self.canvas];
-        
-//        UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
-//        [panRecognizer setMinimumNumberOfTouches:1];
-//        [panRecognizer setMaximumNumberOfTouches:1];
-//        [panRecognizer setDelegate:self];
-//        [self.canvas addGestureRecognizer:panRecognizer];
-//        
-//        UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
-//        [pinchRecognizer setDelegate:self];
-//        [self.canvas addGestureRecognizer:pinchRecognizer];
-        
         self.photoSelectButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoSelectBox];
         [self.photoSelectButton setFrame:(CGRect){ 0, 0, self.bounds.size }];
         [self.photoSelectButton addTarget:self action:@selector(getImageFromCamera:) forControlEvents:UIControlEventTouchUpInside];
@@ -106,8 +92,8 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
 {
     _filteredImage = filteredImage;
     if (_filteredImage) {
+        NSLog(@"Section: %i", self.photoSection);
         [self.photoSelectButton removeFromSuperview];
-        [self.scrollView setContentSize:_filteredImage.size];
         
         // Have to create new UIImageView each time image gets set because on swap
         // the frame size was getting huge and couldn't figure out why
@@ -119,27 +105,8 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
         [self.imageView setAlpha:0.0];
         [self.scrollView addSubview:self.imageView];
         
-//        NSLog(@"Image View Frame: %@", NSStringFromCGRect(self.imageView.frame));
-//        NSLog(@"Scroll View Content Size: %@", NSStringFromCGSize(self.scrollView.contentSize));
-        
-        CGFloat minZoomScale = 1.0f;
-        if (_filteredImage.size.width < _filteredImage.size.height) {
-            minZoomScale = self.scrollView.bounds.size.width / _filteredImage.size.width;
-            if (_filteredImage.size.height * minZoomScale < self.scrollView.bounds.size.height) {
-                minZoomScale = self.scrollView.bounds.size.height / _filteredImage.size.height;
-            }
-        } else {
-            minZoomScale = self.scrollView.bounds.size.height / _filteredImage.size.height;
-            if (_filteredImage.size.width * minZoomScale < self.scrollView.bounds.size.width) {
-                minZoomScale = self.scrollView.bounds.size.width / _filteredImage.size.width;
-            }
-        }
-        
-        [self.scrollView setMinimumZoomScale:minZoomScale];
-        [self.scrollView setMaximumZoomScale:minZoomScale * 2];
-        [self.scrollView setZoomScale:self.scrollView.minimumZoomScale];
-        [self.imageView setFrame:[self centeredFrameForScrollView:self.scrollView view:self.imageView]];
-        
+        [self zoom];
+                
         [UIView animateWithDuration:0.25 animations:^{
             [self.imageView setAlpha:1.0];
         }];
@@ -321,24 +288,78 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
 {
     [super setFrame:frame];
     
-    if (self.imageView.image.size.height >= frame.size.height &&
+    NSLog(@"Section :::: %i :::: %@ :::: %@", self.photoSection, NSStringFromCGRect(frame), NSStringFromCGSize(self.filteredImage.size));
+    if (self.photoSection == GTIOPostPhotoSectionMain) {
+        NSLog(@"Image size: %@", NSStringFromCGSize(self.filteredImage.size));
+        NSLog(@"Image View Frame: %@", NSStringFromCGRect(self.imageView.frame));
+    }
+    NSLog(@"Scaled image height: %f, frame height: %f", self.filteredImage.size.height * self.scrollView.zoomScale, frame.size.height);
+    
+    if (self.filteredImage.size.height >= frame.size.height &&
         GTIOPostPhotoSectionTop != self.photoSection) {
-        
+        NSLog(@"if");
         // This doesn't move or change the image while it is resizing
         CGRect imageViewBounds = self.imageView.bounds;
         imageViewBounds.size = frame.size;
-    } else if (GTIOPostPhotoSectionTop == self.photoSection &&
-               self.imageView.image.size.height <= frame.size.height) {
+    } else if ((GTIOPostPhotoSectionTop == self.photoSection || GTIOPostPhotoSectionMain == self.photoSection) &&
+               self.filteredImage.size.height  <= frame.size.height) {
+        NSLog(@"Else if");
+        // This zooms the imageView as it moves
+
+        NSLog(@"Image View Frame: %@", NSStringFromCGRect(self.imageView.frame));
+        [self.imageView setFrame:(CGRect){ CGPointZero, { self.imageView.frame.size.width, self.bounds.size.height } }];
+        NSLog(@"Image View Frame: %@", NSStringFromCGRect(self.imageView.frame));
         
-        // This doesn't move or change the image while it is resizing
-        CGRect imageViewBounds = self.imageView.bounds;
-        imageViewBounds.size = frame.size;
+        [self.scrollView setFrame:self.bounds];
+        [self.photoSelectButton setFrame:self.bounds];
+        
+        if (self.filteredImage) {
+            [self zoom];
+        }
+        return;
     } else {
+        NSLog(@"Else");
         [self.imageView setFrame:self.bounds];
     }
     
+//    NSLog(@"frame: %@", NSStringFromCGRect(frame));
     [self.scrollView setFrame:self.bounds];
     [self.photoSelectButton setFrame:self.bounds];
+    
+//    NSLog(@"Image View Frame: %@", NSStringFromCGRect(self.imageView.frame));
+//    NSLog(@"Scroll View Content Size: %@", NSStringFromCGSize(self.scrollView.contentSize));
+//    NSLog(@"Scroll View Frame: %@", NSStringFromCGRect(self.scrollView.frame));
+}
+
+- (void)zoom
+{
+//    NSLog(@"--Image View Frame: %@", NSStringFromCGRect(self.imageView.frame));
+//    NSLog(@"--Scroll View Content Size: %@", NSStringFromCGSize(self.scrollView.contentSize));
+//    NSLog(@"--Scroll View Frame: %@", NSStringFromCGRect(self.scrollView.frame));
+    CGFloat minZoomScale = 1.0f;
+    if (_filteredImage.size.width < _filteredImage.size.height) {
+        minZoomScale = self.scrollView.bounds.size.width / _filteredImage.size.width;
+        if (_filteredImage.size.height * minZoomScale < self.scrollView.bounds.size.height) {
+            minZoomScale = self.scrollView.bounds.size.height / _filteredImage.size.height;
+        }
+    } else {
+        minZoomScale = self.scrollView.bounds.size.height / _filteredImage.size.height;
+        if (_filteredImage.size.width * minZoomScale < self.scrollView.bounds.size.width) {
+            minZoomScale = self.scrollView.bounds.size.width / _filteredImage.size.width;
+        }
+    }
+    
+//    NSLog(@"--Image View Frame: %@", NSStringFromCGRect(self.imageView.frame));
+//    NSLog(@"--Scroll View Content Size: %@", NSStringFromCGSize(self.scrollView.contentSize));
+//    NSLog(@"--Scroll View Frame: %@", NSStringFromCGRect(self.scrollView.frame));
+    
+    [self.scrollView setMinimumZoomScale:minZoomScale];
+    [self.scrollView setMaximumZoomScale:minZoomScale * 2];
+    [self.scrollView setZoomScale:self.scrollView.minimumZoomScale];
+//    [self.imageView setFrame:[self centeredFrameForScrollView:self.scrollView view:self.imageView]];
+    
+//    NSLog(@"--Image View Frame: %@", NSStringFromCGRect(self.imageView.frame));
+//    NSLog(@"--Scroll View Content Size: %@", NSStringFromCGSize(self.scrollView.contentSize));
 }
 
 @end
