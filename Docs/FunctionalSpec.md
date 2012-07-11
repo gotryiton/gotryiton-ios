@@ -3818,13 +3818,27 @@ POST /photo/create
 
 documented in [Photo API](ApiPhotos.md)
 
-request:
+request:   
+(no frames with one filter)
 
 ```json
 {
    "photo" : {
       "image" : "<image data>",
       "using_filter" : "FilterName",
+      "using_frame" : false
+   }
+}
+```
+or   
+(frames with two filters)
+
+```json
+{
+   "photo" : {
+      "image" : "<image data>",
+      "using_filter_in_frame_0" : "FilterName",
+      "using_filter_in_frame_2" : "OtherFilterName",
       "using_frame" : true
    }
 }
