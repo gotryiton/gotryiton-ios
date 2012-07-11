@@ -12,6 +12,8 @@
 #import "GTIOPostHeaderView.h"
 #import "GTIOPopOverView.h"
 
+#import "GTIOReviewsViewController.h"
+
 static CGFloat const kGTIOTopButtonPadding = 4.0f;
 static CGFloat const kGTIOButtonOriginX = 0.75f;
 
@@ -85,9 +87,9 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
     if (self.reviewButtonModel) {
         [self.reviewButton setFrame:(CGRect){ { kGTIOButtonOriginX, topButtonOriginY }, self.reviewButton.frame.size }];
         [self.reviewButton setTitle:[NSString stringWithFormat:@"%@", [self.reviewButtonModel.count intValue] > 0 ? self.reviewButtonModel.count : @""] forState:UIControlStateNormal];
-        [self.reviewButton setTapHandler:^(id sender){
-            NSLog(@"Review button tapped");
-        }];
+        if (self.post.reviewsButtonTapHandler) {
+            [self.reviewButton setTapHandler:self.post.reviewsButtonTapHandler];
+        }
         topButtonOriginY += self.reviewButton.frame.size.height;
         [self.reviewButton setHidden:NO];
     } else {

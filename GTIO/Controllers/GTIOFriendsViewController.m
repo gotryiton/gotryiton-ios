@@ -19,6 +19,7 @@
 #import "GTIOFriendsManagementScreen.h"
 #import "GTIOFollowingScreen.h"
 #import "GTIOFollowersScreen.h"
+#import "GTIOFindMyFriendsScreen.h"
 
 @interface GTIOFriendsViewController ()
 
@@ -462,6 +463,21 @@
                         }
                     }
                     self.subTitleText = friendsManagementScreen.searchBox.text;
+                }
+                if ([object isMemberOfClass:[GTIOFindMyFriendsScreen class]]) {
+                    GTIOFindMyFriendsScreen *findMyFriendsScreen = (GTIOFindMyFriendsScreen *)object;
+                    for (id object in findMyFriendsScreen.buttons) {
+                        GTIOButton *button = (GTIOButton *)object;
+                        for (GTIOSuggestedFriendsIcon *icon in button.icons) {
+                            GTIOUser *userWithOnlyAProfilePicture = [[GTIOUser alloc] init];
+                            userWithOnlyAProfilePicture.icon = [NSURL URLWithString:icon.iconPath];
+                            [self.suggestedFriends addObject:userWithOnlyAProfilePicture];
+                        }
+                        if ([button.name isEqualToString:kGTIOSuggestedFriendsButtonName]) {
+                            self.friendsTableHeaderView.suggestedFriendsURL = button.action.destination;
+                        }
+                    }
+                    self.subTitleText = findMyFriendsScreen.searchBox.text;
                 }
                 if ([object isMemberOfClass:[GTIOFollowingScreen class]]) {
                     GTIOFollowingScreen *followingScreen = (GTIOFollowingScreen *)object;
