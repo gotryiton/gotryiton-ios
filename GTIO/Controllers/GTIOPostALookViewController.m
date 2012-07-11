@@ -114,7 +114,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         245 , 324 = size of everythign scaled down
         .361356932, .360801782 scale
      */
-    self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ { 4, 5 }, { 245, 324 } } photoSet:NO launchCameraHandler:^(GTIOPostPhotoSection photoSection){
+    self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ { 4, 5 }, { 245, 0 } } photoSet:NO launchCameraHandler:^(GTIOPostPhotoSection photoSection){
         self.currentSection = photoSection;
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];
@@ -363,6 +363,13 @@ static NSInteger const kGTIOMaskingViewTag = 100;
             self.mainFilteredImage = filteredImage;
             [self updateTakePhotoView:self.lookSelectorView.mainPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
             [self updateTakePhotoView:self.lookSelectorView.singlePhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            
+            CGFloat height = kGTIOLookSelectorViewMaxHeight;
+            if (self.mainFilteredImage.size.height < kGTIOLookSelectorViewMaxHeight) {
+                height = kGTIOLookSelectorViewMinHeight;
+            }
+            [self.lookSelectorView setFrame:(CGRect){ self.lookSelectorView.frame.origin, { self.lookSelectorView.frame.size.width, height } }];
+            
             break;
         case GTIOPostPhotoSectionTop: 
             [self updateTakePhotoView:self.lookSelectorView.topPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];

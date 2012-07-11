@@ -53,7 +53,7 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.imageView setUserInteractionEnabled:YES];
         [self.imageView setClipsToBounds:YES];
-        [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
+        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
         
         UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
         [panRecognizer setMinimumNumberOfTouches:1];
@@ -317,6 +317,24 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
 {
     _originalImage = originalImage;
     [self setupActionSheet];
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    
+    if (self.imageView.image.size.height >= frame.size.height &&
+        GTIOPostPhotoSectionTop != self.photoSection) {
+        // This doesn't move or change the image while it is resizing
+        CGRect bounds = self.imageView.bounds;
+        bounds.size = frame.size;
+        
+    } else {
+        [self.imageView setFrame:self.bounds];
+    }
+    
+    [self.canvas setFrame:self.bounds];
+    [self.photoSelectButton setFrame:self.bounds];
 }
 
 @end
