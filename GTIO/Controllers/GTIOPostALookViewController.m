@@ -363,6 +363,13 @@ static NSInteger const kGTIOMaskingViewTag = 100;
             self.mainFilteredImage = filteredImage;
             [self updateTakePhotoView:self.lookSelectorView.mainPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
             [self updateTakePhotoView:self.lookSelectorView.singlePhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            
+            CGFloat height = kGTIOLookSelectorViewMaxHeight;
+            if (self.mainFilteredImage.size.height < kGTIOLookSelectorViewMaxHeight) {
+                height = kGTIOLookSelectorViewMinHeight;
+            }
+            [self.lookSelectorView setFrame:(CGRect){ self.lookSelectorView.frame.origin, { self.lookSelectorView.frame.size.width, height } }];
+            
             break;
         case GTIOPostPhotoSectionTop: 
             [self updateTakePhotoView:self.lookSelectorView.topPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];

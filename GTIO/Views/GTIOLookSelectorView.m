@@ -17,8 +17,6 @@ static CGFloat const kGTIOTopImageMaxHeight = 184.0f;
 static CGFloat const kGTIOMainImageMaxHeight = 300.0f;
 static CGFloat const kGTIOMainImageXOrigin = 10.0f;
 static CGFloat const kGTIOSingleImageWidth = 225.0f;
-static CGFloat const kGTIOMinHeight = 249.0f;
-static CGFloat const kGTIOMaxHeight = 324.0f;
 
 @interface GTIOLookSelectorView()
 
@@ -43,7 +41,7 @@ static CGFloat const kGTIOMaxHeight = 324.0f;
         self.photoSet = photoSet;
         _launchCameraHandler = launchCameraHandler;
         
-        [self setFrame:(CGRect){ self.frame.origin, { self.frame.size.width, kGTIOMaxHeight } }];
+        [self setFrame:(CGRect){ self.frame.origin, { self.frame.size.width, kGTIOLookSelectorViewMaxHeight } }];
         
         _frameImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"photo-frame.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 14, 0, 135, 0 }]];
         [_frameImageView setFrame:self.bounds];
@@ -125,6 +123,7 @@ static CGFloat const kGTIOMaxHeight = 324.0f;
     [self.mainPhotoView reset];
     [self.topPhotoView reset];
     [self.bottomPhotoView reset];
+    [self setFrame:(CGRect){ self.frame.origin, { self.frame.size.width, kGTIOLookSelectorViewMaxHeight } }];
 }
 
 - (void)hideEditPhotoButtons:(BOOL)hidden
@@ -227,13 +226,11 @@ static CGFloat const kGTIOMaxHeight = 324.0f;
     CGPoint translation = [gesture translationInView:view];
     
     CGFloat height = view.frame.size.height + translation.y;
-    if (height > kGTIOMaxHeight) {
-        height = kGTIOMaxHeight;
-    } else if (height < kGTIOMinHeight) {
-        height = kGTIOMinHeight;
+    if (height > kGTIOLookSelectorViewMaxHeight) {
+        height = kGTIOLookSelectorViewMaxHeight;
+    } else if (height < kGTIOLookSelectorViewMinHeight) {
+        height = kGTIOLookSelectorViewMinHeight;
     }
-    
-    NSLog(@"Height: %f", height);
     
     [view setFrame:(CGRect){ view.frame.origin, { view.frame.size.width, height } }];
     [gesture setTranslation:CGPointMake(0, 0) inView:view];

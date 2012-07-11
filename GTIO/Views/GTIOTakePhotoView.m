@@ -323,9 +323,16 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
 {
     [super setFrame:frame];
     
-    [self.imageView setContentMode:UIViewContentModeCenter];
-    [self.imageView setFrame:self.bounds];
-    [self.imageView set
+    if (self.imageView.image.size.height >= frame.size.height &&
+        GTIOPostPhotoSectionTop != self.photoSection) {
+        // This doesn't move or change the image while it is resizing
+        CGRect bounds = self.imageView.bounds;
+        bounds.size = frame.size;
+        
+    } else {
+        [self.imageView setFrame:self.bounds];
+    }
+    
     [self.canvas setFrame:self.bounds];
     [self.photoSelectButton setFrame:self.bounds];
 }

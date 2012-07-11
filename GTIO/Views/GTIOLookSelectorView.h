@@ -10,6 +10,9 @@
 
 #import "GTIOTakePhotoView.h"
 
+static CGFloat const kGTIOLookSelectorViewMinHeight = 249.0f;
+static CGFloat const kGTIOLookSelectorViewMaxHeight = 324.0f;
+
 @interface GTIOLookSelectorView : UIView <GTIOLookSelectorControlDelegate>
 
 @property (nonatomic, assign) CGSize photoCanvasSize;
