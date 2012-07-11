@@ -60,7 +60,7 @@
     self.leftNavigationButton = backButton;
     
     self.tableViewHeader = [[GTIOReviewsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 87 }];
-    self.tableViewHeader.commentButtonTapHandler = ^(id sender) {
+    self.tableViewHeader.commentButtonTapHandler = ^(id sender) {        
         GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:commentViewController animated:YES];
     };
@@ -96,7 +96,7 @@
     }
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"reviews/on/%@", self.postID] usingBlock:^(RKObjectLoader *loader) {
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"reviews/on/%@", @"1175"] usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             for (id object in loadedObjects) {
@@ -136,7 +136,7 @@
 - (void)removeReviewAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.reviews removeObjectAtIndex:indexPath.row];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadData];
 }
 
 - (UIView *)viewForSpinner

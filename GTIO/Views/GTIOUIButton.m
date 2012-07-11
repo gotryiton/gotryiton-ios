@@ -451,7 +451,6 @@
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"reviews.cell.delete.inactive.png"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"reviews.cell.delete.active.png"] forState:UIControlStateHighlighted];
-    [button setContentMode:UIViewContentModeScaleAspectFit];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
     return button;

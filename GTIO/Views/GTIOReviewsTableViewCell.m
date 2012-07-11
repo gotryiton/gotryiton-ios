@@ -134,7 +134,7 @@ typedef enum GTIOReviewsAlertView {
     [self.heartCountLabel sizeToFit];
     [self.heartCountLabel setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - cellPaddingLeftRight - self.heartCountLabel.bounds.size.width - self.heartButton.bounds.size.width - defaultPadding, self.postedAtLabel.frame.origin.y - 3, self.heartCountLabel.bounds.size }];
     [self.flagButton setFrame:(CGRect){ self.heartButton.frame.origin.x + backgroundLeftMargin, self.background.frame.origin.y + cellPaddingTop, self.heartButton.bounds.size.width, self.flagButton.bounds.size.height }];
-    [self.removeButton setFrame:(CGRect){ self.heartButton.frame.origin.x, self.flagButton.frame.origin.y, self.removeButton.bounds.size }];
+    [self.removeButton setFrame:(CGRect){ self.heartButton.frame.origin.x + defaultPadding + 1, self.flagButton.frame.origin.y, self.removeButton.bounds.size }];
     [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + defaultPadding, self.userProfilePicture.frame.origin.y, self.background.bounds.size.width - cellPaddingLeftRight * 2 - defaultPadding - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? defaultPadding : 0), defaultLabelHeight }];
     [self.postedAtLabel setFrame:(CGRect){ self.userNameLabel.frame.origin.x, self.userNameLabel.frame.origin.y + self.userNameLabel.bounds.size.height - postedAtLabelVerticalOffset, self.userNameLabel.bounds.size.width, defaultLabelHeight }];
 }
@@ -193,29 +193,16 @@ typedef enum GTIOReviewsAlertView {
                         };
                     }];
                 };
-                if ([button.name isEqualToString:kGTIOReviewRemoveButton]) {
-                    self.flagButton.hidden = YES;
-                    self.removeButton.hidden = NO;
-                    self.removeButton.tapHandler = ^(id sender) {
-                        [GTIOProgressHUD showHUDAddedTo:[blockSelf.delegate viewForSpinner] animated:YES];
-                        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                            loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                                [GTIOProgressHUD hideHUDForView:[blockSelf.delegate viewForSpinner] animated:YES];
-                                for (id object in loadedObjects) {
-                                    if ([object isMemberOfClass:[GTIOReview class]]) {
-                                        if ([blockSelf.delegate respondsToSelector:@selector(removeReviewAtIndexPath:)]) {
-                                            [blockSelf.delegate removeReviewAtIndexPath:blockSelf.indexPath];
-                                        }
-                                    }
-                                }
-                            };
-                            loader.onDidFailWithError = ^(NSError *error) {
-                                [GTIOProgressHUD hideHUDForView:[blockSelf.delegate viewForSpinner] animated:YES];
-                                NSLog(@"%@", [error localizedDescription]);
-                            };
-                        }];
-                    };
-                }
+            }
+            if ([button.name isEqualToString:kGTIOReviewRemoveButton]) {
+                self.flagButton.hidden = YES;
+                self.removeButton.hidden = NO;
+                self.currentRemoveButtonModel = button;
+                self.removeButton.tapHandler = ^(id sender) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Delete this review?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                    alertView.tag = GTIOReviewsAlertViewRemove;
+                    [alertView show];
+                };
             }
         }
     }
@@ -303,7 +290,25 @@ typedef enum GTIOReviewsAlertView {
     }
     if (alertView.tag == GTIOReviewsAlertViewRemove) {
         if (buttonIndex == 1) {
-            // delete review
+            [GTIOProgressHUD showHUDAddedTo:[self.delegate viewForSpinner] animated:YES];
+            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.currentRemoveButtonModel.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+                loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+                    [GTIOProgressHUD hideHUDForView:[self.delegate viewForSpinner] animated:YES];
+                    for (id object in loadedObjects) {
+                        if ([object isMemberOfClass:[GTIOReview class]]) {
+                            if ([self.delegate respondsToSelector:@selector(removeReviewAtIndexPath:)]) {
+                                [self.delegate removeReviewAtIndexPath:self.indexPath];
+                                self.removeButton.hidden = YES;
+                                self.flagButton.hidden = NO;
+                            }
+                        }
+                    }
+                };
+                loader.onDidFailWithError = ^(NSError *error) {
+                    [GTIOProgressHUD hideHUDForView:[self.delegate viewForSpinner] animated:YES];
+                    NSLog(@"%@", [error localizedDescription]);
+                };
+            }];
         }
     }
 }
