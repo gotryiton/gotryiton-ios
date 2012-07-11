@@ -11,12 +11,17 @@
 #import "GTIOUser.h"
 #import "GTIOProgressHUD.h"
 
-static const double cellPaddingLeftRight = 12.0;
-static const double cellPaddingTop = 12.0;
-static const double cellPaddingBottom = 15.0;
-static const double avatarWidthHeight = 27.0;
-static const double cellWidth = 314.0;
-static const double reviewTextWidth = 250.0;
+static CGFloat const kGTIOCellPaddingLeftRight = 12.0;
+static CGFloat const kGTIOCellPaddingTop = 12.0;
+static CGFloat const kGTIOCellPaddingBottom = 15.0;
+static CGFloat const kGTIOAvatarWidthHeight = 27.0;
+static CGFloat const kGTIOCellWidth = 314.0;
+static CGFloat const kGTIOReviewTextWidth = 250.0;
+static CGFloat const kGTIODefaultPadding = 5.0;
+static CGFloat const kGTIODefaultLabelHeight = 15.0;
+static CGFloat const kGTIOBackgroundLeftMargin = 3.0;
+static CGFloat const kGTIOHeartButtonVerticalOffset = 6.0;
+static CGFloat const kGTIOPostedAtLabelVerticalOffset = 2.0;
 
 typedef enum GTIOReviewsAlertView {
     GTIOReviewsAlertViewFlag = 0,
@@ -120,23 +125,19 @@ typedef enum GTIOReviewsAlertView {
 
 - (void)layoutSubviews
 {
-    double const defaultPadding = 5.0;
-    double const defaultLabelHeight = 15.0;
-    double const backgroundLeftMargin = 3.0;
-    double const heartButtonVerticalOffset = 6.0;
-    double const postedAtLabelVerticalOffset = 2.0;
+    [super layoutSubviews];
     
-    [self.background setFrame:(CGRect){ backgroundLeftMargin, 0, cellWidth, self.bounds.size.height - defaultPadding }];
-    CGSize reviewTextSize = [self.reviewTextView.contentView sizeThatFits:(CGSize){ reviewTextWidth, CGFLOAT_MAX }];
-    [self.reviewTextView setFrame:(CGRect){ self.background.frame.origin.x + cellPaddingLeftRight, self.background.frame.origin.y + cellPaddingTop, reviewTextWidth, reviewTextSize.height }];
-    [self.userProfilePicture setFrame:(CGRect){ self.background.frame.origin.x + cellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - avatarWidthHeight - cellPaddingBottom, avatarWidthHeight, avatarWidthHeight }];
-    [self.heartButton setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - cellPaddingLeftRight - self.heartButton.bounds.size.width, self.userNameLabel.frame.origin.y + heartButtonVerticalOffset, self.heartButton.bounds.size }];
+    [self.background setFrame:(CGRect){ kGTIOBackgroundLeftMargin, 0, kGTIOCellWidth, self.bounds.size.height - kGTIODefaultPadding }];
+    CGSize reviewTextSize = [self.reviewTextView.contentView sizeThatFits:(CGSize){ kGTIOReviewTextWidth, CGFLOAT_MAX }];
+    [self.reviewTextView setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + kGTIOCellPaddingTop, kGTIOReviewTextWidth, reviewTextSize.height }];
+    [self.userProfilePicture setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - kGTIOAvatarWidthHeight - kGTIOCellPaddingBottom, kGTIOAvatarWidthHeight, kGTIOAvatarWidthHeight }];
+    [self.heartButton setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellPaddingLeftRight - self.heartButton.bounds.size.width, self.userNameLabel.frame.origin.y + kGTIOHeartButtonVerticalOffset, self.heartButton.bounds.size }];
     [self.heartCountLabel sizeToFit];
-    [self.heartCountLabel setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - cellPaddingLeftRight - self.heartCountLabel.bounds.size.width - self.heartButton.bounds.size.width - defaultPadding, self.postedAtLabel.frame.origin.y - 3, self.heartCountLabel.bounds.size }];
-    [self.flagButton setFrame:(CGRect){ self.heartButton.frame.origin.x + backgroundLeftMargin, self.background.frame.origin.y + cellPaddingTop, self.heartButton.bounds.size.width, self.flagButton.bounds.size.height }];
-    [self.removeButton setFrame:(CGRect){ self.heartButton.frame.origin.x + defaultPadding + 1, self.flagButton.frame.origin.y, self.removeButton.bounds.size }];
-    [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + defaultPadding, self.userProfilePicture.frame.origin.y, self.background.bounds.size.width - cellPaddingLeftRight * 2 - defaultPadding - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? defaultPadding : 0), defaultLabelHeight }];
-    [self.postedAtLabel setFrame:(CGRect){ self.userNameLabel.frame.origin.x, self.userNameLabel.frame.origin.y + self.userNameLabel.bounds.size.height - postedAtLabelVerticalOffset, self.userNameLabel.bounds.size.width, defaultLabelHeight }];
+    [self.heartCountLabel setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellPaddingLeftRight - self.heartCountLabel.bounds.size.width - self.heartButton.bounds.size.width - kGTIODefaultPadding, self.postedAtLabel.frame.origin.y - 3, self.heartCountLabel.bounds.size }];
+    [self.flagButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIOBackgroundLeftMargin, self.background.frame.origin.y + kGTIOCellPaddingTop, self.heartButton.bounds.size.width, self.flagButton.bounds.size.height }];
+    [self.removeButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIODefaultPadding + 1, self.flagButton.frame.origin.y, self.removeButton.bounds.size }];
+    [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + kGTIODefaultPadding, self.userProfilePicture.frame.origin.y, self.background.bounds.size.width - kGTIOCellPaddingLeftRight * 2 - kGTIODefaultPadding - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? kGTIODefaultPadding : 0), kGTIODefaultLabelHeight }];
+    [self.postedAtLabel setFrame:(CGRect){ self.userNameLabel.frame.origin.x, self.userNameLabel.frame.origin.y + self.userNameLabel.bounds.size.height - kGTIOPostedAtLabelVerticalOffset, self.userNameLabel.bounds.size.width, kGTIODefaultLabelHeight }];
 }
 
 - (void)setReview:(GTIOReview *)review
@@ -225,7 +226,7 @@ typedef enum GTIOReviewsAlertView {
 + (CGFloat)heightWithReview:(GTIOReview *)review
 {
     [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
-    DTAttributedTextView *reviewAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { reviewTextWidth, 0 } }];
+    DTAttributedTextView *reviewAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIOReviewTextWidth, 0 } }];
     reviewAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 8, 0 };
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"PostDescription" ofType:@"css"];  
     NSData *cssData = [NSData dataWithContentsOfFile:filePath];
@@ -243,9 +244,9 @@ typedef enum GTIOReviewsAlertView {
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:reviewAttributedTextOptions documentAttributes:NULL];
     reviewAttributedTextView.attributedString = string;
     
-    CGSize reviewTextSize = [reviewAttributedTextView.contentView sizeThatFits:(CGSize){ cellWidth, CGFLOAT_MAX }];
+    CGSize reviewTextSize = [reviewAttributedTextView.contentView sizeThatFits:(CGSize){ kGTIOCellWidth, CGFLOAT_MAX }];
     
-    return cellPaddingTop + reviewTextSize.height + avatarWidthHeight + cellPaddingBottom;
+    return kGTIOCellPaddingTop + reviewTextSize.height + kGTIOAvatarWidthHeight + kGTIOCellPaddingBottom;
 }
 
 #pragma mark Custom Views on Text

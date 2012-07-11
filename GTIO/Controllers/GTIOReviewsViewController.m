@@ -90,15 +90,12 @@
 }
 
 - (void)loadReviews
-{
-    if (self.reviews.count > 0) {
-        [self.reviews removeAllObjects];
-    }
-    
+{    
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"reviews/on/%@", @"1175"] usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [self.reviews removeAllObjects];
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOReview class]]) {
                     [self.reviews addObject:object];
@@ -136,7 +133,7 @@
 - (void)removeReviewAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.reviews removeObjectAtIndex:indexPath.row];
-    [self.tableView reloadData];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (UIView *)viewForSpinner

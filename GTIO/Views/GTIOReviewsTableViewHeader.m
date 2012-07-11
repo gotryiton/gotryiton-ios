@@ -9,6 +9,20 @@
 #import "GTIOReviewsTableViewHeader.h"
 #import "GTIOReviewsPicture.h"
 
+static CGFloat const kGTIOPostPictureWidthHeight = 75.0;
+static CGFloat const kGTIOHeaderLeftPadding = 5.0;
+static CGFloat const kGTIOHeaderTopPadding = 6.0;
+static CGFloat const kGTIOUserNamePostPictureHorizontalSpacing = 8.0;
+static CGFloat const kGTIOUserNamePostPictureVerticalOffset = 4.0;
+static CGFloat const kGTIOUserNameLabelWidthPaddingAdjustment = 10.0;
+static CGFloat const kGTIODefaultLabelHeight = 20.0;
+static CGFloat const kGTIOPostedAtLabelHorizontalOffset = 1.0;
+static CGFloat const kGTIOPostedAtLabelVerticalOffset = 6.0;
+static CGFloat const kGTIOLeaveACommentButtonHorizontalOffset = 3.0;
+static CGFloat const kGTIOLeaveACommentButtonVerticalOffset = 2.0;
+static CGFloat const kGTIOLeaveACommentButtonWidth = 230.0;
+static CGFloat const kGTIOLeaveACommentButtonHeight = 35.0;
+
 @interface GTIOReviewsTableViewHeader()
 
 @property (nonatomic, strong) UIImageView *background;
@@ -31,37 +45,23 @@
         _background.frame = self.bounds;
         [self addSubview:_background];
         
-        double const postPictureWidthHeight = 75.0;
-        double const headerLeftPadding = 5.0;
-        double const headerTopPadding = 6.0;
-        double const userNamePostPictureHorizontalSpacing = 8.0;
-        double const userNamePostPictureVerticalOffset = 4.0;
-        double const userNameLabelWidthPaddingAdjustment = 10.0;
-        double const defaultLabelHeight = 20.0;
-        double const postedAtLabelHorizontalOffset = 1.0;
-        double const postedAtLabelVerticalOffset = 6.0;
-        double const leaveACommentButtonHorizontalOffset = 3.0;
-        double const leaveACommentButtonVerticalOffset = 2.0;
-        double const leaveACommentButtonWidth = 230.0;
-        double const leaveACommentButtonHeight = 35.0;
-        
-        _postPicture = [[GTIOReviewsPicture alloc] initWithFrame:(CGRect){ headerLeftPadding, headerTopPadding, postPictureWidthHeight, postPictureWidthHeight } imageURL:nil];
+        _postPicture = [[GTIOReviewsPicture alloc] initWithFrame:(CGRect){ kGTIOHeaderLeftPadding, kGTIOHeaderTopPadding, kGTIOPostPictureWidthHeight, kGTIOPostPictureWidthHeight } imageURL:nil];
         [self addSubview:_postPicture];
         
-        _userNameLabel = [[UILabel alloc] initWithFrame:(CGRect){ _postPicture.frame.origin.x + _postPicture.bounds.size.width + userNamePostPictureHorizontalSpacing, _postPicture.frame.origin.y + userNamePostPictureVerticalOffset, frame.size.width - _postPicture.frame.origin.x - _postPicture.frame.size.width - userNameLabelWidthPaddingAdjustment, defaultLabelHeight }];
+        _userNameLabel = [[UILabel alloc] initWithFrame:(CGRect){ _postPicture.frame.origin.x + _postPicture.bounds.size.width + kGTIOUserNamePostPictureHorizontalSpacing, _postPicture.frame.origin.y + kGTIOUserNamePostPictureVerticalOffset, frame.size.width - _postPicture.frame.origin.x - _postPicture.frame.size.width - kGTIOUserNameLabelWidthPaddingAdjustment, kGTIODefaultLabelHeight }];
         _userNameLabel.font = [UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:16.0];
         _userNameLabel.textColor = [UIColor gtio_pinkTextColor];
         _userNameLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_userNameLabel];
         
-        _postedAtLabel = [[UILabel alloc] initWithFrame:(CGRect){ _userNameLabel.frame.origin.x + postedAtLabelHorizontalOffset, _userNameLabel.frame.origin.y + _userNameLabel.bounds.size.height - postedAtLabelVerticalOffset, _userNameLabel.bounds.size.width - postedAtLabelHorizontalOffset, defaultLabelHeight }];
+        _postedAtLabel = [[UILabel alloc] initWithFrame:(CGRect){ _userNameLabel.frame.origin.x + kGTIOPostedAtLabelHorizontalOffset, _userNameLabel.frame.origin.y + _userNameLabel.bounds.size.height - kGTIOPostedAtLabelVerticalOffset, _userNameLabel.bounds.size.width - kGTIOPostedAtLabelHorizontalOffset, kGTIODefaultLabelHeight }];
         _postedAtLabel.textColor = [UIColor gtio_grayTextColor9C9C9C];
         _postedAtLabel.font = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0];
         _postedAtLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_postedAtLabel];
         
         _leaveACommentButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeLeaveAComment];
-        [_leaveACommentButton setFrame:(CGRect){ _userNameLabel.frame.origin.x - leaveACommentButtonHorizontalOffset, _postedAtLabel.frame.origin.y + _postedAtLabel.bounds.size.height + leaveACommentButtonVerticalOffset, leaveACommentButtonWidth, leaveACommentButtonHeight }];
+        [_leaveACommentButton setFrame:(CGRect){ _userNameLabel.frame.origin.x - kGTIOLeaveACommentButtonHorizontalOffset, _postedAtLabel.frame.origin.y + _postedAtLabel.bounds.size.height + kGTIOLeaveACommentButtonVerticalOffset, kGTIOLeaveACommentButtonWidth, kGTIOLeaveACommentButtonHeight }];
         _leaveACommentButton.hidden = YES;
         [self addSubview:_leaveACommentButton];
     }
