@@ -67,9 +67,9 @@
 
 - (void)layoutSubviews
 {
-    [self.canvas setFrame:(CGRect){ 0, 0, self.bounds.size }];
-    [self.imageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
-    [self.innerShadow setFrame:(CGRect){ 0, 0, self.bounds.size }];
+    [self.canvas setFrame:self.bounds];
+    [self.imageView setFrame:self.bounds];
+    [self.innerShadow setFrame:self.bounds];
     [self.border setFrame:(CGRect){ -2, -2, self.frame.size.width + 4, self.frame.size.height + 4 }];
     [self.layer setShadowPath:[UIBezierPath bezierPathWithRect:self.bounds].CGPath];
 }

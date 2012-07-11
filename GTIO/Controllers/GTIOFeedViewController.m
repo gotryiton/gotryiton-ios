@@ -158,9 +158,6 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 {
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/posts/feed" usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
-        loader.onDidLoadResponse = ^(RKResponse *response) {
-            [self.pullToRefreshView finishLoading];
-        };
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];
             
@@ -188,8 +185,10 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
             
             [self.tableView reloadData];
             [self headerSectionViewsStyling];
+            [self.pullToRefreshView finishLoading];
         };
         loader.onDidFailWithError = ^(NSError *error) {
+            [self.pullToRefreshView finishLoading];
             NSLog(@"Error: %@", [error localizedDescription]);
         };
     }];

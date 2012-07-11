@@ -162,29 +162,44 @@
 {
     [super layoutSubviews];
     
+    double static const maximumNameLabelWidth = 204.0;
+    double static const defaultLabelHeight = 21.0;
+    double static const defaultHorizontalSpacing = 8.0;
+    double static const locationLabelVerticalOffset = 4.0;
+    double static const userBadgeWidthHeight = 17.0;
+    double static const userBadgeVerticalOffset = 1.0;
+    double static const userBadgeNameLabelSpacing = 3.0;
+    double static const locationLabelWidth = 224.0;
+    double static const locationLabelHeight = 13.0;
+    double static const followingLabelLocationLabelVerticalSpacing = 4.0;
+    double static const followingFollowersLabelWidth = 53.0;
+    double static const starsLabelWidth = 23.0;
+    double static const editButtonWidth = 3.0;
+    
     if (self.hasBackground) {
         [self.backgroundImageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
     }
     [self.profileIconButton setFrame:self.profileIcon.frame];
     [self.nameLabel sizeToFit];
-    [self.nameLabel setFrame:(CGRect){ self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 8, self.profileIcon.frame.origin.y, (self.nameLabel.bounds.size.width < 204) ? self.nameLabel.bounds.size.width : 204, 21 }];
+    
+    [self.nameLabel setFrame:(CGRect){ self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + defaultHorizontalSpacing, self.profileIcon.frame.origin.y, (self.nameLabel.bounds.size.width < maximumNameLabelWidth) ? self.nameLabel.bounds.size.width : maximumNameLabelWidth, defaultLabelHeight }];
     if (self.user.badge) {
-        [self.badge setFrame:(CGRect){ self.nameLabel.frame.origin.x + self.nameLabel.bounds.size.width + 3, self.nameLabel.frame.origin.y - 1, 17, 17 }];
+        [self.badge setFrame:(CGRect){ self.nameLabel.frame.origin.x + self.nameLabel.bounds.size.width + userBadgeNameLabelSpacing, self.nameLabel.frame.origin.y - userBadgeVerticalOffset, userBadgeWidthHeight, userBadgeWidthHeight }];
     }
-    [self.locationLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height - 4, 224, 13 }];
-    [self.followingLabel setFrame:(CGRect){ self.locationLabel.frame.origin.x, self.locationLabel.frame.origin.y + self.locationLabel.frame.size.height + 4, 53, 21 }];
-    [self.followingCountLabel setFrame:(CGRect){ self.followingLabel.frame.origin.x + self.followingLabel.frame.size.width, self.followingLabel.frame.origin.y, 0, 21 }];
+    [self.locationLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height - locationLabelVerticalOffset, locationLabelWidth, locationLabelHeight }];
+    [self.followingLabel setFrame:(CGRect){ self.locationLabel.frame.origin.x, self.locationLabel.frame.origin.y + self.locationLabel.frame.size.height + followingLabelLocationLabelVerticalSpacing, followingFollowersLabelWidth, defaultLabelHeight }];
+    [self.followingCountLabel setFrame:(CGRect){ self.followingLabel.frame.origin.x + self.followingLabel.frame.size.width, self.followingLabel.frame.origin.y, 0, defaultLabelHeight }];
     [self.followingCountLabel sizeToFitText];
     [self.followingButton setFrame:(CGRect){ self.followingLabel.frame.origin, self.followingLabel.bounds.size.width + self.followingCountLabel.bounds.size.width, self.followingLabel.bounds.size.height }];
-    [self.followersLabel setFrame:(CGRect){ self.followingCountLabel.frame.origin.x + self.followingCountLabel.frame.size.width + 8, self.followingCountLabel.frame.origin.y, 53, 21 }];
-    [self.followerCountLabel setFrame:(CGRect){ self.followersLabel.frame.origin.x + self.followersLabel.frame.size.width, self.followersLabel.frame.origin.y, 0, 21 }];
+    [self.followersLabel setFrame:(CGRect){ self.followingCountLabel.frame.origin.x + self.followingCountLabel.frame.size.width + defaultHorizontalSpacing, self.followingCountLabel.frame.origin.y, followingFollowersLabelWidth, defaultLabelHeight }];
+    [self.followerCountLabel setFrame:(CGRect){ self.followersLabel.frame.origin.x + self.followersLabel.frame.size.width, self.followersLabel.frame.origin.y, 0, defaultLabelHeight }];
     [self.followerCountLabel sizeToFitText];
     [self.followersButton setFrame:(CGRect){ self.followersLabel.frame.origin, self.followersLabel.bounds.size.width + self.followerCountLabel.bounds.size.width, self.followersLabel.bounds.size.height }];
-    [self.starsLabel setFrame:(CGRect){ self.followerCountLabel.frame.origin.x + self.followerCountLabel.frame.size.width + 8, self.followerCountLabel.frame.origin.y, 23, 21 }];
-    [self.starCountLabel setFrame:(CGRect){ self.starsLabel.frame.origin.x + self.starsLabel.frame.size.width, self.starsLabel.frame.origin.y, 0, 21 }];
+    [self.starsLabel setFrame:(CGRect){ self.followerCountLabel.frame.origin.x + self.followerCountLabel.frame.size.width + defaultHorizontalSpacing, self.followerCountLabel.frame.origin.y, starsLabelWidth, defaultLabelHeight }];
+    [self.starCountLabel setFrame:(CGRect){ self.starsLabel.frame.origin.x + self.starsLabel.frame.size.width, self.starsLabel.frame.origin.y, 0, defaultLabelHeight }];
     [self.starCountLabel sizeToFitText];
     [self.starsButton setFrame:(CGRect){ self.starsLabel.frame.origin, self.starsLabel.bounds.size.width + self.starCountLabel.bounds.size.width, self.starsLabel.bounds.size.height }];
-    [self.editButton setFrame:(CGRect){ self.bounds.size.width - self.editImage.size.width, 3, self.editImage.size }];
+    [self.editButton setFrame:(CGRect){ self.bounds.size.width - self.editImage.size.width, editButtonWidth, self.editImage.size }];
 }
 
 - (void)refreshButtons

@@ -112,23 +112,31 @@ typedef enum GTIOReviewsAlertView {
                                             [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
                                             defaultDTCSSStylesheet, DTDefaultStyleSheet,
                                             nil];
+        
+        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     return self;
 }
 
 - (void)layoutSubviews
 {
-    [self.background setFrame:(CGRect){ 3, 0, cellWidth, self.bounds.size.height - 5 }];
+    double static const defaultPadding = 5.0;
+    double static const defaultLabelHeight = 15.0;
+    double static const backgroundLeftMargin = 3.0;
+    double static const heartButtonVerticalOffset = 6.0;
+    double static const postedAtLabelVerticalOffset = 2.0;
+    
+    [self.background setFrame:(CGRect){ backgroundLeftMargin, 0, cellWidth, self.bounds.size.height - defaultPadding }];
     CGSize reviewTextSize = [self.reviewTextView.contentView sizeThatFits:(CGSize){ reviewTextWidth, CGFLOAT_MAX }];
     [self.reviewTextView setFrame:(CGRect){ self.background.frame.origin.x + cellPaddingLeftRight, self.background.frame.origin.y + cellPaddingTop, reviewTextWidth, reviewTextSize.height }];
     [self.userProfilePicture setFrame:(CGRect){ self.background.frame.origin.x + cellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - avatarWidthHeight - cellPaddingBottom, avatarWidthHeight, avatarWidthHeight }];
-    [self.heartButton setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - cellPaddingLeftRight - self.heartButton.bounds.size.width, self.userNameLabel.frame.origin.y + 6, self.heartButton.bounds.size }];
+    [self.heartButton setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - cellPaddingLeftRight - self.heartButton.bounds.size.width, self.userNameLabel.frame.origin.y + heartButtonVerticalOffset, self.heartButton.bounds.size }];
     [self.heartCountLabel sizeToFit];
-    [self.heartCountLabel setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - cellPaddingLeftRight - self.heartCountLabel.bounds.size.width - self.heartButton.bounds.size.width - 5, self.postedAtLabel.frame.origin.y - 3, self.heartCountLabel.bounds.size }];
-    [self.flagButton setFrame:(CGRect){ self.heartButton.frame.origin.x + 3, self.background.frame.origin.y + cellPaddingTop, self.heartButton.bounds.size.width, self.flagButton.bounds.size.height }];
+    [self.heartCountLabel setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - cellPaddingLeftRight - self.heartCountLabel.bounds.size.width - self.heartButton.bounds.size.width - defaultPadding, self.postedAtLabel.frame.origin.y - 3, self.heartCountLabel.bounds.size }];
+    [self.flagButton setFrame:(CGRect){ self.heartButton.frame.origin.x + backgroundLeftMargin, self.background.frame.origin.y + cellPaddingTop, self.heartButton.bounds.size.width, self.flagButton.bounds.size.height }];
     [self.removeButton setFrame:(CGRect){ self.heartButton.frame.origin.x, self.flagButton.frame.origin.y, self.removeButton.bounds.size }];
-    [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + 5, self.userProfilePicture.frame.origin.y, self.background.bounds.size.width - cellPaddingLeftRight * 2 - 5 - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? 5 : 0), 15 }];
-    [self.postedAtLabel setFrame:(CGRect){ self.userNameLabel.frame.origin.x, self.userNameLabel.frame.origin.y + self.userNameLabel.bounds.size.height - 2, self.userNameLabel.bounds.size.width, 15 }];
+    [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + defaultPadding, self.userProfilePicture.frame.origin.y, self.background.bounds.size.width - cellPaddingLeftRight * 2 - defaultPadding - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? defaultPadding : 0), defaultLabelHeight }];
+    [self.postedAtLabel setFrame:(CGRect){ self.userNameLabel.frame.origin.x, self.userNameLabel.frame.origin.y + self.userNameLabel.bounds.size.height - postedAtLabelVerticalOffset, self.userNameLabel.bounds.size.width, defaultLabelHeight }];
 }
 
 - (void)setReview:(GTIOReview *)review
@@ -175,13 +183,12 @@ typedef enum GTIOReviewsAlertView {
                     
                     [GTIOProgressHUD showHUDAddedTo:[blockSelf.delegate viewForSpinner] animated:YES];
                     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                        loader.onDidLoadResponse = ^(RKResponse *response) {
-                            [GTIOProgressHUD hideHUDForView:[blockSelf.delegate viewForSpinner] animated:YES];
-                        };
                         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+                            [GTIOProgressHUD hideHUDForView:[blockSelf.delegate viewForSpinner] animated:YES];
                             [blockSelf updateReviewFromLoadedObjects:loadedObjects];
                         };
                         loader.onDidFailWithError = ^(NSError *error) {
+                            [GTIOProgressHUD hideHUDForView:[blockSelf.delegate viewForSpinner] animated:YES];
                             NSLog(@"%@", [error localizedDescription]);
                         };
                     }];
@@ -192,10 +199,8 @@ typedef enum GTIOReviewsAlertView {
                     self.removeButton.tapHandler = ^(id sender) {
                         [GTIOProgressHUD showHUDAddedTo:[blockSelf.delegate viewForSpinner] animated:YES];
                         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                            loader.onDidLoadResponse = ^(RKResponse *response) {
-                                [GTIOProgressHUD hideHUDForView:[blockSelf.delegate viewForSpinner] animated:YES];
-                            };
                             loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+                                [GTIOProgressHUD hideHUDForView:[blockSelf.delegate viewForSpinner] animated:YES];
                                 for (id object in loadedObjects) {
                                     if ([object isMemberOfClass:[GTIOReview class]]) {
                                         if ([blockSelf.delegate respondsToSelector:@selector(removeReviewAtIndexPath:)]) {
@@ -205,6 +210,7 @@ typedef enum GTIOReviewsAlertView {
                                 }
                             };
                             loader.onDidFailWithError = ^(NSError *error) {
+                                [GTIOProgressHUD hideHUDForView:[blockSelf.delegate viewForSpinner] animated:YES];
                                 NSLog(@"%@", [error localizedDescription]);
                             };
                         }];
@@ -284,13 +290,12 @@ typedef enum GTIOReviewsAlertView {
             
             [GTIOProgressHUD showHUDAddedTo:[self.delegate viewForSpinner] animated:YES];
             [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.currentFlagButtonModel.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                loader.onDidLoadResponse = ^(RKResponse *response) {
-                    [GTIOProgressHUD hideHUDForView:[self.delegate viewForSpinner] animated:YES];
-                };
                 loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+                    [GTIOProgressHUD hideHUDForView:[self.delegate viewForSpinner] animated:YES];
                     [self updateReviewFromLoadedObjects:loadedObjects];
                 };
                 loader.onDidFailWithError = ^(NSError *error) {
+                    [GTIOProgressHUD hideHUDForView:[self.delegate viewForSpinner] animated:YES];
                     NSLog(@"%@", [error localizedDescription]);
                 };
             }];
@@ -301,16 +306,6 @@ typedef enum GTIOReviewsAlertView {
             // delete review
         }
     }
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    return;
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
-{
-    return;
 }
 
 @end

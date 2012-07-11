@@ -11,7 +11,7 @@
 
 @interface GTIOReviewPostPictureViewer()
 
-@property (nonatomic, strong) UIButton *windowMask;
+@property (nonatomic, strong) UIView *windowMask;
 @property (nonatomic, strong) UIImageView *photo;
 @property (nonatomic, strong) NSURL *photoURL;
 
@@ -25,11 +25,13 @@
 {
     self = [super initWithFrame:[[UIApplication sharedApplication] keyWindow].frame];
     if (self) {
-        _windowMask = [UIButton buttonWithType:UIButtonTypeCustom];
+        _windowMask = [[UIView alloc] initWithFrame:CGRectZero];
         _windowMask.backgroundColor = [UIColor whiteColor];
         _windowMask.alpha = 0.0;
         _windowMask.opaque = YES;
-        [_windowMask addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+        
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
+        [_windowMask addGestureRecognizer:tapGestureRecognizer];
         
         _photo = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_windowMask addSubview:_photo];

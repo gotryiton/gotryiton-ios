@@ -432,9 +432,6 @@
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadResponse = ^(RKResponse *response) {
-            NSLog(@"%@", [response bodyAsString]);
-        };
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             

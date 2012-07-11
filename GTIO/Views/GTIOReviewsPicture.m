@@ -13,13 +13,12 @@
 @interface GTIOReviewsPicture()
 
 @property (nonatomic, strong) UIImageView *innerShadow;
-@property (nonatomic, strong) GTIOUIButton *invisiButton;
 
 @end
 
 @implementation GTIOReviewsPicture
 
-@synthesize innerShadow = _innerShadow, hasInnerShadow = _hasInnerShadow, invisiButton = _invisiButton, invisiButtonTapHandler = _invisiButtonTapHandler;
+@synthesize innerShadow = _innerShadow, hasInnerShadow = _hasInnerShadow, invisibleButtonTapHandler = _invisibleButtonTapHandler;
 
 - (id)initWithFrame:(CGRect)frame imageURL:(NSURL *)url
 {
@@ -37,9 +36,8 @@
         _innerShadow.hidden = YES;
         [self addSubview:_innerShadow];
         
-        _invisiButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
-        [_invisiButton setFrame:(CGRect){ 0, 0, frame.size }];
-        [self addSubview:_invisiButton];
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [self addGestureRecognizer:tapGestureRecognizer];
     }
     return self;
 }
@@ -61,10 +59,13 @@
     }];
 }
 
-- (void)setInvisiButtonTapHandler:(GTIOButtonDidTapHandler)invisiButtonTapHandler
+- (void)handleTap:(UITapGestureRecognizer *)sender
 {
-    _invisiButtonTapHandler = invisiButtonTapHandler;
-    self.invisiButton.tapHandler = _invisiButtonTapHandler;
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        if (self.invisibleButtonTapHandler) {
+            self.invisibleButtonTapHandler(self);
+        }
+    }
 }
 
 @end

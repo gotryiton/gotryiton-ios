@@ -57,10 +57,8 @@
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/posts/hearted-by-user/%@", [GTIOUser currentUser].userID] usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadResponse = ^(RKResponse *response) {
-            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-        };
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOPost class]]) {
                     [self.posts addObject:object];
@@ -68,6 +66,10 @@
             }
             [self.segmentedControl setPosts:self.posts GTIOPostType:GTIOPostTypeHeart user:[GTIOUser currentUser]];
             [self.segmentedControl setPosts:self.products GTIOPostType:GTIOPostTypeHeartedProducts user:[GTIOUser currentUser]];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            NSLog(@"%@", [error localizedDescription]);
         };
     }];
 }

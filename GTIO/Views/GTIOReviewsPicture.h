@@ -11,7 +11,7 @@
 @interface GTIOReviewsPicture : UIImageView
 
 @property (nonatomic, assign) BOOL hasInnerShadow;
-@property (nonatomic, copy) GTIOButtonDidTapHandler invisiButtonTapHandler;
+@property (nonatomic, copy) GTIOButtonDidTapHandler invisibleButtonTapHandler;
 
 - (id)initWithFrame:(CGRect)frame imageURL:(NSURL *)url;
 - (void)proxySetImageWithURL:(NSURL *)url;
