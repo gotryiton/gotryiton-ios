@@ -109,11 +109,6 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [backdropImageView setFrame:(CGRect){ { 8, 8 }, backdropImageView.image.size }];
     [self.scrollView addSubview:backdropImageView];
     
-    /** w = 678 (640), h = 898 (852) (size of image for composite)
-        17, 19, 29, 19 = insets for composite
-        245 , 324 = size of everythign scaled down
-        .361356932, .360801782 scale
-     */
     self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ { 4, 5 }, { 245, 0 } } photoSet:NO launchCameraHandler:^(GTIOPostPhotoSection photoSection){
         self.currentSection = photoSection;
         [self.navigationController popToRootViewControllerAnimated:YES];
@@ -300,30 +295,44 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)createGTIOPhoto:(id)sender
 {
-    if ([self.lookSelectorView selectionsComplete]) {
-        UIImage *uploadImage = [self getCompositeImage];
-        [[GTIOPostManager sharedManager] uploadImage:uploadImage framed:self.lookSelectorView.photoSet filterName:@"" forceSavePost:NO];
-    }
+//    if ([self.lookSelectorView selectionsComplete]) {
+//        UIImage *uploadImage = [self compositeImage];
+//        [[GTIOPostManager sharedManager] uploadImage:uploadImage framed:self.lookSelectorView.photoSet filterName:@"" forceSavePost:NO];
+//    }
 }
 
-- (UIImage *)getCompositeImage
+/** w = 678 (640), h = 898 (852) (size of image for composite)
+ 17, 19, 29, 19 = insets for composite
+ 245 , 324 = size of everythign scaled down
+ .361356932, .360801782 scale
+ */
+- (UIImage *)compositeImage
 {
-    [self.lookSelectorView hideEditPhotoButtons:YES];
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-        UIGraphicsBeginImageContextWithOptions(self.lookSelectorView.photoCanvasSize, NO, [UIScreen mainScreen].scale);
+    UIImage *image = nil;
+    if (!self.lookSelectorView.isPhotoSet) {
+        // Single image
+        image = self.lookSelectorView.singlePhotoView.filteredImage;
     } else {
-        UIGraphicsBeginImageContext(self.lookSelectorView.photoCanvasSize);
+        image = nil;
     }
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    if (self.lookSelectorView.photoSet) {
-        // crop out the white border
-        CGContextTranslateCTM(context, -5, -5);
-    }
-    [[self.lookSelectorView compositeCanvas].layer renderInContext:context];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();   
-    UIGraphicsEndImageContext();
-    [self.lookSelectorView hideEditPhotoButtons:NO];
-    return viewImage;
+    
+//    [self.lookSelectorView hideEditPhotoButtons:YES];
+//    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+//        UIGraphicsBeginImageContextWithOptions(self.lookSelectorView.photoCanvasSize, NO, [UIScreen mainScreen].scale);
+//    } else {
+//        UIGraphicsBeginImageContext(self.lookSelectorView.photoCanvasSize);
+//    }
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    if (self.lookSelectorView.photoSet) {
+//        // crop out the white border
+//        CGContextTranslateCTM(context, -5, -5);
+//    }
+//    [[self.lookSelectorView compositeCanvas].layer renderInContext:context];
+//    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();   
+//    UIGraphicsEndImageContext();
+//    [self.lookSelectorView hideEditPhotoButtons:NO];
+    NSLog(@"TEst");
+    return image;
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex

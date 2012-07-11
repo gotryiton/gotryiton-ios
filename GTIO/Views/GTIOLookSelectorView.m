@@ -165,14 +165,18 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
     [self.photoSetView removeFromSuperview];
     
     if (self.photoSet) {
-        if (self.singlePhotoView.imageView.image && !self.mainPhotoView.imageView.image) {
-            [self.mainPhotoView setFilteredImage:self.singlePhotoView.imageView.image];
+        if (self.singlePhotoView.filteredImage && !self.mainPhotoView.filteredImage) {
+            [self.mainPhotoView setOriginalImage:self.singlePhotoView.originalImage];
+            [self.mainPhotoView setFilteredImage:self.singlePhotoView.filteredImage];
+            [self.mainPhotoView setFilterName:self.singlePhotoView.filterName];
         }
         [self addSubview:self.photoSetView];
         [self bringSubviewToFront:self.photoSetView];
     } else {
-        if (!self.singlePhotoView.imageView.image && self.mainPhotoView.imageView.image) {
-            [self.singlePhotoView setFilteredImage:self.mainPhotoView.imageView.image];
+        if (!self.singlePhotoView.filteredImage && self.mainPhotoView.filteredImage) {
+            [self.singlePhotoView setOriginalImage:self.mainPhotoView.originalImage];
+            [self.singlePhotoView setFilteredImage:self.mainPhotoView.filteredImage];
+            [self.singlePhotoView setFilterName:self.mainPhotoView.filterName];
         }
         [self addSubview:self.singlePhotoView];
         [self bringSubviewToFront:self.singlePhotoView];
@@ -207,8 +211,6 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
     CGFloat heightDelta = frame.size.height - self.frame.size.height;
     [super setFrame:frame];
     
-    NSLog(@"height delta: %f", heightDelta);
-    
     [self.frameImageView setFrame:self.bounds];
     [self.resizeHandle setFrame:(CGRect){ { (self.frame.size.width - self.resizeHandle.image.size.width) / 2, self.frame.size.height - self.resizeHandle.image.size.height - kGTIOBottomPadding }, self.resizeHandle.image.size }];
     
@@ -234,7 +236,6 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
     
     [view setFrame:(CGRect){ view.frame.origin, { view.frame.size.width, height } }];
     [gesture setTranslation:CGPointMake(0, 0) inView:view];
-        
 }
 
 @end
