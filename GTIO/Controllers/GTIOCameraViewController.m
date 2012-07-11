@@ -55,6 +55,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 @property (nonatomic, assign) NSInteger capturedImageCount;
 @property (nonatomic, assign) NSInteger photoShootModeCount;
 @property (nonatomic, assign, getter = isPhotoShootModeFirstToggle) BOOL photoShootModeFirstToggle;
+@property (nonatomic, assign, getter = isForcePhotoShootModeButtonToggle) BOOL forcePhotoShootModeButtonToggle;
 
 @property (nonatomic, assign) NSInteger startingPhotoCount;
 @property (nonatomic, strong) NSTimer *imageWaitTimer;
@@ -83,6 +84,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 @synthesize focusImageView = _focusImageView;
 @synthesize photoShootModeCount = _photoShootModeCount;
 @synthesize photoShootModeFirstToggle = _photoShootModeFirstToggle;
+@synthesize forcePhotoShootModeButtonToggle = _forcePhotoShootModeButtonToggle;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -234,7 +236,9 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
             [self.captureDevice unlockForConfiguration];
         }
         
-        [blockSelf showPhotoShootModePopOverView];
+        if (!blockSelf.isForcePhotoShootModeButtonToggle) {
+            [blockSelf showPhotoShootModePopOverView];
+        }
     }];
     [self.view addSubview:self.photoToolbarView];
     
@@ -347,7 +351,10 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     [self.photoToolbarView enableAllButtons:YES];
     [self showFlashButton:!self.photoToolbarView.shutterButton.isPhotoShootMode];
     [self.sourcePopOverView removeFromSuperview];
+    
+    self.forcePhotoShootModeButtonToggle = YES;
     [self.photoToolbarView.shutterButton setPhotoShootMode:NO];
+    self.forcePhotoShootModeButtonToggle = NO;
 }
 
 #pragma mark - View Animations
