@@ -31,19 +31,19 @@
         _background.frame = self.bounds;
         [self addSubview:_background];
         
-        double static const postPictureWidthHeight = 75.0;
-        double static const headerLeftPadding = 5.0;
-        double static const headerTopPadding = 6.0;
-        double static const userNamePostPictureHorizontalSpacing = 8.0;
-        double static const userNamePostPictureVerticalOffset = 4.0;
-        double static const userNameLabelWidthPaddingAdjustment = 10.0;
-        double static const defaultLabelHeight = 20.0;
-        double static const postedAtLabelHorizontalOffset = 1.0;
-        double static const postedAtLabelVerticalOffset = 6.0;
-        double static const leaveACommentButtonHorizontalOffset = 3.0;
-        double static const leaveACommentButtonVerticalOffset = 2.0;
-        double static const leaveACommentButtonWidth = 230.0;
-        double static const leaveACommentButtonHeight = 35.0;
+        double const postPictureWidthHeight = 75.0;
+        double const headerLeftPadding = 5.0;
+        double const headerTopPadding = 6.0;
+        double const userNamePostPictureHorizontalSpacing = 8.0;
+        double const userNamePostPictureVerticalOffset = 4.0;
+        double const userNameLabelWidthPaddingAdjustment = 10.0;
+        double const defaultLabelHeight = 20.0;
+        double const postedAtLabelHorizontalOffset = 1.0;
+        double const postedAtLabelVerticalOffset = 6.0;
+        double const leaveACommentButtonHorizontalOffset = 3.0;
+        double const leaveACommentButtonVerticalOffset = 2.0;
+        double const leaveACommentButtonWidth = 230.0;
+        double const leaveACommentButtonHeight = 35.0;
         
         _postPicture = [[GTIOReviewsPicture alloc] initWithFrame:(CGRect){ headerLeftPadding, headerTopPadding, postPictureWidthHeight, postPictureWidthHeight } imageURL:nil];
         [self addSubview:_postPicture];

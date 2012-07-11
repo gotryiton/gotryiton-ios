@@ -162,19 +162,19 @@
 {
     [super layoutSubviews];
     
-    double static const maximumNameLabelWidth = 204.0;
-    double static const defaultLabelHeight = 21.0;
-    double static const defaultHorizontalSpacing = 8.0;
-    double static const locationLabelVerticalOffset = 4.0;
-    double static const userBadgeWidthHeight = 17.0;
-    double static const userBadgeVerticalOffset = 1.0;
-    double static const userBadgeNameLabelSpacing = 3.0;
-    double static const locationLabelWidth = 224.0;
-    double static const locationLabelHeight = 13.0;
-    double static const followingLabelLocationLabelVerticalSpacing = 4.0;
-    double static const followingFollowersLabelWidth = 53.0;
-    double static const starsLabelWidth = 23.0;
-    double static const editButtonWidth = 3.0;
+    double const maximumNameLabelWidth = 204.0;
+    double const defaultLabelHeight = 21.0;
+    double const defaultHorizontalSpacing = 8.0;
+    double const locationLabelVerticalOffset = 4.0;
+    double const userBadgeWidthHeight = 17.0;
+    double const userBadgeVerticalOffset = 1.0;
+    double const userBadgeNameLabelSpacing = 3.0;
+    double const locationLabelWidth = 224.0;
+    double const locationLabelHeight = 13.0;
+    double const followingLabelLocationLabelVerticalSpacing = 4.0;
+    double const followingFollowersLabelWidth = 53.0;
+    double const starsLabelWidth = 23.0;
+    double const editButtonWidth = 3.0;
     
     if (self.hasBackground) {
         [self.backgroundImageView setFrame:(CGRect){ 0, 0, self.bounds.size }];

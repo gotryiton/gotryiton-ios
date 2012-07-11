@@ -120,11 +120,11 @@ typedef enum GTIOReviewsAlertView {
 
 - (void)layoutSubviews
 {
-    double static const defaultPadding = 5.0;
-    double static const defaultLabelHeight = 15.0;
-    double static const backgroundLeftMargin = 3.0;
-    double static const heartButtonVerticalOffset = 6.0;
-    double static const postedAtLabelVerticalOffset = 2.0;
+    double const defaultPadding = 5.0;
+    double const defaultLabelHeight = 15.0;
+    double const backgroundLeftMargin = 3.0;
+    double const heartButtonVerticalOffset = 6.0;
+    double const postedAtLabelVerticalOffset = 2.0;
     
     [self.background setFrame:(CGRect){ backgroundLeftMargin, 0, cellWidth, self.bounds.size.height - defaultPadding }];
     CGSize reviewTextSize = [self.reviewTextView.contentView sizeThatFits:(CGSize){ reviewTextWidth, CGFLOAT_MAX }];
