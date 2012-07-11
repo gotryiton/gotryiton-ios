@@ -92,7 +92,7 @@
 - (void)loadReviews
 {    
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"reviews/on/%@", @"1175"] usingBlock:^(RKObjectLoader *loader) {
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"reviews/on/%@", self.postID] usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.reviews removeAllObjects];
