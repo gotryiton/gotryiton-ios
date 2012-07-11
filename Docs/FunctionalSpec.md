@@ -2093,6 +2093,7 @@ gtio://user/settings
 - Standard nav bar
 - Standard title bar with back button and title: "Settings"
 
+
 ### 7.3 Edit profile pic  
 12.3
 #### Overview
@@ -3288,7 +3289,7 @@ A user can see a page of shopping options on GTIO
 #### Mockups
 10.1 ([wireframe](http://invis.io/2R2OEKY8)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.1.Shop.Landing.WV.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.1.Shop.Landing.v1.png" width=420px/>
 
 
 #### User Flow
@@ -3296,33 +3297,25 @@ A user can see a page of shopping options on GTIO
 any screen with uiTabBar
 **exit screens:**   
 ([view 10.2](#102-shop-browse-webview-container))   
-([view 10.3](#103-shop-3rd-party-webview-container))   
 ([view 10.4](#104-default-3rd-party-webview-container))   
-([view 7.8](#78-shopping-list))   
 
 #### API Usage
-/Shop
+HTTP GET:  /iphone/style-tab?token=[active token]
+
 
 #### Stories 
 - A user can see a page of shopping options on GTIO
    - top nav bar is standard native bar
-   - top right btn 'shopping list'
-      - shows count of unread shopping list items
-      - responds to gtio:// trigger for updating shopping list count
-      - see story
-   - Main content of page is webview (source is /Shop)
+   - Main content of page is webview 
 - A user can tap on elements on the Shopping page
-   - /Shop page can have spawn 4 different types of pages:
+   - webview page can have spawn 4 different types of pages:
       - Shop Browse Webview Container (view 10.2)
-         - triggered by: gtio://ShopBrowseWebview/[title (urlencoded)]/[url (url encoded)]
-      - Shop 3rd Party Webview Container (view 10.3)
-         - triggered by: gtio://3rdPartyShopWebview/[title (urlencoded)]/[url (url encoded)]
+         - triggered by: gtio://InternalWebview/[title (urlencoded)]/[url (url encoded)]
       - Default 3rd Party Webview Container (view 10.4)
-         - triggered by: gtio://3rdPartyDefaultWebview/[url (url encoded)]
+         - triggered by: gtio://DefaultWebview/[url (url encoded)]
       - Shop Browse Products Container (view 10.5)
          - triggered by: gtio://ShopBrowse/[title (urlencoded)]/[api path (url encoded)]
-- A user can get to their shopping list page by tapping on the top right button 
-   - **tap** ==> (view 7.8)
+
 
 
 ### 10.2 Shop Browse Webview Container  
@@ -3333,16 +3326,20 @@ A user can browse to a 2ndary webview page of navigation
 #### Mockups
 ([wireframe](http://invis.io/NX2OELBZ)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.2.Shop.Browse.WV.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/secondary-page.png" width=420px/>
+
+#### API Usage
+None.
+
+#### Routing
+gtio://InternalWebview/[custom title (urlencoded)]/[url (url encoded)]   
 
 #### User Flow
 **entry screens:**   
 ([view 10.1](#102-shop-landing-page))   
 **exit screens:**   
 ([view 10.2](#102-shop-browse-webview-container))   
-([view 10.3](#103-shop-3rd-party-webview-container))   
 ([view 10.4](#104-default-3rd-party-webview-container))   
-([view 7.8](#78-shopping-list))   
 previous screen   
 
 #### API Usage
@@ -3356,7 +3353,6 @@ dynamic
       - back btn to return to previous container
    - default uitabbar is visible
    - url of webview is customized via gtio:// link that spawned the container
-
 
 
 ### 10.3 ~~Shop 3rd Party webview Container~~   
@@ -3385,6 +3381,10 @@ previous screen
 
 #### API Usage
 None.
+
+#### Routing
+gtio://DefaultWebview/[url (url encoded)]   
+http://any.random.url/
 
 #### Stories 
 - A user can browse to a 3rd party site with a default browsing experience  
