@@ -2079,6 +2079,14 @@ previous screen
 #### API Usage
 HTML GET request:  /User/Settings?token=[active token]
 
+use the following UIWebView settings:   
+```obj-c
+   webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+   webView.scrollView.showsVerticalScrollIndicator= NO;
+   webView.scrollView.showsHorizontalScrollIndicator= NO;
+```
+
+
 #### Routing
 
 gtio://user/settings
@@ -3302,6 +3310,13 @@ any screen with uiTabBar
 #### API Usage
 HTTP GET:  /iphone/style-tab?token=[active token]
 
+use the following UIWebView settings:   
+```obj-c
+   webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+   webView.scrollView.showsVerticalScrollIndicator= NO;
+   webView.scrollView.showsHorizontalScrollIndicator= NO;
+```
+
 
 #### Stories 
 - A user can see a page of shopping options on GTIO
@@ -3329,7 +3344,15 @@ A user can browse to a 2ndary webview page of navigation
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/secondary-page.png" width=420px/>
 
 #### API Usage
-None.
+HTTP GET: Dynamic url.
+
+use the following UIWebView settings:   
+```obj-c
+   webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+   webView.scrollView.showsVerticalScrollIndicator= NO;
+   webView.scrollView.showsHorizontalScrollIndicator= NO;
+```
+
 
 #### Routing
 gtio://InternalWebview/[custom title (urlencoded)]/[url (url encoded)]   
