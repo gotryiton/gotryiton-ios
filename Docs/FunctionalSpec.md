@@ -2066,7 +2066,7 @@ A logged in user can edit their settings
 #### Mockups
 7.2 Settings ([wireframe](http://invis.io/C22OCZBZ))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.2.Settings.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.2.Settings.Fold.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2077,16 +2077,21 @@ previous screen
 
 
 #### API Usage
-/User/Settings
+HTML GET request:  /User/Settings?token=[active token]
 
 #### Routing
 
-gtio://StandardWebview/Settings/http://gtio-dev.gotryiton.com/user/settings
+gtio://user/settings
 
 #### Stories
 - A user can edit when they receive notifications from GTIO
    - load a webview which will allow a user to turn on and off notifications
 
+
+#### Design Stories
+
+- Standard nav bar
+- Standard title bar with back button and title: "Settings"
 
 ### 7.3 Edit profile pic  
 12.3
