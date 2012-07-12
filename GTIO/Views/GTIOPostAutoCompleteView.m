@@ -45,7 +45,7 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    [super textView:textView shouldChangeTextInRange:range replacementText:text];
+    BOOL response = [super textView:textView shouldChangeTextInRange:range replacementText:text];
     
     if([text isEqualToString:@"\n"]) {
         [self hideOrShowPlaceholderLabel];
@@ -59,7 +59,7 @@
     else {
         [self hidePlaceholderLabel];
     }
-    return YES;
+    return response;
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
