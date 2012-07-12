@@ -122,10 +122,10 @@ static NSInteger const kGTIOMaskingViewTag = 100;
             [self.scrollView scrollRectToVisible:(CGRect){ 0, self.scrollView.contentSize.height - 1, 1, 1 } animated:YES];
         }
     }];
-    __weak GTIOPostALookViewController *controller = self;
+    __block typeof(self) blockSelf = self;
     [self.descriptionBox.textView setTextViewDidBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {
-        [self.lookSelectorView setUserInteractionEnabled:NO];
-        [controller snapScrollToBottom];
+        [blockSelf.lookSelectorView setUserInteractionEnabled:NO];
+        [blockSelf snapScrollToBottom];
     }];
     [self.descriptionBox.textView setTextViewDidEndHandler:^(GTIOPostAutoCompleteView *descriptionBox, BOOL scrollToTop) {
         [self.descriptionBox.textView.textInput resignFirstResponder];
