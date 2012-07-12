@@ -1,5 +1,32 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.10
+July 11, 2012
+
+### Build Summary
+Sprint 5 mid build. Bug fixes, reviews screen, post multi-frame and resizing.
+
+### Development
+
+**Bug Fixes**
+- 177 - quick add follow button does not route (screen 1.8)
+- 211 - 1.7 styling bugs
+- 314 - suggested friends button on Find Friends screen (/user/friends) is not tappable
+
+**Screens / Features**
+- 199 - 7.6 My Posts
+- 267 - 3.4 Reviews Page Table Header
+- 268 - 3.4 Reviews Page Cell Styling
+- 302 - Styling of the camera toolbar
+- 306 - Camera source pop over
+- 305 - Photo shoot mode pop over view
+- 307 - Remove voting switch and fix facebook switch
+- 283 - Photo multiple frame support
+- 283 - Photo action sheet
+- 284 - Resize the post a look frame
+
+---
+
 #### Build 4.0.0.9
 July 06, 2012
 
