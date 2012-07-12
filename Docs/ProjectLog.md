@@ -1,3 +1,32 @@
+***Thursday, July 12th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Releasing build with latest dev
+- TT - Review latest pull reuqest for functional spec updates by GTIO
+
+**Status**
+- Compositing images is finished.
+- using scroll views to handle image scaling in Post view finished.
+- Starting work on web view pages
+- Finished notifications
+- stars and hearts on mason grid
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Wednesday, July 11th - Standup Notes***
 
 **Attendees**
