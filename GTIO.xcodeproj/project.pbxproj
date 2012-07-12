@@ -43,6 +43,10 @@
 		8E8A906B156EA202000732CC /* GTIOEditProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8A906A156EA202000732CC /* GTIOEditProfilePictureViewController.m */; };
 		8E8C35C4159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C35C3159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.m */; };
 		8E8E6EC615756DD0009750E2 /* GTIOTakePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E6EC515756DD0009750E2 /* GTIOTakePhotoView.m */; };
+		8E8FC10715AF1B4A004E0CBE /* GTIONotificationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8FC10615AF1B4A004E0CBE /* GTIONotificationsTableViewCell.m */; };
+		8E8FC10B15AF1C75004E0CBE /* GTIONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8FC10A15AF1C75004E0CBE /* GTIONotification.m */; };
+		8E8FC10E15AF222C004E0CBE /* GTIONotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8FC10D15AF222C004E0CBE /* GTIONotificationManager.m */; };
+		8E8FC11015AF3623004E0CBE /* NotificationTableCellText.css in Resources */ = {isa = PBXBuildFile; fileRef = 8E8FC10F15AF3623004E0CBE /* NotificationTableCellText.css */; };
 		8E91B0FF156AC197009D70AC /* JRActivityObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B037156AC197009D70AC /* JRActivityObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E91B100156AC197009D70AC /* JRConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B039156AC197009D70AC /* JRConnectionManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8E91B101156AC197009D70AC /* JREngage+CustomInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91B03B156AC197009D70AC /* JREngage+CustomInterface.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -220,6 +224,7 @@
 		8EA02723159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA02722159A376200FDC45E /* GTIOFindMyFriendsSearchBoxView.m */; };
 		8EA1D31A159E0B9B00E93577 /* NSString+GTIOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1D319159E0B9B00E93577 /* NSString+GTIOAdditions.m */; };
 		8EA21B39157FDDC000D5003C /* GTIOPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA21B38157FDDC000D5003C /* GTIOPost.m */; };
+		8EA843D115ADF3B800501D24 /* GTIONotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA843D015ADF3B800501D24 /* GTIONotificationsViewController.m */; };
 		8EAA14C7156E846C0083884E /* GTIOTextFieldForPickerViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */; };
 		8EB0F8151590E76300794042 /* GTIOProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0F8141590E76200794042 /* GTIOProfileHeaderView.m */; };
 		8EB0F8181590E8D300794042 /* GTIOProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0F8171590E8D300794042 /* GTIOProfileViewController.m */; };
@@ -1417,6 +1422,13 @@
 		8E8C35C3159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFriendsNoSearchResultsView.m; sourceTree = "<group>"; };
 		8E8E6EC415756DD0009750E2 /* GTIOTakePhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTakePhotoView.h; sourceTree = "<group>"; };
 		8E8E6EC515756DD0009750E2 /* GTIOTakePhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTakePhotoView.m; sourceTree = "<group>"; };
+		8E8FC10515AF1B4A004E0CBE /* GTIONotificationsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotificationsTableViewCell.h; sourceTree = "<group>"; };
+		8E8FC10615AF1B4A004E0CBE /* GTIONotificationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotificationsTableViewCell.m; sourceTree = "<group>"; };
+		8E8FC10915AF1C75004E0CBE /* GTIONotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotification.h; sourceTree = "<group>"; };
+		8E8FC10A15AF1C75004E0CBE /* GTIONotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotification.m; sourceTree = "<group>"; };
+		8E8FC10C15AF222C004E0CBE /* GTIONotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotificationManager.h; sourceTree = "<group>"; };
+		8E8FC10D15AF222C004E0CBE /* GTIONotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotificationManager.m; sourceTree = "<group>"; };
+		8E8FC10F15AF3623004E0CBE /* NotificationTableCellText.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = NotificationTableCellText.css; path = CSS/NotificationTableCellText.css; sourceTree = "<group>"; };
 		8E91B036156AC197009D70AC /* JRActivityObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRActivityObject.h; sourceTree = "<group>"; };
 		8E91B037156AC197009D70AC /* JRActivityObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRActivityObject.m; sourceTree = "<group>"; };
 		8E91B038156AC197009D70AC /* JRConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRConnectionManager.h; sourceTree = "<group>"; };
@@ -1617,6 +1629,8 @@
 		8EA1D31C159E183400E93577 /* GTIOFriendsSearchEmptyStateViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOFriendsSearchEmptyStateViewDelegate.h; path = Protocols/GTIOFriendsSearchEmptyStateViewDelegate.h; sourceTree = "<group>"; };
 		8EA21B37157FDDC000D5003C /* GTIOPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPost.h; sourceTree = "<group>"; };
 		8EA21B38157FDDC000D5003C /* GTIOPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPost.m; sourceTree = "<group>"; };
+		8EA843CF15ADF3B800501D24 /* GTIONotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotificationsViewController.h; sourceTree = "<group>"; };
+		8EA843D015ADF3B800501D24 /* GTIONotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotificationsViewController.m; sourceTree = "<group>"; };
 		8EAA14C5156E846C0083884E /* GTIOTextFieldForPickerViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOTextFieldForPickerViews.h; sourceTree = "<group>"; };
 		8EAA14C6156E846C0083884E /* GTIOTextFieldForPickerViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOTextFieldForPickerViews.m; sourceTree = "<group>"; };
 		8EAFB59A1594BFB40080A961 /* GTIOActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOActionSheet.h; sourceTree = "<group>"; };
@@ -2941,6 +2955,26 @@
 			name = Profile;
 			sourceTree = "<group>";
 		};
+		8E8FC10415AF1B2E004E0CBE /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				8E8FC10515AF1B4A004E0CBE /* GTIONotificationsTableViewCell.h */,
+				8E8FC10615AF1B4A004E0CBE /* GTIONotificationsTableViewCell.m */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
+		8E8FC10815AF1C67004E0CBE /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				8E8FC10915AF1C75004E0CBE /* GTIONotification.h */,
+				8E8FC10A15AF1C75004E0CBE /* GTIONotification.m */,
+				8E8FC10C15AF222C004E0CBE /* GTIONotificationManager.h */,
+				8E8FC10D15AF222C004E0CBE /* GTIONotificationManager.m */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
 		8E91ABE7156AC119009D70AC /* janrain */ = {
 			isa = PBXGroup;
 			children = (
@@ -3336,6 +3370,15 @@
 				D2880B8B15A5F128004DFC70 /* GTIOPostUpload.m */,
 			);
 			name = Post;
+			sourceTree = "<group>";
+		};
+		8EA843CE15ADF39900501D24 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				8EA843CF15ADF3B800501D24 /* GTIONotificationsViewController.h */,
+				8EA843D015ADF3B800501D24 /* GTIONotificationsViewController.m */,
+			);
+			name = Notifications;
 			sourceTree = "<group>";
 		};
 		8EB1421915AB30D400D5495C /* Reviews */ = {
@@ -4809,6 +4852,7 @@
 			children = (
 				D2C1C85F159DFF23001026BC /* PostDescription.css */,
 				8ED52EF915ACA63200F5C05B /* ReviewText.css */,
+				8E8FC10F15AF3623004E0CBE /* NotificationTableCellText.css */,
 			);
 			name = CSS;
 			sourceTree = "<group>";
@@ -4980,6 +5024,7 @@
 		D2CDA9AF15503307009B7E24 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8EA843CE15ADF39900501D24 /* Notifications */,
 				8EB1421915AB30D400D5495C /* Reviews */,
 				8EA02716159A2CF100FDC45E /* Friends */,
 				8E969F51158BD7AE009E19B3 /* Feed */,
@@ -5002,6 +5047,7 @@
 		D2CDA9B015503307009B7E24 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8E8FC10815AF1C67004E0CBE /* Notifications */,
 				8E48AD0415AC8BFC00DC6EDD /* Reviews */,
 				D270EF041587C4BB00BE08EE /* Filters */,
 				8ECB2A8D1587E0220039A4F1 /* Screens */,
@@ -5027,6 +5073,7 @@
 		D2CDA9B115503307009B7E24 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8E8FC10415AF1B2E004E0CBE /* Notifications */,
 				8EB1421D15AB35E200D5495C /* Reviews */,
 				8EA0271A159A2DBB00FDC45E /* Friends */,
 				D2066FBD159A1584003E8193 /* Auto Complete */,
@@ -6351,6 +6398,7 @@
 				8EB5A71715A629E100163F84 /* star-corner-grid@2x.png in Resources */,
 				8EB5A71815A629E100163F84 /* ui.empty.pixel.png in Resources */,
 				8ED52EFA15ACA63200F5C05B /* ReviewText.css in Resources */,
+				8E8FC11015AF3623004E0CBE /* NotificationTableCellText.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6577,6 +6625,10 @@
 				8E48AD0715AC8C1100DC6EDD /* GTIOReview.m in Sources */,
 				8ED52EFD15ACC74900F5C05B /* GTIOCommentViewController.m in Sources */,
 				8ED52F0015ACD6F100F5C05B /* GTIOReviewPostPictureViewer.m in Sources */,
+				8EA843D115ADF3B800501D24 /* GTIONotificationsViewController.m in Sources */,
+				8E8FC10715AF1B4A004E0CBE /* GTIONotificationsTableViewCell.m in Sources */,
+				8E8FC10B15AF1C75004E0CBE /* GTIONotification.m in Sources */,
+				8E8FC10E15AF222C004E0CBE /* GTIONotificationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

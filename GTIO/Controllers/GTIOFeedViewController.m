@@ -27,6 +27,7 @@
 #import "GTIOPullToRefreshContentView.h"
 
 #import "GTIOReviewsViewController.h"
+#import "GTIONotificationsViewController.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
@@ -107,6 +108,11 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
         [blockSelf presentModalViewController:navController animated:YES];
     }];
+    self.navBarView.titleView.tapHandler = ^(void) {
+        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
+        [blockSelf presentModalViewController:navigationController animated:YES];
+    };
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.tableView setBackgroundColor:[UIColor clearColor]];

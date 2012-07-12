@@ -18,15 +18,19 @@
     while (TRUE) {
         NSRange rangeOfFirstOpenBoldTag = [stringToEdit rangeOfString:@"<b>" options:NSCaseInsensitiveSearch];
         NSRange rangeOfFirstCloseBoldTag = [stringToEdit rangeOfString:@"</b>" options:NSCaseInsensitiveSearch];
-        int lengthOfFirstBoldString = rangeOfFirstCloseBoldTag.location - (rangeOfFirstOpenBoldTag.location + rangeOfFirstOpenBoldTag.length);
-        if (lengthOfFirstBoldString == 0) {
-            return [NSArray arrayWithArray:rangesOfBoldedText];
+        if (rangeOfFirstOpenBoldTag.length > 0 && rangeOfFirstCloseBoldTag.length > 0) {
+            int lengthOfFirstBoldString = rangeOfFirstCloseBoldTag.location - (rangeOfFirstOpenBoldTag.location + rangeOfFirstOpenBoldTag.length);
+            if (lengthOfFirstBoldString == 0) {
+                return [NSArray arrayWithArray:rangesOfBoldedText];
+            }
+            int locationOfFirstBoldString = (rangeOfFirstCloseBoldTag.location - lengthOfFirstBoldString) + locationAdjustment;
+            NSRange boldTextRange = NSMakeRange(locationOfFirstBoldString, lengthOfFirstBoldString);
+            [rangesOfBoldedText addObject:[NSValue valueWithRange:boldTextRange]];
+            locationAdjustment += (rangeOfFirstCloseBoldTag.location + rangeOfFirstCloseBoldTag.length);
+            stringToEdit = [stringToEdit substringFromIndex:(rangeOfFirstCloseBoldTag.location + rangeOfFirstCloseBoldTag.length)];
+        } else {
+            break;
         }
-        int locationOfFirstBoldString = (rangeOfFirstCloseBoldTag.location - lengthOfFirstBoldString) + locationAdjustment;
-        NSRange boldTextRange = NSMakeRange(locationOfFirstBoldString, lengthOfFirstBoldString);
-        [rangesOfBoldedText addObject:[NSValue valueWithRange:boldTextRange]];
-        locationAdjustment += (rangeOfFirstCloseBoldTag.location + rangeOfFirstCloseBoldTag.length);
-        stringToEdit = [stringToEdit substringFromIndex:(rangeOfFirstCloseBoldTag.location + rangeOfFirstCloseBoldTag.length)];
     }
     return [NSArray arrayWithArray:rangesOfBoldedText];
 }

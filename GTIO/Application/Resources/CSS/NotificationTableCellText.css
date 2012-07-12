@@ -1,0 +1,16 @@
+body {
+    font-weight: Verlag-Light;
+    font-family: V-Lght;
+    font-size: 16px;
+    color: #626262;
+}
+
+b {
+    font-weight: Verlag-Bold;
+    font-family: V-Bld;
+    font-size: 16px;
+}
+
+#viewed {
+    color: #8f8f8f;
+}

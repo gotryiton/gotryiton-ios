@@ -34,6 +34,7 @@
 #import "GTIOFollowersScreen.h"
 #import "GTIOFindMyFriendsScreen.h"
 #import "GTIOReview.h"
+#import "GTIONotification.h"
 
 @implementation GTIOMappingProvider
 
@@ -68,6 +69,7 @@
         RKObjectMapping *followersScreenMapping = [RKObjectMapping mappingForClass:[GTIOFollowersScreen class]];
         RKObjectMapping *findMyFriendsScreenMapping = [RKObjectMapping mappingForClass:[GTIOFindMyFriendsScreen class]];
         RKObjectMapping *reviewMapping = [RKObjectMapping mappingForClass:[GTIOReview class]];
+        RKObjectMapping *notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
         
         /** Config
          */
@@ -248,6 +250,14 @@
         [reviewMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [self setMapping:reviewMapping forKeyPath:@"reviews"];
         [self setMapping:reviewMapping forKeyPath:@"review"];
+        
+        /** Notifications
+         */
+        
+        // GTIONotification
+        [notificationMapping mapKeyPath:@"id" toAttribute:@"notificationID"];
+        [notificationMapping mapAttributes:@"text", @"action", @"icon", nil];
+        [self setMapping:notificationMapping forKeyPath:@"notifications"];
 
         // GTIOAutoCompleter
         [autocompleterMapping mapKeyPath:@"id" toAttribute:@"completerID"];
