@@ -17,7 +17,7 @@
 #import "GTIOExploreLooksViewController.h"
 #import "GTIOCameraViewController.h"
 #import "GTIOCameraTabBarPlaceholderViewController.h"
-#import "GTIOShopViewController.h"
+#import "GTIOStyleViewController.h"
 #import "GTIOMeViewController.h"
 
 #import "GTIOAppearance.h"
@@ -203,12 +203,13 @@
     
     UINavigationController *meNavigationController = [[UINavigationController alloc] initWithRootViewController:[[GTIOMeViewController alloc] initWithNibName:nil bundle:nil]];
     UINavigationController *feedNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil]];
+    UINavigationController *styleNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOStyleViewController alloc] initWithNibName:nil bundle:nil]];
     
     self.tabBarViewControllers = [NSArray arrayWithObjects:
                                 feedNavController,
                                 [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOCameraTabBarPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
-                                [[GTIOShopViewController alloc] initWithNibName:nil bundle:nil],
+                                styleNavController,
                                 meNavigationController,
                                 nil];
     [self.tabBarController setViewControllers:self.tabBarViewControllers];
@@ -258,13 +259,13 @@
             [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];
         } else if ([rootViewController isKindOfClass:[GTIOMeViewController class]]) {
             [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
+        } else if ([rootViewController isKindOfClass:[GTIOStyleViewController class]]) {
+            [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
         }
     } else if ([viewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
         [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOCameraViewController class]]) {
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
-    } else if ([viewController isKindOfClass:[GTIOShopViewController class]]) {
-        [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
     }
 }
 

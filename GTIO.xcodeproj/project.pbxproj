@@ -1166,7 +1166,7 @@
 		D2569C051566CE7A0045B508 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2569C041566CE7A0045B508 /* libz.dylib */; };
 		D25F9939156EAA2D004B705E /* GTIOSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = D25F9938156EAA2C004B705E /* GTIOSwitch.m */; };
 		D25F993C156EC6B4004B705E /* GTIOSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = D25F993B156EC6B4004B705E /* GTIOSlider.m */; };
-		D2603DC6155AAE4500536BF9 /* GTIOShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2603DC5155AAE4500536BF9 /* GTIOShopViewController.m */; };
+		D2603DC6155AAE4500536BF9 /* GTIOStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2603DC5155AAE4500536BF9 /* GTIOStyleViewController.m */; };
 		D2603DC9155AAE5100536BF9 /* GTIOMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2603DC8155AAE5100536BF9 /* GTIOMeViewController.m */; };
 		D2603E1E155AD92E00536BF9 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D2603E1D155AD92E00536BF9 /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D2603E20155AD93A00536BF9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2603E1F155AD93A00536BF9 /* CoreText.framework */; };
@@ -1205,6 +1205,9 @@
 		D29F4CFA1580F502009F7BB7 /* GTIOResizePhotoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */; };
 		D2A194D415AF5CFB00372872 /* photo-frame-single.png in Resources */ = {isa = PBXBuildFile; fileRef = D2A194D215AF5CFB00372872 /* photo-frame-single.png */; };
 		D2A194D515AF5CFB00372872 /* photo-frame-single@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2A194D315AF5CFB00372872 /* photo-frame-single@2x.png */; };
+		D2A194D915AF69CF00372872 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A194D815AF69CF00372872 /* NSData+Base64.m */; };
+		D2A194DD15AF762200372872 /* GTIOInternalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A194DC15AF762200372872 /* GTIOInternalWebViewController.m */; };
+		D2A194E015AF76C300372872 /* GTIOWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A194DF15AF76C300372872 /* GTIOWebView.m */; };
 		D2B4E59F15A7791100BC02E0 /* GTIOCameraShutterControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B4E59E15A7791100BC02E0 /* GTIOCameraShutterControl.m */; };
 		D2B7ACEA15A21C2400711AE8 /* UIImage+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7ACE715A21C2400711AE8 /* UIImage+Filter.m */; };
 		D2B7ACEB15A21C2400711AE8 /* UIImage+GTIOFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7ACE915A21C2400711AE8 /* UIImage+GTIOFilters.m */; };
@@ -2648,8 +2651,8 @@
 		D25F9938156EAA2C004B705E /* GTIOSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSwitch.m; sourceTree = "<group>"; };
 		D25F993A156EC6B3004B705E /* GTIOSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSlider.h; sourceTree = "<group>"; };
 		D25F993B156EC6B4004B705E /* GTIOSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSlider.m; sourceTree = "<group>"; };
-		D2603DC4155AAE4500536BF9 /* GTIOShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOShopViewController.h; sourceTree = "<group>"; };
-		D2603DC5155AAE4500536BF9 /* GTIOShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOShopViewController.m; sourceTree = "<group>"; };
+		D2603DC4155AAE4500536BF9 /* GTIOStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOStyleViewController.h; sourceTree = "<group>"; };
+		D2603DC5155AAE4500536BF9 /* GTIOStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOStyleViewController.m; sourceTree = "<group>"; };
 		D2603DC7155AAE5100536BF9 /* GTIOMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMeViewController.h; sourceTree = "<group>"; };
 		D2603DC8155AAE5100536BF9 /* GTIOMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMeViewController.m; sourceTree = "<group>"; };
 		D2603E1C155AD92E00536BF9 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = Libraries/TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
@@ -2737,6 +2740,12 @@
 		D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOResizePhotoOperation.m; sourceTree = "<group>"; };
 		D2A194D215AF5CFB00372872 /* photo-frame-single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-frame-single.png"; sourceTree = "<group>"; };
 		D2A194D315AF5CFB00372872 /* photo-frame-single@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-frame-single@2x.png"; sourceTree = "<group>"; };
+		D2A194D715AF69CF00372872 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		D2A194D815AF69CF00372872 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		D2A194DB15AF762200372872 /* GTIOInternalWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInternalWebViewController.h; sourceTree = "<group>"; };
+		D2A194DC15AF762200372872 /* GTIOInternalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInternalWebViewController.m; sourceTree = "<group>"; };
+		D2A194DE15AF76C300372872 /* GTIOWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOWebView.h; sourceTree = "<group>"; };
+		D2A194DF15AF76C300372872 /* GTIOWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWebView.m; sourceTree = "<group>"; };
 		D2B4E59D15A7791100BC02E0 /* GTIOCameraShutterControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCameraShutterControl.h; sourceTree = "<group>"; };
 		D2B4E59E15A7791100BC02E0 /* GTIOCameraShutterControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCameraShutterControl.m; sourceTree = "<group>"; };
 		D2B7ACE615A21C2400711AE8 /* UIImage+Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filter.h"; sourceTree = "<group>"; };
@@ -4803,8 +4812,28 @@
 				8EAFB59B1594BFB40080A961 /* GTIOActionSheet.m */,
 				D29AD732159CEE3B00C23AA4 /* GTIOPopOverView.h */,
 				D29AD733159CEE3B00C23AA4 /* GTIOPopOverView.m */,
+				D2A194DE15AF76C300372872 /* GTIOWebView.h */,
+				D2A194DF15AF76C300372872 /* GTIOWebView.m */,
 			);
 			name = General;
+			sourceTree = "<group>";
+		};
+		D2A194D615AF635E00372872 /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				D2603DC4155AAE4500536BF9 /* GTIOStyleViewController.h */,
+				D2603DC5155AAE4500536BF9 /* GTIOStyleViewController.m */,
+			);
+			name = Shop;
+			sourceTree = "<group>";
+		};
+		D2A194DA15AF760400372872 /* WebViews */ = {
+			isa = PBXGroup;
+			children = (
+				D2A194DB15AF762200372872 /* GTIOInternalWebViewController.h */,
+				D2A194DC15AF762200372872 /* GTIOInternalWebViewController.m */,
+			);
+			name = WebViews;
 			sourceTree = "<group>";
 		};
 		D2C1C85E159DFF08001026BC /* CSS */ = {
@@ -4964,6 +4993,8 @@
 				D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */,
 				8EA1D318159E0B9B00E93577 /* NSString+GTIOAdditions.h */,
 				8EA1D319159E0B9B00E93577 /* NSString+GTIOAdditions.m */,
+				D2A194D715AF69CF00372872 /* NSData+Base64.h */,
+				D2A194D815AF69CF00372872 /* NSData+Base64.m */,
 			);
 			name = Categories;
 			path = Application/Categories;
@@ -4983,6 +5014,8 @@
 		D2CDA9AF15503307009B7E24 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D2A194DA15AF760400372872 /* WebViews */,
+				D2A194D615AF635E00372872 /* Shop */,
 				8EB1421915AB30D400D5495C /* Reviews */,
 				8EA02716159A2CF100FDC45E /* Friends */,
 				8E969F51158BD7AE009E19B3 /* Feed */,
@@ -4994,8 +5027,6 @@
 				D201C824156144CE00C4168D /* Splash/Intro */,
 				D2E375961559B86700763A67 /* GTIOExploreLooksViewController.h */,
 				D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */,
-				D2603DC4155AAE4500536BF9 /* GTIOShopViewController.h */,
-				D2603DC5155AAE4500536BF9 /* GTIOShopViewController.m */,
 				D2EC0ED6156ADF1500984838 /* GTIOMailComposer.h */,
 				D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */,
 			);
@@ -6393,7 +6424,7 @@
 				D2CDA99E1550307B009B7E24 /* GTIOAppDelegate.m in Sources */,
 				D2CDA9AA155032D7009B7E24 /* main.m in Sources */,
 				D2E3759A1559B86700763A67 /* GTIOExploreLooksViewController.m in Sources */,
-				D2603DC6155AAE4500536BF9 /* GTIOShopViewController.m in Sources */,
+				D2603DC6155AAE4500536BF9 /* GTIOStyleViewController.m in Sources */,
 				D2603DC9155AAE5100536BF9 /* GTIOMeViewController.m in Sources */,
 				D2603E1E155AD92E00536BF9 /* TTTAttributedLabel.m in Sources */,
 				D20C2267155B0FBC0079D7D9 /* GTIOIntroScreen.m in Sources */,
@@ -6583,6 +6614,9 @@
 				8E48AD0715AC8C1100DC6EDD /* GTIOReview.m in Sources */,
 				8ED52EFD15ACC74900F5C05B /* GTIOCommentViewController.m in Sources */,
 				8ED52F0015ACD6F100F5C05B /* GTIOReviewPostPictureViewer.m in Sources */,
+				D2A194D915AF69CF00372872 /* NSData+Base64.m in Sources */,
+				D2A194DD15AF762200372872 /* GTIOInternalWebViewController.m in Sources */,
+				D2A194E015AF76C300372872 /* GTIOWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

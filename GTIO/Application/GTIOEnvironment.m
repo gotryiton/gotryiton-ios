@@ -86,6 +86,8 @@ NSString * const kGTIOReviewAgreeButton = @"review-agree-button";
 NSString * const kGTIOReviewFlagButton = @"review-flag-button";
 NSString * const kGTIOReviewRemoveButton = @"review-delete-button";
 
+NSTimeInterval const kGTIOWebViewTimeout = 10.0f;
+
 int const kGTIOEmptyPostAlertTag = 0;
 int const kGTIOEmptyDescriptionAlertTag = 1;
 

@@ -73,6 +73,9 @@ extern NSString * const kGTIOReviewAgreeButton;
 extern NSString * const kGTIOReviewFlagButton;
 extern NSString * const kGTIOReviewRemoveButton;
 
+// Web Views
+extern NSTimeInterval const kGTIOWebViewTimeout;
+
 /** Dismiss handler
  */
 typedef void(^GTIODismissHandler)(UIViewController *viewController);

@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GTIOViewController.h"
 
-@interface GTIOShopViewController : UIViewController
+@interface GTIOStyleViewController : GTIOViewController
 
 @end
