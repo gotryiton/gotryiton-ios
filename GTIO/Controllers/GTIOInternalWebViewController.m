@@ -62,17 +62,15 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
     [self.view addSubview:self.webView];
     
     [self.webView loadGTIORequestWithURL:self.URL];
-    
-    // TODO: Need error state
-    // TODO: Need loading spinner
-    
-    double delayInSeconds = 7.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        NSURL *URL2 = [NSURL URLWithString:@"gtio://internal-webview/test+url/%22Aardvarks+lurk%2C+OK%3F%22"];
-        NSURLRequest *request = [NSURLRequest requestWithURL:URL2];
-        [self.webView.delegate webView:self.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeLinkClicked];
-    });
+
+#warning test Code
+//    double delayInSeconds = 7.0;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        NSURL *URL2 = [NSURL URLWithString:@"gtio://internal-webview/test+url/%22Aardvarks+lurk%2C+OK%3F%22"];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:URL2];
+//        [self.webView.delegate webView:self.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeLinkClicked];
+//    });
 }
 
 - (void)viewDidUnload
@@ -106,6 +104,22 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
     }
     
     return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [GTIOProgressHUD showHUDAddedTo:self.webView animated:YES];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [GTIOProgressHUD hideHUDForView:self.webView animated:YES];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [GTIOProgressHUD hideHUDForView:self.webView animated:YES];
+    // TODO show error state
 }
 
 @end
