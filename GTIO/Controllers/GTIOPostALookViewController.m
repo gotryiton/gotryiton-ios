@@ -108,7 +108,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ 253, 174, 60, 143 }];
     [self.scrollView addSubview:self.optionsView];
     
-    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 155 } title:@"add a description, tags, and brands..." icon:[UIImage imageNamed:@"description-box-icon.png"]];
+    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 105 } title:@"add a description, tags, and brands..." icon:[UIImage imageNamed:@"description-box-icon.png"]];
     [self.descriptionBox.textView setTextViewWillBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {        
         CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
         
@@ -122,8 +122,10 @@ static NSInteger const kGTIOMaskingViewTag = 100;
             [self.scrollView scrollRectToVisible:(CGRect){ 0, self.scrollView.contentSize.height - 1, 1, 1 } animated:YES];
         }
     }];
+    __weak GTIOPostALookViewController *controller = self;
     [self.descriptionBox.textView setTextViewDidBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {
         [self.lookSelectorView setUserInteractionEnabled:NO];
+        [controller snapScrollToBottom];
     }];
     [self.descriptionBox.textView setTextViewDidEndHandler:^(GTIOPostAutoCompleteView *descriptionBox, BOOL scrollToTop) {
         [self.descriptionBox.textView.textInput resignFirstResponder];
@@ -234,6 +236,15 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         } else {
             [self.descriptionBox.textView.textInput becomeFirstResponder];
         }
+    }];
+}
+
+- (void)snapScrollToBottom
+{
+    CGRect scrollToRect = CGRectMake(0, self.scrollView.contentSize.height - 1, 1, 1);
+    [UIView animateWithDuration:0.15 animations:^{
+        [self.scrollView scrollRectToVisible:scrollToRect animated:YES];
+    } completion:^(BOOL finished) {
     }];
 }
 

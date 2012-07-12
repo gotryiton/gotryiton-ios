@@ -69,7 +69,6 @@
         _textInput.textColor = [UIColor clearColor];
         [self addSubview:self.textInput];
 
-        
         _ACInputColor = CGColorRetain([UIColor gtio_grayTextColor404040].CGColor);
         _ACPlaceholderColor = CGColorRetain([UIColor gtio_lightGrayTextColor].CGColor);
         _ACHighlightColor = CGColorRetain([UIColor gtio_linkColor].CGColor);
@@ -140,7 +139,7 @@
         self.isScrollViewShowing = YES;
         
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-            CGRect scrollFrameBox = CGRectMake( 0, self.textInput.inputAccessoryView.bounds.size.height-48, self.textInput.inputAccessoryView.bounds.size.width, 50);
+            CGRect scrollFrameBox = CGRectMake( 0, self.textInput.inputAccessoryView.bounds.size.height-50, self.textInput.inputAccessoryView.bounds.size.width, 50);
             [self.scrollView setFrame:scrollFrameBox];
             [self.scrollViewBackground setFrame:scrollFrameBox];
 

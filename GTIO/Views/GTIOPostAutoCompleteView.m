@@ -85,6 +85,12 @@
     }
 }
 
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    [self hideOrShowPlaceholderLabel];
+}
+
+
 - (void)hideOrShowPlaceholderLabel
 {
     if ([[self.textInput.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] > 0) {
