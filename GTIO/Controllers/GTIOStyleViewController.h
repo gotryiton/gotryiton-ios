@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
-#import "GTIOViewController.h"
+#import "GTIOInternalWebViewController.h"
 
-@interface GTIOStyleViewController : GTIOViewController
+@interface GTIOStyleViewController : GTIOInternalWebViewController
 
 @end
