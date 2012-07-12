@@ -19,3 +19,6 @@
 [submodule "Libraries/sspulltorefresh"]
 	path = Libraries/sspulltorefresh
 	url = git://github.com/samsoffes/sspulltorefresh.git
+[submodule "Libraries/janrain"]
+	path = Libraries/janrain
+	url = git://github.com/janrain/engage.iphone.git
