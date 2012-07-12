@@ -9,18 +9,14 @@
 #import <UIKit/UIKit.h>
 
 #import "GTIOSwitch.h"
-
-typedef void(^GTIOPhotoModeSwitchChangedHandler)(BOOL on);
+#import "GTIOCameraShutterControl.h"
 
 @interface GTIOCameraToolbarView : UIView
 
 @property (nonatomic, strong) GTIOUIButton *closeButton;
-@property (nonatomic, strong) GTIOUIButton *photoPickerButton;
+@property (nonatomic, strong) GTIOUIButton *photoSourceButton;
 @property (nonatomic, strong) GTIOUIButton *photoShootGridButton;
-@property (nonatomic, strong) GTIOUIButton *shutterButton;
-@property (nonatomic, strong) GTIOSwitch *photoModeSwitch;
-
-@property (nonatomic, copy) GTIOPhotoModeSwitchChangedHandler photoModeSwitchChangedHandler;
+@property (nonatomic, strong) GTIOCameraShutterControl *shutterButton;
 
 - (void)showPhotoShootGrid:(BOOL)showPhotoShootGrid;
 

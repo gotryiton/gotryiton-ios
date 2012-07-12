@@ -13,4 +13,6 @@
 
 @property (nonatomic, unsafe_unretained) id<GTIOLookSelectorControlDelegate> delegate;
 
+- (void)reset;
+
 @end

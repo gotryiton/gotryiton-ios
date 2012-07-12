@@ -25,7 +25,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeEmailSupport,
     GTIOButtonTypeBack,
     GTIOButtonTypePhotoClose,
-    GTIOButtonTypePhotoPicker,
+    GTIOButtonTypePhotoSource,
     GTIOButtonTypePhotoShootGrid,
     GTIOButtonTypePhotoShutter,
     GTIOButtonTypePhotoFlash,
@@ -36,6 +36,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeCancelGrayTopMargin,
     GTIOButtonTypeSaveGrayTopMargin,
     GTIOButtonTypePhotoSelectBox,
+    GTIOButtonTypeEditPhoto,
     GTIOButtonTypePostThis,
     GTIOButtonTypePhotoDelete,
     GTIOButtonTypeNotificationBubble,
@@ -65,6 +66,8 @@ typedef enum GTIOButtonType {
 @interface GTIOUIButton : UIButton
 
 @property (nonatomic, copy) GTIOButtonDidTapHandler tapHandler;
+@property (nonatomic, copy) GTIOButtonDidTapHandler touchDownHandler;
+@property (nonatomic, copy) GTIOButtonDidTapHandler touchDragExitHandler;
 
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType;
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType tapHandler:(GTIOButtonDidTapHandler)tapHandler;

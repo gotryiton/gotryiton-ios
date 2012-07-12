@@ -33,11 +33,13 @@ static double const buttonWidth = 292.0;
 
 @synthesize cancelButton = _cancelButton, otherButtons = _otherButtons, windowMask = _windowMask, buttonsContainer = _buttonsContainer, buttonsVisible = _buttonsVisible, buttonsContainerHeight = _buttonsContainerHeight;
 @synthesize willDismiss = _willDismiss, didDismiss = _didDismiss, willPresent = _willPresent, didPresent = _didPresent, willCancel = _willCancel, wasCancelled = _wasCancelled;
+@synthesize buttonTapHandler = _buttonTapHandler;
 
-- (id)initWithButtons:(NSArray *)buttons
+- (id)initWithButtons:(NSArray *)buttons buttonTapHandler:(GTIOActionSheetButtonTapHandler)buttonTapHandler
 {
     self = [super initWithFrame:[[UIApplication sharedApplication] keyWindow].frame];
     if (self) {
+        _buttonTapHandler = buttonTapHandler;
         _cancelButton = [GTIOLargeButton gtio_largeCancelButton];
         __block typeof(self) blockSelf = self;
         _cancelButton.tapHandler = ^(id sender) {
@@ -60,27 +62,41 @@ static double const buttonWidth = 292.0;
         
         [_buttonsContainer addSubview:_cancelButton];
         for (GTIOButton *button in buttons) {
-            GTIOUIButton *actionSheetButton = nil;
+            GTIOLargeButton *actionSheetButton = nil;
             switch (button.state.intValue) {
                 case 0: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
                 case 1: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGreen]; break;
                 case 2: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleRed]; break;
                 default: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
             }
+            [self setFrame:(CGRect){ CGPointZero, { buttonWidth, buttonHeight } }];
+            
             [actionSheetButton setTitle:button.text forState:UIControlStateNormal];
-            actionSheetButton.tapHandler = ^(id sender) {
-                [GTIOProgressHUD showHUDAddedTo:self.windowMask animated:YES];
-                [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                    loader.onDidLoadResponse = ^(RKResponse *response) {
-                        [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
-                        [self dismiss];
-                    };
-                    loader.onDidFailWithError = ^(NSError *error) {
-                        [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
-                        NSLog(@"%@", [error localizedDescription]);
-                    };
-                }];
-            };
+            
+            if (button.suffixImage) {
+                [actionSheetButton setSwapSuffixImage:button.suffixImage];
+            }
+            
+            if (_buttonTapHandler) {
+                actionSheetButton.tapHandler = ^(id sender) {
+                    _buttonTapHandler(button);
+                };
+            } else {
+                actionSheetButton.tapHandler = ^(id sender) {
+                    [GTIOProgressHUD showHUDAddedTo:self.windowMask animated:YES];
+                    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+                        loader.onDidLoadResponse = ^(RKResponse *response) {
+                            [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
+                            [self dismiss];
+                        };
+                        loader.onDidFailWithError = ^(NSError *error) {
+                            [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
+                            NSLog(@"%@", [error localizedDescription]);
+                        };
+                    }];
+                };
+            }
+            
             [_otherButtons addObject:actionSheetButton];
             [_buttonsContainer addSubview:actionSheetButton];
         }

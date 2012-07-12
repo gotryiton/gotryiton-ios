@@ -23,11 +23,17 @@
 #import "GTIOPhoto.h"
 #import "GTIOPost.h"
 
+#import "GTIOPhotoConfirmationViewController.h"
+
 static NSInteger const kGTIOBottomButtonSize = 50;
 static NSInteger const kGTIONavBarSize = 44;
 static NSInteger const kGTIOMaskingViewTag = 100;
 
 @interface GTIOPostALookViewController() <UIGestureRecognizerDelegate>
+
+@property (nonatomic, strong) UIImage *mainOriginalImage;
+@property (nonatomic, strong) UIImage *mainFilteredImage;
+@property (nonatomic, strong) NSString *mainFilterName;
 
 @property (nonatomic, strong) GTIOLookSelectorView *lookSelectorView;
 @property (nonatomic, strong) GTIOLookSelectorControl *lookSelectorControl;
@@ -49,14 +55,18 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 @implementation GTIOPostALookViewController
 
 @synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer;
-@synthesize mainImage = _mainImage, secondImage = _secondImage, thirdImage = _thirdImage, photoForPosting = _photoForPosting;
+@synthesize mainOriginalImage = _mainOriginalImage, mainFilteredImage = _mainFilteredImage, mainFilterName = _mainFilterName;
+@synthesize photoForPosting = _photoForPosting;
 @synthesize maskView = _maskView;
+@synthesize currentSection = _currentSection;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookSelectorViewUpdated:) name:kGTIOLooksUpdated object:nil];
+        
+        _currentSection = GTIOPostPhotoSectionMain;
     }
     return self;
 }
@@ -95,17 +105,28 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [self.scrollView setDelegate:self];
     [self.view addSubview:self.scrollView];
     
-    self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ 8, 8, 237, 312 } photoSet:NO launchCameraHandler:^{
+    UIImageView *backdropImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photo-frame-backdrop.png"]];
+    [backdropImageView setFrame:(CGRect){ { 8, 8 }, backdropImageView.image.size }];
+    [self.scrollView addSubview:backdropImageView];
+    
+    self.lookSelectorView = [[GTIOLookSelectorView alloc] initWithFrame:(CGRect){ { 4, 5 }, { 245, 0 } } photoSet:NO launchCameraHandler:^(GTIOPostPhotoSection photoSection){
+        self.currentSection = photoSection;
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];
-    [self.lookSelectorView.singlePhotoView setImage:self.mainImage];
+    [self.lookSelectorView setAddFilterHandler:^(GTIOPostPhotoSection photoSection, UIImage *originalPhoto) {
+        self.currentSection = photoSection;
+        GTIOPhotoConfirmationViewController *confirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
+        [confirmationViewController setOriginalPhoto:originalPhoto];
+        [self.navigationController pushViewController:confirmationViewController animated:YES];
+    }];
+    [self setOriginalImage:self.mainOriginalImage filteredImage:self.mainFilteredImage filterName:self.mainFilterName]; // Now that view is loaded refresh image
     [self.scrollView addSubview:self.lookSelectorView];
     
     self.lookSelectorControl = [[GTIOLookSelectorControl alloc] initWithFrame:(CGRect){ 253, 13, 60, 107 }];
     [self.lookSelectorControl setDelegate:self.lookSelectorView];
     [self.scrollView addSubview:self.lookSelectorControl];
     
-    self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ 253, 174, 60, 143 }];
+    self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ { 253, 262 }, CGSizeZero }];
     [self.scrollView addSubview:self.optionsView];
     
     self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 155 } title:@"add a description, tags, and brands..." icon:[UIImage imageNamed:@"description-box-icon.png"]];
@@ -239,6 +260,18 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 #pragma mark -
 
+- (void)reset
+{
+    self.currentSection = GTIOPostPhotoSectionMain;
+    
+    self.mainOriginalImage = nil;
+    self.mainFilteredImage = nil;
+    
+    [self.descriptionBox.textView resetView];
+    [self.lookSelectorControl reset];
+    [self.lookSelectorView reset];
+}
+
 - (void)postThis:(id)sender
 {
     if ([[self.descriptionBox.textView processDescriptionString] length] == 0) {
@@ -263,29 +296,9 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 - (void)createGTIOPhoto:(id)sender
 {
     if ([self.lookSelectorView selectionsComplete]) {
-        UIImage *uploadImage = [self getCompositeImage];
+        UIImage *uploadImage = [self.lookSelectorView compositeImage];
         [[GTIOPostManager sharedManager] uploadImage:uploadImage framed:self.lookSelectorView.photoSet filterName:@"" forceSavePost:NO];
     }
-}
-
-- (UIImage *)getCompositeImage
-{
-    [self.lookSelectorView hideDeleteButtons:YES];
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-        UIGraphicsBeginImageContextWithOptions(self.lookSelectorView.photoCanvasSize, NO, [UIScreen mainScreen].scale);
-    } else {
-        UIGraphicsBeginImageContext(self.lookSelectorView.photoCanvasSize);
-    }
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    if (self.lookSelectorView.photoSet) {
-        // crop out the white border
-        CGContextTranslateCTM(context, -5, -5);
-    }
-    [[self.lookSelectorView compositeCanvas].layer renderInContext:context];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();   
-    UIGraphicsEndImageContext();
-    [self.lookSelectorView hideDeleteButtons:NO];
-    return viewImage;
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -301,27 +314,53 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 - (void)beginPostLookToGTIO
 {
     [[GTIOPostManager sharedManager] setPostPhotoButtonTouched:YES];
-    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] completionHandler:^(GTIOPost *post, NSError *error) {
-        if (!error) {
-            [self.descriptionBox.textView resetView];
-        }
+    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] completionHandler:nil];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        [self reset];
     }];
-    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)cancelPost
 {
     [[GTIOPostManager sharedManager] cancelUploadImage];
-    [self.descriptionBox.textView resetView];
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        [self reset];
+    }];
 }
 
 #pragma mark - Photo Handlers
 
-- (void)setMainImage:(UIImage *)mainImage
+- (void)setOriginalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName
 {
-    _mainImage = mainImage;
-    self.lookSelectorView.singlePhotoView.image = _mainImage;
+    switch (self.currentSection) {
+        case GTIOPostPhotoSectionMain:
+            self.mainOriginalImage = originalImage;
+            self.mainFilteredImage = filteredImage;
+            [self updateTakePhotoView:self.lookSelectorView.mainPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            [self updateTakePhotoView:self.lookSelectorView.singlePhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            
+            CGFloat height = kGTIOLookSelectorViewMaxHeight;
+            if (self.mainFilteredImage.size.height < kGTIOLookSelectorViewMaxHeight) {
+                height = kGTIOLookSelectorViewMinHeight;
+            }
+            [self.lookSelectorView setFrame:(CGRect){ self.lookSelectorView.frame.origin, { self.lookSelectorView.frame.size.width, height } }];
+            
+            break;
+        case GTIOPostPhotoSectionTop: 
+            [self updateTakePhotoView:self.lookSelectorView.topPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            break;
+        case GTIOPostPhotoSectionBottom: 
+            [self updateTakePhotoView:self.lookSelectorView.bottomPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            break;
+        default: break;
+    }
+}
+
+- (void)updateTakePhotoView:(GTIOTakePhotoView *)takePhotoView originalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName
+{
+    [takePhotoView setOriginalImage:originalImage];
+    [takePhotoView setFilteredImage:filteredImage];
+    [takePhotoView setFilterName:filterName];
 }
 
 #pragma mark - UINavigationBar

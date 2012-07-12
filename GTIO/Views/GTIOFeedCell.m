@@ -106,7 +106,7 @@ static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
         __block typeof(self) blockSelf = self;
         [self.postButtonColumnView setDotdotdotButtonTapHandler:^(id sender){ 
             if (!blockSelf.dotdotdotPopOverView) {
-                blockSelf.dotdotdotPopOverView = [[GTIOPopOverView alloc] initWithButtonModels:_post.dotOptionsButtons];
+                blockSelf.dotdotdotPopOverView = [GTIOPopOverView popOverForPostDotDotDotWithButtonModels:_post.dotOptionsButtons];
             }
             
             [blockSelf.dotdotdotPopOverView setFrame:(CGRect){ { self.frame.size.width - blockSelf.dotdotdotPopOverView.frame.size.width + kGITODotDotDotPopOverViewXOriginOffset, self.postButtonColumnView.dotdotdotButton.frame.origin.y + kGITODotDotDotPopOverViewYOriginOffset }, blockSelf.dotdotdotPopOverView.frame.size }];
