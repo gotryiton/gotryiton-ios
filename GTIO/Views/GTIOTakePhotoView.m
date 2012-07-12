@@ -49,6 +49,8 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
     self = [super initWithFrame:frame];
     if (self) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        [self.scrollView setShowsHorizontalScrollIndicator:NO];
+        [self.scrollView setShowsVerticalScrollIndicator:NO];
         [self.scrollView setScrollEnabled:YES];
         [self.scrollView setBounces:YES];
         [self.scrollView setDelegate:self];

@@ -44,14 +44,14 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.photoSet = photoSet;
-        _launchCameraHandler = launchCameraHandler;
-        
         [self setFrame:(CGRect){ self.frame.origin, { self.frame.size.width, kGTIOLookSelectorViewMaxHeight } }];
         
-        _frameImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"photo-frame.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 14, 0, 135, 0 }]];
-        [_frameImageView setFrame:self.bounds];
+        _frameImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         [self addSubview:_frameImageView];
+        
+        // Must init frameImageView before setting photoSet
+        self.photoSet = photoSet;
+        _launchCameraHandler = launchCameraHandler;
         
         // Single Image
         _singlePhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIOMainImageXOrigin, kGTIOTopPadding, kGTIOSingleImageWidth, kGTIOMainImageMaxHeight }];
@@ -199,6 +199,12 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
 - (void)setPhotoSet:(BOOL)photoSet
 {
     _photoSet = photoSet;
+    
+    NSString *frameImageName = @"photo-frame-single.png";
+    if (_photoSet) {
+        frameImageName = @"photo-frame.png";
+    }
+    [self.frameImageView setImage:[[UIImage imageNamed:frameImageName] resizableImageWithCapInsets:(UIEdgeInsets){ 14, 0, 135, 0 }]];
     
     [self.singlePhotoView setPhotoSet:_photoSet];
     [self.mainPhotoView setPhotoSet:_photoSet];
