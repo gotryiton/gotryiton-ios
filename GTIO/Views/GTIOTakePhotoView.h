@@ -28,6 +28,7 @@ typedef enum GTIOEditPhotoButtonPosition {
 @property (nonatomic, strong) NSString *filterName;
 
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) GTIOEditPhotoButtonPosition editPhotoButtonPosition;
 
 @property (nonatomic, assign) GTIOPostPhotoSection photoSection;

@@ -7,16 +7,22 @@
 //
 
 #import "GTIOLookSelectorView.h"
+
 #import <QuartzCore/QuartzCore.h>
 
-static CGFloat const kGTIOTopPadding = 9.0f;
+#import "UIImage+Resize.h"
+
+static CGFloat const kGTIOTopPadding = 8.5f;
 static CGFloat const kGTIOBottomPadding = 5.0f;
-static CGFloat const kGTIORightFrameXOrigin = 126.0f;
-static CGFloat const kGTIOFrameImageWidth = 109.0f;
-static CGFloat const kGTIOTopImageMaxHeight = 184.0f;
-static CGFloat const kGTIOMainImageMaxHeight = 300.0f;
-static CGFloat const kGTIOMainImageXOrigin = 10.0f;
-static CGFloat const kGTIOSingleImageWidth = 225.0f;
+static CGFloat const kGTIORightFrameXOrigin = 125.5f;
+static CGFloat const kGTIOFrameImageWidth = 110.0f;
+static CGFloat const kGTIOTopImageMaxHeight = 185.0f;
+static CGFloat const kGTIOMainImageMaxHeight = 301.0f;
+static CGFloat const kGTIOMainImageXOrigin = 9.5f;
+static CGFloat const kGTIOSingleImageWidth = 226.0f;
+static CGFloat const kGTIOBottomImageYOrigin = 199.5f;
+
+static CGFloat const kGTIOCompositeImageWidth = 640.0f;
 
 @interface GTIOLookSelectorView()
 
@@ -76,10 +82,23 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
             
             UIImage *currentOriginalImage = takePhotoView.originalImage;
             UIImage *currentFilteredImage = takePhotoView.filteredImage;
+            NSString *currentFilterName = takePhotoView.filterName;
             takePhotoView.originalImage = swapWithPhotoView.originalImage;
             takePhotoView.filteredImage = swapWithPhotoView.filteredImage;
+            takePhotoView.filterName = swapWithPhotoView.filterName;
+            if (takePhotoView == self.mainPhotoView) {
+                self.singlePhotoView.originalImage = swapWithPhotoView.originalImage;
+                self.singlePhotoView.filteredImage = swapWithPhotoView.filteredImage;
+                self.singlePhotoView.filterName = swapWithPhotoView.filterName;
+            }
             swapWithPhotoView.originalImage = currentOriginalImage;
             swapWithPhotoView.filteredImage = currentFilteredImage;
+            swapWithPhotoView.filterName = currentFilterName;
+            if (swapWithPhotoView == self.mainPhotoView) {
+                self.singlePhotoView.originalImage = currentOriginalImage;
+                self.singlePhotoView.filteredImage = currentFilteredImage;
+                self.singlePhotoView.filterName = currentFilterName;
+            }
         };
         
         // Photos
@@ -96,7 +115,7 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
         [_topPhotoView setEditPhotoButtonPosition:GTIOEditPhotoButtonPositionRight];
         [_photoSetView addSubview:self.topPhotoView];
         
-        _bottomPhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIORightFrameXOrigin, 200, kGTIOFrameImageWidth, kGTIOFrameImageWidth }];
+        _bottomPhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIORightFrameXOrigin, kGTIOBottomImageYOrigin, kGTIOFrameImageWidth, kGTIOFrameImageWidth }];
         [_bottomPhotoView setPhotoSection:GTIOPostPhotoSectionBottom];
         [_bottomPhotoView setLaunchCameraHandler:_launchCameraHandler];
         [_bottomPhotoView setSwapPhotoHandler:swapPhotoHandler];
@@ -134,15 +153,6 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
     [self.bottomPhotoView hideEditPhotoButton:hidden];
 }
 
-- (UIView *)compositeCanvas
-{
-    if (self.photoSet) {
-        return self.photoSetView;
-    } else {
-        return self.singlePhotoView;
-    }
-}
-
 - (void)lookSelectorControl:(GTIOLookSelectorControl *)lookSelectorControl photoSet:(BOOL)photoSet
 {
     self.photoSet = photoSet;
@@ -165,14 +175,18 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
     [self.photoSetView removeFromSuperview];
     
     if (self.photoSet) {
-        if (self.singlePhotoView.imageView.image && !self.mainPhotoView.imageView.image) {
-            [self.mainPhotoView setFilteredImage:self.singlePhotoView.imageView.image];
+        if (self.singlePhotoView.filteredImage && !self.mainPhotoView.filteredImage) {
+            [self.mainPhotoView setOriginalImage:self.singlePhotoView.originalImage];
+            [self.mainPhotoView setFilteredImage:self.singlePhotoView.filteredImage];
+            [self.mainPhotoView setFilterName:self.singlePhotoView.filterName];
         }
         [self addSubview:self.photoSetView];
         [self bringSubviewToFront:self.photoSetView];
     } else {
-        if (!self.singlePhotoView.imageView.image && self.mainPhotoView.imageView.image) {
-            [self.singlePhotoView setFilteredImage:self.mainPhotoView.imageView.image];
+        if (!self.singlePhotoView.filteredImage && self.mainPhotoView.filteredImage) {
+            [self.singlePhotoView setOriginalImage:self.mainPhotoView.originalImage];
+            [self.singlePhotoView setFilteredImage:self.mainPhotoView.filteredImage];
+            [self.singlePhotoView setFilterName:self.mainPhotoView.filterName];
         }
         [self addSubview:self.singlePhotoView];
         [self bringSubviewToFront:self.singlePhotoView];
@@ -207,8 +221,6 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
     CGFloat heightDelta = frame.size.height - self.frame.size.height;
     [super setFrame:frame];
     
-    NSLog(@"height delta: %f", heightDelta);
-    
     [self.frameImageView setFrame:self.bounds];
     [self.resizeHandle setFrame:(CGRect){ { (self.frame.size.width - self.resizeHandle.image.size.width) / 2, self.frame.size.height - self.resizeHandle.image.size.height - kGTIOBottomPadding }, self.resizeHandle.image.size }];
     
@@ -234,7 +246,50 @@ static CGFloat const kGTIOSingleImageWidth = 225.0f;
     
     [view setFrame:(CGRect){ view.frame.origin, { view.frame.size.width, height } }];
     [gesture setTranslation:CGPointMake(0, 0) inView:view];
-        
+}
+
+#pragma mark - Composite View
+
+- (UIImage *)compositeImage
+{
+    if (0 == self.singlePhotoView.frame.size.width) {
+        return nil;
+    }
+    
+    CGSize frameSize = self.singlePhotoView.frame.size;
+    CGFloat frameScale = kGTIOCompositeImageWidth / frameSize.width;
+    CGSize compositeImageFrameSize = (CGSize){ frameSize.width * frameScale, frameSize.height * frameScale };
+    
+    UIGraphicsBeginImageContextWithOptions(compositeImageFrameSize, NO, [UIScreen mainScreen].scale);
+    if (self.photoSet) {
+        CGRect mainImageRect = [self drawTakePhotoView:self.mainPhotoView origin:CGPointZero frameScale:frameScale];
+        CGRect topImageRect = [self drawTakePhotoView:self.topPhotoView origin:(CGPoint){ mainImageRect.size.width + 17, 0 } frameScale:frameScale];
+        [self drawTakePhotoView:self.bottomPhotoView origin:(CGPoint){ topImageRect.origin.x, topImageRect.size.height + 17 } frameScale:frameScale];
+    } else {
+        [self drawTakePhotoView:self.singlePhotoView origin:CGPointZero frameScale:frameScale];
+    }
+    
+    UIImage *compositeImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return compositeImage;
+}
+
+- (CGRect)drawTakePhotoView:(GTIOTakePhotoView *)takePhotoView origin:(CGPoint)origin frameScale:(CGFloat)frameScale
+{
+    CGSize specificFrameSize = takePhotoView.frame.size;
+    CGFloat specificFrameScale = (takePhotoView.frame.size.width * frameScale) / specificFrameSize.width;
+    CGSize specificCompositeImageFrameSize = (CGSize){ specificFrameSize.width * specificFrameScale, specificFrameSize.height * specificFrameScale };
+    
+    UIImage *image = takePhotoView.imageView.image;
+    CGSize imageSize = takePhotoView.imageView.frame.size;
+    CGSize compositeImageSize = (CGSize){ imageSize.width * specificFrameScale, imageSize.height * specificFrameScale };
+    CGPoint contentOffset = takePhotoView.scrollView.contentOffset;
+    CGPoint compositeContentOffset = (CGPoint){ -contentOffset.x * specificFrameScale, -contentOffset.y * specificFrameScale };
+    
+    UIImage *croppedImage = [image cropImageWithFrameSize:specificCompositeImageFrameSize rect:(CGRect){ compositeContentOffset, compositeImageSize }];
+    CGRect drawRect = (CGRect){ origin, specificCompositeImageFrameSize };
+    [croppedImage drawInRect:drawRect];
+    return drawRect;
 }
 
 @end

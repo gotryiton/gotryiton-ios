@@ -17,10 +17,11 @@ static NSString * const kGTIOAddAFilterResource = @"add-a-filter";
 static NSString * const kGTIOReplacePhotoResource = @"replace-photo";
 static NSString * const kGTIOSwapWithResource = @"swap-with";
 
-@interface GTIOTakePhotoView()
+@interface GTIOTakePhotoView() <UIScrollViewDelegate>
 
 @property (nonatomic, strong) GTIOUIButton *photoSelectButton;
 @property (nonatomic, strong) GTIOUIButton *editPhotoButton;
+
 @property (nonatomic, strong) UIView *canvas;
 
 @property (nonatomic, strong) GTIOActionSheet *actionSheet;
@@ -41,29 +42,18 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
 @synthesize launchCameraHandler = _launchCameraHandler, swapPhotoHandler = _swapPhotoHandler, addFilterHandler = _addFilterHandler;
 @synthesize photoSection = _photoSection, photoSet = _photoSet;
 @synthesize actionSheet = _actionSheet;
+@synthesize scrollView = _scrollView;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.canvas = [[UIView alloc] initWithFrame:self.bounds];
-        [self.canvas setClipsToBounds:YES];
-        [self addSubview:self.canvas];
-        
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.imageView setUserInteractionEnabled:YES];
-        [self.imageView setClipsToBounds:YES];
-        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        
-        UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
-        [panRecognizer setMinimumNumberOfTouches:1];
-        [panRecognizer setMaximumNumberOfTouches:1];
-        [panRecognizer setDelegate:self];
-        [self.canvas addGestureRecognizer:panRecognizer];
-        
-        UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
-        [pinchRecognizer setDelegate:self];
-        [self.canvas addGestureRecognizer:pinchRecognizer];
+        _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        [self.scrollView setScrollEnabled:YES];
+        [self.scrollView setBounces:YES];
+        [self.scrollView setDelegate:self];
+        [self.scrollView setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:self.scrollView];
         
         self.photoSelectButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoSelectBox];
         [self.photoSelectButton setFrame:(CGRect){ 0, 0, self.bounds.size }];
@@ -98,23 +88,24 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
     self.filterName = nil;
 }
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
-{
-    if (point.x > -10 && point.y > -10) {
-        return YES;
-    }
-    return [super pointInside:point withEvent:event];
-}
-
 - (void)setFilteredImage:(UIImage *)filteredImage
 {
     _filteredImage = filteredImage;
     if (_filteredImage) {
-        [self.imageView setImage:_filteredImage];
-        [self resetImageViewSizeAndPosition];
         [self.photoSelectButton removeFromSuperview];
+        
+        // Have to create new UIImageView each time image gets set because on swap
+        // the frame size was getting huge and couldn't figure out why
+        [self.imageView removeFromSuperview];
+        self.imageView = [[UIImageView alloc] initWithFrame:(CGRect){ CGPointZero, _filteredImage.size }];
+        [self.imageView setUserInteractionEnabled:YES];
+        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [self.imageView setImage:_filteredImage];
         [self.imageView setAlpha:0.0];
-        [self.canvas addSubview:self.imageView];
+        [self.scrollView addSubview:self.imageView];
+        
+        [self zoom];
+                
         [UIView animateWithDuration:0.25 animations:^{
             [self.imageView setAlpha:1.0];
         }];
@@ -126,7 +117,7 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
             [self.imageView setAlpha:0.0];
         } completion:^(BOOL finished) {
             [self.imageView removeFromSuperview];
-            [self.imageView setImage:nil];
+            self.imageView = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
         }];
         [self.editPhotoButton removeFromSuperview];
@@ -145,76 +136,30 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
     }
 }
 
--(void)move:(id)sender
-{
-    CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:self.canvas];
-    if([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateBegan) {
-        self.firstX = [self.imageView center].x;
-        self.firstY = [self.imageView center].y;
-    }
-    translatedPoint = CGPointMake(self.firstX+translatedPoint.x, self.firstY+translatedPoint.y);
-    CGPoint adjustedTranslatedPoint = [self adjustPointToFitCanvas:translatedPoint];
-    if (!CGPointEqualToPoint(self.imageView.center, adjustedTranslatedPoint)) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
-    }
-    [self.imageView setCenter:adjustedTranslatedPoint];
-}
-
--(void)scale:(id)sender
-{
-    if([(UIPinchGestureRecognizer*)sender state] == UIGestureRecognizerStateBegan) {
-        self.lastScale = 1.0;
-    }
-    CGFloat scale = 1.0 - (_lastScale - [(UIPinchGestureRecognizer*)sender scale]);
-    CGAffineTransform currentTransform = self.imageView.transform;
-    CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, scale, scale);
-    [self.imageView setTransform:newTransform];
-    if (self.imageView.frame.size.width <= self.canvas.frame.size.width ||
-        self.imageView.frame.size.height <= self.canvas.frame.size.height) {
-        [self resetImageViewSizeAndPosition];
-    }
-    [self.imageView setCenter:[self adjustPointToFitCanvas:self.imageView.center]];
-    self.lastScale = [(UIPinchGestureRecognizer*)sender scale];
-    if (!CGAffineTransformEqualToTransform(currentTransform, newTransform)) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
-    }
-}
-
-- (CGPoint)adjustPointToFitCanvas:(CGPoint)point
-{
-    if ((point.x - (self.imageView.frame.size.width / 2)) >= 0) {
-        point.x = (self.imageView.frame.size.width / 2);
-    } else if ((point.x + (self.imageView.frame.size.width / 2)) <= self.canvas.frame.size.width) {
-        point.x = self.canvas.frame.size.width - (self.imageView.frame.size.width / 2);
-    }
-    if ((point.y - (self.imageView.frame.size.height / 2)) >= 0) {
-        point.y = (self.imageView.frame.size.height / 2);
-    } else if ((point.y + (self.imageView.frame.size.height / 2)) <= self.canvas.frame.size.height) {
-        point.y = self.canvas.frame.size.height - (self.imageView.frame.size.height / 2);
-    }
-    return point;
-}
-
-- (void)resetImageViewSizeAndPosition
-{
-    CGSize imageSize = self.imageView.image.size;
-    float imageAspectRatio = imageSize.height / imageSize.width;
-    CGSize canvasSize = self.canvas.frame.size;
-    if ((canvasSize.width * imageAspectRatio) < canvasSize.height) {
-        [self.imageView setFrame:(CGRect){ 0, 0, canvasSize.height / imageAspectRatio, canvasSize.height }];
-    } else {
-        [self.imageView setFrame:(CGRect){ 0, 0, canvasSize.width, canvasSize.width * imageAspectRatio }];
-    }
-    [self.imageView setCenter:(CGPoint){ self.canvas.bounds.size.width / 2, self.canvas.bounds.size.height / 2 }];
-}
-
 - (void)setEditPhotoButtonPosition:(GTIOEditPhotoButtonPosition)position
 {
     if (position == GTIOEditPhotoButtonPositionLeft) {
         [self.editPhotoButton setFrame:(CGRect){ { kGTIOEditPhotoPadding, kGTIOEditPhotoPadding }, self.editPhotoButton.bounds.size }];
     } else if (position == GTIOEditPhotoButtonPositionRight) {
-        [self.editPhotoButton setFrame:(CGRect){ { self.canvas.bounds.size.width - self.editPhotoButton.bounds.size.width - kGTIOEditPhotoPadding, kGTIOEditPhotoPadding }, self.editPhotoButton.bounds.size }];
+        [self.editPhotoButton setFrame:(CGRect){ { self.bounds.size.width - self.editPhotoButton.bounds.size.width - kGTIOEditPhotoPadding, kGTIOEditPhotoPadding }, self.editPhotoButton.bounds.size }];
     }
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.imageView;
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
 }
 
 #pragma mark - ActionSheet
@@ -322,19 +267,61 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    
-    if (self.imageView.image.size.height >= frame.size.height &&
-        GTIOPostPhotoSectionTop != self.photoSection) {
+
+    CGFloat scaledImageHeight = self.filteredImage.size.height * self.scrollView.zoomScale;
+
+    if (self.filteredImage.size.height <= frame.size.height) {
+        // This zooms the imageView as it moves
+        [self.imageView setFrame:(CGRect){ CGPointZero, { self.imageView.frame.size.width, self.bounds.size.height } }];
+        
+        // Have to resize these frames first or zoom won't work
+        [self.scrollView setFrame:self.bounds];
+        [self.photoSelectButton setFrame:self.bounds];
+        
+        if (self.filteredImage) {
+            [self zoom];
+        }
+        return;
+    } else if (scaledImageHeight < frame.size.height) {
+        
+        CGRect frame = self.imageView.frame;
+        frame.size = frame.size;
+        
+        if (self.filteredImage) {
+            [self zoom];
+        }
+    } else {
         // This doesn't move or change the image while it is resizing
         CGRect bounds = self.imageView.bounds;
         bounds.size = frame.size;
-        
+    }
+
+    [self.scrollView setFrame:self.bounds];
+    [self.photoSelectButton setFrame:self.bounds];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
+}
+
+#pragma mark - 
+
+- (void)zoom
+{
+    CGFloat minZoomScale = 1.0f;
+    if (_filteredImage.size.width < _filteredImage.size.height) {
+        minZoomScale = self.scrollView.bounds.size.width / _filteredImage.size.width;
+        if (_filteredImage.size.height * minZoomScale < self.scrollView.bounds.size.height) {
+            minZoomScale = self.scrollView.bounds.size.height / _filteredImage.size.height;
+        }
     } else {
-        [self.imageView setFrame:self.bounds];
+        minZoomScale = self.scrollView.bounds.size.height / _filteredImage.size.height;
+        if (_filteredImage.size.width * minZoomScale < self.scrollView.bounds.size.width) {
+            minZoomScale = self.scrollView.bounds.size.width / _filteredImage.size.width;
+        }
     }
     
-    [self.canvas setFrame:self.bounds];
-    [self.photoSelectButton setFrame:self.bounds];
+    [self.scrollView setMinimumZoomScale:minZoomScale];
+    [self.scrollView setMaximumZoomScale:minZoomScale * 2];
+    [self.scrollView setZoomScale:self.scrollView.minimumZoomScale];
 }
 
 @end
