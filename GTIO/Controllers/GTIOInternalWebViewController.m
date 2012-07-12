@@ -11,6 +11,8 @@
 #import "GTIONavigationTitleView.h"
 #import "GTIOWebView.h"
 
+#import "GTIORouter.h"
+
 @interface GTIOInternalWebViewController ()
 
 @property (nonatomic, strong) GTIOWebView *webView;
@@ -19,7 +21,7 @@
 
 @implementation GTIOInternalWebViewController
 
-@synthesize URL = _URL, titleURLEncoded = _titleURLEncoded;
+@synthesize URL = _URL, navigationTitle = _navigationTitle;
 @synthesize webView = _webView;
 
 - (void)viewDidLoad
@@ -28,13 +30,12 @@
 	
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     
-    UIImageView *statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, -20 }, { self.view.frame.size.width, 20 } }];
+    CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    UIImageView *statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, -(statusBarHeight + self.navigationController.navigationBar.frame.size.height) }, { self.view.frame.size.width, statusBarHeight } }];
     [statusBarBackgroundImageView setImage:[UIImage imageNamed:@"status-bar-bg.png"]];
     [self.view addSubview:statusBarBackgroundImageView];
     
-    
-    NSString *title = [self.titleURLEncoded stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:title italic:YES];
+    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:self.navigationTitle italic:YES];
     [self useTitleView:navTitleView];
     
     self.webView = [[GTIOWebView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height } }];
@@ -58,6 +59,28 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Properties
+
+- (void)setNavigationTitle:(NSString *)navigationTitle
+{
+    navigationTitle = [navigationTitle stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+    _navigationTitle = navigationTitle;
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    id viewController = [[GTIORouter sharedRouter] viewControllerForURL:request.URL];
+    
+    if (viewController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

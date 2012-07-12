@@ -14,6 +14,6 @@
 @interface GTIOInternalWebViewController : GTIOViewController
 
 @property (nonatomic, strong) NSURL *URL;
-@property (nonatomic, strong) NSString *titleURLEncoded;
+@property (nonatomic, strong) NSString *navigationTitle;
 
 @end

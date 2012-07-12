@@ -8,10 +8,12 @@
 
 #import "GTIOStyleViewController.h"
 
+#import "GTIORouter.h"
+
 #import "GTIOWebView.h"
 #import "GTIONavigationNotificationTitleView.h"
 
-@interface GTIOStyleViewController ()
+@interface GTIOStyleViewController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) GTIOWebView *webView;
 
@@ -36,7 +38,8 @@
 	
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     
-    UIImageView *statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, -20 }, { self.view.frame.size.width, 20 } }];
+    CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    UIImageView *statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, -(statusBarHeight + self.navigationController.navigationBar.frame.size.height) }, { self.view.frame.size.width, statusBarHeight } }];
     [statusBarBackgroundImageView setImage:[UIImage imageNamed:@"status-bar-bg.png"]];
     [self.view addSubview:statusBarBackgroundImageView];
     
@@ -50,6 +53,7 @@
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.webView.scrollView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.webView.scrollView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.webView setDelegate:self];
     [self.view addSubview:self.webView];
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/iphone/style-tab", kGTIOBaseURLString]];
@@ -57,6 +61,14 @@
     
     // TODO: Need error state
     // TODO: Need loading spinner
+    
+//    double delayInSeconds = 2.0;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        NSURL *URL2 = [NSURL URLWithString:@"gtio://internal-webview/test+url/%22Aardvarks+lurk%2C+OK%3F%22"];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:URL2];
+//        [self.webView.delegate webView:self.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeLinkClicked];
+//    });
 }
 
 - (void)viewDidUnload
@@ -68,6 +80,20 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    id viewController = [[GTIORouter sharedRouter] viewControllerForURL:request.URL];
+    
+    if (viewController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end
