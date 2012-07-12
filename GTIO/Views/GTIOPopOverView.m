@@ -49,12 +49,12 @@ static CGFloat const kGTIOButtonWidth = 164.0f;
     return self;
 }
 
-+ (id)popOverForPostDotDotDotWithButtonModels:(NSArray *)buttonModels
++ (id)ellipsisPopOverViewWithButtonModels:(NSArray *)buttonModels
 {
     return [[self alloc] initWithButtonModels:buttonModels buttonType:GTIOPopOverButtonTypeDot];
 }
 
-+ (id)popOverForCameraSources
++ (id)cameraSourcesPopOverView
 {
     // Camera Roll
     GTIOButton *cameraRollButton = [[GTIOButton alloc] init];

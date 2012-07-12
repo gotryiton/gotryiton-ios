@@ -46,7 +46,7 @@ extern NSString * const kGTIOTrackingHeaderKey;
 // Notification Constants
 extern NSString * const kGTIOLooksUpdated;
 extern NSString * const kGTIOPostFeedOpenLinkNotification;
-extern NSString * const kGTIODismissDotDotDotPopOverViewNotification;
+extern NSString * const kGTIODismissEllipsisPopOverViewNotification;
 
 // Notification Dictionary Constants
 extern NSString * const kGTIOURL;
