@@ -14,4 +14,6 @@
 @property (nonatomic, copy) NSString *endpoint;
 @property (nonatomic, strong) NSNumber *spinner;
 
++ (id)buttonActionWithDestination:(NSString *)destination;
+
 @end

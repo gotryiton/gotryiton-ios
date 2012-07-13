@@ -32,7 +32,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 @implementation GTIOPhotoConfirmationViewController
 
-@synthesize photo = _photo;
+@synthesize originalPhoto = _originalPhoto;
 @synthesize photoImageView = _photoImageView;
 @synthesize photoConfirmationToolbarView = _photoConfirmationToolbarView;
 @synthesize photoFilterSelectorView = _photoFilterSelectorView;
@@ -72,7 +72,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }];
     [self.photoConfirmationToolbarView.confirmButton setTapHandler:^(id sender) {
         NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  self.filteredPhoto, @"photo",
+                                  self.originalPhoto, @"originalPhoto",
+                                  self.filteredPhoto, @"filteredPhoto",
                                   [NSNumber numberWithInteger:self.currentFilterType], @"filterType",
                                   nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPhotoAcceptedNotification object:nil userInfo:userInfo];
@@ -102,23 +103,17 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [[GTIOFilterManager sharedManager] applyAllFilters];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    NSLog(@"Warning on photo confirmation");
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)setPhoto:(UIImage *)photo
+- (void)setOriginalPhoto:(UIImage *)originalPhoto
 {
-    _photo = photo;
-    [self setFilteredPhoto:_photo];
+    _originalPhoto = originalPhoto;
+    [self setFilteredPhoto:_originalPhoto];
     
-    [[GTIOFilterManager sharedManager] setOriginalImage:photo];
+    [[GTIOFilterManager sharedManager] setOriginalImage:_originalPhoto];
 }
 
 - (void)setFilteredPhoto:(UIImage *)filteredPhoto

@@ -5,6 +5,8 @@
 
 #import "UIImage+Resize.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @implementation UIImage (Resize)
 
 // Returns a copy of this image that is cropped to the given bounds.
@@ -179,6 +181,15 @@
     }
     
     return transform;
+}
+
+- (UIImage *)cropImageWithFrameSize:(CGSize)frameSize rect:(CGRect)rect
+{
+    UIGraphicsBeginImageContextWithOptions(frameSize, NO, [UIScreen mainScreen].scale);
+    [self drawInRect:rect];
+    UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return croppedImage;
 }
 
 @end

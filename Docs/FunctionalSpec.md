@@ -2066,7 +2066,7 @@ A logged in user can edit their settings
 #### Mockups
 7.2 Settings ([wireframe](http://invis.io/C22OCZBZ))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.2.Settings.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.2.Settings.Fold.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2077,15 +2077,29 @@ previous screen
 
 
 #### API Usage
-/User/Settings
+HTML GET request:  /User/Settings?token=[active token]
+
+use the following UIWebView settings:   
+```obj-c
+   webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+   webView.scrollView.showsVerticalScrollIndicator= NO;
+   webView.scrollView.showsHorizontalScrollIndicator= NO;
+```
+
 
 #### Routing
 
-gtio://StandardWebview/Settings/http://gtio-dev.gotryiton.com/user/settings
+gtio://user/settings
 
 #### Stories
 - A user can edit when they receive notifications from GTIO
    - load a webview which will allow a user to turn on and off notifications
+
+
+#### Design Stories
+
+- Standard nav bar
+- Standard title bar with back button and title: "Settings"
 
 
 ### 7.3 Edit profile pic  
@@ -3283,7 +3297,7 @@ A user can see a page of shopping options on GTIO
 #### Mockups
 10.1 ([wireframe](http://invis.io/2R2OEKY8)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.1.Shop.Landing.WV.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.1.Shop.Landing.v1.png" width=420px/>
 
 
 #### User Flow
@@ -3291,33 +3305,32 @@ A user can see a page of shopping options on GTIO
 any screen with uiTabBar
 **exit screens:**   
 ([view 10.2](#102-shop-browse-webview-container))   
-([view 10.3](#103-shop-3rd-party-webview-container))   
 ([view 10.4](#104-default-3rd-party-webview-container))   
-([view 7.8](#78-shopping-list))   
 
 #### API Usage
-/Shop
+HTTP GET:  /iphone/style-tab?token=[active token]
+
+use the following UIWebView settings:   
+```obj-c
+   webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+   webView.scrollView.showsVerticalScrollIndicator= NO;
+   webView.scrollView.showsHorizontalScrollIndicator= NO;
+```
+
 
 #### Stories 
 - A user can see a page of shopping options on GTIO
    - top nav bar is standard native bar
-   - top right btn 'shopping list'
-      - shows count of unread shopping list items
-      - responds to gtio:// trigger for updating shopping list count
-      - see story
-   - Main content of page is webview (source is /Shop)
+   - Main content of page is webview 
 - A user can tap on elements on the Shopping page
-   - /Shop page can have spawn 4 different types of pages:
+   - webview page can have spawn 4 different types of pages:
       - Shop Browse Webview Container (view 10.2)
-         - triggered by: gtio://ShopBrowseWebview/[title (urlencoded)]/[url (url encoded)]
-      - Shop 3rd Party Webview Container (view 10.3)
-         - triggered by: gtio://3rdPartyShopWebview/[title (urlencoded)]/[url (url encoded)]
+         - triggered by: gtio://InternalWebview/[title (urlencoded)]/[url (url encoded)]
       - Default 3rd Party Webview Container (view 10.4)
-         - triggered by: gtio://3rdPartyDefaultWebview/[url (url encoded)]
+         - triggered by: gtio://DefaultWebview/[url (url encoded)]
       - Shop Browse Products Container (view 10.5)
          - triggered by: gtio://ShopBrowse/[title (urlencoded)]/[api path (url encoded)]
-- A user can get to their shopping list page by tapping on the top right button 
-   - **tap** ==> (view 7.8)
+
 
 
 ### 10.2 Shop Browse Webview Container  
@@ -3328,16 +3341,28 @@ A user can browse to a 2ndary webview page of navigation
 #### Mockups
 ([wireframe](http://invis.io/NX2OELBZ)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.2.Shop.Browse.WV.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/secondary-page.png" width=420px/>
+
+#### API Usage
+HTTP GET: Dynamic url.
+
+use the following UIWebView settings:   
+```obj-c
+   webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+   webView.scrollView.showsVerticalScrollIndicator= NO;
+   webView.scrollView.showsHorizontalScrollIndicator= NO;
+```
+
+
+#### Routing
+gtio://InternalWebview/[custom title (urlencoded)]/[url (url encoded)]   
 
 #### User Flow
 **entry screens:**   
 ([view 10.1](#102-shop-landing-page))   
 **exit screens:**   
 ([view 10.2](#102-shop-browse-webview-container))   
-([view 10.3](#103-shop-3rd-party-webview-container))   
 ([view 10.4](#104-default-3rd-party-webview-container))   
-([view 7.8](#78-shopping-list))   
 previous screen   
 
 #### API Usage
@@ -3353,7 +3378,6 @@ dynamic
    - url of webview is customized via gtio:// link that spawned the container
 
 
-
 ### 10.3 ~~Shop 3rd Party webview Container~~   
 
 ### 10.4 Default 3rd party webview container  
@@ -3362,13 +3386,13 @@ dynamic
 A user can browse to a 3rd party site with a default browsing experience
 
 #### Mockups
-10.4 ([wireframe](http://invis.io/XF2OEOYU)) 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.A.Default.Webview.png" width=420px/>
+10.4 ([wireframe](http://invis.io/XF2OEOYU))   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/10.4.A.Default.Webview.png" width=420px/>
 
-disabled button
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.B.Default.Webview.Disabled.Button.png" width=420px/>
+disabled button   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/10.4.B.Default.Webview.Disabled.Button.png" width=420px/>
 
-10.4.1 actionsheet: ([wireframe](http://invis.io/F32PNLA5)) 
+10.4.1 actionsheet: ([wireframe](http://invis.io/F32PNLA5))   
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.C.Default.Webview.Actionsheet.png" width=420px/>
 
 #### User Flow
@@ -3380,6 +3404,10 @@ previous screen
 
 #### API Usage
 None.
+
+#### Routing
+gtio://DefaultWebview/[url (url encoded)]   
+http://any.random.url/
 
 #### Stories 
 - A user can browse to a 3rd party site with a default browsing experience  
@@ -3402,6 +3430,10 @@ None.
          - 'webview-button-forward.png' with active/inactive/disabled states
          - 84px from left edge of screen
          - 9px from bottom of screen
+      - Reload
+         - 'webview-button-reload.png' with active/inactive/disabled states
+         - 146px from left edge of screen
+         - 8px from bottom of screen
       - Options
          - 'webview-button-options.png' with active/inactive/disabled states
          - 17px from right edge of screen
@@ -3813,13 +3845,27 @@ POST /photo/create
 
 documented in [Photo API](ApiPhotos.md)
 
-request:
+request:   
+(no frames with one filter)
 
 ```json
 {
    "photo" : {
       "image" : "<image data>",
       "using_filter" : "FilterName",
+      "using_frame" : false
+   }
+}
+```
+or   
+(frames with two filters)
+
+```json
+{
+   "photo" : {
+      "image" : "<image data>",
+      "using_filter_in_frame_0" : "FilterName",
+      "using_filter_in_frame_2" : "OtherFilterName",
       "using_frame" : true
    }
 }
