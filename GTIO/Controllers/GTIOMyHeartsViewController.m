@@ -64,8 +64,8 @@
                     [self.posts addObject:object];
                 }
             }
-            [self.segmentedControl setPosts:self.posts GTIOPostType:GTIOPostTypeHeart user:[GTIOUser currentUser]];
-            [self.segmentedControl setPosts:self.products GTIOPostType:GTIOPostTypeHeartedProducts user:[GTIOUser currentUser]];
+            [self.segmentedControl setPosts:self.posts GTIOPostType:GTIOPostTypeHeart userProfile:[GTIOUser currentUserProfile]];
+            [self.segmentedControl setPosts:self.products GTIOPostType:GTIOPostTypeHeartedProducts userProfile:[GTIOUser currentUserProfile]];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];

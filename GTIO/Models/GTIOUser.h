@@ -12,6 +12,7 @@
 #import "GTIOBadge.h"
 #import "GTIOButton.h"
 #import "GTIOButtonAction.h"
+#import "GTIOUserProfile.h"
 
 @class GTIOUser;
 
@@ -50,6 +51,7 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
 /** The current user that is logged in
  */
 + (GTIOUser *)currentUser;
++ (GTIOUserProfile *)currentUserProfile;
 - (void)populateWithUser:(GTIOUser *)user;
 
 /** Returns whether current user is authed

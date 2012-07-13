@@ -13,7 +13,6 @@
 #import "GTIOPostManager.h"
 #import "GTIORouter.h"
 
-#import "GTIOPost.h"
 #import "GTIOPagination.h"
 #import "GTIOPostUpload.h"
 
@@ -50,6 +49,9 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
 @property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
 
+@property (nonatomic, copy) NSString *postID;
+@property (nonatomic, copy) NSString *postsResourcePath;
+
 @end
 
 @implementation GTIOFeedViewController
@@ -58,7 +60,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @synthesize addNavToHeaderOffsetXOrigin = _addNavToHeaderOffsetXOrigin, removeNavToHeaderOffsetXOrigin = _removeNavToHeaderOffsetXOrigin;
 @synthesize posts = _posts, pagination = _pagination;
 @synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshContentView = _pullToRefreshContentView, pullToRefreshView = _pullToRefreshView;
-@synthesize uploadView = _uploadView, postUpload = _postUpload;
+@synthesize uploadView = _uploadView, postUpload = _postUpload, postID = _postID, postsResourcePath = _postsResourcePath;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,6 +78,15 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         
         [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:NULL];
         [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:NULL];
+    }
+    return self;
+}
+
+- (id)initWithPostID:(NSString *)postID
+{
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        _postID = postID;
     }
     return self;
 }
@@ -155,6 +166,15 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
+    if (self.postID) {
+        self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
+        self.navBarView.backButton.tapHandler = ^(id sender) {
+            [self.navigationController popViewControllerAnimated:YES];
+        };
+        self.navBarView.backButton.hidden = NO;
+    } else {
+        self.postsResourcePath = @"/posts/feed";
+    }
     [self loadFeed];
 }
 
@@ -162,7 +182,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 - (void)loadFeed
 {
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/posts/feed" usingBlock:^(RKObjectLoader *loader) {
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.postsResourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];

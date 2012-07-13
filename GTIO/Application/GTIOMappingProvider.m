@@ -162,6 +162,7 @@
         [userProfileMapping mapKeyPath:@"ui-profile.profile_callouts" toRelationship:@"profileCallOuts" withMapping:profileCalloutMapping];
         [userProfileMapping mapKeyPath:@"ui-profile.settings.buttons" toRelationship:@"settingsButtons" withMapping:buttonMapping];
         [userProfileMapping mapKeyPath:@"ui-profile.accept_bar" toRelationship:@"acceptBar" withMapping:followRequestAcceptBarMapping];
+        [userProfileMapping mapKeyPath:@"ui-profile.profile_locked" toAttribute:@"profileLocked"];
         [userProfileMapping mapKeyPath:@"posts_list" toRelationship:@"postsList" withMapping:postListMapping];
         [userProfileMapping mapKeyPath:@"hearts_list" toRelationship:@"heartsList" withMapping:postListMapping];
         [self setMapping:userProfileMapping forKeyPath:@"userProfile"];

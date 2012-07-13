@@ -21,7 +21,7 @@ static double const kGTIOTopPadding = 9.0;
 
 @implementation GTIOPostMasonryView
 
-@synthesize user = _user, posts = _posts, postType = _postType;
+@synthesize userProfile = _userProfile, posts = _posts, postType = _postType;
 @synthesize emptyStateView = _emptyStateView;
 @synthesize masonGridView = _masonGridView;
 
@@ -36,16 +36,16 @@ static double const kGTIOTopPadding = 9.0;
     return self;
 }
 
-- (void)setPosts:(NSArray *)posts user:(GTIOUser *)user
+- (void)setPosts:(NSArray *)posts userProfile:(GTIOUserProfile *)userProfile
 {
     _posts = posts;
-    self.user = user;
+    self.userProfile = userProfile;
     
     [self.emptyStateView removeFromSuperview];
     [self.masonGridView removeFromSuperview];
     
-    // if we're following this user or this user is us
-    if ([self.user.button.state intValue] == GTIOFollowButtonStateFollowing || [self.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
+    // if the user's profile isn't locked or this user is us
+    if (!self.userProfile.profileLocked.boolValue || [self.userProfile.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
         if (_posts.count > 0) {
             // display posts in mason grid
             [self.masonGridView setPosts:posts postsType:self.postType];
@@ -55,7 +55,7 @@ static double const kGTIOTopPadding = 9.0;
             [self refreshAndCenterGTIOEmptyStateView:followingNoPosts];
         }
     } else {
-        NSString *userName = user.name;
+        NSString *userName = userProfile.user.name;
         NSString *postTypePlural = nil;
         if (self.postType == GTIOPostTypeNone) {
             postTypePlural = @"posts";

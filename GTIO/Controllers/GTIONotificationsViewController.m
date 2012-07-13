@@ -10,9 +10,12 @@
 #import "GTIONotificationManager.h"
 #import "GTIONotificationsTableViewCell.h"
 #import "GTIOProgressHUD.h"
+#import "DTCoreText.h"
+#import "GTIORouter.h"
 
 static CGFloat const kGTIONotificationTableCellTextWidth = 273.0;
 static CGFloat const kGTIONotificationTableCellTopBottomPadding = 16.0;
+static CGFloat const kGTIONotificationTableCellTextBottomPaddingOffset = 6.0;
 
 @interface GTIONotificationsViewController ()
 
@@ -49,6 +52,8 @@ static CGFloat const kGTIONotificationTableCellTopBottomPadding = 16.0;
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -67,7 +72,8 @@ static CGFloat const kGTIONotificationTableCellTopBottomPadding = 16.0;
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    
+    self.tableView = nil;
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -75,8 +81,41 @@ static CGFloat const kGTIONotificationTableCellTopBottomPadding = 16.0;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GTIONotification *notificationForIndexPath = [self.notifications objectAtIndex:indexPath.row];
-    CGSize notificationTextSize = [notificationForIndexPath.text sizeWithFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:16.0] constrainedToSize:(CGSize){ kGTIONotificationTableCellTextWidth, 1000 } lineBreakMode:UILineBreakModeWordWrap];
-    return notificationTextSize.height + kGTIONotificationTableCellTopBottomPadding * 2;
+    
+    [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
+    DTAttributedTextView *textAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIONotificationTableCellTextWidth, 0 } }];
+    textAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 0, 0 };
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"NotificationTableCellText" ofType:@"css"];  
+    NSData *cssData = [NSData dataWithContentsOfFile:filePath];
+    NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
+    DTCSSStylesheet *stylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
+    
+    NSDictionary *descriptionAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                      [NSNumber numberWithFloat:0.8], DTDefaultLineHeightMultiplier,
+                                                      stylesheet, DTDefaultStyleSheet,
+                                                      nil];
+    
+    NSData *data = [notificationForIndexPath.text dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:descriptionAttributedTextOptions documentAttributes:NULL];
+    textAttributedTextView.attributedString = string;
+    
+    CGSize textSize = [textAttributedTextView.contentView sizeThatFits:(CGSize){ kGTIONotificationTableCellTextWidth, CGFLOAT_MAX }];
+    
+    return textSize.height + kGTIONotificationTableCellTopBottomPadding * 2 - kGTIONotificationTableCellTextBottomPaddingOffset;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    GTIONotificationsTableViewCell *notificationCellForIndexPath = (GTIONotificationsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    GTIONotification *notificationForIndexPath = [self.notifications objectAtIndex:indexPath.row];
+    notificationForIndexPath.viewed = [NSNumber numberWithBool:YES];
+    notificationCellForIndexPath.notification = notificationForIndexPath;
+    
+    UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:notificationForIndexPath.action];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -96,7 +135,6 @@ static CGFloat const kGTIONotificationTableCellTopBottomPadding = 16.0;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     GTIONotification *notificationForCell = [self.notifications objectAtIndex:indexPath.row];
     GTIONotificationsTableViewCell *notificationCell = (GTIONotificationsTableViewCell *)cell;
     [notificationCell setNotification:notificationForCell];

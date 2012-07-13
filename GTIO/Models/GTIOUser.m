@@ -36,6 +36,13 @@
     return user;
 }
 
++ (GTIOUserProfile *)currentUserProfile
+{
+    GTIOUserProfile *userProfile = [[GTIOUserProfile alloc] init];
+    userProfile.profileLocked = [NSNumber numberWithBool:NO];
+    return userProfile;
+}
+
 #pragma mark - Update
 
 - (void)updateCurrentUserWithFields:(NSDictionary*)updateFields withTrackingInformation:(NSDictionary*)trackingInfo andLoginHandler:(GTIOLoginHandler)loginHandler

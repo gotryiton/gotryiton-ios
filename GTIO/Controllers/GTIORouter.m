@@ -14,6 +14,7 @@
 #import "GTIOMyHeartsViewController.h"
 #import "GTIOMyPostsViewController.h"
 #import "GTIOReviewsViewController.h"
+#import "GTIOFeedViewController.h"
 
 static NSString * const kGTIOURLScheme = @"gtio";
 
@@ -31,6 +32,7 @@ static NSString * const kGTIOURLHostSearchFriends = @"search-friends";
 static NSString * const kGTIOURLHostMyHearts = @"my-hearts";
 static NSString * const kGTIOURLHostMyPosts = @"my-posts";
 static NSString * const kGTIOURLHostPosts = @"posts";
+static NSString * const kGTIOURLHostPost = @"post";
 static NSString * const kGTIOURLHostPostedBy = @"posted-by";
 static NSString * const kGTIOURLHostReviewsForPost = @"reviews-for-post";
 
@@ -62,6 +64,8 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
     if (![[URL scheme] isEqualToString:kGTIOURLScheme]) {
         return nil;
     }
+    
+    URL = [NSURL URLWithString:@"gtio://post/1504"];
     
     NSString *urlHost = [URL host];
     NSArray *pathComponents = [URL pathComponents];
@@ -124,6 +128,10 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
     } else if ([urlHost isEqualToString:kGTIOURLHostReviewsForPost]) {
         if ([pathComponents count] >= 2) {
             viewController = [[GTIOReviewsViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostPost]) {
+        if ([pathComponents count] >= 2) {
+            viewController = [[GTIOFeedViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
         }
     }
     

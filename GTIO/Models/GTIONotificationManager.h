@@ -15,6 +15,9 @@ typedef void(^GTIONotificationsRefreshCompletionHandler)(NSArray *loadedNotifica
 
 + (GTIONotificationManager *)sharedManager;
 
+- (void)useNotifications:(NSArray *)notifications;
+- (NSArray *)notifications;
+- (GTIONotification *)notificationForNotificationID:(NSNumber *)notificationID;
 - (void)refreshNotificationsWithCompletionHandler:(GTIONotificationsRefreshCompletionHandler)completionHandler;
 
 @end

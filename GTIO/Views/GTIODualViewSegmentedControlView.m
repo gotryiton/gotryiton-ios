@@ -71,12 +71,12 @@
     }
 }
 
-- (void)setPosts:(NSArray *)posts GTIOPostType:(GTIOPostType)postType user:(GTIOUser *)user
+- (void)setPosts:(NSArray *)posts GTIOPostType:(GTIOPostType)postType userProfile:(GTIOUserProfile *)userProfile
 {
     if (postType == self.leftConrolPostsType) {
-        [self.leftPostsView setPosts:posts user:user];
+        [self.leftPostsView setPosts:posts userProfile:userProfile];
     } else if (postType == self.rightControlPostsType) {
-        [self.rightPostsView setPosts:posts user:user];
+        [self.rightPostsView setPosts:posts userProfile:userProfile];
     }
 }
 

@@ -39,16 +39,51 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        self.storedNotifications = [coder decodeObjectForKey:@"storedNotifications"];
+    } 
+    return self;
+}
+
+- (void)useNotifications:(NSArray *)notifications
+{
+    self.storedNotifications = [NSMutableArray arrayWithArray:notifications];
+}
+
+- (NSArray *)notifications
+{
+    return [NSArray arrayWithArray:self.storedNotifications];
+}
+
+- (GTIONotification *)notificationForNotificationID:(NSNumber *)notificationID
+{
+    for (GTIONotification *notification in self.storedNotifications) {
+        if ([notification.notificationID isEqualToNumber:notificationID]) {
+            return notification;
+        }
+    }
+    return nil;
+}
+
 - (void)refreshNotificationsWithCompletionHandler:(GTIONotificationsRefreshCompletionHandler)completionHandler
 {
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/notifications" usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-            [self.storedNotifications removeAllObjects];
+            NSMutableArray *loadingArray = [NSMutableArray array];
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIONotification class]]) {
-                    [self.storedNotifications addObject:object];
+                    GTIONotification *existingNotification = [self notificationForNotificationID:[object notificationID]];
+                    if (existingNotification) {
+                        [(GTIONotification *)object setViewed:existingNotification.viewed];
+                    }
+                    [loadingArray addObject:object];
                 }
             }
+            [self.storedNotifications removeAllObjects];
+            self.storedNotifications = loadingArray;
             if (completionHandler) {
                 completionHandler([NSArray arrayWithArray:self.storedNotifications], nil);
             }
@@ -59,6 +94,11 @@
             }
         };
     }];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.storedNotifications forKey:@"storedNotifications"];
 }
 
 @end

@@ -23,11 +23,13 @@ static CGFloat const kGTIOIconTextSpacing = 10.0;
 @property (nonatomic, strong) DTAttributedTextView *text;
 @property (nonatomic, strong) NSDictionary *textOptions;
 
+@property (nonatomic, strong) UIView *bottomBorder;
+
 @end
 
 @implementation GTIONotificationsTableViewCell
 
-@synthesize icon = _icon, text = _text, notification = _notification, textOptions = _textOptions;
+@synthesize icon = _icon, text = _text, notification = _notification, textOptions = _textOptions, bottomBorder = _bottomBorder;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -37,10 +39,9 @@ static CGFloat const kGTIOIconTextSpacing = 10.0;
         [self.contentView addSubview:_icon];
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _text = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
-        _text.backgroundView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, 200, 100 }];
-        _text.backgroundView.backgroundColor = [UIColor yellowColor];
         _text.textDelegate = self;
         _text.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 0, 0 };
+        _text.userInteractionEnabled = NO;
         [_text setScrollEnabled:NO];
         [_text setScrollsToTop:NO];
         [_text setBackgroundColor:[UIColor clearColor]];
@@ -56,6 +57,10 @@ static CGFloat const kGTIOIconTextSpacing = 10.0;
                                             defaultDTCSSStylesheet, DTDefaultStyleSheet,
                                             nil];
         [self.contentView addSubview:_text];
+        
+        _bottomBorder = [[UIView alloc] initWithFrame:CGRectZero];
+        _bottomBorder.backgroundColor = [UIColor gtio_groupedTableBorderColor];
+        [self addSubview:_bottomBorder];
     }
     return self;
 }
@@ -68,6 +73,7 @@ static CGFloat const kGTIOIconTextSpacing = 10.0;
     CGFloat textWidth = self.bounds.size.width - (self.icon.frame.origin.x + self.icon.bounds.size.width + kGTIOIconTextSpacing + kGTIOCellLeftRightPadding);
     CGSize textSize = [self.text.contentView sizeThatFits:(CGSize){ textWidth, CGFLOAT_MAX }];
     [self.text setFrame:(CGRect){ self.icon.frame.origin.x + self.icon.bounds.size.width + kGTIOIconTextSpacing, kGTIOCellTopBottomPadding, textWidth, textSize.height }];
+    [self.bottomBorder setFrame:(CGRect){ 0, self.bounds.size.height - 1, self.bounds.size.width, 1 }];
 }
 
 - (void)setNotification:(GTIONotification *)notification
@@ -77,7 +83,17 @@ static CGFloat const kGTIOIconTextSpacing = 10.0;
     [self.icon setImageWithURL:_notification.icon success:^(UIImage *image) {
         [blockSelf setNeedsLayout];
     } failure:nil];
-    NSData *data = [_notification.text dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *notificationText;
+    if (notification.viewed.boolValue) {
+        notificationText = [NSString stringWithFormat:@"<div id='viewed'>%@</div>", _notification.text];
+        self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.45];
+    } else {
+        notificationText = _notification.text;
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    
+    NSData *data = [notificationText dataUsingEncoding:NSUTF8StringEncoding];
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.textOptions documentAttributes:NULL];
     self.text.attributedString = string;
@@ -87,8 +103,6 @@ static CGFloat const kGTIOIconTextSpacing = 10.0;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end
