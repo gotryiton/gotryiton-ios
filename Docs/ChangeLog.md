@@ -1,5 +1,26 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.11
+July 13, 2012
+
+### Build Summary
+Final sprint 5 build. Bug fixes, notifications, rework of post multi-frame and resizing to allow scroll bouncing, composite images at bigger size.
+
+### Development
+
+**Bug Fixes**
+- 320 - Profile website button only shows if user has bio (screen 7.7)
+- 321 - If I'm not following a public user, I can't see their posts
+
+**Screens / Features**
+- 265 - 2.2 Notifications View Styling
+- 323 - Composite post images at bigger size
+- 279 - Style tab web view
+- 280 - Internal web view
+- 281 - Default web view
+
+---
+
 #### Build 4.0.0.10
 July 11, 2012
 
