@@ -22,3 +22,6 @@
 [submodule "engage.iphone"]
 	path = engage.iphone
 	url = git://github.com/janrain/engage.iphone.git
+[submodule "Libraries/janrain"]
+	path = Libraries/janrain
+	url = git://github.com/janrain/engage.iphone.git
