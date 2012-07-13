@@ -3210,14 +3210,50 @@ feed: ([view 3.5](#35-who-hearted-this))
 feed: ([view 7.7](#77-profile-page))   
 
 #### API Usage
-/Posts/Popular
+/posts/explore
+
+[posts api](http://gtio-dev.gotryiton.com/docs/api-posts) (see GET posts/popular)
+
 
 #### Stories 
 - A user can see a grid of popular looks on GTIO
    - Api will respond with items to populate the feed
 - A user can switch to a different tab of looks
    - tab choices are driven by api response
-      - similar behavior to lists in GTIOv3
+   - tab bar should support 3-5 tabs
+   - tabs in the api response are in an array called ```tabs```
+   - the api will determine the text on the button, if a tab starts selected, if it has a star on it, and the endpoint to query for posts
+
+```json
+{
+"tabs":
+   [
+       {
+           "name": "explore-tab",
+           "star": true,
+           "text": "featured",
+           "endpoint": "/posts/stars",
+           "selected": true
+       },
+       {
+           "name": "explore-tab",
+           "text": "recent",
+           "endpoint": "/posts/recent",
+           "selected": false
+       },
+       {
+           "name": "explore-tab",
+           "text": "popular",
+           "endpoint": "/posts/popular",
+           "selected": false
+       }
+   ]
+}
+```
+   - When a user tabs on an unselected tab, the bar should center itself on the selected tab with the following limitation:
+      - there should be no additional white space to the left of the first tab or right of the last tab
+      - if there are only 3 tabs, the tabs should fit in the space exactly and there should be no movement when a new tab is selected
+   - The user can scroll the menu left and right (if there are more than 3 items in view)
 - A user can switch to consume the list of popular looks in a feed view (like view 8.1) rather than a grid view
    - see (view 9.1.1)
    - see question# 3 for clarification
