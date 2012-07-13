@@ -15,8 +15,10 @@
 #import "GTIOMyPostsViewController.h"
 #import "GTIOReviewsViewController.h"
 #import "GTIOInternalWebViewController.h"
+#import "GTIOWebViewController.h"
 
-static NSString * const kGTIOURLScheme = @"gtio";
+NSString * const kGTIOURLScheme = @"gtio";
+NSString * const kGTIOHttpURLScheme = @"http";
 
 static NSString * const kGTIOURLHostProfile = @"profile";
 static NSString * const kGTIOURLHostSignOut = @"sign-out";
@@ -35,6 +37,7 @@ static NSString * const kGTIOURLHostPosts = @"posts";
 static NSString * const kGTIOURLHostPostedBy = @"posted-by";
 static NSString * const kGTIOURLHostReviewsForPost = @"reviews-for-post";
 static NSString * const kGTIOURLHostInternalWebView = @"internal-webview";
+static NSString * const kGTIOURLHostDefaultWebView = @"default-webview";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
@@ -61,13 +64,17 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
 
 - (UIViewController *)viewControllerForURL:(NSURL *)URL
 {
-    if (![[URL scheme] isEqualToString:kGTIOURLScheme]) {
+    UIViewController *viewController = nil;
+    
+    if ([[URL scheme] isEqualToString:kGTIOHttpURLScheme]) {
+        viewController = [[GTIOWebViewController alloc] initWithNibName:nil bundle:nil];
+        [((GTIOWebViewController *)viewController) setURL:URL];
+    } else if (![[URL scheme] isEqualToString:kGTIOURLScheme]) {
         return nil;
     }
     
     NSString *urlHost = [URL host];
     NSArray *pathComponents = [URL pathComponents];
-    UIViewController *viewController = nil;
     
     if ([urlHost isEqualToString:kGTIOURLHostProfile]) {
         if ([pathComponents count] >= 2) {
@@ -128,15 +135,26 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
             viewController = [[GTIOReviewsViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostInternalWebView]) {
-        if ([pathComponents count] >= 3) {
+        if ([pathComponents count] >= 4) {
             viewController = [[GTIOInternalWebViewController alloc] initWithNibName:nil bundle:nil];
-            NSURL *URL = [NSURL URLWithString:[pathComponents objectAtIndex:1]];
-            [((GTIOInternalWebViewController *)viewController) setURL:URL];
-            [((GTIOInternalWebViewController *)viewController) setNavigationTitle:[pathComponents objectAtIndex:2]];
+            [((GTIOInternalWebViewController *)viewController) setURL:[self embeddedURLAtEndURL:URL]];
+            [((GTIOInternalWebViewController *)viewController) setNavigationTitle:[pathComponents objectAtIndex:3]];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostDefaultWebView]) {
+        if ([pathComponents count] >= 3 ) {
+            viewController = [[GTIOWebViewController alloc] initWithNibName:nil bundle:nil];
+            [((GTIOWebViewController *)viewController) setURL:[self embeddedURLAtEndURL:URL]];
         }
     }
     
     return viewController;
+}
+
+#pragma mark - Helpers
+
+- (NSURL *)embeddedURLAtEndURL:(NSURL *)URL
+{
+    return [NSURL URLWithString:[[[[URL absoluteString] componentsSeparatedByString:@"/"] lastObject] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 @end

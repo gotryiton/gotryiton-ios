@@ -1218,6 +1218,14 @@
 		D2B8A584158A97CF001D67CA /* GTIOFilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DEAED3158793A20032ED1F /* GTIOFilterButton.m */; };
 		D2C1C860159DFF23001026BC /* PostDescription.css in Resources */ = {isa = PBXBuildFile; fileRef = D2C1C85F159DFF23001026BC /* PostDescription.css */; };
 		D2C363F2158A999400F476EF /* NSMutableDictionary+FilterTypeKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F78B77158A2E2F00CBB4F2 /* NSMutableDictionary+FilterTypeKeys.m */; };
+		D2C4BF4B15B05EDB00422B98 /* GTIOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C4BF4A15B05EDB00422B98 /* GTIOWebViewController.m */; };
+		D2C4BF5115B0623400422B98 /* GTIOToolBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C4BF5015B0623400422B98 /* GTIOToolBarButton.m */; };
+		D2C4BFD015B063D100422B98 /* webview-button-reload-active.png in Resources */ = {isa = PBXBuildFile; fileRef = D2C4BFCA15B063D100422B98 /* webview-button-reload-active.png */; };
+		D2C4BFD115B063D100422B98 /* webview-button-reload-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2C4BFCB15B063D100422B98 /* webview-button-reload-active@2x.png */; };
+		D2C4BFD215B063D100422B98 /* webview-button-reload-disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = D2C4BFCC15B063D100422B98 /* webview-button-reload-disabled.png */; };
+		D2C4BFD315B063D100422B98 /* webview-button-reload-disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2C4BFCD15B063D100422B98 /* webview-button-reload-disabled@2x.png */; };
+		D2C4BFD415B063D100422B98 /* webview-button-reload-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = D2C4BFCE15B063D100422B98 /* webview-button-reload-inactive.png */; };
+		D2C4BFD515B063D100422B98 /* webview-button-reload-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2C4BFCF15B063D100422B98 /* webview-button-reload-inactive@2x.png */; };
 		D2CDA96715502F02009B7E24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96615502F02009B7E24 /* UIKit.framework */; };
 		D2CDA96915502F02009B7E24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96815502F02009B7E24 /* Foundation.framework */; };
 		D2CDA96B15502F02009B7E24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */; };
@@ -2753,6 +2761,16 @@
 		D2B7ACE815A21C2400711AE8 /* UIImage+GTIOFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GTIOFilters.h"; sourceTree = "<group>"; };
 		D2B7ACE915A21C2400711AE8 /* UIImage+GTIOFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GTIOFilters.m"; sourceTree = "<group>"; };
 		D2C1C85F159DFF23001026BC /* PostDescription.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = PostDescription.css; path = CSS/PostDescription.css; sourceTree = "<group>"; };
+		D2C4BF4915B05EDB00422B98 /* GTIOWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOWebViewController.h; sourceTree = "<group>"; };
+		D2C4BF4A15B05EDB00422B98 /* GTIOWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWebViewController.m; sourceTree = "<group>"; };
+		D2C4BF4F15B0623400422B98 /* GTIOToolBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOToolBarButton.h; sourceTree = "<group>"; };
+		D2C4BF5015B0623400422B98 /* GTIOToolBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOToolBarButton.m; sourceTree = "<group>"; };
+		D2C4BFCA15B063D100422B98 /* webview-button-reload-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "webview-button-reload-active.png"; sourceTree = "<group>"; };
+		D2C4BFCB15B063D100422B98 /* webview-button-reload-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "webview-button-reload-active@2x.png"; sourceTree = "<group>"; };
+		D2C4BFCC15B063D100422B98 /* webview-button-reload-disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "webview-button-reload-disabled.png"; sourceTree = "<group>"; };
+		D2C4BFCD15B063D100422B98 /* webview-button-reload-disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "webview-button-reload-disabled@2x.png"; sourceTree = "<group>"; };
+		D2C4BFCE15B063D100422B98 /* webview-button-reload-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "webview-button-reload-inactive.png"; sourceTree = "<group>"; };
+		D2C4BFCF15B063D100422B98 /* webview-button-reload-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "webview-button-reload-inactive@2x.png"; sourceTree = "<group>"; };
 		D2CDA96215502F02009B7E24 /* Go Try It On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Try It On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2CDA96615502F02009B7E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D2CDA96815502F02009B7E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -3996,6 +4014,12 @@
 				8EB5A28115A629E000163F84 /* webview-button-options-active@2x.png */,
 				8EB5A28215A629E000163F84 /* webview-button-options-inactive.png */,
 				8EB5A28315A629E000163F84 /* webview-button-options-inactive@2x.png */,
+				D2C4BFCA15B063D100422B98 /* webview-button-reload-active.png */,
+				D2C4BFCB15B063D100422B98 /* webview-button-reload-active@2x.png */,
+				D2C4BFCC15B063D100422B98 /* webview-button-reload-disabled.png */,
+				D2C4BFCD15B063D100422B98 /* webview-button-reload-disabled@2x.png */,
+				D2C4BFCE15B063D100422B98 /* webview-button-reload-inactive.png */,
+				D2C4BFCF15B063D100422B98 /* webview-button-reload-inactive@2x.png */,
 				8EB5A28415A629E000163F84 /* webview-tab-bg.png */,
 				8EB5A28515A629E000163F84 /* webview-tab-bg@2x.png */,
 			);
@@ -4832,6 +4856,8 @@
 			children = (
 				D2A194DB15AF762200372872 /* GTIOInternalWebViewController.h */,
 				D2A194DC15AF762200372872 /* GTIOInternalWebViewController.m */,
+				D2C4BF4915B05EDB00422B98 /* GTIOWebViewController.h */,
+				D2C4BF4A15B05EDB00422B98 /* GTIOWebViewController.m */,
 			);
 			name = WebViews;
 			sourceTree = "<group>";
@@ -5061,14 +5087,14 @@
 		D2CDA9B115503307009B7E24 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8EB1421D15AB35E200D5495C /* Reviews */,
-				8EA0271A159A2DBB00FDC45E /* Friends */,
 				D2066FBD159A1584003E8193 /* Auto Complete */,
+				D2D96EEE156D275B009B9A72 /* Camera */,
 				8E969F55158BDD60009E19B3 /* Feed */,
+				8EA0271A159A2DBB00FDC45E /* Friends */,
 				D298588B156543F4005EE3CA /* General */,
 				8E12C1FA1575538F0097CDE9 /* Photo Upload */,
-				D2D96EEE156D275B009B9A72 /* Camera */,
 				8EF8FF80156BEE9900AFCE55 /* Profile */,
+				8EB1421D15AB35E200D5495C /* Reviews */,
 				D2D0482F1563F19F0034E04F /* Splash/Intro */,
 			);
 			path = Views;
@@ -5191,6 +5217,8 @@
 				D2DCF4C8159BDD17006E5AF0 /* GTIOPostSideButton.m */,
 				D29AD735159CF0D100C23AA4 /* GTIOPopOverButton.h */,
 				D29AD736159CF0D100C23AA4 /* GTIOPopOverButton.m */,
+				D2C4BF4F15B0623400422B98 /* GTIOToolBarButton.h */,
+				D2C4BF5015B0623400422B98 /* GTIOToolBarButton.m */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -6387,6 +6415,12 @@
 				8ED52EFA15ACA63200F5C05B /* ReviewText.css in Resources */,
 				D2A194D415AF5CFB00372872 /* photo-frame-single.png in Resources */,
 				D2A194D515AF5CFB00372872 /* photo-frame-single@2x.png in Resources */,
+				D2C4BFD015B063D100422B98 /* webview-button-reload-active.png in Resources */,
+				D2C4BFD115B063D100422B98 /* webview-button-reload-active@2x.png in Resources */,
+				D2C4BFD215B063D100422B98 /* webview-button-reload-disabled.png in Resources */,
+				D2C4BFD315B063D100422B98 /* webview-button-reload-disabled@2x.png in Resources */,
+				D2C4BFD415B063D100422B98 /* webview-button-reload-inactive.png in Resources */,
+				D2C4BFD515B063D100422B98 /* webview-button-reload-inactive@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6617,6 +6651,8 @@
 				D2A194D915AF69CF00372872 /* NSData+Base64.m in Sources */,
 				D2A194DD15AF762200372872 /* GTIOInternalWebViewController.m in Sources */,
 				D2A194E015AF76C300372872 /* GTIOWebView.m in Sources */,
+				D2C4BF4B15B05EDB00422B98 /* GTIOWebViewController.m in Sources */,
+				D2C4BF5115B0623400422B98 /* GTIOToolBarButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

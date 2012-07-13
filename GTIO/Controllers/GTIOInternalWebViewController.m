@@ -62,15 +62,7 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
     [self.view addSubview:self.webView];
     
     [self.webView loadGTIORequestWithURL:self.URL];
-
-#warning test Code
-//    double delayInSeconds = 7.0;
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        NSURL *URL2 = [NSURL URLWithString:@"gtio://internal-webview/test+url/%22Aardvarks+lurk%2C+OK%3F%22"];
-//        NSURLRequest *request = [NSURLRequest requestWithURL:URL2];
-//        [self.webView.delegate webView:self.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeLinkClicked];
-//    });
+    [GTIOProgressHUD showHUDAddedTo:self.webView animated:YES];
 }
 
 - (void)viewDidUnload
@@ -96,19 +88,17 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    id viewController = [[GTIORouter sharedRouter] viewControllerForURL:request.URL];
-    
-    if (viewController) {
-        [self.navigationController pushViewController:viewController animated:YES];
-        return NO;
+    // Open http links here but not gtio://
+    if (![request.URL.scheme isEqualToString:kGTIOHttpURLScheme]) {
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURL:request.URL];
+        
+        if (viewController) {
+            [self.navigationController pushViewController:viewController animated:YES];
+            return NO;
+        }
     }
     
     return YES;
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    [GTIOProgressHUD showHUDAddedTo:self.webView animated:YES];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView

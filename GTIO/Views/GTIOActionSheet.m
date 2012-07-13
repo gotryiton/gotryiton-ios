@@ -79,7 +79,7 @@ static double const buttonWidth = 292.0;
             
             if (_buttonTapHandler) {
                 actionSheetButton.tapHandler = ^(id sender) {
-                    _buttonTapHandler(button);
+                    _buttonTapHandler(self, button);
                 };
             } else {
                 actionSheetButton.tapHandler = ^(id sender) {

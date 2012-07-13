@@ -64,7 +64,7 @@
 {
     GTIOLargeButton *button = [self largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray];
     [button setTitleColor:[UIColor gtio_signInColor] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:14.0]];
+    [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:18.0]];
     [button setTitle:@"cancel" forState:UIControlStateNormal];
     return button;
 }

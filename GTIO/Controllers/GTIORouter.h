@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const kGTIOURLScheme;
+extern NSString * const kGTIOHttpURLScheme;
+
 @interface GTIORouter : NSObject
 
 + (GTIORouter *)sharedRouter;
