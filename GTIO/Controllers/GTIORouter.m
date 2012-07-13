@@ -65,8 +65,6 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
         return nil;
     }
     
-    URL = [NSURL URLWithString:@"gtio://post/1504"];
-    
     NSString *urlHost = [URL host];
     NSArray *pathComponents = [URL pathComponents];
     UIViewController *viewController = nil;
