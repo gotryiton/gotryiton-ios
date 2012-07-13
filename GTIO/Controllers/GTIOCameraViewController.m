@@ -190,7 +190,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     [self.view addSubview:self.photoShootProgresToolbarView];
     
     // Source Pop Over View
-    self.sourcePopOverView = [GTIOPopOverView popOverForCameraSources];
+    self.sourcePopOverView = [GTIOPopOverView cameraSourcesPopOverView];
     [self.sourcePopOverView setFrame:(CGRect){ { kGTIOSourcePopOverXOriginPadding, self.view.frame.size.height - self.sourcePopOverView.frame.size.height - kGTIOSourcePopOverYOriginPadding }, self.sourcePopOverView.frame.size }];
     [self.sourcePopOverView setTapHandler:^(GTIOButton *buttonModel) {
         if ([buttonModel.action.destination isEqualToString:@"gtio://camera-roll"] && 

@@ -8,6 +8,11 @@
 
 #import "GTIOCameraShutterControl.h"
 
+static CGFloat const kGTIOFrameWidth = 166.0f;
+static CGFloat const kGTIOFrameHeight = 49.0f;
+
+static CGFloat const kGTIOPhotoShootButtonWidth = 50.0f;
+
 @interface GTIOCameraShutterControl ()
 
 @property (nonatomic, strong) UIImageView *buttonImageView;
@@ -29,15 +34,15 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setFrame:(CGRect){ frame.origin, { 166, 49 } }];
+        [self setFrame:(CGRect){ frame.origin, { kGTIOFrameWidth, kGTIOFrameHeight } }];
         
-        _buttonImageView = [[UIImageView alloc] initWithFrame:(CGRect){ CGPointZero, { 166, 49 } }];
+        _buttonImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         [self addSubview:_buttonImageView];
         
         __block typeof(self) blockSelf = self;
         
         _photoShootButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
-        [_photoShootButton setFrame:(CGRect){ self.frame.size.width - 50, 0, 50, 49 }];
+        [_photoShootButton setFrame:(CGRect){ self.frame.size.width - kGTIOPhotoShootButtonWidth, 0, kGTIOPhotoShootButtonWidth, self.frame.size.height }];
         [_photoShootButton setTapHandler:^(id sender) {
             [blockSelf setPhotoShootMode:!blockSelf.isPhotoShootMode];
         }];
@@ -45,7 +50,7 @@
         
         __block GTIOUIButton *blockShutterButton = _shutterButton;
         _shutterButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
-        [_shutterButton setFrame:(CGRect){ CGPointZero, { self.frame.size.width - _photoShootButton.frame.size.width, 49 } }];
+        [_shutterButton setFrame:(CGRect){ CGPointZero, { self.frame.size.width - _photoShootButton.frame.size.width, self.frame.size.height } }];
         [_shutterButton setTapHandler:^(id sender) {
             NSString *imageName = @"capture.normal.inactive.png";
             if (self.isPhotoShootMode) {

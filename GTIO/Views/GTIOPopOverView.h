@@ -17,7 +17,7 @@ typedef void(^GTIOPopOverViewButtonTapHandler)(GTIOButton *buttonModel);
 @property (nonatomic, strong, readonly) NSArray *buttonModels;
 @property (nonatomic, copy) GTIOPopOverViewButtonTapHandler tapHandler;
 
-+ (id)popOverForCameraSources;
-+ (id)popOverForPostDotDotDotWithButtonModels:(NSArray *)buttonModels;
++ (id)cameraSourcesPopOverView;
++ (id)ellipsisPopOverViewWithButtonModels:(NSArray *)buttonModels;
 
 @end
