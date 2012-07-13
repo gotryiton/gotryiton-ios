@@ -6,8 +6,9 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
+@class GTIOUser;
+
 #import <Foundation/Foundation.h>
-#import "GTIOUser.h"
 #import "GTIOFollowRequestAcceptBar.h"
 #import "GTIOPostList.h"
 
@@ -20,5 +21,6 @@
 @property (nonatomic, strong) GTIOFollowRequestAcceptBar *acceptBar;
 @property (nonatomic, strong) GTIOPostList *postsList;
 @property (nonatomic, strong) GTIOPostList *heartsList;
+@property (nonatomic, strong) NSNumber *profileLocked;
 
 @end

@@ -8,7 +8,10 @@
 
 #import "GTIOViewController.h"
 #import "SSPullToRefresh.h"
+#import "GTIOPost.h"
 
 @interface GTIOFeedViewController : GTIOViewController <SSPullToRefreshViewDelegate>
+
+- (id)initWithPostID:(NSString *)postID;
 
 @end

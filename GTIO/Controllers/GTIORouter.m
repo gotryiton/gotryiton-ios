@@ -14,6 +14,7 @@
 #import "GTIOMyHeartsViewController.h"
 #import "GTIOMyPostsViewController.h"
 #import "GTIOReviewsViewController.h"
+#import "GTIOFeedViewController.h"
 #import "GTIOInternalWebViewController.h"
 #import "GTIOWebViewController.h"
 
@@ -34,6 +35,7 @@ static NSString * const kGTIOURLHostSearchFriends = @"search-friends";
 static NSString * const kGTIOURLHostMyHearts = @"my-hearts";
 static NSString * const kGTIOURLHostMyPosts = @"my-posts";
 static NSString * const kGTIOURLHostPosts = @"posts";
+static NSString * const kGTIOURLHostPost = @"post";
 static NSString * const kGTIOURLHostPostedBy = @"posted-by";
 static NSString * const kGTIOURLHostReviewsForPost = @"reviews-for-post";
 static NSString * const kGTIOURLHostInternalWebView = @"internal-webview";
@@ -134,6 +136,9 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
         if ([pathComponents count] >= 2) {
             viewController = [[GTIOReviewsViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
         }
+    } else if ([urlHost isEqualToString:kGTIOURLHostPost]) {
+        if ([pathComponents count] >= 2) {
+            viewController = [[GTIOFeedViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
     } else if ([urlHost isEqualToString:kGTIOURLHostInternalWebView]) {
         if ([pathComponents count] >= 4) {
             viewController = [[GTIOInternalWebViewController alloc] initWithNibName:nil bundle:nil];

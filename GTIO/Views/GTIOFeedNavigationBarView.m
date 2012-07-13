@@ -13,7 +13,7 @@ static CGFloat const kGTIOVerticalPadding = 7.0f;
 
 @implementation GTIOFeedNavigationBarView
 
-@synthesize friendsButton = _friendsButton, titleView = _titleView;
+@synthesize friendsButton = _friendsButton, titleView = _titleView, backButton = _backButton;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -33,6 +33,11 @@ static CGFloat const kGTIOVerticalPadding = 7.0f;
         _friendsButton = [GTIOUIButton gtio_navBarTopMarginWithText:@"friends" tapHandler:nil];
         [_friendsButton setFrame:(CGRect) { self.frame.size.width - _friendsButton.frame.size.width - kGTIOHorizontalPadding, kGTIOVerticalPadding, _friendsButton.frame.size} ];
         [self addSubview:_friendsButton];
+        
+        _backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:nil];
+        [_backButton setFrame:(CGRect) { kGTIOHorizontalPadding, kGTIOVerticalPadding, _backButton.bounds.size } ];
+        _backButton.hidden = YES;
+        [self addSubview:_backButton];
     }
     return self;
 }

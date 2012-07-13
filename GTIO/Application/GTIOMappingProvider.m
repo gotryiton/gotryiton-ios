@@ -34,6 +34,7 @@
 #import "GTIOFollowersScreen.h"
 #import "GTIOFindMyFriendsScreen.h"
 #import "GTIOReview.h"
+#import "GTIONotification.h"
 
 @implementation GTIOMappingProvider
 
@@ -68,6 +69,7 @@
         RKObjectMapping *followersScreenMapping = [RKObjectMapping mappingForClass:[GTIOFollowersScreen class]];
         RKObjectMapping *findMyFriendsScreenMapping = [RKObjectMapping mappingForClass:[GTIOFindMyFriendsScreen class]];
         RKObjectMapping *reviewMapping = [RKObjectMapping mappingForClass:[GTIOReview class]];
+        RKObjectMapping *notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
         
         /** Config
          */
@@ -160,6 +162,7 @@
         [userProfileMapping mapKeyPath:@"ui-profile.profile_callouts" toRelationship:@"profileCallOuts" withMapping:profileCalloutMapping];
         [userProfileMapping mapKeyPath:@"ui-profile.settings.buttons" toRelationship:@"settingsButtons" withMapping:buttonMapping];
         [userProfileMapping mapKeyPath:@"ui-profile.accept_bar" toRelationship:@"acceptBar" withMapping:followRequestAcceptBarMapping];
+        [userProfileMapping mapKeyPath:@"ui-profile.profile_locked" toAttribute:@"profileLocked"];
         [userProfileMapping mapKeyPath:@"posts_list" toRelationship:@"postsList" withMapping:postListMapping];
         [userProfileMapping mapKeyPath:@"hearts_list" toRelationship:@"heartsList" withMapping:postListMapping];
         [self setMapping:userProfileMapping forKeyPath:@"userProfile"];
@@ -248,6 +251,14 @@
         [reviewMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [self setMapping:reviewMapping forKeyPath:@"reviews"];
         [self setMapping:reviewMapping forKeyPath:@"review"];
+        
+        /** Notifications
+         */
+        
+        // GTIONotification
+        [notificationMapping mapKeyPath:@"id" toAttribute:@"notificationID"];
+        [notificationMapping mapAttributes:@"text", @"action", @"icon", nil];
+        [self setMapping:notificationMapping forKeyPath:@"notifications"];
 
         // GTIOAutoCompleter
         [autocompleterMapping mapKeyPath:@"id" toAttribute:@"completerID"];
