@@ -1,3 +1,30 @@
+***Friday, July 13th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Release build today
+- TT - Review latest pull reuqest of Simons
+
+**Status**
+- Fixed some bugs
+- Notifications screen wrapping up
+- All the web views are almost finished
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Release build today
+
+**General Notes**
+- NA
+
+---
+
 ***Thursday, July 12th - Standup Notes***
 
 **Attendees**
