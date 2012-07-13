@@ -1470,7 +1470,7 @@ A user can see a list of products contained in a post.  They can tap each one to
 
 #### Mockups
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/4.8.shop.this.look.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/4.8.Shop.This.Look.png" width=420px/>
 
 #### User flow
 
