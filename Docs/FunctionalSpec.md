@@ -1492,22 +1492,27 @@ gtio://products/in-post/:post_id
 #### Stories
 
 - A user can see a list of products contained in a post
-   - each product taps to ([view 4.1](#41-product-page-view))
+   - each product cell taps to ([view 4.1](#41-product-page-view))
 
 #### Design Stories
 - Cell
-	- Background (4/shop.cell.png)
-	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
-	- Chevron (general/general.chevron.png)
-	- Image
-		- 106x101px
-		- Position on top left of cell
-		- Overlay with 7/shopping.cell.image.overlay.png
+	- background is '4/shop.cell.png' with active and inactive states
+	- Product Image
+		- 155x155px
+		- Position with top left of cell (non-shadow portion)
+		- Underneath 'shop.cell.png', so left side shadows are overlaid on product image
 	- Text 
 		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
+         - 173px from left edge of screen
+         - 12px from top of cell (non-shadow portion)
+         - text area is 132px wide (each line, wrap to new lines as necessary)
 		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
-		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72		
-
+         - 173px from left edge of screen
+         - baseline is 18px away from baseline of last line of Product Name
+		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
+         - 173px from left edge of screen
+         - baseline is 15px from bottom of cell (non-shadow portion)
+         
 ## 5. Invite 
 
 ### 5.1 Invite friends  
