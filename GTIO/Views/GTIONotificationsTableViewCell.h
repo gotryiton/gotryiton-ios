@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) GTIONotification *notification;
 
++ (CGFloat)heightWithNotification:(GTIONotification *)notification;
+
 @end

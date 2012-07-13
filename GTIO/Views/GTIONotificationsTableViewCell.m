@@ -15,6 +15,8 @@ static CGFloat const kGTIOCellTopBottomPadding = 16.0;
 static CGFloat const kGTIOCellLeftRightPadding = 8.0;
 static CGFloat const kGTIOIconWidthHeight = 21.0;
 static CGFloat const kGTIOIconTextSpacing = 10.0;
+static CGFloat const kGTIOTextWidth = 273.0;
+static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
 
 
 @interface GTIONotificationsTableViewCell()
@@ -70,9 +72,8 @@ static CGFloat const kGTIOIconTextSpacing = 10.0;
     [super layoutSubviews];
     
     [self.icon setFrame:(CGRect){ kGTIOCellLeftRightPadding, self.bounds.size.height / 2 - (self.icon.bounds.size.height / 2), kGTIOIconWidthHeight, kGTIOIconWidthHeight }];
-    CGFloat textWidth = self.bounds.size.width - (self.icon.frame.origin.x + self.icon.bounds.size.width + kGTIOIconTextSpacing + kGTIOCellLeftRightPadding);
-    CGSize textSize = [self.text.contentView sizeThatFits:(CGSize){ textWidth, CGFLOAT_MAX }];
-    [self.text setFrame:(CGRect){ self.icon.frame.origin.x + self.icon.bounds.size.width + kGTIOIconTextSpacing, kGTIOCellTopBottomPadding, textWidth, textSize.height }];
+    CGSize textSize = [self.text.contentView sizeThatFits:(CGSize){ kGTIOTextWidth, CGFLOAT_MAX }];
+    [self.text setFrame:(CGRect){ self.icon.frame.origin.x + self.icon.bounds.size.width + kGTIOIconTextSpacing, kGTIOCellTopBottomPadding, kGTIOTextWidth, textSize.height }];
     [self.bottomBorder setFrame:(CGRect){ 0, self.bounds.size.height - 1, self.bounds.size.width, 1 }];
 }
 
@@ -98,6 +99,31 @@ static CGFloat const kGTIOIconTextSpacing = 10.0;
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.textOptions documentAttributes:NULL];
     self.text.attributedString = string;
     [self setNeedsLayout];
+}
+
++ (CGFloat)heightWithNotification:(GTIONotification *)notification
+{
+    [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
+    DTAttributedTextView *textAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIOTextWidth, 0 } }];
+    textAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 0, 0 };
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"NotificationTableCellText" ofType:@"css"];  
+    NSData *cssData = [NSData dataWithContentsOfFile:filePath];
+    NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
+    DTCSSStylesheet *stylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
+    
+    NSDictionary *descriptionAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                      [NSNumber numberWithFloat:0.8], DTDefaultLineHeightMultiplier,
+                                                      stylesheet, DTDefaultStyleSheet,
+                                                      nil];
+    
+    NSData *data = [notification.text dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:descriptionAttributedTextOptions documentAttributes:NULL];
+    textAttributedTextView.attributedString = string;
+    
+    CGSize textSize = [textAttributedTextView.contentView sizeThatFits:(CGSize){ kGTIOTextWidth, CGFLOAT_MAX }];
+    
+    return textSize.height + kGTIOCellTopBottomPadding * 2 - kGTIOTextViewBottomPaddingInset;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

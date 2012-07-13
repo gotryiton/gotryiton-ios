@@ -13,10 +13,6 @@
 #import "DTCoreText.h"
 #import "GTIORouter.h"
 
-static CGFloat const kGTIONotificationTableCellTextWidth = 273.0;
-static CGFloat const kGTIONotificationTableCellTopBottomPadding = 16.0;
-static CGFloat const kGTIONotificationTableCellTextBottomPaddingOffset = 6.0;
-
 @interface GTIONotificationsViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -81,28 +77,7 @@ static CGFloat const kGTIONotificationTableCellTextBottomPaddingOffset = 6.0;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GTIONotification *notificationForIndexPath = [self.notifications objectAtIndex:indexPath.row];
-    
-    [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
-    DTAttributedTextView *textAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIONotificationTableCellTextWidth, 0 } }];
-    textAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 0, 0 };
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"NotificationTableCellText" ofType:@"css"];  
-    NSData *cssData = [NSData dataWithContentsOfFile:filePath];
-    NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
-    DTCSSStylesheet *stylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
-    
-    NSDictionary *descriptionAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                      [NSNumber numberWithFloat:0.8], DTDefaultLineHeightMultiplier,
-                                                      stylesheet, DTDefaultStyleSheet,
-                                                      nil];
-    
-    NSData *data = [notificationForIndexPath.text dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:descriptionAttributedTextOptions documentAttributes:NULL];
-    textAttributedTextView.attributedString = string;
-    
-    CGSize textSize = [textAttributedTextView.contentView sizeThatFits:(CGSize){ kGTIONotificationTableCellTextWidth, CGFLOAT_MAX }];
-    
-    return textSize.height + kGTIONotificationTableCellTopBottomPadding * 2 - kGTIONotificationTableCellTextBottomPaddingOffset;
+    return [GTIONotificationsTableViewCell heightWithNotification:notificationForIndexPath];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
