@@ -12,7 +12,7 @@
 @class GTIOButton;
 
 typedef void(^GTIOActionSheetBlock)(GTIOActionSheet *actionSheet);
-typedef void(^GTIOActionSheetButtonTapHandler)(GTIOButton *buttonModel);
+typedef void(^GTIOActionSheetButtonTapHandler)(GTIOActionSheet *actionSheet, GTIOButton *buttonModel);
 
 @interface GTIOActionSheet : UIView
 

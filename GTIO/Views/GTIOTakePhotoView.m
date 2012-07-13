@@ -218,7 +218,7 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
     }
     
     // ActionSheet
-    _actionSheet = [[GTIOActionSheet alloc] initWithButtons:buttonModels buttonTapHandler:^(GTIOButton *buttonModel) {
+    _actionSheet = [[GTIOActionSheet alloc] initWithButtons:buttonModels buttonTapHandler:^(GTIOActionSheet *actionSheet, GTIOButton *buttonModel) {
         NSURL *URL = [NSURL URLWithString:buttonModel.action.destination];
         
         NSString *urlHost = [URL host];
