@@ -3304,9 +3304,8 @@ feed: ([view 7.7](#77-profile-page))
       - baseline of text is 5px above bottom edge of tab (not including pointer)
       - unselected: Archer Book Italic, 11pt, rgb(135,135,135)
       - selected: Archer Book Italic, 11pt, rgb(85,85,86)
-      - star icon
-         - 2px distance from right of accompanying label
-         - bottom of asset is 4px below baseline of accompanying label
+      - featured label ('tab-label-featured.png')
+         - horizontally and vertically centered within tab
 - Photo Grid
    - Images are sized to 94px wide, variable height
    - Top images are 9px from top of content area
