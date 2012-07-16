@@ -68,7 +68,7 @@
         [_textInput setFont: [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.f]];
         _textInput.textColor = [UIColor clearColor];
         [self addSubview:self.textInput];
-        
+
         _ACInputColor = CGColorRetain([UIColor gtio_grayTextColor404040].CGColor);
         _ACPlaceholderColor = CGColorRetain([UIColor gtio_lightGrayTextColor].CGColor);
         _ACHighlightColor = CGColorRetain([UIColor gtio_linkColor].CGColor);
@@ -104,15 +104,21 @@
          */
         _isScrollViewShowing = NO;
         
-        CGRect scrollFrameBox = CGRectMake( 0, CGRectGetHeight(self.bounds)-4, CGRectGetWidth(self.bounds), 50);
-
-        _scrollViewBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"keyboard-top-control-bg.png"]];
-        [_scrollViewBackground setFrame:scrollFrameBox];
-        [self addSubview:self.scrollViewBackground];
+        CGRect scrollFrameBox = CGRectMake( 0, 0, CGRectGetWidth(self.bounds), 50);
+        CGRect scrollFrameBoxOutOfView = CGRectMake( 0, 50, CGRectGetWidth(self.bounds), 50);
         
-        _scrollView = [[GTIOAutoCompleteScrollView alloc] initWithFrame:scrollFrameBox];
+        UIView *inputAccessoryView = [[UIView alloc] initWithFrame:scrollFrameBox];
+        inputAccessoryView.clipsToBounds = YES;
+        self.textInput.inputAccessoryView = inputAccessoryView;
+        
+        _scrollViewBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"keyboard-top-control-bg.png"]];
+        [_scrollViewBackground setFrame:scrollFrameBoxOutOfView];
+        
+        [self.textInput.inputAccessoryView addSubview:self.scrollViewBackground];
+        
+        _scrollView = [[GTIOAutoCompleteScrollView alloc] initWithFrame:scrollFrameBoxOutOfView];
         _scrollView.autoCompleteDelegate = self;
-        [self addSubview:self.scrollView];
+        [self.textInput.inputAccessoryView addSubview:self.scrollView];
         
         // set up attr string
         _attrString = [[NSMutableAttributedString alloc] initWithString:@""];
@@ -133,9 +139,10 @@
         self.isScrollViewShowing = YES;
         
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-            CGRect scrollFrameBox = CGRectMake( 0, self.bounds.size.height-48, self.bounds.size.width, 50);
+            CGRect scrollFrameBox = CGRectMake( 0, self.textInput.inputAccessoryView.bounds.size.height-50, self.textInput.inputAccessoryView.bounds.size.width, 50);
             [self.scrollView setFrame:scrollFrameBox];
             [self.scrollViewBackground setFrame:scrollFrameBox];
+
         } completion:nil];
     }
 }
@@ -146,9 +153,10 @@
         self.isScrollViewShowing = NO;
         
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-            CGRect scrollFrameBox = CGRectMake( 0, self.bounds.size.height-4, self.bounds.size.width, 50);
+            CGRect scrollFrameBox = CGRectMake( 0, self.textInput.inputAccessoryView.bounds.size.height-4, self.textInput.inputAccessoryView.bounds.size.width, 50);
             [self.scrollView setFrame:scrollFrameBox];
             [self.scrollViewBackground setFrame:scrollFrameBox];
+            
         } completion:^(BOOL finished) {
             [self.scrollView clearScrollView];
         }];
@@ -175,13 +183,11 @@
         
         [self hideScrollView];
         
-        //TODO:
-        //this should prob kick off an event of some kind to alert the view's owner that we're done with the keyboard (and to animate and such)
-
         return NO;
     }
     
-    if ([field.text stringByReplacingCharactersInRange:range withString:inputString].length > 255) {
+    if ( (field.text.length + inputString.length) > 255) {
+        NSLog(@"end of string");
         return NO;
     }
 
@@ -206,6 +212,7 @@
         
         [self cleanUpAttrString];
     } else {
+        [self hideScrollView];
         [self displayPlaceholderText];
     }
     
