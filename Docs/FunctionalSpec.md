@@ -1360,24 +1360,31 @@ previous screen
 
 
 #### API Usage
-/product/:product_id
-/product/:product_id/add-to-my-shopping-list/
+/product/:product_id   
+/product/:product_id/add-to-my-shopping-list/   
+
+[product api](http://gtio-dev.gotryiton.com/docs/products)
 
 #### Stories
 - A user can view a detailed page about a single product
    - transparent navbar 
-      - TBD: matt to provide guidance
    - full product name with brand and price
-   - photo aligned to top 
-      - tapping routes to full screen view of product (view 4.1.2)
+   - tapping routes to full screen view of product (view 4.1.2)
 - A user can heart a Product and see who has hearted a product
-   - standard heart button with count
-   - **tap** on count ==> (view 3.5)
+   - two heart buttons included in product model:
+      - ```product-who-hearted-button``` 
+         - includes count
+         - taps to who hearted this page
+      - ```product-heart-button``` 
+         - includes state
+         - makes api request to heart/un-heart
 - A user can post a product from a product page
    - Post btn **tap** ==> (view 12.3)
-   - (view 12.3) should use ```product.main_image``` as its source image
+   - (view 12.3) should use ```product.photo.main_image``` as its source image
 - A user can add a product to their shopping list
    - + shopping list button adds the item to their list
+   - state and enpoint/destination of the button are defined by the button with name ```"product-shopping-list-button```  
+   - ```state : 1``` if product is in shopping list
 
 #### Design Stories
 - Navigation Bar
