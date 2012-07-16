@@ -3292,18 +3292,12 @@ feed: ([view 7.7](#77-profile-page))
    - vertically centered within nav bar area
    - 12px from left edge of screen
 - Tabs
-   - leftmost tab is 'tab-left.png' in selected/unselected versions, with active and inactive
-      - horizontal middle is stretchable
-      - 1px nonstretchable on right
-      - 3px nonstretchable on left
-   - middle tab is 'tab-middle.png' in selected/unselected versions, with active and inactive
-      - horizontal middle is stretchable
-      - 2px nonstretchable on right and left
-      - multiple instances OK
-   - rightmost tab is 'tab-right.png' in selected/unselected versions, with active and inactive
-      - horizontal middle is stretchable
-      - 1px nonstretchable on left
-      - 3px nonstretchable on right
+   - selected tab is 'tab-selected.png', unselected tab is 'tab-unselected.png'
+      - 3px nonstretchable on left and right
+      - 1px (horizontal middle) is stretchable
+   - dividers are 'sel-uns', 'uns-sel', 'uns-uns'
+      - do not stretch
+      - dividers are meant to overlay buttons that have no gaps
    - positioning
       - leftmost tab is 4px away from left edge of screen (or left edge of scrollable area)
       - rightmost tab is 4px away from right edge of screen (or right edge of scrollable area)
@@ -3321,9 +3315,8 @@ feed: ([view 7.7](#77-profile-page))
       - baseline of text is 5px above bottom edge of tab (not including pointer)
       - unselected: Archer Book Italic, 11pt, rgb(135,135,135)
       - selected: Archer Book Italic, 11pt, rgb(85,85,86)
-      - star icon
-         - 2px distance from right of accompanying label
-         - bottom of asset is 4px below baseline of accompanying label
+      - featured label ('tab-label-featured.png')
+         - horizontally and vertically centered within tab
 - Photo Grid
    - Images are sized to 94px wide, variable height
    - Top images are 9px from top of content area
