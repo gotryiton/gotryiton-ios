@@ -2120,11 +2120,11 @@ A logged in user can edit their profile icon
 #### Mockups
 7.3 ([wireframe](http://invis.io/MF2QIO3Y))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.3.Edit.Profile.Picture.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/7.3.Edit.Profile.Picture.png" width=420px/>
 
 7.3.1 No facebook connect, and no looks  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.3.Edit.Profile.Picture.Nulls.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/7.3.Edit.Profile.Picture.No.Facebook.No.Looks.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
