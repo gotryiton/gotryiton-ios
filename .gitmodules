@@ -21,4 +21,4 @@
 	url = git://github.com/samsoffes/sspulltorefresh.git
 [submodule "Libraries/Janrain"]
 	path = Libraries/Janrain
-	url = git@github.com:twotoasters/engage.iphone.git
+	url = https://github.com/twotoasters/engage.iphone.git
