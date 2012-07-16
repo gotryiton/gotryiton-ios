@@ -3292,6 +3292,8 @@ feed: ([view 7.7](#77-profile-page))
    - vertically centered within nav bar area
    - 12px from left edge of screen
 - Tabs
+   - background is 'tab-bg.png' (flush with bottom of nav bar)
+      - tabs are vertically centered within tab-bg.png
    - selected tab is 'tab-selected.png', unselected tab is 'tab-unselected.png'
       - 3px nonstretchable on left and right
       - 1px (horizontal middle) is stretchable
