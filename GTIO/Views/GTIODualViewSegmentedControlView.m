@@ -78,6 +78,7 @@
     } else if (postType == self.rightControlPostsType) {
         [self.rightPostsView setPosts:posts userProfile:userProfile];
     }
+    [self setNeedsLayout];
 }
 
 @end

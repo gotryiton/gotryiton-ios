@@ -1,5 +1,5 @@
 //
-//  GTIOReviewPostPictureViewer.h
+//  GTIOFullScreenImageViewer.h
 //  GTIO
 //
 //  Created by Geoffrey Mackey on 7/10/12.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GTIOReviewPostPictureViewer : UIView
+@interface GTIOFullScreenImageViewer : UIView
 
 - (id)initWithPhotoURL:(NSURL *)url;
 - (void)show;
