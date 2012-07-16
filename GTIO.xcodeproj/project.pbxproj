@@ -3338,9 +3338,9 @@
 		8E91ABE7156AC119009D70AC /* Janrain */ = {
 			isa = PBXGroup;
 			children = (
-				801663BC15B46D5900AE9526 /* Classes */,
-				801663D715B46D5900AE9526 /* Resources */,
-				8016647F15B46D5900AE9526 /* Security */,
+				D2C3593015B0BE530034B121 /* Classes */,
+				D2C3595A15B0BE7B0034B121 /* Resources */,
+				D2C35A9C15B0BE850034B121 /* Security */,
 			);
 			name = Janrain;
 			path = Libraries/janrain;
@@ -4933,6 +4933,134 @@
 			);
 			name = CSS;
 			sourceTree = "<group>";
+		};
+		D2C3593015B0BE530034B121 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Classes;
+			path = Libraries/Janrain/JREngage/Classes;
+			sourceTree = SOURCE_ROOT;
+		};
+		D2C3595A15B0BE7B0034B121 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D2C3595B15B0BE7B0034B121 /* images */,
+				D2C359AC15B0BE7B0034B121 /* images-2x */,
+				D2C359FD15B0BE7B0034B121 /* xibs */,
+			);
+			name = Resources;
+			path = Libraries/Janrain/JREngage/Resources;
+			sourceTree = SOURCE_ROOT;
+		};
+		D2C3595B15B0BE7B0034B121 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				D2C3595C15B0BE7B0034B121 /* buttons */,
+				D2C3596F15B0BE7B0034B121 /* icons */,
+				D2C3598615B0BE7B0034B121 /* icons_bw */,
+				D2C3598F15B0BE7B0034B121 /* logos */,
+				D2C359A515B0BE7B0034B121 /* other */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		D2C3595C15B0BE7B0034B121 /* buttons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = buttons;
+			sourceTree = "<group>";
+		};
+		D2C3596F15B0BE7B0034B121 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
+		D2C3598615B0BE7B0034B121 /* icons_bw */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = icons_bw;
+			sourceTree = "<group>";
+		};
+		D2C3598F15B0BE7B0034B121 /* logos */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = logos;
+			sourceTree = "<group>";
+		};
+		D2C359A515B0BE7B0034B121 /* other */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = other;
+			sourceTree = "<group>";
+		};
+		D2C359AC15B0BE7B0034B121 /* images-2x */ = {
+			isa = PBXGroup;
+			children = (
+				D2C359AD15B0BE7B0034B121 /* buttons */,
+				D2C359C015B0BE7B0034B121 /* icons */,
+				D2C359D715B0BE7B0034B121 /* icons_bw */,
+				D2C359E015B0BE7B0034B121 /* logos */,
+				D2C359F615B0BE7B0034B121 /* other */,
+			);
+			path = "images-2x";
+			sourceTree = "<group>";
+		};
+		D2C359AD15B0BE7B0034B121 /* buttons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = buttons;
+			sourceTree = "<group>";
+		};
+		D2C359C015B0BE7B0034B121 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
+		D2C359D715B0BE7B0034B121 /* icons_bw */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = icons_bw;
+			sourceTree = "<group>";
+		};
+		D2C359E015B0BE7B0034B121 /* logos */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = logos;
+			sourceTree = "<group>";
+		};
+		D2C359F615B0BE7B0034B121 /* other */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = other;
+			sourceTree = "<group>";
+		};
+		D2C359FD15B0BE7B0034B121 /* xibs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = xibs;
+			sourceTree = "<group>";
+		};
+		D2C35A9C15B0BE850034B121 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Security;
+			path = Libraries/Janrain/JREngage/Security;
+			sourceTree = SOURCE_ROOT;
 		};
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
