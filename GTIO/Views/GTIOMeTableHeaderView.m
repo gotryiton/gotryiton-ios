@@ -96,7 +96,7 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
         
         _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_locationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
-        [_locationLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
+        [_locationLabel setTextColor:[UIColor gtio_grayTextColorB3B3B3]];
         [_locationLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_locationLabel];
         

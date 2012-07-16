@@ -99,7 +99,7 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
         [_createdAtLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:10.0f]];
         [_createdAtLabel setMinimumFontSize:6.0f];
         [_createdAtLabel setAdjustsFontSizeToFitWidth:YES];
-        [_createdAtLabel setTextColor:[UIColor gtio_grayTextColor]];
+        [_createdAtLabel setTextColor:[UIColor gtio_grayTextColor8F8F8F]];
         [_createdAtLabel setTextAlignment:UITextAlignmentCenter];
         [_createdAtLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_createdAtLabel];

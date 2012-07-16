@@ -35,6 +35,7 @@
 #import "GTIOFindMyFriendsScreen.h"
 #import "GTIOReview.h"
 #import "GTIONotification.h"
+#import "GTIOTab.h"
 
 @implementation GTIOMappingProvider
 
@@ -70,6 +71,7 @@
         RKObjectMapping *findMyFriendsScreenMapping = [RKObjectMapping mappingForClass:[GTIOFindMyFriendsScreen class]];
         RKObjectMapping *reviewMapping = [RKObjectMapping mappingForClass:[GTIOReview class]];
         RKObjectMapping *notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
+        RKObjectMapping *tabMapping = [RKObjectMapping mappingForClass:[GTIOTab class]];
         
         /** Config
          */
@@ -239,6 +241,10 @@
         [self setMapping:postMapping forKeyPath:@"post"];
         [self setMapping:postMapping forKeyPath:@"posts"];
         [self setMapping:postMapping forKeyPath:@"feed"];
+        
+        // GTIOTab
+        [tabMapping mapAttributes:@"name", @"text", @"endpoint", @"selected", nil];
+        [self setMapping:tabMapping forKeyPath:@"tabs"];
         
         /** Review
          */

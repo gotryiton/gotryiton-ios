@@ -22,7 +22,7 @@
                         forState:UIControlStateSelected 
                       barMetrics:UIBarMetricsDefault];
         [self setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIColor gtio_reallyDarkGrayTextColor], UITextAttributeTextColor,  
+                                        [UIColor gtio_grayTextColor515152], UITextAttributeTextColor,  
                                         [UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:14.0], UITextAttributeFont,
                                         [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,
                                       nil] 

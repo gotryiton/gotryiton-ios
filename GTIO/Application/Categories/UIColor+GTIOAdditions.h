@@ -41,15 +41,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_grayTextColorBCBCBC;
 + (UIColor *)gtio_grayTextColorDCDCDC;
 + (UIColor *)gtio_grayTextColor626262;
-+ (UIColor *)gtio_lightGrayBorderColor;
++ (UIColor *)gtio_grayBorderColorE6E6E6;
 + (UIColor *)gtio_grayTextColor9C9C9C;
-+ (UIColor *)gtio_reallyDarkGrayTextColor;
-+ (UIColor *)gtio_lightGrayTextColor;
++ (UIColor *)gtio_grayTextColor515152;
++ (UIColor *)gtio_grayTextColorB3B3B3;
 + (UIColor *)gtio_grayTextColor404040;
 + (UIColor *)gtio_grayTextColor585858;
 + (UIColor *)gtio_grayTextColorACACAC;
-+ (UIColor *)gtio_lightestGrayTextColor;
-+ (UIColor *)gtio_grayTextColor;
-+ (UIColor *)gtio_darkGray3TextColor;
++ (UIColor *)gtio_grayTextColor878787;
++ (UIColor *)gtio_grayTextColor555556;
++ (UIColor *)gtio_grayTextColorDADADA;
++ (UIColor *)gtio_grayTextColor8F8F8F;
++ (UIColor *)gtio_grayTextColor232323;
 
 @end

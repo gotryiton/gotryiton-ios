@@ -112,7 +112,7 @@ typedef enum GTIOReviewsAlertView {
         
         _reviewAttributeTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
-                                            [UIColor gtio_darkGray3TextColor], DTDefaultTextColor,
+                                            [UIColor gtio_grayTextColor232323], DTDefaultTextColor,
                                             [UIColor gtio_pinkTextColor], DTDefaultLinkColor,
                                             [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
                                             defaultDTCSSStylesheet, DTDefaultStyleSheet,

@@ -70,7 +70,7 @@
         [self addSubview:self.textInput];
 
         _ACInputColor = CGColorRetain([UIColor gtio_grayTextColor404040].CGColor);
-        _ACPlaceholderColor = CGColorRetain([UIColor gtio_lightGrayTextColor].CGColor);
+        _ACPlaceholderColor = CGColorRetain([UIColor gtio_grayTextColorB3B3B3].CGColor);
         _ACHighlightColor = CGColorRetain([UIColor gtio_linkColor].CGColor);
 
         _ACPlaceholderFont = [UIFont gtio_verlagCoreTextFontWithWeight:GTIOFontVerlagLightItalic size:14.f];
