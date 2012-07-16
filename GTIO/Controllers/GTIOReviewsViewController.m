@@ -61,7 +61,7 @@
     
     self.tableViewHeader = [[GTIOReviewsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 87 }];
     self.tableViewHeader.commentButtonTapHandler = ^(id sender) {        
-        GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithNibName:nil bundle:nil];
+        GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithPostID:self.postID];
         [self.navigationController pushViewController:commentViewController animated:YES];
     };
     

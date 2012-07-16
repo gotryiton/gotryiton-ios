@@ -7,24 +7,29 @@
 //
 
 #import "GTIOCommentViewController.h"
+#import "GTIOAutoCompleteView.h"
 #import "GTIOUser.h"
 
 @interface GTIOCommentViewController ()
 
+@property (nonatomic, copy) NSString *postID;
+
 @property (nonatomic, strong) UIImageView *commentInputBackgroundImage;
-@property (nonatomic, strong) UITextView *commentInputView;
+@property (nonatomic, strong) GTIOAutoCompleteView *commentInputView;
 
 @end
 
 @implementation GTIOCommentViewController
 
-@synthesize commentInputView = _commentInputView, commentInputBackgroundImage = _commentInputBackgroundImage;
+@synthesize postID = _postID, commentInputView = _commentInputView, commentInputBackgroundImage = _commentInputBackgroundImage;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize saveButton;
+
+- (id)initWithPostID:(NSString *)postID
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        
+        _postID = postID;
     }
     return self;
 }
@@ -40,26 +45,49 @@
         [self.navigationController popViewControllerAnimated:YES];
     }];
     self.leftNavigationButton = backButton;
-    
-    GTIOUIButton *saveButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeSaveGreenTopMargin tapHandler:^(id sender) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    self.rightNavigationButton = saveButton;
+
     
     self.commentInputBackgroundImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"reviews.cell.bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0f, 5.0f, 7.0f, 5.0f)]];
     [self.commentInputBackgroundImage setFrame:(CGRect){ 6, 6, 308, 190 }];
     self.commentInputBackgroundImage.userInteractionEnabled = YES;
     [self.view addSubview:self.commentInputBackgroundImage];
     
-    self.commentInputView = [[UITextView alloc] initWithFrame:(CGRect){ 3, 5, self.commentInputBackgroundImage.bounds.size.width - 6, self.commentInputBackgroundImage.bounds.size.height - 11 }];
-    self.commentInputView.backgroundColor = [UIColor clearColor];
-    [self.commentInputBackgroundImage addSubview:self.commentInputView];
+    self.commentInputView = [[GTIOAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 7, self.commentInputBackgroundImage.bounds.size.width - (12 * 2), self.commentInputBackgroundImage.bounds.size.height  } outerBox:(CGRect){0, 10, self.view.frame.size.width, self.view.frame.size.height } placeholder:@"That looks great! @Becky E." ];
+    
+    [self.commentInputView displayPlaceholderText];
+    
+    [self.view addSubview:self.commentInputView];
+    self.commentInputView.textInput.delegate = self; 
+
+    [GTIOAutoCompleter loadBrandDictionaryWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        if (!error) {
+            NSMutableArray *brands = [[NSMutableArray alloc] init];
+            for (GTIOAutoCompleter *completer in loadedObjects) {
+                completer.type = @"b";
+                [brands addObject:completer];
+            }
+            [self.commentInputView addCompleters:brands];
+        }
+    }];
+
+    [GTIOAutoCompleter loadUsersDictionaryWithUserID:[GTIOUser currentUser].userID postID:self.postID completionHandler:^(NSArray *loadedObjects, NSError *error) {
+        if (!error) {
+            NSMutableArray *users = [[NSMutableArray alloc] init];
+            for (GTIOAutoCompleter *completer in loadedObjects) {
+                completer.type = @"@";
+                [users addObject:completer];
+            }
+            [self.commentInputView addCompleters:users];
+        }
+    }];
+
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.commentInputView becomeFirstResponder];
+    [self.commentInputView.textInput becomeFirstResponder];
 }
 
 - (void)viewDidUnload
@@ -68,9 +96,54 @@
     // Release any retained subviews of the main view.
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    BOOL response = [self.commentInputView textView:textView shouldChangeTextInRange:range replacementText:text];
+
+    if([text isEqualToString:@"\n"]) {
+        
+        [self.commentInputView resignFirstResponder];
+        
+        [self postComment];
+        return NO;
+    }
+    
+    if ([self.commentInputView processDescriptionString].length>0){
+        self.rightNavigationButton = self.saveButton;
+    }
+    else {
+        self.rightNavigationButton = nil;   
+    }
+    
+    return response; 
+}
+
+- (void)postComment
+{
+    if ([self.commentInputView processDescriptionString].length>0){
+        
+        //TODO:  add code to submit the comment here!!
+        
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (GTIOUIButton *)saveButton {
+    if (!saveButton) {
+        saveButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeSaveGreenTopMargin tapHandler:^(id sender) {
+            [self postComment];
+        }];
+        
+    }
+    return saveButton;
+}
+
 
 @end
