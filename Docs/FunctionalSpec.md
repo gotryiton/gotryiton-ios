@@ -1477,7 +1477,7 @@ A user can see a list of products contained in a post.  They can tap each one to
 
 #### Mockups
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/4.8.shop.this.look.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/5/4.8.Shop.This.Look.png" width=420px/>
 
 #### User flow
 
@@ -1499,22 +1499,32 @@ gtio://products/in-post/:post_id
 #### Stories
 
 - A user can see a list of products contained in a post
-   - each product taps to ([view 4.1](#41-product-page-view))
+   - each product cell taps to ([view 4.1](#41-product-page-view))
 
 #### Design Stories
 - Cell
-	- Background (4/shop.cell.png)
-	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
-	- Chevron (general/general.chevron.png)
-	- Image
-		- 106x101px
-		- Position on top left of cell
-		- Overlay with 7/shopping.cell.image.overlay.png
+	- background is '4/shop.cell.png' with active and inactive states
+	- Product Image
+		- 155x155px
+		- Position with top left of cell (non-shadow portion)
+		- Underneath 'shop.cell.png', so left side shadows are overlaid on product image
+      - Heart
+         - use '8/heart-toggle.png'
+         - 12px from left side of screen
+         - 7px from top of product image
 	- Text 
 		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
+         - 173px from left edge of screen
+         - 12px from top of cell (non-shadow portion)
+         - text area is 130px wide (each line, wrap to new lines as necessary)
 		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
-		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72		
-
+         - 173px from left edge of screen
+         - baseline is 18px away from baseline of last line of Product Name
+         - text area is 118px wide (each line, wrap to new lines as necessary; this text area is less wide to avoid the chevron)
+		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
+         - 173px from left edge of screen
+         - baseline is 15px from bottom of cell (non-shadow portion)
+         
 ## 5. Invite 
 
 ### 5.1 Invite friends  
@@ -2598,14 +2608,13 @@ gtio://profile/:user_id
 Each user has a shopping list
 
 #### Mockups
-7.8 Shopping list ([wireframe](http://invis.io/8W2OD45T))
+7.8 Shopping list ([wireframe](http://invis.io/8W2OD45T))   
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/7.8.shopping.list.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/4/7.8.Shopping.List.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/7.8.shopping.list.empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.8.Shopping.List.Empty.png" width=420px/>
 
-
-7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))
+7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))   
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.8.Shopping.List.Confirm.png" width=420px/>
 
@@ -2667,43 +2676,51 @@ gtio://my-shopping-list
 
 #### Design Stories
 - Cell
-	- Background (7/shopping.cell.png)
-	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
-	- Chevron (7/shopping.chevron.png)
-	- Text 
-		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
-		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
-		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
-	- Image
-		- 106x101px
-		- Position on top left of cell
-		- Overlay with 7/shopping.cell.image.overlay.png
-	- X Button
-		- Use 7/shopping.cell.close.inactive.png
-			- 7/shopping.cell.close.active.png for tap state
-		- 12x11px
-		- 4px from top and right edge of cell
+   - background is '4/shop.list.cell.png' with active and inactive states
+      - 'close' tap area is only the top right 30px x 30px area (slightly bigger than X + circle area)
+         - close action uses 'active' asset state
+      - tapping elsewhere on cell background (anywhere other than 'close' tap area) visits product detail page
+         - no 'active' asset state for above action
+   - Product Image
+      - 155x155px
+      - Position with top left of cell (non-shadow portion)
+      - Underneath 'shop.cell.png', so left side shadows are overlaid on product image
+      - Heart
+         - use '8/heart-toggle.png'
+         - 12px from left side of screen
+         - 7px from top of product image
+   - Text 
+      - Product Name: Verlag Light 14px rgb(89,81,85) #595155
+         - 173px from left edge of screen
+         - 12px from top of cell (non-shadow portion)
+         - text area is 109px wide (each line, wrap to new lines as necessary)
+      - Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+         - 173px from left edge of screen
+         - baseline is 18px away from baseline of last line of Product Name
+         - text area is 109px wide (each line, wrap to new lines as necessary)
+      - Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
+         - 173px from left edge of screen
+         - baseline is 15px from bottom of cell (non-shadow portion)
 	- Buy Button
 		- Background (7/shopping.button.buy.inactive.png)
 			- Active state (7/shopping.button.buy.active.png)
 		- 39x21px
 		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
-		- 15px from bottom
-		- 10px from right
+		- 9px from bottom
+		- 8px from right
 	- Email Button
 		- Background (7/shopping.button.email.inactive.png)
 			- Active state (7/shopping.button.email.active.png)
 		- 39x21px
 		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
-		- 15px from bottom
-		- 6px padding from buy button
+		- 9px from bottom
+		- 7px padding from buy button
 - Nav bar share button
 	- 33x26px
 	- Background (7/shopping.navigation.bar.button.share.inactive.png)
 		- Active state (7/shopping.navigation.bar.button.share.active.png)
 - Bottom Area
-	- Background (7/shopping.bottom.bg.png) stretch/repeat horizontally
-	- 74px high
+	- Background (7/shopping.bottom.bg.png) flush with bottom of screen
 	- Cells
 		- Overlay (7/shopping.bottom.image.overlay.png)
 			- Active (7/shopping.bottom.image.overlay.active.png)
@@ -3489,39 +3506,21 @@ A user can browse to a native list of products
 
 #### Mockups
 
-10.5 ([wireframe](http://invis.io/E22OEQDR))
+10.5 ([wireframe](http://invis.io/E22OEQDR))   
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.B.Browse.Products.Standard.Nav.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.Shop-List-1-Standard-Nav.png" width=420px/>
 
-10.5.1 Shop Browse Products without Picker ([wireframe](http://invis.io/GP2OEPH9))
+10.5.1 (custom banner)   
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.A.Browse.Products.Standard.Nav.No.Picker.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.Shop-List-2-Standard-Nav-Custom-Banner.png" width=420px/>
 
-10.5.2 Shop Browse Products without Picker (scrolled)
+10.5.2 (custom nav bar image)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.C.Browse.Products.Standard.Nav.Scrolled.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.Shop-List-3-Custom-Nav.png" width=420px/>
 
-10.5.3 Shop Browse Products without Picker (empty)
+10.5.3 (custom nav bar image, custom banner)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.D.Browse.Products.Standard.Nav.Empty.png" width=420px/>
-
-10.5.4 Shop Browse Products with Standard Cell Link ([wireframe](http://invis.io/GP2OEPH9))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.E.Browse.Products.Standard.Nav.Standard.Link.png" width=420px/>
-
-10.5.5 Shop Browse Products with Custom Link
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.F.Browse.Products.Standard.Nav.Custom.Link.png" width=420px/>
-
-10.5.6 Shop Browse Products with Custom Nav and Standard Link
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.G.Browse.Products.Custom.Nav.Standard.Link.png" width=420px/>
-
-10.5.6 Shop Browse Products with Custom Nav and Standard Link
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.H.1.Browse.Products.Custom.Nav.Custom.Link.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.H.2.Browse.Products.Custom.Nav.Custom.Link.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.Shop-List-4-Custom-Nav-Custom-Banner.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -3570,39 +3569,35 @@ dynamic
 - Custom Nav
    - Custom Nav bar background
       - '?/nav-bg.png'
-   - Custom back button
-      - '?/nav-back-inactive.png'
-      - '?/nav-back-active.png'
-- Standard Cell Link
-   - 50px high
-   - Verlag Book 16pt rgb(143,143,143) vertically centered within cell
-   - 'general/general.chevron' 9px from right edge of screen, vertically centered within cell
-- Custom Link
-   - 320px x 50px
-- Grid
-   - Gradient Overlay
-      - only present if picker is enabled
-      - flush with bottom of nav bar
-      - products can scroll underneath
-   - Picker
-      - products can scroll underneath
-      - 'shop-products-picker.png'
-         - 7px from bottom of nav bar (including shadow portion)
-         - 9px from right edge of screen (right of button should appear to align with right edge of product thumbnails)
-         - 17px nonstretchable on right
-         - 8px nonstretchable on left
-         - vertical middle is stretchable
-         - minimum width is 123px
-      - text is Proxima Nova Semibold 10pt rgb(166,166,166)
-         - string displayed in all caps
-         - 9px from left edge of button asset
-         - left aligned, minimum 24px margin between end of text and end of button asset (button should stretch to accommodate)
-   - Background
-      - 'products-grid-bg.png'
-      - top of background asset should always start from top of viewable grid area (viewable area changes depending on if custom link and/or picker are enabled)
-   - Empty
-      - 'shop-products-empty.png'
-      - vertically and horizontally centered within viewable grid area (viewable area changes depending on if custom link and/or picker are enabled)
+   - back button + '...' button
+      - 43px x 29px tap areas on left and right
+      - custom nav bar background will include visual "buttons"
+         - no active state (no change on tap)
+      - IF there is no custom background supplied, use 'nav.bar.dot.png' for '...' button
+- Custom Banner
+   - API-defined image of any height
+- Cell
+   - background is '4/shop.cell.png' with active and inactive states
+   - Product Image
+      - 155x155px
+      - Position with top left of cell (non-shadow portion)
+      - Underneath 'shop.cell.png', so left side shadows are overlaid on product image
+      - Heart
+         - use '8/heart-toggle.png'
+         - 12px from left side of screen
+         - 7px from top of product image
+   - Text 
+      - Product Name: Verlag Light 14px rgb(89,81,85) #595155
+         - 173px from left edge of screen
+         - 12px from top of cell (non-shadow portion)
+         - text area is 130px wide (each line, wrap to new lines as necessary)
+      - Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+         - 173px from left edge of screen
+         - baseline is 18px away from baseline of last line of Product Name
+         - text area is 118px wide (each line, wrap to new lines as necessary; this text area is less wide to avoid the chevron)
+      - Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
+         - 173px from left edge of screen
+         - baseline is 15px from bottom of cell (non-shadow portion)
 
 ## 12. Upload
 
