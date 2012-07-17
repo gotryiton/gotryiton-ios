@@ -24,8 +24,6 @@
 
 - (void)loadView
 {
-    [super loadView];
-    
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
 }
@@ -40,7 +38,7 @@
     [self.topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
     [self.view addSubview:self.topShadow];
     
-    _statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, -64 }, { self.view.frame.size.width, 20 } }];
+    _statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, - (self.navigationController.navigationBar.bounds.size.height + [UIApplication sharedApplication].statusBarFrame.size.height) }, { self.view.frame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height } }];
     [_statusBarBackgroundImageView setImage:[UIImage imageNamed:@"status-bar-bg.png"]];
     [self.view addSubview:_statusBarBackgroundImageView];
 }
@@ -65,7 +63,7 @@
     [self.view bringSubviewToFront:self.topShadow];
     
     if (self.navigationController.navigationBarHidden) {
-        [_statusBarBackgroundImageView setFrame:(CGRect){ { 0, -20 }, { self.view.frame.size.width, 20 } }];
+        [_statusBarBackgroundImageView setFrame:(CGRect){ { 0, -[UIApplication sharedApplication].statusBarFrame.size.height }, { self.view.frame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height } }];
     }
 }
 

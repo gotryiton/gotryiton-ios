@@ -68,6 +68,9 @@
                     self.product = (GTIOProduct *)object;
                 }
             }
+            if (!self.product) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            }
         } else {
             NSLog(@"%@", [error localizedDescription]);
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
@@ -94,6 +97,7 @@
     [super viewDidUnload];
     
     self.productImageView = nil;
+    self.whiteBackground = nil;
 }
 
 - (void)setProduct:(GTIOProduct *)product
