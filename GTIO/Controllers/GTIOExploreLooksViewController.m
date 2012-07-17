@@ -9,6 +9,7 @@
 #import "GTIOExploreLooksViewController.h"
 
 #import <RestKit/RestKit.h>
+#import "SSPullToRefresh.h"
 
 #import "GTIOPagination.h"
 #import "GTIOTab.h"
@@ -20,7 +21,7 @@
 #import "GTIOPostHeaderView.h"
 #import "GTIOPullToRefreshContentView.h"
 
-#import "SSPullToRefresh.h"
+#import "GTIOFeedViewController.h"
 
 static CGFloat const kGTIOMasonGridPadding = 2.0f;
 static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
@@ -88,6 +89,10 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [self.masonGridView setTopPadding:kGTIOMasonGridPadding];
     [self.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.masonGridView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height + kGTIOMasonGridPadding, 0 }];
+    [self.masonGridView setGridItemTapHandler:^(GTIOMasonGridItem *gridItem) {
+        GTIOFeedViewController *feedViewController = [[GTIOFeedViewController alloc] initWithPost:gridItem.post];
+        [self.navigationController pushViewController:feedViewController animated:YES];
+    }];
     [self.view addSubview:self.masonGridView];
     
     // Accent line
@@ -165,7 +170,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
                     self.pagination = object;
                 }
             }
-            [self.posts removeAllObjects];
+
             [self.masonGridView setPosts:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
             [self.pullToRefreshView finishLoading];

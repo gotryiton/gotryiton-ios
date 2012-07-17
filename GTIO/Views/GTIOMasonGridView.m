@@ -28,6 +28,7 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 
 @synthesize columns = _columns, items = _items;
 @synthesize topPadding = _topPadding;
+@synthesize gridItemTapHandler = _gridItemTapHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -53,7 +54,8 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
     
     CGFloat gridItemWithFrameViewOriginX = kGTIOFirstColumnXOrigin +  shortestColumn.columnNumber * kGTIOFrameImageWidth + shortestColumn.columnNumber * kGTIOHorizontalSpacing;
     CGFloat gridItemWithFrameViewOriginY = self.topPadding + (shortestColumn.height == 0 ? 0.0 : shortestColumn.height) + (shortestColumn.height == 0 ? 0.0 : shortestColumn.imageSpacer);
-    GTIOMasonGridItemWithFrameView *gridItemWithFrameView = [[GTIOMasonGridItemWithFrameView alloc] initWithFrame:(CGRect){ { gridItemWithFrameViewOriginX, gridItemWithFrameViewOriginY }, { kGTIOFrameImageWidth, gridItem.image.size.height + kGTIOGridItemPhotoPadding + kGTIOGridItemPhotoBottomPadding } } image:gridItem.image];
+    GTIOMasonGridItemWithFrameView *gridItemWithFrameView = [[GTIOMasonGridItemWithFrameView alloc] initWithFrame:(CGRect){ { gridItemWithFrameViewOriginX, gridItemWithFrameViewOriginY }, { kGTIOFrameImageWidth, gridItem.image.size.height + kGTIOGridItemPhotoPadding + kGTIOGridItemPhotoBottomPadding } } gridItem:gridItem];
+    [gridItemWithFrameView setTapHandler:self.gridItemTapHandler];
     gridItemWithFrameView.alpha = 0.0;
     [self addSubview:gridItemWithFrameView];
     
@@ -105,9 +107,8 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
     
     // bring in the new data
     for (GTIOPost *post in posts) {
-        GTIOMasonGridItem *item = [[GTIOMasonGridItem alloc] init];
+        GTIOMasonGridItem *item = [GTIOMasonGridItem itemWithPost:post];
         item.delegate = self;
-        item.URL = post.photo.smallThumbnailURL;
         [item downloadImage];
         [self.items addObject:item];
     }

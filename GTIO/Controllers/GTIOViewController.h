@@ -16,5 +16,6 @@
 @property (nonatomic, strong) UIButton *rightNavigationButton;
 
 - (void)useTitleView:(UIView *)titleView;
+- (void)showStatusBarBackgroundWithoutNavigationBar;
 
 @end
