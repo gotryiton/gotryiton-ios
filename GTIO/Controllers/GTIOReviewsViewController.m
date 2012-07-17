@@ -14,7 +14,7 @@
 #import "GTIOProgressHUD.h"
 #import "GTIOPostMasonryEmptyStateView.h"
 #import "GTIOCommentViewController.h"
-#import "GTIOReviewPostPictureViewer.h"
+#import "GTIOFullScreenImageViewer.h"
 
 @interface GTIOReviewsViewController ()
 
@@ -28,7 +28,7 @@
 @property (nonatomic, strong) GTIOPostMasonryEmptyStateView *emptyStateView;
 @property (nonatomic, strong) UIView *tableFooterView;
 
-@property (nonatomic, strong) GTIOReviewPostPictureViewer *reviewPostPictureViewer;
+@property (nonatomic, strong) GTIOFullScreenImageViewer *reviewPostPictureViewer;
 
 @end
 
@@ -103,7 +103,7 @@
                 if ([object isMemberOfClass:[GTIOPost class]]) {
                     self.post = (GTIOPost *)object;
                     [self.tableViewHeader setPost:self.post];
-                    self.reviewPostPictureViewer = [[GTIOReviewPostPictureViewer alloc] initWithPhotoURL:self.post.photo.mainImageURL];
+                    self.reviewPostPictureViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:self.post.photo.mainImageURL];
                     self.tableViewHeader.postImageTapHandler = ^(id sender) {
                         [self.reviewPostPictureViewer show];
                     };

@@ -84,6 +84,12 @@
     self.postsHeartsWithSegmentedControlView = nil;
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

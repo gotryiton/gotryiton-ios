@@ -139,6 +139,7 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
     } else if ([urlHost isEqualToString:kGTIOURLHostPost]) {
         if ([pathComponents count] >= 2) {
             viewController = [[GTIOFeedViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
+        }
     } else if ([urlHost isEqualToString:kGTIOURLHostInternalWebView]) {
         if ([pathComponents count] >= 4) {
             viewController = [[GTIOInternalWebViewController alloc] initWithNibName:nil bundle:nil];

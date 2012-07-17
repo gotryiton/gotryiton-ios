@@ -28,6 +28,8 @@
 #import "GTIOReviewsViewController.h"
 #import "GTIONotificationsViewController.h"
 
+#import "GTIOProductViewController.h"
+
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -96,28 +98,21 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)loadView
-{
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
-    
-    UIImageView *statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, -20 }, { self.view.frame.size.width, 20 } }];
-    [statusBarBackgroundImageView setImage:[UIImage imageNamed:@"status-bar-bg.png"]];
-    [self.view addSubview:statusBarBackgroundImageView];
-    
     self.navBarView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
     __block typeof(self) blockSelf = self;
     [self.navBarView.friendsButton setTapHandler:^(id sender) {
-        GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
-        [blockSelf presentModalViewController:navController animated:YES];
+//        GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
+//        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
+//        [blockSelf presentModalViewController:navController animated:YES];
+        
+#warning THIS CODE USED FOR TESTING 4.1
+        GTIOProductViewController *productViewController = [[GTIOProductViewController alloc] initWithProductID:[NSNumber numberWithInt:125]];
+        [blockSelf.navigationController pushViewController:productViewController animated:YES];
+#warning END TEST CODE
     }];
     self.navBarView.titleView.tapHandler = ^(void) {
         GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];

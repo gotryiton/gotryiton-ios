@@ -7,18 +7,18 @@
 //
 
 #import "GTIOCommentViewController.h"
-#import "GTIOPostAutoCompleteView.h"
 #import "GTIOUser.h"
 
 @interface GTIOCommentViewController ()
 
-@property (nonatomic, strong) GTIOPostAutoCompleteView *commentInputView;
+@property (nonatomic, strong) UIImageView *commentInputBackgroundImage;
+@property (nonatomic, strong) UITextView *commentInputView;
 
 @end
 
 @implementation GTIOCommentViewController
 
-@synthesize commentInputView = _commentInputView;
+@synthesize commentInputView = _commentInputView, commentInputBackgroundImage = _commentInputBackgroundImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,6 +45,21 @@
         [self.navigationController popViewControllerAnimated:YES];
     }];
     self.rightNavigationButton = saveButton;
+    
+    self.commentInputBackgroundImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"reviews.cell.bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0f, 5.0f, 7.0f, 5.0f)]];
+    [self.commentInputBackgroundImage setFrame:(CGRect){ 6, 6, 308, 190 }];
+    self.commentInputBackgroundImage.userInteractionEnabled = YES;
+    [self.view addSubview:self.commentInputBackgroundImage];
+    
+    self.commentInputView = [[UITextView alloc] initWithFrame:(CGRect){ 3, 5, self.commentInputBackgroundImage.bounds.size.width - 6, self.commentInputBackgroundImage.bounds.size.height - 11 }];
+    self.commentInputView.backgroundColor = [UIColor clearColor];
+    [self.commentInputBackgroundImage addSubview:self.commentInputView];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.commentInputView becomeFirstResponder];
 }
 
 - (void)viewDidUnload
