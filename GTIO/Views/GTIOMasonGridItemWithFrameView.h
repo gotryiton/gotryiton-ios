@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+static CGFloat const kGTIOGridItemPhotoPadding = 4.0f;
+static CGFloat const kGTIOGridItemPhotoBottomPadding = 5.0f;
+
 @interface GTIOMasonGridItemWithFrameView : UIView
 
 - (id)initWithFrame:(CGRect)frame image:(UIImage *)image;

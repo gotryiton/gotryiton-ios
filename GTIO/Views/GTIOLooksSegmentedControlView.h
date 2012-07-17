@@ -6,10 +6,13 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GTIOTab.h"
+
+typedef void(^GTIOLooksSegmentedControlValueChangedHandler)(GTIOTab *tab);
 
 @interface GTIOLooksSegmentedControlView : UIView
 
 @property (nonatomic, strong) NSArray *tabs;
+@property (nonatomic, copy) GTIOLooksSegmentedControlValueChangedHandler segmentedControlValueChangedHandler;
 
 @end

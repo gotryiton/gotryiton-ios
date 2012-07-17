@@ -12,6 +12,8 @@
 
 @interface GTIOMasonGridView : UIScrollView <GTIOMasonGridItemDelegate>
 
+@property (nonatomic, assign) CGFloat topPadding;
+
 - (void)setPosts:(NSArray *)posts postsType:(GTIOPostType)postsType;
 - (void)cancelAllItemDownloads;
 

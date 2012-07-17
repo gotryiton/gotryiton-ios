@@ -10,4 +10,6 @@
 
 @interface GTIOExploreLooksViewController : GTIOViewController
 
+@property (nonatomic, copy) NSString *resourcePath;
+
 @end

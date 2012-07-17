@@ -36,6 +36,7 @@ static NSString * const kGTIOFeaturedTab = @"featured";
 
 @synthesize scrollView = _scrollView, segmentedControl = _segmentedControl, arrowImageView = _arrowImageView;
 @synthesize tabs = _tabs;
+@synthesize segmentedControlValueChangedHandler = _segmentedControlValueChangedHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -197,6 +198,10 @@ static NSString * const kGTIOFeaturedTab = @"featured";
     CGFloat centerOfSelectedSegment = [self centerOfSelectedSegment];
     [self placeArrowAtCenterOfSelectedSegment:centerOfSelectedSegment];
     [self scrollToCenterOfSelectedSegment:centerOfSelectedSegment];
+    
+    if (self.segmentedControlValueChangedHandler) {
+        self.segmentedControlValueChangedHandler([self.tabs objectAtIndex:self.segmentedControl.selectedSegmentIndex]);
+    }
 }
 
 @end

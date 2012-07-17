@@ -16,8 +16,15 @@
 
 #import "GTIOLooksSegmentedControlView.h"
 #import "GTIONavigationNotificationTitleView.h"
+#import "GTIOMasonGridView.h"
+#import "GTIOPostHeaderView.h"
+#import "GTIOPullToRefreshContentView.h"
 
-@interface GTIOExploreLooksViewController ()
+#import "SSPullToRefresh.h"
+
+static CGFloat const kGTIOMasonGridPadding = 2.0f;
+
+@interface GTIOExploreLooksViewController () <SSPullToRefreshViewDelegate>
 
 @property (nonatomic, strong) GTIOLooksSegmentedControlView *segmentedControlView;
 
@@ -25,12 +32,20 @@
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) GTIOPagination *pagination;
 
+@property (nonatomic, strong) GTIOMasonGridView *masonGridView;
+
+@property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
+@property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
+
 @end
 
 @implementation GTIOExploreLooksViewController
 
 @synthesize segmentedControlView = _segmentedControlView;
 @synthesize tabs = _tabs, posts = _posts, pagination = _pagination;
+@synthesize resourcePath = _resourcePath;
+@synthesize masonGridView = _masonGridView;
+@synthesize pullToRefreshView = _pullToRefreshView, pullToRefreshContentView = _pullToRefreshContentView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +53,8 @@
     if (self) {
         _tabs = [NSMutableArray array];
         _posts = [NSMutableArray array];
+        
+        _resourcePath = @"/posts/explore";
     }
     return self;
 }
@@ -54,42 +71,123 @@
     GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:1] tapHandler:nil];
     [self useTitleView:navTitleView];
     
+    // Segmented Control
+    __block typeof(self) blockSelf = self;
     self.segmentedControlView = [[GTIOLooksSegmentedControlView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 50 } }];
+    [self.segmentedControlView setSegmentedControlValueChangedHandler:^(GTIOTab *tab) {
+        [blockSelf loadDataWithResourcePath:tab.endpoint];
+    }];
     [self.view addSubview:self.segmentedControlView];
+    
+    // Mason Grid
+    self.masonGridView = [[GTIOMasonGridView alloc] initWithFrame:(CGRect){ { 0, self.segmentedControlView.frame.size.height }, { self.view.frame.size.width, self.view.frame.size.height - self.segmentedControlView.frame.size.height - self.navigationController.navigationBar.frame.size.height } }];
+    [self.masonGridView setTopPadding:kGTIOMasonGridPadding];
+    [self.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.masonGridView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height + kGTIOMasonGridPadding, 0 }];
+    [self.view addSubview:self.masonGridView];
+    
+    // Accent line
+    UIImageView *topAccentLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line.png"]];
+    [topAccentLine setFrame:(CGRect){ { self.masonGridView.frame.size.width - kGTIOAccentLinePixelsFromRightSizeOfScreen, self.masonGridView.frame.origin.y }, { topAccentLine.image.size.width, self.masonGridView.frame.size.height } }];
+    [self.view addSubview:topAccentLine];
+    
+    // Pull to refresh
+    self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.masonGridView delegate:self];
+    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.masonGridView.frame.size.width, 125 } }];
+    
+    [self.view bringSubviewToFront:self.masonGridView];
+    
+    [self loadTabs];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self loadData];
+    self.segmentedControlView = nil;
+    self.masonGridView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Properties
+
+- (void)setResourcePath:(NSString *)resourcePath
+{
+    _resourcePath = resourcePath;
+    [self loadTabsAndData];
 }
 
 #pragma mark - RestKit Load Objects
 
+- (void)loadTabs
+{
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [self.tabs removeAllObjects];
+            
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOTab class]]) {
+                    [self.tabs addObject:object];
+                }
+            }
+            
+            [self.pullToRefreshView finishLoading];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [self.segmentedControlView setTabs:self.tabs];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [self.pullToRefreshView finishLoading];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            NSLog(@"Failed to load /posts/explore. error: %@", [error localizedDescription]);
+        };
+    }];
+}
+
 - (void)loadData
 {
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/posts/explore" usingBlock:^(RKObjectLoader *loader) {
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
-            NSLog(@"Body:%@", loader.response.bodyAsString);
+            [self.posts removeAllObjects];
+            self.pagination = nil;
+            
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOPost class]]) {
+                    [self.posts addObject:object];
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    self.pagination = object;
+                }
+            }
+            
+            [self.masonGridView setPosts:self.posts postsType:GTIOPostTypeStar];
+            [self.pullToRefreshView finishLoading];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [self.pullToRefreshView finishLoading];
+            NSLog(@"Failed to load %@. error: %@", self.resourcePath, [error localizedDescription]);
+        };
+    }];
+}
+
+- (void)loadDataWithResourcePath:(NSString *)resourcePath
+{
+    _resourcePath = resourcePath;
+    [self loadData];
+}
+
+- (void)loadTabsAndData
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.tabs removeAllObjects];
             [self.posts removeAllObjects];
             self.pagination = nil;
             
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOTab class]]) {
-                    [self.tabs addObject:object];
                     [self.tabs addObject:object];
                 } else if ([object isKindOfClass:[GTIOPost class]]) {
                     [self.posts addObject:object];
@@ -99,11 +197,20 @@
             }
             
             [self.segmentedControlView setTabs:self.tabs];
+            [self.pullToRefreshView finishLoading];
         };
         loader.onDidFailWithError = ^(NSError *error) {
-            NSLog(@"Failed to load explore looks");
+            [self.pullToRefreshView finishLoading];
+            NSLog(@"Failed to load %@. error: %@", self.resourcePath, [error localizedDescription]);
         };
     }];
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
+{
+    [self loadData];
 }
 
 @end

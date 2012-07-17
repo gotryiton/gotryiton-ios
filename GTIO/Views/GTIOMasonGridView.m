@@ -12,8 +12,10 @@
 #import "GTIOProgressHUD.h"
 #import "UIImage+Resize.h"
 
-static double const kGTIOImageWidth = 94.0;
-static double const kGTIOHorizontalSpacing = 12.0;
+static CGFloat const kGTIOFrameImageWidth = 102.0f;
+static CGFloat const kGTIOImageWidth = 94.0;
+static CGFloat const kGTIOHorizontalSpacing = 2.5;
+static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 
 @interface GTIOMasonGridView()
 
@@ -25,19 +27,20 @@ static double const kGTIOHorizontalSpacing = 12.0;
 @implementation GTIOMasonGridView
 
 @synthesize columns = _columns, items = _items;
+@synthesize topPadding = _topPadding;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.clipsToBounds = NO;
+        _topPadding = 5.0f;
     }
     return self;
 }
 
 - (void)didFinishLoadingGridItem:(GTIOMasonGridItem *)gridItem
 {    
-    double widthRatio = kGTIOImageWidth / gridItem.image.size.width;
+    CGFloat widthRatio = kGTIOImageWidth / gridItem.image.size.width;
     gridItem.image = [gridItem.image imageScaledToSize:(CGSize){ kGTIOImageWidth, gridItem.image.size.height * widthRatio }];
     
     // Find shortest column
@@ -48,7 +51,9 @@ static double const kGTIOHorizontalSpacing = 12.0;
         }
     }
     
-    GTIOMasonGridItemWithFrameView *gridItemWithFrameView = [[GTIOMasonGridItemWithFrameView alloc] initWithFrame:(CGRect){ shortestColumn.columnNumber * kGTIOImageWidth + shortestColumn.columnNumber * kGTIOHorizontalSpacing, shortestColumn.height == 0 ? 0.0 :shortestColumn.height + shortestColumn.imageSpacer, kGTIOImageWidth, gridItem.image.size.height } image:gridItem.image];
+    CGFloat gridItemWithFrameViewOriginX = kGTIOFirstColumnXOrigin +  shortestColumn.columnNumber * kGTIOFrameImageWidth + shortestColumn.columnNumber * kGTIOHorizontalSpacing;
+    CGFloat gridItemWithFrameViewOriginY = self.topPadding + (shortestColumn.height == 0 ? 0.0 : shortestColumn.height) + (shortestColumn.height == 0 ? 0.0 : shortestColumn.imageSpacer);
+    GTIOMasonGridItemWithFrameView *gridItemWithFrameView = [[GTIOMasonGridItemWithFrameView alloc] initWithFrame:(CGRect){ { gridItemWithFrameViewOriginX, gridItemWithFrameViewOriginY }, { kGTIOFrameImageWidth, gridItem.image.size.height + kGTIOGridItemPhotoPadding + kGTIOGridItemPhotoBottomPadding } } image:gridItem.image];
     gridItemWithFrameView.alpha = 0.0;
     [self addSubview:gridItemWithFrameView];
     
