@@ -154,13 +154,8 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
             break;
         }
     }
-    
-    // Description
-//#warning hardcoded
-//    _post.postDescription  = @"<a href=\"/profile/1\">@Marissa E</a>, don't I look awesome in this <a href=\"/tag/1\">#summer</a> outfit from <a href=\"/test\">Gap?</a> If you don't aggree you should tell me why in the comments. Do it, seriously. Thanks! And I am considering a pair of shoes from <a href=\"/brand/1\">Banana Republic</a>...";
-//    _post.postDescription = @"<a href=\"/profile/1\">@Marissa E</a>, don't I look awesome in";
-//    _post.postDescription  = @"<a href=\"/profile/1\">@Marissa E</a>, don't I look awesome in this really great dress from GAP";
 
+    // Description
     NSData *data = [_post.postDescription dataUsingEncoding:NSUTF8StringEncoding];
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.descriptionAttributeTextOptions documentAttributes:NULL];
@@ -205,8 +200,6 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 
 + (CGSize)descriptionTextSize:(NSString *)text
 {
-//#warning hardcoded
-//    text = @"<a href=\"/profile/1\">@Marissa E</a>, don't I look awesome in this <a href=\"/tag/1\">#summer</a> outfit from <a href=\"/test\">Gap?</a> If you don't aggree you should tell me why in the comments. Do it, seriously. Thanks! And I am considering a pair of shoes from <a href=\"/brand/1\">Banana Republic</a>...";
     [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
     DTAttributedTextView *desciptionAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIODescriptionTextWidth, 0 } }];
     desciptionAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 8, 0 };

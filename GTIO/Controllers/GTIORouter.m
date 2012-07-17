@@ -17,6 +17,7 @@
 #import "GTIOFeedViewController.h"
 #import "GTIOInternalWebViewController.h"
 #import "GTIOWebViewController.h"
+#import "GTIOExploreLooksViewController.h"
 
 NSString * const kGTIOURLScheme = @"gtio";
 NSString * const kGTIOHttpURLScheme = @"http";
@@ -45,6 +46,8 @@ static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
 static NSString * const kGTIOURLSubPathStarsByUser = @"stars-by-user";
 static NSString * const kGTIOURLSubPathStars = @"stars";
+static NSString * const kGTIOURLSubPathBrand = @"brand";
+static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
 
 @implementation GTIORouter
 
@@ -130,6 +133,10 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
         if ([pathComponents count] >= 3) {
             if ([[pathComponents objectAtIndex:1] isEqualToString:kGTIOURLSubPathStarsByUser]) {
                 viewController = [[GTIOMyPostsViewController alloc] initWithGTIOPostType:GTIOPostTypeStar forUserID:[pathComponents objectAtIndex:2]];
+            } else if ([[pathComponents objectAtIndex:1] isEqualToString:kGTIOURLSubPathBrand] || 
+                       [[pathComponents objectAtIndex:1] isEqualToString:kGTIOURLSubPathHashtag]) {
+                viewController = [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil];
+                [((GTIOExploreLooksViewController *)viewController) setResourcePath:[NSString stringWithFormat:@"%@%@", urlHost, [URL path]]];
             }
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostReviewsForPost]) {
