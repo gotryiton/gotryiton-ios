@@ -3214,6 +3214,10 @@ A user can see a grid of popular looks on GTIO and tab to other groups of looks
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/9.1.Explore.Looks.Column.png" width=420px/>
 
+9.1.2 popular looks grid when empty:   
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Empty.png" width=420px/>
+
 #### User Flow
 **entry screens:**   
 any screen with uiTabBar
@@ -3300,8 +3304,8 @@ feed: ([view 7.7](#77-profile-page))
    - Accent Line
       - place accent line behind grid in same position as appears on Feed type view
       - top should end at background asset for tabs
-
-
+   - Empty (9.1.2)
+      - 'empty.png' horizontally and vertically centered within viewable grid area
 
 ## 10. Shop tab
 
