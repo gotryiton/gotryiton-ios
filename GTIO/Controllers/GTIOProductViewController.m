@@ -7,6 +7,7 @@
 //
 
 #import "GTIOProductViewController.h"
+#import "GTIOPostALookViewController.h"
 
 #import "GTIOFullScreenImageViewer.h"
 #import "GTIORouter.h"
@@ -50,11 +51,14 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 @property (nonatomic, strong) GTIOUIButton *facebookShareButton;
 @property (nonatomic, strong) GTIOUIButton *twitterShareButton;
 
+@property (nonatomic, strong) GTIOUIButton *postThisButton;
+@property (nonatomic, strong) GTIOUIButton *shoppingListButton;
+
 @end
 
 @implementation GTIOProductViewController
 
-@synthesize product = _product, productID = _productID, productImageView = _productImageView, fullScreenImageViewer = _fullScreenImageViewer, whiteBackground = _whiteBackground, heartControl = _heartControl, bottomInformationBackground = _bottomInformationBackground, productInformationBox = _productInformationBox, facebookShareButton = _facebookShareButton, twitterShareButton = _twitterShareButton;
+@synthesize product = _product, productID = _productID, productImageView = _productImageView, fullScreenImageViewer = _fullScreenImageViewer, whiteBackground = _whiteBackground, heartControl = _heartControl, bottomInformationBackground = _bottomInformationBackground, productInformationBox = _productInformationBox, facebookShareButton = _facebookShareButton, twitterShareButton = _twitterShareButton, postThisButton = _postThisButton, shoppingListButton = _shoppingListButton;
 
 - (id)initWithProductID:(NSNumber *)productID
 {
@@ -107,6 +111,11 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     [self.twitterShareButton setFrame:(CGRect){ kGTIOTwitterButtonXPos, self.bottomInformationBackground.frame.origin.y + kGTIOSocialShareButtonTopMargin, kGTIOSocialShareButtonWidthHeight, kGTIOSocialShareButtonWidthHeight }];
     [self.view addSubview:self.twitterShareButton];
     
+    self.postThisButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductPostThis];
+    [self.postThisButton setFrame:(CGRect){ 5, 365, self.postThisButton.bounds.size }];
+    self.postThisButton.alpha = 0.0;
+    [self.view addSubview:self.postThisButton];
+    
     [self refreshProduct];
 }
 
@@ -133,6 +142,10 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     self.heartControl = nil;
     self.bottomInformationBackground = nil;
     self.productInformationBox = nil;
+    self.facebookShareButton = nil;
+    self.twitterShareButton = nil;
+    self.postThisButton = nil;
+    self.shoppingListButton = nil;
 }
 
 - (void)refreshProduct
@@ -140,23 +153,28 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [GTIOProduct loadProductWithProductID:self.productID completionHandler:^(NSArray *loadedObjects, NSError *error) {
         if (!error) {
-            BOOL updated = NO;
-            for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIOProduct class]]) {
-                    if (![(GTIOProduct *)object isEqual:self.product]) {
-                        self.product = (GTIOProduct *)object;
-                        updated = YES;
-                    }
-                }
-            }
-            if (!updated) {
-                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            }
+            [self refreshProductFromLoadedObjects:loadedObjects];
         } else {
             NSLog(@"%@", [error localizedDescription]);
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         }
     }];
+}
+
+- (void)refreshProductFromLoadedObjects:(NSArray *)loadedObjects
+{
+    BOOL updated = NO;
+    for (id object in loadedObjects) {
+        if ([object isMemberOfClass:[GTIOProduct class]]) {
+            if (![(GTIOProduct *)object isEqual:self.product]) {
+                self.product = (GTIOProduct *)object;
+                updated = YES;
+            }
+        }
+    }
+    if (!updated) {
+        [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+    }
 }
 
 - (void)setProduct:(GTIOProduct *)product
@@ -167,7 +185,15 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         [UIView animateWithDuration:0.25 animations:^{
             self.productImageView.alpha = 1.0;
+            self.postThisButton.alpha = 1.0;
+            self.shoppingListButton.alpha = 1.0;
         }];
+        self.postThisButton.tapHandler = ^(id sender) {
+            GTIOPostALookViewController *viewController = [[GTIOPostALookViewController alloc] initWithNibName:nil bundle:nil];
+            [viewController setOriginalImage:self.productImageView.image filteredImage:self.productImageView.image filterName:nil];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+            [self.navigationController presentModalViewController:navigationController animated:YES];
+        };
     } failure:^(NSError *error) {
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         NSLog(@"%@", [error localizedDescription]);
@@ -177,9 +203,17 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
         if ([button.name isEqualToString:kGTIOProductHeartButton]) {
             self.heartControl.heartState = button.state;
             
-            __block typeof(self) blockSelf = self;
             self.heartControl.heartTapHandler = ^(id sender) {
-                [blockSelf refreshProduct];
+                [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+                [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+                    loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+                        [self refreshProductFromLoadedObjects:loadedObjects];
+                    };
+                    loader.onDidFailWithError = ^(NSError *error) {
+                        [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                        NSLog(@"%@", [error localizedDescription]);
+                    };
+                }];
             };
         }
         if ([button.name isEqualToString:kGTIOProductWhoHeartedButton]) {
@@ -189,6 +223,35 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
                 UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
                 [self.navigationController pushViewController:viewController animated:YES];
             };
+        }
+        if ([button.name isEqualToString:kGTIOProductShoppingListButton]) {
+            [self.shoppingListButton removeFromSuperview];
+            if (button.state.intValue == 0) {
+                self.shoppingListButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingList];
+                self.shoppingListButton.tapHandler = ^(id sender) {
+                    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+                    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+                        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+                            [self refreshProductFromLoadedObjects:loadedObjects];
+                        };
+                        loader.onDidFailWithError = ^(NSError *error) {
+                            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                            NSLog(@"%@", [error localizedDescription]);
+                        };
+                    }];
+                };
+            } else if (button.state.intValue == 1) {
+                self.shoppingListButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListChecked];
+                self.shoppingListButton.tapHandler = ^(id sender) {
+                    UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                };
+            }
+            [self.shoppingListButton setFrame:(CGRect){ self.postThisButton.frame.origin.x + self.postThisButton.bounds.size.width + 5, self.postThisButton.frame.origin.y, self.shoppingListButton.bounds.size }];
+            if (!self.productImageView.image) {
+                self.shoppingListButton.alpha = 0.0;
+            }
+            [self.view addSubview:self.shoppingListButton];
         }
     }
     

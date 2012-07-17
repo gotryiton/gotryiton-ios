@@ -110,7 +110,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 //        [blockSelf presentModalViewController:navController animated:YES];
         
 #warning THIS CODE USED FOR TESTING 4.1
-        GTIOProductViewController *productViewController = [[GTIOProductViewController alloc] initWithProductID:[NSNumber numberWithInt:125]];
+        GTIOProductViewController *productViewController = [[GTIOProductViewController alloc] initWithProductID:[NSNumber numberWithInt:134]];
         [blockSelf.navigationController pushViewController:productViewController animated:YES];
 #warning END TEST CODE
     }];

@@ -184,7 +184,7 @@
 		8063B65D15B4C98100B3146A /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8063B5B515B4C98100B3146A /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8076B3ED15B5E77000B72466 /* GTIOProductInformationBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */; };
 		80A2706415B5B87A00F51E51 /* GTIOProductHeartControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A2706315B5B87A00F51E51 /* GTIOProductHeartControl.m */; };
-		8E12C1F2157547190097CDE9 /* GTIOPostALookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */; };
+		80A97B6915B60AEB006A9447 /* GTIOPostALookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A97B6815B60AEB006A9447 /* GTIOPostALookViewController.m */; };
 		8E12C1F515754E880097CDE9 /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F415754E870097CDE9 /* GTIOViewController.m */; };
 		8E12C1F9157553800097CDE9 /* GTIOLookSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F8157553800097CDE9 /* GTIOLookSelectorView.m */; };
 		8E180A63158789DA0074E7C9 /* GTIOBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E180A62158789DA0074E7C9 /* GTIOBadge.m */; };
@@ -1545,8 +1545,8 @@
 		8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductInformationBox.m; sourceTree = "<group>"; };
 		80A2706215B5B87A00F51E51 /* GTIOProductHeartControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductHeartControl.h; sourceTree = "<group>"; };
 		80A2706315B5B87A00F51E51 /* GTIOProductHeartControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductHeartControl.m; sourceTree = "<group>"; };
-		8E12C1F0157547190097CDE9 /* GTIOPostALookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostALookViewController.h; sourceTree = "<group>"; };
-		8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostALookViewController.m; sourceTree = "<group>"; };
+		80A97B6715B60AEB006A9447 /* GTIOPostALookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostALookViewController.h; sourceTree = "<group>"; };
+		80A97B6815B60AEB006A9447 /* GTIOPostALookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostALookViewController.m; sourceTree = "<group>"; };
 		8E12C1F315754E870097CDE9 /* GTIOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOViewController.h; sourceTree = "<group>"; };
 		8E12C1F415754E870097CDE9 /* GTIOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOViewController.m; sourceTree = "<group>"; };
 		8E12C1F7157553800097CDE9 /* GTIOLookSelectorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOLookSelectorView.h; sourceTree = "<group>"; };
@@ -3215,8 +3215,8 @@
 		8E12C1EB157544200097CDE9 /* Photo Upload */ = {
 			isa = PBXGroup;
 			children = (
-				8E12C1F0157547190097CDE9 /* GTIOPostALookViewController.h */,
-				8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */,
+				80A97B6715B60AEB006A9447 /* GTIOPostALookViewController.h */,
+				80A97B6815B60AEB006A9447 /* GTIOPostALookViewController.m */,
 				D270D22E15A33A4600775A22 /* GTIOPostManager.h */,
 				D270D22F15A33A4600775A22 /* GTIOPostManager.m */,
 			);
@@ -6554,7 +6554,6 @@
 				8E240E1D156EC9E7004EA1B8 /* GTIOSelectableProfilePicture.m in Sources */,
 				8E240E21156ED437004EA1B8 /* GTIOIcon.m in Sources */,
 				D239CA7D15750D72004C6D51 /* GTIOAlmostDoneTableDataItem.m in Sources */,
-				8E12C1F2157547190097CDE9 /* GTIOPostALookViewController.m in Sources */,
 				8E12C1F515754E880097CDE9 /* GTIOViewController.m in Sources */,
 				8E12C1F9157553800097CDE9 /* GTIOLookSelectorView.m in Sources */,
 				8E8E6EC615756DD0009750E2 /* GTIOTakePhotoView.m in Sources */,
@@ -6695,6 +6694,7 @@
 				8063B65D15B4C98100B3146A /* SFHFKeychainUtils.m in Sources */,
 				80A2706415B5B87A00F51E51 /* GTIOProductHeartControl.m in Sources */,
 				8076B3ED15B5E77000B72466 /* GTIOProductInformationBox.m in Sources */,
+				80A97B6915B60AEB006A9447 /* GTIOPostALookViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

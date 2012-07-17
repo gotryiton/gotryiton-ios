@@ -62,7 +62,7 @@ static CGFloat const kGTIOProductNameLabelHeight = 38.0;
     
     [self.productNameLabel setFrame:(CGRect){ kGTIOProductNameLabelLeftMargin, kGTIOProductNameLabelTopMargin, kGTIOProductNameLabelWidth, kGTIOProductNameLabelHeight }];
     [self.productBrandsLabel setFrame:(CGRect){ kGTIOProductNameLabelLeftMargin, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height, self.productNameLabel.bounds.size.width, 14 }];
-    [self.productPriceLabel setFrame:(CGRect){ self.bounds.size.width - 50 - 10, self.bounds.size.height - 22 - 5, 50, 22 }];
+    [self.productPriceLabel setFrame:(CGRect){ self.bounds.size.width - 50 - 10, self.bounds.size.height - 22 - 3, 50, 22 }];
 }
 
 - (void)setProductName:(NSString *)productName
