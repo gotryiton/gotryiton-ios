@@ -12,6 +12,11 @@ static CGFloat const kGTIOProductNameLabelLeftMargin = 10.0;
 static CGFloat const kGTIOProductNameLabelTopMargin = 9.0;
 static CGFloat const kGTIOProductNameLabelWidth = 240.0;
 static CGFloat const kGTIOProductNameLabelHeight = 38.0;
+static CGFloat const kGTIOProductPriceLabelWidth = 50.0;
+static CGFloat const kGTIOProductPriceLabelHeight = 22.0;
+static CGFloat const kGTIOProductPriceLabelRightMargin = 10.0;
+static CGFloat const kGTIOProductPriceLabelBottomMargin = 3.0;
+static CGFloat const kGTIOProductBrandsLabelHeight = 14.0;
 
 @interface GTIOProductInformationBox()
 
@@ -61,8 +66,8 @@ static CGFloat const kGTIOProductNameLabelHeight = 38.0;
     [super layoutSubviews];
     
     [self.productNameLabel setFrame:(CGRect){ kGTIOProductNameLabelLeftMargin, kGTIOProductNameLabelTopMargin, kGTIOProductNameLabelWidth, kGTIOProductNameLabelHeight }];
-    [self.productBrandsLabel setFrame:(CGRect){ kGTIOProductNameLabelLeftMargin, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height, self.productNameLabel.bounds.size.width, 14 }];
-    [self.productPriceLabel setFrame:(CGRect){ self.bounds.size.width - 50 - 10, self.bounds.size.height - 22 - 3, 50, 22 }];
+    [self.productBrandsLabel setFrame:(CGRect){ kGTIOProductNameLabelLeftMargin, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height, self.productNameLabel.bounds.size.width, kGTIOProductBrandsLabelHeight }];
+    [self.productPriceLabel setFrame:(CGRect){ self.bounds.size.width - kGTIOProductPriceLabelWidth - kGTIOProductPriceLabelRightMargin, self.bounds.size.height - kGTIOProductPriceLabelHeight - kGTIOProductPriceLabelBottomMargin, kGTIOProductPriceLabelWidth, kGTIOProductPriceLabelHeight }];
 }
 
 - (void)setProductName:(NSString *)productName

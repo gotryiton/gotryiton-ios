@@ -78,13 +78,13 @@ static CGFloat const kGTIOHeartCountTopMargin = 2.0;
 
 - (void)setHeartTapHandler:(GTIOButtonDidTapHandler)heartTapHandler
 {
-    _heartTapHandler = heartTapHandler;
+    _heartTapHandler = [heartTapHandler copy];
     self.heartButton.tapHandler = _heartTapHandler;
 }
 
 - (void)setCountTapHandler:(GTIOButtonDidTapHandler)countTapHandler
 {
-    _countTapHandler = countTapHandler;
+    _countTapHandler = [countTapHandler copy];
     self.countButton.tapHandler = _countTapHandler;
 }
 

@@ -204,13 +204,11 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
             self.heartControl.heartState = button.state;
             
             self.heartControl.heartTapHandler = ^(id sender) {
-                [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
                 [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
                     loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
                         [self refreshProductFromLoadedObjects:loadedObjects];
                     };
                     loader.onDidFailWithError = ^(NSError *error) {
-                        [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                         NSLog(@"%@", [error localizedDescription]);
                     };
                 }];
@@ -229,13 +227,11 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
             if (button.state.intValue == 0) {
                 self.shoppingListButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingList];
                 self.shoppingListButton.tapHandler = ^(id sender) {
-                    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
                     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
                         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
                             [self refreshProductFromLoadedObjects:loadedObjects];
                         };
                         loader.onDidFailWithError = ^(NSError *error) {
-                            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                             NSLog(@"%@", [error localizedDescription]);
                         };
                     }];
