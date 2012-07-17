@@ -73,9 +73,8 @@ static double const kGTIOTopPadding = 9.0;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
     [self.emptyStateView setFrame:(CGRect){ 60, 90, self.emptyStateView.bounds.size }];
-    [self.masonGridView setFrame:(CGRect){ kGTIOLeftPadding, kGTIOTopPadding, self.bounds.size.width - kGTIOLeftPadding, self.bounds.size.height - kGTIOTopPadding }];
+    [self.masonGridView setFrame:self.bounds];
 }
 
 - (void)refreshAndCenterGTIOEmptyStateView:(GTIOPostMasonryEmptyStateView *)emptyStateView

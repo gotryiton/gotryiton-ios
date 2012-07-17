@@ -86,9 +86,9 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     
     // Mason Grid
     self.masonGridView = [[GTIOMasonGridView alloc] initWithFrame:(CGRect){ { 0, self.segmentedControlView.frame.size.height }, { self.view.frame.size.width, self.view.frame.size.height - self.segmentedControlView.frame.size.height - self.navigationController.navigationBar.frame.size.height } }];
-    [self.masonGridView setTopPadding:kGTIOMasonGridPadding];
+    [self.masonGridView setPadding:kGTIOMasonGridPadding];
     [self.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
-    [self.masonGridView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height + kGTIOMasonGridPadding, 0 }];
+    [self.masonGridView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.masonGridView setGridItemTapHandler:^(GTIOMasonGridItem *gridItem) {
         GTIOFeedViewController *feedViewController = [[GTIOFeedViewController alloc] initWithPost:gridItem.post];
         [self.navigationController pushViewController:feedViewController animated:YES];

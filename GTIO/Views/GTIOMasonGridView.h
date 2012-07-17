@@ -13,7 +13,7 @@
 
 @interface GTIOMasonGridView : UIScrollView <GTIOMasonGridItemDelegate>
 
-@property (nonatomic, assign) CGFloat topPadding;
+@property (nonatomic, assign) CGFloat padding;
 @property (nonatomic, copy) GTIOMasonGridItemTapHandler gridItemTapHandler;
 
 - (void)setPosts:(NSArray *)posts postsType:(GTIOPostType)postsType;
