@@ -492,10 +492,10 @@
     [button setTitle:@"post this" forState:UIControlStateNormal];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     UIImageView *postButtonIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"product.info.button.icon.post.png"]];
-    [postButtonIcon setFrame:(CGRect){ 24, 16, postButtonIcon.bounds.size }];
+    [postButtonIcon setFrame:(CGRect){ 24.0, 16.0, postButtonIcon.bounds.size }];
     [button addSubview:postButtonIcon];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 37.0, 0.0, 0.0)];
-    [button setFrame:(CGRect){ 0, 0, 153, 46 }];
+    [button setFrame:(CGRect){ 0.0, 0.0, 153.0, 46.0 }];
     return button;
 }
 
@@ -503,16 +503,16 @@
 {
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.inactive.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateNormal];
-    [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.active.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.)] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.active.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateHighlighted];
     button.titleLabel.font = [UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0];
     [button setTitleColor:[UIColor gtio_grayTextColor555556] forState:UIControlStateNormal];
     [button setTitle:@"shopping list" forState:UIControlStateNormal];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     UIImageView *postButtonIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"product.info.button.icon.shopping.png"]];
-    [postButtonIcon setFrame:(CGRect){ 22, 15, postButtonIcon.bounds.size }];
+    [postButtonIcon setFrame:(CGRect){ 22.0, 15.0, postButtonIcon.bounds.size }];
     [button addSubview:postButtonIcon];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 23.0, 0.0, 0.0)];
-    [button setFrame:(CGRect){ 0, 0, 153, 46 }];
+    [button setFrame:(CGRect){ 0.0, 0.0, 153.0, 46.0 }];
     return button;
 }
 
@@ -520,16 +520,16 @@
 {
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.highlight.inactive.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateNormal];
-    [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.highlight.active.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.)] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.highlight.active.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateHighlighted];
     button.titleLabel.font = [UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0];
     [button setTitleColor:[UIColor gtio_grayTextColor555556] forState:UIControlStateNormal];
     [button setTitle:@"shopping list" forState:UIControlStateNormal];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    UIImageView *postButtonIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"product.info.button.icon.shopping.png"]];
-    [postButtonIcon setFrame:(CGRect){ 22, 15, postButtonIcon.bounds.size }];
+    UIImageView *postButtonIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"product.info.button.icon.checkmark.png"]];
+    [postButtonIcon setFrame:(CGRect){ 19.0, 13.0, postButtonIcon.bounds.size }];
     [button addSubview:postButtonIcon];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 23.0, 0.0, 0.0)];
-    [button setFrame:(CGRect){ 0, 0, 153, 46 }];
+    [button setFrame:(CGRect){ 0.0, 0.0, 153.0, 46.0 }];
     return button;
 }
 
