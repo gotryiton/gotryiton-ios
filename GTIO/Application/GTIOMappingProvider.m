@@ -84,7 +84,8 @@
         [productMapping mapKeyPath:@"buy_url" toAttribute:@"buyURL"];
         [productMapping mapKeyPath:@"pretty_price" toAttribute:@"prettyPrice"];
         [productMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
-        [productMapping mapAttributes:@"brands", @"buttons", nil];
+        [productMapping mapKeyPath:@"brands" toAttribute:@"brands"];
+        [productMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [self setMapping:productMapping forKeyPath:@"product"];
         [self setMapping:productMapping forKeyPath:@"products"];
         
