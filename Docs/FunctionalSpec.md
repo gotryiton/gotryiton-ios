@@ -3416,6 +3416,9 @@ disabled button
 10.4.1 actionsheet: ([wireframe](http://invis.io/F32PNLA5))   
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.C.Default.Webview.Actionsheet.png" width=420px/>
 
+10.4.2 loading fail
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.C.Default.Webview.Actionsheet.png" width=420px/>
+
 #### User Flow
 **entry screens:**   
 ([view 10.1](#102-shop-landing-page))   
@@ -3459,6 +3462,11 @@ http://any.random.url/
          - 'webview-button-options.png' with active/inactive/disabled states
          - 17px from right edge of screen
          - 10px from bottom of screen
+- Loading Fail
+   - 'fail.png' vertically and horizontally centered within viewable content area
+      - background is white
+      - tapping anywhere on fail.png retries (not just underlined portion)
+   - no nav bar title
 
 ### 10.5 Shop Browse Products  
 
