@@ -3411,7 +3411,7 @@ disabled button
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.C.Default.Webview.Actionsheet.png" width=420px/>
 
 10.4.2 loading fail
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.C.Default.Webview.Actionsheet.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.D.Default.Webview.Error.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
