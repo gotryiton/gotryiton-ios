@@ -67,6 +67,11 @@
         case GTIOButtonTypeLeaveAComment: return [self gtio_leaveACommentButton];
         case GTIOButtonTypePostRetry: return [self gtio_postRetryButton];
         case GTIOButtonTypeProductBack: return [self gtio_productBackButton];
+        case GTIOButtonTypeProductShareFacebook: return [self gtio_facebookShareButton];
+        case GTIOButtonTypeProductShareTwitter: return [self gtio_twitterShareButton];
+        case GTIOButtonTypeProductPostThis: return [self gtio_productPostThisButton];
+        case GTIOButtonTypeProductShoppingList: return [self gtio_productShoppingListButton];
+        case GTIOButtonTypeProductShoppingListChecked: return [self gtio_productShoppingListCheckedButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -477,6 +482,57 @@
     return button;
 }
 
++ (id)gtio_productPostThisButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.inactive.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.active.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.)] forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0];
+    [button setTitleColor:[UIColor gtio_grayTextColor555556] forState:UIControlStateNormal];
+    [button setTitle:@"post this" forState:UIControlStateNormal];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView *postButtonIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"product.info.button.icon.post.png"]];
+    [postButtonIcon setFrame:(CGRect){ 24.0, 16.0, postButtonIcon.bounds.size }];
+    [button addSubview:postButtonIcon];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 37.0, 0.0, 0.0)];
+    [button setFrame:(CGRect){ 0.0, 0.0, 153.0, 46.0 }];
+    return button;
+}
+
++ (id)gtio_productShoppingListButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.inactive.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.active.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0];
+    [button setTitleColor:[UIColor gtio_grayTextColor555556] forState:UIControlStateNormal];
+    [button setTitle:@"shopping list" forState:UIControlStateNormal];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView *postButtonIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"product.info.button.icon.shopping.png"]];
+    [postButtonIcon setFrame:(CGRect){ 22.0, 15.0, postButtonIcon.bounds.size }];
+    [button addSubview:postButtonIcon];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 23.0, 0.0, 0.0)];
+    [button setFrame:(CGRect){ 0.0, 0.0, 153.0, 46.0 }];
+    return button;
+}
+
++ (id)gtio_productShoppingListCheckedButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.highlight.inactive.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"product.info.button.bg.highlight.active.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0];
+    [button setTitleColor:[UIColor gtio_grayTextColor555556] forState:UIControlStateNormal];
+    [button setTitle:@"shopping list" forState:UIControlStateNormal];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView *postButtonIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"product.info.button.icon.checkmark.png"]];
+    [postButtonIcon setFrame:(CGRect){ 19.0, 13.0, postButtonIcon.bounds.size }];
+    [button addSubview:postButtonIcon];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 23.0, 0.0, 0.0)];
+    [button setFrame:(CGRect){ 0.0, 0.0, 153.0, 46.0 }];
+    return button;
+}
+
 + (id)gtio_maskButton
 {
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
@@ -494,6 +550,16 @@
 + (id)gtio_postRetryButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"uploading.fail.avatar.overlay.inactive.png"] hightlightImage:[UIImage imageNamed:@"uploading.fail.avatar.overlay.active.png"]];
+}
+
++ (id)gtio_facebookShareButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.fb.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.fb.active.png"]];
+}
+
++ (id)gtio_twitterShareButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.twit.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.twit.active.png"]];
 }
 
 #pragma mark - Touch Handling

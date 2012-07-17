@@ -72,6 +72,9 @@ extern NSString * const kGTIOFindFriendsButtonName;
 extern NSString * const kGTIOReviewAgreeButton;
 extern NSString * const kGTIOReviewFlagButton;
 extern NSString * const kGTIOReviewRemoveButton;
+extern NSString * const kGTIOProductWhoHeartedButton;
+extern NSString * const kGTIOProductHeartButton;
+extern NSString * const kGTIOProductShoppingListButton;
 
 // Web Views
 extern NSTimeInterval const kGTIOWebViewTimeout;

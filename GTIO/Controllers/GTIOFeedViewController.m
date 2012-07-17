@@ -105,13 +105,13 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     self.navBarView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
     __block typeof(self) blockSelf = self;
     [self.navBarView.friendsButton setTapHandler:^(id sender) {
-//        GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
-//        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
-//        [blockSelf presentModalViewController:navController animated:YES];
+        GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
+        [blockSelf presentModalViewController:navController animated:YES];
         
 #warning THIS CODE USED FOR TESTING 4.1
-        GTIOProductViewController *productViewController = [[GTIOProductViewController alloc] initWithProductID:[NSNumber numberWithInt:125]];
-        [blockSelf.navigationController pushViewController:productViewController animated:YES];
+//        GTIOProductViewController *productViewController = [[GTIOProductViewController alloc] initWithProductID:[NSNumber numberWithInt:125]];
+//        [blockSelf.navigationController pushViewController:productViewController animated:YES];
 #warning END TEST CODE
     }];
     self.navBarView.titleView.tapHandler = ^(void) {
