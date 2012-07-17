@@ -1,5 +1,27 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.12
+July 17, 2012
+
+### Build Summary
+Bug fixes from sprint 5 and Explore looks tab.
+
+### Development
+
+**Bug Fixes**
+- 343 - User icon on reviews should have no border when tapped
+- 336 - Status bar background is not consistent.
+- 335 - Profile not showing posts or hearts data
+- 177 - quick add follow button does not route (screen 1.8)
+- 261 - Endless spinner on profile/management pages
+- 253 - Heart button on feed not connected to action
+
+**Screens / Features**
+- 278 - 9.1 Popular looks - mason grid
+- 277 - 9.1 Popular looks - segmented control
+
+---
+
 #### Build 4.0.0.11
 July 13, 2012
 
