@@ -1,3 +1,34 @@
+***Tuesday, July 17th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Investigate whether or not we need Janrain UI views in GTIO Repository
+- TT - Issue build with bug fixes per Simon's request
+- TT - Resolve Testflight issues brought up by GTIO for test distrobution
+- TT - Autocomplete code needs to be reviewed and merged in (this is priority)
+
+**Status**
+- Wrapped up 9.x screens and updates to mason grid
+- Resolved critical bugs requested by Simon
+- Proceeding with Product page
+- Auto Complete
+ - Simon's code needs code review
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Monday, July 16th - Standup Notes***
 
 **Attendees**

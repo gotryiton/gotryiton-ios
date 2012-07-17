@@ -8,6 +8,11 @@
 
 #import "GTIOViewController.h"
 
-@interface GTIOCommentViewController : GTIOViewController
+@interface GTIOCommentViewController : GTIOViewController <UITextViewDelegate>
+
+@property (nonatomic, retain) GTIOUIButton *saveButton;
+
+- (id)initWithPostID:(NSString *)postID;
+
 
 @end

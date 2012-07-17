@@ -17,7 +17,7 @@
 
 - (id)initWithFrame:(CGRect)frame outerBox:(CGRect) outerFrame title:(NSString *)title icon:(UIImage *)icon
 {
-    self = [super initWithFrame:frame outerBox:outerFrame];
+    self = [super initWithFrame:frame outerBox:outerFrame placeholder:@"How does this Zara top look? @Becky #wedding"];
     if (self) {
         [self.textInput setDelegate:self];
 

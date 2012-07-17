@@ -34,16 +34,18 @@
 @property (assign) CGColorRef ACHighlightColor;
 
 @property (copy) NSString *inputText;
+@property (copy) NSString *placeholderText;
 @property (assign) NSRange positionOfLastWordTyped;
 @property (assign) NSRange positionOfLastTwoWordsTyped;
 
 @property (assign) BOOL isScrollViewShowing;
 
-- (UIView *)initWithFrame:(CGRect)frame outerBox:(CGRect)outerFrame;
+- (UIView *)initWithFrame:(CGRect)frame outerBox:(CGRect)outerFrame placeholder:(NSString *)text;
 - (void)addCompleters:(NSMutableArray *)completers;
 - (NSString *)processDescriptionString;
 - (void) showPlaceholderText;
 - (void) hidePlaceholderText;
 - (void) resetView;
+- (void) displayPlaceholderText;
 
 @end

@@ -65,4 +65,26 @@
     }];
 }
 
++ (void)loadUsersDictionaryWithUserID:(NSString *)userID postID:(NSString *)postID completionHandler:(GTIOCompletionHandler)completionHandler
+{
+    NSString *dictionaryPath = [@"" stringByAppendingFormat:@"/autocomplete-dictionary/users/%@/post/%@", userID, postID];
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:dictionaryPath usingBlock:^(RKObjectLoader *loader) {
+        loader.method = RKRequestMethodPOST;
+        
+        loader.onDidLoadObjects = ^(NSArray *objects) {                
+            if (completionHandler) {
+                completionHandler(objects, nil);
+            }
+        };
+        
+        loader.onDidFailWithError = ^(NSError *error) {
+            if (completionHandler) {
+                completionHandler(nil, error);
+            }
+        };
+    }];
+}
+
+
 @end
