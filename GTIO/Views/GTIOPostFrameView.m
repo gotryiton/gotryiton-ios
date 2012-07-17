@@ -61,6 +61,8 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
         
         _heartButton = [GTIOHeartButton heartButtonWithTapHandler:^(id sender) {
             [self.heartButton setHearted:![self.heartButton isHearted]];
+            
+            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.photoHeartButtonModel.action.endpoint delegate:nil];
         }];
         [self addSubview:_heartButton];
         
