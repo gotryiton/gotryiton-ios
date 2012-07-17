@@ -1,15 +1,15 @@
 //
-//  GTIOReviewPostPictureViewer.m
+//  GTIOFullScreenImageViewer.m
 //  GTIO
 //
 //  Created by Geoffrey Mackey on 7/10/12.
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import "GTIOReviewPostPictureViewer.h"
+#import "GTIOFullScreenImageViewer.h"
 #import "UIImageView+WebCache.h"
 
-@interface GTIOReviewPostPictureViewer()
+@interface GTIOFullScreenImageViewer()
 
 @property (nonatomic, strong) UIView *windowMask;
 @property (nonatomic, strong) UIImageView *photo;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation GTIOReviewPostPictureViewer
+@implementation GTIOFullScreenImageViewer
 
 @synthesize windowMask = _windowMask, photo = _photo, photoURL = _photoURL;
 

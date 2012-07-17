@@ -66,6 +66,7 @@
         case GTIOButtonTypeRemove: return [self gtio_removeButton];
         case GTIOButtonTypeLeaveAComment: return [self gtio_leaveACommentButton];
         case GTIOButtonTypePostRetry: return [self gtio_postRetryButton];
+        case GTIOButtonTypeProductBack: return [self gtio_productBackButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -219,6 +220,16 @@
     [button setTitleColor:[UIColor gtio_grayTextColor9C9C9C] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(5.0, 6.5, 0, 0)];
+    [button setFrame:(CGRect){ 0, 0, 45, 30 }];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_productBackButton
+{
+    GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"product.nav.bar.back.inactive.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"product.nav.bar.back.active.png"] forState:UIControlStateHighlighted];
     [button setFrame:(CGRect){ 0, 0, 45, 30 }];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;

@@ -63,6 +63,7 @@ typedef enum GTIOReviewsAlertView {
         self.backgroundView = _background;
         
         _userProfilePicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:CGRectZero andImageURL:nil];
+        _userProfilePicture.isSelectable = NO;
         [self.contentView addSubview:_userProfilePicture];
         
         _userNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];

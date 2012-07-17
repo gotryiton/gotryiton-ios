@@ -36,6 +36,7 @@
 #import "GTIOReview.h"
 #import "GTIONotification.h"
 #import "GTIOTab.h"
+#import "GTIOProduct.h"
 
 @implementation GTIOMappingProvider
 
@@ -72,6 +73,20 @@
         RKObjectMapping *reviewMapping = [RKObjectMapping mappingForClass:[GTIOReview class]];
         RKObjectMapping *notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
         RKObjectMapping *tabMapping = [RKObjectMapping mappingForClass:[GTIOTab class]];
+        RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[GTIOProduct class]];
+        
+        /** Products
+         */
+        
+        // GTIOProduct
+        [productMapping mapKeyPath:@"id" toAttribute:@"productID"];
+        [productMapping mapKeyPath:@"name" toAttribute:@"productName"];
+        [productMapping mapKeyPath:@"buy_url" toAttribute:@"buyURL"];
+        [productMapping mapKeyPath:@"pretty_price" toAttribute:@"prettyPrice"];
+        [productMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
+        [productMapping mapAttributes:@"brands", @"buttons", nil];
+        [self setMapping:productMapping forKeyPath:@"product"];
+        [self setMapping:productMapping forKeyPath:@"products"];
         
         /** Config
          */
