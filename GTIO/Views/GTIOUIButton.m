@@ -67,6 +67,8 @@
         case GTIOButtonTypeLeaveAComment: return [self gtio_leaveACommentButton];
         case GTIOButtonTypePostRetry: return [self gtio_postRetryButton];
         case GTIOButtonTypeProductBack: return [self gtio_productBackButton];
+        case GTIOButtonTypeProductShareFacebook: return [self gtio_facebookShareButton];
+        case GTIOButtonTypeProductShareTwitter: return [self gtio_twitterShareButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -494,6 +496,16 @@
 + (id)gtio_postRetryButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"uploading.fail.avatar.overlay.inactive.png"] hightlightImage:[UIImage imageNamed:@"uploading.fail.avatar.overlay.active.png"]];
+}
+
++ (id)gtio_facebookShareButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.fb.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.fb.active.png"]];
+}
+
++ (id)gtio_twitterShareButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.twit.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.twit.active.png"]];
 }
 
 #pragma mark - Touch Handling

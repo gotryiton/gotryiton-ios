@@ -182,6 +182,8 @@
 		8063B65B15B4C98100B3146A /* JRUserLandingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8063B5B115B4C98100B3146A /* JRUserLandingController.xib */; };
 		8063B65C15B4C98100B3146A /* JRWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8063B5B215B4C98100B3146A /* JRWebViewController.xib */; };
 		8063B65D15B4C98100B3146A /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8063B5B515B4C98100B3146A /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8076B3ED15B5E77000B72466 /* GTIOProductInformationBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */; };
+		80A2706415B5B87A00F51E51 /* GTIOProductHeartControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A2706315B5B87A00F51E51 /* GTIOProductHeartControl.m */; };
 		8E12C1F2157547190097CDE9 /* GTIOPostALookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */; };
 		8E12C1F515754E880097CDE9 /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F415754E870097CDE9 /* GTIOViewController.m */; };
 		8E12C1F9157553800097CDE9 /* GTIOLookSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F8157553800097CDE9 /* GTIOLookSelectorView.m */; };
@@ -1539,6 +1541,10 @@
 		8063B5B215B4C98100B3146A /* JRWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JRWebViewController.xib; sourceTree = "<group>"; };
 		8063B5B415B4C98100B3146A /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		8063B5B515B4C98100B3146A /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		8076B3EB15B5E77000B72466 /* GTIOProductInformationBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductInformationBox.h; sourceTree = "<group>"; };
+		8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductInformationBox.m; sourceTree = "<group>"; };
+		80A2706215B5B87A00F51E51 /* GTIOProductHeartControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductHeartControl.h; sourceTree = "<group>"; };
+		80A2706315B5B87A00F51E51 /* GTIOProductHeartControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductHeartControl.m; sourceTree = "<group>"; };
 		8E12C1F0157547190097CDE9 /* GTIOPostALookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostALookViewController.h; sourceTree = "<group>"; };
 		8E12C1F1157547190097CDE9 /* GTIOPostALookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPostALookViewController.m; sourceTree = "<group>"; };
 		8E12C1F315754E870097CDE9 /* GTIOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOViewController.h; sourceTree = "<group>"; };
@@ -3194,6 +3200,17 @@
 			name = Security;
 			path = Libraries/Janrain/JREngage/Security;
 			sourceTree = SOURCE_ROOT;
+		};
+		80A2706115B5B85700F51E51 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				80A2706215B5B87A00F51E51 /* GTIOProductHeartControl.h */,
+				80A2706315B5B87A00F51E51 /* GTIOProductHeartControl.m */,
+				8076B3EB15B5E77000B72466 /* GTIOProductInformationBox.h */,
+				8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */,
+			);
+			name = Products;
+			sourceTree = "<group>";
 		};
 		8E12C1EB157544200097CDE9 /* Photo Upload */ = {
 			isa = PBXGroup;
@@ -5128,6 +5145,7 @@
 		D2CDA9B115503307009B7E24 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				80A2706115B5B85700F51E51 /* Products */,
 				8E8FC10415AF1B2E004E0CBE /* Notifications */,
 				8EB1421D15AB35E200D5495C /* Reviews */,
 				8EA0271A159A2DBB00FDC45E /* Friends */,
@@ -6675,6 +6693,8 @@
 				8063B5C115B4C98100B3146A /* JRUserLandingController.m in Sources */,
 				8063B5C215B4C98100B3146A /* JRWebViewController.m in Sources */,
 				8063B65D15B4C98100B3146A /* SFHFKeychainUtils.m in Sources */,
+				80A2706415B5B87A00F51E51 /* GTIOProductHeartControl.m in Sources */,
+				8076B3ED15B5E77000B72466 /* GTIOProductInformationBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

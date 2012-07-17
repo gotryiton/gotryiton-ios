@@ -61,7 +61,9 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeLeaveAComment,
     GTIOButtonTypeReload,
     GTIOButtonTypePostRetry,
-    GTIOButtonTypeProductBack
+    GTIOButtonTypeProductBack,
+    GTIOButtonTypeProductShareFacebook,
+    GTIOButtonTypeProductShareTwitter
 } GTIOButtonType;
 
 @interface GTIOUIButton : UIButton

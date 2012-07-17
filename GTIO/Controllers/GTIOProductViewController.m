@@ -7,10 +7,33 @@
 //
 
 #import "GTIOProductViewController.h"
+
 #import "GTIOFullScreenImageViewer.h"
+#import "GTIORouter.h"
+
+#import "GTIOProductHeartControl.h"
+#import "GTIOProductInformationBox.h"
+
+#import "GTIOButton.h"
 #import "GTIOProduct.h"
 
+#import <RestKit/RestKit.h>
 #import "UIImageView+WebCache.h"
+
+static CGFloat const kGTIOHeartControlLeftMargin = 4.0;
+static CGFloat const kGTIOHeartControlTopMargin = 7.0;
+static CGFloat const kGTIOHeartControlWidth = 89.0;
+static CGFloat const kGTIOHeartControlHeight = 34.0;
+static CGFloat const kGTIOProductBottomInformationBackgroundHeight = 130.0;
+static CGFloat const kGTIOProductBottomInformationInnerBackgroundLeftMargin = 5.0;
+static CGFloat const kGTIOProductBottomInformationInnerBackgroundTopMargin = 8.0;
+static CGFloat const kGTIOProductBottomInformationInnerBackgroundWidth = 310.0;
+static CGFloat const kGTIOProductBottomInformationInnerBackgroundHeight = 66.0;
+static CGFloat const kGTIOSocialShareButtonWidthHeight = 23.0;
+static CGFloat const kGTIOSocialShareButtonTopMargin = 14.0;
+static CGFloat const kGTIOTwitterButtonXPos = 285.0;
+static CGFloat const kGTIOFacebookButtonXPos = 260.0;
+static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 
 @interface GTIOProductViewController ()
 
@@ -21,11 +44,17 @@
 @property (nonatomic, strong) UIImageView *productImageView;
 @property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
 
+@property (nonatomic, strong) GTIOProductHeartControl *heartControl;
+@property (nonatomic, strong) UIImageView *bottomInformationBackground;
+@property (nonatomic, strong) GTIOProductInformationBox *productInformationBox;
+@property (nonatomic, strong) GTIOUIButton *facebookShareButton;
+@property (nonatomic, strong) GTIOUIButton *twitterShareButton;
+
 @end
 
 @implementation GTIOProductViewController
 
-@synthesize product = _product, productID = _productID, productImageView = _productImageView, fullScreenImageViewer = _fullScreenImageViewer, whiteBackground = _whiteBackground;
+@synthesize product = _product, productID = _productID, productImageView = _productImageView, fullScreenImageViewer = _fullScreenImageViewer, whiteBackground = _whiteBackground, heartControl = _heartControl, bottomInformationBackground = _bottomInformationBackground, productInformationBox = _productInformationBox, facebookShareButton = _facebookShareButton, twitterShareButton = _twitterShareButton;
 
 - (id)initWithProductID:(NSNumber *)productID
 {
@@ -46,7 +75,7 @@
     }];
     self.leftNavigationButton = backButton;
     
-    self.whiteBackground = [[UIView alloc] initWithFrame:(CGRect){ 0, -40, self.view.bounds.size.width, self.view.bounds.size.height - 4 }];
+    self.whiteBackground = [[UIView alloc] initWithFrame:(CGRect){ 0, - self.navigationController.navigationBar.bounds.size.height + kGTIOProductNavigationBarTopStripeHeight, self.view.bounds.size.width, self.view.bounds.size.height - kGTIOProductNavigationBarTopStripeHeight }];
     self.whiteBackground.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.whiteBackground];
     
@@ -60,22 +89,25 @@
     UITapGestureRecognizer *productImageTapRecocgnizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showFullScreenImage)];
     [self.productImageView addGestureRecognizer:productImageTapRecocgnizer];
     
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    [GTIOProduct loadProductWithProductID:self.productID completionHandler:^(NSArray *loadedObjects, NSError *error) {
-        if (!error) {
-            for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIOProduct class]]) {
-                    self.product = (GTIOProduct *)object;
-                }
-            }
-            if (!self.product) {
-                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            }
-        } else {
-            NSLog(@"%@", [error localizedDescription]);
-            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-        }
-    }];
+    self.heartControl = [[GTIOProductHeartControl alloc] initWithFrame:(CGRect){ kGTIOHeartControlLeftMargin, kGTIOHeartControlTopMargin, kGTIOHeartControlWidth, kGTIOHeartControlHeight }];
+    [self.view addSubview:self.heartControl];
+    
+    self.bottomInformationBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"product.info.overlay.bg.png"]];
+    [self.bottomInformationBackground setFrame:(CGRect){ 0, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height - kGTIOProductBottomInformationBackgroundHeight, self.view.bounds.size.width, kGTIOProductBottomInformationBackgroundHeight }];
+    [self.view addSubview:self.bottomInformationBackground];
+    
+    self.productInformationBox = [[GTIOProductInformationBox alloc] initWithFrame:(CGRect){ kGTIOProductBottomInformationInnerBackgroundLeftMargin, kGTIOProductBottomInformationInnerBackgroundTopMargin, kGTIOProductBottomInformationInnerBackgroundWidth, kGTIOProductBottomInformationInnerBackgroundHeight }];
+    [self.bottomInformationBackground addSubview:self.productInformationBox];
+    
+    self.facebookShareButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShareFacebook];
+    [self.facebookShareButton setFrame:(CGRect){ kGTIOFacebookButtonXPos, self.bottomInformationBackground.frame.origin.y + kGTIOSocialShareButtonTopMargin, kGTIOSocialShareButtonWidthHeight, kGTIOSocialShareButtonWidthHeight }];
+    [self.view addSubview:self.facebookShareButton];
+    
+    self.twitterShareButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShareTwitter];
+    [self.twitterShareButton setFrame:(CGRect){ kGTIOTwitterButtonXPos, self.bottomInformationBackground.frame.origin.y + kGTIOSocialShareButtonTopMargin, kGTIOSocialShareButtonWidthHeight, kGTIOSocialShareButtonWidthHeight }];
+    [self.view addSubview:self.twitterShareButton];
+    
+    [self refreshProduct];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -98,6 +130,33 @@
     
     self.productImageView = nil;
     self.whiteBackground = nil;
+    self.heartControl = nil;
+    self.bottomInformationBackground = nil;
+    self.productInformationBox = nil;
+}
+
+- (void)refreshProduct
+{
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    [GTIOProduct loadProductWithProductID:self.productID completionHandler:^(NSArray *loadedObjects, NSError *error) {
+        if (!error) {
+            BOOL updated = NO;
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOProduct class]]) {
+                    if (![(GTIOProduct *)object isEqual:self.product]) {
+                        self.product = (GTIOProduct *)object;
+                        updated = YES;
+                    }
+                }
+            }
+            if (!updated) {
+                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            }
+        } else {
+            NSLog(@"%@", [error localizedDescription]);
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+        }
+    }];
 }
 
 - (void)setProduct:(GTIOProduct *)product
@@ -113,6 +172,29 @@
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         NSLog(@"%@", [error localizedDescription]);
     }];
+    
+    for (GTIOButton *button in self.product.buttons) {
+        if ([button.name isEqualToString:kGTIOProductHeartButton]) {
+            self.heartControl.heartState = button.state;
+            
+            __block typeof(self) blockSelf = self;
+            self.heartControl.heartTapHandler = ^(id sender) {
+                [blockSelf refreshProduct];
+            };
+        }
+        if ([button.name isEqualToString:kGTIOProductWhoHeartedButton]) {
+            self.heartControl.heartCount = button.count;
+            
+            self.heartControl.countTapHandler = ^(id sender) {
+                UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+                [self.navigationController pushViewController:viewController animated:YES];
+            };
+        }
+    }
+    
+    self.productInformationBox.productName = _product.productName;
+    self.productInformationBox.productBrands = _product.brands;
+    self.productInformationBox.productPrice = _product.prettyPrice;
 }
 
 - (void)showFullScreenImage
