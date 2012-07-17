@@ -33,6 +33,7 @@
 
 - (void)cancelImageDownload
 {
+    self.imageDownloader.delegate = nil;
     [self.imageDownloader cancel];
 }
 

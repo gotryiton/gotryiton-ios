@@ -98,12 +98,14 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
         }
     }
     
+    [self setContentOffset:CGPointZero animated:NO];
+    
     // reset columns
     self.columns = [NSMutableArray arrayWithObjects:
-                [GTIOMasonGridColumn gridColumnWithColumnNumber:0],
-                [GTIOMasonGridColumn gridColumnWithColumnNumber:1],
-                [GTIOMasonGridColumn gridColumnWithColumnNumber:2],
-                nil];
+                    [GTIOMasonGridColumn gridColumnWithColumnNumber:0],
+                    [GTIOMasonGridColumn gridColumnWithColumnNumber:1],
+                    [GTIOMasonGridColumn gridColumnWithColumnNumber:2],
+                    nil];
     
     // bring in the new data
     for (GTIOPost *post in posts) {

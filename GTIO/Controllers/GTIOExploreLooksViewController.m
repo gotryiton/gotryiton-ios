@@ -127,6 +127,10 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 {
     _resourcePath = resourcePath;
     [self loadTabsAndData];
+    GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [self setLeftNavigationButton:backButton];
 }
 
 #pragma mark - RestKit Load Objects
