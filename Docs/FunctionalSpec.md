@@ -2127,11 +2127,11 @@ A logged in user can edit their profile icon
 #### Mockups
 7.3 ([wireframe](http://invis.io/MF2QIO3Y))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/7.3.Edit.Profile.Picture.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/7.3.Edit.Profile.Picture.png" width=420px/>
 
 7.3.1 No facebook connect, and no looks  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/7.3.Edit.Profile.Picture.No.Facebook.No.Looks.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/7.3.Edit.Profile.Picture.No.Facebook.No.Looks.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2179,12 +2179,6 @@ gtio://edit-my-icon
       - 'edit.profile.pic.fb.png'
       - 31px from left edge of screen
       - 51px from top of table cell
-   - 'my looks'
-      - Verlag Light
-      - 6pt
-      - rgb(143,143,143)
-      - 36px from left edge of screen
-      - baseline is 60px from top of table cell
    - thumbs
       - facebook
          - 25px from left edge of screen
@@ -3454,6 +3448,9 @@ disabled button
 10.4.1 actionsheet: ([wireframe](http://invis.io/F32PNLA5))   
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.C.Default.Webview.Actionsheet.png" width=420px/>
 
+10.4.2 loading fail
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.D.Default.Webview.Error.png" width=420px/>
+
 #### User Flow
 **entry screens:**   
 ([view 10.1](#102-shop-landing-page))   
@@ -3497,6 +3494,11 @@ http://any.random.url/
          - 'webview-button-options.png' with active/inactive/disabled states
          - 17px from right edge of screen
          - 10px from bottom of screen
+- Loading Fail
+   - 'fail.png' vertically and horizontally centered within viewable content area
+      - background is white
+      - tapping anywhere on fail.png retries (not just underlined portion)
+   - no nav bar title
 
 ### 10.5 Shop Browse Products  
 
