@@ -23,6 +23,7 @@
 #import "SSPullToRefresh.h"
 
 static CGFloat const kGTIOMasonGridPadding = 2.0f;
+static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 @interface GTIOExploreLooksViewController () <SSPullToRefreshViewDelegate>
 
@@ -37,6 +38,8 @@ static CGFloat const kGTIOMasonGridPadding = 2.0f;
 @property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
 @property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
 
+@property (nonatomic, strong) UIImageView *emptyImageView;
+
 @end
 
 @implementation GTIOExploreLooksViewController
@@ -46,6 +49,7 @@ static CGFloat const kGTIOMasonGridPadding = 2.0f;
 @synthesize resourcePath = _resourcePath;
 @synthesize masonGridView = _masonGridView;
 @synthesize pullToRefreshView = _pullToRefreshView, pullToRefreshContentView = _pullToRefreshContentView;
+@synthesize emptyImageView = _emptyImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -161,8 +165,9 @@ static CGFloat const kGTIOMasonGridPadding = 2.0f;
                     self.pagination = object;
                 }
             }
-            
-            [self.masonGridView setPosts:self.posts postsType:GTIOPostTypeStar];
+            [self.posts removeAllObjects];
+            [self.masonGridView setPosts:self.posts postsType:GTIOPostTypeNone];
+            [self checkForEmptyState];
             [self.pullToRefreshView finishLoading];
         };
         loader.onDidFailWithError = ^(NSError *error) {
@@ -197,6 +202,8 @@ static CGFloat const kGTIOMasonGridPadding = 2.0f;
             }
             
             [self.segmentedControlView setTabs:self.tabs];
+            [self.masonGridView setPosts:self.posts postsType:GTIOPostTypeNone];
+            [self checkForEmptyState];
             [self.pullToRefreshView finishLoading];
         };
         loader.onDidFailWithError = ^(NSError *error) {
@@ -211,6 +218,21 @@ static CGFloat const kGTIOMasonGridPadding = 2.0f;
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
     [self loadData];
+}
+
+#pragma mark - Empty State
+
+- (void)checkForEmptyState
+{
+    if ([self.posts count] == 0) {
+        if (!self.emptyImageView) {
+            self.emptyImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty.png"]];
+            [self.emptyImageView setFrame:(CGRect){ { (self.view.frame.size.width - self.emptyImageView.image.size.width) / 2, kGTIOEmptyStateTopPadding }, self.emptyImageView.image.size }];
+        }
+        [self.view addSubview:self.emptyImageView];
+    } else {
+        [self.emptyImageView removeFromSuperview];
+    }
 }
 
 @end
