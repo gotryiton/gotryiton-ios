@@ -77,8 +77,6 @@
     self.emptyStateView = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:@"be the first to\nsay something!" userName:nil locked:NO];
     [self.tableFooterView addSubview:self.emptyStateView];
     [self.emptyStateView setCenter:(CGPoint){ self.tableFooterView.bounds.size.width / 2, self.tableFooterView.bounds.size.height / 2 }];
-    
-    [self loadReviews];
 }
 
 - (void)viewDidUnload
@@ -89,10 +87,17 @@
     self.tableViewHeader = nil;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self loadReviews];
+}
+
 - (void)loadReviews
 {    
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"reviews/on/%@", self.postID] usingBlock:^(RKObjectLoader *loader) {
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/reviews/on/%@", self.postID] usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.reviews removeAllObjects];

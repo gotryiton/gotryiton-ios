@@ -9,6 +9,8 @@
 #import "GTIOCommentViewController.h"
 #import "GTIOAutoCompleteView.h"
 #import "GTIOUser.h"
+#import "GTIOReview.h"
+#import "GTIOProgressHUD.h"
 
 @interface GTIOCommentViewController ()
 
@@ -42,6 +44,7 @@
     [self useTitleView:navTitleView];
     
     GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
+        [GTIOProgressHUD hideHUDForView:self.commentInputView.textInput animated:YES];
         [self.navigationController popViewControllerAnimated:YES];
     }];
     self.leftNavigationButton = backButton;
@@ -93,7 +96,9 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    
+    self.commentInputBackgroundImage = nil;
+    self.commentInputView = nil;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -121,13 +126,19 @@
 - (void)postComment
 {
     if ([self.commentInputView processDescriptionString].length>0){
-        
-        //TODO:  add code to submit the comment here!!
-        
+        [GTIOProgressHUD showHUDAddedTo:self.commentInputView.textInput animated:YES];
+        [GTIOReview postReviewComment:[self.commentInputView processDescriptionString] forPostID:self.postID completionHandler:^(NSArray *loadedObjects, NSError *error) {
+            [GTIOProgressHUD hideHUDForView:self.commentInputView.textInput animated:YES];
+            if (!error) {
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"There was an error while posting your comment, please try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                [alert show];
+                [self.commentInputView.textInput becomeFirstResponder];
+                NSLog(@"%@", [error localizedDescription]);
+            }
+        }];
     }
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
