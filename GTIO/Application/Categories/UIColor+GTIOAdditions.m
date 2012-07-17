@@ -35,12 +35,7 @@
     return UIColorFromRGB(0x626262);
 }
 
-+ (UIColor *)gtio_grayTextColor555556
-{
-    return UIColorFromRGB(0x555556);
-}
-
-+ (UIColor *)gtio_grayTextColor
++ (UIColor *)gtio_grayTextColor8F8F8F
 {
     return UIColorFromRGB(0x8F8F8F);
 }
