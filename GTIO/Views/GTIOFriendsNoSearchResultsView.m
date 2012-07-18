@@ -94,7 +94,7 @@
 - (void)styleLabel:(UILabel *)label fontSize:(CGFloat)size
 {
     label.font = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:size];
-    label.textColor = [UIColor gtio_grayTextColor];
+    label.textColor = [UIColor gtio_grayTextColor8F8F8F];
     label.textAlignment = UITextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
 }

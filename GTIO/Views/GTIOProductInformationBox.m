@@ -46,7 +46,7 @@ static CGFloat const kGTIOProductBrandsLabelHeight = 14.0;
         
         _productBrandsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _productBrandsLabel.backgroundColor = [UIColor clearColor];
-        _productBrandsLabel.textColor = [UIColor gtio_grayTextColor];
+        _productBrandsLabel.textColor = [UIColor gtio_grayTextColor8F8F8F];
         _productBrandsLabel.font = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:12.0];
         [self addSubview:_productBrandsLabel];
         

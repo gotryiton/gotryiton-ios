@@ -60,7 +60,7 @@
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         [self.cellAccessoryTextMulti setDelegate:self];
         [self.cellAccessoryTextMulti setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
-        [self.cellAccessoryTextMulti setPlaceholderColor:[UIColor gtio_lightGrayTextColor]];
+        [self.cellAccessoryTextMulti setPlaceholderColor:[UIColor gtio_grayTextColorB3B3B3]];
         [self.cellAccessoryTextMulti setReturnKeyType:UIReturnKeyDone];
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSaveDataMulti:) name:UITextViewTextDidChangeNotification object:self.cellAccessoryTextMulti];

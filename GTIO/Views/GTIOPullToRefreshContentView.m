@@ -32,7 +32,7 @@
         
         _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _statusLabel.backgroundColor = [UIColor clearColor];
-        _statusLabel.textColor = [UIColor gtio_grayTextColor];
+        _statusLabel.textColor = [UIColor gtio_grayTextColor8F8F8F];
         _statusLabel.font = [UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:10.0];
         _statusLabel.textAlignment = UITextAlignmentRight;
         [self addSubview:_statusLabel];
@@ -66,7 +66,7 @@
 - (void)setState:(SSPullToRefreshViewState)state withPullToRefreshView:(SSPullToRefreshView *)view
 {
     self.activityIndicatorView.hidden = YES;
-    self.statusLabel.textColor = [UIColor gtio_grayTextColor];
+    self.statusLabel.textColor = [UIColor gtio_grayTextColor8F8F8F];
     
     switch (state) {
         case SSPullToRefreshViewStateNormal:

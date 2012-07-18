@@ -54,6 +54,8 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @property (nonatomic, copy) NSString *postID;
 @property (nonatomic, copy) NSString *postsResourcePath;
 
+@property (nonatomic, strong) GTIOPost *post;
+
 @end
 
 @implementation GTIOFeedViewController
@@ -63,6 +65,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @synthesize posts = _posts, pagination = _pagination;
 @synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshContentView = _pullToRefreshContentView, pullToRefreshView = _pullToRefreshView;
 @synthesize uploadView = _uploadView, postUpload = _postUpload, postID = _postID, postsResourcePath = _postsResourcePath;
+@synthesize post = _post;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -93,6 +96,17 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     return self;
 }
 
+- (id)initWithPost:(GTIOPost *)post
+{
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        _post = post;
+        
+        [_posts addObject:_post];
+    }
+    return self;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -103,17 +117,25 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [super viewDidLoad];
     
     self.navBarView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
+    
     __block typeof(self) blockSelf = self;
-    [self.navBarView.friendsButton setTapHandler:^(id sender) {
-        GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
-        [blockSelf presentModalViewController:navController animated:YES];
+    
+    if (self.post || [self.postID length] > 0) {
+        // Single post
+        self.navBarView.backButton.tapHandler = ^(id sender) {
+            [self.navigationController popViewControllerAnimated:YES];
+        };
         
-#warning THIS CODE USED FOR TESTING 4.1
-//        GTIOProductViewController *productViewController = [[GTIOProductViewController alloc] initWithProductID:[NSNumber numberWithInt:125]];
-//        [blockSelf.navigationController pushViewController:productViewController animated:YES];
-#warning END TEST CODE
-    }];
+        [self.navBarView.backButton setHidden:NO];
+        [self.navBarView.friendsButton setHidden:YES];
+    } else {
+        // Normal Feed
+        [self.navBarView.friendsButton setTapHandler:^(id sender) {
+            GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
+            [blockSelf presentModalViewController:navController animated:YES];
+        }];
+    }
     self.navBarView.titleView.tapHandler = ^(void) {
         GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
@@ -136,6 +158,8 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
 
     self.uploadView = [[GTIOPostUploadView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight } }];
+    
+    [self.pullToRefreshView startLoading];
 }
 
 - (void)viewDidUnload
@@ -149,7 +173,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [self.pullToRefreshView startLoading];
+    [self showStatusBarBackgroundWithoutNavigationBar];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -161,16 +185,18 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
-    if (self.postID) {
-        self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
-        self.navBarView.backButton.tapHandler = ^(id sender) {
-            [self.navigationController popViewControllerAnimated:YES];
-        };
-        self.navBarView.backButton.hidden = NO;
+    if (self.post) {
+        // Inited w/ post. No need to hit endpoint
+        [self.tableView reloadData];
+        [self.pullToRefreshView finishLoading];
     } else {
-        self.postsResourcePath = @"/posts/feed";
+        if (self.postID) {
+            self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
+        } else {
+            self.postsResourcePath = @"/posts/feed";
+        }
+        [self loadFeed];
     }
-    [self loadFeed];
 }
 
 #pragma mark - Load Data

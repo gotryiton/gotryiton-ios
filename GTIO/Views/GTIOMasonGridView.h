@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "GTIOPost.h"
 #import "GTIOMasonGridItem.h"
+#import "GTIOMasonGridItemWithFrameView.h"
 
 @interface GTIOMasonGridView : UIScrollView <GTIOMasonGridItemDelegate>
+
+@property (nonatomic, assign) CGFloat padding;
+@property (nonatomic, copy) GTIOMasonGridItemTapHandler gridItemTapHandler;
 
 - (void)setPosts:(NSArray *)posts postsType:(GTIOPostType)postsType;
 - (void)cancelAllItemDownloads;

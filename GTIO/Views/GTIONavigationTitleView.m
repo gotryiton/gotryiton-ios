@@ -28,7 +28,7 @@
         _italic = italic;
         
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [_titleLabel setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
+        [_titleLabel setTextColor:[UIColor gtio_grayTextColor515152]];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_titleLabel];
         [self refreshView];

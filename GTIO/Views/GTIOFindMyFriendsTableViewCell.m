@@ -41,7 +41,7 @@
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:16.0];
-        _nameLabel.textColor = [UIColor gtio_grayTextColor];
+        _nameLabel.textColor = [UIColor gtio_grayTextColor8F8F8F];
         _nameLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_nameLabel];
         

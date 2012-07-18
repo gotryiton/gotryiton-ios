@@ -52,7 +52,7 @@ static CGFloat const kGTIODividerPadding = 50.0f;
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLightItal size:16.0f]];
         [titleLabel setText:@"use this photo?"];
-        [titleLabel setTextColor:[UIColor gtio_grayTextColor]];
+        [titleLabel setTextColor:[UIColor gtio_grayTextColor8F8F8F]];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [titleLabel sizeToFit];
         [titleLabel setFrame:(CGRect){ { (self.frame.size.width - titleLabel.frame.size.width) / 2, 18 }, titleLabel.frame.size }];

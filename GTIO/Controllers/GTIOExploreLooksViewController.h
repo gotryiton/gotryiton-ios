@@ -6,8 +6,10 @@
 //  Copyright (c) 2012 . All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GTIOViewController.h"
 
-@interface GTIOExploreLooksViewController : UIViewController
+@interface GTIOExploreLooksViewController : GTIOViewController
+
+@property (nonatomic, copy) NSString *resourcePath;
 
 @end

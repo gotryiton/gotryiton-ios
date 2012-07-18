@@ -35,7 +35,7 @@
         
         _followingFriendsLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         _followingFriendsLabel.backgroundColor = [UIColor clearColor];
-        _followingFriendsLabel.textColor = [UIColor gtio_grayTextColor];
+        _followingFriendsLabel.textColor = [UIColor gtio_grayTextColor8F8F8F];
         _followingFriendsLabel.font = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0];
         _followingFriendsLabel.shadowColor = [UIColor whiteColor];
         _followingFriendsLabel.shadowOffset = (CGSize){ 0, 1 };
@@ -55,7 +55,7 @@
             if ([view isKindOfClass:NSClassFromString(@"UITextField")]) {
                 UITextField *textField = (UITextField *)view;
                 [textField setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.0]];
-                [textField setTextColor:[UIColor gtio_grayTextColor]];
+                [textField setTextColor:[UIColor gtio_grayTextColor8F8F8F]];
             }
         }
 

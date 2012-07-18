@@ -189,7 +189,7 @@
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.active.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateHighlighted];
     [button setTitle:text forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor gtio_grayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor8F8F8F] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:11.0]];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(5.0, 1.0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -328,7 +328,7 @@
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-disabled.png"] forState:UIControlStateDisabled];
     [button setFrame:(CGRect){ 0, 0, [UIImage imageNamed:@"follow-button-off.png"].size }];
     [button.titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:18.0]];
-    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(7.0, 0, 0, 0)];
     [button setTitle:@"follow" forState:UIControlStateDisabled];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -362,7 +362,7 @@
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"profile.top.link.bg.png"] stretchableImageWithLeftCapWidth:2.0 topCapHeight:0.0] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
-    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
@@ -373,7 +373,7 @@
     [button setBackgroundImage:[UIImage imageNamed:@"follow-OFF-top-margin.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"follow-ON-top-margin.png"] forState:UIControlStateHighlighted];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"follow" forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -387,7 +387,7 @@
     [button setBackgroundImage:[UIImage imageNamed:@"following-OFF-top-margin.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"following-ON-top-margin.png"] forState:UIControlStateHighlighted];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"following" forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -428,7 +428,7 @@
     [button setBackgroundImage:[UIImage imageNamed:@"requested-OFF-top-margin.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"requested-ON-top-margin.png"] forState:UIControlStateHighlighted];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"requested" forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];

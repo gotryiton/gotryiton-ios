@@ -17,7 +17,7 @@
 
 + (UIColor *)gtio_signInColor
 {
-    return [self gtio_grayTextColor];
+    return [self gtio_grayTextColor8F8F8F];
 }
 
 + (UIColor *)gtio_toolbarBGColor
@@ -25,7 +25,7 @@
     return UIColorFromRGB(0xF0F0F0);
 }
 
-+ (UIColor *)gtio_lightGrayBorderColor
++ (UIColor *)gtio_grayBorderColorE6E6E6
 {
     return UIColorFromRGB(0xE6E6E6);
 }
@@ -35,12 +35,7 @@
     return UIColorFromRGB(0x626262);
 }
 
-+ (UIColor *)gtio_grayTextColor555556
-{
-    return UIColorFromRGB(0x555556);
-}
-
-+ (UIColor *)gtio_grayTextColor
++ (UIColor *)gtio_grayTextColor8F8F8F
 {
     return UIColorFromRGB(0x8F8F8F);
 }
@@ -50,12 +45,12 @@
     return UIColorFromRGB(0x9C9C9C);
 }
 
-+ (UIColor *)gtio_reallyDarkGrayTextColor
++ (UIColor *)gtio_grayTextColor515152
 {
     return UIColorFromRGB(0x515152);
 }
 
-+ (UIColor *)gtio_darkGray3TextColor 
++ (UIColor *)gtio_grayTextColor232323 
 {
     return UIColorFromRGB(0x232323);
 }
@@ -100,7 +95,7 @@
     return UIColorFromRGB(0x5EE4B7);
 }
 
-+ (UIColor *)gtio_lightGrayTextColor
++ (UIColor *)gtio_grayTextColorB3B3B3
 {
     return UIColorFromRGB(0xB3B3B3);
 }
@@ -110,7 +105,7 @@
     return UIColorFromRGB(0xD9D7CE);
 }
 
-+ (UIColor *)gtio_lightestGrayTextColor
++ (UIColor *)gtio_grayTextColorDADADA
 {
     return UIColorFromRGB(0xDADADA);
 }
@@ -147,7 +142,7 @@
 
 + (UIColor *)gtio_postReviewCountButtonTextColor
 {
-    // R: 143, G: 204, B: 177
+    // RGB: (143, 204, 177)
     return UIColorFromRGB(0x8FCCB1);
 }
 
@@ -159,6 +154,18 @@
 + (UIColor *)gtio_friendsGreenCellColor
 {
     return UIColorFromRGB(0xEBF2EF);
+}
+
++ (UIColor *)gtio_grayTextColor878787
+{
+    // RGB: (135, 135, 135)
+    return UIColorFromRGB(0x878787);
+}
+
++ (UIColor *)gtio_grayTextColor555556
+{
+    // RGB: (85, 85, 86)
+    return UIColorFromRGB(0x555556);
 }
 
 @end
