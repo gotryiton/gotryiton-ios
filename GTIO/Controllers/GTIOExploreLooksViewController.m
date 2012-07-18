@@ -125,7 +125,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)setResourcePath:(NSString *)resourcePath
 {
-    _resourcePath = resourcePath;
+    _resourcePath = [resourcePath copy];
     [self loadTabsAndData];
     GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -188,7 +188,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadDataWithResourcePath:(NSString *)resourcePath
 {
-    _resourcePath = resourcePath;
+    _resourcePath = [resourcePath copy];
     [self loadData];
 }
 
