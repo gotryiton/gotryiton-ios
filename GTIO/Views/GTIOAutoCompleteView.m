@@ -63,6 +63,7 @@
         _textInput.backgroundColor = [UIColor clearColor];
         _textInput.contentInset =  UIEdgeInsetsMake(-10,-8,0,0);
         _textInput.autocorrectionType = UITextAutocorrectionTypeNo;
+        _textInput.keyboardType = UIKeyboardTypeASCIICapable;
         _textInput.scrollEnabled = NO;
         [_textInput setDelegate:self];
         [_textInput setFont: [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.f]];
