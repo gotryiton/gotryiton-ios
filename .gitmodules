@@ -13,12 +13,12 @@
 [submodule "Libraries/MBProgressHUD"]
 	path = Libraries/MBProgressHUD
 	url = https://github.com/jdg/MBProgressHUD.git
-[submodule "Libraries/janrain"]
-	path = Libraries/janrain
-	url = git@github.com:twotoasters/engage.iphone.git
 [submodule "Libraries/DTCoreText"]
 	path = Libraries/DTCoreText
 	url = https://github.com/Cocoanetics/DTCoreText.git
 [submodule "Libraries/sspulltorefresh"]
 	path = Libraries/sspulltorefresh
 	url = git://github.com/samsoffes/sspulltorefresh.git
+[submodule "Libraries/Janrain"]
+	path = Libraries/Janrain
+	url = https://github.com/twotoasters/engage.iphone.git

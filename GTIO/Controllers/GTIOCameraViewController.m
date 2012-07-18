@@ -11,6 +11,7 @@
 #import "GTIOCameraToolbarView.h"
 #import "GTIOPhotoShootProgressToolbarView.h"
 #import "GTIOPhotoShootTimerView.h"
+#import "GTIOPopOverView.h"
 
 #import "GTIOConfig.h"
 #import "GTIOConfigManager.h"
@@ -27,6 +28,13 @@
 NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotification";
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
+static CGFloat const kGTIOSourcePopOverXOriginPadding = 4.0f;
+static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
+static CGFloat const kGTIOPhotoShootModePopOverXOriginPadding = 25.5f;
+static CGFloat const kGTIOPhotoShootModePopOverYOriginPadding = 30.0f;
+
+NSString * const kGTIOPhotoShootModeCountUserDefaults = @"GTIOPhotoShootModeCountUserDefaults";
+static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 
 @interface GTIOCameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -41,8 +49,13 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
 @property (nonatomic, strong) UIImageView *focusImageView;
+@property (nonatomic, strong) GTIOPopOverView *sourcePopOverView;
+@property (nonatomic, strong) UIImageView *photoShootPopOverView;
 
 @property (nonatomic, assign) NSInteger capturedImageCount;
+@property (nonatomic, assign) NSInteger photoShootModeCount;
+@property (nonatomic, assign, getter = isPhotoShootModeFirstToggle) BOOL photoShootModeFirstToggle;
+@property (nonatomic, assign, getter = isForcePhotoShootModeButtonToggle) BOOL forcePhotoShootModeButtonToggle;
 
 @property (nonatomic, assign) NSInteger startingPhotoCount;
 @property (nonatomic, strong) NSTimer *imageWaitTimer;
@@ -58,7 +71,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @implementation GTIOCameraViewController
 
 @synthesize captureSession = _captureSession, stillImageOutput = _stillImageOutput, captureVideoPreviewLayer = _captureVideoPreviewLayer, captureDevice = _captureDevice;
-@synthesize photoToolbarView = _photoToolbarView, photoShootProgresToolbarView = _photoShootProgresToolbarView, photoShootTimerView = _photoShootTimerView;
+@synthesize photoToolbarView = _photoToolbarView, photoShootProgresToolbarView = _photoShootProgresToolbarView, photoShootTimerView = _photoShootTimerView, sourcePopOverView = _sourcePopOverView, photoShootPopOverView = _photoShootPopOverView;
 @synthesize flashButton = _flashButton;
 @synthesize flashOn = _flashOn, shutterFlashOverlay = _shutterFlashOverlay;
 @synthesize dismissHandler = _dismissHandler;
@@ -69,6 +82,9 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 @synthesize postALookViewController = _postALookViewController;
 @synthesize shootingPhotoShoot = _shootingPhotoShoot;
 @synthesize focusImageView = _focusImageView;
+@synthesize photoShootModeCount = _photoShootModeCount;
+@synthesize photoShootModeFirstToggle = _photoShootModeFirstToggle;
+@synthesize forcePhotoShootModeButtonToggle = _forcePhotoShootModeButtonToggle;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -113,6 +129,9 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         
         // Load the filters so they are ready to go
         [GTIOFilterManager sharedManager];
+        
+        _photoShootModeCount = [[[NSUserDefaults standardUserDefaults] objectForKey:kGTIOPhotoShootModeCountUserDefaults] integerValue];
+        _photoShootModeFirstToggle = YES;
     }
     return self;
 }
@@ -162,10 +181,26 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [self.view addSubview:self.flashButton];
     }
     
+    // Photo Shoot Pop Over
+    self.photoShootPopOverView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photoshoot-info-callout.png"]];
+    
     // Photo Shoot Toolbar
     self.photoShootProgresToolbarView = [[GTIOPhotoShootProgressToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
     [self.photoShootProgresToolbarView setAlpha:0.0f];
     [self.view addSubview:self.photoShootProgresToolbarView];
+    
+    // Source Pop Over View
+    self.sourcePopOverView = [GTIOPopOverView cameraSourcesPopOverView];
+    [self.sourcePopOverView setFrame:(CGRect){ { kGTIOSourcePopOverXOriginPadding, self.view.frame.size.height - self.sourcePopOverView.frame.size.height - kGTIOSourcePopOverYOriginPadding }, self.sourcePopOverView.frame.size }];
+    [self.sourcePopOverView setTapHandler:^(GTIOButton *buttonModel) {
+        if ([buttonModel.action.destination isEqualToString:@"gtio://camera-roll"] && 
+            [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+            
+            [blockSelf presentViewController:self.imagePickerController animated:YES completion:nil];
+        } else {
+            // TODO: Handle hearted and popular products
+        }
+    }];
     
     // Toolbar
     self.photoToolbarView = [[GTIOCameraToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
@@ -174,29 +209,35 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
             blockSelf.dismissHandler(blockSelf);
         }
     }];
-    [self.photoToolbarView.shutterButton setTapHandler:^(id sender) {
-        if (self.photoToolbarView.photoModeSwitch.isOn) {
+    [self.photoToolbarView.shutterButton setShutterButtonTapHandler:^(id sender) {
+        if (self.photoToolbarView.shutterButton.isPhotoShootMode) {
             [blockSelf photoShootModeButtonPress];
         } else {
             [blockSelf singleModeButtonPress];
         }
     }];
-    [self.photoToolbarView.photoPickerButton setTapHandler:^(id sender) {
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-            [blockSelf presentViewController:self.imagePickerController animated:YES completion:nil];
+    [self.photoToolbarView.photoSourceButton setTapHandler:^(id sender) {
+        if ([self.sourcePopOverView isDescendantOfView:self.view]) {
+            [self.sourcePopOverView removeFromSuperview];
+        } else {
+            [self.view addSubview:self.sourcePopOverView];
         }
     }];
     [self.photoToolbarView.photoShootGridButton setTapHandler:^(id sender){
         GTIOPhotoShootGridViewController *photoShootGridViewController = [[GTIOPhotoShootGridViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:photoShootGridViewController animated:YES];
     }];
-    [self.photoToolbarView setPhotoModeSwitchChangedHandler:^(BOOL on) {
+    [self.photoToolbarView.shutterButton setPhotoModeSwitchChangedHandler:^(BOOL on) {
         [blockSelf showFlashButton:!on];
         
         NSError *error;
         if ([self.captureDevice lockForConfiguration:&error]) {
             [self.captureDevice setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
             [self.captureDevice unlockForConfiguration];
+        }
+        
+        if (!blockSelf.isForcePhotoShootModeButtonToggle) {
+            [blockSelf showPhotoShootModePopOverView];
         }
     }];
     [self.view addSubview:self.photoToolbarView];
@@ -231,12 +272,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     self.captureVideoPreviewLayer = nil;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    NSLog(@"Warning on camera view");
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -246,6 +281,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    self.photoShootModeFirstToggle = YES;
     
     double delayInSeconds = 0.1f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -281,11 +318,19 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 - (void)photoAcceptedNotification:(NSNotification *)notification
 {
-    UIImage *photo = [notification.userInfo objectForKey:@"photo"];
+    UIImage *originalPhoto = [notification.userInfo objectForKey:@"originalPhoto"];
+    UIImage *filteredPhoto = [notification.userInfo objectForKey:@"filteredPhoto"];
+#warning How should we handle filter type if multiple photos?
     GTIOFilterType filterType = [[notification.userInfo objectForKey:@"filterType"] integerValue];
     
-    if (photo) {
-        [self.postALookViewController setMainImage:photo];
+    if (filteredPhoto) {
+        [self.postALookViewController setOriginalImage:originalPhoto filteredImage:filteredPhoto filterName:GTIOFilterTypeName[filterType]];
+    }
+    
+    if ([self.navigationController.viewControllers containsObject:self.postALookViewController]) {
+        // Pop filter view controller
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
         [self.navigationController pushViewController:self.postALookViewController animated:YES];
     }
 }
@@ -304,7 +349,12 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }
     
     [self.photoToolbarView enableAllButtons:YES];
-    [self showFlashButton:![self.photoToolbarView.photoModeSwitch isOn]];
+    [self showFlashButton:!self.photoToolbarView.shutterButton.isPhotoShootMode];
+    [self.sourcePopOverView removeFromSuperview];
+    
+    self.forcePhotoShootModeButtonToggle = YES;
+    [self.photoToolbarView.shutterButton setPhotoShootMode:NO];
+    self.forcePhotoShootModeButtonToggle = NO;
 }
 
 #pragma mark - View Animations
@@ -320,6 +370,27 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     }];
 }
 
+- (void)showPhotoShootModePopOverView
+{
+    if (self.isPhotoShootModeFirstToggle && 
+        self.photoShootModeCount < kGTIOShowPhotoShootModeHelperCount) {
+        
+        self.photoShootModeFirstToggle = NO;
+        self.photoShootModeCount++;
+        
+        [self.photoShootPopOverView setAlpha:1.0f];
+        [self.photoShootPopOverView setFrame:(CGRect){ { self.view.frame.size.width - self.photoShootPopOverView.image.size.width - kGTIOPhotoShootModePopOverXOriginPadding, self.view.frame.size.height - self.photoShootPopOverView.image.size.height - kGTIOPhotoShootModePopOverYOriginPadding }, self.photoShootPopOverView.image.size }];
+        [self.view addSubview:self.photoShootPopOverView];
+        
+        [UIView animateWithDuration:1.5f delay:0.25f options:0 animations:^{
+            [self.photoShootPopOverView setFrame:CGRectOffset(self.photoShootPopOverView.frame, 0, -24.0f)];
+            [self.photoShootPopOverView setAlpha:0.0f];
+        } completion:^(BOOL finished) {
+            [self.photoShootPopOverView removeFromSuperview];
+        }];
+    }
+}
+
 #pragma mark - Property
 
 - (void)setFlashOn:(BOOL)flashOn
@@ -331,6 +402,14 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         imageName = @"upload.flash-ON.png";
     }
     [self.flashButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+}
+
+- (void)setPhotoShootModeCount:(NSInteger)photoShootModeCount
+{
+    _photoShootModeCount = photoShootModeCount;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:photoShootModeCount] forKey:kGTIOPhotoShootModeCountUserDefaults];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Capture Image
@@ -515,7 +594,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 - (void)openPhotoConfirmationScreenWithPhoto:(UIImage *)photo
 {
     GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
-    [photoConfirmationViewController setPhoto:photo];
+    [photoConfirmationViewController setOriginalPhoto:photo];
     [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
 }
 
@@ -523,14 +602,20 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    CGRect flashButtonTouchRect = (CGRect){ 0, 0, self.flashButton.frame.origin.x * 2 + self.flashButton.frame.size.width, (self.flashButton.frame.origin.y - 20) * 2 + self.flashButton.frame.size.height };
+    CGRect flashButtonTouchRect = (CGRect){ 0, 0, self.flashButton.frame.origin.x * 2 + self.flashButton.frame.size.width, (self.flashButton.frame.origin.y - 10) * 2 + self.flashButton.frame.size.height };
     
     if ([self.captureVideoPreviewLayer containsPoint:[touch locationInView:self.view]] && 
-        ![self.photoToolbarView.photoModeSwitch isOn]  &&
-        !CGRectContainsPoint(flashButtonTouchRect, [touch locationInView:self.view])) {
-        
+        !self.photoToolbarView.shutterButton.isPhotoShootMode  &&
+        !CGRectContainsPoint(flashButtonTouchRect, [touch locationInView:self.view]) &&
+        !CGRectContainsPoint(self.sourcePopOverView.frame, [touch locationInView:self.view])) {
+        [self.sourcePopOverView removeFromSuperview];
         return YES;
+    } else if (CGRectContainsPoint(self.sourcePopOverView.frame, [touch locationInView:self.view]) ||
+               CGRectContainsPoint(self.photoToolbarView.photoSourceButton.frame, [touch locationInView:self.photoToolbarView])) {
+        // Touched on Source Pop Over or source pop over button 
+        return NO;
     } else {
+        [self.sourcePopOverView removeFromSuperview];
         return NO;
     }
 }

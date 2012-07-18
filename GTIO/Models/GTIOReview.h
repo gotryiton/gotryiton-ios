@@ -17,4 +17,6 @@
 @property (nonatomic, copy) NSString *createdWhen;
 @property (nonatomic, strong) NSArray *buttons;
 
++ (void)postReviewComment:(NSString *)reviewComment forPostID:(NSString *)postID completionHandler:(GTIOCompletionHandler)completionHandler;
+
 @end

@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) GTIONavigationNotificationTitleView *titleView;
 @property (nonatomic, strong) GTIOUIButton *friendsButton;
+@property (nonatomic, strong) GTIOUIButton *backButton;
 
 @end

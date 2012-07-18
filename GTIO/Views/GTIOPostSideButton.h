@@ -9,14 +9,14 @@
 #import "GTIOUIButton.h"
 
 typedef enum GTIOPostSideButtonType {
-    GTIOPostSideButtonTypeDotDotDot = 0,
+    GTIOPostSideButtonTypeEllipsis = 0,
     GTIOPostSideButtonTypeShopping,
     GTIOPostSideButtonTypeReview,
 } GTIOPostSideButtonType;
 
 static NSString * const GTIOPostSideButtonTypeName[] = {
     [GTIOPostSideButtonTypeReview] = @"review",
-    [GTIOPostSideButtonTypeDotDotDot] = @"dot",
+    [GTIOPostSideButtonTypeEllipsis] = @"dot",
     [GTIOPostSideButtonTypeShopping] = @"shopbag"
 };
 

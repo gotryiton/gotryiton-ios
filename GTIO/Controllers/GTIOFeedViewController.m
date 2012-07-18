@@ -13,7 +13,6 @@
 #import "GTIOPostManager.h"
 #import "GTIORouter.h"
 
-#import "GTIOPost.h"
 #import "GTIOPagination.h"
 #import "GTIOPostUpload.h"
 
@@ -27,6 +26,9 @@
 #import "GTIOPullToRefreshContentView.h"
 
 #import "GTIOReviewsViewController.h"
+#import "GTIONotificationsViewController.h"
+
+#import "GTIOProductViewController.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
@@ -49,6 +51,9 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
 @property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
 
+@property (nonatomic, copy) NSString *postID;
+@property (nonatomic, copy) NSString *postsResourcePath;
+
 @end
 
 @implementation GTIOFeedViewController
@@ -57,7 +62,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @synthesize addNavToHeaderOffsetXOrigin = _addNavToHeaderOffsetXOrigin, removeNavToHeaderOffsetXOrigin = _removeNavToHeaderOffsetXOrigin;
 @synthesize posts = _posts, pagination = _pagination;
 @synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshContentView = _pullToRefreshContentView, pullToRefreshView = _pullToRefreshView;
-@synthesize uploadView = _uploadView, postUpload = _postUpload;
+@synthesize uploadView = _uploadView, postUpload = _postUpload, postID = _postID, postsResourcePath = _postsResourcePath;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -79,26 +84,23 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     return self;
 }
 
+- (id)initWithPostID:(NSString *)postID
+{
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        _postID = postID;
+    }
+    return self;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)loadView
-{
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
-    
-    UIImageView *statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, -20 }, { self.view.frame.size.width, 20 } }];
-    [statusBarBackgroundImageView setImage:[UIImage imageNamed:@"status-bar-bg.png"]];
-    [self.view addSubview:statusBarBackgroundImageView];
     
     self.navBarView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
     __block typeof(self) blockSelf = self;
@@ -106,7 +108,17 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
         [blockSelf presentModalViewController:navController animated:YES];
+        
+#warning THIS CODE USED FOR TESTING 4.1
+//        GTIOProductViewController *productViewController = [[GTIOProductViewController alloc] initWithProductID:[NSNumber numberWithInt:125]];
+//        [blockSelf.navigationController pushViewController:productViewController animated:YES];
+#warning END TEST CODE
     }];
+    self.navBarView.titleView.tapHandler = ^(void) {
+        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
+        [blockSelf presentModalViewController:navigationController animated:YES];
+    };
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
@@ -149,6 +161,15 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
+    if (self.postID) {
+        self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
+        self.navBarView.backButton.tapHandler = ^(id sender) {
+            [self.navigationController popViewControllerAnimated:YES];
+        };
+        self.navBarView.backButton.hidden = NO;
+    } else {
+        self.postsResourcePath = @"/posts/feed";
+    }
     [self loadFeed];
 }
 
@@ -156,7 +177,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 - (void)loadFeed
 {
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/posts/feed" usingBlock:^(RKObjectLoader *loader) {
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.postsResourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];

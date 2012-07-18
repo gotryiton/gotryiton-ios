@@ -1,3 +1,117 @@
+***Tuesday, July 17th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Investigate whether or not we need Janrain UI views in GTIO Repository
+- TT - Issue build with bug fixes per Simon's request
+- TT - Resolve Testflight issues brought up by GTIO for test distrobution
+- TT - Autocomplete code needs to be reviewed and merged in (this is priority)
+
+**Status**
+- Wrapped up 9.x screens and updates to mason grid
+- Resolved critical bugs requested by Simon
+- Proceeding with Product page
+- Auto Complete
+ - Simon's code needs code review
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Monday, July 16th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Fix any bugs identified as P0 by GTIO, rest of bugs can be put on hold. Important bugs will be tagged as Immediate Fix
+- GTIO - Update screens / priority listing
+
+**Status**
+- Wrapping up 9.x screens today
+- Work on bugs/feedback from latest build
+- Begin working on Product pages (main focus for Geoff this week)
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Friday, July 13th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Release build today
+- TT - Review latest pull reuqest of Simons
+
+**Status**
+- Fixed some bugs
+- Notifications screen wrapping up
+- All the web views are almost finished
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Release build today
+
+**General Notes**
+- NA
+
+---
+
+***Thursday, July 12th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Releasing build with latest dev
+- TT - Review latest pull reuqest for functional spec updates by GTIO
+
+**Status**
+- Compositing images is finished.
+- using scroll views to handle image scaling in Post view finished.
+- Starting work on web view pages
+- Finished notifications
+- stars and hearts on mason grid
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Wednesday, July 11th - Standup Notes***
 
 **Attendees**

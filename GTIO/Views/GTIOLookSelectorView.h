@@ -10,22 +10,28 @@
 
 #import "GTIOTakePhotoView.h"
 
+static CGFloat const kGTIOLookSelectorViewMinHeight = 249.0f;
+static CGFloat const kGTIOLookSelectorViewMaxHeight = 324.0f;
+
 @interface GTIOLookSelectorView : UIView <GTIOLookSelectorControlDelegate>
 
 @property (nonatomic, assign) CGSize photoCanvasSize;
-@property (nonatomic, assign) BOOL photoSet;
+@property (nonatomic, assign, getter = isPhotoSet) BOOL photoSet;
 
 @property (nonatomic, strong) GTIOTakePhotoView *singlePhotoView;
 
-@property (nonatomic, strong) GTIOTakePhotoView *tallLeftPhoto;
-@property (nonatomic, strong) GTIOTakePhotoView *tallRightPhoto;
-@property (nonatomic, strong) GTIOTakePhotoView *smallRightPhoto;
+@property (nonatomic, strong) GTIOTakePhotoView *mainPhotoView;
+@property (nonatomic, strong) GTIOTakePhotoView *topPhotoView;
+@property (nonatomic, strong) GTIOTakePhotoView *bottomPhotoView;
 
 @property (nonatomic, copy) GTIOLaunchCameraHandler launchCameraHandler;
+@property (nonatomic, copy) GTIOAddFilterHandler addFilterHandler;
 
 - (id)initWithFrame:(CGRect)frame photoSet:(BOOL)photoSet launchCameraHandler:(GTIOLaunchCameraHandler)launchCameraHandler;
-- (void)hideDeleteButtons:(BOOL)hidden;
+- (void)hideEditPhotoButtons:(BOOL)hidden;
 - (BOOL)selectionsComplete;
-- (UIView *)compositeCanvas;
+- (UIImage *)compositeImage;
+
+- (void)reset;
 
 @end

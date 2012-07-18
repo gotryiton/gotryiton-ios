@@ -9,10 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "GTIOViewController.h"
 
+typedef enum GTIOPostPhotoSection {
+    GTIOPostPhotoSectionMain = 1,
+    GTIOPostPhotoSectionTop,
+    GTIOPostPhotoSectionBottom
+} GTIOPostPhotoSection;
+
 @interface GTIOPostALookViewController : GTIOViewController <UIAlertViewDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIImage *mainImage;
-@property (nonatomic, strong) UIImage *secondImage;
-@property (nonatomic, strong) UIImage *thirdImage;
+@property (nonatomic, assign) GTIOPostPhotoSection currentSection;
+
+- (void)setOriginalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName;
 
 @end

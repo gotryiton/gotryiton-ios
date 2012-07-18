@@ -12,7 +12,7 @@
 
 @synthesize buttonModel = _buttonModel;
 
-+ (id)gtio_popOverButtonWithPosition:(GTIOPopOverButtonPosition)position
++ (id)gtio_popOverButtonWithButtonType:(GTIOPopOverButtonType)buttonType position:(GTIOPopOverButtonPosition)position 
 {
     GTIOPopOverButton *uiButton = [self buttonWithType:UIButtonTypeCustom];
     [uiButton setTitleColor:[UIColor gtio_grayTextColor585858] forState:UIControlStateNormal];
@@ -35,8 +35,8 @@
     }
     [uiButton setTitleEdgeInsets:titleEdgeInsets];
     
-    [uiButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"dot-menu-%@-inactive.png", GTIOPopOverButtonPositionButtonName[position]]] forState:UIControlStateNormal];
-    [uiButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"dot-menu-%@-active.png", GTIOPopOverButtonPositionButtonName[position]]] forState:UIControlStateHighlighted];
+    [uiButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@-inactive.png", GTIOPopOverButtonTypeImagePrefix[buttonType], GTIOPopOverButtonPositionButtonName[position]]] forState:UIControlStateNormal];
+    [uiButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@-active.png", GTIOPopOverButtonTypeImagePrefix[buttonType], GTIOPopOverButtonPositionButtonName[position]]] forState:UIControlStateHighlighted];
     [uiButton addTarget:uiButton action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [uiButton setFrame:(CGRect){ CGPointZero, [uiButton backgroundImageForState:UIControlStateNormal].size }];
     return uiButton;

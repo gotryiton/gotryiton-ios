@@ -65,7 +65,7 @@ NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 
 NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
 NSString * const kGTIOPostFeedOpenLinkNotification = @"kGTIOPostFeedOpenLinkNotification";
-NSString * const kGTIODismissDotDotDotPopOverViewNotification = @"kGTIODismissDotDotDotPopOverViewNotification";
+NSString * const kGTIODismissEllipsisPopOverViewNotification = @"kGTIODismissEllipsisPopOverViewNotification";
  
 NSString * const kGTIOURL = @"kGTIOURL";
 
@@ -85,6 +85,11 @@ NSString * const kGTIOFindFriendsButtonName = @"find-friends-button";
 NSString * const kGTIOReviewAgreeButton = @"review-agree-button";
 NSString * const kGTIOReviewFlagButton = @"review-flag-button";
 NSString * const kGTIOReviewRemoveButton = @"review-delete-button";
+NSString * const kGTIOProductWhoHeartedButton = @"product-who-hearted-button";
+NSString * const kGTIOProductHeartButton = @"product-heart-button";
+NSString * const kGTIOProductShoppingListButton = @"product-shopping-list-button";
+
+NSTimeInterval const kGTIOWebViewTimeout = 10.0f;
 
 int const kGTIOEmptyPostAlertTag = 0;
 int const kGTIOEmptyDescriptionAlertTag = 1;

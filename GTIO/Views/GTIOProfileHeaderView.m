@@ -91,7 +91,6 @@
         [self.banner setFrame:(CGRect){ 0, 0, self.bounds.size.width, self.banner.bounds.size.height }];
     }
     
-    // waiting for API to be fixed to do this logic correctly
     if (self.userProfile.acceptBar) {
         [self.followRequestAcceptBarView setFrame:(CGRect){ 0, 0, self.bounds.size.width, 32 }];
     } else {
@@ -100,7 +99,10 @@
     [self.basicUserInfoView setFrame:(CGRect){ 0, self.followRequestAcceptBarView.frame.origin.y + self.followRequestAcceptBarView.bounds.size.height, self.bounds.size.width, 72 }];
     [self.profileDescription sizeToFit];
     [self.profileDescription setFrame:(CGRect){ 12, self.basicUserInfoView.frame.origin.y + self.basicUserInfoView.bounds.size.height, self.bounds.size.width - 24, (self.userProfile.user.aboutMe.length > 0) ? self.profileDescription.bounds.size.height : 0 }];
-    [self.websiteLinkButton setFrame:(CGRect){ 8, self.profileDescription.frame.origin.y + self.profileDescription.bounds.size.height + ((self.websiteLinkButton.titleLabel.text.length > 0) ? 3 : 0), self.bounds.size.width - 16, (self.websiteLinkButton.titleLabel.text.length > 0) ? 24 : 0 }];
+    
+
+    NSString *buttonTitle = [self.websiteLinkButton titleForState:UIControlStateNormal];    
+    [self.websiteLinkButton setFrame:(CGRect){ 8, self.profileDescription.frame.origin.y + self.profileDescription.bounds.size.height + ((buttonTitle.length > 0) ? 3 : 0), self.bounds.size.width - 16, (buttonTitle.length > 0) ? 24 : 0 }];
     
     double profileCalloutsYPosition = self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + 5;
     double profileCalloutsHeight = 11.0;
@@ -114,7 +116,7 @@
     if (lastProfileCalloutView) {
         [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, lastProfileCalloutView.frame.origin.y + lastProfileCalloutView.bounds.size.height + 10 }];
     } else {
-        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((self.websiteLinkButton.titleLabel.text.length > 0 || self.profileDescription.text.length > 0) ? 10 : 0) }];
+        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((buttonTitle.length > 0 || self.profileDescription.text.length > 0) ? 10 : 0) }];
     }
     [self setFrame:(CGRect){ self.frame.origin, self.bounds.size.width, self.basicUserInfoBackgroundImageView.bounds.size.height }];
     
@@ -152,7 +154,8 @@
             }];
         }
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameWebsite]) {
-            [self.websiteLinkButton setTitle:[button.text uppercaseString] forState:UIControlStateNormal];
+            NSString *buttonText = [button.text uppercaseString];
+            [self.websiteLinkButton setTitle:buttonText forState:UIControlStateNormal];
             [self.websiteLinkButton setTapHandler:^(id sender) {
                 [blockSelf openURLWithSafari:button.action.destination];
             }];
@@ -162,7 +165,7 @@
     [self.basicUserInfoView setUserInfoButtons:self.userProfile.userInfoButtons];
     if (self.userProfile.settingsButtons.count > 0) {
         [self.basicUserInfoView setEditButtonTapHandler:^(id sender) {
-            self.actionSheet = [[GTIOActionSheet alloc] initWithButtons:self.userProfile.settingsButtons];
+            self.actionSheet = [[GTIOActionSheet alloc] initWithButtons:self.userProfile.settingsButtons buttonTapHandler:nil];
             [self.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
                 actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
                     if (!actionSheet.wasCancelled) {

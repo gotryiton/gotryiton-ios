@@ -26,7 +26,7 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
 
 @property (nonatomic, strong) GTIOButton *reviewButtonModel;
 @property (nonatomic, strong) GTIOButton *shopbagButtonModel;
-@property (nonatomic, strong) NSArray *dotdotdotButtonModel;
+@property (nonatomic, strong) NSArray *ellipsisButtonModel;
 
 @end
 
@@ -34,9 +34,9 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
 
 @synthesize post = _post;
 @synthesize accentLine = _accentLine;
-@synthesize reviewButton = _reviewButton, dotdotdotButton = _dotdotdotButton, shopbagButton = _shopbagButton;
-@synthesize dotdotdotButtonTapHandler = _dotdotdotButtonTapHandler;
-@synthesize reviewButtonModel = _reviewButtonModel, dotdotdotButtonModel = _dotdotdotButtonModel, shopbagButtonModel = _shopbagButtonModel;
+@synthesize reviewButton = _reviewButton, ellipsisButton = _ellipsisButton, shopbagButton = _shopbagButton;
+@synthesize ellipsisButtonTapHandler = _ellipsisButtonTapHandler;
+@synthesize reviewButtonModel = _reviewButtonModel, ellipsisButtonModel = _ellipsisButtonModel, shopbagButtonModel = _shopbagButtonModel;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -51,8 +51,8 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
         _shopbagButton = [GTIOPostSideButton gtio_postSideButtonType:GTIOPostSideButtonTypeShopping tapHandler:nil];
         [self addSubview:_shopbagButton];
         
-        _dotdotdotButton = [GTIOPostSideButton gtio_postSideButtonType:GTIOPostSideButtonTypeDotDotDot tapHandler:nil];
-        [self addSubview:_dotdotdotButton];
+        _ellipsisButton = [GTIOPostSideButton gtio_postSideButtonType:GTIOPostSideButtonTypeEllipsis tapHandler:nil];
+        [self addSubview:_ellipsisButton];
     }
     return self;
 }
@@ -61,7 +61,7 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
 {
     self.reviewButtonModel = nil;
     self.shopbagButtonModel = nil;
-    self.dotdotdotButtonModel = nil;
+    self.ellipsisButtonModel = nil;
 }
 
 #pragma mark - Properties
@@ -78,7 +78,7 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
             self.shopbagButtonModel = button;
         }
     }
-    self.dotdotdotButtonModel = _post.dotOptionsButtons;
+    self.ellipsisButtonModel = _post.dotOptionsButtons;
     
     // Buttons
     CGFloat topButtonOriginY = kGTIOTopButtonPadding;
@@ -110,18 +110,18 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
     // ... button
     if ([_post.dotOptionsButtons count] > 0) {
         CGSize scaledPhotoSize = [GTIOPostFrameView scalePhotoSize:(CGSize){ [_post.photo.width floatValue], [_post.photo.height floatValue]} ];
-        [self.dotdotdotButton setFrame:(CGRect){ { kGTIOButtonOriginX, kGTIOTopButtonPadding + 6 + scaledPhotoSize.height - self.dotdotdotButton.frame.size.height }, self.dotdotdotButton.frame.size }];
+        [self.ellipsisButton setFrame:(CGRect){ { kGTIOButtonOriginX, kGTIOTopButtonPadding + 6 + scaledPhotoSize.height - self.ellipsisButton.frame.size.height }, self.ellipsisButton.frame.size }];
         
-        [self.dotdotdotButton setHidden:NO];
+        [self.ellipsisButton setHidden:NO];
     } else {
-        [self.dotdotdotButton setHidden:YES];
+        [self.ellipsisButton setHidden:YES];
     }
 }
 
-- (void)setDotdotdotButtonTapHandler:(GTIOButtonDidTapHandler)dotdotdotButtonTapHandler
+- (void)setEllipsisButtonTapHandler:(GTIOButtonDidTapHandler)ellipsisButtonTapHandler
 {
-    _dotdotdotButtonTapHandler = [dotdotdotButtonTapHandler copy];
-    [self.dotdotdotButton setTapHandler:_dotdotdotButtonTapHandler];
+    _ellipsisButtonTapHandler = [ellipsisButtonTapHandler copy];
+    [self.ellipsisButton setTapHandler:_ellipsisButtonTapHandler];
 }
 
 - (void)setFrame:(CGRect)frame

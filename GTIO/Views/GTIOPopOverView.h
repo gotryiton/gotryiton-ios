@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GTIOPopOverButton.h"
+
+typedef void(^GTIOPopOverViewButtonTapHandler)(GTIOButton *buttonModel);
+
 @interface GTIOPopOverView : UIView
 
 @property (nonatomic, strong, readonly) NSArray *buttonModels;
+@property (nonatomic, copy) GTIOPopOverViewButtonTapHandler tapHandler;
 
-- (id)initWithButtonModels:(NSArray *)buttonModels;
++ (id)cameraSourcesPopOverView;
++ (id)ellipsisPopOverViewWithButtonModels:(NSArray *)buttonModels;
 
 @end

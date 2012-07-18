@@ -17,7 +17,7 @@
 #import "GTIOExploreLooksViewController.h"
 #import "GTIOCameraViewController.h"
 #import "GTIOCameraTabBarPlaceholderViewController.h"
-#import "GTIOShopViewController.h"
+#import "GTIOStyleViewController.h"
 #import "GTIOMeViewController.h"
 
 #import "GTIOAppearance.h"
@@ -27,6 +27,7 @@
 #import "GTIOUser.h"
 #import "GTIOAuth.h"
 #import "GTIORouter.h"
+#import "GTIONotificationManager.h"
 
 #import "JREngage.h"
 
@@ -92,6 +93,9 @@
     // Setup camera
     self.cameraViewController = [[GTIOCameraViewController alloc] initWithNibName:nil bundle:nil];
     
+    // Notification Management
+    [self restoreNotifications];
+    
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -107,12 +111,14 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self backupNotifications];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [GTIOTrack postTrackAndVisitWithID:kGTIOTrackAppResumeFromBackground handler:nil];
+    [self restoreNotifications];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -123,6 +129,24 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self backupNotifications];
+}
+
+#pragma mark - Notifications
+
+- (void)restoreNotifications
+{
+    NSData *data = [[NSUserDefaults standardUserDefaults] valueForKey:@"notificationManager"];
+    if (data) {
+        GTIONotificationManager *storedNotificationManager = (GTIONotificationManager *)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+        [[GTIONotificationManager sharedManager] useNotifications:[storedNotificationManager notifications]];
+    }
+}
+
+- (void)backupNotifications
+{
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[GTIONotificationManager sharedManager]];
+    [[NSUserDefaults standardUserDefaults] setValue:data forKey:@"notificationManager"];
 }
 
 #pragma mark - Facebook
@@ -203,12 +227,13 @@
     
     UINavigationController *meNavigationController = [[UINavigationController alloc] initWithRootViewController:[[GTIOMeViewController alloc] initWithNibName:nil bundle:nil]];
     UINavigationController *feedNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil]];
+    UINavigationController *styleNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOStyleViewController alloc] initWithNibName:nil bundle:nil]];
     
     self.tabBarViewControllers = [NSArray arrayWithObjects:
                                 feedNavController,
                                 [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
                                 [[GTIOCameraTabBarPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
-                                [[GTIOShopViewController alloc] initWithNibName:nil bundle:nil],
+                                styleNavController,
                                 meNavigationController,
                                 nil];
     [self.tabBarController setViewControllers:self.tabBarViewControllers];
@@ -258,13 +283,13 @@
             [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];
         } else if ([rootViewController isKindOfClass:[GTIOMeViewController class]]) {
             [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
+        } else if ([rootViewController isKindOfClass:[GTIOStyleViewController class]]) {
+            [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
         }
     } else if ([viewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
         [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOCameraViewController class]]) {
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
-    } else if ([viewController isKindOfClass:[GTIOShopViewController class]]) {
-        [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
     }
 }
 

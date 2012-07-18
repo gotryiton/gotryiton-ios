@@ -16,4 +16,5 @@
     #import "UIFont+GTIOAdditions.h"
     #import "UIColor+GTIOAdditions.h"
     #import "GTIOUIButton.h"
+    #import "GTIOProgressHUD.h"
 #endif

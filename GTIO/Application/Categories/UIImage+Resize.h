@@ -14,4 +14,6 @@
                     interpolationQuality:(CGInterpolationQuality)quality;
 - (UIImage *)imageScaledToSize:(CGSize)newSize;
 
+- (UIImage *)cropImageWithFrameSize:(CGSize)frameSize rect:(CGRect)rect;
+
 @end

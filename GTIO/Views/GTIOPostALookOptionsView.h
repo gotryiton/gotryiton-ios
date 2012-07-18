@@ -11,7 +11,6 @@
 
 @interface GTIOPostALookOptionsView : UIView
 
-@property (nonatomic, strong) GTIOSwitch *votingSwitch;
 @property (nonatomic, strong) GTIOSwitch *facebookSwitch;
 
 @end

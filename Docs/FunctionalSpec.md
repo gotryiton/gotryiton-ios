@@ -1360,24 +1360,31 @@ previous screen
 
 
 #### API Usage
-/product/:product_id
-/product/:product_id/add-to-my-shopping-list/
+/product/:product_id   
+/product/:product_id/add-to-my-shopping-list/   
+
+[product api](http://gtio-dev.gotryiton.com/docs/products)
 
 #### Stories
 - A user can view a detailed page about a single product
    - transparent navbar 
-      - TBD: matt to provide guidance
    - full product name with brand and price
-   - photo aligned to top 
-      - tapping routes to full screen view of product (view 4.1.2)
+   - tapping routes to full screen view of product (view 4.1.2)
 - A user can heart a Product and see who has hearted a product
-   - standard heart button with count
-   - **tap** on count ==> (view 3.5)
+   - two heart buttons included in product model:
+      - ```product-who-hearted-button``` 
+         - includes count
+         - taps to who hearted this page
+      - ```product-heart-button``` 
+         - includes state
+         - makes api request to heart/un-heart
 - A user can post a product from a product page
    - Post btn **tap** ==> (view 12.3)
-   - (view 12.3) should use ```product.main_image``` as its source image
+   - (view 12.3) should use ```product.photo.main_image``` as its source image
 - A user can add a product to their shopping list
    - + shopping list button adds the item to their list
+   - state and enpoint/destination of the button are defined by the button with name ```"product-shopping-list-button```  
+   - ```state : 1``` if product is in shopping list
 
 #### Design Stories
 - Navigation Bar
@@ -1470,7 +1477,7 @@ A user can see a list of products contained in a post.  They can tap each one to
 
 #### Mockups
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/4.8.shop.this.look.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/5/4.8.Shop.This.Look.png" width=420px/>
 
 #### User flow
 
@@ -1492,22 +1499,32 @@ gtio://products/in-post/:post_id
 #### Stories
 
 - A user can see a list of products contained in a post
-   - each product taps to ([view 4.1](#41-product-page-view))
+   - each product cell taps to ([view 4.1](#41-product-page-view))
 
 #### Design Stories
 - Cell
-	- Background (4/shop.cell.png)
-	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
-	- Chevron (general/general.chevron.png)
-	- Image
-		- 106x101px
-		- Position on top left of cell
-		- Overlay with 7/shopping.cell.image.overlay.png
+	- background is '4/shop.cell.png' with active and inactive states
+	- Product Image
+		- 155x155px
+		- Position with top left of cell (non-shadow portion)
+		- Underneath 'shop.cell.png', so left side shadows are overlaid on product image
+      - Heart
+         - use '8/heart-toggle.png'
+         - 12px from left side of screen
+         - 7px from top of product image
 	- Text 
 		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
+         - 173px from left edge of screen
+         - 12px from top of cell (non-shadow portion)
+         - text area is 130px wide (each line, wrap to new lines as necessary)
 		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
-		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72		
-
+         - 173px from left edge of screen
+         - baseline is 18px away from baseline of last line of Product Name
+         - text area is 118px wide (each line, wrap to new lines as necessary; this text area is less wide to avoid the chevron)
+		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
+         - 173px from left edge of screen
+         - baseline is 15px from bottom of cell (non-shadow portion)
+         
 ## 5. Invite 
 
 ### 5.1 Invite friends  
@@ -2066,7 +2083,7 @@ A logged in user can edit their settings
 #### Mockups
 7.2 Settings ([wireframe](http://invis.io/C22OCZBZ))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/7.2.Settings.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.2.Settings.Fold.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2077,15 +2094,29 @@ previous screen
 
 
 #### API Usage
-/User/Settings
+HTML GET request:  /User/Settings?token=[active token]
+
+use the following UIWebView settings:   
+```obj-c
+   webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+   webView.scrollView.showsVerticalScrollIndicator= NO;
+   webView.scrollView.showsHorizontalScrollIndicator= NO;
+```
+
 
 #### Routing
 
-gtio://StandardWebview/Settings/http://gtio-dev.gotryiton.com/user/settings
+gtio://user/settings
 
 #### Stories
 - A user can edit when they receive notifications from GTIO
    - load a webview which will allow a user to turn on and off notifications
+
+
+#### Design Stories
+
+- Standard nav bar
+- Standard title bar with back button and title: "Settings"
 
 
 ### 7.3 Edit profile pic  
@@ -2096,11 +2127,11 @@ A logged in user can edit their profile icon
 #### Mockups
 7.3 ([wireframe](http://invis.io/MF2QIO3Y))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.3.Edit.Profile.Picture.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/7.3.Edit.Profile.Picture.png" width=420px/>
 
 7.3.1 No facebook connect, and no looks  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.3.Edit.Profile.Picture.Nulls.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/7.3.Edit.Profile.Picture.No.Facebook.No.Looks.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2148,12 +2179,6 @@ gtio://edit-my-icon
       - 'edit.profile.pic.fb.png'
       - 31px from left edge of screen
       - 51px from top of table cell
-   - 'my looks'
-      - Verlag Light
-      - 6pt
-      - rgb(143,143,143)
-      - 36px from left edge of screen
-      - baseline is 60px from top of table cell
    - thumbs
       - facebook
          - 25px from left edge of screen
@@ -2577,14 +2602,13 @@ gtio://profile/:user_id
 Each user has a shopping list
 
 #### Mockups
-7.8 Shopping list ([wireframe](http://invis.io/8W2OD45T))
+7.8 Shopping list ([wireframe](http://invis.io/8W2OD45T))   
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/7.8.shopping.list.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/4/7.8.Shopping.List.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/as-slices/GTIO/Application/Resources/Mockups/7.8.shopping.list.empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.8.Shopping.List.Empty.png" width=420px/>
 
-
-7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))
+7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))   
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/7.8.Shopping.List.Confirm.png" width=420px/>
 
@@ -2646,43 +2670,51 @@ gtio://my-shopping-list
 
 #### Design Stories
 - Cell
-	- Background (7/shopping.cell.png)
-	- 314x105px - height includes extra shadow from image, without shadow the cell is only 101px tall
-	- Chevron (7/shopping.chevron.png)
-	- Text 
-		- Product Name: Verlag Light 14px rgb(89,81,85) #595155
-		- Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
-		- Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
-	- Image
-		- 106x101px
-		- Position on top left of cell
-		- Overlay with 7/shopping.cell.image.overlay.png
-	- X Button
-		- Use 7/shopping.cell.close.inactive.png
-			- 7/shopping.cell.close.active.png for tap state
-		- 12x11px
-		- 4px from top and right edge of cell
+   - background is '4/shop.list.cell.png' with active and inactive states
+      - 'close' tap area is only the top right 30px x 30px area (slightly bigger than X + circle area)
+         - close action uses 'active' asset state
+      - tapping elsewhere on cell background (anywhere other than 'close' tap area) visits product detail page
+         - no 'active' asset state for above action
+   - Product Image
+      - 155x155px
+      - Position with top left of cell (non-shadow portion)
+      - Underneath 'shop.cell.png', so left side shadows are overlaid on product image
+      - Heart
+         - use '8/heart-toggle.png'
+         - 12px from left side of screen
+         - 7px from top of product image
+   - Text 
+      - Product Name: Verlag Light 14px rgb(89,81,85) #595155
+         - 173px from left edge of screen
+         - 12px from top of cell (non-shadow portion)
+         - text area is 109px wide (each line, wrap to new lines as necessary)
+      - Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+         - 173px from left edge of screen
+         - baseline is 18px away from baseline of last line of Product Name
+         - text area is 109px wide (each line, wrap to new lines as necessary)
+      - Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
+         - 173px from left edge of screen
+         - baseline is 15px from bottom of cell (non-shadow portion)
 	- Buy Button
 		- Background (7/shopping.button.buy.inactive.png)
 			- Active state (7/shopping.button.buy.active.png)
 		- 39x21px
 		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
-		- 15px from bottom
-		- 10px from right
+		- 9px from bottom
+		- 8px from right
 	- Email Button
 		- Background (7/shopping.button.email.inactive.png)
 			- Active state (7/shopping.button.email.active.png)
 		- 39x21px
 		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
-		- 15px from bottom
-		- 6px padding from buy button
+		- 9px from bottom
+		- 7px padding from buy button
 - Nav bar share button
 	- 33x26px
 	- Background (7/shopping.navigation.bar.button.share.inactive.png)
 		- Active state (7/shopping.navigation.bar.button.share.active.png)
 - Bottom Area
-	- Background (7/shopping.bottom.bg.png) stretch/repeat horizontally
-	- 74px high
+	- Background (7/shopping.bottom.bg.png) flush with bottom of screen
 	- Cells
 		- Overlay (7/shopping.bottom.image.overlay.png)
 			- Active (7/shopping.bottom.image.overlay.active.png)
@@ -3183,6 +3215,10 @@ A user can see a grid of popular looks on GTIO and tab to other groups of looks
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/1/9.1.Explore.Looks.Column.png" width=420px/>
 
+9.1.2 popular looks grid when empty:   
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/9.1.Explore.Looks.Empty.png" width=420px/>
+
 #### User Flow
 **entry screens:**   
 any screen with uiTabBar
@@ -3196,14 +3232,50 @@ feed: ([view 3.5](#35-who-hearted-this))
 feed: ([view 7.7](#77-profile-page))   
 
 #### API Usage
-/Posts/Popular
+/posts/explore
+
+[posts api](http://gtio-dev.gotryiton.com/docs/api-posts) (see GET posts/popular)
+
 
 #### Stories 
 - A user can see a grid of popular looks on GTIO
    - Api will respond with items to populate the feed
 - A user can switch to a different tab of looks
    - tab choices are driven by api response
-      - similar behavior to lists in GTIOv3
+   - tab bar should support 3-5 tabs
+   - tabs in the api response are in an array called ```tabs```
+   - the api will determine the text on the button, if a tab starts selected, if it has a star on it, and the endpoint to query for posts
+
+```json
+{
+"tabs":
+   [
+       {
+           "name": "explore-tab",
+           "star": true,
+           "text": "featured",
+           "endpoint": "/posts/stars",
+           "selected": true
+       },
+       {
+           "name": "explore-tab",
+           "text": "recent",
+           "endpoint": "/posts/recent",
+           "selected": false
+       },
+       {
+           "name": "explore-tab",
+           "text": "popular",
+           "endpoint": "/posts/popular",
+           "selected": false
+       }
+   ]
+}
+```
+   - When a user tabs on an unselected tab, the bar should center itself on the selected tab with the following limitation:
+      - there should be no additional white space to the left of the first tab or right of the last tab
+      - if there are only 3 tabs, the tabs should fit in the space exactly and there should be no movement when a new tab is selected
+   - The user can scroll the menu left and right (if there are more than 3 items in view)
 - A user can switch to consume the list of popular looks in a feed view (like view 8.1) rather than a grid view
    - see (view 9.1.1)
    - see question# 3 for clarification
@@ -3218,18 +3290,14 @@ feed: ([view 7.7](#77-profile-page))
    - vertically centered within nav bar area
    - 12px from left edge of screen
 - Tabs
-   - leftmost tab is 'tab-left.png' in selected/unselected versions, with active and inactive
-      - horizontal middle is stretchable
-      - 1px nonstretchable on right
-      - 3px nonstretchable on left
-   - middle tab is 'tab-middle.png' in selected/unselected versions, with active and inactive
-      - horizontal middle is stretchable
-      - 2px nonstretchable on right and left
-      - multiple instances OK
-   - rightmost tab is 'tab-right.png' in selected/unselected versions, with active and inactive
-      - horizontal middle is stretchable
-      - 1px nonstretchable on left
-      - 3px nonstretchable on right
+   - background is 'tab-bg.png' (flush with bottom of nav bar)
+      - tabs are vertically centered within tab-bg.png
+   - selected tab is 'tab-selected.png', unselected tab is 'tab-unselected.png'
+      - 3px nonstretchable on left and right
+      - 1px (horizontal middle) is stretchable
+   - dividers are 'sel-uns', 'uns-sel', 'uns-uns'
+      - do not stretch
+      - dividers are meant to overlay buttons that have no gaps
    - positioning
       - leftmost tab is 4px away from left edge of screen (or left edge of scrollable area)
       - rightmost tab is 4px away from right edge of screen (or right edge of scrollable area)
@@ -3247,9 +3315,8 @@ feed: ([view 7.7](#77-profile-page))
       - baseline of text is 5px above bottom edge of tab (not including pointer)
       - unselected: Archer Book Italic, 11pt, rgb(135,135,135)
       - selected: Archer Book Italic, 11pt, rgb(85,85,86)
-      - star icon
-         - 2px distance from right of accompanying label
-         - bottom of asset is 4px below baseline of accompanying label
+      - featured label ('tab-label-featured.png')
+         - horizontally and vertically centered within tab
 - Photo Grid
    - Images are sized to 94px wide, variable height
    - Top images are 9px from top of content area
@@ -3269,8 +3336,8 @@ feed: ([view 7.7](#77-profile-page))
    - Accent Line
       - place accent line behind grid in same position as appears on Feed type view
       - top should end at background asset for tabs
-
-
+   - Empty (9.1.2)
+      - 'empty.png' horizontally and vertically centered within viewable grid area
 
 ## 10. Shop tab
 
@@ -3283,7 +3350,7 @@ A user can see a page of shopping options on GTIO
 #### Mockups
 10.1 ([wireframe](http://invis.io/2R2OEKY8)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.1.Shop.Landing.WV.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.1.Shop.Landing.v1.png" width=420px/>
 
 
 #### User Flow
@@ -3291,33 +3358,32 @@ A user can see a page of shopping options on GTIO
 any screen with uiTabBar
 **exit screens:**   
 ([view 10.2](#102-shop-browse-webview-container))   
-([view 10.3](#103-shop-3rd-party-webview-container))   
 ([view 10.4](#104-default-3rd-party-webview-container))   
-([view 7.8](#78-shopping-list))   
 
 #### API Usage
-/Shop
+HTTP GET:  /iphone/style-tab?token=[active token]
+
+use the following UIWebView settings:   
+```obj-c
+   webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+   webView.scrollView.showsVerticalScrollIndicator= NO;
+   webView.scrollView.showsHorizontalScrollIndicator= NO;
+```
+
 
 #### Stories 
 - A user can see a page of shopping options on GTIO
    - top nav bar is standard native bar
-   - top right btn 'shopping list'
-      - shows count of unread shopping list items
-      - responds to gtio:// trigger for updating shopping list count
-      - see story
-   - Main content of page is webview (source is /Shop)
+   - Main content of page is webview 
 - A user can tap on elements on the Shopping page
-   - /Shop page can have spawn 4 different types of pages:
+   - webview page can have spawn 4 different types of pages:
       - Shop Browse Webview Container (view 10.2)
-         - triggered by: gtio://ShopBrowseWebview/[title (urlencoded)]/[url (url encoded)]
-      - Shop 3rd Party Webview Container (view 10.3)
-         - triggered by: gtio://3rdPartyShopWebview/[title (urlencoded)]/[url (url encoded)]
+         - triggered by: gtio://InternalWebview/[title (urlencoded)]/[url (url encoded)]
       - Default 3rd Party Webview Container (view 10.4)
-         - triggered by: gtio://3rdPartyDefaultWebview/[url (url encoded)]
+         - triggered by: gtio://DefaultWebview/[url (url encoded)]
       - Shop Browse Products Container (view 10.5)
          - triggered by: gtio://ShopBrowse/[title (urlencoded)]/[api path (url encoded)]
-- A user can get to their shopping list page by tapping on the top right button 
-   - **tap** ==> (view 7.8)
+
 
 
 ### 10.2 Shop Browse Webview Container  
@@ -3328,16 +3394,28 @@ A user can browse to a 2ndary webview page of navigation
 #### Mockups
 ([wireframe](http://invis.io/NX2OELBZ)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/1/10.2.Shop.Browse.WV.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/secondary-page.png" width=420px/>
+
+#### API Usage
+HTTP GET: Dynamic url.
+
+use the following UIWebView settings:   
+```obj-c
+   webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+   webView.scrollView.showsVerticalScrollIndicator= NO;
+   webView.scrollView.showsHorizontalScrollIndicator= NO;
+```
+
+
+#### Routing
+gtio://InternalWebview/[custom title (urlencoded)]/[url (url encoded)]   
 
 #### User Flow
 **entry screens:**   
 ([view 10.1](#102-shop-landing-page))   
 **exit screens:**   
 ([view 10.2](#102-shop-browse-webview-container))   
-([view 10.3](#103-shop-3rd-party-webview-container))   
 ([view 10.4](#104-default-3rd-party-webview-container))   
-([view 7.8](#78-shopping-list))   
 previous screen   
 
 #### API Usage
@@ -3353,7 +3431,6 @@ dynamic
    - url of webview is customized via gtio:// link that spawned the container
 
 
-
 ### 10.3 ~~Shop 3rd Party webview Container~~   
 
 ### 10.4 Default 3rd party webview container  
@@ -3362,14 +3439,17 @@ dynamic
 A user can browse to a 3rd party site with a default browsing experience
 
 #### Mockups
-10.4 ([wireframe](http://invis.io/XF2OEOYU)) 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.A.Default.Webview.png" width=420px/>
+10.4 ([wireframe](http://invis.io/XF2OEOYU))   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/10.4.A.Default.Webview.png" width=420px/>
 
-disabled button
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.B.Default.Webview.Disabled.Button.png" width=420px/>
+disabled button   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/10.4.B.Default.Webview.Disabled.Button.png" width=420px/>
 
-10.4.1 actionsheet: ([wireframe](http://invis.io/F32PNLA5)) 
+10.4.1 actionsheet: ([wireframe](http://invis.io/F32PNLA5))   
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.C.Default.Webview.Actionsheet.png" width=420px/>
+
+10.4.2 loading fail
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.4.D.Default.Webview.Error.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -3380,6 +3460,10 @@ previous screen
 
 #### API Usage
 None.
+
+#### Routing
+gtio://DefaultWebview/[url (url encoded)]   
+http://any.random.url/
 
 #### Stories 
 - A user can browse to a 3rd party site with a default browsing experience  
@@ -3402,10 +3486,19 @@ None.
          - 'webview-button-forward.png' with active/inactive/disabled states
          - 84px from left edge of screen
          - 9px from bottom of screen
+      - Reload
+         - 'webview-button-reload.png' with active/inactive/disabled states
+         - 146px from left edge of screen
+         - 8px from bottom of screen
       - Options
          - 'webview-button-options.png' with active/inactive/disabled states
          - 17px from right edge of screen
          - 10px from bottom of screen
+- Loading Fail
+   - 'fail.png' vertically and horizontally centered within viewable content area
+      - background is white
+      - tapping anywhere on fail.png retries (not just underlined portion)
+   - no nav bar title
 
 ### 10.5 Shop Browse Products  
 
@@ -3414,39 +3507,21 @@ A user can browse to a native list of products
 
 #### Mockups
 
-10.5 ([wireframe](http://invis.io/E22OEQDR))
+10.5 ([wireframe](http://invis.io/E22OEQDR))   
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.B.Browse.Products.Standard.Nav.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.Shop-List-1-Standard-Nav.png" width=420px/>
 
-10.5.1 Shop Browse Products without Picker ([wireframe](http://invis.io/GP2OEPH9))
+10.5.1 (custom banner)   
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.A.Browse.Products.Standard.Nav.No.Picker.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.Shop-List-2-Standard-Nav-Custom-Banner.png" width=420px/>
 
-10.5.2 Shop Browse Products without Picker (scrolled)
+10.5.2 (custom nav bar image)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.C.Browse.Products.Standard.Nav.Scrolled.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.Shop-List-3-Custom-Nav.png" width=420px/>
 
-10.5.3 Shop Browse Products without Picker (empty)
+10.5.3 (custom nav bar image, custom banner)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.D.Browse.Products.Standard.Nav.Empty.png" width=420px/>
-
-10.5.4 Shop Browse Products with Standard Cell Link ([wireframe](http://invis.io/GP2OEPH9))
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.E.Browse.Products.Standard.Nav.Standard.Link.png" width=420px/>
-
-10.5.5 Shop Browse Products with Custom Link
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.F.Browse.Products.Standard.Nav.Custom.Link.png" width=420px/>
-
-10.5.6 Shop Browse Products with Custom Nav and Standard Link
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.G.Browse.Products.Custom.Nav.Standard.Link.png" width=420px/>
-
-10.5.6 Shop Browse Products with Custom Nav and Standard Link
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.H.1.Browse.Products.Custom.Nav.Custom.Link.png" width=420px/>
-
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.H.2.Browse.Products.Custom.Nav.Custom.Link.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/10.5.Shop-List-4-Custom-Nav-Custom-Banner.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -3495,39 +3570,35 @@ dynamic
 - Custom Nav
    - Custom Nav bar background
       - '?/nav-bg.png'
-   - Custom back button
-      - '?/nav-back-inactive.png'
-      - '?/nav-back-active.png'
-- Standard Cell Link
-   - 50px high
-   - Verlag Book 16pt rgb(143,143,143) vertically centered within cell
-   - 'general/general.chevron' 9px from right edge of screen, vertically centered within cell
-- Custom Link
-   - 320px x 50px
-- Grid
-   - Gradient Overlay
-      - only present if picker is enabled
-      - flush with bottom of nav bar
-      - products can scroll underneath
-   - Picker
-      - products can scroll underneath
-      - 'shop-products-picker.png'
-         - 7px from bottom of nav bar (including shadow portion)
-         - 9px from right edge of screen (right of button should appear to align with right edge of product thumbnails)
-         - 17px nonstretchable on right
-         - 8px nonstretchable on left
-         - vertical middle is stretchable
-         - minimum width is 123px
-      - text is Proxima Nova Semibold 10pt rgb(166,166,166)
-         - string displayed in all caps
-         - 9px from left edge of button asset
-         - left aligned, minimum 24px margin between end of text and end of button asset (button should stretch to accommodate)
-   - Background
-      - 'products-grid-bg.png'
-      - top of background asset should always start from top of viewable grid area (viewable area changes depending on if custom link and/or picker are enabled)
-   - Empty
-      - 'shop-products-empty.png'
-      - vertically and horizontally centered within viewable grid area (viewable area changes depending on if custom link and/or picker are enabled)
+   - back button + '...' button
+      - 43px x 29px tap areas on left and right
+      - custom nav bar background will include visual "buttons"
+         - no active state (no change on tap)
+      - IF there is no custom background supplied, use 'nav.bar.dot.png' for '...' button
+- Custom Banner
+   - API-defined image of any height
+- Cell
+   - background is '4/shop.cell.png' with active and inactive states
+   - Product Image
+      - 155x155px
+      - Position with top left of cell (non-shadow portion)
+      - Underneath 'shop.cell.png', so left side shadows are overlaid on product image
+      - Heart
+         - use '8/heart-toggle.png'
+         - 12px from left side of screen
+         - 7px from top of product image
+   - Text 
+      - Product Name: Verlag Light 14px rgb(89,81,85) #595155
+         - 173px from left edge of screen
+         - 12px from top of cell (non-shadow portion)
+         - text area is 130px wide (each line, wrap to new lines as necessary)
+      - Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+         - 173px from left edge of screen
+         - baseline is 18px away from baseline of last line of Product Name
+         - text area is 118px wide (each line, wrap to new lines as necessary; this text area is less wide to avoid the chevron)
+      - Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
+         - 173px from left edge of screen
+         - baseline is 15px from bottom of cell (non-shadow portion)
 
 ## 12. Upload
 
@@ -3813,13 +3884,27 @@ POST /photo/create
 
 documented in [Photo API](ApiPhotos.md)
 
-request:
+request:   
+(no frames with one filter)
 
 ```json
 {
    "photo" : {
       "image" : "<image data>",
       "using_filter" : "FilterName",
+      "using_frame" : false
+   }
+}
+```
+or   
+(frames with two filters)
+
+```json
+{
+   "photo" : {
+      "image" : "<image data>",
+      "using_filter_in_frame_0" : "FilterName",
+      "using_filter_in_frame_2" : "OtherFilterName",
       "using_frame" : true
    }
 }

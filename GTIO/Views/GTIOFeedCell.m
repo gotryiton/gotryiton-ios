@@ -19,8 +19,8 @@ static CGFloat const kGTIOWhoHeartedThisOriginX = 13.0f;
 static CGFloat const kGTIOWhoHeartedThisTopPadding = 2.0f;
 static CGFloat const kGTIOWhoHeartedThisWidth = 250.0f;
 static CGFloat const kGTIOWhoHeartedThisBottomPadding = 11.0f;
-static CGFloat const kGITODotDotDotPopOverViewXOriginOffset = -3.5f;
-static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
+static CGFloat const kGITOEllipsisPopOverViewXOriginOffset = -3.5f;
+static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = -61.0f;
 
 @interface GTIOFeedCell () <UIGestureRecognizerDelegate>
 
@@ -28,7 +28,7 @@ static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
 @property (nonatomic, strong) GTIOWhoHeartedThisView *whoHeartedThisView;
 @property (nonatomic, strong) GTIOPostButtonColumnView *postButtonColumnView;
 
-@property (nonatomic, strong) GTIOPopOverView *dotdotdotPopOverView;
+@property (nonatomic, strong) GTIOPopOverView *ellipsisPopOverView;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
@@ -37,7 +37,7 @@ static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
 
 @synthesize post = _post;
 @synthesize frameView = _frameView, whoHeartedThisView = _whoHeartedThisView, postButtonColumnView = _postButtonColumnView;
-@synthesize dotdotdotPopOverView = _dotdotdotPopOverView;
+@synthesize ellipsisPopOverView = _ellipsisPopOverView;
 @synthesize tapGestureRecognizer = _tapGestureRecognizer;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -63,7 +63,7 @@ static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
         [_tapGestureRecognizer setDelegate:self];
         [self addGestureRecognizer:_tapGestureRecognizer];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissDotdotdotPopOverView:) name:kGTIODismissDotDotDotPopOverViewNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissEllipsisPopOverView:) name:kGTIODismissEllipsisPopOverViewNotification object:nil];
     }
     return self;
 }
@@ -83,8 +83,8 @@ static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
 - (void)prepareForReuse
 {
     [self.postButtonColumnView prepareForReuse];
-    [self.dotdotdotPopOverView removeFromSuperview];
-    self.dotdotdotPopOverView = nil;
+    [self.ellipsisPopOverView removeFromSuperview];
+    self.ellipsisPopOverView = nil;
 }
 
 #pragma mark - Properties
@@ -104,22 +104,22 @@ static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
         [self.postButtonColumnView setFrame:(CGRect){ { postButtonColumnViewOriginX, 0 }, { self.frame.size.width - postButtonColumnViewOriginX, self.frame.size.height } }];
         [self.postButtonColumnView setPost:_post];
         __block typeof(self) blockSelf = self;
-        [self.postButtonColumnView setDotdotdotButtonTapHandler:^(id sender){ 
-            if (!blockSelf.dotdotdotPopOverView) {
-                blockSelf.dotdotdotPopOverView = [[GTIOPopOverView alloc] initWithButtonModels:_post.dotOptionsButtons];
+        [self.postButtonColumnView setEllipsisButtonTapHandler:^(id sender){ 
+            if (!blockSelf.ellipsisPopOverView) {
+                blockSelf.ellipsisPopOverView = [GTIOPopOverView ellipsisPopOverViewWithButtonModels:_post.dotOptionsButtons];
             }
             
-            [blockSelf.dotdotdotPopOverView setFrame:(CGRect){ { self.frame.size.width - blockSelf.dotdotdotPopOverView.frame.size.width + kGITODotDotDotPopOverViewXOriginOffset, self.postButtonColumnView.dotdotdotButton.frame.origin.y + kGITODotDotDotPopOverViewYOriginOffset }, blockSelf.dotdotdotPopOverView.frame.size }];
-            [blockSelf addSubview:blockSelf.dotdotdotPopOverView];
+            [blockSelf.ellipsisPopOverView setFrame:(CGRect){ { self.frame.size.width - blockSelf.ellipsisPopOverView.frame.size.width + kGITOEllipsisPopOverViewXOriginOffset, self.postButtonColumnView.ellipsisButton.frame.origin.y + kGITOEllipsisPopOverViewYOriginOffset }, blockSelf.ellipsisPopOverView.frame.size }];
+            [blockSelf addSubview:blockSelf.ellipsisPopOverView];
         }];
     }
 }
 
 #pragma mark - NSNotifcations
 
-- (void)dismissDotdotdotPopOverView:(NSNotification *)notification
+- (void)dismissEllipsisPopOverView:(NSNotification *)notification
 {
-    [self.dotdotdotPopOverView removeFromSuperview];
+    [self.ellipsisPopOverView removeFromSuperview];
 }
 
 #pragma mark - UIGestureRecognizer
@@ -128,7 +128,7 @@ static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
 {
     switch ([gesture state]) {
         case UIGestureRecognizerStateRecognized:
-            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissDotDotDotPopOverViewNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
             break;
         default:
             break;
@@ -139,7 +139,7 @@ static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     
-    if ([touch.view isEqual:self.postButtonColumnView.dotdotdotButton]) {
+    if ([touch.view isEqual:self.postButtonColumnView.ellipsisButton]) {
         // Disallow recognition of tap gestures in the button but do not remove overlay
         return NO;
     } else if ([[touch.view class] isSubclassOfClass:[GTIOPopOverButton class]]) {
@@ -147,7 +147,7 @@ static CGFloat const kGITODotDotDotPopOverViewYOriginOffset = -61.0f;
         return NO;
     } else if ([[touch.view class] isSubclassOfClass:[UIButton class]]) {
         // Disallow recognition of tap gestures in the button and remove overlay
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissDotDotDotPopOverViewNotification object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
         return NO;
     }
     return YES;

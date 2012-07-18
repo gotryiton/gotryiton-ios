@@ -17,5 +17,6 @@
 @synthesize acceptBar = _acceptBar;
 @synthesize postsList = _postsList;
 @synthesize heartsList = _heartsList;
+@synthesize profileLocked = _profileLocked;
 
 @end

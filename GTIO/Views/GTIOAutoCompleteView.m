@@ -24,6 +24,7 @@
 @synthesize positionOfLastWordTyped =_positionOfLastWordTyped;
 @synthesize positionOfLastTwoWordsTyped =_positionOfLastTwoWordsTyped;
 @synthesize inputText = _inputText;
+@synthesize placeholderText = _placeholderText;
 
 @synthesize ACInputFont = _ACInputFont;
 @synthesize ACInputColor = _ACInputColor;
@@ -34,7 +35,7 @@
 
 @synthesize isScrollViewShowing = _isScrollViewShowing;
 
-- (id)initWithFrame:(CGRect)frame outerBox:(CGRect)outerFrame 
+- (id)initWithFrame:(CGRect)frame outerBox:(CGRect)outerFrame placeholder:(NSString *) text
 {
     self = [super initWithFrame:outerFrame];
     if (self) {
@@ -56,6 +57,8 @@
         CGRect editingFrame = CGRectMake(CGRectGetMinX(frame) , CGRectGetMinY(frame), CGRectGetWidth(frame), CGRectGetHeight(frame) -50);
         CGRect inputFrame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame) + 16, CGRectGetHeight(frame) - 50);
         
+        _placeholderText = text;
+
         /** Set up a textView to allow a user to edit text
          */
         _textInput = [[UITextView alloc] initWithFrame:inputFrame];
@@ -317,7 +320,7 @@
 - (void)displayPlaceholderText 
 {
     NSArray *highlights = [[NSArray alloc] init];
-    [self displayPlaceholderText:@"How does this Zara top look? @Becky #wedding" highlightedStrings:highlights];
+    [self displayPlaceholderText:self.placeholderText highlightedStrings:highlights];
 
     if (self.previewTextView.opacity ==0){
         [UIView animateWithDuration:1.75 delay:0.0f options:UIViewAnimationCurveEaseOut animations:^{

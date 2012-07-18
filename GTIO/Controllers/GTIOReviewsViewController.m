@@ -14,7 +14,7 @@
 #import "GTIOProgressHUD.h"
 #import "GTIOPostMasonryEmptyStateView.h"
 #import "GTIOCommentViewController.h"
-#import "GTIOReviewPostPictureViewer.h"
+#import "GTIOFullScreenImageViewer.h"
 
 @interface GTIOReviewsViewController ()
 
@@ -28,7 +28,7 @@
 @property (nonatomic, strong) GTIOPostMasonryEmptyStateView *emptyStateView;
 @property (nonatomic, strong) UIView *tableFooterView;
 
-@property (nonatomic, strong) GTIOReviewPostPictureViewer *reviewPostPictureViewer;
+@property (nonatomic, strong) GTIOFullScreenImageViewer *reviewPostPictureViewer;
 
 @end
 
@@ -61,7 +61,7 @@
     
     self.tableViewHeader = [[GTIOReviewsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 87 }];
     self.tableViewHeader.commentButtonTapHandler = ^(id sender) {        
-        GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithNibName:nil bundle:nil];
+        GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithPostID:self.postID];
         [self.navigationController pushViewController:commentViewController animated:YES];
     };
     
@@ -77,8 +77,6 @@
     self.emptyStateView = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:@"be the first to\nsay something!" userName:nil locked:NO];
     [self.tableFooterView addSubview:self.emptyStateView];
     [self.emptyStateView setCenter:(CGPoint){ self.tableFooterView.bounds.size.width / 2, self.tableFooterView.bounds.size.height / 2 }];
-    
-    [self loadReviews];
 }
 
 - (void)viewDidUnload
@@ -89,10 +87,17 @@
     self.tableViewHeader = nil;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self loadReviews];
+}
+
 - (void)loadReviews
 {    
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"reviews/on/%@", self.postID] usingBlock:^(RKObjectLoader *loader) {
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/reviews/on/%@", self.postID] usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.reviews removeAllObjects];
@@ -103,7 +108,7 @@
                 if ([object isMemberOfClass:[GTIOPost class]]) {
                     self.post = (GTIOPost *)object;
                     [self.tableViewHeader setPost:self.post];
-                    self.reviewPostPictureViewer = [[GTIOReviewPostPictureViewer alloc] initWithPhotoURL:self.post.photo.mainImageURL];
+                    self.reviewPostPictureViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:self.post.photo.mainImageURL];
                     self.tableViewHeader.postImageTapHandler = ^(id sender) {
                         [self.reviewPostPictureViewer show];
                     };

@@ -13,20 +13,28 @@
 @synthesize mailComposeViewController = _mailComposeViewController;
 @synthesize didFinishHandler = _didFinishHandler;
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        if ([MFMailComposeViewController canSendMail]) {
+            _mailComposeViewController = [[MFMailComposeViewController alloc] init];
+            [_mailComposeViewController setMailComposeDelegate:self];
+        } else {
+            return nil;
+        }
+    }
+    return self;
+}
+
 - (id)initWithSubject:(NSString *)subject recipients:(NSArray *)toRecipients didFinishHandler:(GTIOMailComposerDidFinishHandler)didFinishHandler
 {
     self = [self init];
     if (self) {
-        if ([MFMailComposeViewController canSendMail]) {
-            _mailComposeViewController = [[MFMailComposeViewController alloc] init];
-            [_mailComposeViewController setSubject:subject];
-            [_mailComposeViewController setToRecipients:toRecipients];
-            [_mailComposeViewController setMailComposeDelegate:self];
-            
-            self.didFinishHandler = didFinishHandler;
-        } else {
-            return nil;
-        }   
+        [_mailComposeViewController setSubject:subject];
+        [_mailComposeViewController setToRecipients:toRecipients];
+        
+        self.didFinishHandler = didFinishHandler;
     }
     return self;
 }

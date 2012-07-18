@@ -13,8 +13,8 @@
 @interface GTIOPostButtonColumnView : UIView
 
 @property (nonatomic, strong) GTIOPost *post;
-@property (nonatomic, copy) GTIOButtonDidTapHandler dotdotdotButtonTapHandler;
-@property (nonatomic, strong) GTIOPostSideButton *dotdotdotButton;
+@property (nonatomic, copy) GTIOButtonDidTapHandler ellipsisButtonTapHandler;
+@property (nonatomic, strong) GTIOPostSideButton *ellipsisButton;
 
 - (void)prepareForReuse;
 

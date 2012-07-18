@@ -45,6 +45,13 @@
     return self;
 }
 
+- (void)reset
+{
+    [self selectSinglePhotoLayout:self.singlePhotoSelector];
+}
+
+#pragma mark - Button Actions
+
 - (void)selectSinglePhotoLayout:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(lookSelectorControl:photoSet:)]) {

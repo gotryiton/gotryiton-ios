@@ -17,7 +17,7 @@
 
 - (id)initWithFrame:(CGRect)frame outerBox:(CGRect) outerFrame title:(NSString *)title icon:(UIImage *)icon
 {
-    self = [super initWithFrame:frame outerBox:outerFrame];
+    self = [super initWithFrame:frame outerBox:outerFrame placeholder:@"How does this Zara top look? @Becky #wedding"];
     if (self) {
         [self.textInput setDelegate:self];
 
@@ -30,7 +30,7 @@
 
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 0, 9, self.placeHolderLabelView.bounds.size.width - iconView.bounds.size.width - 17, 15 }];
         [titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:12.0]];
-        [titleLabel setTextColor:[UIColor gtio_darkGray3TextColor]];
+        [titleLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [titleLabel setAlpha:0.5];
         [titleLabel setText:title];
         [titleLabel setBackgroundColor:[UIColor clearColor]];

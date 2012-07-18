@@ -16,16 +16,26 @@ typedef enum GTIOPopOverButtonPosition {
     GTIOPopOverButtonPositionBottom,
 } GTIOPopOverButtonPosition;
 
+typedef enum GTIOPopOverButtonType {
+    GTIOPopOverButtonTypeDot = 0,
+    GTIOPopOverButtonTypeSource,
+} GTIOPopOverButtonType;
+
 static NSString * const GTIOPopOverButtonPositionButtonName[] = {
     [GTIOPopOverButtonPositionTop] = @"top",
     [GTIOPopOverButtonPositionMiddle] = @"middle",
     [GTIOPopOverButtonPositionBottom] = @"bottom"
 };
 
+static NSString * const GTIOPopOverButtonTypeImagePrefix[] = {
+    [GTIOPopOverButtonTypeDot] = @"dot-menu",
+    [GTIOPopOverButtonTypeSource] = @"source-menu"
+};
+
 @interface GTIOPopOverButton : GTIOUIButton
 
 @property (nonatomic, strong) GTIOButton *buttonModel;
 
-+ (id)gtio_popOverButtonWithPosition:(GTIOPopOverButtonPosition)position;
++ (id)gtio_popOverButtonWithButtonType:(GTIOPopOverButtonType)buttonType position:(GTIOPopOverButtonPosition)position;
 
 @end

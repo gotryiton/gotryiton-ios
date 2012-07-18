@@ -34,4 +34,7 @@ typedef enum GTIOAcceptRelationshipButtonState {
 @property (nonatomic, strong) GTIOButtonAction *action;
 @property (nonatomic, strong) NSArray *icons;
 
+// None API Properties
+@property (nonatomic, strong) UIImage *suffixImage;
+
 @end

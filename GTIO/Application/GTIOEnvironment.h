@@ -46,7 +46,7 @@ extern NSString * const kGTIOTrackingHeaderKey;
 // Notification Constants
 extern NSString * const kGTIOLooksUpdated;
 extern NSString * const kGTIOPostFeedOpenLinkNotification;
-extern NSString * const kGTIODismissDotDotDotPopOverViewNotification;
+extern NSString * const kGTIODismissEllipsisPopOverViewNotification;
 
 // Notification Dictionary Constants
 extern NSString * const kGTIOURL;
@@ -72,6 +72,12 @@ extern NSString * const kGTIOFindFriendsButtonName;
 extern NSString * const kGTIOReviewAgreeButton;
 extern NSString * const kGTIOReviewFlagButton;
 extern NSString * const kGTIOReviewRemoveButton;
+extern NSString * const kGTIOProductWhoHeartedButton;
+extern NSString * const kGTIOProductHeartButton;
+extern NSString * const kGTIOProductShoppingListButton;
+
+// Web Views
+extern NSTimeInterval const kGTIOWebViewTimeout;
 
 /** Dismiss handler
  */
@@ -79,11 +85,6 @@ typedef void(^GTIODismissHandler)(UIViewController *viewController);
 
 // JSON Param Serialization Helper
 id GTIOJSONParams(id obj);
-
-typedef enum GTIODeleteButtonPosition {
-    GTIODeleteButtonPositionLeft = 0,
-    GTIODeleteButtonPositionRight,
-} GTIODeleteButtonPosition;
 
 // Generic Completion Handler
 typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
