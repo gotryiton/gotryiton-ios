@@ -1451,6 +1451,11 @@ previous screen
 #### API Usage
 None.
 
+#### Routing
+
+gtio://full-screen-image/[url encoded path to image]
+
+
 #### Stories
 - A user can see a full screen view of a product
    - tapping on the full screen view returns the user to the previous screen
@@ -3529,40 +3534,31 @@ A user can browse to a native list of products
 ([view 10.2](#102-shop-browse-webview-container))   
 ([view 8.1](#81-feed-view))   
 **exit screens:**   
-([view 10.3](#103-shop-3rd-party-webview-container))   
-([view 10.4](#104-default-3rd-party-webview-container))   
-([view 7.8](#78-shopping-list))   
 ([view 4.1](#41-product-page-view))   
 previous screen   
 
 #### API Usage
-dynamic
+/collection/:id [collection api](http://gtio-dev.gotryiton.com/docs/api-collection)
+
+#### Routing
+gtio://collection/:id
+
 
 #### Stories 
-- A user can browse to a native list of products
+- A user can browse to a list of products in a collection
    - top nav bar is custom nav bar
-      - customizable title: via gtio link that spawned the container
-      - shopping list btn visible
-         - **tap** ==> (view 7.8)
+      - customizable title: ```collection.name```
       - back btn to return to previous container
-   - list of products in masonry view
-      - list defined by api
-- A user can see a custom header on certain Browse Products pages
-   - custom visual header (optional)
-       - image specified by api
-       - link specified by api
-- A user can see a customized standard cell call to action on certain Browse Products pages
-   - customizable standard cell (optional)
-       - styled text
-       - chevron on right
-       - text set by api
-       - destination set by api
-- A user can select from a menu picker to sort the list
-   - customizable standard picker menu
-      - items defined by apis
-      - selected item defined by api
-      - api path for each item defined by api
-      - api design will be similar to list tabs in GTIOv3
+- A user can see a custom header on certain pages
+   - if ```collection.banner_image``` exists display banner
+   - tap is defined by ```collection.banner_image.action```
+- A user can see a custom nav bar image on certain screens
+   - if ```collection.custom_nav_image``` exists, display image rather than title/back/... buttons
+      - maintain invisible tap areas for back and ... buttons
+- A user can see a list of products in table view
+   - api response includes an array of ```products```
+   - each table cell taps to (view 4.1)
+
 
 #### Design Stories
 - Standard Nav
