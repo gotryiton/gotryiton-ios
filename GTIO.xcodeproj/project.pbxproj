@@ -21,6 +21,13 @@
 		806FBA0B15B61B2000C7924D /* shop.cell.inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 806FBA0515B61B2000C7924D /* shop.cell.inactive.png */; };
 		806FBA0C15B61B2000C7924D /* shop.cell.inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806FBA0615B61B2000C7924D /* shop.cell.inactive@2x.png */; };
 		8076B3ED15B5E77000B72466 /* GTIOProductInformationBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */; };
+		808FB7F415B712AE006540EE /* GTIOShoppingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808FB7F315B712AE006540EE /* GTIOShoppingListViewController.m */; };
+		808FB7FA15B71687006540EE /* GTIOProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 808FB7F915B71687006540EE /* GTIOProductTableViewCell.m */; };
+		808FB7FF15B739A9006540EE /* shop.list.cell.active.png in Resources */ = {isa = PBXBuildFile; fileRef = 808FB7FB15B739A9006540EE /* shop.list.cell.active.png */; };
+		808FB80015B739A9006540EE /* shop.list.cell.active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 808FB7FC15B739A9006540EE /* shop.list.cell.active@2x.png */; };
+		808FB80115B739A9006540EE /* shop.list.cell.inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 808FB7FD15B739A9006540EE /* shop.list.cell.inactive.png */; };
+		808FB80215B739A9006540EE /* shop.list.cell.inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 808FB7FE15B739A9006540EE /* shop.list.cell.inactive@2x.png */; };
+		808FB80515B73B42006540EE /* GTIOHeartToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 808FB80415B73B42006540EE /* GTIOHeartToggleButton.m */; };
 		80A2706415B5B87A00F51E51 /* GTIOProductHeartControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A2706315B5B87A00F51E51 /* GTIOProductHeartControl.m */; };
 		80A97B6915B60AEB006A9447 /* GTIOPostALookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A97B6815B60AEB006A9447 /* GTIOPostALookViewController.m */; };
 		8E12C1F515754E880097CDE9 /* GTIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E12C1F415754E870097CDE9 /* GTIOViewController.m */; };
@@ -1362,6 +1369,16 @@
 		806FBA0615B61B2000C7924D /* shop.cell.inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop.cell.inactive@2x.png"; sourceTree = "<group>"; };
 		8076B3EB15B5E77000B72466 /* GTIOProductInformationBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductInformationBox.h; sourceTree = "<group>"; };
 		8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductInformationBox.m; sourceTree = "<group>"; };
+		808FB7F215B712AE006540EE /* GTIOShoppingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOShoppingListViewController.h; sourceTree = "<group>"; };
+		808FB7F315B712AE006540EE /* GTIOShoppingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOShoppingListViewController.m; sourceTree = "<group>"; };
+		808FB7F815B71687006540EE /* GTIOProductTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductTableViewCell.h; sourceTree = "<group>"; };
+		808FB7F915B71687006540EE /* GTIOProductTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductTableViewCell.m; sourceTree = "<group>"; };
+		808FB7FB15B739A9006540EE /* shop.list.cell.active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop.list.cell.active.png; sourceTree = "<group>"; };
+		808FB7FC15B739A9006540EE /* shop.list.cell.active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop.list.cell.active@2x.png"; sourceTree = "<group>"; };
+		808FB7FD15B739A9006540EE /* shop.list.cell.inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop.list.cell.inactive.png; sourceTree = "<group>"; };
+		808FB7FE15B739A9006540EE /* shop.list.cell.inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop.list.cell.inactive@2x.png"; sourceTree = "<group>"; };
+		808FB80315B73B42006540EE /* GTIOHeartToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOHeartToggleButton.h; sourceTree = "<group>"; };
+		808FB80415B73B42006540EE /* GTIOHeartToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOHeartToggleButton.m; sourceTree = "<group>"; };
 		80A2706215B5B87A00F51E51 /* GTIOProductHeartControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductHeartControl.h; sourceTree = "<group>"; };
 		80A2706315B5B87A00F51E51 /* GTIOProductHeartControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductHeartControl.m; sourceTree = "<group>"; };
 		80A97B6715B60AEB006A9447 /* GTIOPostALookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostALookViewController.h; sourceTree = "<group>"; };
@@ -2861,6 +2878,8 @@
 			children = (
 				8016652B15B4A6D900AE9526 /* GTIOProductViewController.h */,
 				8016652C15B4A6D900AE9526 /* GTIOProductViewController.m */,
+				808FB7F215B712AE006540EE /* GTIOShoppingListViewController.h */,
+				808FB7F315B712AE006540EE /* GTIOShoppingListViewController.m */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2881,6 +2900,10 @@
 				80A2706315B5B87A00F51E51 /* GTIOProductHeartControl.m */,
 				8076B3EB15B5E77000B72466 /* GTIOProductInformationBox.h */,
 				8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */,
+				808FB7F815B71687006540EE /* GTIOProductTableViewCell.h */,
+				808FB7F915B71687006540EE /* GTIOProductTableViewCell.m */,
+				808FB80315B73B42006540EE /* GTIOHeartToggleButton.h */,
+				808FB80415B73B42006540EE /* GTIOHeartToggleButton.m */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3447,6 +3470,10 @@
 		8EB5A16C15A629E000163F84 /* 7 */ = {
 			isa = PBXGroup;
 			children = (
+				808FB7FB15B739A9006540EE /* shop.list.cell.active.png */,
+				808FB7FC15B739A9006540EE /* shop.list.cell.active@2x.png */,
+				808FB7FD15B739A9006540EE /* shop.list.cell.inactive.png */,
+				808FB7FE15B739A9006540EE /* shop.list.cell.inactive@2x.png */,
 				8EB5A16D15A629E000163F84 /* cancel-button-gray-top-margin.png */,
 				8EB5A16E15A629E000163F84 /* cancel-button-gray-top-margin@2x.png */,
 				8EB5A16F15A629E000163F84 /* default-facebook-profile-picture.png */,
@@ -6436,6 +6463,10 @@
 				D26D182915B62761002DC214 /* JRPublishActivityController.xib in Resources */,
 				D26D182A15B62761002DC214 /* JRUserLandingController.xib in Resources */,
 				D26D182B15B62761002DC214 /* JRWebViewController.xib in Resources */,
+				808FB7FF15B739A9006540EE /* shop.list.cell.active.png in Resources */,
+				808FB80015B739A9006540EE /* shop.list.cell.active@2x.png in Resources */,
+				808FB80115B739A9006540EE /* shop.list.cell.inactive.png in Resources */,
+				808FB80215B739A9006540EE /* shop.list.cell.inactive@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6677,6 +6708,9 @@
 				D26D179015B62761002DC214 /* JRUserLandingController.m in Sources */,
 				D26D179115B62761002DC214 /* JRWebViewController.m in Sources */,
 				D26D182C15B62761002DC214 /* SFHFKeychainUtils.m in Sources */,
+				808FB7F415B712AE006540EE /* GTIOShoppingListViewController.m in Sources */,
+				808FB7FA15B71687006540EE /* GTIOProductTableViewCell.m in Sources */,
+				808FB80515B73B42006540EE /* GTIOHeartToggleButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

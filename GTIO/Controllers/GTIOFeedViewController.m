@@ -28,7 +28,7 @@
 #import "GTIOReviewsViewController.h"
 #import "GTIONotificationsViewController.h"
 
-#import "GTIOProductViewController.h"
+#import "GTIOShoppingListViewController.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
@@ -131,9 +131,15 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     } else {
         // Normal Feed
         [self.navBarView.friendsButton setTapHandler:^(id sender) {
-            GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
-            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
-            [blockSelf presentModalViewController:navController animated:YES];
+//            GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
+//            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
+//            [blockSelf presentModalViewController:navController animated:YES];
+
+#warning TEST CODE FOR 7.8
+            GTIOShoppingListViewController *viewController = [[GTIOShoppingListViewController alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:viewController animated:YES];
+#warning END TEST CODE
+        
         }];
     }
     self.navBarView.titleView.tapHandler = ^(void) {

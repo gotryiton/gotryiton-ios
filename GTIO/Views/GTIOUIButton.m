@@ -7,6 +7,7 @@
 //
 
 #import "GTIOUIButton.h"
+#import "GTIOHeartToggleButton.h"
 
 @implementation GTIOUIButton
 
@@ -72,6 +73,9 @@
         case GTIOButtonTypeProductPostThis: return [self gtio_productPostThisButton];
         case GTIOButtonTypeProductShoppingList: return [self gtio_productShoppingListButton];
         case GTIOButtonTypeProductShoppingListChecked: return [self gtio_productShoppingListCheckedButton];
+        case GTIOButtonTypeProductShoppingListHeart: return [self gtio_productShoppingListHeartButton];
+        case GTIOButtonTypeProductShoppingListEmail: return [self gtio_productListEmailButton];
+        case GTIOButtonTypeProductShoppingListBuy: return [self gtio_productListBuyButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -533,6 +537,16 @@
     return button;
 }
 
++ (id)gtio_productListEmailButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.email.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.button.email.active.png"]];
+}
+
++ (id)gtio_productListBuyButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.buy.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.button.buy.active.png"]];
+}
+
 + (id)gtio_maskButton
 {
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
@@ -560,6 +574,14 @@
 + (id)gtio_twitterShareButton
 {
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.twit.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.twit.active.png"]];
+}
+
++ (id)gtio_productShoppingListHeartButton
+{
+    GTIOUIButton *button = [[GTIOHeartToggleButton alloc] initWithFrame:CGRectZero];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button sizeToFit];
+    return button;
 }
 
 #pragma mark - Touch Handling

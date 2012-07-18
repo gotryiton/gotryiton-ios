@@ -19,6 +19,10 @@
 @property (nonatomic, copy) NSString *brands;
 @property (nonatomic, strong) NSArray *buttons;
 
+// local state attributes
+@property (nonatomic, assign) BOOL hearted;
+
 + (void)loadProductWithProductID:(NSNumber *)productID completionHandler:(GTIOCompletionHandler)completionHandler;
++ (void)emailProductWithProductID:(NSNumber *)productID completionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end
