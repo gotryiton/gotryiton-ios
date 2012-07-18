@@ -195,8 +195,11 @@
     if ( (field.text.length + inputString.length) > 255) {
         return NO;
     }
-
-    inputString = [self sanitizeAscii:inputString];
+    
+    //sanitize non ascii input
+    if ( [self hasNonAscii:inputString]){
+        return NO;
+    }
 
     // figure out the new input text
     self.inputText = [field.text stringByReplacingCharactersInRange:range withString:inputString];
@@ -229,17 +232,12 @@
     return YES;
 }
 
-- (void)textViewDidChange:(UITextView *)textView
-{
-    textView.text = [self sanitizeAscii:textView.text];
-}
 
-- (NSString *)sanitizeAscii:(NSString *)inputString
+- (bool)hasNonAscii:(NSString *)inputString
 {
-    //sanitize non ascii input
+    NSData *asciiDataLossLess = [inputString dataUsingEncoding:NSASCIIStringEncoding];
     NSData *asciiData = [inputString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    inputString = [[NSString alloc] initWithData:asciiData encoding:NSASCIIStringEncoding];
-    return inputString;
+    return ![[[NSString alloc] initWithData:asciiDataLossLess encoding:NSASCIIStringEncoding] isEqualToString:[[NSString alloc] initWithData:asciiData encoding:NSASCIIStringEncoding]];
 }
 
 - (NSString *)stringThroughCursorPositionWithRange:(NSRange)range 
