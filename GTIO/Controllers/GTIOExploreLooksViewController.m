@@ -260,7 +260,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToLoadMoreView finishLoading];
-            NSLog(@"Failed to load pagination %@. error: %@", self.resourcePath, [error localizedDescription]);
+            NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
         };
     }];
 }

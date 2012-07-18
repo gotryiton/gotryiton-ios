@@ -12,6 +12,7 @@
 
 static CGFloat const kGTIOArrowOriginX = 291.0f;
 static CGFloat const kGTIOActivityIndicatorView = 201.0f;
+static CGFloat const kGTIOActivityIndicatorOffset = -15.0f;
 
 @interface GTIOPullToRefreshContentView()
 
@@ -60,7 +61,7 @@ static CGFloat const kGTIOActivityIndicatorView = 201.0f;
     
     self.background.frame = (CGRect){ { 0, self.scrollInsets.top }, self.bounds.size };
     self.statusLabel.frame = (CGRect){ { self.bounds.size.width - 100 - 51, self.bounds.size.height - 37 + self.scrollInsets.top }, { 100, 20 } };
-    self.activityIndicatorView.frame = (CGRect){ { kGTIOActivityIndicatorView, self.bounds.size.height - self.activityIndicatorView.bounds.size.height - 22 + self.scrollInsets.top }, self.activityIndicatorView.frame.size };
+    self.activityIndicatorView.frame = (CGRect){ { kGTIOActivityIndicatorView, self.bounds.size.height - self.activityIndicatorView.bounds.size.height + kGTIOActivityIndicatorOffset + self.scrollInsets.top }, self.activityIndicatorView.frame.size };
 }
 
 - (void)setScrollInsets:(UIEdgeInsets)scrollInsets

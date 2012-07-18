@@ -32,7 +32,7 @@
 #import "GTIOProductViewController.h"
 
 #import "SSPullToLoadMoreView.h"
-#import "SSPullToLoadMoreDefaultContentView.h"
+#import "GTIOPullToLoadMoreContentView.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
@@ -53,10 +53,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @property (nonatomic, strong) NSMutableDictionary *onScreenHeaderViews;
 
 @property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
-@property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
-
 @property (nonatomic, strong) SSPullToLoadMoreView *pullToLoadMoreView;
-@property (nonatomic, strong) SSPullToLoadMoreDefaultContentView *pullToLoadMoreContentView;
 
 @property (nonatomic, copy) NSString *postID;
 @property (nonatomic, copy) NSString *postsResourcePath;
@@ -70,10 +67,10 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @synthesize tableView = _tableView, navBarView = _navBarView;
 @synthesize addNavToHeaderOffsetXOrigin = _addNavToHeaderOffsetXOrigin, removeNavToHeaderOffsetXOrigin = _removeNavToHeaderOffsetXOrigin;
 @synthesize posts = _posts, pagination = _pagination;
-@synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshContentView = _pullToRefreshContentView, pullToRefreshView = _pullToRefreshView;
+@synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshView = _pullToRefreshView;
 @synthesize uploadView = _uploadView, postUpload = _postUpload, postID = _postID, postsResourcePath = _postsResourcePath;
 @synthesize post = _post;
-@synthesize pullToLoadMoreView = _pullToLoadMoreView, pullToLoadMoreContentView = _pullToLoadMoreContentView;
+@synthesize pullToLoadMoreView = _pullToLoadMoreView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -171,7 +168,8 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     self.uploadView = [[GTIOPostUploadView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight } }];
     
     self.pullToLoadMoreView = [[SSPullToLoadMoreView alloc] initWithScrollView:self.tableView delegate:self];
-    self.pullToLoadMoreView.contentView = [[SSPullToLoadMoreDefaultContentView alloc] initWithFrame:CGRectZero];
+    [self.pullToLoadMoreView setExpandedHeight:0.0f];
+    self.pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.frame.size.width, 0.0f } }];
     
     [self.pullToRefreshView startLoading];
     
@@ -195,31 +193,6 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-#pragma mark - SSPullToRefreshDelegate Methods
-
-- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
-{
-    if (self.post) {
-        // Inited w/ post. No need to hit endpoint
-        [self.tableView reloadData];
-        [self.pullToRefreshView finishLoading];
-    } else {
-        if (self.postID) {
-            self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
-        } else {
-            self.postsResourcePath = @"/posts/feed";
-        }
-        [self loadFeed];
-    }
-}
-
-#pragma mark - SSPullToRefreshDelegate Methods
-
-- (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
-{
-    NSLog(@"Pull to load more did start loading");
 }
 
 #pragma mark - Load Data
@@ -262,6 +235,70 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
             NSLog(@"Error: %@", [error localizedDescription]);
         };
     }];
+}
+
+- (void)loadPagination
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [self.pullToLoadMoreView finishLoading];
+            self.pagination = nil;
+            
+            NSMutableArray *paginationPosts = [NSMutableArray array];
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOPost class]]) {
+                    [paginationPosts addObject:object];
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    self.pagination = object;
+                }
+            }
+            
+            // Only add posts that are not already on mason grid
+            NSMutableArray *newPostsIndexPaths = [NSMutableArray array];
+            NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+            [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                GTIOPost *post = obj;
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                if ([foundExistingPosts count] == 0) {
+                    [self.posts addObject:post];
+                    [newPostsIndexPaths addObject:[NSIndexPath indexPathForRow:0 inSection:[self.posts count] - 1]];
+                    [indexSet addIndex:[self.posts count] - 1];
+                }
+            }];
+            [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationBottom];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [self.pullToLoadMoreView finishLoading];
+            NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
+        };
+    }];
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
+{
+    if (self.post) {
+        // Inited w/ post. No need to hit endpoint
+        [self.tableView reloadData];
+        [self.pullToRefreshView finishLoading];
+    } else {
+        if (self.postID) {
+            self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
+        } else {
+            self.postsResourcePath = @"/posts/feed";
+        }
+        [self loadFeed];
+    }
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
+{
+    [self loadPagination];
 }
 
 #pragma mark - UITableViewDelegate

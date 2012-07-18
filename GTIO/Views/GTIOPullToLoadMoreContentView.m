@@ -25,12 +25,13 @@ static CGFloat const kGTIOCustomFontOffset = 2;
 
 @property (nonatomic, strong) UILabel *statusLabel;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
+@property (nonatomic, strong) UIImageView *topAccentLine;
 
 @end
 
 @implementation GTIOPullToLoadMoreContentView
 
-@synthesize statusLabel = _statusLabel, activityIndicatorView = _activityIndicatorView;
+@synthesize statusLabel = _statusLabel, activityIndicatorView = _activityIndicatorView, topAccentLine = _topAccentLine;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -49,6 +50,12 @@ static CGFloat const kGTIOCustomFontOffset = 2;
         [_activityIndicatorView setFrame:(CGRect){ { _statusLabel.frame.origin.x - _activityIndicatorView.frame.size.width - kGTIOPaddingBetweenControls, (self.bounds.size.height - _activityIndicatorView.frame.size.height) / 2 + kGTIOTopOffset }, _activityIndicatorView.frame.size }];
         [_activityIndicatorView setTransform:CGAffineTransformMakeScale(0.75, 0.75)];
 		[self addSubview:_activityIndicatorView];
+        
+        // Accent line
+        _topAccentLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line.png"]];
+        [_topAccentLine setFrame:(CGRect){ { self.frame.size.width - kGTIOAccentLinePixelsFromRightSizeOfScreen, 0 }, { _topAccentLine.image.size.width, self.frame.size.height } }];
+        [_topAccentLine setHidden:YES];
+        [self addSubview:_topAccentLine];
     }
     return self;
 }
@@ -64,6 +71,7 @@ static CGFloat const kGTIOCustomFontOffset = 2;
             break;
         case SSPullToLoadMoreViewStateReady:
             self.statusLabel.text = @"";
+            [self.topAccentLine setHidden:NO];
             break;
         case SSPullToLoadMoreViewStateLoading:
             self.statusLabel.text = @"loading more...";
