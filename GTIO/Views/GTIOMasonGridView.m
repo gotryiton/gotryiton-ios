@@ -109,11 +109,16 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
     
     // bring in the new data
     for (GTIOPost *post in posts) {
-        GTIOMasonGridItem *item = [GTIOMasonGridItem itemWithPost:post];
-        item.delegate = self;
-        [item downloadImage];
-        [self.items addObject:item];
+        [self addPost:post postType:postsType];
     }
+}
+
+- (void)addPost:(GTIOPost *)post postType:(GTIOPostType)postType
+{
+    GTIOMasonGridItem *item = [GTIOMasonGridItem itemWithPost:post];
+    item.delegate = self;
+    [item downloadImage];
+    [self.items addObject:item];
 }
 
 - (void)cancelAllItemDownloads

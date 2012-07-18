@@ -75,11 +75,6 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 {
     [super viewDidLoad];
     
-    CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-    UIImageView *statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, -(statusBarHeight + self.navigationController.navigationBar.frame.size.height) }, { self.view.frame.size.width, statusBarHeight } }];
-    [statusBarBackgroundImageView setImage:[UIImage imageNamed:@"status-bar-bg.png"]];
-    [self.view addSubview:statusBarBackgroundImageView];
-    
     GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:1] tapHandler:nil];
     [self useTitleView:navTitleView];
     
@@ -235,27 +230,53 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     }];
 }
 
+- (void)loadPagination
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [self.pullToLoadMoreView finishLoading];
+            self.pagination = nil;
+            
+            NSMutableArray *paginationPosts = [NSMutableArray array];
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOPost class]]) {
+                    [paginationPosts addObject:object];
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    self.pagination = object;
+                }
+            }
+            
+            // Only add posts that are not already on mason grid
+            [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                GTIOPost *post = obj;
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                if ([foundExistingPosts count] == 0) {
+                    [self.masonGridView addPost:post postType:GTIOPostTypeNone];
+                    [self.posts addObject:post];
+                }
+            }];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [self.pullToLoadMoreView finishLoading];
+            NSLog(@"Failed to load pagination %@. error: %@", self.resourcePath, [error localizedDescription]);
+        };
+    }];
+}
+
 #pragma mark - SSPullToRefreshDelegate Methods
 
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
-    double delayInSeconds = 112.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self loadData];
-    });
+    [self loadData];
 }
 
 #pragma mark - SSPullToLoadMoreDelegate Methods
 
 - (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
 {
-    NSLog(@"Pull to load more");
-    double delayInSeconds = 4.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.pullToLoadMoreView finishLoading];
-    });
+    [self loadPagination];
 }
 
 #pragma mark - Empty State

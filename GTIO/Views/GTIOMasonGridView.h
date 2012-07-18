@@ -17,6 +17,7 @@
 @property (nonatomic, copy) GTIOMasonGridItemTapHandler gridItemTapHandler;
 
 - (void)setPosts:(NSArray *)posts postsType:(GTIOPostType)postsType;
+- (void)addPost:(GTIOPost *)post postType:(GTIOPostType)postType;
 - (void)cancelAllItemDownloads;
 
 @end
