@@ -155,11 +155,16 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [self.view addSubview:self.tableView];
     
     self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.tableView delegate:self];
-    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
+    [self.pullToRefreshView setExpandedHeight:60.0f];
+    GTIOPullToRefreshContentView *pullToRefreshContentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.bounds.size.width, 0 } }];
+    [pullToRefreshContentView setScrollInsets:self.tableView.scrollIndicatorInsets];
+    self.pullToRefreshView.contentView = pullToRefreshContentView;
 
     self.uploadView = [[GTIOPostUploadView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight } }];
     
     [self.pullToRefreshView startLoading];
+    
+    [self.tableView bringSubviewToFront:self.navBarView];
 }
 
 - (void)viewDidUnload
@@ -324,7 +329,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     if (scrollViewTopPoint.y < 0 && self.tableView.tableHeaderView == self.navBarView) {
         [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:self.tableView.tableHeaderView.bounds]];
         [self.view addSubview:self.navBarView];
-    } else if (scrollViewTopPoint.y >= 0 && self.tableView.tableHeaderView != self.navBarView) {
+    } else if (scrollViewTopPoint.y > 0 && self.tableView.tableHeaderView != self.navBarView) {
         [self.tableView setTableHeaderView:self.navBarView];
     }
 }
@@ -336,31 +341,33 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     // Section Header
     scrollViewTopPoint.y += self.tableView.sectionHeaderHeight; // Offset by first header
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollViewTopPoint];
-    GTIOPostHeaderView *currentHeaderView = [self.onScreenHeaderViews objectForKey:[NSString stringWithFormat:@"%i", indexPath.section]];
-    
-    CGRect rectForView = [self.tableView rectForHeaderInSection:indexPath.section];
-    NSArray *onScreenViewKeys = [self.onScreenHeaderViews allKeys];
-    [onScreenViewKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
-        GTIOPostHeaderView *headerView = [self.onScreenHeaderViews objectForKey:key];
-        if (headerView == currentHeaderView &&
-            rectForView.origin.y + self.tableView.sectionHeaderHeight < scrollViewTopPoint.y) {
-            
-            [headerView setShowingShadow:YES];
-            [headerView setClearBackground:NO];
-        } else if (headerView == currentHeaderView) {
-            [headerView setShowingShadow:NO];
-            [headerView setClearBackground:YES];
-        } else {
-            [headerView setShowingShadow:NO];
-            
-            // Don't show clear background for cells above current cell
-            if (rectForView.origin.y + self.tableView.sectionHeaderHeight > scrollViewTopPoint.y) {
+    if (indexPath) {
+        GTIOPostHeaderView *currentHeaderView = [self.onScreenHeaderViews objectForKey:[NSString stringWithFormat:@"%i", indexPath.section]];
+        
+        CGRect rectForView = [self.tableView rectForHeaderInSection:indexPath.section];
+        NSArray *onScreenViewKeys = [self.onScreenHeaderViews allKeys];
+        [onScreenViewKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
+            GTIOPostHeaderView *headerView = [self.onScreenHeaderViews objectForKey:key];
+            if (headerView == currentHeaderView &&
+                rectForView.origin.y + self.tableView.sectionHeaderHeight < scrollViewTopPoint.y) {
+                
+                [headerView setShowingShadow:YES];
                 [headerView setClearBackground:NO];
-            } else {
+            } else if (headerView == currentHeaderView) {
+                [headerView setShowingShadow:NO];
                 [headerView setClearBackground:YES];
+            } else {
+                [headerView setShowingShadow:NO];
+                
+                // Don't show clear background for cells above current cell
+                if (rectForView.origin.y + self.tableView.sectionHeaderHeight > scrollViewTopPoint.y) {
+                    [headerView setClearBackground:NO];
+                } else {
+                    [headerView setClearBackground:YES];
+                }
             }
-        }
-    }];
+        }];
+    }
 }
 
 #pragma mark - Header View Dequeue

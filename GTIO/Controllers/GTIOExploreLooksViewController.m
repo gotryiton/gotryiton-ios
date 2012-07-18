@@ -102,7 +102,8 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     
     // Pull to refresh
     self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.masonGridView delegate:self];
-    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.masonGridView.frame.size.width, 125 } }];
+    [self.pullToRefreshView setExpandedHeight:60.0f];
+    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.masonGridView.frame.size.width, 0 } }];
     
     [self.view bringSubviewToFront:self.masonGridView];
     
