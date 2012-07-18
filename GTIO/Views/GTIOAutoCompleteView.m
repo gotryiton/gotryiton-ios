@@ -175,6 +175,7 @@
 #pragma mark UITextViewDelegate methods
 - (BOOL)textView:(UITextView *)field shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)inputString 
 {
+    // always hide the placeholder text if the user is inputtting
     [self hidePlaceholderText];
 
     //if the user hit 'done':
@@ -187,15 +188,20 @@
         return NO;
     }
     
+    // limit input to 255 characters    
     if ( (field.text.length + inputString.length) > 255) {
-        NSLog(@"end of string");
         return NO;
     }
 
+    inputString = [self sanitizeAscii:inputString];
+
+    // figure out the new input text
     self.inputText = [field.text stringByReplacingCharactersInRange:range withString:inputString];
     
+    // display the newly inputted text
     [self updateInputDisplayTextInRange:range string:inputString];
 
+    
     if (self.inputText.length > 0) {
         [self setPositionOfLastWordsTypedInText:[self stringThroughCursorPositionWithRange:range]];
         
@@ -218,6 +224,19 @@
     }
     
     return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    textView.text = [self sanitizeAscii:textView.text];
+}
+
+- (NSString *)sanitizeAscii:(NSString *)inputString
+{
+    //sanitize non ascii input
+    NSData *asciiData = [inputString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    inputString = [[NSString alloc] initWithData:asciiData encoding:NSASCIIStringEncoding];
+    return inputString;
 }
 
 - (NSString *)stringThroughCursorPositionWithRange:(NSRange)range 
