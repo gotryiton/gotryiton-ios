@@ -11,6 +11,9 @@
 #import <RestKit/RestKit.h>
 #import "SSPullToRefresh.h"
 
+#import "SSPullToLoadMoreView.h"
+#import "GTIOPullToLoadMoreContentView.h"
+
 #import "GTIOPagination.h"
 #import "GTIOTab.h"
 #import "GTIOPost.h"
@@ -26,7 +29,7 @@
 static CGFloat const kGTIOMasonGridPadding = 2.0f;
 static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
-@interface GTIOExploreLooksViewController () <SSPullToRefreshViewDelegate>
+@interface GTIOExploreLooksViewController () <SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) GTIOLooksSegmentedControlView *segmentedControlView;
 
@@ -41,6 +44,9 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 @property (nonatomic, strong) UIImageView *emptyImageView;
 
+@property (nonatomic, strong) SSPullToLoadMoreView *pullToLoadMoreView;
+@property (nonatomic, strong) GTIOPullToLoadMoreContentView *pullToLoadMoreContentView;
+
 @end
 
 @implementation GTIOExploreLooksViewController
@@ -51,6 +57,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 @synthesize masonGridView = _masonGridView;
 @synthesize pullToRefreshView = _pullToRefreshView, pullToRefreshContentView = _pullToRefreshContentView;
 @synthesize emptyImageView = _emptyImageView;
+@synthesize pullToLoadMoreView = _pullToLoadMoreView, pullToLoadMoreContentView = _pullToLoadMoreContentView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -104,6 +111,11 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.masonGridView delegate:self];
     [self.pullToRefreshView setExpandedHeight:60.0f];
     self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.masonGridView.frame.size.width, 0 } }];
+    
+    // Pull to load more
+    self.pullToLoadMoreView = [[SSPullToLoadMoreView alloc] initWithScrollView:self.masonGridView delegate:self];
+    [self.pullToLoadMoreView setExpandedHeight:0.0f];
+    self.pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.masonGridView.frame.size.width, 0.0f } }];
     
     [self.view bringSubviewToFront:self.masonGridView];
     
@@ -227,7 +239,23 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
-    [self loadData];
+    double delayInSeconds = 112.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self loadData];
+    });
+}
+
+#pragma mark - SSPullToLoadMoreDelegate Methods
+
+- (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
+{
+    NSLog(@"Pull to load more");
+    double delayInSeconds = 4.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.pullToLoadMoreView finishLoading];
+    });
 }
 
 #pragma mark - Empty State

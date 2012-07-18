@@ -42,7 +42,7 @@ static CGFloat const kGTIOActivityIndicatorView = 201.0f;
         [self addSubview:_statusLabel];
         
         _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [_activityIndicatorView setFrame:(CGRect){ CGPointZero, { 10, 10 } }];
+        [_activityIndicatorView setTransform:CGAffineTransformMakeScale(0.75, 0.75)];
 		[self addSubview:_activityIndicatorView];
         
         _arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ptr-arrow.png"]];

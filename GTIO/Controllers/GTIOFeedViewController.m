@@ -9,6 +9,7 @@
 #import "GTIOFeedViewController.h"
 
 #import <RestKit/RestKit.h>
+#import "SSPullToRefresh.h"
 
 #import "GTIOPostManager.h"
 #import "GTIORouter.h"
@@ -30,9 +31,12 @@
 
 #import "GTIOProductViewController.h"
 
+#import "SSPullToLoadMoreView.h"
+#import "SSPullToLoadMoreDefaultContentView.h"
+
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
-@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
@@ -51,6 +55,9 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
 @property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
 
+@property (nonatomic, strong) SSPullToLoadMoreView *pullToLoadMoreView;
+@property (nonatomic, strong) SSPullToLoadMoreDefaultContentView *pullToLoadMoreContentView;
+
 @property (nonatomic, copy) NSString *postID;
 @property (nonatomic, copy) NSString *postsResourcePath;
 
@@ -66,6 +73,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshContentView = _pullToRefreshContentView, pullToRefreshView = _pullToRefreshView;
 @synthesize uploadView = _uploadView, postUpload = _postUpload, postID = _postID, postsResourcePath = _postsResourcePath;
 @synthesize post = _post;
+@synthesize pullToLoadMoreView = _pullToLoadMoreView, pullToLoadMoreContentView = _pullToLoadMoreContentView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -162,6 +170,9 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
     self.uploadView = [[GTIOPostUploadView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight } }];
     
+    self.pullToLoadMoreView = [[SSPullToLoadMoreView alloc] initWithScrollView:self.tableView delegate:self];
+    self.pullToLoadMoreView.contentView = [[SSPullToLoadMoreDefaultContentView alloc] initWithFrame:CGRectZero];
+    
     [self.pullToRefreshView startLoading];
     
     [self.tableView bringSubviewToFront:self.navBarView];
@@ -202,6 +213,13 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         }
         [self loadFeed];
     }
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
+{
+    NSLog(@"Pull to load more did start loading");
 }
 
 #pragma mark - Load Data
