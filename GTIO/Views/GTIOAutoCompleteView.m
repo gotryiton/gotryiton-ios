@@ -196,8 +196,8 @@
         return NO;
     }
     
-    //sanitize non ascii input
-    if ( [self hasNonAscii:inputString]){
+    //sanitize non approved character input
+    if ( ![self hasApprovedCharacters:inputString]){
         return NO;
     }
 
@@ -233,11 +233,14 @@
 }
 
 
-- (bool)hasNonAscii:(NSString *)inputString
+- (bool)hasApprovedCharacters:(NSString *)inputString
 {
-    NSData *asciiDataLossLess = [inputString dataUsingEncoding:NSASCIIStringEncoding];
-    NSData *asciiData = [inputString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    return ![[[NSString alloc] initWithData:asciiDataLossLess encoding:NSASCIIStringEncoding] isEqualToString:[[NSString alloc] initWithData:asciiData encoding:NSASCIIStringEncoding]];
+    NSMutableCharacterSet *characterSet = [NSMutableCharacterSet alphanumericCharacterSet];
+    [characterSet formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+    [characterSet formUnionWithCharacterSet:[NSCharacterSet symbolCharacterSet]];
+    [characterSet formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    return [[inputString stringByTrimmingCharactersInSet:characterSet] isEqualToString:@""];
 }
 
 - (NSString *)stringThroughCursorPositionWithRange:(NSRange)range 
