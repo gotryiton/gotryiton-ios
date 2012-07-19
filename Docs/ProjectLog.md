@@ -1,4 +1,4 @@
-***Wednesday, July 18th - Standup Notes***
+***Thursday, July 19th - Standup Notes***
 
 **Attendees**
 
