@@ -26,6 +26,7 @@
 @property (nonatomic, strong) GTIOUIButton *heartButton;
 @property (nonatomic, strong) GTIOUIButton *emailButton;
 @property (nonatomic, strong) GTIOUIButton *buyButton;
+@property (nonatomic, strong) GTIOUIButton *deleteButton;
 
 @property (nonatomic, strong) UILabel *productNameLabel;
 @property (nonatomic, strong) UILabel *brandLabel;
@@ -36,7 +37,7 @@
 @implementation GTIOProductTableViewCell
 
 @synthesize product = _product, indexPath = _indexPath, delegate = _delegate;
-@synthesize productTableCellType = _productTableCellType, productImageView = _productImageView, backgroundImageView = _backgroundImageView, backgroundImageInactive = _backgroundImageInactive, backgroundImageActive = _backgroundImageActive, heartButton = _heartButton, productNameLabel = _productNameLabel, brandLabel = _brandLabel, priceLabel = _priceLabel, emailButton = _emailButton, buyButton = _buyButton;
+@synthesize productTableCellType = _productTableCellType, productImageView = _productImageView, backgroundImageView = _backgroundImageView, backgroundImageInactive = _backgroundImageInactive, backgroundImageActive = _backgroundImageActive, heartButton = _heartButton, productNameLabel = _productNameLabel, brandLabel = _brandLabel, priceLabel = _priceLabel, emailButton = _emailButton, buyButton = _buyButton, deleteButton = _deleteButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier GTIOProductTableCellType:(GTIOProductTableCellType)type
 {
@@ -92,6 +93,9 @@
         
         _buyButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListBuy];
         [self.contentView addSubview:_buyButton];
+        
+        _deleteButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListDelete];
+        [self.contentView addSubview:_deleteButton];
     }
     return self;
 }
@@ -123,6 +127,7 @@
     [self.priceLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, 129, 45, 20 }];
     [self.emailButton setFrame:(CGRect){ 222, 126, self.emailButton.bounds.size }];
     [self.buyButton setFrame:(CGRect){ self.emailButton.frame.origin.x + self.emailButton.bounds.size.width + 7, self.emailButton.frame.origin.y, self.buyButton.bounds.size }];
+    [self.deleteButton setFrame:(CGRect){ self.bounds.size.width - self.deleteButton.bounds.size.width, 0, 26, 20 }];
 }
 
 - (void)setProduct:(GTIOProduct *)product
@@ -193,6 +198,17 @@
                 [self.delegate loadWebViewControllerWithURL:_product.buyURL];
             }
         }
+    };
+    
+    self.deleteButton.tapHandler = ^(id sender) {
+        if ([self.delegate respondsToSelector:@selector(removeProduct:)]) {
+            [self.delegate removeProduct:self.product];
+        }
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%i/remove-from-my-shopping-list", self.product.productID.intValue] usingBlock:^(RKObjectLoader *loader) {
+            loader.onDidFailWithError = ^(NSError *error) {
+                NSLog(@"%@", [error localizedDescription]);
+            };
+        }];
     };
     
     self.productNameLabel.text = _product.productName;

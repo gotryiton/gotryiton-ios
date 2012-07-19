@@ -37,6 +37,7 @@
 #import "GTIONotification.h"
 #import "GTIOTab.h"
 #import "GTIOProduct.h"
+#import "GTIOProductOption.h"
 
 @implementation GTIOMappingProvider
 
@@ -74,6 +75,7 @@
         RKObjectMapping *notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
         RKObjectMapping *tabMapping = [RKObjectMapping mappingForClass:[GTIOTab class]];
         RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[GTIOProduct class]];
+        RKObjectMapping *productOptionMapping = [RKObjectMapping mappingForClass:[GTIOProductOption class]];
         
         /** Products
          */
@@ -88,6 +90,16 @@
         [productMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [self setMapping:productMapping forKeyPath:@"product"];
         [self setMapping:productMapping forKeyPath:@"products"];
+        
+        // GTIOProductOption
+        [productOptionMapping mapKeyPath:@"id" toAttribute:@"productID"];
+        [productOptionMapping mapKeyPath:@"name" toAttribute:@"productName"];
+        [productOptionMapping mapKeyPath:@"buy_url" toAttribute:@"buyURL"];
+        [productOptionMapping mapKeyPath:@"pretty_price" toAttribute:@"prettyPrice"];
+        [productOptionMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
+        [productOptionMapping mapKeyPath:@"brands" toAttribute:@"brands"];
+        [productOptionMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
+        [self setMapping:productOptionMapping forKeyPath:@"product_options"];
         
         /** Config
          */

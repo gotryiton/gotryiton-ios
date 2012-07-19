@@ -14,6 +14,8 @@
 		5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CECED7E159B76EC0051FA94 /* CoreImage.framework */; };
 		8016652D15B4A6D900AE9526 /* GTIOProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8016652C15B4A6D900AE9526 /* GTIOProductViewController.m */; };
 		8016653115B4B4FC00AE9526 /* GTIOProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 8016653015B4B4FC00AE9526 /* GTIOProduct.m */; };
+		8038C1E215B866B4006FA6CA /* shopping.cell.close.active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8038C1E115B866B4006FA6CA /* shopping.cell.close.active@2x.png */; };
+		8038C1E515B87033006FA6CA /* GTIOProductOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 8038C1E415B87033006FA6CA /* GTIOProductOption.m */; };
 		806FBA0715B61B2000C7924D /* product.info.button.icon.checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 806FBA0115B61B2000C7924D /* product.info.button.icon.checkmark.png */; };
 		806FBA0815B61B2000C7924D /* product.info.button.icon.checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806FBA0215B61B2000C7924D /* product.info.button.icon.checkmark@2x.png */; };
 		806FBA0915B61B2000C7924D /* shop.cell.active.png in Resources */ = {isa = PBXBuildFile; fileRef = 806FBA0315B61B2000C7924D /* shop.cell.active.png */; };
@@ -394,7 +396,6 @@
 		8EB5A51015A629E100163F84 /* profile.top.profile.bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB5A1C615A629E000163F84 /* profile.top.profile.bg@2x.png */; };
 		8EB5A51115A629E100163F84 /* save-button-gray-top-margin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB5A1C715A629E000163F84 /* save-button-gray-top-margin.png */; };
 		8EB5A51215A629E100163F84 /* save-button-gray-top-margin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB5A1C815A629E000163F84 /* save-button-gray-top-margin@2x.png */; };
-		8EB5A51315A629E100163F84 /* shoping.cell.close.active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB5A1C915A629E000163F84 /* shoping.cell.close.active@2x.png */; };
 		8EB5A51415A629E100163F84 /* shopping.bottom.add.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB5A1CA15A629E000163F84 /* shopping.bottom.add.png */; };
 		8EB5A51515A629E100163F84 /* shopping.bottom.add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB5A1CB15A629E000163F84 /* shopping.bottom.add@2x.png */; };
 		8EB5A51615A629E100163F84 /* shopping.bottom.bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB5A1CC15A629E000163F84 /* shopping.bottom.bg.png */; };
@@ -1361,6 +1362,9 @@
 		8016652C15B4A6D900AE9526 /* GTIOProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductViewController.m; sourceTree = "<group>"; };
 		8016652F15B4B4FC00AE9526 /* GTIOProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProduct.h; sourceTree = "<group>"; };
 		8016653015B4B4FC00AE9526 /* GTIOProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProduct.m; sourceTree = "<group>"; };
+		8038C1E115B866B4006FA6CA /* shopping.cell.close.active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping.cell.close.active@2x.png"; sourceTree = "<group>"; };
+		8038C1E315B87033006FA6CA /* GTIOProductOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductOption.h; sourceTree = "<group>"; };
+		8038C1E415B87033006FA6CA /* GTIOProductOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductOption.m; sourceTree = "<group>"; };
 		806FBA0115B61B2000C7924D /* product.info.button.icon.checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = product.info.button.icon.checkmark.png; sourceTree = "<group>"; };
 		806FBA0215B61B2000C7924D /* product.info.button.icon.checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "product.info.button.icon.checkmark@2x.png"; sourceTree = "<group>"; };
 		806FBA0315B61B2000C7924D /* shop.cell.active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop.cell.active.png; sourceTree = "<group>"; };
@@ -1795,7 +1799,6 @@
 		8EB5A1C615A629E000163F84 /* profile.top.profile.bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile.top.profile.bg@2x.png"; sourceTree = "<group>"; };
 		8EB5A1C715A629E000163F84 /* save-button-gray-top-margin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save-button-gray-top-margin.png"; sourceTree = "<group>"; };
 		8EB5A1C815A629E000163F84 /* save-button-gray-top-margin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save-button-gray-top-margin@2x.png"; sourceTree = "<group>"; };
-		8EB5A1C915A629E000163F84 /* shoping.cell.close.active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoping.cell.close.active@2x.png"; sourceTree = "<group>"; };
 		8EB5A1CA15A629E000163F84 /* shopping.bottom.add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping.bottom.add.png; sourceTree = "<group>"; };
 		8EB5A1CB15A629E000163F84 /* shopping.bottom.add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping.bottom.add@2x.png"; sourceTree = "<group>"; };
 		8EB5A1CC15A629E000163F84 /* shopping.bottom.bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping.bottom.bg.png; sourceTree = "<group>"; };
@@ -2889,6 +2892,8 @@
 			children = (
 				8016652F15B4B4FC00AE9526 /* GTIOProduct.h */,
 				8016653015B4B4FC00AE9526 /* GTIOProduct.m */,
+				8038C1E315B87033006FA6CA /* GTIOProductOption.h */,
+				8038C1E415B87033006FA6CA /* GTIOProductOption.m */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3470,6 +3475,7 @@
 		8EB5A16C15A629E000163F84 /* 7 */ = {
 			isa = PBXGroup;
 			children = (
+				8038C1E115B866B4006FA6CA /* shopping.cell.close.active@2x.png */,
 				808FB7FB15B739A9006540EE /* shop.list.cell.active.png */,
 				808FB7FC15B739A9006540EE /* shop.list.cell.active@2x.png */,
 				808FB7FD15B739A9006540EE /* shop.list.cell.inactive.png */,
@@ -3566,7 +3572,6 @@
 				8EB5A1C615A629E000163F84 /* profile.top.profile.bg@2x.png */,
 				8EB5A1C715A629E000163F84 /* save-button-gray-top-margin.png */,
 				8EB5A1C815A629E000163F84 /* save-button-gray-top-margin@2x.png */,
-				8EB5A1C915A629E000163F84 /* shoping.cell.close.active@2x.png */,
 				8EB5A1CA15A629E000163F84 /* shopping.bottom.add.png */,
 				8EB5A1CB15A629E000163F84 /* shopping.bottom.add@2x.png */,
 				8EB5A1CC15A629E000163F84 /* shopping.bottom.bg.png */,
@@ -5815,7 +5820,6 @@
 				8EB5A51015A629E100163F84 /* profile.top.profile.bg@2x.png in Resources */,
 				8EB5A51115A629E100163F84 /* save-button-gray-top-margin.png in Resources */,
 				8EB5A51215A629E100163F84 /* save-button-gray-top-margin@2x.png in Resources */,
-				8EB5A51315A629E100163F84 /* shoping.cell.close.active@2x.png in Resources */,
 				8EB5A51415A629E100163F84 /* shopping.bottom.add.png in Resources */,
 				8EB5A51515A629E100163F84 /* shopping.bottom.add@2x.png in Resources */,
 				8EB5A51615A629E100163F84 /* shopping.bottom.bg.png in Resources */,
@@ -6467,6 +6471,7 @@
 				808FB80015B739A9006540EE /* shop.list.cell.active@2x.png in Resources */,
 				808FB80115B739A9006540EE /* shop.list.cell.inactive.png in Resources */,
 				808FB80215B739A9006540EE /* shop.list.cell.inactive@2x.png in Resources */,
+				8038C1E215B866B4006FA6CA /* shopping.cell.close.active@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6711,6 +6716,7 @@
 				808FB7F415B712AE006540EE /* GTIOShoppingListViewController.m in Sources */,
 				808FB7FA15B71687006540EE /* GTIOProductTableViewCell.m in Sources */,
 				808FB80515B73B42006540EE /* GTIOHeartToggleButton.m in Sources */,
+				8038C1E515B87033006FA6CA /* GTIOProductOption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

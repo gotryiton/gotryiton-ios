@@ -9,6 +9,6 @@
 #import "GTIOViewController.h"
 #import "GTIOProductTableViewCell.h"
 
-@interface GTIOShoppingListViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOProductTableViewCellDelegate>
+@interface GTIOShoppingListViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOProductTableViewCellDelegate, UIAlertViewDelegate>
 
 @end

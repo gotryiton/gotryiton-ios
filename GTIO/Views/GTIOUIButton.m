@@ -76,6 +76,8 @@
         case GTIOButtonTypeProductShoppingListHeart: return [self gtio_productShoppingListHeartButton];
         case GTIOButtonTypeProductShoppingListEmail: return [self gtio_productListEmailButton];
         case GTIOButtonTypeProductShoppingListBuy: return [self gtio_productListBuyButton];
+        case GTIOButtonTypeProductShoppingListDelete: return [self gtio_productShoppingListDeleteButton];
+        case GTIOButtonTypeProductShoppingListEmailMyList: return [self gtio_productShoppingListEmailMyListButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -537,6 +539,11 @@
     return button;
 }
 
++ (id)gtio_productShoppingListDeleteButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"shopping.cell.close.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.cell.close.active.png"]];
+}
+
 + (id)gtio_productListEmailButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.email.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.button.email.active.png"]];
@@ -582,6 +589,11 @@
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
     return button;
+}
+
++ (id)gtio_productShoppingListEmailMyListButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"shopping.navigation.bar.button.share.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.navigation.bar.button.share.active.png"]];
 }
 
 #pragma mark - Touch Handling

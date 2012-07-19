@@ -19,7 +19,6 @@ typedef enum GTIOProductTableCellType {
 
 @required
 - (void)removeProduct:(GTIOProduct *)product;
-- (void)updateProduct:(GTIOProduct *)product;
 - (void)loadWebViewControllerWithURL:(NSURL *)url;
 
 @end
