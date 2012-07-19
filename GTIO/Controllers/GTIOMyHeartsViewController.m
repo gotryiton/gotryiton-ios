@@ -18,11 +18,15 @@
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) NSMutableArray *products;
 
+@property (nonatomic, strong) GTIOPagination *heartedPostsPagination;
+@property (nonatomic, strong) GTIOPagination *heartedProductsPagination;
+
 @end
 
 @implementation GTIOMyHeartsViewController
 
 @synthesize segmentedControl = _segmentedControl, posts = _posts, products = _products;
+@synthesize heartedPostsPagination = _heartedPostsPagination, heartedProductsPagination = _heartedProductsPagination;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,16 +59,114 @@
     self.posts = [NSMutableArray array];
     self.products = [NSMutableArray array];
     
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    __block GTIOMyHeartsViewController *blockSelf = self;
+    [self.segmentedControl.leftPostsView.masonGridView setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView) {
+        [blockSelf loadHeartedPostsWithProgressHUD:NO];
+    }];
+    [self.segmentedControl.leftPostsView.masonGridView setPullToLoadMoreView:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToLoadMoreView) {
+        [blockSelf loadHeartedPostsPagination];
+    }];
+//    [self.segmentedControl.rightPostsView.masonGridView setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView) {
+//        [blockSelf loadHeartedPostsWithProgressHUD:NO];
+//    }];
+//    [self.segmentedControl.rightPostsView.masonGridView setPullToLoadMoreView:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
+//        [blockSelf loadHeartedPostsPagination];
+//    }];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    self.segmentedControl = nil;
+    self.posts = nil;
+    self.products = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Hearted Posts
+
+- (void)loadHeartedPostsWithProgressHUD:(BOOL)showProgressHUD
+{
+    if (showProgressHUD) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/posts/hearted-by-user/%@", [GTIOUser currentUser].userID] usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            NSLog(@"Response: %@", [loader.response bodyAsString]);
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOPost class]]) {
+                    [self.posts addObject:object];
+                } else if ([object isMemberOfClass:[GTIOPagination class]]) {
+                    self.heartedPostsPagination = object;
+                }
+            }
+            [self.segmentedControl setPosts:self.posts GTIOPostType:GTIOPostTypeHeart userProfile:[GTIOUser currentUserProfile]];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
+- (void)loadHeartedPostsPagination
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.heartedPostsPagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [self.segmentedControl.leftPostsView.masonGridView.pullToLoadMoreView finishLoading];
+            self.heartedPostsPagination = nil;
+            
+            NSMutableArray *paginationHeartedPosts = [NSMutableArray array];
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOPost class]]) {
+                    [paginationHeartedPosts addObject:object];
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    self.heartedPostsPagination = object;
+                }
+            }
+            
+            // Only add posts that are not already on mason grid
+            [paginationHeartedPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                GTIOPost *post = obj;
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                if ([foundExistingPosts count] == 0) {
+                    [self.segmentedControl.leftPostsView.masonGridView addPost:post postType:GTIOPostTypeNone];
+                    [self.posts addObject:post];
+                }
+            }];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [self.segmentedControl.leftPostsView.masonGridView.pullToLoadMoreView finishLoading];
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
+#pragma mark - Hearted Products
+
+- (void)loadHeartedProductsWithProgressHUD:(BOOL)showProgressHUD
+{
+    if (showProgressHUD) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/products/hearted-by-user/%@", [GTIOUser currentUser].userID] usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            NSLog(@"Response: %@", [loader.response bodyAsString]);
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOPost class]]) {
                     [self.posts addObject:object];
                 }
             }
-            [self.segmentedControl setPosts:self.posts GTIOPostType:GTIOPostTypeHeart userProfile:[GTIOUser currentUserProfile]];
             [self.segmentedControl setPosts:self.products GTIOPostType:GTIOPostTypeHeartedProducts userProfile:[GTIOUser currentUserProfile]];
         };
         loader.onDidFailWithError = ^(NSError *error) {
@@ -74,15 +176,9 @@
     }];
 }
 
-- (void)viewDidUnload
+- (void)loadHeartedProductsPagination
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    NSLog(@"test");
 }
 
 @end

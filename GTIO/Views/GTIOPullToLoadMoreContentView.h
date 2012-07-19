@@ -11,4 +11,6 @@
 
 @interface GTIOPullToLoadMoreContentView : UIView <SSPullToLoadMoreContentView>
 
+@property (nonatomic, assign) BOOL shouldShowTopAccentLine;
+
 @end

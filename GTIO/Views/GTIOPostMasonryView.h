@@ -13,7 +13,7 @@
 
 @interface GTIOPostMasonryView : UIView
 
-@property (nonatomic, strong) NSArray *posts;
+@property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) GTIOUserProfile *userProfile;
 @property (nonatomic, assign) GTIOPostType postType;
 @property (nonatomic, strong) GTIOMasonGridView *masonGridView;

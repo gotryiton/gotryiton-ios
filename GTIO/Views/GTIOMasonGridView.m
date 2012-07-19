@@ -17,7 +17,7 @@ static CGFloat const kGTIOImageWidth = 94.0;
 static CGFloat const kGTIOHorizontalSpacing = 2.5;
 static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 
-@interface GTIOMasonGridView()
+@interface GTIOMasonGridView() <SSPullToLoadMoreViewDelegate, SSPullToRefreshViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *columns;
 @property (nonatomic, strong) NSMutableArray *items;
@@ -29,6 +29,9 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 @synthesize columns = _columns, items = _items;
 @synthesize padding = _padding;
 @synthesize gridItemTapHandler = _gridItemTapHandler;
+@synthesize pullToRefreshView = _pullToRefreshView;
+@synthesize pullToLoadMoreView = _pullToLoadMoreView;
+@synthesize pullToRefreshHandler = _pullToRefreshHandler, pullToLoadMoreHandler = _pullToLoadMoreHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -125,6 +128,55 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 {
     for (GTIOMasonGridItem *item in self.items) {
         [item cancelImageDownload];
+    }
+}
+
+#pragma mark - Properties
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    [self.pullToRefreshView.contentView setFrame:(CGRect){ self.pullToRefreshView.contentView.frame.origin, { self.frame.size.width, self.pullToRefreshView.contentView.frame.size.height } }];
+    [self.pullToLoadMoreView.contentView setFrame:(CGRect){ self.pullToLoadMoreView.contentView.frame.origin, { self.frame.size.width, self.pullToLoadMoreView.contentView.frame.size.height } }];
+}
+
+#pragma mark - Pull to ...
+
+- (void)attachPullToRefreshAndPullToLoadMore
+{
+    [self attachPullToRefresh];
+    [self attachPullToLoadMore];
+}
+
+- (void)attachPullToRefresh
+{
+    // Pull to refresh
+    _pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self delegate:self];
+    _pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.frame.size.width, 0 } }];
+}
+
+- (void)attachPullToLoadMore
+{
+    // Pull to load more
+    _pullToLoadMoreView = [[SSPullToLoadMoreView alloc] initWithScrollView:self delegate:self];
+    _pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.frame.size.width, 0.0f } }];
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
+{
+    if (self.pullToRefreshHandler) {
+        self.pullToRefreshHandler(self, view);
+    }
+}
+
+#pragma mark - SSPullToLoadMoreDelegate Methods
+
+- (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
+{
+    if (self.pullToLoadMoreHandler) {
+        self.pullToLoadMoreHandler(self, view);
     }
 }
 
