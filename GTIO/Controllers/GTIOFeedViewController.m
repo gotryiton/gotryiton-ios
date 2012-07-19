@@ -28,7 +28,9 @@
 #import "GTIOReviewsViewController.h"
 #import "GTIONotificationsViewController.h"
 
+#import "GTIOShopThisLookViewController.h"
 #import "GTIOShoppingListViewController.h"
+#import "GTIOProductNativeListViewController.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
@@ -136,10 +138,20 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 //            [blockSelf presentModalViewController:navController animated:YES];
 
 #warning TEST CODE FOR 7.8
-            GTIOShoppingListViewController *viewController = [[GTIOShoppingListViewController alloc] initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:viewController animated:YES];
+//            GTIOShoppingListViewController *viewController1 = [[GTIOShoppingListViewController alloc] initWithNibName:nil bundle:nil];
+//            [self.navigationController pushViewController:viewController1 animated:YES];
 #warning END TEST CODE
-        
+            
+#warning TEST CODE FOR 4.8
+//            GTIOShopThisLookViewController *viewController2 = [[GTIOShopThisLookViewController alloc] initWithNibName:nil bundle:nil];
+//            viewController2.postID = [NSNumber numberWithInt:1443];
+//            [self.navigationController pushViewController:viewController2 animated:YES];
+#warning END TEST CODE
+            
+#warning TEST CODE FOR 10.5
+            GTIOProductNativeListViewController *viewController3 = [[GTIOProductNativeListViewController alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:viewController3 animated:YES];
+#warning END TEST CODE
         }];
     }
     self.navBarView.titleView.tapHandler = ^(void) {

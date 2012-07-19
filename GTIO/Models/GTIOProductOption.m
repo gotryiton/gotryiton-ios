@@ -10,4 +10,6 @@
 
 @implementation GTIOProductOption
 
+@synthesize productOptionID = _productOptionID, photo = _photo, action = _action;
+
 @end

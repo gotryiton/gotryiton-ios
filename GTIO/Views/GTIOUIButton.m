@@ -78,6 +78,8 @@
         case GTIOButtonTypeProductShoppingListBuy: return [self gtio_productListBuyButton];
         case GTIOButtonTypeProductShoppingListDelete: return [self gtio_productShoppingListDeleteButton];
         case GTIOButtonTypeProductShoppingListEmailMyList: return [self gtio_productShoppingListEmailMyListButton];
+        case GTIOButtonTypeProductShoppingListProductOption: return [self gtio_productShoppingListProductOptionButton];
+        case GTIOButtonTypeProductShoppingListNav: return [self gtio_productShoppingListNavButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -552,6 +554,24 @@
 + (id)gtio_productListBuyButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.buy.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.button.buy.active.png"]];
+}
+
++ (id)gtio_productShoppingListProductOptionButton
+{
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shopping.bottom.image.overlay.png"] hightlightImage:[UIImage imageNamed:@"shopping.bottom.image.overlay.active.png"]];
+    button.clipsToBounds = NO;
+    UIImageView *plusSignView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shopping.bottom.plus.inactive.png"]];
+    [plusSignView setFrame:(CGRect){ button.bounds.size.width - plusSignView.bounds.size.width + 7, -(plusSignView.bounds.size.height / 2) + 8, plusSignView.bounds.size }];
+    [button addSubview:plusSignView];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:button action:@selector(buttonWasTouchedDraggedExited:) forControlEvents:UIControlEventTouchDragExit];
+    [button addTarget:button action:@selector(buttonWasTouchedDownInside:) forControlEvents:UIControlEventTouchDown];
+    return button;
+}
+
++ (id)gtio_productShoppingListNavButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
 }
 
 + (id)gtio_maskButton

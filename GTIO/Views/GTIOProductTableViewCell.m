@@ -36,7 +36,7 @@
 
 @implementation GTIOProductTableViewCell
 
-@synthesize product = _product, indexPath = _indexPath, delegate = _delegate;
+@synthesize product = _product, delegate = _delegate;
 @synthesize productTableCellType = _productTableCellType, productImageView = _productImageView, backgroundImageView = _backgroundImageView, backgroundImageInactive = _backgroundImageInactive, backgroundImageActive = _backgroundImageActive, heartButton = _heartButton, productNameLabel = _productNameLabel, brandLabel = _brandLabel, priceLabel = _priceLabel, emailButton = _emailButton, buyButton = _buyButton, deleteButton = _deleteButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier GTIOProductTableCellType:(GTIOProductTableCellType)type
@@ -64,8 +64,10 @@
         _backgroundImageView = [[UIImageView alloc] initWithImage:_backgroundImageInactive];
         [self.contentView addSubview:_backgroundImageView];
         
-        _heartButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListHeart];
-        [self.contentView addSubview:_heartButton];
+        if (_productTableCellType != GTIOProductTableViewCellTypeShoppingBrowse) {
+            _heartButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListHeart];
+            [self.contentView addSubview:_heartButton];
+        }
         
         _productNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _productNameLabel.backgroundColor = [UIColor clearColor];
@@ -88,14 +90,17 @@
         _priceLabel.adjustsFontSizeToFitWidth = YES;
         [self.contentView addSubview:_priceLabel];
         
-        _emailButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListEmail];
-        [self.contentView addSubview:_emailButton];
         
-        _buyButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListBuy];
-        [self.contentView addSubview:_buyButton];
-        
-        _deleteButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListDelete];
-        [self.contentView addSubview:_deleteButton];
+        if (_productTableCellType == GTIOProductTableViewCellTypeShoppingList) {
+            _emailButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListEmail];
+            [self.contentView addSubview:_emailButton];
+            
+            _buyButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListBuy];
+            [self.contentView addSubview:_buyButton];
+            
+            _deleteButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListDelete];
+            [self.contentView addSubview:_deleteButton];
+        }
     }
     return self;
 }
@@ -121,9 +126,9 @@
     [self.productImageView setFrame:(CGRect){ 5, 2, 155, 154 }];
     [self.backgroundImageView setFrame:(CGRect){ 3, 0, self.bounds.size.width - 6, 159 }];
     [self.heartButton setFrame:(CGRect){ 12, 7, self.heartButton.bounds.size }];
-    CGSize productNameLabelSize = [self.productNameLabel sizeThatFits:(CGSize){ 109, CGFLOAT_MAX }];
-    [self.productNameLabel setFrame:(CGRect){ 173, 10, 109, (productNameLabelSize.height <= 95) ? productNameLabelSize.height : 95 }];
-    [self.brandLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height, 109, 15 }];
+    CGSize productNameLabelSize = [self.productNameLabel sizeThatFits:(CGSize){ (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? 109 : 130, CGFLOAT_MAX }];
+    [self.productNameLabel setFrame:(CGRect){ 173, 10, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? 109 : 130, (productNameLabelSize.height <= 95) ? productNameLabelSize.height : 95 }];
+    [self.brandLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? 109 : 130, 15 }];
     [self.priceLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, 129, 45, 20 }];
     [self.emailButton setFrame:(CGRect){ 222, 126, self.emailButton.bounds.size }];
     [self.buyButton setFrame:(CGRect){ self.emailButton.frame.origin.x + self.emailButton.bounds.size.width + 7, self.emailButton.frame.origin.y, self.buyButton.bounds.size }];

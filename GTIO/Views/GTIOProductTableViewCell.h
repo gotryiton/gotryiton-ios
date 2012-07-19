@@ -17,7 +17,7 @@ typedef enum GTIOProductTableCellType {
 
 @protocol GTIOProductTableViewCellDelegate <NSObject>
 
-@required
+@optional
 - (void)removeProduct:(GTIOProduct *)product;
 - (void)loadWebViewControllerWithURL:(NSURL *)url;
 
@@ -27,7 +27,6 @@ typedef enum GTIOProductTableCellType {
 
 @property (nonatomic, strong) GTIOProduct *product;
 
-@property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, weak) id<GTIOProductTableViewCellDelegate> delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier GTIOProductTableCellType:(GTIOProductTableCellType)type;

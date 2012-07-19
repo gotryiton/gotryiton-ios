@@ -23,6 +23,16 @@
 		806FBA0B15B61B2000C7924D /* shop.cell.inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 806FBA0515B61B2000C7924D /* shop.cell.inactive.png */; };
 		806FBA0C15B61B2000C7924D /* shop.cell.inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806FBA0615B61B2000C7924D /* shop.cell.inactive@2x.png */; };
 		8076B3ED15B5E77000B72466 /* GTIOProductInformationBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */; };
+		808286EF15B889BE00682775 /* GTIOProductOptionAddButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 808286EE15B889BE00682775 /* GTIOProductOptionAddButton.m */; };
+		808286F515B8A76C00682775 /* GTIOShopThisLookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808286F415B8A76C00682775 /* GTIOShopThisLookViewController.m */; };
+		808286F815B8AC5D00682775 /* GTIOProductListEmptyStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 808286F715B8AC5D00682775 /* GTIOProductListEmptyStateView.m */; };
+		808286FB15B8B5B100682775 /* GTIOProductNativeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808286FA15B8B5B100682775 /* GTIOProductNativeListViewController.m */; };
+		8082870015B8B85600682775 /* nav.bar.dot.active.png in Resources */ = {isa = PBXBuildFile; fileRef = 808286FC15B8B85600682775 /* nav.bar.dot.active.png */; };
+		8082870115B8B85600682775 /* nav.bar.dot.active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 808286FD15B8B85600682775 /* nav.bar.dot.active@2x.png */; };
+		8082870215B8B85600682775 /* nav.bar.dot.inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 808286FE15B8B85600682775 /* nav.bar.dot.inactive.png */; };
+		8082870315B8B85600682775 /* nav.bar.dot.inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 808286FF15B8B85600682775 /* nav.bar.dot.inactive@2x.png */; };
+		8082870615B8BD6B00682775 /* GTIOCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8082870515B8BD6B00682775 /* GTIOCollection.m */; };
+		8082870915B8BD9300682775 /* GTIOBannerImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8082870815B8BD9300682775 /* GTIOBannerImage.m */; };
 		808FB7F415B712AE006540EE /* GTIOShoppingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808FB7F315B712AE006540EE /* GTIOShoppingListViewController.m */; };
 		808FB7FA15B71687006540EE /* GTIOProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 808FB7F915B71687006540EE /* GTIOProductTableViewCell.m */; };
 		808FB7FF15B739A9006540EE /* shop.list.cell.active.png in Resources */ = {isa = PBXBuildFile; fileRef = 808FB7FB15B739A9006540EE /* shop.list.cell.active.png */; };
@@ -1373,6 +1383,22 @@
 		806FBA0615B61B2000C7924D /* shop.cell.inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop.cell.inactive@2x.png"; sourceTree = "<group>"; };
 		8076B3EB15B5E77000B72466 /* GTIOProductInformationBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductInformationBox.h; sourceTree = "<group>"; };
 		8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductInformationBox.m; sourceTree = "<group>"; };
+		808286ED15B889BE00682775 /* GTIOProductOptionAddButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductOptionAddButton.h; sourceTree = "<group>"; };
+		808286EE15B889BE00682775 /* GTIOProductOptionAddButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductOptionAddButton.m; sourceTree = "<group>"; };
+		808286F315B8A76C00682775 /* GTIOShopThisLookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOShopThisLookViewController.h; sourceTree = "<group>"; };
+		808286F415B8A76C00682775 /* GTIOShopThisLookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOShopThisLookViewController.m; sourceTree = "<group>"; };
+		808286F615B8AC5C00682775 /* GTIOProductListEmptyStateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductListEmptyStateView.h; sourceTree = "<group>"; };
+		808286F715B8AC5D00682775 /* GTIOProductListEmptyStateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductListEmptyStateView.m; sourceTree = "<group>"; };
+		808286F915B8B5B100682775 /* GTIOProductNativeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductNativeListViewController.h; sourceTree = "<group>"; };
+		808286FA15B8B5B100682775 /* GTIOProductNativeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductNativeListViewController.m; sourceTree = "<group>"; };
+		808286FC15B8B85600682775 /* nav.bar.dot.active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav.bar.dot.active.png; sourceTree = "<group>"; };
+		808286FD15B8B85600682775 /* nav.bar.dot.active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav.bar.dot.active@2x.png"; sourceTree = "<group>"; };
+		808286FE15B8B85600682775 /* nav.bar.dot.inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav.bar.dot.inactive.png; sourceTree = "<group>"; };
+		808286FF15B8B85600682775 /* nav.bar.dot.inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav.bar.dot.inactive@2x.png"; sourceTree = "<group>"; };
+		8082870415B8BD6B00682775 /* GTIOCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCollection.h; sourceTree = "<group>"; };
+		8082870515B8BD6B00682775 /* GTIOCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCollection.m; sourceTree = "<group>"; };
+		8082870715B8BD9300682775 /* GTIOBannerImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOBannerImage.h; sourceTree = "<group>"; };
+		8082870815B8BD9300682775 /* GTIOBannerImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOBannerImage.m; sourceTree = "<group>"; };
 		808FB7F215B712AE006540EE /* GTIOShoppingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOShoppingListViewController.h; sourceTree = "<group>"; };
 		808FB7F315B712AE006540EE /* GTIOShoppingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOShoppingListViewController.m; sourceTree = "<group>"; };
 		808FB7F815B71687006540EE /* GTIOProductTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductTableViewCell.h; sourceTree = "<group>"; };
@@ -2883,6 +2909,10 @@
 				8016652C15B4A6D900AE9526 /* GTIOProductViewController.m */,
 				808FB7F215B712AE006540EE /* GTIOShoppingListViewController.h */,
 				808FB7F315B712AE006540EE /* GTIOShoppingListViewController.m */,
+				808286F315B8A76C00682775 /* GTIOShopThisLookViewController.h */,
+				808286F415B8A76C00682775 /* GTIOShopThisLookViewController.m */,
+				808286F915B8B5B100682775 /* GTIOProductNativeListViewController.h */,
+				808286FA15B8B5B100682775 /* GTIOProductNativeListViewController.m */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2894,6 +2924,10 @@
 				8016653015B4B4FC00AE9526 /* GTIOProduct.m */,
 				8038C1E315B87033006FA6CA /* GTIOProductOption.h */,
 				8038C1E415B87033006FA6CA /* GTIOProductOption.m */,
+				8082870415B8BD6B00682775 /* GTIOCollection.h */,
+				8082870515B8BD6B00682775 /* GTIOCollection.m */,
+				8082870715B8BD9300682775 /* GTIOBannerImage.h */,
+				8082870815B8BD9300682775 /* GTIOBannerImage.m */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2909,6 +2943,10 @@
 				808FB7F915B71687006540EE /* GTIOProductTableViewCell.m */,
 				808FB80315B73B42006540EE /* GTIOHeartToggleButton.h */,
 				808FB80415B73B42006540EE /* GTIOHeartToggleButton.m */,
+				808286ED15B889BE00682775 /* GTIOProductOptionAddButton.h */,
+				808286EE15B889BE00682775 /* GTIOProductOptionAddButton.m */,
+				808286F615B8AC5C00682775 /* GTIOProductListEmptyStateView.h */,
+				808286F715B8AC5D00682775 /* GTIOProductListEmptyStateView.m */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3732,6 +3770,10 @@
 		8EB5A26915A629E000163F84 /* 10 */ = {
 			isa = PBXGroup;
 			children = (
+				808286FC15B8B85600682775 /* nav.bar.dot.active.png */,
+				808286FD15B8B85600682775 /* nav.bar.dot.active@2x.png */,
+				808286FE15B8B85600682775 /* nav.bar.dot.inactive.png */,
+				808286FF15B8B85600682775 /* nav.bar.dot.inactive@2x.png */,
 				8EB5A26A15A629E000163F84 /* shop-products-bg.png */,
 				8EB5A26B15A629E000163F84 /* shop-products-bg@2x.png */,
 				8EB5A26C15A629E000163F84 /* shop-products-empty.png */,
@@ -6472,6 +6514,10 @@
 				808FB80115B739A9006540EE /* shop.list.cell.inactive.png in Resources */,
 				808FB80215B739A9006540EE /* shop.list.cell.inactive@2x.png in Resources */,
 				8038C1E215B866B4006FA6CA /* shopping.cell.close.active@2x.png in Resources */,
+				8082870015B8B85600682775 /* nav.bar.dot.active.png in Resources */,
+				8082870115B8B85600682775 /* nav.bar.dot.active@2x.png in Resources */,
+				8082870215B8B85600682775 /* nav.bar.dot.inactive.png in Resources */,
+				8082870315B8B85600682775 /* nav.bar.dot.inactive@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6717,6 +6763,12 @@
 				808FB7FA15B71687006540EE /* GTIOProductTableViewCell.m in Sources */,
 				808FB80515B73B42006540EE /* GTIOHeartToggleButton.m in Sources */,
 				8038C1E515B87033006FA6CA /* GTIOProductOption.m in Sources */,
+				808286EF15B889BE00682775 /* GTIOProductOptionAddButton.m in Sources */,
+				808286F515B8A76C00682775 /* GTIOShopThisLookViewController.m in Sources */,
+				808286F815B8AC5D00682775 /* GTIOProductListEmptyStateView.m in Sources */,
+				808286FB15B8B5B100682775 /* GTIOProductNativeListViewController.m in Sources */,
+				8082870615B8BD6B00682775 /* GTIOCollection.m in Sources */,
+				8082870915B8BD9300682775 /* GTIOBannerImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -96,6 +96,9 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
             [self.navigationController pushViewController:viewController animated:YES];
             return NO;
         }
+    } else {
+        UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURL:request.URL];
+        [self.navigationController pushViewController:viewController animated:YES];
     }
     
     return YES;

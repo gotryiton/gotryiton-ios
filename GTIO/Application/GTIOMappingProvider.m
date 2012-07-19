@@ -38,6 +38,8 @@
 #import "GTIOTab.h"
 #import "GTIOProduct.h"
 #import "GTIOProductOption.h"
+#import "GTIOCollection.h"
+#import "GTIOBannerImage.h"
 
 @implementation GTIOMappingProvider
 
@@ -76,6 +78,8 @@
         RKObjectMapping *tabMapping = [RKObjectMapping mappingForClass:[GTIOTab class]];
         RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[GTIOProduct class]];
         RKObjectMapping *productOptionMapping = [RKObjectMapping mappingForClass:[GTIOProductOption class]];
+        RKObjectMapping *collectionMapping = [RKObjectMapping mappingForClass:[GTIOCollection class]];
+        RKObjectMapping *bannerImageMapping = [RKObjectMapping mappingForClass:[GTIOBannerImage class]];
         
         /** Products
          */
@@ -92,14 +96,24 @@
         [self setMapping:productMapping forKeyPath:@"products"];
         
         // GTIOProductOption
-        [productOptionMapping mapKeyPath:@"id" toAttribute:@"productID"];
-        [productOptionMapping mapKeyPath:@"name" toAttribute:@"productName"];
-        [productOptionMapping mapKeyPath:@"buy_url" toAttribute:@"buyURL"];
-        [productOptionMapping mapKeyPath:@"pretty_price" toAttribute:@"prettyPrice"];
+        [productOptionMapping mapKeyPath:@"id" toAttribute:@"productOptionID"];
         [productOptionMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
-        [productOptionMapping mapKeyPath:@"brands" toAttribute:@"brands"];
-        [productOptionMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
+        [productOptionMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [self setMapping:productOptionMapping forKeyPath:@"product_options"];
+        
+        // GTIOBannerImage
+        [bannerImageMapping mapKeyPath:@"image" toAttribute:@"imageURL"];
+        [bannerImageMapping mapKeyPath:@"width" toAttribute:@"width"];
+        [bannerImageMapping mapKeyPath:@"height" toAttribute:@"height"];
+        [bannerImageMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        
+        // GTIOCollection
+        [collectionMapping mapKeyPath:@"id" toAttribute:@"collectionID"];
+        [collectionMapping mapKeyPath:@"name" toAttribute:@"name"];
+        [collectionMapping mapKeyPath:@"banner_image" toRelationship:@"bannerImage" withMapping:bannerImageMapping];
+        [collectionMapping mapKeyPath:@"custom_nav_image" toAttribute:@"customNavigationImageURL"];
+        [collectionMapping mapKeyPath:@"dot_options" toRelationship:@"dotOptions" withMapping:buttonMapping];
+        [self setMapping:collectionMapping forKeyPath:@"collection"];
         
         /** Config
          */

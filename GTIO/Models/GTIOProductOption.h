@@ -8,6 +8,10 @@
 
 #import "GTIOProduct.h"
 
-@interface GTIOProductOption : GTIOProduct
+@interface GTIOProductOption : NSObject
+
+@property (nonatomic, strong) NSNumber *productOptionID;
+@property (nonatomic, strong) GTIOPhoto *photo;
+@property (nonatomic, strong) GTIOButtonAction *action;
 
 @end
