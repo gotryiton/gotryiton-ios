@@ -1505,6 +1505,10 @@ gtio://products/in-post/:post_id
 
 - A user can see a list of products contained in a post
    - each product cell taps to ([view 4.1](#41-product-page-view))
+- A user can see extra options from an actionsheet
+   - top right ... button taps to action sheet (not pictured -- see view 10.5)
+   - contents of actionsheet defined by ```ui.dot_options```
+   - ... button only shows if ```ui.dot_options``` is not null
 
 #### Design Stories
 - Cell
@@ -3552,9 +3556,15 @@ gtio://collection/:id
 - A user can see a custom header on certain pages
    - if ```collection.banner_image``` exists display banner
    - tap is defined by ```collection.banner_image.action```
+   - image path is defined by ```collection.banner_image.image``` (image will be 2x)
+   - dimensions is defined by ```collection.banner_image.width```, ```collection.banner_image.height``` (width, height will be 1x)
 - A user can see a custom nav bar image on certain screens
    - if ```collection.custom_nav_image``` exists, display image rather than title/back/... buttons
       - maintain invisible tap areas for back and ... buttons
+- A user can see extra options from an actionsheet
+   - top right ... button taps to action sheet
+   - contents of actionsheet defined by ```collection.dot_options```
+   - ... button only shows if ```collection.dot_options``` is not null
 - A user can see a list of products in table view
    - api response includes an array of ```products```
    - each table cell taps to (view 4.1)
