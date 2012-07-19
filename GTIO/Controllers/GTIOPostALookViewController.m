@@ -129,31 +129,23 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ { 253, 262 }, CGSizeZero }];
     [self.scrollView addSubview:self.optionsView];
     
-    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 105 } title:@"add a description, tags, and brands..." icon:[UIImage imageNamed:@"description-box-icon.png"]];
-    [self.descriptionBox.textView setTextViewWillBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {        
-        CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
-        
-        if (self.scrollView.contentOffset.y == bottomOffset) {
-            double delayInSeconds = 0.1;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self.descriptionBox.textView.textInput becomeFirstResponder];
-            });
-        } else {
-            [self.scrollView scrollRectToVisible:(CGRect){ 0, self.scrollView.contentSize.height - 1, 1, 1 } animated:YES];
-        }
-    }];
+    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 155 } title:@"add a description, tags, and brands..." icon:[UIImage imageNamed:@"description-box-icon.png"]];
+    [self.descriptionBox setClipsToBounds:YES];
     __block typeof(self) blockSelf = self;
     [self.descriptionBox.textView setTextViewDidBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {
         [blockSelf.lookSelectorView setUserInteractionEnabled:NO];
+        [blockSelf.optionsView setUserInteractionEnabled:NO];
+        
         [blockSelf snapScrollToBottom];
     }];
     [self.descriptionBox.textView setTextViewDidEndHandler:^(GTIOPostAutoCompleteView *descriptionBox, BOOL scrollToTop) {
-        [self.descriptionBox.textView.textInput resignFirstResponder];
-        [self.lookSelectorView setUserInteractionEnabled:YES];
+        [blockSelf.descriptionBox.textView.textInput resignFirstResponder];
+        
+        [blockSelf.lookSelectorView setUserInteractionEnabled:YES];
+        [blockSelf.optionsView setUserInteractionEnabled:YES];
         
         if (scrollToTop) {
-            [self.scrollView scrollRectToVisible:(CGRect){ 0, 0, 1, 1 } animated:YES];
+            [blockSelf scrollToTop];
         }
     }];
     [self.scrollView addSubview:self.descriptionBox];
@@ -219,18 +211,6 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     }
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    if (self.descriptionBox.textView.forceBecomeFirstResponder) {
-        double delayInSeconds = 0.1;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.descriptionBox.textView.textInput becomeFirstResponder];
-            [self.descriptionBox.textView setForceBecomeFirstResponder:NO];
-        });
-    }
-}
-
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
     [self.descriptionBox.textView.textInput resignFirstResponder];
@@ -240,24 +220,17 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 - (void)snapScrollView:(UIScrollView *)scrollView
 {
     CGPoint contentOffset = scrollView.contentOffset;
-    CGRect scrollToRect;
-    BOOL top = NO;
-    if (contentOffset.y > (scrollView.contentSize.height - (scrollView.frame.size.height - scrollView.scrollIndicatorInsets.bottom)) / 2 ) {
-        scrollToRect = CGRectMake(0, scrollView.contentSize.height - 1, 1, 1);
-    } else {
-        scrollToRect = CGRectMake(0, 0, 1, 1);
-        top = YES;
-    }
     
-    [UIView animateWithDuration:0.15 animations:^{
-        [scrollView scrollRectToVisible:scrollToRect animated:YES];
-    } completion:^(BOOL finished) {
-        if (top) {
-            [self.descriptionBox.textView.textInput resignFirstResponder];
-        } else {
-            [self.descriptionBox.textView.textInput becomeFirstResponder];
+    if (contentOffset.y > (scrollView.contentSize.height - (scrollView.frame.size.height - scrollView.scrollIndicatorInsets.bottom)) / 2 ) {
+        [self.descriptionBox.textView.textInput becomeFirstResponder];
+        
+        if (self.scrollView.isKeyboardShowing) {
+            [self snapScrollToBottom];
         }
-    }];
+    } else {
+        [self scrollToTop];
+        [self.descriptionBox.textView.textInput resignFirstResponder];
+    }
 }
 
 - (void)snapScrollToBottom
@@ -267,6 +240,11 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         [self.scrollView scrollRectToVisible:scrollToRect animated:YES];
     } completion:^(BOOL finished) {
     }];
+}
+
+- (void)scrollToTop
+{
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
 }
 
 #pragma mark -
@@ -383,7 +361,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)tapNavigationBar:(UIGestureRecognizer *)gesture
 {
-    [self.descriptionBox.textView resignFirstResponder];
+    [self.descriptionBox.textView.textInput resignFirstResponder];
     [self.scrollView scrollRectToVisible:(CGRect){ 0, 0, 1, 1 } animated:YES];
 }
 

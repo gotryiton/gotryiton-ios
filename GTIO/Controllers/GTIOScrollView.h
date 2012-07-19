@@ -12,7 +12,6 @@
 
 @property (nonatomic, assign) BOOL resizeForKeyboard;
 @property (nonatomic, assign) NSInteger offsetFromBottom;
-
-
+@property (nonatomic, assign, getter = isKeyboardShowing) BOOL keyboardShowing;
 
 @end
