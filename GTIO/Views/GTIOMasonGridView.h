@@ -18,7 +18,7 @@
 
 @class GTIOMasonGridView;
 
-typedef void(^GTIOMasonGridPullToRefreshDidStartLoading)(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView);
+typedef void(^GTIOMasonGridPullToRefreshDidStartLoading)(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD);
 typedef void(^GTIOMasonGridPullToLoadMoreDidStartLoading)(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView);
 
 @interface GTIOMasonGridView : UIScrollView <GTIOMasonGridItemDelegate>

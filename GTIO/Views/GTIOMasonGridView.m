@@ -118,7 +118,7 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 
 - (void)addPost:(GTIOPost *)post postType:(GTIOPostType)postType
 {
-    GTIOMasonGridItem *item = [GTIOMasonGridItem itemWithPost:post];
+    GTIOMasonGridItem *item = [GTIOMasonGridItem itemWithObject:post];
     item.delegate = self;
     [item downloadImage];
     [self.items addObject:item];
@@ -167,7 +167,7 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
     if (self.pullToRefreshHandler) {
-        self.pullToRefreshHandler(self, view);
+        self.pullToRefreshHandler(self, view, NO);
     }
 }
 

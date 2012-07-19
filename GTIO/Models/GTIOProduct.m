@@ -11,7 +11,8 @@
 
 @implementation GTIOProduct
 
-@synthesize productID = _productID, productName = _productName, buyURL = _buyURL, prettyPrice = _prettyPrice, photo = _photo, brands = _brands, buttons = _buttons;
+@synthesize productID = _productID, productName = _productName, buyURL = _buyURL, prettyPrice = _prettyPrice, brands = _brands;
+@synthesize photo = _photo, buttons = _buttons, action = _action;
 
 + (void)loadProductWithProductID:(NSNumber *)productID completionHandler:(GTIOCompletionHandler)completionHandler
 {

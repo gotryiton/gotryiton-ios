@@ -50,6 +50,18 @@ static double const kGTIOTopPadding = 9.0;
     [self.emptyStateView setFrame:(CGRect){ 60, 90, self.emptyStateView.bounds.size }];
 }
 
+- (void)setHidden:(BOOL)hidden
+{
+    [super setHidden:hidden];
+    
+    // Initial load on segment change
+    if (!hidden && [self.posts count] == 0) {
+        if (self.masonGridView.pullToRefreshHandler) {
+            self.masonGridView.pullToRefreshHandler(self.masonGridView, self.masonGridView.pullToRefreshView, YES);
+        }
+    }
+}
+
 #pragma mark - Data
 
 - (void)setPosts:(NSArray *)posts userProfile:(GTIOUserProfile *)userProfile

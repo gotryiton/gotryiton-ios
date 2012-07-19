@@ -18,6 +18,7 @@
 #import "GTIOInternalWebViewController.h"
 #import "GTIOWebViewController.h"
 #import "GTIOExploreLooksViewController.h"
+#import "GTIOProductViewController.h"
 
 NSString * const kGTIOURLScheme = @"gtio";
 NSString * const kGTIOHttpURLScheme = @"http";
@@ -41,6 +42,7 @@ static NSString * const kGTIOURLHostPostedBy = @"posted-by";
 static NSString * const kGTIOURLHostReviewsForPost = @"reviews-for-post";
 static NSString * const kGTIOURLHostInternalWebView = @"internal-webview";
 static NSString * const kGTIOURLHostDefaultWebView = @"default-webview";
+static NSString * const kGTIOURLHostProduct = @"product";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
@@ -157,6 +159,10 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         if ([pathComponents count] >= 3 ) {
             viewController = [[GTIOWebViewController alloc] initWithNibName:nil bundle:nil];
             [((GTIOWebViewController *)viewController) setURL:[self embeddedURLAtEndURL:URL]];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostProduct]) {
+        if ([pathComponents count] >= 2) {
+            viewController = [[GTIOProductViewController alloc] initWithProductID:[pathComponents objectAtIndex:1]];
         }
     }
     

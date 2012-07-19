@@ -79,13 +79,14 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [self.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.masonGridView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.masonGridView setGridItemTapHandler:^(GTIOMasonGridItem *gridItem) {
-        GTIOFeedViewController *feedViewController = [[GTIOFeedViewController alloc] initWithPost:gridItem.post];
-        [self.navigationController pushViewController:feedViewController animated:YES];
+#warning USE ROUTE HERE
+//        GTIOFeedViewController *feedViewController = [[GTIOFeedViewController alloc] initWithPost:gridItem.post];
+//        [self.navigationController pushViewController:feedViewController animated:YES];
     }];
     [self.masonGridView attachPullToRefreshAndPullToLoadMore];
     [self.masonGridView.pullToRefreshView setExpandedHeight:60.0f];
     [self.masonGridView.pullToLoadMoreView setExpandedHeight:0.0f];
-    [self.masonGridView setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView) {
+    [self.masonGridView setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD) {
         [blockSelf loadData];
     }];
     [self.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {

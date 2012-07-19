@@ -2813,6 +2813,7 @@
 		D2DEBA5415B71CDE008A3A54 /* GTIOPullToLoadMoreContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPullToLoadMoreContentView.m; sourceTree = "<group>"; };
 		D2E375961559B86700763A67 /* GTIOExploreLooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOExploreLooksViewController.h; sourceTree = "<group>"; };
 		D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOExploreLooksViewController.m; sourceTree = "<group>"; };
+		D2E954BC15B855570039BCDC /* GTIOGridItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTIOGridItem.h; path = Protocols/GTIOGridItem.h; sourceTree = "<group>"; };
 		D2EC0ED6156ADF1500984838 /* GTIOMailComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMailComposer.h; sourceTree = "<group>"; };
 		D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMailComposer.m; sourceTree = "<group>"; };
 		D2EC0ED9156ADF5800984838 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -4203,6 +4204,7 @@
 			children = (
 				8EA1D31C159E183400E93577 /* GTIOFriendsSearchEmptyStateViewDelegate.h */,
 				8EDA556815757B8A009F0404 /* GTIOLookSelectorControlDelegate.h */,
+				D2E954BC15B855570039BCDC /* GTIOGridItem.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
