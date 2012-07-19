@@ -9,15 +9,21 @@
 #import <Foundation/Foundation.h>
 #import "GTIONotification.h"
 
+extern NSString * const kGTIONotificationUnreadCountUserInfo;
+
 typedef void(^GTIONotificationsRefreshCompletionHandler)(NSArray *loadedNotifications, NSError *error);
 
 @interface GTIONotificationManager : NSObject
 
+@property (nonatomic, strong, readonly) NSArray *notifications;
+
 + (GTIONotificationManager *)sharedManager;
 
-- (void)useNotifications:(NSArray *)notifications;
-- (NSArray *)notifications;
-- (GTIONotification *)notificationForNotificationID:(NSNumber *)notificationID;
+- (void)save;
+
+- (void)loadNotificationsIfNeeded;
 - (void)refreshNotificationsWithCompletionHandler:(GTIONotificationsRefreshCompletionHandler)completionHandler;
+- (NSInteger)unreadNotificationCount;
+//- (void)notificationID:(NSNumber *)notificationID markAsViewed:(BOOL)viewed;
 
 @end

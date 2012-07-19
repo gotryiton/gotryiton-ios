@@ -55,7 +55,6 @@
 		8E8E6EC615756DD0009750E2 /* GTIOTakePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E6EC515756DD0009750E2 /* GTIOTakePhotoView.m */; };
 		8E8FC10715AF1B4A004E0CBE /* GTIONotificationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8FC10615AF1B4A004E0CBE /* GTIONotificationsTableViewCell.m */; };
 		8E8FC10B15AF1C75004E0CBE /* GTIONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8FC10A15AF1C75004E0CBE /* GTIONotification.m */; };
-		8E8FC10E15AF222C004E0CBE /* GTIONotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8FC10D15AF222C004E0CBE /* GTIONotificationManager.m */; };
 		8E8FC11015AF3623004E0CBE /* NotificationTableCellText.css in Resources */ = {isa = PBXBuildFile; fileRef = 8E8FC10F15AF3623004E0CBE /* NotificationTableCellText.css */; };
 		8E9398A315AB84AA00D804C2 /* GTIOReviewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9398A215AB84AA00D804C2 /* GTIOReviewsTableViewCell.m */; };
 		8E97DF341586A81300521968 /* GTIOQuickAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB24B2A15828FEF00BC2FE5 /* GTIOQuickAddViewController.m */; };
@@ -1236,6 +1235,7 @@
 		D2DCF4C9159BDD17006E5AF0 /* GTIOPostSideButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DCF4C8159BDD17006E5AF0 /* GTIOPostSideButton.m */; };
 		D2DEBA5515B71CDE008A3A54 /* GTIOPullToLoadMoreContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DEBA5415B71CDE008A3A54 /* GTIOPullToLoadMoreContentView.m */; };
 		D2E3759A1559B86700763A67 /* GTIOExploreLooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */; };
+		D2E954CC15B88B4D0039BCDC /* GTIONotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E954CB15B88B4D0039BCDC /* GTIONotificationManager.m */; };
 		D2EC0ED8156ADF1500984838 /* GTIOMailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */; };
 		D2EC0EDA156ADF5800984838 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EC0ED9156ADF5800984838 /* MessageUI.framework */; };
 		D2F7E17915AB830A00E93B82 /* photo-frame-backdrop.png in Resources */ = {isa = PBXBuildFile; fileRef = D2F7E17715AB830A00E93B82 /* photo-frame-backdrop.png */; };
@@ -1425,8 +1425,6 @@
 		8E8FC10615AF1B4A004E0CBE /* GTIONotificationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotificationsTableViewCell.m; sourceTree = "<group>"; };
 		8E8FC10915AF1C75004E0CBE /* GTIONotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotification.h; sourceTree = "<group>"; };
 		8E8FC10A15AF1C75004E0CBE /* GTIONotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotification.m; sourceTree = "<group>"; };
-		8E8FC10C15AF222C004E0CBE /* GTIONotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotificationManager.h; sourceTree = "<group>"; };
-		8E8FC10D15AF222C004E0CBE /* GTIONotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotificationManager.m; sourceTree = "<group>"; };
 		8E8FC10F15AF3623004E0CBE /* NotificationTableCellText.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = NotificationTableCellText.css; path = CSS/NotificationTableCellText.css; sourceTree = "<group>"; };
 		8E9398A115AB84AA00D804C2 /* GTIOReviewsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOReviewsTableViewCell.h; sourceTree = "<group>"; };
 		8E9398A215AB84AA00D804C2 /* GTIOReviewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOReviewsTableViewCell.m; sourceTree = "<group>"; };
@@ -2814,6 +2812,8 @@
 		D2E375961559B86700763A67 /* GTIOExploreLooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOExploreLooksViewController.h; sourceTree = "<group>"; };
 		D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOExploreLooksViewController.m; sourceTree = "<group>"; };
 		D2E954BC15B855570039BCDC /* GTIOGridItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTIOGridItem.h; path = Protocols/GTIOGridItem.h; sourceTree = "<group>"; };
+		D2E954CA15B88B4D0039BCDC /* GTIONotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotificationManager.h; sourceTree = "<group>"; };
+		D2E954CB15B88B4D0039BCDC /* GTIONotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotificationManager.m; sourceTree = "<group>"; };
 		D2EC0ED6156ADF1500984838 /* GTIOMailComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOMailComposer.h; sourceTree = "<group>"; };
 		D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMailComposer.m; sourceTree = "<group>"; };
 		D2EC0ED9156ADF5800984838 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -3005,8 +3005,6 @@
 			children = (
 				8E8FC10915AF1C75004E0CBE /* GTIONotification.h */,
 				8E8FC10A15AF1C75004E0CBE /* GTIONotification.m */,
-				8E8FC10C15AF222C004E0CBE /* GTIONotificationManager.h */,
-				8E8FC10D15AF222C004E0CBE /* GTIONotificationManager.m */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -3100,6 +3098,8 @@
 		8EA843CE15ADF39900501D24 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				D2E954CA15B88B4D0039BCDC /* GTIONotificationManager.h */,
+				D2E954CB15B88B4D0039BCDC /* GTIONotificationManager.m */,
 				8EA843CF15ADF3B800501D24 /* GTIONotificationsViewController.h */,
 				8EA843D015ADF3B800501D24 /* GTIONotificationsViewController.m */,
 			);
@@ -6676,7 +6676,6 @@
 				8EA843D115ADF3B800501D24 /* GTIONotificationsViewController.m in Sources */,
 				8E8FC10715AF1B4A004E0CBE /* GTIONotificationsTableViewCell.m in Sources */,
 				8E8FC10B15AF1C75004E0CBE /* GTIONotification.m in Sources */,
-				8E8FC10E15AF222C004E0CBE /* GTIONotificationManager.m in Sources */,
 				D2A194DD15AF762200372872 /* GTIOInternalWebViewController.m in Sources */,
 				D2A194E015AF76C300372872 /* GTIOWebView.m in Sources */,
 				D2C4BF4B15B05EDB00422B98 /* GTIOWebViewController.m in Sources */,
@@ -6705,6 +6704,7 @@
 				D26A0E6315B705080070B5D5 /* SSPullToLoadMoreView.m in Sources */,
 				D26A0E6715B707D80070B5D5 /* SSPullToLoadMoreDefaultContentView.m in Sources */,
 				D2DEBA5515B71CDE008A3A54 /* GTIOPullToLoadMoreContentView.m in Sources */,
+				D2E954CC15B88B4D0039BCDC /* GTIONotificationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

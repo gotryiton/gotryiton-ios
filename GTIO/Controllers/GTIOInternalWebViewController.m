@@ -13,6 +13,7 @@
 #import "GTIOWebView.h"
 
 #import "GTIORouter.h"
+#import "GTIONotificationsViewController.h"
 
 NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 
@@ -39,7 +40,11 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
     [self.view addSubview:statusBarBackgroundImageView];
     
     if ([[self.URL absoluteString] isEqualToString:[NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, kGTIOStyleResourcePath]]) {
-        GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:0] tapHandler:nil];
+        GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
+            GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
+            [self presentModalViewController:navigationController animated:YES];
+        }];
         [self useTitleView:navTitleView];
     } else {
         GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:self.navigationTitle italic:YES];

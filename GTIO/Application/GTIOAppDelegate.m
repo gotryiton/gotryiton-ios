@@ -94,7 +94,7 @@
     self.cameraViewController = [[GTIOCameraViewController alloc] initWithNibName:nil bundle:nil];
     
     // Notification Management
-    [self restoreNotifications];
+    [GTIONotificationManager sharedManager];
     
     [self.window makeKeyAndVisible];
     
@@ -111,14 +111,12 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [self backupNotifications];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [GTIOTrack postTrackAndVisitWithID:kGTIOTrackAppResumeFromBackground handler:nil];
-    [self restoreNotifications];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -129,24 +127,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [self backupNotifications];
-}
-
-#pragma mark - Notifications
-
-- (void)restoreNotifications
-{
-    NSData *data = [[NSUserDefaults standardUserDefaults] valueForKey:@"notificationManager"];
-    if (data) {
-        GTIONotificationManager *storedNotificationManager = (GTIONotificationManager *)[NSKeyedUnarchiver unarchiveObjectWithData:data];
-        [[GTIONotificationManager sharedManager] useNotifications:[storedNotificationManager notifications]];
-    }
-}
-
-- (void)backupNotifications
-{
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[GTIONotificationManager sharedManager]];
-    [[NSUserDefaults standardUserDefaults] setValue:data forKey:@"notificationManager"];
 }
 
 #pragma mark - Facebook
@@ -292,6 +272,13 @@
     } else if ([viewController isKindOfClass:[GTIOCameraViewController class]]) {
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
     }
+    
+    // Wait 1 second and then check for notifications so that we can let the page load.
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];
+    });
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController

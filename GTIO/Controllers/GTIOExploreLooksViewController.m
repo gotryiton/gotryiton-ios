@@ -20,6 +20,7 @@
 #import "GTIOPostHeaderView.h"
 
 #import "GTIOFeedViewController.h"
+#import "GTIONotificationsViewController.h"
 
 static CGFloat const kGTIOMasonGridPadding = 2.0f;
 static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
@@ -62,11 +63,15 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 {
     [super viewDidLoad];
     
-    GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:1] tapHandler:nil];
+    __block typeof(self) blockSelf = self;
+    GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
+        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
+        [blockSelf presentModalViewController:navigationController animated:YES];
+    }];
     [self useTitleView:navTitleView];
     
     // Segmented Control
-    __block typeof(self) blockSelf = self;
     self.segmentedControlView = [[GTIOLooksSegmentedControlView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 50 } }];
     [self.segmentedControlView setSegmentedControlValueChangedHandler:^(GTIOTab *tab) {
         [blockSelf loadDataWithResourcePath:tab.endpoint];

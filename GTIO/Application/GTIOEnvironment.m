@@ -66,6 +66,7 @@ NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
 NSString * const kGTIOPostFeedOpenLinkNotification = @"kGTIOPostFeedOpenLinkNotification";
 NSString * const kGTIODismissEllipsisPopOverViewNotification = @"kGTIODismissEllipsisPopOverViewNotification";
+NSString * const kGTIONotificationCountNofitication = @"kGTIONotificationCountNofitication";
  
 NSString * const kGTIOURL = @"kGTIOURL";
 
