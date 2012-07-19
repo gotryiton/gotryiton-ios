@@ -1,3 +1,35 @@
+***Wednesday, July 18th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Check with Rachit about what type of build Apple would be expecting (slightly buggy vs production)
+- TT - Review autocomplete pul request from Simon.  Pull into next build
+
+**Status**
+- Released build on 7/17
+- Scott working on Pull to Load More
+ - Will move on to other mason grids
+- Geoff wrapping up shopping list and similar screens
+- Features stil slated to be completed by end of the week
+- Next week prioritized based on issues that block shipping
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Submission to Apple slated for August 1st
+- No ongoing development through August.  Only very critical fixes during first week of August.
+- In the near future teams need to lock down a sprint in early september
+
+---
+
 ***Tuesday, July 17th - Standup Notes***
 
 **Attendees**
