@@ -4523,7 +4523,9 @@ Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
 ### 13.7 User badges
 
 #### Overview
-In many places where there is a user's name, there may be a badge icon next to a users name.  This icon will be specified by the api, but may use a different url depending on the screen.  Previously the GTIOv3 app supported multiple icons.  4.0 will only support 1.
+In many places where there is a user's name, there may be a badge icon next to a users name.  This icon will be specified by the api, but may use a different size depending on the screen.  The size to use is defined in design stories under ```User Badges``` heading.
+
+Previously the GTIOv3 app supported multiple icons.  4.0 will only support 1.
 
 #### Mockups
 
@@ -4534,13 +4536,20 @@ In many places where there is a user's name, there may be a badge icon next to a
 "user" : {
    
    "badge" : {
-      'page_type_1' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
-      'page_type_2' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
-      'page_type_3' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+      'path' : 'http://assets.gotryiton.com/img/badges/1/',
    }
    
 } 
 ```
+
+#### Views that have badges
+
+1.8 [Quick Add](#18-quick-add)   
+3.4 [Reviews page](#34-reviews-page)   
+6.1 [Find my friends](#61-find-my-friends)   
+7.1 [My management page](#71-my-management-page)   
+7.7 [Profile Page](#77-profile-page)   
+8.1 [Feed view](#81-feed-view)   
 
 
 #### Stories
