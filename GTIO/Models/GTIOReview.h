@@ -17,6 +17,11 @@
 @property (nonatomic, copy) NSString *createdWhen;
 @property (nonatomic, strong) NSArray *buttons;
 
+// local state attributes
+@property (nonatomic, assign) BOOL hearted;
+@property (nonatomic, assign) BOOL flagged;
+@property (nonatomic, assign) int heartCount;
+
 + (void)postReviewComment:(NSString *)reviewComment forPostID:(NSString *)postID completionHandler:(GTIOCompletionHandler)completionHandler;
 
 @end

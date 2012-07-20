@@ -7,11 +7,12 @@
 //
 
 #import "GTIOProduct.h"
+#import "GTIOButton.h"
 #import <RestKit/RestKit.h>
 
 @implementation GTIOProduct
 
-@synthesize productID = _productID, productName = _productName, buyURL = _buyURL, prettyPrice = _prettyPrice, brands = _brands;
+@synthesize productID = _productID, productName = _productName, buyURL = _buyURL, prettyPrice = _prettyPrice, brands = _brands, hearted = _hearted;
 @synthesize photo = _photo, buttons = _buttons, action = _action;
 
 + (void)loadProductWithProductID:(NSNumber *)productID completionHandler:(GTIOCompletionHandler)completionHandler
@@ -28,6 +29,33 @@
             }
         };
     }];
+}
+
++ (void)emailProductWithProductID:(NSNumber *)productID completionHandler:(GTIOCompletionHandler)completionHandler
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%i/email-to-me", productID.intValue] usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            if (completionHandler) {
+                completionHandler(loadedObjects, nil);
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            if (completionHandler) {
+                completionHandler(nil, error);
+            }
+        };
+    }];
+}
+
+- (void)setButtons:(NSArray *)buttons
+{
+    _buttons = buttons;
+    
+    for (GTIOButton *button in _buttons) {
+        if ([button.name isEqualToString:kGTIOProductHeartButton]) {
+            self.hearted = button.state.boolValue;
+        }
+    }
 }
 
 @end

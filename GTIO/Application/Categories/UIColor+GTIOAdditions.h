@@ -53,5 +53,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_grayTextColorDADADA;
 + (UIColor *)gtio_grayTextColor8F8F8F;
 + (UIColor *)gtio_grayTextColor232323;
++ (UIColor *)gtio_grayTextColor595155;
++ (UIColor *)gtio_grayTextColorBBBBBB;
 
 @end

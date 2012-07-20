@@ -29,7 +29,9 @@
 #import "GTIOReviewsViewController.h"
 #import "GTIONotificationsViewController.h"
 
-#import "GTIOProductViewController.h"
+#import "GTIOShopThisLookViewController.h"
+#import "GTIOShoppingListViewController.h"
+#import "GTIOProductNativeListViewController.h"
 
 #import "SSPullToLoadMoreView.h"
 #import "GTIOPullToLoadMoreContentView.h"

@@ -52,7 +52,7 @@ typedef enum GTIOReviewsAlertView {
 
 @implementation GTIOReviewsTableViewCell
 
-@synthesize background = _background, userProfilePicture = _userProfilePicture, userNameLabel = _userNameLabel, postedAtLabel = _postedAtLabel, heartCountLabel = _heartCountLabel, heartButton = _heartButton, review = _review, reviewTextView = _reviewTextView, reviewAttributeTextOptions = _reviewAttributeTextOptions, indexPath = _indexPath, delegate = _delegate, flagButton = _flagButton, currentFlagButtonModel = _currentFlagButtonModel, removeButton = _removeButton, currentRemoveButtonModel = _currentRemoveButtonModel;
+@synthesize background = _background, userProfilePicture = _userProfilePicture, userNameLabel = _userNameLabel, postedAtLabel = _postedAtLabel, heartCountLabel = _heartCountLabel, heartButton = _heartButton, review = _review, reviewTextView = _reviewTextView, reviewAttributeTextOptions = _reviewAttributeTextOptions, delegate = _delegate, flagButton = _flagButton, currentFlagButtonModel = _currentFlagButtonModel, removeButton = _removeButton, currentRemoveButtonModel = _currentRemoveButtonModel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -83,6 +83,7 @@ typedef enum GTIOReviewsAlertView {
         _heartCountLabel.font = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0];
         _heartCountLabel.backgroundColor = [UIColor clearColor];
         _heartCountLabel.hidden = YES;
+        _heartCountLabel.textAlignment = UITextAlignmentRight;
         [self addSubview:_heartCountLabel];
         
         _heartButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeHeart tapHandler:nil];
@@ -133,8 +134,7 @@ typedef enum GTIOReviewsAlertView {
     [self.reviewTextView setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + kGTIOCellPaddingTop, kGTIOReviewTextWidth, reviewTextSize.height }];
     [self.userProfilePicture setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - kGTIOAvatarWidthHeight - kGTIOCellPaddingBottom, kGTIOAvatarWidthHeight, kGTIOAvatarWidthHeight }];
     [self.heartButton setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellPaddingLeftRight - self.heartButton.bounds.size.width, self.userNameLabel.frame.origin.y + kGTIOHeartButtonVerticalOffset, self.heartButton.bounds.size }];
-    [self.heartCountLabel sizeToFit];
-    [self.heartCountLabel setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellPaddingLeftRight - self.heartCountLabel.bounds.size.width - self.heartButton.bounds.size.width - kGTIODefaultPadding, self.postedAtLabel.frame.origin.y - 3, self.heartCountLabel.bounds.size }];
+    [self.heartCountLabel setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellPaddingLeftRight - self.heartCountLabel.bounds.size.width - self.heartButton.bounds.size.width - kGTIODefaultPadding, self.postedAtLabel.frame.origin.y - 3, 30, 18 }];
     [self.flagButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIOBackgroundLeftMargin, self.background.frame.origin.y + kGTIOCellPaddingTop, self.heartButton.bounds.size.width, self.flagButton.bounds.size.height }];
     [self.removeButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIODefaultPadding + 1, self.flagButton.frame.origin.y, self.removeButton.bounds.size }];
     [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + kGTIODefaultPadding, self.userProfilePicture.frame.origin.y, self.background.bounds.size.width - kGTIOCellPaddingLeftRight * 2 - kGTIODefaultPadding - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? kGTIODefaultPadding : 0), kGTIODefaultLabelHeight }];
@@ -179,18 +179,22 @@ typedef enum GTIOReviewsAlertView {
                     self.heartCountLabel.text = @"";
                 }
                 self.heartButton.selected = button.state.boolValue;
+                __block typeof(self) blockSelf = self;
                 self.heartButton.tapHandler = ^(id sender) {
-                    GTIOUIButton *uibutton = (GTIOUIButton *)sender;
-                    uibutton.selected = !uibutton.selected;
-                    
-                    [GTIOProgressHUD showHUDAddedTo:[blockSelf.delegate viewForSpinner] animated:YES];
+                    self.heartButton.enabled = NO;
+                    [blockSelf updateHeart];
                     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
                         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                            [GTIOProgressHUD hideHUDForView:[blockSelf.delegate viewForSpinner] animated:YES];
-                            [blockSelf updateReviewFromLoadedObjects:loadedObjects];
+                            for (id object in loadedObjects) {
+                                if ([object isMemberOfClass:[GTIOReview class]]) {
+                                    self.review = (GTIOReview *)object;
+                                    self.heartButton.enabled = YES;
+                                }
+                            }
                         };
                         loader.onDidFailWithError = ^(NSError *error) {
-                            [GTIOProgressHUD hideHUDForView:[blockSelf.delegate viewForSpinner] animated:YES];
+                            [blockSelf updateHeart];
+                            self.heartButton.enabled = YES;
                             NSLog(@"%@", [error localizedDescription]);
                         };
                     }];
@@ -210,17 +214,15 @@ typedef enum GTIOReviewsAlertView {
     }
 }
 
-- (void)updateReviewFromLoadedObjects:(NSArray *)loadedObjects
+- (void)updateHeart
 {
-    for (id object in loadedObjects) {
-        if ([object isMemberOfClass:[GTIOReview class]]) {
-            self.review = (GTIOReview *)object;
-            [self setNeedsLayout];
-            
-            if ([self.delegate respondsToSelector:@selector(updateDataSourceWithReview:atIndexPath:)]) {
-                [self.delegate updateDataSourceWithReview:self.review atIndexPath:self.indexPath];
-            }
-        }
+    self.heartButton.selected = !self.heartButton.selected;
+    self.review.hearted = !self.review.hearted;
+    self.review.heartCount = (self.review.hearted) ? self.review.heartCount + 1 : self.review.heartCount - 1;
+    if (self.review.heartCount > 0) {
+        self.heartCountLabel.text = [NSString stringWithFormat:@"+%i", self.review.heartCount];
+    } else {
+        self.heartCountLabel.text = @"";
     }
 }
 
@@ -276,15 +278,21 @@ typedef enum GTIOReviewsAlertView {
     if (alertView.tag == GTIOReviewsAlertViewFlag) {
         if (buttonIndex == 1) {
             self.flagButton.selected = !self.flagButton.selected;
-            
-            [GTIOProgressHUD showHUDAddedTo:[self.delegate viewForSpinner] animated:YES];
+            self.flagButton.enabled = NO;
+            self.review.flagged = !self.review.flagged;
             [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.currentFlagButtonModel.action.endpoint usingBlock:^(RKObjectLoader *loader) {
                 loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                    [GTIOProgressHUD hideHUDForView:[self.delegate viewForSpinner] animated:YES];
-                    [self updateReviewFromLoadedObjects:loadedObjects];
+                    for (id object in loadedObjects) {
+                        if ([object isMemberOfClass:[GTIOReview class]]) {
+                            self.review = (GTIOReview *)object;
+                            self.flagButton.enabled = YES;
+                        }
+                    }
                 };
-                loader.onDidFailWithError = ^(NSError *error) {
-                    [GTIOProgressHUD hideHUDForView:[self.delegate viewForSpinner] animated:YES];
+                loader.onDidFailWithError = ^(NSError *error) {self.flagButton.selected = !self.flagButton.selected;
+                    self.flagButton.selected = !self.flagButton.selected;
+                    self.review.flagged = !self.review.flagged;
+                    self.flagButton.enabled = YES;
                     NSLog(@"%@", [error localizedDescription]);
                 };
             }];
@@ -298,10 +306,8 @@ typedef enum GTIOReviewsAlertView {
                     [GTIOProgressHUD hideHUDForView:[self.delegate viewForSpinner] animated:YES];
                     for (id object in loadedObjects) {
                         if ([object isMemberOfClass:[GTIOReview class]]) {
-                            if ([self.delegate respondsToSelector:@selector(removeReviewAtIndexPath:)]) {
-                                [self.delegate removeReviewAtIndexPath:self.indexPath];
-                                self.removeButton.hidden = YES;
-                                self.flagButton.hidden = NO;
+                            if ([self.delegate respondsToSelector:@selector(removeReview:)]) {
+                                [self.delegate removeReview:self.review];
                             }
                         }
                     }

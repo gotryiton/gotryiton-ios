@@ -11,7 +11,8 @@
 typedef enum {
     GTIOTabBarTabFeed = 0,
     GTIOTabBarTabLooks,
-    GTIOTabBarTabShop,
+    GTIOTabBarCamera,
+    GTIOTabBarTabStyle,
     GTIOTabBarTabMe
 } GTIOTabBarTab;
 

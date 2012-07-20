@@ -11,7 +11,7 @@
 
 @implementation GTIOReview
 
-@synthesize reviewID = _reviewID, user = _user, text = _text, createdWhen = _createdWhen, buttons = _buttons;
+@synthesize reviewID = _reviewID, user = _user, text = _text, createdWhen = _createdWhen, buttons = _buttons, hearted = _hearted, flagged = _flagged, heartCount = _heartCount;
 
 + (void)postReviewComment:(NSString *)reviewComment forPostID:(NSString *)postID completionHandler:(GTIOCompletionHandler)completionHandler
 {
@@ -34,6 +34,21 @@
             }
         };
     }];
+}
+
+- (void)setButtons:(NSArray *)buttons
+{
+    _buttons = buttons;
+    
+    for (GTIOButton *button in _buttons) {
+        if ([button.name isEqualToString:kGTIOReviewAgreeButton]) {
+            self.hearted = button.state.boolValue;
+            self.heartCount = button.count.intValue;
+        }
+        if ([button.name isEqualToString:kGTIOReviewFlagButton]) {
+            self.flagged = button.state.boolValue;
+        }
+    }
 }
 
 @end

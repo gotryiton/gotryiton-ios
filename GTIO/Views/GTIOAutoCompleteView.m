@@ -66,6 +66,7 @@
         _textInput.backgroundColor = [UIColor clearColor];
         _textInput.contentInset =  UIEdgeInsetsMake(-10,-8,0,0);
         _textInput.autocorrectionType = UITextAutocorrectionTypeNo;
+        _textInput.keyboardType = UIKeyboardTypeASCIICapable;
         _textInput.scrollEnabled = NO;
         [_textInput setDelegate:self];
         [_textInput setFont: [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.f]];
@@ -177,6 +178,7 @@
 #pragma mark UITextViewDelegate methods
 - (BOOL)textView:(UITextView *)field shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)inputString 
 {
+    // always hide the placeholder text if the user is inputtting
     [self hidePlaceholderText];
 
     //if the user hit 'done':
@@ -189,15 +191,23 @@
         return NO;
     }
     
+    // limit input to 255 characters    
     if ( (field.text.length + inputString.length) > 255) {
-        NSLog(@"end of string");
+        return NO;
+    }
+    
+    //sanitize non approved character input
+    if ( ![self hasApprovedCharacters:inputString]){
         return NO;
     }
 
+    // figure out the new input text
     self.inputText = [field.text stringByReplacingCharactersInRange:range withString:inputString];
     
+    // display the newly inputted text
     [self updateInputDisplayTextInRange:range string:inputString];
 
+    
     if (self.inputText.length > 0) {
         [self setPositionOfLastWordsTypedInText:[self stringThroughCursorPositionWithRange:range]];
         
@@ -220,6 +230,17 @@
     }
     
     return YES;
+}
+
+
+- (bool)hasApprovedCharacters:(NSString *)inputString
+{
+    NSMutableCharacterSet *characterSet = [NSMutableCharacterSet alphanumericCharacterSet];
+    [characterSet formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+    [characterSet formUnionWithCharacterSet:[NSCharacterSet symbolCharacterSet]];
+    [characterSet formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    return [[inputString stringByTrimmingCharactersInSet:characterSet] isEqualToString:@""];
 }
 
 - (NSString *)stringThroughCursorPositionWithRange:(NSRange)range 
