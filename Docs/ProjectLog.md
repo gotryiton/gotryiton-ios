@@ -1,3 +1,31 @@
+***Friday, July 20th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Release latest milestone build
+
+**Status**
+- Scott focused on bug fixes at the time being
+- Scott to pull in Geoff developemnt up to 4/19 and release build
+- Geoff to be starting on new views this afternoon.
+- Builds will be broken out in staging and production starting next week
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+
+**General Notes**
+- Simon will be taking on minor fixes, bugs going forward
+
+---
+
 ***Thursday, July 19th - Standup Notes***
 
 **Attendees**
