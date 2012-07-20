@@ -18,6 +18,8 @@
 #import "GTIOInternalWebViewController.h"
 #import "GTIOWebViewController.h"
 #import "GTIOExploreLooksViewController.h"
+#import "GTIOProductNativeListViewController.h"
+#import "GTIOShoppingListViewController.h"
 
 NSString * const kGTIOURLScheme = @"gtio";
 NSString * const kGTIOHttpURLScheme = @"http";
@@ -41,6 +43,8 @@ static NSString * const kGTIOURLHostPostedBy = @"posted-by";
 static NSString * const kGTIOURLHostReviewsForPost = @"reviews-for-post";
 static NSString * const kGTIOURLHostInternalWebView = @"internal-webview";
 static NSString * const kGTIOURLHostDefaultWebView = @"default-webview";
+static NSString * const kGTIOURLHostCollection = @"collection";
+static NSString * const kGTIOURLHostShoppingList = @"my-shopping-list";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
@@ -158,6 +162,16 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
             viewController = [[GTIOWebViewController alloc] initWithNibName:nil bundle:nil];
             [((GTIOWebViewController *)viewController) setURL:[self embeddedURLAtEndURL:URL]];
         }
+    } else if ([urlHost isEqualToString:kGTIOURLHostCollection]) {
+        if ([pathComponents count] >= 2 ) {
+            viewController = [[GTIOProductNativeListViewController alloc] initWithNibName:nil bundle:nil];
+            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+            numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+            NSNumber *collectionID = (NSNumber *)[numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
+            [((GTIOProductNativeListViewController *)viewController) setCollectionID:collectionID];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostShoppingList]) {
+        viewController = [[GTIOShoppingListViewController alloc] initWithNibName:nil bundle:nil];
     }
     
     return viewController;

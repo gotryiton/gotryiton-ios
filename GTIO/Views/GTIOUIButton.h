@@ -66,7 +66,14 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeProductShareTwitter,
     GTIOButtonTypeProductPostThis,
     GTIOButtonTypeProductShoppingList,
-    GTIOButtonTypeProductShoppingListChecked
+    GTIOButtonTypeProductShoppingListChecked,
+    GTIOButtonTypeProductShoppingListHeart,
+    GTIOButtonTypeProductShoppingListEmail,
+    GTIOButtonTypeProductShoppingListBuy,
+    GTIOButtonTypeProductShoppingListDelete,
+    GTIOButtonTypeProductShoppingListEmailMyList,
+    GTIOButtonTypeProductShoppingListProductOption,
+    GTIOButtonTypeProductShoppingListNav
 } GTIOButtonType;
 
 @interface GTIOUIButton : UIButton

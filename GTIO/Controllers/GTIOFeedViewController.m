@@ -28,7 +28,9 @@
 #import "GTIOReviewsViewController.h"
 #import "GTIONotificationsViewController.h"
 
-#import "GTIOProductViewController.h"
+#import "GTIOShopThisLookViewController.h"
+#import "GTIOShoppingListViewController.h"
+#import "GTIOProductNativeListViewController.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 

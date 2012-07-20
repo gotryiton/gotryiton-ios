@@ -181,23 +181,31 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 {
     _product = product;
     
-    [self.productImageView setImageWithURL:_product.photo.mainImageURL success:^(UIImage *image) {
+    if (_product.photo.mainImageURL.host.length == 0) {
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-        [UIView animateWithDuration:0.25 animations:^{
-            self.productImageView.alpha = 1.0;
-            self.postThisButton.alpha = 1.0;
-            self.shoppingListButton.alpha = 1.0;
+        self.productImageView.alpha = 1.0;
+        self.postThisButton.alpha = 1.0;
+        self.shoppingListButton.alpha = 1.0;
+    } else {
+        [self.productImageView setImageWithURL:_product.photo.mainImageURL success:^(UIImage *image) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [UIView animateWithDuration:0.25 animations:^{
+                self.productImageView.alpha = 1.0;
+                self.postThisButton.alpha = 1.0;
+                self.shoppingListButton.alpha = 1.0;
+            }];
+        } failure:^(NSError *error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            NSLog(@"%@", [error localizedDescription]);
         }];
-        self.postThisButton.tapHandler = ^(id sender) {
-            GTIOPostALookViewController *viewController = [[GTIOPostALookViewController alloc] initWithNibName:nil bundle:nil];
-            [viewController setOriginalImage:self.productImageView.image filteredImage:self.productImageView.image filterName:nil];
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-            [self.navigationController presentModalViewController:navigationController animated:YES];
-        };
-    } failure:^(NSError *error) {
-        [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-        NSLog(@"%@", [error localizedDescription]);
-    }];
+    }
+    
+    self.postThisButton.tapHandler = ^(id sender) {
+        GTIOPostALookViewController *viewController = [[GTIOPostALookViewController alloc] initWithNibName:nil bundle:nil];
+        [viewController setOriginalImage:self.productImageView.image filteredImage:self.productImageView.image filterName:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self.navigationController presentModalViewController:navigationController animated:YES];
+    };
     
     for (GTIOButton *button in self.product.buttons) {
         if ([button.name isEqualToString:kGTIOProductHeartButton]) {

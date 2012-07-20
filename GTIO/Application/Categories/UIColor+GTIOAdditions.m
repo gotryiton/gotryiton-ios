@@ -100,6 +100,11 @@
     return UIColorFromRGB(0xB3B3B3);
 }
 
++ (UIColor *)gtio_grayTextColorBBBBBB
+{
+    return UIColorFromRGB(0xBBBBBB);
+}
+
 + (UIColor *)gtio_groupedTableBorderColor
 {
     return UIColorFromRGB(0xD9D7CE);
@@ -123,6 +128,11 @@
 + (UIColor *)gtio_grayTextColorACACAC
 {
     return UIColorFromRGB(0xACACAC);
+}
+
++ (UIColor *)gtio_grayTextColor595155
+{
+    return UIColorFromRGB(0x595155);
 }
 
 + (UIColor *)gtio_profileDescriptionTextColor

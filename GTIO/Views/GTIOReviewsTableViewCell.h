@@ -13,8 +13,7 @@
 @protocol GTIOReviewsTableViewCellDelegate <NSObject>
 
 @required
-- (void)updateDataSourceWithReview:(GTIOReview *)review atIndexPath:(NSIndexPath *)indexPath;
-- (void)removeReviewAtIndexPath:(NSIndexPath *)indexPath;
+- (void)removeReview:(GTIOReview *)review;
 - (UIView *)viewForSpinner;
 
 @end
@@ -22,7 +21,6 @@
 @interface GTIOReviewsTableViewCell : UITableViewCell <DTAttributedTextContentViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) GTIOReview *review;
-@property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, weak) id<GTIOReviewsTableViewCellDelegate> delegate;
 
 + (CGFloat)heightWithReview:(GTIOReview *)review;
