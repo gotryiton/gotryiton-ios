@@ -230,10 +230,12 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     [self.photoToolbarView.shutterButton setPhotoModeSwitchChangedHandler:^(BOOL on) {
         [blockSelf showFlashButton:!on];
         
-        NSError *error;
-        if ([self.captureDevice lockForConfiguration:&error]) {
-            [self.captureDevice setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
-            [self.captureDevice unlockForConfiguration];
+        if ([self.captureDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+            NSError *error;
+            if ([self.captureDevice lockForConfiguration:&error]) {
+                [self.captureDevice setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+                [self.captureDevice unlockForConfiguration];
+            }
         }
         
         if (!blockSelf.isForcePhotoShootModeButtonToggle) {
