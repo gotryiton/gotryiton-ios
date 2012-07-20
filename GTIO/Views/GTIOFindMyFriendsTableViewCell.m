@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) GTIOSelectableProfilePicture *profilePicture;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UIImageView *chevron;
 
 @property (nonatomic, strong) GTIOUIButton *followingButton;
 @property (nonatomic, strong) GTIOUIButton *followButton;
@@ -21,13 +20,11 @@
 
 @property (nonatomic, strong) UIView *bottomBorder;
 
-@property (nonatomic, strong) NSIndexPath *indexPath;
-
 @end
 
 @implementation GTIOFindMyFriendsTableViewCell
 
-@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, chevron = _chevron, bottomBorder = _bottomBorder, followingButton = _followingButton, followButton = _followButton, requestedButton = _requestedButton, indexPath = _indexPath, delegate = _delegate;
+@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, bottomBorder = _bottomBorder, followingButton = _followingButton, followButton = _followButton, requestedButton = _requestedButton, delegate = _delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -57,11 +54,6 @@
         _requestedButton.hidden = YES;
         [self.contentView addSubview:_requestedButton];
         
-        _chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];
-        [_chevron setFrame:(CGRect){ 306, 18, _chevron.image.size }];
-        _chevron.alpha = 0.60;
-        [self.contentView addSubview:_chevron];
-        
         _bottomBorder = [[UIView alloc] initWithFrame:CGRectZero];
         _bottomBorder.backgroundColor = [UIColor gtio_groupedTableBorderColor];
         [self.contentView addSubview:_bottomBorder];
@@ -83,21 +75,20 @@
 {
     [super layoutSubviews];
     
-    [self.followingButton setFrame:(CGRect){ self.chevron.frame.origin.x - self.followingButton.bounds.size.width - 9, 9, self.followingButton.bounds.size }];
-    [self.followButton setFrame:(CGRect){ self.chevron.frame.origin.x - self.followButton.bounds.size.width - 9, 9, self.followButton.bounds.size }];
-    [self.requestedButton setFrame:(CGRect){ self.chevron.frame.origin.x - self.requestedButton.bounds.size.width - 9, 9, self.requestedButton.bounds.size }];
+    [self.followingButton setFrame:(CGRect){ self.bounds.size.width - self.followingButton.bounds.size.width - 7, 9, self.followingButton.bounds.size }];
+    [self.followButton setFrame:(CGRect){ self.bounds.size.width - self.followButton.bounds.size.width - 7, 9, self.followButton.bounds.size }];
+    [self.requestedButton setFrame:(CGRect){ self.bounds.size.width - self.requestedButton.bounds.size.width - 7, 9, self.requestedButton.bounds.size }];
     
     double nameLableXPosition = self.profilePicture.frame.origin.x + self.profilePicture.bounds.size.width + 10;
     [self.nameLabel setFrame:(CGRect){ nameLableXPosition, 17, self.followingButton.frame.origin.x - nameLableXPosition - 10, 20 }];
     [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - 1, self.contentView.bounds.size.width, 1 }];
 }
 
-- (void)setUser:(GTIOUser *)user indexPath:(NSIndexPath *)indexPath
+- (void)setUser:(GTIOUser *)user
 {
     if (![_user isEqual:user]) {
         _user = user;
     }
-    self.indexPath = indexPath;
     [self.profilePicture setImageWithURL:_user.icon];
     self.nameLabel.text = _user.name;
     
@@ -129,10 +120,10 @@
                     for (id object in objects) {
                         if ([object isMemberOfClass:[GTIOUser class]]) {
                             GTIOUser *newUser = (GTIOUser *)object;
-                            [blockSelf setUser:newUser indexPath:blockSelf.indexPath];
-                            if ([blockSelf.delegate respondsToSelector:@selector(updateDataSourceWithUser:atIndexPath:)]) {
-                                [blockSelf.delegate updateDataSourceWithUser:newUser atIndexPath:blockSelf.indexPath];
+                            if ([blockSelf.delegate respondsToSelector:@selector(updateDataSourceUser:withUser:)]) {
+                                [blockSelf.delegate updateDataSourceUser:blockSelf.user withUser:newUser];
                             }
+                            [blockSelf setUser:newUser];
                         }
                     }
                 };
