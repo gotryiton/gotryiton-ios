@@ -19,8 +19,8 @@
 #import "GTIOMasonGridView.h"
 #import "GTIOPostHeaderView.h"
 
-#import "GTIOFeedViewController.h"
 #import "GTIONotificationsViewController.h"
+#import "GTIORouter.h"
 
 static CGFloat const kGTIOMasonGridPadding = 2.0f;
 static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
@@ -84,9 +84,8 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [self.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.masonGridView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.masonGridView setGridItemTapHandler:^(GTIOMasonGridItem *gridItem) {
-#warning USE ROUTE HERE
-//        GTIOFeedViewController *feedViewController = [[GTIOFeedViewController alloc] initWithPost:gridItem.post];
-//        [self.navigationController pushViewController:feedViewController animated:YES];
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURLString:gridItem.object.action.destination];
+        [self.navigationController pushViewController:viewController animated:YES];
     }];
     [self.masonGridView attachPullToRefreshAndPullToLoadMore];
     [self.masonGridView.pullToRefreshView setExpandedHeight:60.0f];
