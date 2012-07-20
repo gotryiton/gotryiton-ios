@@ -20,12 +20,13 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 @interface GTIOInternalWebViewController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) GTIOWebView *webView;
+@property (nonatomic, strong) GTIONavigationTitleView *navTitleView;
 
 @end
 
 @implementation GTIOInternalWebViewController
 
-@synthesize URL = _URL, navigationTitle = _navigationTitle;
+@synthesize URL = _URL, navigationTitle = _navigationTitle, navTitleView = _navTitleView;
 @synthesize webView = _webView;
 
 - (void)viewDidLoad
@@ -47,8 +48,8 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
         }];
         [self useTitleView:navTitleView];
     } else {
-        GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:self.navigationTitle italic:YES];
-        [self useTitleView:navTitleView];
+        _navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:self.navigationTitle italic:YES];
+        [self useTitleView:_navTitleView];
         
         GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
             [self.navigationController popViewControllerAnimated:YES];
@@ -74,6 +75,7 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 {
     [super viewDidUnload];
     self.webView = nil;
+    self.navTitleView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -87,6 +89,8 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 {
     navigationTitle = [navigationTitle stringByReplacingOccurrencesOfString:@"+" withString:@" "];
     _navigationTitle = navigationTitle;
+    
+    [self.navTitleView setTitle:_navigationTitle];
 }
 
 #pragma mark - UIWebViewDelegate

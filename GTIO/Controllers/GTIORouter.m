@@ -82,6 +82,7 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
     
     NSString *urlHost = [URL host];
     NSArray *pathComponents = [URL pathComponents];
+    NSArray *unencodedPathComponents = [self unencodedPathComponents:URL];
     
     if ([urlHost isEqualToString:kGTIOURLHostProfile]) {
         if ([pathComponents count] >= 2) {
@@ -150,15 +151,15 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
             viewController = [[GTIOFeedViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostInternalWebView]) {
-        if ([pathComponents count] >= 4) {
+        if ([unencodedPathComponents count] >= 3) {
             viewController = [[GTIOInternalWebViewController alloc] initWithNibName:nil bundle:nil];
-            [((GTIOInternalWebViewController *)viewController) setURL:[self embeddedURLAtEndURL:URL]];
-            [((GTIOInternalWebViewController *)viewController) setNavigationTitle:[pathComponents objectAtIndex:3]];
+            [((GTIOInternalWebViewController *)viewController) setURL:[NSURL URLWithString:[unencodedPathComponents objectAtIndex:2]]];
+            [((GTIOInternalWebViewController *)viewController) setNavigationTitle:[unencodedPathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostDefaultWebView]) {
-        if ([pathComponents count] >= 3 ) {
+        if ([unencodedPathComponents count] >= 2 ) {
             viewController = [[GTIOWebViewController alloc] initWithNibName:nil bundle:nil];
-            [((GTIOWebViewController *)viewController) setURL:[self embeddedURLAtEndURL:URL]];
+            [((GTIOWebViewController *)viewController) setURL:[NSURL URLWithString:[unencodedPathComponents objectAtIndex:1]]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostProduct]) {
         if ([pathComponents count] >= 2) {
@@ -171,9 +172,16 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
 
 #pragma mark - Helpers
 
-- (NSURL *)embeddedURLAtEndURL:(NSURL *)URL
+- (NSArray *)unencodedPathComponents:(NSURL *)URL
 {
-    return [NSURL URLWithString:[[[[URL absoluteString] componentsSeparatedByString:@"/"] lastObject] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSRange range = [[URL absoluteString] rangeOfString:[NSString stringWithFormat:@"%@://%@", [URL scheme], [URL host]] options:NSAnchoredSearch];
+    NSString *path = [[URL absoluteString] stringByReplacingCharactersInRange:range withString:@""];
+    NSArray *pathComponents = [path componentsSeparatedByString:@"/"];
+    NSMutableArray *unencodedPathComponents = [NSMutableArray array];
+    for (NSString *pathComponent in pathComponents) {
+        [unencodedPathComponents addObject:[pathComponent stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }
+    return unencodedPathComponents;
 }
 
 @end
