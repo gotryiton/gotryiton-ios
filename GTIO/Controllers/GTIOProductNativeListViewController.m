@@ -13,6 +13,8 @@
 #import "GTIOShoppingListViewController.h"
 #import "GTIOCollection.h"
 #import "GTIOActionSheet.h"
+#import "UIImageView+WebCache.h"
+#import "GTIOFullScreenImageViewer.h"
 
 @interface GTIOProductNativeListViewController ()
 
@@ -21,11 +23,13 @@
 @property (nonatomic, strong) GTIOCollection *collection;
 @property (nonatomic, strong) GTIOActionSheet *actionSheet;
 
+@property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
+
 @end
 
 @implementation GTIOProductNativeListViewController
 
-@synthesize products = _products, tableView = _tableView, collectionID = _collectionID, collection = _collection, actionSheet = _actionSheet;
+@synthesize products = _products, tableView = _tableView, collectionID = _collectionID, collection = _collection, actionSheet = _actionSheet, fullScreenImageViewer = _fullScreenImageViewer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,6 +71,9 @@
 {
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/collection/%i", self.collectionID.intValue] usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadResponse = ^(RKResponse *response) {
+            NSLog(@"%@", [response bodyAsString]);
+        };
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.products removeAllObjects];
@@ -98,11 +105,23 @@
     
     GTIOUIButton *actionSheetButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListNav tapHandler:^(id sender) {
         GTIOActionSheet *actionSheet = [[GTIOActionSheet alloc] initWithButtons:_collection.dotOptions buttonTapHandler:nil];
-        [actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
-            
-        }];
+        [actionSheet show];
     }];
     self.rightNavigationButton = actionSheetButton;
+    
+    if (_collection.bannerImage) {
+        GTIOUIButton *bannerHeader = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
+        [bannerHeader setFrame:(CGRect){ 0, 0, _collection.bannerImage.width.floatValue, _collection.bannerImage.height.floatValue }];
+        UIImageView *bannerImageDownloader = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [bannerImageDownloader setImageWithURL:_collection.bannerImage.imageURL success:^(UIImage *image) {
+            [bannerHeader setImage:image forState:UIControlStateNormal];
+            bannerHeader.tapHandler = ^(id sender) {
+                self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:_collection.bannerImage.imageURL];
+                [self.fullScreenImageViewer show];
+            };
+            self.tableView.tableHeaderView = bannerHeader;
+        } failure:nil];
+    }
 }
 
 #pragma mark - UITableViewDelegate Methods

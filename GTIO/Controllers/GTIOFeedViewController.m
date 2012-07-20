@@ -133,25 +133,9 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     } else {
         // Normal Feed
         [self.navBarView.friendsButton setTapHandler:^(id sender) {
-//            GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
-//            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
-//            [blockSelf presentModalViewController:navController animated:YES];
-
-#warning TEST CODE FOR 7.8
-//            GTIOShoppingListViewController *viewController1 = [[GTIOShoppingListViewController alloc] initWithNibName:nil bundle:nil];
-//            [self.navigationController pushViewController:viewController1 animated:YES];
-#warning END TEST CODE
-            
-#warning TEST CODE FOR 4.8
-//            GTIOShopThisLookViewController *viewController2 = [[GTIOShopThisLookViewController alloc] initWithNibName:nil bundle:nil];
-//            viewController2.postID = [NSNumber numberWithInt:1443];
-//            [self.navigationController pushViewController:viewController2 animated:YES];
-#warning END TEST CODE
-            
-#warning TEST CODE FOR 10.5
-            GTIOProductNativeListViewController *viewController3 = [[GTIOProductNativeListViewController alloc] initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:viewController3 animated:YES];
-#warning END TEST CODE
+            GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
+            [blockSelf presentModalViewController:navController animated:YES];
         }];
     }
     self.navBarView.titleView.tapHandler = ^(void) {

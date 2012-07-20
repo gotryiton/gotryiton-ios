@@ -69,6 +69,7 @@
     } else {
         [self.lockImageView setFrame:CGRectZero];
     }
+    [self.titleBackground sizeToFit];
     [self.titleBackground setFrame:(CGRect){ 0, self.lockImageView.bounds.size.height + lockPadding, self.titleBackground.bounds.size.width, self.titleBackground.bounds.size.height + ((self.displayLock) ? 20 : 10) }];
     [self.titleLabel setFrame:(CGRect){ 35, 0, self.titleBackground.bounds.size.width - 70, self.titleBackground.bounds.size.height }];
     [self setFrame:(CGRect){ self.frame.origin, self.titleBackground.bounds.size.width, self.lockImageView.frame.origin.y + self.lockImageView.bounds.size.height + lockPadding + self.titleBackground.bounds.size.height }];

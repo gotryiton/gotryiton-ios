@@ -19,6 +19,7 @@
 #import "GTIOWebViewController.h"
 #import "GTIOExploreLooksViewController.h"
 #import "GTIOProductNativeListViewController.h"
+#import "GTIOShoppingListViewController.h"
 
 NSString * const kGTIOURLScheme = @"gtio";
 NSString * const kGTIOHttpURLScheme = @"http";
@@ -43,6 +44,7 @@ static NSString * const kGTIOURLHostReviewsForPost = @"reviews-for-post";
 static NSString * const kGTIOURLHostInternalWebView = @"internal-webview";
 static NSString * const kGTIOURLHostDefaultWebView = @"default-webview";
 static NSString * const kGTIOURLHostCollection = @"collection";
+static NSString * const kGTIOURLHostShoppingList = @"my-shopping-list";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
@@ -168,6 +170,8 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
             NSNumber *collectionID = (NSNumber *)[numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
             [((GTIOProductNativeListViewController *)viewController) setCollectionID:collectionID];
         }
+    } else if ([urlHost isEqualToString:kGTIOURLHostShoppingList]) {
+        viewController = [[GTIOShoppingListViewController alloc] initWithNibName:nil bundle:nil];
     }
     
     return viewController;
