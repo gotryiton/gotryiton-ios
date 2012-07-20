@@ -13,6 +13,13 @@
 #import "GTIOButton.h"
 #import <RestKit/RestKit.h>
 
+static CGFloat kGTIOMaskButtonXPosition = -5.0;
+static CGFloat kGTIOMaskButtonYPosition = -5.0;
+static CGFloat kGTIOPlusSignActiveHorizontalOffset = 7.0;
+static CGFloat kGTIOPlusSignActiveVerticalOffset = 15.0;
+static CGFloat kGTIOIconViewXPosition = -2.0;
+static CGFloat kGTIOIconViewYPosition = -2.0;
+
 @interface GTIOProductOptionAddButton()
 
 @property (nonatomic, strong) UIImageView *iconView;
@@ -35,7 +42,7 @@
         [self addSubview:_iconView];
         
         _maskButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListProductOption];
-        [_maskButton setFrame:(CGRect){ -5, -5, self.bounds.size.width + 10, self.bounds.size.height + 10 }];
+        [_maskButton setFrame:(CGRect){ kGTIOMaskButtonXPosition, kGTIOMaskButtonYPosition, self.bounds.size.width - kGTIOMaskButtonXPosition * 2, self.bounds.size.height - kGTIOMaskButtonYPosition * 2 }];
         _maskButton.touchDownHandler = ^(id sender) {
             self.plusSignActiveView.hidden = NO;
         };
@@ -45,17 +52,16 @@
         [self addSubview:_maskButton];
         
         _plusSignActiveView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shopping.bottom.plus.active.png"]];
-        [_plusSignActiveView setFrame:(CGRect){ self.bounds.size.width - _plusSignActiveView.bounds.size.width + 7, -_plusSignActiveView.bounds.size.height + 15, _plusSignActiveView.bounds.size }];
+        [_plusSignActiveView setFrame:(CGRect){ self.bounds.size.width - _plusSignActiveView.bounds.size.width + kGTIOPlusSignActiveHorizontalOffset, -_plusSignActiveView.bounds.size.height + kGTIOPlusSignActiveVerticalOffset, _plusSignActiveView.bounds.size }];
         _plusSignActiveView.hidden = YES;
         [self addSubview:_plusSignActiveView];
     }
     return self;
 }
 
-- (void)layoutSubviews
+- (void)dealloc
 {
-    [super layoutSubviews];
-
+    self.delegate = nil;
 }
 
 - (void)setProductOption:(GTIOProductOption *)productOption
@@ -82,7 +88,7 @@
     } else {
         _maskButton.hidden = YES;
         [_iconView setImage:[UIImage imageNamed:@"shopping.bottom.add.png"]];
-        [_iconView setFrame:(CGRect){ -2, -2, self.bounds.size.width + 4, self.bounds.size.height + 4 }];
+        [_iconView setFrame:(CGRect){ kGTIOIconViewXPosition, kGTIOIconViewYPosition, self.bounds.size.width - kGTIOIconViewXPosition * 2, self.bounds.size.height - kGTIOIconViewYPosition * 2 }];
     }
 }
 

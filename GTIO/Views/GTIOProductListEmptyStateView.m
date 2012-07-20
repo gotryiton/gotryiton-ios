@@ -9,6 +9,17 @@
 #import "GTIOProductListEmptyStateView.h"
 #import "TTTAttributedLabel.h"
 
+static CGFloat const kGTIOTitleLabelXPosition = 10.0;
+static CGFloat const kGTIOTitleLabelYPosition = 7.0;
+static CGFloat const kGTIOMaskButtonXPosition = 10.0;
+static CGFloat const kGTIOMaskButtonYPosition = 12.0;
+static CGFloat const kGTIOMaskButtonWidth = 45.0;
+static CGFloat const kGTIOMaskButtonHeight = 20.0;
+static CGFloat const kGTIOUnderlineXPosition = 17.0;
+static CGFloat const kGTIOUnderlineYPosition = 26.0;
+static CGFloat const kGTIOUnderlineWidth = 32.0;
+static CGFloat const kGTIOUnderlineHeight = 0.5;
+
 @interface GTIOProductListEmptyStateView()
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
@@ -29,7 +40,7 @@
         [_backgroundImageView setFrame:(CGRect){ 0, 0, frame.size }];
         [self addSubview:_backgroundImageView];
         
-        _titleLabel = [[TTTAttributedLabel alloc] initWithFrame:(CGRect){ 10, 7, _backgroundImageView.bounds.size.width - 20, _backgroundImageView.bounds.size.height - 14 }];
+        _titleLabel = [[TTTAttributedLabel alloc] initWithFrame:(CGRect){ kGTIOTitleLabelXPosition, kGTIOTitleLabelYPosition, _backgroundImageView.bounds.size.width - kGTIOTitleLabelXPosition * 2, _backgroundImageView.bounds.size.height - kGTIOTitleLabelYPosition * 2 }];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
         [_titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:11.0]];
         [_titleLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
@@ -47,11 +58,11 @@
         [self addSubview:_titleLabel];
         
         _maskButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
-        [_maskButton setFrame:(CGRect){ 10, 12, 45, 20 }];
+        [_maskButton setFrame:(CGRect){ kGTIOMaskButtonXPosition, kGTIOMaskButtonYPosition, kGTIOMaskButtonWidth, kGTIOMaskButtonHeight }];
         _maskButton.tapHandler = tapHandler;
         [self addSubview:_maskButton];
         
-        UIView *underline = [[UIView alloc] initWithFrame:(CGRect){ 17, 26, 32, 0.5 }];
+        UIView *underline = [[UIView alloc] initWithFrame:(CGRect){ kGTIOUnderlineXPosition, kGTIOUnderlineYPosition, kGTIOUnderlineWidth, kGTIOUnderlineHeight }];
         underline.backgroundColor = [UIColor gtio_linkColor];
         underline.alpha = 0.50;
         [self addSubview:underline];

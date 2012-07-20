@@ -13,6 +13,23 @@
 #import "GTIOButton.h"
 #import <RestKit/RestKit.h>
 
+static CGFloat const kGTIOProductImageViewXPosition = 5.0;
+static CGFloat const kGTIOProductImageViewYPosition = 2.0;
+static CGFloat const kGTIOBackgroundImageViewXPosition = 3.0;
+static CGFloat const kGTIOBackgroundImageViewYPosition = 0.0;
+static CGFloat const kGTIOHeartButtonXPosition = 12.0;
+static CGFloat const kGTIOHeartButtonYPosition = 7.0;
+static CGFloat const kGTIOProductNameLabelWidth = 109.0;
+static CGFloat const kGTIOProductNameLabelWidthWide = 130.0;
+static CGFloat const kGTIOProductNameLabelMaxHeight = 95.0;
+static CGFloat const kGTIOPriceLabelYPosition = 129.0;
+static CGFloat const kGTIOEmailButtonXPosition = 222.0;
+static CGFloat const kGTIOEmailButtonYPosition = 126.0;
+static CGFloat const kGTIOBuyButtonLeftMargin = 7.0;
+static CGFloat const kGTIODeleteButtonYPosition = 0.0;
+static CGFloat const kGTIOProductNameLabelXPosition = 173.0;
+static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
+
 @interface GTIOProductTableViewCell()
 
 @property (nonatomic, assign) GTIOProductTableCellType productTableCellType;
@@ -123,16 +140,16 @@
 {
     [super layoutSubviews];
     
-    [self.productImageView setFrame:(CGRect){ 5, 2, 155, 154 }];
-    [self.backgroundImageView setFrame:(CGRect){ 3, 0, self.bounds.size.width - 6, 159 }];
-    [self.heartButton setFrame:(CGRect){ 12, 7, self.heartButton.bounds.size }];
-    CGSize productNameLabelSize = [self.productNameLabel sizeThatFits:(CGSize){ (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? 109 : 130, CGFLOAT_MAX }];
-    [self.productNameLabel setFrame:(CGRect){ 173, 10, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? 109 : 130, (productNameLabelSize.height <= 95) ? productNameLabelSize.height : 95 }];
-    [self.brandLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? 109 : 130, 15 }];
-    [self.priceLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, 129, 45, 20 }];
-    [self.emailButton setFrame:(CGRect){ 222, 126, self.emailButton.bounds.size }];
-    [self.buyButton setFrame:(CGRect){ self.emailButton.frame.origin.x + self.emailButton.bounds.size.width + 7, self.emailButton.frame.origin.y, self.buyButton.bounds.size }];
-    [self.deleteButton setFrame:(CGRect){ self.bounds.size.width - self.deleteButton.bounds.size.width, 0, 26, 20 }];
+    [self.productImageView setFrame:(CGRect){ kGTIOProductImageViewXPosition, kGTIOProductImageViewYPosition, 155, 154 }];
+    [self.backgroundImageView setFrame:(CGRect){ kGTIOBackgroundImageViewXPosition, kGTIOBackgroundImageViewYPosition, self.bounds.size.width - kGTIOBackgroundImageViewXPosition * 2, 159 }];
+    [self.heartButton setFrame:(CGRect){ kGTIOHeartButtonXPosition, kGTIOHeartButtonYPosition, self.heartButton.bounds.size }];
+    CGSize productNameLabelSize = [self.productNameLabel sizeThatFits:(CGSize){ (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, CGFLOAT_MAX }];    
+    [self.productNameLabel setFrame:(CGRect){ kGTIOProductNameLabelXPosition, kGTIOProductNameLabelYPosition, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, (productNameLabelSize.height <= kGTIOProductNameLabelMaxHeight) ? productNameLabelSize.height : kGTIOProductNameLabelMaxHeight }];
+    [self.brandLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, 15 }];
+    [self.priceLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, kGTIOPriceLabelYPosition, 45, 20 }];
+    [self.emailButton setFrame:(CGRect){ kGTIOEmailButtonXPosition, kGTIOEmailButtonYPosition, self.emailButton.bounds.size }];
+    [self.buyButton setFrame:(CGRect){ self.emailButton.frame.origin.x + self.emailButton.bounds.size.width + kGTIOBuyButtonLeftMargin, self.emailButton.frame.origin.y, self.buyButton.bounds.size }];
+    [self.deleteButton setFrame:(CGRect){ self.bounds.size.width - self.deleteButton.bounds.size.width, kGTIODeleteButtonYPosition, 26, 20 }];
 }
 
 - (void)setProduct:(GTIOProduct *)product

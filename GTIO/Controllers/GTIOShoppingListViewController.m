@@ -13,8 +13,12 @@
 #import "GTIOProductOption.h"
 #import <RestKit/RestKit.h>
 #import "GTIOProductListEmptyStateView.h"
+#import "GTIOProductViewController.h"
+#import "GTIOAppDelegate.h"
 
 static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
+static CGFloat const kGTIOOffsetForShadowOnProductOptionsBackground = 3.0;
+static CGFloat const kGTIOEmptyStateViewVerticalCenterOffset = 15.0;
 
 @interface GTIOShoppingListViewController ()
 
@@ -75,12 +79,13 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
     self.productOptionsBackground.alpha = 0.0;
     [self.view addSubview:self.productOptionsBackground];
     
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, self.productOptionsBackground.bounds.size.height - 3, 0.0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, self.productOptionsBackground.bounds.size.height - kGTIOOffsetForShadowOnProductOptionsBackground, 0.0);
     
     self.emptyStateView = [[GTIOProductListEmptyStateView alloc] initWithFrame:(CGRect){ 0, 0, 210, 55 } title:@"browse, discover and add items to your shopping list to save them for later!" linkText:@"browse" linkTapHandler:^(id sender) {
-        NSLog(@"browse!");
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) selectTabAtIndex:GTIOTabBarTabStyle];
     }];
-    self.emptyStateView.center = (CGPoint){ self.view.bounds.size.width / 2, (self.view.bounds.size.height / 2) - self.navigationController.navigationBar.bounds.size.height - 15 };
+    self.emptyStateView.center = (CGPoint){ self.view.bounds.size.width / 2, (self.view.bounds.size.height / 2) - self.navigationController.navigationBar.bounds.size.height - kGTIOEmptyStateViewVerticalCenterOffset };
     self.emptyStateView.hidden = YES;
     [self.view addSubview:self.emptyStateView];
       
@@ -92,6 +97,8 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
     [super viewDidUnload];
     
     self.tableView = nil;
+    self.productOptionsBackground = nil;
+    self.emptyStateView = nil;
 }
 
 - (void)refreshScreenData
@@ -103,9 +110,6 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
 {
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/products/in-my-shopping-list" usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadResponse = ^(RKResponse *response) {
-            NSLog(@"%@", [response bodyAsString]);
-        };
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.products removeAllObjects];
@@ -188,6 +192,10 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    GTIOProduct *productAtIndexPath = (GTIOProduct *)[self.products objectAtIndex:indexPath.row];
+    GTIOProductViewController *viewController = [[GTIOProductViewController alloc] initWithProductID:productAtIndexPath.productID];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
