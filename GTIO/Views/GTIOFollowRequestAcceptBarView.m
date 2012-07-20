@@ -82,7 +82,7 @@
     if ([self.delegate respondsToSelector:@selector(removeAcceptBar)]) {
         [self.delegate removeAcceptBar];
     }
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:nil];
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint delegate:nil];
 }
 
 @end
