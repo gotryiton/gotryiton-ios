@@ -117,6 +117,9 @@
             if (self.reviews.count == 0) {
                 self.tableView.tableFooterView = self.tableFooterView;
             }
+            else {
+                [self.emptyStateView removeFromSuperview];
+            }
             [self.tableView reloadData];
         };
         loader.onDidFailWithError = ^(NSError *error) {
