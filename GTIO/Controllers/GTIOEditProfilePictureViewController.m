@@ -25,7 +25,6 @@
 @property (nonatomic, strong) NSURL *currentlySelectedProfileIconURL;
 @property (nonatomic, strong) UILabel *loadingIconsLabel;
 @property (nonatomic, strong) GTIORoundedView *chooseFromBox;
-@property (nonatomic, strong) UILabel *myLooksLabel;
 @property (nonatomic, strong) UIScrollView *myLooksIcons;
 @property (nonatomic, strong) GTIORoundedView *previewBox;
 @property (nonatomic, strong) UIImageView *previewBoxBackground;
@@ -38,7 +37,7 @@
 
 @implementation GTIOEditProfilePictureViewController
 
-@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksLabel = _myLooksLabel, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo, defaultIconURL = _defaultIconURL, facebookConnectButton = _facebookConnectButton;
+@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo, defaultIconURL = _defaultIconURL, facebookConnectButton = _facebookConnectButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -97,12 +96,6 @@
     [self.facebookLogo setFrame:(CGRect){ { 21, 52.5 }, self.facebookLogo.bounds.size }];
     [self.chooseFromBox addSubview:self.facebookLogo];
     
-    self.myLooksLabel = [[UILabel alloc] initWithFrame:(CGRect){ 90, 53, 100, 11}];
-    [self.myLooksLabel setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:11.0]];
-    [self.myLooksLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
-    [self.myLooksLabel setText:@"my looks"];
-    [self.chooseFromBox addSubview:self.myLooksLabel];
-    
     self.myLooksIcons = [[UIScrollView alloc] initWithFrame:(CGRect){ 88, 70, 199, 74 }];
     [self.myLooksIcons setShowsVerticalScrollIndicator:NO];
     [self.chooseFromBox addSubview:self.myLooksIcons];
@@ -148,7 +141,6 @@
     [super viewDidUnload];
     self.facebookLogo = nil;
     self.myLooksIcons = nil;
-    self.myLooksLabel = nil;
     self.loadingIconsLabel = nil;
     self.previewBox = nil;
     self.previewBoxBackground = nil;
