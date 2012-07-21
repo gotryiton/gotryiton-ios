@@ -142,8 +142,11 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
         [_editButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self setUsesGearInsteadOfPencil:NO];
         [self addSubview:_editButton];
-        
+
         [self refreshButtons];
+
+        //hiding edit button until view data has loaded.
+        _editButton.hidden = YES;
     }
     return self;
 }
@@ -151,7 +154,7 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
 - (void)setSettingsButtonHidden:(BOOL)settingsButtonHidden
 {
     _settingsButtonHidden = settingsButtonHidden;
-    self.editButton.hidden = _settingsButtonHidden;
+    //self.editButton.hidden = _settingsButtonHidden;
 }
 
 - (void)setUsesGearInsteadOfPencil:(BOOL)usesGearInsteadOfPencil
@@ -213,6 +216,7 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
     self.starsLabel.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameStars];
     self.starCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameStars];
     self.starsButton.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameStars];
+    self.editButton.hidden = self.settingsButtonHidden;
 }
 
 - (BOOL)userInfoButtonsHasButtonwWithName:(NSString *)name
