@@ -27,7 +27,7 @@
     if (self) {
         // Name
         [self.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:18.0]];
-        [self.textLabel setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
+        [self.textLabel setTextColor:[UIColor gtio_grayTextColor515152]];
         
         // Description
         [self.detailTextLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0]];

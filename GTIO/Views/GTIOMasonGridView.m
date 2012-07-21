@@ -12,8 +12,10 @@
 #import "GTIOProgressHUD.h"
 #import "UIImage+Resize.h"
 
-static double const kGTIOImageWidth = 94.0;
-static double const kGTIOHorizontalSpacing = 12.0;
+static CGFloat const kGTIOFrameImageWidth = 102.0f;
+static CGFloat const kGTIOImageWidth = 94.0;
+static CGFloat const kGTIOHorizontalSpacing = 2.5;
+static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 
 @interface GTIOMasonGridView()
 
@@ -25,19 +27,21 @@ static double const kGTIOHorizontalSpacing = 12.0;
 @implementation GTIOMasonGridView
 
 @synthesize columns = _columns, items = _items;
+@synthesize padding = _padding;
+@synthesize gridItemTapHandler = _gridItemTapHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.clipsToBounds = NO;
+        _padding = 5.0f;
     }
     return self;
 }
 
 - (void)didFinishLoadingGridItem:(GTIOMasonGridItem *)gridItem
 {    
-    double widthRatio = kGTIOImageWidth / gridItem.image.size.width;
+    CGFloat widthRatio = kGTIOImageWidth / gridItem.image.size.width;
     gridItem.image = [gridItem.image imageScaledToSize:(CGSize){ kGTIOImageWidth, gridItem.image.size.height * widthRatio }];
     
     // Find shortest column
@@ -48,7 +52,10 @@ static double const kGTIOHorizontalSpacing = 12.0;
         }
     }
     
-    GTIOMasonGridItemWithFrameView *gridItemWithFrameView = [[GTIOMasonGridItemWithFrameView alloc] initWithFrame:(CGRect){ shortestColumn.columnNumber * kGTIOImageWidth + shortestColumn.columnNumber * kGTIOHorizontalSpacing, shortestColumn.height == 0 ? 0.0 :shortestColumn.height + shortestColumn.imageSpacer, kGTIOImageWidth, gridItem.image.size.height } image:gridItem.image];
+    CGFloat gridItemWithFrameViewOriginX = kGTIOFirstColumnXOrigin +  shortestColumn.columnNumber * kGTIOFrameImageWidth + shortestColumn.columnNumber * kGTIOHorizontalSpacing;
+    CGFloat gridItemWithFrameViewOriginY = self.padding + (shortestColumn.height == 0 ? 0.0 : shortestColumn.height) + (shortestColumn.height == 0 ? 0.0 : shortestColumn.imageSpacer);
+    GTIOMasonGridItemWithFrameView *gridItemWithFrameView = [[GTIOMasonGridItemWithFrameView alloc] initWithFrame:(CGRect){ { gridItemWithFrameViewOriginX, gridItemWithFrameViewOriginY }, { kGTIOFrameImageWidth, gridItem.image.size.height + kGTIOGridItemPhotoPadding + kGTIOGridItemPhotoBottomPadding } } gridItem:gridItem];
+    [gridItemWithFrameView setTapHandler:self.gridItemTapHandler];
     gridItemWithFrameView.alpha = 0.0;
     [self addSubview:gridItemWithFrameView];
     
@@ -65,7 +72,7 @@ static double const kGTIOHorizontalSpacing = 12.0;
     if (tallestColumnHeight + 12 < self.bounds.size.height) {
         tallestColumnHeight = self.bounds.size.height - 11;
     }
-    [self setContentSize:(CGSize){ self.frame.size.width, tallestColumnHeight + 12 }];
+    [self setContentSize:(CGSize){ self.frame.size.width, tallestColumnHeight + 12 + self.padding }];
     
     // Fade in
     [UIView animateWithDuration:0.25 animations:^{
@@ -91,18 +98,19 @@ static double const kGTIOHorizontalSpacing = 12.0;
         }
     }
     
+    [self setContentOffset:CGPointZero animated:NO];
+    
     // reset columns
     self.columns = [NSMutableArray arrayWithObjects:
-                [GTIOMasonGridColumn gridColumnWithColumnNumber:0],
-                [GTIOMasonGridColumn gridColumnWithColumnNumber:1],
-                [GTIOMasonGridColumn gridColumnWithColumnNumber:2],
-                nil];
+                    [GTIOMasonGridColumn gridColumnWithColumnNumber:0],
+                    [GTIOMasonGridColumn gridColumnWithColumnNumber:1],
+                    [GTIOMasonGridColumn gridColumnWithColumnNumber:2],
+                    nil];
     
     // bring in the new data
     for (GTIOPost *post in posts) {
-        GTIOMasonGridItem *item = [[GTIOMasonGridItem alloc] init];
+        GTIOMasonGridItem *item = [GTIOMasonGridItem itemWithPost:post];
         item.delegate = self;
-        item.URL = post.photo.smallThumbnailURL;
         [item downloadImage];
         [self.items addObject:item];
     }

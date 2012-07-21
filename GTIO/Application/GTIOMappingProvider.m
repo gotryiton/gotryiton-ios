@@ -35,7 +35,11 @@
 #import "GTIOFindMyFriendsScreen.h"
 #import "GTIOReview.h"
 #import "GTIONotification.h"
+#import "GTIOTab.h"
 #import "GTIOProduct.h"
+#import "GTIOProductOption.h"
+#import "GTIOCollection.h"
+#import "GTIOBannerImage.h"
 
 @implementation GTIOMappingProvider
 
@@ -71,7 +75,11 @@
         RKObjectMapping *findMyFriendsScreenMapping = [RKObjectMapping mappingForClass:[GTIOFindMyFriendsScreen class]];
         RKObjectMapping *reviewMapping = [RKObjectMapping mappingForClass:[GTIOReview class]];
         RKObjectMapping *notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
+        RKObjectMapping *tabMapping = [RKObjectMapping mappingForClass:[GTIOTab class]];
         RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[GTIOProduct class]];
+        RKObjectMapping *productOptionMapping = [RKObjectMapping mappingForClass:[GTIOProductOption class]];
+        RKObjectMapping *collectionMapping = [RKObjectMapping mappingForClass:[GTIOCollection class]];
+        RKObjectMapping *bannerImageMapping = [RKObjectMapping mappingForClass:[GTIOBannerImage class]];
         
         /** Products
          */
@@ -86,6 +94,26 @@
         [productMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [self setMapping:productMapping forKeyPath:@"product"];
         [self setMapping:productMapping forKeyPath:@"products"];
+        
+        // GTIOProductOption
+        [productOptionMapping mapKeyPath:@"id" toAttribute:@"productOptionID"];
+        [productOptionMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
+        [productOptionMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:productOptionMapping forKeyPath:@"product_options"];
+        
+        // GTIOBannerImage
+        [bannerImageMapping mapKeyPath:@"image" toAttribute:@"imageURL"];
+        [bannerImageMapping mapKeyPath:@"width" toAttribute:@"width"];
+        [bannerImageMapping mapKeyPath:@"height" toAttribute:@"height"];
+        [bannerImageMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        
+        // GTIOCollection
+        [collectionMapping mapKeyPath:@"id" toAttribute:@"collectionID"];
+        [collectionMapping mapKeyPath:@"name" toAttribute:@"name"];
+        [collectionMapping mapKeyPath:@"banner_image" toRelationship:@"bannerImage" withMapping:bannerImageMapping];
+        [collectionMapping mapKeyPath:@"custom_nav_image" toAttribute:@"customNavigationImageURL"];
+        [collectionMapping mapKeyPath:@"options" toRelationship:@"dotOptions" withMapping:buttonMapping];
+        [self setMapping:collectionMapping forKeyPath:@"collection"];
         
         /** Config
          */
@@ -255,6 +283,10 @@
         [self setMapping:postMapping forKeyPath:@"post"];
         [self setMapping:postMapping forKeyPath:@"posts"];
         [self setMapping:postMapping forKeyPath:@"feed"];
+        
+        // GTIOTab
+        [tabMapping mapAttributes:@"name", @"text", @"endpoint", @"selected", nil];
+        [self setMapping:tabMapping forKeyPath:@"tabs"];
         
         /** Review
          */

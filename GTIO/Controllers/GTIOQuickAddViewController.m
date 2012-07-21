@@ -89,11 +89,11 @@
     [self.skipThisStepLabel setBackgroundColor:[UIColor clearColor]];
     [self.skipThisStepLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [self.skipThisStepLabel setText:@"or, skip this step"];
-    [self.skipThisStepLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
+    [self.skipThisStepLabel setTextColor:[UIColor gtio_grayTextColorB3B3B3]];
     [self.skipThisStepLabel setTextAlignment:UITextAlignmentCenter];
     self.skipThisStepUnderline = [[UIView alloc] initWithFrame:(CGRect){ 133.0, self.skipThisStepLabel.bounds.size.height - 3, 70.0, 0.5 }];
     [self.skipThisStepUnderline setAlpha:0.60];
-    [self.skipThisStepUnderline setBackgroundColor:[UIColor gtio_lightGrayTextColor]];
+    [self.skipThisStepUnderline setBackgroundColor:[UIColor gtio_grayTextColorB3B3B3]];
     [self.skipThisStepLabel addSubview:self.skipThisStepUnderline];
     self.skipThisStepInvisiButton = [[UIButton alloc] initWithFrame:(CGRect){ 133.0, 0, 70.0, self.skipThisStepLabel.bounds.size.height }];
     [self.skipThisStepInvisiButton addTarget:self action:@selector(skipThisStep) forControlEvents:UIControlEventTouchUpInside];

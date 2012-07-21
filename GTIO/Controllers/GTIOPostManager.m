@@ -79,19 +79,24 @@
         request.backgroundPolicy = RKRequestBackgroundPolicyRequeue;
         
         request.onDidLoadResponse = ^(RKResponse *response) {
-            [self changeState:GTIOPostStateUploadingImageComplete];
-            
-            RKObjectMappingProvider* provider = [RKObjectManager sharedManager].mappingProvider;
-            NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
-            if (parsedBody) {
-                RKObjectMapper *mapper = [RKObjectMapper mapperWithObject:parsedBody mappingProvider:provider];
-                RKObjectMappingResult *result = [mapper performMapping];
-                self.photo = (GTIOPhoto *)[result asObject];
-            }
-            
-            if (self.postPhotoButtonTouched || forceSavePost) {
-                self.postPhotoButtonTouched = NO;
-                [self savePostWithDescription:self.postDescription completionHandler:self.postCompletionHandler];
+            if (response.isSuccessful) {
+                [self changeState:GTIOPostStateUploadingImageComplete];
+                
+                RKObjectMappingProvider* provider = [RKObjectManager sharedManager].mappingProvider;
+                NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
+                if (parsedBody) {
+                    RKObjectMapper *mapper = [RKObjectMapper mapperWithObject:parsedBody mappingProvider:provider];
+                    RKObjectMappingResult *result = [mapper performMapping];
+                    self.photo = (GTIOPhoto *)[result asObject];
+                }
+                
+                if (self.postPhotoButtonTouched || forceSavePost) {
+                    self.postPhotoButtonTouched = NO;
+                    [self savePostWithDescription:self.postDescription completionHandler:self.postCompletionHandler];
+                }
+            } else {
+                [self changeState:GTIOPostStateError];
+                NSLog(@"Error uploading image");
             }
         };
         

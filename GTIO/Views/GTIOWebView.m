@@ -8,8 +8,6 @@
 
 #import "GTIOWebView.h"
 
-#import "NSData+Base64.h"
-
 #import "GTIOAuth.h"
 
 @implementation GTIOWebView
@@ -46,9 +44,17 @@
     [request setValue:[[GTIOAuth alloc] init].token forHTTPHeaderField:kGTIOAuthenticationHeaderKey];
     
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING || GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
-    NSString *authStr = [NSString stringWithFormat:@"%@:%@", kGTIOHTTPAuthUsername, kGTIOHTTPAuthPassword];
-    NSString *authValue = [NSString stringWithFormat:@"Basic %@", [NSData gtio_dataWithBase64EncodedString:authStr]];
-    [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+    // Use CFNetwork dummy request to create the basic HTTP authorization
+    CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, (CFStringRef)@"POST", (__bridge_retained CFURLRef)URL, kCFHTTPVersion1_1);
+    if (dummyRequest) {
+        CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)kGTIOHTTPAuthUsername, (__bridge CFStringRef)kGTIOHTTPAuthPassword, kCFHTTPAuthenticationSchemeBasic, FALSE);
+        CFStringRef authorizationString = CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
+        if (authorizationString) {
+            [request setValue:(__bridge NSString *)authorizationString forHTTPHeaderField:@"Authorization"];
+            CFRelease(authorizationString);
+        }
+        CFRelease(dummyRequest);
+    }
 #endif
     
     [self loadRequest:request];

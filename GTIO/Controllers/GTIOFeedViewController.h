@@ -13,5 +13,6 @@
 @interface GTIOFeedViewController : GTIOViewController <SSPullToRefreshViewDelegate>
 
 - (id)initWithPostID:(NSString *)postID;
+- (id)initWithPost:(GTIOPost *)post;
 
 @end

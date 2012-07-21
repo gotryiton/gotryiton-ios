@@ -131,17 +131,11 @@
 
 #pragma mark - GTIOReviewTableViewCellDelegate Methods
 
-- (void)updateDataSourceWithReview:(GTIOReview *)review atIndexPath:(NSIndexPath *)indexPath
+- (void)removeReview:(GTIOReview *)review
 {
-    [self.reviews removeObjectAtIndex:indexPath.row];
-    [self.reviews insertObject:review atIndex:indexPath.row];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-}
-
-- (void)removeReviewAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.reviews removeObjectAtIndex:indexPath.row];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSUInteger indexOfReview = [self.reviews indexOfObject:review];
+    [self.reviews removeObjectAtIndex:indexOfReview];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexOfReview inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (UIView *)viewForSpinner
@@ -174,7 +168,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellIdentifier = @"Cell";
+    static NSString *cellIdentifier = @"com.gtio.reviews.cell";
     
     GTIOReviewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -190,7 +184,6 @@
     GTIOReviewsTableViewCell *theCell = (GTIOReviewsTableViewCell *)cell;
     [theCell setReview:[self.reviews objectAtIndex:indexPath.row]];
     [theCell setDelegate:self];
-    [theCell setIndexPath:indexPath];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

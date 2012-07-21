@@ -21,7 +21,6 @@
 @synthesize statusBarBackgroundImageView = _statusBarBackgroundImageView;
 @synthesize leftNavigationButton = _leftNavigationButton, rightNavigationButton = _rightNavigationButton;
 
-
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
@@ -61,10 +60,6 @@
 {
     [super viewDidAppear:animated];
     [self.view bringSubviewToFront:self.topShadow];
-    
-    if (self.navigationController.navigationBarHidden) {
-        [_statusBarBackgroundImageView setFrame:(CGRect){ { 0, -[UIApplication sharedApplication].statusBarFrame.size.height }, { self.view.frame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height } }];
-    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -89,6 +84,11 @@
 {
     _rightNavigationButton = rightNavigationButton;
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:_rightNavigationButton]];
+}
+
+- (void)showStatusBarBackgroundWithoutNavigationBar
+{
+    [_statusBarBackgroundImageView setFrame:(CGRect){ { 0, -[UIApplication sharedApplication].statusBarFrame.size.height }, { self.view.frame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height } }];
 }
 
 @end

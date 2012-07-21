@@ -266,7 +266,7 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
     CGFloat frameScale = kGTIOCompositeImageWidth / frameSize.width;
     CGSize compositeImageFrameSize = (CGSize){ frameSize.width * frameScale, frameSize.height * frameScale };
     
-    UIGraphicsBeginImageContextWithOptions(compositeImageFrameSize, NO, [UIScreen mainScreen].scale);
+    UIGraphicsBeginImageContextWithOptions(compositeImageFrameSize, NO, 1);
     if (self.photoSet) {
         CGRect mainImageRect = [self drawTakePhotoView:self.mainPhotoView origin:CGPointZero frameScale:frameScale];
         CGRect topImageRect = [self drawTakePhotoView:self.topPhotoView origin:(CGPoint){ mainImageRect.size.width + 17, 0 } frameScale:frameScale];
