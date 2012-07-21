@@ -398,11 +398,11 @@
 - (BOOL)startedTypingCompleterInLastTwoWords:(GTIOAutoCompleter *)completer
 {
     // NSLog(@"lastword %@", [self lastWordTypedInText:self.inputText]);
-    if ([[completer.name lowercaseString] rangeOfString:[self lastTwoWordsTyped]].location == 0 && [self lastTwoWordsTyped].length > 1) {
+    if ([[completer.name lowercaseString] rangeOfString:[self lastTwoWordsTyped]].location == 0 && [self lastTwoWordsTyped].length > 2) {
         return true; 
         // NSLog(@"found %@", completer.key);
     }
-    else if ([[[self lastTwoWordsTyped] substringWithRange:NSMakeRange(0,1)] isEqualToString:@"@"] && [self lastTwoWordsTyped].length > 1){
+    else if ([[[self lastTwoWordsTyped] substringWithRange:NSMakeRange(0,1)] isEqualToString:@"@"] && [self lastTwoWordsTyped].length > 2){
         NSRange substringRange = [[completer.name lowercaseString] rangeOfString:[[self lastTwoWordsTyped] substringWithRange:NSMakeRange(1, [self lastTwoWordsTyped].length - 1)]];
         if (substringRange.location == 0 && [completer.type isEqualToString:@"@"]){
             // NSLog(@"found %@", completer.key);
@@ -415,10 +415,10 @@
 - (BOOL)startedTypingCompleterInLastWord:(GTIOAutoCompleter *)completer
 {
     // NSLog(@"lastword %@", [self lastWordTypedInText:self.inputText]);
-    if ([[completer.name lowercaseString] rangeOfString:[self lastWordTyped]].location == 0 && [self lastWordTyped].length>1) {
+    if ([[completer.name lowercaseString] rangeOfString:[self lastWordTyped]].location == 0 && [self lastWordTyped].length>2) {
         return true;
     }
-    else if ([[[self lastWordTyped] substringWithRange:NSMakeRange(0,1)] isEqualToString:@"@"] && [self lastWordTyped].length > 1 ){
+    else if ([[[self lastWordTyped] substringWithRange:NSMakeRange(0,1)] isEqualToString:@"@"] && [self lastWordTyped].length > 2 ){
         NSRange substringRange = [[completer.name lowercaseString] rangeOfString:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1)]];
         if (substringRange.location == 0 && [completer.type isEqualToString:@"@"]){
             return true;
