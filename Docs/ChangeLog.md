@@ -1,5 +1,30 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.15
+July 23, 2012
+
+### Build Summary
+Mid sprint 6 build. Bug fixes, push notifications, partial of invite friends.
+
+### Development
+
+**Bug Fixes**
+- 400 - Profile shadow should not show while profile icon is loading
+- 399 - dot dot dot menu mis-positioned with 3 items
+- 251 - dot dot dot menu should close when button is tapped again
+- 382 - 3.4 empty state persists after no longer empty
+- 357 - remove 'my looks' label from 7.3
+- 381 - 3.4 empty state - add action
+
+**Screens / Features**
+- 317 - Push notifications w/ urban airship
+- 269 - 3.5 Who Hearted This
+
+**In Progress**
+- 273 - Invite Friends
+
+---
+
 #### Build 4.0.0.14
 July 20, 2012
 
