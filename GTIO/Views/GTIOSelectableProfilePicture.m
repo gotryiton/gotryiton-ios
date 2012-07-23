@@ -52,7 +52,7 @@
         _innerShadow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"edit.profile.pic.thumb.mask.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 5.0, 5.0, 5.0, 5.0 }]];
         [_innerShadow setFrame:CGRectZero];
         _innerShadow.opaque = YES;
-        _innerShadow.hidden = !_hasInnerShadow;
+        _innerShadow.hidden = YES;
         [_canvas addSubview:_imageView];
         [_canvas addSubview:_innerShadow];
         
@@ -116,20 +116,6 @@
     }
 }
 
-- (void)setHasOuterShadow:(BOOL)hasOuterShadow
-{
-    _hasOuterShadow = hasOuterShadow;
-    if (_hasOuterShadow) {
-        [self.layer setShadowRadius:5.0];
-        [self.layer setShadowOffset:(CGSize){ 0, 0 }];
-        [self.layer setShadowOpacity:0.50];
-    } else {
-        [self.layer setShadowRadius:0.0];
-        [self.layer setShadowOffset:(CGSize){ 0, 0 }];
-        [self.layer setShadowOpacity:0.0];
-    }
-}
-
 - (void)setIsSelectedGesture:(UITapGestureRecognizer *)sender
 {
     if ([self.delegate respondsToSelector:@selector(pictureWasTapped:)]) {
@@ -156,6 +142,11 @@
 {
     [self.imageView setAlpha:1.0];
     [self.innerShadow setAlpha:1.0];
+    if (self.hasOuterShadow) {
+        [self.layer setShadowRadius:5.0];
+        [self.layer setShadowOffset:(CGSize){ 0, 0 }];
+        [self.layer setShadowOpacity:0.50];
+    }
 }
 
 @end

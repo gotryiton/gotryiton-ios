@@ -20,7 +20,7 @@ static CGFloat const kGTIOWhoHeartedThisTopPadding = 2.0f;
 static CGFloat const kGTIOWhoHeartedThisWidth = 250.0f;
 static CGFloat const kGTIOWhoHeartedThisBottomPadding = 11.0f;
 static CGFloat const kGITOEllipsisPopOverViewXOriginOffset = -3.5f;
-static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = -61.0f;
+static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 
 @interface GTIOFeedCell () <UIGestureRecognizerDelegate>
 
@@ -84,7 +84,7 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = -61.0f;
 {
     [self.postButtonColumnView prepareForReuse];
     [self.ellipsisPopOverView removeFromSuperview];
-    self.ellipsisPopOverView = nil;
+    self.ellipsisPopOverView = nil;    
 }
 
 #pragma mark - Properties
@@ -107,10 +107,15 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = -61.0f;
         [self.postButtonColumnView setEllipsisButtonTapHandler:^(id sender){ 
             if (!blockSelf.ellipsisPopOverView) {
                 blockSelf.ellipsisPopOverView = [GTIOPopOverView ellipsisPopOverViewWithButtonModels:_post.dotOptionsButtons];
+
+                [blockSelf.ellipsisPopOverView setFrame:(CGRect){ { self.frame.size.width - blockSelf.ellipsisPopOverView.frame.size.width + kGITOEllipsisPopOverViewXOriginOffset, self.postButtonColumnView.ellipsisButton.frame.origin.y - blockSelf.ellipsisPopOverView.frame.size.height + kGITOEllipsisPopOverViewYOriginOffset }, blockSelf.ellipsisPopOverView.frame.size }];
+                [blockSelf addSubview:blockSelf.ellipsisPopOverView];
+            }
+            else {
+                [blockSelf.ellipsisPopOverView removeFromSuperview];
+                blockSelf.ellipsisPopOverView = nil;
             }
             
-            [blockSelf.ellipsisPopOverView setFrame:(CGRect){ { self.frame.size.width - blockSelf.ellipsisPopOverView.frame.size.width + kGITOEllipsisPopOverViewXOriginOffset, self.postButtonColumnView.ellipsisButton.frame.origin.y + kGITOEllipsisPopOverViewYOriginOffset }, blockSelf.ellipsisPopOverView.frame.size }];
-            [blockSelf addSubview:blockSelf.ellipsisPopOverView];
         }];
     }
 }
@@ -120,6 +125,7 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = -61.0f;
 - (void)dismissEllipsisPopOverView:(NSNotification *)notification
 {
     [self.ellipsisPopOverView removeFromSuperview];
+    self.ellipsisPopOverView = nil;
 }
 
 #pragma mark - UIGestureRecognizer

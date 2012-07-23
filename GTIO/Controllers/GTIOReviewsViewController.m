@@ -61,8 +61,7 @@
     
     self.tableViewHeader = [[GTIOReviewsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 87 }];
     self.tableViewHeader.commentButtonTapHandler = ^(id sender) {        
-        GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithPostID:self.postID];
-        [self.navigationController pushViewController:commentViewController animated:YES];
+        [self addComment];
     };
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
@@ -77,6 +76,9 @@
     self.emptyStateView = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:@"be the first to\nsay something!" userName:nil locked:NO];
     [self.tableFooterView addSubview:self.emptyStateView];
     [self.emptyStateView setCenter:(CGPoint){ self.tableFooterView.bounds.size.width / 2, self.tableFooterView.bounds.size.height / 2 }];
+
+    UITapGestureRecognizer *emptyStateTapRecocgnizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addComment)];
+    [self.emptyStateView addGestureRecognizer:emptyStateTapRecocgnizer];
 }
 
 - (void)viewDidUnload
@@ -117,6 +119,9 @@
             if (self.reviews.count == 0) {
                 self.tableView.tableFooterView = self.tableFooterView;
             }
+            else {
+                [self.emptyStateView removeFromSuperview];
+            }
             [self.tableView reloadData];
         };
         loader.onDidFailWithError = ^(NSError *error) {
@@ -124,6 +129,11 @@
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
+}
+
+- (void)addComment{
+    GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithPostID:self.postID];
+    [self.navigationController pushViewController:commentViewController animated:YES];
 }
 
 #pragma mark - GTIOReviewTableViewCellDelegate Methods

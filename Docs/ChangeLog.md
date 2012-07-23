@@ -1,5 +1,32 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.14
+July 20, 2012
+
+### Build Summary
+Mid sprint 6 build. Bug fixes, shopping list, notifications, and pull to load more and pull to refresh.
+
+### Development
+
+**Bug Fixes**
+- 248, 141, 369 - Post a look scrolling issues
+- 370 - Feed pull to refresh is too high
+- 383 - crash going to camera on iPod touch 4th gen
+- 348 - title bar on gtio://internal-webview not set correctly
+- 153 - 12.4 photoshoot grid layout tweaks (nav title italics)
+- 368 - post icons in my hearts masonry do not tap to single post view
+
+**Screens / Features**
+- 338, 366 - Notifications now working
+- 372 - Dual view mason grid pagination / refresh
+- 275 - 7.8 Shopping list
+- 272 - 4.8 Shop this look
+- 282 - 10.5 Shop Browse Products
+- 242 - Mason Grid Load More
+- 235 - Post Feed Load More
+
+---
+
 #### Build 4.0.0.12
 July 17, 2012
 
