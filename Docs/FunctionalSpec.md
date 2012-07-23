@@ -4692,3 +4692,27 @@ Control raised, populating users
       - Archer Medium Italic 13pt rgb(266,106,114)
       - Text area is 150px wide (wrap to additional lines if necessary)
       - Horizontally centered
+
+### 13.12 Connection Fail
+
+#### Mockups
+
+13.12 Connection Fail   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.12.Connection.Fail.png" width=420px/>
+
+13.12.1 Connection Fail Retrying
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.12.Connection.Fail.Retrying.png" width=420px/>
+
+#### Design Stories
+- connection error overlay
+   - 'spinner-dark-bg.png' overlay on screen (behind info overlay)
+   - 'connection-error-bg.png' as info overlay background
+      - horizontally centered
+      - vertically centered
+   - RETRY + icon
+      - 'connection-error-retry.png'
+      - 29px from right edge of bg asset
+      - vertically centered within bg asset
+   - 21px x 21px spinner #6e6e6e
+      - horizontally centered within space where 'retry' asset was
+      - vertically centered within bg asset area
