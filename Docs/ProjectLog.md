@@ -1,3 +1,36 @@
+***Monday, July 23rd - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Send new build today that will include push, Invite Friends, and bug fixes.
+
+**Status**
+- Scott has been working on getting the push code in and reviewing a bunch of pulls.
+  - Push code is mostly wrapped up. 
+- Scott will work on get the switching tabs working correctly.
+- Invite Friends is closely done.
+- GTIO received first round feedback on app, most of which doesn't affect existing issues.  
+  - One area of concern > Autocomplete.  There is a delay before the letter that you type shows up.  Running it with 
+    coretext the responsiveness is not up to par with the speed that some of these girls can type.  
+  - Cut all coretext rendering and Simon will rewrite to have an external data store.  
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+
+**General Notes**
+- Simon will be taking on minor fixes, bugs going forward.
+  - Talk with Matt about how this will work. Making sure Simon talks to Scott first before making changes.  
+
+---
+
 ***Friday, July 20th - Standup Notes***
 
 **Attendees**
