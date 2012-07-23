@@ -118,6 +118,13 @@
     self.friendsTableView.backgroundColor = [UIColor clearColor];
     self.friendsTableView.delegate = self;
     self.friendsTableView.dataSource = self;
+    UIImageView *tableFooterView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-shadow.png"]];
+    [tableFooterView setFrame:(CGRect){ 0, 0, self.friendsTableView.bounds.size.width, 5 }];
+    self.friendsTableView.tableFooterView = tableFooterView;
+    self.friendsTableView.tableFooterView.hidden = YES;
+    if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
+        self.friendsTableView.tableFooterView.hidden = NO;
+    }
     [self.view addSubview:self.friendsTableView];
     
     self.noSearchResultsView = [[GTIOFriendsNoSearchResultsView alloc] initWithFrame:CGRectZero];
@@ -223,6 +230,8 @@
         [self.searchCommunityView removeFromSuperview];
         if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends && self.friends.count == 0) {
             [self displaySearchCommunityView];
+        } else {
+            self.friendsTableView.tableFooterView.hidden = NO;
         }
     }
     [self.friendsTableView reloadData];
@@ -253,6 +262,8 @@
                 }
                 if (self.friends.count == 0) {
                     [self displayNoResultsView];
+                } else {
+                    self.friendsTableView.tableFooterView.hidden = NO;
                 }
                 [self.friendsTableView reloadData];
             };
@@ -261,6 +272,20 @@
                 NSLog(@"%@", [error localizedDescription]);
             };
         }];
+    }
+}
+
+#pragma mark - GTIOFindMyFriendsTableViewCellDelegate Methods
+
+- (void)updateDataSourceUser:(GTIOUser *)user withUser:(GTIOUser *)newUser
+{
+    NSUInteger indexForUser;
+    if (self.searching) {
+        indexForUser = [self.searchResults indexOfObject:user];
+        [self.searchResults replaceObjectAtIndex:indexForUser withObject:newUser];
+    } else {
+        indexForUser = [self.friends indexOfObject:user];
+        [self.friends replaceObjectAtIndex:indexForUser withObject:newUser];
     }
 }
 
@@ -309,8 +334,8 @@
         userForRow = [self.friends objectAtIndex:indexPath.row];
     }
     GTIOFindMyFriendsTableViewCell *customCell = (GTIOFindMyFriendsTableViewCell *)cell;
-    [customCell setDelegate:self];
-    [customCell setUser:userForRow indexPath:indexPath];
+    customCell.user = userForRow;
+    customCell.delegate = self;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -522,6 +547,7 @@
     [self.searchCommunityView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
     [self.friendsTableView addSubview:self.searchCommunityView];
     [self.friendsTableView bringSubviewToFront:self.searchCommunityView];
+    self.friendsTableView.tableFooterView.hidden = YES;
 }
 
 - (void)displayNoResultsView
@@ -532,6 +558,7 @@
     [self.noSearchResultsView setFailedQuery:self.currentSearchQuery];
     [self.friendsTableView addSubview:self.noSearchResultsView];
     [self.friendsTableView bringSubviewToFront:self.noSearchResultsView];
+    self.friendsTableView.tableFooterView.hidden = YES;
 }
 
 - (void)resetTableViewFrame
