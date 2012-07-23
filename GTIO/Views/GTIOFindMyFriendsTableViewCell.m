@@ -9,6 +9,11 @@
 #import "GTIOFindMyFriendsTableViewCell.h"
 #import "GTIOSelectableProfilePicture.h"
 
+static CGFloat const kGTIORightPadding = 7.0;
+static CGFloat const kGTIOProfilePictureRightPadding = 10.0;
+static CGFloat const kGTIONameLabelYPosition = 17.0;
+static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
+
 @interface GTIOFindMyFriendsTableViewCell()
 
 @property (nonatomic, strong) GTIOSelectableProfilePicture *profilePicture;
@@ -75,13 +80,13 @@
 {
     [super layoutSubviews];
     
-    [self.followingButton setFrame:(CGRect){ self.bounds.size.width - self.followingButton.bounds.size.width - 7, 9, self.followingButton.bounds.size }];
-    [self.followButton setFrame:(CGRect){ self.bounds.size.width - self.followButton.bounds.size.width - 7, 9, self.followButton.bounds.size }];
-    [self.requestedButton setFrame:(CGRect){ self.bounds.size.width - self.requestedButton.bounds.size.width - 7, 9, self.requestedButton.bounds.size }];
+    [self.followingButton setFrame:(CGRect){ self.bounds.size.width - self.followingButton.bounds.size.width - kGTIORightPadding, 9, self.followingButton.bounds.size }];
+    [self.followButton setFrame:(CGRect){ self.bounds.size.width - self.followButton.bounds.size.width - kGTIORightPadding, 9, self.followButton.bounds.size }];
+    [self.requestedButton setFrame:(CGRect){ self.bounds.size.width - self.requestedButton.bounds.size.width - kGTIORightPadding, 9, self.requestedButton.bounds.size }];
     
-    double nameLableXPosition = self.profilePicture.frame.origin.x + self.profilePicture.bounds.size.width + 10;
-    [self.nameLabel setFrame:(CGRect){ nameLableXPosition, 17, self.followingButton.frame.origin.x - nameLableXPosition - 10, 20 }];
-    [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - 1, self.contentView.bounds.size.width, 1 }];
+    double nameLableXPosition = self.profilePicture.frame.origin.x + self.profilePicture.bounds.size.width + kGTIOProfilePictureRightPadding;
+    [self.nameLabel setFrame:(CGRect){ nameLableXPosition, kGTIONameLabelYPosition, self.followingButton.frame.origin.x - nameLableXPosition - kGTIOProfilePictureRightPadding, 20 }];
+    [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - kGTIOBottomBorderVerticalOffset, self.contentView.bounds.size.width, 1 }];
 }
 
 - (void)setUser:(GTIOUser *)user

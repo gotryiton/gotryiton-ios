@@ -7036,8 +7036,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -7061,8 +7061,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5955354E-DB96-4C57-86A4-16A43848CA79";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5955354E-DB96-4C57-86A4-16A43848CA79";
+				PROVISIONING_PROFILE = "C3EC8CBF-7C43-4C54-B8EE-CB0D54F79A1C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C3EC8CBF-7C43-4C54-B8EE-CB0D54F79A1C";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -7074,8 +7074,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
@@ -7097,8 +7097,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5955354E-DB96-4C57-86A4-16A43848CA79";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5955354E-DB96-4C57-86A4-16A43848CA79";
+				PROVISIONING_PROFILE = "C3EC8CBF-7C43-4C54-B8EE-CB0D54F79A1C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C3EC8CBF-7C43-4C54-B8EE-CB0D54F79A1C";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};

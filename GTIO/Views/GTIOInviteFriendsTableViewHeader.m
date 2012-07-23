@@ -10,6 +10,7 @@
 
 static CGFloat const kGTIOPadding = 7.0;
 static CGFloat const kGTIOTitleLableYPosition = 7.0;
+static CGFloat const kGTIOSMSButtonVerticalOffset = 3.0;
 
 @interface GTIOInviteFriendsTableViewHeader()
 
@@ -44,7 +45,7 @@ static CGFloat const kGTIOTitleLableYPosition = 7.0;
         [self addSubview:_titleLabel];
         
         _smsButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeInviteFriendsSMS];
-        [_smsButton setFrame:(CGRect){ kGTIOPadding, _titleLabel.frame.origin.y + _titleLabel.bounds.size.height + 3, _smsButton.bounds.size }];
+        [_smsButton setFrame:(CGRect){ kGTIOPadding, _titleLabel.frame.origin.y + _titleLabel.bounds.size.height + kGTIOSMSButtonVerticalOffset, _smsButton.bounds.size }];
         [self addSubview:_smsButton];
         
         _emailButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeInviteFriendsEmail];
