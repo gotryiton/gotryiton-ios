@@ -136,19 +136,6 @@ static NSTimeInterval const kGTIOLoadNotificationsTimeDelta = 60.0f;
     }];
 }
 
-#pragma mark - Viewed
-//
-//- (void)notificationID:(NSNumber *)notificationID markAsViewed:(BOOL)viewed
-//{
-//    for (GTIONotification *notification in self.notifications) {
-//        if ([notification.notificationID isEqualToNumber:notificationID]) {
-//            notification.viewed = [NSNumber numberWithBool:viewed];
-//        }
-//    }
-//    
-//    [self save];
-//}
-
 #pragma mark - Helpers
 
 - (void)broadcastNotificationCount

@@ -1251,6 +1251,11 @@
 		D29F4CFA1580F502009F7BB7 /* GTIOResizePhotoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */; };
 		D2A194DD15AF762200372872 /* GTIOInternalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A194DC15AF762200372872 /* GTIOInternalWebViewController.m */; };
 		D2A194E015AF76C300372872 /* GTIOWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A194DF15AF76C300372872 /* GTIOWebView.m */; };
+		D2AAA01C15BDA3B50038ACB4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA01B15BDA3B50038ACB4 /* libsqlite3.dylib */; };
+		D2AAA01E15BDA3BD0038ACB4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA01D15BDA3BC0038ACB4 /* CoreTelephony.framework */; };
+		D2AAA02015BDA3C60038ACB4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA01F15BDA3C60038ACB4 /* StoreKit.framework */; };
+		D2AAA02215BDA3CD0038ACB4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA02115BDA3CD0038ACB4 /* CoreLocation.framework */; };
+		D2AAA02415BDA43E0038ACB4 /* libUAirship-1.2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA02315BDA43E0038ACB4 /* libUAirship-1.2.2.a */; };
 		D2B4E59F15A7791100BC02E0 /* GTIOCameraShutterControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B4E59E15A7791100BC02E0 /* GTIOCameraShutterControl.m */; };
 		D2B7ACEA15A21C2400711AE8 /* UIImage+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7ACE715A21C2400711AE8 /* UIImage+Filter.m */; };
 		D2B7ACEB15A21C2400711AE8 /* UIImage+GTIOFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7ACE915A21C2400711AE8 /* UIImage+GTIOFilters.m */; };
@@ -2854,6 +2859,11 @@
 		D2A194DC15AF762200372872 /* GTIOInternalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInternalWebViewController.m; sourceTree = "<group>"; };
 		D2A194DE15AF76C300372872 /* GTIOWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOWebView.h; sourceTree = "<group>"; };
 		D2A194DF15AF76C300372872 /* GTIOWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWebView.m; sourceTree = "<group>"; };
+		D2AAA01B15BDA3B50038ACB4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		D2AAA01D15BDA3BC0038ACB4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		D2AAA01F15BDA3C60038ACB4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		D2AAA02115BDA3CD0038ACB4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D2AAA02315BDA43E0038ACB4 /* libUAirship-1.2.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-1.2.2.a"; sourceTree = "<group>"; };
 		D2B4E59D15A7791100BC02E0 /* GTIOCameraShutterControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCameraShutterControl.h; sourceTree = "<group>"; };
 		D2B4E59E15A7791100BC02E0 /* GTIOCameraShutterControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCameraShutterControl.m; sourceTree = "<group>"; };
 		D2B7ACE615A21C2400711AE8 /* UIImage+Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filter.h"; sourceTree = "<group>"; };
@@ -2940,6 +2950,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2AAA02215BDA3CD0038ACB4 /* CoreLocation.framework in Frameworks */,
+				D2AAA02015BDA3C60038ACB4 /* StoreKit.framework in Frameworks */,
+				D2AAA01E15BDA3BD0038ACB4 /* CoreTelephony.framework in Frameworks */,
+				D2AAA01C15BDA3B50038ACB4 /* libsqlite3.dylib in Frameworks */,
+				D2CDA9F21550579A009B7E24 /* CFNetwork.framework in Frameworks */,
 				D2465989159B74D700A43238 /* libxml2.dylib in Frameworks */,
 				D2465987159B743F00A43238 /* libDTCoreText.a in Frameworks */,
 				5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */,
@@ -2951,7 +2966,6 @@
 				D246B091155C140900E5546A /* CoreData.framework in Frameworks */,
 				D2603E20155AD93A00536BF9 /* CoreText.framework in Frameworks */,
 				D2CDA9F51550579A009B7E24 /* QuartzCore.framework in Frameworks */,
-				D2CDA9F21550579A009B7E24 /* CFNetwork.framework in Frameworks */,
 				D2CDA9F41550579A009B7E24 /* MobileCoreServices.framework in Frameworks */,
 				D2CDA9F61550579A009B7E24 /* Security.framework in Frameworks */,
 				D2CDA9F71550579A009B7E24 /* SystemConfiguration.framework in Frameworks */,
@@ -2960,6 +2974,7 @@
 				D2CDA96915502F02009B7E24 /* Foundation.framework in Frameworks */,
 				D2CDA96B15502F02009B7E24 /* CoreGraphics.framework in Frameworks */,
 				D2569C011566CE450045B508 /* libTestFlight.a in Frameworks */,
+				D2AAA02415BDA43E0038ACB4 /* libUAirship-1.2.2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5084,6 +5099,15 @@
 			name = WebViews;
 			sourceTree = "<group>";
 		};
+		D2AAA01815BDA2F40038ACB4 /* UrbanAirship */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAA02315BDA43E0038ACB4 /* libUAirship-1.2.2.a */,
+			);
+			name = UrbanAirship;
+			path = Libraries/UrbanAirship;
+			sourceTree = "<group>";
+		};
 		D2C1C85E159DFF08001026BC /* CSS */ = {
 			isa = PBXGroup;
 			children = (
@@ -5117,6 +5141,10 @@
 		D2CDA96515502F02009B7E24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2AAA02115BDA3CD0038ACB4 /* CoreLocation.framework */,
+				D2AAA01F15BDA3C60038ACB4 /* StoreKit.framework */,
+				D2AAA01D15BDA3BC0038ACB4 /* CoreTelephony.framework */,
+				D2AAA01B15BDA3B50038ACB4 /* libsqlite3.dylib */,
 				D2465988159B74D700A43238 /* libxml2.dylib */,
 				5CECED7E159B76EC0051FA94 /* CoreImage.framework */,
 				D270EF1B1587C65200BE08EE /* CoreVideo.framework */,
@@ -5199,6 +5227,7 @@
 		D2CDA99B15503058009B7E24 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D2AAA01815BDA2F40038ACB4 /* UrbanAirship */,
 				8EFAE86515A5F8220075F530 /* sspulltorefresh */,
 				D246596A159B73F800A43238 /* DTCoreText */,
 				D26D32A2156BFDA000C06CA9 /* MBProgressHUD */,
@@ -7052,21 +7081,22 @@
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 					"”$(TARGET_BUILD_DIR)/usr/local/lib/include”",
 					"”$(OBJROOT)/UninstalledProducts/include”",
-					"\"Libraries/GPUImage/framework\"/**",
+					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"/**",
 				);
 				INFOPLIST_FILE = "GTIO/Application/Supporting Files/GTIO-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
+					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5955354E-DB96-4C57-86A4-16A43848CA79";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5955354E-DB96-4C57-86A4-16A43848CA79";
+				PROVISIONING_PROFILE = "CDF3214F-D686-4E55-A17D-0CB64B7E6FA7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CDF3214F-D686-4E55-A17D-0CB64B7E6FA7";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -7088,21 +7118,22 @@
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 					"”$(TARGET_BUILD_DIR)/usr/local/lib/include”",
 					"”$(OBJROOT)/UninstalledProducts/include”",
-					"\"Libraries/GPUImage/framework\"/**",
+					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"/**",
 				);
 				INFOPLIST_FILE = "GTIO/Application/Supporting Files/GTIO-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
+					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5955354E-DB96-4C57-86A4-16A43848CA79";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5955354E-DB96-4C57-86A4-16A43848CA79";
+				PROVISIONING_PROFILE = "CDF3214F-D686-4E55-A17D-0CB64B7E6FA7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CDF3214F-D686-4E55-A17D-0CB64B7E6FA7";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};

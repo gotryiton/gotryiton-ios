@@ -27,6 +27,9 @@
     NSUInteger const kGTIOLogLevel = RKLogLevelDebug;
     NSString * const kGTIOHTTPAuthUsername = @"tt";
     NSString * const kGTIOHTTPAuthPassword = @"toast";
+    BOOL const kGTIOUAirshipAppStoreOrAdHocBuild = NO;
+    NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
+    NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
 #endif 
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
@@ -39,6 +42,9 @@
     NSUInteger const kGTIOLogLevel = RKLogLevelDebug;
     NSString* const kGTIOHTTPAuthUsername = @"tt";
     NSString* const kGTIOHTTPAuthPassword = @"toast";
+    BOOL const kGTIOUAirshipAppStoreOrAdHocBuild = NO;
+    NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
+    NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
@@ -51,6 +57,9 @@
     NSUInteger const kGTIOLogLevel = RKLogLevelError;
     NSString * const kGTIOHTTPAuthUsername = nil;
     NSString * const kGTIOHTTPAuthPassword = nil;
+    BOOL const kGTIOUAirshipAppStoreOrAdHocBuild = YES;
+    NSString * const kGTIOUAirshipDevelopmentAppKey = @"";
+    NSString * const kGTIOUAirshipDevelopmentAppSecret = @"";
 #endif
 
 NSString * const kGTIOAcceptHeader = @"application/v4-json";
@@ -67,6 +76,13 @@ NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
 NSString * const kGTIOPostFeedOpenLinkNotification = @"kGTIOPostFeedOpenLinkNotification";
 NSString * const kGTIODismissEllipsisPopOverViewNotification = @"kGTIODismissEllipsisPopOverViewNotification";
 NSString * const kGTIONotificationCountNofitication = @"kGTIONotificationCountNofitication";
+
+// UrbanAirship
+NSString * const kGTIOUAirshipProductionAppKey = @"***REMOVED***";
+NSString * const kGTIOUAirshipProductionAppSecret = @"***REMOVED***";
+
+// Push Notification Device Token
+NSString * const kGTIOPushNotificationDeviceTokenUserDefaults = @"kGTIOPushNotificationDeviceTokenUserDefaults";
  
 NSString * const kGTIOURL = @"kGTIOURL";
 

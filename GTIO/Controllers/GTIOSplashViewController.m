@@ -56,6 +56,12 @@
                 [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/me" usingBlock:^(RKObjectLoader *loader) {
                     loader.targetObject = [GTIOUser currentUser];
                     loader.onDidLoadObject = ^(id object) {
+                        if ([object isKindOfClass:[GTIOUser class]]) {
+                            GTIOUser *user = [GTIOUser currentUser];
+                            [user populateWithUser:object];
+                            [user updateUrbanAirshipAliasWithUserID:user.userID];
+                        }
+                        
                         [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
                     };
                     loader.onDidFailWithError = ^(NSError *error) {

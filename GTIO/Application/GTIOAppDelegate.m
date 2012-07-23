@@ -30,6 +30,7 @@
 #import "GTIONotificationManager.h"
 
 #import "JREngage.h"
+#import "UAirship.h"
 
 @interface GTIOAppDelegate ()
 
@@ -71,7 +72,7 @@
     
     // List all fonts on iPhone
 #if DEBUG
-    [self listAllFonts];
+//    [self listAllFonts];
 #endif
     
     // Appearance setup
@@ -95,6 +96,15 @@
     
     // Notification Management
     [GTIONotificationManager sharedManager];
+    
+    // UrbanAirship
+    [self setupUrbanAirshipWithLaunchOptions:launchOptions];
+    
+    // Handle notification
+    NSDictionary *notificationUserInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (notificationUserInfo) {
+        [self handleNotificationUserInfo:notificationUserInfo];
+    }
     
     [self.window makeKeyAndVisible];
     
@@ -127,6 +137,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [UAirship land];
 }
 
 #pragma mark - Facebook
@@ -185,6 +196,64 @@
     // Routes
     RKObjectRouter *router = objectManager.router;
     [router routeClass:[GTIOTrack class] toResourcePath:@"/track" forMethod:RKRequestMethodPOST];
+}
+
+#pragma mark - UrbanAirship
+
+- (void)setupUrbanAirshipWithLaunchOptions:(NSDictionary *)launchOptions
+{
+    NSMutableDictionary *takeOffOptions = [NSMutableDictionary dictionary];
+    [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
+    
+    NSMutableDictionary *configuration = [NSMutableDictionary dictionary];
+    [configuration setValue:[NSNumber numberWithBool:kGTIOUAirshipAppStoreOrAdHocBuild] forKey:@"APP_STORE_OR_AD_HOC_BUILD"];
+    [configuration setValue:kGTIOUAirshipDevelopmentAppKey forKey:@"DEVELOPMENT_APP_KEY"];
+    [configuration setValue:kGTIOUAirshipDevelopmentAppSecret forKey:@"DEVELOPMENT_APP_SECRET"];
+    [configuration setValue:kGTIOUAirshipProductionAppKey forKey:@"PRODUCTION_APP_KEY"];
+    [configuration setValue:kGTIOUAirshipProductionAppSecret forKey:@"PRODUCTION_APP_SECRET"];
+    [takeOffOptions setValue:configuration forKey:UAirshipTakeOffOptionsAirshipConfigKey];
+    
+    [UAirship takeOff:takeOffOptions];
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken 
+{
+    NSLog(@"APN device token: %@", deviceToken);
+    
+    [[NSUserDefaults standardUserDefaults] setValue:deviceToken forKey:kGTIOPushNotificationDeviceTokenUserDefaults];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error 
+{
+    NSLog(@"Failed To Register For Remote Notifications With Error: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo 
+{
+    NSLog(@"Received remote notification: %@", userInfo);
+    
+    if (UIApplicationStateActive == application.applicationState) {
+        // GET /notifications
+        [[GTIONotificationManager sharedManager] refreshNotificationsWithCompletionHandler:nil];
+    } else {
+        // open URL
+        [self handleNotificationUserInfo:userInfo];
+    }
+}
+
+- (void)handleNotificationUserInfo:(NSDictionary *)userInfo
+{
+    NSString *URL = [[[userInfo objectForKey:@"aps"] objectForKey:@"loc-args"] objectForKey:@"url"];
+    if ([URL length] > 0) {
+        [self.cameraViewController dismissModalViewControllerAnimated:YES];
+        
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURLString:URL];
+        id selectedViewController = self.tabBarController.selectedViewController;
+        [selectedViewController pushViewController:viewController animated:YES];
+    }
 }
 
 #pragma mark - UITabBarController

@@ -161,7 +161,7 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
             [((GTIOInternalWebViewController *)viewController) setNavigationTitle:[unencodedPathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostDefaultWebView]) {
-        if ([unencodedPathComponents count] >= 2 ) {
+        if ([unencodedPathComponents count] >= 2) {
             viewController = [[GTIOWebViewController alloc] initWithNibName:nil bundle:nil];
             [((GTIOWebViewController *)viewController) setURL:[NSURL URLWithString:[unencodedPathComponents objectAtIndex:1]]];
         }
@@ -170,7 +170,7 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
             viewController = [[GTIOProductViewController alloc] initWithProductID:[pathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostCollection]) {
-        if ([pathComponents count] >= 2 ) {
+        if ([pathComponents count] >= 2) {
             viewController = [[GTIOProductNativeListViewController alloc] initWithNibName:nil bundle:nil];
             NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
             numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
