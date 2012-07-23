@@ -83,10 +83,8 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 - (void)prepareForReuse
 {
     [self.postButtonColumnView prepareForReuse];
-    if (self.ellipsisPopOverView){
-        [self.ellipsisPopOverView removeFromSuperview];
-        self.ellipsisPopOverView = nil;    
-    }
+    [self.ellipsisPopOverView removeFromSuperview];
+    self.ellipsisPopOverView = nil;    
 }
 
 #pragma mark - Properties

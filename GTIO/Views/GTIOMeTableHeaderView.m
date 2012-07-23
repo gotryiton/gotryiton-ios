@@ -154,7 +154,6 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
 - (void)setSettingsButtonHidden:(BOOL)settingsButtonHidden
 {
     _settingsButtonHidden = settingsButtonHidden;
-    //self.editButton.hidden = _settingsButtonHidden;
 }
 
 - (void)setUsesGearInsteadOfPencil:(BOOL)usesGearInsteadOfPencil
