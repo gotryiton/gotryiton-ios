@@ -80,6 +80,9 @@
         case GTIOButtonTypeProductShoppingListEmailMyList: return [self gtio_productShoppingListEmailMyListButton];
         case GTIOButtonTypeProductShoppingListProductOption: return [self gtio_productShoppingListProductOptionButton];
         case GTIOButtonTypeProductShoppingListNav: return [self gtio_productShoppingListNavButton];
+        case GTIOButtonTypeInviteFriendsSMS: return [self gtio_inviteFriendsSMSButton];
+        case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
+        case GTIOButtonTypeInviteFriendsFacebook: return [self gtio_inviteFriendsFacebookButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -614,6 +617,21 @@
 + (id)gtio_productShoppingListEmailMyListButton
 {
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"shopping.navigation.bar.button.share.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.navigation.bar.button.share.active.png"]];
+}
+
++ (id)gtio_inviteFriendsSMSButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.sms.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.sms.off.png"]];
+}
+
++ (id)gtio_inviteFriendsEmailButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"]];
+}
+
++ (id)gtio_inviteFriendsFacebookButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.facebook.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.facebook.off.png"]];
 }
 
 #pragma mark - Touch Handling

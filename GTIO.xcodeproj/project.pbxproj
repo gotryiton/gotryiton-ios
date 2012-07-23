@@ -14,7 +14,13 @@
 		5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CECED7E159B76EC0051FA94 /* CoreImage.framework */; };
 		8016652D15B4A6D900AE9526 /* GTIOProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8016652C15B4A6D900AE9526 /* GTIOProductViewController.m */; };
 		8016653115B4B4FC00AE9526 /* GTIOProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 8016653015B4B4FC00AE9526 /* GTIOProduct.m */; };
+		80348AD415BA013700C06CF0 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80348AD315BA013700C06CF0 /* AddressBook.framework */; };
+		80348AD715BA046D00C06CF0 /* GTIOInviteFriendsTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80348AD615BA046D00C06CF0 /* GTIOInviteFriendsTableCell.m */; };
+		80348ADA15BA206100C06CF0 /* GTIOInviteFriendsSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80348AD915BA206100C06CF0 /* GTIOInviteFriendsSectionHeaderView.m */; };
 		8038C1E515B87033006FA6CA /* GTIOProductOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 8038C1E415B87033006FA6CA /* GTIOProductOption.m */; };
+		806EF5A015B9D25600EBD3A1 /* GTIOWhoHeartedThisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806EF59F15B9D25600EBD3A1 /* GTIOWhoHeartedThisViewController.m */; };
+		806EF5A315B9F2A200EBD3A1 /* GTIOInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806EF5A215B9F2A200EBD3A1 /* GTIOInviteFriendsViewController.m */; };
+		806EF5A615B9F47700EBD3A1 /* GTIOInviteFriendsTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 806EF5A515B9F47700EBD3A1 /* GTIOInviteFriendsTableViewHeader.m */; };
 		8076B3ED15B5E77000B72466 /* GTIOProductInformationBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */; };
 		808286EF15B889BE00682775 /* GTIOProductOptionAddButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 808286EE15B889BE00682775 /* GTIOProductOptionAddButton.m */; };
 		808286F515B8A76C00682775 /* GTIOShopThisLookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808286F415B8A76C00682775 /* GTIOShopThisLookViewController.m */; };
@@ -1256,6 +1262,7 @@
 		D2AAA02015BDA3C60038ACB4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA01F15BDA3C60038ACB4 /* StoreKit.framework */; };
 		D2AAA02215BDA3CD0038ACB4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA02115BDA3CD0038ACB4 /* CoreLocation.framework */; };
 		D2AAA02415BDA43E0038ACB4 /* libUAirship-1.2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA02315BDA43E0038ACB4 /* libUAirship-1.2.2.a */; };
+		D2AA9FFF15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */; };
 		D2B4E59F15A7791100BC02E0 /* GTIOCameraShutterControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B4E59E15A7791100BC02E0 /* GTIOCameraShutterControl.m */; };
 		D2B7ACEA15A21C2400711AE8 /* UIImage+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7ACE715A21C2400711AE8 /* UIImage+Filter.m */; };
 		D2B7ACEB15A21C2400711AE8 /* UIImage+GTIOFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7ACE915A21C2400711AE8 /* UIImage+GTIOFilters.m */; };
@@ -1422,8 +1429,19 @@
 		8016652C15B4A6D900AE9526 /* GTIOProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductViewController.m; sourceTree = "<group>"; };
 		8016652F15B4B4FC00AE9526 /* GTIOProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProduct.h; sourceTree = "<group>"; };
 		8016653015B4B4FC00AE9526 /* GTIOProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProduct.m; sourceTree = "<group>"; };
+		80348AD315BA013700C06CF0 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		80348AD515BA046D00C06CF0 /* GTIOInviteFriendsTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInviteFriendsTableCell.h; sourceTree = "<group>"; };
+		80348AD615BA046D00C06CF0 /* GTIOInviteFriendsTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInviteFriendsTableCell.m; sourceTree = "<group>"; };
+		80348AD815BA206100C06CF0 /* GTIOInviteFriendsSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInviteFriendsSectionHeaderView.h; sourceTree = "<group>"; };
+		80348AD915BA206100C06CF0 /* GTIOInviteFriendsSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInviteFriendsSectionHeaderView.m; sourceTree = "<group>"; };
 		8038C1E315B87033006FA6CA /* GTIOProductOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductOption.h; sourceTree = "<group>"; };
 		8038C1E415B87033006FA6CA /* GTIOProductOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductOption.m; sourceTree = "<group>"; };
+		806EF59E15B9D25600EBD3A1 /* GTIOWhoHeartedThisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOWhoHeartedThisViewController.h; sourceTree = "<group>"; };
+		806EF59F15B9D25600EBD3A1 /* GTIOWhoHeartedThisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWhoHeartedThisViewController.m; sourceTree = "<group>"; };
+		806EF5A115B9F2A200EBD3A1 /* GTIOInviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInviteFriendsViewController.h; sourceTree = "<group>"; };
+		806EF5A215B9F2A200EBD3A1 /* GTIOInviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInviteFriendsViewController.m; sourceTree = "<group>"; };
+		806EF5A415B9F47700EBD3A1 /* GTIOInviteFriendsTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInviteFriendsTableViewHeader.h; sourceTree = "<group>"; };
+		806EF5A515B9F47700EBD3A1 /* GTIOInviteFriendsTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInviteFriendsTableViewHeader.m; sourceTree = "<group>"; };
 		8076B3EB15B5E77000B72466 /* GTIOProductInformationBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductInformationBox.h; sourceTree = "<group>"; };
 		8076B3EC15B5E77000B72466 /* GTIOProductInformationBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOProductInformationBox.m; sourceTree = "<group>"; };
 		808286ED15B889BE00682775 /* GTIOProductOptionAddButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOProductOptionAddButton.h; sourceTree = "<group>"; };
@@ -2864,6 +2882,8 @@
 		D2AAA01F15BDA3C60038ACB4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D2AAA02115BDA3CD0038ACB4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D2AAA02315BDA43E0038ACB4 /* libUAirship-1.2.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-1.2.2.a"; sourceTree = "<group>"; };
+		D2AA9FFD15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInviteFriendsPerson.h; sourceTree = "<group>"; };
+		D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInviteFriendsPerson.m; sourceTree = "<group>"; };
 		D2B4E59D15A7791100BC02E0 /* GTIOCameraShutterControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCameraShutterControl.h; sourceTree = "<group>"; };
 		D2B4E59E15A7791100BC02E0 /* GTIOCameraShutterControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCameraShutterControl.m; sourceTree = "<group>"; };
 		D2B7ACE615A21C2400711AE8 /* UIImage+Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filter.h"; sourceTree = "<group>"; };
@@ -2955,6 +2975,7 @@
 				D2AAA01E15BDA3BD0038ACB4 /* CoreTelephony.framework in Frameworks */,
 				D2AAA01C15BDA3B50038ACB4 /* libsqlite3.dylib in Frameworks */,
 				D2CDA9F21550579A009B7E24 /* CFNetwork.framework in Frameworks */,
+				80348AD415BA013700C06CF0 /* AddressBook.framework in Frameworks */,
 				D2465989159B74D700A43238 /* libxml2.dylib in Frameworks */,
 				D2465987159B743F00A43238 /* libDTCoreText.a in Frameworks */,
 				5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */,
@@ -4197,6 +4218,8 @@
 			children = (
 				8E969F52158BD7F7009E19B3 /* GTIOFeedViewController.h */,
 				8E969F53158BD7F7009E19B3 /* GTIOFeedViewController.m */,
+				806EF59E15B9D25600EBD3A1 /* GTIOWhoHeartedThisViewController.h */,
+				806EF59F15B9D25600EBD3A1 /* GTIOWhoHeartedThisViewController.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -4229,6 +4252,8 @@
 			children = (
 				8EA02717159A2D0800FDC45E /* GTIOFriendsViewController.h */,
 				8EA02718159A2D0800FDC45E /* GTIOFriendsViewController.m */,
+				806EF5A115B9F2A200EBD3A1 /* GTIOInviteFriendsViewController.h */,
+				806EF5A215B9F2A200EBD3A1 /* GTIOInviteFriendsViewController.m */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -4248,6 +4273,12 @@
 				8E8C35C3159B9DDF00F6CCD5 /* GTIOFriendsNoSearchResultsView.m */,
 				8E658730159CF48D00292F4E /* GTIOSearchEntireCommunityView.h */,
 				8E658731159CF48D00292F4E /* GTIOSearchEntireCommunityView.m */,
+				806EF5A415B9F47700EBD3A1 /* GTIOInviteFriendsTableViewHeader.h */,
+				806EF5A515B9F47700EBD3A1 /* GTIOInviteFriendsTableViewHeader.m */,
+				80348AD515BA046D00C06CF0 /* GTIOInviteFriendsTableCell.h */,
+				80348AD615BA046D00C06CF0 /* GTIOInviteFriendsTableCell.m */,
+				80348AD815BA206100C06CF0 /* GTIOInviteFriendsSectionHeaderView.h */,
+				80348AD915BA206100C06CF0 /* GTIOInviteFriendsSectionHeaderView.m */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -5146,6 +5177,7 @@
 				D2AAA01D15BDA3BC0038ACB4 /* CoreTelephony.framework */,
 				D2AAA01B15BDA3B50038ACB4 /* libsqlite3.dylib */,
 				D2465988159B74D700A43238 /* libxml2.dylib */,
+				80348AD315BA013700C06CF0 /* AddressBook.framework */,
 				5CECED7E159B76EC0051FA94 /* CoreImage.framework */,
 				D270EF1B1587C65200BE08EE /* CoreVideo.framework */,
 				D270EF161587C62100BE08EE /* OpenGLES.framework */,
@@ -5333,6 +5365,8 @@
 				D2F7C7AE159900A900ADAF92 /* GTIOPagination.m */,
 				D2C46D9715B476BB00EEFE15 /* GTIOTab.h */,
 				D2C46D9815B476BB00EEFE15 /* GTIOTab.m */,
+				D2AA9FFD15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.h */,
+				D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -6962,6 +6996,12 @@
 				808286FB15B8B5B100682775 /* GTIOProductNativeListViewController.m in Sources */,
 				8082870615B8BD6B00682775 /* GTIOCollection.m in Sources */,
 				8082870915B8BD9300682775 /* GTIOBannerImage.m in Sources */,
+				806EF5A015B9D25600EBD3A1 /* GTIOWhoHeartedThisViewController.m in Sources */,
+				806EF5A315B9F2A200EBD3A1 /* GTIOInviteFriendsViewController.m in Sources */,
+				806EF5A615B9F47700EBD3A1 /* GTIOInviteFriendsTableViewHeader.m in Sources */,
+				80348AD715BA046D00C06CF0 /* GTIOInviteFriendsTableCell.m in Sources */,
+				80348ADA15BA206100C06CF0 /* GTIOInviteFriendsSectionHeaderView.m in Sources */,
+				D2AA9FFF15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7069,8 +7109,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -7108,8 +7148,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";

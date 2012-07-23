@@ -12,7 +12,7 @@
 @protocol GTIOFindMyFriendsTableViewCellDelegate <NSObject>
 
 @required
-- (void)updateDataSourceWithUser:(GTIOUser *)user atIndexPath:(NSIndexPath *)indexPath;
+- (void)updateDataSourceUser:(GTIOUser *)user withUser:(GTIOUser *)newUser;
 
 @end
 
@@ -21,6 +21,6 @@
 @property (nonatomic, strong) GTIOUser *user;
 @property (nonatomic, weak) id<GTIOFindMyFriendsTableViewCellDelegate> delegate;
 
-- (void)setUser:(GTIOUser *)user indexPath:(NSIndexPath *)indexPath;
+- (void)setUser:(GTIOUser *)user;
 
 @end

@@ -21,6 +21,8 @@
 #import "GTIOProductViewController.h"
 #import "GTIOProductNativeListViewController.h"
 #import "GTIOShoppingListViewController.h"
+#import "GTIOWhoHeartedThisViewController.h"
+#import "GTIOInviteFriendsViewController.h"
 
 NSString * const kGTIOURLScheme = @"gtio";
 NSString * const kGTIOHttpURLScheme = @"http";
@@ -47,6 +49,7 @@ static NSString * const kGTIOURLHostDefaultWebView = @"default-webview";
 static NSString * const kGTIOURLHostProduct = @"product";
 static NSString * const kGTIOURLHostCollection = @"collection";
 static NSString * const kGTIOURLHostShoppingList = @"my-shopping-list";
+static NSString * const kGTIOURLHostWhoHeartedProduct = @"who-hearted-product";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
@@ -55,7 +58,25 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
 static NSString * const kGTIOURLSubPathBrand = @"brand";
 static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
 
+@interface GTIORouter()
+
+@property (nonatomic, strong) NSNumberFormatter *numberFormatter;
+
+@end
+
 @implementation GTIORouter
+
+@synthesize numberFormatter = _numberFormatter;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _numberFormatter = [[NSNumberFormatter alloc] init];
+        _numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    }
+    return self;
+}
 
 + (GTIORouter *)sharedRouter
 {
@@ -126,7 +147,7 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindFriends];
         [((GTIOFriendsViewController *)viewController) setUserID:[GTIOUser currentUser].userID];
     } else if ([urlHost isEqualToString:kGTIOURLHostInviteFriends]) {
-        // Invite friends view controller
+        viewController = [[GTIOInviteFriendsViewController alloc] initWithNibName:nil bundle:nil];
     } else if ([urlHost isEqualToString:kGTIOURLHostSuggestedFriends]) {
         viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeSuggested];
         [((GTIOFriendsViewController *)viewController) setUserID:[GTIOUser currentUser].userID];
@@ -172,13 +193,24 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
     } else if ([urlHost isEqualToString:kGTIOURLHostCollection]) {
         if ([pathComponents count] >= 2) {
             viewController = [[GTIOProductNativeListViewController alloc] initWithNibName:nil bundle:nil];
-            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-            numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-            NSNumber *collectionID = (NSNumber *)[numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
+            NSNumber *collectionID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
             [((GTIOProductNativeListViewController *)viewController) setCollectionID:collectionID];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostShoppingList]) {
         viewController = [[GTIOShoppingListViewController alloc] initWithNibName:nil bundle:nil];
+    } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedProduct]) {
+        if ([pathComponents count] >= 2 ) {
+            viewController = [[GTIOWhoHeartedThisViewController alloc] initWithGTIOWhoHeartedThisViewControllerType:GTIOWhoHeartedThisViewControllerTypePost];
+            NSNumber *productID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
+            productID = [NSNumber numberWithInt:1443];
+            [(GTIOWhoHeartedThisViewController *)viewController setItemID:productID];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedPost]) {
+        if ([pathComponents count] >= 2 ) {
+            viewController = [[GTIOWhoHeartedThisViewController alloc] initWithGTIOWhoHeartedThisViewControllerType:GTIOWhoHeartedThisViewControllerTypePost];
+            NSNumber *postID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
+            [(GTIOWhoHeartedThisViewController *)viewController setItemID:postID];
+        }
     }
     
     return viewController;
