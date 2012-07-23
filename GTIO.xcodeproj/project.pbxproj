@@ -1257,12 +1257,12 @@
 		D29F4CFA1580F502009F7BB7 /* GTIOResizePhotoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */; };
 		D2A194DD15AF762200372872 /* GTIOInternalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A194DC15AF762200372872 /* GTIOInternalWebViewController.m */; };
 		D2A194E015AF76C300372872 /* GTIOWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A194DF15AF76C300372872 /* GTIOWebView.m */; };
+		D2AA9FFF15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */; };
 		D2AAA01C15BDA3B50038ACB4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA01B15BDA3B50038ACB4 /* libsqlite3.dylib */; };
 		D2AAA01E15BDA3BD0038ACB4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA01D15BDA3BC0038ACB4 /* CoreTelephony.framework */; };
 		D2AAA02015BDA3C60038ACB4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA01F15BDA3C60038ACB4 /* StoreKit.framework */; };
 		D2AAA02215BDA3CD0038ACB4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA02115BDA3CD0038ACB4 /* CoreLocation.framework */; };
 		D2AAA02415BDA43E0038ACB4 /* libUAirship-1.2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA02315BDA43E0038ACB4 /* libUAirship-1.2.2.a */; };
-		D2AA9FFF15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */; };
 		D2B4E59F15A7791100BC02E0 /* GTIOCameraShutterControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B4E59E15A7791100BC02E0 /* GTIOCameraShutterControl.m */; };
 		D2B7ACEA15A21C2400711AE8 /* UIImage+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7ACE715A21C2400711AE8 /* UIImage+Filter.m */; };
 		D2B7ACEB15A21C2400711AE8 /* UIImage+GTIOFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7ACE915A21C2400711AE8 /* UIImage+GTIOFilters.m */; };
@@ -2877,13 +2877,13 @@
 		D2A194DC15AF762200372872 /* GTIOInternalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInternalWebViewController.m; sourceTree = "<group>"; };
 		D2A194DE15AF76C300372872 /* GTIOWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOWebView.h; sourceTree = "<group>"; };
 		D2A194DF15AF76C300372872 /* GTIOWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWebView.m; sourceTree = "<group>"; };
+		D2AA9FFD15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInviteFriendsPerson.h; sourceTree = "<group>"; };
+		D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInviteFriendsPerson.m; sourceTree = "<group>"; };
 		D2AAA01B15BDA3B50038ACB4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		D2AAA01D15BDA3BC0038ACB4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D2AAA01F15BDA3C60038ACB4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D2AAA02115BDA3CD0038ACB4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D2AAA02315BDA43E0038ACB4 /* libUAirship-1.2.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-1.2.2.a"; sourceTree = "<group>"; };
-		D2AA9FFD15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInviteFriendsPerson.h; sourceTree = "<group>"; };
-		D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInviteFriendsPerson.m; sourceTree = "<group>"; };
 		D2B4E59D15A7791100BC02E0 /* GTIOCameraShutterControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOCameraShutterControl.h; sourceTree = "<group>"; };
 		D2B4E59E15A7791100BC02E0 /* GTIOCameraShutterControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOCameraShutterControl.m; sourceTree = "<group>"; };
 		D2B7ACE615A21C2400711AE8 /* UIImage+Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filter.h"; sourceTree = "<group>"; };
@@ -7109,8 +7109,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -7148,8 +7148,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geoffrey Mackey (FMV7ZANWHL)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
