@@ -1308,7 +1308,7 @@ previous screen
    - All Cells
       - Height: 48px (without border)
       - Background: rgb(255,255,255) #ffffff
-      - Active State background: rgb(237,235,224) #edebe0
+      - Active State background: rgb(237,235,224) #c6f0de
       - Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
       - Bottom border: 1px rgba(217,215,206) #d9d7ce
@@ -1686,7 +1686,7 @@ gtio://find-friends
 	- All Cells
 		- Height: 48px (without border)
 		- Background: rgb(255,255,255) #ffffff
-		- Active State background: rgb(237,235,224) #edebe
+		- Active State background: rgb(237,235,224) #c6f0de
 		- Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
 		- Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
 		- Bottom border: 1px rgba(217,215,206) #d9d7ce
