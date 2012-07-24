@@ -1686,7 +1686,7 @@ gtio://find-friends
 	- All Cells
 		- Height: 48px (without border)
 		- Background: rgb(255,255,255) #ffffff
-		- Active State background: rgb(237,235,224) #edebe0
+		- Active State background: rgb(237,235,224) #edebe
 		- Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
 		- Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
 		- Bottom border: 1px rgba(217,215,206) #d9d7ce
@@ -2845,6 +2845,12 @@ GET /tags/search/:query
    - Font: Proxima Nova Bold 10pt rgb(143,143,143)
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
    - Text vertically centered within cell, 6px from left edge of screen
+- List tables/cells
+   - Height: 48px (without border)
+   - Background: rgb(255,255,255) #ffffff
+   - Active State background: #c6f0de
+   - Font: Verlag Book 16pt rgb(143,143,143) #8f8f8f
+   - Bottom border: 1px rgba(217,215,206) #d9d7ce
 - Brand tag icon
    - 17px x 17px
    - bottom of asset is 4px below baseline of accompanying text
