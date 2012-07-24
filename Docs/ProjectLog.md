@@ -1,3 +1,37 @@
+***Tuesday, July 24th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Matt, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Start working on 12.6 and empty feed.
+- TT - Hopes to get all critical bugs fixed and build out EOD tomorrow.
+- GTIO - Prioritize bug list and issues for Scott.
+
+**Status**
+- Scott finished Geoff's Invite Friends page.
+- Currently working on search tags page, and is wrapping up styling.
+- There are recent and trending, and then you search.  Can you go back to recent and trending?
+  - Preferred method (if simple fix): If you hit the X to clear the field, could it return you to recent and trending?
+
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+
+**General Notes**
+- Simon will be taking on minor fixes, bugs going forward.
+  - Simon to talk to Scott first before making changes 
+  - This will ensure that working on one issue, won't affect another
+  - Also Scott may have already put thought into the issue, so it would be good to discuss before working on it.
+  
+---
+
 ***Monday, July 23rd - Standup Notes***
 
 **Attendees**
