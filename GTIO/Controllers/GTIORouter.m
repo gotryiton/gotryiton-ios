@@ -50,6 +50,7 @@ static NSString * const kGTIOURLHostProduct = @"product";
 static NSString * const kGTIOURLHostCollection = @"collection";
 static NSString * const kGTIOURLHostShoppingList = @"my-shopping-list";
 static NSString * const kGTIOURLHostWhoHeartedProduct = @"who-hearted-product";
+static NSString * const kGITOURLHostInviteFriends = @"invite-friends";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
@@ -211,6 +212,8 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
             NSNumber *postID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
             [(GTIOWhoHeartedThisViewController *)viewController setItemID:postID];
         }
+    } else if ([urlHost isEqualToString:kGTIOURLHostInviteFriends]) {
+        viewController = [[GTIOInviteFriendsViewController alloc] initWithNibName:nil bundle:nil];
     }
     
     return viewController;
