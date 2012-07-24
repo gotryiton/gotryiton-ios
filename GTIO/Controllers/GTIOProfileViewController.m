@@ -15,6 +15,8 @@
 #import "GTIOPostMasonryView.h"
 #import "GTIODualViewSegmentedControlView.h"
 
+#import "GTIORouter.h"
+
 @interface GTIOProfileViewController ()
 
 @property (nonatomic, strong) GTIOUIButton *followButton;
@@ -62,6 +64,14 @@
     [self.profileHeaderView setDelegate:self];
     [self.profileHeaderView setAcceptBarDelegate:self];
     [self.profileHeaderView setMeTableHeaderViewDelegate:self];
+    [self.profileHeaderView setProfileOpenURLHandler:^(NSURL *URL) {
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURL:URL];
+        if (viewController) {
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else {
+            [[UIApplication sharedApplication] openURL:URL];
+        }
+    }];
     [self.view addSubview:self.profileHeaderView];
     
     self.postsHeartsWithSegmentedControlView = [[GTIODualViewSegmentedControlView alloc] 

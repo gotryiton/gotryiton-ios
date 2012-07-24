@@ -12,6 +12,7 @@
 #import "GTIOMeTableHeaderView.h"
 
 typedef void(^GTIOProfileInitCompletionHandler)(id sender);
+typedef void(^GTIOProfileOpenURLHandler)(NSURL *URL);
 
 @protocol GTIOProfileHeaderViewDelegate <NSObject>
 
@@ -26,6 +27,7 @@ typedef void(^GTIOProfileInitCompletionHandler)(id sender);
 @property (nonatomic, weak) id<GTIOFollowRequestAcceptBarViewDelegate> acceptBarDelegate;
 @property (nonatomic, weak) id<GTIOMeTableHeaderViewDelegate> meTableHeaderViewDelegate;
 @property (nonatomic, weak) id<GTIOProfileHeaderViewDelegate> delegate;
+@property (nonatomic, copy) GTIOProfileOpenURLHandler profileOpenURLHandler;
 
 - (void)setUserProfile:(GTIOUserProfile *)userProfile completionHandler:(GTIOProfileInitCompletionHandler)completionHandler;
 

@@ -45,6 +45,7 @@
 @synthesize meTableHeaderViewDelegate = _meTableHeaderViewDelegate;
 @synthesize hasBannerImage = _hasBannerImage;
 @synthesize bannerImageDownloadProcessComplete = _bannerImageDownloadProcessComplete;
+@synthesize profileOpenURLHandler = _profileOpenURLHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -157,7 +158,9 @@
             NSString *buttonText = [button.text uppercaseString];
             [self.websiteLinkButton setTitle:buttonText forState:UIControlStateNormal];
             [self.websiteLinkButton setTapHandler:^(id sender) {
-                [blockSelf openURLWithSafari:button.action.destination];
+                if (self.profileOpenURLHandler) {
+                    self.profileOpenURLHandler([NSURL URLWithString:button.action.destination]);
+                }
             }];
         }
     }
@@ -201,11 +204,6 @@
 {
     self.userProfile.acceptBar = nil;
     [self setNeedsLayout];
-}
-
-- (void)openURLWithSafari:(NSString *)url
-{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
 @end
