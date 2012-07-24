@@ -140,11 +140,27 @@
     [UAirship land];
 }
 
-#pragma mark - Facebook
+#pragma mark - Open URL
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return [[GTIOUser currentUser].facebook handleOpenURL:url]; 
+    if ([[url absoluteString] hasPrefix:@"gtio"]) {
+        [self openURL:url];
+        return YES;
+    } else if ([[url absoluteString] hasPrefix:@"fb"]) {
+        return [[GTIOUser currentUser].facebook handleOpenURL:url];
+    }
+    
+    return NO;
+}
+
+- (void)openURL:(NSURL *)URL
+{
+    [self.cameraViewController dismissModalViewControllerAnimated:YES];
+    
+    id viewController = [[GTIORouter sharedRouter] viewControllerForURL:URL];
+    id selectedViewController = self.tabBarController.selectedViewController;
+    [selectedViewController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - FontHelper
@@ -247,13 +263,7 @@
 - (void)handleNotificationUserInfo:(NSDictionary *)userInfo
 {
     NSString *URL = [[[userInfo objectForKey:@"aps"] objectForKey:@"loc-args"] objectForKey:@"url"];
-    if ([URL length] > 0) {
-        [self.cameraViewController dismissModalViewControllerAnimated:YES];
-        
-        id viewController = [[GTIORouter sharedRouter] viewControllerForURLString:URL];
-        id selectedViewController = self.tabBarController.selectedViewController;
-        [selectedViewController pushViewController:viewController animated:YES];
-    }
+    [self openURL:[NSURL URLWithString:URL]];
 }
 
 #pragma mark - UITabBarController
