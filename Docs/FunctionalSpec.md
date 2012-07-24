@@ -1421,14 +1421,17 @@ previous screen
 			- 9px from top/right
 			- 7px in between
 		- Bottom Buttons
-			- Background (product.info.button.bg.inactive.png) stretch image
-				- On tap (product.info.button.bg.active.png)
-				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
-					- On tap (product.info.button.bg.highlight.active.png)
-			- Text: Archer Medium 16px rgb(85,85,86) #555556
-			- 5px padding
-			- 4px in between buttons
-			- Width: 153x46px
+         - 5px padding
+         - 4px in between buttons
+         - Left Side Button (Post)
+            - 'product.post.button.png' active and inactive states
+         - Right Side Button
+   			- Background (product.info.button.bg.inactive.png) stretch image
+   				- On tap (product.info.button.bg.active.png)
+   				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
+   					- On tap (product.info.button.bg.highlight.active.png)
+   			- Text: Archer Medium 16px rgb(85,85,86) #555556
+   			- Width: 153x46px
 
 ### 4.1.2 Product Full Screen  
 
