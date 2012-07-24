@@ -40,6 +40,9 @@
 #import "GTIOProductOption.h"
 #import "GTIOCollection.h"
 #import "GTIOBannerImage.h"
+#import "GTIOTag.h"
+#import "GTIORecentTag.h"
+#import "GTIOTrendingTag.h"
 
 @implementation GTIOMappingProvider
 
@@ -80,6 +83,9 @@
         RKObjectMapping *productOptionMapping = [RKObjectMapping mappingForClass:[GTIOProductOption class]];
         RKObjectMapping *collectionMapping = [RKObjectMapping mappingForClass:[GTIOCollection class]];
         RKObjectMapping *bannerImageMapping = [RKObjectMapping mappingForClass:[GTIOBannerImage class]];
+        RKObjectMapping *tagMapping = [RKObjectMapping mappingForClass:[GTIOTag class]];
+        RKObjectMapping *recentTagMapping = [RKObjectMapping mappingForClass:[GTIORecentTag class]];
+        RKObjectMapping *trendingTagMapping = [RKObjectMapping mappingForClass:[GTIOTrendingTag class]];
         
         /** Products
          */
@@ -314,6 +320,25 @@
         [autocompleterMapping mapKeyPath:@"id" toAttribute:@"completerID"];
         [autocompleterMapping mapAttributes:@"name", @"icon", nil];
         [self setMapping:autocompleterMapping forKeyPath:@"dictionary"];
+        
+        /** Tags
+         */
+        [tagMapping mapAttributes:@"text", nil];
+        [tagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
+        [tagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:tagMapping forKeyPath:@"search_result_tags"];
+    
+        // GTIORecentTag
+        [recentTagMapping mapAttributes:@"text", nil];
+        [recentTagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
+        [recentTagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:recentTagMapping forKeyPath:@"recent"];
+    
+        // GTIOTrendingTag
+        [trendingTagMapping mapAttributes:@"text", nil];
+        [trendingTagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
+        [trendingTagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:trendingTagMapping forKeyPath:@"trending"];
     }
     return self;
 }
