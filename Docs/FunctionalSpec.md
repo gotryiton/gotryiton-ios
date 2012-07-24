@@ -1308,7 +1308,7 @@ previous screen
    - All Cells
       - Height: 48px (without border)
       - Background: rgb(255,255,255) #ffffff
-      - Active State background: rgb(237,235,224) #edebe0
+      - Active State background: rgb(237,235,224) #c6f0de
       - Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
       - Bottom border: 1px rgba(217,215,206) #d9d7ce
@@ -1689,7 +1689,7 @@ gtio://find-friends
 	- All Cells
 		- Height: 48px (without border)
 		- Background: rgb(255,255,255) #ffffff
-		- Active State background: rgb(237,235,224) #edebe0
+		- Active State background: rgb(237,235,224) #c6f0de
 		- Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
 		- Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
 		- Bottom border: 1px rgba(217,215,206) #d9d7ce
@@ -1965,9 +1965,9 @@ A logged in user can manage their profile, share settings, looks, and friends
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.png" width=420px/>
 
-7.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
+7.1.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.Scrolled.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/7.1.My.Management.Scrolled.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2086,6 +2086,10 @@ gtio://my-management
 	- Chevron is 10px from right
    - 'my hearts'
       - insert apostrophe (U+2019) before the 's' and after the heart graphic in 'my hearts' menu item.  try to ensure at least 1.5px visual gap between heart and apostrophe (3px on Retina looks right).
+   - Custom Slider (screen 7.1.1)
+      - '7/management.slider' assets
+      - vertically center within table cell (6px of top and bottom padding)
+      - 8px away from right side of cell
 
 ### 7.2 Settings  
 
@@ -2844,6 +2848,12 @@ GET /tags/search/:query
    - Font: Proxima Nova Bold 10pt rgb(143,143,143)
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
    - Text vertically centered within cell, 6px from left edge of screen
+- List tables/cells
+   - Height: 48px (without border)
+   - Background: rgb(255,255,255) #ffffff
+   - Active State background: #c6f0de
+   - Font: Verlag Book 16pt rgb(143,143,143) #8f8f8f
+   - Bottom border: 1px rgba(217,215,206) #d9d7ce
 - Brand tag icon
    - 17px x 17px
    - bottom of asset is 4px below baseline of accompanying text
