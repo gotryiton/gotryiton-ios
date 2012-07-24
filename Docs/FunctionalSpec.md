@@ -4594,35 +4594,55 @@ In many places where there is a user's name, there may be a badge icon next to a
 
 #### Mockups
 
-Control hidden/lowered
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.1.Input.png" width=420px/>
+13.10 Control default/start   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/3.4.Reviews.1.Input.png" width=420px/>
 
-Control raised, populating brands
+13.10.1 Control @ button hit   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/3.4.Reviews.1.Input.Button.Info.png" width=420px/>
+
+13.10.2 Control populating brands   
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.2.Input.Brands.png" width=420px/>
 
-Control raised, populating users
+13.10.3 Control populating users   
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/3.4.Reviews.3.Input.People.png" width=420px/>
 
 #### Design Stories
 - Background Area
    - 'keyboard-top-control-bg.png'
-   - when 'expanded', is placed directly above keyboard
-   - 'collapsed' state should show 6px of top of asset above keyboard
-   - should animate in and out from underneath the keyboard when needed/not needed
+   - always shown
 - Buttons
-   - 'keyboard-top-control-button.png' with active and inactive states
-   - horizontal middle is stretchable
-      - 3px nonstretchable on left
-      - 3px nonstretchable on right
-   - 5px of padding on top, bottom, left, right (5px gaps between buttons)
-   - text is Proxima Nova Regular, 14pt, rgb(64,64,64)
-   - Brands
-      - allow 12px of padding on left and right of text inside button
-   - Users
-      - user icon is displayed at 26px x 26px with 'user-icon-overlay-52.png' placed directly over (masks edges and overlays a shadow)
-         - 4px of padding from top, bottom and left edges of button
-      - user name
-         - allow 6px of padding from right edge of user icon and right edge of button
+   - Starting
+      - 'keyboard-top-control-start.png' with 1,2,3 active and inactive versions
+         - 6px left, right, bottom, top padding
+      - arrow
+         - 'keyboard-top-control-arrow.png'
+         - 8px away from right side of brand tag button
+         - bottom of asset is 9px away from bottom of keyboard control
+      - info text
+         - Archer Medium Italic #a4a4a4 14pt
+         - 'tag something!'
+         - 7px from right side of 'keyboard-top-control-arrow.png'
+         - baseline is 10px up from bottom of keyboard control
+      - prompt text (after hitting a button) (screen 13.10.1)
+         - Archer Medium Italic #ff6a72 14pt
+         - baseline is 10px up from bottom of keyboard control
+         - 'start typing a friend's name...'
+         - 'type a hashtag to group with other similar looks!'
+         - 'start typing a brand...'
+   - Suggestions (after typing)
+      - 'keyboard-top-control-button.png' with active and inactive states
+      - horizontal middle is stretchable
+         - 3px nonstretchable on left
+         - 3px nonstretchable on right
+      - 6px of padding on top, bottom, left, right (6px gaps between buttons)
+      - text is Proxima Nova Regular, 14pt, rgb(64,64,64)
+      - Brands (screen 13.10.2)
+         - allow 12px of padding on left and right of text inside button
+      - Users (screen 13.10.3)
+         - user icon is displayed at 26px x 26px with 'user-icon-overlay-52.png' placed directly over (masks edges and overlays a shadow)
+            - 3px of padding from top, bottom and left edges of button
+         - user name
+            - allow 6px of padding from right edge of user icon and right edge of button
 
 ### 13.11 Spinners
 
