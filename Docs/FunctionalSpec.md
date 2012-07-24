@@ -1209,6 +1209,7 @@ previous screen
 	- Text
 		- Name: Archer Book Italic 16px rgb(255,106,114) #ff6a72
 		- Time Stamp: Proxima Nova Regular 10px rgb(156,156,156) #9c9c9c
+         - convert to ALL CAPS
 	- Comment input
 		- Background (3/reviews.top.input.box.png)
 		- 230x35px
