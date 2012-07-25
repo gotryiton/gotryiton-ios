@@ -340,11 +340,11 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 {
     UIImage *originalPhoto = [notification.userInfo objectForKey:@"originalPhoto"];
     UIImage *filteredPhoto = [notification.userInfo objectForKey:@"filteredPhoto"];
-#warning How should we handle filter type if multiple photos?
-    GTIOFilterType filterType = [[notification.userInfo objectForKey:@"filterType"] integerValue];
+    NSString *filterName = [notification.userInfo objectForKey:@"filterName"];
+    NSNumber *produdctID = [notification.userInfo objectForKey:@"productID"];
     
     if (filteredPhoto) {
-        [self.postALookViewController setOriginalImage:originalPhoto filteredImage:filteredPhoto filterName:GTIOFilterTypeName[filterType]];
+        [self.postALookViewController setOriginalImage:originalPhoto filteredImage:filteredPhoto filterName:filterName productID:produdctID];
     }
     
     if ([self.navigationController.viewControllers containsObject:self.postALookViewController]) {
@@ -355,7 +355,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     }
 }
 
-#pragma mark - 
+#pragma mark
 
 - (void)resetView
 {
@@ -622,6 +622,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 {
     GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
     [photoConfirmationViewController setOriginalPhotoURL:product.photo.mainImageURL];
+    [photoConfirmationViewController setProductID:product.productID];
     [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
 }
 

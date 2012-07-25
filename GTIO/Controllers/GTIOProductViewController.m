@@ -212,7 +212,7 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     
     self.postThisButton.tapHandler = ^(id sender) {
         GTIOPostALookViewController *viewController = [[GTIOPostALookViewController alloc] initWithNibName:nil bundle:nil];
-        [viewController setOriginalImage:self.productImageView.image filteredImage:self.productImageView.image filterName:nil];
+        [viewController setOriginalImage:self.productImageView.image filteredImage:self.productImageView.image filterName:nil productID:self.productID];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
         [self.navigationController presentModalViewController:navigationController animated:YES];
     };

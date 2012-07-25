@@ -42,6 +42,6 @@ typedef enum GTIOPostType {
 
 typedef void(^GTIOPostCompletionHandler)(GTIOPost *post, NSError *error);
 
-+ (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description completionHandler:(GTIOPostCompletionHandler)completionHandler;
++ (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts completionHandler:(GTIOPostCompletionHandler)completionHandler;
 
 @end

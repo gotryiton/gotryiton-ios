@@ -19,6 +19,6 @@ typedef enum GTIOPostPhotoSection {
 
 @property (nonatomic, assign) GTIOPostPhotoSection currentSection;
 
-- (void)setOriginalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName;
+- (void)setOriginalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName productID:(NSNumber *)productID;
 
 @end

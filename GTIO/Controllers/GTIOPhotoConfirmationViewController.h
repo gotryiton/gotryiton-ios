@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) UIImage *originalPhoto;
 @property (nonatomic, strong) NSURL *originalPhotoURL;
-@property (nonatomic, strong) NSString *productID;
+@property (nonatomic, strong) NSNumber *productID;
 
 @end

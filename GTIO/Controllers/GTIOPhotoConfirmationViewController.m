@@ -77,7 +77,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   self.originalPhoto, @"originalPhoto",
                                   self.filteredPhoto, @"filteredPhoto",
-                                  [NSNumber numberWithInteger:self.currentFilterType], @"filterType",
+                                  GTIOFilterTypeName[self.currentFilterType], @"filterName",
                                   nil];
         if (self.productID) {
             [userInfo setValue:self.productID forKey:@"productID"];
