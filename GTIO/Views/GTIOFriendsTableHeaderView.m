@@ -64,6 +64,7 @@
         [_inviteFriendsBarButton addTarget:self action:@selector(pushViewController:) forControlEvents:UIControlEventTouchUpInside];
         _findFriendsBarButton = [GTIOSuggestedFriendsBarButton buttonWithType:UIButtonTypeCustom];
         _findFriendsBarButton.barTitle = (self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? @"search" : @"find friends";
+        _findFriendsBarButton.showMagnifyingGlassIcon = YES;
         _findFriendsBarButton.hasGreenBackgroundColor = (self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? NO : YES;
         [_findFriendsBarButton addTarget:self action:@selector(pushViewController:) forControlEvents:UIControlEventTouchUpInside];
         _suggestedFriendsBarButton = [GTIOSuggestedFriendsBarButton buttonWithType:UIButtonTypeCustom];
