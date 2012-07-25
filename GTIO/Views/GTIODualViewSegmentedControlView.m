@@ -9,6 +9,8 @@
 #import "GTIODualViewSegmentedControlView.h"
 #import "GTIOPostMasonryView.h"
 
+NSString * const kGTIOMyHeartsTitle = @"kGTIOMyHeartsTitle";
+
 @interface GTIODualViewSegmentedControlView()
 
 @property (nonatomic, assign) GTIOPostType leftConrolPostsType;
@@ -25,7 +27,14 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        NSArray *segmentedControlItems = [NSArray arrayWithObjects:leftControlTitle, rightControlTitle, nil];
+        NSMutableArray *segmentedControlItems = [NSMutableArray array];
+        if ([leftControlTitle isEqualToString:kGTIOMyHeartsTitle]) {
+            [segmentedControlItems addObject:[UIImage imageNamed:@"my.hearts.tab.title.png"]];
+        } else {
+            [segmentedControlItems addObject:leftControlTitle];
+        }
+        [segmentedControlItems addObject:rightControlTitle];
+        
         self.dualViewSegmentedControl = [[GTIOSegmentedControl alloc] initWithItems:segmentedControlItems];
         [self.dualViewSegmentedControl setFrame:CGRectZero];
         [self.dualViewSegmentedControl setSelectedSegmentIndex:0];

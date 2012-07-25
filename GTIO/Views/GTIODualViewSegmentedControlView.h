@@ -11,6 +11,8 @@
 #import "GTIOPostMasonryView.h"
 #import "GTIOSegmentedControl.h"
 
+extern NSString * const kGTIOMyHeartsTitle;
+
 @interface GTIODualViewSegmentedControlView : UIView
 
 @property (nonatomic, strong) GTIOPostMasonryView *leftPostsView;
