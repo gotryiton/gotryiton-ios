@@ -202,7 +202,6 @@
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/products/post-options/popular" usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            [GTIOProgressHUD hideAllHUDsForView:self.view animated:YES];
             [self.segmentedControl.rightPostsView.masonGridView.pullToRefreshView finishLoading];
             
             [self.popularProducts removeAllObjects];
