@@ -113,7 +113,7 @@
         return NO;
     }
     
-    if ([self.commentInputView processDescriptionString].length>0){
+    if (self.commentInputView.textInput.text.length>0){
         self.rightNavigationButton = self.saveButton;
     }
     else {
