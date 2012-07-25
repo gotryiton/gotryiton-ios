@@ -93,10 +93,12 @@
     }];
     
     // Initial load
+    [self.segmentedControl.rightPostsView setHidden:YES];
+    [self.segmentedControl.leftPostsView setHidden:YES];
     GTIOPostMasonryView *startingMasonryView = nil;
     switch (self.startingProductType) {
         case GTIOProductTypePopular:
-            startingMasonryView = self.segmentedControl.leftPostsView;
+            startingMasonryView = self.segmentedControl.rightPostsView;
             [self.segmentedControl.dualViewSegmentedControl setSelectedSegmentIndex:1];
             break;
         case GTIOProductTypeHearted:
@@ -106,9 +108,7 @@
             break;
     }
     
-    if (startingMasonryView.masonGridView.pullToRefreshHandler) {
-        startingMasonryView.masonGridView.pullToRefreshHandler(startingMasonryView.masonGridView, startingMasonryView.masonGridView.pullToRefreshView, YES);
-    }
+    [startingMasonryView setHidden:NO]; // This will start a item load
 }
 
 - (void)viewDidUnload
@@ -202,6 +202,7 @@
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/products/post-options/popular" usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [GTIOProgressHUD hideAllHUDsForView:self.view animated:YES];
             [self.segmentedControl.rightPostsView.masonGridView.pullToRefreshView finishLoading];
             
             [self.popularProducts removeAllObjects];
