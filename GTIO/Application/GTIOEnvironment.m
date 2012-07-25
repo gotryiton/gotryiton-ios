@@ -31,7 +31,7 @@
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
     NSString * const kGTIOEnvironmentName = @"Staging";
-    NSString * const kGTIOBaseURLString = @"http://stage.gotryiton.com";
+    NSString * const kGTIOBaseURLString = @"http://beta-stage.gotryiton.com";
     NSString * const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString * const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString * const kGTIOFacebookAppID = @"125885160757300";
@@ -43,7 +43,7 @@
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
     NSString * const kGTIOEnvironmentName = @"Production";
-    NSString * const kGTIOBaseURLString = @"http://i.gotryiton.com";
+    NSString * const kGTIOBaseURLString = @"http://api.gotryiton.com";
     NSString * const kGTIOJanRainEngageApplicationID = @"iligdiaplfgbmhcpebgf";
     NSString * const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString * const kGTIOFacebookAppID = @"126454074038555";
