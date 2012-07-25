@@ -20,6 +20,9 @@
 	if ([self.type isEqualToString:@"@"]){
 		return [@"@" stringByAppendingString:self.name];
 	}
+    if ([self.type isEqualToString:@"#"]){
+        return [@"#" stringByAppendingString:self.name];
+    }
 	return self.name;
 }
 

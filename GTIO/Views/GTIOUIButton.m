@@ -72,6 +72,9 @@
         case GTIOButtonTypeProductPostThis: return [self gtio_productPostThisButton];
         case GTIOButtonTypeProductShoppingList: return [self gtio_productShoppingListButton];
         case GTIOButtonTypeProductShoppingListChecked: return [self gtio_productShoppingListCheckedButton];
+        case GTIOButtonTypeAutoCompleteHashtag: return [self gtio_autoCompleteHashtagButton];
+        case GTIOButtonTypeAutoCompleteAttag: return [self gtio_autoCompleteAttagButton];
+        case GTIOButtonTypeAutoCompleteBrandtag: return [self gtio_autoCompleteBrandtagButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -560,6 +563,21 @@
 + (id)gtio_twitterShareButton
 {
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.twit.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.twit.active.png"]];
+}
+
++ (id)gtio_autoCompleteHashtagButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-2-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-2-active.png"]];
+}
+
++ (id)gtio_autoCompleteAttagButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-1-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-1-active.png"]];
+}
+
++ (id)gtio_autoCompleteBrandtagButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-3-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-3-active.png"]];
 }
 
 #pragma mark - Touch Handling

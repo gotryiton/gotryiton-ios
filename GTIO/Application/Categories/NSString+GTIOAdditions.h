@@ -11,5 +11,7 @@
 @interface NSString (GTIOAdditions)
 
 - (NSArray *)rangesOfHTMLBoldedText;
+- (NSString *)stringByTrimmingLeadingCharactersInSet:(NSCharacterSet *)characterSet;
+- (NSString *)stringByTrimmingTrailingCharactersInSet:(NSCharacterSet *)characterSet;
 
 @end
