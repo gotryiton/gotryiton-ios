@@ -1,3 +1,67 @@
+***Wednesday, July 25th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Matt, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Release build by EOD today which includes, bug fixes, external routing, search tags, and Invite Friends.
+- GTIO - Working on assigned issues 
+
+**Status**
+- TT is working on pick a project screen. The screen is complete. When you select a product, it ties into the camera flow.
+- Scott got single image really close, he just has to write the jSEND.  This should be done in next hour.
+- Most issues left are UI tweaks and bugs, some air states, or spinner states.  
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott may be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of next week, but release August 20th.
+
+**General Notes**
+- Scott and Simon to color issues green once they are resolved.
+  
+---
+
+***Tuesday, July 24th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Matt, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Start working on 12.6 and empty feed.
+- TT - Hopes to get all critical bugs fixed and build out EOD tomorrow.
+- GTIO - Prioritize bug list and issues for Scott.
+
+**Status**
+- Scott finished Geoff's Invite Friends page.
+- Currently working on search tags page, and is wrapping up styling.
+- There are recent and trending, and then you search.  Can you go back to recent and trending?
+  - Preferred method (if simple fix): If you hit the X to clear the field, could it return you to recent and trending?
+
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+
+**General Notes**
+- Simon will be taking on minor fixes, bugs going forward.
+  - Simon to talk to Scott first before making changes 
+  - This will ensure that working on one issue, won't affect another
+  - Also Scott may have already put thought into the issue, so it would be good to discuss before working on it.
+  
+---
+
 ***Monday, July 23rd - Standup Notes***
 
 **Attendees**

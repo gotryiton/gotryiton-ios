@@ -1308,7 +1308,7 @@ previous screen
    - All Cells
       - Height: 48px (without border)
       - Background: rgb(255,255,255) #ffffff
-      - Active State background: rgb(237,235,224) #edebe0
+      - Active State background: rgb(237,235,224) #c6f0de
       - Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
       - Bottom border: 1px rgba(217,215,206) #d9d7ce
@@ -1421,14 +1421,17 @@ previous screen
 			- 9px from top/right
 			- 7px in between
 		- Bottom Buttons
-			- Background (product.info.button.bg.inactive.png) stretch image
-				- On tap (product.info.button.bg.active.png)
-				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
-					- On tap (product.info.button.bg.highlight.active.png)
-			- Text: Archer Medium 16px rgb(85,85,86) #555556
-			- 5px padding
-			- 4px in between buttons
-			- Width: 153x46px
+         - 5px padding
+         - 4px in between buttons
+         - Left Side Button (Post)
+            - 'product.post.button.png' active and inactive states
+         - Right Side Button
+   			- Background (product.info.button.bg.inactive.png) stretch image
+   				- On tap (product.info.button.bg.active.png)
+   				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
+   					- On tap (product.info.button.bg.highlight.active.png)
+   			- Text: Archer Medium 16px rgb(85,85,86) #555556
+   			- Width: 153x46px
 
 ### 4.1.2 Product Full Screen  
 
@@ -1686,7 +1689,7 @@ gtio://find-friends
 	- All Cells
 		- Height: 48px (without border)
 		- Background: rgb(255,255,255) #ffffff
-		- Active State background: rgb(237,235,224) #edebe0
+		- Active State background: rgb(237,235,224) #c6f0de
 		- Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
 		- Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
 		- Bottom border: 1px rgba(217,215,206) #d9d7ce
@@ -1733,7 +1736,7 @@ A user can see a list of suggested users to follow
 #### Mockups
 6.2 Suggested Friends ([wireframe](http://invis.io/VD2OCR5H))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.2.suggested.friends.png" width=420px/>
 
 #### API Usage
 /user/suggested-friends  [api-users](http://gtio-dev.gotryiton.com/docs/api-users)
@@ -1783,7 +1786,7 @@ A user can manage their friend relationships via the feed
 #### Mockups
 6.3 ([wireframe](http://invis.io/R62OCSKJ))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.3.friends.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.3.friends.png" width=420px/>
 
 
 #### User Flow
@@ -1827,7 +1830,10 @@ previous screen
 	- Background: rgb(235,242,239) #ebf2ef
 	- Top Border: 1px rgb(243,247,245) #f3f7f5
 	- Bottom Border: 1px rgb(211,217,215) #d3d9d7
-	- "suggested friend" cell has no bottom border and has height of 49px
+   - find friends icon
+      - 'find.friends.item.icon.png'
+      - 10px gap from accompanying text
+      - bottom of asset is 2px below baseline of accompanying text
 - For cells and button placement, refer to 6.1 design stories
 
 ### 6.4 Find out-of-network Friends  
@@ -1838,9 +1844,15 @@ A user can search for friends outside of their own network
 #### Mockups
 6.4 ([wireframe](http://invis.io/MH2OCTA9))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.4.0.Search.Start.Empty.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>
+6.4.1 search results
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.4.2.search.results.png" width=420px/>
+
+6.4.1 no search results
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.4.1.Search.Results.Empty.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1867,11 +1879,12 @@ gtio://search-friends
 #### Design Stories
 - Search area
 	- Background transparent with image (6/search.area.background.shadow.small.png)
-- Search Empty
-	- 64px from top, 169px from left
-	- Text begins 16px below icon
-	- "search through the entire" 16pt Proxima Nova Light rgb(143,143,143) #8f8f8f
-	- "Go Try It On community" 16pt Proxima Nova Bold rgb(143,143,143) #8f8f8f
+- Search Start
+	- 'search.area.start.png'
+      - 164px from bottom of nav bar, vertically centered
+- Search Empty Results
+   - 'search.area.no.results.png'
+      - 193px from bottom of nav bar, horizontally centered
 - For cells and button placement, refer to 6.1 design stories	
 
 ### 6.5 Following List  
@@ -1882,7 +1895,7 @@ A User A can see a list of who a User B is following.  User A and User B can be 
 #### Mockups
 6.5 ([wireframe](http://invis.io/CS2OCU2W))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.5.following.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.5.following.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1909,6 +1922,10 @@ gtio://my-following
       - following toggle
 
 #### Design Stories
+- Search icon button
+   - 'nav.search.icon.png'
+      - 10px from right edge of screen
+      - vertically centered within nav bar
 - For cells and button placement, refer to 6.1 design stories
 
 ### 6.6 Followers List  
@@ -1919,7 +1936,7 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 #### Mockups
 6.6 Followers List ([wireframe](http://invis.io/Y92OCV3E))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.6.followers.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.6.followers.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1947,6 +1964,10 @@ gtio://my-followers
       - following toggle
 
 #### Design Stories
+- Search icon button
+   - 'nav.search.icon.png'
+      - 10px from right edge of screen
+      - vertically centered within nav bar
 - For cells and button placement, refer to 6.1 design stories
 
 ## 7. Profile pages
@@ -1962,9 +1983,9 @@ A logged in user can manage their profile, share settings, looks, and friends
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.png" width=420px/>
 
-7.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
+7.1.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.Scrolled.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/7.1.My.Management.Scrolled.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2083,6 +2104,10 @@ gtio://my-management
 	- Chevron is 10px from right
    - 'my hearts'
       - insert apostrophe (U+2019) before the 's' and after the heart graphic in 'my hearts' menu item.  try to ensure at least 1.5px visual gap between heart and apostrophe (3px on Retina looks right).
+   - Custom Slider (screen 7.1.1)
+      - '7/management.slider' assets
+      - vertically center within table cell (6px of top and bottom padding)
+      - 8px away from right side of cell
 
 ### 7.2 Settings  
 
@@ -2841,6 +2866,12 @@ GET /tags/search/:query
    - Font: Proxima Nova Bold 10pt rgb(143,143,143)
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
    - Text vertically centered within cell, 6px from left edge of screen
+- List tables/cells
+   - Height: 48px (without border)
+   - Background: rgb(255,255,255) #ffffff
+   - Active State background: #c6f0de
+   - Font: Verlag Book 16pt rgb(143,143,143) #8f8f8f
+   - Bottom border: 1px rgba(217,215,206) #d9d7ce
 - Brand tag icon
    - 17px x 17px
    - bottom of asset is 4px below baseline of accompanying text
