@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C95A90115BEBAC000E642F3 /* keyboard-top-control-start-1-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8F515BEBABE00E642F3 /* keyboard-top-control-start-1-active.png */; };
+		5C95A90215BEBAC000E642F3 /* keyboard-top-control-start-1-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8F615BEBABE00E642F3 /* keyboard-top-control-start-1-active@2x.png */; };
+		5C95A90315BEBAC000E642F3 /* keyboard-top-control-start-1-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8F715BEBABE00E642F3 /* keyboard-top-control-start-1-inactive.png */; };
+		5C95A90415BEBAC000E642F3 /* keyboard-top-control-start-1-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8F815BEBABE00E642F3 /* keyboard-top-control-start-1-inactive@2x.png */; };
+		5C95A90515BEBAC000E642F3 /* keyboard-top-control-start-2-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8F915BEBABE00E642F3 /* keyboard-top-control-start-2-active.png */; };
+		5C95A90615BEBAC000E642F3 /* keyboard-top-control-start-2-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8FA15BEBABF00E642F3 /* keyboard-top-control-start-2-active@2x.png */; };
+		5C95A90715BEBAC000E642F3 /* keyboard-top-control-start-2-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8FB15BEBABF00E642F3 /* keyboard-top-control-start-2-inactive.png */; };
+		5C95A90815BEBAC000E642F3 /* keyboard-top-control-start-2-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8FC15BEBABF00E642F3 /* keyboard-top-control-start-2-inactive@2x.png */; };
+		5C95A90915BEBAC000E642F3 /* keyboard-top-control-start-3-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8FD15BEBABF00E642F3 /* keyboard-top-control-start-3-active.png */; };
+		5C95A90A15BEBAC000E642F3 /* keyboard-top-control-start-3-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8FE15BEBABF00E642F3 /* keyboard-top-control-start-3-active@2x.png */; };
+		5C95A90B15BEBAC000E642F3 /* keyboard-top-control-start-3-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A8FF15BEBAC000E642F3 /* keyboard-top-control-start-3-inactive.png */; };
+		5C95A90C15BEBAC000E642F3 /* keyboard-top-control-start-3-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C95A90015BEBAC000E642F3 /* keyboard-top-control-start-3-inactive@2x.png */; };
+		5CA6EC3915BF04E300156F77 /* keyboard-top-control-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CA6EC3715BF04E100156F77 /* keyboard-top-control-arrow.png */; };
+		5CA6EC3A15BF04E300156F77 /* keyboard-top-control-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CA6EC3815BF04E200156F77 /* keyboard-top-control-arrow@2x.png */; };
 		5CDFD9031593BA4600994416 /* GTIOAutoCompleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */; };
 		5CDFD9061593BA7B00994416 /* GTIOAutoCompleteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */; };
 		5CDFD9091593BAAD00994416 /* GTIOAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */; };
@@ -1352,6 +1366,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C95A8F515BEBABE00E642F3 /* keyboard-top-control-start-1-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-1-active.png"; sourceTree = "<group>"; };
+		5C95A8F615BEBABE00E642F3 /* keyboard-top-control-start-1-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-1-active@2x.png"; sourceTree = "<group>"; };
+		5C95A8F715BEBABE00E642F3 /* keyboard-top-control-start-1-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-1-inactive.png"; sourceTree = "<group>"; };
+		5C95A8F815BEBABE00E642F3 /* keyboard-top-control-start-1-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-1-inactive@2x.png"; sourceTree = "<group>"; };
+		5C95A8F915BEBABE00E642F3 /* keyboard-top-control-start-2-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-2-active.png"; sourceTree = "<group>"; };
+		5C95A8FA15BEBABF00E642F3 /* keyboard-top-control-start-2-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-2-active@2x.png"; sourceTree = "<group>"; };
+		5C95A8FB15BEBABF00E642F3 /* keyboard-top-control-start-2-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-2-inactive.png"; sourceTree = "<group>"; };
+		5C95A8FC15BEBABF00E642F3 /* keyboard-top-control-start-2-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-2-inactive@2x.png"; sourceTree = "<group>"; };
+		5C95A8FD15BEBABF00E642F3 /* keyboard-top-control-start-3-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-3-active.png"; sourceTree = "<group>"; };
+		5C95A8FE15BEBABF00E642F3 /* keyboard-top-control-start-3-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-3-active@2x.png"; sourceTree = "<group>"; };
+		5C95A8FF15BEBAC000E642F3 /* keyboard-top-control-start-3-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-3-inactive.png"; sourceTree = "<group>"; };
+		5C95A90015BEBAC000E642F3 /* keyboard-top-control-start-3-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-3-inactive@2x.png"; sourceTree = "<group>"; };
+		5CA6EC3715BF04E100156F77 /* keyboard-top-control-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-arrow.png"; sourceTree = "<group>"; };
+		5CA6EC3815BF04E200156F77 /* keyboard-top-control-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-arrow@2x.png"; sourceTree = "<group>"; };
 		5CDFD9011593BA4600994416 /* GTIOAutoCompleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteView.h; sourceTree = "<group>"; };
 		5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleteView.m; sourceTree = "<group>"; };
 		5CDFD9041593BA7B00994416 /* GTIOAutoCompleteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteScrollView.h; sourceTree = "<group>"; };
@@ -4301,6 +4329,20 @@
 		8EB5A34515A629E000163F84 /* 13 */ = {
 			isa = PBXGroup;
 			children = (
+				5CA6EC3715BF04E100156F77 /* keyboard-top-control-arrow.png */,
+				5CA6EC3815BF04E200156F77 /* keyboard-top-control-arrow@2x.png */,
+				5C95A8F515BEBABE00E642F3 /* keyboard-top-control-start-1-active.png */,
+				5C95A8F615BEBABE00E642F3 /* keyboard-top-control-start-1-active@2x.png */,
+				5C95A8F715BEBABE00E642F3 /* keyboard-top-control-start-1-inactive.png */,
+				5C95A8F815BEBABE00E642F3 /* keyboard-top-control-start-1-inactive@2x.png */,
+				5C95A8F915BEBABE00E642F3 /* keyboard-top-control-start-2-active.png */,
+				5C95A8FA15BEBABF00E642F3 /* keyboard-top-control-start-2-active@2x.png */,
+				5C95A8FB15BEBABF00E642F3 /* keyboard-top-control-start-2-inactive.png */,
+				5C95A8FC15BEBABF00E642F3 /* keyboard-top-control-start-2-inactive@2x.png */,
+				5C95A8FD15BEBABF00E642F3 /* keyboard-top-control-start-3-active.png */,
+				5C95A8FE15BEBABF00E642F3 /* keyboard-top-control-start-3-active@2x.png */,
+				5C95A8FF15BEBAC000E642F3 /* keyboard-top-control-start-3-inactive.png */,
+				5C95A90015BEBAC000E642F3 /* keyboard-top-control-start-3-inactive@2x.png */,
 				8EB5A34615A629E000163F84 /* keyboard-top-control-bg.png */,
 				8EB5A34715A629E000163F84 /* keyboard-top-control-bg@2x.png */,
 				8EB5A34815A629E000163F84 /* keyboard-top-control-button-active.png */,
@@ -6479,6 +6521,20 @@
 				806FBA0A15B61B2000C7924D /* shop.cell.active@2x.png in Resources */,
 				806FBA0B15B61B2000C7924D /* shop.cell.inactive.png in Resources */,
 				806FBA0C15B61B2000C7924D /* shop.cell.inactive@2x.png in Resources */,
+				5C95A90115BEBAC000E642F3 /* keyboard-top-control-start-1-active.png in Resources */,
+				5C95A90215BEBAC000E642F3 /* keyboard-top-control-start-1-active@2x.png in Resources */,
+				5C95A90315BEBAC000E642F3 /* keyboard-top-control-start-1-inactive.png in Resources */,
+				5C95A90415BEBAC000E642F3 /* keyboard-top-control-start-1-inactive@2x.png in Resources */,
+				5C95A90515BEBAC000E642F3 /* keyboard-top-control-start-2-active.png in Resources */,
+				5C95A90615BEBAC000E642F3 /* keyboard-top-control-start-2-active@2x.png in Resources */,
+				5C95A90715BEBAC000E642F3 /* keyboard-top-control-start-2-inactive.png in Resources */,
+				5C95A90815BEBAC000E642F3 /* keyboard-top-control-start-2-inactive@2x.png in Resources */,
+				5C95A90915BEBAC000E642F3 /* keyboard-top-control-start-3-active.png in Resources */,
+				5C95A90A15BEBAC000E642F3 /* keyboard-top-control-start-3-active@2x.png in Resources */,
+				5C95A90B15BEBAC000E642F3 /* keyboard-top-control-start-3-inactive.png in Resources */,
+				5C95A90C15BEBAC000E642F3 /* keyboard-top-control-start-3-inactive@2x.png in Resources */,
+				5CA6EC3915BF04E300156F77 /* keyboard-top-control-arrow.png in Resources */,
+				5CA6EC3A15BF04E300156F77 /* keyboard-top-control-arrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
