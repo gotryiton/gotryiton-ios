@@ -137,6 +137,7 @@
                 self.postCompletionHandler(post, error);
             }
         }];
+        [self setPostPhotoButtonTouched:NO];
     }
 }
 
