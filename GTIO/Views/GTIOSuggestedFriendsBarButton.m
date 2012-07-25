@@ -70,7 +70,7 @@ static int const maximumNumberOfSuggestedFriends = 5;
     }
 
     if (self.showMagnifyingGlassIcon){        
-        [self.magnifyingGlassIcon setFrame:(CGRect){ self.suggestedFriendsLabel.frame.origin.x + [self sizeOfLabelText].width + 10 , self.bounds.size.height / 2 - self.magnifyingGlassIcon.bounds.size.height / 2, self.magnifyingGlassIcon.bounds.size }];
+        [self.magnifyingGlassIcon setFrame:(CGRect){ self.suggestedFriendsLabel.frame.origin.x + [self sizeOfLabelText].width + 10 , self.bounds.size.height / 2 - self.magnifyingGlassIcon.bounds.size.height / 2 - 1, self.magnifyingGlassIcon.bounds.size }];
         self.magnifyingGlassIcon.hidden = NO;
     }
     
