@@ -129,9 +129,7 @@
     
     self.noSearchResultsView = [[GTIOFriendsNoSearchResultsView alloc] initWithFrame:CGRectZero];
     [self.noSearchResultsView setDelegate:self];
-    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends) {
-        [self.noSearchResultsView setHideSearchCommunityText:YES];
-    }
+    
     self.searchCommunityView = [[GTIOSearchEntireCommunityView alloc] initWithFrame:CGRectZero];
     [self.searchCommunityView setDelegate:self];
     
@@ -558,7 +556,6 @@
     [self.noSearchResultsView removeFromSuperview];
     [self.searchCommunityView removeFromSuperview];
     [self.noSearchResultsView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
-    [self.noSearchResultsView setFailedQuery:self.currentSearchQuery];
     [self.friendsTableView addSubview:self.noSearchResultsView];
     [self.friendsTableView bringSubviewToFront:self.noSearchResultsView];
     self.friendsTableView.tableFooterView.hidden = YES;
