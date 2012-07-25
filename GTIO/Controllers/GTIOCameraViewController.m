@@ -24,6 +24,7 @@
 #import "GTIOPhotoShootGridViewController.h"
 #import "GTIOPhotoConfirmationViewController.h"
 #import "GTIOPostALookViewController.h"
+#import "GTIOPickAProductViewController.h"
 
 NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotification";
 
@@ -193,12 +194,29 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     self.sourcePopOverView = [GTIOPopOverView cameraSourcesPopOverView];
     [self.sourcePopOverView setFrame:(CGRect){ { kGTIOSourcePopOverXOriginPadding, self.view.frame.size.height - self.sourcePopOverView.frame.size.height - kGTIOSourcePopOverYOriginPadding }, self.sourcePopOverView.frame.size }];
     [self.sourcePopOverView setTapHandler:^(GTIOButton *buttonModel) {
+        GTIOPickAProductViewController *pickAProductViewController = nil;
         if ([buttonModel.action.destination isEqualToString:@"gtio://camera-roll"] && 
             [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
             
             [blockSelf presentViewController:self.imagePickerController animated:YES completion:nil];
-        } else {
-            // TODO: Handle hearted and popular products
+        } else if ([buttonModel.action.destination isEqualToString:@"gtio://hearted-products"]) {
+            pickAProductViewController = [[GTIOPickAProductViewController alloc] initWithNibName:nil bundle:nil];
+            [pickAProductViewController setStartingProductType:GTIOProductTypeHearted];
+        } else if ([buttonModel.action.destination isEqualToString:@"gtio://popular-products"]) {
+            pickAProductViewController = [[GTIOPickAProductViewController alloc] initWithNibName:nil bundle:nil];
+            [pickAProductViewController setStartingProductType:GTIOProductTypePopular];
+        }
+        
+        // Setup Pick a product
+        if (pickAProductViewController) {
+            __block typeof(pickAProductViewController) blockPickAProductViewController = pickAProductViewController;
+            [pickAProductViewController setDidSelectProductHandler:^(GTIOProduct *product) {
+                [blockPickAProductViewController dismissModalViewControllerAnimated:YES];
+                [blockSelf openPhotoConfirmationScreenWithProduct:product];
+            }];
+            
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:pickAProductViewController];
+            [blockSelf presentViewController:navController animated:YES completion:nil];
         }
     }];
     
@@ -597,6 +615,13 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 {
     GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
     [photoConfirmationViewController setOriginalPhoto:photo];
+    [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
+}
+
+- (void)openPhotoConfirmationScreenWithProduct:(GTIOProduct *)product
+{
+    GTIOPhotoConfirmationViewController *photoConfirmationViewController = [[GTIOPhotoConfirmationViewController alloc] initWithNibName:nil bundle:nil];
+    [photoConfirmationViewController setOriginalPhotoURL:product.photo.mainImageURL];
     [self.navigationController pushViewController:photoConfirmationViewController animated:YES];
 }
 

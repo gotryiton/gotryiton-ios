@@ -9,13 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "GTIOUserProfile.h"
 #import "GTIOPostMasonryView.h"
+#import "GTIOSegmentedControl.h"
 
 @interface GTIODualViewSegmentedControlView : UIView
 
 @property (nonatomic, strong) GTIOPostMasonryView *leftPostsView;
 @property (nonatomic, strong) GTIOPostMasonryView *rightPostsView;
 
+@property (nonatomic, strong) GTIOSegmentedControl *dualViewSegmentedControl;
+
 - (id)initWithFrame:(CGRect)frame leftControlTitle:(NSString *)leftControlTitle leftControlPostsType:(GTIOPostType)leftControlPostsType rightControlTitle:(NSString *)rightControlTitle rightControlPostsType:(GTIOPostType)rightControlPostsType;
-- (void)setPosts:(NSArray *)posts GTIOPostType:(GTIOPostType)postType userProfile:(GTIOUserProfile *)userProfile;
+- (void)setItems:(NSArray *)items GTIOPostType:(GTIOPostType)postType userProfile:(GTIOUserProfile *)userProfile;
 
 @end

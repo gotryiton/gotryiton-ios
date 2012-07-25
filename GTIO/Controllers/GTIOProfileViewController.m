@@ -128,14 +128,14 @@
                     
                     if (!refreshPostsOnly) {
                         [self.profileHeaderView setUserProfile:self.userProfile completionHandler:^(id sender) {
-                            [blockSelf.postsHeartsWithSegmentedControlView setPosts:blockSelf.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:blockSelf.userProfile];
-                            [blockSelf.postsHeartsWithSegmentedControlView setPosts:blockSelf.userProfile.heartsList.posts GTIOPostType:GTIOPostTypeHeart userProfile:blockSelf.userProfile];
+                            [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:blockSelf.userProfile];
+                            [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.heartsList.posts GTIOPostType:GTIOPostTypeHeart userProfile:blockSelf.userProfile];
                             [blockSelf adjustVerticalLayout];
                         }];
                         [self refreshFollowButton];
                     } else {
-                        [self.postsHeartsWithSegmentedControlView setPosts:self.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:self.userProfile];
-                        [self.postsHeartsWithSegmentedControlView setPosts:self.userProfile.heartsList.posts GTIOPostType:GTIOPostTypeHeart userProfile:self.userProfile];
+                        [self.postsHeartsWithSegmentedControlView setItems:self.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:self.userProfile];
+                        [self.postsHeartsWithSegmentedControlView setItems:self.userProfile.heartsList.posts GTIOPostType:GTIOPostTypeHeart userProfile:self.userProfile];
                     }
                 }
             }

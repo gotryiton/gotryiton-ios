@@ -11,5 +11,7 @@
 @interface GTIOPhotoConfirmationViewController : UIViewController
 
 @property (nonatomic, strong) UIImage *originalPhoto;
+@property (nonatomic, strong) NSURL *originalPhotoURL;
+@property (nonatomic, strong) NSString *productID;
 
 @end

@@ -1311,6 +1311,7 @@
 		D2DCF4C9159BDD17006E5AF0 /* GTIOPostSideButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DCF4C8159BDD17006E5AF0 /* GTIOPostSideButton.m */; };
 		D2DEBA5515B71CDE008A3A54 /* GTIOPullToLoadMoreContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2DEBA5415B71CDE008A3A54 /* GTIOPullToLoadMoreContentView.m */; };
 		D2E3759A1559B86700763A67 /* GTIOExploreLooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */; };
+		D2E3FD9015C0402100BF57F3 /* GTIOPickAProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E3FD8F15C0402100BF57F3 /* GTIOPickAProductViewController.m */; };
 		D2E954CC15B88B4D0039BCDC /* GTIONotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E954CB15B88B4D0039BCDC /* GTIONotificationManager.m */; };
 		D2EC0ED8156ADF1500984838 /* GTIOMailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D2EC0ED7156ADF1500984838 /* GTIOMailComposer.m */; };
 		D2EC0EDA156ADF5800984838 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EC0ED9156ADF5800984838 /* MessageUI.framework */; };
@@ -2966,6 +2967,8 @@
 		D2DEBA5415B71CDE008A3A54 /* GTIOPullToLoadMoreContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPullToLoadMoreContentView.m; sourceTree = "<group>"; };
 		D2E375961559B86700763A67 /* GTIOExploreLooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOExploreLooksViewController.h; sourceTree = "<group>"; };
 		D2E375971559B86700763A67 /* GTIOExploreLooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOExploreLooksViewController.m; sourceTree = "<group>"; };
+		D2E3FD8E15C0402100BF57F3 /* GTIOPickAProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPickAProductViewController.h; sourceTree = "<group>"; };
+		D2E3FD8F15C0402100BF57F3 /* GTIOPickAProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPickAProductViewController.m; sourceTree = "<group>"; };
 		D2E954BC15B855570039BCDC /* GTIOGridItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTIOGridItem.h; path = Protocols/GTIOGridItem.h; sourceTree = "<group>"; };
 		D2E954CA15B88B4D0039BCDC /* GTIONotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIONotificationManager.h; sourceTree = "<group>"; };
 		D2E954CB15B88B4D0039BCDC /* GTIONotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIONotificationManager.m; sourceTree = "<group>"; };
@@ -3050,6 +3053,8 @@
 				808286F415B8A76C00682775 /* GTIOShopThisLookViewController.m */,
 				808286F915B8B5B100682775 /* GTIOProductNativeListViewController.h */,
 				808286FA15B8B5B100682775 /* GTIOProductNativeListViewController.m */,
+				D2E3FD8E15C0402100BF57F3 /* GTIOPickAProductViewController.h */,
+				D2E3FD8F15C0402100BF57F3 /* GTIOPickAProductViewController.m */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7072,6 +7077,7 @@
 				D2CF189D15BF3590005E4E17 /* GTIOTagCell.m in Sources */,
 				D2CF18A015BF4EAB005E4E17 /* GTIOTableView.m in Sources */,
 				D2CF18A315BF4F1F005E4E17 /* GTIOScrollView.m in Sources */,
+				D2E3FD9015C0402100BF57F3 /* GTIOPickAProductViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

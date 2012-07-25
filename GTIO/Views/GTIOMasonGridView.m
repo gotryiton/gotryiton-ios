@@ -20,13 +20,13 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 @interface GTIOMasonGridView() <SSPullToLoadMoreViewDelegate, SSPullToRefreshViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *columns;
-@property (nonatomic, strong) NSMutableArray *items;
+@property (nonatomic, strong) NSMutableArray *gridItems;
 
 @end
 
 @implementation GTIOMasonGridView
 
-@synthesize columns = _columns, items = _items;
+@synthesize columns = _columns, gridItems = _gridItems;
 @synthesize padding = _padding;
 @synthesize gridItemTapHandler = _gridItemTapHandler;
 @synthesize pullToRefreshView = _pullToRefreshView;
@@ -85,14 +85,14 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 
 - (void)gridItem:(GTIOMasonGridItem *)gridItem didFailToLoadWithError:(NSError *)error
 {
-    [self.items removeObject:gridItem];
+    [self.gridItems removeObject:gridItem];
 }
 
-- (void)setPosts:(NSArray *)posts postsType:(GTIOPostType)postsType
+- (void)setItems:(NSArray *)items postsType:(GTIOPostType)postsType
 {
     // cancel any image downloads, reset items array
     [self cancelAllItemDownloads];
-    self.items = [NSMutableArray array];
+    self.gridItems = [NSMutableArray array];
     
     // clear the view
     for (UIView *subview in self.subviews) {
@@ -111,22 +111,22 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
                     nil];
     
     // bring in the new data
-    for (GTIOPost *post in posts) {
-        [self addPost:post postType:postsType];
+    for (id<GTIOGridItem> item in items) {
+        [self addItem:item postType:postsType];
     }
 }
 
-- (void)addPost:(GTIOPost *)post postType:(GTIOPostType)postType
+- (void)addItem:(id<GTIOGridItem>)item postType:(GTIOPostType)postType
 {
-    GTIOMasonGridItem *item = [GTIOMasonGridItem itemWithObject:post];
-    item.delegate = self;
-    [item downloadImage];
-    [self.items addObject:item];
+    GTIOMasonGridItem *masonGridItem = [GTIOMasonGridItem itemWithObject:item];
+    masonGridItem.delegate = self;
+    [masonGridItem downloadImage];
+    [self.gridItems addObject:masonGridItem];
 }
 
 - (void)cancelAllItemDownloads
 {
-    for (GTIOMasonGridItem *item in self.items) {
+    for (GTIOMasonGridItem *item in self.gridItems) {
         [item cancelImageDownload];
     }
 }

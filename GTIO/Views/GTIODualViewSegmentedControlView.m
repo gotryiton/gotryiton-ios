@@ -7,12 +7,9 @@
 //
 
 #import "GTIODualViewSegmentedControlView.h"
-#import "GTIOSegmentedControl.h"
 #import "GTIOPostMasonryView.h"
 
 @interface GTIODualViewSegmentedControlView()
-
-@property (nonatomic, strong) GTIOSegmentedControl *dualViewSegmentedControl;
 
 @property (nonatomic, assign) GTIOPostType leftConrolPostsType;
 @property (nonatomic, assign) GTIOPostType rightControlPostsType;
@@ -72,12 +69,12 @@
     }
 }
 
-- (void)setPosts:(NSArray *)posts GTIOPostType:(GTIOPostType)postType userProfile:(GTIOUserProfile *)userProfile
+- (void)setItems:(NSArray *)items GTIOPostType:(GTIOPostType)postType userProfile:(GTIOUserProfile *)userProfile
 {
     if (postType == self.leftConrolPostsType) {
-        [self.leftPostsView setPosts:posts userProfile:userProfile];
+        [self.leftPostsView setItems:items userProfile:userProfile];
     } else if (postType == self.rightControlPostsType) {
-        [self.rightPostsView setPosts:posts userProfile:userProfile];
+        [self.rightPostsView setItems:items userProfile:userProfile];
     }
     [self setNeedsLayout];
 }
