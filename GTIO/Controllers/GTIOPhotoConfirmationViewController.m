@@ -103,12 +103,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     self.photoFilterSelectorView = nil;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [[GTIOFilterManager sharedManager] applyAllFilters];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -120,6 +114,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [self setFilteredPhoto:_originalPhoto];
     
     [[GTIOFilterManager sharedManager] setOriginalImage:_originalPhoto];
+    [[GTIOFilterManager sharedManager] applyAllFilters];
 }
 
 - (void)setOriginalPhotoURL:(NSURL *)originalPhotoURL
