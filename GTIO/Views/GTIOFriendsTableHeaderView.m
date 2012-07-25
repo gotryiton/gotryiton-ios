@@ -39,10 +39,10 @@
             return 55;
             break;
         case GTIOFriendsTableHeaderViewTypeFollowers:
-            return 66;
+            return 0;
             break;
         case GTIOFriendsTableHeaderViewTypeFollowing:
-            return 66;
+            return 0;
             break;
         case GTIOFriendsTableHeaderViewTypeSuggested:
             return 0;
@@ -95,7 +95,7 @@
     [self.inviteFriendsBarButton setFrame:(CGRect){ 0, 0, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeFriends) ? 50 : 0 }];
     [self.findFriendsBarButton setFrame:(CGRect){ 0, self.inviteFriendsBarButton.frame.origin.y + self.inviteFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeFriends || self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? 50 : 0 }];
     [self.suggestedFriendsBarButton setFrame:(CGRect){ 0, self.findFriendsBarButton.frame.origin.y + self.findFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeFriends || self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? 50 : 0 }];
-    [self.searchBoxView setFrame:(CGRect){ 0, self.suggestedFriendsBarButton.frame.origin.y + self.suggestedFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeSuggested) ? 0 : ((self.searchBoxView.showFollowingLabel && self.searchBoxView.showSearchBox) ? 66 : (!self.searchBoxView.showSearchBox) ? 28 : 55) }];
+    [self.searchBoxView setFrame:(CGRect){ 0, self.suggestedFriendsBarButton.frame.origin.y + self.suggestedFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeSuggested || self.type == GTIOFriendsTableHeaderViewTypeFollowers || self.type == GTIOFriendsTableHeaderViewTypeFollowing) ? 0 : ((self.searchBoxView.showFollowingLabel && self.searchBoxView.showSearchBox) ? 66 : (!self.searchBoxView.showSearchBox) ? 28 : 55) }];
 }
 
 - (void)setSuggestedFriendsURL:(NSString *)suggestedFriendsURL

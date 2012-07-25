@@ -42,6 +42,7 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 
 @property (nonatomic, strong) GTIOUIButton *reloadButton;
+@property (nonatomic, strong) GTIOUIButton *findFriendsButton;
 
 @property (nonatomic, copy) NSString *paginationNextPageResourcePath;
 
@@ -49,7 +50,7 @@
 
 @implementation GTIOFriendsViewController
 
-@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, subTitleText = _subTitleText, userID = _userID, searchCommunityView = _searchCommunityView, searchBar = _searchBar, reloadButton = _reloadButton, paginationNextPageResourcePath = _paginationNextPageResourcePath;
+@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, subTitleText = _subTitleText, userID = _userID, searchCommunityView = _searchCommunityView, searchBar = _searchBar, reloadButton = _reloadButton, paginationNextPageResourcePath = _paginationNextPageResourcePath, findFriendsButton = _findFriendsButton;
 
 - (id)initWithGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)tableHeaderViewType
 {
@@ -105,6 +106,14 @@
     }];
     if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeSuggested) {
         [self setRightNavigationButton:self.reloadButton];
+    }
+    self.findFriendsButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFindFriends tapHandler:^(id sender) {
+        GTIOFriendsViewController *viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindFriends];
+        [viewController setUserID:[GTIOUser currentUser].userID];
+        [self pushViewController:viewController];
+    }];
+    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFollowing || self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFollowers) {
+        [self setRightNavigationButton:self.findFriendsButton];
     }
     
     CGFloat friendsTableHeaderViewHeight = [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType];
