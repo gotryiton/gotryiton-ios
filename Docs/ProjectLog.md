@@ -1,3 +1,33 @@
+***Wednesday, July 25th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Matt, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Release build by EOD today which includes, bug fixes, external routing, search tags, and Invite Friends.
+- GTIO - Working on assigned issues 
+
+**Status**
+- TT is working on pick a project screen. The screen is complete. When you select a product, it ties into the camera flow.
+- Scott got single image really close, he just has to write the jSEND.  This should be done in next hour.
+- Most issues left are UI tweaks and bugs, some air states, or spinner states.  
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott may be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of next week, but release August 20th.
+
+**General Notes**
+- Scott and Simon to color issues green once they are resolved.
+  
+---
+
 ***Tuesday, July 24th - Standup Notes***
 
 **Attendees**
