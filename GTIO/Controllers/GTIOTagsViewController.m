@@ -61,10 +61,10 @@ static CGFloat const kGTIOTableSectionHeaderHeight = 21.0f;
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"search tags" italic:YES];
     [self useTitleView:navTitleView];
     
-    GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBack tapHandler:^(id sender) {
+    GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
-    self.leftNavigationButton = backButton;
+    [self setLeftNavigationButton:backButton];
     
     // Search bar
     self.searchBoxView = [[GTIOTagsSearchBoxView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 45 } }];
