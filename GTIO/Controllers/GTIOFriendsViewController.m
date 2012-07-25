@@ -498,6 +498,9 @@
                             userWithOnlyAProfilePicture.icon = [NSURL URLWithString:icon.iconPath];
                             [self.suggestedFriends addObject:userWithOnlyAProfilePicture];
                         }
+                        if ([button.name isEqualToString:kGTIOFindFriendsButtonName]) {
+                            self.friendsTableHeaderView.findFriendsURL = button.action.destination;
+                        }
                         if ([button.name isEqualToString:kGTIOSuggestedFriendsButtonName]) {
                             self.friendsTableHeaderView.suggestedFriendsURL = button.action.destination;
                         }

@@ -22,7 +22,7 @@
 
 @implementation GTIOFindMyFriendsSearchBoxView
 
-@synthesize backgroundImageView = _backgroundImageView, followingFriendsLabel = _followingFriendsLabel, searchBar = _searchBar, searchBarDelegate = _searchBarDelegate, showFollowingLabel = _showFollowingLabel, searchBarPlaceholder = _searchBarPlaceholder, shouldDisplayFollowers = _shouldDisplayFollowers, subTitleText = _subTitleText;
+@synthesize backgroundImageView = _backgroundImageView, followingFriendsLabel = _followingFriendsLabel, searchBar = _searchBar, searchBarDelegate = _searchBarDelegate, showFollowingLabel = _showFollowingLabel, searchBarPlaceholder = _searchBarPlaceholder, shouldDisplayFollowers = _shouldDisplayFollowers, subTitleText = _subTitleText, showSearchBox = _showSearchBox;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -42,7 +42,9 @@
         _followingFriendsLabel.shadowRadius = 1.0f;
         [self addSubview:_followingFriendsLabel];
         
+
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+        	
         [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"search.field.background.png"] forState:UIControlStateNormal];
         [_searchBar setImage:[UIImage imageNamed:@"search.field.mag.icon.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
         [_searchBar setPositionAdjustment:UIOffsetMake(0.0, -1.0) forSearchBarIcon:UISearchBarIconSearch];
@@ -60,8 +62,10 @@
         }
 
         [self addSubview:_searchBar];
+        
         _showFollowingLabel = YES;
         _shouldDisplayFollowers = NO;
+        _showSearchBox = YES;
     }
     return self;
 }
@@ -70,7 +74,13 @@
 {
     [self.backgroundImageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
     [self.followingFriendsLabel setFrame:(CGRect){ 9, 6, self.bounds.size.width - 16, (self.showFollowingLabel) ? 15 : 0 }];
-    [self.searchBar setFrame:(CGRect){ 0, self.followingFriendsLabel.frame.origin.y + self.followingFriendsLabel.bounds.size.height + 7, self.bounds.size.width, 31 }];
+    if (self.showSearchBox){
+        [self.searchBar setFrame:(CGRect){ 0, self.followingFriendsLabel.frame.origin.y + self.followingFriendsLabel.bounds.size.height + 7, self.bounds.size.width, 31 }];
+    }
+    else {
+        [self.searchBar setFrame:CGRectZero];
+        self.searchBar.hidden = YES;
+    }
 }
 
 - (void)setSubTitleText:(NSString *)subTitleText
@@ -115,5 +125,9 @@
     [self setNeedsLayout];
 }
 
+- (void)setShowSearchBox:(BOOL)showSearchBox {
+    _showSearchBox = showSearchBox;
+    [self setNeedsLayout];
+}
 
 @end
