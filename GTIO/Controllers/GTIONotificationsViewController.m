@@ -89,6 +89,8 @@
     notificationForIndexPath.viewed = [NSNumber numberWithBool:YES];
     notificationCellForIndexPath.notification = notificationForIndexPath;
     
+    [[GTIONotificationManager sharedManager] save];
+    
     UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:notificationForIndexPath.action];
     [self.navigationController pushViewController:viewController animated:YES];
 }

@@ -16,6 +16,6 @@
 @property (nonatomic, strong) NSURL *icon;
 
 // local management
-@property (nonatomic, assign) NSNumber *viewed;
+@property (nonatomic, strong) NSNumber *viewed;
 
 @end

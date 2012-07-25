@@ -66,6 +66,10 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
  */
 - (void)updateCurrentUserWithFields:(NSDictionary*)updateFields withTrackingInformation:(NSDictionary*)trackingInfo andLoginHandler:(GTIOLoginHandler)loginHandler;
 
+/** UrbanAirship alias
+ */
+- (void)updateUrbanAirshipAliasWithUserID:(NSString *)userID;
+
 /** Sign up/in or connect with Facebook
  */
 - (void)signUpWithFacebookWithLoginHandler:(GTIOLoginHandler)loginHandler;

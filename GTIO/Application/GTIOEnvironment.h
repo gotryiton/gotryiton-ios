@@ -47,6 +47,17 @@ extern NSString * const kGTIOTrackingHeaderKey;
 extern NSString * const kGTIOLooksUpdated;
 extern NSString * const kGTIOPostFeedOpenLinkNotification;
 extern NSString * const kGTIODismissEllipsisPopOverViewNotification;
+extern NSString * const kGTIONotificationCountNofitication;
+
+// UrbanAirship Constants
+extern BOOL const kGTIOUAirshipAppStoreOrAdHocBuild;
+extern NSString * const kGTIOUAirshipDevelopmentAppKey;
+extern NSString * const kGTIOUAirshipDevelopmentAppSecret;
+extern NSString * const kGTIOUAirshipProductionAppKey;
+extern NSString * const kGTIOUAirshipProductionAppSecret;
+
+// Push Notification Device Token
+extern NSString * const kGTIOPushNotificationDeviceTokenUserDefaults;
 
 // Notification Dictionary Constants
 extern NSString * const kGTIOURL;

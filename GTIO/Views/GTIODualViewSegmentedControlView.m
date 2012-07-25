@@ -36,6 +36,7 @@
         [self addSubview:self.dualViewSegmentedControl];
         
         self.leftPostsView = [[GTIOPostMasonryView alloc] initWithGTIOPostType:leftControlPostsType];
+        self.leftPostsView.hidden = NO;
         [self addSubview:self.leftPostsView];
         self.rightPostsView = [[GTIOPostMasonryView alloc] initWithGTIOPostType:rightControlPostsType];
         self.rightPostsView.hidden = YES;

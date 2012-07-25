@@ -17,18 +17,18 @@
 @implementation GTIOMasonGridItem
 
 @synthesize image = _image, delegate = _delegate, imageDownloader = _imageDownloader;
-@synthesize post = _post;
+@synthesize object = _object;
 
-+ (id)itemWithPost:(GTIOPost *)post
++ (id)itemWithObject:(id<GTIOGridItem>)object
 {
     GTIOMasonGridItem *item = [[GTIOMasonGridItem alloc] init];
-    item.post = post;
+    item.object = object;
     return item;
 }
 
 - (void)downloadImage
 {
-    self.imageDownloader = [SDWebImageDownloader downloaderWithURL:self.post.photo.smallThumbnailURL delegate:self];
+    self.imageDownloader = [SDWebImageDownloader downloaderWithURL:self.object.photo.smallThumbnailURL delegate:self];
 }
 
 - (void)cancelImageDownload

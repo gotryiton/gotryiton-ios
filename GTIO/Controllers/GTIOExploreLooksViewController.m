@@ -9,7 +9,6 @@
 #import "GTIOExploreLooksViewController.h"
 
 #import <RestKit/RestKit.h>
-#import "SSPullToRefresh.h"
 
 #import "GTIOPagination.h"
 #import "GTIOTab.h"
@@ -19,14 +18,14 @@
 #import "GTIONavigationNotificationTitleView.h"
 #import "GTIOMasonGridView.h"
 #import "GTIOPostHeaderView.h"
-#import "GTIOPullToRefreshContentView.h"
 
-#import "GTIOFeedViewController.h"
+#import "GTIONotificationsViewController.h"
+#import "GTIORouter.h"
 
 static CGFloat const kGTIOMasonGridPadding = 2.0f;
 static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
-@interface GTIOExploreLooksViewController () <SSPullToRefreshViewDelegate>
+@interface GTIOExploreLooksViewController () <SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) GTIOLooksSegmentedControlView *segmentedControlView;
 
@@ -35,9 +34,6 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 @property (nonatomic, strong) GTIOPagination *pagination;
 
 @property (nonatomic, strong) GTIOMasonGridView *masonGridView;
-
-@property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
-@property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
 
 @property (nonatomic, strong) UIImageView *emptyImageView;
 
@@ -49,7 +45,6 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 @synthesize tabs = _tabs, posts = _posts, pagination = _pagination;
 @synthesize resourcePath = _resourcePath;
 @synthesize masonGridView = _masonGridView;
-@synthesize pullToRefreshView = _pullToRefreshView, pullToRefreshContentView = _pullToRefreshContentView;
 @synthesize emptyImageView = _emptyImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -68,16 +63,15 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 {
     [super viewDidLoad];
     
-    CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-    UIImageView *statusBarBackgroundImageView = [[UIImageView alloc] initWithFrame:(CGRect){ { 0, -(statusBarHeight + self.navigationController.navigationBar.frame.size.height) }, { self.view.frame.size.width, statusBarHeight } }];
-    [statusBarBackgroundImageView setImage:[UIImage imageNamed:@"status-bar-bg.png"]];
-    [self.view addSubview:statusBarBackgroundImageView];
-    
-    GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:1] tapHandler:nil];
+    __block typeof(self) blockSelf = self;
+    GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
+        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
+        [blockSelf presentModalViewController:navigationController animated:YES];
+    }];
     [self useTitleView:navTitleView];
     
     // Segmented Control
-    __block typeof(self) blockSelf = self;
     self.segmentedControlView = [[GTIOLooksSegmentedControlView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 50 } }];
     [self.segmentedControlView setSegmentedControlValueChangedHandler:^(GTIOTab *tab) {
         [blockSelf loadDataWithResourcePath:tab.endpoint];
@@ -90,8 +84,17 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [self.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.masonGridView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.masonGridView setGridItemTapHandler:^(GTIOMasonGridItem *gridItem) {
-        GTIOFeedViewController *feedViewController = [[GTIOFeedViewController alloc] initWithPost:gridItem.post];
-        [self.navigationController pushViewController:feedViewController animated:YES];
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURLString:gridItem.object.action.destination];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }];
+    [self.masonGridView attachPullToRefreshAndPullToLoadMore];
+    [self.masonGridView.pullToRefreshView setExpandedHeight:60.0f];
+    [self.masonGridView.pullToLoadMoreView setExpandedHeight:0.0f];
+    [self.masonGridView setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD) {
+        [blockSelf loadData];
+    }];
+    [self.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
+        [blockSelf loadPagination];
     }];
     [self.view addSubview:self.masonGridView];
     
@@ -99,10 +102,6 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     UIImageView *topAccentLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accent-line.png"]];
     [topAccentLine setFrame:(CGRect){ { self.masonGridView.frame.size.width - kGTIOAccentLinePixelsFromRightSizeOfScreen, self.masonGridView.frame.origin.y }, { topAccentLine.image.size.width, self.masonGridView.frame.size.height } }];
     [self.view addSubview:topAccentLine];
-    
-    // Pull to refresh
-    self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.masonGridView delegate:self];
-    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.masonGridView.frame.size.width, 125 } }];
     
     [self.view bringSubviewToFront:self.masonGridView];
     
@@ -148,12 +147,12 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
                 }
             }
             
-            [self.pullToRefreshView finishLoading];
+            [self.masonGridView.pullToRefreshView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.segmentedControlView setTabs:self.tabs];
         };
         loader.onDidFailWithError = ^(NSError *error) {
-            [self.pullToRefreshView finishLoading];
+            [self.masonGridView.pullToRefreshView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"Failed to load /posts/explore. error: %@", [error localizedDescription]);
         };
@@ -177,10 +176,10 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
             [self.masonGridView setPosts:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
-            [self.pullToRefreshView finishLoading];
+            [self.masonGridView.pullToRefreshView finishLoading];
         };
         loader.onDidFailWithError = ^(NSError *error) {
-            [self.pullToRefreshView finishLoading];
+            [self.masonGridView.pullToRefreshView finishLoading];
             NSLog(@"Failed to load %@. error: %@", self.resourcePath, [error localizedDescription]);
         };
     }];
@@ -213,20 +212,48 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
             [self.segmentedControlView setTabs:self.tabs];
             [self.masonGridView setPosts:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
-            [self.pullToRefreshView finishLoading];
+            [self.masonGridView.pullToRefreshView finishLoading];
         };
         loader.onDidFailWithError = ^(NSError *error) {
-            [self.pullToRefreshView finishLoading];
+            [self.masonGridView.pullToRefreshView finishLoading];
             NSLog(@"Failed to load %@. error: %@", self.resourcePath, [error localizedDescription]);
         };
     }];
 }
 
-#pragma mark - SSPullToRefreshDelegate Methods
-
-- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
+- (void)loadPagination
 {
-    [self loadData];
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [self.masonGridView.pullToLoadMoreView finishLoading];
+            self.pagination = nil;
+            
+            NSMutableArray *paginationPosts = [NSMutableArray array];
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOPost class]]) {
+                    [paginationPosts addObject:object];
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    self.pagination = object;
+                }
+            }
+            
+            // Only add posts that are not already on mason grid
+            [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                GTIOPost *post = obj;
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                if ([foundExistingPosts count] == 0) {
+                    [self.masonGridView addPost:post postType:GTIOPostTypeNone];
+                    [self.posts addObject:post];
+                }
+            }];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [self.masonGridView.pullToLoadMoreView finishLoading];
+            NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
+        };
+    }];
 }
 
 #pragma mark - Empty State

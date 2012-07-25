@@ -25,7 +25,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"description-box.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 4.0, 4.0, 6.0, 4.0 }]];
-        [self.backgroundView setFrame:(CGRect){ 6, 0, self.bounds.size.width- (6 * 2), self.bounds.size.height + 50 }];
+        [self.backgroundView setFrame:(CGRect){ 6, 0, self.bounds.size.width- (6 * 2), self.bounds.size.height }];
         [self addSubview:self.backgroundView];
         
         self.textView = [[GTIOPostAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 7, self.backgroundView.bounds.size.width - (12 * 2), self.backgroundView.bounds.size.height  } outerBox:(CGRect){0, 4, self.frame.size.width, self.frame.size.height } title:title icon:icon];

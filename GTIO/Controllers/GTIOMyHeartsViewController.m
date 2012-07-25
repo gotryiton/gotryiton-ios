@@ -7,9 +7,14 @@
 //
 
 #import "GTIOMyHeartsViewController.h"
+
+#import "GTIOUserProfile.h"
+#import "GTIOProduct.h"
+
 #import "GTIOProgressHUD.h"
 #import "GTIODualViewSegmentedControlView.h"
-#import "GTIOUserProfile.h"
+
+#import "GTIORouter.h"
 
 @interface GTIOMyHeartsViewController ()
 
@@ -18,11 +23,15 @@
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) NSMutableArray *products;
 
+@property (nonatomic, strong) GTIOPagination *heartedPostsPagination;
+@property (nonatomic, strong) GTIOPagination *heartedProductsPagination;
+
 @end
 
 @implementation GTIOMyHeartsViewController
 
 @synthesize segmentedControl = _segmentedControl, posts = _posts, products = _products;
+@synthesize heartedPostsPagination = _heartedPostsPagination, heartedProductsPagination = _heartedProductsPagination;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,34 +64,179 @@
     self.posts = [NSMutableArray array];
     self.products = [NSMutableArray array];
     
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/posts/hearted-by-user/%@", [GTIOUser currentUser].userID] usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIOPost class]]) {
-                    [self.posts addObject:object];
-                }
-            }
-            [self.segmentedControl setPosts:self.posts GTIOPostType:GTIOPostTypeHeart userProfile:[GTIOUser currentUserProfile]];
-            [self.segmentedControl setPosts:self.products GTIOPostType:GTIOPostTypeHeartedProducts userProfile:[GTIOUser currentUserProfile]];
-        };
-        loader.onDidFailWithError = ^(NSError *error) {
-            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            NSLog(@"%@", [error localizedDescription]);
-        };
+    __block GTIOMyHeartsViewController *blockSelf = self;
+    [self.segmentedControl.leftPostsView.masonGridView setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD) {
+        [blockSelf loadHeartedPostsWithProgressHUD:showProgressHUD];
     }];
+    [self.segmentedControl.leftPostsView.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
+        [blockSelf loadHeartedPostsPagination];
+    }];
+    [self.segmentedControl.leftPostsView.masonGridView setGridItemTapHandler:^(GTIOMasonGridItem *masonGridItem) {
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURLString:masonGridItem.object.action.destination];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }];
+    [self.segmentedControl.rightPostsView.masonGridView setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD) {
+        [blockSelf loadHeartedProductsWithProgressHUD:showProgressHUD];
+    }];
+    [self.segmentedControl.rightPostsView.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
+        [blockSelf loadHeartedProductsPagination];
+    }];
+    [self.segmentedControl.rightPostsView.masonGridView setGridItemTapHandler:^(GTIOMasonGridItem *masonGridItem) {
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURLString:masonGridItem.object.action.destination];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }];
+    
+    // Initial load
+    if (self.segmentedControl.leftPostsView.masonGridView.pullToRefreshHandler) {
+        self.segmentedControl.leftPostsView.masonGridView.pullToRefreshHandler(self.segmentedControl.leftPostsView.masonGridView, self.segmentedControl.leftPostsView.masonGridView.pullToRefreshView, YES);
+    }
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    self.segmentedControl = nil;
+    self.posts = nil;
+    self.products = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Hearted Posts
+
+- (void)loadHeartedPostsWithProgressHUD:(BOOL)showProgressHUD
+{
+    if (showProgressHUD) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/posts/hearted-by-user/%@", [GTIOUser currentUser].userID] usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [self.segmentedControl.leftPostsView.masonGridView.pullToRefreshView finishLoading];
+            
+            [self.posts removeAllObjects];
+            
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOPost class]]) {
+                    [self.posts addObject:object];
+                } else if ([object isMemberOfClass:[GTIOPagination class]]) {
+                    self.heartedPostsPagination = object;
+                }
+            }
+            [self.segmentedControl setPosts:self.posts GTIOPostType:GTIOPostTypeHeart userProfile:[GTIOUser currentUserProfile]];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [self.segmentedControl.leftPostsView.masonGridView.pullToRefreshView finishLoading];
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
+- (void)loadHeartedPostsPagination
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.heartedPostsPagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [self.segmentedControl.leftPostsView.masonGridView.pullToLoadMoreView finishLoading];
+            self.heartedPostsPagination = nil;
+            
+            NSMutableArray *paginationHeartedPosts = [NSMutableArray array];
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOPost class]]) {
+                    [paginationHeartedPosts addObject:object];
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    self.heartedPostsPagination = object;
+                }
+            }
+            
+            // Only add posts that are not already on mason grid
+            [paginationHeartedPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                GTIOPost *post = obj;
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                if ([foundExistingPosts count] == 0) {
+                    [self.segmentedControl.leftPostsView.masonGridView addPost:post postType:GTIOPostTypeNone];
+                    [self.posts addObject:post];
+                }
+            }];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [self.segmentedControl.leftPostsView.masonGridView.pullToLoadMoreView finishLoading];
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
+#pragma mark - Hearted Products
+
+- (void)loadHeartedProductsWithProgressHUD:(BOOL)showProgressHUD
+{
+    if (showProgressHUD) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/products/hearted-by-user/%@", [GTIOUser currentUser].userID] usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [self.segmentedControl.rightPostsView.masonGridView.pullToRefreshView finishLoading];
+            
+            [self.products removeAllObjects];
+            
+            for (id object in objects) {
+                if ([object isMemberOfClass:[GTIOProduct class]]) {
+                    [self.products addObject:object];
+                } else if ([object isMemberOfClass:[GTIOPagination class]]) {
+                    self.heartedProductsPagination = object;
+                }
+            }
+            [self.segmentedControl setPosts:self.products GTIOPostType:GTIOPostTypeHeartedProducts userProfile:[GTIOUser currentUserProfile]];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [self.segmentedControl.rightPostsView.masonGridView.pullToRefreshView finishLoading];
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
+- (void)loadHeartedProductsPagination
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.heartedProductsPagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [self.segmentedControl.rightPostsView.masonGridView.pullToLoadMoreView finishLoading];
+            self.heartedProductsPagination = nil;
+            
+            NSMutableArray *paginationHeartedProducts = [NSMutableArray array];
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOProduct class]]) {
+                    [paginationHeartedProducts addObject:object];
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    self.heartedProductsPagination = object;
+                }
+            }
+            
+            // Only add posts that are not already on mason grid
+            [paginationHeartedProducts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                GTIOPost *post = obj;
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                if ([foundExistingPosts count] == 0) {
+                    [self.segmentedControl.rightPostsView.masonGridView addPost:post postType:GTIOPostTypeNone];
+                    [self.products addObject:post];
+                }
+            }];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [self.segmentedControl.rightPostsView.masonGridView.pullToLoadMoreView finishLoading];
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
 }
 
 @end

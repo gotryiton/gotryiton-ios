@@ -7,16 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "GTIOPhoto.h"
 
-@interface GTIOProduct : NSObject
+#import "GTIOGridItem.h"
+
+@interface GTIOProduct : NSObject <GTIOGridItem>
 
 @property (nonatomic, strong) NSNumber *productID;
 @property (nonatomic, copy) NSString *productName;
 @property (nonatomic, strong) NSURL *buyURL;
 @property (nonatomic, copy) NSString *prettyPrice;
-@property (nonatomic, strong) GTIOPhoto *photo;
 @property (nonatomic, copy) NSString *brands;
+
+// Relationships
+@property (nonatomic, strong) GTIOButtonAction *action;
+@property (nonatomic, strong) GTIOPhoto *photo;
 @property (nonatomic, strong) NSArray *buttons;
 
 // local state attributes
