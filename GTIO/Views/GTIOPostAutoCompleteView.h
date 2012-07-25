@@ -19,7 +19,6 @@ typedef void(^GTIOTextViewDidBecomeActiveHandler)(GTIOPostAutoCompleteView *desc
 @property (nonatomic, copy) GTIOTextViewDidEndHandler textViewDidEndHandler;
 @property (nonatomic, copy) GTIOTextViewWillBecomeActiveHandler textViewWillBecomeActiveHandler;
 @property (nonatomic, copy) GTIOTextViewDidBecomeActiveHandler textViewDidBecomeActiveHandler;
-@property (nonatomic, assign) BOOL forceBecomeFirstResponder;
 
 @property (nonatomic, strong) UIView *placeHolderLabelView;
 

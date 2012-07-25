@@ -14,6 +14,6 @@ typedef void(^GTIONavTitleTapHandler)();
 
 @property (nonatomic, copy) GTIONavTitleTapHandler tapHandler;
 
-- (id)initWithNotifcationCount:(NSNumber *)notificationCount tapHandler:(GTIONavTitleTapHandler)tapHandler;
+- (id)initWithTapHandler:(GTIONavTitleTapHandler)tapHandler;
 
 @end

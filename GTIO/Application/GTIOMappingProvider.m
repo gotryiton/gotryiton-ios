@@ -89,6 +89,7 @@
         [productMapping mapKeyPath:@"name" toAttribute:@"productName"];
         [productMapping mapKeyPath:@"buy_url" toAttribute:@"buyURL"];
         [productMapping mapKeyPath:@"pretty_price" toAttribute:@"prettyPrice"];
+        [productMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [productMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
         [productMapping mapKeyPath:@"brands" toAttribute:@"brands"];
         [productMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
@@ -274,12 +275,13 @@
         [postMapping mapKeyPath:@"created_when" toAttribute:@"createdWhen"];
         [postMapping mapKeyPath:@"star" toAttribute:@"stared"];
         [postMapping mapKeyPath:@"who_hearted" toAttribute:@"whoHearted"];
+        [postMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [postMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"dot_options.buttons" toRelationship:@"dotOptionsButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"brands.buttons" toRelationship:@"brandsButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
         [postMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
-        [postMapping mapRelationship:@"user" withMapping:userMapping];
+        [postMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping];
         [self setMapping:postMapping forKeyPath:@"post"];
         [self setMapping:postMapping forKeyPath:@"posts"];
         [self setMapping:postMapping forKeyPath:@"feed"];

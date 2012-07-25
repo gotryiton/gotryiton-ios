@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "GTIOUser.h"
 #import "GTIOPhoto.h"
 #import "GTIOPagination.h"
+#import "GTIOGridItem.h"
 
 typedef enum GTIOPostType {
     GTIOPostTypeNone = 0,
@@ -18,7 +20,7 @@ typedef enum GTIOPostType {
     GTIOPostTypeHeartedProducts
 } GTIOPostType;
 
-@interface GTIOPost : NSObject
+@interface GTIOPost : NSObject <GTIOGridItem>
 
 // Fields
 @property (nonatomic, copy) NSString *postID;
@@ -29,6 +31,7 @@ typedef enum GTIOPostType {
 @property (nonatomic, strong) NSString *whoHearted;
 
 // Relationships
+@property (nonatomic, strong) GTIOButtonAction *action;
 @property (nonatomic, strong) GTIOUser *user;
 @property (nonatomic, strong) GTIOPhoto *photo;
 @property (nonatomic, strong) NSArray *dotOptionsButtons;

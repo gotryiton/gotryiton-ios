@@ -31,14 +31,42 @@ static double const kGTIOTopPadding = 9.0;
     if (self) {
         self.clipsToBounds = YES;
         _postType = postType;
-        _masonGridView = [[GTIOMasonGridView alloc] initWithFrame:CGRectZero];
+        
+        _masonGridView = [[GTIOMasonGridView alloc] initWithFrame:self.bounds];
+        [self.masonGridView attachPullToRefreshAndPullToLoadMore];
+        [self.masonGridView.pullToRefreshView setExpandedHeight:60.0f];
+        [self.masonGridView.pullToLoadMoreView setExpandedHeight:0.0f];
+        [((GTIOPullToLoadMoreContentView *)self.masonGridView.pullToLoadMoreView.contentView) setShouldShowTopAccentLine:NO];
     }
     return self;
 }
 
+#pragma mark - Properties
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    [self.masonGridView setFrame:self.bounds];
+    [self.emptyStateView setFrame:(CGRect){ 60, 90, self.emptyStateView.bounds.size }];
+}
+
+- (void)setHidden:(BOOL)hidden
+{
+    [super setHidden:hidden];
+    
+    // Initial load on segment change
+    if (!hidden && [self.posts count] == 0) {
+        if (self.masonGridView.pullToRefreshHandler) {
+            self.masonGridView.pullToRefreshHandler(self.masonGridView, self.masonGridView.pullToRefreshView, YES);
+        }
+    }
+}
+
+#pragma mark - Data
+
 - (void)setPosts:(NSArray *)posts userProfile:(GTIOUserProfile *)userProfile
 {
-    _posts = posts;
+    _posts = [posts mutableCopy];
     self.userProfile = userProfile;
     
     [self.emptyStateView removeFromSuperview];
@@ -68,13 +96,6 @@ static double const kGTIOTopPadding = 9.0;
         GTIOPostMasonryEmptyStateView *notFollowing = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:notFollowingTitle userName:userName locked:YES];
         [self refreshAndCenterGTIOEmptyStateView:notFollowing];
     }
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    [self.emptyStateView setFrame:(CGRect){ 60, 90, self.emptyStateView.bounds.size }];
-    [self.masonGridView setFrame:self.bounds];
 }
 
 - (void)refreshAndCenterGTIOEmptyStateView:(GTIOPostMasonryEmptyStateView *)emptyStateView

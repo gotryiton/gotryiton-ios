@@ -9,6 +9,7 @@
 #import "GTIOFeedViewController.h"
 
 #import <RestKit/RestKit.h>
+#import "SSPullToRefresh.h"
 
 #import "GTIOPostManager.h"
 #import "GTIORouter.h"
@@ -32,9 +33,12 @@
 #import "GTIOShoppingListViewController.h"
 #import "GTIOProductNativeListViewController.h"
 
+#import "SSPullToLoadMoreView.h"
+#import "GTIOPullToLoadMoreContentView.h"
+
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
-@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
@@ -51,7 +55,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @property (nonatomic, strong) NSMutableDictionary *onScreenHeaderViews;
 
 @property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
-@property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
+@property (nonatomic, strong) SSPullToLoadMoreView *pullToLoadMoreView;
 
 @property (nonatomic, copy) NSString *postID;
 @property (nonatomic, copy) NSString *postsResourcePath;
@@ -65,9 +69,10 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @synthesize tableView = _tableView, navBarView = _navBarView;
 @synthesize addNavToHeaderOffsetXOrigin = _addNavToHeaderOffsetXOrigin, removeNavToHeaderOffsetXOrigin = _removeNavToHeaderOffsetXOrigin;
 @synthesize posts = _posts, pagination = _pagination;
-@synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshContentView = _pullToRefreshContentView, pullToRefreshView = _pullToRefreshView;
+@synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshView = _pullToRefreshView;
 @synthesize uploadView = _uploadView, postUpload = _postUpload, postID = _postID, postsResourcePath = _postsResourcePath;
 @synthesize post = _post;
+@synthesize pullToLoadMoreView = _pullToLoadMoreView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -157,11 +162,20 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [self.view addSubview:self.tableView];
     
     self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.tableView delegate:self];
-    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
+    [self.pullToRefreshView setExpandedHeight:60.0f];
+    GTIOPullToRefreshContentView *pullToRefreshContentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.bounds.size.width, 0 } }];
+    [pullToRefreshContentView setScrollInsets:self.tableView.scrollIndicatorInsets];
+    self.pullToRefreshView.contentView = pullToRefreshContentView;
 
     self.uploadView = [[GTIOPostUploadView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight } }];
     
+    self.pullToLoadMoreView = [[SSPullToLoadMoreView alloc] initWithScrollView:self.tableView delegate:self];
+    [self.pullToLoadMoreView setExpandedHeight:0.0f];
+    self.pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.frame.size.width, 0.0f } }];
+    
     [self.pullToRefreshView startLoading];
+    
+    [self.tableView bringSubviewToFront:self.navBarView];
 }
 
 - (void)viewDidUnload
@@ -181,24 +195,6 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-#pragma mark - SSPullToRefreshDelegate Methods
-
-- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
-{
-    if (self.post) {
-        // Inited w/ post. No need to hit endpoint
-        [self.tableView reloadData];
-        [self.pullToRefreshView finishLoading];
-    } else {
-        if (self.postID) {
-            self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
-        } else {
-            self.postsResourcePath = @"/posts/feed";
-        }
-        [self loadFeed];
-    }
 }
 
 #pragma mark - Load Data
@@ -241,6 +237,70 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
             NSLog(@"Error: %@", [error localizedDescription]);
         };
     }];
+}
+
+- (void)loadPagination
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [self.pullToLoadMoreView finishLoading];
+            self.pagination = nil;
+            
+            NSMutableArray *paginationPosts = [NSMutableArray array];
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOPost class]]) {
+                    [paginationPosts addObject:object];
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    self.pagination = object;
+                }
+            }
+            
+            // Only add posts that are not already on mason grid
+            NSMutableArray *newPostsIndexPaths = [NSMutableArray array];
+            NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+            [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                GTIOPost *post = obj;
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                if ([foundExistingPosts count] == 0) {
+                    [self.posts addObject:post];
+                    [newPostsIndexPaths addObject:[NSIndexPath indexPathForRow:0 inSection:[self.posts count] - 1]];
+                    [indexSet addIndex:[self.posts count] - 1];
+                }
+            }];
+            [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationBottom];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [self.pullToLoadMoreView finishLoading];
+            NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
+        };
+    }];
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
+{
+    if (self.post) {
+        // Inited w/ post. No need to hit endpoint
+        [self.tableView reloadData];
+        [self.pullToRefreshView finishLoading];
+    } else {
+        if (self.postID) {
+            self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
+        } else {
+            self.postsResourcePath = @"/posts/feed";
+        }
+        [self loadFeed];
+    }
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
+{
+    [self loadPagination];
 }
 
 #pragma mark - UITableViewDelegate
@@ -326,7 +386,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     if (scrollViewTopPoint.y < 0 && self.tableView.tableHeaderView == self.navBarView) {
         [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:self.tableView.tableHeaderView.bounds]];
         [self.view addSubview:self.navBarView];
-    } else if (scrollViewTopPoint.y >= 0 && self.tableView.tableHeaderView != self.navBarView) {
+    } else if (scrollViewTopPoint.y > 0 && self.tableView.tableHeaderView != self.navBarView) {
         [self.tableView setTableHeaderView:self.navBarView];
     }
 }
@@ -338,31 +398,33 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     // Section Header
     scrollViewTopPoint.y += self.tableView.sectionHeaderHeight; // Offset by first header
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollViewTopPoint];
-    GTIOPostHeaderView *currentHeaderView = [self.onScreenHeaderViews objectForKey:[NSString stringWithFormat:@"%i", indexPath.section]];
-    
-    CGRect rectForView = [self.tableView rectForHeaderInSection:indexPath.section];
-    NSArray *onScreenViewKeys = [self.onScreenHeaderViews allKeys];
-    [onScreenViewKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
-        GTIOPostHeaderView *headerView = [self.onScreenHeaderViews objectForKey:key];
-        if (headerView == currentHeaderView &&
-            rectForView.origin.y + self.tableView.sectionHeaderHeight < scrollViewTopPoint.y) {
-            
-            [headerView setShowingShadow:YES];
-            [headerView setClearBackground:NO];
-        } else if (headerView == currentHeaderView) {
-            [headerView setShowingShadow:NO];
-            [headerView setClearBackground:YES];
-        } else {
-            [headerView setShowingShadow:NO];
-            
-            // Don't show clear background for cells above current cell
-            if (rectForView.origin.y + self.tableView.sectionHeaderHeight > scrollViewTopPoint.y) {
+    if (indexPath) {
+        GTIOPostHeaderView *currentHeaderView = [self.onScreenHeaderViews objectForKey:[NSString stringWithFormat:@"%i", indexPath.section]];
+        
+        CGRect rectForView = [self.tableView rectForHeaderInSection:indexPath.section];
+        NSArray *onScreenViewKeys = [self.onScreenHeaderViews allKeys];
+        [onScreenViewKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
+            GTIOPostHeaderView *headerView = [self.onScreenHeaderViews objectForKey:key];
+            if (headerView == currentHeaderView &&
+                rectForView.origin.y + self.tableView.sectionHeaderHeight < scrollViewTopPoint.y) {
+                
+                [headerView setShowingShadow:YES];
                 [headerView setClearBackground:NO];
-            } else {
+            } else if (headerView == currentHeaderView) {
+                [headerView setShowingShadow:NO];
                 [headerView setClearBackground:YES];
+            } else {
+                [headerView setShowingShadow:NO];
+                
+                // Don't show clear background for cells above current cell
+                if (rectForView.origin.y + self.tableView.sectionHeaderHeight > scrollViewTopPoint.y) {
+                    [headerView setClearBackground:NO];
+                } else {
+                    [headerView setClearBackground:YES];
+                }
             }
-        }
-    }];
+        }];
+    }
 }
 
 #pragma mark - Header View Dequeue

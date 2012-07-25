@@ -60,12 +60,20 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 
 @synthesize product = _product, productID = _productID, productImageView = _productImageView, fullScreenImageViewer = _fullScreenImageViewer, whiteBackground = _whiteBackground, heartControl = _heartControl, bottomInformationBackground = _bottomInformationBackground, productInformationBox = _productInformationBox, facebookShareButton = _facebookShareButton, twitterShareButton = _twitterShareButton, postThisButton = _postThisButton, shoppingListButton = _shoppingListButton;
 
-- (id)initWithProductID:(NSNumber *)productID
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _productID = productID;
         self.hidesBottomBarWhenPushed = YES;
+    }
+    return self;
+}
+
+- (id)initWithProductID:(NSNumber *)productID
+{
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        _productID = productID;
     }
     return self;
 }
@@ -116,7 +124,9 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     self.postThisButton.alpha = 0.0;
     [self.view addSubview:self.postThisButton];
     
-    [self refreshProduct];
+    if (self.productID) {
+        [self refreshProduct];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -21,6 +21,8 @@
 #import "GTIOButton.h"
 #import "GTIOProgressHUD.h"
 
+#import "GTIONotificationsViewController.h"
+
 static NSString * const kGTIOCustomHeartsCell = @"custom_cell_hearts";
 static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 
@@ -107,8 +109,10 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 {
     [super viewWillAppear:animated];
     
-    GTIONavigationNotificationTitleView *titleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:1] tapHandler:^{
-        NSLog(@"tapped notification bubble");
+    GTIONavigationNotificationTitleView *titleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
+        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
+        [self presentModalViewController:navigationController animated:YES];
     }];
     [self useTitleView:titleView];
 }

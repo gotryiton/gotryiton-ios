@@ -22,10 +22,10 @@
 @interface GTIOMasonGridItem : NSObject <SDWebImageDownloaderDelegate>
 
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) GTIOPost *post;
+@property (nonatomic, strong) id<GTIOGridItem> object;
 @property (nonatomic, weak) id<GTIOMasonGridItemDelegate>delegate;
 
-+ (id)itemWithPost:(GTIOPost *)post;
++ (id)itemWithObject:(id<GTIOGridItem>)object;
 - (void)downloadImage;
 - (void)cancelImageDownload;
 

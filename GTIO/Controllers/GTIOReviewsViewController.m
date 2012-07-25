@@ -60,8 +60,9 @@
     self.leftNavigationButton = backButton;
     
     self.tableViewHeader = [[GTIOReviewsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 87 }];
-    self.tableViewHeader.commentButtonTapHandler = ^(id sender) {        
-        [self addComment];
+    __block typeof(self) blockSelf = self;
+    self.tableViewHeader.commentButtonTapHandler = ^(id sender) {
+        [blockSelf addComment];
     };
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];

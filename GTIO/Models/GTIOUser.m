@@ -10,6 +10,8 @@
 #import "GTIOConfigManager.h"
 #import "GTIOAuth.h"
 
+#import "UAirship.h"
+
 @interface GTIOUser ()
 
 @property (nonatomic, copy) GTIOLoginHandler loginHandler;
@@ -71,6 +73,7 @@
             // Populate self with returned User values
             if (user) {
                 [self populateWithUser:user];
+                [self updateUrbanAirshipAliasWithUserID:user.userID];
             }
             
             if (self.loginHandler) {
@@ -162,6 +165,7 @@
             // Populate self with returned User values
             if (user) {
                 [self populateWithUser:user];
+                [self updateUrbanAirshipAliasWithUserID:user.userID];
             }
             
             if (self.loginHandler) {
@@ -270,6 +274,7 @@
             // Populate self with returned User values
             if (user) {
                 [self populateWithUser:user];
+                [self updateUrbanAirshipAliasWithUserID:user.userID];
             }
             
             if (self.loginHandler) {
@@ -385,6 +390,19 @@
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
+}
+
+#pragma mark - Push Notifications
+
+- (void)updateUrbanAirshipAliasWithUserID:(NSString *)userID
+{
+    NSData *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:kGTIOPushNotificationDeviceTokenUserDefaults];
+    
+    if (deviceToken && [userID length] > 0) {
+        [[UAirship shared] registerDeviceToken:deviceToken withAlias:userID];
+    } else {
+        NSLog(@"No device token or user id to register for push");
+    }
 }
 
 @end
