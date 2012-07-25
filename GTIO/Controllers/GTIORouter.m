@@ -116,9 +116,6 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostSignOut]) {
         viewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
-    } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedPost]) {
-        // TODO: handle this
-        NSLog(@"Still need to handle opening who hearted post");
     } else if ([urlHost isEqualToString:kGTIOURLHostFindFriends]) {
         viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindMyFriends];
     } else if ([urlHost isEqualToString:kGTIOURLHostUser]) {
