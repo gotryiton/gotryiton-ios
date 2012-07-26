@@ -74,13 +74,19 @@
     __block BOOL blockReturningUser = self.returningUser;
     
     GTIOLoginHandler loginHandler = ^(GTIOUser *user, NSError *error) {
-        [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+        if ([error.domain isEqualToString:JREngageErrorDomain] && error.code == JRAuthenticationCanceledError) {
+            // Canceled
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+        } else {
+            [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
+        }
     };
     
     if (_returningUser) {
         self.facebookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFacebookSignIn];
         [self.facebookButton setFrame:(CGRect){ {(self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 80 }, self.facebookButton.frame.size }];
         [self.facebookButton setTapHandler:^(id sender) {
+            [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
             [[GTIOUser currentUser] signInWithFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
                 [blockSelf directUserToAppropriateScreenAfterSignIn:user WithError:error];
             }];
@@ -93,6 +99,7 @@
     self.aolButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeAOL];
     [self.aolButton setFrame:(CGRect){ { (self.view.frame.size.width - self.aolButton.frame.size.width) / 2, signinOptionsTableYPos }, self.aolButton.frame.size }];
     [self.aolButton setTapHandler:^(id sender) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         if (blockReturningUser) {
             [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderAol WithLoginHandler:loginHandler];
         } else {
@@ -104,6 +111,7 @@
     self.googleButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeGoogle];
     [self.googleButton setFrame:(CGRect){ {(self.view.frame.size.width - self.googleButton.frame.size.width) / 2, self.aolButton.frame.origin.y + self.aolButton.frame.size.height }, self.googleButton.frame.size }];
     [self.googleButton setTapHandler:^(id sender) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         if (blockReturningUser) {
             [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderGoogle WithLoginHandler:loginHandler];
         } else {
@@ -115,6 +123,7 @@
     self.twitterButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeTwitter];
     [self.twitterButton setFrame:(CGRect){ {(self.view.frame.size.width - self.twitterButton.frame.size.width) / 2, self.googleButton.frame.origin.y + self.googleButton.frame.size.height }, self.twitterButton.frame.size }];
     [self.twitterButton setTapHandler:^(id sender) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         if (blockReturningUser) {
             [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderTwitter WithLoginHandler:loginHandler];
         } else {
@@ -126,6 +135,7 @@
     self.yahooButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeYahoo];
     [self.yahooButton setFrame:(CGRect){ {(self.view.frame.size.width - self.yahooButton.frame.size.width) / 2, self.twitterButton.frame.origin.y + self.twitterButton.frame.size.height }, self.yahooButton.frame.size }];
     [self.yahooButton setTapHandler:^(id sender) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         if (blockReturningUser) {
             [[GTIOUser currentUser] signInWithJanrainForProvider:kGTIOJanRainProviderYahoo WithLoginHandler:loginHandler];
         } else {
@@ -166,6 +176,7 @@
 
 - (void)directUserToAppropriateScreenAfterSignIn:(GTIOUser *)user WithError:(NSError *)error 
 {
+    [GTIOProgressHUD hideHUDForView:self.view animated:YES];
     if (error) {
         GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:failedSignInViewController animated:YES];
