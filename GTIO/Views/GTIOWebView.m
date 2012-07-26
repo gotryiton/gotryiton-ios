@@ -40,7 +40,7 @@
 
 - (void)loadGTIORequestWithURL:(NSURL *)URL
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:kGTIOWebViewTimeout];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:kGTIOWebViewTimeout];
     [request setValue:[[GTIOAuth alloc] init].token forHTTPHeaderField:kGTIOAuthenticationHeaderKey];
     
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING || GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
