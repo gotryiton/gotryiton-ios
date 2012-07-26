@@ -512,9 +512,11 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 
 - (void)singleModeButtonPress
 {
+    
     [self.photoToolbarView enableAllButtons:NO];
     [self changeFlashForceOff:NO];
     [self captureImageWithHandler:^(UIImage *photo) {
+        [self.captureSession stopRunning]; 
         // Process image
         GTIOProcessImageRequest *processImageRequest = [[GTIOProcessImageRequest alloc] init];
         [processImageRequest setRawImage:photo];
