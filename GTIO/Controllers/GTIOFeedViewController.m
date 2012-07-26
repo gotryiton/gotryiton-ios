@@ -193,6 +193,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self showStatusBarBackgroundWithoutNavigationBar];
+    [self.tableView bringSubviewToFront:self.navBarView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -559,6 +560,8 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 - (void)addUploadView
 {
+    [self.emptyView removeFromSuperview];
+    
     if (!self.postUpload) {
         self.postUpload = [[GTIOPostUpload alloc] init];
         [self.posts insertObject:self.postUpload atIndex:0];
