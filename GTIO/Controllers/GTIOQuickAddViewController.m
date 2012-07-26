@@ -102,7 +102,7 @@
     [self.skipThisStepLabel addSubview:self.skipThisStepInvisiButton];
     [self.skipThisStepContainer addSubview:self.skipThisStepLabel];
     
-    MBProgressHUD *progressHUD = [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    MBProgressHUD *progressHUD = [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
     [progressHUD setLabelText:@"creating new account..."];
     [[GTIOUser currentUser] loadQuickAddUsersWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];

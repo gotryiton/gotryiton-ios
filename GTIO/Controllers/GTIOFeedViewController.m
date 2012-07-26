@@ -178,7 +178,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     
     [self.tableView bringSubviewToFront:self.navBarView];
     
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
 }
 
 - (void)viewDidUnload
