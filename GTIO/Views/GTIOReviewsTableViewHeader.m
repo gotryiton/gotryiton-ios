@@ -72,7 +72,7 @@ static CGFloat const kGTIOLeaveACommentButtonHeight = 35.0;
 {
     _post = post;
     self.userNameLabel.text = _post.user.name;
-    self.postedAtLabel.text = _post.createdWhen;
+    self.postedAtLabel.text = [_post.createdWhen uppercaseString];
     [self.postPicture proxySetImageWithURL:_post.photo.squareThumbnailURL];
     [self.postPicture setHasInnerShadow:YES];
     self.leaveACommentButton.hidden = NO;
