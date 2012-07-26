@@ -148,6 +148,7 @@ typedef enum GTIOReviewsAlertView {
     [self.postedAtLabel setFrame:(CGRect){ self.userNameLabel.frame.origin.x, self.userNameLabel.frame.origin.y + self.userNameLabel.bounds.size.height - kGTIOPostedAtLabelVerticalOffset + 1, self.userNameLabel.bounds.size.width, kGTIODefaultLabelHeight }];
 }
 
+
 - (void)setReview:(GTIOReview *)review
 {
     _review = review;
@@ -168,6 +169,7 @@ typedef enum GTIOReviewsAlertView {
             if ([button.name isEqualToString:kGTIOReviewFlagButton]) {
                 self.currentFlagButtonModel = button;
                 self.flagButton.hidden = NO;
+                self.removeButton.hidden = YES;
                 self.flagButton.selected = button.state.boolValue;
                 self.flagButton.tapHandler = ^(id sender) {
                     if (button.action.endpoint.length > 0) {                    
