@@ -62,6 +62,7 @@
         case GTIOButtonTypeRequestedButtonRegular: return [self gtio_requestedButtonRegular];
         case GTIOButtonTypeCloseButtonForNavBar: return [self gtio_closeButtonGrayTopMargin];
         case GTIOButtonTypeReload: return [self gtio_reloadButtonTopMargin];
+        case GTIOButtonTypeFindFriends: return [self gtio_findFriendsTopRightButton];
         case GTIOButtonTypeHeart: return [self gtio_heartButton];
         case GTIOButtonTypeFlag: return [self gtio_flagButton];
         case GTIOButtonTypeRemove: return [self gtio_removeButton];
@@ -589,6 +590,13 @@
 + (id)gtio_reloadButtonTopMargin
 {
     return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.icon.refresh.png"] hightlightImage:nil];
+}
+
++ (id)gtio_findFriendsTopRightButton
+{
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.search.icon.png"] hightlightImage:nil];
+    [button setFrame:(CGRect){ button.bounds.origin, button.bounds.size.width + 10, button.bounds.size.height }];
+    return button;
 }
 
 + (id)gtio_postRetryButton

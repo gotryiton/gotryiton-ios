@@ -30,19 +30,19 @@
 {
     switch (type) {
         case GTIOFriendsTableHeaderViewTypeFriends:
-            return 216;
+            return 178;
             break;
         case GTIOFriendsTableHeaderViewTypeFindMyFriends:
-            return 116;
+            return 128;
             break;
         case GTIOFriendsTableHeaderViewTypeFindFriends:
             return 55;
             break;
         case GTIOFriendsTableHeaderViewTypeFollowers:
-            return 66;
+            return 0;
             break;
         case GTIOFriendsTableHeaderViewTypeFollowing:
-            return 66;
+            return 0;
             break;
         case GTIOFriendsTableHeaderViewTypeSuggested:
             return 0;
@@ -63,8 +63,9 @@
         _inviteFriendsBarButton.hasGreenBackgroundColor = YES;
         [_inviteFriendsBarButton addTarget:self action:@selector(pushViewController:) forControlEvents:UIControlEventTouchUpInside];
         _findFriendsBarButton = [GTIOSuggestedFriendsBarButton buttonWithType:UIButtonTypeCustom];
-        _findFriendsBarButton.barTitle = @"find friends";
-        _findFriendsBarButton.hasGreenBackgroundColor = YES;
+        _findFriendsBarButton.barTitle = (self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? @"search" : @"find friends";
+        _findFriendsBarButton.showMagnifyingGlassIcon = YES;
+        _findFriendsBarButton.hasGreenBackgroundColor = (self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? NO : YES;
         [_findFriendsBarButton addTarget:self action:@selector(pushViewController:) forControlEvents:UIControlEventTouchUpInside];
         _suggestedFriendsBarButton = [GTIOSuggestedFriendsBarButton buttonWithType:UIButtonTypeCustom];
         [_suggestedFriendsBarButton addTarget:self action:@selector(pushViewController:) forControlEvents:UIControlEventTouchUpInside];
@@ -72,6 +73,7 @@
             _suggestedFriendsBarButton.hasGreenBackgroundColor = YES;
         }
         _searchBoxView = [[GTIOFindMyFriendsSearchBoxView alloc] initWithFrame:CGRectZero];
+        _searchBoxView.showSearchBox = (self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends || self.type == GTIOFriendsTableHeaderViewTypeFriends) ? NO : YES;
         if (type == GTIOFriendsTableHeaderViewTypeFindFriends) {
             _searchBoxView.showFollowingLabel = NO;
             _searchBoxView.searchBarPlaceholder = @"search e.g. (Jane Doe)";
@@ -91,9 +93,9 @@
 - (void)layoutSubviews
 {
     [self.inviteFriendsBarButton setFrame:(CGRect){ 0, 0, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeFriends) ? 50 : 0 }];
-    [self.findFriendsBarButton setFrame:(CGRect){ 0, self.inviteFriendsBarButton.frame.origin.y + self.inviteFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeFriends) ? 50 : 0 }];
+    [self.findFriendsBarButton setFrame:(CGRect){ 0, self.inviteFriendsBarButton.frame.origin.y + self.inviteFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeFriends || self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? 50 : 0 }];
     [self.suggestedFriendsBarButton setFrame:(CGRect){ 0, self.findFriendsBarButton.frame.origin.y + self.findFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeFriends || self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? 50 : 0 }];
-    [self.searchBoxView setFrame:(CGRect){ 0, self.suggestedFriendsBarButton.frame.origin.y + self.suggestedFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeSuggested) ? 0 : ((self.searchBoxView.showFollowingLabel) ? 66 : 55) }];
+    [self.searchBoxView setFrame:(CGRect){ 0, self.suggestedFriendsBarButton.frame.origin.y + self.suggestedFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeSuggested || self.type == GTIOFriendsTableHeaderViewTypeFollowers || self.type == GTIOFriendsTableHeaderViewTypeFollowing) ? 0 : ((self.searchBoxView.showFollowingLabel && self.searchBoxView.showSearchBox) ? 66 : (!self.searchBoxView.showSearchBox) ? 28 : 55) }];
 }
 
 - (void)setSuggestedFriendsURL:(NSString *)suggestedFriendsURL

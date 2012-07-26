@@ -42,6 +42,7 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 
 @property (nonatomic, strong) GTIOUIButton *reloadButton;
+@property (nonatomic, strong) GTIOUIButton *findFriendsButton;
 
 @property (nonatomic, copy) NSString *paginationNextPageResourcePath;
 
@@ -49,7 +50,7 @@
 
 @implementation GTIOFriendsViewController
 
-@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, subTitleText = _subTitleText, userID = _userID, searchCommunityView = _searchCommunityView, searchBar = _searchBar, reloadButton = _reloadButton, paginationNextPageResourcePath = _paginationNextPageResourcePath;
+@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, subTitleText = _subTitleText, userID = _userID, searchCommunityView = _searchCommunityView, searchBar = _searchBar, reloadButton = _reloadButton, paginationNextPageResourcePath = _paginationNextPageResourcePath, findFriendsButton = _findFriendsButton;
 
 - (id)initWithGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)tableHeaderViewType
 {
@@ -106,6 +107,14 @@
     if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeSuggested) {
         [self setRightNavigationButton:self.reloadButton];
     }
+    self.findFriendsButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFindFriends tapHandler:^(id sender) {
+        GTIOFriendsViewController *viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindFriends];
+        [viewController setUserID:[GTIOUser currentUser].userID];
+        [self pushViewController:viewController];
+    }];
+    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFollowing || self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFollowers) {
+        [self setRightNavigationButton:self.findFriendsButton];
+    }
     
     CGFloat friendsTableHeaderViewHeight = [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType];
     self.friendsTableHeaderView = [[GTIOFriendsTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, friendsTableHeaderViewHeight } type:self.tableHeaderViewType];
@@ -129,9 +138,7 @@
     
     self.noSearchResultsView = [[GTIOFriendsNoSearchResultsView alloc] initWithFrame:CGRectZero];
     [self.noSearchResultsView setDelegate:self];
-    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends) {
-        [self.noSearchResultsView setHideSearchCommunityText:YES];
-    }
+    
     self.searchCommunityView = [[GTIOSearchEntireCommunityView alloc] initWithFrame:CGRectZero];
     [self.searchCommunityView setDelegate:self];
     
@@ -498,6 +505,9 @@
                             userWithOnlyAProfilePicture.icon = [NSURL URLWithString:icon.iconPath];
                             [self.suggestedFriends addObject:userWithOnlyAProfilePicture];
                         }
+                        if ([button.name isEqualToString:kGTIOFindFriendsButtonName]) {
+                            self.friendsTableHeaderView.findFriendsURL = button.action.destination;
+                        }
                         if ([button.name isEqualToString:kGTIOSuggestedFriendsButtonName]) {
                             self.friendsTableHeaderView.suggestedFriendsURL = button.action.destination;
                         }
@@ -555,7 +565,6 @@
     [self.noSearchResultsView removeFromSuperview];
     [self.searchCommunityView removeFromSuperview];
     [self.noSearchResultsView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
-    [self.noSearchResultsView setFailedQuery:self.currentSearchQuery];
     [self.friendsTableView addSubview:self.noSearchResultsView];
     [self.friendsTableView bringSubviewToFront:self.noSearchResultsView];
     self.friendsTableView.tableFooterView.hidden = YES;

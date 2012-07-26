@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *barTitle;
 @property (nonatomic, assign) BOOL hasGreenBackgroundColor;
+@property (nonatomic, assign) BOOL showMagnifyingGlassIcon;
 @property (nonatomic, strong) NSArray *suggestedFriends;
 @property (nonatomic, copy) NSString *routingURL;
 
