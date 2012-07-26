@@ -17,6 +17,8 @@
         // UITabBar
         [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"UI-Tab-BG.png"]];
         [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"ui.empty.pixel.png"]];
+
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     });
 }
 
