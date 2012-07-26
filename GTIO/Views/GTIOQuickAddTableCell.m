@@ -10,6 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+WebCache.h"
 
+static CGFloat const kGTIOUserBadgeVerticalOffset = - 2.0;
+static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
+
 @interface GTIOQuickAddTableCell()
 
 @property (nonatomic, strong) GTIOUIButton *checkbox;
@@ -98,7 +101,7 @@
     [self.textLabel setFrame:CGRectOffset(self.textLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 0.0)];
     [self.detailTextLabel setFrame:CGRectOffset(self.detailTextLabel.frame, (self.imageView.image) ? -10.0 : 0.0, -2.0)];
     if (self.user.badge) {
-        [self.badge setFrame:(CGRect){ (self.textLabel.frame.origin.x + [self nameLabelSize].width + 4.0), (self.textLabel.frame.origin.y - 2.0), [self.user.badge badgeImageSizeForUserList] }];
+        [self.badge setFrame:(CGRect){ (self.textLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.textLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
     }
 }
 

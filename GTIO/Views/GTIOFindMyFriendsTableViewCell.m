@@ -14,6 +14,8 @@ static CGFloat const kGTIORightPadding = 7.0;
 static CGFloat const kGTIOProfilePictureRightPadding = 10.0;
 static CGFloat const kGTIONameLabelYPosition = 17.0;
 static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
+static CGFloat const kGTIOUserBadgeVerticalOffset = -2.0;
+static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
 
 @interface GTIOFindMyFriendsTableViewCell()
 
@@ -98,7 +100,7 @@ static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
     [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - kGTIOBottomBorderVerticalOffset, self.contentView.bounds.size.width, 1 }];
 
     if (self.user.badge) {
-        [self.badge setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSize].width + 4.0), (self.nameLabel.frame.origin.y - 2.0), [self.user.badge badgeImageSizeForUserList] }];
+        [self.badge setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.nameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
     }
 }
 
