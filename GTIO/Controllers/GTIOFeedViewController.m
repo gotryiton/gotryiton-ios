@@ -177,6 +177,8 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [self.pullToRefreshView startLoading];
     
     [self.tableView bringSubviewToFront:self.navBarView];
+    
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (void)viewDidUnload
@@ -230,6 +232,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
                 }
             }
             
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.tableView reloadData];
             [self headerSectionViewsStyling];
             [self.pullToRefreshView finishLoading];
@@ -238,6 +241,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToRefreshView finishLoading];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"Error: %@", [error localizedDescription]);
             
             // TODO: Display error state

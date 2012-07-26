@@ -61,6 +61,7 @@
         } else {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"%@", [error localizedDescription]);
+            // TODO: Handler Error
         }
     }];
 }
