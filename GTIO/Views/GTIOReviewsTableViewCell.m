@@ -257,6 +257,11 @@ typedef enum GTIOReviewsAlertView {
     return kGTIOCellPaddingTop + reviewTextSize.height + kGTIOAvatarWidthHeight + kGTIOCellPaddingBottom;
 }
 
+- (void)dealloc
+{
+    _delegate = nil;
+}
+
 #pragma mark Custom Views on Text
 
 - (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame
