@@ -1,5 +1,20 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.18
+July 27, 2012
+
+### Build Summary
+Final Sprint 6 build for dev/staging/production. 
+
+### Development
+
+**Bug Fixes**
+- 415 - Added quick add bg
+- 422 - After successfully post a feed item the pull to refresh was over the nav bar
+- 441 - When posting a feed item it will switch to feed tab and scroll to top
+
+---
+
 #### Build 4.0.0.17
 July 27, 2012
 
