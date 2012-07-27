@@ -34,16 +34,6 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
 
 @implementation GTIOTakePhotoView
 
-@synthesize filteredImage = _filteredImage, originalImage = _originalImage;
-@synthesize filterName = _filterName;
-@synthesize photoSelectButton = _photoSelectButton, canvas = _canvas, imageView = _imageView, editPhotoButton = _editPhotoButton;
-@synthesize lastScale = _lastScale, firstX = _firstX, firstY = _firstY;
-@synthesize editPhotoButtonPosition = _editPhotoButtonPosition;
-@synthesize launchCameraHandler = _launchCameraHandler, swapPhotoHandler = _swapPhotoHandler, addFilterHandler = _addFilterHandler;
-@synthesize photoSection = _photoSection, photoSet = _photoSet;
-@synthesize actionSheet = _actionSheet;
-@synthesize scrollView = _scrollView;
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -88,6 +78,7 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
     self.originalImage = nil;
     self.filteredImage = nil;
     self.filterName = nil;
+    self.productID = nil;
 }
 
 - (void)setFilteredImage:(UIImage *)filteredImage

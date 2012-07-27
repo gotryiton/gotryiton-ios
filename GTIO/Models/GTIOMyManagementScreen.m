@@ -15,37 +15,27 @@
 @synthesize userInfo = _userInfo, management = _management;
 
 + (void)loadScreenLayoutDataWithCompletionHandler:(GTIOCompletionHandler)completionHandler
-{
-    NSString *managementResourcePath = @"/user/management";
-    
-    BOOL authToken = NO;
-    if ([[RKObjectManager sharedManager].client.HTTPHeaders objectForKey:kGTIOAuthenticationHeaderKey]) {
-        authToken = YES;
-    }
-    if (authToken) {
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:managementResourcePath usingBlock:^(RKObjectLoader *loader) {
-            loader.onDidLoadObjects = ^(NSArray *objects) {
-                
-                for (id object in objects) {
-                    if ([object isMemberOfClass:[GTIOUser class]]) {
-                        [[GTIOUser currentUser] populateWithUser:(GTIOUser *)object];
-                    }
-                }
-                
-                if (completionHandler) {
-                    completionHandler(objects, nil);
-                }
-            };
+{    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/management" usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
             
-            loader.onDidFailWithError = ^(NSError *error) {
-                if (completionHandler) {
-                    completionHandler(nil, error);
+            for (id object in objects) {
+                if ([object isMemberOfClass:[GTIOUser class]]) {
+                    [[GTIOUser currentUser] populateWithUser:(GTIOUser *)object];
                 }
-            };
-        }];
-    } else {
-        NSLog(@"no auth token");
-    }
+            }
+            
+            if (completionHandler) {
+                completionHandler(objects, nil);
+            }
+        };
+        
+        loader.onDidFailWithError = ^(NSError *error) {
+            if (completionHandler) {
+                completionHandler(nil, error);
+            }
+        };
+    }];
 }
 
 @end

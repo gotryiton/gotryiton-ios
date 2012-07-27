@@ -15,9 +15,11 @@
 
 #import "GTIOFilterManager.h"
 
+#import "SDWebImageManager.h"
+
 static CGFloat const kGTIOToolbarHeight = 53.0f;
 
-@interface GTIOPhotoConfirmationViewController ()
+@interface GTIOPhotoConfirmationViewController () <SDWebImageManagerDelegate>
 
 @property (nonatomic, strong) UIImage *filteredPhoto;
 
@@ -32,7 +34,8 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
 
 @implementation GTIOPhotoConfirmationViewController
 
-@synthesize originalPhoto = _originalPhoto;
+@synthesize originalPhoto = _originalPhoto, originalPhotoURL = _originalPhotoURL;
+@synthesize productID = _productID;
 @synthesize photoImageView = _photoImageView;
 @synthesize photoConfirmationToolbarView = _photoConfirmationToolbarView;
 @synthesize photoFilterSelectorView = _photoFilterSelectorView;
@@ -71,11 +74,14 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.photoConfirmationToolbarView.confirmButton setTapHandler:^(id sender) {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   self.originalPhoto, @"originalPhoto",
                                   self.filteredPhoto, @"filteredPhoto",
-                                  [NSNumber numberWithInteger:self.currentFilterType], @"filterType",
+                                  GTIOFilterTypeName[self.currentFilterType], @"filterName",
                                   nil];
+        if (self.productID) {
+            [userInfo setValue:self.productID forKey:@"productID"];
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPhotoAcceptedNotification object:nil userInfo:userInfo];
         [[GTIOFilterManager sharedManager] clearFilters];
     }];
@@ -97,12 +103,6 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     self.photoFilterSelectorView = nil;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [[GTIOFilterManager sharedManager] applyAllFilters];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -114,6 +114,22 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [self setFilteredPhoto:_originalPhoto];
     
     [[GTIOFilterManager sharedManager] setOriginalImage:_originalPhoto];
+    [[GTIOFilterManager sharedManager] applyAllFilters];
+}
+
+- (void)setOriginalPhotoURL:(NSURL *)originalPhotoURL
+{
+    _originalPhotoURL = originalPhotoURL;
+    
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[SDWebImageManager sharedManager] downloadWithURL:_originalPhotoURL delegate:self options:0 success:^(UIImage *image) {
+        [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+        [self setOriginalPhoto:image];
+    } failure:^(NSError *error) {
+        [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+        NSLog(@"Failed to download product image");
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Could now download product image" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }];
 }
 
 - (void)setFilteredPhoto:(UIImage *)filteredPhoto

@@ -23,6 +23,7 @@
 #import "GTIOShoppingListViewController.h"
 #import "GTIOWhoHeartedThisViewController.h"
 #import "GTIOInviteFriendsViewController.h"
+#import "GTIOTagsViewController.h"
 
 NSString * const kGTIOURLScheme = @"gtio";
 NSString * const kGTIOHttpURLScheme = @"http";
@@ -50,6 +51,7 @@ static NSString * const kGTIOURLHostProduct = @"product";
 static NSString * const kGTIOURLHostCollection = @"collection";
 static NSString * const kGTIOURLHostShoppingList = @"my-shopping-list";
 static NSString * const kGTIOURLHostWhoHeartedProduct = @"who-hearted-product";
+static NSString * const kGTIOURLHostSearchTags = @"search-tags";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
@@ -207,6 +209,10 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
             NSNumber *postID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
             [(GTIOWhoHeartedThisViewController *)viewController setItemID:postID];
         }
+    } else if ([urlHost isEqualToString:kGTIOURLHostInviteFriends]) {
+        viewController = [[GTIOInviteFriendsViewController alloc] initWithNibName:nil bundle:nil];
+    } else if ([urlHost isEqualToString:kGTIOURLHostSearchTags]) {
+        viewController = [[GTIOTagsViewController alloc] initWithNibName:nil bundle:nil];
     }
     
     return viewController;

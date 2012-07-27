@@ -23,7 +23,6 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeTryAgain,
     GTIOButtonTypeNewUser,
     GTIOButtonTypeEmailSupport,
-    GTIOButtonTypeBack,
     GTIOButtonTypePhotoClose,
     GTIOButtonTypePhotoSource,
     GTIOButtonTypePhotoShootGrid,

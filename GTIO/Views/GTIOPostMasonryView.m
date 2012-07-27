@@ -21,7 +21,7 @@ static double const kGTIOTopPadding = 9.0;
 
 @implementation GTIOPostMasonryView
 
-@synthesize userProfile = _userProfile, posts = _posts, postType = _postType;
+@synthesize userProfile = _userProfile, items = _items, postType = _postType;
 @synthesize emptyStateView = _emptyStateView;
 @synthesize masonGridView = _masonGridView;
 
@@ -55,7 +55,7 @@ static double const kGTIOTopPadding = 9.0;
     [super setHidden:hidden];
     
     // Initial load on segment change
-    if (!hidden && [self.posts count] == 0) {
+    if (!hidden && [self.items count] == 0) {
         if (self.masonGridView.pullToRefreshHandler) {
             self.masonGridView.pullToRefreshHandler(self.masonGridView, self.masonGridView.pullToRefreshView, YES);
         }
@@ -64,9 +64,9 @@ static double const kGTIOTopPadding = 9.0;
 
 #pragma mark - Data
 
-- (void)setPosts:(NSArray *)posts userProfile:(GTIOUserProfile *)userProfile
+- (void)setItems:(NSArray *)items userProfile:(GTIOUserProfile *)userProfile
 {
-    _posts = [posts mutableCopy];
+    _items = [items mutableCopy];
     self.userProfile = userProfile;
     
     [self.emptyStateView removeFromSuperview];
@@ -74,9 +74,9 @@ static double const kGTIOTopPadding = 9.0;
     
     // if the user's profile isn't locked or this user is us
     if (!self.userProfile.profileLocked.boolValue || [self.userProfile.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
-        if (_posts.count > 0) {
+        if (_items.count > 0) {
             // display posts in mason grid
-            [self.masonGridView setPosts:posts postsType:self.postType];
+            [self.masonGridView setItems:_items postsType:self.postType];
             [self addSubview:self.masonGridView];
         } else {
             GTIOPostMasonryEmptyStateView *followingNoPosts = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:@"nothing here yet!" userName:nil locked:NO];

@@ -94,6 +94,8 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
     self.tableView.tableFooterView.hidden = YES;
     
     [self.view addSubview:self.tableView];
+    
+    [self refreshScreenLayout];
 }
 
 - (void)viewDidUnload
@@ -121,7 +123,6 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 {
     [super viewDidAppear:animated];
     [self.tableView setUserInteractionEnabled:YES];
-    [self refreshScreenLayout];
 }
 
 - (void)refreshScreenLayout
@@ -208,7 +209,7 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell"; 
+    static NSString *CellIdentifier = @"GTIOMeTableViewCell"; 
     
     GTIOMeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -224,7 +225,7 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
             [cell setHasHeart:YES];
         } else if ([buttonForRow.name isEqualToString:kGTIOCustomToggleCell]) {
             [cell setHasToggle:YES];
-            [cell setToggleState:[buttonForRow.value intValue]];
+            [cell setToggleState:![buttonForRow.value boolValue]];
             [cell setIndexPath:indexPath];
             [cell setToggleDelegate:self];
         }
@@ -243,7 +244,7 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
     GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
     buttonForRow.value = [NSNumber numberWithBool:switchView.on];
     [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                         [NSNumber numberWithBool:switchView.on], @"public", nil] 
+                                                         [NSNumber numberWithBool:!switchView.on], @"public", nil] 
                                 withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
                                                          @"mymanagement", @"screen", nil]
                                         andLoginHandler:nil];

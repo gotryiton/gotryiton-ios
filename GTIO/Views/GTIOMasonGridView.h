@@ -32,8 +32,8 @@ typedef void(^GTIOMasonGridPullToLoadMoreDidStartLoading)(GTIOMasonGridView *mas
 @property (nonatomic, copy) GTIOMasonGridPullToLoadMoreDidStartLoading pullToLoadMoreHandler;
 @property (nonatomic, copy) GTIOMasonGridPullToRefreshDidStartLoading pullToRefreshHandler;
 
-- (void)setPosts:(NSArray *)posts postsType:(GTIOPostType)postsType;
-- (void)addPost:(GTIOPost *)post postType:(GTIOPostType)postType;
+- (void)setItems:(NSArray *)items postsType:(GTIOPostType)postsType;
+- (void)addItem:(id<GTIOGridItem>)item postType:(GTIOPostType)postType;
 - (void)cancelAllItemDownloads;
 
 - (void)attachPullToRefreshAndPullToLoadMore;

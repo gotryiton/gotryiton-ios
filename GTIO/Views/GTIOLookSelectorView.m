@@ -83,21 +83,26 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
             UIImage *currentOriginalImage = takePhotoView.originalImage;
             UIImage *currentFilteredImage = takePhotoView.filteredImage;
             NSString *currentFilterName = takePhotoView.filterName;
+            NSNumber *currentProductID = takePhotoView.productID;
             takePhotoView.originalImage = swapWithPhotoView.originalImage;
             takePhotoView.filteredImage = swapWithPhotoView.filteredImage;
             takePhotoView.filterName = swapWithPhotoView.filterName;
+            takePhotoView.productID = swapWithPhotoView.productID;
             if (takePhotoView == self.mainPhotoView) {
                 self.singlePhotoView.originalImage = swapWithPhotoView.originalImage;
                 self.singlePhotoView.filteredImage = swapWithPhotoView.filteredImage;
                 self.singlePhotoView.filterName = swapWithPhotoView.filterName;
+                self.singlePhotoView.productID = swapWithPhotoView.productID;
             }
             swapWithPhotoView.originalImage = currentOriginalImage;
             swapWithPhotoView.filteredImage = currentFilteredImage;
             swapWithPhotoView.filterName = currentFilterName;
+            swapWithPhotoView.productID = currentProductID;
             if (swapWithPhotoView == self.mainPhotoView) {
                 self.singlePhotoView.originalImage = currentOriginalImage;
                 self.singlePhotoView.filteredImage = currentFilteredImage;
                 self.singlePhotoView.filterName = currentFilterName;
+                self.singlePhotoView.productID = currentProductID;
             }
         };
         

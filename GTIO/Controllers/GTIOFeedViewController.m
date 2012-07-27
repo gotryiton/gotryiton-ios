@@ -63,17 +63,12 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 @property (nonatomic, strong) GTIOPost *post;
 
+@property (nonatomic, strong) UIImageView *emptyView;
+@property (nonatomic, strong) UITapGestureRecognizer *emptyViewTapGestureRecognizer;
+
 @end
 
 @implementation GTIOFeedViewController
-
-@synthesize tableView = _tableView, navBarView = _navBarView;
-@synthesize addNavToHeaderOffsetXOrigin = _addNavToHeaderOffsetXOrigin, removeNavToHeaderOffsetXOrigin = _removeNavToHeaderOffsetXOrigin;
-@synthesize posts = _posts, pagination = _pagination;
-@synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshView = _pullToRefreshView;
-@synthesize uploadView = _uploadView, postUpload = _postUpload, postID = _postID, postsResourcePath = _postsResourcePath;
-@synthesize post = _post;
-@synthesize pullToLoadMoreView = _pullToLoadMoreView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -162,6 +157,12 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [self.tableView setTableHeaderView:self.navBarView];
     [self.view addSubview:self.tableView];
     
+    self.emptyView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-bg-overlay.png"]];
+    [self.emptyView setFrame:(CGRect){ { 0, self.navigationController.navigationBar.frame.size.height }, self.emptyView.image.size }];
+    [self.emptyView setUserInteractionEnabled:YES];
+    self.emptyViewTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadFeed)];
+    [self.emptyView addGestureRecognizer:self.emptyViewTapGestureRecognizer];
+    
     self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.tableView delegate:self];
     [self.pullToRefreshView setExpandedHeight:60.0f];
     GTIOPullToRefreshContentView *pullToRefreshContentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.bounds.size.width, 0 } }];
@@ -177,6 +178,8 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [self.pullToRefreshView startLoading];
     
     [self.tableView bringSubviewToFront:self.navBarView];
+    
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
 }
 
 - (void)viewDidUnload
@@ -191,6 +194,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self showStatusBarBackgroundWithoutNavigationBar];
+    [self.tableView bringSubviewToFront:self.navBarView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -202,14 +206,15 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 - (void)loadFeed
 {
+    [self.emptyView removeGestureRecognizer:self.emptyViewTapGestureRecognizer]; // So you can't tap it multiple times
+
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.postsResourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];
             
             for (id object in objects) {
-                if ([object isKindOfClass:[GTIOPost class]])
-                {
+                if ([object isKindOfClass:[GTIOPost class]]) {
                     GTIOPost *post = (GTIOPost *)object;
                     post.reviewsButtonTapHandler = ^(id sender) {
                         UIViewController *reviewsViewController;
@@ -229,13 +234,19 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
                 }
             }
             
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.tableView reloadData];
             [self headerSectionViewsStyling];
             [self.pullToRefreshView finishLoading];
+            
+            [self checkAndDisplayEmptyState];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToRefreshView finishLoading];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"Error: %@", [error localizedDescription]);
+            
+            // TODO: Display error state
         };
     }];
 }
@@ -275,8 +286,22 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToLoadMoreView finishLoading];
             NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
+            
+            // TODO: Display error state
         };
     }];
+}
+
+#pragma mark - Empty
+
+- (void)checkAndDisplayEmptyState
+{
+    if ([self.posts count] > 0) {
+        [self.emptyView removeFromSuperview];
+    } else {
+        [self.view addSubview:self.emptyView];
+        [self.emptyView addGestureRecognizer:self.emptyViewTapGestureRecognizer];
+    }
 }
 
 #pragma mark - SSPullToRefreshDelegate Methods
@@ -537,6 +562,8 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 - (void)addUploadView
 {
+    [self.emptyView removeFromSuperview];
+    
     if (!self.postUpload) {
         self.postUpload = [[GTIOPostUpload alloc] init];
         [self.posts insertObject:self.postUpload atIndex:0];

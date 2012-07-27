@@ -107,13 +107,13 @@ static int const maximumNumberOfSuggestedFriends = 5;
 - (void)setHasGreenBackgroundColor:(BOOL)hasGreenBackgroundColor
 {
     _hasGreenBackgroundColor = hasGreenBackgroundColor;
-    self.backgroundColor = (_hasGreenBackgroundColor) ? [UIColor gtio_friendsGreenCellColor] : [UIColor whiteColor];
+    self.backgroundColor = (_hasGreenBackgroundColor) ? [UIColor gtio_greenCellColor] : [UIColor whiteColor];
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
     [super setHighlighted:highlighted];
-    self.backgroundColor = (highlighted) ? [UIColor gtio_findMyFriendsTableCellActiveColor] : ((self.hasGreenBackgroundColor) ? [UIColor gtio_friendsGreenCellColor] : [UIColor whiteColor]);
+    self.backgroundColor = (highlighted) ? [UIColor gtio_findMyFriendsTableCellActiveColor] : ((self.hasGreenBackgroundColor) ? [UIColor gtio_greenCellColor] : [UIColor whiteColor]);
 }
 
 - (CGSize)sizeOfLabelText{
