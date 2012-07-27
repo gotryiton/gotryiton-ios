@@ -46,13 +46,17 @@
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    [self.view addSubview:[[GTIOBackgroundView alloc] initWithFrame:(CGRect){ 0, -20, [[UIScreen mainScreen] bounds].size }]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"quick-add-bg.png"]];
+    [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
+    [self.view addSubview:backgroundImageView];
+
     self.accountCreatedView = [[GTIOAccountCreatedView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width - 10, 200 }];
     [self.accountCreatedView setHidden:YES];
     [self.accountCreatedView setDelegate:self];

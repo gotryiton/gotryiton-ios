@@ -13,5 +13,13 @@
 @property (nonatomic, strong) NSURL *path;
 
 - (NSURL *)badgeImageURL;
+- (NSURL *)badgeImageURLForPostOwner;
+- (NSURL *)badgeImageURLForUserList;
+- (NSURL *)badgeImageURLForCommenter;
+
+- (CGSize)badgeImageSize;
+- (CGSize)badgeImageSizeForPostOwner;
+- (CGSize)badgeImageSizeForUserList;
+- (CGSize)badgeImageSizeForCommenter;
 
 @end

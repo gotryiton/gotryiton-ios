@@ -13,6 +13,8 @@
 #import "UIImageView+WebCache.h"
 #import <RestKit/RestKit.h>
 
+static CGFloat const kGTIOWebsiteButtonPadding = 8.0f;
+
 @interface GTIOProfileHeaderView()
 
 @property (nonatomic, strong) UIImageView *banner;
@@ -103,13 +105,14 @@
     
 
     NSString *buttonTitle = [self.websiteLinkButton titleForState:UIControlStateNormal];    
-    [self.websiteLinkButton setFrame:(CGRect){ 8, self.profileDescription.frame.origin.y + self.profileDescription.bounds.size.height + ((buttonTitle.length > 0) ? 3 : 0), self.bounds.size.width - 16, (buttonTitle.length > 0) ? 24 : 0 }];
+    [self.websiteLinkButton setFrame:(CGRect){ 8, self.profileDescription.frame.origin.y + self.profileDescription.bounds.size.height + ((buttonTitle.length > 0) ? 6 : 0), self.bounds.size.width - 16, (buttonTitle.length > 0) ? 24 : 0 }];
     
-    double profileCalloutsYPosition = self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + 5;
+    double profileCalloutsYPosition = self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height ;
+    profileCalloutsYPosition += (buttonTitle.length > 0) ? kGTIOWebsiteButtonPadding : 0;
     double profileCalloutsHeight = 11.0;
     GTIOProfileCalloutView *lastProfileCalloutView = nil;
     for (GTIOProfileCalloutView *profileCalloutView in self.profileCalloutViews) {
-        [profileCalloutView setFrame:(CGRect){ 12, profileCalloutsYPosition, self.profileDescription.bounds.size.width, profileCalloutsHeight }];
+        [profileCalloutView setFrame:(CGRect){ 9, profileCalloutsYPosition, self.profileDescription.bounds.size.width, profileCalloutsHeight }];
         profileCalloutsYPosition += profileCalloutsHeight + 3;
         lastProfileCalloutView = profileCalloutView;
     }
@@ -117,7 +120,7 @@
     if (lastProfileCalloutView) {
         [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, lastProfileCalloutView.frame.origin.y + lastProfileCalloutView.bounds.size.height + 10 }];
     } else {
-        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((buttonTitle.length > 0 || self.profileDescription.text.length > 0) ? 10 : 0) }];
+        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((buttonTitle.length > 0 || self.profileDescription.text.length > 0) ? ((self.profileCalloutViews.count == 0) ? 10 : 13 ): 0) }];
     }
     [self setFrame:(CGRect){ self.frame.origin, self.bounds.size.width, self.basicUserInfoBackgroundImageView.bounds.size.height }];
     

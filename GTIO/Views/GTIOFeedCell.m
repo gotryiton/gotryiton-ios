@@ -16,9 +16,9 @@
 
 static CGFloat const kGTIOFrameOriginX = 3.5f;
 static CGFloat const kGTIOWhoHeartedThisOriginX = 13.0f;
-static CGFloat const kGTIOWhoHeartedThisTopPadding = 2.0f;
+static CGFloat const kGTIOWhoHeartedThisTopPadding = -8.0f;
 static CGFloat const kGTIOWhoHeartedThisWidth = 250.0f;
-static CGFloat const kGTIOWhoHeartedThisBottomPadding = 11.0f;
+static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
 static CGFloat const kGITOEllipsisPopOverViewXOriginOffset = -3.5f;
 static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 
@@ -165,10 +165,9 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 {
     CGFloat photoFrameHeight = [GTIOPostFrameView heightWithPost:post];
     CGFloat whoHeartedThisViewHeight = [GTIOWhoHeartedThisView heightWithWhoHeartedThis:post.whoHearted];
-    if (whoHeartedThisViewHeight > 0) {
-        whoHeartedThisViewHeight += kGTIOWhoHeartedThisBottomPadding;
-    }
-    return photoFrameHeight + whoHeartedThisViewHeight;
+    
+
+    return photoFrameHeight + whoHeartedThisViewHeight + kGTIOWhoHeartedThisBottomPadding;
 }
 
 @end

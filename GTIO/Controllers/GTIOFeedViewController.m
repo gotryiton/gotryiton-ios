@@ -23,6 +23,7 @@
 #import "GTIONavigationNotificationTitleView.h"
 #import "GTIOFeedNavigationBarView.h"
 #import "GTIOFriendsViewController.h"
+#import "GTIOProfileViewController.h"
 
 #import "GTIOPullToRefreshContentView.h"
 
@@ -38,7 +39,7 @@
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
-@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
+@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
@@ -348,6 +349,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     } else {
         [self.offScreenHeaderViews removeObject:headerView];
     }
+    headerView.delegate = self;
     
     [headerView setPost:[self.posts objectAtIndex:section]];
     [self.onScreenHeaderViews setValue:headerView forKey:[NSString stringWithFormat:@"%i", section]];
@@ -582,6 +584,13 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
+}
+
+-(void) postHeaderViewTapWithUserId:(NSString *)userID
+{
+    GTIOProfileViewController *viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+    [viewController setUserID:userID];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

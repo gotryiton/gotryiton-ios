@@ -1,5 +1,27 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.16
+July 25, 2012
+
+### Build Summary
+Mid sprint 6 build. Bug fixes, search tags, finished invite friends, pick a product.
+
+### Development
+
+**Bug Fixes**
+- 397 - Posting products will now attach all the product IDs
+- 327 - Posting images will now attach all the filter names
+- 360 - Reversed the settings post are private switch
+
+**Screens / Features**
+- 391 - Enable gtio:// routing from external links
+- 350 - Handle profile button open gtio:// links
+- 294 - Search Tags
+- 273 - Invite Friends
+- 285 - Pick a product view and load into camera
+
+---
+
 #### Build 4.0.0.15
 July 23, 2012
 

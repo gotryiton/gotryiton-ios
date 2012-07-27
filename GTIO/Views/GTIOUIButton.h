@@ -59,6 +59,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeRemove,
     GTIOButtonTypeLeaveAComment,
     GTIOButtonTypeReload,
+    GTIOButtonTypeFindFriends,
     GTIOButtonTypePostRetry,
     GTIOButtonTypeProductBack,
     GTIOButtonTypeProductShareFacebook,

@@ -118,9 +118,6 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostSignOut]) {
         viewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
-    } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedPost]) {
-        // TODO: handle this
-        NSLog(@"Still need to handle opening who hearted post");
     } else if ([urlHost isEqualToString:kGTIOURLHostFindFriends]) {
         viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindMyFriends];
     } else if ([urlHost isEqualToString:kGTIOURLHostUser]) {
@@ -202,9 +199,8 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         viewController = [[GTIOShoppingListViewController alloc] initWithNibName:nil bundle:nil];
     } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedProduct]) {
         if ([pathComponents count] >= 2 ) {
-            viewController = [[GTIOWhoHeartedThisViewController alloc] initWithGTIOWhoHeartedThisViewControllerType:GTIOWhoHeartedThisViewControllerTypePost];
+            viewController = [[GTIOWhoHeartedThisViewController alloc] initWithGTIOWhoHeartedThisViewControllerType:GTIOWhoHeartedThisViewControllerTypeProduct];
             NSNumber *productID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
-            productID = [NSNumber numberWithInt:1443];
             [(GTIOWhoHeartedThisViewController *)viewController setItemID:productID];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedPost]) {

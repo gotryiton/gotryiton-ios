@@ -15,5 +15,6 @@
 @property (nonatomic, weak) id<UISearchBarDelegate> searchBarDelegate;
 
 @property (nonatomic, assign) BOOL showFollowingLabel;
+@property (nonatomic, assign) BOOL showSearchBox;
 
 @end

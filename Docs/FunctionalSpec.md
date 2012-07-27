@@ -122,7 +122,7 @@ static image used while app is loading
 #### Mockups
 1.1 Splash ([wireframe](http://invis.io/PC2NYJUX))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.1.Splash.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.1.Splash.png" width=420px/>
 
 #### User flow
 **entry screens:**    
@@ -304,12 +304,12 @@ First time users of the app see a screen where they can sign up
 #### Mockups
 1.3 Sign in ([wireframe](http://invis.io/TW2OBGAK))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.3.Sign.In.First.Use.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/1.3.Sign.In.First.Use.png" width=420px>
 
 
 1.3.1 Sign in with no intro screens 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.9.Sign.In.2nd.Load.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/1.9.Sign.In.2nd.Load.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -375,7 +375,7 @@ Returning users can sign in with Facebook or Janrain
 #### Mockups
 1.4 Returning users ([wireframe](http://invis.io/5W2OBHJ7))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.4.Returning.Users.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.4.Returning.Users.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -438,7 +438,7 @@ New users can sign up with Facebook or Janrain
 
 1.5 Janrain Sign up ([wireframe](http://invis.io/EQ2OBJ6W))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.5.Janrain.Sign.Up.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.5.Janrain.Sign.Up.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -489,7 +489,7 @@ When a user fails to sign in, they're presented with an error screen allowing th
 
 1.6 Failed sign in ([wireframe](http://invis.io/CR2OBKVK))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.6.Failed.Sign.In.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.6.Failed.Sign.In.png" width=420px>
 
 
 #### API Usage
@@ -613,7 +613,7 @@ When a new user signs up, they can quickly add people to follow
 
 1.8
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/1.8.Quick.Add.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/4/1.8.Quick.Add.png" width=420px>
 
 scrolled
 
@@ -755,7 +755,7 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 #### Mockups
 1.9 ([wireframe](http://invis.io/SC2OBNJM))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.9.Sign.In.2nd.Load.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/1.9.Sign.In.2nd.Load.png" width=420px/>
 
 #### User flow
 **entry screens:**   
@@ -1209,6 +1209,7 @@ previous screen
 	- Text
 		- Name: Archer Book Italic 16px rgb(255,106,114) #ff6a72
 		- Time Stamp: Proxima Nova Regular 10px rgb(156,156,156) #9c9c9c
+         - convert to ALL CAPS
 	- Comment input
 		- Background (3/reviews.top.input.box.png)
 		- 230x35px
@@ -3057,9 +3058,8 @@ gtio://posts/feed
          - photo is placed offset 7px down from top of frame asset
          - photo is placed vertically centered within frame asset (should be 5px from the left edge of asset)
       - heart toggle
-         - 'heart-toggle.png' with on/off states, each with active and inactive
-         - asset is placed 9px down from top of photo
-         - asset is placed 9px from left edge of photo
+         - 'heart-toggle.png' 34 x 34 with on/off states, each with active and inactive
+         - asset is placed flush with left and top edges of photo
       - Star Corner
          - 'star-corner-feed.png'
          - placed at top right corner of post image (should appear to curve seamlessly into photo frame)
