@@ -1,3 +1,36 @@
+***Friday, July 27th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Continue working on assigned issues 
+
+**Status**
+- TT got all styling in for progress overlays and merged everything today.
+- Issue 428: Does this have a normal nav bar? Scott will have to make a new controller.
+- Still to work on: Auto-complete, some views changing, etc. 
+  - Simon can take a stab at some higher priority things.
+  - Scott will look at rendering, single post view, and header element, and pop-over button issues.
+
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott will be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of next week, but release August 20th.
+
+**General Notes**
+- Scott and Simon to color issues green once they are resolved.
+  
+---
+
+
 ***Thursday, July 26th - Standup Notes***
 
 **Attendees**
