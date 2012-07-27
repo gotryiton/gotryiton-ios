@@ -13,6 +13,7 @@
 
 #import "GTIOPostManager.h"
 #import "GTIORouter.h"
+#import "GTIOAppDelegate.h"
 
 #import "GTIOPagination.h"
 #import "GTIOPostUpload.h"
@@ -568,6 +569,10 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         self.postUpload = [[GTIOPostUpload alloc] init];
         [self.posts insertObject:self.postUpload atIndex:0];
         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView setContentOffset:CGPointZero];
+        
+        // Go to feed tab
+        [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) selectTabAtIndex:GTIOTabBarTabFeed];
     }
 }
 
@@ -582,6 +587,13 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         if (newPost) {
             [self.posts insertObject:newPost atIndex:0];
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            // Fixes the pull to refresh going over the nav bar
+            double delayInSeconds = 0.01;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self.view bringSubviewToFront:self.navBarView];
+            });
         }
     }
 }
