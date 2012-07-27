@@ -9,6 +9,14 @@
 #import "GTIOViewController.h"
 #import "GTIOPost.h"
 
+@protocol GTIOFeedHeaderViewDelegate <NSObject>
+
+@required
+- (void)postHeaderViewTapWithUserId:(NSString *)userID;
+
+@end
+
+
 @interface GTIOFeedViewController : GTIOViewController
 
 - (id)initWithPostID:(NSString *)postID;

@@ -53,6 +53,8 @@ typedef enum GTIOReviewsAlertView {
 @property (nonatomic, strong) GTIOUIButton *removeButton;
 @property (nonatomic, strong) GTIOButton *currentRemoveButtonModel;
 
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+
 @end
 
 @implementation GTIOReviewsTableViewCell
@@ -132,6 +134,10 @@ typedef enum GTIOReviewsAlertView {
                                             nil];
         
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+
+        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+        [self addGestureRecognizer:_tapGestureRecognizer];
+
     }
     return self;
 }
@@ -276,6 +282,11 @@ typedef enum GTIOReviewsAlertView {
     return kGTIOCellPaddingTop + reviewTextSize.height + kGTIOAvatarWidthHeight + kGTIOCellPaddingBottom;
 }
 
+- (void)dealloc
+{
+    _delegate = nil;
+}
+
 #pragma mark Custom Views on Text
 
 - (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame
@@ -345,11 +356,18 @@ typedef enum GTIOReviewsAlertView {
     }
 }
 
+- (void)didTap:(UIGestureRecognizer *)gesture
+{
+    if (CGRectContainsPoint(self.userNameLabel.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.postedAtLabel.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.userProfilePicture.frame, [gesture locationInView:self])) {
+        if ([self.delegate respondsToSelector:@selector(goToProfileOfUserID:)]) {
+            [self.delegate goToProfileOfUserID:self.review.user.userID];
+        }
+    }
+}
 
 -(CGSize)nameLabelSize
 {
     return [self.review.user.name sizeWithFont:self.userNameLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
 }
-
 
 @end

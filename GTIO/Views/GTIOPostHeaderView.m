@@ -9,6 +9,7 @@
 #import "GTIOPostHeaderView.h"
 
 #import "SDWebImageManager.h"
+#import "GTIORouter.h"
 
 #import "UIImage+Mask.h"
 #import "UIImage+Blend.h"
@@ -30,15 +31,14 @@ CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0f;
 @property (nonatomic, strong) UILabel *locationLabel;
 @property (nonatomic, strong) UILabel *createdAtLabel;
 @property (nonatomic, strong) UIImageView *shadowImageView;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+@property (nonatomic, strong) UIImageView *nameBGImageView;
 @property (nonatomic, strong) UIImageView *badge;
 
 @end
 
 @implementation GTIOPostHeaderView
 
-@synthesize post = _post;
-@synthesize iconImageView = _iconImageView, iconFrameImageView = _iconFrameImageView, nameLabel = _nameLabel, locationLabel = _locationLabel, createdAtLabel = _createdAtLabel, shadowImageView = _shadowImageView, badge = _badge;
-@synthesize showingShadow = _showingShadow, clearBackground = _clearBackground;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -60,24 +60,26 @@ CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0f;
         [_iconFrameImageView setImage:[UIImage imageNamed:@"user-pic-84-shadow-overlay.png"]];
         
         // Text Background Images
-        UIImageView *nameBGImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"user-info-bg.png"]];
-        [nameBGImageView setFrame:(CGRect){ { _iconImageView.frame.origin.y + _iconImageView.frame.size.width + kGTIOPadding, kGTIOPadding }, nameBGImageView.image.size }];
-        [self addSubview:nameBGImageView];
+        _nameBGImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"user-info-bg.png"]];
+        [_nameBGImageView setFrame:(CGRect){ { _iconImageView.frame.origin.y + _iconImageView.frame.size.width + kGTIOPadding, kGTIOPadding }, _nameBGImageView.image.size }];
+        [self addSubview:_nameBGImageView];
         
         // Name and Location Labels
-        _nameLabel = [[UILabel alloc] initWithFrame:(CGRect){ nameBGImageView.frame.origin.x + kGTIOPadding, 0, nameBGImageView.frame.size.width - 2 * kGTIOPadding, 20 }];
+        _nameLabel = [[UILabel alloc] initWithFrame:(CGRect){ _nameBGImageView.frame.origin.x + kGTIOPadding, 0, _nameBGImageView.frame.size.width - 2 * kGTIOPadding, 20 }];
         [_nameLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:16.0f]];
         [_nameLabel setTextColor:[UIColor gtio_pinkTextColor]];
         [_nameLabel setBackgroundColor:[UIColor clearColor]];
+        _nameLabel.userInteractionEnabled = YES;
         [self addSubview:_nameLabel];
         
         _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self addSubview:_badge];
 
-        _locationLabel = [[UILabel alloc] initWithFrame:(CGRect){ nameBGImageView.frame.origin.x + kGTIOPadding, 0, nameBGImageView.frame.size.width - 2 * kGTIOPadding, 20 }];
+        _locationLabel = [[UILabel alloc] initWithFrame:(CGRect){ _nameBGImageView.frame.origin.x + kGTIOPadding, 0, _nameBGImageView.frame.size.width - 2 * kGTIOPadding, 20 }];
         [_locationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0f]];
         [_locationLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [_locationLabel setBackgroundColor:[UIColor clearColor]];
+        _locationLabel.userInteractionEnabled = YES;
         [self addSubview:_locationLabel];
         
         // Accent line
@@ -101,7 +103,7 @@ CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0f;
         
         // Created At Label
         CGFloat createdAtPadding = kGTIOPadding - 3;
-        CGFloat createdAtOriginX = nameBGImageView.frame.origin.x + nameBGImageView.frame.size.width + createdAtPadding;
+        CGFloat createdAtOriginX = _nameBGImageView.frame.origin.x + _nameBGImageView.frame.size.width + createdAtPadding;
         _createdAtLabel = [[UILabel alloc] initWithFrame:(CGRect){ createdAtOriginX, (self.frame.size.height - kGTIOAccentLineGap) / 2, self.frame.size.width - createdAtOriginX - (kGTIOPadding - createdAtPadding), kGTIOAccentLineGap }];
         [_createdAtLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:10.0f]];
         [_createdAtLabel setMinimumFontSize:6.0f];
@@ -110,6 +112,11 @@ CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0f;
         [_createdAtLabel setTextAlignment:UITextAlignmentCenter];
         [_createdAtLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_createdAtLabel];
+
+
+        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+        [self addGestureRecognizer:_tapGestureRecognizer];
+        
     }
     return self;
 }
@@ -138,6 +145,11 @@ CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0f;
 {
     [self.iconFrameImageView removeFromSuperview];
     [self.badge setFrame:CGRectZero];
+}
+
+- (void)dealloc
+{
+      _delegate = nil;
 }
 
 #pragma mark - Properties
@@ -187,6 +199,16 @@ CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0f;
         [self setBackgroundColor:[UIColor clearColor]];
     } else {
         [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
+    }
+}
+
+
+- (void)didTap:(UIGestureRecognizer *)gesture
+{
+    if (CGRectContainsPoint(self.nameBGImageView.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.iconFrameImageView.frame, [gesture locationInView:self])){
+        if ([self.delegate respondsToSelector:@selector(postHeaderViewTapWithUserId:)]) {
+            [self.delegate postHeaderViewTapWithUserId:self.post.user.userID];
+        }
     }
 }
 
