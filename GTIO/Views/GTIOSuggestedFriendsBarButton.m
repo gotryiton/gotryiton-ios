@@ -18,6 +18,7 @@ static int const maximumNumberOfSuggestedFriends = 5;
 
 @property (nonatomic, strong) UILabel *suggestedFriendsLabel;
 @property (nonatomic, strong) UIImageView *chevron;
+@property (nonatomic, strong) UIImageView *magnifyingGlassIcon;
 @property (nonatomic, strong) NSMutableArray *suggestedFriendsProfilePictures;
 @property (nonatomic, strong) UIView *bottomBorder;
 
@@ -25,7 +26,7 @@ static int const maximumNumberOfSuggestedFriends = 5;
 
 @implementation GTIOSuggestedFriendsBarButton
 
-@synthesize suggestedFriendsLabel = _suggestedFriendsLabel, chevron = _chevron, suggestedFriends = _suggestedFriends, suggestedFriendsProfilePictures = _suggestedFriendsProfilePictures, barTitle = _barTitle, hasGreenBackgroundColor = _hasGreenBackgroundColor, bottomBorder = _bottomBorder, routingURL = _routingURL;
+@synthesize suggestedFriendsLabel = _suggestedFriendsLabel, chevron = _chevron, suggestedFriends = _suggestedFriends, suggestedFriendsProfilePictures = _suggestedFriendsProfilePictures, barTitle = _barTitle, hasGreenBackgroundColor = _hasGreenBackgroundColor, bottomBorder = _bottomBorder, routingURL = _routingURL, showMagnifyingGlassIcon = _showMagnifyingGlassIcon, magnifyingGlassIcon = _magnifyingGlassIcon;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -49,6 +50,10 @@ static int const maximumNumberOfSuggestedFriends = 5;
         _bottomBorder.backgroundColor = [UIColor gtio_groupedTableBorderColor];
         [self addSubview:_bottomBorder];
         
+        _magnifyingGlassIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"find.friends.item.icon.png"]];
+        _magnifyingGlassIcon.hidden = YES;
+        [self addSubview:_magnifyingGlassIcon];
+
         _suggestedFriendsProfilePictures = [NSMutableArray array];
     }
     return self;
@@ -62,6 +67,11 @@ static int const maximumNumberOfSuggestedFriends = 5;
     for (GTIOSelectableProfilePicture *friendProfilePicture in self.suggestedFriendsProfilePictures) {
         [friendProfilePicture setFrame:(CGRect){ suggestedFriendsProfilePicturesXPosition, 12, suggestedFriendsProfilePicturesWidth, suggestedFriendsProfilePicturesWidth }];
         suggestedFriendsProfilePicturesXPosition -= suggestedFriendsProfilePicturesWidth + suggestedFriendsProfilePicutresSpacing;
+    }
+
+    if (self.showMagnifyingGlassIcon){        
+        [self.magnifyingGlassIcon setFrame:(CGRect){ self.suggestedFriendsLabel.frame.origin.x + [self sizeOfLabelText].width + 10 , self.bounds.size.height / 2 - self.magnifyingGlassIcon.bounds.size.height / 2 - 1, self.magnifyingGlassIcon.bounds.size }];
+        self.magnifyingGlassIcon.hidden = NO;
     }
     
     [self.bottomBorder setFrame:(CGRect){ 0, self.bounds.size.height - 1, self.bounds.size.width, 1 }];
@@ -106,4 +116,7 @@ static int const maximumNumberOfSuggestedFriends = 5;
     self.backgroundColor = (highlighted) ? [UIColor gtio_findMyFriendsTableCellActiveColor] : ((self.hasGreenBackgroundColor) ? [UIColor gtio_friendsGreenCellColor] : [UIColor whiteColor]);
 }
 
+- (CGSize)sizeOfLabelText{
+    return [self.suggestedFriendsLabel.text sizeWithFont:self.suggestedFriendsLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
+}
 @end

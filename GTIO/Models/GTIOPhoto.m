@@ -20,16 +20,6 @@
     return (CGSize){ [self.width intValue], [self.height intValue] };
 }
 
-#warning Used for testing
-- (NSNumber *)width
-{
-    return [NSNumber numberWithInt:454];
-}
 
-- (NSNumber *)height
-{
-    return [NSNumber numberWithInt:604];
-}
-#warning End Used for testing
 
 @end
