@@ -511,6 +511,9 @@
                         if ([button.name isEqualToString:kGTIOSuggestedFriendsButtonName]) {
                             self.friendsTableHeaderView.suggestedFriendsURL = button.action.destination;
                         }
+                        if ([button.name isEqualToString:kGTIOInviteFriendsButtonName]) {
+                            self.friendsTableHeaderView.inviteFriendsURL = button.action.destination;
+                        }
                     }
                     self.subTitleText = findMyFriendsScreen.searchBox.text;
                 }

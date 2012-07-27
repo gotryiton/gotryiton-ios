@@ -11,6 +11,12 @@
 #import "GTIOFriendsViewController.h"
 #import "GTIORouter.h"
 
+static CGFloat const kGITOFriendsTableBarHeight = 50.0f;
+static CGFloat const kGITOFriendsSearchBarFullHeight = 66.0f;
+static CGFloat const kGITOFriendsSearchBarSearchOnlyHeight = 55.0f;
+static CGFloat const kGITOFriendsSearchBarLabelOnlyHeight = 28.0f;
+
+
 @interface GTIOFriendsTableHeaderView()
 
 @property (nonatomic, strong) GTIOSuggestedFriendsBarButton *suggestedFriendsBarButton;
@@ -33,7 +39,7 @@
             return 178;
             break;
         case GTIOFriendsTableHeaderViewTypeFindMyFriends:
-            return 128;
+            return 178;
             break;
         case GTIOFriendsTableHeaderViewTypeFindFriends:
             return 55;
@@ -60,10 +66,11 @@
         
         _inviteFriendsBarButton = [GTIOSuggestedFriendsBarButton buttonWithType:UIButtonTypeCustom];
         _inviteFriendsBarButton.barTitle = @"invite friends";
-        _inviteFriendsBarButton.hasGreenBackgroundColor = YES;
+        _inviteFriendsBarButton.routingURL = @"gtio://invite-friends";
+        _inviteFriendsBarButton.hasGreenBackgroundColor = (self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? NO : YES;
         [_inviteFriendsBarButton addTarget:self action:@selector(pushViewController:) forControlEvents:UIControlEventTouchUpInside];
         _findFriendsBarButton = [GTIOSuggestedFriendsBarButton buttonWithType:UIButtonTypeCustom];
-        _findFriendsBarButton.barTitle = (self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? @"search" : @"find friends";
+        _findFriendsBarButton.barTitle =  @"search" ;
         _findFriendsBarButton.showMagnifyingGlassIcon = YES;
         _findFriendsBarButton.hasGreenBackgroundColor = (self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? NO : YES;
         [_findFriendsBarButton addTarget:self action:@selector(pushViewController:) forControlEvents:UIControlEventTouchUpInside];
@@ -92,10 +99,32 @@
 
 - (void)layoutSubviews
 {
-    [self.inviteFriendsBarButton setFrame:(CGRect){ 0, 0, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeFriends) ? 50 : 0 }];
-    [self.findFriendsBarButton setFrame:(CGRect){ 0, self.inviteFriendsBarButton.frame.origin.y + self.inviteFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeFriends || self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? 50 : 0 }];
-    [self.suggestedFriendsBarButton setFrame:(CGRect){ 0, self.findFriendsBarButton.frame.origin.y + self.findFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeFriends || self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends) ? 50 : 0 }];
-    [self.searchBoxView setFrame:(CGRect){ 0, self.suggestedFriendsBarButton.frame.origin.y + self.suggestedFriendsBarButton.bounds.size.height, self.bounds.size.width, (self.type == GTIOFriendsTableHeaderViewTypeSuggested || self.type == GTIOFriendsTableHeaderViewTypeFollowers || self.type == GTIOFriendsTableHeaderViewTypeFollowing) ? 0 : ((self.searchBoxView.showFollowingLabel && self.searchBoxView.showSearchBox) ? 66 : (!self.searchBoxView.showSearchBox) ? 28 : 55) }];
+    if (self.type == GTIOFriendsTableHeaderViewTypeFriends || self.type == GTIOFriendsTableHeaderViewTypeFindMyFriends){
+        // show the invite/find/suggested bars
+        [self.inviteFriendsBarButton setFrame:(CGRect){ 0, 0, self.bounds.size.width, kGITOFriendsTableBarHeight  }];
+        [self.findFriendsBarButton setFrame:(CGRect){ 0, self.inviteFriendsBarButton.frame.origin.y + self.inviteFriendsBarButton.bounds.size.height, self.bounds.size.width,  kGITOFriendsTableBarHeight }];
+        [self.suggestedFriendsBarButton setFrame:(CGRect){ 0, self.findFriendsBarButton.frame.origin.y + self.findFriendsBarButton.bounds.size.height, self.bounds.size.width,  kGITOFriendsTableBarHeight }];
+    } else {
+        // hide the invite/find/suggested bars
+        [self.inviteFriendsBarButton setFrame:(CGRect){ 0, 0, self.bounds.size.width, 0 }];
+        [self.findFriendsBarButton setFrame:(CGRect){ 0, self.inviteFriendsBarButton.frame.origin.y + self.inviteFriendsBarButton.bounds.size.height, self.bounds.size.width, 0 }];
+        [self.suggestedFriendsBarButton setFrame:(CGRect){ 0, self.findFriendsBarButton.frame.origin.y + self.findFriendsBarButton.bounds.size.height, self.bounds.size.width,  0 }];
+    }
+
+    if (self.type == GTIOFriendsTableHeaderViewTypeSuggested || self.type == GTIOFriendsTableHeaderViewTypeFollowers || self.type == GTIOFriendsTableHeaderViewTypeFollowing){
+        // search box is hidden entirely
+        [self.searchBoxView setFrame:(CGRect){ 0, self.suggestedFriendsBarButton.frame.origin.y + self.suggestedFriendsBarButton.bounds.size.height, self.bounds.size.width,  0 }];
+    } else if (self.searchBoxView.showFollowingLabel && self.searchBoxView.showSearchBox) {
+        //show a large search box with label and box
+        [self.searchBoxView setFrame:(CGRect){ 0, self.suggestedFriendsBarButton.frame.origin.y + self.suggestedFriendsBarButton.bounds.size.height, self.bounds.size.width,  kGITOFriendsSearchBarFullHeight }];
+    } else if (!self.searchBoxView.showSearchBox){
+        //show label only
+        [self.searchBoxView setFrame:(CGRect){ 0, self.suggestedFriendsBarButton.frame.origin.y + self.suggestedFriendsBarButton.bounds.size.height, self.bounds.size.width,  kGITOFriendsSearchBarLabelOnlyHeight  }];
+    } else {
+        //show box only
+        [self.searchBoxView setFrame:(CGRect){ 0, self.suggestedFriendsBarButton.frame.origin.y + self.suggestedFriendsBarButton.bounds.size.height, self.bounds.size.width,  kGITOFriendsSearchBarSearchOnlyHeight }];
+    }
+
 }
 
 - (void)setSuggestedFriendsURL:(NSString *)suggestedFriendsURL
