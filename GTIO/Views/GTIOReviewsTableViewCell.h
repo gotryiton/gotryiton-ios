@@ -19,11 +19,12 @@
 
 @end
 
-@interface GTIOReviewsTableViewCell : UITableViewCell <DTAttributedTextContentViewDelegate, UIAlertViewDelegate>
+@interface GTIOReviewsTableViewCell : UITableViewCell <DTAttributedTextContentViewDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) GTIOReview *review;
 @property (nonatomic, weak) id<GTIOReviewsTableViewCellDelegate> delegate;
 
 + (CGFloat)heightWithReview:(GTIOReview *)review;
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
 
 @end
