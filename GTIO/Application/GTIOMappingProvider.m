@@ -97,7 +97,7 @@
         [productMapping mapKeyPath:@"pretty_price" toAttribute:@"prettyPrice"];
         [productMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [productMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
-        [productMapping mapKeyPath:@"brands" toAttribute:@"brands"];
+        [productMapping mapKeyPath:@"brand" toAttribute:@"brand"];
         [productMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [self setMapping:productMapping forKeyPath:@"product"];
         [self setMapping:productMapping forKeyPath:@"products"];
@@ -197,6 +197,7 @@
         [userPhotoMapping mapKeyPath:@"main_image" toAttribute:@"mainImageURL"];
         [userPhotoMapping mapKeyPath:@"small_thumbnail" toAttribute:@"smallThumbnailURL"];
         [userPhotoMapping mapKeyPath:@"square_thumbnail" toAttribute:@"squareThumbnailURL"];
+        [userPhotoMapping mapKeyPath:@"small_square_thumbnail" toAttribute:@"smallSquareThumbnailURL"];
         [userPhotoMapping mapAttributes:@"url", @"width", @"height", nil];
         [self setMapping:userPhotoMapping forKeyPath:@"photo"];
         

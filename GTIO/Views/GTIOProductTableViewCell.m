@@ -22,6 +22,7 @@ static CGFloat const kGTIOHeartButtonYPosition = 0.0;
 static CGFloat const kGTIOProductNameLabelWidth = 109.0;
 static CGFloat const kGTIOProductNameLabelWidthWide = 130.0;
 static CGFloat const kGTIOProductNameLabelMaxHeight = 95.0;
+static CGFloat const kGTIOProductBrandLabelVerticalPadding = 2.0;
 static CGFloat const kGTIOPriceLabelYPosition = 129.0;
 static CGFloat const kGTIOEmailButtonXPosition = 222.0;
 static CGFloat const kGTIOEmailButtonYPosition = 126.0;
@@ -145,7 +146,7 @@ static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
     [self.heartButton setFrame:(CGRect){ kGTIOHeartButtonXPosition, kGTIOHeartButtonYPosition, self.heartButton.bounds.size }];
     CGSize productNameLabelSize = [self.productNameLabel sizeThatFits:(CGSize){ (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, CGFLOAT_MAX }];    
     [self.productNameLabel setFrame:(CGRect){ kGTIOProductNameLabelXPosition, kGTIOProductNameLabelYPosition, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, (productNameLabelSize.height <= kGTIOProductNameLabelMaxHeight) ? productNameLabelSize.height : kGTIOProductNameLabelMaxHeight }];
-    [self.brandLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, 15 }];
+    [self.brandLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height + kGTIOProductBrandLabelVerticalPadding, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, 15 }];
     [self.priceLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, kGTIOPriceLabelYPosition, 45, 20 }];
     [self.emailButton setFrame:(CGRect){ kGTIOEmailButtonXPosition, kGTIOEmailButtonYPosition, self.emailButton.bounds.size }];
     [self.buyButton setFrame:(CGRect){ self.emailButton.frame.origin.x + self.emailButton.bounds.size.width + kGTIOBuyButtonLeftMargin, self.emailButton.frame.origin.y, self.buyButton.bounds.size }];
@@ -234,7 +235,7 @@ static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
     };
     
     self.productNameLabel.text = _product.productName;
-    self.brandLabel.text = [_product.brands uppercaseString];
+    self.brandLabel.text = [_product.brand uppercaseString];
     self.priceLabel.text = _product.prettyPrice;
 }
 
