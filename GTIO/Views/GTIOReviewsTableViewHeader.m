@@ -8,6 +8,7 @@
 
 #import "GTIOReviewsTableViewHeader.h"
 #import "GTIOReviewsPicture.h"
+#import "UIImageView+WebCache.h"
 
 static CGFloat const kGTIOPostPictureWidthHeight = 75.0;
 static CGFloat const kGTIOHeaderLeftPadding = 5.0;
@@ -22,6 +23,8 @@ static CGFloat const kGTIOLeaveACommentButtonHorizontalOffset = 3.0;
 static CGFloat const kGTIOLeaveACommentButtonVerticalOffset = 2.0;
 static CGFloat const kGTIOLeaveACommentButtonWidth = 230.0;
 static CGFloat const kGTIOLeaveACommentButtonHeight = 35.0;
+static CGFloat const kGTIOUserBadgeVerticalOffset = 0.0;
+static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
 
 @interface GTIOReviewsTableViewHeader()
 
@@ -29,13 +32,14 @@ static CGFloat const kGTIOLeaveACommentButtonHeight = 35.0;
 @property (nonatomic, strong) GTIOReviewsPicture *postPicture;
 @property (nonatomic, strong) UILabel *userNameLabel;
 @property (nonatomic, strong) UILabel *postedAtLabel;
+@property (nonatomic, strong) UIImageView *badge;
 @property (nonatomic, strong) GTIOUIButton *leaveACommentButton;
 
 @end
 
 @implementation GTIOReviewsTableViewHeader
 
-@synthesize background = _background, postPicture = _postPicture, userNameLabel = _userNameLabel, postedAtLabel = _postedAtLabel, leaveACommentButton = _leaveACommentButton, post = _post, commentButtonTapHandler = _commentButtonTapHandler, postImageTapHandler = _postImageTapHandler;
+@synthesize background = _background, postPicture = _postPicture, userNameLabel = _userNameLabel, postedAtLabel = _postedAtLabel, leaveACommentButton = _leaveACommentButton, post = _post, commentButtonTapHandler = _commentButtonTapHandler, postImageTapHandler = _postImageTapHandler, badge = _badge;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -60,6 +64,9 @@ static CGFloat const kGTIOLeaveACommentButtonHeight = 35.0;
         _postedAtLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_postedAtLabel];
         
+        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_badge];
+
         _leaveACommentButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeLeaveAComment];
         [_leaveACommentButton setFrame:(CGRect){ _userNameLabel.frame.origin.x - kGTIOLeaveACommentButtonHorizontalOffset, _postedAtLabel.frame.origin.y + _postedAtLabel.bounds.size.height + kGTIOLeaveACommentButtonVerticalOffset, kGTIOLeaveACommentButtonWidth, kGTIOLeaveACommentButtonHeight }];
         _leaveACommentButton.hidden = YES;
@@ -76,6 +83,12 @@ static CGFloat const kGTIOLeaveACommentButtonHeight = 35.0;
     [self.postPicture proxySetImageWithURL:_post.photo.squareThumbnailURL];
     [self.postPicture setHasInnerShadow:YES];
     self.leaveACommentButton.hidden = NO;
+
+    if (_post.user.badge){
+        [self.badge setImageWithURL:[_post.user.badge badgeImageURLForPostOwner]];
+        [self.badge setFrame:(CGRect){ self.userNameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset, self.userNameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset, [_post.user.badge badgeImageSizeForPostOwner]}];
+    }
+
 }
 
 - (void)setCommentButtonTapHandler:(GTIOButtonDidTapHandler)commentButtonTapHandler
@@ -88,6 +101,11 @@ static CGFloat const kGTIOLeaveACommentButtonHeight = 35.0;
 {
     _postImageTapHandler = [postImageTapHandler copy];
     self.postPicture.invisibleButtonTapHandler = _postImageTapHandler;
+}
+
+-(CGSize)nameLabelSize
+{
+    return [self.post.user.name sizeWithFont:self.userNameLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
 }
 
 @end

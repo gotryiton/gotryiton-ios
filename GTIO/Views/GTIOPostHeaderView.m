@@ -13,11 +13,14 @@
 #import "UIImage+Mask.h"
 #import "UIImage+Blend.h"
 #import "UIImage+Resize.h"
+#import "UIImageView+WebCache.h"
 
 static CGFloat const kGTIOPadding = 7.0f;
 static CGFloat const kGTIOAccentLineGap = 28.0f;
 
 CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
+CGFloat const kGTIOUserBadgeVerticalOffset = 1.0f;
+CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0f;
 
 @interface GTIOPostHeaderView () <SDWebImageManagerDelegate>
 
@@ -27,13 +30,14 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
 @property (nonatomic, strong) UILabel *locationLabel;
 @property (nonatomic, strong) UILabel *createdAtLabel;
 @property (nonatomic, strong) UIImageView *shadowImageView;
+@property (nonatomic, strong) UIImageView *badge;
 
 @end
 
 @implementation GTIOPostHeaderView
 
 @synthesize post = _post;
-@synthesize iconImageView = _iconImageView, iconFrameImageView = _iconFrameImageView, nameLabel = _nameLabel, locationLabel = _locationLabel, createdAtLabel = _createdAtLabel, shadowImageView = _shadowImageView;
+@synthesize iconImageView = _iconImageView, iconFrameImageView = _iconFrameImageView, nameLabel = _nameLabel, locationLabel = _locationLabel, createdAtLabel = _createdAtLabel, shadowImageView = _shadowImageView, badge = _badge;
 @synthesize showingShadow = _showingShadow, clearBackground = _clearBackground;
 
 - (id)initWithFrame:(CGRect)frame
@@ -67,6 +71,9 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
         [_nameLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nameLabel];
         
+        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_badge];
+
         _locationLabel = [[UILabel alloc] initWithFrame:(CGRect){ nameBGImageView.frame.origin.x + kGTIOPadding, 0, nameBGImageView.frame.size.width - 2 * kGTIOPadding, 20 }];
         [_locationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0f]];
         [_locationLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
@@ -116,6 +123,12 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
     if ([self.post.user.location length] == 0) {
         nameLocationOriginY = 27.0f;
     }
+
+    if (self.post.user.badge){
+        [self.badge setImageWithURL:[self.post.user.badge badgeImageURLForPostOwner]];
+        [self.badge setFrame:(CGRect){ self.nameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset, nameLocationOriginY + kGTIOUserBadgeVerticalOffset, [self.post.user.badge badgeImageSizeForPostOwner]}];
+        
+    }
     
     [self.nameLabel setFrame:(CGRect){ { self.nameLabel.frame.origin.x, nameLocationOriginY }, self.nameLabel.frame.size }];
     [self.locationLabel setFrame:(CGRect){ { self.locationLabel.frame.origin.x, locationOriginY }, self.locationLabel.frame.size }];
@@ -124,6 +137,7 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
 - (void)prepareForReuse
 {
     [self.iconFrameImageView removeFromSuperview];
+    [self.badge setFrame:CGRectZero];
 }
 
 #pragma mark - Properties
@@ -149,6 +163,10 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
         [self.locationLabel setHidden:YES];
     }
     
+    if (_post.user.badge) {
+        [self.badge setImageWithURL:[_post.user.badge badgeImageURLForPostOwner]];
+    }
+
     [self.createdAtLabel setText:_post.createdWhen];
 }
 
@@ -170,6 +188,11 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
     } else {
         [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"checkered-bg.png"]]];
     }
+}
+
+-(CGSize)nameLabelSize
+{
+    return [self.post.user.name sizeWithFont:self.nameLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
 }
 
 @end

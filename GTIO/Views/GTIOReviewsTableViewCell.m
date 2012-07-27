@@ -10,6 +10,7 @@
 #import "GTIOSelectableProfilePicture.h"
 #import "GTIOUser.h"
 #import "GTIOProgressHUD.h"
+#import "UIImageView+WebCache.h"
 
 static CGFloat const kGTIOCellPaddingLeftRight = 12.0;
 static CGFloat const kGTIOCellPaddingTop = 12.0;
@@ -22,6 +23,8 @@ static CGFloat const kGTIODefaultLabelHeight = 15.0;
 static CGFloat const kGTIOBackgroundLeftMargin = 3.0;
 static CGFloat const kGTIOHeartButtonVerticalOffset = 8.0;
 static CGFloat const kGTIOPostedAtLabelVerticalOffset = 2.0;
+static CGFloat const kGTIOUserBadgeVerticalOffset = 2.0;
+static CGFloat const kGTIOUserBadgeHorizontalOffset = 2.0;
 
 typedef enum GTIOReviewsAlertView {
     GTIOReviewsAlertViewFlag = 0,
@@ -36,6 +39,7 @@ typedef enum GTIOReviewsAlertView {
 @property (nonatomic, strong) UIImageView *userProfilePictureOverlay;
 @property (nonatomic, strong) UILabel *userNameLabel;
 @property (nonatomic, strong) UILabel *postedAtLabel;
+@property (nonatomic, strong) UIImageView *badge;
 
 @property (nonatomic, strong) DTAttributedTextView *reviewTextView;
 @property (nonatomic, strong) NSDictionary *reviewAttributeTextOptions;
@@ -52,8 +56,6 @@ typedef enum GTIOReviewsAlertView {
 @end
 
 @implementation GTIOReviewsTableViewCell
-
-@synthesize background = _background, userProfilePicture = _userProfilePicture, userNameLabel = _userNameLabel, postedAtLabel = _postedAtLabel, heartCountLabel = _heartCountLabel, heartButton = _heartButton, review = _review, reviewTextView = _reviewTextView, reviewAttributeTextOptions = _reviewAttributeTextOptions, delegate = _delegate, flagButton = _flagButton, currentFlagButtonModel = _currentFlagButtonModel, removeButton = _removeButton, currentRemoveButtonModel = _currentRemoveButtonModel, userProfilePictureOverlay = _userProfilePictureOverlay;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -84,6 +86,9 @@ typedef enum GTIOReviewsAlertView {
         _postedAtLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_postedAtLabel];
         
+        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_badge];
+
         _heartCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _heartCountLabel.textColor = [UIColor gtio_grayTextColorDCDCDC];
         _heartCountLabel.font = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0];
@@ -142,10 +147,16 @@ typedef enum GTIOReviewsAlertView {
     [self.userProfilePictureOverlay setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - kGTIOAvatarWidthHeight - kGTIOCellPaddingBottom + 1, kGTIOAvatarWidthHeight, kGTIOAvatarWidthHeight }];
     [self.heartButton setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellPaddingLeftRight - self.heartButton.bounds.size.width, self.userNameLabel.frame.origin.y + kGTIOHeartButtonVerticalOffset, self.heartButton.bounds.size }];
     [self.heartCountLabel setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellPaddingLeftRight - self.heartCountLabel.bounds.size.width - self.heartButton.bounds.size.width - kGTIODefaultPadding, self.postedAtLabel.frame.origin.y - 3, 30, 18 }];
-    [self.flagButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIOBackgroundLeftMargin + 1, self.background.frame.origin.y + kGTIOCellPaddingTop, self.heartButton.bounds.size.width, self.flagButton.bounds.size.height }];
-    [self.removeButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIODefaultPadding + 5, self.flagButton.frame.origin.y, self.removeButton.bounds.size }];
-    [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + kGTIODefaultPadding + 2, self.userProfilePicture.frame.origin.y +1, self.background.bounds.size.width - kGTIOCellPaddingLeftRight * 2 - kGTIODefaultPadding - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? kGTIODefaultPadding : 0), kGTIODefaultLabelHeight }];
-    [self.postedAtLabel setFrame:(CGRect){ self.userNameLabel.frame.origin.x, self.userNameLabel.frame.origin.y + self.userNameLabel.bounds.size.height - kGTIOPostedAtLabelVerticalOffset + 1, self.userNameLabel.bounds.size.width, kGTIODefaultLabelHeight }];
+    [self.flagButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIOBackgroundLeftMargin, self.background.frame.origin.y + kGTIOCellPaddingTop, self.heartButton.bounds.size.width, self.flagButton.bounds.size.height }];
+    [self.removeButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIODefaultPadding + 1, self.flagButton.frame.origin.y, self.removeButton.bounds.size }];
+    [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + kGTIODefaultPadding, self.userProfilePicture.frame.origin.y, self.background.bounds.size.width - kGTIOCellPaddingLeftRight * 2 - kGTIODefaultPadding - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? kGTIODefaultPadding : 0), kGTIODefaultLabelHeight }];
+    [self.postedAtLabel setFrame:(CGRect){ self.userNameLabel.frame.origin.x, self.userNameLabel.frame.origin.y + self.userNameLabel.bounds.size.height - kGTIOPostedAtLabelVerticalOffset, self.userNameLabel.bounds.size.width, kGTIODefaultLabelHeight }];
+
+    if (self.review.user.badge){
+        [self.badge setImageWithURL:[self.review.user.badge badgeImageURLForCommenter]];
+        [self.badge setFrame:(CGRect){ self.userNameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset, self.userNameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset, [self.review.user.badge badgeImageSizeForCommenter]}];
+        
+    }
 }
 
 
@@ -220,6 +231,10 @@ typedef enum GTIOReviewsAlertView {
                 };
             }
         }
+    }
+
+    if (_review.user.badge) {
+        [self.badge setImageWithURL:[_review.user.badge badgeImageURLForCommenter]];
     }
 }
 
@@ -329,5 +344,12 @@ typedef enum GTIOReviewsAlertView {
         }
     }
 }
+
+
+-(CGSize)nameLabelSize
+{
+    return [self.review.user.name sizeWithFont:self.userNameLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
+}
+
 
 @end
