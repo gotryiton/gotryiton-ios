@@ -1,5 +1,42 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.17
+July 27, 2012
+
+### Build Summary
+Final Sprint 6 build. Bug fixes, style changes, loading spinner customization, etc...
+
+### Development
+
+**Screens / Features**
+- 410 - 13.7 Add verified user badges to appropriate screens
+- 403 - Production api should point at api.gotryiton.com
+- 414 - Find friends design tweaks
+- 436 - Styling of find friends empty screens
+- 446 - 7.7 Profile design tweaks
+- 414 - add unique background screen to 1.8
+- 252 - User bar on feed view should be tappable to profile
+- 255 - increase tap area for hearts on feed views
+- 420 - 3.4 Reviews design tweaks
+- 299 - Create new account loading spinner
+- 243 - Post Feed loading spinner
+- 188 - 8.1 Empty Feed
+- 429 - spinner states
+
+**Bug Fixes**
+- 211 - 1.7 styling bugs
+- 342 - User and profile icon on reviews should be tappable to user's profile
+- 431 - 8.1 Feed design tweaks
+- 418 - 3.4 scrolling up and down shows incorrect assets
+- 244 - Viewfinder should 'freeze' when photo is taken
+- 374 - Feed Posts image sizes are hard coded
+- 404 - Who hearted this not pulling correct list
+- 237 - Who hearted "147 hearted this" button not connected to action
+- 421 - Same description when posting two looks in a row
+- 402 - UIWebview cache not respecting cache-control header
+
+---
+
 #### Build 4.0.0.16
 July 25, 2012
 
