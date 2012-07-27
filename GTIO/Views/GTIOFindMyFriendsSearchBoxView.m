@@ -10,6 +10,15 @@
 #import "TTTAttributedLabel.h"
 #import "NSString+GTIOAdditions.h"
 
+
+static CGFloat const kGITOFriendsSearchLabelOriginX =  9.0f;
+static CGFloat const kGITOFriendsSearchLabelOriginY = 6.0f;
+static CGFloat const kGITOFriendsSearchLabelRightMargin = 16.0f;
+static CGFloat const kGITOFriendsSearchBarVerticalPadding = 7.0f;
+static CGFloat const kGITOFriendsSearchBarHeight = 31.0f;
+static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
+
+
 @interface GTIOFindMyFriendsSearchBoxView()
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
@@ -73,9 +82,9 @@
 - (void)layoutSubviews
 {
     [self.backgroundImageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
-    [self.followingFriendsLabel setFrame:(CGRect){ 9, 6, self.bounds.size.width - 16, (self.showFollowingLabel) ? 15 : 0 }];
+    [self.followingFriendsLabel setFrame:(CGRect){ kGITOFriendsSearchLabelOriginX, kGITOFriendsSearchLabelOriginY, self.bounds.size.width - kGITOFriendsSearchLabelRightMargin, (self.showFollowingLabel) ? 15 : 0 }];
     if (self.showSearchBox){
-        [self.searchBar setFrame:(CGRect){ 0, self.followingFriendsLabel.frame.origin.y + self.followingFriendsLabel.bounds.size.height + 7, self.bounds.size.width, 31 }];
+        [self.searchBar setFrame:(CGRect){ 0, self.followingFriendsLabel.frame.origin.y + self.followingFriendsLabel.bounds.size.height + kGITOFriendsSearchBarVerticalPadding, self.bounds.size.width, kGITOFriendsSearchBarHeight }];
     } else {
         [self.searchBar setFrame:CGRectZero];
         self.searchBar.hidden = YES;
