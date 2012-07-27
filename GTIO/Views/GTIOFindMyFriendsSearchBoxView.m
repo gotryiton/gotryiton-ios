@@ -76,8 +76,7 @@
     [self.followingFriendsLabel setFrame:(CGRect){ 9, 6, self.bounds.size.width - 16, (self.showFollowingLabel) ? 15 : 0 }];
     if (self.showSearchBox){
         [self.searchBar setFrame:(CGRect){ 0, self.followingFriendsLabel.frame.origin.y + self.followingFriendsLabel.bounds.size.height + 7, self.bounds.size.width, 31 }];
-    }
-    else {
+    } else {
         [self.searchBar setFrame:CGRectZero];
         self.searchBar.hidden = YES;
     }

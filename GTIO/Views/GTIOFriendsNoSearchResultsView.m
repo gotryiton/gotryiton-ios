@@ -47,6 +47,4 @@
     return self.sadFaceImageView.frame.origin.y + self.sadFaceImageView.bounds.size.height + 15;
 }
 
-// rt
-
 @end
