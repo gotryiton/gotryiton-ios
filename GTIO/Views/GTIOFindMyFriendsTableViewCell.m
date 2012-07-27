@@ -8,11 +8,14 @@
 
 #import "GTIOFindMyFriendsTableViewCell.h"
 #import "GTIOSelectableProfilePicture.h"
+#import "UIImageView+WebCache.h"
 
 static CGFloat const kGTIORightPadding = 7.0;
 static CGFloat const kGTIOProfilePictureRightPadding = 10.0;
 static CGFloat const kGTIONameLabelYPosition = 17.0;
 static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
+static CGFloat const kGTIOUserBadgeVerticalOffset = -2.0;
+static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
 
 @interface GTIOFindMyFriendsTableViewCell()
 
@@ -24,12 +27,13 @@ static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
 @property (nonatomic, strong) GTIOUIButton *requestedButton;
 
 @property (nonatomic, strong) UIView *bottomBorder;
+@property (nonatomic, strong) UIImageView *badge;
 
 @end
 
 @implementation GTIOFindMyFriendsTableViewCell
 
-@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, bottomBorder = _bottomBorder, followingButton = _followingButton, followButton = _followButton, requestedButton = _requestedButton, delegate = _delegate;
+@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, bottomBorder = _bottomBorder, followingButton = _followingButton, followButton = _followButton, requestedButton = _requestedButton, badge = _badge, delegate = _delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -62,6 +66,12 @@ static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
         _bottomBorder = [[UIView alloc] initWithFrame:CGRectZero];
         _bottomBorder.backgroundColor = [UIColor gtio_groupedTableBorderColor];
         [self.contentView addSubview:_bottomBorder];
+
+        // Badge
+        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_badge];
+        
+
     }
     return self;
 }
@@ -74,6 +84,7 @@ static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
     self.followButton.userInteractionEnabled = YES;
     self.followingButton.userInteractionEnabled = YES;
     self.requestedButton.userInteractionEnabled = YES;
+    [self.badge setFrame:CGRectZero];
 }
 
 - (void)layoutSubviews
@@ -87,6 +98,10 @@ static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
     double nameLableXPosition = self.profilePicture.frame.origin.x + self.profilePicture.bounds.size.width + kGTIOProfilePictureRightPadding;
     [self.nameLabel setFrame:(CGRect){ nameLableXPosition, kGTIONameLabelYPosition, self.followingButton.frame.origin.x - nameLableXPosition - kGTIOProfilePictureRightPadding, 20 }];
     [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - kGTIOBottomBorderVerticalOffset, self.contentView.bounds.size.width, 1 }];
+
+    if (self.user.badge) {
+        [self.badge setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.nameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
+    }
 }
 
 - (void)setUser:(GTIOUser *)user
@@ -142,6 +157,10 @@ static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
         followButton.userInteractionEnabled = NO;
     }
     
+    if (_user.badge) {
+        [self.badge setImageWithURL:[user.badge badgeImageURLForUserList]];
+    }
+
     [self setNeedsLayout];
 }
 
@@ -154,5 +173,11 @@ static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
 {
     self.backgroundColor = (highlighted) ? [UIColor gtio_findMyFriendsTableCellActiveColor] : [UIColor whiteColor];
 }
+
+-(CGSize)nameLabelSize
+{
+    return [self.user.name sizeWithFont:self.nameLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
+}
+
 
 @end

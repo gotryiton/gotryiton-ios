@@ -62,6 +62,10 @@ static CGFloat const kGTIOTextWidth = 228.0f;
 {
     [super layoutSubviews];
     [self setBackgroundColor:[UIColor clearColor]];
+
+    self.namesAttributedTextView.hidden = (self.whoHeartedThis.length == 0) ? YES : NO;
+    self.heartImageView.hidden = (self.whoHeartedThis.length == 0) ? YES : NO;
+    
 }
 
 #pragma mark - Properties

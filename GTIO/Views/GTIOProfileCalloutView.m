@@ -57,13 +57,7 @@
         NSArray *boldRanges = [[self.profileCallout.text uppercaseString] rangesOfHTMLBoldedText];
         for (NSValue *value in boldRanges) {
             NSRange boldRange = [value rangeValue];
-            UIFont *boldSystemFont = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0];
-            CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
-            if (font) {
-                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
-                CFRelease(font);
-                [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[UIColor whiteColor].CGColor range:boldRange];
-            }
+            [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[UIColor whiteColor].CGColor range:boldRange];
         }
         // remove HTML bold tags
         for (NSValue *value in boldRanges) {

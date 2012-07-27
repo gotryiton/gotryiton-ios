@@ -17,6 +17,9 @@
 #import "GTIOCommentViewController.h"
 #import "GTIOFullScreenImageViewer.h"
 
+static CGFloat const kGITOReviewsEmptyViewPadding = -8.0f;
+static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
+
 @interface GTIOReviewsViewController ()
 
 @property (nonatomic, copy) NSString *postID;
@@ -60,7 +63,7 @@
     }];
     self.leftNavigationButton = backButton;
     
-    self.tableViewHeader = [[GTIOReviewsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 87 }];
+    self.tableViewHeader = [[GTIOReviewsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, kGITOReviewsTableHeaderHeight }];
     __block typeof(self) blockSelf = self;
     self.tableViewHeader.commentButtonTapHandler = ^(id sender) {
         [blockSelf addComment];
@@ -74,10 +77,10 @@
     self.tableView.tableHeaderView = self.tableViewHeader;
     [self.view addSubview:self.tableView];
     
-    self.tableFooterView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height - self.tableViewHeader.bounds.size.height - 70 }];
+    self.tableFooterView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height - self.tableViewHeader.bounds.size.height  }];
     self.emptyStateView = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:@"be the first to\nsay something!" userName:nil locked:NO];
     [self.tableFooterView addSubview:self.emptyStateView];
-    [self.emptyStateView setCenter:(CGPoint){ self.tableFooterView.bounds.size.width / 2, self.tableFooterView.bounds.size.height / 2 }];
+    [self.emptyStateView setCenter:(CGPoint){ self.tableFooterView.bounds.size.width / 2, self.tableFooterView.frame.size.height / 2 + kGITOReviewsEmptyViewPadding }];
 
     UITapGestureRecognizer *emptyStateTapRecocgnizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addComment)];
     [self.emptyStateView addGestureRecognizer:emptyStateTapRecocgnizer];

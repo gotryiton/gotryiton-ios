@@ -39,7 +39,7 @@
         [_profilePicture.layer setOpaque:YES];
         [self addSubview:_profilePicture];
         
-        UIImageView *overlay = [[UIImageView alloc] initWithFrame:(CGRect){ 23, 14, 60, 60 }];
+        UIImageView *overlay = [[UIImageView alloc] initWithFrame:(CGRect){ 23, 14, 61, 61 }];
         [overlay setImage:[UIImage imageNamed:@"icon-mask-110.png"]];
         [self addSubview:overlay];
         
