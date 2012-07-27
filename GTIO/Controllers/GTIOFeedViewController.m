@@ -23,6 +23,7 @@
 #import "GTIONavigationNotificationTitleView.h"
 #import "GTIOFeedNavigationBarView.h"
 #import "GTIOFriendsViewController.h"
+#import "GTIOProfileViewController.h"
 
 #import "GTIOPullToRefreshContentView.h"
 
@@ -560,9 +561,9 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 -(void) postHeaderViewTapWithUserId:(NSString *)userID
 {
-    
-    UIViewController *profileViewController = [[GTIORouter sharedRouter] viewControllerForURLString:[NSString stringWithFormat:@"gtio://profile/%@", userID]];
-    [self.navigationController pushViewController:profileViewController animated:YES];
+    GTIOProfileViewController *viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+    [viewController setUserID:userID];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

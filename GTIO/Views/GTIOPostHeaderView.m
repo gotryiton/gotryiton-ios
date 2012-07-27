@@ -182,7 +182,7 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
 
 - (void)didTap:(UIGestureRecognizer *)gesture
 {
-    if (CGRectContainsPoint(self.nameBGImageView.frame, [gesture locationInView:self])){
+    if (CGRectContainsPoint(self.nameBGImageView.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.iconFrameImageView.frame, [gesture locationInView:self])){
 
         [self.delegate postHeaderViewTapWithUserId:self.post.user.userID];
     }
