@@ -329,7 +329,9 @@ typedef enum GTIOReviewsAlertView {
 - (void)didTap:(UIGestureRecognizer *)gesture
 {
     if (CGRectContainsPoint(self.userNameLabel.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.postedAtLabel.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.userProfilePicture.frame, [gesture locationInView:self])) {
-        [self.delegate goToProfileOfUserID:self.review.user.userID];
+        if ([self.delegate respondsToSelector:@selector(goToProfileOfUserID:)]) {
+            [self.delegate goToProfileOfUserID:self.review.user.userID];
+        }
     }
 
 }

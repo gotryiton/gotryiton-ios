@@ -133,6 +133,11 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
     [self.iconFrameImageView removeFromSuperview];
 }
 
+- (void)dealloc
+{
+      _delegate = nil;
+}
+
 #pragma mark - Properties
 
 - (void)setPost:(GTIOPost *)post
@@ -183,8 +188,9 @@ CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen = 25.0f;
 - (void)didTap:(UIGestureRecognizer *)gesture
 {
     if (CGRectContainsPoint(self.nameBGImageView.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.iconFrameImageView.frame, [gesture locationInView:self])){
-
-        [self.delegate postHeaderViewTapWithUserId:self.post.user.userID];
+        if ([self.delegate respondsToSelector:@selector(postHeaderViewTapWithUserId:)]) {
+            [self.delegate postHeaderViewTapWithUserId:self.post.user.userID];
+        }
     }
 
 }
