@@ -7,6 +7,7 @@
 //
 
 #import "GTIOReviewsViewController.h"
+#import "GTIOProfileViewController.h"
 #import "GTIOReviewsTableViewHeader.h"
 #import "GTIOPost.h"
 #import "GTIOReviewsTableViewCell.h"
@@ -137,6 +138,13 @@
     [self.navigationController pushViewController:commentViewController animated:YES];
 }
 
+- (void)goToProfileOfUserID:(NSString *)userID 
+{
+    GTIOProfileViewController *viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+    [viewController setUserID:userID];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
 #pragma mark - GTIOReviewTableViewCellDelegate Methods
 
 - (void)removeReview:(GTIOReview *)review
@@ -183,7 +191,7 @@
     if (!cell) {
         cell = [[GTIOReviewsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    
+
     return cell;
 }
 

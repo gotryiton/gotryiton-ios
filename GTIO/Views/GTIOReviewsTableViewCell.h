@@ -14,6 +14,7 @@
 
 @required
 - (void)removeReview:(GTIOReview *)review;
+- (void)goToProfileOfUserID:(NSString *)userID;
 - (UIView *)viewForSpinner;
 
 @end

@@ -48,11 +48,12 @@ typedef enum GTIOReviewsAlertView {
 @property (nonatomic, strong) GTIOUIButton *removeButton;
 @property (nonatomic, strong) GTIOButton *currentRemoveButtonModel;
 
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+
 @end
 
 @implementation GTIOReviewsTableViewCell
 
-@synthesize background = _background, userProfilePicture = _userProfilePicture, userNameLabel = _userNameLabel, postedAtLabel = _postedAtLabel, heartCountLabel = _heartCountLabel, heartButton = _heartButton, review = _review, reviewTextView = _reviewTextView, reviewAttributeTextOptions = _reviewAttributeTextOptions, delegate = _delegate, flagButton = _flagButton, currentFlagButtonModel = _currentFlagButtonModel, removeButton = _removeButton, currentRemoveButtonModel = _currentRemoveButtonModel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -121,6 +122,10 @@ typedef enum GTIOReviewsAlertView {
                                             nil];
         
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+
+        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+        [self addGestureRecognizer:_tapGestureRecognizer];
+
     }
     return self;
 }
@@ -319,6 +324,14 @@ typedef enum GTIOReviewsAlertView {
             }];
         }
     }
+}
+
+- (void)didTap:(UIGestureRecognizer *)gesture
+{
+    if (CGRectContainsPoint(self.userNameLabel.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.postedAtLabel.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.userProfilePicture.frame, [gesture locationInView:self])) {
+        [self.delegate goToProfileOfUserID:self.review.user.userID];
+    }
+
 }
 
 @end
