@@ -20,6 +20,8 @@
 @property (nonatomic, strong) NSURL *squareThumbnailURL;
 @property (nonatomic, strong) NSURL *smallThumbnailURL;
 
+@property (nonatomic, assign) BOOL isStarred;
+
 typedef void(^GTIOPhotoCreationHandler)(GTIOPhoto *photo, NSError *error);
 
 - (CGSize)photoSize;

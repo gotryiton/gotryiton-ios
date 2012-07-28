@@ -27,7 +27,6 @@ typedef enum GTIOPostType {
 @property (nonatomic, strong) NSString *postDescription;
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, copy) NSString *createdWhen;
-@property (nonatomic, assign, getter = isStared) BOOL stared;
 @property (nonatomic, strong) NSString *whoHearted;
 
 // Relationships

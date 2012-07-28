@@ -197,6 +197,7 @@
         [userPhotoMapping mapKeyPath:@"main_image" toAttribute:@"mainImageURL"];
         [userPhotoMapping mapKeyPath:@"small_thumbnail" toAttribute:@"smallThumbnailURL"];
         [userPhotoMapping mapKeyPath:@"square_thumbnail" toAttribute:@"squareThumbnailURL"];
+        [userPhotoMapping mapKeyPath:@"star" toAttribute:@"isStarred"];
         [userPhotoMapping mapAttributes:@"url", @"width", @"height", nil];
         [self setMapping:userPhotoMapping forKeyPath:@"photo"];
         
@@ -279,7 +280,6 @@
         [postMapping mapKeyPath:@"description" toAttribute:@"postDescription"];
         [postMapping mapKeyPath:@"created_at" toAttribute:@"createdAt"];
         [postMapping mapKeyPath:@"created_when" toAttribute:@"createdWhen"];
-        [postMapping mapKeyPath:@"star" toAttribute:@"stared"];
         [postMapping mapKeyPath:@"who_hearted" toAttribute:@"whoHearted"];
         [postMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [postMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
