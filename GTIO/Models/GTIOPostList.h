@@ -11,7 +11,7 @@
 
 @interface GTIOPostList : NSObject
 
-@property (nonatomic, strong) NSArray *posts;
+@property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) GTIOPagination *pagination;
 
 @end
