@@ -47,7 +47,7 @@ static double const kGTIOTopPadding = 9.0;
 {
     [super setFrame:frame];
     [self.masonGridView setFrame:self.bounds];
-    [self.emptyStateView setFrame:(CGRect){ 60, 90, self.emptyStateView.bounds.size }];
+    [self.emptyStateView setFrame:(CGRect){ self.frame.size.width/2 - self.emptyStateView.bounds.size.width/2 , self.frame.size.height/2 - self.emptyStateView.bounds.size.height/2, self.emptyStateView.bounds.size }];
 }
 
 - (void)setHidden:(BOOL)hidden
@@ -100,8 +100,10 @@ static double const kGTIOTopPadding = 9.0;
 
 - (void)refreshAndCenterGTIOEmptyStateView:(GTIOPostMasonryEmptyStateView *)emptyStateView
 {
+
     [self.emptyStateView removeFromSuperview];
     self.emptyStateView = emptyStateView;
+    [self.emptyStateView setFrame:(CGRect){ self.frame.size.width/2 - self.emptyStateView.bounds.size.width/2 , self.frame.size.height/2 - self.emptyStateView.bounds.size.height/2, self.emptyStateView.bounds.size }];
     [self addSubview:self.emptyStateView];
 }
 
