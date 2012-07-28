@@ -69,7 +69,7 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _descriptionTextView = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
         _descriptionTextView.textDelegate = self;
-        _descriptionTextView.contentView.edgeInsets = (UIEdgeInsets) { -5, 0, 0, 0 };
+        _descriptionTextView.contentView.edgeInsets = (UIEdgeInsets) { -2, 0, 0, 0 };
         [_descriptionTextView setScrollEnabled:NO];
         [_descriptionTextView setScrollsToTop:NO];
         [_descriptionTextView setBackgroundColor:[UIColor clearColor]];
@@ -81,7 +81,6 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
         DTCSSStylesheet *defaultDTCSSStylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
         
         _descriptionAttributeTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
                                             [UIColor gtio_grayTextColor232323], DTDefaultTextColor,
                                             [UIColor gtio_pinkTextColor], DTDefaultLinkColor,
                                             [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
@@ -202,14 +201,13 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 {
     [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
     DTAttributedTextView *desciptionAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIODescriptionTextWidth, 0 } }];
-    desciptionAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 8, 0 };
+    desciptionAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -2, 0, 8, 0 };
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"PostDescription" ofType:@"css"];  
     NSData *cssData = [NSData dataWithContentsOfFile:filePath];
     NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
     DTCSSStylesheet *stylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
     
     NSDictionary *descriptionAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                      [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
                                                       [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
                                                       stylesheet, DTDefaultStyleSheet,
                                                       nil];
