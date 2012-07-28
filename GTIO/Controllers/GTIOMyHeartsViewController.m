@@ -127,7 +127,7 @@
                     self.heartedPostsPagination = object;
                 }
             }
-            [self.segmentedControl setPosts:self.posts GTIOPostType:GTIOPostTypeHeart userProfile:[GTIOUser currentUserProfile]];
+            [self.segmentedControl setItems:self.posts GTIOPostType:GTIOPostTypeHeart userProfile:[GTIOUser currentUserProfile]];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
@@ -160,7 +160,7 @@
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
                 NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
                 if ([foundExistingPosts count] == 0) {
-                    [self.segmentedControl.leftPostsView.masonGridView addPost:post postType:GTIOPostTypeNone];
+                    [self.segmentedControl.leftPostsView.masonGridView addItem:post postType:GTIOPostTypeNone];
                     [self.posts addObject:post];
                 }
             }];
@@ -194,7 +194,7 @@
                     self.heartedProductsPagination = object;
                 }
             }
-            [self.segmentedControl setPosts:self.products GTIOPostType:GTIOPostTypeHeartedProducts userProfile:[GTIOUser currentUserProfile]];
+            [self.segmentedControl setItems:self.products GTIOPostType:GTIOPostTypeHeartedProducts userProfile:[GTIOUser currentUserProfile]];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
@@ -222,13 +222,13 @@
             
             // Only add posts that are not already on mason grid
             [paginationHeartedProducts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                GTIOPost *post = obj;
+                GTIOProduct *product = obj;
                 
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"productID == %@", product.productID];
                 NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
                 if ([foundExistingPosts count] == 0) {
-                    [self.segmentedControl.rightPostsView.masonGridView addPost:post postType:GTIOPostTypeNone];
-                    [self.products addObject:post];
+                    [self.segmentedControl.rightPostsView.masonGridView addItem:product postType:GTIOPostTypeNone];
+                    [self.products addObject:product];
                 }
             }];
         };

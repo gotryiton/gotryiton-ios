@@ -10,4 +10,8 @@
 
 @interface GTIOProgressHUD : MBProgressHUD
 
++ (GTIOProgressHUD *)showHUDAddedTo:(UIView *)view animated:(BOOL)animated dimScreen:(BOOL)dimScreen;
+
++ (GTIOProgressHUD *)showPlainHUDAddedTo:(UIView *)view animated:(BOOL)animated dimScreen:(BOOL)dimScreen;
+
 @end

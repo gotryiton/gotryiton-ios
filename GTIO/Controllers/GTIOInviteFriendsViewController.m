@@ -7,12 +7,25 @@
 //
 
 #import "GTIOInviteFriendsViewController.h"
+
+#import "GTIOInviteFriendsPerson.h"
+#import "GTIOButton.h"
+
 #import "GTIOInviteFriendsTableViewHeader.h"
 #import "GTIOInviteFriendsTableCell.h"
 #import "GTIOInviteFriendsSectionHeaderView.h"
-#import "GTIOInviteFriendsPerson.h"
+#import "GTIOActionSheet.h"
+
+#import "GTIOMailComposer.h"
+#import "GTIOMessageComposer.h"
 
 #import <AddressBook/AddressBook.h>
+
+static NSString * const kGTIOSMSMessage = @"kGTIOSMSMessage";
+static NSString * const kGTIOEmailMessage = @"kGTIOEmailMessage";
+
+static NSString * const kGTIOEmailSubject = @"You've been invited to GO TRY IT ON";
+static NSString * const kGTIOEmailBody = @"I think this would be great for you, check it out! http://www.gotryiton.com";
 
 @interface GTIOInviteFriendsViewController ()
 
@@ -48,7 +61,14 @@
     }];
     self.leftNavigationButton = backButton;
     
+    __block typeof(self) blockSelf = self;
     self.tableHeader = [[GTIOInviteFriendsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 100 }];
+    [self.tableHeader.smsButton setTapHandler:^(id sender) {
+        [blockSelf openMessageComposerWithRecipients:[NSArray array] body:kGTIOEmailBody];
+    }];
+    [self.tableHeader.emailButton setTapHandler:^(id sender) {
+        [blockSelf openMailComposerWithRecipients:[NSArray array] subject:kGTIOEmailSubject body:kGTIOEmailBody];
+    }];
     [self.view addSubview:self.tableHeader];
     
     [self buildContacts];
@@ -83,10 +103,25 @@
         ABRecordRef person = (__bridge ABRecordRef)[rawContacts objectAtIndex:i];
         NSString *firstName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
         NSString *lastName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
+        
+        NSString *phoneNumber = nil;
+        ABMultiValueRef phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
+        if (ABMultiValueGetCount(phoneNumbers) > 0) {
+            phoneNumber = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
+        }
+        
+        NSString *email = nil;
+        ABMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
+        if (ABMultiValueGetCount(emails)) {
+            email = (__bridge NSString *)ABMultiValueCopyValueAtIndex(emails, 0);
+        }
+        
         if (firstName.length > 0) {
             GTIOInviteFriendsPerson *person = [[GTIOInviteFriendsPerson alloc] init];
             person.firstName = firstName;
             person.lastName = lastName;
+            person.phoneNumber = phoneNumber;
+            person.email = email;
             
             // Get first letter of last name, if no last name then first name
             NSString *firstLetter = nil;
@@ -96,8 +131,8 @@
                 firstLetter = [person.firstName substringToIndex:1];
             }
             
-            // If user has first or last name add them to contact list dict
-            if ([firstLetter length] > 0) {
+            // If user has first or last name, an email or phone number add them to contact list dict
+            if ([firstLetter length] > 0 && ([person.phoneNumber length] > 0 || [person.email length] > 0) ) {
                 NSMutableArray *arrayOfPeopleForLetter = [self.contactList objectForKey:firstLetter];
                 
                 if (arrayOfPeopleForLetter) {
@@ -130,6 +165,42 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSArray *sections = [self sortedContactListKeys];
+    NSArray *section = [self.contactList objectForKey:[sections objectAtIndex:indexPath.section]];
+    GTIOInviteFriendsPerson *person = [section objectAtIndex:indexPath.row];
+    
+    NSMutableArray *buttonModels = [NSMutableArray array];
+    
+    if ([person.email length] > 0) {
+        GTIOButton *emailButtonModel = [[GTIOButton alloc] init];
+        emailButtonModel.text = [NSString stringWithFormat:@"Email: %@", person.email];
+        emailButtonModel.attribute = person.email;
+        emailButtonModel.state = [NSNumber numberWithInt:1];
+        emailButtonModel.name = kGTIOEmailMessage;
+        [buttonModels addObject:emailButtonModel];
+    }
+    
+    if ([person.phoneNumber length] > 0) {
+        GTIOButton *smsButtonModel = [[GTIOButton alloc] init];
+        smsButtonModel.text = [NSString stringWithFormat:@"SMS: %@", person.phoneNumber];
+        smsButtonModel.attribute = person.phoneNumber;
+        smsButtonModel.state = [NSNumber numberWithInt:1];
+        smsButtonModel.name = kGTIOSMSMessage;
+        [buttonModels addObject:smsButtonModel];
+    }
+    
+    GTIOActionSheet *actionSheet = [[GTIOActionSheet alloc] initWithButtons:buttonModels buttonTapHandler:^(GTIOActionSheet *actionSheet, GTIOButton *buttonModel) {
+        
+        if ([buttonModel.name isEqualToString:kGTIOEmailMessage]) {
+            [self openMailComposerWithRecipients:[NSArray arrayWithObject:buttonModel.attribute] subject:kGTIOEmailSubject body:kGTIOEmailBody];
+        } else if ([buttonModel.name isEqualToString:kGTIOSMSMessage]) {
+            [self openMessageComposerWithRecipients:[NSArray arrayWithObject:buttonModel.attribute] body:kGTIOEmailBody];
+        }
+        
+        [actionSheet dismiss];
+    }];
+    [actionSheet show];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -150,7 +221,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *sections = [self sortedContactListKeys];
-    return [[self.contactList objectForKey:[sections objectAtIndex:section]] count];
+    NSArray *peopleInSection = [self.contactList objectForKey:[sections objectAtIndex:section]];
+    return [peopleInSection count];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -191,6 +263,32 @@
 - (NSArray *)sortedContactListKeys
 {
     return [self.contactList.allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+}
+
+#pragma mark - Composer Helpers
+
+- (void)openMessageComposerWithRecipients:(NSArray *)recipients body:(NSString *)body
+{
+    GTIOMessageComposer *messageComposer = [[GTIOMessageComposer alloc] init];
+    __block GTIOMessageComposer *blockMessageComposer = messageComposer;
+    [messageComposer setRecipients:recipients];
+    [messageComposer setBody:body];
+    [messageComposer setDidFinishHandler:^(MFMessageComposeViewController *controller, MessageComposeResult result) {
+        [blockMessageComposer dismissModalViewControllerAnimated:YES];
+    }];
+    [self.navigationController presentModalViewController:messageComposer animated:YES];
+}
+
+- (void)openMailComposerWithRecipients:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body
+{
+    GTIOMailComposer *mailComposer = [[GTIOMailComposer alloc] init];
+    [mailComposer.mailComposeViewController setToRecipients:recipients];
+    [mailComposer.mailComposeViewController setSubject:subject];
+    [mailComposer.mailComposeViewController setMessageBody:body isHTML:NO];
+    [mailComposer setDidFinishHandler:^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *error){ 
+        [mailComposer.mailComposeViewController dismissModalViewControllerAnimated:YES];
+    }];
+    [self.navigationController presentModalViewController:mailComposer.mailComposeViewController animated:YES];
 }
 
 @end

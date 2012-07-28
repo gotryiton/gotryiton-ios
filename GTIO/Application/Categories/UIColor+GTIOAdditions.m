@@ -161,7 +161,7 @@
     return UIColorFromRGB(0xEDEBE0);
 }
 
-+ (UIColor *)gtio_friendsGreenCellColor
++ (UIColor *)gtio_greenCellColor
 {
     return UIColorFromRGB(0xEBF2EF);
 }
@@ -176,6 +176,16 @@
 {
     // RGB: (85, 85, 86)
     return UIColorFromRGB(0x555556);
+}
+
++ (UIColor *)gtio_grayBorderColorD9D7CE
+{
+    return UIColorFromRGB(0xD9D7CE);
+}
+
++ (UIColor *)gtio_selectedCellBGColorC6F0DE
+{
+    return UIColorFromRGB(0xC6F0DE);
 }
 
 @end

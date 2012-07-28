@@ -77,7 +77,7 @@
                     [self.posts addObject:object];
                 }
             }
-            [self.postMasonGrid setPosts:self.posts userProfile:[GTIOUser currentUserProfile]];
+            [self.postMasonGrid setItems:self.posts userProfile:[GTIOUser currentUserProfile]];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];

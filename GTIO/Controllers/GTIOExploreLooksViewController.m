@@ -174,7 +174,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
                 }
             }
 
-            [self.masonGridView setPosts:self.posts postsType:GTIOPostTypeNone];
+            [self.masonGridView setItems:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
             [self.masonGridView.pullToRefreshView finishLoading];
         };
@@ -210,7 +210,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
             }
             
             [self.segmentedControlView setTabs:self.tabs];
-            [self.masonGridView setPosts:self.posts postsType:GTIOPostTypeNone];
+            [self.masonGridView setItems:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
             [self.masonGridView.pullToRefreshView finishLoading];
         };
@@ -244,7 +244,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
                 NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
                 if ([foundExistingPosts count] == 0) {
-                    [self.masonGridView addPost:post postType:GTIOPostTypeNone];
+                    [self.masonGridView addItem:post postType:GTIOPostTypeNone];
                     [self.posts addObject:post];
                 }
             }];

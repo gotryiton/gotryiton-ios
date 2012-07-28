@@ -34,6 +34,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 @property (nonatomic, strong) UIImage *mainOriginalImage;
 @property (nonatomic, strong) UIImage *mainFilteredImage;
 @property (nonatomic, strong) NSString *mainFilterName;
+@property (nonatomic, strong) NSNumber *mainProductID;
 
 @property (nonatomic, strong) GTIOLookSelectorView *lookSelectorView;
 @property (nonatomic, strong) GTIOLookSelectorControl *lookSelectorControl;
@@ -53,12 +54,6 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 @end
 
 @implementation GTIOPostALookViewController
-
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer;
-@synthesize mainOriginalImage = _mainOriginalImage, mainFilteredImage = _mainFilteredImage, mainFilterName = _mainFilterName;
-@synthesize photoForPosting = _photoForPosting;
-@synthesize maskView = _maskView;
-@synthesize currentSection = _currentSection;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -119,7 +114,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         [confirmationViewController setOriginalPhoto:originalPhoto];
         [self.navigationController pushViewController:confirmationViewController animated:YES];
     }];
-    [self setOriginalImage:self.mainOriginalImage filteredImage:self.mainFilteredImage filterName:self.mainFilterName]; // Now that view is loaded refresh image
+    [self setOriginalImage:self.mainOriginalImage filteredImage:self.mainFilteredImage filterName:self.mainFilterName productID:self.mainProductID]; // Now that view is loaded refresh image
     [self.scrollView addSubview:self.lookSelectorView];
     
     self.lookSelectorControl = [[GTIOLookSelectorControl alloc] initWithFrame:(CGRect){ 253, 13, 60, 107 }];
@@ -286,7 +281,8 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     if ([self.lookSelectorView selectionsComplete]) {
         UIImage *uploadImage = [self.lookSelectorView compositeImage];
-        [[GTIOPostManager sharedManager] uploadImage:uploadImage framed:self.lookSelectorView.photoSet filterName:@"" forceSavePost:NO];
+        
+        [[GTIOPostManager sharedManager] uploadImage:uploadImage framed:self.lookSelectorView.photoSet filterNames:[self filterNames] forceSavePost:NO];
     }
 }
 
@@ -303,10 +299,58 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 - (void)beginPostLookToGTIO
 {
     [[GTIOPostManager sharedManager] setPostPhotoButtonTouched:YES];
-    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] completionHandler:nil];
+    
+    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] attachedProducts:(NSDictionary *)[self attachedProducts] completionHandler:nil];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         [self reset];
     }];
+}
+
+- (NSDictionary *)filterNames
+{
+    NSMutableDictionary *filterNames = [NSMutableDictionary dictionary];
+    if (self.lookSelectorView.photoSet) {
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.mainPhotoView attachedProducts:nil filterNames:filterNames];
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.topPhotoView attachedProducts:nil filterNames:filterNames];
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.bottomPhotoView attachedProducts:nil filterNames:filterNames];
+    } else {
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.singlePhotoView attachedProducts:nil filterNames:filterNames];
+    }
+    return filterNames;
+}
+
+- (NSDictionary *)attachedProducts
+{
+    NSMutableDictionary *attachedProducts = [NSMutableDictionary dictionary];
+    if (self.lookSelectorView.photoSet) {
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.mainPhotoView attachedProducts:attachedProducts filterNames:nil];
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.topPhotoView attachedProducts:attachedProducts filterNames:nil];
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.bottomPhotoView attachedProducts:attachedProducts filterNames:nil];
+    } else {
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.singlePhotoView attachedProducts:attachedProducts filterNames:nil];
+    }
+    return attachedProducts;
+}
+
+- (void)buildPropertyArraysForTakePhotoView:(GTIOTakePhotoView *)takePhotoView attachedProducts:(NSMutableDictionary *)attachedProducts filterNames:(NSMutableDictionary *)filterNames
+{
+    NSInteger key = NSNotFound;
+    if (takePhotoView == self.lookSelectorView.mainPhotoView || takePhotoView == self.lookSelectorView.singlePhotoView) {
+        key = 0;
+    } else if (takePhotoView == self.lookSelectorView.topPhotoView) {
+        key = 1;
+    } else if (takePhotoView == self.lookSelectorView.bottomPhotoView) {
+        key = 2;
+    }
+    
+    if (key != NSNotFound) {
+        if (takePhotoView.productID) {
+            [attachedProducts setValue:[NSNumber numberWithInt:key] forKey:[takePhotoView.productID stringValue]];
+        }
+        if ([takePhotoView.filterName length] > 0) {
+            [filterNames setValue:takePhotoView.filterName forKey:[NSString stringWithFormat:@"%i", key]];
+        }
+    }
 }
 
 - (void)cancelPost
@@ -319,14 +363,16 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 #pragma mark - Photo Handlers
 
-- (void)setOriginalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName
+- (void)setOriginalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName productID:(NSNumber *)productID
 {
     switch (self.currentSection) {
         case GTIOPostPhotoSectionMain:
             self.mainOriginalImage = originalImage;
             self.mainFilteredImage = filteredImage;
-            [self updateTakePhotoView:self.lookSelectorView.mainPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
-            [self updateTakePhotoView:self.lookSelectorView.singlePhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            self.mainFilterName = filterName;
+            self.mainProductID = productID;
+            [self updateTakePhotoView:self.lookSelectorView.mainPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName productID:productID];
+            [self updateTakePhotoView:self.lookSelectorView.singlePhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName productID:productID];
             
             CGFloat height = kGTIOLookSelectorViewMaxHeight;
             if (self.mainFilteredImage.size.height < kGTIOLookSelectorViewMaxHeight) {
@@ -336,20 +382,21 @@ static NSInteger const kGTIOMaskingViewTag = 100;
             
             break;
         case GTIOPostPhotoSectionTop: 
-            [self updateTakePhotoView:self.lookSelectorView.topPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            [self updateTakePhotoView:self.lookSelectorView.topPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName productID:productID];
             break;
         case GTIOPostPhotoSectionBottom: 
-            [self updateTakePhotoView:self.lookSelectorView.bottomPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            [self updateTakePhotoView:self.lookSelectorView.bottomPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName productID:productID];
             break;
         default: break;
     }
 }
 
-- (void)updateTakePhotoView:(GTIOTakePhotoView *)takePhotoView originalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName
+- (void)updateTakePhotoView:(GTIOTakePhotoView *)takePhotoView originalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName productID:(NSNumber *)productID
 {
     [takePhotoView setOriginalImage:originalImage];
     [takePhotoView setFilteredImage:filteredImage];
     [takePhotoView setFilterName:filterName];
+    [takePhotoView setProductID:productID];
 }
 
 #pragma mark - UINavigationBar
