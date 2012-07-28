@@ -114,7 +114,7 @@ typedef enum GTIOReviewsAlertView {
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _reviewTextView = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
         _reviewTextView.textDelegate = self;
-        _reviewTextView.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 0, 0 };
+        _reviewTextView.contentView.edgeInsets = (UIEdgeInsets) { -8, 0, 0, 0 };
         [_reviewTextView setScrollEnabled:NO];
         [_reviewTextView setScrollsToTop:NO];
         [_reviewTextView setBackgroundColor:[UIColor clearColor]];
@@ -127,6 +127,7 @@ typedef enum GTIOReviewsAlertView {
         
         _reviewAttributeTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [UIColor gtio_grayTextColor232323], DTDefaultTextColor,
+                                            [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
                                             [UIColor gtio_pinkTextColor], DTDefaultLinkColor,
                                             [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
                                             defaultDTCSSStylesheet, DTDefaultStyleSheet,
@@ -259,7 +260,7 @@ typedef enum GTIOReviewsAlertView {
 {
     [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
     DTAttributedTextView *reviewAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIOReviewTextWidth, 0 } }];
-    reviewAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 8, 0 };
+    reviewAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -8, 0, 8, 0 };
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ReviewText" ofType:@"css"];  
     NSData *cssData = [NSData dataWithContentsOfFile:filePath];
     NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
@@ -267,6 +268,7 @@ typedef enum GTIOReviewsAlertView {
     
     NSDictionary *reviewAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
                                                       [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
+                                                      [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
                                                       stylesheet, DTDefaultStyleSheet,
                                                       nil];
     

@@ -82,6 +82,7 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
         
         _descriptionAttributeTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [UIColor gtio_grayTextColor232323], DTDefaultTextColor,
+                                            [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
                                             [UIColor gtio_pinkTextColor], DTDefaultLinkColor,
                                             [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
                                             defaultDTCSSStylesheet, DTDefaultStyleSheet,
@@ -209,6 +210,7 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
     
     NSDictionary *descriptionAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
                                                       [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
+                                                      [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
                                                       stylesheet, DTDefaultStyleSheet,
                                                       nil];
     
