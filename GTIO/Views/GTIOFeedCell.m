@@ -35,10 +35,6 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 
 @implementation GTIOFeedCell
 
-@synthesize post = _post;
-@synthesize frameView = _frameView, whoHeartedThisView = _whoHeartedThisView, postButtonColumnView = _postButtonColumnView;
-@synthesize ellipsisPopOverView = _ellipsisPopOverView;
-@synthesize tapGestureRecognizer = _tapGestureRecognizer;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
