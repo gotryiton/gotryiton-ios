@@ -30,6 +30,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 2.0;
 static CGFloat const kGTIOCellHeartRightPadding = 11.0;
 static CGFloat const kGTIOCellFlagRightPadding = 7.0;
 static CGFloat const kGTIOCellDeleteRightPadding = 9.0;
+static CGFloat const kGTIOCellButtonPadding = 6.0;
 
 typedef enum GTIOReviewsAlertView {
     GTIOReviewsAlertViewFlag = 0,
@@ -106,13 +107,16 @@ typedef enum GTIOReviewsAlertView {
         
         _heartButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeHeart tapHandler:nil];
         _heartButton.hidden = YES;
+        [_heartButton setTapAreaPadding:kGTIOCellButtonPadding];
         [self addSubview:_heartButton];
         
         _flagButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFlag tapHandler:nil];
+        [_flagButton setTapAreaPadding:kGTIOCellButtonPadding];
         _flagButton.hidden = YES;
         [self addSubview:_flagButton];
         
         _removeButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeRemove tapHandler:nil];
+        [_removeButton setTapAreaPadding:kGTIOCellButtonPadding];
         _removeButton.hidden = YES;
         [self addSubview:_removeButton];
         
