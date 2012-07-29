@@ -44,6 +44,7 @@
         case GTIOButtonTypePhotoSelectBox: return [self gtio_photoSelectBox];
         case GTIOButtonTypeEditPhoto: return [self gtio_editPhotoButton];
         case GTIOButtonTypePostThis: return [self gtio_postThisButton];
+        case GTIOButtonTypePhotoFrameHandle: return [self gtio_photoFrameHandleButton];
         case GTIOButtonTypePhotoDelete: return [self gtio_photoDeleteButton];
         case GTIOButtonTypeNotificationBubble: return [self gtio_notificationBubbleButton];
         case GTIOButtonTypeNotificationBubbleEmpty: return [self gtio_notificationBubbleEmptyButton];
@@ -558,6 +559,11 @@
 + (id)gtio_productListBuyButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.buy.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.button.buy.active.png"]];
+}
+
++ (id)gtio_photoFrameHandleButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"photo-frame-handle-inactive.png"] hightlightImage:nil];
 }
 
 + (id)gtio_productShoppingListProductOptionButton

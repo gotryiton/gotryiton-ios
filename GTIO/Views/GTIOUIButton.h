@@ -37,6 +37,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypePhotoSelectBox,
     GTIOButtonTypeEditPhoto,
     GTIOButtonTypePostThis,
+    GTIOButtonTypePhotoFrameHandle,
     GTIOButtonTypePhotoDelete,
     GTIOButtonTypeNotificationBubble,
     GTIOButtonTypeNotificationBubbleEmpty,

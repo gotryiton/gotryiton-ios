@@ -29,7 +29,7 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
 @property (nonatomic, strong) UIView *photoSetView;
 @property (nonatomic, strong) UIImageView *frameImageView;
 
-@property (nonatomic, strong) UIImageView *resizeHandle;
+@property (nonatomic, strong) GTIOUIButton *resizeHandle;
 
 @end
 
@@ -128,9 +128,10 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
         [_photoSetView addSubview:self.bottomPhotoView];
         
         // Resize Handle
-        _resizeHandle = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photo-frame-handle-inactive.png"]];
-        [_resizeHandle setFrame:(CGRect){ { (self.frame.size.width - _resizeHandle.image.size.width) / 2, self.frame.size.height - _resizeHandle.image.size.height - kGTIOBottomPadding }, _resizeHandle.image.size }];
+        _resizeHandle = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoFrameHandle];
+        [_resizeHandle setFrame:(CGRect){ { (self.frame.size.width - _resizeHandle.bounds.size.width) / 2, self.frame.size.height - _resizeHandle.bounds.size.height - kGTIOBottomPadding }, _resizeHandle.bounds.size }];
         [_resizeHandle setUserInteractionEnabled:YES];
+        [_resizeHandle setTapAreaPaddingInsets:UIEdgeInsetsMake(-3.0, -3.0, 0.0, -3.0)];
         [self addSubview:_resizeHandle];
         
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleResizeGesture:)];
@@ -233,7 +234,7 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
     [super setFrame:frame];
     
     [self.frameImageView setFrame:self.bounds];
-    [self.resizeHandle setFrame:(CGRect){ { (self.frame.size.width - self.resizeHandle.image.size.width) / 2, self.frame.size.height - self.resizeHandle.image.size.height - kGTIOBottomPadding }, self.resizeHandle.image.size }];
+    [self.resizeHandle setFrame:(CGRect){ { (self.frame.size.width - self.resizeHandle.bounds.size.width) / 2, self.frame.size.height - self.resizeHandle.bounds.size.height - kGTIOBottomPadding }, self.resizeHandle.bounds.size }];
     
     [self.singlePhotoView setFrame:(CGRect){ self.singlePhotoView.frame.origin, { self.singlePhotoView.frame.size.width, self.singlePhotoView.frame.size.height + heightDelta } }];
     [self.mainPhotoView setFrame:(CGRect){ self.mainPhotoView.frame.origin, { self.mainPhotoView.frame.size.width, self.mainPhotoView.frame.size.height + heightDelta } }];
