@@ -16,6 +16,7 @@ static CGFloat const kGTIOEditPhotoPadding = 6.0f;
 static NSString * const kGTIOAddAFilterResource = @"add-a-filter";
 static NSString * const kGTIOReplacePhotoResource = @"replace-photo";
 static NSString * const kGTIOSwapWithResource = @"swap-with";
+static CGFloat const kGTIOCameraButtonTapPadding = 5.0;
 
 @interface GTIOTakePhotoView() <UIScrollViewDelegate>
 
@@ -50,6 +51,7 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
         self.photoSelectButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoSelectBox];
         [self.photoSelectButton setFrame:(CGRect){ 0, 0, self.bounds.size }];
         [self.photoSelectButton addTarget:self action:@selector(getImageFromCamera:) forControlEvents:UIControlEventTouchUpInside];
+        [self.photoSelectButton setTapAreaPadding:kGTIOCameraButtonTapPadding];
         [self addSubview:self.photoSelectButton];
         
         // Edit Photo Button
@@ -63,6 +65,7 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
             }];
         }];
         [_editPhotoButton setFrame:(CGRect){ { kGTIOEditPhotoPadding, kGTIOEditPhotoPadding }, _editPhotoButton.frame.size }];
+        [_editPhotoButton setTapAreaPadding:kGTIOCameraButtonTapPadding];
     }
     return self;
 }

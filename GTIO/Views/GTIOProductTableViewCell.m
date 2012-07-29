@@ -29,6 +29,7 @@ static CGFloat const kGTIOBuyButtonLeftMargin = 7.0;
 static CGFloat const kGTIODeleteButtonYPosition = 0.0;
 static CGFloat const kGTIOProductNameLabelXPosition = 173.0;
 static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
+static CGFloat const kGTIOCellButtonPadding = 6.0;
 
 @interface GTIOProductTableViewCell()
 
@@ -110,12 +111,15 @@ static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
         
         if (_productTableCellType == GTIOProductTableViewCellTypeShoppingList) {
             _emailButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListEmail];
+            [_emailButton setTapAreaPadding:kGTIOCellButtonPadding];
             [self.contentView addSubview:_emailButton];
             
             _buyButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListBuy];
+            [_buyButton setTapAreaPadding:kGTIOCellButtonPadding];
             [self.contentView addSubview:_buyButton];
             
             _deleteButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListDelete];
+            [_deleteButton setTapAreaPadding:kGTIOCellButtonPadding];
             [self.contentView addSubview:_deleteButton];
         }
     }
