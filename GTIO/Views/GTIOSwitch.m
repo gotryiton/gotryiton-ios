@@ -27,12 +27,7 @@ CGFloat const kAnimationDuration = 0.25;
 
 @implementation GTIOSwitch
 
-@synthesize track = _track, trackFrame = _trackFrame, trackFrameMask = _trackFrameMask, knob = _knob, knobOn = _knobOn, knobOff = _knobOff;
-@synthesize trackImageView = _trackImageView, trackFrameImageView = _trackFrameImageView, knobImageView = _knobImageView;
-@synthesize on = _on;
-@synthesize changeHandler = _changeHandler;
-@synthesize knobXOffset = _knobXOffset;
-@synthesize maskedTrackView = _maskedTrackView, maskedKnobView = _maskedKnobView;
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -59,6 +54,7 @@ CGFloat const kAnimationDuration = 0.25;
         
         _on = NO;
         _knobXOffset = 0;
+        _knobYOffset = 0;
         
         UIPanGestureRecognizer *knobPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleKnobPanGesture:)];
         [knobPanGestureRecognizer setMinimumNumberOfTouches:1];
@@ -102,7 +98,7 @@ CGFloat const kAnimationDuration = 0.25;
 {
     _knob = knob;
     [_knobImageView setImage:_knob];
-    [_knobImageView setFrame:(CGRect){ { self.knobXOffset, 0 }, _knob.size }];
+    [_knobImageView setFrame:(CGRect){ { self.knobXOffset, self.knobYOffset }, _knob.size }];
 }
 
 - (void)setKnobXOffset:(NSInteger)knobXOffset
@@ -111,7 +107,17 @@ CGFloat const kAnimationDuration = 0.25;
     [self setKnob:self.knob];
 }
 
-- (void)setOn:(BOOL)on
+- (void)setKnobYOffset:(float)knobYOffset
+{
+    _knobYOffset = knobYOffset;
+    [self setKnob:self.knob];
+}
+
+- (void)setOn:(BOOL)on {
+    [self setOn:on sendActions:YES];
+}
+
+- (void)setOn:(BOOL)on sendActions:(BOOL)sendActions
 {
     _on = on;
     // animate
@@ -121,10 +127,14 @@ CGFloat const kAnimationDuration = 0.25;
         [self animateToEnd:0.0f];
     }
     
-    if (self.changeHandler) {
-        self.changeHandler(_on);
+    if (sendActions) {
+        
+        if (self.changeHandler) {
+            self.changeHandler(_on);
+        }
+    
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (void)layoutSubviews
