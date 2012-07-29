@@ -64,7 +64,6 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 @property (nonatomic, strong) GTIOPost *post;
 
 
-
 @end
 
 @implementation GTIOSinglePostViewController
@@ -80,7 +79,7 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
         
         _addNavToHeaderOffsetXOrigin = -44.0f;
         _removeNavToHeaderOffsetXOrigin = -0.0f;
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
 
     }
@@ -115,19 +114,12 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)loadView 
-{
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
         
     __block typeof(self) blockSelf = self;
-    
-    NSLog(@"SINGLE POST viewDidLoad");
     
     GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
         GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
@@ -135,20 +127,14 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
         [blockSelf presentModalViewController:navigationController animated:YES];
     }];
     [self useTitleView:navTitleView];
-    self.navTitleView.backButton.tapHandler = ^(id sender) {
-        [self.navigationController popViewControllerAnimated:YES];
-    };
-    
+
      GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self setLeftNavigationButton:backButton];
-
-
     
 
-
-    
+       
     // Single post
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -437,6 +423,13 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
             [self.navigationController pushViewController:viewController animated:YES];
         }
     }
+}
+
+-(void) postHeaderViewTapWithUserId:(NSString *)userID
+{
+    GTIOProfileViewController *viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+    [viewController setUserID:userID];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 
