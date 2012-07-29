@@ -665,4 +665,15 @@
     }
 }
 
+- (void)setTapAreaPadding:(CGFloat)tapAreaPadding
+{
+    _tapAreaPadding = tapAreaPadding;
+    self.tapAreaPaddingInsets = UIEdgeInsetsMake(-tapAreaPadding, -tapAreaPadding, -tapAreaPadding, -tapAreaPadding);
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    CGRect paddedFrame =  UIEdgeInsetsInsetRect(self.bounds, self.tapAreaPaddingInsets);
+    return (CGRectContainsPoint(paddedFrame, point) == 1);
+}
+
 @end
