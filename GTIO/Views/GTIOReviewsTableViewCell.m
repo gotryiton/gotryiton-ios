@@ -168,6 +168,8 @@ typedef enum GTIOReviewsAlertView {
         [self.badge setImageWithURL:[self.review.user.badge badgeImageURLForCommenter]];
         [self.badge setFrame:(CGRect){ self.userNameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset, self.userNameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset, [self.review.user.badge badgeImageSizeForCommenter]}];
         
+    } else {
+        [self.badge setFrame:CGRectZero];
     }
 }
 
