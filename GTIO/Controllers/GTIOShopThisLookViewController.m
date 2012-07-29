@@ -47,7 +47,7 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
     self.leftNavigationButton = backButton;
     
     GTIOUIButton *emailMeMyListButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListEmailMyList tapHandler:^(id sender) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Would you like to email your shopping list to yourself?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Would you like to email this list to yourself?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         alert.tag = kGTIOEmailMeMyShoppingListAlert;
         [alert show];
     }];
@@ -88,6 +88,43 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
+- (NSUInteger)indexOfProductWithId:(NSNumber *)productID
+{
+    return [self.products indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+       GTIOProduct *product = (GTIOProduct*)obj;
+        return ([product.productID integerValue] == [productID integerValue]);
+    }];
+}
+
+#pragma mark - GTIOProductTableViewCellDelegate Methods
+- (void)productButtonTap:(GTIOButton *)button productID:(NSNumber *)productID;
+{   
+    __block typeof(self) blockSelf = self;
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOProduct class]]) {
+
+                    // product button endpoints respond with a fresh object so just update it                   
+                    GTIOProduct *newObject = (GTIOProduct *)object;
+                    
+                    [self.products replaceObjectAtIndex:[blockSelf indexOfProductWithId:newObject.productID] withObject: newObject];
+
+                    [blockSelf.tableView reloadData];
+                    [blockSelf.tableView layoutSubviews];
+                }
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [blockSelf.tableView reloadData];
+            [blockSelf.tableView layoutSubviews];
+
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
@@ -166,10 +203,10 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
 {
     if (alertView.tag == kGTIOEmailMeMyShoppingListAlert && buttonIndex == 1) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/products/shopping-list/email-to-me" usingBlock:^(RKObjectLoader *loader) {
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/products/in-post/%@/email-to-me", self.postID] usingBlock:^(RKObjectLoader *loader) {
             loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Your shopping list has been emailed to you!" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"You should receive this list by email shortly." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
                 [alert show];
             };
             loader.onDidFailWithError = ^(NSError *error) {

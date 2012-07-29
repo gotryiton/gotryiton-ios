@@ -136,6 +136,14 @@ static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
     }];
 }
 
+- (NSUInteger)indexOfReviewWithId:(NSString *)reviewID
+{
+    return [self.reviews indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+       GTIOReview *review = (GTIOReview*)obj;
+       return [review.reviewID isEqualToString:reviewID];
+    }];
+}
+
 - (void)addComment{
     GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithPostID:self.postID];
     [self.navigationController pushViewController:commentViewController animated:YES];
@@ -155,6 +163,34 @@ static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
     NSUInteger indexOfReview = [self.reviews indexOfObject:review];
     [self.reviews removeObjectAtIndex:indexOfReview];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexOfReview inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)reviewButtonTap:(GTIOButton *)button reviewID:(NSString *)reviewID;
+{
+    __block typeof(self) blockSelf = self;
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOReview class]]) {
+
+                    // review button endpoints respond with a fresh review object so just update it                    
+                    GTIOReview *newReview = (GTIOReview *)object;
+                    
+                    [self.reviews replaceObjectAtIndex:[blockSelf indexOfReviewWithId:newReview.reviewID] withObject: newReview];
+
+                    [blockSelf.tableView reloadData];
+                    [blockSelf.tableView layoutSubviews];
+                }
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [blockSelf.tableView reloadData];
+            [blockSelf.tableView layoutSubviews];
+
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
 }
 
 - (UIView *)viewForSpinner

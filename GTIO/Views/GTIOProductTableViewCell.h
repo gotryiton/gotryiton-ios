@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GTIOProduct.h"
+#import "GTIOButton.h"
 
 typedef enum GTIOProductTableCellType {
     GTIOProductTableViewCellTypeShoppingList = 0,
@@ -20,6 +21,7 @@ typedef enum GTIOProductTableCellType {
 @optional
 - (void)removeProduct:(GTIOProduct *)product;
 - (void)loadWebViewControllerWithURL:(NSURL *)url;
+- (void)productButtonTap:(GTIOButton* )button productID:(NSNumber *)productID;
 
 @end
 

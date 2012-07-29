@@ -168,6 +168,10 @@ typedef enum GTIOReviewsAlertView {
     [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + kGTIONameAndTimeHorizontalPadding, self.userProfilePicture.frame.origin.y + kGTIONameAndTimeVerticalPadding, self.background.bounds.size.width - kGTIOCellPaddingLeftRight * 2  - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? kGTIODefaultPadding : 0), kGTIODefaultLabelHeight }];
     [self.postedAtLabel setFrame:(CGRect){ self.userNameLabel.frame.origin.x, self.userNameLabel.frame.origin.y + self.userNameLabel.bounds.size.height - kGTIOPostedAtLabelVerticalOffset, self.userNameLabel.bounds.size.width, kGTIODefaultLabelHeight }];
 
+    self.heartButton.enabled = YES;
+    self.flagButton.enabled = YES;
+    self.removeButton.enabled = YES;
+
     if (self.review.user.badge){
         [self.badge setImageWithURL:[self.review.user.badge badgeImageURLForCommenter]];
         [self.badge setFrame:(CGRect){ self.userNameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset, self.userNameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset, [self.review.user.badge badgeImageSizeForCommenter]}];
@@ -177,6 +181,14 @@ typedef enum GTIOReviewsAlertView {
     }
 }
 
+- (GTIOButton *)buttonWithName:(NSString *)buttonName 
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", buttonName];
+    NSArray *results = [self.review.buttons filteredArrayUsingPredicate:predicate];
+    if (results.count>0)
+        return [results objectAtIndex:0];
+    return nil;
+}
 
 - (void)setReview:(GTIOReview *)review
 {
@@ -202,7 +214,7 @@ typedef enum GTIOReviewsAlertView {
                 self.flagButton.selected = button.state.boolValue;
                 self.flagButton.tapHandler = ^(id sender) {
                     if (button.action.endpoint.length > 0) {                    
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Flag this review as inappropriate?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Flag this comment as inappropriate?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
                         alertView.tag = GTIOReviewsAlertViewFlag;
                         [alertView show];
                     }
@@ -219,23 +231,11 @@ typedef enum GTIOReviewsAlertView {
                 self.heartButton.selected = button.state.boolValue;
                 __block typeof(self) blockSelf = self;
                 self.heartButton.tapHandler = ^(id sender) {
+                    if ([blockSelf.delegate respondsToSelector:@selector(reviewButtonTap:reviewID:)]) {
+                        [blockSelf.delegate reviewButtonTap:button reviewID:self.review.reviewID];
+                    }
                     self.heartButton.enabled = NO;
                     [blockSelf updateHeart];
-                    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                            for (id object in loadedObjects) {
-                                if ([object isMemberOfClass:[GTIOReview class]]) {
-                                    self.review = (GTIOReview *)object;
-                                    self.heartButton.enabled = YES;
-                                }
-                            }
-                        };
-                        loader.onDidFailWithError = ^(NSError *error) {
-                            [blockSelf updateHeart];
-                            self.heartButton.enabled = YES;
-                            NSLog(@"%@", [error localizedDescription]);
-                        };
-                    }];
                 };
             }
             if ([button.name isEqualToString:kGTIOReviewRemoveButton]) {
@@ -243,7 +243,7 @@ typedef enum GTIOReviewsAlertView {
                 self.removeButton.hidden = NO;
                 self.currentRemoveButtonModel = button;
                 self.removeButton.tapHandler = ^(id sender) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Delete this review?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Delete this comment?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
                     alertView.tag = GTIOReviewsAlertViewRemove;
                     [alertView show];
                 };
@@ -327,22 +327,10 @@ typedef enum GTIOReviewsAlertView {
             self.flagButton.selected = !self.flagButton.selected;
             self.flagButton.enabled = NO;
             self.review.flagged = !self.review.flagged;
-            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.currentFlagButtonModel.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                    for (id object in loadedObjects) {
-                        if ([object isMemberOfClass:[GTIOReview class]]) {
-                            self.review = (GTIOReview *)object;
-                            self.flagButton.enabled = YES;
-                        }
-                    }
-                };
-                loader.onDidFailWithError = ^(NSError *error) {self.flagButton.selected = !self.flagButton.selected;
-                    self.flagButton.selected = !self.flagButton.selected;
-                    self.review.flagged = !self.review.flagged;
-                    self.flagButton.enabled = YES;
-                    NSLog(@"%@", [error localizedDescription]);
-                };
-            }];
+
+            if ([self.delegate respondsToSelector:@selector(reviewButtonTap:reviewID:)]) {
+                [self.delegate reviewButtonTap:[self buttonWithName:kGTIOReviewFlagButton] reviewID:self.review.reviewID];
+            }
         }
     }
     if (alertView.tag == GTIOReviewsAlertViewRemove) {

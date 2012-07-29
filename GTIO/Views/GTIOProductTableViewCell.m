@@ -82,10 +82,9 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
         _backgroundImageView = [[UIImageView alloc] initWithImage:_backgroundImageInactive];
         [self.contentView addSubview:_backgroundImageView];
         
-        if (_productTableCellType != GTIOProductTableViewCellTypeShoppingBrowse) {
-            _heartButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListHeart];
-            [self.contentView addSubview:_heartButton];
-        }
+        _heartButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListHeart];
+        [self.contentView addSubview:_heartButton];
+        
         
         _productNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _productNameLabel.backgroundColor = [UIColor clearColor];
@@ -154,6 +153,7 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
     [self.emailButton setFrame:(CGRect){ kGTIOEmailButtonXPosition, kGTIOEmailButtonYPosition, self.emailButton.bounds.size }];
     [self.buyButton setFrame:(CGRect){ self.emailButton.frame.origin.x + self.emailButton.bounds.size.width + kGTIOBuyButtonLeftMargin, self.emailButton.frame.origin.y, self.buyButton.bounds.size }];
     [self.deleteButton setFrame:(CGRect){ self.bounds.size.width - self.deleteButton.bounds.size.width, kGTIODeleteButtonYPosition, 26, 20 }];
+    self.heartButton.enabled = YES;
 }
 
 - (void)setProduct:(GTIOProduct *)product
@@ -180,21 +180,11 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
                 self.heartButton.selected = !self.heartButton.selected;
                 self.product.hearted = !self.product.hearted;
                 self.heartButton.enabled = NO;
-                [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                    loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                        for (id object in loadedObjects) {
-                            if ([object isMemberOfClass:[GTIOProduct class]]) {
-                                self.product = (GTIOProduct *)object;
-                                self.heartButton.enabled = YES;
-                            }
-                        }
-                    };
-                    loader.onDidFailWithError = ^(NSError *error) {
-                        self.heartButton.selected = !self.heartButton.selected;
-                        self.product.hearted = !self.product.hearted;
-                        self.heartButton.enabled = YES;
-                    };
-                }];
+
+                if ([self.delegate respondsToSelector:@selector(productButtonTap:productID:)]) {
+                    [self.delegate productButtonTap:button productID:self.product.productID];
+                }
+
             };
         }
     }
@@ -207,7 +197,7 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
               for (id object in loadedObjects) {
                   if ([object isMemberOfClass:[GTIOProduct class]]) {
                       GTIOProduct *emailedProduct = (GTIOProduct *)object;
-                      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"You should receive an email shortly about %@", emailedProduct.productName] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"You should receive an email shortly about %@.", emailedProduct.productName] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
                       [alert show];
                   }
               }
