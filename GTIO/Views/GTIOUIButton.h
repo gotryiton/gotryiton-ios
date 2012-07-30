@@ -37,6 +37,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypePhotoSelectBox,
     GTIOButtonTypeEditPhoto,
     GTIOButtonTypePostThis,
+    GTIOButtonTypePhotoFrameHandle,
     GTIOButtonTypePhotoDelete,
     GTIOButtonTypeNotificationBubble,
     GTIOButtonTypeNotificationBubbleEmpty,
@@ -84,6 +85,8 @@ typedef enum GTIOButtonType {
 @property (nonatomic, copy) GTIOButtonDidTapHandler tapHandler;
 @property (nonatomic, copy) GTIOButtonDidTapHandler touchDownHandler;
 @property (nonatomic, copy) GTIOButtonDidTapHandler touchDragExitHandler;
+@property (nonatomic, assign) UIEdgeInsets tapAreaPaddingInsets;
+@property (nonatomic, assign) CGFloat tapAreaPadding;
 
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType;
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType tapHandler:(GTIOButtonDidTapHandler)tapHandler;

@@ -121,6 +121,44 @@
     }
 }
 
+
+- (NSUInteger)indexOfProductWithId:(NSNumber *)productID
+{
+    return [self.products indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+       GTIOProduct *product = (GTIOProduct*)obj;
+       return ([product.productID integerValue] == [productID integerValue]);
+    }];
+}
+
+#pragma mark - GTIOProductTableViewCellDelegate Methods
+- (void)productButtonTap:(GTIOButton *)button productID:(NSNumber *)productID;
+{
+    NSLog(@"productButtonTap: %@ with productID = %@",button.action.endpoint, productID );
+    __block typeof(self) blockSelf = self;
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOProduct class]]) {
+
+                    // product button endpoints respond with a fresh object so just update it                    
+                    GTIOProduct *newObject = (GTIOProduct *)object;
+                    
+                    [self.products replaceObjectAtIndex:[blockSelf indexOfProductWithId:newObject.productID] withObject: newObject];
+                    
+                    NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:[blockSelf indexOfProductWithId:newObject.productID] inSection:0], nil];
+                    [blockSelf.tableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
+                    
+                }
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
+
 #pragma mark - UITableViewDelegate Methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

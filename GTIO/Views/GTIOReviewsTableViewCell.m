@@ -19,12 +19,18 @@ static CGFloat const kGTIOAvatarWidthHeight = 27.0;
 static CGFloat const kGTIOCellWidth = 314.0;
 static CGFloat const kGTIOReviewTextWidth = 250.0;
 static CGFloat const kGTIODefaultPadding = 5.0;
+static CGFloat const kGTIONameAndTimeVerticalPadding = 1.0;
+static CGFloat const kGTIONameAndTimeHorizontalPadding = 7.0;
 static CGFloat const kGTIODefaultLabelHeight = 15.0;
 static CGFloat const kGTIOBackgroundLeftMargin = 3.0;
 static CGFloat const kGTIOHeartButtonVerticalOffset = 8.0;
 static CGFloat const kGTIOPostedAtLabelVerticalOffset = 2.0;
 static CGFloat const kGTIOUserBadgeVerticalOffset = 2.0;
 static CGFloat const kGTIOUserBadgeHorizontalOffset = 2.0;
+static CGFloat const kGTIOCellHeartRightPadding = 11.0;
+static CGFloat const kGTIOCellFlagRightPadding = 7.0;
+static CGFloat const kGTIOCellDeleteRightPadding = 9.0;
+static CGFloat const kGTIOCellButtonPadding = 6.0;
 
 typedef enum GTIOReviewsAlertView {
     GTIOReviewsAlertViewFlag = 0,
@@ -101,13 +107,16 @@ typedef enum GTIOReviewsAlertView {
         
         _heartButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeHeart tapHandler:nil];
         _heartButton.hidden = YES;
+        [_heartButton setTapAreaPadding:kGTIOCellButtonPadding];
         [self addSubview:_heartButton];
         
         _flagButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFlag tapHandler:nil];
+        [_flagButton setTapAreaPadding:kGTIOCellButtonPadding];
         _flagButton.hidden = YES;
         [self addSubview:_flagButton];
         
         _removeButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeRemove tapHandler:nil];
+        [_removeButton setTapAreaPadding:kGTIOCellButtonPadding];
         _removeButton.hidden = YES;
         [self addSubview:_removeButton];
         
@@ -137,6 +146,7 @@ typedef enum GTIOReviewsAlertView {
 
         _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
         [self addGestureRecognizer:_tapGestureRecognizer];
+        _tapGestureRecognizer.delegate = self;
 
     }
     return self;
@@ -151,20 +161,34 @@ typedef enum GTIOReviewsAlertView {
     [self.reviewTextView setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + kGTIOCellPaddingTop, kGTIOReviewTextWidth, reviewTextSize.height }];
     [self.userProfilePicture setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - kGTIOAvatarWidthHeight - kGTIOCellPaddingBottom + 1, kGTIOAvatarWidthHeight, kGTIOAvatarWidthHeight }];
     [self.userProfilePictureOverlay setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - kGTIOAvatarWidthHeight - kGTIOCellPaddingBottom + 1, kGTIOAvatarWidthHeight, kGTIOAvatarWidthHeight }];
-    [self.heartButton setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellPaddingLeftRight - self.heartButton.bounds.size.width, self.userNameLabel.frame.origin.y + kGTIOHeartButtonVerticalOffset, self.heartButton.bounds.size }];
+    [self.heartButton setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellHeartRightPadding - self.heartButton.bounds.size.width, self.userNameLabel.frame.origin.y + kGTIOHeartButtonVerticalOffset, self.heartButton.bounds.size }];
     [self.heartCountLabel setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellPaddingLeftRight - self.heartCountLabel.bounds.size.width - self.heartButton.bounds.size.width - kGTIODefaultPadding, self.postedAtLabel.frame.origin.y - 3, 30, 18 }];
-    [self.flagButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIOBackgroundLeftMargin, self.background.frame.origin.y + kGTIOCellPaddingTop, self.heartButton.bounds.size.width, self.flagButton.bounds.size.height }];
-    [self.removeButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIODefaultPadding + 1, self.flagButton.frame.origin.y, self.removeButton.bounds.size }];
-    [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + kGTIODefaultPadding, self.userProfilePicture.frame.origin.y, self.background.bounds.size.width - kGTIOCellPaddingLeftRight * 2 - kGTIODefaultPadding - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? kGTIODefaultPadding : 0), kGTIODefaultLabelHeight }];
+    [self.flagButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIOCellFlagRightPadding, self.background.frame.origin.y + kGTIOCellPaddingTop, self.heartButton.bounds.size.width, self.flagButton.bounds.size.height }];
+    [self.removeButton setFrame:(CGRect){ self.heartButton.frame.origin.x + kGTIOCellDeleteRightPadding, self.flagButton.frame.origin.y, self.removeButton.bounds.size }];
+    [self.userNameLabel setFrame:(CGRect){ self.userProfilePicture.frame.origin.x + self.userProfilePicture.bounds.size.width + kGTIONameAndTimeHorizontalPadding, self.userProfilePicture.frame.origin.y + kGTIONameAndTimeVerticalPadding, self.background.bounds.size.width - kGTIOCellPaddingLeftRight * 2  - self.userProfilePicture.bounds.size.width - self.heartButton.bounds.size.width - self.heartCountLabel.bounds.size.width - (self.heartButton.frame.origin.x - (self.heartCountLabel.frame.origin.x + self.heartCountLabel.bounds.size.width)) - ((self.heartCountLabel.text.length > 0) ? kGTIODefaultPadding : 0), kGTIODefaultLabelHeight }];
     [self.postedAtLabel setFrame:(CGRect){ self.userNameLabel.frame.origin.x, self.userNameLabel.frame.origin.y + self.userNameLabel.bounds.size.height - kGTIOPostedAtLabelVerticalOffset, self.userNameLabel.bounds.size.width, kGTIODefaultLabelHeight }];
+
+    self.heartButton.enabled = YES;
+    self.flagButton.enabled = YES;
+    self.removeButton.enabled = YES;
 
     if (self.review.user.badge){
         [self.badge setImageWithURL:[self.review.user.badge badgeImageURLForCommenter]];
         [self.badge setFrame:(CGRect){ self.userNameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset, self.userNameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset, [self.review.user.badge badgeImageSizeForCommenter]}];
         
+    } else {
+        [self.badge setFrame:CGRectZero];
     }
 }
 
+- (GTIOButton *)buttonWithName:(NSString *)buttonName 
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", buttonName];
+    NSArray *results = [self.review.buttons filteredArrayUsingPredicate:predicate];
+    if (results.count>0)
+        return [results objectAtIndex:0];
+    return nil;
+}
 
 - (void)setReview:(GTIOReview *)review
 {
@@ -190,7 +214,7 @@ typedef enum GTIOReviewsAlertView {
                 self.flagButton.selected = button.state.boolValue;
                 self.flagButton.tapHandler = ^(id sender) {
                     if (button.action.endpoint.length > 0) {                    
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Flag this review as inappropriate?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Flag this comment as inappropriate?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
                         alertView.tag = GTIOReviewsAlertViewFlag;
                         [alertView show];
                     }
@@ -207,23 +231,11 @@ typedef enum GTIOReviewsAlertView {
                 self.heartButton.selected = button.state.boolValue;
                 __block typeof(self) blockSelf = self;
                 self.heartButton.tapHandler = ^(id sender) {
+                    if ([blockSelf.delegate respondsToSelector:@selector(reviewButtonTap:reviewID:)]) {
+                        [blockSelf.delegate reviewButtonTap:button reviewID:self.review.reviewID];
+                    }
                     self.heartButton.enabled = NO;
                     [blockSelf updateHeart];
-                    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                            for (id object in loadedObjects) {
-                                if ([object isMemberOfClass:[GTIOReview class]]) {
-                                    self.review = (GTIOReview *)object;
-                                    self.heartButton.enabled = YES;
-                                }
-                            }
-                        };
-                        loader.onDidFailWithError = ^(NSError *error) {
-                            [blockSelf updateHeart];
-                            self.heartButton.enabled = YES;
-                            NSLog(@"%@", [error localizedDescription]);
-                        };
-                    }];
                 };
             }
             if ([button.name isEqualToString:kGTIOReviewRemoveButton]) {
@@ -231,7 +243,7 @@ typedef enum GTIOReviewsAlertView {
                 self.removeButton.hidden = NO;
                 self.currentRemoveButtonModel = button;
                 self.removeButton.tapHandler = ^(id sender) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Delete this review?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Delete this comment?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
                     alertView.tag = GTIOReviewsAlertViewRemove;
                     [alertView show];
                 };
@@ -315,22 +327,10 @@ typedef enum GTIOReviewsAlertView {
             self.flagButton.selected = !self.flagButton.selected;
             self.flagButton.enabled = NO;
             self.review.flagged = !self.review.flagged;
-            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.currentFlagButtonModel.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                    for (id object in loadedObjects) {
-                        if ([object isMemberOfClass:[GTIOReview class]]) {
-                            self.review = (GTIOReview *)object;
-                            self.flagButton.enabled = YES;
-                        }
-                    }
-                };
-                loader.onDidFailWithError = ^(NSError *error) {self.flagButton.selected = !self.flagButton.selected;
-                    self.flagButton.selected = !self.flagButton.selected;
-                    self.review.flagged = !self.review.flagged;
-                    self.flagButton.enabled = YES;
-                    NSLog(@"%@", [error localizedDescription]);
-                };
-            }];
+
+            if ([self.delegate respondsToSelector:@selector(reviewButtonTap:reviewID:)]) {
+                [self.delegate reviewButtonTap:[self buttonWithName:kGTIOReviewFlagButton] reviewID:self.review.reviewID];
+            }
         }
     }
     if (alertView.tag == GTIOReviewsAlertViewRemove) {
@@ -356,12 +356,19 @@ typedef enum GTIOReviewsAlertView {
     }
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (CGRectContainsPoint(self.userNameLabel.frame, [touch locationInView:self]) || CGRectContainsPoint(self.postedAtLabel.frame, [touch locationInView:self]) || CGRectContainsPoint(self.userProfilePicture.frame, [touch locationInView:self])) {
+        return YES;
+    }
+    return NO;
+
+}
+
 - (void)didTap:(UIGestureRecognizer *)gesture
 {
-    if (CGRectContainsPoint(self.userNameLabel.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.postedAtLabel.frame, [gesture locationInView:self]) || CGRectContainsPoint(self.userProfilePicture.frame, [gesture locationInView:self])) {
-        if ([self.delegate respondsToSelector:@selector(goToProfileOfUserID:)]) {
-            [self.delegate goToProfileOfUserID:self.review.user.userID];
-        }
+    if ([self.delegate respondsToSelector:@selector(goToProfileOfUserID:)]) {
+        [self.delegate goToProfileOfUserID:self.review.user.userID];
     }
 }
 
