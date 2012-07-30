@@ -12,14 +12,12 @@
 
 @property (nonatomic, strong) UIImageView *gridFrameImageView;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *star;
 
 @end
 
 @implementation GTIOMasonGridItemWithFrameView
 
-@synthesize gridItem = _gridItem;
-@synthesize tapHandler = _tapHandler;
-@synthesize gridFrameImageView = _gridFrameImageView, imageView = _imageView;
 
 - (id)initWithFrame:(CGRect)frame gridItem:(GTIOMasonGridItem *)gridItem
 {
@@ -36,6 +34,12 @@
         _imageView = [[UIImageView alloc] initWithImage:gridItem.image];
         [_imageView setFrame:(CGRect){ { kGTIOGridItemPhotoPadding, kGTIOGridItemPhotoPadding }, gridItem.image.size }];
         [self addSubview:_imageView];
+        
+        if (gridItem.object.photo.isStarred ){
+            _star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star-corner-grid.png"]];
+            [_star setFrame:(CGRect){ self.bounds.size.width - _star.bounds.size.width - kGTIOGridItemPhotoPadding, kGTIOGridItemPhotoPadding, _star.bounds.size}];
+            [self addSubview:_star];
+        }
         
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnPhoto:)];
         [self addGestureRecognizer:tapGestureRecognizer];

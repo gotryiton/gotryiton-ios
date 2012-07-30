@@ -19,11 +19,13 @@ typedef void(^GTIOSwitchChangeHandler)(BOOL on);
 @property (nonatomic, strong) UIImage *knobOff;
 
 @property (nonatomic, assign) NSInteger knobXOffset;
+@property (nonatomic, assign) float knobYOffset;
 
 @property (nonatomic, assign, getter=isOn) BOOL on;
 
 @property (nonatomic, copy) GTIOSwitchChangeHandler changeHandler;
 
 - (void)handleExteriorTapGesture;
+- (void)setOn:(BOOL)on sendActions:(BOOL)sendActions;
 
 @end

@@ -14,6 +14,7 @@
 #import "GTIOFollowRequestAcceptBar.h"
 #import "GTIOPostMasonryView.h"
 #import "GTIODualViewSegmentedControlView.h"
+#import "GTIOPagination.h"
 
 #import "GTIORouter.h"
 
@@ -25,6 +26,8 @@
 @property (nonatomic, strong) GTIOProfileHeaderView *profileHeaderView;
 @property (nonatomic, strong) GTIOUserProfile *userProfile;
 @property (nonatomic, strong) GTIODualViewSegmentedControlView *postsHeartsWithSegmentedControlView;
+@property (nonatomic, strong) NSString *heartsResourcePath;
+@property (nonatomic, strong) NSString *postsResourcePath;
 
 @end
 
@@ -45,6 +48,9 @@
 {
     [super viewDidLoad];
 	
+    __block typeof(self) blockSelf = self;
+        
+
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"profile" italic:YES];
     [self useTitleView:navTitleView];
     
@@ -81,6 +87,42 @@
                                                 rightControlTitle:@"hearts" 
                                                 rightControlPostsType:GTIOPostTypeHeart];
     [self.view addSubview:self.postsHeartsWithSegmentedControlView];
+
+
+
+
+    [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView setGridItemTapHandler:^(GTIOMasonGridItem *gridItem) {
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURLString:gridItem.object.action.destination];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }];
+
+    [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView setGridItemTapHandler:^(GTIOMasonGridItem *gridItem) {
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURLString:gridItem.object.action.destination];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }];
+
+    [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView.pullToRefreshView setExpandedHeight:60.0f];
+    [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView.pullToRefreshView setExpandedHeight:60.0f];
+    [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView.pullToLoadMoreHandler setExpandedHeight:0.0f];
+    [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView.pullToLoadMoreHandler setExpandedHeight:0.0f];
+
+    [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView  setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD) {
+        [blockSelf loadDataForPostType:GTIOPostTypeNone];
+    }];
+    [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView  setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD) {
+        [blockSelf loadDataForPostType:GTIOPostTypeHeart];
+    }];
+    
+    [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
+        [blockSelf loadPaginationForPostType:GTIOPostTypeNone];
+        
+    }];
+
+    [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
+        [blockSelf loadPaginationForPostType:GTIOPostTypeHeart];
+    }];
+
+
 }
 
 - (void)viewDidUnload
@@ -205,8 +247,9 @@
 - (void)setUserID:(NSString *)userID
 {
     _userID = userID;
+    _heartsResourcePath = [NSString stringWithFormat:@"/posts/hearted-by-user/%@", _userID];
+    _postsResourcePath = [NSString stringWithFormat:@"/posts/by-user/%@", _userID];
     [self refreshUserProfile];
-
 }
 
 - (void)screenEnabled:(BOOL)enabled
@@ -228,6 +271,89 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+- (void)loadDataForPostType:(GTIOPostType)postType
+{
+    __block typeof(self) blockSelf = self;
+    __block GTIOMasonGridView *gridView = (postType==GTIOPostTypeHeart) ? self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView : self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView;
+    __block GTIOPostList *postsList = (postType==GTIOPostTypeHeart) ? self.userProfile.heartsList : self.userProfile.postsList ;
+    __block GTIOPagination *pagination = (postType==GTIOPostTypeHeart) ? self.userProfile.heartsList.pagination : self.userProfile.postsList.pagination;
+    
+    
+    NSString *resourcePath = (postType==GTIOPostTypeHeart) ? self.heartsResourcePath : self.postsResourcePath;
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+
+            [postsList.posts removeAllObjects];
+            pagination = nil;
+            
+            
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOPost class]]) {
+                    [postsList.posts addObject:object];                    
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    postsList.pagination = object;
+                }
+            }
+            [blockSelf.postsHeartsWithSegmentedControlView setItems:postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:blockSelf.userProfile];
+
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [gridView.pullToRefreshView finishLoading];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [gridView.pullToRefreshView finishLoading];
+            NSLog(@"Failed to load %@. error: %@", resourcePath, [error localizedDescription]);
+        };
+    }];
+}
+
+- (void)loadPaginationForPostType:(GTIOPostType)postType
+{
+
+    __block GTIOMasonGridView *gridView = (postType==GTIOPostTypeHeart) ? self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView : self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView;
+    __block GTIOPostList *postsList = (postType==GTIOPostTypeHeart) ? self.userProfile.heartsList : self.userProfile.postsList ;
+    __block GTIOPagination *pagination = (postType==GTIOPostTypeHeart) ? self.userProfile.heartsList.pagination : self.userProfile.postsList.pagination;
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            
+            
+            [gridView.pullToLoadMoreView finishLoading];
+            [gridView setNeedsLayout];
+
+            pagination = nil;
+            
+            NSMutableArray *paginationPosts = [NSMutableArray array];
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOPost class]]) {
+                    [paginationPosts addObject:object];
+
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    pagination = object;
+                }
+            }
+            
+
+            // Only add posts that are not already on mason grid
+            [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                GTIOPost *post = obj;
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                NSArray *foundExistingPosts = [postsList.posts filteredArrayUsingPredicate:predicate];
+                
+                if ([foundExistingPosts count] == 0) {
+                    [gridView addItem:post postType:postType];
+                    [postsList.posts addObject:post];
+                }
+            }];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+           [gridView.pullToLoadMoreView finishLoading];
+            NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
+        };
+    }];
 }
 
 @end

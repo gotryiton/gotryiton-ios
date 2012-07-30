@@ -22,6 +22,7 @@ static CGFloat const kGTIOHeartButtonYPosition = 0.0;
 static CGFloat const kGTIOProductNameLabelWidth = 109.0;
 static CGFloat const kGTIOProductNameLabelWidthWide = 130.0;
 static CGFloat const kGTIOProductNameLabelMaxHeight = 95.0;
+static CGFloat const kGTIOProductBrandLabelVerticalPadding = 2.0;
 static CGFloat const kGTIOPriceLabelYPosition = 129.0;
 static CGFloat const kGTIOEmailButtonXPosition = 222.0;
 static CGFloat const kGTIOEmailButtonYPosition = 126.0;
@@ -29,6 +30,7 @@ static CGFloat const kGTIOBuyButtonLeftMargin = 7.0;
 static CGFloat const kGTIODeleteButtonYPosition = 0.0;
 static CGFloat const kGTIOProductNameLabelXPosition = 173.0;
 static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
+static CGFloat const kGTIOCellButtonPadding = 6.0;
 
 @interface GTIOProductTableViewCell()
 
@@ -81,10 +83,9 @@ static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
         _backgroundImageView = [[UIImageView alloc] initWithImage:_backgroundImageInactive];
         [self.contentView addSubview:_backgroundImageView];
         
-        if (_productTableCellType != GTIOProductTableViewCellTypeShoppingBrowse) {
-            _heartButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListHeart];
-            [self.contentView addSubview:_heartButton];
-        }
+        _heartButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListHeart];
+        [self.contentView addSubview:_heartButton];
+        
         
         _productNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _productNameLabel.backgroundColor = [UIColor clearColor];
@@ -110,12 +111,15 @@ static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
         
         if (_productTableCellType == GTIOProductTableViewCellTypeShoppingList) {
             _emailButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListEmail];
+            [_emailButton setTapAreaPadding:kGTIOCellButtonPadding];
             [self.contentView addSubview:_emailButton];
             
             _buyButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListBuy];
+            [_buyButton setTapAreaPadding:kGTIOCellButtonPadding];
             [self.contentView addSubview:_buyButton];
             
             _deleteButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListDelete];
+            [_deleteButton setTapAreaPadding:kGTIOCellButtonPadding];
             [self.contentView addSubview:_deleteButton];
         }
     }
@@ -145,11 +149,12 @@ static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
     [self.heartButton setFrame:(CGRect){ kGTIOHeartButtonXPosition, kGTIOHeartButtonYPosition, self.heartButton.bounds.size }];
     CGSize productNameLabelSize = [self.productNameLabel sizeThatFits:(CGSize){ (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, CGFLOAT_MAX }];    
     [self.productNameLabel setFrame:(CGRect){ kGTIOProductNameLabelXPosition, kGTIOProductNameLabelYPosition, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, (productNameLabelSize.height <= kGTIOProductNameLabelMaxHeight) ? productNameLabelSize.height : kGTIOProductNameLabelMaxHeight }];
-    [self.brandLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, 15 }];
+    [self.brandLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height + kGTIOProductBrandLabelVerticalPadding, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, 15 }];
     [self.priceLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, kGTIOPriceLabelYPosition, 45, 20 }];
     [self.emailButton setFrame:(CGRect){ kGTIOEmailButtonXPosition, kGTIOEmailButtonYPosition, self.emailButton.bounds.size }];
     [self.buyButton setFrame:(CGRect){ self.emailButton.frame.origin.x + self.emailButton.bounds.size.width + kGTIOBuyButtonLeftMargin, self.emailButton.frame.origin.y, self.buyButton.bounds.size }];
     [self.deleteButton setFrame:(CGRect){ self.bounds.size.width - self.deleteButton.bounds.size.width, kGTIODeleteButtonYPosition, 26, 20 }];
+    self.heartButton.enabled = YES;
 }
 
 - (void)setProduct:(GTIOProduct *)product
@@ -176,21 +181,11 @@ static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
                 self.heartButton.selected = !self.heartButton.selected;
                 self.product.hearted = !self.product.hearted;
                 self.heartButton.enabled = NO;
-                [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                    loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                        for (id object in loadedObjects) {
-                            if ([object isMemberOfClass:[GTIOProduct class]]) {
-                                self.product = (GTIOProduct *)object;
-                                self.heartButton.enabled = YES;
-                            }
-                        }
-                    };
-                    loader.onDidFailWithError = ^(NSError *error) {
-                        self.heartButton.selected = !self.heartButton.selected;
-                        self.product.hearted = !self.product.hearted;
-                        self.heartButton.enabled = YES;
-                    };
-                }];
+
+                if ([self.delegate respondsToSelector:@selector(productButtonTap:productID:)]) {
+                    [self.delegate productButtonTap:button productID:self.product.productID];
+                }
+
             };
         }
     }
@@ -203,7 +198,7 @@ static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
               for (id object in loadedObjects) {
                   if ([object isMemberOfClass:[GTIOProduct class]]) {
                       GTIOProduct *emailedProduct = (GTIOProduct *)object;
-                      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"You should receive an email shortly about %@", emailedProduct.productName] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"You should receive an email shortly about %@.", emailedProduct.productName] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
                       [alert show];
                   }
               }
@@ -234,7 +229,7 @@ static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
     };
     
     self.productNameLabel.text = _product.productName;
-    self.brandLabel.text = [_product.brands uppercaseString];
+    self.brandLabel.text = [_product.brand uppercaseString];
     self.priceLabel.text = _product.prettyPrice;
 }
 

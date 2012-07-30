@@ -12,6 +12,7 @@ static NSString * const kGTIODividerImageName = @"divider.png";
 static CGFloat const kGTIOCloseButtonPadding = 16.0f;
 static CGFloat const kGTIOConfirmButtonPadding = 13.0f;
 static CGFloat const kGTIODividerPadding = 50.0f;
+static CGFloat const kGTIOConfirmButtonTapPadding = 15.0f;
 
 @interface GTIOPhotoConfirmationToolbarView ()
 
@@ -34,6 +35,7 @@ static CGFloat const kGTIODividerPadding = 50.0f;
         // Close Button
         _closeButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoClose];
         [_closeButton setFrame:(CGRect){ { kGTIOCloseButtonPadding, (self.frame.size.height - _closeButton.frame.size.height) / 2 }, _closeButton.frame.size }];
+        [_closeButton setTapAreaPadding:kGTIOConfirmButtonTapPadding];
         [self addSubview:_closeButton];
         
         UIImageView *closeButtonDivider = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kGTIODividerImageName]];
@@ -43,6 +45,7 @@ static CGFloat const kGTIODividerPadding = 50.0f;
         // Confirm Button
         _confirmButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoConfirm];
         [_confirmButton setFrame:(CGRect){ { self.frame.size.width - _confirmButton.frame.size.width - kGTIOConfirmButtonPadding, (self.frame.size.height - _closeButton.frame.size.height) / 2 }, _confirmButton.frame.size }];
+        [_confirmButton setTapAreaPadding:kGTIOConfirmButtonTapPadding];
         [self addSubview:_confirmButton];
         
         UIImageView *confirmButtonDivider = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kGTIODividerImageName]];
