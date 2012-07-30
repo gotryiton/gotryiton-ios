@@ -153,6 +153,31 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
+- (void)loadUserProfile
+{
+    GTIOUIButton *button = [self activeFollowButton];
+    button.enabled = NO;
+    
+    __block typeof(self) blockSelf = self;
+    [[GTIOUser currentUser] loadUserProfileWithUserID:self.userID completionHandler:^(NSArray *loadedObjects, NSError *error) {
+        if (!error) {
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOUserProfile class]]) {
+                    self.userProfile = (GTIOUserProfile *)object;
+                    [self.profileHeaderView setUserProfile:self.userProfile completionHandler:^(id sender) {
+                        [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:blockSelf.userProfile];
+                        [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.heartsList.posts GTIOPostType:GTIOPostTypeHeart userProfile:blockSelf.userProfile];
+                        [blockSelf adjustVerticalLayout];
+                    }];
+                    [self refreshFollowButton];
+                
+                }
+            }
+        } else {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+    }];
+}
 - (void)refreshUserProfile
 {
     GTIOUIButton *button = [self activeFollowButton];
@@ -249,7 +274,7 @@
     _userID = userID;
     _heartsResourcePath = [NSString stringWithFormat:@"/posts/hearted-by-user/%@", _userID];
     _postsResourcePath = [NSString stringWithFormat:@"/posts/by-user/%@", _userID];
-    [self refreshUserProfile];
+    [self loadUserProfile];
 }
 
 - (void)screenEnabled:(BOOL)enabled
