@@ -59,7 +59,7 @@
     self.followButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowButtonForNavBar];
     self.followingButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowingButtonForNavBar];
     self.requestedButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeRequestedButtonForNavBar];
-    
+
     self.profileHeaderView = [[GTIOProfileHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 0 }];
     [self.profileHeaderView setDelegate:self];
     [self.profileHeaderView setAcceptBarDelegate:self];
@@ -111,32 +111,20 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)refreshUserProfileRefreshPostsOnly:(BOOL)refreshPostsOnly
+- (void)refreshUserProfile
 {
-    if (!refreshPostsOnly) {
-        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    }
-    [self screenEnabled:NO];
     __block typeof(self) blockSelf = self;
-    [[GTIOUser currentUser] loadUserProfileWithUserID:self.userID completionHandler:^(NSArray *loadedObjects, NSError *error) {
-        [self screenEnabled:YES];
-        [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+    [[GTIOUser currentUser] refreshUserProfileWithUserID:self.userID completionHandler:^(NSArray *loadedObjects, NSError *error) {
+        // [blockSelf screenEnabled:YES];
         if (!error) {
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOUserProfile class]]) {
                     self.userProfile = (GTIOUserProfile *)object;
-                    
-                    if (!refreshPostsOnly) {
-                        [self.profileHeaderView setUserProfile:self.userProfile completionHandler:^(id sender) {
-                            [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:blockSelf.userProfile];
-                            [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.heartsList.posts GTIOPostType:GTIOPostTypeHeart userProfile:blockSelf.userProfile];
-                            [blockSelf adjustVerticalLayout];
-                        }];
-                        [self refreshFollowButton];
-                    } else {
-                        [self.postsHeartsWithSegmentedControlView setItems:self.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:self.userProfile];
-                        [self.postsHeartsWithSegmentedControlView setItems:self.userProfile.heartsList.posts GTIOPostType:GTIOPostTypeHeart userProfile:self.userProfile];
-                    }
+                    [self.profileHeaderView setUserProfile:self.userProfile completionHandler:^(id sender) {
+                        [blockSelf adjustVerticalLayout];
+                    }];
+                    [self refreshFollowButton];
+                
                 }
             }
         } else {
@@ -145,33 +133,67 @@
     }];
 }
 
+- (GTIOUIButton *)setActiveFollowButtonForState:(NSUInteger)state
+{
+    GTIOUIButton *followButton = nil;
+
+    self.followingButton.hidden = YES;
+    self.followButton.hidden = YES;
+    self.requestedButton.hidden = YES;
+
+     NSLog(@"activeFollow: %i", [self.userProfile.user.button.state intValue]);
+    NSLog(@"setActiveFollowButtonForState: %i", state);
+   
+
+    if (state == GTIOFollowButtonStateFollowing) {
+        followButton = self.followingButton;
+    } else if (state == GTIOFollowButtonStateFollow) {
+        followButton = self.followButton;
+    } else if (state == GTIOFollowButtonStateRequested) {
+        followButton = self.requestedButton;
+    }
+    [self setRightNavigationButton:followButton];
+    
+    followButton.hidden = NO;
+
+    return followButton;
+}
+
+- (GTIOUIButton *)activeFollowButton
+{
+    return [self setActiveFollowButtonForState:[self.userProfile.user.button.state intValue]];
+}
+
 - (void)refreshFollowButton
 {
     if (self.userProfile.user.button) {
-        GTIOUIButton *followButton = nil;
-        if ([self.userProfile.user.button.name isEqualToString:kGTIOUserInfoButtonNameFollow]) {
-            if ([self.userProfile.user.button.state intValue] == GTIOFollowButtonStateFollowing) {
-                followButton = self.followingButton;
-            } else if ([self.userProfile.user.button.state intValue] == GTIOFollowButtonStateFollow) {
-                followButton = self.followButton;
-            } else if ([self.userProfile.user.button.state intValue] == GTIOFollowButtonStateRequested) {
-                followButton = self.requestedButton;
-            }
-            [self setRightNavigationButton:followButton];
-        }
+
+        NSLog(@"refreshFollowButton");
+
+        GTIOUIButton *followButton = [self activeFollowButton];
 
         __block typeof(self) blockSelf = self;
         [followButton setTapHandler:^(id sender) {
-            [blockSelf screenEnabled:NO];
+            // [blockSelf screenEnabled:NO];
+            NSLog(@"followButton tapped");
+            GTIOUIButton *button = (GTIOUIButton *) sender;
+            [button showSpinner];
             [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
             [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.userProfile.user.button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
                 loader.onDidLoadObjects = ^(NSArray *objects) {
+                    
+                    NSLog(@"loaded new followButton");
+
+
                     [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                    [followButton hideSpinner];
                     for (id object in objects) {
                         if ([object isMemberOfClass:[GTIOUser class]]) {
+                            
                             blockSelf.userProfile.user = (GTIOUser *)object;
-                            [blockSelf refreshFollowButton];
-                            [blockSelf refreshUserProfileRefreshPostsOnly:NO];
+                            NSLog(@"got a new user in follow response with %i", [blockSelf.userProfile.user.button.state intValue]);
+                            [blockSelf setActiveFollowButtonForState:[blockSelf.userProfile.user.button.state intValue]];
+                            [blockSelf refreshUserProfile];
                         }
                     }
                 };
@@ -187,7 +209,10 @@
 - (void)setUserID:(NSString *)userID
 {
     _userID = userID;
-    [self refreshUserProfileRefreshPostsOnly:NO];
+    _heartsResourcePath = [NSString stringWithFormat:@"/posts/hearted-by-user/%@", _userID];
+    _postsResourcePath = [NSString stringWithFormat:@"/posts/by-user/%@", _userID];
+    [self refreshUserProfile];
+
 }
 
 - (void)screenEnabled:(BOOL)enabled

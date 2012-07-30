@@ -176,7 +176,7 @@ static CGFloat const kGTIOWebsiteButtonPadding = 8.0f;
                 actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
                     if (!actionSheet.wasCancelled) {
                         if ([self.delegate respondsToSelector:@selector(refreshUserProfileRefreshPostsOnly:)]) {
-                            [self.delegate refreshUserProfileRefreshPostsOnly:NO];
+                            [self.delegate refreshUserProfile];
                         }
                     }
                 };
@@ -187,6 +187,13 @@ static CGFloat const kGTIOWebsiteButtonPadding = 8.0f;
     }
     [self.profileDescription setText:self.userProfile.user.aboutMe];
     
+    for (UIView *view in self.subviews) {
+        if ([view isMemberOfClass:[GTIOProfileCalloutView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    [self.profileCalloutViews removeAllObjects];
+
     for (GTIOProfileCallout *profileCallout in self.userProfile.profileCallOuts) {
         GTIOProfileCalloutView *profileCalloutView = [[GTIOProfileCalloutView alloc] initWithFrame:CGRectZero];
         [profileCalloutView setProfileCallout:profileCallout user:self.userProfile.user];

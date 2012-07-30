@@ -9,6 +9,12 @@
 #import "GTIOUIButton.h"
 #import "GTIOHeartToggleButton.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+static CGFloat const kGTIOSpinnerSize = 15.0;
+static CGFloat const kGTIOSpinnerScale = 0.55;
+static CGFloat const kGTIOSpinnerTopPadding = 2.0;
+
 @implementation GTIOUIButton
 
 @synthesize tapHandler = _tapHandler, touchDownHandler = _touchDownHandler, touchDragExitHandler = _touchDragExitHandler;
@@ -664,5 +670,35 @@
         self.touchDragExitHandler(sender);
     }
 }
+
+- (void)showSpinner
+{
+    
+    self.titleLabelText = [self.titleLabel text];
+    [self setTitle:@"" forState:UIControlStateNormal];
+    
+    CGRect innerFrame = CGRectMake( self.bounds.size.width/2 - kGTIOSpinnerSize/2, self.bounds.size.height/2 - kGTIOSpinnerSize/2 + kGTIOSpinnerTopPadding, kGTIOSpinnerSize, kGTIOSpinnerSize);
+
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc]
+                                    initWithFrame:innerFrame];
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    
+    self.activityIndicator.transform = CGAffineTransformMakeScale(kGTIOSpinnerScale, kGTIOSpinnerScale);
+
+    [self.activityIndicator startAnimating];
+    [self addSubview:self.activityIndicator];
+    [self layoutSubviews];
+}
+
+- (void)hideSpinner
+{
+    [self setTitle:self.titleLabelText forState:UIControlStateNormal];
+    [self.activityIndicator stopAnimating];
+    [self.activityIndicator removeFromSuperview];
+    self.activityIndicator = nil;
+    [self layoutSubviews];
+}
+
 
 @end

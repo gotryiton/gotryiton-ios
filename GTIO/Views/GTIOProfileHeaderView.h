@@ -17,7 +17,7 @@ typedef void(^GTIOProfileOpenURLHandler)(NSURL *URL);
 @protocol GTIOProfileHeaderViewDelegate <NSObject>
 
 @required
-- (void)refreshUserProfileRefreshPostsOnly:(BOOL)refreshPostsOnly;
+- (void)refreshUserProfile;
 
 @end
 

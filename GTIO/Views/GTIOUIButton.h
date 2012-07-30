@@ -84,10 +84,15 @@ typedef enum GTIOButtonType {
 @property (nonatomic, copy) GTIOButtonDidTapHandler tapHandler;
 @property (nonatomic, copy) GTIOButtonDidTapHandler touchDownHandler;
 @property (nonatomic, copy) GTIOButtonDidTapHandler touchDragExitHandler;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) NSString *titleLabelText;
 
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType;
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType tapHandler:(GTIOButtonDidTapHandler)tapHandler;
 
 + (id)gtio_navBarTopMarginWithText:(NSString *)text tapHandler:(GTIOButtonDidTapHandler)tapHandler;
+
+- (void)showSpinner;
+- (void)hideSpinner;
 
 @end

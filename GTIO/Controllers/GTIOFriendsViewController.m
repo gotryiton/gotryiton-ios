@@ -293,6 +293,9 @@
     } else {
         indexForUser = [self.friends indexOfObject:user];
         [self.friends replaceObjectAtIndex:indexForUser withObject:newUser];
+        NSLog(@"reloadData");
+        [self.friendsTableView reloadData];
+
     }
 }
 

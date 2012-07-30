@@ -102,21 +102,18 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
     if (self.user.badge) {
         [self.badge setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.nameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
     }
+
+    [self activeFollowButton];
 }
 
-- (void)setUser:(GTIOUser *)user
+- (GTIOUIButton *)activeFollowButton
 {
-    if (![_user isEqual:user]) {
-        _user = user;
-    }
-    [self.profilePicture setImageWithURL:_user.icon];
-    self.nameLabel.text = _user.name;
+    GTIOUIButton *followButton = nil;
     
     self.followButton.hidden = YES;
     self.followingButton.hidden = YES;
     self.requestedButton.hidden = YES;
     
-    GTIOUIButton *followButton;
     if ([_user.button.name isEqualToString:kGTIOUserInfoButtonNameFollow]) {
         if ([_user.button.state intValue] == GTIOFollowButtonStateFollowing) {
             followButton = self.followingButton;
@@ -129,13 +126,29 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
     
     followButton.hidden = NO;
     
+    return followButton;
+}
+
+- (void)setUser:(GTIOUser *)user
+{
+    if (![_user isEqual:user]) {
+        _user = user;
+    }
+    [self.profilePicture setImageWithURL:_user.icon];
+    self.nameLabel.text = _user.name;
+    
+    GTIOUIButton *followButton = [self activeFollowButton];
+    
     if (_user.button.action.endpoint.length > 0) {
         __block typeof(self) blockSelf = self;
         [followButton setTapHandler:^(id sender) {
-            GTIOUIButton *button = (GTIOUIButton *)sender;
+            GTIOUIButton *button = (GTIOUIButton *) sender;
+            [button showSpinner];
+
             button.enabled = NO;
             [[RKObjectManager sharedManager] loadObjectsAtResourcePath:_user.button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
                 loader.onDidLoadObjects = ^(NSArray *objects) {
+                    [button hideSpinner];
                     button.enabled = YES;
                     for (id object in objects) {
                         if ([object isMemberOfClass:[GTIOUser class]]) {
@@ -144,6 +157,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
                                 [blockSelf.delegate updateDataSourceUser:blockSelf.user withUser:newUser];
                             }
                             [blockSelf setUser:newUser];
+
                         }
                     }
                 };
@@ -161,7 +175,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
         [self.badge setImageWithURL:[user.badge badgeImageURLForUserList]];
     }
 
-    [self setNeedsLayout];
+    [self layoutSubviews];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -395,6 +395,27 @@
     }];
 }
 
+- (void)refreshUserProfileWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler
+{
+    NSString *userProfilePath = [NSString stringWithFormat:@"/user/%@/profile-info", userID];
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:userProfilePath usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadResponse = ^(RKResponse *response) {
+            NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
+            RKObjectMappingProvider* provider = [RKObjectManager sharedManager].mappingProvider;
+            NSDictionary *userProfile = [NSDictionary dictionaryWithObject:parsedBody forKey:@"userProfile"];
+            RKObjectMapper* mapper = [RKObjectMapper mapperWithObject:userProfile mappingProvider:provider];
+            RKObjectMappingResult* result = [mapper performMapping];
+            if (completionHandler) {
+                completionHandler([result asCollection], nil);
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
 #pragma mark - Push Notifications
 
 - (void)updateUrbanAirshipAliasWithUserID:(NSString *)userID
