@@ -74,7 +74,6 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        NSLog(@"SINGLE POST initWithPostID");
         _postID = postID;
         _postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
     }
@@ -85,7 +84,6 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        NSLog(@"SINGLE POST initWithPost");
         _post = post;
         _postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
     }
@@ -147,12 +145,6 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
     self.navBarView = nil;
     self.tableView = nil;
     self.pullToRefreshView = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self showStatusBarBackgroundWithoutNavigationBar];    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
