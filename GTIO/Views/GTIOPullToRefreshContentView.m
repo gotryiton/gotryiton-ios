@@ -13,6 +13,7 @@
 static CGFloat const kGTIOArrowOriginX = 291.0f;
 static CGFloat const kGTIOActivityIndicatorView = 201.0f;
 static CGFloat const kGTIOActivityIndicatorOffset = -15.0f;
+static CGFloat const kGTIOPullToRefreshYOffset = 8.0f;
 
 @interface GTIOPullToRefreshContentView()
 
@@ -58,9 +59,9 @@ static CGFloat const kGTIOActivityIndicatorOffset = -15.0f;
 {
     [super setFrame:frame];
     self.background.frame = (CGRect){ { 0, self.scrollInsets.top }, self.bounds.size };
-    self.statusLabel.frame = (CGRect){ { self.bounds.size.width - 100 - 51, self.bounds.size.height - 37 + self.scrollInsets.top }, { 100, 20 } };
-    self.activityIndicatorView.frame = (CGRect){ { kGTIOActivityIndicatorView, self.bounds.size.height - self.activityIndicatorView.bounds.size.height + kGTIOActivityIndicatorOffset + self.scrollInsets.top }, self.activityIndicatorView.frame.size };
-    self.arrow.frame = (CGRect){ { kGTIOArrowOriginX, 90 + self.scrollInsets.top }, self.arrow.image.size };
+    self.statusLabel.frame = (CGRect){ { self.bounds.size.width - 100 - 51, self.bounds.size.height - 37 + self.scrollInsets.top + kGTIOPullToRefreshYOffset }, { 100, 20 } };
+    self.activityIndicatorView.frame = (CGRect){ { kGTIOActivityIndicatorView, self.bounds.size.height - self.activityIndicatorView.bounds.size.height + kGTIOActivityIndicatorOffset + self.scrollInsets.top +  kGTIOPullToRefreshYOffset }, self.activityIndicatorView.frame.size };
+    self.arrow.frame = (CGRect){ { kGTIOArrowOriginX, 90 + self.scrollInsets.top + kGTIOPullToRefreshYOffset }, self.arrow.image.size };
 }
 
 - (void)setScrollInsets:(UIEdgeInsets)scrollInsets

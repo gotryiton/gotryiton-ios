@@ -23,6 +23,7 @@
 #import "GTIOShoppingListViewController.h"
 #import "GTIOWhoHeartedThisViewController.h"
 #import "GTIOInviteFriendsViewController.h"
+#import "GTIOSinglePostViewController.h"
 #import "GTIOTagsViewController.h"
 
 NSString * const kGTIOURLScheme = @"gtio";
@@ -172,7 +173,7 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostPost]) {
         if ([pathComponents count] >= 2) {
-            viewController = [[GTIOFeedViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
+            viewController = [[GTIOSinglePostViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostInternalWebView]) {
         if ([unencodedPathComponents count] >= 3) {
