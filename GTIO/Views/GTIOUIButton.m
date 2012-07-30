@@ -678,39 +678,34 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 - (void)showSpinner
 {
-    
     if (!self.titleLabelText && ![self.titleLabel.text isEqualToString:@""]){
         self.titleLabelText = [self.titleLabel text];
     }
-
     [self setTitle:@"" forState:UIControlStateNormal];
     
     CGRect innerFrame = CGRectMake( self.bounds.size.width/2 - kGTIOSpinnerSize/2 , self.bounds.size.height/2 - kGTIOSpinnerSize/2 , kGTIOSpinnerSize, kGTIOSpinnerSize);
-
     innerFrame = UIEdgeInsetsInsetRect(innerFrame, self.titleEdgeInsets);
 
-    self.activityIndicator = [[UIActivityIndicatorView alloc]
-                                    initWithFrame:innerFrame];
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:innerFrame];
     self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     self.activityIndicator.frame =innerFrame;
-
 
     self.activityIndicator.transform = CGAffineTransformMakeScale(kGTIOSpinnerSize/kGTIOSpinnerDefaultSize, kGTIOSpinnerSize/kGTIOSpinnerDefaultSize);
 
     [self.activityIndicator startAnimating];
-    [self addSubview:self.activityIndicator];
 
+    [self addSubview:self.activityIndicator];
 }
 
 - (void)hideSpinner
 {
-    if (self.titleLabelText)
+    if (self.titleLabelText) {
         [self setTitle:self.titleLabelText forState:UIControlStateNormal];
+    }
 
     [self.activityIndicator stopAnimating];
     [self.activityIndicator removeFromSuperview];
     self.activityIndicator = nil;
-
 }
 
 

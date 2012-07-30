@@ -175,7 +175,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
         [self.badge setImageWithURL:[user.badge badgeImageURLForUserList]];
     }
 
-    [self layoutSubviews];
+    [self setNeedsLayout];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

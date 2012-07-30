@@ -118,7 +118,6 @@
     
     __block typeof(self) blockSelf = self;
     [[GTIOUser currentUser] refreshUserProfileWithUserID:self.userID completionHandler:^(NSArray *loadedObjects, NSError *error) {
-        // [blockSelf screenEnabled:YES];
         if (!error) {
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOUserProfile class]]) {
@@ -175,8 +174,7 @@
 
         __block typeof(self) blockSelf = self;
         [followButton setTapHandler:^(id sender) {
-            // [blockSelf screenEnabled:NO];
-            
+           
             GTIOUIButton *button = (GTIOUIButton *) sender;
             button.enabled = NO;
             [button showSpinner];
