@@ -113,6 +113,9 @@
 
 - (void)refreshUserProfile
 {
+    GTIOUIButton *button = [self activeFollowButton];
+    button.enabled = NO;
+    
     __block typeof(self) blockSelf = self;
     [[GTIOUser currentUser] refreshUserProfileWithUserID:self.userID completionHandler:^(NSArray *loadedObjects, NSError *error) {
         // [blockSelf screenEnabled:YES];
@@ -138,12 +141,11 @@
     GTIOUIButton *followButton = nil;
 
     self.followingButton.hidden = YES;
+    [self.followingButton hideSpinner];
     self.followButton.hidden = YES;
+    [self.followButton hideSpinner];
     self.requestedButton.hidden = YES;
-
-     NSLog(@"activeFollow: %i", [self.userProfile.user.button.state intValue]);
-    NSLog(@"setActiveFollowButtonForState: %i", state);
-   
+    [self.requestedButton hideSpinner];
 
     if (state == GTIOFollowButtonStateFollowing) {
         followButton = self.followingButton;
@@ -155,6 +157,7 @@
     [self setRightNavigationButton:followButton];
     
     followButton.hidden = NO;
+    followButton.enabled = YES;
 
     return followButton;
 }
@@ -168,30 +171,25 @@
 {
     if (self.userProfile.user.button) {
 
-        NSLog(@"refreshFollowButton");
-
         GTIOUIButton *followButton = [self activeFollowButton];
 
         __block typeof(self) blockSelf = self;
         [followButton setTapHandler:^(id sender) {
             // [blockSelf screenEnabled:NO];
-            NSLog(@"followButton tapped");
+            
             GTIOUIButton *button = (GTIOUIButton *) sender;
+            button.enabled = NO;
             [button showSpinner];
             [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
             [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.userProfile.user.button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
                 loader.onDidLoadObjects = ^(NSArray *objects) {
                     
-                    NSLog(@"loaded new followButton");
-
-
                     [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                    [followButton hideSpinner];
+                    [button hideSpinner];
                     for (id object in objects) {
                         if ([object isMemberOfClass:[GTIOUser class]]) {
                             
                             blockSelf.userProfile.user = (GTIOUser *)object;
-                            NSLog(@"got a new user in follow response with %i", [blockSelf.userProfile.user.button.state intValue]);
                             [blockSelf setActiveFollowButtonForState:[blockSelf.userProfile.user.button.state intValue]];
                             [blockSelf refreshUserProfile];
                         }
@@ -209,8 +207,6 @@
 - (void)setUserID:(NSString *)userID
 {
     _userID = userID;
-    _heartsResourcePath = [NSString stringWithFormat:@"/posts/hearted-by-user/%@", _userID];
-    _postsResourcePath = [NSString stringWithFormat:@"/posts/by-user/%@", _userID];
     [self refreshUserProfile];
 
 }

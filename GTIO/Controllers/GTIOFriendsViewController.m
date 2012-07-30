@@ -293,8 +293,9 @@
     } else {
         indexForUser = [self.friends indexOfObject:user];
         [self.friends replaceObjectAtIndex:indexForUser withObject:newUser];
-        NSLog(@"reloadData");
-        [self.friendsTableView reloadData];
+        
+        NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:indexForUser inSection:0], nil];
+        [self.friendsTableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
 
     }
 }
