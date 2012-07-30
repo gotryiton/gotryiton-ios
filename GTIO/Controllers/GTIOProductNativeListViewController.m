@@ -145,16 +145,14 @@
                     GTIOProduct *newObject = (GTIOProduct *)object;
                     
                     [self.products replaceObjectAtIndex:[blockSelf indexOfProductWithId:newObject.productID] withObject: newObject];
-
-                    [blockSelf.tableView reloadData];
-                    [blockSelf.tableView layoutSubviews];
+                    
+                    NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:[blockSelf indexOfProductWithId:newObject.productID] inSection:0], nil];
+                    [blockSelf.tableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
+                    
                 }
             }
         };
         loader.onDidFailWithError = ^(NSError *error) {
-            [blockSelf.tableView reloadData];
-            [blockSelf.tableView layoutSubviews];
-
             NSLog(@"%@", [error localizedDescription]);
         };
     }];

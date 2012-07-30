@@ -179,15 +179,13 @@ static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
                     
                     [self.reviews replaceObjectAtIndex:[blockSelf indexOfReviewWithId:newReview.reviewID] withObject: newReview];
 
-                    [blockSelf.tableView reloadData];
-                    [blockSelf.tableView layoutSubviews];
+                    NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:[blockSelf indexOfReviewWithId:newReview.reviewID] inSection:0], nil];
+                    [blockSelf.tableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
+                    
                 }
             }
         };
         loader.onDidFailWithError = ^(NSError *error) {
-            [blockSelf.tableView reloadData];
-            [blockSelf.tableView layoutSubviews];
-
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
