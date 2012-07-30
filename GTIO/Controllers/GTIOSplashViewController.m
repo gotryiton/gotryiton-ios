@@ -62,7 +62,7 @@
                             [user updateUrbanAirshipAliasWithUserID:user.userID];
                         }
                         
-                        [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAddTabBarToWindowNotification object:nil];
                     };
                     loader.onDidFailWithError = ^(NSError *error) {
                         NSLog(@"Auth /user/me failed. User is not logged in.");

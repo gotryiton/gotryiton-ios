@@ -72,10 +72,16 @@ NSString * const kGTIOJanRainProviderGoogle = @"google";
 NSString * const kGTIOJanRainProviderTwitter = @"twitter";
 NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 
+// Notification Constants
 NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
 NSString * const kGTIOPostFeedOpenLinkNotification = @"kGTIOPostFeedOpenLinkNotification";
 NSString * const kGTIODismissEllipsisPopOverViewNotification = @"kGTIODismissEllipsisPopOverViewNotification";
 NSString * const kGTIONotificationCountNofitication = @"kGTIONotificationCountNofitication";
+NSString * const kGTIOChangeSelectedTabNotification = @"kGTIOChangeSelectedTabNotification";
+NSString * const kGTIOAddTabBarToWindowNotification = @"kGTIOAddTabBarToWindowNotification";
+
+// Notification UserInfo
+NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";
 
 // UrbanAirship
 NSString * const kGTIOUAirshipProductionAppKey = @"***REMOVED***";
