@@ -13,6 +13,7 @@
 
 @required
 - (void)updateDataSourceUser:(GTIOUser *)user withUser:(GTIOUser *)newUser;
+- (void)buttonTapped:(GTIOButton *)button;
 
 @end
 

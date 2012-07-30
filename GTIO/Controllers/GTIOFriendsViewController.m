@@ -21,7 +21,7 @@
 #import "GTIOFollowersScreen.h"
 #import "GTIOFindMyFriendsScreen.h"
 
-@interface GTIOFriendsViewController ()
+@interface GTIOFriendsViewController () <SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) UITableView *friendsTableView;
 @property (nonatomic, strong) GTIOFriendsTableHeaderView *friendsTableHeaderView;
@@ -44,13 +44,14 @@
 @property (nonatomic, strong) GTIOUIButton *reloadButton;
 @property (nonatomic, strong) GTIOUIButton *findFriendsButton;
 
-@property (nonatomic, copy) NSString *paginationNextPageResourcePath;
+@property (nonatomic, strong) GTIOPagination *pagination;
+@property (nonatomic, strong) SSPullToLoadMoreView *pullToLoadMoreView;
 
 @end
 
 @implementation GTIOFriendsViewController
 
-@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, subTitleText = _subTitleText, userID = _userID, searchCommunityView = _searchCommunityView, searchBar = _searchBar, reloadButton = _reloadButton, paginationNextPageResourcePath = _paginationNextPageResourcePath, findFriendsButton = _findFriendsButton;
+
 
 - (id)initWithGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)tableHeaderViewType
 {
@@ -142,7 +143,17 @@
     self.searchCommunityView = [[GTIOSearchEntireCommunityView alloc] initWithFrame:CGRectZero];
     [self.searchCommunityView setDelegate:self];
     
+    if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeSuggested && self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
+        [self attachPullToLoadMore];
+    }
+
     [self.view sendSubviewToBack:self.friendsTableView];
+
+    if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
+        [self loadUsersForTable];    
+    }
+    
+
 }
 
 - (void)viewDidUnload
@@ -169,9 +180,7 @@
         [self.noSearchResultsView removeFromSuperview];
         [self.searchCommunityView removeFromSuperview];
         
-        if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
-            [self loadUsersForTable];
-        } else {
+        if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends) {
             [self displaySearchCommunityView];
         }
         [self resetTableViewFrame];
@@ -183,6 +192,22 @@
     [super viewWillDisappear:animated];
     
     [self.searchBar resignFirstResponder];
+}
+
+- (void)attachPullToLoadMore
+{
+    // Pull to load more
+    self.pullToLoadMoreView = [[SSPullToLoadMoreView alloc] initWithScrollView:self.friendsTableView delegate:self];
+    self.pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 0.0f } }];
+    self.pullToLoadMoreView.userInteractionEnabled = NO;
+    [self.pullToLoadMoreView setExpandedHeight:0.0f];
+}
+
+#pragma mark - SSPullToLoadMoreDelegate Methods
+
+- (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
+{
+    [self paginateUsersForTable];
 }
 
 #pragma mark - GTIOFriendsTableHeaderViewDelegate / GTIOMeTableHeaderViewDelegate / GTIOFriendsSearchEmptyStateViewDelegate methods
@@ -300,6 +325,36 @@
     }
 }
 
+
+- (NSUInteger)indexOfUserID:(NSString *)userID
+{
+    return [self.friends indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+       GTIOUser *user = (GTIOUser*)obj;
+       return ([user.userID isEqualToString:userID]);
+    }];
+}
+
+
+- (void)buttonTapped:(GTIOButton*)button;
+{
+    __block typeof(self) blockSelf = self;
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            for (id object in objects) {
+                if ([object isMemberOfClass:[GTIOUser class]]) {
+                    GTIOUser *newUser = (GTIOUser *)object;
+
+                    [blockSelf updateDataSourceUser:[self.friends objectAtIndex:[blockSelf indexOfUserID:newUser.userID]] withUser:newUser];
+                }
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
+
 #pragma mark - UITableViewDelegate methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -309,6 +364,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"selected row");
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     GTIOUser *userForRow;
@@ -408,16 +464,20 @@
 
 - (void)paginateUsersForTable
 {
-    if (self.paginationNextPageResourcePath.length > 0) {
-        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    if (self.pagination.nextPage) {
+        if (!self.pullToLoadMoreView){
+            [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+        }
         self.reloadButton.userInteractionEnabled = NO;
-        
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.paginationNextPageResourcePath usingBlock:^(RKObjectLoader *loader) {
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
             loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+                if (self.pullToLoadMoreView){
+                    [self.pullToLoadMoreView finishLoading];
+                } else {
+                    self.friends = [NSMutableArray array];
+                }
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 self.reloadButton.userInteractionEnabled = YES;
-                
-                self.friends = [NSMutableArray array];
                 
                 for (id object in loadedObjects) {
                     if ([object isMemberOfClass:[GTIOUser class]]) {
@@ -425,17 +485,20 @@
                     }
                     
                     if ([object isMemberOfClass:[GTIOPagination class]]) {
-                        self.paginationNextPageResourcePath = [(GTIOPagination *)object nextPage];
+                        self.pagination = (GTIOPagination *)object;
                     }
                 }
                 
                 [self.friendsTableView reloadData];
             };
             loader.onDidFailWithError = ^(NSError *error) {
+                [self.pullToLoadMoreView finishLoading];
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 self.reloadButton.userInteractionEnabled = YES;
             };
         }];
+    } else {
+        [self.pullToLoadMoreView finishLoading];
     }
 }
 
@@ -533,7 +596,7 @@
                     [self.friends addObject:object];
                 }
                 if ([object isMemberOfClass:[GTIOPagination class]]) {
-                    self.paginationNextPageResourcePath = [(GTIOPagination *)object nextPage];
+                    self.pagination = (GTIOPagination *)object;
                 }
             }
             
