@@ -12,9 +12,6 @@
 
 @implementation GTIOPhoto
 
-@synthesize photoID = _photoID, userID = _userID, url = _url, width = _width, height = _height;
-@synthesize mainImageURL = _mainImageURL, squareThumbnailURL = _squareThumbnailURL, smallThumbnailURL = _smallThumbnailURL;
-
 - (CGSize)photoSize
 {
     return (CGSize){ [self.width intValue], [self.height intValue] };

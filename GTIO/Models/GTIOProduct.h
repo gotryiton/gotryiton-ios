@@ -18,7 +18,7 @@
 @property (nonatomic, copy) NSString *productName;
 @property (nonatomic, strong) NSURL *buyURL;
 @property (nonatomic, copy) NSString *prettyPrice;
-@property (nonatomic, copy) NSString *brands;
+@property (nonatomic, copy) NSString *brand;
 
 // Relationships
 @property (nonatomic, strong) GTIOButtonAction *action;

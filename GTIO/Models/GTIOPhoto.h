@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSURL *mainImageURL;
 @property (nonatomic, strong) NSURL *squareThumbnailURL;
 @property (nonatomic, strong) NSURL *smallThumbnailURL;
+@property (nonatomic, strong) NSURL *smallSquareThumbnailURL;
 
 typedef void(^GTIOPhotoCreationHandler)(GTIOPhoto *photo, NSError *error);
 
