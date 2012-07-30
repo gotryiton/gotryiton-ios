@@ -1340,7 +1340,7 @@ A user can view a detailed page about a single product
 #### Mockups
 4.1 Product Page View ([wireframe](http://invis.io/8Y2OC5N7))
 
-<img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/Product.Detail.Light.BG.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/4.1.Product.Detail.Page.png.png" width=420px/>
 
 
 #### User Flow
@@ -1392,6 +1392,10 @@ previous screen
 	- Background (4/product.nav.bar.bg.png) (48px high with shadow)
 	- Back button 11px from top, 5px from left
 	- When tapped to full screen product image, display product.nav.bar.top.png (4px high)
+   - Link Out Button
+      - 'nav-bar-out.png'
+      - 11px from right side of screen
+      - use a default tap state (no 'active' asset supplied)
 - Heart Button
 	- Background (product.heart.inactive.png)
 		- On tap (product.heart.active.png)
@@ -1417,10 +1421,10 @@ previous screen
 			- Brand: Proxima Nova Semibold 12px rgb(143,143,143) #8f8f8f
 			- Price: Verlag 22px Bold 22px rgb(88,88,88) #585858
 				- 10px from right, 10px from bottom
-		- Social Icons (product.social.fb.active.png) & (product.social.twit.active.png)
-			- 18x18px
-			- 9px from top/right
-			- 7px in between
+      - Chevron
+         - 'General/general.chevron.png'
+         - X: 297 Y: 370, asset is 9px x 13px
+         - use default tap state, no 'active' asset supplied
 		- Bottom Buttons
          - 5px padding
          - 4px in between buttons
