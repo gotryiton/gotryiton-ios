@@ -106,6 +106,9 @@
         [self handleNotificationUserInfo:notificationUserInfo];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectTab:) name:kGTIOChangeSelectedTabNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTabBarToWindow:) name:kGTIOAddTabBarToWindowNotification object:nil];
+    
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -271,13 +274,14 @@
 
 #pragma mark - UITabBarController
 
-- (void)addTabBarToWindow
+- (void)addTabBarToWindow:(NSNotification *)notification
 {
     [self.window setRootViewController:self.tabBarController];
 }
 
-- (void)selectTabAtIndex:(GTIOTabBarTab)tab
+- (void)selectTab:(NSNotification *)notification
 {
+    GTIOTabBarTab tab = [[[notification userInfo] objectForKey:kGTIOChangeSelectedTabToUserInfo] integerValue];
     [self.tabBarController setSelectedIndex:tab];
     [self tabBarController:self.tabBarController didSelectViewController:[self.tabBarViewControllers objectAtIndex:tab]];
 }

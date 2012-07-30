@@ -84,7 +84,8 @@ static CGFloat const kGTIOEmptyStateViewVerticalCenterOffset = 15.0;
     
     self.emptyStateView = [[GTIOProductListEmptyStateView alloc] initWithFrame:(CGRect){ 0, 0, 210, 55 } title:@"browse, discover and add items to your shopping list to save them for later!" linkText:@"browse" linkTapHandler:^(id sender) {
         [self.navigationController popToRootViewControllerAnimated:NO];
-        [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) selectTabAtIndex:GTIOTabBarTabStyle];
+        NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabStyle) };
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
     }];
     self.emptyStateView.center = (CGPoint){ self.view.bounds.size.width / 2, (self.view.bounds.size.height / 2) - self.navigationController.navigationBar.bounds.size.height - kGTIOEmptyStateViewVerticalCenterOffset };
     self.emptyStateView.hidden = YES;

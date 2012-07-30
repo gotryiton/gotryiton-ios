@@ -216,8 +216,9 @@
 
 - (void)loadTabBarWithTabSelectedAtIndex:(GTIOTabBarTab)index
 {
-    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
-    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) selectTabAtIndex:index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAddTabBarToWindowNotification object:nil];
+    NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(index) };
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 

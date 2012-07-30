@@ -74,7 +74,7 @@
                         if (self.loginHandler) {
                             self.loginHandler(user, nil);
                         } else {
-                            [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAddTabBarToWindowNotification object:nil];
                         }
                     } else {
                         GTIOAlmostDoneViewController *almostDone = [[GTIOAlmostDoneViewController alloc] initWithNibName:nil bundle:nil];

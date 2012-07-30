@@ -572,7 +572,8 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         [self.tableView setContentOffset:CGPointZero];
         
         // Go to feed tab
-        [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) selectTabAtIndex:GTIOTabBarTabFeed];
+        NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabFeed) };
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
     }
 }
 
