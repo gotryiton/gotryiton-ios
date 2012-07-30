@@ -4228,9 +4228,9 @@
 			isa = PBXGroup;
 			children = (
 				8E969F52158BD7F7009E19B3 /* GTIOFeedViewController.h */,
+				8E969F53158BD7F7009E19B3 /* GTIOFeedViewController.m */,
 				5C25D0EF15C4699000F6E8F6 /* GTIOSinglePostViewController.h */,
 				5C25D0F015C4699000F6E8F6 /* GTIOSinglePostViewController.m */,
-				8E969F53158BD7F7009E19B3 /* GTIOFeedViewController.m */,
 				806EF59E15B9D25600EBD3A1 /* GTIOWhoHeartedThisViewController.h */,
 				806EF59F15B9D25600EBD3A1 /* GTIOWhoHeartedThisViewController.m */,
 			);

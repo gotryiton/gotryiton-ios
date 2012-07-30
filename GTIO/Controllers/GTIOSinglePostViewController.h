@@ -17,7 +17,6 @@
 
 @end
 
-
 @interface GTIOSinglePostViewController : GTIOViewController
 
 - (id)initWithPostID:(NSString *)postID;

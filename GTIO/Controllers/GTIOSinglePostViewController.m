@@ -46,23 +46,15 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navTitleView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
-@property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) GTIOPagination *pagination;
-
-
-@property (nonatomic, assign) CGFloat addNavToHeaderOffsetXOrigin;
-@property (nonatomic, assign) CGFloat removeNavToHeaderOffsetXOrigin;
-
-@property (nonatomic, strong) NSMutableSet *offScreenHeaderViews;
-@property (nonatomic, strong) NSMutableDictionary *onScreenHeaderViews;
 
 @property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
 
 @property (nonatomic, copy) NSString *postID;
+@property (nonatomic, strong) GTIOPost *post;
 @property (nonatomic, copy) NSString *postsResourcePath;
 
-@property (nonatomic, strong) GTIOPost *post;
-
+@property (nonatomic, assign, getter = isInitialLoad) BOOL initialLoad;
 
 @end
 
@@ -72,16 +64,8 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _posts = [NSMutableArray array];
-        
-        _offScreenHeaderViews = [NSMutableSet set];
-        _onScreenHeaderViews = [NSMutableDictionary dictionary];
-        
-        _addNavToHeaderOffsetXOrigin = -44.0f;
-        _removeNavToHeaderOffsetXOrigin = -0.0f;
-
+        _initialLoad = YES;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
-
     }
     return self;
 }
@@ -104,7 +88,6 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
         NSLog(@"SINGLE POST initWithPost");
         _post = post;
         _postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
-        [_posts addObject:_post];
     }
     return self;
 }
@@ -113,7 +96,6 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 - (void)viewDidLoad
 {
@@ -132,24 +114,18 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self setLeftNavigationButton:backButton];
-    
 
-       
     // Single post
-    
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height } } style:UITableViewStylePlain];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSectionHeaderHeight:56.0f];
     [self.tableView setSeparatorStyle:UITableViewCellSelectionStyleNone];
-    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ self.navBarView.frame.size.height, self.navTitleView.frame.size.height, self.tabBarController.tabBar.bounds.size.height, 0 }];
-    [self.tableView setContentInset:(UIEdgeInsets){ 0, self.navTitleView.frame.size.height, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, 0, 0 }];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setAllowsSelection:NO];
-    // [self.tableView setTableHeaderView:self.navBarView];
     [self.view addSubview:self.tableView];
-    
-   
     
     self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.tableView delegate:self];
     [self.pullToRefreshView setExpandedHeight:60.0f];
@@ -162,8 +138,6 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
     [self.tableView bringSubviewToFront:self.navBarView];
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
-    
-    NSLog(@"pullrefresh: %@", NSStringFromCGRect(self.pullToRefreshView.frame));
 }
 
 - (void)viewDidUnload
@@ -171,14 +145,14 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
     [super viewDidUnload];
     
     self.navBarView = nil;
+    self.tableView = nil;
+    self.pullToRefreshView = nil;
 }
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self showStatusBarBackgroundWithoutNavigationBar];
-    
+    [self showStatusBarBackgroundWithoutNavigationBar];    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -186,22 +160,29 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Properties
+
+- (void)setPost:(GTIOPost *)post
+{
+    _post = post;
+    self.postID = _post.postID;
+}
+
 #pragma mark - Load Data
 
 - (void)loadFeed
 {
-    NSLog(@"SINGLE POST loadFeed");
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.postsResourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
         loader.onDidLoadObjects = ^(NSArray *objects) {
-            [self.posts removeAllObjects];
+            self.post = nil;
             
             for (id object in objects) {
-                if ([object isKindOfClass:[GTIOPost class]]) {
-                    GTIOPost *post = (GTIOPost *)object;
-                    post.reviewsButtonTapHandler = ^(id sender) {
+                if ([object isKindOfClass:[GTIOPost class]] && !self.post) {
+                    self.post = (GTIOPost *)object;
+                    self.post.reviewsButtonTapHandler = ^(id sender) {
                         UIViewController *reviewsViewController;
-                        for (id object in post.buttons) {
+                        for (id object in self.post.buttons) {
                             if ([object isMemberOfClass:[GTIOButton class]]) {
                                 GTIOButton *button = (GTIOButton *)object;
                                 if ([button.name isEqualToString:kGTIOPostSideReviewsButton]) {
@@ -211,7 +192,12 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
                         }
                         [self.navigationController pushViewController:reviewsViewController animated:YES];
                     };
-                    [self.posts addObject:object];
+                    
+                    GTIOPostHeaderView *headerView = [[GTIOPostHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight }];
+                    [headerView setDelegate:self];
+                    [headerView setPost:self.post];
+                    [self.tableView setTableHeaderView:headerView];
+                    
                 } else if ([object isKindOfClass:[GTIOPagination class]]) {
                     self.pagination = object;
                 }
@@ -237,45 +223,23 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
-    if (self.post) {
+    if (self.post && self.isInitialLoad) {
         // Inited w/ post. No need to hit endpoint
         [self.tableView reloadData];
         [self.pullToRefreshView finishLoading];
-    } else {
-        if (self.postID) {
-            self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
-        } else {
-            self.postsResourcePath = @"/posts/feed";
-        }
+        self.initialLoad = NO;
+    } else if (self.postID) {
+        self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
+        self.initialLoad = NO;
         [self loadFeed];
     }
 }
-
 
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [GTIOFeedCell cellHeightWithPost:[self.posts objectAtIndex:indexPath.section]] + kGTIOPostCellHeightPadding;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section 
-{
-
-    
-    GTIOPostHeaderView *headerView = [self.offScreenHeaderViews anyObject];
-
-    if (!headerView) {
-        headerView = [[GTIOPostHeaderView alloc] initWithFrame:(CGRect){ 0, 0, tableView.bounds.size.width, tableView.sectionHeaderHeight }];
-    } else {
-        [self.offScreenHeaderViews removeObject:headerView];
-    }
-    headerView.delegate = self;
-    
-    [headerView setPost:[self.posts objectAtIndex:section]];
-    [self.onScreenHeaderViews setValue:headerView forKey:[NSString stringWithFormat:@"%i", section]];
-    
-    return headerView;
+    return [GTIOFeedCell cellHeightWithPost:self.post] + kGTIOPostCellHeightPadding;
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -285,8 +249,7 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([cell isKindOfClass:[GTIOFeedCell class]]) {
-        GTIOPost *post = [self.posts objectAtIndex:indexPath.section];
-        ((GTIOFeedCell *)cell).post = post;
+        ((GTIOFeedCell *)cell).post = self.post;
     }
 }
 
@@ -294,13 +257,18 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-    return 1;
+    if (self.post) {
+        return 1;
+    }
+    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.posts count];
+    if (self.post) {
+        return 1;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -315,103 +283,6 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
     
     return cell;
 }
-
-#pragma mark - UIScrollView
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self headerViewDequeueing];
-    [self navBarStyling];
-    [self headerSectionViewsStyling];
-}
-
-- (void)navBarStyling
-{
-    CGPoint scrollViewTopPoint = self.tableView.contentOffset;
-
-    if (scrollViewTopPoint.y < 0 && self.tableView.tableHeaderView == self.navBarView) {
-        [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:self.tableView.tableHeaderView.bounds]];
-        // [self.view addSubview:self.navBarView];
-    } else if (scrollViewTopPoint.y > 0 && self.tableView.tableHeaderView != self.navBarView) {
-        // [self.tableView setTableHeaderView:self.navBarView];
-    }
-}
-
-- (void)headerSectionViewsStyling
-{
-    CGPoint scrollViewTopPoint = self.tableView.contentOffset;
-    
-    // Section Header
-    scrollViewTopPoint.y += self.tableView.sectionHeaderHeight; // Offset by first header
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollViewTopPoint];
-    if (indexPath) {
-        GTIOPostHeaderView *currentHeaderView = [self.onScreenHeaderViews objectForKey:[NSString stringWithFormat:@"%i", indexPath.section]];
-        
-        CGRect rectForView = [self.tableView rectForHeaderInSection:indexPath.section];
-        NSArray *onScreenViewKeys = [self.onScreenHeaderViews allKeys];
-        [onScreenViewKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
-            GTIOPostHeaderView *headerView = [self.onScreenHeaderViews objectForKey:key];
-            if (headerView == currentHeaderView &&
-                rectForView.origin.y + self.tableView.sectionHeaderHeight < scrollViewTopPoint.y) {
-                
-                [headerView setShowingShadow:YES];
-                [headerView setClearBackground:NO];
-            } else if (headerView == currentHeaderView) {
-                [headerView setShowingShadow:NO];
-                [headerView setClearBackground:YES];
-            } else {
-                [headerView setShowingShadow:NO];
-                
-                // Don't show clear background for cells above current cell
-                if (rectForView.origin.y + self.tableView.sectionHeaderHeight > scrollViewTopPoint.y) {
-                    [headerView setClearBackground:NO];
-                } else {
-                    [headerView setClearBackground:YES];
-                }
-            }
-        }];
-    }
-}
-
-#pragma mark - Header View Dequeue
-
-- (void)headerViewDequeueing
-{
-    NSArray *visibleCells = [self.tableView visibleCells];
-    NSMutableArray *visibleCellSections = [NSMutableArray array];
-    
-    [visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSInteger section = [self.tableView indexPathForCell:obj].section;
-        [visibleCellSections addObject:[NSString stringWithFormat:@"%i", section]];
-    }];
-    
-    // Add padding cells to visible
-    if ([visibleCellSections count] > 0) {
-        NSInteger firstSection = [[visibleCellSections objectAtIndex:0] intValue];
-        NSInteger lastSection = [[visibleCellSections objectAtIndex:[visibleCellSections count] - 1] intValue];
-        
-        if (firstSection > 0) {
-            [visibleCellSections addObject:[NSString stringWithFormat:@"%i", --firstSection]];
-        }
-        
-        if (lastSection < [self.posts count] - 1) {
-            [visibleCellSections addObject:[NSString stringWithFormat:@"%i", ++lastSection]];
-        }
-    }
-    
-    NSArray *onScreenSectionKeys = [self.onScreenHeaderViews allKeys];
-    [onScreenSectionKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (![visibleCellSections containsObject:obj]) {
-            // Cell not on screen
-            GTIOPostHeaderView *postHeaderView = [self.onScreenHeaderViews objectForKey:obj];
-            [postHeaderView prepareForReuse];
-            
-            [self.onScreenHeaderViews removeObjectForKey:obj];
-            [self.offScreenHeaderViews addObject:postHeaderView];
-        }
-    }];
-}
-
 #pragma mark - NSNotifications
 
 - (void)openURL:(NSNotification *)notification
@@ -431,7 +302,5 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
     [viewController setUserID:userID];
     [self.navigationController pushViewController:viewController animated:YES];
 }
-
-
 
 @end
