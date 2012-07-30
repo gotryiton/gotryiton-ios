@@ -185,7 +185,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
         [self.tableView setUserInteractionEnabled:NO];
         // handle any special cases
         if ([buttonForRow.action.destination isEqualToString:@"gtio://sign-out"]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kGTIOAlertForLogout delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes", @"No", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kGTIOAlertForLogout delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
             [alert show];
         } else {
             [self.navigationController pushViewController:self.viewControllerToRouteTo animated:YES];
@@ -251,11 +251,11 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     GTIOSwitch *switchView = (GTIOSwitch *)cell.accessoryView;
        
     if (switchView.isOn){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes", @"No", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
         [alert show];
     }
     else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:nil otherButtonTitles:@"No", @"Yes", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:@"No" otherButtonTitles: @"Yes", nil];
         [alert show];
     }    
 }
