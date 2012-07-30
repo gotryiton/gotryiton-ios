@@ -175,7 +175,7 @@ static CGFloat const kGTIOWebsiteButtonPadding = 8.0f;
             [self.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
                 actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
                     if (!actionSheet.wasCancelled) {
-                        if ([self.delegate respondsToSelector:@selector(refreshUserProfileRefreshPostsOnly:)]) {
+                        if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
                             [self.delegate refreshUserProfile];
                         }
                     }
