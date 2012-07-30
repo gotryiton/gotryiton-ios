@@ -270,7 +270,7 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     }
     
     self.productInformationBox.productName = _product.productName;
-    self.productInformationBox.productBrands = _product.brands;
+    self.productInformationBox.productBrands = _product.brand;
     self.productInformationBox.productPrice = _product.prettyPrice;
 }
 

@@ -126,8 +126,8 @@ typedef enum GTIOReviewsAlertView {
         DTCSSStylesheet *defaultDTCSSStylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
         
         _reviewAttributeTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
                                             [UIColor gtio_grayTextColor232323], DTDefaultTextColor,
+                                            [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
                                             [UIColor gtio_pinkTextColor], DTDefaultLinkColor,
                                             [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
                                             defaultDTCSSStylesheet, DTDefaultStyleSheet,
@@ -169,7 +169,7 @@ typedef enum GTIOReviewsAlertView {
 - (void)setReview:(GTIOReview *)review
 {
     _review = review;
-    
+   
     NSData *data = [_review.text dataUsingEncoding:NSUTF8StringEncoding];
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.reviewAttributeTextOptions documentAttributes:NULL];
@@ -260,15 +260,15 @@ typedef enum GTIOReviewsAlertView {
 {
     [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
     DTAttributedTextView *reviewAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIOReviewTextWidth, 0 } }];
-    reviewAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 8, 0 };
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"PostDescription" ofType:@"css"];  
+    reviewAttributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -8, 0, 8, 0 };
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ReviewText" ofType:@"css"];  
     NSData *cssData = [NSData dataWithContentsOfFile:filePath];
     NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
     DTCSSStylesheet *stylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
     
     NSDictionary *reviewAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                      [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
                                                       [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
+                                                      [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
                                                       stylesheet, DTDefaultStyleSheet,
                                                       nil];
     
