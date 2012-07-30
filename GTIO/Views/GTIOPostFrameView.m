@@ -21,6 +21,7 @@ static CGFloat const kGTIOFrameWidth = 270.0f;
 static CGFloat const kGTIOFrameHeightPadding = 16.0f;
 static CGFloat const kGTIOFrameHeightWithShadowPadding = 22.0f;
 static CGFloat const kGTIOPhotoTopPadding = 7.0f;
+static CGFloat const kGTIOPhotoLeftRightPadding = 10.0f;
 static CGFloat const kGTIOHeartButtonPadding = 0.0f;
 static CGFloat const kGTIODescriptionTextWidth = 240.0f;
 static CGFloat const kGTIODescriptionLabelTopPadding = 5.0f;
@@ -31,6 +32,7 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 @interface GTIOPostFrameView ()  <DTAttributedTextContentViewDelegate>
 
 @property (nonatomic, strong) UIImageView *frameImageView;
+@property (nonatomic, strong) UIImageView *star;
 @property (nonatomic, strong) DTAttributedTextView *descriptionTextView;
 @property (nonatomic, strong) NSDictionary *descriptionAttributeTextOptions;
 @property (nonatomic, strong) GTIOHeartButton *heartButton;
@@ -41,9 +43,6 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 
 @implementation GTIOPostFrameView
 
-@synthesize post = _post;
-@synthesize frameImageView = _frameImageView, photoImageView = _photoImageView, descriptionTextView = _descriptionTextView, heartButton = _heartButton, photoHeartButtonModel = _photoHeartButtonModel, brandButtonsView = _brandButtonsView;
-@synthesize descriptionAttributeTextOptions = _descriptionAttributeTextOptions;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -90,6 +89,10 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
         
         _brandButtonsView = [[GTIOPostBrandButtonsView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIODescriptionTextWidth, 0 } }];
         [self addSubview:_brandButtonsView];
+
+        _star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star-corner-feed.png"]];
+        _star.hidden = YES;
+        [self addSubview:_star];
     }
     return self;
 }
@@ -102,6 +105,11 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
     CGFloat extraParentFrameHeight = 0.0f; // This height is used for making container frame bigger
 
     CGSize photoSize = [GTIOPostFrameView scalePhotoSize:self.post.photo.photoSize];
+
+    if (self.post.photo.isStarred){
+        [self.star setFrame:(CGRect){photoSize.width - self.star.bounds.size.width + kGTIOPhotoLeftRightPadding, kGTIOPhotoTopPadding , self.star.frame.size}];
+        self.star.hidden = NO;
+    }
 
     [self.photoImageView setFrame:(CGRect){ 10, kGTIOPhotoTopPadding, photoSize }];
     [self.heartButton setFrame:(CGRect){ { self.photoImageView.frame.origin.x + kGTIOHeartButtonPadding, self.photoImageView.frame.origin.y + kGTIOHeartButtonPadding }, self.heartButton.frame.size }];
