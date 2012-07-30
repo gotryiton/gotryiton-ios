@@ -11,20 +11,22 @@
 
 @implementation GTIOPost
 
-@synthesize postID = _postID, user = _user, postDescription = _postDescription, photo = _photo, createdAt = _createdAt, createdWhen = _createdWhen, stared = _stared, whoHearted = _whoHearted;
-@synthesize dotOptionsButtons = _dotOptionsButtons, buttons = _buttons, brandsButtons = _brandsButtons, pagination = _pagination, reviewsButtonTapHandler = _reviewsButtonTapHandler, action = _action;
 
-+ (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description completionHandler:(GTIOPostCompletionHandler)completionHandler
++ (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts completionHandler:(GTIOPostCompletionHandler)completionHandler
 {
-    NSString *postPhotoResourcePath = @"/post/create";
-    
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:postPhotoResourcePath usingBlock:^(RKObjectLoader *loader) {
-        NSDictionary *params = [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/post/create" usingBlock:^(RKObjectLoader *loader) {
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                 description, @"description",
                                 photo.photoID, @"photo_id",
-                                nil] forKey:@"post"];
+                                nil];
         
-        loader.params = GTIOJSONParams(params);
+        if ([[attachedProducts allKeys] count] > 0) {
+            [params setValue:attachedProducts forKey:@"attached_products"];
+        }
+        
+        NSDictionary *postParams = @{ @"post" : params };
+        
+        loader.params = GTIOJSONParams(postParams);
         loader.method = RKRequestMethodPOST;
         
         loader.onDidLoadObjects = ^(NSArray *objects) {

@@ -69,7 +69,7 @@ static CGFloat kGTIOIconViewYPosition = -2.0;
     _productOption = productOption;
     
     if (_productOption) {
-        [_iconView setImageWithURL:_productOption.photo.mainImageURL];
+        [_iconView setImageWithURL:_productOption.photo.smallSquareThumbnailURL];
         
         self.maskButton.tapHandler = ^(id sender) {
             self.plusSignActiveView.hidden = YES;

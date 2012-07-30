@@ -40,6 +40,9 @@
 #import "GTIOProductOption.h"
 #import "GTIOCollection.h"
 #import "GTIOBannerImage.h"
+#import "GTIOTag.h"
+#import "GTIORecentTag.h"
+#import "GTIOTrendingTag.h"
 
 @implementation GTIOMappingProvider
 
@@ -80,6 +83,9 @@
         RKObjectMapping *productOptionMapping = [RKObjectMapping mappingForClass:[GTIOProductOption class]];
         RKObjectMapping *collectionMapping = [RKObjectMapping mappingForClass:[GTIOCollection class]];
         RKObjectMapping *bannerImageMapping = [RKObjectMapping mappingForClass:[GTIOBannerImage class]];
+        RKObjectMapping *tagMapping = [RKObjectMapping mappingForClass:[GTIOTag class]];
+        RKObjectMapping *recentTagMapping = [RKObjectMapping mappingForClass:[GTIORecentTag class]];
+        RKObjectMapping *trendingTagMapping = [RKObjectMapping mappingForClass:[GTIOTrendingTag class]];
         
         /** Products
          */
@@ -91,7 +97,7 @@
         [productMapping mapKeyPath:@"pretty_price" toAttribute:@"prettyPrice"];
         [productMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [productMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
-        [productMapping mapKeyPath:@"brands" toAttribute:@"brands"];
+        [productMapping mapKeyPath:@"brand" toAttribute:@"brand"];
         [productMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [self setMapping:productMapping forKeyPath:@"product"];
         [self setMapping:productMapping forKeyPath:@"products"];
@@ -191,6 +197,8 @@
         [userPhotoMapping mapKeyPath:@"main_image" toAttribute:@"mainImageURL"];
         [userPhotoMapping mapKeyPath:@"small_thumbnail" toAttribute:@"smallThumbnailURL"];
         [userPhotoMapping mapKeyPath:@"square_thumbnail" toAttribute:@"squareThumbnailURL"];
+        [userPhotoMapping mapKeyPath:@"star" toAttribute:@"isStarred"];
+        [userPhotoMapping mapKeyPath:@"small_square_thumbnail" toAttribute:@"smallSquareThumbnailURL"];
         [userPhotoMapping mapAttributes:@"url", @"width", @"height", nil];
         [self setMapping:userPhotoMapping forKeyPath:@"photo"];
         
@@ -273,7 +281,6 @@
         [postMapping mapKeyPath:@"description" toAttribute:@"postDescription"];
         [postMapping mapKeyPath:@"created_at" toAttribute:@"createdAt"];
         [postMapping mapKeyPath:@"created_when" toAttribute:@"createdWhen"];
-        [postMapping mapKeyPath:@"star" toAttribute:@"stared"];
         [postMapping mapKeyPath:@"who_hearted" toAttribute:@"whoHearted"];
         [postMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [postMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
@@ -314,6 +321,25 @@
         [autocompleterMapping mapKeyPath:@"id" toAttribute:@"completerID"];
         [autocompleterMapping mapAttributes:@"name", @"icon", nil];
         [self setMapping:autocompleterMapping forKeyPath:@"dictionary"];
+        
+        /** Tags
+         */
+        [tagMapping mapAttributes:@"text", nil];
+        [tagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
+        [tagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:tagMapping forKeyPath:@"search_result_tags"];
+    
+        // GTIORecentTag
+        [recentTagMapping mapAttributes:@"text", nil];
+        [recentTagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
+        [recentTagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:recentTagMapping forKeyPath:@"recent"];
+    
+        // GTIOTrendingTag
+        [trendingTagMapping mapAttributes:@"text", nil];
+        [trendingTagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
+        [trendingTagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:trendingTagMapping forKeyPath:@"trending"];
     }
     return self;
 }

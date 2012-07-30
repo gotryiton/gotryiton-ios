@@ -12,7 +12,7 @@
 	url = https://github.com/facebook/facebook-ios-sdk.git
 [submodule "Libraries/MBProgressHUD"]
 	path = Libraries/MBProgressHUD
-	url = https://github.com/jdg/MBProgressHUD.git
+	url = https://github.com/twotoasters/MBProgressHUD.git
 [submodule "Libraries/DTCoreText"]
 	path = Libraries/DTCoreText
 	url = https://github.com/Cocoanetics/DTCoreText.git

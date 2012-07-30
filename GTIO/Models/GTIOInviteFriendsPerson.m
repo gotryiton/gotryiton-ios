@@ -10,6 +10,6 @@
 
 @implementation GTIOInviteFriendsPerson
 
-@synthesize firstName = _firstName, lastName = _lastName;
+@synthesize firstName = _firstName, lastName = _lastName, phoneNumber = _phoneNumber, email = _email;
 
 @end

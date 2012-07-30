@@ -1,3 +1,69 @@
+***Friday, July 27th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Continue working on assigned issues 
+
+**Status**
+- TT got all styling in for progress overlays and merged everything today.
+- Issue 428: Does this have a normal nav bar? Scott will have to make a new controller.
+- Still to work on: Auto-complete, some views changing, etc. 
+  - Simon can take a stab at some higher priority things.
+  - Scott will look at rendering, single post view, and header element, and pop-over button issues.
+
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott will be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of next week, but release August 20th.
+
+**General Notes**
+- Scott and Simon to color issues green once they are resolved.
+  
+---
+
+
+***Thursday, July 26th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Matt, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Continue working on assigned issues 
+
+**Status**
+- TT will go through Simon's pull request after call.
+- Bug 244: 1 line of code to stop video from running. Tested multiple frames and it worked fine. But are there 
+other devices that it may mess up?  
+  - Scott will take a look at it.
+- Matt has pull request for asset swaps.  There should be issues related to all of those.  
+  - Scott will go ahead and merge this.  
+  - Simon's next pull request will fix anything that this breaks.
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott will be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of next week, but release August 20th.
+
+**General Notes**
+- Scott and Simon to color issues green once they are resolved.
+  
+---
+
 ***Wednesday, July 25th - Standup Notes***
 
 **Attendees**

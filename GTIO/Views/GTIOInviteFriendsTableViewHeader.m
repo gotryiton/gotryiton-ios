@@ -61,7 +61,7 @@ static CGFloat const kGTIOSMSButtonVerticalOffset = 3.0;
         [self addSubview:_phoneOptionTopBorder];
         
         _phoneOptionBackground = [[UIView alloc] initWithFrame:(CGRect){ 0, _phoneOptionTopBorder.frame.origin.y + _phoneOptionTopBorder.bounds.size.height, frame.size.width, 28 }];
-        _phoneOptionBackground.backgroundColor = [UIColor gtio_friendsGreenCellColor];
+        _phoneOptionBackground.backgroundColor = [UIColor gtio_greenCellColor];
         [self addSubview:_phoneOptionBackground];
         
         _phoneOptionLabel = [[UILabel alloc] initWithFrame:(CGRect){ kGTIOPadding, 5, frame.size.width - kGTIOPadding * 2, 20 }];

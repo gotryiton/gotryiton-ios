@@ -46,7 +46,7 @@
         _autoCompleteButtonOptions = [[NSMutableArray alloc] init];
         
         // keep track of text in the input box
-        _inputText = [[NSString alloc] initWithString:@""];
+        _inputText = @"";
 
         // keep track of the position of the last word the user typed
         _positionOfLastWordTyped = NSMakeRange(0,1);

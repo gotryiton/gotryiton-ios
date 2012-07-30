@@ -36,7 +36,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_ActionSheetButtonTextColor;
 + (UIColor *)gtio_postReviewCountButtonTextColor;
 + (UIColor *)gtio_findMyFriendsTableCellActiveColor;
-+ (UIColor *)gtio_friendsGreenCellColor;
++ (UIColor *)gtio_greenCellColor;
 + (UIColor *)gtio_grayTextColorB7B7B7;
 + (UIColor *)gtio_grayTextColorBCBCBC;
 + (UIColor *)gtio_grayTextColorDCDCDC;
@@ -55,5 +55,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_grayTextColor232323;
 + (UIColor *)gtio_grayTextColor595155;
 + (UIColor *)gtio_grayTextColorBBBBBB;
++ (UIColor *)gtio_grayBorderColorD9D7CE;
++ (UIColor *)gtio_selectedCellBGColorC6F0DE;
 
 @end

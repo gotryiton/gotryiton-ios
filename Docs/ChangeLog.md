@@ -1,5 +1,79 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.18
+July 27, 2012
+
+### Build Summary
+Final Sprint 6 build for dev/staging/production. 
+
+### Development
+
+**Bug Fixes**
+- 415 - Added quick add bg
+- 422 - After successfully post a feed item the pull to refresh was over the nav bar
+- 441 - When posting a feed item it will switch to feed tab and scroll to top
+
+---
+
+#### Build 4.0.0.17
+July 27, 2012
+
+### Build Summary
+Final Sprint 6 build. Bug fixes, style changes, loading spinner customization, etc...
+
+### Development
+
+**Screens / Features**
+- 410 - 13.7 Add verified user badges to appropriate screens
+- 403 - Production api should point at api.gotryiton.com
+- 414 - Find friends design tweaks
+- 436 - Styling of find friends empty screens
+- 446 - 7.7 Profile design tweaks
+- 414 - add unique background screen to 1.8
+- 252 - User bar on feed view should be tappable to profile
+- 255 - increase tap area for hearts on feed views
+- 420 - 3.4 Reviews design tweaks
+- 299 - Create new account loading spinner
+- 243 - Post Feed loading spinner
+- 188 - 8.1 Empty Feed
+- 429 - spinner states
+
+**Bug Fixes**
+- 211 - 1.7 styling bugs
+- 342 - User and profile icon on reviews should be tappable to user's profile
+- 431 - 8.1 Feed design tweaks
+- 418 - 3.4 scrolling up and down shows incorrect assets
+- 244 - Viewfinder should 'freeze' when photo is taken
+- 374 - Feed Posts image sizes are hard coded
+- 404 - Who hearted this not pulling correct list
+- 237 - Who hearted "147 hearted this" button not connected to action
+- 421 - Same description when posting two looks in a row
+- 402 - UIWebview cache not respecting cache-control header
+
+---
+
+#### Build 4.0.0.16
+July 25, 2012
+
+### Build Summary
+Mid sprint 6 build. Bug fixes, search tags, finished invite friends, pick a product.
+
+### Development
+
+**Bug Fixes**
+- 397 - Posting products will now attach all the product IDs
+- 327 - Posting images will now attach all the filter names
+- 360 - Reversed the settings post are private switch
+
+**Screens / Features**
+- 391 - Enable gtio:// routing from external links
+- 350 - Handle profile button open gtio:// links
+- 294 - Search Tags
+- 273 - Invite Friends
+- 285 - Pick a product view and load into camera
+
+---
+
 #### Build 4.0.0.15
 July 23, 2012
 

@@ -10,6 +10,15 @@
 #import "TTTAttributedLabel.h"
 #import "NSString+GTIOAdditions.h"
 
+
+static CGFloat const kGITOFriendsSearchLabelOriginX =  9.0f;
+static CGFloat const kGITOFriendsSearchLabelOriginY = 6.0f;
+static CGFloat const kGITOFriendsSearchLabelRightMargin = 16.0f;
+static CGFloat const kGITOFriendsSearchBarVerticalPadding = 7.0f;
+static CGFloat const kGITOFriendsSearchBarHeight = 31.0f;
+static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
+
+
 @interface GTIOFindMyFriendsSearchBoxView()
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
@@ -22,7 +31,7 @@
 
 @implementation GTIOFindMyFriendsSearchBoxView
 
-@synthesize backgroundImageView = _backgroundImageView, followingFriendsLabel = _followingFriendsLabel, searchBar = _searchBar, searchBarDelegate = _searchBarDelegate, showFollowingLabel = _showFollowingLabel, searchBarPlaceholder = _searchBarPlaceholder, shouldDisplayFollowers = _shouldDisplayFollowers, subTitleText = _subTitleText;
+@synthesize backgroundImageView = _backgroundImageView, followingFriendsLabel = _followingFriendsLabel, searchBar = _searchBar, searchBarDelegate = _searchBarDelegate, showFollowingLabel = _showFollowingLabel, searchBarPlaceholder = _searchBarPlaceholder, shouldDisplayFollowers = _shouldDisplayFollowers, subTitleText = _subTitleText, showSearchBox = _showSearchBox;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -42,7 +51,9 @@
         _followingFriendsLabel.shadowRadius = 1.0f;
         [self addSubview:_followingFriendsLabel];
         
+
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+        	
         [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"search.field.background.png"] forState:UIControlStateNormal];
         [_searchBar setImage:[UIImage imageNamed:@"search.field.mag.icon.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
         [_searchBar setPositionAdjustment:UIOffsetMake(0.0, -1.0) forSearchBarIcon:UISearchBarIconSearch];
@@ -60,8 +71,10 @@
         }
 
         [self addSubview:_searchBar];
+        
         _showFollowingLabel = YES;
         _shouldDisplayFollowers = NO;
+        _showSearchBox = YES;
     }
     return self;
 }
@@ -69,8 +82,13 @@
 - (void)layoutSubviews
 {
     [self.backgroundImageView setFrame:(CGRect){ 0, 0, self.bounds.size }];
-    [self.followingFriendsLabel setFrame:(CGRect){ 9, 6, self.bounds.size.width - 16, (self.showFollowingLabel) ? 15 : 0 }];
-    [self.searchBar setFrame:(CGRect){ 0, self.followingFriendsLabel.frame.origin.y + self.followingFriendsLabel.bounds.size.height + 7, self.bounds.size.width, 31 }];
+    [self.followingFriendsLabel setFrame:(CGRect){ kGITOFriendsSearchLabelOriginX, kGITOFriendsSearchLabelOriginY, self.bounds.size.width - kGITOFriendsSearchLabelRightMargin, (self.showFollowingLabel) ? 15 : 0 }];
+    if (self.showSearchBox){
+        [self.searchBar setFrame:(CGRect){ 0, self.followingFriendsLabel.frame.origin.y + self.followingFriendsLabel.bounds.size.height + kGITOFriendsSearchBarVerticalPadding, self.bounds.size.width, kGITOFriendsSearchBarHeight }];
+    } else {
+        [self.searchBar setFrame:CGRectZero];
+        self.searchBar.hidden = YES;
+    }
 }
 
 - (void)setSubTitleText:(NSString *)subTitleText
@@ -115,5 +133,9 @@
     [self setNeedsLayout];
 }
 
+- (void)setShowSearchBox:(BOOL)showSearchBox {
+    _showSearchBox = showSearchBox;
+    [self setNeedsLayout];
+}
 
 @end

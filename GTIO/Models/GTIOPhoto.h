@@ -19,6 +19,9 @@
 @property (nonatomic, strong) NSURL *mainImageURL;
 @property (nonatomic, strong) NSURL *squareThumbnailURL;
 @property (nonatomic, strong) NSURL *smallThumbnailURL;
+@property (nonatomic, strong) NSURL *smallSquareThumbnailURL;
+
+@property (nonatomic, assign) BOOL isStarred;
 
 typedef void(^GTIOPhotoCreationHandler)(GTIOPhoto *photo, NSError *error);
 
