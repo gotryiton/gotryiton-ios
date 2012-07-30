@@ -1,5 +1,33 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.19
+July 30, 2012
+
+### Build Summary
+Simon bug fix build
+
+### Development
+
+**Bug Fixes**
+- 457 - 7.8 heart suggestions (at bottom) are not using square thumbs
+- 339 - line height issue on post description and reviews
+- 454 - 7.6 posts not tappable on 'my posts'
+- 412 - 'Star Corner' not visible in 9.1 and 8.1
+- 406 - custom slider on 7.1
+- 459 - 3.4 comment buttons (flag, delete, heart) not working
+- 420 - 3.4 Reviews design tweaks
+- 344 - Tap area issues
+- 377 - Heart buttons delayed update on Shopping List and Review table cells
+- 461 - need hearts on Shop This Look and Style Lists
+- 427 - Nothing is tappable on single post view
+- 417 - pull to refresh elements have incorrect vertical positioning
+- 428 - Single post view does not need 'catching' scroll behavior
+- 415 - Added quick add bg
+- 422 - After successfully post a feed item the pull to refresh was over the nav bar
+- 441 - When posting a feed item it will switch to feed tab and scroll to top
+
+---
+
 #### Build 4.0.0.18
 July 27, 2012
 
