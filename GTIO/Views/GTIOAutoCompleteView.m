@@ -495,8 +495,10 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
         range = self.positionOfLastTwoWordsTyped;
     }
     NSRange editedRange = [self insertIntoInput:[NSString stringWithFormat:@"%@ ", [completer completerString]] range:range];
-    editedRange = NSMakeRange(editedRange.location, editedRange.length-1);
-    [self highlightAttributedStringInRange:editedRange completerID:completer.completerID type:completer.type];
+    if (editedRange.location!=NSNotFound) {
+        editedRange = NSMakeRange(editedRange.location, editedRange.length-1);
+        [self highlightAttributedStringInRange:editedRange completerID:completer.completerID type:completer.type];
+    }
     [self resetAutoCompleteMode];
 }
 
@@ -547,12 +549,16 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
     }
 
     NSRange editedRage = [self insertIntoInput:str range:self.positionOfCursor];   
-    return NSMakeRange(editedRage.location + padded, editedRage.length );
+    if (editedRage.location!=NSNotFound) {
+        return NSMakeRange(editedRage.location + padded, editedRage.length );
+    }
+    return editedRage;
+
 }
 
 -(NSRange) insertIntoInput:(NSString *)str range:(NSRange)range
 {
-    NSRange editedRange = NSMakeRange(0,0);
+    NSRange editedRange = NSMakeRange(NSNotFound, 0);
 
     if (self.inputText.length == 0) {
         
