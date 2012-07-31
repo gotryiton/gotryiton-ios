@@ -11,6 +11,7 @@
 static NSString * const kGTIODividerImageName = @"divider.png";
 static CGFloat const kGTIOButtonPadding = 14.0f;
 static CGFloat const kGTIODividerPadding = 50.0f;
+static CGFloat const kGTIOButtonTapAreaPadding = 15.0f;
 
 @interface GTIOCameraToolbarView ()
 
@@ -36,6 +37,7 @@ static CGFloat const kGTIODividerPadding = 50.0f;
         // Close Button
         _closeButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoClose];
         [_closeButton setFrame:(CGRect){ { self.frame.size.width - _closeButton.frame.size.width - kGTIOButtonPadding, (self.frame.size.height - _closeButton.frame.size.height) / 2 }, _closeButton.frame.size }];
+        [_closeButton setTapAreaPadding:kGTIOButtonTapAreaPadding];
         [self addSubview:_closeButton];
         
         UIImageView *closeButtonDivider = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kGTIODividerImageName]];
@@ -45,6 +47,7 @@ static CGFloat const kGTIODividerPadding = 50.0f;
         // Photo Picker Button
         _photoSourceButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoSource];
         [_photoSourceButton setFrame:(CGRect){ { kGTIOButtonPadding, (self.frame.size.height - _photoSourceButton.frame.size.height) / 2 }, _photoSourceButton.frame.size }];
+        [_photoSourceButton setTapAreaPadding:kGTIOButtonTapAreaPadding];
         [self addSubview:_photoSourceButton];
         
         // Left Button Divider
@@ -54,6 +57,7 @@ static CGFloat const kGTIODividerPadding = 50.0f;
         // Photo Shoot Grid button
         _photoShootGridButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoShootGrid];
         [_photoShootGridButton setFrame:(CGRect){ { _photoSourceButton.frame.origin.x + _photoSourceButton.frame.size.width + kGTIOButtonPadding, (self.frame.size.height - _photoShootGridButton.frame.size.height) / 2 }, _photoShootGridButton.frame.size }];
+        [_photoShootGridButton setTapAreaPadding:kGTIOButtonTapAreaPadding];
         [self addSubview:_photoShootGridButton];
         
         // Shutter Button

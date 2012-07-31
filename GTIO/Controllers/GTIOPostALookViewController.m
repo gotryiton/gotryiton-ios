@@ -34,6 +34,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 @property (nonatomic, strong) UIImage *mainOriginalImage;
 @property (nonatomic, strong) UIImage *mainFilteredImage;
 @property (nonatomic, strong) NSString *mainFilterName;
+@property (nonatomic, strong) NSNumber *mainProductID;
 
 @property (nonatomic, strong) GTIOLookSelectorView *lookSelectorView;
 @property (nonatomic, strong) GTIOLookSelectorControl *lookSelectorControl;
@@ -53,12 +54,6 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 @end
 
 @implementation GTIOPostALookViewController
-
-@synthesize lookSelectorView = _lookSelectorView, lookSelectorControl = _lookSelectorControl, optionsView = _optionsView, descriptionBox = _descriptionBox, scrollView = _scrollView, originalFrame = _originalFrame, postThisButton = _postThisButton, photoSaveTimer = _photoSaveTimer;
-@synthesize mainOriginalImage = _mainOriginalImage, mainFilteredImage = _mainFilteredImage, mainFilterName = _mainFilterName;
-@synthesize photoForPosting = _photoForPosting;
-@synthesize maskView = _maskView;
-@synthesize currentSection = _currentSection;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -119,7 +114,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         [confirmationViewController setOriginalPhoto:originalPhoto];
         [self.navigationController pushViewController:confirmationViewController animated:YES];
     }];
-    [self setOriginalImage:self.mainOriginalImage filteredImage:self.mainFilteredImage filterName:self.mainFilterName]; // Now that view is loaded refresh image
+    [self setOriginalImage:self.mainOriginalImage filteredImage:self.mainFilteredImage filterName:self.mainFilterName productID:self.mainProductID]; // Now that view is loaded refresh image
     [self.scrollView addSubview:self.lookSelectorView];
     
     self.lookSelectorControl = [[GTIOLookSelectorControl alloc] initWithFrame:(CGRect){ 253, 13, 60, 107 }];
@@ -129,31 +124,23 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self.optionsView = [[GTIOPostALookOptionsView alloc] initWithFrame:(CGRect){ { 253, 262 }, CGSizeZero }];
     [self.scrollView addSubview:self.optionsView];
     
-    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 105 } title:@"add a description, tags, and brands..." icon:[UIImage imageNamed:@"description-box-icon.png"]];
-    [self.descriptionBox.textView setTextViewWillBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {        
-        CGFloat bottomOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height;
-        
-        if (self.scrollView.contentOffset.y == bottomOffset) {
-            double delayInSeconds = 0.1;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self.descriptionBox.textView.textInput becomeFirstResponder];
-            });
-        } else {
-            [self.scrollView scrollRectToVisible:(CGRect){ 0, self.scrollView.contentSize.height - 1, 1, 1 } animated:YES];
-        }
-    }];
+    self.descriptionBox = [[GTIOPostALookDescriptionBox alloc] initWithFrame:(CGRect){ 0, 330, self.scrollView.frame.size.width, 155 } title:@"add a description, tags, and brands..." icon:[UIImage imageNamed:@"description-box-icon.png"]];
+    [self.descriptionBox setClipsToBounds:YES];
     __block typeof(self) blockSelf = self;
     [self.descriptionBox.textView setTextViewDidBecomeActiveHandler:^(GTIOPostAutoCompleteView *descriptionBox) {
         [blockSelf.lookSelectorView setUserInteractionEnabled:NO];
+        [blockSelf.optionsView setUserInteractionEnabled:NO];
+        
         [blockSelf snapScrollToBottom];
     }];
     [self.descriptionBox.textView setTextViewDidEndHandler:^(GTIOPostAutoCompleteView *descriptionBox, BOOL scrollToTop) {
-        [self.descriptionBox.textView.textInput resignFirstResponder];
-        [self.lookSelectorView setUserInteractionEnabled:YES];
+        [blockSelf.descriptionBox.textView.textInput resignFirstResponder];
+        
+        [blockSelf.lookSelectorView setUserInteractionEnabled:YES];
+        [blockSelf.optionsView setUserInteractionEnabled:YES];
         
         if (scrollToTop) {
-            [self.scrollView scrollRectToVisible:(CGRect){ 0, 0, 1, 1 } animated:YES];
+            [blockSelf scrollToTop];
         }
     }];
     [self.scrollView addSubview:self.descriptionBox];
@@ -219,18 +206,6 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     }
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    if (self.descriptionBox.textView.forceBecomeFirstResponder) {
-        double delayInSeconds = 0.1;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.descriptionBox.textView.textInput becomeFirstResponder];
-            [self.descriptionBox.textView setForceBecomeFirstResponder:NO];
-        });
-    }
-}
-
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
     [self.descriptionBox.textView.textInput resignFirstResponder];
@@ -240,24 +215,17 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 - (void)snapScrollView:(UIScrollView *)scrollView
 {
     CGPoint contentOffset = scrollView.contentOffset;
-    CGRect scrollToRect;
-    BOOL top = NO;
-    if (contentOffset.y > (scrollView.contentSize.height - (scrollView.frame.size.height - scrollView.scrollIndicatorInsets.bottom)) / 2 ) {
-        scrollToRect = CGRectMake(0, scrollView.contentSize.height - 1, 1, 1);
-    } else {
-        scrollToRect = CGRectMake(0, 0, 1, 1);
-        top = YES;
-    }
     
-    [UIView animateWithDuration:0.15 animations:^{
-        [scrollView scrollRectToVisible:scrollToRect animated:YES];
-    } completion:^(BOOL finished) {
-        if (top) {
-            [self.descriptionBox.textView.textInput resignFirstResponder];
-        } else {
-            [self.descriptionBox.textView.textInput becomeFirstResponder];
+    if (contentOffset.y > (scrollView.contentSize.height - (scrollView.frame.size.height - scrollView.scrollIndicatorInsets.bottom)) / 2 ) {
+        [self.descriptionBox.textView.textInput becomeFirstResponder];
+        
+        if (self.scrollView.isKeyboardShowing) {
+            [self snapScrollToBottom];
         }
-    }];
+    } else {
+        [self scrollToTop];
+        [self.descriptionBox.textView.textInput resignFirstResponder];
+    }
 }
 
 - (void)snapScrollToBottom
@@ -267,6 +235,11 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         [self.scrollView scrollRectToVisible:scrollToRect animated:YES];
     } completion:^(BOOL finished) {
     }];
+}
+
+- (void)scrollToTop
+{
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
 }
 
 #pragma mark -
@@ -308,7 +281,8 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     if ([self.lookSelectorView selectionsComplete]) {
         UIImage *uploadImage = [self.lookSelectorView compositeImage];
-        [[GTIOPostManager sharedManager] uploadImage:uploadImage framed:self.lookSelectorView.photoSet filterName:@"" forceSavePost:NO];
+        
+        [[GTIOPostManager sharedManager] uploadImage:uploadImage framed:self.lookSelectorView.photoSet filterNames:[self filterNames] forceSavePost:NO];
     }
 }
 
@@ -325,10 +299,58 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 - (void)beginPostLookToGTIO
 {
     [[GTIOPostManager sharedManager] setPostPhotoButtonTouched:YES];
-    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] completionHandler:nil];
+    
+    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] attachedProducts:(NSDictionary *)[self attachedProducts] completionHandler:nil];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         [self reset];
     }];
+}
+
+- (NSDictionary *)filterNames
+{
+    NSMutableDictionary *filterNames = [NSMutableDictionary dictionary];
+    if (self.lookSelectorView.photoSet) {
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.mainPhotoView attachedProducts:nil filterNames:filterNames];
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.topPhotoView attachedProducts:nil filterNames:filterNames];
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.bottomPhotoView attachedProducts:nil filterNames:filterNames];
+    } else {
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.singlePhotoView attachedProducts:nil filterNames:filterNames];
+    }
+    return filterNames;
+}
+
+- (NSDictionary *)attachedProducts
+{
+    NSMutableDictionary *attachedProducts = [NSMutableDictionary dictionary];
+    if (self.lookSelectorView.photoSet) {
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.mainPhotoView attachedProducts:attachedProducts filterNames:nil];
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.topPhotoView attachedProducts:attachedProducts filterNames:nil];
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.bottomPhotoView attachedProducts:attachedProducts filterNames:nil];
+    } else {
+        [self buildPropertyArraysForTakePhotoView:self.lookSelectorView.singlePhotoView attachedProducts:attachedProducts filterNames:nil];
+    }
+    return attachedProducts;
+}
+
+- (void)buildPropertyArraysForTakePhotoView:(GTIOTakePhotoView *)takePhotoView attachedProducts:(NSMutableDictionary *)attachedProducts filterNames:(NSMutableDictionary *)filterNames
+{
+    NSInteger key = NSNotFound;
+    if (takePhotoView == self.lookSelectorView.mainPhotoView || takePhotoView == self.lookSelectorView.singlePhotoView) {
+        key = 0;
+    } else if (takePhotoView == self.lookSelectorView.topPhotoView) {
+        key = 1;
+    } else if (takePhotoView == self.lookSelectorView.bottomPhotoView) {
+        key = 2;
+    }
+    
+    if (key != NSNotFound) {
+        if (takePhotoView.productID) {
+            [attachedProducts setValue:[NSNumber numberWithInt:key] forKey:[takePhotoView.productID stringValue]];
+        }
+        if ([takePhotoView.filterName length] > 0) {
+            [filterNames setValue:takePhotoView.filterName forKey:[NSString stringWithFormat:@"%i", key]];
+        }
+    }
 }
 
 - (void)cancelPost
@@ -341,14 +363,16 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 #pragma mark - Photo Handlers
 
-- (void)setOriginalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName
+- (void)setOriginalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName productID:(NSNumber *)productID
 {
     switch (self.currentSection) {
         case GTIOPostPhotoSectionMain:
             self.mainOriginalImage = originalImage;
             self.mainFilteredImage = filteredImage;
-            [self updateTakePhotoView:self.lookSelectorView.mainPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
-            [self updateTakePhotoView:self.lookSelectorView.singlePhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            self.mainFilterName = filterName;
+            self.mainProductID = productID;
+            [self updateTakePhotoView:self.lookSelectorView.mainPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName productID:productID];
+            [self updateTakePhotoView:self.lookSelectorView.singlePhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName productID:productID];
             
             CGFloat height = kGTIOLookSelectorViewMaxHeight;
             if (self.mainFilteredImage.size.height < kGTIOLookSelectorViewMaxHeight) {
@@ -358,20 +382,21 @@ static NSInteger const kGTIOMaskingViewTag = 100;
             
             break;
         case GTIOPostPhotoSectionTop: 
-            [self updateTakePhotoView:self.lookSelectorView.topPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            [self updateTakePhotoView:self.lookSelectorView.topPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName productID:productID];
             break;
         case GTIOPostPhotoSectionBottom: 
-            [self updateTakePhotoView:self.lookSelectorView.bottomPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName];
+            [self updateTakePhotoView:self.lookSelectorView.bottomPhotoView originalImage:originalImage filteredImage:filteredImage filterName:filterName productID:productID];
             break;
         default: break;
     }
 }
 
-- (void)updateTakePhotoView:(GTIOTakePhotoView *)takePhotoView originalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName
+- (void)updateTakePhotoView:(GTIOTakePhotoView *)takePhotoView originalImage:(UIImage *)originalImage filteredImage:(UIImage *)filteredImage filterName:(NSString *)filterName productID:(NSNumber *)productID
 {
     [takePhotoView setOriginalImage:originalImage];
     [takePhotoView setFilteredImage:filteredImage];
     [takePhotoView setFilterName:filterName];
+    [takePhotoView setProductID:productID];
 }
 
 #pragma mark - UINavigationBar
@@ -383,7 +408,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)tapNavigationBar:(UIGestureRecognizer *)gesture
 {
-    [self.descriptionBox.textView resignFirstResponder];
+    [self.descriptionBox.textView.textInput resignFirstResponder];
     [self.scrollView scrollRectToVisible:(CGRect){ 0, 0, 1, 1 } animated:YES];
 }
 

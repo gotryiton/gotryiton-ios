@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "GTIOUser.h"
 #import "GTIOPhoto.h"
 #import "GTIOPagination.h"
+#import "GTIOGridItem.h"
 
 typedef enum GTIOPostType {
     GTIOPostTypeNone = 0,
@@ -18,17 +20,17 @@ typedef enum GTIOPostType {
     GTIOPostTypeHeartedProducts
 } GTIOPostType;
 
-@interface GTIOPost : NSObject
+@interface GTIOPost : NSObject <GTIOGridItem>
 
 // Fields
 @property (nonatomic, copy) NSString *postID;
 @property (nonatomic, strong) NSString *postDescription;
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, copy) NSString *createdWhen;
-@property (nonatomic, assign, getter = isStared) BOOL stared;
 @property (nonatomic, strong) NSString *whoHearted;
 
 // Relationships
+@property (nonatomic, strong) GTIOButtonAction *action;
 @property (nonatomic, strong) GTIOUser *user;
 @property (nonatomic, strong) GTIOPhoto *photo;
 @property (nonatomic, strong) NSArray *dotOptionsButtons;
@@ -39,6 +41,6 @@ typedef enum GTIOPostType {
 
 typedef void(^GTIOPostCompletionHandler)(GTIOPost *post, NSError *error);
 
-+ (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description completionHandler:(GTIOPostCompletionHandler)completionHandler;
++ (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts completionHandler:(GTIOPostCompletionHandler)completionHandler;
 
 @end

@@ -30,6 +30,7 @@
 #import "GTIONotificationManager.h"
 
 #import "JREngage.h"
+#import "UAirship.h"
 
 @interface GTIOAppDelegate ()
 
@@ -71,7 +72,7 @@
     
     // List all fonts on iPhone
 #if DEBUG
-    [self listAllFonts];
+//    [self listAllFonts];
 #endif
     
     // Appearance setup
@@ -94,7 +95,19 @@
     self.cameraViewController = [[GTIOCameraViewController alloc] initWithNibName:nil bundle:nil];
     
     // Notification Management
-    [self restoreNotifications];
+    [GTIONotificationManager sharedManager];
+    
+    // UrbanAirship
+    [self setupUrbanAirshipWithLaunchOptions:launchOptions];
+    
+    // Handle notification
+    NSDictionary *notificationUserInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (notificationUserInfo) {
+        [self handleNotificationUserInfo:notificationUserInfo];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectTab:) name:kGTIOChangeSelectedTabNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTabBarToWindow:) name:kGTIOAddTabBarToWindowNotification object:nil];
     
     [self.window makeKeyAndVisible];
     
@@ -111,49 +124,49 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [self backupNotifications];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [GTIOTrack postTrackAndVisitWithID:kGTIOTrackAppResumeFromBackground handler:nil];
-    [self restoreNotifications];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+    // Reset the badge number back to zero.
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [self backupNotifications];
+    [UAirship land];
 }
 
-#pragma mark - Notifications
-
-- (void)restoreNotifications
-{
-    NSData *data = [[NSUserDefaults standardUserDefaults] valueForKey:@"notificationManager"];
-    if (data) {
-        GTIONotificationManager *storedNotificationManager = (GTIONotificationManager *)[NSKeyedUnarchiver unarchiveObjectWithData:data];
-        [[GTIONotificationManager sharedManager] useNotifications:[storedNotificationManager notifications]];
-    }
-}
-
-- (void)backupNotifications
-{
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[GTIONotificationManager sharedManager]];
-    [[NSUserDefaults standardUserDefaults] setValue:data forKey:@"notificationManager"];
-}
-
-#pragma mark - Facebook
+#pragma mark - Open URL
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return [[GTIOUser currentUser].facebook handleOpenURL:url]; 
+    if ([[url absoluteString] hasPrefix:@"gtio"]) {
+        [self openURL:url];
+        return YES;
+    } else if ([[url absoluteString] hasPrefix:@"fb"]) {
+        return [[GTIOUser currentUser].facebook handleOpenURL:url];
+    }
+    
+    return NO;
+}
+
+- (void)openURL:(NSURL *)URL
+{
+    [self.cameraViewController dismissModalViewControllerAnimated:YES];
+    
+    id viewController = [[GTIORouter sharedRouter] viewControllerForURL:URL];
+    id selectedViewController = self.tabBarController.selectedViewController;
+    [selectedViewController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - FontHelper
@@ -195,7 +208,7 @@
         [[RKObjectManager sharedManager].client.HTTPHeaders setObject:authToken forKey:kGTIOAuthenticationHeaderKey];
     }
 //#warning test code
-//    [[RKObjectManager sharedManager].client.HTTPHeaders setObject:@"f8c3ff8684d637f21a016444c3d1bd31" forKey:kGTIOAuthenticationHeaderKey];
+//    [[RKObjectManager sharedManager].client.HTTPHeaders setObject:@"dcb57bdb860926ef1d357e776246380d" forKey:kGTIOAuthenticationHeaderKey];
     
     // Auth for dev/staging
     [objectManager.client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];
@@ -207,15 +220,68 @@
     [router routeClass:[GTIOTrack class] toResourcePath:@"/track" forMethod:RKRequestMethodPOST];
 }
 
+#pragma mark - UrbanAirship
+
+- (void)setupUrbanAirshipWithLaunchOptions:(NSDictionary *)launchOptions
+{
+    NSMutableDictionary *takeOffOptions = [NSMutableDictionary dictionary];
+    [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
+    
+    NSMutableDictionary *configuration = [NSMutableDictionary dictionary];
+    [configuration setValue:[NSNumber numberWithBool:kGTIOUAirshipAppStoreOrAdHocBuild] forKey:@"APP_STORE_OR_AD_HOC_BUILD"];
+    [configuration setValue:kGTIOUAirshipDevelopmentAppKey forKey:@"DEVELOPMENT_APP_KEY"];
+    [configuration setValue:kGTIOUAirshipDevelopmentAppSecret forKey:@"DEVELOPMENT_APP_SECRET"];
+    [configuration setValue:kGTIOUAirshipProductionAppKey forKey:@"PRODUCTION_APP_KEY"];
+    [configuration setValue:kGTIOUAirshipProductionAppSecret forKey:@"PRODUCTION_APP_SECRET"];
+    [takeOffOptions setValue:configuration forKey:UAirshipTakeOffOptionsAirshipConfigKey];
+    
+    [UAirship takeOff:takeOffOptions];
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken 
+{
+    NSLog(@"APN device token: %@", deviceToken);
+    
+    [[NSUserDefaults standardUserDefaults] setValue:deviceToken forKey:kGTIOPushNotificationDeviceTokenUserDefaults];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error 
+{
+    NSLog(@"Failed To Register For Remote Notifications With Error: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo 
+{
+    NSLog(@"Received remote notification: %@", userInfo);
+    
+    if (UIApplicationStateActive == application.applicationState) {
+        // GET /notifications
+        [[GTIONotificationManager sharedManager] refreshNotificationsWithCompletionHandler:nil];
+    } else {
+        // open URL
+        [self handleNotificationUserInfo:userInfo];
+    }
+}
+
+- (void)handleNotificationUserInfo:(NSDictionary *)userInfo
+{
+    NSString *URL = [[[userInfo objectForKey:@"aps"] objectForKey:@"loc-args"] objectForKey:@"url"];
+    [self openURL:[NSURL URLWithString:URL]];
+}
+
 #pragma mark - UITabBarController
 
-- (void)addTabBarToWindow
+- (void)addTabBarToWindow:(NSNotification *)notification
 {
     [self.window setRootViewController:self.tabBarController];
 }
 
-- (void)selectTabAtIndex:(GTIOTabBarTab)tab
+- (void)selectTab:(NSNotification *)notification
 {
+    GTIOTabBarTab tab = [[[notification userInfo] objectForKey:kGTIOChangeSelectedTabToUserInfo] integerValue];
     [self.tabBarController setSelectedIndex:tab];
     [self tabBarController:self.tabBarController didSelectViewController:[self.tabBarViewControllers objectAtIndex:tab]];
 }
@@ -228,10 +294,11 @@
     UINavigationController *meNavigationController = [[UINavigationController alloc] initWithRootViewController:[[GTIOMeViewController alloc] initWithNibName:nil bundle:nil]];
     UINavigationController *feedNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil]];
     UINavigationController *styleNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOStyleViewController alloc] initWithNibName:nil bundle:nil]];
+    UINavigationController *looksNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil]];
     
     self.tabBarViewControllers = [NSArray arrayWithObjects:
                                 feedNavController,
-                                [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil],
+                                looksNavController,
                                 [[GTIOCameraTabBarPlaceholderViewController alloc] initWithNibName:nil bundle:nil],
                                 styleNavController,
                                 meNavigationController,
@@ -285,12 +352,19 @@
             [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
         } else if ([rootViewController isKindOfClass:[GTIOStyleViewController class]]) {
             [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
+        } else if ([rootViewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
+            [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
         }
-    } else if ([viewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
-        [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
     } else if ([viewController isKindOfClass:[GTIOCameraViewController class]]) {
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
     }
+    
+    // Wait 1 second and then check for notifications so that we can let the page load.
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];
+    });
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController

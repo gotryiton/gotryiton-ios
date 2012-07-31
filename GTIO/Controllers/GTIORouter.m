@@ -17,6 +17,14 @@
 #import "GTIOFeedViewController.h"
 #import "GTIOInternalWebViewController.h"
 #import "GTIOWebViewController.h"
+#import "GTIOExploreLooksViewController.h"
+#import "GTIOProductViewController.h"
+#import "GTIOProductNativeListViewController.h"
+#import "GTIOShoppingListViewController.h"
+#import "GTIOWhoHeartedThisViewController.h"
+#import "GTIOInviteFriendsViewController.h"
+#import "GTIOSinglePostViewController.h"
+#import "GTIOTagsViewController.h"
 
 NSString * const kGTIOURLScheme = @"gtio";
 NSString * const kGTIOHttpURLScheme = @"http";
@@ -40,13 +48,38 @@ static NSString * const kGTIOURLHostPostedBy = @"posted-by";
 static NSString * const kGTIOURLHostReviewsForPost = @"reviews-for-post";
 static NSString * const kGTIOURLHostInternalWebView = @"internal-webview";
 static NSString * const kGTIOURLHostDefaultWebView = @"default-webview";
+static NSString * const kGTIOURLHostProduct = @"product";
+static NSString * const kGTIOURLHostCollection = @"collection";
+static NSString * const kGTIOURLHostShoppingList = @"my-shopping-list";
+static NSString * const kGTIOURLHostWhoHeartedProduct = @"who-hearted-product";
+static NSString * const kGTIOURLHostSearchTags = @"search-tags";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
 static NSString * const KGTIOURLSubPathFollowers = @"followers";
 static NSString * const kGTIOURLSubPathStarsByUser = @"stars-by-user";
 static NSString * const kGTIOURLSubPathStars = @"stars";
+static NSString * const kGTIOURLSubPathBrand = @"brand";
+static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
+
+@interface GTIORouter()
+
+@property (nonatomic, strong) NSNumberFormatter *numberFormatter;
+
+@end
 
 @implementation GTIORouter
+
+@synthesize numberFormatter = _numberFormatter;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _numberFormatter = [[NSNumberFormatter alloc] init];
+        _numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    }
+    return self;
+}
 
 + (GTIORouter *)sharedRouter
 {
@@ -77,6 +110,7 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
     
     NSString *urlHost = [URL host];
     NSArray *pathComponents = [URL pathComponents];
+    NSArray *unencodedPathComponents = [self unencodedPathComponents:URL];
     
     if ([urlHost isEqualToString:kGTIOURLHostProfile]) {
         if ([pathComponents count] >= 2) {
@@ -85,9 +119,6 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostSignOut]) {
         viewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];
-    } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedPost]) {
-        // TODO: handle this
-        NSLog(@"Still need to handle opening who hearted post");
     } else if ([urlHost isEqualToString:kGTIOURLHostFindFriends]) {
         viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindMyFriends];
     } else if ([urlHost isEqualToString:kGTIOURLHostUser]) {
@@ -116,7 +147,7 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
         viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindFriends];
         [((GTIOFriendsViewController *)viewController) setUserID:[GTIOUser currentUser].userID];
     } else if ([urlHost isEqualToString:kGTIOURLHostInviteFriends]) {
-        // Invite friends view controller
+        viewController = [[GTIOInviteFriendsViewController alloc] initWithNibName:nil bundle:nil];
     } else if ([urlHost isEqualToString:kGTIOURLHostSuggestedFriends]) {
         viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeSuggested];
         [((GTIOFriendsViewController *)viewController) setUserID:[GTIOUser currentUser].userID];
@@ -130,6 +161,10 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
         if ([pathComponents count] >= 3) {
             if ([[pathComponents objectAtIndex:1] isEqualToString:kGTIOURLSubPathStarsByUser]) {
                 viewController = [[GTIOMyPostsViewController alloc] initWithGTIOPostType:GTIOPostTypeStar forUserID:[pathComponents objectAtIndex:2]];
+            } else if ([[pathComponents objectAtIndex:1] isEqualToString:kGTIOURLSubPathBrand] || 
+                       [[pathComponents objectAtIndex:1] isEqualToString:kGTIOURLSubPathHashtag]) {
+                viewController = [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil];
+                [((GTIOExploreLooksViewController *)viewController) setResourcePath:[NSString stringWithFormat:@"%@%@", urlHost, [URL path]]];
             }
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostReviewsForPost]) {
@@ -138,19 +173,47 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostPost]) {
         if ([pathComponents count] >= 2) {
-            viewController = [[GTIOFeedViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
+            viewController = [[GTIOSinglePostViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostInternalWebView]) {
-        if ([pathComponents count] >= 4) {
+        if ([unencodedPathComponents count] >= 3) {
             viewController = [[GTIOInternalWebViewController alloc] initWithNibName:nil bundle:nil];
-            [((GTIOInternalWebViewController *)viewController) setURL:[self embeddedURLAtEndURL:URL]];
-            [((GTIOInternalWebViewController *)viewController) setNavigationTitle:[pathComponents objectAtIndex:3]];
+            [((GTIOInternalWebViewController *)viewController) setURL:[NSURL URLWithString:[unencodedPathComponents objectAtIndex:2]]];
+            [((GTIOInternalWebViewController *)viewController) setNavigationTitle:[unencodedPathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostDefaultWebView]) {
-        if ([pathComponents count] >= 3 ) {
+        if ([unencodedPathComponents count] >= 2) {
             viewController = [[GTIOWebViewController alloc] initWithNibName:nil bundle:nil];
-            [((GTIOWebViewController *)viewController) setURL:[self embeddedURLAtEndURL:URL]];
+            [((GTIOWebViewController *)viewController) setURL:[NSURL URLWithString:[unencodedPathComponents objectAtIndex:1]]];
         }
+    } else if ([urlHost isEqualToString:kGTIOURLHostProduct]) {
+        if ([pathComponents count] >= 2) {
+            viewController = [[GTIOProductViewController alloc] initWithProductID:[pathComponents objectAtIndex:1]];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostCollection]) {
+        if ([pathComponents count] >= 2) {
+            viewController = [[GTIOProductNativeListViewController alloc] initWithNibName:nil bundle:nil];
+            NSNumber *collectionID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
+            [((GTIOProductNativeListViewController *)viewController) setCollectionID:collectionID];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostShoppingList]) {
+        viewController = [[GTIOShoppingListViewController alloc] initWithNibName:nil bundle:nil];
+    } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedProduct]) {
+        if ([pathComponents count] >= 2 ) {
+            viewController = [[GTIOWhoHeartedThisViewController alloc] initWithGTIOWhoHeartedThisViewControllerType:GTIOWhoHeartedThisViewControllerTypeProduct];
+            NSNumber *productID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
+            [(GTIOWhoHeartedThisViewController *)viewController setItemID:productID];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostWhoHeartedPost]) {
+        if ([pathComponents count] >= 2 ) {
+            viewController = [[GTIOWhoHeartedThisViewController alloc] initWithGTIOWhoHeartedThisViewControllerType:GTIOWhoHeartedThisViewControllerTypePost];
+            NSNumber *postID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
+            [(GTIOWhoHeartedThisViewController *)viewController setItemID:postID];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostInviteFriends]) {
+        viewController = [[GTIOInviteFriendsViewController alloc] initWithNibName:nil bundle:nil];
+    } else if ([urlHost isEqualToString:kGTIOURLHostSearchTags]) {
+        viewController = [[GTIOTagsViewController alloc] initWithNibName:nil bundle:nil];
     }
     
     return viewController;
@@ -158,9 +221,16 @@ static NSString * const kGTIOURLSubPathStars = @"stars";
 
 #pragma mark - Helpers
 
-- (NSURL *)embeddedURLAtEndURL:(NSURL *)URL
+- (NSArray *)unencodedPathComponents:(NSURL *)URL
 {
-    return [NSURL URLWithString:[[[[URL absoluteString] componentsSeparatedByString:@"/"] lastObject] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSRange range = [[URL absoluteString] rangeOfString:[NSString stringWithFormat:@"%@://%@", [URL scheme], [URL host]] options:NSAnchoredSearch];
+    NSString *path = [[URL absoluteString] stringByReplacingCharactersInRange:range withString:@""];
+    NSArray *pathComponents = [path componentsSeparatedByString:@"/"];
+    NSMutableArray *unencodedPathComponents = [NSMutableArray array];
+    for (NSString *pathComponent in pathComponents) {
+        [unencodedPathComponents addObject:[pathComponent stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }
+    return unencodedPathComponents;
 }
 
 @end

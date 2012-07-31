@@ -27,11 +27,14 @@
     NSUInteger const kGTIOLogLevel = RKLogLevelDebug;
     NSString * const kGTIOHTTPAuthUsername = @"tt";
     NSString * const kGTIOHTTPAuthPassword = @"toast";
+    BOOL const kGTIOUAirshipAppStoreOrAdHocBuild = NO;
+    NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
+    NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
 #endif 
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
     NSString * const kGTIOEnvironmentName = @"Staging";
-    NSString * const kGTIOBaseURLString = @"http://stage.gotryiton.com";
+    NSString * const kGTIOBaseURLString = @"http://beta-stage.gotryiton.com";
     NSString * const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString * const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString * const kGTIOFacebookAppID = @"125885160757300";
@@ -39,11 +42,14 @@
     NSUInteger const kGTIOLogLevel = RKLogLevelDebug;
     NSString* const kGTIOHTTPAuthUsername = @"tt";
     NSString* const kGTIOHTTPAuthPassword = @"toast";
+    BOOL const kGTIOUAirshipAppStoreOrAdHocBuild = NO;
+    NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
+    NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
     NSString * const kGTIOEnvironmentName = @"Production";
-    NSString * const kGTIOBaseURLString = @"http://i.gotryiton.com";
+    NSString * const kGTIOBaseURLString = @"http://api.gotryiton.com";
     NSString * const kGTIOJanRainEngageApplicationID = @"iligdiaplfgbmhcpebgf";
     NSString * const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString * const kGTIOFacebookAppID = @"126454074038555";
@@ -51,6 +57,9 @@
     NSUInteger const kGTIOLogLevel = RKLogLevelError;
     NSString * const kGTIOHTTPAuthUsername = nil;
     NSString * const kGTIOHTTPAuthPassword = nil;
+    BOOL const kGTIOUAirshipAppStoreOrAdHocBuild = YES;
+    NSString * const kGTIOUAirshipDevelopmentAppKey = @"";
+    NSString * const kGTIOUAirshipDevelopmentAppSecret = @"";
 #endif
 
 NSString * const kGTIOAcceptHeader = @"application/v4-json";
@@ -63,9 +72,23 @@ NSString * const kGTIOJanRainProviderGoogle = @"google";
 NSString * const kGTIOJanRainProviderTwitter = @"twitter";
 NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 
+// Notification Constants
 NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
 NSString * const kGTIOPostFeedOpenLinkNotification = @"kGTIOPostFeedOpenLinkNotification";
 NSString * const kGTIODismissEllipsisPopOverViewNotification = @"kGTIODismissEllipsisPopOverViewNotification";
+NSString * const kGTIONotificationCountNofitication = @"kGTIONotificationCountNofitication";
+NSString * const kGTIOChangeSelectedTabNotification = @"kGTIOChangeSelectedTabNotification";
+NSString * const kGTIOAddTabBarToWindowNotification = @"kGTIOAddTabBarToWindowNotification";
+
+// Notification UserInfo
+NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";
+
+// UrbanAirship
+NSString * const kGTIOUAirshipProductionAppKey = @"***REMOVED***";
+NSString * const kGTIOUAirshipProductionAppSecret = @"***REMOVED***";
+
+// Push Notification Device Token
+NSString * const kGTIOPushNotificationDeviceTokenUserDefaults = @"kGTIOPushNotificationDeviceTokenUserDefaults";
  
 NSString * const kGTIOURL = @"kGTIOURL";
 

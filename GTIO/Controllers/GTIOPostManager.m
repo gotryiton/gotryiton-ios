@@ -17,20 +17,12 @@
 @property (nonatomic, strong) RKRequest *uploadImageRequest;
 
 @property (nonatomic, strong) NSString *postDescription;
+@property (nonatomic, strong) NSDictionary *attachedProducts;
+@property (nonatomic, strong) NSDictionary *filterNames;
 
 @end
 
 @implementation GTIOPostManager
-
-@synthesize image = _image, photo = _photo;
-@synthesize uploadImageRequest = _uploadImageRequest;
-@synthesize postPhotoButtonTouched = _postPhotoButtonTouched;
-@synthesize postDescription = _postDescription;
-@synthesize postCompletionHandler = _postCompletionHandler;
-@synthesize state = _state;
-@synthesize progress = _progress;
-@synthesize post = _post;
-@synthesize framed = _framed, filterName = _filterName;
 
 + (GTIOPostManager *)sharedManager
 {
@@ -52,13 +44,13 @@
     return self;
 }
 
-- (void)uploadImage:(UIImage *)image framed:(BOOL)framed filterName:(NSString *)filterName forceSavePost:(BOOL)forceSavePost
+- (void)uploadImage:(UIImage *)image framed:(BOOL)framed filterNames:(NSDictionary *)filterNames forceSavePost:(BOOL)forceSavePost
 {
     [self.uploadImageRequest cancel];
     
     self.image = image;
     self.framed = framed;
-    self.filterName = filterName;
+    self.filterNames = filterNames;
     
     _post = nil;
     self.photo = nil;
@@ -69,8 +61,16 @@
         self.uploadImageRequest = request;
         
         RKParams *params = [RKParams params];
-        [params setValue:self.filterName forParam:@"using_filter"];
         [params setValue:[NSNumber numberWithBool:self.framed] forParam:@"using_frame"];
+        
+        if (self.framed) {
+            [params setValue:[filterNames objectForKey:@"0"] forParam:@"using_filter_in_frame_0"];
+            [params setValue:[filterNames objectForKey:@"1"] forParam:@"using_filter_in_frame_1"];
+            [params setValue:[filterNames objectForKey:@"2"] forParam:@"using_filter_in_frame_2"];
+        } else {
+            [params setValue:[filterNames objectForKey:@"0"] forParam:@"using_filter"];
+        }
+        
         NSData* imageData = UIImagePNGRepresentation(image);
         [params setData:imageData MIMEType:@"image/jpeg" forParam:@"image"];
         
@@ -79,19 +79,24 @@
         request.backgroundPolicy = RKRequestBackgroundPolicyRequeue;
         
         request.onDidLoadResponse = ^(RKResponse *response) {
-            [self changeState:GTIOPostStateUploadingImageComplete];
-            
-            RKObjectMappingProvider* provider = [RKObjectManager sharedManager].mappingProvider;
-            NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
-            if (parsedBody) {
-                RKObjectMapper *mapper = [RKObjectMapper mapperWithObject:parsedBody mappingProvider:provider];
-                RKObjectMappingResult *result = [mapper performMapping];
-                self.photo = (GTIOPhoto *)[result asObject];
-            }
-            
-            if (self.postPhotoButtonTouched || forceSavePost) {
-                self.postPhotoButtonTouched = NO;
-                [self savePostWithDescription:self.postDescription completionHandler:self.postCompletionHandler];
+            if (response.isSuccessful) {
+                [self changeState:GTIOPostStateUploadingImageComplete];
+                
+                RKObjectMappingProvider* provider = [RKObjectManager sharedManager].mappingProvider;
+                NSDictionary *parsedBody = [[response bodyAsString] objectFromJSONString];
+                if (parsedBody) {
+                    RKObjectMapper *mapper = [RKObjectMapper mapperWithObject:parsedBody mappingProvider:provider];
+                    RKObjectMappingResult *result = [mapper performMapping];
+                    self.photo = (GTIOPhoto *)[result asObject];
+                }
+                
+                if (self.postPhotoButtonTouched || forceSavePost) {
+                    self.postPhotoButtonTouched = NO;
+                    [self savePostWithDescription:self.postDescription attachedProducts:self.attachedProducts completionHandler:self.postCompletionHandler];
+                }
+            } else {
+                [self changeState:GTIOPostStateError];
+                NSLog(@"Error uploading image");
             }
         };
         
@@ -110,15 +115,16 @@
     [self.uploadImageRequest cancel];
 }
 
-- (void)savePostWithDescription:(NSString *)description completionHandler:(GTIOPostCompletionHandler)completionHandler
+- (void)savePostWithDescription:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts completionHandler:(GTIOPostCompletionHandler)completionHandler
 {
     self.postDescription = description;
+    self.attachedProducts = attachedProducts;
     self.postCompletionHandler = completionHandler;
     
     if (self.state == GTIOPostStateUploadingImageComplete && self.photo) {
         [self changeState:GTIOPostStateSavingPost];
         [self savePhotoToDisk];
-        [GTIOPost postGTIOPhoto:self.photo description:self.postDescription completionHandler:^(GTIOPost *post, NSError *error) {
+        [GTIOPost postGTIOPhoto:self.photo description:self.postDescription attachedProducts:self.attachedProducts completionHandler:^(GTIOPost *post, NSError *error) {
             if (!error) {
                 _post = post;
                 [self changeState:GTIOPostStateComplete];
@@ -131,12 +137,13 @@
                 self.postCompletionHandler(post, error);
             }
         }];
+        [self setPostPhotoButtonTouched:NO];
     }
 }
 
 - (void)retry
 {
-    [self uploadImage:self.image framed:self.framed filterName:self.filterName forceSavePost:YES];
+    [self uploadImage:self.image framed:self.framed filterNames:self.filterNames forceSavePost:YES];
 }
 
 - (void)savePhotoToDisk

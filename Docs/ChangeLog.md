@@ -1,5 +1,131 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.18
+July 27, 2012
+
+### Build Summary
+Final Sprint 6 build for dev/staging/production. 
+
+### Development
+
+**Bug Fixes**
+- 415 - Added quick add bg
+- 422 - After successfully post a feed item the pull to refresh was over the nav bar
+- 441 - When posting a feed item it will switch to feed tab and scroll to top
+
+---
+
+#### Build 4.0.0.17
+July 27, 2012
+
+### Build Summary
+Final Sprint 6 build. Bug fixes, style changes, loading spinner customization, etc...
+
+### Development
+
+**Screens / Features**
+- 410 - 13.7 Add verified user badges to appropriate screens
+- 403 - Production api should point at api.gotryiton.com
+- 414 - Find friends design tweaks
+- 436 - Styling of find friends empty screens
+- 446 - 7.7 Profile design tweaks
+- 414 - add unique background screen to 1.8
+- 252 - User bar on feed view should be tappable to profile
+- 255 - increase tap area for hearts on feed views
+- 420 - 3.4 Reviews design tweaks
+- 299 - Create new account loading spinner
+- 243 - Post Feed loading spinner
+- 188 - 8.1 Empty Feed
+- 429 - spinner states
+
+**Bug Fixes**
+- 211 - 1.7 styling bugs
+- 342 - User and profile icon on reviews should be tappable to user's profile
+- 431 - 8.1 Feed design tweaks
+- 418 - 3.4 scrolling up and down shows incorrect assets
+- 244 - Viewfinder should 'freeze' when photo is taken
+- 374 - Feed Posts image sizes are hard coded
+- 404 - Who hearted this not pulling correct list
+- 237 - Who hearted "147 hearted this" button not connected to action
+- 421 - Same description when posting two looks in a row
+- 402 - UIWebview cache not respecting cache-control header
+
+---
+
+#### Build 4.0.0.16
+July 25, 2012
+
+### Build Summary
+Mid sprint 6 build. Bug fixes, search tags, finished invite friends, pick a product.
+
+### Development
+
+**Bug Fixes**
+- 397 - Posting products will now attach all the product IDs
+- 327 - Posting images will now attach all the filter names
+- 360 - Reversed the settings post are private switch
+
+**Screens / Features**
+- 391 - Enable gtio:// routing from external links
+- 350 - Handle profile button open gtio:// links
+- 294 - Search Tags
+- 273 - Invite Friends
+- 285 - Pick a product view and load into camera
+
+---
+
+#### Build 4.0.0.15
+July 23, 2012
+
+### Build Summary
+Mid sprint 6 build. Bug fixes, push notifications, partial of invite friends.
+
+### Development
+
+**Bug Fixes**
+- 400 - Profile shadow should not show while profile icon is loading
+- 399 - dot dot dot menu mis-positioned with 3 items
+- 251 - dot dot dot menu should close when button is tapped again
+- 382 - 3.4 empty state persists after no longer empty
+- 357 - remove 'my looks' label from 7.3
+- 381 - 3.4 empty state - add action
+
+**Screens / Features**
+- 317 - Push notifications w/ urban airship
+- 269 - 3.5 Who Hearted This
+
+**In Progress**
+- 273 - Invite Friends
+
+---
+
+#### Build 4.0.0.14
+July 20, 2012
+
+### Build Summary
+Mid sprint 6 build. Bug fixes, shopping list, notifications, and pull to load more and pull to refresh.
+
+### Development
+
+**Bug Fixes**
+- 248, 141, 369 - Post a look scrolling issues
+- 370 - Feed pull to refresh is too high
+- 383 - crash going to camera on iPod touch 4th gen
+- 348 - title bar on gtio://internal-webview not set correctly
+- 153 - 12.4 photoshoot grid layout tweaks (nav title italics)
+- 368 - post icons in my hearts masonry do not tap to single post view
+
+**Screens / Features**
+- 338, 366 - Notifications now working
+- 372 - Dual view mason grid pagination / refresh
+- 275 - 7.8 Shopping list
+- 272 - 4.8 Shop this look
+- 282 - 10.5 Shop Browse Products
+- 242 - Mason Grid Load More
+- 235 - Post Feed Load More
+
+---
+
 #### Build 4.0.0.12
 July 17, 2012
 

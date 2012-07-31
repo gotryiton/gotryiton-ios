@@ -32,8 +32,6 @@
 
 @implementation GTIOQuickAddViewController
 
-@synthesize accountCreatedView = _accountCreatedView, usersToFollow = _usersToFollow, tableView = _tableView, usersToFollowSelected = _usersToFollowSelected, followButton = _followButton, followButtonBackground = _followButtonBackground, skipThisStepContainer = _skipThisStepContainer, skipThisStepLabel = _skipThisStepLabel, skipThisStepUnderline = _skipThisStepUnderline, skipThisStepInvisiButton = _skipThisStepInvisiButton;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,16 +46,22 @@
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    [self.view addSubview:[[GTIOBackgroundView alloc] initWithFrame:(CGRect){ 0, -20, [[UIScreen mainScreen] bounds].size }]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"quick-add-bg.png"]];
+    [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
+    [self.view addSubview:backgroundImageView];
+
     self.accountCreatedView = [[GTIOAccountCreatedView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width - 10, 200 }];
+    [self.accountCreatedView setHidden:YES];
     [self.accountCreatedView setDelegate:self];
-    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 52 } style:UITableViewStyleGrouped];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 50 } style:UITableViewStyleGrouped];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
@@ -69,6 +73,7 @@
     self.followButtonBackground = [[UIImageView alloc] initWithFrame:(CGRect){ 0, self.view.bounds.size.height - followButtonBackgroundImage.size.height, followButtonBackgroundImage.size }];
     [self.followButtonBackground setImage:followButtonBackgroundImage];
     [self.followButtonBackground setUserInteractionEnabled:YES];
+    [self.followButtonBackground setHidden:YES];
     [self.view addSubview:self.followButtonBackground];
     
     self.followButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowButton];
@@ -89,20 +94,22 @@
     [self.skipThisStepLabel setBackgroundColor:[UIColor clearColor]];
     [self.skipThisStepLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [self.skipThisStepLabel setText:@"or, skip this step"];
-    [self.skipThisStepLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
+    [self.skipThisStepLabel setTextColor:[UIColor gtio_grayTextColorB3B3B3]];
     [self.skipThisStepLabel setTextAlignment:UITextAlignmentCenter];
     self.skipThisStepUnderline = [[UIView alloc] initWithFrame:(CGRect){ 133.0, self.skipThisStepLabel.bounds.size.height - 3, 70.0, 0.5 }];
     [self.skipThisStepUnderline setAlpha:0.60];
-    [self.skipThisStepUnderline setBackgroundColor:[UIColor gtio_lightGrayTextColor]];
+    [self.skipThisStepUnderline setBackgroundColor:[UIColor gtio_grayTextColorB3B3B3]];
     [self.skipThisStepLabel addSubview:self.skipThisStepUnderline];
     self.skipThisStepInvisiButton = [[UIButton alloc] initWithFrame:(CGRect){ 133.0, 0, 70.0, self.skipThisStepLabel.bounds.size.height }];
     [self.skipThisStepInvisiButton addTarget:self action:@selector(skipThisStep) forControlEvents:UIControlEventTouchUpInside];
     [self.skipThisStepLabel setUserInteractionEnabled:YES];
     [self.skipThisStepLabel addSubview:self.skipThisStepInvisiButton];
     [self.skipThisStepContainer addSubview:self.skipThisStepLabel];
-    self.tableView.tableFooterView = self.skipThisStepContainer;
     
+    MBProgressHUD *progressHUD = [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
+    [progressHUD setLabelText:@"creating new account..."];
     [[GTIOUser currentUser] loadQuickAddUsersWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         if (!error) {
             self.usersToFollow = loadedObjects;
             // all users selected by default
@@ -113,7 +120,14 @@
             if (self.usersToFollowSelected > 0) {
                 [self enableAndLabelFollowButton];
             }
+            
             [self.tableView reloadData];
+            // Show everything after we have loaded
+            [self.accountCreatedView setHidden:NO];
+            [self.followButtonBackground setHidden:NO];
+            self.tableView.tableFooterView = self.skipThisStepContainer;
+        } else {
+            // TODO: Handle Error
         }
     }];
 }
@@ -144,6 +158,11 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Custom Delegate Methods
@@ -197,8 +216,9 @@
 
 - (void)loadTabBarWithTabSelectedAtIndex:(GTIOTabBarTab)index
 {
-    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
-    [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) selectTabAtIndex:index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAddTabBarToWindowNotification object:nil];
+    NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(index) };
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
@@ -253,11 +273,6 @@
     [cell setDelegate:self];
     
     return cell;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

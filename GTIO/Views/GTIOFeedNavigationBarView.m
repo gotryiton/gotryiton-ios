@@ -26,7 +26,7 @@ static CGFloat const kGTIOVerticalPadding = 7.0f;
         [topShadow setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"top-shadow.png"]]];
         [self addSubview:topShadow];
         
-        _titleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:10] tapHandler:nil];
+        _titleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:nil];
         [_titleView setFrame:(CGRect){ { (self.frame.size.width - _titleView.frame.size.width) / 2, (self.frame.size.height - _titleView.frame.size.height) / 2 }, _titleView.frame.size }];
         [self addSubview:_titleView];
         

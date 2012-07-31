@@ -96,7 +96,7 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
         
         _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_locationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
-        [_locationLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
+        [_locationLabel setTextColor:[UIColor gtio_grayTextColorB3B3B3]];
         [_locationLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_locationLabel];
         
@@ -142,8 +142,11 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
         [_editButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self setUsesGearInsteadOfPencil:NO];
         [self addSubview:_editButton];
-        
+
         [self refreshButtons];
+
+        //hiding edit button until view data has loaded.
+        _editButton.hidden = YES;
     }
     return self;
 }
@@ -151,7 +154,6 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
 - (void)setSettingsButtonHidden:(BOOL)settingsButtonHidden
 {
     _settingsButtonHidden = settingsButtonHidden;
-    self.editButton.hidden = _settingsButtonHidden;
 }
 
 - (void)setUsesGearInsteadOfPencil:(BOOL)usesGearInsteadOfPencil
@@ -213,6 +215,7 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
     self.starsLabel.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameStars];
     self.starCountLabel.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameStars];
     self.starsButton.hidden = ![self userInfoButtonsHasButtonwWithName:kGTIOUserInfoButtonNameStars];
+    self.editButton.hidden = self.settingsButtonHidden;
 }
 
 - (BOOL)userInfoButtonsHasButtonwWithName:(NSString *)name

@@ -42,6 +42,7 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 
 @property (nonatomic, strong) GTIOUIButton *reloadButton;
+@property (nonatomic, strong) GTIOUIButton *findFriendsButton;
 
 @property (nonatomic, copy) NSString *paginationNextPageResourcePath;
 
@@ -49,7 +50,7 @@
 
 @implementation GTIOFriendsViewController
 
-@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, subTitleText = _subTitleText, userID = _userID, searchCommunityView = _searchCommunityView, searchBar = _searchBar, reloadButton = _reloadButton, paginationNextPageResourcePath = _paginationNextPageResourcePath;
+@synthesize friendsTableView = _friendsTableView, friendsTableHeaderView = _friendsTableHeaderView, friends = _friends, searching = _searching, searchResults = _searchResults, currentSearchQuery = _currentSearchQuery, noSearchResultsView = _noSearchResultsView, tableHeaderViewType = _tableHeaderViewType, buttons = _buttons, suggestedFriends = _suggestedFriends, subTitleText = _subTitleText, userID = _userID, searchCommunityView = _searchCommunityView, searchBar = _searchBar, reloadButton = _reloadButton, paginationNextPageResourcePath = _paginationNextPageResourcePath, findFriendsButton = _findFriendsButton;
 
 - (id)initWithGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)tableHeaderViewType
 {
@@ -106,6 +107,14 @@
     if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeSuggested) {
         [self setRightNavigationButton:self.reloadButton];
     }
+    self.findFriendsButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFindFriends tapHandler:^(id sender) {
+        GTIOFriendsViewController *viewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFindFriends];
+        [viewController setUserID:[GTIOUser currentUser].userID];
+        [self pushViewController:viewController];
+    }];
+    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFollowing || self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFollowers) {
+        [self setRightNavigationButton:self.findFriendsButton];
+    }
     
     CGFloat friendsTableHeaderViewHeight = [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType];
     self.friendsTableHeaderView = [[GTIOFriendsTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, friendsTableHeaderViewHeight } type:self.tableHeaderViewType];
@@ -118,13 +127,18 @@
     self.friendsTableView.backgroundColor = [UIColor clearColor];
     self.friendsTableView.delegate = self;
     self.friendsTableView.dataSource = self;
+    UIImageView *tableFooterView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-shadow.png"]];
+    [tableFooterView setFrame:(CGRect){ 0, 0, self.friendsTableView.bounds.size.width, 5 }];
+    self.friendsTableView.tableFooterView = tableFooterView;
+    self.friendsTableView.tableFooterView.hidden = YES;
+    if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
+        self.friendsTableView.tableFooterView.hidden = NO;
+    }
     [self.view addSubview:self.friendsTableView];
     
     self.noSearchResultsView = [[GTIOFriendsNoSearchResultsView alloc] initWithFrame:CGRectZero];
     [self.noSearchResultsView setDelegate:self];
-    if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends) {
-        [self.noSearchResultsView setHideSearchCommunityText:YES];
-    }
+    
     self.searchCommunityView = [[GTIOSearchEntireCommunityView alloc] initWithFrame:CGRectZero];
     [self.searchCommunityView setDelegate:self];
     
@@ -223,6 +237,8 @@
         [self.searchCommunityView removeFromSuperview];
         if (self.tableHeaderViewType == GTIOFriendsTableHeaderViewTypeFindFriends && self.friends.count == 0) {
             [self displaySearchCommunityView];
+        } else {
+            self.friendsTableView.tableFooterView.hidden = NO;
         }
     }
     [self.friendsTableView reloadData];
@@ -253,6 +269,8 @@
                 }
                 if (self.friends.count == 0) {
                     [self displayNoResultsView];
+                } else {
+                    self.friendsTableView.tableFooterView.hidden = NO;
                 }
                 [self.friendsTableView reloadData];
             };
@@ -261,6 +279,20 @@
                 NSLog(@"%@", [error localizedDescription]);
             };
         }];
+    }
+}
+
+#pragma mark - GTIOFindMyFriendsTableViewCellDelegate Methods
+
+- (void)updateDataSourceUser:(GTIOUser *)user withUser:(GTIOUser *)newUser
+{
+    NSUInteger indexForUser;
+    if (self.searching) {
+        indexForUser = [self.searchResults indexOfObject:user];
+        [self.searchResults replaceObjectAtIndex:indexForUser withObject:newUser];
+    } else {
+        indexForUser = [self.friends indexOfObject:user];
+        [self.friends replaceObjectAtIndex:indexForUser withObject:newUser];
     }
 }
 
@@ -309,8 +341,8 @@
         userForRow = [self.friends objectAtIndex:indexPath.row];
     }
     GTIOFindMyFriendsTableViewCell *customCell = (GTIOFindMyFriendsTableViewCell *)cell;
-    [customCell setDelegate:self];
-    [customCell setUser:userForRow indexPath:indexPath];
+    customCell.user = userForRow;
+    customCell.delegate = self;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -473,8 +505,14 @@
                             userWithOnlyAProfilePicture.icon = [NSURL URLWithString:icon.iconPath];
                             [self.suggestedFriends addObject:userWithOnlyAProfilePicture];
                         }
+                        if ([button.name isEqualToString:kGTIOFindFriendsButtonName]) {
+                            self.friendsTableHeaderView.findFriendsURL = button.action.destination;
+                        }
                         if ([button.name isEqualToString:kGTIOSuggestedFriendsButtonName]) {
                             self.friendsTableHeaderView.suggestedFriendsURL = button.action.destination;
+                        }
+                        if ([button.name isEqualToString:kGTIOInviteFriendsButtonName]) {
+                            self.friendsTableHeaderView.inviteFriendsURL = button.action.destination;
                         }
                     }
                     self.subTitleText = findMyFriendsScreen.searchBox.text;
@@ -522,6 +560,7 @@
     [self.searchCommunityView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
     [self.friendsTableView addSubview:self.searchCommunityView];
     [self.friendsTableView bringSubviewToFront:self.searchCommunityView];
+    self.friendsTableView.tableFooterView.hidden = YES;
 }
 
 - (void)displayNoResultsView
@@ -529,9 +568,9 @@
     [self.noSearchResultsView removeFromSuperview];
     [self.searchCommunityView removeFromSuperview];
     [self.noSearchResultsView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
-    [self.noSearchResultsView setFailedQuery:self.currentSearchQuery];
     [self.friendsTableView addSubview:self.noSearchResultsView];
     [self.friendsTableView bringSubviewToFront:self.noSearchResultsView];
+    self.friendsTableView.tableFooterView.hidden = YES;
 }
 
 - (void)resetTableViewFrame

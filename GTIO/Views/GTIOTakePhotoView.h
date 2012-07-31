@@ -26,6 +26,7 @@ typedef enum GTIOEditPhotoButtonPosition {
 @property (nonatomic, strong) UIImage *originalImage;
 @property (nonatomic, strong) UIImage *filteredImage;
 @property (nonatomic, strong) NSString *filterName;
+@property (nonatomic, strong) NSNumber *productID;
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIScrollView *scrollView;

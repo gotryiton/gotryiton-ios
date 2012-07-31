@@ -8,6 +8,8 @@
 
 #import "GTIONotification.h"
 
+#import "GTIONotificationManager.h"
+
 @implementation GTIONotification
 
 @synthesize notificationID = _notificationID, text = _text, action = _action, icon = _icon, viewed = _viewed;
@@ -27,11 +29,21 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:self.notificationID forKey:@"notificationID"];
-    [coder encodeObject:self.text forKey:@"text"];
-    [coder encodeObject:self.action forKey:@"action"];
-    [coder encodeObject:self.icon forKey:@"icon"];
-    [coder encodeObject:self.viewed forKey:@"viewed"];
+    if (self.notificationID) {
+        [coder encodeObject:self.notificationID forKey:@"notificationID"];
+    }
+    if (self.text) {
+        [coder encodeObject:self.text forKey:@"text"];
+    }
+    if (self.action) {
+        [coder encodeObject:self.action forKey:@"action"];
+    }
+    if (self.icon) {
+        [coder encodeObject:self.icon forKey:@"icon"];
+    }
+    if (self.viewed) {
+        [coder encodeObject:self.viewed forKey:@"viewed"];
+    }
 }
 
 @end

@@ -1,3 +1,259 @@
+***Friday, July 27th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Continue working on assigned issues 
+
+**Status**
+- TT got all styling in for progress overlays and merged everything today.
+- Issue 428: Does this have a normal nav bar? Scott will have to make a new controller.
+- Still to work on: Auto-complete, some views changing, etc. 
+  - Simon can take a stab at some higher priority things.
+  - Scott will look at rendering, single post view, and header element, and pop-over button issues.
+
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott will be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of next week, but release August 20th.
+
+**General Notes**
+- Scott and Simon to color issues green once they are resolved.
+  
+---
+
+
+***Thursday, July 26th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Matt, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Continue working on assigned issues 
+
+**Status**
+- TT will go through Simon's pull request after call.
+- Bug 244: 1 line of code to stop video from running. Tested multiple frames and it worked fine. But are there 
+other devices that it may mess up?  
+  - Scott will take a look at it.
+- Matt has pull request for asset swaps.  There should be issues related to all of those.  
+  - Scott will go ahead and merge this.  
+  - Simon's next pull request will fix anything that this breaks.
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott will be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of next week, but release August 20th.
+
+**General Notes**
+- Scott and Simon to color issues green once they are resolved.
+  
+---
+
+***Wednesday, July 25th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Matt, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Release build by EOD today which includes, bug fixes, external routing, search tags, and Invite Friends.
+- GTIO - Working on assigned issues 
+
+**Status**
+- TT is working on pick a project screen. The screen is complete. When you select a product, it ties into the camera flow.
+- Scott got single image really close, he just has to write the jSEND.  This should be done in next hour.
+- Most issues left are UI tweaks and bugs, some air states, or spinner states.  
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott may be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of next week, but release August 20th.
+
+**General Notes**
+- Scott and Simon to color issues green once they are resolved.
+  
+---
+
+***Tuesday, July 24th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Matt, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Start working on 12.6 and empty feed.
+- TT - Hopes to get all critical bugs fixed and build out EOD tomorrow.
+- GTIO - Prioritize bug list and issues for Scott.
+
+**Status**
+- Scott finished Geoff's Invite Friends page.
+- Currently working on search tags page, and is wrapping up styling.
+- There are recent and trending, and then you search.  Can you go back to recent and trending?
+  - Preferred method (if simple fix): If you hit the X to clear the field, could it return you to recent and trending?
+
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+
+**General Notes**
+- Simon will be taking on minor fixes, bugs going forward.
+  - Simon to talk to Scott first before making changes 
+  - This will ensure that working on one issue, won't affect another
+  - Also Scott may have already put thought into the issue, so it would be good to discuss before working on it.
+  
+---
+
+***Monday, July 23rd - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Send new build today that will include push, Invite Friends, and bug fixes.
+
+**Status**
+- Scott has been working on getting the push code in and reviewing a bunch of pulls.
+  - Push code is mostly wrapped up. 
+- Scott will work on get the switching tabs working correctly.
+- Invite Friends is closely done.
+- GTIO received first round feedback on app, most of which doesn't affect existing issues.  
+  - One area of concern > Autocomplete.  There is a delay before the letter that you type shows up.  Running it with 
+    coretext the responsiveness is not up to par with the speed that some of these girls can type.  
+  - Cut all coretext rendering and Simon will rewrite to have an external data store.  
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+
+**General Notes**
+- Simon will be taking on minor fixes, bugs going forward.
+  - Talk with Matt about how this will work. Making sure Simon talks to Scott first before making changes.  
+
+---
+
+***Friday, July 20th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff, Matt, Kayla
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Release latest milestone build
+
+**Status**
+- Scott focused on bug fixes at the time being
+- Scott to pull in Geoff developemnt up to 4/19 and release build
+- Geoff to be starting on new views this afternoon.
+- Builds will be broken out in staging and production starting next week
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+
+**General Notes**
+- Simon will be taking on minor fixes, bugs going forward
+
+---
+
+***Thursday, July 19th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Check with Rachit about what type of build Apple would be expecting (slightly buggy vs production)
+- TT - Review autocomplete pul request from Simon.  Pull into next build
+
+**Status**
+- 4.8, 7.8, 10.5 completed by EOB today
+- Scott working on double mason grid.  Additional work left over for next week.  Scott swtiching focus to pull to refresh, notifications, ensuring notifications udpate
+and make sure title bars are updated properly
+- Plan is to cut build tomorrow around noon
+- Scott returns to NC 3pm on Friday
+- Friday Plans
+ - Geoff to do 3.5, 5.1, 13.7
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Submission to Apple slated for August 1st
+- No ongoing development through August.  Only very critical fixes during first week of August.
+- In the near future teams need to lock down a sprint in early september
+
+---
+
+***Wednesday, July 18th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Geoff 
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT - Check with Rachit about what type of build Apple would be expecting (slightly buggy vs production)
+- TT - Review autocomplete pul request from Simon.  Pull into next build
+
+**Status**
+- Released build on 7/17
+- Scott working on Pull to Load More
+ - Will move on to other mason grids
+- Geoff wrapping up shopping list and similar screens
+- Features stil slated to be completed by end of the week
+- Next week prioritized based on issues that block shipping
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- Submission to Apple slated for August 1st
+- No ongoing development through August.  Only very critical fixes during first week of August.
+- In the near future teams need to lock down a sprint in early september
+
+---
+
 ***Tuesday, July 17th - Standup Notes***
 
 **Attendees**

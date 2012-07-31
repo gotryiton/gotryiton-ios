@@ -7,12 +7,11 @@
 //
 
 #import "GTIODualViewSegmentedControlView.h"
-#import "GTIOSegmentedControl.h"
 #import "GTIOPostMasonryView.h"
 
-@interface GTIODualViewSegmentedControlView()
+NSString * const kGTIOMyHeartsTitle = @"kGTIOMyHeartsTitle";
 
-@property (nonatomic, strong) GTIOSegmentedControl *dualViewSegmentedControl;
+@interface GTIODualViewSegmentedControlView()
 
 @property (nonatomic, assign) GTIOPostType leftConrolPostsType;
 @property (nonatomic, assign) GTIOPostType rightControlPostsType;
@@ -28,7 +27,14 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        NSArray *segmentedControlItems = [NSArray arrayWithObjects:leftControlTitle, rightControlTitle, nil];
+        NSMutableArray *segmentedControlItems = [NSMutableArray array];
+        if ([leftControlTitle isEqualToString:kGTIOMyHeartsTitle]) {
+            [segmentedControlItems addObject:[UIImage imageNamed:@"my.hearts.tab.title.png"]];
+        } else {
+            [segmentedControlItems addObject:leftControlTitle];
+        }
+        [segmentedControlItems addObject:rightControlTitle];
+        
         self.dualViewSegmentedControl = [[GTIOSegmentedControl alloc] initWithItems:segmentedControlItems];
         [self.dualViewSegmentedControl setFrame:CGRectZero];
         [self.dualViewSegmentedControl setSelectedSegmentIndex:0];
@@ -36,6 +42,7 @@
         [self addSubview:self.dualViewSegmentedControl];
         
         self.leftPostsView = [[GTIOPostMasonryView alloc] initWithGTIOPostType:leftControlPostsType];
+        self.leftPostsView.hidden = NO;
         [self addSubview:self.leftPostsView];
         self.rightPostsView = [[GTIOPostMasonryView alloc] initWithGTIOPostType:rightControlPostsType];
         self.rightPostsView.hidden = YES;
@@ -71,12 +78,12 @@
     }
 }
 
-- (void)setPosts:(NSArray *)posts GTIOPostType:(GTIOPostType)postType userProfile:(GTIOUserProfile *)userProfile
+- (void)setItems:(NSArray *)items GTIOPostType:(GTIOPostType)postType userProfile:(GTIOUserProfile *)userProfile
 {
     if (postType == self.leftConrolPostsType) {
-        [self.leftPostsView setPosts:posts userProfile:userProfile];
+        [self.leftPostsView setItems:items userProfile:userProfile];
     } else if (postType == self.rightControlPostsType) {
-        [self.rightPostsView setPosts:posts userProfile:userProfile];
+        [self.rightPostsView setItems:items userProfile:userProfile];
     }
     [self setNeedsLayout];
 }

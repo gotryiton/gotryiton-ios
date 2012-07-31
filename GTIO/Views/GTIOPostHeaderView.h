@@ -7,6 +7,7 @@
 //
 
 #import "GTIOPost.h"
+#import "GTIOFeedViewController.h"
 
 extern CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen;
 
@@ -15,6 +16,7 @@ extern CGFloat const kGTIOAccentLinePixelsFromRightSizeOfScreen;
 @property (nonatomic, strong) GTIOPost *post;
 @property (nonatomic, assign, getter = isShowingShadow) BOOL showingShadow;
 @property (nonatomic, assign) BOOL clearBackground;
+@property (nonatomic, weak) id<GTIOFeedHeaderViewDelegate> delegate;
 
 - (void)prepareForReuse;
 

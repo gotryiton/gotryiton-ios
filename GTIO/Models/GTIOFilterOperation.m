@@ -27,8 +27,6 @@
 - (void)main
 {
     if (![self isCancelled]) {
-        NSLog(@"Start filter: %@", GTIOFilterTypeName[self.filterType]);
-        
         SEL selector = NSSelectorFromString(GTIOFilterTypeSelectors[self.filterType]);
         if ([self.originalImage respondsToSelector:selector]) {
 
@@ -41,8 +39,6 @@
                 self.finishedHandler(self.filterType, self.filteredImage);
             }
         }
-        
-        NSLog(@"Finish filter");
     }
 }
 

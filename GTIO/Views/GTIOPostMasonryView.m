@@ -21,7 +21,7 @@ static double const kGTIOTopPadding = 9.0;
 
 @implementation GTIOPostMasonryView
 
-@synthesize userProfile = _userProfile, posts = _posts, postType = _postType;
+@synthesize userProfile = _userProfile, items = _items, postType = _postType;
 @synthesize emptyStateView = _emptyStateView;
 @synthesize masonGridView = _masonGridView;
 
@@ -31,14 +31,42 @@ static double const kGTIOTopPadding = 9.0;
     if (self) {
         self.clipsToBounds = YES;
         _postType = postType;
-        _masonGridView = [[GTIOMasonGridView alloc] initWithFrame:CGRectZero];
+        
+        _masonGridView = [[GTIOMasonGridView alloc] initWithFrame:self.bounds];
+        [self.masonGridView attachPullToRefreshAndPullToLoadMore];
+        [self.masonGridView.pullToRefreshView setExpandedHeight:60.0f];
+        [self.masonGridView.pullToLoadMoreView setExpandedHeight:0.0f];
+        [((GTIOPullToLoadMoreContentView *)self.masonGridView.pullToLoadMoreView.contentView) setShouldShowTopAccentLine:NO];
     }
     return self;
 }
 
-- (void)setPosts:(NSArray *)posts userProfile:(GTIOUserProfile *)userProfile
+#pragma mark - Properties
+
+- (void)setFrame:(CGRect)frame
 {
-    _posts = posts;
+    [super setFrame:frame];
+    [self.masonGridView setFrame:self.bounds];
+    [self.emptyStateView setFrame:(CGRect){ self.frame.size.width/2 - self.emptyStateView.bounds.size.width/2 , self.frame.size.height/2 - self.emptyStateView.bounds.size.height/2, self.emptyStateView.bounds.size }];
+}
+
+- (void)setHidden:(BOOL)hidden
+{
+    [super setHidden:hidden];
+    
+    // Initial load on segment change
+    if (!hidden && [self.items count] == 0) {
+        if (self.masonGridView.pullToRefreshHandler) {
+            self.masonGridView.pullToRefreshHandler(self.masonGridView, self.masonGridView.pullToRefreshView, YES);
+        }
+    }
+}
+
+#pragma mark - Data
+
+- (void)setItems:(NSArray *)items userProfile:(GTIOUserProfile *)userProfile
+{
+    _items = [items mutableCopy];
     self.userProfile = userProfile;
     
     [self.emptyStateView removeFromSuperview];
@@ -46,9 +74,9 @@ static double const kGTIOTopPadding = 9.0;
     
     // if the user's profile isn't locked or this user is us
     if (!self.userProfile.profileLocked.boolValue || [self.userProfile.user.userID isEqualToString:[GTIOUser currentUser].userID]) {
-        if (_posts.count > 0) {
+        if (_items.count > 0) {
             // display posts in mason grid
-            [self.masonGridView setPosts:posts postsType:self.postType];
+            [self.masonGridView setItems:_items postsType:self.postType];
             [self addSubview:self.masonGridView];
         } else {
             GTIOPostMasonryEmptyStateView *followingNoPosts = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:@"nothing here yet!" userName:nil locked:NO];
@@ -70,18 +98,12 @@ static double const kGTIOTopPadding = 9.0;
     }
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-
-    [self.emptyStateView setFrame:(CGRect){ 60, 90, self.emptyStateView.bounds.size }];
-    [self.masonGridView setFrame:(CGRect){ kGTIOLeftPadding, kGTIOTopPadding, self.bounds.size.width - kGTIOLeftPadding, self.bounds.size.height - kGTIOTopPadding }];
-}
-
 - (void)refreshAndCenterGTIOEmptyStateView:(GTIOPostMasonryEmptyStateView *)emptyStateView
 {
+
     [self.emptyStateView removeFromSuperview];
     self.emptyStateView = emptyStateView;
+    [self.emptyStateView setFrame:(CGRect){ self.frame.size.width/2 - self.emptyStateView.bounds.size.width/2 , self.frame.size.height/2 - self.emptyStateView.bounds.size.height/2, self.emptyStateView.bounds.size }];
     [self addSubview:self.emptyStateView];
 }
 

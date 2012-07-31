@@ -9,9 +9,11 @@
 #import "GTIOFeedViewController.h"
 
 #import <RestKit/RestKit.h>
+#import "SSPullToRefresh.h"
 
 #import "GTIOPostManager.h"
 #import "GTIORouter.h"
+#import "GTIOAppDelegate.h"
 
 #import "GTIOPagination.h"
 #import "GTIOPostUpload.h"
@@ -22,17 +24,23 @@
 #import "GTIONavigationNotificationTitleView.h"
 #import "GTIOFeedNavigationBarView.h"
 #import "GTIOFriendsViewController.h"
+#import "GTIOProfileViewController.h"
 
 #import "GTIOPullToRefreshContentView.h"
 
 #import "GTIOReviewsViewController.h"
 #import "GTIONotificationsViewController.h"
 
-#import "GTIOProductViewController.h"
+#import "GTIOShopThisLookViewController.h"
+#import "GTIOShoppingListViewController.h"
+#import "GTIOProductNativeListViewController.h"
+
+#import "SSPullToLoadMoreView.h"
+#import "GTIOPullToLoadMoreContentView.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
-@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
@@ -49,20 +57,19 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 @property (nonatomic, strong) NSMutableDictionary *onScreenHeaderViews;
 
 @property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
-@property (nonatomic, strong) GTIOPullToRefreshContentView *pullToRefreshContentView;
+@property (nonatomic, strong) SSPullToLoadMoreView *pullToLoadMoreView;
 
 @property (nonatomic, copy) NSString *postID;
 @property (nonatomic, copy) NSString *postsResourcePath;
 
+@property (nonatomic, strong) GTIOPost *post;
+
+@property (nonatomic, strong) UIImageView *emptyView;
+@property (nonatomic, strong) UITapGestureRecognizer *emptyViewTapGestureRecognizer;
+
 @end
 
 @implementation GTIOFeedViewController
-
-@synthesize tableView = _tableView, navBarView = _navBarView;
-@synthesize addNavToHeaderOffsetXOrigin = _addNavToHeaderOffsetXOrigin, removeNavToHeaderOffsetXOrigin = _removeNavToHeaderOffsetXOrigin;
-@synthesize posts = _posts, pagination = _pagination;
-@synthesize offScreenHeaderViews = _offScreenHeaderViews, onScreenHeaderViews = _onScreenHeaderViews, pullToRefreshContentView = _pullToRefreshContentView, pullToRefreshView = _pullToRefreshView;
-@synthesize uploadView = _uploadView, postUpload = _postUpload, postID = _postID, postsResourcePath = _postsResourcePath;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -93,6 +100,17 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     return self;
 }
 
+- (id)initWithPost:(GTIOPost *)post
+{
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        _post = post;
+        
+        [_posts addObject:_post];
+    }
+    return self;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -103,17 +121,25 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [super viewDidLoad];
     
     self.navBarView = [[GTIOFeedNavigationBarView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 44 } }];
+    
     __block typeof(self) blockSelf = self;
-    [self.navBarView.friendsButton setTapHandler:^(id sender) {
-        GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
-        [blockSelf presentModalViewController:navController animated:YES];
+    
+    if (self.post || [self.postID length] > 0) {
+        // Single post
+        self.navBarView.backButton.tapHandler = ^(id sender) {
+            [self.navigationController popViewControllerAnimated:YES];
+        };
         
-#warning THIS CODE USED FOR TESTING 4.1
-//        GTIOProductViewController *productViewController = [[GTIOProductViewController alloc] initWithProductID:[NSNumber numberWithInt:125]];
-//        [blockSelf.navigationController pushViewController:productViewController animated:YES];
-#warning END TEST CODE
-    }];
+        [self.navBarView.backButton setHidden:NO];
+        [self.navBarView.friendsButton setHidden:YES];
+    } else {
+        // Normal Feed
+        [self.navBarView.friendsButton setTapHandler:^(id sender) {
+            GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
+            [blockSelf presentModalViewController:navController animated:YES];
+        }];
+    }
     self.navBarView.titleView.tapHandler = ^(void) {
         GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
@@ -132,10 +158,29 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     [self.tableView setTableHeaderView:self.navBarView];
     [self.view addSubview:self.tableView];
     
+    self.emptyView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-bg-overlay.png"]];
+    [self.emptyView setFrame:(CGRect){ { 0, self.navigationController.navigationBar.frame.size.height }, self.emptyView.image.size }];
+    [self.emptyView setUserInteractionEnabled:YES];
+    self.emptyViewTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadFeed)];
+    [self.emptyView addGestureRecognizer:self.emptyViewTapGestureRecognizer];
+    
     self.pullToRefreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.tableView delegate:self];
-    self.pullToRefreshView.contentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 125 }];
+    [self.pullToRefreshView setExpandedHeight:60.0f];
+    GTIOPullToRefreshContentView *pullToRefreshContentView = [[GTIOPullToRefreshContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.bounds.size.width, 0 } }];
+    [pullToRefreshContentView setScrollInsets:self.tableView.scrollIndicatorInsets];
+    self.pullToRefreshView.contentView = pullToRefreshContentView;
 
     self.uploadView = [[GTIOPostUploadView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight } }];
+    
+    self.pullToLoadMoreView = [[SSPullToLoadMoreView alloc] initWithScrollView:self.tableView delegate:self];
+    [self.pullToLoadMoreView setExpandedHeight:0.0f];
+    self.pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.frame.size.width, 0.0f } }];
+    
+    [self.pullToRefreshView startLoading];
+    
+    [self.tableView bringSubviewToFront:self.navBarView];
+    
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
 }
 
 - (void)viewDidUnload
@@ -149,7 +194,8 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [self.pullToRefreshView startLoading];
+    [self showStatusBarBackgroundWithoutNavigationBar];
+    [self.tableView bringSubviewToFront:self.navBarView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -157,34 +203,19 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - SSPullToRefreshDelegate Methods
-
-- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
-{
-    if (self.postID) {
-        self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
-        self.navBarView.backButton.tapHandler = ^(id sender) {
-            [self.navigationController popViewControllerAnimated:YES];
-        };
-        self.navBarView.backButton.hidden = NO;
-    } else {
-        self.postsResourcePath = @"/posts/feed";
-    }
-    [self loadFeed];
-}
-
 #pragma mark - Load Data
 
 - (void)loadFeed
 {
+    [self.emptyView removeGestureRecognizer:self.emptyViewTapGestureRecognizer]; // So you can't tap it multiple times
+
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.postsResourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];
             
             for (id object in objects) {
-                if ([object isKindOfClass:[GTIOPost class]])
-                {
+                if ([object isKindOfClass:[GTIOPost class]]) {
                     GTIOPost *post = (GTIOPost *)object;
                     post.reviewsButtonTapHandler = ^(id sender) {
                         UIViewController *reviewsViewController;
@@ -204,15 +235,99 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
                 }
             }
             
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.tableView reloadData];
             [self headerSectionViewsStyling];
             [self.pullToRefreshView finishLoading];
+            
+            [self checkAndDisplayEmptyState];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToRefreshView finishLoading];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"Error: %@", [error localizedDescription]);
+            
+            // TODO: Display error state
         };
     }];
+}
+
+- (void)loadPagination
+{
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [self.pullToLoadMoreView finishLoading];
+            self.pagination = nil;
+            
+            NSMutableArray *paginationPosts = [NSMutableArray array];
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOPost class]]) {
+                    [paginationPosts addObject:object];
+                } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                    self.pagination = object;
+                }
+            }
+            
+            // Only add posts that are not already on mason grid
+            NSMutableArray *newPostsIndexPaths = [NSMutableArray array];
+            NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+            [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                GTIOPost *post = obj;
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                if ([foundExistingPosts count] == 0) {
+                    [self.posts addObject:post];
+                    [newPostsIndexPaths addObject:[NSIndexPath indexPathForRow:0 inSection:[self.posts count] - 1]];
+                    [indexSet addIndex:[self.posts count] - 1];
+                }
+            }];
+            [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationBottom];
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [self.pullToLoadMoreView finishLoading];
+            NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
+            
+            // TODO: Display error state
+        };
+    }];
+}
+
+#pragma mark - Empty
+
+- (void)checkAndDisplayEmptyState
+{
+    if ([self.posts count] > 0) {
+        [self.emptyView removeFromSuperview];
+    } else {
+        [self.view addSubview:self.emptyView];
+        [self.emptyView addGestureRecognizer:self.emptyViewTapGestureRecognizer];
+    }
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
+{
+    if (self.post) {
+        // Inited w/ post. No need to hit endpoint
+        [self.tableView reloadData];
+        [self.pullToRefreshView finishLoading];
+    } else {
+        if (self.postID) {
+            self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
+        } else {
+            self.postsResourcePath = @"/posts/feed";
+        }
+        [self loadFeed];
+    }
+}
+
+#pragma mark - SSPullToRefreshDelegate Methods
+
+- (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
+{
+    [self loadPagination];
 }
 
 #pragma mark - UITableViewDelegate
@@ -235,6 +350,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     } else {
         [self.offScreenHeaderViews removeObject:headerView];
     }
+    headerView.delegate = self;
     
     [headerView setPost:[self.posts objectAtIndex:section]];
     [self.onScreenHeaderViews setValue:headerView forKey:[NSString stringWithFormat:@"%i", section]];
@@ -298,7 +414,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     if (scrollViewTopPoint.y < 0 && self.tableView.tableHeaderView == self.navBarView) {
         [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:self.tableView.tableHeaderView.bounds]];
         [self.view addSubview:self.navBarView];
-    } else if (scrollViewTopPoint.y >= 0 && self.tableView.tableHeaderView != self.navBarView) {
+    } else if (scrollViewTopPoint.y > 0 && self.tableView.tableHeaderView != self.navBarView) {
         [self.tableView setTableHeaderView:self.navBarView];
     }
 }
@@ -310,31 +426,33 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     // Section Header
     scrollViewTopPoint.y += self.tableView.sectionHeaderHeight; // Offset by first header
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollViewTopPoint];
-    GTIOPostHeaderView *currentHeaderView = [self.onScreenHeaderViews objectForKey:[NSString stringWithFormat:@"%i", indexPath.section]];
-    
-    CGRect rectForView = [self.tableView rectForHeaderInSection:indexPath.section];
-    NSArray *onScreenViewKeys = [self.onScreenHeaderViews allKeys];
-    [onScreenViewKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
-        GTIOPostHeaderView *headerView = [self.onScreenHeaderViews objectForKey:key];
-        if (headerView == currentHeaderView &&
-            rectForView.origin.y + self.tableView.sectionHeaderHeight < scrollViewTopPoint.y) {
-            
-            [headerView setShowingShadow:YES];
-            [headerView setClearBackground:NO];
-        } else if (headerView == currentHeaderView) {
-            [headerView setShowingShadow:NO];
-            [headerView setClearBackground:YES];
-        } else {
-            [headerView setShowingShadow:NO];
-            
-            // Don't show clear background for cells above current cell
-            if (rectForView.origin.y + self.tableView.sectionHeaderHeight > scrollViewTopPoint.y) {
+    if (indexPath) {
+        GTIOPostHeaderView *currentHeaderView = [self.onScreenHeaderViews objectForKey:[NSString stringWithFormat:@"%i", indexPath.section]];
+        
+        CGRect rectForView = [self.tableView rectForHeaderInSection:indexPath.section];
+        NSArray *onScreenViewKeys = [self.onScreenHeaderViews allKeys];
+        [onScreenViewKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
+            GTIOPostHeaderView *headerView = [self.onScreenHeaderViews objectForKey:key];
+            if (headerView == currentHeaderView &&
+                rectForView.origin.y + self.tableView.sectionHeaderHeight < scrollViewTopPoint.y) {
+                
+                [headerView setShowingShadow:YES];
                 [headerView setClearBackground:NO];
-            } else {
+            } else if (headerView == currentHeaderView) {
+                [headerView setShowingShadow:NO];
                 [headerView setClearBackground:YES];
+            } else {
+                [headerView setShowingShadow:NO];
+                
+                // Don't show clear background for cells above current cell
+                if (rectForView.origin.y + self.tableView.sectionHeaderHeight > scrollViewTopPoint.y) {
+                    [headerView setClearBackground:NO];
+                } else {
+                    [headerView setClearBackground:YES];
+                }
             }
-        }
-    }];
+        }];
+    }
 }
 
 #pragma mark - Header View Dequeue
@@ -445,10 +563,17 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 - (void)addUploadView
 {
+    [self.emptyView removeFromSuperview];
+    
     if (!self.postUpload) {
         self.postUpload = [[GTIOPostUpload alloc] init];
         [self.posts insertObject:self.postUpload atIndex:0];
         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView setContentOffset:CGPointZero];
+        
+        // Go to feed tab
+        NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabFeed) };
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
     }
 }
 
@@ -463,8 +588,22 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         if (newPost) {
             [self.posts insertObject:newPost atIndex:0];
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            // Fixes the pull to refresh going over the nav bar
+            double delayInSeconds = 0.01;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self.view bringSubviewToFront:self.navBarView];
+            });
         }
     }
+}
+
+-(void) postHeaderViewTapWithUserId:(NSString *)userID
+{
+    GTIOProfileViewController *viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+    [viewController setUserID:userID];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

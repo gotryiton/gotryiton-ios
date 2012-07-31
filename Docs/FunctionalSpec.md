@@ -122,7 +122,7 @@ static image used while app is loading
 #### Mockups
 1.1 Splash ([wireframe](http://invis.io/PC2NYJUX))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.1.Splash.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.1.Splash.png" width=420px/>
 
 #### User flow
 **entry screens:**    
@@ -304,12 +304,12 @@ First time users of the app see a screen where they can sign up
 #### Mockups
 1.3 Sign in ([wireframe](http://invis.io/TW2OBGAK))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.3.Sign.In.First.Use.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/1.3.Sign.In.First.Use.png" width=420px>
 
 
 1.3.1 Sign in with no intro screens 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.9.Sign.In.2nd.Load.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/1.9.Sign.In.2nd.Load.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -375,7 +375,7 @@ Returning users can sign in with Facebook or Janrain
 #### Mockups
 1.4 Returning users ([wireframe](http://invis.io/5W2OBHJ7))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.4.Returning.Users.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.4.Returning.Users.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -438,7 +438,7 @@ New users can sign up with Facebook or Janrain
 
 1.5 Janrain Sign up ([wireframe](http://invis.io/EQ2OBJ6W))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.5.Janrain.Sign.Up.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.5.Janrain.Sign.Up.png" width=420px>
 
 #### User flow
 **entry screens:**   
@@ -489,7 +489,7 @@ When a user fails to sign in, they're presented with an error screen allowing th
 
 1.6 Failed sign in ([wireframe](http://invis.io/CR2OBKVK))  
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/1.6.Failed.Sign.In.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.6.Failed.Sign.In.png" width=420px>
 
 
 #### API Usage
@@ -613,7 +613,7 @@ When a new user signs up, they can quickly add people to follow
 
 1.8
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/1.8.Quick.Add.png" width=420px>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/4/1.8.Quick.Add.png" width=420px>
 
 scrolled
 
@@ -755,7 +755,7 @@ When a returning (non-logged in) user starts the app, they see a screen asking t
 #### Mockups
 1.9 ([wireframe](http://invis.io/SC2OBNJM))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/1.9.Sign.In.2nd.Load.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/1.9.Sign.In.2nd.Load.png" width=420px/>
 
 #### User flow
 **entry screens:**   
@@ -1209,6 +1209,7 @@ previous screen
 	- Text
 		- Name: Archer Book Italic 16px rgb(255,106,114) #ff6a72
 		- Time Stamp: Proxima Nova Regular 10px rgb(156,156,156) #9c9c9c
+         - convert to ALL CAPS
 	- Comment input
 		- Background (3/reviews.top.input.box.png)
 		- 230x35px
@@ -1308,7 +1309,7 @@ previous screen
    - All Cells
       - Height: 48px (without border)
       - Background: rgb(255,255,255) #ffffff
-      - Active State background: rgb(237,235,224) #edebe0
+      - Active State background: rgb(237,235,224) #c6f0de
       - Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
       - Bottom border: 1px rgba(217,215,206) #d9d7ce
@@ -1421,14 +1422,17 @@ previous screen
 			- 9px from top/right
 			- 7px in between
 		- Bottom Buttons
-			- Background (product.info.button.bg.inactive.png) stretch image
-				- On tap (product.info.button.bg.active.png)
-				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
-					- On tap (product.info.button.bg.highlight.active.png)
-			- Text: Archer Medium 16px rgb(85,85,86) #555556
-			- 5px padding
-			- 4px in between buttons
-			- Width: 153x46px
+         - 5px padding
+         - 4px in between buttons
+         - Left Side Button (Post)
+            - 'product.post.button.png' active and inactive states
+         - Right Side Button
+   			- Background (product.info.button.bg.inactive.png) stretch image
+   				- On tap (product.info.button.bg.active.png)
+   				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
+   					- On tap (product.info.button.bg.highlight.active.png)
+   			- Text: Archer Medium 16px rgb(85,85,86) #555556
+   			- Width: 153x46px
 
 ### 4.1.2 Product Full Screen  
 
@@ -1450,6 +1454,11 @@ previous screen
 
 #### API Usage
 None.
+
+#### Routing
+
+gtio://full-screen-image/[url encoded path to image]
+
 
 #### Stories
 - A user can see a full screen view of a product
@@ -1500,6 +1509,10 @@ gtio://products/in-post/:post_id
 
 - A user can see a list of products contained in a post
    - each product cell taps to ([view 4.1](#41-product-page-view))
+- A user can see extra options from an actionsheet
+   - top right ... button taps to action sheet (not pictured -- see view 10.5)
+   - contents of actionsheet defined by ```ui.dot_options```
+   - ... button only shows if ```ui.dot_options``` is not null
 
 #### Design Stories
 - Cell
@@ -1677,7 +1690,7 @@ gtio://find-friends
 	- All Cells
 		- Height: 48px (without border)
 		- Background: rgb(255,255,255) #ffffff
-		- Active State background: rgb(237,235,224) #edebe0
+		- Active State background: rgb(237,235,224) #c6f0de
 		- Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
 		- Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
 		- Bottom border: 1px rgba(217,215,206) #d9d7ce
@@ -1724,7 +1737,7 @@ A user can see a list of suggested users to follow
 #### Mockups
 6.2 Suggested Friends ([wireframe](http://invis.io/VD2OCR5H))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.2.suggested.friends.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.2.suggested.friends.png" width=420px/>
 
 #### API Usage
 /user/suggested-friends  [api-users](http://gtio-dev.gotryiton.com/docs/api-users)
@@ -1774,7 +1787,7 @@ A user can manage their friend relationships via the feed
 #### Mockups
 6.3 ([wireframe](http://invis.io/R62OCSKJ))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.3.friends.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.3.friends.png" width=420px/>
 
 
 #### User Flow
@@ -1818,7 +1831,10 @@ previous screen
 	- Background: rgb(235,242,239) #ebf2ef
 	- Top Border: 1px rgb(243,247,245) #f3f7f5
 	- Bottom Border: 1px rgb(211,217,215) #d3d9d7
-	- "suggested friend" cell has no bottom border and has height of 49px
+   - find friends icon
+      - 'find.friends.item.icon.png'
+      - 10px gap from accompanying text
+      - bottom of asset is 2px below baseline of accompanying text
 - For cells and button placement, refer to 6.1 design stories
 
 ### 6.4 Find out-of-network Friends  
@@ -1829,9 +1845,15 @@ A user can search for friends outside of their own network
 #### Mockups
 6.4 ([wireframe](http://invis.io/MH2OCTA9))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.4.1.search.empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.4.0.Search.Start.Empty.png" width=420px/>
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.4.2.search.results.png" width=420px/>
+6.4.1 search results
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.4.2.search.results.png" width=420px/>
+
+6.4.1 no search results
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.4.1.Search.Results.Empty.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1858,11 +1880,12 @@ gtio://search-friends
 #### Design Stories
 - Search area
 	- Background transparent with image (6/search.area.background.shadow.small.png)
-- Search Empty
-	- 64px from top, 169px from left
-	- Text begins 16px below icon
-	- "search through the entire" 16pt Proxima Nova Light rgb(143,143,143) #8f8f8f
-	- "Go Try It On community" 16pt Proxima Nova Bold rgb(143,143,143) #8f8f8f
+- Search Start
+	- 'search.area.start.png'
+      - 164px from bottom of nav bar, vertically centered
+- Search Empty Results
+   - 'search.area.no.results.png'
+      - 193px from bottom of nav bar, horizontally centered
 - For cells and button placement, refer to 6.1 design stories	
 
 ### 6.5 Following List  
@@ -1873,7 +1896,7 @@ A User A can see a list of who a User B is following.  User A and User B can be 
 #### Mockups
 6.5 ([wireframe](http://invis.io/CS2OCU2W))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.5.following.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.5.following.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1900,6 +1923,10 @@ gtio://my-following
       - following toggle
 
 #### Design Stories
+- Search icon button
+   - 'nav.search.icon.png'
+      - 10px from right edge of screen
+      - vertically centered within nav bar
 - For cells and button placement, refer to 6.1 design stories
 
 ### 6.6 Followers List  
@@ -1910,7 +1937,7 @@ A User A can see a list of User B's followers.  User A and User B can be the sam
 #### Mockups
 6.6 Followers List ([wireframe](http://invis.io/Y92OCV3E))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/6.6.followers.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/6.6.followers.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -1938,6 +1965,10 @@ gtio://my-followers
       - following toggle
 
 #### Design Stories
+- Search icon button
+   - 'nav.search.icon.png'
+      - 10px from right edge of screen
+      - vertically centered within nav bar
 - For cells and button placement, refer to 6.1 design stories
 
 ## 7. Profile pages
@@ -1953,9 +1984,9 @@ A logged in user can manage their profile, share settings, looks, and friends
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.png" width=420px/>
 
-7.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
+7.1.1 Management page scrolled [wireframe2](http://invis.io/ND2OCYR4)
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.1.My.Management.Scrolled.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/7.1.My.Management.Scrolled.png" width=420px/>
 
 #### User Flow
 **entry screens:**   
@@ -2074,6 +2105,10 @@ gtio://my-management
 	- Chevron is 10px from right
    - 'my hearts'
       - insert apostrophe (U+2019) before the 's' and after the heart graphic in 'my hearts' menu item.  try to ensure at least 1.5px visual gap between heart and apostrophe (3px on Retina looks right).
+   - Custom Slider (screen 7.1.1)
+      - '7/management.slider' assets
+      - vertically center within table cell (6px of top and bottom padding)
+      - 8px away from right side of cell
 
 ### 7.2 Settings  
 
@@ -2832,6 +2867,12 @@ GET /tags/search/:query
    - Font: Proxima Nova Bold 10pt rgb(143,143,143)
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
    - Text vertically centered within cell, 6px from left edge of screen
+- List tables/cells
+   - Height: 48px (without border)
+   - Background: rgb(255,255,255) #ffffff
+   - Active State background: #c6f0de
+   - Font: Verlag Book 16pt rgb(143,143,143) #8f8f8f
+   - Bottom border: 1px rgba(217,215,206) #d9d7ce
 - Brand tag icon
    - 17px x 17px
    - bottom of asset is 4px below baseline of accompanying text
@@ -3017,9 +3058,8 @@ gtio://posts/feed
          - photo is placed offset 7px down from top of frame asset
          - photo is placed vertically centered within frame asset (should be 5px from the left edge of asset)
       - heart toggle
-         - 'heart-toggle.png' with on/off states, each with active and inactive
-         - asset is placed 9px down from top of photo
-         - asset is placed 9px from left edge of photo
+         - 'heart-toggle.png' 34 x 34 with on/off states, each with active and inactive
+         - asset is placed flush with left and top edges of photo
       - Star Corner
          - 'star-corner-feed.png'
          - placed at top right corner of post image (should appear to curve seamlessly into photo frame)
@@ -3529,40 +3569,37 @@ A user can browse to a native list of products
 ([view 10.2](#102-shop-browse-webview-container))   
 ([view 8.1](#81-feed-view))   
 **exit screens:**   
-([view 10.3](#103-shop-3rd-party-webview-container))   
-([view 10.4](#104-default-3rd-party-webview-container))   
-([view 7.8](#78-shopping-list))   
 ([view 4.1](#41-product-page-view))   
 previous screen   
 
 #### API Usage
-dynamic
+/collection/:id [collection api](http://gtio-dev.gotryiton.com/docs/api-collection)
+
+#### Routing
+gtio://collection/:id
+
 
 #### Stories 
-- A user can browse to a native list of products
+- A user can browse to a list of products in a collection
    - top nav bar is custom nav bar
-      - customizable title: via gtio link that spawned the container
-      - shopping list btn visible
-         - **tap** ==> (view 7.8)
+      - customizable title: ```collection.name```
       - back btn to return to previous container
-   - list of products in masonry view
-      - list defined by api
-- A user can see a custom header on certain Browse Products pages
-   - custom visual header (optional)
-       - image specified by api
-       - link specified by api
-- A user can see a customized standard cell call to action on certain Browse Products pages
-   - customizable standard cell (optional)
-       - styled text
-       - chevron on right
-       - text set by api
-       - destination set by api
-- A user can select from a menu picker to sort the list
-   - customizable standard picker menu
-      - items defined by apis
-      - selected item defined by api
-      - api path for each item defined by api
-      - api design will be similar to list tabs in GTIOv3
+- A user can see a custom header on certain pages
+   - if ```collection.banner_image``` exists display banner
+   - tap is defined by ```collection.banner_image.action```
+   - image path is defined by ```collection.banner_image.image``` (image will be 2x)
+   - dimensions is defined by ```collection.banner_image.width```, ```collection.banner_image.height``` (width, height will be 1x)
+- A user can see a custom nav bar image on certain screens
+   - if ```collection.custom_nav_image``` exists, display image rather than title/back/... buttons
+      - maintain invisible tap areas for back and ... buttons
+- A user can see extra options from an actionsheet
+   - top right ... button taps to action sheet
+   - contents of actionsheet defined by ```collection.dot_options```
+   - ... button only shows if ```collection.dot_options``` is not null
+- A user can see a list of products in table view
+   - api response includes an array of ```products```
+   - each table cell taps to (view 4.1)
+
 
 #### Design Stories
 - Standard Nav
@@ -4517,7 +4554,9 @@ Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
 ### 13.7 User badges
 
 #### Overview
-In many places where there is a user's name, there may be a badge icon next to a users name.  This icon will be specified by the api, but may use a different url depending on the screen.  Previously the GTIOv3 app supported multiple icons.  4.0 will only support 1.
+In many places where there is a user's name, there may be a badge icon next to a users name.  This icon will be specified by the api, but may use a different size depending on the screen.  The size to use is defined in design stories under ```User Badges``` heading.
+
+Previously the GTIOv3 app supported multiple icons.  4.0 will only support 1.
 
 #### Mockups
 
@@ -4528,13 +4567,20 @@ In many places where there is a user's name, there may be a badge icon next to a
 "user" : {
    
    "badge" : {
-      'page_type_1' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
-      'page_type_2' : 'http://assets.gotryiton.com/img/badges/1/badge-profile-fashionista.png',
-      'page_type_3' : 'http://assets.gotryiton.com/img/badges/1/badge-flat-fashionista.png',
+      'path' : 'http://assets.gotryiton.com/img/badges/1/',
    }
    
 } 
 ```
+
+#### Views that have badges
+
+1.8 [Quick Add](#18-quick-add)   
+3.4 [Reviews page](#34-reviews-page)   
+6.1 [Find my friends](#61-find-my-friends)   
+7.1 [My management page](#71-my-management-page)   
+7.7 [Profile Page](#77-profile-page)   
+8.1 [Feed view](#81-feed-view)   
 
 
 #### Stories
@@ -4697,3 +4743,27 @@ In many places where there is a user's name, there may be a badge icon next to a
       - Archer Medium Italic 13pt rgb(266,106,114)
       - Text area is 150px wide (wrap to additional lines if necessary)
       - Horizontally centered
+
+### 13.12 Connection Fail
+
+#### Mockups
+
+13.12 Connection Fail   
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.12.Connection.Fail.png" width=420px/>
+
+13.12.1 Connection Fail Retrying
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/13.12.Connection.Fail.Retrying.png" width=420px/>
+
+#### Design Stories
+- connection error overlay
+   - 'spinner-dark-bg.png' overlay on screen (behind info overlay)
+   - 'connection-error-bg.png' as info overlay background
+      - horizontally centered
+      - vertically centered
+   - RETRY + icon
+      - 'connection-error-retry.png'
+      - 29px from right edge of bg asset
+      - vertically centered within bg asset
+   - 21px x 21px spinner #6e6e6e
+      - horizontally centered within space where 'retry' asset was
+      - vertically centered within bg asset area

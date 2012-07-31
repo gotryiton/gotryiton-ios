@@ -56,7 +56,13 @@
                 [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/me" usingBlock:^(RKObjectLoader *loader) {
                     loader.targetObject = [GTIOUser currentUser];
                     loader.onDidLoadObject = ^(id object) {
-                        [((GTIOAppDelegate *)[UIApplication sharedApplication].delegate) addTabBarToWindow];
+                        if ([object isKindOfClass:[GTIOUser class]]) {
+                            GTIOUser *user = [GTIOUser currentUser];
+                            [user populateWithUser:object];
+                            [user updateUrbanAirshipAliasWithUserID:user.userID];
+                        }
+                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAddTabBarToWindowNotification object:nil];
                     };
                     loader.onDidFailWithError = ^(NSError *error) {
                         NSLog(@"Auth /user/me failed. User is not logged in.");

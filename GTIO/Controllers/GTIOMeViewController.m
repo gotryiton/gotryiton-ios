@@ -19,10 +19,16 @@
 #import "GTIOProgressHUD.h"
 #import "GTIOSignInViewController.h"
 #import "GTIOButton.h"
+#import "GTIOSwitch.h"
 #import "GTIOProgressHUD.h"
+
+#import "GTIONotificationsViewController.h"
 
 static NSString * const kGTIOCustomHeartsCell = @"custom_cell_hearts";
 static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
+static NSString * const kGTIOAlertForLogout = @"Are you sure you want to sign out?";
+static NSString * const kGTIOAlertForTurningPrivateOn = @"Are you sure you want to make your posts private? From now on, only followers you approve will see your posts.";
+static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want to make your posts public? From now on, anyone will be able to follow your posts.";
 
 @interface GTIOMeViewController ()
 
@@ -35,6 +41,8 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 @property (nonatomic, strong) GTIOMeTableHeaderView *profileHeaderView;
 
 @property (nonatomic, strong) UIViewController *viewControllerToRouteTo;
+
+@property (nonatomic, strong) NSIndexPath *indexOfPrivateToggle;
 
 @end
 
@@ -92,6 +100,8 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
     self.tableView.tableFooterView.hidden = YES;
     
     [self.view addSubview:self.tableView];
+    
+    [self refreshScreenLayout];
 }
 
 - (void)viewDidUnload
@@ -107,8 +117,10 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 {
     [super viewWillAppear:animated];
     
-    GTIONavigationNotificationTitleView *titleView = [[GTIONavigationNotificationTitleView alloc] initWithNotifcationCount:[NSNumber numberWithInt:1] tapHandler:^{
-        NSLog(@"tapped notification bubble");
+    GTIONavigationNotificationTitleView *titleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
+        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
+        [self presentModalViewController:navigationController animated:YES];
     }];
     [self useTitleView:titleView];
 }
@@ -117,7 +129,6 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 {
     [super viewDidAppear:animated];
     [self.tableView setUserInteractionEnabled:YES];
-    [self refreshScreenLayout];
 }
 
 - (void)refreshScreenLayout
@@ -174,7 +185,7 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
         [self.tableView setUserInteractionEnabled:NO];
         // handle any special cases
         if ([buttonForRow.action.destination isEqualToString:@"gtio://sign-out"]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", @"Cancel", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kGTIOAlertForLogout delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
             [alert show];
         } else {
             [self.navigationController pushViewController:self.viewControllerToRouteTo animated:YES];
@@ -204,7 +215,7 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell"; 
+    static NSString *CellIdentifier = @"GTIOMeTableViewCell"; 
     
     GTIOMeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -219,8 +230,9 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
             buttonForRow.text = @"my     \u2019s";
             [cell setHasHeart:YES];
         } else if ([buttonForRow.name isEqualToString:kGTIOCustomToggleCell]) {
+            self.indexOfPrivateToggle = indexPath;
             [cell setHasToggle:YES];
-            [cell setToggleState:[buttonForRow.value intValue]];
+            [cell setToggleState:![buttonForRow.value boolValue]];
             [cell setIndexPath:indexPath];
             [cell setToggleDelegate:self];
         }
@@ -234,15 +246,18 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 
 - (void)updateSwitchAtIndexPath:(NSIndexPath *)indexPath
 {
+
     GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    UISwitch *switchView = (UISwitch *)cell.accessoryView;
-    GTIOButton *buttonForRow = (GTIOButton *)[self.tableData objectAtIndex:(indexPath.section * self.sections.count) + indexPath.row];
-    buttonForRow.value = [NSNumber numberWithBool:switchView.on];
-    [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                         [NSNumber numberWithBool:switchView.on], @"public", nil] 
-                                withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                         @"mymanagement", @"screen", nil]
-                                        andLoginHandler:nil];
+    GTIOSwitch *switchView = (GTIOSwitch *)cell.accessoryView;
+       
+    if (switchView.isOn){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+        [alert show];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:@"No" otherButtonTitles: @"Yes", nil];
+        [alert show];
+    }    
 }
 
 #pragma mark - GTIOMeTableHeaderViewDelegate Methods
@@ -261,30 +276,64 @@ static NSString * const kGTIOCustomToggleCell = @"custom_cell_toggle";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[GTIOUser currentUser] logOutWithLogoutHandler:^(RKResponse *response) {
-            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            if (response) {
-                GTIOSignInViewController *signInViewController = (GTIOSignInViewController *)self.viewControllerToRouteTo;
-                [signInViewController setLoginHandler:^(GTIOUser *user, NSError *error) {
-                    // need to wait for the janrain screen to fade away before dismissing
-                    double delayInSeconds = 0.25;
-                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                        [self.navigationController dismissModalViewControllerAnimated:YES];
-                        [self.tableView setUserInteractionEnabled:YES];
-                        [self refreshScreenLayout];
-                        [self.profileHeaderView refreshUserData];
-                    });
+    if ([alertView.message isEqualToString:kGTIOAlertForLogout]){
+            if (buttonIndex == 0) {
+                [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+                [[GTIOUser currentUser] logOutWithLogoutHandler:^(RKResponse *response) {
+                    [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                    if (response) {
+                        GTIOSignInViewController *signInViewController = (GTIOSignInViewController *)self.viewControllerToRouteTo;
+                        [signInViewController setLoginHandler:^(GTIOUser *user, NSError *error) {
+                            // need to wait for the janrain screen to fade away before dismissing
+                            double delayInSeconds = 0.25;
+                            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                                [self.navigationController dismissModalViewControllerAnimated:YES];
+                                [self.tableView setUserInteractionEnabled:YES];
+                                [self refreshScreenLayout];
+                                [self.profileHeaderView refreshUserData];
+                            });
+                        }];
+                        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
+                        [self.navigationController presentModalViewController:navigationController animated:YES];
+                    }
                 }];
-                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:signInViewController];
-                [self.navigationController presentModalViewController:navigationController animated:YES];
+            } else {
+                [self.tableView setUserInteractionEnabled:YES];
             }
-        }];
-    } else {
-        [self.tableView setUserInteractionEnabled:YES];
+    } else if ([alertView.message isEqualToString:kGTIOAlertForTurningPrivateOn]) {
+       
+        // YES!
+        if (buttonIndex == 0){
+            [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                 [NSNumber numberWithBool:NO], @"public", nil]
+                                        withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                 @"mymanagement", @"screen", nil]
+                                                andLoginHandler:nil];
+            
+        } else {
+            GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexOfPrivateToggle];
+            [cell setToggleState:NO];
+        }
+    } else if ([alertView.message isEqualToString:kGTIOAlertForTurningPrivateOff]) {
+        // YES!
+        if (buttonIndex == 1){
+            [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                 [NSNumber numberWithBool:YES], @"public", nil]
+                                        withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                 @"mymanagement", @"screen", nil]
+                                                andLoginHandler:nil];
+            
+        } else {
+            GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexOfPrivateToggle];
+            [cell setToggleState:YES];
+        }
+
+        
     }
+       
+
+    
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "GTIOReviewsViewController.h"
+#import "GTIOProfileViewController.h"
 #import "GTIOReviewsTableViewHeader.h"
 #import "GTIOPost.h"
 #import "GTIOReviewsTableViewCell.h"
@@ -15,6 +16,9 @@
 #import "GTIOPostMasonryEmptyStateView.h"
 #import "GTIOCommentViewController.h"
 #import "GTIOFullScreenImageViewer.h"
+
+static CGFloat const kGITOReviewsEmptyViewPadding = -8.0f;
+static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
 
 @interface GTIOReviewsViewController ()
 
@@ -59,10 +63,10 @@
     }];
     self.leftNavigationButton = backButton;
     
-    self.tableViewHeader = [[GTIOReviewsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 87 }];
-    self.tableViewHeader.commentButtonTapHandler = ^(id sender) {        
-        GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithPostID:self.postID];
-        [self.navigationController pushViewController:commentViewController animated:YES];
+    self.tableViewHeader = [[GTIOReviewsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, kGITOReviewsTableHeaderHeight }];
+    __block typeof(self) blockSelf = self;
+    self.tableViewHeader.commentButtonTapHandler = ^(id sender) {
+        [blockSelf addComment];
     };
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
@@ -73,10 +77,13 @@
     self.tableView.tableHeaderView = self.tableViewHeader;
     [self.view addSubview:self.tableView];
     
-    self.tableFooterView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height - self.tableViewHeader.bounds.size.height - 70 }];
+    self.tableFooterView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height - self.tableViewHeader.bounds.size.height  }];
     self.emptyStateView = [[GTIOPostMasonryEmptyStateView alloc] initWithFrame:CGRectZero title:@"be the first to\nsay something!" userName:nil locked:NO];
     [self.tableFooterView addSubview:self.emptyStateView];
-    [self.emptyStateView setCenter:(CGPoint){ self.tableFooterView.bounds.size.width / 2, self.tableFooterView.bounds.size.height / 2 }];
+    [self.emptyStateView setCenter:(CGPoint){ self.tableFooterView.bounds.size.width / 2, self.tableFooterView.frame.size.height / 2 + kGITOReviewsEmptyViewPadding }];
+
+    UITapGestureRecognizer *emptyStateTapRecocgnizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addComment)];
+    [self.emptyStateView addGestureRecognizer:emptyStateTapRecocgnizer];
 }
 
 - (void)viewDidUnload
@@ -117,6 +124,9 @@
             if (self.reviews.count == 0) {
                 self.tableView.tableFooterView = self.tableFooterView;
             }
+            else {
+                [self.emptyStateView removeFromSuperview];
+            }
             [self.tableView reloadData];
         };
         loader.onDidFailWithError = ^(NSError *error) {
@@ -126,19 +136,59 @@
     }];
 }
 
-#pragma mark - GTIOReviewTableViewCellDelegate Methods
-
-- (void)updateDataSourceWithReview:(GTIOReview *)review atIndexPath:(NSIndexPath *)indexPath
+- (NSUInteger)indexOfReviewWithId:(NSString *)reviewID
 {
-    [self.reviews removeObjectAtIndex:indexPath.row];
-    [self.reviews insertObject:review atIndex:indexPath.row];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    return [self.reviews indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+       GTIOReview *review = (GTIOReview*)obj;
+       return [review.reviewID isEqualToString:reviewID];
+    }];
 }
 
-- (void)removeReviewAtIndexPath:(NSIndexPath *)indexPath
+- (void)addComment{
+    GTIOCommentViewController *commentViewController = [[GTIOCommentViewController alloc] initWithPostID:self.postID];
+    [self.navigationController pushViewController:commentViewController animated:YES];
+}
+
+- (void)goToProfileOfUserID:(NSString *)userID 
 {
-    [self.reviews removeObjectAtIndex:indexPath.row];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    GTIOProfileViewController *viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+    [viewController setUserID:userID];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+#pragma mark - GTIOReviewTableViewCellDelegate Methods
+
+- (void)removeReview:(GTIOReview *)review
+{
+    NSUInteger indexOfReview = [self.reviews indexOfObject:review];
+    [self.reviews removeObjectAtIndex:indexOfReview];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexOfReview inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)reviewButtonTap:(GTIOButton *)button reviewID:(NSString *)reviewID;
+{
+    __block typeof(self) blockSelf = self;
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOReview class]]) {
+
+                    // review button endpoints respond with a fresh review object so just update it                    
+                    GTIOReview *newReview = (GTIOReview *)object;
+                    
+                    [self.reviews replaceObjectAtIndex:[blockSelf indexOfReviewWithId:newReview.reviewID] withObject: newReview];
+
+                    NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:[blockSelf indexOfReviewWithId:newReview.reviewID] inSection:0], nil];
+                    [blockSelf.tableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
+                    
+                }
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
 }
 
 - (UIView *)viewForSpinner
@@ -171,14 +221,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellIdentifier = @"Cell";
+    static NSString *cellIdentifier = @"com.gtio.reviews.cell";
     
     GTIOReviewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (!cell) {
         cell = [[GTIOReviewsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    
+
     return cell;
 }
 
@@ -187,7 +237,6 @@
     GTIOReviewsTableViewCell *theCell = (GTIOReviewsTableViewCell *)cell;
     [theCell setReview:[self.reviews objectAtIndex:indexPath.row]];
     [theCell setDelegate:self];
-    [theCell setIndexPath:indexPath];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

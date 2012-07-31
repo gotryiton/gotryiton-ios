@@ -99,11 +99,11 @@
 {
     if (self.usesLightColors) {
         [self.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:11.0]];
-        [self.textLabel setTextColor:[UIColor gtio_lightestGrayTextColor]];
+        [self.textLabel setTextColor:[UIColor gtio_grayTextColorDADADA]];
         [self.shadowyBackground setImage:[[UIImage imageNamed:@"profile.top.buttons.bg.right.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, 3.0)]];
     } else {
         [self.textLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:11.0]];
-        [self.textLabel setTextColor:[UIColor gtio_lightGrayTextColor]];
+        [self.textLabel setTextColor:[UIColor gtio_grayTextColorB3B3B3]];
         [self.shadowyBackground setImage:[[UIImage imageNamed:@"profile.top.buttons.bg.left.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 3.0, 0.0, 0.0)]];
     }
 }

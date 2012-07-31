@@ -53,7 +53,7 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
         _autoCompleteButtonOptions = [[NSMutableArray alloc] init];
         
         // keep track of text in the input box
-        _inputText = [[NSString alloc] initWithString:@""];
+        _inputText = @"";
 
         // keep track of the position of the last word the user typed
         _positionOfLastWordTyped = NSMakeRange(0,1);
@@ -86,7 +86,7 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
         // NOTE: these are assigned to the attrString but are not displayed 
         // this is pending a refactor for iOS 6 support where they will be displayed
         _ACInputColor = CGColorRetain([UIColor gtio_grayTextColor404040].CGColor);
-        _ACPlaceholderColor = CGColorRetain([UIColor gtio_lightGrayTextColor].CGColor);
+        _ACPlaceholderColor = CGColorRetain([UIColor gtio_grayTextColorB3B3B3].CGColor);
         _ACHighlightColor = CGColorRetain([UIColor gtio_linkColor].CGColor);
 
         _ACPlaceholderFont = [UIFont gtio_verlagCoreTextFontWithWeight:GTIOFontVerlagLightItalic size:14.f];

@@ -7,11 +7,19 @@
 //
 
 #import "GTIOViewController.h"
-#import "SSPullToRefresh.h"
 #import "GTIOPost.h"
 
-@interface GTIOFeedViewController : GTIOViewController <SSPullToRefreshViewDelegate>
+@protocol GTIOFeedHeaderViewDelegate <NSObject>
+
+@required
+- (void)postHeaderViewTapWithUserId:(NSString *)userID;
+
+@end
+
+
+@interface GTIOFeedViewController : GTIOViewController
 
 - (id)initWithPostID:(NSString *)postID;
+- (id)initWithPost:(GTIOPost *)post;
 
 @end

@@ -8,26 +8,32 @@
 
 #import "GTIOFindMyFriendsTableViewCell.h"
 #import "GTIOSelectableProfilePicture.h"
+#import "UIImageView+WebCache.h"
+
+static CGFloat const kGTIORightPadding = 7.0;
+static CGFloat const kGTIOProfilePictureRightPadding = 10.0;
+static CGFloat const kGTIONameLabelYPosition = 17.0;
+static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
+static CGFloat const kGTIOUserBadgeVerticalOffset = -2.0;
+static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
 
 @interface GTIOFindMyFriendsTableViewCell()
 
 @property (nonatomic, strong) GTIOSelectableProfilePicture *profilePicture;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UIImageView *chevron;
 
 @property (nonatomic, strong) GTIOUIButton *followingButton;
 @property (nonatomic, strong) GTIOUIButton *followButton;
 @property (nonatomic, strong) GTIOUIButton *requestedButton;
 
 @property (nonatomic, strong) UIView *bottomBorder;
-
-@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, strong) UIImageView *badge;
 
 @end
 
 @implementation GTIOFindMyFriendsTableViewCell
 
-@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, chevron = _chevron, bottomBorder = _bottomBorder, followingButton = _followingButton, followButton = _followButton, requestedButton = _requestedButton, indexPath = _indexPath, delegate = _delegate;
+@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, bottomBorder = _bottomBorder, followingButton = _followingButton, followButton = _followButton, requestedButton = _requestedButton, badge = _badge, delegate = _delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -41,7 +47,7 @@
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:16.0];
-        _nameLabel.textColor = [UIColor gtio_grayTextColor];
+        _nameLabel.textColor = [UIColor gtio_grayTextColor8F8F8F];
         _nameLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_nameLabel];
         
@@ -57,14 +63,15 @@
         _requestedButton.hidden = YES;
         [self.contentView addSubview:_requestedButton];
         
-        _chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];
-        [_chevron setFrame:(CGRect){ 306, 18, _chevron.image.size }];
-        _chevron.alpha = 0.60;
-        [self.contentView addSubview:_chevron];
-        
         _bottomBorder = [[UIView alloc] initWithFrame:CGRectZero];
         _bottomBorder.backgroundColor = [UIColor gtio_groupedTableBorderColor];
         [self.contentView addSubview:_bottomBorder];
+
+        // Badge
+        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_badge];
+        
+
     }
     return self;
 }
@@ -77,27 +84,31 @@
     self.followButton.userInteractionEnabled = YES;
     self.followingButton.userInteractionEnabled = YES;
     self.requestedButton.userInteractionEnabled = YES;
+    [self.badge setFrame:CGRectZero];
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    [self.followingButton setFrame:(CGRect){ self.chevron.frame.origin.x - self.followingButton.bounds.size.width - 9, 9, self.followingButton.bounds.size }];
-    [self.followButton setFrame:(CGRect){ self.chevron.frame.origin.x - self.followButton.bounds.size.width - 9, 9, self.followButton.bounds.size }];
-    [self.requestedButton setFrame:(CGRect){ self.chevron.frame.origin.x - self.requestedButton.bounds.size.width - 9, 9, self.requestedButton.bounds.size }];
+    [self.followingButton setFrame:(CGRect){ self.bounds.size.width - self.followingButton.bounds.size.width - kGTIORightPadding, 9, self.followingButton.bounds.size }];
+    [self.followButton setFrame:(CGRect){ self.bounds.size.width - self.followButton.bounds.size.width - kGTIORightPadding, 9, self.followButton.bounds.size }];
+    [self.requestedButton setFrame:(CGRect){ self.bounds.size.width - self.requestedButton.bounds.size.width - kGTIORightPadding, 9, self.requestedButton.bounds.size }];
     
-    double nameLableXPosition = self.profilePicture.frame.origin.x + self.profilePicture.bounds.size.width + 10;
-    [self.nameLabel setFrame:(CGRect){ nameLableXPosition, 17, self.followingButton.frame.origin.x - nameLableXPosition - 10, 20 }];
-    [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - 1, self.contentView.bounds.size.width, 1 }];
+    double nameLableXPosition = self.profilePicture.frame.origin.x + self.profilePicture.bounds.size.width + kGTIOProfilePictureRightPadding;
+    [self.nameLabel setFrame:(CGRect){ nameLableXPosition, kGTIONameLabelYPosition, self.followingButton.frame.origin.x - nameLableXPosition - kGTIOProfilePictureRightPadding, 20 }];
+    [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - kGTIOBottomBorderVerticalOffset, self.contentView.bounds.size.width, 1 }];
+
+    if (self.user.badge) {
+        [self.badge setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.nameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
+    }
 }
 
-- (void)setUser:(GTIOUser *)user indexPath:(NSIndexPath *)indexPath
+- (void)setUser:(GTIOUser *)user
 {
     if (![_user isEqual:user]) {
         _user = user;
     }
-    self.indexPath = indexPath;
     [self.profilePicture setImageWithURL:_user.icon];
     self.nameLabel.text = _user.name;
     
@@ -129,10 +140,10 @@
                     for (id object in objects) {
                         if ([object isMemberOfClass:[GTIOUser class]]) {
                             GTIOUser *newUser = (GTIOUser *)object;
-                            [blockSelf setUser:newUser indexPath:blockSelf.indexPath];
-                            if ([blockSelf.delegate respondsToSelector:@selector(updateDataSourceWithUser:atIndexPath:)]) {
-                                [blockSelf.delegate updateDataSourceWithUser:newUser atIndexPath:blockSelf.indexPath];
+                            if ([blockSelf.delegate respondsToSelector:@selector(updateDataSourceUser:withUser:)]) {
+                                [blockSelf.delegate updateDataSourceUser:blockSelf.user withUser:newUser];
                             }
+                            [blockSelf setUser:newUser];
                         }
                     }
                 };
@@ -146,6 +157,10 @@
         followButton.userInteractionEnabled = NO;
     }
     
+    if (_user.badge) {
+        [self.badge setImageWithURL:[user.badge badgeImageURLForUserList]];
+    }
+
     [self setNeedsLayout];
 }
 
@@ -158,5 +173,11 @@
 {
     self.backgroundColor = (highlighted) ? [UIColor gtio_findMyFriendsTableCellActiveColor] : [UIColor whiteColor];
 }
+
+-(CGSize)nameLabelSize
+{
+    return [self.user.name sizeWithFont:self.nameLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
+}
+
 
 @end

@@ -11,7 +11,6 @@
 @implementation GTIOPostAutoCompleteView
 
 @synthesize textViewDidEndHandler = _textViewDidEndHandler, textViewWillBecomeActiveHandler = _textViewWillBecomeActiveHandler, textViewDidBecomeActiveHandler = _textViewDidBecomeActiveHandler;
-@synthesize forceBecomeFirstResponder = _forceBecomeFirstResponder;
 
 @synthesize placeHolderLabelView = _placeHolderLabelView;
 
@@ -65,17 +64,9 @@
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     [self hidePlaceholderLabel];
-    if (self.textViewWillBecomeActiveHandler && !self.forceBecomeFirstResponder) {
-        [self setForceBecomeFirstResponder:YES];
-        
-        [self showPlaceholderText];
+    [self showPlaceholderText];
 
-        self.textViewWillBecomeActiveHandler(self);
-        return NO;
-    } else {
-        [self setForceBecomeFirstResponder:NO];
-        return YES;
-    }
+    return YES;
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -88,6 +79,9 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     [self hideOrShowPlaceholderLabel];
+    if (self.textViewDidEndHandler) {
+        self.textViewDidEndHandler(self, YES);
+    }
 }
 
 

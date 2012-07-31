@@ -7,11 +7,12 @@
 //
 
 #import "GTIOMeTableViewCell.h"
+#import "UIColor+GTIOAdditions.h"
 
 @interface GTIOMeTableViewCell()
 
 @property (nonatomic, strong) UIImageView *heart;
-@property (nonatomic, strong) UISwitch *toggleSwitch;
+@property (nonatomic, strong) GTIOSwitch *toggleSwitch;
 @property (nonatomic, strong) UIImageView *chevron;
 
 @end
@@ -24,8 +25,11 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+       
         [self setBackgroundColor:[UIColor whiteColor]];
         
+        self.selectionStyle = UITableViewCellSelectionStyleGray;
+               
         [self.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:16.0]];
         [self.textLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         
@@ -35,8 +39,25 @@
         
         _chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];
     
-        _toggleSwitch = [[UISwitch alloc] initWithFrame:(CGRect){ 0, 0, 36, 17 }];
-        [_toggleSwitch addTarget:self action:@selector(toggleSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+        UIImage * toggleBackground = [UIImage imageNamed:@"management.slider.bg.png"];
+        _toggleSwitch = [[GTIOSwitch alloc] initWithFrame:(CGRect){ 0, 0, toggleBackground.size }];
+        [_toggleSwitch setTrack:[UIImage imageNamed:@"management.slider.rail.png"]];
+        [_toggleSwitch setTrackFrame:toggleBackground];
+        [_toggleSwitch setTrackFrameMask:[UIImage imageNamed:@"management.slider.mask.png"]];
+        [_toggleSwitch setKnob:[UIImage imageNamed:@"management.slider.handle.png"]];
+        [_toggleSwitch setKnobXOffset:-2];
+        [_toggleSwitch setKnobYOffset:1];
+        [_toggleSwitch setOn:NO];
+
+        __block typeof(self) blockSelf = self;
+        [_toggleSwitch setChangeHandler:^(BOOL on) {
+            if (blockSelf.indexPath) {
+                if ([blockSelf.toggleDelegate respondsToSelector:@selector(updateSwitchAtIndexPath:)]) {
+                    [blockSelf.toggleDelegate updateSwitchAtIndexPath:self.indexPath];
+                }
+            }
+        }];        
+        
     }
     return self;
 }
@@ -70,7 +91,7 @@
 
 - (void)setToggleState:(BOOL)on
 {
-    [self.toggleSwitch setOn:on];
+    [self.toggleSwitch setOn:on sendActions:NO];
 }
 
 - (void)setHasChevron:(BOOL)hasChevron
@@ -82,6 +103,7 @@
 - (void)setHasToggle:(BOOL)hasToggle
 {
     _hasToggle = hasToggle;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self refreshAccessoryView];
 }
 

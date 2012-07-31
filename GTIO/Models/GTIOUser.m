@@ -10,6 +10,8 @@
 #import "GTIOConfigManager.h"
 #import "GTIOAuth.h"
 
+#import "UAirship.h"
+
 @interface GTIOUser ()
 
 @property (nonatomic, copy) GTIOLoginHandler loginHandler;
@@ -20,12 +22,6 @@
 
 @implementation GTIOUser
 
-@synthesize userID = _userID, name = _name, icon = _icon, birthYear = _birthYear, location = _location, aboutMe = _aboutMe, city = _city, state = _state, gender = _gender, service = _service, auth = _auth, isNewUser = _isNewUser, hasCompleteProfile = _hasCompleteProfile, email = _email, url = _url, isFacebookConnected = _isFacebookConnected, badge = _badge, userDescription = _userDescription, button = _button;
-@synthesize facebook = _facebook, facebookAuthResourcePath = _facebookAuthResourcePath;
-@synthesize loginHandler = _loginHandler;
-@synthesize janrain = _janrain, janrainAuthResourcePath = _janrainAuthResourcePath, selected = _selected;
-@synthesize action = _action;
-
 + (GTIOUser *)currentUser
 {
     static GTIOUser *user = nil;
@@ -33,6 +29,7 @@
     dispatch_once(&onceToken, ^{
         user = [[self alloc] init];
     });
+    NSLog(@"User token: %@", [[GTIOAuth alloc] init].token);
     return user;
 }
 
@@ -71,6 +68,7 @@
             // Populate self with returned User values
             if (user) {
                 [self populateWithUser:user];
+                [self updateUrbanAirshipAliasWithUserID:user.userID];
             }
             
             if (self.loginHandler) {
@@ -79,6 +77,7 @@
         };
         
         loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"Error Response: %@", [loader.response bodyAsString]);
             if (self.loginHandler) {
                 self.loginHandler(nil, error);
             }
@@ -162,6 +161,7 @@
             // Populate self with returned User values
             if (user) {
                 [self populateWithUser:user];
+                [self updateUrbanAirshipAliasWithUserID:user.userID];
             }
             
             if (self.loginHandler) {
@@ -270,6 +270,7 @@
             // Populate self with returned User values
             if (user) {
                 [self populateWithUser:user];
+                [self updateUrbanAirshipAliasWithUserID:user.userID];
             }
             
             if (self.loginHandler) {
@@ -290,6 +291,13 @@
 {
     if (self.loginHandler) {
         self.loginHandler(nil, error);
+    }
+}
+
+- (void)jrAuthenticationDidNotComplete
+{
+    if (self.loginHandler) {
+        self.loginHandler(nil, [NSError errorWithDomain:JREngageErrorDomain code:JRAuthenticationCanceledError userInfo:nil]);
     }
 }
 
@@ -385,6 +393,19 @@
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
+}
+
+#pragma mark - Push Notifications
+
+- (void)updateUrbanAirshipAliasWithUserID:(NSString *)userID
+{
+    NSData *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:kGTIOPushNotificationDeviceTokenUserDefaults];
+    
+    if (deviceToken && [userID length] > 0) {
+        [[UAirship shared] registerDeviceToken:deviceToken withAlias:userID];
+    } else {
+        NSLog(@"No device token or user id to register for push");
+    }
 }
 
 @end

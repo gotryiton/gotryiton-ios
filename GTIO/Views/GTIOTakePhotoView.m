@@ -16,6 +16,7 @@ static CGFloat const kGTIOEditPhotoPadding = 6.0f;
 static NSString * const kGTIOAddAFilterResource = @"add-a-filter";
 static NSString * const kGTIOReplacePhotoResource = @"replace-photo";
 static NSString * const kGTIOSwapWithResource = @"swap-with";
+static CGFloat const kGTIOCameraButtonTapPadding = 5.0;
 
 @interface GTIOTakePhotoView() <UIScrollViewDelegate>
 
@@ -34,16 +35,6 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
 
 @implementation GTIOTakePhotoView
 
-@synthesize filteredImage = _filteredImage, originalImage = _originalImage;
-@synthesize filterName = _filterName;
-@synthesize photoSelectButton = _photoSelectButton, canvas = _canvas, imageView = _imageView, editPhotoButton = _editPhotoButton;
-@synthesize lastScale = _lastScale, firstX = _firstX, firstY = _firstY;
-@synthesize editPhotoButtonPosition = _editPhotoButtonPosition;
-@synthesize launchCameraHandler = _launchCameraHandler, swapPhotoHandler = _swapPhotoHandler, addFilterHandler = _addFilterHandler;
-@synthesize photoSection = _photoSection, photoSet = _photoSet;
-@synthesize actionSheet = _actionSheet;
-@synthesize scrollView = _scrollView;
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -60,6 +51,7 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
         self.photoSelectButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoSelectBox];
         [self.photoSelectButton setFrame:(CGRect){ 0, 0, self.bounds.size }];
         [self.photoSelectButton addTarget:self action:@selector(getImageFromCamera:) forControlEvents:UIControlEventTouchUpInside];
+        [self.photoSelectButton setTapAreaPadding:kGTIOCameraButtonTapPadding];
         [self addSubview:self.photoSelectButton];
         
         // Edit Photo Button
@@ -73,6 +65,7 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
             }];
         }];
         [_editPhotoButton setFrame:(CGRect){ { kGTIOEditPhotoPadding, kGTIOEditPhotoPadding }, _editPhotoButton.frame.size }];
+        [_editPhotoButton setTapAreaPadding:kGTIOCameraButtonTapPadding];
     }
     return self;
 }
@@ -88,6 +81,7 @@ static NSString * const kGTIOSwapWithResource = @"swap-with";
     self.originalImage = nil;
     self.filteredImage = nil;
     self.filterName = nil;
+    self.productID = nil;
 }
 
 - (void)setFilteredImage:(UIImage *)filteredImage

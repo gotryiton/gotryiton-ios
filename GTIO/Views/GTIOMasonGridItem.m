@@ -16,22 +16,24 @@
 
 @implementation GTIOMasonGridItem
 
-@synthesize URL = _URL, image = _image, delegate = _delegate, imageDownloader = _imageDownloader;
+@synthesize image = _image, delegate = _delegate, imageDownloader = _imageDownloader;
+@synthesize object = _object;
 
-+ (id)itemWithURL:(NSURL *)URL
++ (id)itemWithObject:(id<GTIOGridItem>)object
 {
     GTIOMasonGridItem *item = [[GTIOMasonGridItem alloc] init];
-    item.URL = URL;
+    item.object = object;
     return item;
 }
 
 - (void)downloadImage
 {
-    self.imageDownloader = [SDWebImageDownloader downloaderWithURL:self.URL delegate:self];
+    self.imageDownloader = [SDWebImageDownloader downloaderWithURL:self.object.photo.smallThumbnailURL delegate:self];
 }
 
 - (void)cancelImageDownload
 {
+    self.imageDownloader.delegate = nil;
     [self.imageDownloader cancel];
 }
 

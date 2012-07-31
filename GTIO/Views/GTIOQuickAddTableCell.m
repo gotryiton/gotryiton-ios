@@ -10,6 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+WebCache.h"
 
+static CGFloat const kGTIOUserBadgeVerticalOffset = - 2.0;
+static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
+
 @interface GTIOQuickAddTableCell()
 
 @property (nonatomic, strong) GTIOUIButton *checkbox;
@@ -27,7 +30,7 @@
     if (self) {
         // Name
         [self.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:18.0]];
-        [self.textLabel setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
+        [self.textLabel setTextColor:[UIColor gtio_grayTextColor515152]];
         
         // Description
         [self.detailTextLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0]];
@@ -58,6 +61,7 @@
 - (void)prepareForReuse
 {
     self.user = nil;
+    [self.badge setFrame:CGRectZero];
 }
 
 - (void)setUser:(GTIOUser *)user
@@ -65,14 +69,14 @@
     _user = user;
     
     [self.textLabel setText:self.user.name];
-    [self.detailTextLabel setText:self.user.userDescription];
+    [self.detailTextLabel setText:[self.user.userDescription uppercaseString]];
     __block GTIOQuickAddTableCell *blockSelf = self;
     [self.imageView setImageWithURL:self.user.icon success:^(UIImage *image) {
         [blockSelf setNeedsLayout];
     } failure:nil];
     [self.checkbox setSelected:self.user.selected];
     if (self.user.badge) {
-        [self.badge setImageWithURL:[user.badge badgeImageURL]];
+        [self.badge setImageWithURL:[user.badge badgeImageURLForUserList] success:nil failure:nil];
     }
     [self setNeedsLayout];
 }
@@ -87,7 +91,7 @@
     }
     
     [self.user setSelected:button.selected];
-}
+}	
 
 - (void)layoutSubviews
 {
@@ -97,8 +101,14 @@
     [self.textLabel setFrame:CGRectOffset(self.textLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 0.0)];
     [self.detailTextLabel setFrame:CGRectOffset(self.detailTextLabel.frame, (self.imageView.image) ? -10.0 : 0.0, -2.0)];
     if (self.user.badge) {
-        [self.badge setFrame:(CGRect){ self.textLabel.frame.origin.x + self.textLabel.bounds.size.width + 2.0, self.textLabel.frame.origin.y + 2.0, 15, 15 }];
+        [self.badge setFrame:(CGRect){ (self.textLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.textLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
     }
 }
+
+-(CGSize)nameLabelSize
+{
+    return [self.user.name sizeWithFont:self.textLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
+}
+
 
 @end

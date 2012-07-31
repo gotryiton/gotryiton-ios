@@ -35,7 +35,14 @@
 #import "GTIOFindMyFriendsScreen.h"
 #import "GTIOReview.h"
 #import "GTIONotification.h"
+#import "GTIOTab.h"
 #import "GTIOProduct.h"
+#import "GTIOProductOption.h"
+#import "GTIOCollection.h"
+#import "GTIOBannerImage.h"
+#import "GTIOTag.h"
+#import "GTIORecentTag.h"
+#import "GTIOTrendingTag.h"
 
 @implementation GTIOMappingProvider
 
@@ -71,7 +78,14 @@
         RKObjectMapping *findMyFriendsScreenMapping = [RKObjectMapping mappingForClass:[GTIOFindMyFriendsScreen class]];
         RKObjectMapping *reviewMapping = [RKObjectMapping mappingForClass:[GTIOReview class]];
         RKObjectMapping *notificationMapping = [RKObjectMapping mappingForClass:[GTIONotification class]];
+        RKObjectMapping *tabMapping = [RKObjectMapping mappingForClass:[GTIOTab class]];
         RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[GTIOProduct class]];
+        RKObjectMapping *productOptionMapping = [RKObjectMapping mappingForClass:[GTIOProductOption class]];
+        RKObjectMapping *collectionMapping = [RKObjectMapping mappingForClass:[GTIOCollection class]];
+        RKObjectMapping *bannerImageMapping = [RKObjectMapping mappingForClass:[GTIOBannerImage class]];
+        RKObjectMapping *tagMapping = [RKObjectMapping mappingForClass:[GTIOTag class]];
+        RKObjectMapping *recentTagMapping = [RKObjectMapping mappingForClass:[GTIORecentTag class]];
+        RKObjectMapping *trendingTagMapping = [RKObjectMapping mappingForClass:[GTIOTrendingTag class]];
         
         /** Products
          */
@@ -81,11 +95,32 @@
         [productMapping mapKeyPath:@"name" toAttribute:@"productName"];
         [productMapping mapKeyPath:@"buy_url" toAttribute:@"buyURL"];
         [productMapping mapKeyPath:@"pretty_price" toAttribute:@"prettyPrice"];
+        [productMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [productMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
-        [productMapping mapKeyPath:@"brands" toAttribute:@"brands"];
+        [productMapping mapKeyPath:@"brand" toAttribute:@"brand"];
         [productMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [self setMapping:productMapping forKeyPath:@"product"];
         [self setMapping:productMapping forKeyPath:@"products"];
+        
+        // GTIOProductOption
+        [productOptionMapping mapKeyPath:@"id" toAttribute:@"productOptionID"];
+        [productOptionMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
+        [productOptionMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:productOptionMapping forKeyPath:@"product_options"];
+        
+        // GTIOBannerImage
+        [bannerImageMapping mapKeyPath:@"image" toAttribute:@"imageURL"];
+        [bannerImageMapping mapKeyPath:@"width" toAttribute:@"width"];
+        [bannerImageMapping mapKeyPath:@"height" toAttribute:@"height"];
+        [bannerImageMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        
+        // GTIOCollection
+        [collectionMapping mapKeyPath:@"id" toAttribute:@"collectionID"];
+        [collectionMapping mapKeyPath:@"name" toAttribute:@"name"];
+        [collectionMapping mapKeyPath:@"banner_image" toRelationship:@"bannerImage" withMapping:bannerImageMapping];
+        [collectionMapping mapKeyPath:@"custom_nav_image" toAttribute:@"customNavigationImageURL"];
+        [collectionMapping mapKeyPath:@"options" toRelationship:@"dotOptions" withMapping:buttonMapping];
+        [self setMapping:collectionMapping forKeyPath:@"collection"];
         
         /** Config
          */
@@ -162,6 +197,8 @@
         [userPhotoMapping mapKeyPath:@"main_image" toAttribute:@"mainImageURL"];
         [userPhotoMapping mapKeyPath:@"small_thumbnail" toAttribute:@"smallThumbnailURL"];
         [userPhotoMapping mapKeyPath:@"square_thumbnail" toAttribute:@"squareThumbnailURL"];
+        [userPhotoMapping mapKeyPath:@"star" toAttribute:@"isStarred"];
+        [userPhotoMapping mapKeyPath:@"small_square_thumbnail" toAttribute:@"smallSquareThumbnailURL"];
         [userPhotoMapping mapAttributes:@"url", @"width", @"height", nil];
         [self setMapping:userPhotoMapping forKeyPath:@"photo"];
         
@@ -244,17 +281,21 @@
         [postMapping mapKeyPath:@"description" toAttribute:@"postDescription"];
         [postMapping mapKeyPath:@"created_at" toAttribute:@"createdAt"];
         [postMapping mapKeyPath:@"created_when" toAttribute:@"createdWhen"];
-        [postMapping mapKeyPath:@"star" toAttribute:@"stared"];
         [postMapping mapKeyPath:@"who_hearted" toAttribute:@"whoHearted"];
+        [postMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [postMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"dot_options.buttons" toRelationship:@"dotOptionsButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"brands.buttons" toRelationship:@"brandsButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
         [postMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
-        [postMapping mapRelationship:@"user" withMapping:userMapping];
+        [postMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping];
         [self setMapping:postMapping forKeyPath:@"post"];
         [self setMapping:postMapping forKeyPath:@"posts"];
         [self setMapping:postMapping forKeyPath:@"feed"];
+        
+        // GTIOTab
+        [tabMapping mapAttributes:@"name", @"text", @"endpoint", @"selected", nil];
+        [self setMapping:tabMapping forKeyPath:@"tabs"];
         
         /** Review
          */
@@ -280,6 +321,25 @@
         [autocompleterMapping mapKeyPath:@"id" toAttribute:@"completerID"];
         [autocompleterMapping mapAttributes:@"name", @"icon", nil];
         [self setMapping:autocompleterMapping forKeyPath:@"dictionary"];
+        
+        /** Tags
+         */
+        [tagMapping mapAttributes:@"text", nil];
+        [tagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
+        [tagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:tagMapping forKeyPath:@"search_result_tags"];
+    
+        // GTIORecentTag
+        [recentTagMapping mapAttributes:@"text", nil];
+        [recentTagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
+        [recentTagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:recentTagMapping forKeyPath:@"recent"];
+    
+        // GTIOTrendingTag
+        [trendingTagMapping mapAttributes:@"text", nil];
+        [trendingTagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
+        [trendingTagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [self setMapping:trendingTagMapping forKeyPath:@"trending"];
     }
     return self;
 }

@@ -13,18 +13,19 @@
 @protocol GTIOReviewsTableViewCellDelegate <NSObject>
 
 @required
-- (void)updateDataSourceWithReview:(GTIOReview *)review atIndexPath:(NSIndexPath *)indexPath;
-- (void)removeReviewAtIndexPath:(NSIndexPath *)indexPath;
+- (void)removeReview:(GTIOReview *)review;
+- (void)reviewButtonTap:(GTIOButton *)button reviewID:(NSString *)reviewID;
+- (void)goToProfileOfUserID:(NSString *)userID;
 - (UIView *)viewForSpinner;
 
 @end
 
-@interface GTIOReviewsTableViewCell : UITableViewCell <DTAttributedTextContentViewDelegate, UIAlertViewDelegate>
+@interface GTIOReviewsTableViewCell : UITableViewCell <DTAttributedTextContentViewDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) GTIOReview *review;
-@property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, weak) id<GTIOReviewsTableViewCellDelegate> delegate;
 
 + (CGFloat)heightWithReview:(GTIOReview *)review;
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
 
 @end

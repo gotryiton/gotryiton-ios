@@ -7,6 +7,7 @@
 //
 
 #import "GTIOUIButton.h"
+#import "GTIOHeartToggleButton.h"
 
 @implementation GTIOUIButton
 
@@ -43,6 +44,7 @@
         case GTIOButtonTypePhotoSelectBox: return [self gtio_photoSelectBox];
         case GTIOButtonTypeEditPhoto: return [self gtio_editPhotoButton];
         case GTIOButtonTypePostThis: return [self gtio_postThisButton];
+        case GTIOButtonTypePhotoFrameHandle: return [self gtio_photoFrameHandleButton];
         case GTIOButtonTypePhotoDelete: return [self gtio_photoDeleteButton];
         case GTIOButtonTypeNotificationBubble: return [self gtio_notificationBubbleButton];
         case GTIOButtonTypeNotificationBubbleEmpty: return [self gtio_notificationBubbleEmptyButton];
@@ -61,6 +63,7 @@
         case GTIOButtonTypeRequestedButtonRegular: return [self gtio_requestedButtonRegular];
         case GTIOButtonTypeCloseButtonForNavBar: return [self gtio_closeButtonGrayTopMargin];
         case GTIOButtonTypeReload: return [self gtio_reloadButtonTopMargin];
+        case GTIOButtonTypeFindFriends: return [self gtio_findFriendsTopRightButton];
         case GTIOButtonTypeHeart: return [self gtio_heartButton];
         case GTIOButtonTypeFlag: return [self gtio_flagButton];
         case GTIOButtonTypeRemove: return [self gtio_removeButton];
@@ -75,6 +78,16 @@
         case GTIOButtonTypeAutoCompleteHashtag: return [self gtio_autoCompleteHashtagButton];
         case GTIOButtonTypeAutoCompleteAttag: return [self gtio_autoCompleteAttagButton];
         case GTIOButtonTypeAutoCompleteBrandtag: return [self gtio_autoCompleteBrandtagButton];
+        case GTIOButtonTypeProductShoppingListHeart: return [self gtio_productShoppingListHeartButton];
+        case GTIOButtonTypeProductShoppingListEmail: return [self gtio_productListEmailButton];
+        case GTIOButtonTypeProductShoppingListBuy: return [self gtio_productListBuyButton];
+        case GTIOButtonTypeProductShoppingListDelete: return [self gtio_productShoppingListDeleteButton];
+        case GTIOButtonTypeProductShoppingListEmailMyList: return [self gtio_productShoppingListEmailMyListButton];
+        case GTIOButtonTypeProductShoppingListProductOption: return [self gtio_productShoppingListProductOptionButton];
+        case GTIOButtonTypeProductShoppingListNav: return [self gtio_productShoppingListNavButton];
+        case GTIOButtonTypeInviteFriendsSMS: return [self gtio_inviteFriendsSMSButton];
+        case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
+        case GTIOButtonTypeInviteFriendsFacebook: return [self gtio_inviteFriendsFacebookButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -192,7 +205,7 @@
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.inactive.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"nav.button.active.topmargin.png"] stretchableImageWithLeftCapWidth:3.0 topCapHeight:3.0] forState:UIControlStateHighlighted];
     [button setTitle:text forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor gtio_grayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor8F8F8F] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:11.0]];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(5.0, 1.0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -331,7 +344,7 @@
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-disabled.png"] forState:UIControlStateDisabled];
     [button setFrame:(CGRect){ 0, 0, [UIImage imageNamed:@"follow-button-off.png"].size }];
     [button.titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:18.0]];
-    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(7.0, 0, 0, 0)];
     [button setTitle:@"follow" forState:UIControlStateDisabled];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -365,7 +378,7 @@
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[[UIImage imageNamed:@"profile.top.link.bg.png"] stretchableImageWithLeftCapWidth:2.0 topCapHeight:0.0] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
-    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
@@ -376,7 +389,7 @@
     [button setBackgroundImage:[UIImage imageNamed:@"follow-OFF-top-margin.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"follow-ON-top-margin.png"] forState:UIControlStateHighlighted];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"follow" forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -390,7 +403,7 @@
     [button setBackgroundImage:[UIImage imageNamed:@"following-OFF-top-margin.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"following-ON-top-margin.png"] forState:UIControlStateHighlighted];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"following" forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -431,7 +444,7 @@
     [button setBackgroundImage:[UIImage imageNamed:@"requested-OFF-top-margin.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"requested-ON-top-margin.png"] forState:UIControlStateHighlighted];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
-    [button setTitleColor:[UIColor gtio_reallyDarkGrayTextColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"requested" forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -536,6 +549,44 @@
     return button;
 }
 
++ (id)gtio_productShoppingListDeleteButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"shopping.cell.close.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.cell.close.active.png"]];
+}
+
++ (id)gtio_productListEmailButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.email.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.button.email.active.png"]];
+}
+
++ (id)gtio_productListBuyButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.buy.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.button.buy.active.png"]];
+}
+
++ (id)gtio_photoFrameHandleButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"photo-frame-handle-inactive.png"] hightlightImage:nil];
+}
+
++ (id)gtio_productShoppingListProductOptionButton
+{
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shopping.bottom.image.overlay.png"] hightlightImage:[UIImage imageNamed:@"shopping.bottom.image.overlay.active.png"]];
+    button.clipsToBounds = NO;
+    UIImageView *plusSignView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shopping.bottom.plus.inactive.png"]];
+    [plusSignView setFrame:(CGRect){ button.bounds.size.width - plusSignView.bounds.size.width + 7, -(plusSignView.bounds.size.height / 2) + 8, plusSignView.bounds.size }];
+    [button addSubview:plusSignView];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:button action:@selector(buttonWasTouchedDraggedExited:) forControlEvents:UIControlEventTouchDragExit];
+    [button addTarget:button action:@selector(buttonWasTouchedDownInside:) forControlEvents:UIControlEventTouchDown];
+    return button;
+}
+
++ (id)gtio_productShoppingListNavButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
+}
+
 + (id)gtio_maskButton
 {
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
@@ -548,6 +599,13 @@
 + (id)gtio_reloadButtonTopMargin
 {
     return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.icon.refresh.png"] hightlightImage:nil];
+}
+
++ (id)gtio_findFriendsTopRightButton
+{
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.search.icon.png"] hightlightImage:nil];
+    [button setFrame:(CGRect){ button.bounds.origin, button.bounds.size.width + 10, button.bounds.size.height }];
+    return button;
 }
 
 + (id)gtio_postRetryButton
@@ -565,6 +623,7 @@
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.twit.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.twit.active.png"]];
 }
 
+<<<<<<< HEAD
 + (id)gtio_autoCompleteHashtagButton
 {
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-2-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-2-active.png"]];
@@ -578,6 +637,34 @@
 + (id)gtio_autoCompleteBrandtagButton
 {
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-3-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-3-active.png"]];
+=======
++ (id)gtio_productShoppingListHeartButton
+{
+    GTIOUIButton *button = [[GTIOHeartToggleButton alloc] initWithFrame:CGRectZero];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button sizeToFit];
+    return button;
+}
+
++ (id)gtio_productShoppingListEmailMyListButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"shopping.navigation.bar.button.share.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.navigation.bar.button.share.active.png"]];
+}
+
++ (id)gtio_inviteFriendsSMSButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.sms.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.sms.off.png"]];
+}
+
++ (id)gtio_inviteFriendsEmailButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"]];
+}
+
++ (id)gtio_inviteFriendsFacebookButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.facebook.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.facebook.off.png"]];
+>>>>>>> refs/heads/master
 }
 
 #pragma mark - Touch Handling
@@ -601,6 +688,17 @@
     if (self.touchDragExitHandler) {
         self.touchDragExitHandler(sender);
     }
+}
+
+- (void)setTapAreaPadding:(CGFloat)tapAreaPadding
+{
+    _tapAreaPadding = tapAreaPadding;
+    self.tapAreaPaddingInsets = UIEdgeInsetsMake(-tapAreaPadding, -tapAreaPadding, -tapAreaPadding, -tapAreaPadding);
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    CGRect paddedFrame =  UIEdgeInsetsInsetRect(self.bounds, self.tapAreaPaddingInsets);
+    return (CGRectContainsPoint(paddedFrame, point) == 1);
 }
 
 @end

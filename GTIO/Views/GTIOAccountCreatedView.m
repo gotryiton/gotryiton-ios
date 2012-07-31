@@ -59,7 +59,7 @@
         _betterWhenShared = [[UILabel alloc] initWithFrame:CGRectZero];
         [_betterWhenShared setBackgroundColor:[UIColor clearColor]];
         [_betterWhenShared setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLightItal size:17.0]];
-        [_betterWhenShared setTextColor:[UIColor gtio_reallyDarkGrayTextColor]];
+        [_betterWhenShared setTextColor:[UIColor gtio_grayTextColor515152]];
         [_betterWhenShared setText:@"style is better when shared!"];
         [_betterWhenShared setTextAlignment:UITextAlignmentCenter];
         [self addSubview:_betterWhenShared];
