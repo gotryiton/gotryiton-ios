@@ -25,6 +25,7 @@
 #import "GTIOFeedNavigationBarView.h"
 #import "GTIOFriendsViewController.h"
 #import "GTIOProfileViewController.h"
+#import "GTIORetryHUD.h"
 
 #import "GTIOPullToRefreshContentView.h"
 
@@ -241,13 +242,20 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
             [self.pullToRefreshView finishLoading];
             
             [self checkAndDisplayEmptyState];
+            
+            [GTIORetryHUD showHUDAddedTo:self.view text:@"couldn't connect to Go Try It On" retryHandler:^(GTIORetryHUD *HUD) {
+                NSLog(@"test");
+                double delayInSeconds = 2.0;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [GTIORetryHUD hideHUDForView:self.view];
+                });
+            }];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToRefreshView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            NSLog(@"Error: %@", [error localizedDescription]);
-            
-            // TODO: Display error state
+            [GTIOErrorController displayAlertViewForError:error];
         };
     }];
 }

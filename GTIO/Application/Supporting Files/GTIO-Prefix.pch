@@ -17,4 +17,5 @@
     #import "UIColor+GTIOAdditions.h"
     #import "GTIOUIButton.h"
     #import "GTIOProgressHUD.h"
+    #import "GTIOErrorController.h"
 #endif

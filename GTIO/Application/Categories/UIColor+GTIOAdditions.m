@@ -183,6 +183,11 @@
     return UIColorFromRGB(0xD9D7CE);
 }
 
++ (UIColor *)gtio_grayTextColor949494
+{
+    return UIColorFromRGB(0x949494);
+}
+
 + (UIColor *)gtio_selectedCellBGColorC6F0DE
 {
     return UIColorFromRGB(0xC6F0DE);

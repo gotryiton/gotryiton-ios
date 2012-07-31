@@ -43,6 +43,8 @@
 #import "GTIOTag.h"
 #import "GTIORecentTag.h"
 #import "GTIOTrendingTag.h"
+#import "GTIOError.h"
+#import "GTIOAlert.h"
 
 @implementation GTIOMappingProvider
 
@@ -86,6 +88,8 @@
         RKObjectMapping *tagMapping = [RKObjectMapping mappingForClass:[GTIOTag class]];
         RKObjectMapping *recentTagMapping = [RKObjectMapping mappingForClass:[GTIORecentTag class]];
         RKObjectMapping *trendingTagMapping = [RKObjectMapping mappingForClass:[GTIOTrendingTag class]];
+        RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[GTIOError class]];
+        RKObjectMapping *alertMapping = [RKObjectMapping mappingForClass:[GTIOAlert class]];
         
         /** Products
          */
@@ -340,6 +344,18 @@
         [trendingTagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
         [trendingTagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [self setMapping:trendingTagMapping forKeyPath:@"trending"];
+        
+        /** Errors
+         */
+        
+        // Alert
+        [alertMapping mapAttributes:@"text", @"title", nil];
+        [alertMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
+        
+        // Error
+        [errorMapping mapAttributes:@"status", nil];
+        [errorMapping mapKeyPath:@"alert" toRelationship:@"alert" withMapping:alertMapping];
+        [self setObjectMapping:errorMapping forKeyPath:@"error"];
     }
     return self;
 }

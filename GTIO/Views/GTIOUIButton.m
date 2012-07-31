@@ -85,6 +85,7 @@
         case GTIOButtonTypeInviteFriendsSMS: return [self gtio_inviteFriendsSMSButton];
         case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
         case GTIOButtonTypeInviteFriendsFacebook: return [self gtio_inviteFriendsFacebookButton];
+        case GTIOButtonTypeErrorRetry: return [self gtio_errorRetryButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -646,6 +647,13 @@
 + (id)gtio_inviteFriendsFacebookButton
 {
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.facebook.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.facebook.off.png"]];
+}
+
++ (id)gtio_errorRetryButton
+{
+    id button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"connect-error-retry-inactive.png"] hightlightImage:[UIImage imageNamed:@"connect-error-retry-active.png"]];
+    [button setTapAreaPadding:10.0f];
+    return button;
 }
 
 #pragma mark - Touch Handling

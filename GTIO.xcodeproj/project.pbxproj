@@ -972,6 +972,16 @@
 		8EFAE87C15A61ACC0075F530 /* GTIOPullToRefreshContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EFAE87B15A61ACC0075F530 /* GTIOPullToRefreshContentView.m */; };
 		D201915215C82F2D00B15D24 /* WhoHeartedThis.css in Resources */ = {isa = PBXBuildFile; fileRef = D201915115C82F2D00B15D24 /* WhoHeartedThis.css */; };
 		D201915415C8344200B15D24 /* DTCoreTextFontOverrides.plist in Resources */ = {isa = PBXBuildFile; fileRef = D201915315C8344200B15D24 /* DTCoreTextFontOverrides.plist */; };
+		D201915C15C8572E00B15D24 /* GTIOErrorController.m in Sources */ = {isa = PBXBuildFile; fileRef = D201915B15C8572E00B15D24 /* GTIOErrorController.m */; };
+		D201915F15C857C000B15D24 /* GTIOError.m in Sources */ = {isa = PBXBuildFile; fileRef = D201915E15C857C000B15D24 /* GTIOError.m */; };
+		D201916215C857DE00B15D24 /* GTIOAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = D201916115C857DE00B15D24 /* GTIOAlert.m */; };
+		D201916515C86D1F00B15D24 /* GTIORetryHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D201916415C86D1F00B15D24 /* GTIORetryHUD.m */; };
+		D201916C15C871E600B15D24 /* connect-error-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D201916615C871E600B15D24 /* connect-error-bg.png */; };
+		D201916D15C871E600B15D24 /* connect-error-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D201916715C871E600B15D24 /* connect-error-bg@2x.png */; };
+		D201916E15C871E600B15D24 /* connect-error-retry-active.png in Resources */ = {isa = PBXBuildFile; fileRef = D201916815C871E600B15D24 /* connect-error-retry-active.png */; };
+		D201916F15C871E600B15D24 /* connect-error-retry-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D201916915C871E600B15D24 /* connect-error-retry-active@2x.png */; };
+		D201917015C871E600B15D24 /* connect-error-retry-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = D201916A15C871E600B15D24 /* connect-error-retry-inactive.png */; };
+		D201917115C871E600B15D24 /* connect-error-retry-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D201916B15C871E600B15D24 /* connect-error-retry-inactive@2x.png */; };
 		D201C8271561455100C4168D /* GTIOIntroScreensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */; };
 		D201C83715614C8400C4168D /* GTIOConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D201C83615614C8400C4168D /* GTIOConfigManager.m */; };
 		D201C85615615C1300C4168D /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D201C85515615C1300C4168D /* ImageIO.framework */; };
@@ -2499,6 +2509,20 @@
 		8EFAE87B15A61ACC0075F530 /* GTIOPullToRefreshContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPullToRefreshContentView.m; sourceTree = "<group>"; };
 		D201915115C82F2D00B15D24 /* WhoHeartedThis.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = WhoHeartedThis.css; sourceTree = "<group>"; };
 		D201915315C8344200B15D24 /* DTCoreTextFontOverrides.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DTCoreTextFontOverrides.plist; sourceTree = "<group>"; };
+		D201915A15C8572E00B15D24 /* GTIOErrorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOErrorController.h; sourceTree = "<group>"; };
+		D201915B15C8572E00B15D24 /* GTIOErrorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOErrorController.m; sourceTree = "<group>"; };
+		D201915D15C857C000B15D24 /* GTIOError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOError.h; sourceTree = "<group>"; };
+		D201915E15C857C000B15D24 /* GTIOError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOError.m; sourceTree = "<group>"; };
+		D201916015C857DE00B15D24 /* GTIOAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAlert.h; sourceTree = "<group>"; };
+		D201916115C857DE00B15D24 /* GTIOAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAlert.m; sourceTree = "<group>"; };
+		D201916315C86D1F00B15D24 /* GTIORetryHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIORetryHUD.h; sourceTree = "<group>"; };
+		D201916415C86D1F00B15D24 /* GTIORetryHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIORetryHUD.m; sourceTree = "<group>"; };
+		D201916615C871E600B15D24 /* connect-error-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "connect-error-bg.png"; sourceTree = "<group>"; };
+		D201916715C871E600B15D24 /* connect-error-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "connect-error-bg@2x.png"; sourceTree = "<group>"; };
+		D201916815C871E600B15D24 /* connect-error-retry-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "connect-error-retry-active.png"; sourceTree = "<group>"; };
+		D201916915C871E600B15D24 /* connect-error-retry-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "connect-error-retry-active@2x.png"; sourceTree = "<group>"; };
+		D201916A15C871E600B15D24 /* connect-error-retry-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "connect-error-retry-inactive.png"; sourceTree = "<group>"; };
+		D201916B15C871E600B15D24 /* connect-error-retry-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "connect-error-retry-inactive@2x.png"; sourceTree = "<group>"; };
 		D201C8251561455100C4168D /* GTIOIntroScreensViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIntroScreensViewController.h; sourceTree = "<group>"; };
 		D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroScreensViewController.m; sourceTree = "<group>"; };
 		D201C83515614C8400C4168D /* GTIOConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOConfigManager.h; path = Application/GTIOConfigManager.h; sourceTree = "<group>"; };
@@ -3933,6 +3957,12 @@
 		808289DD15B8F06C00682775 /* 13 */ = {
 			isa = PBXGroup;
 			children = (
+				D201916615C871E600B15D24 /* connect-error-bg.png */,
+				D201916715C871E600B15D24 /* connect-error-bg@2x.png */,
+				D201916815C871E600B15D24 /* connect-error-retry-active.png */,
+				D201916915C871E600B15D24 /* connect-error-retry-active@2x.png */,
+				D201916A15C871E600B15D24 /* connect-error-retry-inactive.png */,
+				D201916B15C871E600B15D24 /* connect-error-retry-inactive@2x.png */,
 				808289DE15B8F06C00682775 /* keyboard-top-control-bg.png */,
 				808289DF15B8F06C00682775 /* keyboard-top-control-bg@2x.png */,
 				808289E015B8F06C00682775 /* keyboard-top-control-button-active.png */,
@@ -4155,6 +4185,8 @@
 				8EECB596158916D600025BAD /* GTIORouter.m */,
 				D2F02BA915BEDF9A0052AC77 /* GTIOMessageComposer.h */,
 				D2F02BAA15BEDF9A0052AC77 /* GTIOMessageComposer.m */,
+				D201915A15C8572E00B15D24 /* GTIOErrorController.h */,
+				D201915B15C8572E00B15D24 /* GTIOErrorController.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -5160,6 +5192,8 @@
 				8EC203871598FE0600685686 /* Mason Grid */,
 				D2DEBA5215B71CB6008A3A54 /* Pull To Load More */,
 				8EFAE87915A61AB50075F530 /* Pull To Refresh */,
+				D201916315C86D1F00B15D24 /* GTIORetryHUD.h */,
+				D201916415C86D1F00B15D24 /* GTIORetryHUD.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -5423,6 +5457,10 @@
 				D2C46D9815B476BB00EEFE15 /* GTIOTab.m */,
 				D2AA9FFD15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.h */,
 				D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */,
+				D201915D15C857C000B15D24 /* GTIOError.h */,
+				D201915E15C857C000B15D24 /* GTIOError.m */,
+				D201916015C857DE00B15D24 /* GTIOAlert.h */,
+				D201916115C857DE00B15D24 /* GTIOAlert.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -6825,6 +6863,12 @@
 				D248332315C319A8001C20BD /* quick-add-bg@2x.png in Resources */,
 				D201915215C82F2D00B15D24 /* WhoHeartedThis.css in Resources */,
 				D201915415C8344200B15D24 /* DTCoreTextFontOverrides.plist in Resources */,
+				D201916C15C871E600B15D24 /* connect-error-bg.png in Resources */,
+				D201916D15C871E600B15D24 /* connect-error-bg@2x.png in Resources */,
+				D201916E15C871E600B15D24 /* connect-error-retry-active.png in Resources */,
+				D201916F15C871E600B15D24 /* connect-error-retry-active@2x.png in Resources */,
+				D201917015C871E600B15D24 /* connect-error-retry-inactive.png in Resources */,
+				D201917115C871E600B15D24 /* connect-error-retry-inactive@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7096,6 +7140,10 @@
 				D2CF18A315BF4F1F005E4E17 /* GTIOScrollView.m in Sources */,
 				D2E3FD9015C0402100BF57F3 /* GTIOPickAProductViewController.m in Sources */,
 				5C25D0F115C4699000F6E8F6 /* GTIOSinglePostViewController.m in Sources */,
+				D201915C15C8572E00B15D24 /* GTIOErrorController.m in Sources */,
+				D201915F15C857C000B15D24 /* GTIOError.m in Sources */,
+				D201916215C857DE00B15D24 /* GTIOAlert.m in Sources */,
+				D201916515C86D1F00B15D24 /* GTIORetryHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
