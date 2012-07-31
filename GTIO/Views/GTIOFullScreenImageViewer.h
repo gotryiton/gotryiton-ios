@@ -10,6 +10,8 @@
 
 @interface GTIOFullScreenImageViewer : UIView
 
+@property (nonatomic, assign) BOOL useAnimation;
+
 - (id)initWithPhotoURL:(NSURL *)url;
 - (void)show;
 

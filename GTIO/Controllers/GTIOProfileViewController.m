@@ -15,7 +15,7 @@
 #import "GTIOPostMasonryView.h"
 #import "GTIODualViewSegmentedControlView.h"
 #import "GTIOPagination.h"
-
+#import "GTIOFullScreenImageViewer.h"
 #import "GTIORouter.h"
 
 @interface GTIOProfileViewController ()
@@ -26,6 +26,7 @@
 @property (nonatomic, strong) GTIOProfileHeaderView *profileHeaderView;
 @property (nonatomic, strong) GTIOUserProfile *userProfile;
 @property (nonatomic, strong) GTIODualViewSegmentedControlView *postsHeartsWithSegmentedControlView;
+@property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
 @property (nonatomic, strong) NSString *heartsResourcePath;
 @property (nonatomic, strong) NSString *postsResourcePath;
 
@@ -336,6 +337,19 @@
             NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
         };
     }];
+}
+
+
+
+- (void)bannerTapWithUrl:(NSString *)url
+{
+    UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:url];
+    if (viewController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+    } else if ([GTIORouter sharedRouter].fullScreenImageURL) {
+        self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:[GTIORouter sharedRouter].fullScreenImageURL];
+        [self.fullScreenImageViewer show];
+    }
 }
 
 @end

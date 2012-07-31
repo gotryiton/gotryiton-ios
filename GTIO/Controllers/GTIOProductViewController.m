@@ -58,7 +58,6 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 
 @implementation GTIOProductViewController
 
-@synthesize product = _product, productID = _productID, productImageView = _productImageView, fullScreenImageViewer = _fullScreenImageViewer, whiteBackground = _whiteBackground, heartControl = _heartControl, bottomInformationBackground = _bottomInformationBackground, productInformationBox = _productInformationBox, facebookShareButton = _facebookShareButton, twitterShareButton = _twitterShareButton, postThisButton = _postThisButton, shoppingListButton = _shoppingListButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -87,7 +86,7 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     }];
     self.leftNavigationButton = backButton;
     
-    self.whiteBackground = [[UIView alloc] initWithFrame:(CGRect){ 0, - self.navigationController.navigationBar.bounds.size.height + kGTIOProductNavigationBarTopStripeHeight, self.view.bounds.size.width, self.view.bounds.size.height - kGTIOProductNavigationBarTopStripeHeight }];
+    self.whiteBackground = [[UIView alloc] initWithFrame:(CGRect){ 0, - self.navigationController.navigationBar.bounds.size.height , self.view.bounds.size.width, self.view.bounds.size.height  }];
     self.whiteBackground.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.whiteBackground];
     
@@ -277,6 +276,7 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 - (void)showFullScreenImage
 {
     self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:self.product.photo.mainImageURL];
+    self.fullScreenImageViewer.useAnimation = NO;
     [self.fullScreenImageViewer show];
 }
 
