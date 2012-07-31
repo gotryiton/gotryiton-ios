@@ -23,7 +23,7 @@ typedef void(^GTIORetryHUDRetryHandler)(GTIORetryHUD *retryHUD);
 
 @interface GTIORetryHUD : UIView
 
-@property (copy) GTIORetryHUDRetryHandler retryHandler;
+@property (nonatomic, copy) GTIORetryHUDRetryHandler retryHandler;
 @property (nonatomic, copy) NSString *text;
 
 /**

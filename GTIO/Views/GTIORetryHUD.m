@@ -10,7 +10,7 @@
 
 static CGFloat const kGTIOFrameMinHeight = 92.0f;
 static CGFloat const kGTIOTextWidth = 86.0f;
-static CGFloat const kGTIOTextLeftPadding = 70.0f;
+static CGFloat const kGTIOTextLeftPadding = 35.0f;
 static CGFloat const kGTIOTextTopPadding = 34.0f;
 static CGFloat const kGTIOTextBottomPadding = 36.0f;
 static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
@@ -19,7 +19,7 @@ static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
 
 @property (nonatomic, strong) UIImageView *frameImageView;
 @property (nonatomic, strong) UILabel *textLabel;
-@property (nonatomic, strong) UIButton *retryButton;
+@property (nonatomic, strong) GTIOUIButton *retryButton;
 
 /**
  * Removes the HUD from its parent view when hidden.
@@ -178,6 +178,7 @@ static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
     [self.textLabel setTextColor:[UIColor gtio_grayTextColor949494]];
     [self.textLabel setNumberOfLines:0];
     [self.textLabel setLineBreakMode:UILineBreakModeWordWrap];
+    [self.textLabel setBackgroundColor:[UIColor clearColor]];
     [self addSubview:self.textLabel];
     
     self.retryButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeErrorRetry tapHandler:self.retryHandler];
@@ -193,13 +194,13 @@ static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
         frameHeight = kGTIOFrameMinHeight;
     }
     
-    [self.frameImageView setFrame:(CGRect){ { (self.bounds.size.width - self.frameImageView.frame.size.width) / 2, (self.bounds.size.height - frameHeight) / 2 }, self.frameImageView.frame.size }];
+    [self.frameImageView setFrame:(CGRect){ { (self.bounds.size.width - self.frameImageView.frame.size.width) / 2, (self.bounds.size.height - frameHeight) / 2 }, { self.frameImageView.frame.size.width, frameHeight } }];
     
     CGFloat retryButtonOriginX = self.frameImageView.frame.origin.x + self.frameImageView.frame.size.width - self.retryButton.frame.size.width - kGTIORetryButtonRightPadding;
     [self.retryButton setFrame:(CGRect){ { retryButtonOriginX, (self.bounds.size.height - self.retryButton.frame.size.height) / 2 }, self.retryButton.frame.size }];
     
     CGFloat textLabelOriginX = self.frameImageView.frame.origin.x + kGTIOTextLeftPadding;
-    CGFloat textLabelOriginY = self.frameImageView.frame.origin.y + kGTIOTextTopPadding;
+    CGFloat textLabelOriginY = (self.bounds.size.height - self.textLabel.frame.size.height) / 2;
     [self.textLabel setFrame:(CGRect){ { textLabelOriginX, textLabelOriginY }, self.textLabel.frame.size }];
 }
 
@@ -210,8 +211,14 @@ static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
     _text = text;
     [self.textLabel setText:_text];
     
-    CGSize textSize = [_text sizeWithFont:self.textLabel.font forWidth:kGTIOTextWidth lineBreakMode:self.textLabel.lineBreakMode];
+    CGSize textSize = [_text sizeWithFont:self.textLabel.font constrainedToSize:(CGSize){ kGTIOTextWidth, CGFLOAT_MAX } lineBreakMode:self.textLabel.lineBreakMode];
     [self.textLabel setFrame:(CGRect){ CGPointZero, { kGTIOTextWidth, textSize.height } }];
+}
+
+- (void)setRetryHandler:(GTIORetryHUDRetryHandler)retryHandler
+{
+    _retryHandler = [retryHandler copy];
+    [self.retryButton setTapHandler:_retryHandler];
 }
 
 @end

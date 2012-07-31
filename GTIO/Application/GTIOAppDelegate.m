@@ -192,7 +192,7 @@
 - (void)setupRestKit
 {
 //    RKLogConfigureByName("RestKit/*", kGTIOLogLevel);
-    RKLogConfigureByName("RestKit/Network", kGTIONetworkLogLevel)
+//    RKLogConfigureByName("RestKit/Network", kGTIONetworkLogLevel)
 //    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace)
     
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURLString:kGTIOBaseURLString];
