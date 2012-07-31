@@ -123,7 +123,7 @@ typedef enum GTIOReviewsAlertView {
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _reviewTextView = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
         _reviewTextView.textDelegate = self;
-        _reviewTextView.contentView.edgeInsets = (UIEdgeInsets) { -8, 0, 0, 0 };
+        _reviewTextView.contentView.edgeInsets = (UIEdgeInsets) { -7, 0, 0, 0 };
         [_reviewTextView setScrollEnabled:NO];
         [_reviewTextView setScrollsToTop:NO];
         [_reviewTextView setBackgroundColor:[UIColor clearColor]];
