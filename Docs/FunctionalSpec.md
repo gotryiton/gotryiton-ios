@@ -4743,8 +4743,15 @@ Control raised, populating users
 - connection error overlay
    - 'spinner-dark-bg.png' overlay on screen (behind info overlay)
    - 'connection-error-bg.png' as info overlay background
+      - middle 2px is vertically stretchable
+      - top and bottom 45px is nonstretchable
       - horizontally centered
       - vertically centered
+   - text is Archer Book Italic 12pt #949494
+      - text area is 86px wide, 70px away from left side of bg asset including shadow portion
+      - vertically centered within background
+      - 34px of padding on top (i.e. 34px away from top of the bg asset including shadow portion)
+      - 36px of padding on bottom (i.e. 36px away from bottom of the bg asset including shadow portion)
    - RETRY + icon
       - 'connection-error-retry.png'
       - 29px from right edge of bg asset
