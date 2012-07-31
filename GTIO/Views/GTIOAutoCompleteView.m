@@ -16,6 +16,9 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
 #import "GTIOAutoCompleteView.h"
 #import "NSString+GTIOAdditions.h"
 
+
+static CGFloat kGTIOMaxCharacterCount = 255.0;
+
 @implementation GTIOAutoCompleteView
 
 @synthesize autoCompleteArray = _autoCompleteArray;
@@ -146,46 +149,42 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
     
 }
 
+
 #pragma mark UITextViewDelegate methods
+
 - (BOOL)textView:(UITextView *)field shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)inputString 
 {
     // always hide the placeholder text if the user is inputtting
     [self hidePlaceholderText];
 
-    //if the user hit 'done':
+    
+    //resign if the user's done
     if([inputString isEqualToString:@"\n"]) {
         //close the keyboard and hide the text input
         [field resignFirstResponder];
         
         return NO;
     }
+
+    NSString *existingString = field.text;
     
-    // limit input to 255 characters    
-    if ( (field.text.length + inputString.length) > 255) {
-        return NO;
-    }
-    
-    //sanitize non approved character input
-    if ( ![self hasApprovedCharacters:inputString]){
+    if ([self availableCharactersIn:existingString input:inputString range:range]<0){
         return NO;
     }
 
+    //update the cursor position
+    self.positionOfCursor = [self getUpdatedCursorPositionByReplacingCharactersInRange:range existingString:existingString inputString:inputString];
 
-    
+
     // figure out the new input text
     self.inputText = [field.text stringByReplacingCharactersInRange:range withString:inputString];
 
-    //update the cursor position
-    [self getUpdatedCursorPositionByReplacingCharactersInRange:range inputString:inputString];
-
+    
     // display the newly inputted text
     [self updateAttributedStringInRange:range string:inputString];
 
     [self setPositionOfLastWordsTypedInText:[self stringThroughCursorPositionWithRange:range]];
     
-    // NSLog(@"cursor: %@ lastchar: %@", NSStringFromRange(self.positionOfCursor), [self lastCharacterTyped]);
-    
-    // NSLog(@"inputText: %@", self.inputText);
 
     if (self.inputText.length > 0) {
 
@@ -211,10 +210,6 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
             [self showButtonsWithAutoCompleters: foundAutoCompleters];
         } else {
             
-            // if (![self showAtTagButtons] && [self attagMode]) {
-            //     [self resetAutoCompleteMode];
-            // }
-            // else 
             if ([inputString isEqualToString:@" "] && ([self attagMode] || [self brandtagMode])){
                 [self resetAutoCompleteMode];
             }             
@@ -226,20 +221,16 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
         [self displayPlaceholderText];
     }
     
-    // NSLog(@"submission: %@ ", [self processDescriptionString]);
-
     return YES;
 }
 
 
-- (bool)hasApprovedCharacters:(NSString *)inputString
+- (NSInteger)availableCharactersIn:(NSString *)existingString input:(NSString *)inputString range:(NSRange)range
 {
-    NSMutableCharacterSet *characterSet = [NSMutableCharacterSet alphanumericCharacterSet];
-    [characterSet formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
-    [characterSet formUnionWithCharacterSet:[NSCharacterSet symbolCharacterSet]];
-    [characterSet formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    return [[inputString stringByTrimmingCharactersInSet:characterSet] isEqualToString:@""];
+    // limit input to 255 characters    
+    NSString * newText = [existingString stringByReplacingCharactersInRange:range withString:inputString];
+
+    return  kGTIOMaxCharacterCount -newText.length;
 }
 
 - (NSString *)stringThroughCursorPositionWithRange:(NSRange)range 
@@ -273,10 +264,10 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
     // NSLog(@"first: %@ second: %@", [self lastWordTyped], [self lastTwoWordsTyped]);
 }
 
--(void) getUpdatedCursorPositionByReplacingCharactersInRange:(NSRange)range inputString:(NSString *)input
+-(NSRange) getUpdatedCursorPositionByReplacingCharactersInRange:(NSRange)range existingString:(NSString *)existingString inputString:(NSString *)input
 {
-    // NSLog(@"getUpdatedCursorPosition range: %@ input: %@ length: %u", NSStringFromRange(range), input, self.inputText.length);
-    self.positionOfCursor = NSMakeRange(MIN(range.location + MAX(range.length, input.length), self.inputText.length), 0);
+    return NSMakeRange(ABS(MAX(range.location, range.location + range.length) + input.length - range.length), 0);
+        
 }
 
 - (NSString *)lastCharacterTyped
@@ -546,8 +537,7 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
 -(NSRange) insertIntoInput:(NSString *)str 
 {
 
-    // NSLog(@"insertIntoInput: %@ inputstring: %@ range: %@",str, self.inputText,  NSStringFromRange(self.positionOfCursor));
-    // NSLog(@"last char typed: <%@>", [self lastCharacterTyped]);
+    self.positionOfCursor = [self getUpdatedCursorPositionByReplacingCharactersInRange:self.textInput.selectedRange existingString:self.inputText inputString:@""];
 
     int padded = 0;
     if (![[self lastCharacterTyped] isEqualToString:@""] && ![[self lastCharacterTyped] isEqualToString:@" "]){
@@ -564,7 +554,7 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
     NSRange editedRange = NSMakeRange(0,0);
 
     if (self.inputText.length == 0) {
-        // NSLog(@"(empty) insertIntoInput: %@ range: %@", str, NSStringFromRange(range));
+        
         if ([self textView:self.textInput shouldChangeTextInRange:NSMakeRange(0,0) replacementText:str]){
             self.textInput.text = str;
             
@@ -574,11 +564,9 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
             
     }
     else {
-        // NSLog(@"insertIntoInput: %@ range: %@", str, NSStringFromRange(range));
+        
         if ([self textView:self.textInput shouldChangeTextInRange:range replacementText:str]){
             self.textInput.text = [self.textInput.text stringByReplacingCharactersInRange:range withString:str];
-             // NSLog(@"insertIntoInput successful replace: %@ range: %@", str, NSStringFromRange(range));
-             // self.textInput.selectedRange = range;
              editedRange = NSMakeRange(range.location, str.length);
         }
     }

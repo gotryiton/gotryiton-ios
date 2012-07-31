@@ -70,7 +70,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeProductShoppingListChecked,
     GTIOButtonTypeAutoCompleteHashtag,
     GTIOButtonTypeAutoCompleteAttag,
-    GTIOButtonTypeAutoCompleteBrandtag
+    GTIOButtonTypeAutoCompleteBrandtag,
     GTIOButtonTypeProductShoppingListHeart,
     GTIOButtonTypeProductShoppingListEmail,
     GTIOButtonTypeProductShoppingListBuy,

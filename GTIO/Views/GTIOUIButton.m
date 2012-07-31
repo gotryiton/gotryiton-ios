@@ -623,7 +623,6 @@
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.twit.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.twit.active.png"]];
 }
 
-<<<<<<< HEAD
 + (id)gtio_autoCompleteHashtagButton
 {
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-2-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-2-active.png"]];
@@ -637,7 +636,7 @@
 + (id)gtio_autoCompleteBrandtagButton
 {
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-3-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-3-active.png"]];
-=======
+}
 + (id)gtio_productShoppingListHeartButton
 {
     GTIOUIButton *button = [[GTIOHeartToggleButton alloc] initWithFrame:CGRectZero];
@@ -664,7 +663,6 @@
 + (id)gtio_inviteFriendsFacebookButton
 {
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.facebook.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.facebook.off.png"]];
->>>>>>> refs/heads/master
 }
 
 #pragma mark - Touch Handling

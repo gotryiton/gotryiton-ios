@@ -49,5 +49,6 @@
 - (void) hidePlaceholderText;
 - (void) resetView;
 - (void) displayPlaceholderText;
+- (BOOL)textView:(UITextView *)field shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)inputString;
 
 @end
