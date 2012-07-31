@@ -12,6 +12,9 @@
 #import "GTIOReview.h"
 #import "GTIOProgressHUD.h"
 
+static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks great! @Becky E.)";
+
+
 @interface GTIOCommentViewController ()
 
 @property (nonatomic, copy) NSString *postID;
@@ -55,7 +58,7 @@
     self.commentInputBackgroundImage.userInteractionEnabled = YES;
     [self.view addSubview:self.commentInputBackgroundImage];
     
-    self.commentInputView = [[GTIOAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 7, self.commentInputBackgroundImage.bounds.size.width - (12 * 2), self.commentInputBackgroundImage.bounds.size.height  } outerBox:(CGRect){0, 10, self.view.frame.size.width, self.view.frame.size.height } placeholder:@"That looks great! @Becky E." ];
+    self.commentInputView = [[GTIOAutoCompleteView alloc] initWithFrame:(CGRect){ 16, 7, self.commentInputBackgroundImage.bounds.size.width - (12 * 2), self.commentInputBackgroundImage.bounds.size.height  } outerBox:(CGRect){0, 10, self.view.frame.size.width, self.view.frame.size.height } placeholder:kGTIOMDefaultPostText];
     
     [self.commentInputView displayPlaceholderText];
     

@@ -208,11 +208,12 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
         if ([foundAutoCompleters count] > 0) {
             
             [self showButtonsWithAutoCompleters: foundAutoCompleters];
-        } else {
-            
-            if ([inputString isEqualToString:@" "] && ([self attagMode] || [self brandtagMode])){
-                [self resetAutoCompleteMode];
-            }             
+        } else if (![self hashtagMode]) {
+            [self resetAutoCompleteMode];
+            // if ([inputString isEqualToString:@" "] && ([self attagMode] || [self brandtagMode])){
+            //     [self resetAutoCompleteMode];
+
+            // }             
         }
         
         [self cleanUpAttrString];

@@ -10,8 +10,13 @@ static CGFloat const kGTIOHorizontalButtonPadding = 6.0f;
 static CGFloat const kGTIOVerticalButtonPadding = 12.0f;
 static CGFloat const kGTIONavTextPadding = 7.0f;
 static CGFloat const kGTIONavTextFontSize = 14.0f;
-static CGFloat const kGTIONavTextBaseline = 6.0f;
+static CGFloat const kGTIONavTextLineHeight = 18.0f;
+static CGFloat const kGTIONavTextBaseline = 5.0f;
 static CGFloat const kGTIONavArrowBaseline = 9.0f;
+
+static NSString * const kGTIOAtTagHelperText = @"start typing a friend's name...";
+static NSString * const kGTIOHashTagHelperText = @"type a hashtag to group with other similar looks!";
+static NSString * const kGTIOBrandTagHelperText = @"start typing a brand...";
 
 #import "GTIOAutoCompleteScrollView.h"
 
@@ -72,7 +77,7 @@ static CGFloat const kGTIONavArrowBaseline = 9.0f;
         [arrowView setFrame:(CGRect){ { CGRectGetMaxX(brandtagBtn.frame) + kGTIONavTextPadding , CGRectGetMaxY(self.bounds) - arrowView.bounds.size.height  - kGTIONavArrowBaseline   }, arrowView.bounds.size }];
         [_autoCompleteNav addSubview:arrowView];
 
-        UILabel *instructions = [[UILabel alloc] initWithFrame:(CGRect){ CGRectGetMaxX(arrowView.frame)+ kGTIOHorizontalButtonPadding, CGRectGetMaxY(self.bounds)- kGTIONavTextBaseline -kGTIONavTextFontSize, 150, kGTIONavTextFontSize }];
+        UILabel *instructions = [[UILabel alloc] initWithFrame:(CGRect){ CGRectGetMaxX(arrowView.frame)+ kGTIOHorizontalButtonPadding, CGRectGetMaxY(self.bounds)- kGTIONavTextBaseline -kGTIONavTextLineHeight, 150, kGTIONavTextLineHeight }];
         [instructions setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:kGTIONavTextFontSize]];
         [instructions setTextColor:[UIColor gtio_grayTextColorACACAC]];
         [instructions setBackgroundColor:[UIColor clearColor]];
@@ -83,8 +88,7 @@ static CGFloat const kGTIONavArrowBaseline = 9.0f;
        [self addSubview:self.autoCompleteNav];
 
 
-        // _autoCompleteHelperText = [[UILabel alloc]  initWithFrame:(CGRect){ kGTIOHorizontalButtonPadding, CGRectGetMaxY(self.bounds)- kGTIONavTextBaseline -kGTIONavTextFontSize, 150, kGTIONavTextFontSize }];
-        _autoCompleteHelperText = [[UILabel alloc]  initWithFrame:(CGRect){ {self.bounds.size.width, CGRectGetMaxY(self.bounds)- kGTIONavTextBaseline -kGTIONavTextFontSize}, {self.bounds.size.width, kGTIONavTextFontSize  }}];
+        _autoCompleteHelperText = [[UILabel alloc]  initWithFrame:(CGRect){ {self.bounds.size.width, CGRectGetMaxY(self.bounds)- kGTIONavTextBaseline - kGTIONavTextLineHeight}, {self.bounds.size.width, kGTIONavTextLineHeight  }}];
         [_autoCompleteHelperText setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:kGTIONavTextFontSize]];
         [_autoCompleteHelperText setTextColor:[UIColor gtio_pinkTextColor]];
         [_autoCompleteHelperText setBackgroundColor:[UIColor clearColor]];
@@ -141,13 +145,13 @@ static CGFloat const kGTIONavArrowBaseline = 9.0f;
 -(NSString *)promptTextForType:(NSString *)type
 {
     if ([type isEqualToString:@"@"]){
-        return @"start typing a friend's name...";
+        return kGTIOAtTagHelperText;
     }
     if ([type isEqualToString:@"#"]){
-        return @"type a hashtag to group with other similar looks!";
+        return kGTIOHashTagHelperText;
     }
     if ([type isEqualToString:@"b"]){
-        return @"start typing a brand...";
+        return kGTIOBrandTagHelperText;
     }
     return @"";
 }

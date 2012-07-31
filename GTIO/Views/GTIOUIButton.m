@@ -493,7 +493,7 @@
     button.titleLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLightItalic size:14.0];
     [button setTitleColor:[UIColor gtio_grayTextColorB7B7B7] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:(UIEdgeInsets){ -5, -125, 0, 0 }];
-    [button setTitle:@"leave a comment!" forState:UIControlStateNormal];
+    [button setTitle:@"Leave a comment!" forState:UIControlStateNormal];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
