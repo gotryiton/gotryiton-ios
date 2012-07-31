@@ -48,6 +48,7 @@ static NSString * const kGTIOURLHostPostedBy = @"posted-by";
 static NSString * const kGTIOURLHostReviewsForPost = @"reviews-for-post";
 static NSString * const kGTIOURLHostInternalWebView = @"internal-webview";
 static NSString * const kGTIOURLHostDefaultWebView = @"default-webview";
+static NSString * const kGTIOURLHostFullScreenImage = @"full-screen-image";
 static NSString * const kGTIOURLHostProduct = @"product";
 static NSString * const kGTIOURLHostCollection = @"collection";
 static NSString * const kGTIOURLHostShoppingList = @"my-shopping-list";
@@ -185,6 +186,11 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         if ([unencodedPathComponents count] >= 2) {
             viewController = [[GTIOWebViewController alloc] initWithNibName:nil bundle:nil];
             [((GTIOWebViewController *)viewController) setURL:[NSURL URLWithString:[unencodedPathComponents objectAtIndex:1]]];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostFullScreenImage]) {
+        if ([unencodedPathComponents count] >= 1) {
+            self.fullScreenImageURL = [NSURL URLWithString:[unencodedPathComponents objectAtIndex:1]];
+            viewController = nil;
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostProduct]) {
         if ([pathComponents count] >= 2) {

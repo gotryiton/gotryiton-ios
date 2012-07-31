@@ -1,3 +1,36 @@
+***Tuesday, July 31th - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Kayla, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Continue working on assigned issues 
+- GTIO - Send Scott some sample JSend
+- TT - Get error states and then those estimates done.
+- TT - Cut a build after error states are complete (tomorrow?)
+
+**Status**
+- GTIO is giving Scott an array of buttons.  
+  - Where are there locations where there will not be an okay button?
+- If Scott gets server connection errors, then he'll show the retry.  IF he doesn't show an alert 
+from GTIO, then he will put the retry message up.  
+
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott will be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of this week, but release August 20th.
+
+**General Notes**
+  
+---
+
 ***Friday, July 27th - Standup Notes***
 
 **Attendees**
