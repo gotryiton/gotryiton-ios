@@ -190,30 +190,18 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
         [self highlightHashTag];
 
+        NSArray *foundAutoCompleters = [self searchLastTypedWordsForAutoCompletes];
 
         if ([self hashtagMode] && ![self isValidHashTag:[self lastWordTyped]]){
             [self resetAutoCompleteMode];
-        }
-
-        if (![self hashtagMode] && [self isValidHashTag:[self lastWordTyped]]){
+        } else if (![self hashtagMode] && [self isValidHashTag:[self lastWordTyped]]){
             [self autoCompleterModeSelected:@"#"];
-        }
-
-        if (![self attagMode] && [[self lastWordTyped] isEqualToString:@"@"]){
+        } else if (![self attagMode] && [[self lastWordTyped] isEqualToString:@"@"]){
             [self autoCompleterModeSelected:@"@"];
-        }
-
-        NSArray *foundAutoCompleters = [self searchLastTypedWordsForAutoCompletes];
-
-        if ([foundAutoCompleters count] > 0) {
-            
+        } else if ([foundAutoCompleters count] > 0) {
             [self showButtonsWithAutoCompleters: foundAutoCompleters];
         } else if (![self hashtagMode]) {
-            [self resetAutoCompleteMode];
-            // if ([inputString isEqualToString:@" "] && ([self attagMode] || [self brandtagMode])){
-            //     [self resetAutoCompleteMode];
-
-            // }             
+            [self resetAutoCompleteMode];         
         }
         
         [self cleanUpAttrString];
@@ -645,6 +633,8 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
 - (NSString *)processDescriptionString
 {
+    [self resetAutoCompleteMode];
+
     if ([self.attrString length] == 0) {
         return @"";
     }
@@ -664,6 +654,7 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
         }
     } while (NSMaxRange(effectiveRange) < [self.attrString length]); 
 
+    NSLog (@"submission string: %@ ", response);
     
     return response;
 }
@@ -673,7 +664,6 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
     self.inputText = @"";
     self.attrString = [[NSMutableAttributedString alloc] initWithString:@""];
     self.textInput.text = @"";
-    [self resetAutoCompleteMode];
     // self.textView.string = self.attrString;
 }
 
