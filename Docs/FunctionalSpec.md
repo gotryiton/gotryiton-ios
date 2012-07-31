@@ -3740,8 +3740,13 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
          - rightmost 50px of capture asset area switches between normal and photoshoot
          - switches directly back and forth between 'capture.normal.inactive.png' and 'capture.pro.inactive.png' -- this area should not trigger 'active' ('tapped' state) asset
             - only tapping on remainder of button area uses 'active' states
+   - Try Photo Shoot info popup
+      - 'try-photoshoot-callout.png'
+      - 30px up from bottom of screen
+         - pointer of asset should appear to be horizontally centered on circular Photoshoot toggle button
+      - shows for 4 seconds, then simultaneously fades out and animates upwards
    - Photoshoot info popup
-      - 'photoshoot-info-popup.png'
+      - 'photoshoot-info-callout.png'
       - 30px up from bottom of screen
       - 25px from right edge of screen
          - pointer of asset should appear to be horizontally centered on circular Photoshoot toggle button
@@ -4758,8 +4763,15 @@ Previously the GTIOv3 app supported multiple icons.  4.0 will only support 1.
 - connection error overlay
    - 'spinner-dark-bg.png' overlay on screen (behind info overlay)
    - 'connection-error-bg.png' as info overlay background
+      - middle 2px is vertically stretchable
+      - top and bottom 45px is nonstretchable
       - horizontally centered
       - vertically centered
+   - text is Archer Book Italic 12pt #949494
+      - text area is 86px wide, 70px away from left side of bg asset including shadow portion
+      - vertically centered within background
+      - 34px of padding on top (i.e. 34px away from top of the bg asset including shadow portion)
+      - 36px of padding on bottom (i.e. 36px away from bottom of the bg asset including shadow portion)
    - RETRY + icon
       - 'connection-error-retry.png'
       - 29px from right edge of bg asset

@@ -18,6 +18,7 @@ typedef void(^GTIOProfileOpenURLHandler)(NSURL *URL);
 
 @required
 - (void)refreshUserProfileRefreshPostsOnly:(BOOL)refreshPostsOnly;
+- (void)bannerTapWithUrl:(NSString *)url;
 
 @end
 

@@ -13,6 +13,8 @@ extern NSString * const kGTIOHttpURLScheme;
 
 @interface GTIORouter : NSObject
 
+@property (nonatomic, strong) NSURL *fullScreenImageURL;
+
 + (GTIORouter *)sharedRouter;
 
 - (UIViewController *)viewControllerForURLString:(NSString*)URLString;

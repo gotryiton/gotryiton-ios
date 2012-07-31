@@ -125,6 +125,9 @@ static NSString * const kGTIOOpenInSafari = @"open in Safari";
     [self.webView setDelegate:self];
     [self.view addSubview:self.webView];
     
+    self.navigationTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"loading..." italic:YES];
+    [self useTitleView:self.navigationTitleView];
+
     [self updateButtonState];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:self.URL];
