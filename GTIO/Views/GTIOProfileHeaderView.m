@@ -14,6 +14,8 @@
 #import <RestKit/RestKit.h>
 
 static CGFloat const kGTIOWebsiteButtonPadding = 8.0f;
+static CGFloat const kGTIOBannerAdWidth = 320.0f;
+static CGFloat const kGTIOBannerAdHeight = 50.0f;
 
 @interface GTIOProfileHeaderView()
 
@@ -26,35 +28,30 @@ static CGFloat const kGTIOWebsiteButtonPadding = 8.0f;
 @property (nonatomic, strong) NSMutableArray *profileCalloutViews;
 @property (nonatomic, strong) GTIOActionSheet *actionSheet;
 
+@property (nonatomic, strong) UITapGestureRecognizer *bannerTapRecognizer;
+@property (nonatomic, strong) NSString *bannerDestination;
+
 @property (nonatomic, copy) GTIOProfileInitCompletionHandler userProfileLayoutCompletionHandler;
 @property (nonatomic, assign) BOOL bannerImageDownloadProcessComplete;
 @property (nonatomic, assign) BOOL hasBannerImage;
+
 
 @end
 
 @implementation GTIOProfileHeaderView
 
-@synthesize banner = _banner;
-@synthesize followRequestAcceptBarView = _followRequestAcceptBarView;
-@synthesize basicUserInfoView = _basicUserInfoView, basicUserInfoBackgroundImageView = _basicUserInfoBackgroundImageView, userProfile = _userProfile;
-@synthesize profileDescription = _profileDescription;
-@synthesize websiteLinkButton = _websiteLinkButton;
-@synthesize profileCalloutViews = _profileCalloutViews;
-@synthesize delegate = _delegate;
-@synthesize acceptBarDelegate = _acceptBarDelegate;
-@synthesize actionSheet = _actionSheet;
-@synthesize userProfileLayoutCompletionHandler = _userProfileLayoutCompletionHandler;
-@synthesize meTableHeaderViewDelegate = _meTableHeaderViewDelegate;
-@synthesize hasBannerImage = _hasBannerImage;
-@synthesize bannerImageDownloadProcessComplete = _bannerImageDownloadProcessComplete;
-@synthesize profileOpenURLHandler = _profileOpenURLHandler;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         _banner = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _banner.contentMode = UIViewContentModeScaleAspectFit;
+        _banner.userInteractionEnabled = YES;
         [self addSubview:_banner];
+
+        self.bannerTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bannerTap)];
+        [_banner addGestureRecognizer:self.bannerTapRecognizer];
         
         _basicUserInfoView = [[GTIOMeTableHeaderView alloc] initWithFrame:CGRectZero];
         _basicUserInfoView.usesGearInsteadOfPencil = YES;
@@ -90,20 +87,22 @@ static CGFloat const kGTIOWebsiteButtonPadding = 8.0f;
 {
     [super layoutSubviews];
     
-    if (self.banner.bounds.size.height > 0) {
-        [self.banner setFrame:(CGRect){ 0, 0, self.bounds.size.width, self.banner.bounds.size.height }];
+    NSInteger bannerHeight = 0;
+    if (self.hasBannerImage) {
+        [self.banner setFrame:(CGRect){ 0, 0, kGTIOBannerAdWidth, kGTIOBannerAdHeight }];
+        bannerHeight = kGTIOBannerAdHeight;
     }
-    
     if (self.userProfile.acceptBar) {
         [self.followRequestAcceptBarView setFrame:(CGRect){ 0, 0, self.bounds.size.width, 32 }];
     } else {
         [self.followRequestAcceptBarView setFrame:CGRectZero];
     }
-    [self.basicUserInfoView setFrame:(CGRect){ 0, self.followRequestAcceptBarView.frame.origin.y + self.followRequestAcceptBarView.bounds.size.height, self.bounds.size.width, 72 }];
-    [self.profileDescription sizeToFit];
-    [self.profileDescription setFrame:(CGRect){ 12, self.basicUserInfoView.frame.origin.y + self.basicUserInfoView.bounds.size.height, self.bounds.size.width - 24, (self.userProfile.user.aboutMe.length > 0) ? self.profileDescription.bounds.size.height : 0 }];
-    
 
+    [self.basicUserInfoView setFrame:(CGRect){ 0, self.followRequestAcceptBarView.frame.origin.y  + self.followRequestAcceptBarView.frame.size.height, self.bounds.size.width, 72 }];
+
+    [self.profileDescription sizeToFit];
+    [self.profileDescription setFrame:(CGRect){ 12, self.basicUserInfoView.frame.origin.y + self.basicUserInfoView.frame.size.height, self.bounds.size.width - 24, (self.userProfile.user.aboutMe.length > 0) ? self.profileDescription.bounds.size.height : 0 }];
+    
     NSString *buttonTitle = [self.websiteLinkButton titleForState:UIControlStateNormal];    
     [self.websiteLinkButton setFrame:(CGRect){ 8, self.profileDescription.frame.origin.y + self.profileDescription.bounds.size.height + ((buttonTitle.length > 0) ? 6 : 0), self.bounds.size.width - 16, (buttonTitle.length > 0) ? 24 : 0 }];
     
@@ -118,11 +117,11 @@ static CGFloat const kGTIOWebsiteButtonPadding = 8.0f;
     }
     
     if (lastProfileCalloutView) {
-        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, lastProfileCalloutView.frame.origin.y + lastProfileCalloutView.bounds.size.height + 10 }];
+        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + bannerHeight, self.bounds.size.width, lastProfileCalloutView.frame.origin.y  + lastProfileCalloutView.bounds.size.height + 10 }];
     } else {
-        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + self.banner.bounds.size.height, self.bounds.size.width, self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height + ((buttonTitle.length > 0 || self.profileDescription.text.length > 0) ? ((self.profileCalloutViews.count == 0) ? 10 : 13 ): 0) }];
+        [self.basicUserInfoBackgroundImageView setFrame:(CGRect){ 0, self.banner.frame.origin.y + bannerHeight, self.bounds.size.width, self.websiteLinkButton.frame.origin.y  + self.websiteLinkButton.bounds.size.height + ((buttonTitle.length > 0 || self.profileDescription.text.length > 0) ? ((self.profileCalloutViews.count == 0) ? 10 : 13 ): 0) }];
     }
-    [self setFrame:(CGRect){ self.frame.origin, self.bounds.size.width, self.basicUserInfoBackgroundImageView.bounds.size.height }];
+    [self setFrame:(CGRect){ self.frame.origin, self.bounds.size.width, self.basicUserInfoBackgroundImageView.frame.size.height + bannerHeight  }];
     
     if (self.userProfileLayoutCompletionHandler && !self.hasBannerImage) {
         self.userProfileLayoutCompletionHandler(self);
@@ -147,9 +146,9 @@ static CGFloat const kGTIOWebsiteButtonPadding = 8.0f;
         __block typeof(self) blockSelf = self;
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameBannerAd]) {
             self.hasBannerImage = YES;
+            self.bannerDestination = button.action.destination;
             [self.banner setImageWithURL:button.imageURL placeholderImage:nil success:^(UIImage *image) {
                 [blockSelf.banner setImage:image];
-                [blockSelf.banner sizeToFit];
                 blockSelf.bannerImageDownloadProcessComplete = YES;
                 [blockSelf setNeedsLayout];
             } failure:^(NSError *error) {
@@ -214,6 +213,14 @@ static CGFloat const kGTIOWebsiteButtonPadding = 8.0f;
 {
     self.userProfile.acceptBar = nil;
     [self setNeedsLayout];
+}
+
+
+- (void)bannerTap
+{
+    if ([self.delegate respondsToSelector:@selector(bannerTapWithUrl:)]){
+        [self.delegate bannerTapWithUrl:self.bannerDestination];
+    }
 }
 
 @end
