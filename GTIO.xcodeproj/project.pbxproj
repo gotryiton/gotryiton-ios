@@ -970,6 +970,8 @@
 		8EFAE87515A5F8220075F530 /* SSPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EFAE86F15A5F8220075F530 /* SSPullToRefreshView.m */; };
 		8EFAE87815A60E820075F530 /* GTIOMyHeartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EFAE87715A60E820075F530 /* GTIOMyHeartsViewController.m */; };
 		8EFAE87C15A61ACC0075F530 /* GTIOPullToRefreshContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EFAE87B15A61ACC0075F530 /* GTIOPullToRefreshContentView.m */; };
+		D201915215C82F2D00B15D24 /* WhoHeartedThis.css in Resources */ = {isa = PBXBuildFile; fileRef = D201915115C82F2D00B15D24 /* WhoHeartedThis.css */; };
+		D201915415C8344200B15D24 /* DTCoreTextFontOverrides.plist in Resources */ = {isa = PBXBuildFile; fileRef = D201915315C8344200B15D24 /* DTCoreTextFontOverrides.plist */; };
 		D201C8271561455100C4168D /* GTIOIntroScreensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */; };
 		D201C83715614C8400C4168D /* GTIOConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D201C83615614C8400C4168D /* GTIOConfigManager.m */; };
 		D201C85615615C1300C4168D /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D201C85515615C1300C4168D /* ImageIO.framework */; };
@@ -2495,6 +2497,8 @@
 		8EFAE87715A60E820075F530 /* GTIOMyHeartsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOMyHeartsViewController.m; sourceTree = "<group>"; };
 		8EFAE87A15A61ACC0075F530 /* GTIOPullToRefreshContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPullToRefreshContentView.h; sourceTree = "<group>"; };
 		8EFAE87B15A61ACC0075F530 /* GTIOPullToRefreshContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPullToRefreshContentView.m; sourceTree = "<group>"; };
+		D201915115C82F2D00B15D24 /* WhoHeartedThis.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = WhoHeartedThis.css; sourceTree = "<group>"; };
+		D201915315C8344200B15D24 /* DTCoreTextFontOverrides.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DTCoreTextFontOverrides.plist; sourceTree = "<group>"; };
 		D201C8251561455100C4168D /* GTIOIntroScreensViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIntroScreensViewController.h; sourceTree = "<group>"; };
 		D201C8261561455100C4168D /* GTIOIntroScreensViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroScreensViewController.m; sourceTree = "<group>"; };
 		D201C83515614C8400C4168D /* GTIOConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIOConfigManager.h; path = Application/GTIOConfigManager.h; sourceTree = "<group>"; };
@@ -4710,6 +4714,7 @@
 		D2603DD7155ABE2600536BF9 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				D201915315C8344200B15D24 /* DTCoreTextFontOverrides.plist */,
 				D245E099157666C6009DBCF7 /* Archer-Bold.otf */,
 				D245E09A157666C6009DBCF7 /* Archer-BoldItalic.otf */,
 				D245E09B157666C6009DBCF7 /* Archer-Book.otf */,
@@ -5194,6 +5199,7 @@
 				D2C1C85F159DFF23001026BC /* PostDescription.css */,
 				8ED52EF915ACA63200F5C05B /* ReviewText.css */,
 				8E8FC10F15AF3623004E0CBE /* NotificationTableCellText.css */,
+				D201915115C82F2D00B15D24 /* WhoHeartedThis.css */,
 			);
 			name = CSS;
 			sourceTree = "<group>";
@@ -6817,6 +6823,8 @@
 				5CC8D5F915C492470072FADC /* management.slider.rail@2x.png in Resources */,
 				D248332215C319A8001C20BD /* quick-add-bg.png in Resources */,
 				D248332315C319A8001C20BD /* quick-add-bg@2x.png in Resources */,
+				D201915215C82F2D00B15D24 /* WhoHeartedThis.css in Resources */,
+				D201915415C8344200B15D24 /* DTCoreTextFontOverrides.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7195,8 +7203,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -7221,8 +7229,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A3350B3D-0A26-463B-9D48-B753A71335B0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3350B3D-0A26-463B-9D48-B753A71335B0";
+				PROVISIONING_PROFILE = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -7234,8 +7242,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Simon Holroyd (2UXMW2658J)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
@@ -7258,8 +7266,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A3350B3D-0A26-463B-9D48-B753A71335B0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3350B3D-0A26-463B-9D48-B753A71335B0";
+				PROVISIONING_PROFILE = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};

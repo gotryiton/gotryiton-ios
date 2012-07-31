@@ -1,0 +1,14 @@
+html
+{
+	/* bla */
+	display:block;
+}
+
+body 
+{
+	/* safari has a 8 px margin here */
+    display:block;
+    font-weight: ProximaNova-Semibold;
+    font-family: P-Smbld;
+    font-size:13px;
+}

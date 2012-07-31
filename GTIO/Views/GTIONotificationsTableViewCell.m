@@ -39,6 +39,7 @@ static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
     if (self) {
         _icon = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_icon];
+        
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _text = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
         _text.textDelegate = self;

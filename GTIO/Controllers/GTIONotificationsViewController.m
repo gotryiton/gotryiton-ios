@@ -10,7 +10,7 @@
 #import "GTIONotificationManager.h"
 #import "GTIONotificationsTableViewCell.h"
 #import "GTIOProgressHUD.h"
-#import "DTCoreText.h"
+
 #import "GTIORouter.h"
 
 @interface GTIONotificationsViewController ()

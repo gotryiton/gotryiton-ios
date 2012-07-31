@@ -47,12 +47,18 @@ static CGFloat const kGTIOTextWidth = 228.0f;
         [_namesAttributedTextView setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_namesAttributedTextView];
     
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"WhoHeartedThis" ofType:@"css"];
+        NSData *cssData = [NSData dataWithContentsOfFile:filePath];
+        NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
+        DTCSSStylesheet *defaultDTCSSStylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
+        
         _namesAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [NSNumber numberWithFloat:1.0], NSTextSizeMultiplierDocumentOption, 
                                        [NSNumber numberWithFloat:0.8], DTDefaultLineHeightMultiplier,
                                        [UIColor gtio_grayTextColorACACAC], DTDefaultTextColor,
                                        [UIColor gtio_grayTextColorACACAC], DTDefaultLinkColor,
                                        [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
+                                       defaultDTCSSStylesheet, DTDefaultStyleSheet,
                                        nil];
     }
     return self;
@@ -74,8 +80,7 @@ static CGFloat const kGTIOTextWidth = 228.0f;
 {
     _whoHeartedThis = whoHeartedThis;
     
-    NSString *html = [NSString stringWithFormat:@"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\">%@</span>", whoHeartedThis];
-    NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [whoHeartedThis dataUsingEncoding:NSUTF8StringEncoding];
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.namesAttributeTextOptions documentAttributes:NULL];
     _namesAttributedTextView.attributedString = string;
@@ -115,14 +120,19 @@ static CGFloat const kGTIOTextWidth = 228.0f;
     DTAttributedTextView *namesAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIOTextWidth, 0 } }];
     namesAttributedTextView.contentView.edgeInsets = (UIEdgeInsets){ -4, 0, 8, 0 };
     
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"WhoHeartedThis" ofType:@"css"];
+    NSData *cssData = [NSData dataWithContentsOfFile:filePath];
+    NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
+    DTCSSStylesheet *defaultDTCSSStylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
+    
     NSDictionary *namesAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
                                                 [NSNumber numberWithFloat:1.0], NSTextSizeMultiplierDocumentOption,
                                                 [NSNumber numberWithFloat:0.8], DTDefaultLineHeightMultiplier,
                                                 [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
+                                                defaultDTCSSStylesheet, DTDefaultStyleSheet,
                                                 nil];
     
-    NSString *html = [NSString stringWithFormat:@"<span style=\"font-weight:'ProximaNova-Semibold';font-family:'P-Smbld';font-size:13px\">%@</span>", whoHeartedThis];
-    NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [whoHeartedThis dataUsingEncoding:NSUTF8StringEncoding];
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:namesAttributedTextOptions documentAttributes:NULL];
     namesAttributedTextView.attributedString = string;

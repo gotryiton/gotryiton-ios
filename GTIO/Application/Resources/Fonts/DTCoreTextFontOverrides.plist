@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>FontFamily</key>
+		<string>P-Smbld</string>
+		<key>Bold</key>
+		<false/>
+		<key>Italic</key>
+		<false/>
+		<key>OverrideFontName</key>
+		<string>ProximaNova-Semibold</string>
+	</dict>
+	<dict>
+		<key>FontFamily</key>
+		<string>V-XLght</string>
+		<key>OverrideFontName</key>
+		<string>Verlag-XLight</string>
+		<key>Bold</key>
+		<false/>
+		<key>Italic</key>
+		<false/>
+	</dict>
+	<dict>
+		<key>FontFamily</key>
+		<string>V-Bk</string>
+		<key>OverrideFontName</key>
+		<string>Verlag-Book</string>
+		<key>Bold</key>
+		<false/>
+		<key>Italic</key>
+		<false/>
+	</dict>
+	<dict>
+		<key>FontFamily</key>
+		<string>V-Lght</string>
+		<key>OverrideFontName</key>
+		<string>Verlag-Light</string>
+		<key>Bold</key>
+		<false/>
+		<key>Italic</key>
+		<false/>
+	</dict>
+	<dict>
+		<key>FontFamily</key>
+		<string>V-Bld</string>
+		<key>OverrideFontName</key>
+		<string>Verlag-Bold</string>
+		<key>Bold</key>
+		<true/>
+		<key>Italic</key>
+		<false/>
+	</dict>
+</array>
+</plist>
