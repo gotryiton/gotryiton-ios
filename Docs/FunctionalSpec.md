@@ -3740,8 +3740,13 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
          - rightmost 50px of capture asset area switches between normal and photoshoot
          - switches directly back and forth between 'capture.normal.inactive.png' and 'capture.pro.inactive.png' -- this area should not trigger 'active' ('tapped' state) asset
             - only tapping on remainder of button area uses 'active' states
+   - Try Photo Shoot info popup
+      - 'try-photoshoot-callout.png'
+      - 30px up from bottom of screen
+         - pointer of asset should appear to be horizontally centered on circular Photoshoot toggle button
+      - shows for 4 seconds, then simultaneously fades out and animates upwards
    - Photoshoot info popup
-      - 'photoshoot-info-popup.png'
+      - 'photoshoot-info-callout.png'
       - 30px up from bottom of screen
       - 25px from right edge of screen
          - pointer of asset should appear to be horizontally centered on circular Photoshoot toggle button
