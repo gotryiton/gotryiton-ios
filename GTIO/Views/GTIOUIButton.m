@@ -581,7 +581,9 @@
 
 + (id)gtio_productShoppingListNavButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
+    [button setFrame:(CGRect){ button.bounds.origin + 2, button.bounds.size.width , button.bounds.size.height }];
+    return button;
 }
 
 + (id)gtio_maskButton
