@@ -391,6 +391,9 @@
         };
         loader.onDidFailWithError = ^(NSError *error) {
             NSLog(@"%@", [error localizedDescription]);
+            if (completionHandler) {
+                   completionHandler(nil, error);
+            }
         };
     }];
 }
@@ -412,6 +415,9 @@
         };
         loader.onDidFailWithError = ^(NSError *error) {
             NSLog(@"%@", [error localizedDescription]);
+            if (completionHandler) {
+                   completionHandler(nil, error);
+            }
         };
     }];
 }

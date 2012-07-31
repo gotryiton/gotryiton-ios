@@ -202,7 +202,7 @@
     }];
 }
 
-- (GTIOUIButton *)setActiveFollowButtonForState:(NSUInteger)state
+- (GTIOUIButton *)setActiveFollowButtonForState:(GTIOFollowButtonState)state
 {
     GTIOUIButton *followButton = nil;
 
