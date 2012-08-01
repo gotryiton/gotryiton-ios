@@ -94,7 +94,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeProductShoppingListNav: return [self gtio_productShoppingListNavButton];
         case GTIOButtonTypeInviteFriendsSMS: return [self gtio_inviteFriendsSMSButton];
         case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
-        case GTIOButtonTypeInviteFriendsFacebook: return [self gtio_inviteFriendsFacebookButton];
+        case GTIOButtonTypeInviteFriendsTwitter: return [self gtio_inviteFriendsTwitterButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -595,7 +595,9 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_productShoppingListNavButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
+    [button setFrame:(CGRect){ button.bounds.origin.x, button.bounds.origin.y + 2, button.bounds.size.width , button.bounds.size.height }];
+    return button;
 }
 
 + (id)gtio_maskButton
@@ -663,17 +665,17 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_inviteFriendsSMSButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.sms.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.sms.off.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.sms.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.sms.on.png"]];
 }
 
 + (id)gtio_inviteFriendsEmailButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"]];
 }
 
-+ (id)gtio_inviteFriendsFacebookButton
++ (id)gtio_inviteFriendsTwitterButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.facebook.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.facebook.off.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.twitter.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.twitter.on.png"]];
 }
 
 #pragma mark - Touch Handling

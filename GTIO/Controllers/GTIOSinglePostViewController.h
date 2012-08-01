@@ -14,6 +14,7 @@
 
 @required
 - (void)postHeaderViewTapWithUserId:(NSString *)userID;
+- (void)buttonTap:(GTIOButton *)button;
 
 @end
 

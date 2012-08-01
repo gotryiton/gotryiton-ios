@@ -26,8 +26,6 @@ static CGFloat const kGTIOSMSButtonVerticalOffset = 3.0;
 
 @implementation GTIOInviteFriendsTableViewHeader
 
-@synthesize backgroundImageView = _backgroundImageView, titleLabel = _titleLabel, smsButton = _smsButton, emailButton = _emailButton, facebookButton = _facebookButton;
-@synthesize phoneOptionLabel = _phoneOptionLabel, phoneOptionTopBorder = _phoneOptionTopBorder, phoneOptionBackground = _phoneOptionBackground, phoneOptionBottomBorder = _phoneOptionBottomBorder;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -52,9 +50,9 @@ static CGFloat const kGTIOSMSButtonVerticalOffset = 3.0;
         [_emailButton setFrame:(CGRect){ _smsButton.frame.origin.x + _smsButton.bounds.size.width + kGTIOPadding, _smsButton.frame.origin.y, _emailButton.bounds.size }];
         [self addSubview:_emailButton];
         
-        _facebookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeInviteFriendsFacebook];
-        [_facebookButton setFrame:(CGRect){ _emailButton.frame.origin.x + _emailButton.bounds.size.width + kGTIOPadding, _emailButton.frame.origin.y, _facebookButton.bounds.size }];
-        [self addSubview:_facebookButton];
+        _twitterButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeInviteFriendsTwitter];
+        [_twitterButton setFrame:(CGRect){ _emailButton.frame.origin.x + _emailButton.bounds.size.width + kGTIOPadding, _emailButton.frame.origin.y, _twitterButton.bounds.size }];
+        [self addSubview:_twitterButton];
         
         _phoneOptionTopBorder = [[UIView alloc] initWithFrame:(CGRect){ 0, _backgroundImageView.frame.origin.y + _backgroundImageView.bounds.size.height, frame.size.width, 1 }];
         _phoneOptionTopBorder.backgroundColor = [UIColor whiteColor];

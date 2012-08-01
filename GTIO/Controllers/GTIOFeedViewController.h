@@ -16,6 +16,14 @@
 
 @end
 
+@protocol GTIOFeedCellDelegate <NSObject>
+
+@required
+- (void)buttonTap:(GTIOButton *)button;
+
+@end
+
+
 
 @interface GTIOFeedViewController : GTIOViewController
 

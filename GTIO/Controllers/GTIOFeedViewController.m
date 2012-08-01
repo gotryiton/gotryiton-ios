@@ -38,9 +38,12 @@
 #import "SSPullToLoadMoreView.h"
 #import "GTIOPullToLoadMoreContentView.h"
 
-static NSString * const kGTIOKVOSuffix = @"ValueChanged";
+#import "GTIOTweetComposer.h"
 
-@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
+static NSString * const kGTIOKVOSuffix = @"ValueChanged";
+static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet! Find the Twitter option in your iPhone's Settings to get started!";
+
+@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, GTIOFeedCellDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
@@ -393,6 +396,7 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     
     if (!cell) {
         cell = [[GTIOFeedCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        cell.delegate = self;
     }
     
     return cell;
@@ -604,6 +608,42 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
     GTIOProfileViewController *viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
     [viewController setUserID:userID];
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+#pragma mark - GTIOFeedCellDelegate
+
+- (void)buttonTap:(GTIOButton *)button
+{
+    if (button.action.endpoint) {
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+            loader.onDidLoadResponse  = ^(RKResponse *response) {
+                // TODO: this is where i'd want to catch an alert and display it.
+            };
+            loader.onDidFailWithError = ^(NSError *error) {
+                NSLog(@"%@", [error localizedDescription]);
+            };
+        }];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+    } else if (button.action.destination) {
+        UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+        [self.navigationController pushViewController:viewController animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+        
+    } else if (button.action.twitterText) {
+        if ([TWTweetComposeViewController canSendTweet]) {
+            GTIOTweetComposer *tweetComposer = [[GTIOTweetComposer alloc] initWithText:button.action.twitterText URL:button.action.twitterURL completionHandler:^(TWTweetComposeViewControllerResult result) {
+                    [self dismissModalViewControllerAnimated:YES];
+
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+            }];
+
+            [self presentViewController:tweetComposer animated:YES completion:nil];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+        }
+    }
 }
 
 @end
