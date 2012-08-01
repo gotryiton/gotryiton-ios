@@ -66,6 +66,7 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 
 - (void)dealloc
 {
+    self.delegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -106,21 +107,11 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 
                 [blockSelf.ellipsisPopOverView setFrame:(CGRect){ { self.frame.size.width - blockSelf.ellipsisPopOverView.frame.size.width + kGITOEllipsisPopOverViewXOriginOffset, self.postButtonColumnView.ellipsisButton.frame.origin.y - blockSelf.ellipsisPopOverView.frame.size.height + kGITOEllipsisPopOverViewYOriginOffset }, blockSelf.ellipsisPopOverView.frame.size }];
                 [blockSelf addSubview:blockSelf.ellipsisPopOverView];
-
+                
+                id tapDelegate = self.delegate;
                 [blockSelf.ellipsisPopOverView setTapHandler:^(GTIOButton *buttonModel) {
-                    NSLog(@"ellipsis button: %@", buttonModel.action.endpoint);
-                    if (buttonModel.action.endpoint){
-                        [GTIOProgressHUD showHUDAddedTo:self.windowMask animated:YES];
-                        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                            loader.  = ^(RKResponse *response) {
-                                [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
-                                [self dismiss];
-                            };
-                            loader.onDidFailWithError = ^(NSError *error) {
-                                [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
-                                NSLog(@"%@", [error localizedDescription]);
-                            };
-                        }];
+                    if ([tapDelegate respondsToSelector:@selector(buttonTap:)]) {
+                        [tapDelegate buttonTap:buttonModel];
                     }
                 }];
             }

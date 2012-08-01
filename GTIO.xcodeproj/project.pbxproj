@@ -24,6 +24,7 @@
 		5CC8D5F715C492470072FADC /* management.slider.mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CC8D5EF15C492470072FADC /* management.slider.mask@2x.png */; };
 		5CC8D5F815C492470072FADC /* management.slider.rail.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CC8D5F015C492470072FADC /* management.slider.rail.png */; };
 		5CC8D5F915C492470072FADC /* management.slider.rail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CC8D5F115C492470072FADC /* management.slider.rail@2x.png */; };
+		5CCC2B3615C8AF7B0036A2E3 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CCC2B3515C8AF7B0036A2E3 /* Twitter.framework */; };
 		5CDFD9031593BA4600994416 /* GTIOAutoCompleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */; };
 		5CDFD9061593BA7B00994416 /* GTIOAutoCompleteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */; };
 		5CDFD9091593BAAD00994416 /* GTIOAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */; };
@@ -1443,6 +1444,7 @@
 		5CC8D5EF15C492470072FADC /* management.slider.mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "management.slider.mask@2x.png"; sourceTree = "<group>"; };
 		5CC8D5F015C492470072FADC /* management.slider.rail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = management.slider.rail.png; sourceTree = "<group>"; };
 		5CC8D5F115C492470072FADC /* management.slider.rail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "management.slider.rail@2x.png"; sourceTree = "<group>"; };
+		5CCC2B3515C8AF7B0036A2E3 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		5CDFD9011593BA4600994416 /* GTIOAutoCompleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteView.h; sourceTree = "<group>"; };
 		5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleteView.m; sourceTree = "<group>"; };
 		5CDFD9041593BA7B00994416 /* GTIOAutoCompleteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteScrollView.h; sourceTree = "<group>"; };
@@ -3005,6 +3007,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CCC2B3615C8AF7B0036A2E3 /* Twitter.framework in Frameworks */,
 				D2AAA02215BDA3CD0038ACB4 /* CoreLocation.framework in Frameworks */,
 				D2AAA02015BDA3C60038ACB4 /* StoreKit.framework in Frameworks */,
 				D2AAA01E15BDA3BD0038ACB4 /* CoreTelephony.framework in Frameworks */,
@@ -5201,6 +5204,7 @@
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
+				5CCC2B3515C8AF7B0036A2E3 /* Twitter.framework */,
 				D2CDA96C15502F02009B7E24 /* GTIO */,
 				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
 				D2CDA99B15503058009B7E24 /* Libraries */,

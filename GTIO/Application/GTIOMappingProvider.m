@@ -229,6 +229,8 @@
         [suggestedFriendIconMapping mapKeyPath:@"icon" toAttribute:@"iconPath"];
         [buttonMapping mapKeyPath:@"icons" toRelationship:@"icons" withMapping:suggestedFriendIconMapping];
         [buttonActionMapping mapAttributes:@"destination", @"endpoint", @"spinner", nil];
+        [buttonActionMapping mapKeyPath:@"twitter_url" toAttribute:@"twitterURL"];
+        [buttonActionMapping mapKeyPath:@"twitter_text" toAttribute:@"twitterText"];
         [buttonMapping mapKeyPath:@"image" toAttribute:@"imageURL"];
         [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", @"state", nil];
