@@ -23,11 +23,6 @@
 
 @end
 
-
-
 @interface GTIOFeedViewController : GTIOViewController
-
-- (id)initWithPostID:(NSString *)postID;
-- (id)initWithPost:(GTIOPost *)post;
 
 @end

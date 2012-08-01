@@ -33,7 +33,6 @@
 @synthesize expanded = _expanded;
 @synthesize defaultContentInset = _defaultContentInset;
 
-
 #pragma mark - Accessors
 
 - (void)setState:(SSPullToLoadMoreViewState)state {
@@ -56,12 +55,10 @@
 	}
 }
 
-
 - (void)setExpanded:(BOOL)expanded {
 	_expanded = expanded;
 	[self _setContentInsetBottom:expanded ? self.contentView.frame.size.height : 0.0f];
 }
-
 
 - (void)setScrollView:(UIScrollView *)scrollView {
 	void *context = (__bridge void *)self;
@@ -76,7 +73,6 @@
 	[_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:context];
 }
 
-
 - (UIView<SSPullToLoadMoreContentView> *)contentView {
 	// Use the simple content view as the default
 	if (!_contentView) {
@@ -84,7 +80,6 @@
 	}
 	return _contentView;
 }
-
 
 - (void)setContentView:(UIView<SSPullToLoadMoreContentView> *)contentView {
 	[_contentView removeFromSuperview];
@@ -96,12 +91,10 @@
 	[self addSubview:_contentView];
 }
 
-
 - (void)setDefaultContentInset:(UIEdgeInsets)defaultContentInset {
 	_defaultContentInset = defaultContentInset;
 	[self _setContentInsetBottom:_bottomInset];
 }
-
 
 #pragma mark - NSObject
 
@@ -111,14 +104,12 @@
 	dispatch_release(_animationSemaphore);
 }
 
-
 #pragma mark - UIView
 
 - (void)removeFromSuperview {
 	self.scrollView = nil;
 	[super removeFromSuperview];
 }
-
 
 - (void)layoutSubviews {
 	CGSize size = self.bounds.size;
@@ -132,7 +123,8 @@
 		contentSize.height = _expandedHeight;
 	}
     
-	self.contentView.frame = CGRectMake(roundf((size.width - contentSize.width) / 2.0f), size.height - contentSize.height, contentSize.width, contentSize.height);
+	self.contentView.frame = CGRectMake(roundf((size.width - contentSize.width) / 2.0f), 0, contentSize.width, contentSize.height);
+    self.frame = (CGRect){ { 0.0f, self.scrollView.contentSize.height }, { self.frame.size.width, self.contentView.frame.size.height } };
 }
 
 

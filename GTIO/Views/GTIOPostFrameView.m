@@ -47,7 +47,6 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 
 @implementation GTIOPostFrameView
 
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:(CGRect){ frame.origin, { kGTIOFrameWidth, 1 } }];
@@ -148,10 +147,6 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
     [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.brandButtonsView.frame.origin.y + self.brandButtonsView.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
     
     [self setFrame:(CGRect){ self.frame.origin, self.frameImageView.frame.size }];
-
-
-    
-
 }
 
 #pragma mark - Properties
