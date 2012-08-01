@@ -13,5 +13,6 @@
 - (id)initWithTarget:(id)target action:(SEL)action;
 - (void)useNextButtonWithTarget:(id)target action:(SEL)action;
 - (void)useDoneButtonWithTarget:(id)target action:(SEL)action;
+- (void)useNextAndDoneButtonWithTarget:(id)target doneAction:(SEL)doneAction nextAction:(SEL)nextAction;
 
 @end

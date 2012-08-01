@@ -12,6 +12,8 @@
 #import "GTIOTextFieldForPickerViews.h"
 #import "GTIODoneToolBar.h"
 
+static NSInteger kGTIOMaxCharacterCount = 20;
+
 @interface GTIOAlmostDoneTableCell()
 
 @property (nonatomic, strong) UILabel *cellTitleLabel;
@@ -27,8 +29,6 @@
 
 @implementation GTIOAlmostDoneTableCell
 
-@synthesize apiKey = _apiKey, pickerViewItems = _pickerViewItems, delegate = _delegate, cellAccessoryText = _cellAccessoryText;
-@synthesize cellTitleLabel = _cellTitleLabel, cellAccessoryTextMulti = _cellAccessoryTextMulti, placeHolderText = _placeHolderText, accessoryToolBar = _accessoryToolBar, flexibleSpace = _flexibleSpace, pickerView = _pickerView, usesPicker = _usesPicker, multiLine = _multiLine, indexPath = _indexPath;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -36,6 +36,8 @@
     if (self) {
         [self setBackgroundColor:[UIColor whiteColor]];
         
+        _characterLimit = kGTIOMaxCharacterCount;
+
         _cellTitleLabel = [[UILabel alloc] initWithFrame:(CGRect){ 10, self.frame.size.height / 2 - 8, 0, 0 }];
         [self.cellTitleLabel setBackgroundColor:[UIColor clearColor]];
         [self.cellTitleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
@@ -47,24 +49,23 @@
         [self.cellAccessoryText setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLightItal size:14.0]];
         [self.cellAccessoryText setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [self.cellAccessoryText setTextAlignment:UITextAlignmentRight];
-        [self.cellAccessoryText setDelegate:self];
         [self.cellAccessoryText setReturnKeyType:UIReturnKeyNext];
+        [self.cellAccessoryText setDelegate:self];
         [self.cellAccessoryText addTarget:self action:@selector(updateSaveData:) forControlEvents:UIControlEventEditingChanged];
         [self.contentView addSubview:self.cellAccessoryText];
-        
         _accessoryToolBar = [[GTIODoneToolBar alloc] initWithTarget:self action:@selector(keyboardDoneTapped:)];
         
         _cellAccessoryTextMulti = [[GTIOPlaceHolderTextView alloc] initWithFrame:CGRectZero];
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         [self.cellAccessoryTextMulti setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLightItal size:14.0]];
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
-        [self.cellAccessoryTextMulti setDelegate:self];
         [self.cellAccessoryTextMulti setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [self.cellAccessoryTextMulti setPlaceholderColor:[UIColor gtio_grayTextColorB3B3B3]];
         [self.cellAccessoryTextMulti setReturnKeyType:UIReturnKeyDone];
+        [self.cellAccessoryTextMulti setDelegate:self];
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSaveDataMulti:) name:UITextViewTextDidChangeNotification object:self.cellAccessoryTextMulti];
-        
+            
         _usesPicker = NO;
     }
     return self;
@@ -86,6 +87,9 @@
             return NO;
         }
     }
+    if ([self availableCharactersIn:textView.text input:text range:range]<0){
+        return NO;
+    }
     if (textView.text.length == 1 && text.length == 0) {
         textView.text = text;
         [textView setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegularItal size:14.0]];
@@ -94,12 +98,32 @@
         [textView setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
         [textView setTextColor:[UIColor gtio_signInColor]];
     }
+    if (self.usesPicker) {
+        return NO;
+    }
     return YES;
 }
+
 
 - (void)pickerNextTapped:(id)sender
 {
     [self moveToNextCell];
+}
+
+- (void)pickerDoneTapped:(id)sender
+{
+    [self.cellAccessoryText resignFirstResponder];
+
+    if ([self.delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
+        [self.delegate resetScrollAfterEditing];
+    }
+}
+
+- (NSInteger)availableCharactersIn:(NSString *)existingString input:(NSString *)inputString range:(NSRange)range
+{
+    NSString * newText = [existingString stringByReplacingCharactersInRange:range withString:inputString];
+
+    return  self.characterLimit - newText.length;
 }
 
 - (BOOL)becomeFirstResponder
@@ -150,6 +174,7 @@
     return YES;
 }
 
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField.text.length == 1 && string.length == 0) {
@@ -159,6 +184,9 @@
     } else {
         [textField setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];
         [textField setTextColor:[UIColor gtio_signInColor]];
+    }
+    if ([self availableCharactersIn:textField.text input:string range:range]<0){
+        return NO;
     }
     if (self.usesPicker) {
         return NO;
@@ -196,7 +224,7 @@
 {
     _pickerViewItems = pickerViewItems;
     _pickerView = [[GTIOPickerViewForTextFields alloc] initWithFrame:CGRectZero andPickerItems:self.pickerViewItems];
-    [self.accessoryToolBar useNextButtonWithTarget:self action:@selector(pickerNextTapped:)];
+    [self.accessoryToolBar useNextAndDoneButtonWithTarget:self doneAction:@selector(pickerDoneTapped:) nextAction:@selector(pickerNextTapped:)];
     [self.cellAccessoryText setInputAccessoryView:self.accessoryToolBar];
     [self.pickerView setPlaceHolderText:self.placeHolderText];
     [self.pickerView bindToTextField:self.cellAccessoryText];
@@ -239,5 +267,6 @@
         [self.cellAccessoryText setFrame:(CGRect){ self.cellTitleLabel.frame.origin.x + self.cellTitleLabel.frame.size.width + 3, self.cellTitleLabel.frame.origin.y, self.frame.size.width - self.cellTitleLabel.frame.size.width - 43, self.cellTitleLabel.frame.size.height }];
     }
 }
+
 
 @end
