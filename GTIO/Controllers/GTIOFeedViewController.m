@@ -178,11 +178,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     [self.pullToLoadMoreView setExpandedHeight:0.0f];
     self.pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.frame.size.width, 0.0f } }];
     
-    [self.pullToRefreshView startLoading];
-    
     [self.tableView bringSubviewToFront:self.navBarView];
-    
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
 }
 
 - (void)viewDidUnload
@@ -199,6 +195,11 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     [self showStatusBarBackgroundWithoutNavigationBar];
     [self.tableView bringSubviewToFront:self.navBarView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
+    
+    if ([self.posts count] == 0) {
+        [self.pullToRefreshView startLoading];
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
