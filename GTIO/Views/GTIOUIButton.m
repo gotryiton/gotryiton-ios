@@ -82,6 +82,9 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeProductPostThis: return [self gtio_productPostThisButton];
         case GTIOButtonTypeProductShoppingList: return [self gtio_productShoppingListButton];
         case GTIOButtonTypeProductShoppingListChecked: return [self gtio_productShoppingListCheckedButton];
+        case GTIOButtonTypeAutoCompleteHashtag: return [self gtio_autoCompleteHashtagButton];
+        case GTIOButtonTypeAutoCompleteAttag: return [self gtio_autoCompleteAttagButton];
+        case GTIOButtonTypeAutoCompleteBrandtag: return [self gtio_autoCompleteBrandtagButton];
         case GTIOButtonTypeProductShoppingListHeart: return [self gtio_productShoppingListHeartButton];
         case GTIOButtonTypeProductShoppingListEmail: return [self gtio_productListEmailButton];
         case GTIOButtonTypeProductShoppingListBuy: return [self gtio_productListBuyButton];
@@ -501,7 +504,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     button.titleLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLightItalic size:14.0];
     [button setTitleColor:[UIColor gtio_grayTextColorB7B7B7] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:(UIEdgeInsets){ -5, -125, 0, 0 }];
-    [button setTitle:@"leave a comment!" forState:UIControlStateNormal];
+    [button setTitle:@"Leave a comment!" forState:UIControlStateNormal];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
@@ -631,6 +634,20 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.twit.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.twit.active.png"]];
 }
 
++ (id)gtio_autoCompleteHashtagButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-2-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-2-active.png"]];
+}
+
++ (id)gtio_autoCompleteAttagButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-1-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-1-active.png"]];
+}
+
++ (id)gtio_autoCompleteBrandtagButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-3-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-3-active.png"]];
+}
 + (id)gtio_productShoppingListHeartButton
 {
     GTIOUIButton *button = [[GTIOHeartToggleButton alloc] initWithFrame:CGRectZero];

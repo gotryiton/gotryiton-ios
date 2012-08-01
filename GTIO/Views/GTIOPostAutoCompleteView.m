@@ -8,6 +8,8 @@
 
 #import "GTIOPostAutoCompleteView.h"
 
+static NSString * kGTIOMDefaultPostText = @"Say something about this look! (e.g. How does this Zara top look? @becky #wedding)";
+
 @implementation GTIOPostAutoCompleteView
 
 @synthesize textViewDidEndHandler = _textViewDidEndHandler, textViewWillBecomeActiveHandler = _textViewWillBecomeActiveHandler, textViewDidBecomeActiveHandler = _textViewDidBecomeActiveHandler;
@@ -16,7 +18,7 @@
 
 - (id)initWithFrame:(CGRect)frame outerBox:(CGRect) outerFrame title:(NSString *)title icon:(UIImage *)icon
 {
-    self = [super initWithFrame:frame outerBox:outerFrame placeholder:@"How does this Zara top look? @Becky #wedding"];
+    self = [super initWithFrame:frame outerBox:outerFrame placeholder:kGTIOMDefaultPostText];
     if (self) {
         [self.textInput setDelegate:self];
 
