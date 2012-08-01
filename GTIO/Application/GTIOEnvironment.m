@@ -30,7 +30,8 @@
     BOOL const kGTIOUAirshipAppStoreOrAdHocBuild = NO;
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
-#endif 
+    NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
+#endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
     NSString * const kGTIOEnvironmentName = @"Staging";
@@ -45,6 +46,7 @@
     BOOL const kGTIOUAirshipAppStoreOrAdHocBuild = NO;
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
+    NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
@@ -60,6 +62,7 @@
     BOOL const kGTIOUAirshipAppStoreOrAdHocBuild = YES;
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"";
+    NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
 #endif
 
 NSString * const kGTIOAcceptHeader = @"application/v4-json";

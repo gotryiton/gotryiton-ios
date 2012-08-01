@@ -1284,6 +1284,7 @@
 		D29F4CFA1580F502009F7BB7 /* GTIOResizePhotoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D29F4CF91580F502009F7BB7 /* GTIOResizePhotoOperation.m */; };
 		D2A194DD15AF762200372872 /* GTIOInternalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A194DC15AF762200372872 /* GTIOInternalWebViewController.m */; };
 		D2A194E015AF76C300372872 /* GTIOWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A194DF15AF76C300372872 /* GTIOWebView.m */; };
+		D2A5F17C15C9AABC003D4B90 /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A5F17B15C9AABC003D4B90 /* libFlurryAnalytics.a */; };
 		D2AA9FFF15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */; };
 		D2AAA01C15BDA3B50038ACB4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA01B15BDA3B50038ACB4 /* libsqlite3.dylib */; };
 		D2AAA01E15BDA3BD0038ACB4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAA01D15BDA3BC0038ACB4 /* CoreTelephony.framework */; };
@@ -2954,6 +2955,8 @@
 		D2A194DC15AF762200372872 /* GTIOInternalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInternalWebViewController.m; sourceTree = "<group>"; };
 		D2A194DE15AF76C300372872 /* GTIOWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOWebView.h; sourceTree = "<group>"; };
 		D2A194DF15AF76C300372872 /* GTIOWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWebView.m; sourceTree = "<group>"; };
+		D2A5F17A15C9AABC003D4B90 /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
+		D2A5F17B15C9AABC003D4B90 /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		D2AA9FFD15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInviteFriendsPerson.h; sourceTree = "<group>"; };
 		D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInviteFriendsPerson.m; sourceTree = "<group>"; };
 		D2AAA01B15BDA3B50038ACB4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -3096,6 +3099,7 @@
 				D2CDA96B15502F02009B7E24 /* CoreGraphics.framework in Frameworks */,
 				D2569C011566CE450045B508 /* libTestFlight.a in Frameworks */,
 				D2AAA02415BDA43E0038ACB4 /* libUAirship-1.2.2.a in Frameworks */,
+				D2A5F17C15C9AABC003D4B90 /* libFlurryAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5282,6 +5286,16 @@
 			name = WebViews;
 			sourceTree = "<group>";
 		};
+		D2A5F17915C9AABC003D4B90 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				D2A5F17A15C9AABC003D4B90 /* FlurryAnalytics.h */,
+				D2A5F17B15C9AABC003D4B90 /* libFlurryAnalytics.a */,
+			);
+			name = Flurry;
+			path = Libraries/Flurry;
+			sourceTree = "<group>";
+		};
 		D2AAA01815BDA2F40038ACB4 /* UrbanAirship */ = {
 			isa = PBXGroup;
 			children = (
@@ -5413,6 +5427,7 @@
 		D2CDA99B15503058009B7E24 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D2A5F17915C9AABC003D4B90 /* Flurry */,
 				D2AAA01815BDA2F40038ACB4 /* UrbanAirship */,
 				8EFAE86515A5F8220075F530 /* sspulltorefresh */,
 				D246596A159B73F800A43238 /* DTCoreText */,
@@ -7351,6 +7366,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"",
+					"\"$(SRCROOT)/Libraries/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -7388,6 +7404,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"",
+					"\"$(SRCROOT)/Libraries/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",

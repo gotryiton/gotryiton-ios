@@ -30,6 +30,9 @@ extern NSString * const kGTIOJanRainProviderYahoo;
 // Facebook
 extern NSString * const kGTIOFacebookAppID;
 
+// Flurry
+extern NSString * const kGTIOFlurryAnalyticsKey;
+
 // Logging
 extern NSUInteger const kGTIONetworkLogLevel;
 extern NSUInteger const kGTIOLogLevel;

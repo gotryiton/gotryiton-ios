@@ -31,6 +31,7 @@
 
 #import "JREngage.h"
 #import "UAirship.h"
+#import "FlurryAnalytics.h"
 
 @interface GTIOAppDelegate ()
 
@@ -99,6 +100,9 @@
     
     // UrbanAirship
     [self setupUrbanAirshipWithLaunchOptions:launchOptions];
+    
+    // Flurry
+    [FlurryAnalytics startSession:kGTIOFlurryAnalyticsKey];
     
     // Handle notification
     NSDictionary *notificationUserInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
