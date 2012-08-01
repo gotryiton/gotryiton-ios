@@ -341,8 +341,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         loader.method = RKRequestMethodPOST;
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            NSLog(@"loaded request with: %i", objects.count);
-            NSLog(@"type: %@", invitationType);
+            
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOInvitation class]]) {
                     GTIOInvitation *invitation = (GTIOInvitation *)object;

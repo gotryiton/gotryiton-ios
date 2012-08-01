@@ -633,7 +633,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         
     } else if (button.action.twitterURL) {
         if ([TWTweetComposeViewController canSendTweet]) {
-            NSLog(@"tweet dat shit!!!  %@", button.action.twitterURL);
+
             TWTweetComposeViewController *tweetViewController = [[TWTweetComposeViewController alloc] init];
              
             // set initial text
