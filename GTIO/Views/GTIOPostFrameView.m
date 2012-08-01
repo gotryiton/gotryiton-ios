@@ -17,6 +17,8 @@
 #import "GTIOHeartButton.h"
 #import "GTIOPostBrandButtonsView.h"
 
+#import "GTIOFullScreenImageViewer.h"
+
 static CGFloat const kGTIOFrameWidth = 270.0f;
 static CGFloat const kGTIOFrameHeightPadding = 16.0f;
 static CGFloat const kGTIOFrameHeightWithShadowPadding = 22.0f;
@@ -38,6 +40,8 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 @property (nonatomic, strong) GTIOHeartButton *heartButton;
 @property (nonatomic, strong) GTIOButton *photoHeartButtonModel;
 @property (nonatomic, strong) GTIOPostBrandButtonsView *brandButtonsView;
+@property (nonatomic, strong) UITapGestureRecognizer *photoTapRecognizer;
+@property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
 
 @end
 
@@ -58,6 +62,10 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
         _photoImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self addSubview:_photoImageView];
         
+        self.photoTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showFullScreenImage)];
+        [_photoImageView addGestureRecognizer:self.photoTapRecognizer];
+        _photoImageView.userInteractionEnabled = YES;
+
         _heartButton = [GTIOHeartButton heartButtonWithTapHandler:^(id sender) {
             [self.heartButton setHearted:![self.heartButton isHearted]];
             
@@ -140,6 +148,10 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
     [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.brandButtonsView.frame.origin.y + self.brandButtonsView.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
     
     [self setFrame:(CGRect){ self.frame.origin, self.frameImageView.frame.size }];
+
+
+    
+
 }
 
 #pragma mark - Properties
@@ -253,6 +265,13 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
     }
     
     return photoSize.height + descriptionTextSize.height + brandButtonsHeight + kGTIOFrameHeightWithShadowPadding;
+}
+
+- (void)showFullScreenImage
+{    
+    self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:self.post.photo.mainImageURL];
+    [self.fullScreenImageViewer show];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
 }
 
 @end

@@ -19,7 +19,6 @@
 
 @implementation GTIOFullScreenImageViewer
 
-@synthesize windowMask = _windowMask, photo = _photo, photoURL = _photoURL;
 
 - (id)initWithPhotoURL:(NSURL *)url
 {
@@ -37,17 +36,19 @@
         [_windowMask addSubview:_photo];
         
         _photoURL = url;
+
+        self.useAnimation = YES;
     }
     return self;
 }
 
-- (void)show
+- (void)show 
 {
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
     double statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     [self.windowMask setFrame:(CGRect){ 0, statusBarHeight, mainWindow.bounds.size.width, mainWindow.bounds.size.height - statusBarHeight }];
     [mainWindow insertSubview:self.windowMask aboveSubview:mainWindow];
-    
+    NSLog(@"full screen: %@", NSStringFromCGRect(self.windowMask.frame));
     __block typeof(self) blockSelf = self;
     [_photo setImageWithURL:self.photoURL success:^(UIImage *image) {
         if (image.size.width > self.windowMask.bounds.size.width) {
@@ -60,19 +61,29 @@
     } failure:^(NSError *error) {
         [blockSelf dismiss];
     }];
+    _photo.contentMode = UIViewContentModeScaleAspectFit;
     
-    [UIView animateWithDuration:0.25 animations:^{
+    if (self.useAnimation){
+        [UIView animateWithDuration:0.25 animations:^{
+            self.windowMask.alpha = 1.0;
+        }];
+    } else {
         self.windowMask.alpha = 1.0;
-    }];
+    }
 }
 
 - (void)dismiss
 {
-    [UIView animateWithDuration:0.25 animations:^{
+    if (self.useAnimation){
+        [UIView animateWithDuration:0.25 animations:^{
+            self.windowMask.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [self.windowMask removeFromSuperview];
+        }];
+    } else {
         self.windowMask.alpha = 0.0;
-    } completion:^(BOOL finished) {
         [self.windowMask removeFromSuperview];
-    }];
+    }
 }
 
 @end

@@ -168,7 +168,7 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
         // Disallow recognition of tap gestures in the button and remove overlay
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
         return NO;
-    }
+    } 
     return YES;
 }
 

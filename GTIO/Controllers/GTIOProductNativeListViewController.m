@@ -15,6 +15,7 @@
 #import "GTIOActionSheet.h"
 #import "UIImageView+WebCache.h"
 #import "GTIOFullScreenImageViewer.h"
+#import "GTIORouter.h"
 
 @interface GTIOProductNativeListViewController ()
 
@@ -113,8 +114,13 @@
         [bannerImageDownloader setImageWithURL:_collection.bannerImage.imageURL success:^(UIImage *image) {
             [bannerHeader setImage:image forState:UIControlStateNormal];
             bannerHeader.tapHandler = ^(id sender) {
-                self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:_collection.bannerImage.imageURL];
-                [self.fullScreenImageViewer show];
+                UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:_collection.bannerImage.action.destination];
+                if (viewController) {
+                    [self.navigationController pushViewController:viewController animated:YES];
+                } else if ([GTIORouter sharedRouter].fullScreenImageURL) {
+                    self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:[GTIORouter sharedRouter].fullScreenImageURL];
+                    [self.fullScreenImageViewer show];
+                }
             };
             self.tableView.tableHeaderView = bannerHeader;
         } failure:nil];
