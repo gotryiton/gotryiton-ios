@@ -50,9 +50,11 @@ extern NSString * const kGTIODismissEllipsisPopOverViewNotification;
 extern NSString * const kGTIONotificationCountNofitication;
 extern NSString * const kGTIOChangeSelectedTabNotification;
 extern NSString * const kGTIOAddTabBarToWindowNotification;
+extern NSString * const kGTIOExploreLooksChangeResourcePathNotification;
 
 // Notification UserInfo
 extern NSString * const kGTIOChangeSelectedTabToUserInfo;
+extern NSString * const kGTIOResourcePathKey;
 
 // UrbanAirship Constants
 extern BOOL const kGTIOUAirshipAppStoreOrAdHocBuild;

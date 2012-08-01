@@ -37,15 +37,11 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 @property (nonatomic, strong) UIImageView *emptyImageView;
 
+@property (nonatomic, assign, getter = isInitialLoadingFromExternalLink) BOOL initialLoadingFromExternalLink;
+
 @end
 
 @implementation GTIOExploreLooksViewController
-
-@synthesize segmentedControlView = _segmentedControlView;
-@synthesize tabs = _tabs, posts = _posts, pagination = _pagination;
-@synthesize resourcePath = _resourcePath;
-@synthesize masonGridView = _masonGridView;
-@synthesize emptyImageView = _emptyImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,10 +49,18 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     if (self) {
         _tabs = [NSMutableArray array];
         _posts = [NSMutableArray array];
+        _initialLoadingFromExternalLink = NO;
         
-        _resourcePath = @"/posts/explore";
+        _resourcePath = [@"/posts/explore" copy];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeResourcePathNotification:) name:kGTIOExploreLooksChangeResourcePathNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -105,7 +109,10 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     
     [self.view bringSubviewToFront:self.masonGridView];
     
-    [self loadTabs];
+    if (!self.isInitialLoadingFromExternalLink) {
+        [self loadTabs];
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
 }
 
 - (void)viewDidUnload
@@ -136,7 +143,6 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadTabs
 {
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.tabs removeAllObjects];
@@ -268,6 +274,19 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         [self.view addSubview:self.emptyImageView];
     } else {
         [self.emptyImageView removeFromSuperview];
+    }
+}
+
+#pragma mark - Notification
+
+- (void)changeResourcePathNotification:(NSNotification *)notification
+{
+    NSString *resourcePath = [[notification userInfo] objectForKey:kGTIOResourcePathKey];
+    if ([resourcePath length] > 0) {
+        self.initialLoadingFromExternalLink = YES;
+        _resourcePath = [resourcePath copy];
+        [self loadTabs];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 

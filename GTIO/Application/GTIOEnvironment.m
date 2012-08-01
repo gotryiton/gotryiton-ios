@@ -79,9 +79,11 @@ NSString * const kGTIODismissEllipsisPopOverViewNotification = @"kGTIODismissEll
 NSString * const kGTIONotificationCountNofitication = @"kGTIONotificationCountNofitication";
 NSString * const kGTIOChangeSelectedTabNotification = @"kGTIOChangeSelectedTabNotification";
 NSString * const kGTIOAddTabBarToWindowNotification = @"kGTIOAddTabBarToWindowNotification";
+NSString * const kGTIOExploreLooksChangeResourcePathNotification = @"kGTIOExploreLooksChangeResourcePathNotification";
 
 // Notification UserInfo
 NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";
+NSString * const kGTIOResourcePathKey = @"kGTIOResourcePathKey";
 
 // UrbanAirship
 NSString * const kGTIOUAirshipProductionAppKey = @"***REMOVED***";

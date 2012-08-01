@@ -86,9 +86,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         
         _addNavToHeaderOffsetXOrigin = -44.0f;
         _removeNavToHeaderOffsetXOrigin = -0.0f;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
-        
+
         [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:NULL];
         [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:NULL];
     }
@@ -200,6 +198,13 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self showStatusBarBackgroundWithoutNavigationBar];
     [self.tableView bringSubviewToFront:self.navBarView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kGTIOPostFeedOpenLinkNotification object:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
