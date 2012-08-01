@@ -24,7 +24,6 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 
 @interface GTIOFeedCell () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) GTIOPostFrameView *frameView;
 @property (nonatomic, strong) GTIOWhoHeartedThisView *whoHeartedThisView;
 @property (nonatomic, strong) GTIOPostButtonColumnView *postButtonColumnView;
 

@@ -14,10 +14,14 @@
 #import "GTIOPhoto.h"
 #import "GTIOButton.h"
 
+#import "GTIORouter.h"
+
 #import "GTIOHeartButton.h"
 #import "GTIOPostBrandButtonsView.h"
 
 #import "GTIOFullScreenImageViewer.h"
+
+#import "GTIOViewController.h"
 
 static CGFloat const kGTIOFrameWidth = 270.0f;
 static CGFloat const kGTIOFrameHeightPadding = 16.0f;
@@ -27,9 +31,12 @@ static CGFloat const kGTIOPhotoLeftRightPadding = 10.0f;
 static CGFloat const kGTIOHeartButtonPadding = 0.0f;
 static CGFloat const kGTIODescriptionTextWidth = 240.0f;
 static CGFloat const kGTIODescriptionLabelTopPadding = 5.0f;
-static CGFloat const kGTIOBrandButtonsTopPadding = 6.0f;
-static CGFloat const kGTIOBrandButtonsTopPaddingNoDescription = 11.0f;
-static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
+static CGFloat const kGTIOShopThisLookButtonTopPadding = 6.0f;
+static CGFloat const kGTIOShopThisLookButtonTopPaddingNoDescription = 11.0f;
+static CGFloat const kGTIOShopThisLookButtonBottomPadding = 4.0f;
+static CGFloat const kGTIOShopThisLookButtonHeight = 26.0f;
+static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
+
 
 @interface GTIOPostFrameView ()  <DTAttributedTextContentViewDelegate>
 
@@ -39,9 +46,10 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 @property (nonatomic, strong) NSDictionary *descriptionAttributeTextOptions;
 @property (nonatomic, strong) GTIOHeartButton *heartButton;
 @property (nonatomic, strong) GTIOButton *photoHeartButtonModel;
-@property (nonatomic, strong) GTIOPostBrandButtonsView *brandButtonsView;
 @property (nonatomic, strong) UITapGestureRecognizer *photoTapRecognizer;
 @property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
+@property (nonatomic, strong) GTIOUIButton *shopThisLookButton;
+@property (nonatomic, strong) NSString *shopThisLookDestination;
 
 @end
 
@@ -95,8 +103,9 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
                                             defaultDTCSSStylesheet, DTDefaultStyleSheet,
                                             nil];
         
-        _brandButtonsView = [[GTIOPostBrandButtonsView alloc] initWithFrame:(CGRect){ CGPointZero, { kGTIODescriptionTextWidth, 0 } }];
-        [self addSubview:_brandButtonsView];
+
+        _shopThisLookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFeedShopThisLook tapHandler:nil];
+        [self addSubview:_shopThisLookButton];
 
         _star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star-corner-feed.png"]];
         _star.hidden = YES;
@@ -130,28 +139,41 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
         [self.descriptionTextView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.photoImageView.frame.origin.y + self.photoImageView.frame.size.height, kGTIODescriptionTextWidth, descriptionTextSize.height}];
     }
 
-    if (self.brandButtonsView.frame.size.height > 0) {
-        // Add extra brand button padding if no description
-        if (descriptionTextSize.height > 0) {
-            extraHeight += kGTIOBrandButtonsTopPadding;
-        } else {
-            extraHeight += kGTIOBrandButtonsTopPaddingNoDescription;
+    CGFloat shopThisLookButtonHeight = 0.0;
+
+    for (GTIOButton *button in self.post.buttons) {
+        if ([button.name isEqualToString:kGTIOPostSideShopButton]) {
+            
+            if (descriptionTextSize.height > 0) {
+                extraHeight += kGTIOShopThisLookButtonTopPadding;
+            } else {
+                extraHeight += kGTIOShopThisLookButtonTopPaddingNoDescription;
+            }
+            shopThisLookButtonHeight = kGTIOShopThisLookButtonHeight;
+
+            __block id tapDelegate = self.delegate;
+            [self.shopThisLookButton setTapHandler:^(id sender) {
+                if ([tapDelegate respondsToSelector:@selector(buttonTap:)]) {
+                    [tapDelegate buttonTap:button];
+                }
+            }];
+
+            extraParentFrameHeight += kGTIOShopThisLookButtonBottomPadding;
         }
-        
-        [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + extraHeight, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
-        
-        extraParentFrameHeight += kGTIOBrandButtonsBottomPadding;
-    } else {
-        [self.brandButtonsView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height, kGTIODescriptionTextWidth, self.brandButtonsView.frame.size.height }];
     }
+
+    [self.shopThisLookButton setFrame:(CGRect){ self.photoImageView.frame.size.width - self.shopThisLookButton.frame.size.width - kGTIOShopThisLookButtonRightPadding, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + extraHeight, self.shopThisLookButton.bounds.size.width, shopThisLookButtonHeight }];
     
-    [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.brandButtonsView.frame.origin.y + self.brandButtonsView.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
+    [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.shopThisLookButton.frame.origin.y + self.shopThisLookButton.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
     
     [self setFrame:(CGRect){ self.frame.origin, self.frameImageView.frame.size }];
-
-
     
 
+}
+
+- (void) dealloc 
+{
+    self.delegate = nil;
 }
 
 #pragma mark - Properties
@@ -166,14 +188,6 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
         [blockSelf setNeedsLayout];
     } failure:nil];
     
-    // Hearted
-    for (GTIOButton *button in _post.buttons) {
-        if ([button.name isEqualToString:kGTIOPhotoHeartButton]) {
-            self.photoHeartButtonModel = button;
-            [self.heartButton setHearted:[self.photoHeartButtonModel.state boolValue]];
-            break;
-        }
-    }
 
     // Description
     NSData *data = [_post.postDescription dataUsingEncoding:NSUTF8StringEncoding];
@@ -181,8 +195,7 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.descriptionAttributeTextOptions documentAttributes:NULL];
     self.descriptionTextView.attributedString = string;
     
-    // Brand buttons
-    [self.brandButtonsView setButtons:_post.brandsButtons];
+
 }
 
 #pragma mark Custom Views on Text
@@ -253,18 +266,14 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
         descriptionTextSize.height += kGTIODescriptionLabelTopPadding;
     }
     
-    CGFloat brandButtonsHeight = [GTIOPostBrandButtonsView heightWithWidth:kGTIODescriptionTextWidth buttons:post.brandsButtons];
-    if (brandButtonsHeight > 0) {
-        // Add brand button padding
-        if (descriptionTextSize.height > 0) {
-            brandButtonsHeight += kGTIOBrandButtonsTopPadding;
-        } else {
-            brandButtonsHeight += kGTIOBrandButtonsTopPaddingNoDescription;
+    CGFloat shopThisLookHeight = 0;
+    for (GTIOButton *button in post.buttons) {
+        if([button.name isEqualToString:kGTIOPostSideShopButton]) {
+            shopThisLookHeight = kGTIOShopThisLookButtonHeight + kGTIOShopThisLookButtonTopPadding;
         }
-        brandButtonsHeight += kGTIOBrandButtonsBottomPadding;
     }
     
-    return photoSize.height + descriptionTextSize.height + brandButtonsHeight + kGTIOFrameHeightWithShadowPadding;
+    return photoSize.height + descriptionTextSize.height + shopThisLookHeight + kGTIOFrameHeightWithShadowPadding;
 }
 
 - (void)showFullScreenImage

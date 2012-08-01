@@ -70,6 +70,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeRequestedButtonRegular: return [self gtio_requestedButtonRegular];
         case GTIOButtonTypeCloseButtonForNavBar: return [self gtio_closeButtonGrayTopMargin];
         case GTIOButtonTypeReload: return [self gtio_reloadButtonTopMargin];
+        case GTIOButtonTypeFeedShopThisLook: return [self gtio_feedShopThisLook];
         case GTIOButtonTypeFindFriends: return [self gtio_findFriendsTopRightButton];
         case GTIOButtonTypeHeart: return [self gtio_heartButton];
         case GTIOButtonTypeFlag: return [self gtio_flagButton];
@@ -578,6 +579,12 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)gtio_photoFrameHandleButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"photo-frame-handle-inactive.png"] hightlightImage:nil];
+}
+
++ (id)gtio_feedShopThisLook
+{
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shop-this-look-button-inactive.png"] hightlightImage:[UIImage imageNamed:@"shop-this-look-button-active.png"]];
+    return button;
 }
 
 + (id)gtio_productShoppingListProductOptionButton
