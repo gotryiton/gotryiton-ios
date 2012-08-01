@@ -10,12 +10,15 @@
 #import "GTIOUser.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOProfileViewController.h"
+#import "SSPullToLoadMoreView.h"
 
-@interface GTIOWhoHeartedThisViewController ()
+@interface GTIOWhoHeartedThisViewController () <SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) GTIOWhoHeartedThisViewControllerType controllerType;
 @property (nonatomic, strong) NSMutableArray *users;
+@property (nonatomic, strong) GTIOPagination *pagination;
+@property (nonatomic, strong) SSPullToLoadMoreView *pullToLoadMoreView;
 
 @end
 
@@ -59,6 +62,9 @@
     self.tableView.tableFooterView = tableFooterView;
     [self.view addSubview:self.tableView];
     
+    self.pullToLoadMoreView = [[SSPullToLoadMoreView alloc] initWithScrollView:self.tableView delegate:self];
+    self.pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 0.0f } }];
+
     [self loadUsers];
 }
 
@@ -71,20 +77,33 @@
 
 - (void)loadUsers
 {
+    [self loadUsersWithPagination:NO ];
+}
+
+- (void)loadUsersWithPagination:(BOOL)usePagination
+{
     NSString *resourcePath;
     if (self.controllerType == GTIOWhoHeartedThisViewControllerTypePost) {
         resourcePath = [NSString stringWithFormat:@"/users/who-hearted-post/%i", self.itemID.intValue];
     } else if (self.controllerType == GTIOWhoHeartedThisViewControllerTypeProduct) {
         resourcePath = [NSString stringWithFormat:@"/users/who-hearted-product/%i", self.itemID.intValue];
     }
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    if (usePagination){
+        resourcePath = self.pagination.nextPage;
+    } else {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            [self.users removeAllObjects];
+            [self.pullToLoadMoreView finishLoading];
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOUser class]]) {
-                    [self.users addObject:object];
+                    [self.users addObject:object];    
+                }
+                if ([object isMemberOfClass:[GTIOPagination class]]) {
+                    self.pagination =  (GTIOPagination *)object;
                 }
             }
             if (self.users.count > 0) {
@@ -92,10 +111,18 @@
             }
         };
         loader.onDidFailWithError = ^(NSError *error) {
+            [self.pullToLoadMoreView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
+}
+
+#pragma mark - SSPullToLoadMoreDelegate Methods
+
+- (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
+{
+    [self loadUsersWithPagination:YES ];
 }
 
 #pragma mark - GTIOFindMyFriendsTableViewCellDelegate Methods
@@ -105,6 +132,34 @@
     NSUInteger indexForUser = [self.users indexOfObject:user];
     [self.users replaceObjectAtIndex:indexForUser withObject:newUser];
 }
+
+- (NSUInteger)indexOfUserID:(NSString *)userID
+{
+    return [self.users indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+       GTIOUser *user = (GTIOUser*)obj;
+       return ([user.userID isEqualToString:userID]);
+    }];
+}
+
+
+- (void)buttonTapped:(GTIOButton*)button;
+{
+    __block typeof(self) blockSelf = self;
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            for (id object in objects) {
+                if ([object isMemberOfClass:[GTIOUser class]]) {
+                    GTIOUser *newUser = (GTIOUser *)object;
+                    [blockSelf updateDataSourceUser:[self.users objectAtIndex:[blockSelf indexOfUserID:newUser.userID]] withUser:newUser];
+                }
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
 
 #pragma mark - UITableViewDelegate Methods
 

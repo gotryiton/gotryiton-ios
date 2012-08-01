@@ -174,8 +174,8 @@ static CGFloat const kGTIOBannerAdHeight = 50.0f;
             [self.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
                 actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
                     if (!actionSheet.wasCancelled) {
-                        if ([self.delegate respondsToSelector:@selector(refreshUserProfileRefreshPostsOnly:)]) {
-                            [self.delegate refreshUserProfileRefreshPostsOnly:NO];
+                        if ([self.delegate respondsToSelector:@selector(refreshUserProfile)]) {
+                            [self.delegate refreshUserProfile];
                         }
                     }
                 };
@@ -186,6 +186,13 @@ static CGFloat const kGTIOBannerAdHeight = 50.0f;
     }
     [self.profileDescription setText:self.userProfile.user.aboutMe];
     
+    for (UIView *view in self.subviews) {
+        if ([view isMemberOfClass:[GTIOProfileCalloutView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    [self.profileCalloutViews removeAllObjects];
+
     for (GTIOProfileCallout *profileCallout in self.userProfile.profileCallOuts) {
         GTIOProfileCalloutView *profileCalloutView = [[GTIOProfileCalloutView alloc] initWithFrame:CGRectZero];
         [profileCalloutView setProfileCallout:profileCallout user:self.userProfile.user];
