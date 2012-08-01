@@ -80,9 +80,8 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeProductShoppingListNav,
     GTIOButtonTypeInviteFriendsSMS,
     GTIOButtonTypeInviteFriendsEmail,
-    GTIOButtonTypeInviteFriendsFacebook,
+    GTIOButtonTypeInviteFriendsTwitter,
     GTIOButtonTypeErrorRetry,
-    GTIOButtonTypeInviteFriendsTwitter
 } GTIOButtonType;
 
 @interface GTIOUIButton : UIButton

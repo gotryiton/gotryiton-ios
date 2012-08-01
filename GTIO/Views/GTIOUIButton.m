@@ -94,9 +94,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeProductShoppingListNav: return [self gtio_productShoppingListNavButton];
         case GTIOButtonTypeInviteFriendsSMS: return [self gtio_inviteFriendsSMSButton];
         case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
-        case GTIOButtonTypeInviteFriendsFacebook: return [self gtio_inviteFriendsFacebookButton];
-        case GTIOButtonTypeErrorRetry: return [self gtio_errorRetryButton];
         case GTIOButtonTypeInviteFriendsTwitter: return [self gtio_inviteFriendsTwitterButton];
+        case GTIOButtonTypeErrorRetry: return [self gtio_errorRetryButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
