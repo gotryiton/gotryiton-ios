@@ -2934,6 +2934,11 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Loading.More.png" width=420px/>
 
+8.1.6 shop this look
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Shop.This.Look.png" width=420px/>
+
+
 
 #### User Flow
 **entry screens:**   
@@ -3084,18 +3089,12 @@ gtio://posts/feed
          - text area is 228px wide, lines should wrap (right edge of text area should be be same as right edge of photo)
    - buttons
       - if photo height < 247px and voting is ON, assume photo height is 247px to accommodate max number of buttons and minimum gaps required
-      - brand buttons
+      - SHOP THIS LOOK button (screen 8.1.6)
          - 'button-brand.png' with active and inactive versions
-         - text is 13pt Archer Book Italic, rgb(88,88,88)
-         - horizontal middle is stretchable
-         - 5px nonstretchable on left
-         - 5px nonstretchable on right
          - positioning
-            - first button is 18px from left edge of screen
-            - top row of buttons are 11px away from baseline of last line of description or bottom of photo
-            - 8px gap between buttons
-            - if a row exceeds 240px, last button should wrap to an additional row
-               - additional rows have 8px padding from previous rows
+            - top of button is 11px away from baseline of last line of description or bottom of photo (if no description exists)
+            - button should be right-aligned to the right side of description text area (which is purposely less wide than the accompanying photo)
+               - goal is to have the button appear to have about 11px of bottom and right side padding within the white frame
       - review button
          - 'button-review.png' with active and inactive states
          - top of circle (not including 'glow') should line up with top of photo
@@ -3104,10 +3103,6 @@ gtio://posts/feed
          - Verlag Book, 12pt, rgb(143,204,177)
          - horizontally centered around accent line
          - vertically centered within button asset
-      - product info button
-         - 'button-shopbag.png' with active and inactive states
-         - horizontally centered around accent line
-         - circle is 9px away from review circle (not including 'glow' areas)
       - dot dot dot button
          - 'button-dot.png' with active and inactive states
          - horizontally centered around accent line
