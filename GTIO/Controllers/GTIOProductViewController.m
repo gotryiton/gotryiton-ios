@@ -18,6 +18,8 @@
 #import "GTIOButton.h"
 #import "GTIOProduct.h"
 
+#import "GTIOWebViewController.h"
+
 #import <RestKit/RestKit.h>
 #import "UIImageView+WebCache.h"
 
@@ -32,8 +34,7 @@ static CGFloat const kGTIOProductBottomInformationInnerBackgroundWidth = 310.0;
 static CGFloat const kGTIOProductBottomInformationInnerBackgroundHeight = 66.0;
 static CGFloat const kGTIOSocialShareButtonWidthHeight = 23.0;
 static CGFloat const kGTIOSocialShareButtonTopMargin = 14.0;
-static CGFloat const kGTIOTwitterButtonXPos = 285.0;
-static CGFloat const kGTIOFacebookButtonXPos = 260.0;
+static CGFloat const kGTIOTopRightRightPadding = 5.0;
 static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 
 @interface GTIOProductViewController ()
@@ -48,8 +49,6 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 @property (nonatomic, strong) GTIOProductHeartControl *heartControl;
 @property (nonatomic, strong) UIImageView *bottomInformationBackground;
 @property (nonatomic, strong) GTIOProductInformationBox *productInformationBox;
-@property (nonatomic, strong) GTIOUIButton *facebookShareButton;
-@property (nonatomic, strong) GTIOUIButton *twitterShareButton;
 
 @property (nonatomic, strong) GTIOUIButton *postThisButton;
 @property (nonatomic, strong) GTIOUIButton *shoppingListButton;
@@ -85,6 +84,12 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
         [self.navigationController popViewControllerAnimated:YES];
     }];
     self.leftNavigationButton = backButton;
+
+    GTIOUIButton *openUrlButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductTopRightButton tapHandler:^(id sender) {
+        [self tapToProductUrl];
+    }];
+    [self setRightNavigationButton:openUrlButton];
+
     
     self.whiteBackground = [[UIView alloc] initWithFrame:(CGRect){ 0, - self.navigationController.navigationBar.bounds.size.height , self.view.bounds.size.width, self.view.bounds.size.height  }];
     self.whiteBackground.backgroundColor = [UIColor whiteColor];
@@ -110,14 +115,10 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     self.productInformationBox = [[GTIOProductInformationBox alloc] initWithFrame:(CGRect){ kGTIOProductBottomInformationInnerBackgroundLeftMargin, kGTIOProductBottomInformationInnerBackgroundTopMargin, kGTIOProductBottomInformationInnerBackgroundWidth, kGTIOProductBottomInformationInnerBackgroundHeight }];
     [self.bottomInformationBackground addSubview:self.productInformationBox];
     
-    self.facebookShareButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShareFacebook];
-    [self.facebookShareButton setFrame:(CGRect){ kGTIOFacebookButtonXPos, self.bottomInformationBackground.frame.origin.y + kGTIOSocialShareButtonTopMargin, kGTIOSocialShareButtonWidthHeight, kGTIOSocialShareButtonWidthHeight }];
-    [self.view addSubview:self.facebookShareButton];
-    
-    self.twitterShareButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShareTwitter];
-    [self.twitterShareButton setFrame:(CGRect){ kGTIOTwitterButtonXPos, self.bottomInformationBackground.frame.origin.y + kGTIOSocialShareButtonTopMargin, kGTIOSocialShareButtonWidthHeight, kGTIOSocialShareButtonWidthHeight }];
-    [self.view addSubview:self.twitterShareButton];
-    
+    self.bottomInformationBackground.userInteractionEnabled = YES;
+    UITapGestureRecognizer *productInfoTapRecocgnizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToProductUrl)];
+    [self.bottomInformationBackground addGestureRecognizer:productInfoTapRecocgnizer];
+
     self.postThisButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductPostThis];
     [self.postThisButton setFrame:(CGRect){ 5, 365, self.postThisButton.bounds.size }];
     self.postThisButton.alpha = 0.0;
@@ -151,8 +152,6 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     self.heartControl = nil;
     self.bottomInformationBackground = nil;
     self.productInformationBox = nil;
-    self.facebookShareButton = nil;
-    self.twitterShareButton = nil;
     self.postThisButton = nil;
     self.shoppingListButton = nil;
 }
@@ -278,6 +277,13 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:self.product.photo.mainImageURL];
     self.fullScreenImageViewer.useAnimation = NO;
     [self.fullScreenImageViewer show];
+}
+
+- (void)tapToProductUrl
+{
+    UIViewController *viewController = [[GTIOWebViewController alloc] initWithNibName:nil bundle:nil];
+    [((GTIOWebViewController *)viewController) setURL:self.product.buyURL];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

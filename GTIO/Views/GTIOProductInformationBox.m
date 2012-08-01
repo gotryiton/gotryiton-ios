@@ -15,15 +15,18 @@ static CGFloat const kGTIOProductNameLabelHeight = 38.0;
 static CGFloat const kGTIOProductBrandLabelVerticalPadding = 1.0;
 static CGFloat const kGTIOProductPriceLabelWidth = 50.0;
 static CGFloat const kGTIOProductPriceLabelHeight = 22.0;
-static CGFloat const kGTIOProductPriceLabelRightMargin = 10.0;
+static CGFloat const kGTIOProductPriceLabelRightMargin = 13.0;
 static CGFloat const kGTIOProductPriceLabelBottomMargin = 3.0;
 static CGFloat const kGTIOProductBrandsLabelHeight = 14.0;
+static CGFloat const kGTIOProductChevronRightPadding = 14.0;
+static CGFloat const kGTIOProductChevronYPosition = 12.0;
 
 @interface GTIOProductInformationBox()
 
 @property (nonatomic, strong) UILabel *productNameLabel;
 @property (nonatomic, strong) UILabel *productBrandsLabel;
 @property (nonatomic, strong) UILabel *productPriceLabel;
+@property (nonatomic, strong) UIImageView *chevron;
 
 @end
 
@@ -58,6 +61,9 @@ static CGFloat const kGTIOProductBrandsLabelHeight = 14.0;
         _productPriceLabel.textAlignment = UITextAlignmentRight;
         _productPriceLabel.adjustsFontSizeToFitWidth = YES;
         [self addSubview:_productPriceLabel];
+
+        _chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"general.chevron.png"]];
+        [self addSubview:_chevron];
     }
     return self;
 }
@@ -70,6 +76,8 @@ static CGFloat const kGTIOProductBrandsLabelHeight = 14.0;
     [self.productNameLabel setFrame:(CGRect){ kGTIOProductNameLabelLeftMargin, kGTIOProductNameLabelTopMargin, kGTIOProductNameLabelWidth, self.productNameLabel.bounds.size.height }];
     [self.productBrandsLabel setFrame:(CGRect){ kGTIOProductNameLabelLeftMargin, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height + kGTIOProductBrandLabelVerticalPadding, self.productNameLabel.bounds.size.width, kGTIOProductBrandsLabelHeight }];
     [self.productPriceLabel setFrame:(CGRect){ self.bounds.size.width - kGTIOProductPriceLabelWidth - kGTIOProductPriceLabelRightMargin, self.bounds.size.height - kGTIOProductPriceLabelHeight - kGTIOProductPriceLabelBottomMargin, kGTIOProductPriceLabelWidth, kGTIOProductPriceLabelHeight }];
+
+    [self.chevron setFrame:(CGRect){ self.bounds.size.width - kGTIOProductChevronRightPadding,  kGTIOProductChevronYPosition, self.chevron.bounds.size }];
 }
 
 - (void)setProductName:(NSString *)productName

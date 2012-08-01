@@ -66,6 +66,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeProductShareFacebook,
     GTIOButtonTypeProductShareTwitter,
     GTIOButtonTypeProductPostThis,
+    GTIOButtonTypeProductTopRightButton,
     GTIOButtonTypeProductShoppingList,
     GTIOButtonTypeProductShoppingListChecked,
     GTIOButtonTypeAutoCompleteHashtag,

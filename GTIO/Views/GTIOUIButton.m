@@ -77,9 +77,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeLeaveAComment: return [self gtio_leaveACommentButton];
         case GTIOButtonTypePostRetry: return [self gtio_postRetryButton];
         case GTIOButtonTypeProductBack: return [self gtio_productBackButton];
-        case GTIOButtonTypeProductShareFacebook: return [self gtio_facebookShareButton];
-        case GTIOButtonTypeProductShareTwitter: return [self gtio_twitterShareButton];
         case GTIOButtonTypeProductPostThis: return [self gtio_productPostThisButton];
+        case GTIOButtonTypeProductTopRightButton: return [self gtio_productTopRightButton];
         case GTIOButtonTypeProductShoppingList: return [self gtio_productShoppingListButton];
         case GTIOButtonTypeProductShoppingListChecked: return [self gtio_productShoppingListCheckedButton];
         case GTIOButtonTypeAutoCompleteHashtag: return [self gtio_autoCompleteHashtagButton];
@@ -619,6 +618,13 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 {
     GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.search.icon.png"] hightlightImage:nil];
     [button setFrame:(CGRect){ button.bounds.origin, button.bounds.size.width + 10, button.bounds.size.height }];
+    return button;
+}
+
++ (id)gtio_productTopRightButton
+{
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.out.png"] hightlightImage:nil];
+    [button setFrame:(CGRect){button.frame.origin, button.bounds.size.width + 10, button.bounds.size.height}];
     return button;
 }
 
