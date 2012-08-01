@@ -25,6 +25,7 @@
 		5CC8D5F815C492470072FADC /* management.slider.rail.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CC8D5F015C492470072FADC /* management.slider.rail.png */; };
 		5CC8D5F915C492470072FADC /* management.slider.rail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CC8D5F115C492470072FADC /* management.slider.rail@2x.png */; };
 		5CCC2B3615C8AF7B0036A2E3 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CCC2B3515C8AF7B0036A2E3 /* Twitter.framework */; };
+		5CCC2B3915C8CE4E0036A2E3 /* GTIOInvitation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCC2B3815C8CE4E0036A2E3 /* GTIOInvitation.m */; };
 		5CDFD9031593BA4600994416 /* GTIOAutoCompleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */; };
 		5CDFD9061593BA7B00994416 /* GTIOAutoCompleteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */; };
 		5CDFD9091593BAAD00994416 /* GTIOAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */; };
@@ -1445,6 +1446,8 @@
 		5CC8D5F015C492470072FADC /* management.slider.rail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = management.slider.rail.png; sourceTree = "<group>"; };
 		5CC8D5F115C492470072FADC /* management.slider.rail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "management.slider.rail@2x.png"; sourceTree = "<group>"; };
 		5CCC2B3515C8AF7B0036A2E3 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		5CCC2B3715C8CE4E0036A2E3 /* GTIOInvitation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOInvitation.h; sourceTree = "<group>"; };
+		5CCC2B3815C8CE4E0036A2E3 /* GTIOInvitation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOInvitation.m; sourceTree = "<group>"; };
 		5CDFD9011593BA4600994416 /* GTIOAutoCompleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteView.h; sourceTree = "<group>"; };
 		5CDFD9021593BA4600994416 /* GTIOAutoCompleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleteView.m; sourceTree = "<group>"; };
 		5CDFD9041593BA7B00994416 /* GTIOAutoCompleteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteScrollView.h; sourceTree = "<group>"; };
@@ -3050,6 +3053,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5CCC2B3A15C8CE590036A2E3 /* Invitation */ = {
+			isa = PBXGroup;
+			children = (
+				D2AA9FFD15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.h */,
+				D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */,
+				5CCC2B3715C8CE4E0036A2E3 /* GTIOInvitation.h */,
+				5CCC2B3815C8CE4E0036A2E3 /* GTIOInvitation.m */,
+			);
+			name = Invitation;
+			sourceTree = "<group>";
+		};
 		8016652A15B4A6C500AE9526 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -5396,6 +5410,7 @@
 		D2CDA9B015503307009B7E24 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5CCC2B3A15C8CE590036A2E3 /* Invitation */,
 				D2F02BB615BF07EC0052AC77 /* Tags */,
 				8016652E15B4B4F000AE9526 /* Products */,
 				8E8FC10815AF1C67004E0CBE /* Notifications */,
@@ -5419,8 +5434,6 @@
 				D2F7C7AE159900A900ADAF92 /* GTIOPagination.m */,
 				D2C46D9715B476BB00EEFE15 /* GTIOTab.h */,
 				D2C46D9815B476BB00EEFE15 /* GTIOTab.m */,
-				D2AA9FFD15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.h */,
-				D2AA9FFE15BD91DB0038ACB4 /* GTIOInviteFriendsPerson.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -7092,6 +7105,7 @@
 				D2CF18A315BF4F1F005E4E17 /* GTIOScrollView.m in Sources */,
 				D2E3FD9015C0402100BF57F3 /* GTIOPickAProductViewController.m in Sources */,
 				5C25D0F115C4699000F6E8F6 /* GTIOSinglePostViewController.m in Sources */,
+				5CCC2B3915C8CE4E0036A2E3 /* GTIOInvitation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
