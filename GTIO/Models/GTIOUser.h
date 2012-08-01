@@ -94,4 +94,10 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
  */
 - (void)loadUserProfileWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler;
 
+
+/** Load user by user ID
+ */
+- (void)refreshUserProfileWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler;
+
+
 @end

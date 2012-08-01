@@ -9,6 +9,13 @@
 #import "GTIOUIButton.h"
 #import "GTIOHeartToggleButton.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+static CGFloat const kGTIOSpinnerSize = 12.0;
+static CGFloat const kGTIOSpinnerDefaultSize = 21.0;
+static CGFloat const kGTIOSpinnerScale = 0.55;
+static CGFloat const kGTIOSpinnerTopPadding = 2.0;
+
 @implementation GTIOUIButton
 
 @synthesize tapHandler = _tapHandler, touchDownHandler = _touchDownHandler, touchDragExitHandler = _touchDragExitHandler;
@@ -344,6 +351,7 @@
     [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(7.0, 0, 0, 0)];
     [button setTitle:@"follow" forState:UIControlStateDisabled];
+    [button setTitleLabelText:@"follow"];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
@@ -388,6 +396,7 @@
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"follow" forState:UIControlStateNormal];
+    [button setTitleLabelText:@"follow"];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:(CGRect){ 0, 0, 70, 30 }];
@@ -402,6 +411,7 @@
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"following" forState:UIControlStateNormal];
+    [button setTitleLabelText:@"following"];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:(CGRect){ 0, 0, 70, 30 }];
@@ -443,6 +453,7 @@
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"requested" forState:UIControlStateNormal];
+    [button setTitleLabelText:@"requested"];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:(CGRect){ 0, 0, 70, 30 }];
@@ -670,6 +681,39 @@
         self.touchDragExitHandler(sender);
     }
 }
+
+- (void)showSpinner
+{
+    if (!self.titleLabelText && ![self.titleLabel.text isEqualToString:@""]){
+        self.titleLabelText = [self.titleLabel text];
+    }
+    [self setTitle:@"" forState:UIControlStateNormal];
+    
+    CGRect innerFrame = CGRectMake( self.bounds.size.width/2 - kGTIOSpinnerSize/2 , self.bounds.size.height/2 - kGTIOSpinnerSize/2 , kGTIOSpinnerSize, kGTIOSpinnerSize);
+    innerFrame = UIEdgeInsetsInsetRect(innerFrame, self.titleEdgeInsets);
+
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:innerFrame];
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.activityIndicator.frame =innerFrame;
+
+    self.activityIndicator.transform = CGAffineTransformMakeScale(kGTIOSpinnerSize/kGTIOSpinnerDefaultSize, kGTIOSpinnerSize/kGTIOSpinnerDefaultSize);
+
+    [self.activityIndicator startAnimating];
+
+    [self addSubview:self.activityIndicator];
+}
+
+- (void)hideSpinner
+{
+    if (self.titleLabelText) {
+        [self setTitle:self.titleLabelText forState:UIControlStateNormal];
+    }
+
+    [self.activityIndicator stopAnimating];
+    [self.activityIndicator removeFromSuperview];
+    self.activityIndicator = nil;
+}
+
 
 - (void)setTapAreaPadding:(CGFloat)tapAreaPadding
 {
