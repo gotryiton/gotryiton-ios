@@ -209,18 +209,6 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 - (void)loadFeed
 {
     [self.emptyView removeGestureRecognizer:self.emptyViewTapGestureRecognizer]; // So you can't tap it multiple times
-    
-//    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/error/test-retry" usingBlock:^(RKObjectLoader *loader) {
-//        loader.onDidLoadObjects = ^(NSArray *objects) {
-//            NSLog(@"Load objects");
-//        };
-//        loader.onDidFailWithError = ^(NSError *error) {
-//            NSLog(@"Did fail load objects");
-//            [GTIOErrorController handleError:error showRetryInView:self.view retryHandler:^(GTIORetryHUD *retryHUD) {
-//                [self loadFeed];
-//            }];
-//        };
-//    }];
 
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.postsResourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
@@ -300,8 +288,6 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToLoadMoreView finishLoading];
             NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
-            
-            // TODO: Display error state
         };
     }];
 }

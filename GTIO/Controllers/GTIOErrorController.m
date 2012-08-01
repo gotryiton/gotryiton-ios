@@ -11,7 +11,6 @@
 #import <RestKit/RestKit.h>
 
 #import "GTIOError.h"
-#import "GTIOAlert.h"
 
 static NSString * const kGTIODefaultErrorTitle = @"error";
 static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On";
@@ -29,7 +28,7 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
     if ([objects count] > 0) {
         for (id obj in objects) {
             if ([obj isKindOfClass:[GTIOError class]]) {
-                [self handleGTIOError:obj showRetryInView:view retryHandler:retryHandler];
+                [self handleAlert:((GTIOError *)obj).alert showRetryInView:view retryHandler:retryHandler];
                 return;
             }
         }
@@ -44,6 +43,37 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
     
     [[[UIAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 }
+
++ (void)handleAlert:(GTIOAlert *)alert showRetryInView:(UIView *)view retryHandler:(GTIORetryHUDRetryHandler)retryHandler
+{
+    if (alert) {
+        if ([alert.retry boolValue]) {
+            // Show Retry
+            NSString *message = kGTIODefaultMessage;
+            if ([alert.message length] > 0) {
+                message = alert.message;
+            }
+            
+            [GTIORetryHUD showHUDAddedTo:view text:message retryHandler:^(GTIORetryHUD *HUD) {
+                if (retryHandler) {
+                    retryHandler(HUD);
+                }
+                [GTIORetryHUD hideHUDForView:view];
+            }];
+        } else {
+            // Show Alert
+            NSString *errorTitle = kGTIODefaultErrorTitle;
+            if ([alert.title length] > 0) {
+                errorTitle = alert.title;
+            }
+            NSString *errorMessage = alert.message;
+            
+            [[[UIAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }
+}
+
+#pragma mark - Helpers
 
 + (NSString*)messageForRestKitErrorCode:(NSInteger)errorCode
 {
@@ -62,35 +92,6 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
         case kCFURLErrorCannotFindHost: return @"Could not connect to the server";
         case kCFURLErrorCannotConnectToHost: return @"Could not connect to the server";
         default: return @"An unknown error has occurred";
-    }
-}
-
-+ (void)handleGTIOError:(GTIOError *)error showRetryInView:(UIView *)view retryHandler:(GTIORetryHUDRetryHandler)retryHandler
-{
-    if (error.alert) {
-        if ([error.alert.retry boolValue]) {
-            // Show Retry
-            NSString *message = kGTIODefaultMessage;
-            if ([error.alert.message length] > 0) {
-                message = error.alert.message;
-            }
-            
-            [GTIORetryHUD showHUDAddedTo:view text:message retryHandler:^(GTIORetryHUD *HUD) {
-                if (retryHandler) {
-                    retryHandler(HUD);
-                }
-                [GTIORetryHUD hideHUDForView:view];
-            }];
-        } else {
-            // Show Alert
-            NSString *errorTitle = kGTIODefaultErrorTitle;
-            if ([error.alert.title length] > 0) {
-                errorTitle = error.alert.title;
-            }
-            NSString *errorMessage = error.alert.message;
-            
-            [[[UIAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
     }
 }
 

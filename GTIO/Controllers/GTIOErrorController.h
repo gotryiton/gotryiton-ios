@@ -8,8 +8,12 @@
 
 #import "GTIORetryHUD.h"
 
+#import "GTIOAlert.h"
+
 @interface GTIOErrorController : NSObject
 
 + (void)handleError:(NSError *)error showRetryInView:(UIView *)view retryHandler:(GTIORetryHUDRetryHandler)retryHandler;
+
++ (void)handleAlert:(GTIOAlert *)alert showRetryInView:(UIView *)view retryHandler:(GTIORetryHUDRetryHandler)retryHandler;
 
 @end
