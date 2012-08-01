@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) GTIOUIButton *smsButton;
 @property (nonatomic, strong) GTIOUIButton *emailButton;
-@property (nonatomic, strong) GTIOUIButton *facebookButton;
+@property (nonatomic, strong) GTIOUIButton *twitterButton;
 
 @end

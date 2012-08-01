@@ -77,7 +77,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeProductShoppingListNav,
     GTIOButtonTypeInviteFriendsSMS,
     GTIOButtonTypeInviteFriendsEmail,
-    GTIOButtonTypeInviteFriendsFacebook
+    GTIOButtonTypeInviteFriendsTwitter
 } GTIOButtonType;
 
 @interface GTIOUIButton : UIButton

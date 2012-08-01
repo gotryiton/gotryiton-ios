@@ -75,6 +75,9 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     [self.tableHeader.emailButton setTapHandler:^(id sender) {
         [blockSelf createInviationWithType:kGTIOEmailMessageType toRecipients:[NSArray array]];
     }];
+    [self.tableHeader.twitterButton setTapHandler:^(id sender) {
+        [blockSelf createInviationWithType:kGTIOTweetMessageType toRecipients:[NSArray array]];
+    }];
     [self.view addSubview:self.tableHeader];
     
     [self buildContacts];

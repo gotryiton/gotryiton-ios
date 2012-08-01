@@ -84,7 +84,7 @@
         case GTIOButtonTypeProductShoppingListNav: return [self gtio_productShoppingListNavButton];
         case GTIOButtonTypeInviteFriendsSMS: return [self gtio_inviteFriendsSMSButton];
         case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
-        case GTIOButtonTypeInviteFriendsFacebook: return [self gtio_inviteFriendsFacebookButton];
+        case GTIOButtonTypeInviteFriendsTwitter: return [self gtio_inviteFriendsTwitterButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -645,9 +645,9 @@
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"]];
 }
 
-+ (id)gtio_inviteFriendsFacebookButton
++ (id)gtio_inviteFriendsTwitterButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.facebook.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.facebook.off.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.twitter.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.twitter.off.png"]];
 }
 
 #pragma mark - Touch Handling
