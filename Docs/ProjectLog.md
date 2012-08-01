@@ -1,3 +1,34 @@
+***Wednesday, August 1st - Standup Notes***
+
+**Attendees**
+
+- TT - Scott, Kayla, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Continue working on assigned issues 
+- TT - Cut a production build today. 
+
+**Status**
+- Airplay is good for Simon to take over.
+- All hit boxes are messed up. Scott will continue looking into it.
+- Flurry was added.  
+- Simon is working on tweeks that Matt put into his list (project page, revisions to shop list button, Profile stream, etc)
+- Only 7-8 issues left > On track to get something out tomorrow as long as backend deployment goes wells.
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott will be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of this week, but release August 20th.
+
+**General Notes**
+  
+---
+
 ***Tuesday, July 31th - Standup Notes***
 
 **Attendees**
