@@ -37,8 +37,11 @@
 #import "SSPullToLoadMoreView.h"
 #import "GTIOPullToLoadMoreContentView.h"
 
+#import "Twitter/Twitter.h"
+
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 static float const kGTIOPostCellHeightPadding = 55.0f;
+static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet! Find the Twitter option in your iPhone's Settings to get started!";
 
 
 @interface GTIOSinglePostViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, SSPullToRefreshViewDelegate>
@@ -271,6 +274,7 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
     
     if (!cell) {
         cell = [[GTIOFeedCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        cell.delegate = self;
     }
     
     return cell;
@@ -294,5 +298,64 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
     [viewController setUserID:userID];
     [self.navigationController pushViewController:viewController animated:YES];
 }
+
+
+
+#pragma mark - GTIOFeedCellDelegate
+
+- (void)buttonTap:(GTIOButton *)button
+{
+    if (button.action.endpoint) {
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+            loader.onDidLoadResponse  = ^(RKResponse *response) {
+                // TODO: this is where i'd want to catch an alert and display it.
+            };
+            loader.onDidFailWithError = ^(NSError *error) {
+                NSLog(@"%@", [error localizedDescription]);
+            };
+        }];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+    } else if (button.action.destination) {
+        UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+        [self.navigationController pushViewController:viewController animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+        
+    } else if (button.action.twitterText) {
+        if ([TWTweetComposeViewController canSendTweet]) {
+
+            TWTweetComposeViewController *tweetViewController = [[TWTweetComposeViewController alloc] init];
+             
+            // set initial text
+            [tweetViewController setInitialText:button.action.twitterText];
+
+            if (button.action.twitterURL){
+                [tweetViewController addURL:[NSURL URLWithString:button.action.twitterText]];
+            }
+             
+            TWTweetComposeViewControllerCompletionHandler completionHandler = ^(TWTweetComposeViewControllerResult result) {
+                if (result==TWTweetComposeViewControllerResultDone)
+                {
+                    // TODO: add a tracking request here!
+                }
+                [self dismissModalViewControllerAnimated:YES];
+
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+            };
+            
+            [tweetViewController setCompletionHandler:completionHandler];
+                             
+            // present view controller
+            [self presentViewController:tweetViewController animated:YES completion:nil];
+
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+        }
+    }
+    
+}
+
 
 @end

@@ -631,7 +631,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         [self.navigationController pushViewController:viewController animated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
         
-    } else if (button.action.twitterURL) {
+    } else if (button.action.twitterText) {
         if ([TWTweetComposeViewController canSendTweet]) {
 
             TWTweetComposeViewController *tweetViewController = [[TWTweetComposeViewController alloc] init];
