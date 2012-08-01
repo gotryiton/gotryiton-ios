@@ -637,17 +637,17 @@
 
 + (id)gtio_inviteFriendsSMSButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.sms.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.sms.off.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.sms.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.sms.on.png"]];
 }
 
 + (id)gtio_inviteFriendsEmailButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"]];
 }
 
 + (id)gtio_inviteFriendsTwitterButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.twitter.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.twitter.off.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.twitter.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.twitter.on.png"]];
 }
 
 #pragma mark - Touch Handling
