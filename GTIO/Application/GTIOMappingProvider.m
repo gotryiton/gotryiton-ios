@@ -43,6 +43,7 @@
 #import "GTIOTag.h"
 #import "GTIORecentTag.h"
 #import "GTIOTrendingTag.h"
+#import "GTIOInvitation.h"
 
 @implementation GTIOMappingProvider
 
@@ -86,6 +87,7 @@
         RKObjectMapping *tagMapping = [RKObjectMapping mappingForClass:[GTIOTag class]];
         RKObjectMapping *recentTagMapping = [RKObjectMapping mappingForClass:[GTIORecentTag class]];
         RKObjectMapping *trendingTagMapping = [RKObjectMapping mappingForClass:[GTIOTrendingTag class]];
+        RKObjectMapping *invitationMapping = [RKObjectMapping mappingForClass:[GTIOInvitation class]];
         
         /** Products
          */
@@ -342,6 +344,12 @@
         [trendingTagMapping mapKeyPath:@"icon" toAttribute:@"iconURL"];
         [trendingTagMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [self setMapping:trendingTagMapping forKeyPath:@"trending"];
+
+        // GTIOInviation
+        [invitationMapping mapAttributes:@"body", @"subject", nil];
+        [invitationMapping mapKeyPath:@"twitter_url" toAttribute:@"twitterURL"];
+        [invitationMapping mapKeyPath:@"id" toAttribute:@"invitationID"];
+        [self setMapping:invitationMapping forKeyPath:@"invitation"];
     }
     return self;
 }

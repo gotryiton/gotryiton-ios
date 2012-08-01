@@ -38,7 +38,7 @@
     
     [self.nameLabel setText:fullName afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         if (lastName.length > 0) {
-            NSRange boldRange = [fullName rangeOfString:lastName];
+            NSRange boldRange = [fullName rangeOfString:firstName];
             UIFont *boldFont = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagBold size:14.0];
             CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldFont.fontName, boldFont.pointSize, NULL);
             if (font) {
