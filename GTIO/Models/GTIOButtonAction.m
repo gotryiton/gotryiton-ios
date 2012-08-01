@@ -10,8 +10,6 @@
 
 @implementation GTIOButtonAction
 
-@synthesize destination = _destination, endpoint = _endpoint, spinner = _spinner;
-
 + (id)buttonActionWithDestination:(NSString *)destination
 {
     GTIOButtonAction *buttonAction = [[self alloc] init];

@@ -22,7 +22,7 @@
 #import "GTIOMessageComposer.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOInvitation.h"
-#import "Twitter/Twitter.h"
+#import "GTIOTweetComposer.h"
 
 #import <AddressBook/AddressBook.h>
 
@@ -303,28 +303,13 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 - (void)openTweetComposerWithTweet:(NSString *)tweet url:(NSURL *)url
 {
     if ([TWTweetComposeViewController canSendTweet]) {
-        TWTweetComposeViewController *tweetViewController = [[TWTweetComposeViewController alloc] init];        
-        [tweetViewController setInitialText:tweet];
-
-        if (url){
-            [tweetViewController addURL:url];
-        }
-
-        TWTweetComposeViewControllerCompletionHandler completionHandler = ^(TWTweetComposeViewControllerResult result) {
-            if (result==TWTweetComposeViewControllerResultDone)
-            {
-                // TODO: add a tracking request here!
-            }
+        GTIOTweetComposer *tweetComposer = [[GTIOTweetComposer alloc] initWithText:tweet URL:url completionHandler:^(TWTweetComposeViewControllerResult result) {
             [self dismissModalViewControllerAnimated:YES];
-
-            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
-        };
+        }];
         
-        [tweetViewController setCompletionHandler:completionHandler];
-        [self presentViewController:tweetViewController animated:YES completion:nil];
+        [self presentViewController:tweetComposer animated:YES completion:nil];
     } else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
+        [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 

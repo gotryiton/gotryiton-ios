@@ -38,7 +38,7 @@
 #import "SSPullToLoadMoreView.h"
 #import "GTIOPullToLoadMoreContentView.h"
 
-#import "Twitter/Twitter.h"
+#import "GTIOTweetComposer.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet! Find the Twitter option in your iPhone's Settings to get started!";
@@ -610,8 +610,6 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-
-
 #pragma mark - GTIOFeedCellDelegate
 
 - (void)buttonTap:(GTIOButton *)button
@@ -633,40 +631,19 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         
     } else if (button.action.twitterText) {
         if ([TWTweetComposeViewController canSendTweet]) {
+            GTIOTweetComposer *tweetComposer = [[GTIOTweetComposer alloc] initWithText:button.action.twitterText URL:button.action.twitterURL completionHandler:^(TWTweetComposeViewControllerResult result) {
+                    [self dismissModalViewControllerAnimated:YES];
 
-            TWTweetComposeViewController *tweetViewController = [[TWTweetComposeViewController alloc] init];
-             
-            // set initial text
-            [tweetViewController setInitialText:button.action.twitterText];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+            }];
 
-            if (button.action.twitterURL){
-                [tweetViewController addURL:[NSURL URLWithString:button.action.twitterText]];
-            }
-             
-            TWTweetComposeViewControllerCompletionHandler completionHandler = ^(TWTweetComposeViewControllerResult result) {
-                if (result==TWTweetComposeViewControllerResultDone)
-                {
-                    // TODO: add a tracking request here!
-                }
-                [self dismissModalViewControllerAnimated:YES];
-
-                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
-            };
-            
-            [tweetViewController setCompletionHandler:completionHandler];
-                             
-            // present view controller
-            [self presentViewController:tweetViewController animated:YES completion:nil];
-
+            [self presentViewController:tweetComposer animated:YES completion:nil];
         } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView show];
+            [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
         }
     }
-    
 }
-
 
 @end

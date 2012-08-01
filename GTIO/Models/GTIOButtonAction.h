@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) NSString *destination;
 @property (nonatomic, copy) NSString *endpoint;
-@property (nonatomic, copy) NSString *twitterURL;
+@property (nonatomic, copy) NSURL *twitterURL;
 @property (nonatomic, copy) NSString *twitterText;
 @property (nonatomic, strong) NSNumber *spinner;
 
