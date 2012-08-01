@@ -7,10 +7,12 @@
 //
 
 #import "GTIOPost.h"
+#import "GTIOFeedViewController.h"
 
 @interface GTIOFeedCell : UITableViewCell
 
 @property (nonatomic, strong) GTIOPost *post;
+@property (nonatomic, weak) id<GTIOFeedHeaderViewDelegate> delegate;
 
 + (CGFloat)cellHeightWithPost:(GTIOPost *)post;
 

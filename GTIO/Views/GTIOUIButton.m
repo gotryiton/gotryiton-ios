@@ -9,6 +9,13 @@
 #import "GTIOUIButton.h"
 #import "GTIOHeartToggleButton.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+static CGFloat const kGTIOSpinnerSize = 12.0;
+static CGFloat const kGTIOSpinnerDefaultSize = 21.0;
+static CGFloat const kGTIOSpinnerScale = 0.55;
+static CGFloat const kGTIOSpinnerTopPadding = 2.0;
+
 @implementation GTIOUIButton
 
 @synthesize tapHandler = _tapHandler, touchDownHandler = _touchDownHandler, touchDragExitHandler = _touchDragExitHandler;
@@ -75,6 +82,9 @@
         case GTIOButtonTypeProductPostThis: return [self gtio_productPostThisButton];
         case GTIOButtonTypeProductShoppingList: return [self gtio_productShoppingListButton];
         case GTIOButtonTypeProductShoppingListChecked: return [self gtio_productShoppingListCheckedButton];
+        case GTIOButtonTypeAutoCompleteHashtag: return [self gtio_autoCompleteHashtagButton];
+        case GTIOButtonTypeAutoCompleteAttag: return [self gtio_autoCompleteAttagButton];
+        case GTIOButtonTypeAutoCompleteBrandtag: return [self gtio_autoCompleteBrandtagButton];
         case GTIOButtonTypeProductShoppingListHeart: return [self gtio_productShoppingListHeartButton];
         case GTIOButtonTypeProductShoppingListEmail: return [self gtio_productListEmailButton];
         case GTIOButtonTypeProductShoppingListBuy: return [self gtio_productListBuyButton];
@@ -86,6 +96,7 @@
         case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
         case GTIOButtonTypeInviteFriendsFacebook: return [self gtio_inviteFriendsFacebookButton];
         case GTIOButtonTypeErrorRetry: return [self gtio_errorRetryButton];
+        case GTIOButtonTypeInviteFriendsTwitter: return [self gtio_inviteFriendsTwitterButton];
         default: 
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
@@ -345,6 +356,7 @@
     [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(7.0, 0, 0, 0)];
     [button setTitle:@"follow" forState:UIControlStateDisabled];
+    [button setTitleLabelText:@"follow"];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
@@ -389,6 +401,7 @@
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"follow" forState:UIControlStateNormal];
+    [button setTitleLabelText:@"follow"];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:(CGRect){ 0, 0, 70, 30 }];
@@ -403,6 +416,7 @@
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"following" forState:UIControlStateNormal];
+    [button setTitleLabelText:@"following"];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:(CGRect){ 0, 0, 70, 30 }];
@@ -444,6 +458,7 @@
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
     [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitle:@"requested" forState:UIControlStateNormal];
+    [button setTitleLabelText:@"requested"];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0, 0, 0)];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:(CGRect){ 0, 0, 70, 30 }];
@@ -491,7 +506,7 @@
     button.titleLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLightItalic size:14.0];
     [button setTitleColor:[UIColor gtio_grayTextColorB7B7B7] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:(UIEdgeInsets){ -5, -125, 0, 0 }];
-    [button setTitle:@"leave a comment!" forState:UIControlStateNormal];
+    [button setTitle:@"Leave a comment!" forState:UIControlStateNormal];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
@@ -582,7 +597,9 @@
 
 + (id)gtio_productShoppingListNavButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
+    [button setFrame:(CGRect){ button.bounds.origin.x, button.bounds.origin.y + 2, button.bounds.size.width , button.bounds.size.height }];
+    return button;
 }
 
 + (id)gtio_maskButton
@@ -621,6 +638,20 @@
     return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.twit.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.twit.active.png"]];
 }
 
++ (id)gtio_autoCompleteHashtagButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-2-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-2-active.png"]];
+}
+
++ (id)gtio_autoCompleteAttagButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-1-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-1-active.png"]];
+}
+
++ (id)gtio_autoCompleteBrandtagButton
+{
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-3-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-3-active.png"]];
+}
 + (id)gtio_productShoppingListHeartButton
 {
     GTIOUIButton *button = [[GTIOHeartToggleButton alloc] initWithFrame:CGRectZero];
@@ -636,17 +667,17 @@
 
 + (id)gtio_inviteFriendsSMSButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.sms.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.sms.off.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.sms.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.sms.on.png"]];
 }
 
 + (id)gtio_inviteFriendsEmailButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"]];
 }
 
-+ (id)gtio_inviteFriendsFacebookButton
++ (id)gtio_inviteFriendsTwitterButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.facebook.on.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.facebook.off.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.twitter.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.twitter.on.png"]];
 }
 
 + (id)gtio_errorRetryButton
@@ -678,6 +709,39 @@
         self.touchDragExitHandler(sender);
     }
 }
+
+- (void)showSpinner
+{
+    if (!self.titleLabelText && ![self.titleLabel.text isEqualToString:@""]){
+        self.titleLabelText = [self.titleLabel text];
+    }
+    [self setTitle:@"" forState:UIControlStateNormal];
+    
+    CGRect innerFrame = CGRectMake( self.bounds.size.width/2 - kGTIOSpinnerSize/2 , self.bounds.size.height/2 - kGTIOSpinnerSize/2 , kGTIOSpinnerSize, kGTIOSpinnerSize);
+    innerFrame = UIEdgeInsetsInsetRect(innerFrame, self.titleEdgeInsets);
+
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:innerFrame];
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.activityIndicator.frame =innerFrame;
+
+    self.activityIndicator.transform = CGAffineTransformMakeScale(kGTIOSpinnerSize/kGTIOSpinnerDefaultSize, kGTIOSpinnerSize/kGTIOSpinnerDefaultSize);
+
+    [self.activityIndicator startAnimating];
+
+    [self addSubview:self.activityIndicator];
+}
+
+- (void)hideSpinner
+{
+    if (self.titleLabelText) {
+        [self setTitle:self.titleLabelText forState:UIControlStateNormal];
+    }
+
+    [self.activityIndicator stopAnimating];
+    [self.activityIndicator removeFromSuperview];
+    self.activityIndicator = nil;
+}
+
 
 - (void)setTapAreaPadding:(CGFloat)tapAreaPadding
 {

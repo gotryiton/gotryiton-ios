@@ -8,6 +8,8 @@
 
 #import "GTIOInviteFriendsViewController.h"
 
+#import <RestKit/RestKit.h>
+
 #import "GTIOInviteFriendsPerson.h"
 #import "GTIOButton.h"
 
@@ -18,14 +20,18 @@
 
 #import "GTIOMailComposer.h"
 #import "GTIOMessageComposer.h"
+#import "GTIOProgressHUD.h"
+#import "GTIOInvitation.h"
+#import "GTIOTweetComposer.h"
 
 #import <AddressBook/AddressBook.h>
 
 static NSString * const kGTIOSMSMessage = @"kGTIOSMSMessage";
+static NSString * const kGTIOSMSMessageType = @"sms";
 static NSString * const kGTIOEmailMessage = @"kGTIOEmailMessage";
-
-static NSString * const kGTIOEmailSubject = @"You've been invited to GO TRY IT ON";
-static NSString * const kGTIOEmailBody = @"I think this would be great for you, check it out! http://www.gotryiton.com";
+static NSString * const kGTIOEmailMessageType = @"email";
+static NSString * const kGTIOTweetMessageType = @"twitter";
+static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet! Find the Twitter option in your iPhone's Settings to get started!";
 
 @interface GTIOInviteFriendsViewController ()
 
@@ -64,10 +70,13 @@ static NSString * const kGTIOEmailBody = @"I think this would be great for you, 
     __block typeof(self) blockSelf = self;
     self.tableHeader = [[GTIOInviteFriendsTableViewHeader alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 100 }];
     [self.tableHeader.smsButton setTapHandler:^(id sender) {
-        [blockSelf openMessageComposerWithRecipients:[NSArray array] body:kGTIOEmailBody];
+        [blockSelf createInviationWithType:kGTIOSMSMessageType toRecipients:[NSArray array]];
     }];
     [self.tableHeader.emailButton setTapHandler:^(id sender) {
-        [blockSelf openMailComposerWithRecipients:[NSArray array] subject:kGTIOEmailSubject body:kGTIOEmailBody];
+        [blockSelf createInviationWithType:kGTIOEmailMessageType toRecipients:[NSArray array]];
+    }];
+    [self.tableHeader.twitterButton setTapHandler:^(id sender) {
+        [blockSelf createInviationWithType:kGTIOTweetMessageType toRecipients:[NSArray array]];
     }];
     [self.view addSubview:self.tableHeader];
     
@@ -96,7 +105,7 @@ static NSString * const kGTIOEmailBody = @"I think this would be great for you, 
     
     ABAddressBookRef addressBook = ABAddressBookCreate();
     ABRecordRef source = ABAddressBookCopyDefaultSource(addressBook);
-    CFArrayRef people = ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, source, kABPersonSortByLastName);
+    CFArrayRef people = ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, source, kABPersonSortByFirstName);
     NSArray *rawContacts = [NSArray arrayWithArray:(__bridge NSArray *)people];
 
     for (int i = 0; i < rawContacts.count; i++) {
@@ -193,9 +202,9 @@ static NSString * const kGTIOEmailBody = @"I think this would be great for you, 
     GTIOActionSheet *actionSheet = [[GTIOActionSheet alloc] initWithButtons:buttonModels buttonTapHandler:^(GTIOActionSheet *actionSheet, GTIOButton *buttonModel) {
         
         if ([buttonModel.name isEqualToString:kGTIOEmailMessage]) {
-            [self openMailComposerWithRecipients:[NSArray arrayWithObject:buttonModel.attribute] subject:kGTIOEmailSubject body:kGTIOEmailBody];
+            [self createInviationWithType:kGTIOEmailMessageType toRecipients:[NSArray arrayWithObject:buttonModel.attribute]];
         } else if ([buttonModel.name isEqualToString:kGTIOSMSMessage]) {
-            [self openMessageComposerWithRecipients:[NSArray arrayWithObject:buttonModel.attribute] body:kGTIOEmailBody];
+            [self createInviationWithType:kGTIOSMSMessageType toRecipients:[NSArray arrayWithObject:buttonModel.attribute]];
         }
         
         [actionSheet dismiss];
@@ -289,6 +298,53 @@ static NSString * const kGTIOEmailBody = @"I think this would be great for you, 
         [mailComposer.mailComposeViewController dismissModalViewControllerAnimated:YES];
     }];
     [self.navigationController presentModalViewController:mailComposer.mailComposeViewController animated:YES];
+}
+
+- (void)openTweetComposerWithTweet:(NSString *)tweet url:(NSURL *)url
+{
+    if ([TWTweetComposeViewController canSendTweet]) {
+        GTIOTweetComposer *tweetComposer = [[GTIOTweetComposer alloc] initWithText:tweet URL:url completionHandler:^(TWTweetComposeViewControllerResult result) {
+            [self dismissModalViewControllerAnimated:YES];
+        }];
+        
+        [self presentViewController:tweetComposer animated:YES completion:nil];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+}
+
+- (void)createInviationWithType:(NSString *)invitationType toRecipients:(NSArray *)recipients
+{
+    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    __block typeof(self) blockSelf = self;
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/invitation/create" usingBlock:^(RKObjectLoader *loader) {
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys: 
+                                        invitationType, @"type",
+                                        nil];
+        loader.params = GTIOJSONParams(params);
+        loader.method = RKRequestMethodPOST;
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            
+            for (id object in objects) {
+                if ([object isKindOfClass:[GTIOInvitation class]]) {
+                    GTIOInvitation *invitation = (GTIOInvitation *)object;
+                    if ([invitationType isEqualToString:kGTIOEmailMessageType]) {
+                        [blockSelf openMailComposerWithRecipients:[NSArray array] subject:invitation.subject body:invitation.body];
+                    } else if ([invitationType isEqualToString:kGTIOSMSMessageType]){
+                        [blockSelf openMessageComposerWithRecipients:[NSArray array] body:invitation.body];
+                    } else if ([invitationType isEqualToString:kGTIOTweetMessageType]){
+                        [blockSelf openTweetComposerWithTweet:invitation.body url:invitation.twitterURL];
+                    }                    
+                }
+            }            
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+        };
+    }];
+    
 }
 
 @end

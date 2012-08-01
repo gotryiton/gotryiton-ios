@@ -66,6 +66,7 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 
 - (void)dealloc
 {
+    self.delegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -106,6 +107,13 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 
                 [blockSelf.ellipsisPopOverView setFrame:(CGRect){ { self.frame.size.width - blockSelf.ellipsisPopOverView.frame.size.width + kGITOEllipsisPopOverViewXOriginOffset, self.postButtonColumnView.ellipsisButton.frame.origin.y - blockSelf.ellipsisPopOverView.frame.size.height + kGITOEllipsisPopOverViewYOriginOffset }, blockSelf.ellipsisPopOverView.frame.size }];
                 [blockSelf addSubview:blockSelf.ellipsisPopOverView];
+                
+                id tapDelegate = self.delegate;
+                [blockSelf.ellipsisPopOverView setTapHandler:^(GTIOButton *buttonModel) {
+                    if ([tapDelegate respondsToSelector:@selector(buttonTap:)]) {
+                        [tapDelegate buttonTap:buttonModel];
+                    }
+                }];
             }
             else {
                 [blockSelf.ellipsisPopOverView removeFromSuperview];

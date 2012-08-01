@@ -45,6 +45,7 @@
 #import "GTIOTrendingTag.h"
 #import "GTIOError.h"
 #import "GTIOAlert.h"
+#import "GTIOInvitation.h"
 
 @implementation GTIOMappingProvider
 
@@ -90,6 +91,7 @@
         RKObjectMapping *trendingTagMapping = [RKObjectMapping mappingForClass:[GTIOTrendingTag class]];
         RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[GTIOError class]];
         RKObjectMapping *alertMapping = [RKObjectMapping mappingForClass:[GTIOAlert class]];
+        RKObjectMapping *invitationMapping = [RKObjectMapping mappingForClass:[GTIOInvitation class]];
         
         /** Products
          */
@@ -233,6 +235,8 @@
         [suggestedFriendIconMapping mapKeyPath:@"icon" toAttribute:@"iconPath"];
         [buttonMapping mapKeyPath:@"icons" toRelationship:@"icons" withMapping:suggestedFriendIconMapping];
         [buttonActionMapping mapAttributes:@"destination", @"endpoint", @"spinner", nil];
+        [buttonActionMapping mapKeyPath:@"twitter_url" toAttribute:@"twitterURL"];
+        [buttonActionMapping mapKeyPath:@"twitter_text" toAttribute:@"twitterText"];
         [buttonMapping mapKeyPath:@"image" toAttribute:@"imageURL"];
         [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", @"state", nil];
@@ -357,6 +361,12 @@
         [errorMapping setRootKeyPath:@"error"];
         [self setErrorMapping:errorMapping];
 
+
+        // GTIOInviation
+        [invitationMapping mapAttributes:@"body", @"subject", nil];
+        [invitationMapping mapKeyPath:@"twitter_url" toAttribute:@"twitterURL"];
+        [invitationMapping mapKeyPath:@"id" toAttribute:@"invitationID"];
+        [self setMapping:invitationMapping forKeyPath:@"invitation"];
     }
     return self;
 }

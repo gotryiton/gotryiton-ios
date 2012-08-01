@@ -68,6 +68,9 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeProductPostThis,
     GTIOButtonTypeProductShoppingList,
     GTIOButtonTypeProductShoppingListChecked,
+    GTIOButtonTypeAutoCompleteHashtag,
+    GTIOButtonTypeAutoCompleteAttag,
+    GTIOButtonTypeAutoCompleteBrandtag,
     GTIOButtonTypeProductShoppingListHeart,
     GTIOButtonTypeProductShoppingListEmail,
     GTIOButtonTypeProductShoppingListBuy,
@@ -79,6 +82,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeInviteFriendsEmail,
     GTIOButtonTypeInviteFriendsFacebook,
     GTIOButtonTypeErrorRetry,
+    GTIOButtonTypeInviteFriendsTwitter
 } GTIOButtonType;
 
 @interface GTIOUIButton : UIButton
@@ -86,6 +90,8 @@ typedef enum GTIOButtonType {
 @property (nonatomic, copy) GTIOButtonDidTapHandler tapHandler;
 @property (nonatomic, copy) GTIOButtonDidTapHandler touchDownHandler;
 @property (nonatomic, copy) GTIOButtonDidTapHandler touchDragExitHandler;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) NSString *titleLabelText;
 @property (nonatomic, assign) UIEdgeInsets tapAreaPaddingInsets;
 @property (nonatomic, assign) CGFloat tapAreaPadding;
 
@@ -93,5 +99,8 @@ typedef enum GTIOButtonType {
 + (id)buttonWithGTIOType:(GTIOButtonType)buttonType tapHandler:(GTIOButtonDidTapHandler)tapHandler;
 
 + (id)gtio_navBarTopMarginWithText:(NSString *)text tapHandler:(GTIOButtonDidTapHandler)tapHandler;
+
+- (void)showSpinner;
+- (void)hideSpinner;
 
 @end

@@ -34,7 +34,7 @@
 
 
     if (completer.icon) {
-        UIImageView *icon = [[UIImageView alloc] initWithFrame:(CGRect){4,4,26,26}];
+        UIImageView *icon = [[UIImageView alloc] initWithFrame:(CGRect){3,3,26,26}];
         [icon setContentMode:UIViewContentModeScaleAspectFill];
         icon.hidden = YES;
         [button addSubview:icon];
@@ -58,7 +58,7 @@
         displayNameTextSize.width += 24;
     }
 
-    [button setFrame:(CGRect){ CGPointZero, displayNameTextSize.width + 10, 34 } ];
+    [button setFrame:(CGRect){ CGPointZero, displayNameTextSize.width + 10, 32 } ];
     return button;
 }
 

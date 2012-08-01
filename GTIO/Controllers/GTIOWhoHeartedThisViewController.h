@@ -8,13 +8,15 @@
 
 #import "GTIOViewController.h"
 #import "GTIOFindMyFriendsTableViewCell.h"
+#import "SSPullToLoadMoreView.h"
+#import "GTIOPullToLoadMoreContentView.h"
 
 typedef enum GTIOWhoHeartedThisViewControllerType {
     GTIOWhoHeartedThisViewControllerTypeProduct = 0,
     GTIOWhoHeartedThisViewControllerTypePost
 } GTIOWhoHeartedThisViewControllerType;
 
-@interface GTIOWhoHeartedThisViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOFindMyFriendsTableViewCellDelegate>
+@interface GTIOWhoHeartedThisViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOFindMyFriendsTableViewCellDelegate, SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) NSNumber *itemID;
 
