@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Go Try It On. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "GTIORetryHUD.h"
 
 @interface GTIOErrorController : NSObject
 
-+ (void)displayAlertViewForError:(NSError *)error;
++ (void)handleError:(NSError *)error showRetryInView:(UIView *)view retryHandler:(GTIORetryHUDRetryHandler)retryHandler;
 
 @end

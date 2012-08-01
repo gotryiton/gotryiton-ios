@@ -13,20 +13,23 @@
 #import "GTIOError.h"
 #import "GTIOAlert.h"
 
+static NSString * const kGTIODefaultErrorTitle = @"error";
+static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On";
+
 @implementation GTIOErrorController
 
-+ (void)displayAlertViewForError:(NSError *)error
++ (void)handleError:(NSError *)error showRetryInView:(UIView *)view retryHandler:(GTIORetryHUDRetryHandler)retryHandler
 {
     NSLog(@"Error: %@", [error localizedDescription]);
     
     NSArray *objects = [[error userInfo] objectForKey:RKObjectMapperErrorObjectsKey];
-    NSString *errorTitle = @"error";
+    NSString *errorTitle = kGTIODefaultErrorTitle;
     NSString *errorMessage = @"";
     
     if ([objects count] > 0) {
         for (id obj in objects) {
             if ([obj isKindOfClass:[GTIOError class]]) {
-                [self showAlertForError:obj];
+                [self handleGTIOError:obj showRetryInView:view retryHandler:retryHandler];
                 return;
             }
         }
@@ -62,16 +65,32 @@
     }
 }
 
-+ (void)showAlertForError:(GTIOError *)error
++ (void)handleGTIOError:(GTIOError *)error showRetryInView:(UIView *)view retryHandler:(GTIORetryHUDRetryHandler)retryHandler
 {
     if (error.alert) {
-        NSString *errorTitle = @"error";
-        if ([error.alert.title length] > 0) {
-            errorTitle = error.alert.title;
+        if ([error.alert.retry boolValue]) {
+            // Show Retry
+            NSString *message = kGTIODefaultMessage;
+            if ([error.alert.message length] > 0) {
+                message = error.alert.message;
+            }
+            
+            [GTIORetryHUD showHUDAddedTo:view text:message retryHandler:^(GTIORetryHUD *HUD) {
+                if (retryHandler) {
+                    retryHandler(HUD);
+                }
+                [GTIORetryHUD hideHUDForView:view];
+            }];
+        } else {
+            // Show Alert
+            NSString *errorTitle = kGTIODefaultErrorTitle;
+            if ([error.alert.title length] > 0) {
+                errorTitle = error.alert.title;
+            }
+            NSString *errorMessage = error.alert.message;
+            
+            [[[UIAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
-        NSString *errorMessage = error.alert.text;
-        
-        [[[UIAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 

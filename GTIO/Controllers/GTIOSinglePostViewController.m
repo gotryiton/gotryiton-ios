@@ -164,7 +164,6 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 
 - (void)loadFeed
 {
-    self.postsResourcePath = @"/post/1452515234563246236326";
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.postsResourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
         loader.onDidLoadObjects = ^(NSArray *objects) {
@@ -204,7 +203,9 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToRefreshView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            [GTIOErrorController displayAlertViewForError:error];
+            [GTIOErrorController handleError:error showRetryInView:self.view retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadFeed];
+            }];
         };
     }];
 }

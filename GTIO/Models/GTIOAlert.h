@@ -8,9 +8,8 @@
 
 @interface GTIOAlert : NSObject
 
-@property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSString *title;
-
-@property (nonatomic, strong) NSArray *buttons;
+@property (nonatomic, copy) NSString *message;
+@property (nonatomic, strong) NSNumber *retry;
 
 @end

@@ -209,6 +209,18 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 - (void)loadFeed
 {
     [self.emptyView removeGestureRecognizer:self.emptyViewTapGestureRecognizer]; // So you can't tap it multiple times
+    
+//    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/error/test-retry" usingBlock:^(RKObjectLoader *loader) {
+//        loader.onDidLoadObjects = ^(NSArray *objects) {
+//            NSLog(@"Load objects");
+//        };
+//        loader.onDidFailWithError = ^(NSError *error) {
+//            NSLog(@"Did fail load objects");
+//            [GTIOErrorController handleError:error showRetryInView:self.view retryHandler:^(GTIORetryHUD *retryHUD) {
+//                [self loadFeed];
+//            }];
+//        };
+//    }];
 
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.postsResourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
@@ -242,20 +254,13 @@ static NSString * const kGTIOKVOSuffix = @"ValueChanged";
             [self.pullToRefreshView finishLoading];
             
             [self checkAndDisplayEmptyState];
-            
-            [GTIORetryHUD showHUDAddedTo:self.view text:@"couldn't connect to Go Try It Onasdfasdfasdfasd asdfasdf" retryHandler:^(GTIORetryHUD *HUD) {
-                NSLog(@"test");
-                double delayInSeconds = 2.0;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    [GTIORetryHUD hideHUDForView:self.view];
-                });
-            }];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToRefreshView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            [GTIOErrorController displayAlertViewForError:error];
+            [GTIOErrorController handleError:error showRetryInView:self.view retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadFeed];
+            }];
         };
     }];
 }

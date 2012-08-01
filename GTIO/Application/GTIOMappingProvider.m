@@ -349,13 +349,14 @@
          */
         
         // Alert
-        [alertMapping mapAttributes:@"text", @"title", nil];
-        [alertMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
+        [alertMapping mapAttributes:@"message", @"retry", @"title", nil];
         
         // Error
         [errorMapping mapAttributes:@"status", nil];
         [errorMapping mapKeyPath:@"alert" toRelationship:@"alert" withMapping:alertMapping];
-        [self setObjectMapping:errorMapping forKeyPath:@"error"];
+        [errorMapping setRootKeyPath:@"error"];
+        [self setErrorMapping:errorMapping];
+
     }
     return self;
 }
