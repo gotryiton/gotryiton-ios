@@ -126,6 +126,8 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
     if (self.post.photo.isStarred){
         [self.star setFrame:(CGRect){photoSize.width - self.star.bounds.size.width + kGTIOPhotoLeftRightPadding, kGTIOPhotoTopPadding , self.star.frame.size}];
         self.star.hidden = NO;
+    } else {
+        self.star.hidden = YES;
     }
 
     [self.photoImageView setFrame:(CGRect){ 10, kGTIOPhotoTopPadding, photoSize }];
