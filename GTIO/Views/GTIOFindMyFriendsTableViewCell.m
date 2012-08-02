@@ -33,8 +33,6 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
 
 @implementation GTIOFindMyFriendsTableViewCell
 
-@synthesize user = _user, profilePicture = _profilePicture, nameLabel = _nameLabel, bottomBorder = _bottomBorder, followingButton = _followingButton, followButton = _followButton, requestedButton = _requestedButton, badge = _badge, delegate = _delegate;
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -70,8 +68,6 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
         // Badge
         _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_badge];
-        
-
     }
     return self;
 }
