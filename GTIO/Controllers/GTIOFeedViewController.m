@@ -386,10 +386,10 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     if (scrollViewTopPoint.y < 0 && self.tableView.tableHeaderView == self.navBarView) {
         [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:self.tableView.tableHeaderView.bounds]];
         [self.view addSubview:self.navBarView];
-        [self.view bringSubviewToFront:self.navBarView];
+        [self.tableView bringSubviewToFront:self.navBarView];
     } else if (scrollViewTopPoint.y > 0 && self.tableView.tableHeaderView != self.navBarView) {
         [self.tableView setTableHeaderView:self.navBarView];
-        [self.view bringSubviewToFront:self.navBarView];
+        [self.tableView bringSubviewToFront:self.navBarView];
     }
 }
 
@@ -555,6 +555,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 {
     if (self.postUpload) {
         self.postUpload = nil;
+        [self.tableView beginUpdates];
         [self.posts removeObjectAtIndex:0];
         [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         
@@ -562,14 +563,16 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         if (newPost) {
             [self.posts insertObject:newPost atIndex:0];
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-            
-            // Fixes the pull to refresh going over the nav bar
-            double delayInSeconds = 0.1;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self.view bringSubviewToFront:self.navBarView];
-            });
         }
+        
+        [self.tableView endUpdates];
+        
+        // Fixes the pull to refresh going over the nav bar
+        double delayInSeconds = 0.36; // This waits till animation is finished then brings nav bar to front
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.tableView bringSubviewToFront:self.navBarView];
+        });
     }
 }
 
