@@ -99,6 +99,9 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadProducts];
+            }];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
@@ -130,12 +133,13 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
                     NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:[blockSelf indexOfProductWithId:newObject.productID] inSection:0], nil];
                     [blockSelf.tableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
                     
+                } else if ([object isMemberOfClass:[GTIOAlert class]]) {
+                    [GTIOErrorController handleAlert:(GTIOAlert *)object showRetryInView:self.view retryHandler:nil];
                 }
             }
         };
         loader.onDidFailWithError = ^(NSError *error) {
-            
-
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
@@ -217,13 +221,15 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/products/in-post/%@/email-to-me", self.postID] usingBlock:^(RKObjectLoader *loader) {
             loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"You should receive this list by email shortly." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-                [alert show];
+                 for (id object in loadedObjects) {
+                    if ([object isMemberOfClass:[GTIOAlert class]]) {
+                       [GTIOErrorController handleAlert:(GTIOAlert *)object showRetryInView:self.view retryHandler:nil];
+                    }
+                }
             };
             loader.onDidFailWithError = ^(NSError *error) {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There was an error while emailing you your shopping list. Please try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-                [alert show];
+                [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
                 NSLog(@"%@", [error localizedDescription]);
             };
         }];

@@ -355,6 +355,7 @@
         // Alert
         [alertMapping mapAttributes:@"message", @"retry", @"title", nil];
         [alertMapping mapKeyPath:@"dim_screen" toAttribute:@"dimScreen"];
+        [self setMapping:alertMapping forKeyPath:@"alert"];
         // Error
         [errorMapping mapAttributes:@"status", nil];
         [errorMapping mapKeyPath:@"alert" toRelationship:@"alert" withMapping:alertMapping];

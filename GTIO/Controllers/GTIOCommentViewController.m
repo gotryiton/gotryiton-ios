@@ -135,8 +135,7 @@ static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks gr
             if (!error) {
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"There was an error while posting your comment, please try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-                [alert show];
+                [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
                 [self.commentInputView.textInput becomeFirstResponder];
                 NSLog(@"%@", [error localizedDescription]);
             }

@@ -89,6 +89,9 @@
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadProducts];
+            }];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
@@ -159,6 +162,7 @@
             }
         };
         loader.onDidFailWithError = ^(NSError *error) {
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];

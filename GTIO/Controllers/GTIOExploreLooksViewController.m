@@ -154,6 +154,10 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToRefreshView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadTabs];
+            }];
             NSLog(@"Failed to load /posts/explore. error: %@", [error localizedDescription]);
         };
     }];
@@ -180,6 +184,9 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToRefreshView finishLoading];
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadTabs];
+            }];
             NSLog(@"Failed to load %@. error: %@", self.resourcePath, [error localizedDescription]);
         };
     }];
@@ -216,6 +223,9 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToRefreshView finishLoading];
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadTabs];
+            }];
             NSLog(@"Failed to load %@. error: %@", self.resourcePath, [error localizedDescription]);
         };
     }];

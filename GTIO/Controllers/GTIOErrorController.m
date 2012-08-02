@@ -63,7 +63,7 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
                 message = alert.message;
             }
             
-            [GTIORetryHUD showHUDAddedTo:view text:message dimScreen:alert.dimScreen retryHandler:^(GTIORetryHUD *HUD) {
+            [GTIORetryHUD showHUDAddedTo:view text:message dimScreen:[alert.dimScreen boolValue] retryHandler:^(GTIORetryHUD *HUD) {
                 if (retryHandler) {
                     retryHandler(HUD);
                 }
