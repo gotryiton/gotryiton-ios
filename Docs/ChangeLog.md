@@ -1,5 +1,27 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.22
+August 2, 2012
+
+### Build Summary
+RC #1. Lots of bug fixes.
+
+### Development
+
+**Bugs**
+- #289 - Error handling throughout app
+- #531 - Auto complete bug
+- #526 - Fixed a crash where NSStrings were being returned instead of NSURL. 
+- #498 - Fixed a bug when posting products you could not filter or change photos
+- No Issue - Fixed a bug where if you closed the camera from the camera view it would not cancel currently loading image and you would be stuck with upload progress cell.
+- #528 - Fixed scrolling up and down on feed blanking out images
+- #455 - Fixed critical gtio:// broken links 
+- No Issue - Enabled the network spinner for RestKit requests
+- No Issue - Fix product native list table view height and status bar background 
+- #249 - Fixed scrolling being choppy on friends view
+
+---
+
 #### Build 4.0.0.21
 August 2, 2012
 
