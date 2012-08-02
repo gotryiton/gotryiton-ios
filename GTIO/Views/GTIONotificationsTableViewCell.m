@@ -56,7 +56,7 @@ static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
         DTCSSStylesheet *defaultDTCSSStylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
         
         _textOptions = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [NSNumber numberWithFloat:0.8], DTDefaultLineHeightMultiplier,
+                                            [NSNumber numberWithFloat:1.0], DTDefaultLineHeightMultiplier,
                                             defaultDTCSSStylesheet, DTDefaultStyleSheet,
                                             nil];
         [self.contentView addSubview:_text];
@@ -113,7 +113,7 @@ static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
     DTCSSStylesheet *stylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
     
     NSDictionary *descriptionAttributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                      [NSNumber numberWithFloat:0.8], DTDefaultLineHeightMultiplier,
+                                                      [NSNumber numberWithFloat:1.0], DTDefaultLineHeightMultiplier,
                                                       stylesheet, DTDefaultStyleSheet,
                                                       nil];
     

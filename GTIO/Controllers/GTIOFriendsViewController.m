@@ -315,14 +315,14 @@
     if (self.searching) {
         indexForUser = [self.searchResults indexOfObject:user];
         [self.searchResults replaceObjectAtIndex:indexForUser withObject:newUser];
+
     } else {
         indexForUser = [self.friends indexOfObject:user];
         [self.friends replaceObjectAtIndex:indexForUser withObject:newUser];
-        
-        NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:indexForUser inSection:0], nil];
-        [self.friendsTableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
 
     }
+    NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:indexForUser inSection:0], nil];
+    [self.friendsTableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
 }
 
 

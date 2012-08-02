@@ -128,6 +128,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.profileHeaderView setUser:[GTIOUser currentUser]];
     [self.tableView setUserInteractionEnabled:YES];
 }
 

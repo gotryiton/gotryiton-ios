@@ -328,6 +328,8 @@
     }];
         
     [self.tabBarController.delegate tabBarController:self.tabBarController didSelectViewController:self.tabBarController.selectedViewController];
+
+    [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];
 }
 
 #pragma mark - UITabBarControllerDelegate

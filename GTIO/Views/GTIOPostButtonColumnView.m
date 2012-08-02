@@ -22,21 +22,14 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
 @property (nonatomic, strong) UIImageView *accentLine;
 
 @property (nonatomic, strong) GTIOPostSideButton *reviewButton;
-@property (nonatomic, strong) GTIOPostSideButton *shopbagButton;
 
 @property (nonatomic, strong) GTIOButton *reviewButtonModel;
-@property (nonatomic, strong) GTIOButton *shopbagButtonModel;
 @property (nonatomic, strong) NSArray *ellipsisButtonModel;
 
 @end
 
 @implementation GTIOPostButtonColumnView
 
-@synthesize post = _post;
-@synthesize accentLine = _accentLine;
-@synthesize reviewButton = _reviewButton, ellipsisButton = _ellipsisButton, shopbagButton = _shopbagButton;
-@synthesize ellipsisButtonTapHandler = _ellipsisButtonTapHandler;
-@synthesize reviewButtonModel = _reviewButtonModel, ellipsisButtonModel = _ellipsisButtonModel, shopbagButtonModel = _shopbagButtonModel;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -48,9 +41,6 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
         _reviewButton = [GTIOPostSideButton gtio_postSideButtonType:GTIOPostSideButtonTypeReview tapHandler:nil];
         [self addSubview:_reviewButton];
         
-        _shopbagButton = [GTIOPostSideButton gtio_postSideButtonType:GTIOPostSideButtonTypeShopping tapHandler:nil];
-        [self addSubview:_shopbagButton];
-        
         _ellipsisButton = [GTIOPostSideButton gtio_postSideButtonType:GTIOPostSideButtonTypeEllipsis tapHandler:nil];
         [self addSubview:_ellipsisButton];
     }
@@ -60,7 +50,6 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
 - (void)prepareForReuse
 {
     self.reviewButtonModel = nil;
-    self.shopbagButtonModel = nil;
     self.ellipsisButtonModel = nil;
 }
 
@@ -74,9 +63,7 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
     for (GTIOButton *button in _post.buttons) {
         if ([button.name isEqualToString:kGTIOPostSideReviewsButton]) {
             self.reviewButtonModel = button;
-        } else if ([button.name isEqualToString:kGTIOPostSideShopButton]) {
-            self.shopbagButtonModel = button;
-        }
+        } 
     }
     self.ellipsisButtonModel = _post.dotOptionsButtons;
     
@@ -94,17 +81,6 @@ static CGFloat const kGTIOButtonOriginX = 0.75f;
         [self.reviewButton setHidden:NO];
     } else {
         [self.reviewButton setHidden:YES];
-    }
-    
-    // Shopping button
-    if (self.shopbagButtonModel) {
-        [self.shopbagButton setFrame:(CGRect){ { kGTIOButtonOriginX, topButtonOriginY }, self.reviewButton.frame.size }];
-        [self.shopbagButton setTapHandler:^(id sender){
-            NSLog(@"Shopbag button tapped");
-        }];
-        [self.shopbagButton setHidden:NO];
-    } else {
-        [self.shopbagButton setHidden:YES];
     }
     
     // ... button

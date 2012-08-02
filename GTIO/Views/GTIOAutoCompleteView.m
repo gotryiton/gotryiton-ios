@@ -185,7 +185,7 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
     [self setPositionOfLastWordsTypedInText:[self stringThroughCursorPositionWithRange:range]];
     
-
+    
     if (self.inputText.length > 0) {
 
         [self highlightHashTag];
@@ -204,12 +204,14 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
             [self resetAutoCompleteMode];         
         }
         
-        [self cleanUpAttrString];
+        
     } else {
         [self.scrollView showScrollViewNav];
         [self displayPlaceholderText];
     }
-    
+
+    [self cleanUpAttrString];
+
     return YES;
 }
 
@@ -229,15 +231,17 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
 - (void)setPositionOfLastWordsTypedInText:(NSString *)str 
 {
-    self.positionOfLastWordTyped = NSMakeRange(0, str.length);
+    self.positionOfLastWordTyped = NSMakeRange(MAX(0,str.length-1), MIN(str.length, 1));
     self.positionOfLastTwoWordsTyped = NSMakeRange(0, str.length);
-    
+    // NSLog(@"default: %@", NSStringFromRange( self.positionOfLastWordTyped ));
     //regex:  (\s?[\w\.\@\#&-]+?)?$
     NSRegularExpression* lastWordRegex = [[NSRegularExpression alloc] initWithPattern:@"\\s?([\\w\\.\\@\\#&-]+?)?$" options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *lastWordMatches = [lastWordRegex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
     for (NSTextCheckingResult *match in lastWordMatches) {
-        if ([match rangeAtIndex:1].location != NSNotFound && [match rangeAtIndex:1].length > 0)
+        if ([match rangeAtIndex:1].location != NSNotFound && [match rangeAtIndex:1].length > 0) {
+            // NSLog(@"match 1: %@", NSStringFromRange([match rangeAtIndex:1] ));
             self.positionOfLastWordTyped = [match rangeAtIndex:1];
+        }
     }
 
     //regex: ([\w\.\@\#&-]+?\s?[\w\.\@\#&-]+?)\s?$
@@ -250,7 +254,7 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
         
 
     }
-    // NSLog(@"first: %@ second: %@", [self lastWordTyped], [self lastTwoWordsTyped]);
+    // NSLog(@"first: <%@> second: <%@>", [self lastWordTyped], [self lastTwoWordsTyped]);
 }
 
 -(NSRange) getUpdatedCursorPositionByReplacingCharactersInRange:(NSRange)range existingString:(NSString *)existingString inputString:(NSString *)input
@@ -274,12 +278,12 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
 - (NSString *)lastWordTyped
 {
-    return [[[self lastWordTypedInText:self.inputText] lowercaseString] stringByTrimmingTrailingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return [[self lastWordTypedInText:self.inputText] lowercaseString];
 }
 
 - (NSString *)lastTwoWordsTyped
 {
-    return [[[self lastTwoWordsTypedInText:self.inputText] lowercaseString] stringByTrimmingTrailingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return [[self lastTwoWordsTypedInText:self.inputText] lowercaseString];
 }
 
 - (NSString *)lastWordTypedInText:(NSString *)str
@@ -627,7 +631,7 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 -(BOOL) isValidHashTag:(NSString *) str {
      NSRange hash = [str rangeOfString:@"#"];
      NSRange space = [str rangeOfString:@" "];
-
+     // NSLog(@"testing hash validity hash:%@ space:%@", NSStringFromRange(hash) ,NSStringFromRange(space));
      return (hash.location ==0 && space.location == NSNotFound);
 }
 

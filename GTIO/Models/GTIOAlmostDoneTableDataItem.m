@@ -10,9 +10,8 @@
 
 @implementation GTIOAlmostDoneTableDataItem
 
-@synthesize apiKey = _apiKey, titleText = _titleText, placeHolderText = _placeHolderText, accessoryText = _accessoryText, pickerItems = _pickerItems, required = _required, usesPicker = _usesPicker, multiline = _multiline;
 
-- (id)initWithApiKey:(NSString*)apiKey andTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline
+- (id)initWithApiKey:(NSString*)apiKey andTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline characterLimit:(NSUInteger)characterLimit
 {
     self = [super init];
     if (self) {
@@ -24,6 +23,7 @@
         _required = required;
         _usesPicker = usesPicker;
         _multiline = multiline;
+        _characterLimit = characterLimit;
     }
     return self;
 }

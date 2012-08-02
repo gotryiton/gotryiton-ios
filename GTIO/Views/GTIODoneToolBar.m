@@ -50,4 +50,14 @@
     [self setItems:[NSArray arrayWithObjects:self.flexibleSpace, self.doneButton, nil]];
 }
 
+- (void)useNextAndDoneButtonWithTarget:(id)target doneAction:(SEL)doneAction nextAction:(SEL)nextAction
+{
+    [self.nextButton setTarget:target];
+    [self.nextButton setAction:nextAction];
+    [self.doneButton setTarget:target];
+    [self.doneButton setAction:doneAction];
+    [self setItems:[NSArray arrayWithObjects: self.doneButton, self.flexibleSpace, self.nextButton, nil]];
+}
+
+
 @end

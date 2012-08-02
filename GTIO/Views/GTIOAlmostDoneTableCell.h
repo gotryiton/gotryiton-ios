@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSArray *pickerViewItems;
 @property (nonatomic, copy) NSString* apiKey;
 @property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, assign) NSInteger characterLimit;
 @property (nonatomic, strong) GTIOTextFieldForPickerViews* cellAccessoryText;
 @property (nonatomic, weak) id<GTIOAlmostDoneTableCellDelegate> delegate;
 
@@ -34,5 +35,6 @@
 - (void)setAccessoryTextUsesPicker:(BOOL)usesPicker;
 - (void)setAccessoryTextIsMultipleLines:(BOOL)multipleLines;
 - (void)setAccessoryTextPlaceholderText:(NSString*)text;
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
 
 @end

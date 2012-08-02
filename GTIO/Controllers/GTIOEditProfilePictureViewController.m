@@ -31,13 +31,13 @@
 @property (nonatomic, strong) UIButton *clearProfilePictureButton;
 @property (nonatomic, strong) UIImageView *facebookLogo;
 @property (nonatomic, strong) NSURL *defaultIconURL;
+@property (nonatomic, strong) NSURL *facebookIconURL;
 @property (nonatomic, strong) UIButton *facebookConnectButton;
 
 @end
 
 @implementation GTIOEditProfilePictureViewController
 
-@synthesize previewIcon = _previewIcon, facebookPicture = _facebookPicture, previewNameLabel = _previewNameLabel, previewUserLocationLabel = _previewUserLocationLabel, profileIconURLs = _profileIconURLs, profileIconViews = _profileIconViews, currentlySelectedProfileIconURL = _currentlySelectedProfileIconURL, loadingIconsLabel = _loadingIconsLabel, chooseFromBox = _chooseFromBox, myLooksIcons = _myLooksIcons, previewBox = _previewBox, previewBoxBackground = _previewBoxBackground, clearProfilePictureButton = _clearProfilePictureButton, facebookLogo = _facebookLogo, defaultIconURL = _defaultIconURL, facebookConnectButton = _facebookConnectButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -188,7 +188,7 @@
                 if ([object isMemberOfClass:[GTIOIcon class]]) {
                     GTIOIcon *icon = (GTIOIcon *)object;
                     if ([icon.name isEqualToString:@"facebook"]) {
-                        [self.profileIconURLs addObject:icon.url];
+                        self.facebookIconURL = icon.url;
                         userHasFacebookPicture = YES;
                         break;
                     }
@@ -207,10 +207,8 @@
             
             self.facebookPicture = [[GTIOSelectableProfilePicture alloc] initWithFrame:(CGRect){ 16, 72, 55, 55 } andImageURL:nil];
             if (userHasFacebookPicture) {
-                NSURL* facebookPictureURL = (NSURL*)[self.profileIconURLs objectAtIndex:0];
-                [self.facebookPicture setImageWithURL:facebookPictureURL];
+                [self.facebookPicture setImageWithURL:self.facebookIconURL];
                 [self.profileIconViews addObject:self.facebookPicture];
-                [self.profileIconURLs removeObject:facebookPictureURL];
                 [self.facebookPicture setDelegate:self];
             } else {
                 [self.facebookPicture setImage:[UIImage imageNamed:@"default-facebook-profile-picture.png"]];

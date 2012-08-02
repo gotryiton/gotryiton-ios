@@ -24,6 +24,7 @@
     if (self) {
         self.usesPicker = NO;
         self.firstSettingOfTheText = YES;
+        self.keyboardType = UIKeyboardTypeASCIICapable;
     }
     return self;
 }

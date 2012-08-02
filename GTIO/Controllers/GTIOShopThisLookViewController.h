@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) NSNumber *postID;
 
+- (id)initWithPostID:(NSNumber *)postID;
+
 @end

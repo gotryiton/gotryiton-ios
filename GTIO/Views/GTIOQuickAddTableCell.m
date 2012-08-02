@@ -10,8 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+WebCache.h"
 
-static CGFloat const kGTIOUserBadgeVerticalOffset = - 2.0;
-static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
+static CGFloat const kGTIOUserBadgeVerticalOffset = 0.0;
+static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
 
 @interface GTIOQuickAddTableCell()
 
@@ -28,13 +28,16 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
 {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
+
+        self.backgroundColor = [UIColor whiteColor];
+
         // Name
-        [self.textLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:18.0]];
-        [self.textLabel setTextColor:[UIColor gtio_grayTextColor515152]];
+        [self.textLabel setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagBook size:18.0]];
+        [self.textLabel setTextColor:[UIColor gtio_grayTextColor727272]];
         
         // Description
-        [self.detailTextLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaLight size:10.0]];
-        [self.detailTextLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
+        [self.detailTextLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
+        [self.detailTextLabel setTextColor:[UIColor gtio_grayTextColorA7A7A7]];
         
         // Profile Picture
         UIImageView *innerShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mask-user-72.png"]];
@@ -98,8 +101,8 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
     [super layoutSubviews];
     
     [self.imageView setFrame:(CGRect){ 8, 9, 36, 36 }];
-    [self.textLabel setFrame:CGRectOffset(self.textLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 0.0)];
-    [self.detailTextLabel setFrame:CGRectOffset(self.detailTextLabel.frame, (self.imageView.image) ? -10.0 : 0.0, -2.0)];
+    [self.textLabel setFrame:CGRectOffset(self.textLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 3.0)];
+    [self.detailTextLabel setFrame:CGRectOffset(self.detailTextLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 1.0)];
     if (self.user.badge) {
         [self.badge setFrame:(CGRect){ (self.textLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.textLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
     }
