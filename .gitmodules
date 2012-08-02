@@ -22,3 +22,6 @@
 [submodule "Libraries/Janrain"]
 	path = Libraries/Janrain
 	url = https://github.com/twotoasters/engage.iphone.git
+[submodule "Libraries/AFNetworking"]
+	path = Libraries/AFNetworking
+	url = git@github.com:twotoasters/AFNetworking.git
