@@ -29,7 +29,6 @@
     dispatch_once(&onceToken, ^{
         user = [[self alloc] init];
     });
-    NSLog(@"User token: %@", [[GTIOAuth alloc] init].token);
     return user;
 }
 
