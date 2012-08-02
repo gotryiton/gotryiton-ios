@@ -34,7 +34,6 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 
 @implementation GTIOFeedCell
 
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -72,13 +71,13 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
     [self setBackgroundColor:[UIColor clearColor]];
 }
 
 - (void)prepareForReuse
 {
     [self.postButtonColumnView prepareForReuse];
+    [self.frameView prepareForReuse];
     [self.ellipsisPopOverView removeFromSuperview];
     self.ellipsisPopOverView = nil;    
 }
@@ -168,7 +167,6 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
 {
     CGFloat photoFrameHeight = [GTIOPostFrameView heightWithPost:post];
     CGFloat whoHeartedThisViewHeight = [GTIOWhoHeartedThisView heightWithWhoHeartedThis:post.whoHearted];
-    
 
     return photoFrameHeight + whoHeartedThisViewHeight + kGTIOWhoHeartedThisBottomPadding;
 }

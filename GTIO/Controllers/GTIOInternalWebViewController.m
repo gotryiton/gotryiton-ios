@@ -26,9 +26,6 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 
 @implementation GTIOInternalWebViewController
 
-@synthesize URL = _URL, navigationTitle = _navigationTitle, navTitleView = _navTitleView;
-@synthesize webView = _webView;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -76,6 +73,14 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
     [super viewDidUnload];
     self.webView = nil;
     self.navTitleView = nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

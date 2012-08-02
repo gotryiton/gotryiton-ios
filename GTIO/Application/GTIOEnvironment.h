@@ -30,6 +30,9 @@ extern NSString * const kGTIOJanRainProviderYahoo;
 // Facebook
 extern NSString * const kGTIOFacebookAppID;
 
+// Flurry
+extern NSString * const kGTIOFlurryAnalyticsKey;
+
 // Logging
 extern NSUInteger const kGTIONetworkLogLevel;
 extern NSUInteger const kGTIOLogLevel;
@@ -50,9 +53,12 @@ extern NSString * const kGTIODismissEllipsisPopOverViewNotification;
 extern NSString * const kGTIONotificationCountNofitication;
 extern NSString * const kGTIOChangeSelectedTabNotification;
 extern NSString * const kGTIOAddTabBarToWindowNotification;
+extern NSString * const kGTIOExploreLooksChangeResourcePathNotification;
+extern NSString * const kGTIOTabBarViewsResize;
 
 // Notification UserInfo
 extern NSString * const kGTIOChangeSelectedTabToUserInfo;
+extern NSString * const kGTIOResourcePathKey;
 
 // UrbanAirship Constants
 extern BOOL const kGTIOUAirshipAppStoreOrAdHocBuild;

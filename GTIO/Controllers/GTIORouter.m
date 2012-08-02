@@ -27,6 +27,8 @@
 #import "GTIOTagsViewController.h"
 #import "GTIOShopThisLookViewController.h"
 
+#import "GTIOAppDelegate.h"
+
 NSString * const kGTIOURLScheme = @"gtio";
 NSString * const kGTIOHttpURLScheme = @"http";
 
@@ -166,8 +168,12 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
                 viewController = [[GTIOMyPostsViewController alloc] initWithGTIOPostType:GTIOPostTypeStar forUserID:[pathComponents objectAtIndex:2]];
             } else if ([[pathComponents objectAtIndex:1] isEqualToString:kGTIOURLSubPathBrand] || 
                        [[pathComponents objectAtIndex:1] isEqualToString:kGTIOURLSubPathHashtag]) {
-                viewController = [[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil];
-                [((GTIOExploreLooksViewController *)viewController) setResourcePath:[NSString stringWithFormat:@"%@%@", urlHost, [URL path]]];
+                // Change tab
+                NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabLooks) };
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
+                // Set resource path
+                NSDictionary *resourcePathUserInfo = @{ kGTIOResourcePathKey : [NSString stringWithFormat:@"%@%@", urlHost, [URL path]] };
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOExploreLooksChangeResourcePathNotification object:nil userInfo:resourcePathUserInfo];
             }
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostReviewsForPost]) {

@@ -63,11 +63,6 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 @property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
 @property (nonatomic, strong) SSPullToLoadMoreView *pullToLoadMoreView;
 
-@property (nonatomic, copy) NSString *postID;
-@property (nonatomic, copy) NSString *postsResourcePath;
-
-@property (nonatomic, strong) GTIOPost *post;
-
 @property (nonatomic, strong) UIImageView *emptyView;
 @property (nonatomic, strong) UITapGestureRecognizer *emptyViewTapGestureRecognizer;
 
@@ -86,31 +81,9 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         
         _addNavToHeaderOffsetXOrigin = -44.0f;
         _removeNavToHeaderOffsetXOrigin = -0.0f;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
-        
+
         [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:NULL];
         [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:NULL];
-    }
-    return self;
-}
-
-- (id)initWithPostID:(NSString *)postID
-{
-    self = [self initWithNibName:nil bundle:nil];
-    if (self) {
-        _postID = postID;
-    }
-    return self;
-}
-
-- (id)initWithPost:(GTIOPost *)post
-{
-    self = [self initWithNibName:nil bundle:nil];
-    if (self) {
-        _post = post;
-        
-        [_posts addObject:_post];
     }
     return self;
 }
@@ -128,22 +101,12 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     
     __block typeof(self) blockSelf = self;
     
-    if (self.post || [self.postID length] > 0) {
-        // Single post
-        self.navBarView.backButton.tapHandler = ^(id sender) {
-            [self.navigationController popViewControllerAnimated:YES];
-        };
-        
-        [self.navBarView.backButton setHidden:NO];
-        [self.navBarView.friendsButton setHidden:YES];
-    } else {
-        // Normal Feed
-        [self.navBarView.friendsButton setTapHandler:^(id sender) {
-            GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
-            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
-            [blockSelf presentModalViewController:navController animated:YES];
-        }];
-    }
+    [self.navBarView.friendsButton setTapHandler:^(id sender) {
+        GTIOFriendsViewController *friendsViewController = [[GTIOFriendsViewController alloc] initWithGTIOFriendsTableHeaderViewType:GTIOFriendsTableHeaderViewTypeFriends];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
+        [blockSelf presentModalViewController:navController animated:YES];
+    }];
+
     self.navBarView.titleView.tapHandler = ^(void) {
         GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
@@ -180,11 +143,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     [self.pullToLoadMoreView setExpandedHeight:0.0f];
     self.pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.tableView.frame.size.width, 0.0f } }];
     
-    [self.pullToRefreshView startLoading];
-    
     [self.tableView bringSubviewToFront:self.navBarView];
-    
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
 }
 
 - (void)viewDidUnload
@@ -200,6 +159,26 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self showStatusBarBackgroundWithoutNavigationBar];
     [self.tableView bringSubviewToFront:self.navBarView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
+    
+    if ([self.posts count] == 0) {
+        [self.pullToRefreshView startLoading];
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kGTIOPostFeedOpenLinkNotification object:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -213,7 +192,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 {
     [self.emptyView removeGestureRecognizer:self.emptyViewTapGestureRecognizer]; // So you can't tap it multiple times
 
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.postsResourcePath usingBlock:^(RKObjectLoader *loader) {
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/posts/feed" usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];
@@ -311,18 +290,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
-    if (self.post) {
-        // Inited w/ post. No need to hit endpoint
-        [self.tableView reloadData];
-        [self.pullToRefreshView finishLoading];
-    } else {
-        if (self.postID) {
-            self.postsResourcePath = [NSString stringWithFormat:@"/post/%@", self.postID];
-        } else {
-            self.postsResourcePath = @"/posts/feed";
-        }
-        [self loadFeed];
-    }
+    [self loadFeed];
 }
 
 #pragma mark - SSPullToRefreshDelegate Methods
@@ -336,7 +304,8 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [GTIOFeedCell cellHeightWithPost:[self.posts objectAtIndex:indexPath.section]];
+    CGFloat height = [GTIOFeedCell cellHeightWithPost:[self.posts objectAtIndex:indexPath.section]];
+    return height;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section 
@@ -418,8 +387,10 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     if (scrollViewTopPoint.y < 0 && self.tableView.tableHeaderView == self.navBarView) {
         [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:self.tableView.tableHeaderView.bounds]];
         [self.view addSubview:self.navBarView];
+        [self.tableView bringSubviewToFront:self.navBarView];
     } else if (scrollViewTopPoint.y > 0 && self.tableView.tableHeaderView != self.navBarView) {
         [self.tableView setTableHeaderView:self.navBarView];
+        [self.tableView bringSubviewToFront:self.navBarView];
     }
 }
 
@@ -585,6 +556,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 {
     if (self.postUpload) {
         self.postUpload = nil;
+        [self.tableView beginUpdates];
         [self.posts removeObjectAtIndex:0];
         [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         
@@ -592,14 +564,16 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         if (newPost) {
             [self.posts insertObject:newPost atIndex:0];
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-            
-            // Fixes the pull to refresh going over the nav bar
-            double delayInSeconds = 0.01;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self.view bringSubviewToFront:self.navBarView];
-            });
         }
+        
+        [self.tableView endUpdates];
+        
+        // Fixes the pull to refresh going over the nav bar
+        double delayInSeconds = 0.36; // This waits till animation is finished then brings nav bar to front
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.tableView bringSubviewToFront:self.navBarView];
+        });
     }
 }
 

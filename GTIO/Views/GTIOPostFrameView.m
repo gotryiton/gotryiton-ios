@@ -9,7 +9,7 @@
 #import "GTIOPostFrameView.h"
 
 #import "DTCoreText.h"
-#import "UIImageView+WebCache.h"
+#import "UIImageView+AFNetworking.h"
 
 #import "GTIOPhoto.h"
 #import "GTIOButton.h"
@@ -48,13 +48,13 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 @property (nonatomic, strong) GTIOButton *photoHeartButtonModel;
 @property (nonatomic, strong) UITapGestureRecognizer *photoTapRecognizer;
 @property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
+@property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) GTIOUIButton *shopThisLookButton;
 @property (nonatomic, strong) NSString *shopThisLookDestination;
 
 @end
 
 @implementation GTIOPostFrameView
-
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -68,11 +68,10 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
         [self addSubview:_frameImageView];
         
         _photoImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _photoImageView.userInteractionEnabled = YES;
         [self addSubview:_photoImageView];
         
         self.photoTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showFullScreenImage)];
-        [_photoImageView addGestureRecognizer:self.photoTapRecognizer];
-        _photoImageView.userInteractionEnabled = YES;
 
         _heartButton = [GTIOHeartButton heartButtonWithTapHandler:^(id sender) {
             [self.heartButton setHearted:![self.heartButton isHearted]];
@@ -103,6 +102,11 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
                                             defaultDTCSSStylesheet, DTDefaultStyleSheet,
                                             nil];
         
+        
+        // Progress Slider
+        _progressView = [[UIProgressView alloc] initWithFrame:(CGRect){ CGPointZero, { 200, 5 } }];
+        [_progressView setTrackImage:[UIImage imageNamed:@"uploading.min.track.png"]];
+        [_progressView setProgressImage:[[UIImage imageNamed:@"uploading.max.track.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 3, 3, 3, 3 }]];
 
         _shopThisLookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFeedShopThisLook tapHandler:nil];
         [self addSubview:_shopThisLookButton];
@@ -132,6 +136,7 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 
     [self.photoImageView setFrame:(CGRect){ 10, kGTIOPhotoTopPadding, photoSize }];
     [self.heartButton setFrame:(CGRect){ { self.photoImageView.frame.origin.x + kGTIOHeartButtonPadding, self.photoImageView.frame.origin.y + kGTIOHeartButtonPadding }, self.heartButton.frame.size }];
+    [self.progressView setFrame:(CGRect){ { kGTIOPhotoLeftRightPadding + (self.photoImageView.frame.size.width - self.progressView.frame.size.width) / 2, (self.photoImageView.frame.size.height - self.progressView.frame.size.height) / 2 }, self.progressView.frame.size }];
     
     CGSize descriptionTextSize = [self.descriptionTextView.contentView sizeThatFits:(CGSize){ kGTIODescriptionTextWidth, CGFLOAT_MAX }];
     if (descriptionTextSize.height > 0) {
@@ -169,10 +174,12 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
     [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.shopThisLookButton.frame.origin.y + self.shopThisLookButton.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
     
     [self setFrame:(CGRect){ self.frame.origin, self.frameImageView.frame.size }];
-    
+}    
 
+- (void)prepareForReuse {
+    [self.progressView setProgress:0.0f];
+    [self.photoImageView setImage:nil];
 }
-
 - (void) dealloc 
 {
     _delegate = nil;
@@ -186,10 +193,22 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
     
     // Photo
     __block typeof(self) blockSelf = self;
-    [self.photoImageView setImageWithURL:_post.photo.mainImageURL success:^(UIImage *image) {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_post.photo.mainImageURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setHTTPShouldUsePipelining:YES];
+    [self addSubview:self.progressView];
+    [self.photoImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [self.progressView removeFromSuperview];
+        [self.photoImageView addGestureRecognizer:self.photoTapRecognizer];
         [blockSelf setNeedsLayout];
-    } failure:nil];
-    
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        [self.progressView removeFromSuperview];
+    } downloadProgressHandler:^(NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        if (totalBytesExpectedToRead > 0) {
+            CGFloat progress = ((CGFloat)totalBytesRead / (CGFloat)totalBytesExpectedToRead);
+            [self.progressView setProgress:progress];
+        }
+    }];
 
     // Description
     NSData *data = [_post.postDescription dataUsingEncoding:NSUTF8StringEncoding];

@@ -30,15 +30,11 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
 @property (nonatomic, strong) UIImageView *frameImageView;
 
 @property (nonatomic, strong) GTIOUIButton *resizeHandle;
+@property (nonatomic, copy) GTIOSwapPhotoHandler swapPhotoHandler;
 
 @end
 
 @implementation GTIOLookSelectorView
-
-@synthesize  photoSet = _photoSet, photoSetView = _photoSetView, singlePhotoView = _singlePhotoView, mainPhotoView = _mainPhotoView, topPhotoView = _topPhotoView, bottomPhotoView = _bottomPhotoView, photoCanvasSize = _photoCanvasSize;
-@synthesize frameImageView = _frameImageView;
-@synthesize launchCameraHandler = _launchCameraHandler, addFilterHandler = _addFilterHandler;
-@synthesize resizeHandle = _resizeHandle;
 
 - (id)initWithFrame:(CGRect)frame photoSet:(BOOL)photoSet launchCameraHandler:(GTIOLaunchCameraHandler)launchCameraHandler
 {
@@ -64,7 +60,7 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
         _photoSetView = [[UIView alloc] initWithFrame:self.bounds];
         
         // Swap Photo handler
-        GTIOSwapPhotoHandler swapPhotoHandler = ^(GTIOTakePhotoView *takePhotoView, GTIOPostPhotoSection swapWithSection) {
+        _swapPhotoHandler = [^(GTIOTakePhotoView *takePhotoView, GTIOPostPhotoSection swapWithSection) {
             GTIOTakePhotoView *swapWithPhotoView;
             
             switch (swapWithSection) {
@@ -104,26 +100,26 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
                 self.singlePhotoView.filterName = currentFilterName;
                 self.singlePhotoView.productID = currentProductID;
             }
-        };
+        } copy];
         
         // Photos
         _mainPhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIOMainImageXOrigin, kGTIOTopPadding, kGTIOFrameImageWidth, kGTIOMainImageMaxHeight }];
         [_mainPhotoView setPhotoSection:GTIOPostPhotoSectionMain];
         [_mainPhotoView setLaunchCameraHandler:_launchCameraHandler];
-        [_mainPhotoView setSwapPhotoHandler:swapPhotoHandler];
+        [_mainPhotoView setSwapPhotoHandler:_swapPhotoHandler];
         [_photoSetView addSubview:self.mainPhotoView];
         
         _topPhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIORightFrameXOrigin, kGTIOTopPadding, kGTIOFrameImageWidth, kGTIOTopImageMaxHeight }];
         [_topPhotoView setPhotoSection:GTIOPostPhotoSectionTop];
         [_topPhotoView setLaunchCameraHandler:_launchCameraHandler];
-        [_topPhotoView setSwapPhotoHandler:swapPhotoHandler];
+        [_topPhotoView setSwapPhotoHandler:_swapPhotoHandler];
         [_topPhotoView setEditPhotoButtonPosition:GTIOEditPhotoButtonPositionRight];
         [_photoSetView addSubview:self.topPhotoView];
         
         _bottomPhotoView = [[GTIOTakePhotoView alloc] initWithFrame:(CGRect){ kGTIORightFrameXOrigin, kGTIOBottomImageYOrigin, kGTIOFrameImageWidth, kGTIOFrameImageWidth }];
         [_bottomPhotoView setPhotoSection:GTIOPostPhotoSectionBottom];
         [_bottomPhotoView setLaunchCameraHandler:_launchCameraHandler];
-        [_bottomPhotoView setSwapPhotoHandler:swapPhotoHandler];
+        [_bottomPhotoView setSwapPhotoHandler:_swapPhotoHandler];
         [_bottomPhotoView setEditPhotoButtonPosition:GTIOEditPhotoButtonPositionRight];
         [_photoSetView addSubview:self.bottomPhotoView];
         
@@ -189,11 +185,23 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
         [self addSubview:self.photoSetView];
         [self bringSubviewToFront:self.photoSetView];
     } else {
+        // No left image in photo set mode. Look first at top right and then bottom right for image
+        GTIOTakePhotoView *photoViewToSwap = nil;
+        if (!self.mainPhotoView.filteredImage && self.topPhotoView.filteredImage) {
+            photoViewToSwap = self.topPhotoView;
+        } else if (!self.mainPhotoView.filteredImage && self.bottomPhotoView.filteredImage) {
+            photoViewToSwap = self.bottomPhotoView;
+        }
+        if (photoViewToSwap && self.swapPhotoHandler) {
+            self.swapPhotoHandler(photoViewToSwap, GTIOPostPhotoSectionMain);
+        }
+        
         if (!self.singlePhotoView.filteredImage && self.mainPhotoView.filteredImage) {
             [self.singlePhotoView setOriginalImage:self.mainPhotoView.originalImage];
             [self.singlePhotoView setFilteredImage:self.mainPhotoView.filteredImage];
             [self.singlePhotoView setFilterName:self.mainPhotoView.filterName];
         }
+        
         [self addSubview:self.singlePhotoView];
         [self bringSubviewToFront:self.singlePhotoView];
     }

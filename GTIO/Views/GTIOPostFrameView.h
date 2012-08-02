@@ -18,4 +18,6 @@
 + (CGFloat)heightWithPost:(GTIOPost *)post;
 + (CGSize)scalePhotoSize:(CGSize)actualPhotoSize;
 
+- (void)prepareForReuse;
+
 @end
