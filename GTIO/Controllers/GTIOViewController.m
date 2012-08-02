@@ -86,9 +86,14 @@
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:_rightNavigationButton]];
 }
 
+- (void)resetStatusBarBackground
+{
+    [self.statusBarBackgroundImageView setFrame:(CGRect){ { 0, - (self.navigationController.navigationBar.bounds.size.height + [UIApplication sharedApplication].statusBarFrame.size.height) }, { self.view.frame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height } }];
+}
+
 - (void)showStatusBarBackgroundWithoutNavigationBar
 {
-    [_statusBarBackgroundImageView setFrame:(CGRect){ { 0, -[UIApplication sharedApplication].statusBarFrame.size.height }, { self.view.frame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height } }];
+    [self.statusBarBackgroundImageView setFrame:(CGRect){ { 0, -[UIApplication sharedApplication].statusBarFrame.size.height }, { self.view.frame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height } }];
 }
 
 @end

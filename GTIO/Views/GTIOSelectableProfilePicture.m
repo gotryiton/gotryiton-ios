@@ -22,9 +22,6 @@
 
 @implementation GTIOSelectableProfilePicture
 
-@synthesize isSelectable = _isSelectable, isSelected = _isSelected, imageURL = _imageURL, delegate = _delegate, image = _image, hasInnerShadow = _hasInnerShadow, hasOuterShadow = _hasOuterShadow;
-@synthesize imageView = _imageView, tapGestureRecognizer = _tapGestureRecognizer, border = _border, canvas = _canvas, innerShadow = _innerShadow;
-
 - (id)initWithFrame:(CGRect)frame andImageURL:(NSURL*)url
 {
     self = [super initWithFrame:frame];
@@ -39,7 +36,6 @@
         
         _canvas = [[UIView alloc] initWithFrame:CGRectZero];
         [_canvas.layer setCornerRadius:3.0f];
-        [_canvas.layer setMasksToBounds:YES];
         [self addSubview:_canvas];
         
         _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];

@@ -39,7 +39,6 @@ typedef enum GTIOEditPhotoButtonPosition {
 @property (nonatomic, copy) GTIOAddFilterHandler addFilterHandler;
 @property (nonatomic, copy) GTIOSwapPhotoHandler swapPhotoHandler;
 
-- (void)hideEditPhotoButton:(BOOL)hidden;
 - (void)reset;
 
 @end

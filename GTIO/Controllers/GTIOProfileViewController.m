@@ -50,7 +50,6 @@
     [super viewDidLoad];
 	
     __block typeof(self) blockSelf = self;
-        
 
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"profile" italic:YES];
     [self useTitleView:navTitleView];
@@ -89,9 +88,6 @@
                                                 rightControlPostsType:GTIOPostTypeHeart];
     [self.view addSubview:self.postsHeartsWithSegmentedControlView];
 
-
-
-
     [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView setGridItemTapHandler:^(GTIOMasonGridItem *gridItem) {
         id viewController = [[GTIORouter sharedRouter] viewControllerForURLString:gridItem.object.action.destination];
         [self.navigationController pushViewController:viewController animated:YES];
@@ -122,8 +118,6 @@
     [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
         [blockSelf loadPaginationForPostType:GTIOPostTypeHeart];
     }];
-
-
 }
 
 - (void)viewDidUnload
@@ -147,6 +141,8 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    
+    [self loadUserProfile];
 }
 
 - (void)pushViewController:(UIViewController *)viewController

@@ -198,6 +198,9 @@
     [objectManager setAcceptMIMEType:kGTIOAcceptHeader];
     [objectManager setSerializationMIMEType:RKMIMETypeJSON];
     
+    // Network
+    [RKClient sharedClient].requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    
     // Headers
     [objectManager.client setValue:@"142" forHTTPHeaderField:kGTIOTrackingHeaderKey];
     
@@ -209,9 +212,11 @@
 //    [[RKObjectManager sharedManager].client.HTTPHeaders setObject:@"dcb57bdb860926ef1d357e776246380d" forKey:kGTIOAuthenticationHeaderKey];
     
     // Auth for dev/staging
+#if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING || GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
     [objectManager.client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];
-    [objectManager.client setUsername:@"tt"];
-    [objectManager.client setPassword:@"toast"];
+    [objectManager.client setUsername:kGTIOHTTPAuthUsername];
+    [objectManager.client setPassword:kGTIOHTTPAuthPassword];
+#endif
     
     // Routes
     RKObjectRouter *router = objectManager.router;
@@ -290,8 +295,11 @@
 - (void)selectTab:(NSNotification *)notification
 {
     GTIOTabBarTab tab = [[[notification userInfo] objectForKey:kGTIOChangeSelectedTabToUserInfo] integerValue];
-    [self.tabBarController setSelectedIndex:tab];
-    [self tabBarController:self.tabBarController didSelectViewController:[self.tabBarViewControllers objectAtIndex:tab]];
+    
+    if ([self tabBarController:self.tabBarController shouldSelectViewController:[self.tabBarViewControllers objectAtIndex:tab]]) {
+        [self.tabBarController setSelectedIndex:tab];
+        [self tabBarController:self.tabBarController didSelectViewController:[self.tabBarViewControllers objectAtIndex:tab]];
+    }
 }
 
 - (void)setupTabBar
@@ -384,7 +392,9 @@
     if ([viewController isKindOfClass:[GTIOCameraTabBarPlaceholderViewController class]]) {
         shouldSelect = NO;
         [self.cameraViewController setDismissHandler:^(UIViewController *viewController) {
-            [viewController dismissModalViewControllerAnimated:YES];
+            [viewController dismissViewControllerAnimated:YES completion:^{
+                [self.cameraViewController.postALookViewController reset];
+            }];
         }];
         [self.cameraViewController setFlashOn:NO];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.cameraViewController];

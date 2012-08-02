@@ -119,6 +119,10 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
     
     if ([urlHost isEqualToString:kGTIOURLHostProfile]) {
         if ([pathComponents count] >= 2) {
+            // Change to Me tab
+            NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabMe) };
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
+            
             viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
             [((GTIOProfileViewController *)viewController) setUserID:[pathComponents objectAtIndex:1]];
         }
@@ -202,6 +206,10 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostProduct]) {
         if ([pathComponents count] >= 2) {
+            // Change to Style tab
+            NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabStyle) };
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
+            
             viewController = [[GTIOProductViewController alloc] initWithProductID:[pathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostShopThisLook]) {
@@ -210,6 +218,10 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostCollection]) {
         if ([pathComponents count] >= 2) {
+            // Change to Style tab
+            NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabStyle) };
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
+            
             viewController = [[GTIOProductNativeListViewController alloc] initWithNibName:nil bundle:nil];
             NSNumber *collectionID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
             [((GTIOProductNativeListViewController *)viewController) setCollectionID:collectionID];

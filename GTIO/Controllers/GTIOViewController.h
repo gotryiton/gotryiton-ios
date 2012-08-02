@@ -17,5 +17,6 @@
 
 - (void)useTitleView:(UIView *)titleView;
 - (void)showStatusBarBackgroundWithoutNavigationBar;
+- (void)resetStatusBarBackground;
 
 @end

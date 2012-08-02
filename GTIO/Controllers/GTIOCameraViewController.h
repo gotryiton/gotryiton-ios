@@ -9,6 +9,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <ImageIO/ImageIO.h>
 
+#import "GTIOPostALookViewController.h"
+
 typedef void(^GTIOImageCapturedHandler)(UIImage *image);
 
 extern NSString * const kGTIOPhotoAcceptedNotification;
@@ -17,5 +19,6 @@ extern NSString * const kGTIOPhotoAcceptedNotification;
 
 @property (nonatomic, copy) GTIODismissHandler dismissHandler;
 @property (nonatomic, assign, getter = isFlashOn) BOOL flashOn;
+@property (nonatomic, strong) GTIOPostALookViewController *postALookViewController;
 
 @end

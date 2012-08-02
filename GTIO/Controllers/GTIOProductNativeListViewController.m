@@ -17,6 +17,8 @@
 #import "GTIOFullScreenImageViewer.h"
 #import "GTIORouter.h"
 
+static CGFloat const kGTIONavigationBarHeight = 44.0f;
+
 @interface GTIOProductNativeListViewController ()
 
 @property (nonatomic, strong) NSMutableArray *products;
@@ -29,8 +31,6 @@
 @end
 
 @implementation GTIOProductNativeListViewController
-
-@synthesize products = _products, tableView = _tableView, collectionID = _collectionID, collection = _collection, actionSheet = _actionSheet, fullScreenImageViewer = _fullScreenImageViewer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,7 +51,7 @@
     }];
     self.leftNavigationButton = backButton;
     
-    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.bounds.size.width, self.view.bounds.size.height - kGTIONavigationBarHeight } } style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -68,12 +68,26 @@
     self.tableView = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self resetStatusBarBackground];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Load Data
+
 - (void)loadProducts
 {
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/collection/%i", self.collectionID.intValue] usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [GTIOProgressHUD hideAllHUDsForView:self.view animated:YES];
             [self.products removeAllObjects];
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOProduct class]]) {
@@ -88,7 +102,7 @@
             }
         };
         loader.onDidFailWithError = ^(NSError *error) {
-            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [GTIOProgressHUD hideAllHUDsForView:self.view animated:YES];
             [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
                 [self loadProducts];
             }];
@@ -96,40 +110,6 @@
         };
     }];
 }
-
-- (void)setCollection:(GTIOCollection *)collection
-{
-    _collection = collection;
-    
-    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:_collection.name italic:YES];
-    [self useTitleView:navTitleView];
-    
-    GTIOUIButton *actionSheetButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListNav tapHandler:^(id sender) {
-        GTIOActionSheet *actionSheet = [[GTIOActionSheet alloc] initWithButtons:_collection.dotOptions buttonTapHandler:nil];
-        [actionSheet show];
-    }];
-    self.rightNavigationButton = actionSheetButton;
-    
-    if (_collection.bannerImage) {
-        GTIOUIButton *bannerHeader = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
-        [bannerHeader setFrame:(CGRect){ 0, 0, _collection.bannerImage.width.floatValue, _collection.bannerImage.height.floatValue }];
-        UIImageView *bannerImageDownloader = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [bannerImageDownloader setImageWithURL:_collection.bannerImage.imageURL success:^(UIImage *image) {
-            [bannerHeader setImage:image forState:UIControlStateNormal];
-            bannerHeader.tapHandler = ^(id sender) {
-                UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:_collection.bannerImage.action.destination];
-                if (viewController) {
-                    [self.navigationController pushViewController:viewController animated:YES];
-                } else if ([GTIORouter sharedRouter].fullScreenImageURL) {
-                    self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:[GTIORouter sharedRouter].fullScreenImageURL];
-                    [self.fullScreenImageViewer show];
-                }
-            };
-            self.tableView.tableHeaderView = bannerHeader;
-        } failure:nil];
-    }
-}
-
 
 - (NSUInteger)indexOfProductWithId:(NSNumber *)productID
 {
@@ -140,6 +120,7 @@
 }
 
 #pragma mark - GTIOProductTableViewCellDelegate Methods
+
 - (void)productButtonTap:(GTIOButton *)button productID:(NSNumber *)productID;
 {
     NSLog(@"productButtonTap: %@ with productID = %@",button.action.endpoint, productID );
@@ -149,7 +130,6 @@
         loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOProduct class]]) {
-
                     // product button endpoints respond with a fresh object so just update it                    
                     GTIOProduct *newObject = (GTIOProduct *)object;
                     
@@ -157,7 +137,6 @@
                     
                     NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:[blockSelf indexOfProductWithId:newObject.productID] inSection:0], nil];
                     [blockSelf.tableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
-                    
                 }
             }
         };
@@ -167,7 +146,6 @@
         };
     }];
 }
-
 
 #pragma mark - UITableViewDelegate Methods
 
@@ -236,9 +214,45 @@
     return cell;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+#pragma mark - Properties
+
+- (void)setCollectionID:(NSNumber *)collectionID
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    _collectionID = collectionID;
+    [self loadProducts];
+}
+
+- (void)setCollection:(GTIOCollection *)collection
+{
+    _collection = collection;
+    
+    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:_collection.name italic:YES];
+    [self useTitleView:navTitleView];
+    
+    GTIOUIButton *actionSheetButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListNav tapHandler:^(id sender) {
+        GTIOActionSheet *actionSheet = [[GTIOActionSheet alloc] initWithButtons:_collection.dotOptions buttonTapHandler:nil];
+        [actionSheet show];
+    }];
+    self.rightNavigationButton = actionSheetButton;
+    
+    if (_collection.bannerImage) {
+        GTIOUIButton *bannerHeader = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
+        [bannerHeader setFrame:(CGRect){ 0, 0, _collection.bannerImage.width.floatValue, _collection.bannerImage.height.floatValue }];
+        UIImageView *bannerImageDownloader = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [bannerImageDownloader setImageWithURL:_collection.bannerImage.imageURL success:^(UIImage *image) {
+            [bannerHeader setImage:image forState:UIControlStateNormal];
+            bannerHeader.tapHandler = ^(id sender) {
+                UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:_collection.bannerImage.action.destination];
+                if (viewController) {
+                    [self.navigationController pushViewController:viewController animated:YES];
+                } else if ([GTIORouter sharedRouter].fullScreenImageURL) {
+                    self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:[GTIORouter sharedRouter].fullScreenImageURL];
+                    [self.fullScreenImageViewer show];
+                }
+            };
+            self.tableView.tableHeaderView = bannerHeader;
+        } failure:nil];
+    }
 }
 
 @end

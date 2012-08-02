@@ -10,16 +10,14 @@
 
 @implementation GTIOBadge
 
-@synthesize path = _path;
-
 // profiles
 - (NSURL *)badgeImageURL
 {
     if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
         ([UIScreen mainScreen].scale == 2.0)) {
-        return [NSString stringWithFormat:@"%@38_38.png", self.path];
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@38_38.png", self.path]];
     } else {
-        return [NSString stringWithFormat:@"%@17_17.png", self.path];
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@17_17.png", self.path]];
     }
 }
 - (CGSize)badgeImageSize
@@ -32,9 +30,9 @@
 {
     if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
         ([UIScreen mainScreen].scale == 2.0)) {
-        return [NSString stringWithFormat:@"%@28_28.png", self.path];
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@28_28.png", self.path]];
     } else {
-        return [NSString stringWithFormat:@"%@14_14.png", self.path];
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@14_14.png", self.path]];
     }
 }
 - (CGSize)badgeImageSizeForPostOwner
@@ -47,9 +45,9 @@
 {
     if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
         ([UIScreen mainScreen].scale == 2.0)) {
-        return [NSString stringWithFormat:@"%@32_32.png", self.path];
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@32_32.png", self.path]];
     } else {
-        return [NSString stringWithFormat:@"%@16_16.png", self.path];
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@16_16.png", self.path]];
     }
 }
 - (CGSize)badgeImageSizeForUserList
@@ -62,15 +60,14 @@
 {
     if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
         ([UIScreen mainScreen].scale == 2.0)) {
-        return [NSString stringWithFormat:@"%@20_20.png", self.path];
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@20_20.png", self.path]];
     } else {
-        return [NSString stringWithFormat:@"%@10_10.png", self.path];
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@10_10.png", self.path]];
     }
 }
 - (CGSize)badgeImageSizeForCommenter
 {
 	return (CGSize){10, 10};
 }
-
 
 @end

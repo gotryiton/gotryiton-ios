@@ -20,10 +20,10 @@
 #import "GTIOProcessImageRequest.h"
 
 #import "GTIOFilterManager.h"
+#import "GTIOPostManager.h"
 
 #import "GTIOPhotoShootGridViewController.h"
 #import "GTIOPhotoConfirmationViewController.h"
-#import "GTIOPostALookViewController.h"
 #import "GTIOPickAProductViewController.h"
 
 NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotification";
@@ -63,29 +63,11 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
-@property (nonatomic, strong) GTIOPostALookViewController *postALookViewController;
-
 @property (nonatomic, assign, getter = isShootingPhotoShoot) BOOL shootingPhotoShoot;
 
 @end
 
 @implementation GTIOCameraViewController
-
-@synthesize captureSession = _captureSession, stillImageOutput = _stillImageOutput, captureVideoPreviewLayer = _captureVideoPreviewLayer, captureDevice = _captureDevice;
-@synthesize photoToolbarView = _photoToolbarView, photoShootProgresToolbarView = _photoShootProgresToolbarView, photoShootTimerView = _photoShootTimerView, sourcePopOverView = _sourcePopOverView, photoShootPopOverView = _photoShootPopOverView;
-@synthesize flashButton = _flashButton;
-@synthesize flashOn = _flashOn, shutterFlashOverlay = _shutterFlashOverlay;
-@synthesize dismissHandler = _dismissHandler;
-@synthesize capturedImageCount = _capturedImageCount;
-@synthesize imageWaitTimer = _imageWaitTimer;
-@synthesize startingPhotoCount = _startingPhotoCount;
-@synthesize imagePickerController = _imagePickerController;
-@synthesize postALookViewController = _postALookViewController;
-@synthesize shootingPhotoShoot = _shootingPhotoShoot;
-@synthesize focusImageView = _focusImageView;
-@synthesize photoShootModeCount = _photoShootModeCount;
-@synthesize photoShootModeFirstToggle = _photoShootModeFirstToggle;
-@synthesize forcePhotoShootModeButtonToggle = _forcePhotoShootModeButtonToggle;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -223,6 +205,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     // Toolbar
     self.photoToolbarView = [[GTIOCameraToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
     [self.photoToolbarView.closeButton setTapHandler:^(id sender) {
+        [[GTIOPostManager sharedManager] cancelUploadImage];
         if (blockSelf.dismissHandler) {
             blockSelf.dismissHandler(blockSelf);
         }
