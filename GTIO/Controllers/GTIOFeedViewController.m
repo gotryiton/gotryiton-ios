@@ -386,8 +386,10 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     if (scrollViewTopPoint.y < 0 && self.tableView.tableHeaderView == self.navBarView) {
         [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:self.tableView.tableHeaderView.bounds]];
         [self.view addSubview:self.navBarView];
+        [self.view bringSubviewToFront:self.navBarView];
     } else if (scrollViewTopPoint.y > 0 && self.tableView.tableHeaderView != self.navBarView) {
         [self.tableView setTableHeaderView:self.navBarView];
+        [self.view bringSubviewToFront:self.navBarView];
     }
 }
 
