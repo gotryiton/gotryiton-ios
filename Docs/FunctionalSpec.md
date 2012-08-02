@@ -1340,7 +1340,7 @@ A user can view a detailed page about a single product
 #### Mockups
 4.1 Product Page View ([wireframe](http://invis.io/8Y2OC5N7))
 
-<img src="http://assets.gotryiton.s3.amazonaws.com/img/spec/4.0/mockups/1/Product.Detail.Light.BG.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/4.1.Product.Detail.Page.png.png" width=420px/>
 
 
 #### User Flow
@@ -1392,6 +1392,10 @@ previous screen
 	- Background (4/product.nav.bar.bg.png) (48px high with shadow)
 	- Back button 11px from top, 5px from left
 	- When tapped to full screen product image, display product.nav.bar.top.png (4px high)
+   - Link Out Button
+      - 'nav-bar-out.png'
+      - 11px from right side of screen
+      - use a default tap state (no 'active' asset supplied)
 - Heart Button
 	- Background (product.heart.inactive.png)
 		- On tap (product.heart.active.png)
@@ -1417,10 +1421,10 @@ previous screen
 			- Brand: Proxima Nova Semibold 12px rgb(143,143,143) #8f8f8f
 			- Price: Verlag 22px Bold 22px rgb(88,88,88) #585858
 				- 10px from right, 10px from bottom
-		- Social Icons (product.social.fb.active.png) & (product.social.twit.active.png)
-			- 18x18px
-			- 9px from top/right
-			- 7px in between
+      - Chevron
+         - 'General/general.chevron.png'
+         - X: 297 Y: 370, asset is 9px x 13px
+         - use default tap state, no 'active' asset supplied
 		- Bottom Buttons
          - 5px padding
          - 4px in between buttons
@@ -2930,6 +2934,11 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Loading.More.png" width=420px/>
 
+8.1.6 shop this look
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Shop.This.Look.png" width=420px/>
+
+
 
 #### User Flow
 **entry screens:**   
@@ -3080,18 +3089,12 @@ gtio://posts/feed
          - text area is 228px wide, lines should wrap (right edge of text area should be be same as right edge of photo)
    - buttons
       - if photo height < 247px and voting is ON, assume photo height is 247px to accommodate max number of buttons and minimum gaps required
-      - brand buttons
+      - SHOP THIS LOOK button (screen 8.1.6)
          - 'button-brand.png' with active and inactive versions
-         - text is 13pt Archer Book Italic, rgb(88,88,88)
-         - horizontal middle is stretchable
-         - 5px nonstretchable on left
-         - 5px nonstretchable on right
          - positioning
-            - first button is 18px from left edge of screen
-            - top row of buttons are 11px away from baseline of last line of description or bottom of photo
-            - 8px gap between buttons
-            - if a row exceeds 240px, last button should wrap to an additional row
-               - additional rows have 8px padding from previous rows
+            - top of button is 11px away from baseline of last line of description or bottom of photo (if no description exists)
+            - button should be right-aligned to the right side of description text area (which is purposely less wide than the accompanying photo)
+               - goal is to have the button appear to have about 11px of bottom and right side padding within the white frame
       - review button
          - 'button-review.png' with active and inactive states
          - top of circle (not including 'glow') should line up with top of photo
@@ -3100,10 +3103,6 @@ gtio://posts/feed
          - Verlag Book, 12pt, rgb(143,204,177)
          - horizontally centered around accent line
          - vertically centered within button asset
-      - product info button
-         - 'button-shopbag.png' with active and inactive states
-         - horizontally centered around accent line
-         - circle is 9px away from review circle (not including 'glow' areas)
       - dot dot dot button
          - 'button-dot.png' with active and inactive states
          - horizontally centered around accent line

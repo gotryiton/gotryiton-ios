@@ -365,6 +365,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     if (!cell) {
         cell = [[GTIOFeedCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         cell.delegate = self;
+        cell.frameView.delegate = self;
     }
     
     return cell;

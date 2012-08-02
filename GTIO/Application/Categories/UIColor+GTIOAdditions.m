@@ -117,7 +117,12 @@
 
 + (UIColor *)gtio_grayTextColor404040
 {
-    return UIColorFromRGB(0x404040);
+    // NOTE: this is actually #404041
+    // NOT #404040.
+    //
+    // matt insisted on this.  im not kidding.
+    //
+    return UIColorFromRGB(0x404041);
 }
 
 + (UIColor *)gtio_grayTextColor585858
@@ -193,4 +198,12 @@
     return UIColorFromRGB(0xC6F0DE);
 }
 
++ (UIColor *)gtio_grayTextColor727272
+{
+    return UIColorFromRGB(0x727272);
+}
++ (UIColor *)gtio_grayTextColorA7A7A7
+{
+    return UIColorFromRGB(0xA7A7A7);
+}
 @end

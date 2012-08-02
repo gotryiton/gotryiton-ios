@@ -1,5 +1,37 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.20
+August 1, 2012
+
+### Build Summary
+Mid sprint 7 build. Lots of bug fixes.
+
+### Development
+
+**Features**
+- 479 - Replace example text on post a look + leave a comment + comments page
+- 232 - ... Pop over buttons not connected to actions
+- 475 - 5.1 remove facebook, add twitter
+- 497, 394 - Error handling
+- 495 - Refresh feed view on every load if no posts
+- 389 - Added Flurry Analytics
+
+**Bug Fixes**
+- 396 - After tapping on "follow" button on profile, profile_callouts should replace existing
+- 450 - Follow buttons spinner
+- 482 - 3.4 top of comment text sometimes gets cut off
+- 489 - Heart button oddly slow to activate on Shop Lists
+- 474 - 5.1 invite text for SMS or email should be from API
+- 424 - 5.1 Invite alpha shortcut bugs
+- 432 - gtio://full-screen-image/[url] does not load url
+- 430 - 4.1 normal/fullscreen photos out of position
+- 423 - Feed photos should be tappable to view full screen
+- 453 - Fixed DTCoreText font loading issues
+- 365 - Open brand and hashtags in looks tab
+- 478 - Fixed bug on feed where you could not click last post
+
+---
+
 #### Build 4.0.0.19
 July 30, 2012
 

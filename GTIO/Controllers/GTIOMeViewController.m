@@ -132,6 +132,8 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     
     // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
+
+    [self.profileHeaderView setUser:[GTIOUser currentUser]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

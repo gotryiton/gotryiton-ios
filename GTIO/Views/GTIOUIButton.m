@@ -70,6 +70,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeRequestedButtonRegular: return [self gtio_requestedButtonRegular];
         case GTIOButtonTypeCloseButtonForNavBar: return [self gtio_closeButtonGrayTopMargin];
         case GTIOButtonTypeReload: return [self gtio_reloadButtonTopMargin];
+        case GTIOButtonTypeFeedShopThisLook: return [self gtio_feedShopThisLook];
         case GTIOButtonTypeFindFriends: return [self gtio_findFriendsTopRightButton];
         case GTIOButtonTypeHeart: return [self gtio_heartButton];
         case GTIOButtonTypeFlag: return [self gtio_flagButton];
@@ -77,9 +78,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeLeaveAComment: return [self gtio_leaveACommentButton];
         case GTIOButtonTypePostRetry: return [self gtio_postRetryButton];
         case GTIOButtonTypeProductBack: return [self gtio_productBackButton];
-        case GTIOButtonTypeProductShareFacebook: return [self gtio_facebookShareButton];
-        case GTIOButtonTypeProductShareTwitter: return [self gtio_twitterShareButton];
         case GTIOButtonTypeProductPostThis: return [self gtio_productPostThisButton];
+        case GTIOButtonTypeProductTopRightButton: return [self gtio_productTopRightButton];
         case GTIOButtonTypeProductShoppingList: return [self gtio_productShoppingListButton];
         case GTIOButtonTypeProductShoppingListChecked: return [self gtio_productShoppingListCheckedButton];
         case GTIOButtonTypeAutoCompleteHashtag: return [self gtio_autoCompleteHashtagButton];
@@ -351,7 +351,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-on.png"] forState:UIControlStateHighlighted];
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-disabled.png"] forState:UIControlStateDisabled];
     [button setFrame:(CGRect){ 0, 0, [UIImage imageNamed:@"follow-button-off.png"].size }];
-    [button.titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:18.0]];
+    [button.titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0]];
     [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(7.0, 0, 0, 0)];
     [button setTitle:@"follow" forState:UIControlStateDisabled];
@@ -581,6 +581,12 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     return [self buttonWithImage:[UIImage imageNamed:@"photo-frame-handle-inactive.png"] hightlightImage:nil];
 }
 
++ (id)gtio_feedShopThisLook
+{
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shop-this-look-button-inactive.png"] hightlightImage:[UIImage imageNamed:@"shop-this-look-button-active.png"]];
+    return button;
+}
+
 + (id)gtio_productShoppingListProductOptionButton
 {
     GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shopping.bottom.image.overlay.png"] hightlightImage:[UIImage imageNamed:@"shopping.bottom.image.overlay.active.png"]];
@@ -619,6 +625,13 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 {
     GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.search.icon.png"] hightlightImage:nil];
     [button setFrame:(CGRect){ button.bounds.origin, button.bounds.size.width + 10, button.bounds.size.height }];
+    return button;
+}
+
++ (id)gtio_productTopRightButton
+{
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.out.png"] hightlightImage:nil];
+    [button setFrame:(CGRect){button.frame.origin, button.bounds.size.width + 10, button.bounds.size.height}];
     return button;
 }
 

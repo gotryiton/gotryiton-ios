@@ -12,9 +12,12 @@
 
 @property (nonatomic, retain) NSArray *pickerItems;
 @property (nonatomic, copy) NSString *placeHolderText;
+@property (nonatomic, copy) NSString *selectedRowLabel;
 
 - (id)initWithFrame:(CGRect)frame andPickerItems:(NSArray *)pickerItems;
-- (NSString *)selectedRowLabel;
 - (void)bindToTextField:(UITextField *)textField;
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+- (void)selectRowWithLabel:(NSString *)rowLabel;
+- (void)updateSelectedRow;
 
 @end

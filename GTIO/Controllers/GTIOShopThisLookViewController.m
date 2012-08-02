@@ -34,6 +34,17 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
     return self;
 }
 
+
+- (id)initWithPostID:(NSNumber *)postID
+{
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        _postID = postID;
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

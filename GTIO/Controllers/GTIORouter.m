@@ -25,6 +25,7 @@
 #import "GTIOInviteFriendsViewController.h"
 #import "GTIOSinglePostViewController.h"
 #import "GTIOTagsViewController.h"
+#import "GTIOShopThisLookViewController.h"
 
 #import "GTIOAppDelegate.h"
 
@@ -55,6 +56,7 @@ static NSString * const kGTIOURLHostProduct = @"product";
 static NSString * const kGTIOURLHostCollection = @"collection";
 static NSString * const kGTIOURLHostShoppingList = @"my-shopping-list";
 static NSString * const kGTIOURLHostWhoHeartedProduct = @"who-hearted-product";
+static NSString * const kGTIOURLHostShopThisLook = @"shop-this-look";
 static NSString * const kGTIOURLHostSearchTags = @"search-tags";
 
 static NSString * const kGTIOURLSubPathFollowing = @"following";
@@ -201,6 +203,10 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
     } else if ([urlHost isEqualToString:kGTIOURLHostProduct]) {
         if ([pathComponents count] >= 2) {
             viewController = [[GTIOProductViewController alloc] initWithProductID:[pathComponents objectAtIndex:1]];
+        }
+    } else if ([urlHost isEqualToString:kGTIOURLHostShopThisLook]) {
+        if ([pathComponents count] >= 2) {
+            viewController = [[GTIOShopThisLookViewController alloc] initWithPostID:[pathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostCollection]) {
         if ([pathComponents count] >= 2) {

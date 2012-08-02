@@ -44,7 +44,7 @@ static float const kGTIOPostCellHeightPadding = 55.0f;
 static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet! Find the Twitter option in your iPhone's Settings to get started!";
 
 
-@interface GTIOSinglePostViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, SSPullToRefreshViewDelegate>
+@interface GTIOSinglePostViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedCellDelegate, GTIOFeedHeaderViewDelegate, SSPullToRefreshViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navTitleView;
@@ -286,6 +286,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     if (!cell) {
         cell = [[GTIOFeedCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         cell.delegate = self;
+        cell.frameView.delegate = self;
     }
     
     return cell;
