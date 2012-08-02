@@ -107,11 +107,13 @@ static NSInteger kGTIOMaxCharacterCount = 20;
 
 - (void)pickerNextTapped:(id)sender
 {
+    [self.pickerView updateSelectedRow];
     [self moveToNextCell];
 }
 
 - (void)pickerDoneTapped:(id)sender
 {
+    [self.pickerView updateSelectedRow];
     [self.cellAccessoryText resignFirstResponder];
 
     if ([self.delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
@@ -253,6 +255,9 @@ static NSInteger kGTIOMaxCharacterCount = 20;
         }
     } else {
         [self.cellAccessoryText setText:text];
+    }
+    if (self.usesPicker){
+        [self.pickerView selectRowWithLabel:text];
     }
 }
 

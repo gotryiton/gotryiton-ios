@@ -16,7 +16,6 @@
 
 @implementation GTIOPickerViewForTextFields
 
-@synthesize bindingTextField = _bindingTextField, pickerItems = _pickerItems, placeHolderText = _placeHolderText;
 
 - (id)initWithFrame:(CGRect)frame andPickerItems:(NSArray*)pickerItems
 {
@@ -30,25 +29,31 @@
     return self;
 }
 
-- (NSString*)selectedRowLabel
+- (void)selectRowWithLabel:(NSString *)rowLabel
 {
-    if ([self.placeHolderText length] > 0) {
-        return self.placeHolderText;
-    } else {
-        return [self.pickerItems objectAtIndex:[self selectedRowInComponent:0]];
+   for (int i=0; i<self.pickerItems.count; i++){
+        if ([rowLabel isEqualToString:[self.pickerItems objectAtIndex:i]]){
+            self.selectedRowLabel = rowLabel;
+           [self selectRow:i inComponent:0 animated:NO];
+           [self.bindingTextField setText:self.selectedRowLabel];
+        }
     }
 }
 
-- (void)updateLabel
+- (void)updateSelectedRow
 {
-    [self.bindingTextField setText:[self selectedRowLabel]];
+    [self selectRowWithLabel:[self.pickerItems objectAtIndex:[self selectedRowInComponent:0]]];
 }
 
 - (void)bindToTextField:(UITextField *)textField
 {
     self.bindingTextField = textField;
     [self.bindingTextField setInputView:self];
-    [self.bindingTextField setText:[self selectedRowLabel]];
+    
+    if (!self.selectedRowLabel){
+        [self.bindingTextField setText:self.placeHolderText];
+        self.selectedRowLabel = [self.pickerItems objectAtIndex:[self selectedRowInComponent:0]];
+    }    
 }
 
 #pragma mark - UIPickerViewDataSource
@@ -75,8 +80,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    self.placeHolderText = @"";
-    [self updateLabel];
+    [self.bindingTextField setText:[self selectedRowLabel]];
 }
 
 @end
