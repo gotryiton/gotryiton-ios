@@ -41,7 +41,7 @@ static NSTimeInterval const kGTIOLoadNotificationsTimeDelta = 60.0f;
     self = [super init];
     if (self) {
         [self load];
-        self.lastUpdatedAt = [NSDate date];
+        self.lastUpdatedAt = [[NSDate date] dateByAddingTimeInterval:-kGTIOLoadNotificationsTimeDelta];
         
         // Load new notifications after delay
         double delayInSeconds = 2.0;
