@@ -174,9 +174,14 @@ static NSString * const kGTIOFeaturedTab = @"featured";
 - (CGFloat)centerOfSelectedSegment
 {
     NSInteger selectedSegmentIndex = self.segmentedControl.selectedSegmentIndex;
-    
     CGFloat segmentWidths = [self.segmentedControl widthForSegmentAtIndex:self.segmentedControl.selectedSegmentIndex];
-    CGFloat totalSegmentWidths = ((selectedSegmentIndex + 1) * segmentWidths) - (segmentWidths / 2);
+    
+    CGFloat totalSegmentWidths = 0.0;
+    for (int i = 0; i<self.segmentedControl.selectedSegmentIndex+1; i++ ){
+        totalSegmentWidths += [self.segmentedControl widthForSegmentAtIndex:i];
+    }
+    totalSegmentWidths -= (segmentWidths / 2);
+    
     CGFloat totalSegmentDividerWidths = (selectedSegmentIndex* kGTIODividerPadding);
     CGFloat centerOfSelectedSegment = kGTIOSegmentedControlPadding + totalSegmentWidths  + totalSegmentDividerWidths;
     
