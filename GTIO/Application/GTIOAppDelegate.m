@@ -198,6 +198,9 @@
     [objectManager setAcceptMIMEType:kGTIOAcceptHeader];
     [objectManager setSerializationMIMEType:RKMIMETypeJSON];
     
+    // Network
+    [RKClient sharedClient].requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    
     // Headers
     [objectManager.client setValue:@"142" forHTTPHeaderField:kGTIOTrackingHeaderKey];
     
