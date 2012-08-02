@@ -43,50 +43,56 @@ NSInteger const kGTIOImageDownloadTimeout = 30;
     
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/config" usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObject = ^(id object) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                if (loader.response.statusCode == 200 && ![loader.response wasLoadedFromCache]) {
-                    GTIOConfig *config = object;
-                    GTIOConfig *currentConfig = [self config];
-                    
-                    // No current config download all images
-                    if (!currentConfig) {
-                        for (GTIOIntroScreen *introScreen in config.introScreens) {
-                            [self downloadImageForIntroScreen:introScreen];
-                        }
-                    } else {                
-                        // Load images if new
-                        for (GTIOIntroScreen *introScreen in config.introScreens) {
-                            for (GTIOIntroScreen *currentIntroScreen in currentConfig.introScreens) {
-                                if ([introScreen.introScreenID isEqual:currentIntroScreen.introScreenID] && 
-                                    (![[introScreen.imageURL absoluteURL] isEqual:[currentIntroScreen.imageURL absoluteURL]] || 
-                                     ![[SDImageCache sharedImageCache] imageFromKey:introScreen.introScreenID])) {
-                                        
-                                        [self downloadImageForIntroScreen:introScreen];
-                                    }
+            if ([object isKindOfClass:[GTIOConfig class]]) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    if (loader.response.statusCode == 200 && ![loader.response wasLoadedFromCache]) {
+                        GTIOConfig *config = object;
+                        GTIOConfig *currentConfig = [self config];
+                        
+                        // No current config download all images
+                        if (!currentConfig) {
+                            for (GTIOIntroScreen *introScreen in config.introScreens) {
+                                [self downloadImageForIntroScreen:introScreen];
+                            }
+                        } else {                
+                            // Load images if new
+                            for (GTIOIntroScreen *introScreen in config.introScreens) {
+                                for (GTIOIntroScreen *currentIntroScreen in currentConfig.introScreens) {
+                                    if ([introScreen.introScreenID isEqual:currentIntroScreen.introScreenID] && 
+                                        (![[introScreen.imageURL absoluteURL] isEqual:[currentIntroScreen.imageURL absoluteURL]] || 
+                                         ![[SDImageCache sharedImageCache] imageFromKey:introScreen.introScreenID])) {
+                                            
+                                            [self downloadImageForIntroScreen:introScreen];
+                                        }
+                                }
                             }
                         }
+                        
+                        // Save config
+                        [self saveConfig:config];
                     }
                     
-                    // Save config
-                    [self saveConfig:config];
+                    // Block on image downloads
+                    while (self.imagesDownloading > 0) {
+                        [NSThread sleepForTimeInterval:0.2];
+                    }
+                    
+                    if (configHandler) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            configHandler(object, nil, nil);
+                        });
+                    }
+                });
+            } else if ([object isKindOfClass:[GTIOAlert class]]) {
+                if (configHandler){
+                    configHandler(nil, (GTIOAlert *)object, nil);
                 }
-                
-                // Block on image downloads
-                while (self.imagesDownloading > 0) {
-                    [NSThread sleepForTimeInterval:0.2];
-                }
-                
-                if (configHandler) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        configHandler(object, nil);
-                    });
-                }
-            });
+            }
         };
         
         loader.onDidFailWithError = ^(NSError *error) {
             if (configHandler) {
-                configHandler(nil, error);
+                configHandler(nil, nil, error);
             }
         };
     }];

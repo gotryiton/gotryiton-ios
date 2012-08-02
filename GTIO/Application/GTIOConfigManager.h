@@ -7,10 +7,11 @@
 //
 
 #import "GTIOConfig.h"
+#import "GTIOAlert.h"
 
 #import "SDWebImageManager.h"
 
-typedef void(^GTIOConfigHandler)(GTIOConfig *config, NSError *error);
+typedef void(^GTIOConfigHandler)(GTIOConfig *config, GTIOAlert *alert, NSError *error);
 
 @interface GTIOConfigManager : NSObject <SDWebImageManagerDelegate>
 

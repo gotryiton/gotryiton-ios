@@ -17,7 +17,7 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
 
 @implementation GTIOErrorController
 
-+ (void)handleError:(NSError *)error showRetryInView:(UIView *)view retryHandler:(GTIORetryHUDRetryHandler)retryHandler
++ (void)handleError:(NSError *)error showRetryInView:(UIView *)view forceRetry:(BOOL)forceRetry retryHandler:(GTIORetryHUDRetryHandler)retryHandler
 {
     NSLog(@"Error: %@", [error localizedDescription]);
     
@@ -37,8 +37,17 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
     } else if ([error.domain isEqualToString:@"NSURLErrorDomain"]) {
         errorMessage = [self messageForNSURLErrorErrorCode:error.code];
     } else {
-        errorMessage = @"An unknown error has occurred";
+        errorMessage = @"an unknown error has occurred.";
         NSLog(@"An unhandled error as occured: %@.", error);
+    }
+
+    if (forceRetry){
+        GTIOAlert *alert = [[GTIOAlert alloc] init];
+        alert.message = errorMessage;
+        alert.dimScreen = [NSNumber numberWithInt:1];
+        alert.retry = [NSNumber numberWithInt:1];
+        [self handleAlert:alert showRetryInView:view retryHandler:retryHandler];
+        return;
     }
     
     [[[UIAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -54,7 +63,7 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
                 message = alert.message;
             }
             
-            [GTIORetryHUD showHUDAddedTo:view text:message retryHandler:^(GTIORetryHUD *HUD) {
+            [GTIORetryHUD showHUDAddedTo:view text:message dimScreen:alert.dimScreen retryHandler:^(GTIORetryHUD *HUD) {
                 if (retryHandler) {
                     retryHandler(HUD);
                 }
@@ -78,9 +87,9 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
 + (NSString*)messageForRestKitErrorCode:(NSInteger)errorCode
 {
     switch (errorCode) {
-        case 2: return @"Could not connect to the server";
-        case 1001: return @"Request could not be completed at this time";
-        default: return @"An unknown error has occurred";
+        case 2: return @"could not connect to the server."; 
+        case 1001: return @"the request could not be completed.";
+        default: return @"an unknown error has occurred.";
     }
 }
 
@@ -88,10 +97,10 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
 {
     // CFNetwork Error Code Reference @ https://developer.apple.com/library/ios/#documentation/Networking/Reference/CFNetworkErrors/Reference/reference.html
     switch (errorCode) {
-        case kCFURLErrorTimedOut: return @"Could not connect to the server";
-        case kCFURLErrorCannotFindHost: return @"Could not connect to the server";
-        case kCFURLErrorCannotConnectToHost: return @"Could not connect to the server";
-        default: return @"An unknown error has occurred";
+        case kCFURLErrorTimedOut: return @"could not connect to the server.";
+        case kCFURLErrorCannotFindHost: return @"could not connect to the server.";
+        case kCFURLErrorCannotConnectToHost: return @"could not connect to the server.";
+        default: return @"an unknown error has occurred.";
     }
 }
 

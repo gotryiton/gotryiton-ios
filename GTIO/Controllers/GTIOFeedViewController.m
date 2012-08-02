@@ -249,7 +249,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToRefreshView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            [GTIOErrorController handleError:error showRetryInView:self.view retryHandler:^(GTIORetryHUD *retryHUD) {
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
                 [self loadFeed];
             }];
         };

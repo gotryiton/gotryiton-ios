@@ -21,6 +21,7 @@
 #import "GTIOSignInViewController.h"
 
 #import "GTIOQuickAddViewController.h"
+#import "GTIOErrorController.h"
 
 @interface GTIOSplashViewController ()
 
@@ -39,11 +40,21 @@
     [splashImageView setFrame:CGRectOffset(splashImageView.frame, 0, -20)];
     [self.view addSubview:splashImageView];
     
+    [self loadConfig];
+}
+
+- (void)loadConfig
+{
     // Load Config
-    [[GTIOConfigManager sharedManager] loadConfigFromWebUsingBlock:^(GTIOConfig *config, NSError *error) {
+    [[GTIOConfigManager sharedManager] loadConfigFromWebUsingBlock:^(GTIOConfig *config, GTIOAlert *alert, NSError *error) {
         if (error) {
-            NSLog(@"Error loading config");
-            // TODO: Do we fail here or what?
+            [GTIOErrorController handleError:(NSError *)error showRetryInView:self.view forceRetry:YES retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadConfig];
+            }];
+        } else if (alert){
+            [GTIOErrorController handleAlert:alert showRetryInView:self.view retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadConfig];
+            }];
         } else {
             // Check for user auth header
             BOOL authToken = NO;
