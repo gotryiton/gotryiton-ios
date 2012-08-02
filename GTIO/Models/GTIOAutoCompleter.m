@@ -26,6 +26,16 @@
 	return self.name;
 }
 
+- (BOOL) isValid 
+{
+    if (self.name){
+        if ([self.name length]>0){
+            return YES;
+        }
+    }
+    return NO;
+}
+
 + (void)loadBrandDictionaryWithCompletionHandler:(GTIOCompletionHandler)completionHandler
 {
     NSString *dictionaryPath = @"/autocomplete-dictionary/brands";

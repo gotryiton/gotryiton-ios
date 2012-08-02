@@ -35,7 +35,9 @@
                 NSMutableArray *brands = [[NSMutableArray alloc] init];
                 for (GTIOAutoCompleter *completer in loadedObjects) {
                     completer.type = @"b";
-                    [brands addObject:completer];
+                    if ([completer isValid]){
+                        [brands addObject:completer];
+                    }
                 }
                 [self.textView addCompleters:brands];
             }
@@ -46,7 +48,9 @@
                 NSMutableArray *users = [[NSMutableArray alloc] init];
                 for (GTIOAutoCompleter *completer in loadedObjects) {
                     completer.type = @"@";
-                    [users addObject:completer];
+                    if ([completer isValid]){
+                        [users addObject:completer];    
+                    }
                 }
                 [self.textView addCompleters:users];
             }

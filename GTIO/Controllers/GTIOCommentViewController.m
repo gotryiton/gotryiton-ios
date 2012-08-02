@@ -70,7 +70,9 @@ static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks gr
             NSMutableArray *brands = [[NSMutableArray alloc] init];
             for (GTIOAutoCompleter *completer in loadedObjects) {
                 completer.type = @"b";
-                [brands addObject:completer];
+                if ([completer isValid]){
+                    [brands addObject:completer];    
+                }
             }
             [self.commentInputView addCompleters:brands];
         }
@@ -81,7 +83,9 @@ static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks gr
             NSMutableArray *users = [[NSMutableArray alloc] init];
             for (GTIOAutoCompleter *completer in loadedObjects) {
                 completer.type = @"@";
-                [users addObject:completer];
+                if ([completer isValid]){
+                    [users addObject:completer];    
+                }
             }
             [self.commentInputView addCompleters:users];
         }
