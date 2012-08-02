@@ -2920,23 +2920,31 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0014_Feed.VJ.Scrolled.Further.Tags.Only.png" width=420px/>
 
-8.1.3.a feed scrolled with next feed item
+8.1.3.a feed scrolled with next feed item   
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/_0023_Feed---Next-Item.png" width=420px/>
 
 
-8.1.4 feed empty:  ([wireframe](http://invis.io/3W2OH9G2)) 
+8.1.4 feed empty:  ([wireframe](http://invis.io/3W2OH9G2))    
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Empty.png" width=420px/>
   
 
-8.1.5 feed loading more
+8.1.5 feed loading more   
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Loading.More.png" width=420px/>
 
-8.1.6 shop this look
+8.1.6 shop this look   
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Shop.This.Look.png" width=420px/>
+
+8.1.7 image loading progress bar   
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Image.Loading.png" width=420px/>
+
+8.1.8 image loading retry   
+
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Image.Loading.Retry.png" width=420px/>
 
 
 
