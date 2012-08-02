@@ -51,7 +51,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         _posts = [NSMutableArray array];
         _initialLoadingFromExternalLink = NO;
         
-        _resourcePath = [@"/posts/explore" copy];
+        _resourcePath = @"/posts/explore";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeResourcePathNotification:) name:kGTIOExploreLooksChangeResourcePathNotification object:nil];
     }

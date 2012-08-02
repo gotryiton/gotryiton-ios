@@ -88,7 +88,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSeparatorColor:[UIColor gtio_groupedTableBorderColor]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, self.tabBarController.tabBar.frame.size.height, 0)];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.frame.size.height, 0 }];
     [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
