@@ -17,6 +17,8 @@
 #import "GTIOFullScreenImageViewer.h"
 #import "GTIORouter.h"
 
+static CGFloat const kGTIONavigationBarHeight = 44.0f;
+
 @interface GTIOProductNativeListViewController ()
 
 @property (nonatomic, strong) NSMutableArray *products;
@@ -49,7 +51,7 @@
     }];
     self.leftNavigationButton = backButton;
     
-    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.bounds.size.width, self.view.bounds.size.height - kGTIONavigationBarHeight } } style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -64,6 +66,13 @@
     [super viewDidUnload];
     
     self.tableView = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self resetStatusBarBackground];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
