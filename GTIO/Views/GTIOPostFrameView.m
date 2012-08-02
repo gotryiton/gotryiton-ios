@@ -175,7 +175,7 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 
 - (void) dealloc 
 {
-    self.delegate = nil;
+    _delegate = nil;
 }
 
 #pragma mark - Properties
