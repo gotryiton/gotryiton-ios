@@ -212,9 +212,11 @@
 //    [[RKObjectManager sharedManager].client.HTTPHeaders setObject:@"dcb57bdb860926ef1d357e776246380d" forKey:kGTIOAuthenticationHeaderKey];
     
     // Auth for dev/staging
+#if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING || GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
     [objectManager.client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];
-    [objectManager.client setUsername:@"tt"];
-    [objectManager.client setPassword:@"toast"];
+    [objectManager.client setUsername:kGTIOHTTPAuthUsername];
+    [objectManager.client setPassword:kGTIOHTTPAuthPassword];
+#endif
     
     // Routes
     RKObjectRouter *router = objectManager.router;
