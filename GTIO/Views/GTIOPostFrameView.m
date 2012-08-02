@@ -158,6 +158,7 @@ static CGFloat const kGTIOBrandButtonsBottomPadding = 4.0f;
 - (void)prepareForReuse
 {
     [self.progressView setProgress:0.0f];
+    [self.photoImageView setImage:nil];
 }
 
 #pragma mark - Properties
