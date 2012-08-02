@@ -147,14 +147,6 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
     [self setFrame:(CGRect){ self.frame.origin, { self.frame.size.width, kGTIOLookSelectorViewMaxHeight } }];
 }
 
-- (void)hideEditPhotoButtons:(BOOL)hidden
-{
-    [self.singlePhotoView hideEditPhotoButton:hidden];
-    [self.mainPhotoView hideEditPhotoButton:hidden];
-    [self.topPhotoView hideEditPhotoButton:hidden];
-    [self.bottomPhotoView hideEditPhotoButton:hidden];
-}
-
 - (void)lookSelectorControl:(GTIOLookSelectorControl *)lookSelectorControl photoSet:(BOOL)photoSet
 {
     self.photoSet = photoSet;

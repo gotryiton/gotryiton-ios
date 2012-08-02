@@ -290,8 +290,11 @@
 - (void)selectTab:(NSNotification *)notification
 {
     GTIOTabBarTab tab = [[[notification userInfo] objectForKey:kGTIOChangeSelectedTabToUserInfo] integerValue];
-    [self.tabBarController setSelectedIndex:tab];
-    [self tabBarController:self.tabBarController didSelectViewController:[self.tabBarViewControllers objectAtIndex:tab]];
+    
+    if ([self tabBarController:self.tabBarController shouldSelectViewController:[self.tabBarViewControllers objectAtIndex:tab]]) {
+        [self.tabBarController setSelectedIndex:tab];
+        [self tabBarController:self.tabBarController didSelectViewController:[self.tabBarViewControllers objectAtIndex:tab]];
+    }
 }
 
 - (void)setupTabBar

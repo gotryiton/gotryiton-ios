@@ -28,7 +28,6 @@ static CGFloat const kGTIOLookSelectorViewMaxHeight = 324.0f;
 @property (nonatomic, copy) GTIOAddFilterHandler addFilterHandler;
 
 - (id)initWithFrame:(CGRect)frame photoSet:(BOOL)photoSet launchCameraHandler:(GTIOLaunchCameraHandler)launchCameraHandler;
-- (void)hideEditPhotoButtons:(BOOL)hidden;
 - (BOOL)selectionsComplete;
 - (UIImage *)compositeImage;
 

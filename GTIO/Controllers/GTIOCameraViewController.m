@@ -71,22 +71,6 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 
 @implementation GTIOCameraViewController
 
-@synthesize captureSession = _captureSession, stillImageOutput = _stillImageOutput, captureVideoPreviewLayer = _captureVideoPreviewLayer, captureDevice = _captureDevice;
-@synthesize photoToolbarView = _photoToolbarView, photoShootProgresToolbarView = _photoShootProgresToolbarView, photoShootTimerView = _photoShootTimerView, sourcePopOverView = _sourcePopOverView, photoShootPopOverView = _photoShootPopOverView;
-@synthesize flashButton = _flashButton;
-@synthesize flashOn = _flashOn, shutterFlashOverlay = _shutterFlashOverlay;
-@synthesize dismissHandler = _dismissHandler;
-@synthesize capturedImageCount = _capturedImageCount;
-@synthesize imageWaitTimer = _imageWaitTimer;
-@synthesize startingPhotoCount = _startingPhotoCount;
-@synthesize imagePickerController = _imagePickerController;
-@synthesize postALookViewController = _postALookViewController;
-@synthesize shootingPhotoShoot = _shootingPhotoShoot;
-@synthesize focusImageView = _focusImageView;
-@synthesize photoShootModeCount = _photoShootModeCount;
-@synthesize photoShootModeFirstToggle = _photoShootModeFirstToggle;
-@synthesize forcePhotoShootModeButtonToggle = _forcePhotoShootModeButtonToggle;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nil bundle:nil];

@@ -56,23 +56,12 @@ static CGFloat const kGTIOCameraButtonTapPadding = 5.0;
         
         // Edit Photo Button
         _editPhotoButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeEditPhoto tapHandler:^(id sender) {
-            [self.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
-                actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
-                    if (!actionSheet.wasCancelled) {
-
-                    }
-                };
-            }];
+            [self.actionSheet showWithConfigurationBlock:nil];
         }];
         [_editPhotoButton setFrame:(CGRect){ { kGTIOEditPhotoPadding, kGTIOEditPhotoPadding }, _editPhotoButton.frame.size }];
         [_editPhotoButton setTapAreaPadding:kGTIOCameraButtonTapPadding];
     }
     return self;
-}
-
-- (void)hideEditPhotoButton:(BOOL)hidden
-{
-    [self.editPhotoButton setHidden:hidden];
 }
 
 - (void)reset
@@ -212,7 +201,7 @@ static CGFloat const kGTIOCameraButtonTapPadding = 5.0;
     }
     
     // ActionSheet
-    _actionSheet = [[GTIOActionSheet alloc] initWithButtons:buttonModels buttonTapHandler:^(GTIOActionSheet *actionSheet, GTIOButton *buttonModel) {
+    self.actionSheet = [[GTIOActionSheet alloc] initWithButtons:buttonModels buttonTapHandler:^(GTIOActionSheet *actionSheet, GTIOButton *buttonModel) {
         NSURL *URL = [NSURL URLWithString:buttonModel.action.destination];
         
         NSString *urlHost = [URL host];
@@ -229,6 +218,7 @@ static CGFloat const kGTIOCameraButtonTapPadding = 5.0;
                 }
             }
         } else if ([urlHost isEqualToString:kGTIOReplacePhotoResource]) {
+            NSLog(@"Launch camera handler %@", self.launchCameraHandler);
             if (self.launchCameraHandler) {
                 self.launchCameraHandler(self.photoSection);
             }

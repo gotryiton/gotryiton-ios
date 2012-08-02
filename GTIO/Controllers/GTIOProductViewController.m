@@ -19,6 +19,9 @@
 #import "GTIOProduct.h"
 
 #import "GTIOWebViewController.h"
+#import "GTIOCameraViewController.h"
+#import "GTIOAppDelegate.h"
+#import "GTIOFilterManager.h"
 
 #import <RestKit/RestKit.h>
 #import "UIImageView+WebCache.h"
@@ -209,10 +212,16 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     }
     
     self.postThisButton.tapHandler = ^(id sender) {
-        GTIOPostALookViewController *viewController = [[GTIOPostALookViewController alloc] initWithNibName:nil bundle:nil];
-        [viewController setOriginalImage:self.productImageView.image filteredImage:self.productImageView.image filterName:nil productID:self.productID];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        [self.navigationController presentModalViewController:navigationController animated:YES];
+        NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarCamera) };
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
+        
+        NSDictionary *photoUserInfo = @{
+            @"originalPhoto": self.productImageView.image,
+            @"filteredPhoto": self.productImageView.image,
+            @"filterName": GTIOFilterTypeName[GTIOFilterTypeOriginal],
+            @"productID": self.productID
+        };
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPhotoAcceptedNotification object:nil userInfo:photoUserInfo];
     };
     
     for (GTIOButton *button in self.product.buttons) {
