@@ -43,12 +43,12 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 @property (nonatomic, strong) UIViewController *viewControllerToRouteTo;
 
 @property (nonatomic, strong) NSIndexPath *indexOfPrivateToggle;
+@property (nonatomic, strong) GTIONavigationNotificationTitleView *titleView;
+@property (nonatomic, strong) UIView *footerView;
 
 @end
 
 @implementation GTIOMeViewController
-
-@synthesize tableView = _tableView, tableData = _tableData, profileHeaderView = _profileHeaderView, userInfoButtons = _userInfoButtons, sections = _sections, viewControllerToRouteTo = _viewControllerToRouteTo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,6 +63,12 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.titleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
+        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
+        [self presentModalViewController:navigationController animated:YES];
+    }];
 
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
     [self.profileHeaderView setDelegate:self];
@@ -78,16 +84,17 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [self.profileHeaderView setHasBackground:YES];
     [self.view addSubview:self.profileHeaderView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, self.profileHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.profileHeaderView.bounds.size.height } style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ { 0, self.profileHeaderView.bounds.size.height }, self.view.bounds.size.width, self.view.bounds.size.height - self.profileHeaderView.bounds.size.height - self.tabBarController.tabBar.frame.size.height } style:UITableViewStyleGrouped];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSeparatorColor:[UIColor gtio_groupedTableBorderColor]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, 93.0, 0)];
+    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, self.tabBarController.tabBar.frame.size.height, 0)];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
-    UIView *footerView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, _tableView.bounds.size.width, 128 }];
-    UILabel *footerNotice = [[UILabel alloc] initWithFrame:(CGRect){ 50, -8, _tableView.bounds.size.width - 100, 40 }];
+    self.footerView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, 30 }];
+    UILabel *footerNotice = [[UILabel alloc] initWithFrame:(CGRect){ 50, -8, self.tableView.bounds.size.width - 100, 40 }];
     [footerNotice setBackgroundColor:[UIColor clearColor]];
     [footerNotice setText:@"turn this option ON to require permission before someone can see what you post."];
     [footerNotice setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
@@ -95,9 +102,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [footerNotice setTextAlignment:UITextAlignmentCenter];
     [footerNotice setNumberOfLines:0];
     [footerNotice setLineBreakMode:UILineBreakModeWordWrap];
-    [footerView addSubview:footerNotice];
-    [self.tableView setTableFooterView:footerView];
-    self.tableView.tableFooterView.hidden = YES;
+    [self.footerView addSubview:footerNotice];
     
     [self.view addSubview:self.tableView];
     
@@ -117,19 +122,24 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 {
     [super viewWillAppear:animated];
     
-    GTIONavigationNotificationTitleView *titleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
-        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
-        [self presentModalViewController:navigationController animated:YES];
-    }];
-    [self useTitleView:titleView];
+    [self useTitleView:self.titleView];
+    [self.tableView setUserInteractionEnabled:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.tableView setUserInteractionEnabled:YES];
+    
+    // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
 }
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark -
 
 - (void)refreshScreenLayout
 {
@@ -159,7 +169,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                         numberOfSections++;
                         [self.sections setValue:[NSNumber numberWithInt:numberOfRows] forKey:[NSString stringWithFormat:@"section-%i", numberOfSections]];
                     }
-                    self.tableView.tableFooterView.hidden = NO;
+                    [self.tableView setTableFooterView:self.footerView];
                     [self.tableView reloadData];
                 }
             }
@@ -185,8 +195,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
         [self.tableView setUserInteractionEnabled:NO];
         // handle any special cases
         if ([buttonForRow.action.destination isEqualToString:@"gtio://sign-out"]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kGTIOAlertForLogout delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
-            [alert show];
+            [[[UIAlertView alloc] initWithTitle:nil message:kGTIOAlertForLogout delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
         } else {
             [self.navigationController pushViewController:self.viewControllerToRouteTo animated:YES];
         }
@@ -241,22 +250,18 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     }
     
     return cell;
-
 }
 
 - (void)updateSwitchAtIndexPath:(NSIndexPath *)indexPath
 {
-
     GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     GTIOSwitch *switchView = (GTIOSwitch *)cell.accessoryView;
        
     if (switchView.isOn){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
-        [alert show];
+        [[[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
     }
     else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:@"No" otherButtonTitles: @"Yes", nil];
-        [alert show];
+        [[[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:@"No" otherButtonTitles: @"Yes", nil] show];
     }    
 }
 
@@ -265,11 +270,6 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 - (void)pushViewController:(UIViewController *)viewController
 {
     [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - UIAlertViewDelegate Methods
@@ -302,7 +302,6 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                 [self.tableView setUserInteractionEnabled:YES];
             }
     } else if ([alertView.message isEqualToString:kGTIOAlertForTurningPrivateOn]) {
-       
         // YES!
         if (buttonIndex == 0){
             [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -328,12 +327,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
             GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexOfPrivateToggle];
             [cell setToggleState:YES];
         }
-
-        
     }
-       
-
-    
 }
 
 @end

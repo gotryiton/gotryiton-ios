@@ -54,13 +54,6 @@
 
 @implementation GTIOAppDelegate
 
-@synthesize window = _window;
-@synthesize tabBarController = _tabBarController;
-@synthesize splashViewController = _splashViewController;
-@synthesize cameraViewController = _cameraViewController;
-@synthesize tab1ImageView = _tab1ImageView, tab2ImageView = _tab2ImageView, tab3ImageView = _tab3ImageView, tab4ImageView = _tab4ImageView, tab5ImageView = _tab5ImageView;
-@synthesize tabBarViewControllers = _tabBarViewControllers;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #if DEBUG == 0
@@ -112,6 +105,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectTab:) name:kGTIOChangeSelectedTabNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTabBarToWindow:) name:kGTIOAddTabBarToWindowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resizeTabBarViews:) name:kGTIOTabBarViewsResize object:nil];
     
     [self.window makeKeyAndVisible];
     
@@ -281,6 +275,16 @@
 - (void)addTabBarToWindow:(NSNotification *)notification
 {
     [self.window setRootViewController:self.tabBarController];
+}
+
+- (void)resizeTabBarViews:(NSNotification *)notification
+{
+    // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
+    for(UIView *view in self.tabBarController.view.subviews) {
+        if(![view isKindOfClass:[UITabBar class]]) {
+            [view setFrame:(CGRect){ view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480 }];
+        }
+    }
 }
 
 - (void)selectTab:(NSNotification *)notification

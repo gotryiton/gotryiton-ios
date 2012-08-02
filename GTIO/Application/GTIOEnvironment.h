@@ -54,6 +54,7 @@ extern NSString * const kGTIONotificationCountNofitication;
 extern NSString * const kGTIOChangeSelectedTabNotification;
 extern NSString * const kGTIOAddTabBarToWindowNotification;
 extern NSString * const kGTIOExploreLooksChangeResourcePathNotification;
+extern NSString * const kGTIOTabBarViewsResize;
 
 // Notification UserInfo
 extern NSString * const kGTIOChangeSelectedTabToUserInfo;

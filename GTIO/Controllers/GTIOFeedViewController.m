@@ -167,6 +167,14 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
+}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];

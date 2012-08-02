@@ -122,6 +122,15 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     self.masonGridView = nil;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
+}
+
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
