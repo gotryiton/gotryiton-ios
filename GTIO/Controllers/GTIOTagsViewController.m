@@ -126,7 +126,7 @@ static CGFloat const kGTIOTableSectionHeaderHeight = 21.0f;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
             NSLog(@"Error loading default search tags: %@", [error localizedDescription]);
         };
     }];
@@ -151,6 +151,7 @@ static CGFloat const kGTIOTableSectionHeaderHeight = 21.0f;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
             NSLog(@"Error loading default search tags: %@", [error localizedDescription]);
         };
     }];

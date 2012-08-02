@@ -11,5 +11,6 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, strong) NSNumber *retry;
+@property (nonatomic, strong) NSNumber *dimScreen;
 
 @end

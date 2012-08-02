@@ -113,6 +113,7 @@
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToLoadMoreView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];

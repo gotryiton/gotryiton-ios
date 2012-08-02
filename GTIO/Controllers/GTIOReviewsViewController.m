@@ -131,6 +131,9 @@ static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadReviews];
+            }];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
@@ -182,11 +185,15 @@ static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
                     NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:[blockSelf indexOfReviewWithId:newReview.reviewID] inSection:0], nil];
                     [blockSelf.tableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
                     
+                } else if ([object isMemberOfClass:[GTIOAlert class]]) {
+                    [GTIOErrorController handleAlert:(GTIOAlert *)object showRetryInView:self.view retryHandler:nil];
                 }
+
             }
         };
         loader.onDidFailWithError = ^(NSError *error) {
             NSLog(@"%@", [error localizedDescription]);
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
         };
     }];
 }

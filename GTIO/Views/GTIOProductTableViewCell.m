@@ -189,22 +189,19 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
             };
         }
     }
-    
+    __block typeof(self) blockSelf = self;
     self.emailButton.tapHandler = ^(id sender) {
         self.emailButton.enabled = NO;
         [GTIOProduct emailProductWithProductID:_product.productID completionHandler:^(NSArray *loadedObjects, NSError *error) {
           self.emailButton.enabled = YES;
           if (!error) {
               for (id object in loadedObjects) {
-                  if ([object isMemberOfClass:[GTIOProduct class]]) {
-                      GTIOProduct *emailedProduct = (GTIOProduct *)object;
-                      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"You should receive an email shortly about %@.", emailedProduct.productName] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-                      [alert show];
+                  if ([object isMemberOfClass:[GTIOAlert class]]) {
+                        [GTIOErrorController handleAlert:(GTIOAlert *)object showRetryInView:blockSelf retryHandler:nil];
                   }
               }
           } else {
-              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There was an error while emailing you that product. Please try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-              [alert show];
+              [GTIOErrorController handleError:error showRetryInView:blockSelf forceRetry:NO retryHandler:nil];
           }
         }];
     };
@@ -223,6 +220,7 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
         }
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%i/remove-from-my-shopping-list", self.product.productID.intValue] usingBlock:^(RKObjectLoader *loader) {
             loader.onDidFailWithError = ^(NSError *error) {
+                [GTIOErrorController handleError:error showRetryInView:blockSelf forceRetry:NO retryHandler:nil];
                 NSLog(@"%@", [error localizedDescription]);
             };
         }];

@@ -151,6 +151,9 @@
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.segmentedControl.leftPostsView.masonGridView.pullToRefreshView finishLoading];
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadHeartedProductsWithProgressHUD:showProgressHUD];
+            }];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
@@ -218,6 +221,9 @@
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.segmentedControl.rightPostsView.masonGridView.pullToRefreshView finishLoading];
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadPopularProductsWithProgressHUD:showProgressHUD];
+            }];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
