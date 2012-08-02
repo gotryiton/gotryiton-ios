@@ -25,6 +25,7 @@ typedef void(^GTIORetryHUDRetryHandler)(GTIORetryHUD *retryHUD);
 
 @property (nonatomic, copy) GTIORetryHUDRetryHandler retryHandler;
 @property (nonatomic, copy) NSString *text;
+@property (nonatomic, assign) BOOL dimScreen;
 
 /**
  * The animation type that should be used when the HUD is shown and hidden.
@@ -33,7 +34,7 @@ typedef void(^GTIORetryHUDRetryHandler)(GTIORetryHUD *retryHUD);
  */
 @property (assign) GTIORetryHUDAnimation animationType;
 
-+ (GTIORetryHUD *)showHUDAddedTo:(UIView *)view text:(NSString *)text retryHandler:(GTIORetryHUDRetryHandler)retryHandler;
++ (GTIORetryHUD *)showHUDAddedTo:(UIView *)view text:(NSString *)text dimScreen:(BOOL)dimScreen retryHandler:(GTIORetryHUDRetryHandler)retryHandler;
 + (BOOL)hideHUDForView:(UIView *)view;
 
 @end

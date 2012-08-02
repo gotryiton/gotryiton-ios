@@ -103,6 +103,9 @@ static CGFloat const kGTIONavigationBarHeight = 44.0f;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [GTIOProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadProducts];
+            }];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];
@@ -138,6 +141,7 @@ static CGFloat const kGTIONavigationBarHeight = 44.0f;
             }
         };
         loader.onDidFailWithError = ^(NSError *error) {
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];

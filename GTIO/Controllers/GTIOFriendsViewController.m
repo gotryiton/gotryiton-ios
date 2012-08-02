@@ -301,6 +301,9 @@
             };
             loader.onDidFailWithError = ^(NSError *error) {
                 [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+                [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                    [self searchBarSearchButtonClicked:searchBar];
+                }];
                 NSLog(@"%@", [error localizedDescription]);
             };
         }];
@@ -610,6 +613,9 @@
             if (self.reloadButton) {
                 self.reloadButton.userInteractionEnabled = YES;
             }
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
+                [self loadUsersForTable];
+            }];
             NSLog(@"%@", [error localizedDescription]);
         };
     }];

@@ -217,7 +217,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToRefreshView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
-            [GTIOErrorController handleError:error showRetryInView:self.view retryHandler:^(GTIORetryHUD *retryHUD) {
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
                 [self loadFeed];
             }];
         };
@@ -317,10 +317,15 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 {
     if (button.action.endpoint) {
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-            loader.onDidLoadResponse  = ^(RKResponse *response) {
-                // TODO: this is where i'd want to catch an alert and display it.
+            loader.onDidLoadObjects  = ^(NSArray *loadedObjects) {
+                for (id object in loadedObjects) {
+                    if ([object isMemberOfClass:[GTIOAlert class]]) {
+                       [GTIOErrorController handleAlert:(GTIOAlert *)object showRetryInView:self.view retryHandler:nil];
+                    }
+                }
             };
             loader.onDidFailWithError = ^(NSError *error) {
+                [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
                 NSLog(@"%@", [error localizedDescription]);
             };
         }];

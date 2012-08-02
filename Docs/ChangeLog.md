@@ -1,5 +1,37 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.21
+August 2, 2012
+
+### Build Summary
+Mid sprint 7 build. Lots of bug fixes.
+
+### Development
+
+**Features**
+- #508 - Feed images now show download progress
+- #486 - 4.1 product detail page feature tweaks
+- #487 - 8.1 add SHOP THIS LOOK button to feed, remove current
+- #470 - 1.8 Quick Add styling tweaks
+
+**Bugs**
+- #413 - Fixed bug where UITabBar would go opaque
+- #422 - Attempt at fixing the feed pull to refresh going over nav bar
+- #328 - Fixed bug when taking photo and using photo set mode with no left image. Switching to single image now looks at top image and then bottom and switches it to main/left
+- #442 - 1.7 tweaks - native picker options, input limits
+- #514 - some hashtags in descriptions are no longer tappable
+- #516 - 8.1 Feed - one starred item in your list makes all appear with stars
+- #518 - using follow button from search results has indefinite spinner
+- #506 - 9.1 pointer arrow on 4th/custom tab is out of position
+- #488 - Notification count not updating immediately after login
+- #502 - edit profile pic - connecting facebook swaps icons around
+- #485 - 12.3 change dialog action button labels
+- #515 - Line height for multiple line notifications is oddly tight
+- #521 - 1.7 cannot choose 'female' in gender picker without picking another option first
+- #480 - 7.1 should update immediately when returning from changing profile info
+
+---
+
 #### Build 4.0.0.20
 August 1, 2012
 

@@ -17,9 +17,11 @@
 @property (nonatomic, strong) NSURL *icon;
 
 - (NSString *)completerString;
+- (BOOL) isValid;
 
 + (void) loadBrandDictionaryWithCompletionHandler:(GTIOCompletionHandler)completionHandler;
 + (void)loadUsersDictionaryWithUserID:(NSString *)userID completionHandler:(GTIOCompletionHandler)completionHandler;
 + (void)loadUsersDictionaryWithUserID:(NSString *)userID postID:(NSString *)postID completionHandler:(GTIOCompletionHandler)completionHandler;
+
 
 @end

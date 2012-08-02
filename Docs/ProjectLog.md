@@ -1,3 +1,37 @@
+***Thursday, August 2nd - Standup Notes***
+
+**Attendees**
+- TT - Scott, Kayla, Matt
+- GTIO - Simon, Matt
+
+**Tasks / To Do List**
+- TT/GTIO - Continue working on assigned issues 
+
+**Status**
+- As for scrolling up and down the feed, Scott will take a look and see what can be done along with the slow scrolling issue.
+- Fail state on posting: Scott isn't sure what's going on there.  Is there a problem with the server not returning them?
+- Simon is taking care of the splash screen and error states.
+- Scott fixed the friends crash.
+- Issue 455: Scott will look into this.  ***THIS IS A HIGH PRIORITY***
+
+- Plan for submitting: As soon as Simon with his fixes and Scott can do a pull request, we'll stop working on dev and work 
+on getting a release candidate build. 
+  - We maybe have 2 more hours of dev.  
+  - It can get submitted tomorrow morning.  We just need to have a green light by the end of the day tomorrow.
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scheduling
+ - Developer booked 9/3 - 9/14
+- Scott will be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of this week, but release August 20th.
+
+**General Notes**
+  
+---
+
 ***Wednesday, August 1st - Standup Notes***
 
 **Attendees**

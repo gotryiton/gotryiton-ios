@@ -70,7 +70,9 @@ static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks gr
             NSMutableArray *brands = [[NSMutableArray alloc] init];
             for (GTIOAutoCompleter *completer in loadedObjects) {
                 completer.type = @"b";
-                [brands addObject:completer];
+                if ([completer isValid]){
+                    [brands addObject:completer];    
+                }
             }
             [self.commentInputView addCompleters:brands];
         }
@@ -81,7 +83,9 @@ static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks gr
             NSMutableArray *users = [[NSMutableArray alloc] init];
             for (GTIOAutoCompleter *completer in loadedObjects) {
                 completer.type = @"@";
-                [users addObject:completer];
+                if ([completer isValid]){
+                    [users addObject:completer];    
+                }
             }
             [self.commentInputView addCompleters:users];
         }
@@ -135,8 +139,7 @@ static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks gr
             if (!error) {
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"There was an error while posting your comment, please try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-                [alert show];
+                [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
                 [self.commentInputView.textInput becomeFirstResponder];
                 NSLog(@"%@", [error localizedDescription]);
             }

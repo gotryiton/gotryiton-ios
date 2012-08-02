@@ -86,11 +86,19 @@ static double const buttonWidth = 292.0;
                     [GTIOProgressHUD showHUDAddedTo:self.windowMask animated:YES];
                     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
                         loader.onDidLoadResponse = ^(RKResponse *response) {
-                            [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
                             [self dismiss];
+                        };
+                        loader.onDidLoadObjects = ^(NSArray *objects) {
+                            [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
+                            for (id object in objects) {
+                                if ([object isMemberOfClass:[GTIOAlert class]]) {
+                                   [GTIOErrorController handleAlert:(GTIOAlert *)object showRetryInView:blockSelf.windowMask retryHandler:nil];
+                                }
+                            }
                         };
                         loader.onDidFailWithError = ^(NSError *error) {
                             [GTIOProgressHUD hideHUDForView:self.windowMask animated:YES];
+                            [GTIOErrorController handleError:error showRetryInView:blockSelf.windowMask forceRetry:NO retryHandler:nil];
                             NSLog(@"%@", [error localizedDescription]);
                         };
                     }];

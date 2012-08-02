@@ -18,6 +18,7 @@ static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
 @interface GTIORetryHUD ()
 
 @property (nonatomic, strong) UIImageView *frameImageView;
+@property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) UILabel *textLabel;
 @property (nonatomic, strong) GTIOUIButton *retryButton;
 
@@ -35,11 +36,12 @@ static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
 
 @implementation GTIORetryHUD
 
-+ (GTIORetryHUD *)showHUDAddedTo:(UIView *)view text:(NSString *)text retryHandler:(GTIORetryHUDRetryHandler)retryHandler
++ (GTIORetryHUD *)showHUDAddedTo:(UIView *)view text:(NSString *)text dimScreen:(BOOL)dimScreen retryHandler:(GTIORetryHUDRetryHandler)retryHandler
 {
 	GTIORetryHUD *hud = [[GTIORetryHUD alloc] initWithView:view];
     hud.retryHandler = retryHandler;
     hud.text = text;
+    hud.dimScreen = dimScreen;
 	[view addSubview:hud];
 	[hud show:YES];
 	return hud;
@@ -87,6 +89,8 @@ static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
 		// Make it invisible for now
 		self.alpha = 0.0f;
 		
+		self.dimScreen = YES;
+
 		[self setupViews];
 	}
 	return self;
@@ -170,6 +174,10 @@ static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
 
 - (void)setupViews
 {
+	self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+	self.backgroundView.backgroundColor = [UIColor blackColor];
+    [self addSubview:self.backgroundView];
+
     self.frameImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"connect-error-bg.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 45, 0, 45, 0 }]];
     [self addSubview:self.frameImageView];
     
@@ -189,11 +197,17 @@ static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
 {
     [super layoutSubviews];
     
+
+    if (self.dimScreen){
+    	self.backgroundView.alpha = 0.5;
+    	[self.backgroundView setFrame:self.bounds];
+	}
+
     CGFloat frameHeight = kGTIOTextTopPadding + self.textLabel.frame.size.height + kGTIOTextBottomPadding;
     if (frameHeight < kGTIOFrameMinHeight) {
         frameHeight = kGTIOFrameMinHeight;
     }
-    
+
     [self.frameImageView setFrame:(CGRect){ { (self.bounds.size.width - self.frameImageView.frame.size.width) / 2, (self.bounds.size.height - frameHeight) / 2 }, { self.frameImageView.frame.size.width, frameHeight } }];
     
     CGFloat retryButtonOriginX = self.frameImageView.frame.origin.x + self.frameImageView.frame.size.width - self.retryButton.frame.size.width - kGTIORetryButtonRightPadding;
@@ -220,5 +234,6 @@ static CGFloat const kGTIORetryButtonRightPadding = 29.0f;
     _retryHandler = [retryHandler copy];
     [self.retryButton setTapHandler:_retryHandler];
 }
+
 
 @end

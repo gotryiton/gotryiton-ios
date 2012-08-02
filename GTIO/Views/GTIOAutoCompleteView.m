@@ -231,8 +231,9 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
 - (void)setPositionOfLastWordsTypedInText:(NSString *)str 
 {
-    self.positionOfLastWordTyped = NSMakeRange(MAX(0,str.length-1), MIN(str.length, 1));
-    self.positionOfLastTwoWordsTyped = NSMakeRange(0, str.length);
+    NSInteger length = str.length;
+    self.positionOfLastWordTyped = NSMakeRange(MAX(0,length-1), MIN(length, 1));
+    self.positionOfLastTwoWordsTyped = NSMakeRange(0, length);
     // NSLog(@"default: %@", NSStringFromRange( self.positionOfLastWordTyped ));
     //regex:  (\s?[\w\.\@\#&-]+?)?$
     NSRegularExpression* lastWordRegex = [[NSRegularExpression alloc] initWithPattern:@"\\s?([\\w\\.\\@\\#&-]+?)?$" options:NSRegularExpressionCaseInsensitive error:nil];
@@ -243,7 +244,6 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
             self.positionOfLastWordTyped = [match rangeAtIndex:1];
         }
     }
-
     //regex: ([\w\.\@\#&-]+?\s?[\w\.\@\#&-]+?)\s?$
     NSRegularExpression* lastTwoWordsRegex = [[NSRegularExpression alloc] initWithPattern:@"([\\w\\.\\@\\#&-]+?\\s?[\\w\\.\\@\\#&-]+?)\\s?$" options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *lastTwoWordsMatches = [lastTwoWordsRegex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
@@ -389,9 +389,10 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 - (void) highlightHashTag
 {
     NSString *lastword = [self lastWordTyped];
-
-    if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
-        [self highlightAttributedStringInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
+    if (lastword.length>0){
+        if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
+            [self highlightAttributedStringInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
+        }
     }
 }
 
@@ -607,25 +608,27 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 {
     NSDictionary *attributes;
     NSRange effectiveRange = { 0, 0 }; 
-    do { 
-        NSRange range = NSMakeRange (NSMaxRange(effectiveRange), [self.attrString length] - NSMaxRange(effectiveRange));
-        attributes = [self.attrString attributesAtIndex:range.location longestEffectiveRange: &effectiveRange inRange:range ];
-        
-        if ([attributes objectForKey:@"completerType"]) {
-            GTIOAutoCompleter * completer = [self completerWithID:[attributes objectForKey:@"completerId"]];
+    if ([self.attrString length]>0) {
+        do { 
+            NSRange range = NSMakeRange (NSMaxRange(effectiveRange), [self.attrString length] - NSMaxRange(effectiveRange));
+            attributes = [self.attrString attributesAtIndex:range.location longestEffectiveRange: &effectiveRange inRange:range ];
+            
+            if ([attributes objectForKey:@"completerType"]) {
+                GTIOAutoCompleter * completer = [self completerWithID:[attributes objectForKey:@"completerId"]];
 
-            //if its a hashtag, make sure the hashtag is at the front of the string
-            if ([[attributes objectForKey:@"completerType"] isEqualToString:@"#"] ){
-                if (![self isValidHashTag:[[self.attrString string] substringWithRange:effectiveRange]]){
+                //if its a hashtag, make sure the hashtag is at the front of the string
+                if ([[attributes objectForKey:@"completerType"] isEqualToString:@"#"] ){
+                    if (![self isValidHashTag:[[self.attrString string] substringWithRange:effectiveRange]]){
+                        [self unHighlightAttributedStringInRange:effectiveRange];
+                    }
+                }
+                // if its some other tag, make sure the string still matches
+                else if (![[[self.attrString string] substringWithRange:effectiveRange] isEqualToString:[completer completerString]]){
                     [self unHighlightAttributedStringInRange:effectiveRange];
                 }
             }
-            // if its some other tag, make sure the string still matches
-            else if (![[[self.attrString string] substringWithRange:effectiveRange] isEqualToString:[completer completerString]]){
-                [self unHighlightAttributedStringInRange:effectiveRange];
-            }
-        }
-    } while (NSMaxRange(effectiveRange) < [self.attrString length]); 
+        } while (NSMaxRange(effectiveRange) < [self.attrString length]); 
+    }
 }
 
 -(BOOL) isValidHashTag:(NSString *) str {
