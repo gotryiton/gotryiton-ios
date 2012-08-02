@@ -387,7 +387,9 @@
     if ([viewController isKindOfClass:[GTIOCameraTabBarPlaceholderViewController class]]) {
         shouldSelect = NO;
         [self.cameraViewController setDismissHandler:^(UIViewController *viewController) {
-            [viewController dismissModalViewControllerAnimated:YES];
+            [viewController dismissViewControllerAnimated:YES completion:^{
+                [self.cameraViewController.postALookViewController reset];
+            }];
         }];
         [self.cameraViewController setFlashOn:NO];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.cameraViewController];

@@ -20,10 +20,10 @@
 #import "GTIOProcessImageRequest.h"
 
 #import "GTIOFilterManager.h"
+#import "GTIOPostManager.h"
 
 #import "GTIOPhotoShootGridViewController.h"
 #import "GTIOPhotoConfirmationViewController.h"
-#import "GTIOPostALookViewController.h"
 #import "GTIOPickAProductViewController.h"
 
 NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotification";
@@ -62,8 +62,6 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 @property (nonatomic, strong) NSTimer *imageWaitTimer;
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
-
-@property (nonatomic, strong) GTIOPostALookViewController *postALookViewController;
 
 @property (nonatomic, assign, getter = isShootingPhotoShoot) BOOL shootingPhotoShoot;
 
@@ -207,6 +205,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     // Toolbar
     self.photoToolbarView = [[GTIOCameraToolbarView alloc] initWithFrame:(CGRect){ 0, self.view.frame.size.height - kGTIOToolbarHeight, self.view.frame.size.width, kGTIOToolbarHeight }];
     [self.photoToolbarView.closeButton setTapHandler:^(id sender) {
+        [[GTIOPostManager sharedManager] cancelUploadImage];
         if (blockSelf.dismissHandler) {
             blockSelf.dismissHandler(blockSelf);
         }
