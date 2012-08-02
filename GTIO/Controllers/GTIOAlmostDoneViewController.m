@@ -28,13 +28,17 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
     self = [super initWithNibName:nil bundle:nil];
     if (self) {    
         NSMutableArray *selectableYears = [NSMutableArray array];
-        NSDate *currentDate = [NSDate date];
-        currentDate = [currentDate dateByAddingTimeInterval:-(kGTIOGTIOMinimumAge*60 * 60 * 24 * 365.25)];
+        NSDate *startDate = [NSDate date];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+        [offsetComponents setYear:-kGTIOGTIOMinimumAge];
+        startDate = [calendar dateByAddingComponents:offsetComponents toDate:startDate options:0];
+
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy"];
         for (int i = 0; i < 100; i++) {
-            [selectableYears addObject:[dateFormatter stringFromDate:currentDate]];
-            currentDate = [currentDate dateByAddingTimeInterval:-(60 * 60 * 24 * 365.25)];
+            [selectableYears addObject:[dateFormatter stringFromDate:startDate]];
+            startDate = [startDate dateByAddingTimeInterval:-(60 * 60 * 24 * 365.25)];
         }
         
         NSArray *selectableGenders = [NSArray arrayWithObjects:@"female", @"male", nil];
