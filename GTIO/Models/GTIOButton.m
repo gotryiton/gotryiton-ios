@@ -10,7 +10,4 @@
 
 @implementation GTIOButton
 
-@synthesize name = _name, action = _action, count = _count, text = _text, attribute = _attribute, value = _value, chevron = _chevron, state = _state, imageURL = _imageURL, icons = _icons;
-@synthesize suffixImage = _suffixImage;
-
 @end

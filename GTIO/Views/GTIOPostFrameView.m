@@ -73,11 +73,7 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
         
         self.photoTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showFullScreenImage)];
 
-        _heartButton = [GTIOHeartButton heartButtonWithTapHandler:^(id sender) {
-            [self.heartButton setHearted:![self.heartButton isHearted]];
-            
-            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.photoHeartButtonModel.action.endpoint delegate:nil];
-        }];
+        _heartButton = [GTIOHeartButton heartButtonWithTapHandler:nil];
         [self addSubview:_heartButton];
         
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
@@ -209,17 +205,36 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
             [self.progressView setProgress:progress];
         }
     }];
+    
+    // Heart button
+    self.photoHeartButtonModel = nil;
+    for (GTIOButton *buttonModel in _post.buttons) {
+        if ([buttonModel.name isEqualToString:kGTIOPhotoHeartButton]) {
+            self.photoHeartButtonModel = buttonModel;
+        }
+    }
+    [self.heartButton setHidden:(self.photoHeartButtonModel ? NO : YES)];
+    
+    if (self.photoHeartButtonModel) {
+        [self.heartButton setHearted:self.photoHeartButtonModel.state.boolValue];
+        [self.heartButton setTapHandler:^(id sender) {
+            BOOL hearted = ![self.heartButton isHearted];
+            [self.heartButton setHearted:hearted];
+            [self.photoHeartButtonModel setState:@(hearted)];
+            
+            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.photoHeartButtonModel.action.endpoint delegate:nil];
+        }];
+    }
 
     // Description
     NSData *data = [_post.postDescription dataUsingEncoding:NSUTF8StringEncoding];
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.descriptionAttributeTextOptions documentAttributes:NULL];
     self.descriptionTextView.attributedString = string;
-    
-
 }
 
 #pragma mark Custom Views on Text
+
 - (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame
 {
 	DTLinkButton *button = [[DTLinkButton alloc] initWithFrame:frame];

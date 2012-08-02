@@ -11,7 +11,6 @@
 
 @implementation GTIOPost
 
-
 + (void)postGTIOPhoto:(GTIOPhoto *)photo description:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts completionHandler:(GTIOPostCompletionHandler)completionHandler
 {
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/post/create" usingBlock:^(RKObjectLoader *loader) {
