@@ -44,6 +44,7 @@
         [_userName setTextColor:[UIColor gtio_pinkTextColor]];
         [_userName setBackgroundColor:[UIColor clearColor]];
         [_userName setText:[GTIOUser currentUser].name];
+        
         [self addSubview:_userName];
         
         _userLocation = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -58,8 +59,8 @@
         
         _betterWhenShared = [[UILabel alloc] initWithFrame:CGRectZero];
         [_betterWhenShared setBackgroundColor:[UIColor clearColor]];
-        [_betterWhenShared setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherLightItal size:17.0]];
-        [_betterWhenShared setTextColor:[UIColor gtio_grayTextColor515152]];
+        [_betterWhenShared setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:17.0]];
+        [_betterWhenShared setTextColor:[UIColor gtio_grayTextColor404040]];
         [_betterWhenShared setText:@"style is better when shared!"];
         [_betterWhenShared setTextAlignment:UITextAlignmentCenter];
         [self addSubview:_betterWhenShared];
@@ -83,11 +84,19 @@
     
     [self.profilePicture setFrame:(CGRect){ 30, 70, 46, 46 }];
     [self.viewLayout setFrame:(CGRect){ 5, 5, self.viewLayout.bounds.size }];
-    [self.userName setFrame:(CGRect){ 83, ([GTIOUser currentUser].location.length > 0) ? 70 : 82, 167, 22 }];
-    [self.userLocation setFrame:(CGRect){ 83, 92, 167, 14 }];
-    [self.editProfileButton setFrame:(CGRect){ 255, 78, self.editProfileButton.bounds.size }];
-    [self.betterWhenShared setFrame:(CGRect){ 0, self.viewLayout.frame.origin.y + self.viewLayout.bounds.size.height + 18, self.bounds.size.width, 20 }];
-    [self.connectWithFriends setFrame:(CGRect){ 0, _betterWhenShared.frame.origin.y + _betterWhenShared.bounds.size.height - 5, self.bounds.size.width, 40 }];
+    [self.userName setFrame:(CGRect){ 85, ([GTIOUser currentUser].location.length > 0) ? 76 : 85, 160, 22 }];
+    [self.userLocation setFrame:(CGRect){ 85, 98, 160, 14 }];
+    [self.editProfileButton setFrame:(CGRect){ 254, 78, self.editProfileButton.bounds.size }];
+    [self.betterWhenShared setFrame:(CGRect){ -1, self.viewLayout.frame.origin.y + self.viewLayout.bounds.size.height + 18, self.bounds.size.width, 20 }];
+    [self.connectWithFriends setFrame:(CGRect){ 0, _betterWhenShared.frame.origin.y + _betterWhenShared.bounds.size.height - 3, self.bounds.size.width, 40 }];
+
+    [self.userName setNumberOfLines:1];
+    [self.userName setMinimumFontSize:12.0];
+    self.userName.adjustsFontSizeToFitWidth = YES;
+
+    [self.userLocation setNumberOfLines:1];
+    [self.userLocation setMinimumFontSize:9.0];
+    self.userLocation.adjustsFontSizeToFitWidth = YES;
 }
 
 - (void)setDelegate:(id<GTIOAccountCreatedDelegate>)delegate
@@ -115,7 +124,7 @@
         [self.userName setText:[GTIOUser currentUser].name];
     }
     if (![self.userLocation.text isEqualToString:[GTIOUser currentUser].location]) {
-        [self.userLocation setText:[GTIOUser currentUser].location];
+        [self.userLocation setText:[[GTIOUser currentUser].location uppercaseString]];
     }
     [self setNeedsLayout];
 }

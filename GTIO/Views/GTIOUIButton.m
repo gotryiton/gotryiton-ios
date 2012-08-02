@@ -351,7 +351,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-on.png"] forState:UIControlStateHighlighted];
     [button setBackgroundImage:[UIImage imageNamed:@"follow-button-disabled.png"] forState:UIControlStateDisabled];
     [button setFrame:(CGRect){ 0, 0, [UIImage imageNamed:@"follow-button-off.png"].size }];
-    [button.titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:18.0]];
+    [button.titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0]];
     [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(7.0, 0, 0, 0)];
     [button setTitle:@"follow" forState:UIControlStateDisabled];
