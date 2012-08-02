@@ -178,8 +178,8 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 
 - (void)prepareForReuse {
     [self.progressView setProgress:0.0f];
-    [self.photoImageView setImage:nil];
 }
+
 - (void) dealloc 
 {
     _delegate = nil;
