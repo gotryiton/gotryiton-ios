@@ -74,8 +74,6 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
 
 @implementation GTIORouter
 
-@synthesize numberFormatter = _numberFormatter;
-
 - (id)init
 {
     self = [super init];
@@ -104,6 +102,11 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
 
 - (UIViewController *)viewControllerForURL:(NSURL *)URL
 {
+    return [self viewControllerForURL:URL fromExternal:NO];
+}
+
+- (UIViewController *)viewControllerForURL:(NSURL *)URL fromExternal:(BOOL)fromExternal
+{
     UIViewController *viewController = nil;
     
     if ([[URL scheme] isEqualToString:kGTIOHttpURLScheme]) {
@@ -119,12 +122,18 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
     
     if ([urlHost isEqualToString:kGTIOURLHostProfile]) {
         if ([pathComponents count] >= 2) {
-            // Change to Me tab
-            NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabMe) };
-            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
-            // Load new profile view controller
-            NSDictionary *profileUserInfo = @{ kGTIOProfileUserIDUserInfo : [pathComponents objectAtIndex:1] };
-            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShowProfileUserNotification object:nil userInfo:profileUserInfo];
+            if (fromExternal) {
+                // Change to Me tab and load profile on Me Tab
+                NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabMe) };
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
+                // Load new profile view controller
+                NSDictionary *profileUserInfo = @{ kGTIOProfileUserIDUserInfo : [pathComponents objectAtIndex:1] };
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShowProfileUserNotification object:nil userInfo:profileUserInfo];
+            } else {
+                // Load profile on current view controller
+                viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+                [((GTIOProfileViewController *)viewController) setUserID:[pathComponents objectAtIndex:1]];
+            }
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostSignOut]) {
         viewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];

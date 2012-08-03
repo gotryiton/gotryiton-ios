@@ -19,6 +19,7 @@ extern NSString * const kGTIOHttpURLScheme;
 
 - (UIViewController *)viewControllerForURLString:(NSString*)URLString;
 - (UIViewController *)viewControllerForURL:(NSURL *)URL;
+- (UIViewController *)viewControllerForURL:(NSURL *)URL fromExternal:(BOOL)fromExternal;
 
 
 @end
