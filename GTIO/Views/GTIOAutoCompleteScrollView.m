@@ -13,6 +13,7 @@ static CGFloat const kGTIONavTextFontSize = 14.0f;
 static CGFloat const kGTIONavTextLineHeight = 18.0f;
 static CGFloat const kGTIONavTextBaseline = 5.0f;
 static CGFloat const kGTIONavArrowBaseline = 9.0f;
+static CGFloat const kGTIOAutoCompleterButtonYPosition = 12.0f;
 
 static NSString * const kGTIOAtTagHelperText = @"start typing a friend's name...";
 static NSString * const kGTIOHashTagHelperText = @"type a hashtag to group with other similar looks!";
@@ -204,7 +205,7 @@ static NSString * const kGTIOBrandTagHelperText = @"start typing a brand...";
     
     for (GTIOAutoCompleter *option in buttons) {
         GTIOAutoCompleteButton *optionButton = [GTIOAutoCompleteButton gtio_autoCompleteButtonWithCompleter:option];
-        [optionButton setFrame:(CGRect){ { xOrigin, 11 }, optionButton.frame.size }];        
+        [optionButton setFrame:(CGRect){ { xOrigin, kGTIOAutoCompleterButtonYPosition }, optionButton.frame.size }];        
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
         [optionButton addGestureRecognizer:singleTap];
         [self addSubview:optionButton];
