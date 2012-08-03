@@ -160,7 +160,8 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
+    [self.pullToLoadMoreView removeObservers];
+    self.pullToLoadMoreView = nil;
     self.friendsTableHeaderView = nil;
     self.friendsTableView = nil;
     self.noSearchResultsView = nil;

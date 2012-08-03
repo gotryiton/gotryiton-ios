@@ -146,10 +146,10 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
+    [self.pullToRefreshView removeObservers];
+    self.pullToRefreshView = nil;
     self.navBarView = nil;
     self.tableView = nil;
-    self.pullToRefreshView = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -26,13 +26,6 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
 
 @implementation GTIOMasonGridView
 
-@synthesize columns = _columns, gridItems = _gridItems;
-@synthesize padding = _padding;
-@synthesize gridItemTapHandler = _gridItemTapHandler;
-@synthesize pullToRefreshView = _pullToRefreshView;
-@synthesize pullToLoadMoreView = _pullToLoadMoreView;
-@synthesize pullToRefreshHandler = _pullToRefreshHandler, pullToLoadMoreHandler = _pullToLoadMoreHandler;
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -40,6 +33,12 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
         _padding = 5.0f;
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [self.pullToRefreshView removeObservers];
+    [self.pullToLoadMoreView removeObservers];
 }
 
 - (void)didFinishLoadingGridItem:(GTIOMasonGridItem *)gridItem

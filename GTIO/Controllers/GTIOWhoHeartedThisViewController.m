@@ -71,7 +71,8 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
+    [self.pullToLoadMoreView removeObservers];
+    self.pullToLoadMoreView = nil;
     self.tableView = nil;
 }
 
