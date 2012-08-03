@@ -315,7 +315,9 @@ typedef enum GTIOReviewsAlertView {
 
 - (void)linkPushed:(DTLinkButton *)button
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPostFeedOpenLinkNotification object:nil userInfo:[NSDictionary dictionaryWithObject:button.URL forKey:kGTIOURL]];
+    if ([self.delegate respondsToSelector:@selector(openURL:)]) {
+        [self.delegate openURL:button.URL];
+    }
 }
 
 #pragma mark - UIAlertViewDelegate Methods

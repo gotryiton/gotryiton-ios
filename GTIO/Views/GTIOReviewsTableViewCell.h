@@ -17,6 +17,7 @@
 - (void)reviewButtonTap:(GTIOButton *)button reviewID:(NSString *)reviewID;
 - (void)goToProfileOfUserID:(NSString *)userID;
 - (UIView *)viewForSpinner;
+- (void)openURL:(NSURL *)URL;
 
 @end
 
