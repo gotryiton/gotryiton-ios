@@ -1,5 +1,24 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.23
+August 2, 2012
+
+### Build Summary
+RC #2. Bug fixes.
+
+### Development
+
+**Bugs**
+- #534 - autocomplete result buttons are 1px too high
+- #538 - pop up action delete needs a confirmation dialog
+- #541 - item in middle of feed has non-tappable comment button
+- #537 - reviews button on newly uploaded post doesnt work
+- #535 - crashes deleting first character of text field in Almost Done/Edit Profile
+- #536 - switching tabs to a profile (loads in current tab, switches me to me tab)
+- #517 - links in comments do not bring you anywhere
+
+---
+
 #### Build 4.0.0.22
 August 2, 2012
 
