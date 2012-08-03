@@ -87,7 +87,7 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
         [params setData:imageData MIMEType:@"image/jpeg" forParam:@"image"];
         
         request.params = params;
-        request.backgroundPolicy = RKRequestBackgroundPolicyRequeue;
+        request.backgroundPolicy = RKRequestBackgroundPolicyCancel;
         
         request.onDidLoadResponse = ^(RKResponse *response) {
             [self.photoCreateTimer invalidate];
@@ -104,7 +104,7 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
                 
                 if (self.postPhotoButtonTouched || forceSavePost) {
                     self.postPhotoButtonTouched = NO;
-                    [self savePostWithDescription:self.postDescription attachedProducts:self.attachedProducts completionHandler:self.postCompletionHandler];
+                    [self savePostWithDescription:self.postDescription attachedProducts:self.attachedProducts];
                 }
             } else {
                 [self changeState:GTIOPostStateError];
@@ -124,7 +124,7 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
 
 - (void)cancelUploadImage
 {
-    [self changeState:GTIOPostStateCancelled];
+    [self changeState:GTIOPostStateCancelledImageUpload];
     [self.uploadImageRequest cancel];
 }
 
@@ -137,11 +137,10 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
 
 #pragma mark - Post
 
-- (void)savePostWithDescription:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts completionHandler:(GTIOPostCompletionHandler)completionHandler
+- (void)savePostWithDescription:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts
 {
     self.postDescription = description;
     self.attachedProducts = attachedProducts;
-    self.postCompletionHandler = completionHandler;
     
     if (self.state == GTIOPostStateUploadingImageComplete && self.photo) {
         [self changeState:GTIOPostStateSavingPost];
@@ -151,12 +150,8 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
                 _post = post;
                 [self changeState:GTIOPostStateComplete];
             } else {
-                [self changeState:GTIOPostStateError];
+                [self changeState:GTIOPostStateCancelledPost]; // Even though this error we want to cancel upload
                 NSLog(@"There was an error while posting the post. (Server error: %@)", [error localizedDescription]);
-            }
-            
-            if (self.postCompletionHandler) {
-                self.postCompletionHandler(post, error);
             }
         }];
         [self setPostPhotoButtonTouched:NO];

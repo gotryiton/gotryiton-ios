@@ -543,8 +543,12 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         }
         case GTIOPostStateError:
             break;
-        case GTIOPostStateCancelled:
+        case GTIOPostStateCancelledImageUpload:
             [self removeUploadView];
+            break;
+        case GTIOPostStateCancelledPost:
+            [self removeUploadView];
+            [self.pullToRefreshView startLoading];
             break;
         default:
             break;

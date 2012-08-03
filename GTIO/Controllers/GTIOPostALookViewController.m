@@ -300,7 +300,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     [[GTIOPostManager sharedManager] setPostPhotoButtonTouched:YES];
     
-    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] attachedProducts:(NSDictionary *)[self attachedProducts] completionHandler:nil];
+    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] attachedProducts:(NSDictionary *)[self attachedProducts]];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         [self reset];
     }];
