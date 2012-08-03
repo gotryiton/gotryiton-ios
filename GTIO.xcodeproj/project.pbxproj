@@ -5760,7 +5760,7 @@
 		D2C4BF4A15B05EDB00422B98 /* GTIOWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWebViewController.m; sourceTree = "<group>"; };
 		D2C4BF4F15B0623400422B98 /* GTIOToolBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOToolBarButton.h; sourceTree = "<group>"; };
 		D2C4BF5015B0623400422B98 /* GTIOToolBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOToolBarButton.m; sourceTree = "<group>"; };
-		D2CDA96215502F02009B7E24 /* GTIO - Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GTIO - Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2CDA96215502F02009B7E24 /* GTIO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTIO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2CDA96615502F02009B7E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D2CDA96815502F02009B7E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -8218,7 +8218,7 @@
 		D2CDA96315502F02009B7E24 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2CDA96215502F02009B7E24 /* GTIO - Development.app */,
+				D2CDA96215502F02009B7E24 /* GTIO.app */,
 				D2CDA97D15502F02009B7E24 /* GTIOTests.octest */,
 				D2755A6F15CC0EEB00425921 /* GTIO.app */,
 				D224F5AB15CC1018004DE550 /* GTIO.app */,
@@ -8678,7 +8678,7 @@
 			);
 			name = "GTIO Development";
 			productName = GTIO;
-			productReference = D2CDA96215502F02009B7E24 /* GTIO - Development.app */;
+			productReference = D2CDA96215502F02009B7E24 /* GTIO.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D2CDA97C15502F02009B7E24 /* GTIOTests */ = {
