@@ -27,6 +27,7 @@ typedef enum GTIOAcceptRelationshipButtonState {
 @property (nonatomic, strong) NSNumber *count;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSString *attribute;
+@property (nonatomic, copy) NSString *buttonType;
 @property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, strong) NSNumber *chevron;
 @property (nonatomic, strong) NSNumber *state;

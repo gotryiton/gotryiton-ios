@@ -238,6 +238,7 @@
         [buttonActionMapping mapKeyPath:@"twitter_url" toAttribute:@"twitterURL"];
         [buttonActionMapping mapKeyPath:@"twitter_text" toAttribute:@"twitterText"];
         [buttonMapping mapKeyPath:@"image" toAttribute:@"imageURL"];
+        [buttonMapping mapKeyPath:@"type" toAttribute:@"buttonType"];
         [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [buttonMapping mapAttributes:@"name", @"count", @"text", @"attribute", @"value", @"chevron", @"state", nil];
         [self setMapping:buttonMapping forKeyPath:@"buttons"];

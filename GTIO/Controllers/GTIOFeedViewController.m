@@ -42,14 +42,18 @@
 #import "GTIOTweetComposer.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
-static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet! Find the Twitter option in your iPhone's Settings to get started!";
 
-@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, GTIOFeedCellDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
+static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet! Find the Twitter option in your iPhone's Settings to get started!";
+static NSString * const kGTIOAlertForDeletingPost = @"do you want to delete this post permanently?";
+static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
+
+@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, GTIOFeedCellDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) GTIOPagination *pagination;
+@property (nonatomic, strong) GTIOButton *deleteButton;
 
 @property (nonatomic, strong) GTIOPostUpload *postUpload;
 @property (nonatomic, strong) GTIOPostUploadView *uploadView;
@@ -600,20 +604,11 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 
 - (void)buttonTap:(GTIOButton *)button
 {
-    if (button.action.endpoint) {
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-            loader.onDidLoadObjects  = ^(NSArray *loadedObjects) {
-                for (id object in loadedObjects) {
-                    if ([object isMemberOfClass:[GTIOAlert class]]) {
-                       [GTIOErrorController handleAlert:(GTIOAlert *)object showRetryInView:self.view retryHandler:nil];
-                    }
-                }
-            };
-            loader.onDidFailWithError = ^(NSError *error) {
-                [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
-                NSLog(@"%@", [error localizedDescription]);
-            };
-        }];
+    if ([button.buttonType isEqualToString:@"delete"]){
+        self.deleteButton = button;
+        [[[UIAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+    } else if (button.action.endpoint) {
+        [self endpointRequestForButton:button];
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
     } else if (button.action.destination) {
         UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
@@ -635,6 +630,33 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
             [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
         }
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([alertView.message isEqualToString:kGTIOAlertForDeletingPost]){
+        if (buttonIndex == 0){
+            [self endpointRequestForButton:self.deleteButton ];
+            self.deleteButton = nil;
+        }
+    }
+}
+
+- (void)endpointRequestForButton:(GTIOButton *)button {
+
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects  = ^(NSArray *loadedObjects) {
+            for (id object in loadedObjects) {
+                if ([object isMemberOfClass:[GTIOAlert class]]) {
+                   [GTIOErrorController handleAlert:(GTIOAlert *)object showRetryInView:self.view retryHandler:nil];
+                }
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
 }
 
 @end
