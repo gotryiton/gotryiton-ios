@@ -122,9 +122,9 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
             // Change to Me tab
             NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabMe) };
             [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
-            
-            viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
-            [((GTIOProfileViewController *)viewController) setUserID:[pathComponents objectAtIndex:1]];
+            // Load new profile view controller
+            NSDictionary *profileUserInfo = @{ kGTIOProfileUserIDUserInfo : [pathComponents objectAtIndex:1] };
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShowProfileUserNotification object:nil userInfo:profileUserInfo];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostSignOut]) {
         viewController = [[GTIOSignInViewController alloc] initWithNibName:nil bundle:nil];

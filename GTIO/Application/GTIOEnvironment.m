@@ -84,10 +84,12 @@ NSString * const kGTIOChangeSelectedTabNotification = @"kGTIOChangeSelectedTabNo
 NSString * const kGTIOAddTabBarToWindowNotification = @"kGTIOAddTabBarToWindowNotification";
 NSString * const kGTIOExploreLooksChangeResourcePathNotification = @"kGTIOExploreLooksChangeResourcePathNotification";
 NSString * const kGTIOTabBarViewsResize = @"kGTIOTabBarViewsResize";
+NSString * const kGTIOShowProfileUserNotification = @"kGTIOShowProfileUserNotification";
 
 // Notification UserInfo
 NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";
 NSString * const kGTIOResourcePathKey = @"kGTIOResourcePathKey";
+NSString * const kGTIOProfileUserIDUserInfo = @"kGTIOProfileUserIDUserInfo";
 
 // UrbanAirship
 NSString * const kGTIOUAirshipProductionAppKey = @"***REMOVED***";
