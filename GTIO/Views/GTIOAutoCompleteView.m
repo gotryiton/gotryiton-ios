@@ -193,23 +193,31 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
         NSArray *foundAutoCompleters = [self searchLastTypedWordsForAutoCompletes];
 
         if ([self hashtagMode] && ![self isValidHashTag:[self lastWordTyped]]){
+            // NSLog(@"hashtagMode");
             [self resetAutoCompleteMode];
         } else if (![self hashtagMode] && [self isValidHashTag:[self lastWordTyped]]){
+            // NSLog(@"checking for hashtagMode");
             [self autoCompleterModeSelected:@"#"];
         } else if (![self attagMode] && [[self lastWordTyped] isEqualToString:@"@"]){
+            // NSLog(@"checking for attagMode");
             [self autoCompleterModeSelected:@"@"];
-        } else if ([foundAutoCompleters count] > 0) {
-            [self showButtonsWithAutoCompleters: foundAutoCompleters];
-        } else if (![self hashtagMode]) {
+        } else if (![self hashtagMode] && ![self brandtagMode] && [foundAutoCompleters count] == 0) {
+            // NSLog(@"notHash mode resetting");
             [self resetAutoCompleteMode];         
         }
+
+        if ([foundAutoCompleters count] > 0) {
+            // NSLog(@"found autoCompleters");
+            [self.scrollView clearScrollView];
+            [self showButtonsWithAutoCompleters: foundAutoCompleters];
+        } 
         
         
     } else {
         [self.scrollView showScrollViewNav];
         [self displayPlaceholderText];
     }
-
+    // NSLog(@"cleanUpAttrString mode resetting");
     [self cleanUpAttrString];
 
     return YES;
@@ -233,7 +241,7 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 {
     NSInteger length = str.length;
     self.positionOfLastWordTyped = NSMakeRange(MAX(0,length-1), MIN(length, 1));
-    self.positionOfLastTwoWordsTyped = NSMakeRange(0, length);
+    self.positionOfLastTwoWordsTyped = NSMakeRange(MAX(0,length-1), MIN(length, 1));
     // NSLog(@"default: %@", NSStringFromRange( self.positionOfLastWordTyped ));
     //regex:  (\s?[\w\.\@\#&-]+?)?$
     NSRegularExpression* lastWordRegex = [[NSRegularExpression alloc] initWithPattern:@"\\s?([\\w\\.\\@\\#&-]+?)?$" options:NSRegularExpressionCaseInsensitive error:nil];
@@ -244,15 +252,12 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
             self.positionOfLastWordTyped = [match rangeAtIndex:1];
         }
     }
-    //regex: ([\w\.\@\#&-]+?\s?[\w\.\@\#&-]+?)\s?$
-    NSRegularExpression* lastTwoWordsRegex = [[NSRegularExpression alloc] initWithPattern:@"([\\w\\.\\@\\#&-]+?\\s?[\\w\\.\\@\\#&-]+?)\\s?$" options:NSRegularExpressionCaseInsensitive error:nil];
+    //regex: ([\w\.\@\#&-]+?\s?[\w\.\@\#&-]?)$
+    NSRegularExpression* lastTwoWordsRegex = [[NSRegularExpression alloc] initWithPattern:@"([\\w\\.\\@\\#&-]+?\\s?[\\w\\.\\@\\#&-]?)$" options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *lastTwoWordsMatches = [lastTwoWordsRegex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
     for (NSTextCheckingResult *match in lastTwoWordsMatches) {
-        
         if ([match rangeAtIndex:1].location != NSNotFound && [match rangeAtIndex:1].length > 0 )
             self.positionOfLastTwoWordsTyped =  [match rangeAtIndex:1];
-        
-
     }
     // NSLog(@"first: <%@> second: <%@>", [self lastWordTyped], [self lastTwoWordsTyped]);
 }
@@ -288,6 +293,9 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
 - (NSString *)lastWordTypedInText:(NSString *)str
 {
+    if (str.length == 0) {
+        return @"";
+    }
     return [str substringWithRange:self.positionOfLastWordTyped];
 }
 
@@ -316,7 +324,7 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 - (void)highlightAttributedStringInRange:(NSRange)range completerID:(NSString *)completerID type:(NSString *)type
 {
     // NSLog(@"highlighting range: %@ completer: %@ type: %@", NSStringFromRange(range), completerID, type );
-
+    // NSLog(@"self.attrString length: %i", self.attrString.length);
     NSDictionary *highlightTextAttr = [NSDictionary dictionaryWithObjectsAndKeys:
                                        (id)self.ACHighlightColor, (id)kCTForegroundColorAttributeName, 
                                        completerID, @"completerId",
@@ -391,6 +399,7 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
     NSString *lastword = [self lastWordTyped];
     if (lastword.length>0){
         if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
+            // NSLog(@"highlighting hash: %@", NSStringFromRange(self.positionOfLastWordTyped));
             [self highlightAttributedStringInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
         }
     }
@@ -479,14 +488,19 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 {
     GTIOAutoCompleter *completer = [self completerWithID:completerID];
     
+    self.autoCompleteMatchCharacterCount = 0;
+
     NSRange range = NSMakeRange(0,0);
     // NSLog(@"autoCompleterIDSelected lastword: %@", [self lastWordTyped]);
     if ([self startedTypingCompleterInLastWord:completer] | [[self lastWordTyped] isEqualToString:@"@"] ) {
+        // NSLog(@"matched on first word");
         range = self.positionOfLastWordTyped;
     }
     else if ([self startedTypingCompleterInLastTwoWords:completer]){
+        // NSLog(@"matched on second word");
         range = self.positionOfLastTwoWordsTyped;
     }
+    // NSLog(@"completer goiing at range: %@", NSStringFromRange(range));
     NSRange editedRange = [self insertIntoInput:[NSString stringWithFormat:@"%@ ", [completer completerString]] range:range];
     if (editedRange.location!=NSNotFound) {
         editedRange = NSMakeRange(editedRange.location, editedRange.length-1);
@@ -499,18 +513,19 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 {
     
     self.autoCompleteMode = mode;
-    
-    if (([self attagMode] | [self hashtagMode]) && (self.inputText.length==0 || ![[self lastWordTyped] isEqualToString:mode])){
-        
-        [self insertIntoInput:mode];
+
+    if ([self attagMode] | [self hashtagMode]){
+        if (self.inputText.length==0 | [self lastWordTyped].length == 0 | [[self lastWordTyped] isEqualToString:@" "]) {
+            [self insertIntoInput:mode];
+        }
     }
+    [self.scrollView clearScrollView];
+    [self.scrollView showPromptTextForMode:mode];
 
     if ([self attagMode] | [self brandtagMode]){
         self.autoCompleteMatchCharacterCount = 0;
     }
-
-    [self.scrollView showPromptTextForMode:mode];
-
+    
 }
 
 
@@ -551,6 +566,7 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
 -(NSRange) insertIntoInput:(NSString *)str range:(NSRange)range
 {
+
     NSRange editedRange = NSMakeRange(NSNotFound, 0);
 
     if (self.inputText.length == 0) {
