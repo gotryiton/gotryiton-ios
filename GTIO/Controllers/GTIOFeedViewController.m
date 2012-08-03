@@ -261,6 +261,19 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
             [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 GTIOPost *post = obj;
                 
+                post.reviewsButtonTapHandler = ^(id sender) {
+                    UIViewController *reviewsViewController;
+                    for (id object in post.buttons) {
+                        if ([object isMemberOfClass:[GTIOButton class]]) {
+                            GTIOButton *button = (GTIOButton *)object;
+                            if ([button.name isEqualToString:kGTIOPostSideReviewsButton]) {
+                                reviewsViewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+                            }
+                        }
+                    }
+                    [self.navigationController pushViewController:reviewsViewController animated:YES];
+                };
+                
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
                 NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
                 if ([foundExistingPosts count] == 0) {
