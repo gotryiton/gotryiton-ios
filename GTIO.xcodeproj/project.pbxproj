@@ -8624,9 +8624,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D224F05615CC1018004DE550 /* GTIO - Production */ = {
+		D224F05615CC1018004DE550 /* GTIO Production */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D224F5A815CC1018004DE550 /* Build configuration list for PBXNativeTarget "GTIO - Production" */;
+			buildConfigurationList = D224F5A815CC1018004DE550 /* Build configuration list for PBXNativeTarget "GTIO Production" */;
 			buildPhases = (
 				D224F05B15CC1018004DE550 /* Sources */,
 				D224F15915CC1018004DE550 /* Frameworks */,
@@ -8638,14 +8638,14 @@
 				D224F05715CC1018004DE550 /* PBXTargetDependency */,
 				D224F05915CC1018004DE550 /* PBXTargetDependency */,
 			);
-			name = "GTIO - Production";
+			name = "GTIO Production";
 			productName = GTIO;
 			productReference = D224F5AB15CC1018004DE550 /* GTIO.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D275551A15CC0EEB00425921 /* GTIO - Staging */ = {
+		D275551A15CC0EEB00425921 /* GTIO Staging */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D2755A6C15CC0EEB00425921 /* Build configuration list for PBXNativeTarget "GTIO - Staging" */;
+			buildConfigurationList = D2755A6C15CC0EEB00425921 /* Build configuration list for PBXNativeTarget "GTIO Staging" */;
 			buildPhases = (
 				D275551F15CC0EEB00425921 /* Sources */,
 				D275561D15CC0EEB00425921 /* Frameworks */,
@@ -8657,14 +8657,14 @@
 				D275551B15CC0EEB00425921 /* PBXTargetDependency */,
 				D275551D15CC0EEB00425921 /* PBXTargetDependency */,
 			);
-			name = "GTIO - Staging";
+			name = "GTIO Staging";
 			productName = GTIO;
 			productReference = D2755A6F15CC0EEB00425921 /* GTIO.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D2CDA96115502F02009B7E24 /* GTIO - Development */ = {
+		D2CDA96115502F02009B7E24 /* GTIO Development */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D2CDA98F15502F02009B7E24 /* Build configuration list for PBXNativeTarget "GTIO - Development" */;
+			buildConfigurationList = D2CDA98F15502F02009B7E24 /* Build configuration list for PBXNativeTarget "GTIO Development" */;
 			buildPhases = (
 				D2CDA95E15502F02009B7E24 /* Sources */,
 				D2CDA95F15502F02009B7E24 /* Frameworks */,
@@ -8676,7 +8676,7 @@
 				D2465986159B743600A43238 /* PBXTargetDependency */,
 				D2CDA9EA1550577E009B7E24 /* PBXTargetDependency */,
 			);
-			name = "GTIO - Development";
+			name = "GTIO Development";
 			productName = GTIO;
 			productReference = D2CDA96215502F02009B7E24 /* GTIO - Development.app */;
 			productType = "com.apple.product-type.application";
@@ -8735,9 +8735,9 @@
 			);
 			projectRoot = "";
 			targets = (
-				D2CDA96115502F02009B7E24 /* GTIO - Development */,
-				D275551A15CC0EEB00425921 /* GTIO - Staging */,
-				D224F05615CC1018004DE550 /* GTIO - Production */,
+				D2CDA96115502F02009B7E24 /* GTIO Development */,
+				D275551A15CC0EEB00425921 /* GTIO Staging */,
+				D224F05615CC1018004DE550 /* GTIO Production */,
 				D2CDA97C15502F02009B7E24 /* GTIOTests */,
 			);
 		};
@@ -12900,7 +12900,7 @@
 		};
 		D246B098155C143B00E5546A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D2CDA96115502F02009B7E24 /* GTIO - Development */;
+			target = D2CDA96115502F02009B7E24 /* GTIO Development */;
 			targetProxy = D246B097155C143B00E5546A /* PBXContainerItemProxy */;
 		};
 		D275551B15CC0EEB00425921 /* PBXTargetDependency */ = {
@@ -13177,7 +13177,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GTIO;
 				PROVISIONING_PROFILE = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
@@ -13215,7 +13215,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GTIO;
 				PROVISIONING_PROFILE = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
@@ -13262,7 +13262,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D224F5A815CC1018004DE550 /* Build configuration list for PBXNativeTarget "GTIO - Production" */ = {
+		D224F5A815CC1018004DE550 /* Build configuration list for PBXNativeTarget "GTIO Production" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D224F5A915CC1018004DE550 /* Debug */,
@@ -13271,7 +13271,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D2755A6C15CC0EEB00425921 /* Build configuration list for PBXNativeTarget "GTIO - Staging" */ = {
+		D2755A6C15CC0EEB00425921 /* Build configuration list for PBXNativeTarget "GTIO Staging" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D2755A6D15CC0EEB00425921 /* Debug */,
@@ -13289,7 +13289,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D2CDA98F15502F02009B7E24 /* Build configuration list for PBXNativeTarget "GTIO - Development" */ = {
+		D2CDA98F15502F02009B7E24 /* Build configuration list for PBXNativeTarget "GTIO Development" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D2CDA99015502F02009B7E24 /* Debug */,
