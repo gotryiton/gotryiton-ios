@@ -1,3 +1,34 @@
+***TFriday, August 3rd - Standup Notes***
+
+**Attendees**
+- TT - Scott, Kayla, Matt
+- GTIO - Matt, Caroline
+
+**Tasks / To Do List**
+- TT/GTIO - Continue working on assigned issues 
+- GTIO - Get credentials in order to submit.
+
+**Status**
+Issues that Scott is working on:
+- There is a memory warning being triggered.  When that happens, it's trying to clean up as much memory as possible. 
+  - If it can't clean up enough memory, it crashes.
+- and 1 other issue
+- Scott will need the credentials in order to submit the app.  
+
+After this issue is fixed, create the build for submit.
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Scott is booked 9/3 - 9/14
+- Scott will be available August 9th and 10th in case of anything that pops up while Simon is out.
+- Release schedule: Submit to the store by end of this week, but release August 20th.
+
+**General Notes**
+  
+---
+
 ***Thursday, August 2nd - Standup Notes***
 
 **Attendees**
