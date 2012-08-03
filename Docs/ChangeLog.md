@@ -1,5 +1,17 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.25
+August 3, 2012
+
+### Build Summary
+RC #4. Fixes crash on camera.
+
+### Development
+
+- #548 - Fixed a memory warning crash on KVO
+
+---
+
 #### Build 4.0.0.24
 August 3, 2012
 
@@ -9,8 +21,8 @@ RC #3. Bug fixes.
 ### Development
 
 **Bugs**
-- Closes #547 - Upload time out if no data is received for 15 seconds when uploading a photo
-- Closes #546 - If a POST to /post/create fails just remove the upload cell and reload the feed
+- #547 - Upload time out if no data is received for 15 seconds when uploading a photo
+- #546 - If a POST to /post/create fails just remove the upload cell and reload the feed
 
 ---
 
