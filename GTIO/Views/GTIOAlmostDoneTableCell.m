@@ -123,9 +123,11 @@ static NSInteger kGTIOMaxCharacterCount = 20;
 
 - (NSInteger)availableCharactersIn:(NSString *)existingString input:(NSString *)inputString range:(NSRange)range
 {
-    NSString * newText = [existingString stringByReplacingCharactersInRange:range withString:inputString];
-
-    return  self.characterLimit - newText.length;
+    if (NSMaxRange(range)>0 && inputString.length>0){
+        NSString * newText = [existingString stringByReplacingCharactersInRange:range withString:inputString];
+        return  self.characterLimit - newText.length;    
+    }
+    return self.characterLimit;
 }
 
 - (BOOL)becomeFirstResponder
