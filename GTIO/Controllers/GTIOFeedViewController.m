@@ -562,6 +562,18 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         
         GTIOPost *newPost = [GTIOPostManager sharedManager].post;
         if (newPost) {
+            newPost.reviewsButtonTapHandler = ^(id sender) {
+                UIViewController *reviewsViewController;
+                for (id object in newPost.buttons) {
+                    if ([object isMemberOfClass:[GTIOButton class]]) {
+                        GTIOButton *button = (GTIOButton *)object;
+                        if ([button.name isEqualToString:kGTIOPostSideReviewsButton]) {
+                            reviewsViewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+                        }
+                    }
+                }
+                [self.navigationController pushViewController:reviewsViewController animated:YES];
+            };
             [self.posts insertObject:newPost atIndex:0];
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
