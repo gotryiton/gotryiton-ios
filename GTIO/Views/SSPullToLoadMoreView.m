@@ -62,15 +62,20 @@
 
 - (void)setScrollView:(UIScrollView *)scrollView {
 	void *context = (__bridge void *)self;
-	if ([_scrollView respondsToSelector:@selector(removeObserver:forKeyPath:context:)]) {
-		[_scrollView removeObserver:self forKeyPath:@"contentOffset" context:context];
-	} else if (_scrollView) {
-		[_scrollView removeObserver:self forKeyPath:@"contentOffset"];
-	}
+    if (scrollView) {
+        if ([_scrollView respondsToSelector:@selector(removeObserver:forKeyPath:context:)]) {
+            [_scrollView removeObserver:self forKeyPath:@"contentOffset" context:context];
+        } else if (_scrollView) {
+            [_scrollView removeObserver:self forKeyPath:@"contentOffset"];
+        }
+    }
 	
 	_scrollView = scrollView;	
 	_defaultContentInset = _scrollView.contentInset;
-	[_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:context];
+    
+    if (scrollView) {
+        [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:context];
+    }
 }
 
 - (UIView<SSPullToLoadMoreContentView> *)contentView {
@@ -98,10 +103,20 @@
 
 #pragma mark - NSObject
 
-- (void)dealloc {
+- (void)dealloc
+{
+    [self removeObservers];
+    
 	self.scrollView = nil;
 	self.delegate = nil;
 	dispatch_release(_animationSemaphore);
+}
+
+- (void)removeObservers
+{
+    void *context = (__bridge void *)self;
+    [_scrollView removeObserver:self forKeyPath:@"contentOffset" context:context];
+    [_scrollView removeObserver:self forKeyPath:@"contentSize" context:context];
 }
 
 #pragma mark - UIView

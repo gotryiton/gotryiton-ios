@@ -17,13 +17,13 @@ typedef enum GTIOPostState {
     GTIOPostStateSavingPost,
     GTIOPostStateComplete, 
     GTIOPostStateError,
-    GTIOPostStateCancelled
+    GTIOPostStateCancelledImageUpload,
+    GTIOPostStateCancelledPost
 } GTIOPostState;
 
 @interface GTIOPostManager : NSObject
 
 @property (nonatomic, assign) BOOL postPhotoButtonTouched;
-@property (nonatomic, copy) GTIOPostCompletionHandler postCompletionHandler;
 @property (nonatomic, assign, readonly) GTIOPostState state;
 @property (nonatomic, assign, readonly) CGFloat progress;
 @property (nonatomic, strong, readonly) GTIOPost *post;
@@ -36,6 +36,6 @@ typedef enum GTIOPostState {
 - (void)uploadImage:(UIImage *)image framed:(BOOL)framed filterNames:(NSDictionary *)filterNames forceSavePost:(BOOL)forceSavePost;
 - (void)cancelUploadImage;
 
-- (void)savePostWithDescription:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts completionHandler:(GTIOPostCompletionHandler)completionHandler;
+- (void)savePostWithDescription:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts;
 
 @end

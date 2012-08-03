@@ -85,9 +85,6 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         
         _addNavToHeaderOffsetXOrigin = -44.0f;
         _removeNavToHeaderOffsetXOrigin = -0.0f;
-
-        [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:NULL];
-        [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -95,6 +92,8 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[GTIOPostManager sharedManager] removeObserver:self forKeyPath:@"progress"];
+    [[GTIOPostManager sharedManager] removeObserver:self forKeyPath:@"state"];
 }
 
 - (void)viewDidLoad
@@ -129,6 +128,9 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     [self.tableView setTableHeaderView:self.navBarView];
     [self.view addSubview:self.tableView];
     
+    [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:NULL];
+    [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:NULL];
+    
     self.emptyView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-bg-overlay.png"]];
     [self.emptyView setFrame:(CGRect){ { 0, self.navigationController.navigationBar.frame.size.height }, self.emptyView.image.size }];
     [self.emptyView setUserInteractionEnabled:YES];
@@ -153,8 +155,16 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    self.tableView = nil;
+    [[GTIOPostManager sharedManager] removeObserver:self forKeyPath:@"progress"];
+    [[GTIOPostManager sharedManager] removeObserver:self forKeyPath:@"state"];
     self.navBarView = nil;
+    self.emptyView = nil;
+    self.uploadView = nil;
+    [self.pullToRefreshView removeObservers];
+    self.pullToRefreshView = nil;
+    [self.pullToLoadMoreView removeObservers];
+    self.pullToLoadMoreView = nil;
+    self.tableView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -543,8 +553,12 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         }
         case GTIOPostStateError:
             break;
-        case GTIOPostStateCancelled:
+        case GTIOPostStateCancelledImageUpload:
             [self removeUploadView];
+            break;
+        case GTIOPostStateCancelledPost:
+            [self removeUploadView];
+            [self.pullToRefreshView startLoading];
             break;
         default:
             break;

@@ -51,8 +51,6 @@
 
 @implementation GTIOFriendsViewController
 
-
-
 - (id)initWithGTIOFriendsTableHeaderViewType:(GTIOFriendsTableHeaderViewType)tableHeaderViewType
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -68,6 +66,11 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -152,20 +155,19 @@
     if (self.tableHeaderViewType != GTIOFriendsTableHeaderViewTypeFindFriends) {
         [self loadUsersForTable];    
     }
-    
-
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
+    [self.pullToLoadMoreView removeObservers];
+    self.pullToLoadMoreView = nil;
     self.friendsTableHeaderView = nil;
     self.friendsTableView = nil;
     self.noSearchResultsView = nil;
     self.searchCommunityView = nil;
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated

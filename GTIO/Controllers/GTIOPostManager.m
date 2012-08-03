@@ -10,6 +10,8 @@
 
 #import "GTIOPhoto.h"
 
+static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
+
 @interface GTIOPostManager () <RKRequestDelegate>
 
 @property (nonatomic, strong) UIImage *image;
@@ -19,6 +21,8 @@
 @property (nonatomic, strong) NSString *postDescription;
 @property (nonatomic, strong) NSDictionary *attachedProducts;
 @property (nonatomic, strong) NSDictionary *filterNames;
+
+@property (nonatomic, strong) NSTimer *photoCreateTimer;
 
 @end
 
@@ -44,6 +48,13 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [self.photoCreateTimer invalidate];
+}
+
+#pragma mark Photo
+
 - (void)uploadImage:(UIImage *)image framed:(BOOL)framed filterNames:(NSDictionary *)filterNames forceSavePost:(BOOL)forceSavePost
 {
     [self.uploadImageRequest cancel];
@@ -59,6 +70,7 @@
     
     [[RKClient sharedClient] post:@"/photo/create" usingBlock:^(RKRequest *request) {
         self.uploadImageRequest = request;
+        self.photoCreateTimer = [NSTimer scheduledTimerWithTimeInterval:kGTIOPhotoCreateTimeoutInterval target:self selector:@selector(uploadImageTimeout) userInfo:nil repeats:NO];
         
         RKParams *params = [RKParams params];
         [params setValue:[NSNumber numberWithBool:self.framed] forParam:@"using_frame"];
@@ -75,10 +87,10 @@
         [params setData:imageData MIMEType:@"image/jpeg" forParam:@"image"];
         
         request.params = params;
-        
-        request.backgroundPolicy = RKRequestBackgroundPolicyRequeue;
+        request.backgroundPolicy = RKRequestBackgroundPolicyCancel;
         
         request.onDidLoadResponse = ^(RKResponse *response) {
+            [self.photoCreateTimer invalidate];
             if (response.isSuccessful) {
                 [self changeState:GTIOPostStateUploadingImageComplete];
                 
@@ -92,7 +104,7 @@
                 
                 if (self.postPhotoButtonTouched || forceSavePost) {
                     self.postPhotoButtonTouched = NO;
-                    [self savePostWithDescription:self.postDescription attachedProducts:self.attachedProducts completionHandler:self.postCompletionHandler];
+                    [self savePostWithDescription:self.postDescription attachedProducts:self.attachedProducts];
                 }
             } else {
                 [self changeState:GTIOPostStateError];
@@ -101,6 +113,7 @@
         };
         
         request.onDidFailLoadWithError = ^(NSError *error) {
+            [self.photoCreateTimer invalidate];
             [self changeState:GTIOPostStateError];
             NSLog(@"There was an error while posting the photo. (Server error: %@)", [error localizedDescription]);
         };
@@ -111,15 +124,23 @@
 
 - (void)cancelUploadImage
 {
-    [self changeState:GTIOPostStateCancelled];
+    [self changeState:GTIOPostStateCancelledImageUpload];
     [self.uploadImageRequest cancel];
 }
 
-- (void)savePostWithDescription:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts completionHandler:(GTIOPostCompletionHandler)completionHandler
+- (void)uploadImageTimeout
+{
+    NSLog(@"Upload image timeout");
+    [self changeState:GTIOPostStateError];
+    [self.uploadImageRequest cancel];
+}
+
+#pragma mark - Post
+
+- (void)savePostWithDescription:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts
 {
     self.postDescription = description;
     self.attachedProducts = attachedProducts;
-    self.postCompletionHandler = completionHandler;
     
     if (self.state == GTIOPostStateUploadingImageComplete && self.photo) {
         [self changeState:GTIOPostStateSavingPost];
@@ -129,12 +150,8 @@
                 _post = post;
                 [self changeState:GTIOPostStateComplete];
             } else {
-                [self changeState:GTIOPostStateError];
+                [self changeState:GTIOPostStateCancelledPost]; // Even though this error we want to cancel upload
                 NSLog(@"There was an error while posting the post. (Server error: %@)", [error localizedDescription]);
-            }
-            
-            if (self.postCompletionHandler) {
-                self.postCompletionHandler(post, error);
             }
         }];
         [self setPostPhotoButtonTouched:NO];
@@ -171,6 +188,10 @@
 
 - (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 {
+    [self.photoCreateTimer invalidate];
+    self.photoCreateTimer = [NSTimer scheduledTimerWithTimeInterval:kGTIOPhotoCreateTimeoutInterval target:self selector:@selector(uploadImageTimeout) userInfo:nil repeats:NO];
+    
+//    NSLog(@"bytes written: %i, \ttotal bytes written: %i, \ttotal bytes expected to write: %i", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
     if (totalBytesExpectedToWrite > 0) {
         CGFloat progress = ((CGFloat)totalBytesWritten / (CGFloat)totalBytesExpectedToWrite);
         [self changeProgress:progress];
