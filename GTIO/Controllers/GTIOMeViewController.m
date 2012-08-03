@@ -22,6 +22,7 @@
 #import "GTIOSwitch.h"
 #import "GTIOProgressHUD.h"
 
+#import "GTIOProfileViewController.h"
 #import "GTIONotificationsViewController.h"
 
 static NSString * const kGTIOCustomHeartsCell = @"custom_cell_hearts";
@@ -56,8 +57,15 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     if (self) {
         _tableData = [NSMutableArray array];
         _sections = [NSMutableDictionary dictionary];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserProfile:) name:kGTIOShowProfileUserNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -311,7 +319,6 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                                         withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                  @"mymanagement", @"screen", nil]
                                                 andLoginHandler:nil];
-            
         } else {
             GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexOfPrivateToggle];
             [cell setToggleState:NO];
@@ -324,11 +331,22 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                                         withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                  @"mymanagement", @"screen", nil]
                                                 andLoginHandler:nil];
-            
         } else {
             GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexOfPrivateToggle];
             [cell setToggleState:YES];
         }
+    }
+}
+
+#pragma mark - Notifications
+
+- (void)showUserProfile:(NSNotification *)notificaion
+{
+    NSString *userID = [[notificaion userInfo] objectForKey:kGTIOProfileUserIDUserInfo];
+    if ([userID length] > 0) {
+        GTIOProfileViewController *profileViewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
+        [profileViewController setUserID:userID];
+        [self.navigationController pushViewController:profileViewController animated:YES];
     }
 }
 

@@ -41,19 +41,20 @@ static CGFloat const kGTIOTitleOriginY = 5.0f;
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGColorRef greenColor = [UIColor gtio_greenCellColor].CGColor;
-    CGColorRef grayBorderColor = [UIColor gtio_grayBorderColorD9D7CE].CGColor;
+    
+    UIColor *greenColor = [UIColor gtio_greenCellColor];
+    UIColor *grayBorderColor = [UIColor gtio_grayBorderColorD9D7CE];
     
     // Background
     CGContextSaveGState(context);
-    CGContextSetFillColorWithColor(context, greenColor);
+    CGContextSetFillColorWithColor(context, greenColor.CGColor);
     CGContextFillRect(context, rect);
     CGContextRestoreGState(context);
     
     // Border
     CGContextSaveGState(context);
     CGContextSetLineCap(context, kCGLineCapSquare);
-    CGContextSetStrokeColorWithColor(context, grayBorderColor);
+    CGContextSetStrokeColorWithColor(context, grayBorderColor.CGColor);
     CGContextSetLineWidth(context, 1.0f);
     CGContextMoveToPoint(context, 0 + 0.5, rect.size.height - 0.5);
     CGContextAddLineToPoint(context, rect.size.width + 0.5, rect.size.height - 0.5);

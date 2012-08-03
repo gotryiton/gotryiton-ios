@@ -17,6 +17,8 @@
 #import "GTIOCommentViewController.h"
 #import "GTIOFullScreenImageViewer.h"
 
+#import "GTIORouter.h"
+
 static CGFloat const kGITOReviewsEmptyViewPadding = -8.0f;
 static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
 
@@ -37,8 +39,6 @@ static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
 @end
 
 @implementation GTIOReviewsViewController
-
-@synthesize postID = _postID, post = _post, tableView = _tableView, tableViewHeader = _tableViewHeader, reviews = _reviews, emptyStateView = _emptyStateView, tableFooterView = _tableFooterView, reviewPostPictureViewer = _reviewPostPictureViewer;
 
 - (id)initWithPostID:(NSString *)postID
 {
@@ -201,6 +201,16 @@ static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
 - (UIView *)viewForSpinner
 {
     return self.view;
+}
+
+- (void)openURL:(NSURL *)URL
+{
+    if (URL) {
+        id viewController = [[GTIORouter sharedRouter] viewControllerForURL:URL];
+        if (viewController) {
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+    }
 }
 
 #pragma mark - UITableViewDelegate Methods

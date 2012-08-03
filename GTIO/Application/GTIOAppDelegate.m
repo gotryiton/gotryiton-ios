@@ -162,7 +162,7 @@
 {
     [self.cameraViewController dismissModalViewControllerAnimated:YES];
     
-    id viewController = [[GTIORouter sharedRouter] viewControllerForURL:URL];
+    id viewController = [[GTIORouter sharedRouter] viewControllerForURL:URL fromExternal:YES];
     id selectedViewController = self.tabBarController.selectedViewController;
     [selectedViewController pushViewController:viewController animated:YES];
 }
