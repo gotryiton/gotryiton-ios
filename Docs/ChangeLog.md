@@ -1,5 +1,19 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.24
+August 3, 2012
+
+### Build Summary
+RC #3. Bug fixes.
+
+### Development
+
+**Bugs**
+- Closes #547 - Upload time out if no data is received for 15 seconds when uploading a photo
+- Closes #546 - If a POST to /post/create fails just remove the upload cell and reload the feed
+
+---
+
 #### Build 4.0.0.23
 August 2, 2012
 
