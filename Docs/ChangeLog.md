@@ -1,5 +1,17 @@
 #### GTIO Build Changelog
 
+#### Build 4.0.0.26
+August 3, 2012
+
+### Build Summary
+RC #5. Fixes memory warning crash on camera.
+
+### Development
+
+- #548 - Fixed a memory warning crash on KVO again
+
+---
+
 #### Build 4.0.0.25
 August 3, 2012
 
