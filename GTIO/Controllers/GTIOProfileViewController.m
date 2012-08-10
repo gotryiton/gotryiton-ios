@@ -140,7 +140,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
-    [self loadUserProfile];
+    [self refreshUserProfile];
 }
 
 - (void)pushViewController:(UIViewController *)viewController
