@@ -56,7 +56,6 @@ static NSString * const kGTIOFeaturedTab = @"featured";
         _segmentedControl = [[UISegmentedControl alloc] initWithFrame:(CGRect){ { kGTIOSegmentedControlPadding, kGTIOSegmentedControlTopPadding }, CGSizeZero }];
         
         [_segmentedControl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-        [_segmentedControl addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
         
         UIImage *unselectedImage = [UIImage imageNamed:@"tab-unselected.png"];
         UIImage *selectedImage = [UIImage imageNamed:@"tab-selected.png"];
