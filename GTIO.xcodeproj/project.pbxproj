@@ -12946,8 +12946,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12973,8 +12973,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTIO;
-				PROVISIONING_PROFILE = "388DB7AC-2956-4FB2-834A-50E0F73528A5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "388DB7AC-2956-4FB2-834A-50E0F73528A5";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -12986,8 +12986,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
@@ -13011,8 +13011,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTIO;
-				PROVISIONING_PROFILE = "388DB7AC-2956-4FB2-834A-50E0F73528A5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "388DB7AC-2956-4FB2-834A-50E0F73528A5";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -13024,8 +13024,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13051,8 +13051,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTIO;
-				PROVISIONING_PROFILE = "C2EF9F42-2417-47D2-9C6E-3A043BC2814D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C2EF9F42-2417-47D2-9C6E-3A043BC2814D";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -13064,8 +13064,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
@@ -13089,8 +13089,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTIO;
-				PROVISIONING_PROFILE = "C2EF9F42-2417-47D2-9C6E-3A043BC2814D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C2EF9F42-2417-47D2-9C6E-3A043BC2814D";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -13151,8 +13151,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13178,8 +13178,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTIO;
-				PROVISIONING_PROFILE = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -13191,8 +13191,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Scott Penrose (A2529Z3WRR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
@@ -13216,8 +13216,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTIO;
-				PROVISIONING_PROFILE = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AF5C4D6A-1E7D-4C6B-8B7D-110FA14FB4A4";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
