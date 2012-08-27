@@ -27,7 +27,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
 @property (nonatomic, strong) GTIOUIButton *requestedButton;
 
 @property (nonatomic, strong) UIView *bottomBorder;
-@property (nonatomic, strong) UIImageView *badge;
+@property (nonatomic, strong) UIImageView *badgeImageView;
 
 @end
 
@@ -66,8 +66,8 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
         [self.contentView addSubview:_bottomBorder];
 
         // Badge
-        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_badge];
+        _badgeImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_badgeImageView];
     }
     return self;
 }
@@ -80,7 +80,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
     self.followButton.userInteractionEnabled = YES;
     self.followingButton.userInteractionEnabled = YES;
     self.requestedButton.userInteractionEnabled = YES;
-    [self.badge setFrame:CGRectZero];
+    [self.badgeImageView setFrame:CGRectZero];
 }
 
 - (void)layoutSubviews
@@ -96,7 +96,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
     [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - kGTIOBottomBorderVerticalOffset, self.contentView.bounds.size.width, 1 }];
 
     if (self.user.badge) {
-        [self.badge setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.nameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
+        [self.badgeImageView setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.nameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
     }
 
     [self activeFollowButton];
@@ -153,7 +153,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
     }
     
     if (_user.badge) {
-        [self.badge setImageWithURL:[user.badge badgeImageURLForUserList]];
+        [self.badgeImageView setImageWithURL:[user.badge badgeImageURLForUserList]];
     }
 
     [self setNeedsLayout];
