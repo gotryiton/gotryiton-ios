@@ -54,6 +54,15 @@
 
 @implementation GTIOAppDelegate
 
+#if DEBUG
+
+- (void)triggerMemoryWarning {
+    NSLog(@"Triggering Memory Warning");
+    [[UIApplication sharedApplication] performSelector:@selector(_performMemoryWarning)];
+}
+
+#endif
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #if DEBUG == 0
@@ -67,6 +76,10 @@
     // List all fonts on iPhone
 #if DEBUG
 //    [self listAllFonts];
+    
+    // Simulate memory warnings.
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(triggerMemoryWarning) userInfo:nil repeats:YES];
+    
 #endif
     
     // Appearance setup
