@@ -115,6 +115,7 @@ static NSTimeInterval const kGTIOLoadNotificationsTimeDelta = 60.0f;
                     GTIONotification *existingNotification = [self notificationForNotificationID:[object notificationID]];
                     if (existingNotification) {
                         [(GTIONotification *)object setViewed:existingNotification.viewed];
+                        [(GTIONotification *)object setTapped:existingNotification.tapped];
                     }
                     [loadingArray addObject:object];
                 }

@@ -12,8 +12,6 @@
 
 @implementation GTIONotification
 
-@synthesize notificationID = _notificationID, text = _text, action = _action, icon = _icon, viewed = _viewed;
-
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
@@ -23,6 +21,7 @@
         self.action = [coder decodeObjectForKey:@"action"];
         self.icon = [coder decodeObjectForKey:@"icon"];
         self.viewed = [coder decodeObjectForKey:@"viewed"];
+        self.tapped = [coder decodeObjectForKey:@"tapped"];
     }
     return self;
 }
@@ -43,6 +42,9 @@
     }
     if (self.viewed) {
         [coder encodeObject:self.viewed forKey:@"viewed"];
+    }
+    if (self.tapped) {
+        [coder encodeObject:self.tapped forKey:@"tapped"];
     }
 }
 

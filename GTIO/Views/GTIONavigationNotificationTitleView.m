@@ -72,9 +72,15 @@ static CGFloat const kGTIONotificationLabelOriginY = 8.0f;
 }
 
 - (void)updateCountLabel
-{
+{   
     [self.notificationCountLabel setText:[NSString stringWithFormat:@"%@",((self.notificationCount > 0) ? [NSString stringWithFormat:@"%i", self.notificationCount] : @"")]];
     [self updateBubbleImage:NO];
+}
+
+- (void)forceUpdateCountLabel
+{
+    self.notificationCount = [[GTIONotificationManager sharedManager] unreadNotificationCount];
+    [self updateCountLabel];
 }
 
 #pragma mark - UITouch

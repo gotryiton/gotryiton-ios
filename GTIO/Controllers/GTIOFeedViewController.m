@@ -173,6 +173,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self showStatusBarBackgroundWithoutNavigationBar];
     [self.tableView bringSubviewToFront:self.navBarView];
+    [self.navBarView.titleView forceUpdateCountLabel];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
     
     if ([self.posts count] == 0) {

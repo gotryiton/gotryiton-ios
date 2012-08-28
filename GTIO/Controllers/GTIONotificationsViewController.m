@@ -71,6 +71,8 @@
     [super viewDidUnload];
     
     self.tableView = nil;
+
+    [[GTIONotificationManager sharedManager] broadcastNotificationCount];
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -87,7 +89,7 @@
     
     GTIONotificationsTableViewCell *notificationCellForIndexPath = (GTIONotificationsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     GTIONotification *notificationForIndexPath = [self.notifications objectAtIndex:indexPath.row];
-    notificationForIndexPath.viewed = [NSNumber numberWithBool:YES];
+    notificationForIndexPath.tapped = [NSNumber numberWithBool:YES];
     notificationCellForIndexPath.notification = notificationForIndexPath;
     
     [[GTIONotificationManager sharedManager] save];
@@ -115,7 +117,9 @@
 {
     GTIONotification *notificationForCell = [self.notifications objectAtIndex:indexPath.row];
     GTIONotificationsTableViewCell *notificationCell = (GTIONotificationsTableViewCell *)cell;
-    [notificationCell setNotification:notificationForCell];
+    
+    notificationForCell.viewed = [NSNumber numberWithBool:YES];
+    [notificationCell setNotification:notificationForCell];    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

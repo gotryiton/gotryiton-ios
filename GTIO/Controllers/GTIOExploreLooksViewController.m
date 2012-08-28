@@ -37,6 +37,8 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 @property (nonatomic, strong) UIImageView *emptyImageView;
 
+@property (nonatomic, strong) GTIONavigationNotificationTitleView *navTitleView;
+
 @property (nonatomic, assign, getter = isInitialLoadingFromExternalLink) BOOL initialLoadingFromExternalLink;
 
 @end
@@ -68,12 +70,11 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [super viewDidLoad];
     
     __block typeof(self) blockSelf = self;
-    GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
+    _navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
         GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
         [blockSelf presentModalViewController:navigationController animated:YES];
     }];
-    [self useTitleView:navTitleView];
     
     // Segmented Control
     self.segmentedControlView = [[GTIOLooksSegmentedControlView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 50 } }];
@@ -120,6 +121,15 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [super viewDidUnload];
     self.segmentedControlView = nil;
     self.masonGridView = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self useTitleView:self.navTitleView];
+    [self.navTitleView forceUpdateCountLabel];
+    [self.navTitleView setUserInteractionEnabled:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -131,6 +131,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [super viewWillAppear:animated];
     
     [self useTitleView:self.titleView];
+    [self.titleView forceUpdateCountLabel];
     [self.tableView setUserInteractionEnabled:YES];
 }
 

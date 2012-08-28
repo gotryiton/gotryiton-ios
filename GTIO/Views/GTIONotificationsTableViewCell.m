@@ -87,7 +87,7 @@ static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
     } failure:nil];
     
     NSString *notificationText;
-    if (notification.viewed.boolValue) {
+    if (notification.tapped.boolValue) {
         notificationText = [NSString stringWithFormat:@"<div id='viewed'>%@</div>", _notification.text];
         self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.45];
     } else {
