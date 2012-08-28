@@ -156,7 +156,6 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 {
     // always hide the placeholder text if the user is inputtting
     [self hidePlaceholderText];
-
     
     //resign if the user's done
     if([inputString isEqualToString:@"\n"]) {
@@ -171,27 +170,20 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
     if ([self availableCharactersIn:existingString input:inputString range:range]<0){
         return NO;
     }
-
     //update the cursor position
     self.positionOfCursor = [self getUpdatedCursorPositionByReplacingCharactersInRange:range existingString:existingString inputString:inputString];
-
 
     // figure out the new input text
     self.inputText = [field.text stringByReplacingCharactersInRange:range withString:inputString];
 
-    
     // display the newly inputted text
     [self updateAttributedStringInRange:range string:inputString];
-
     [self setPositionOfLastWordsTypedInText:[self stringThroughCursorPositionWithRange:range]];
-    
     
     if (self.inputText.length > 0) {
 
         [self highlightHashTag];
-
         NSArray *foundAutoCompleters = [self searchLastTypedWordsForAutoCompletes];
-
         if ([self hashtagMode] && ![self isValidHashTag:[self lastWordTyped]]){
             // NSLog(@"hashtagMode");
             [self resetAutoCompleteMode];
@@ -207,7 +199,6 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
         }
 
         if ([foundAutoCompleters count] > 0) {
-            // NSLog(@"found autoCompleters");
             [self.scrollView clearScrollView];
             [self showButtonsWithAutoCompleters: foundAutoCompleters];
         } 
@@ -217,9 +208,7 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
         [self.scrollView showScrollViewNav];
         [self displayPlaceholderText];
     }
-    // NSLog(@"cleanUpAttrString mode resetting");
     [self cleanUpAttrString];
-
     return YES;
 }
 
@@ -301,6 +290,9 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
 - (NSString *)lastTwoWordsTypedInText:(NSString *)str
 {
+    if (str.length == 0) {
+        return @"";
+    }
     return [str substringWithRange:self.positionOfLastTwoWordsTyped];
 }
 
@@ -429,6 +421,9 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
 - (BOOL)startedTypingCompleterInLastTwoWords:(GTIOAutoCompleter *)completer
 {
+    if ([self lastTwoWordsTyped].length == 0){
+        return false;
+    }
     if ([[completer.name lowercaseString] rangeOfString:[self lastTwoWordsTyped]].location == 0 && [self lastTwoWordsTyped].length > self.autoCompleteMatchCharacterCount) {
         return true; 
     }
@@ -443,6 +438,9 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
 - (BOOL)startedTypingCompleterInLastWord:(GTIOAutoCompleter *)completer
 {
+    if ([self lastWordTyped].length == 0){
+        return false;
+    }
     if ([[completer.name lowercaseString] rangeOfString:[self lastWordTyped]].location == 0 && [self lastWordTyped].length > self.autoCompleteMatchCharacterCount) {
         return true;
     }
