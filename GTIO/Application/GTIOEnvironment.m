@@ -19,7 +19,7 @@
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
     NSString * const kGTIOEnvironmentName = @"Development";
-    NSString * const kGTIOBaseURLString = @"http://local.gotryiton.com";
+    NSString * const kGTIOBaseURLString = @"http://gito-dev.gotryiton.com";
     NSString * const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString * const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString * const kGTIOFacebookAppID = @"125885160757300";
