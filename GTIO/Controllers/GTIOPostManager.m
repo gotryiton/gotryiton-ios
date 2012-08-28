@@ -104,7 +104,7 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
                 
                 if (self.postPhotoButtonTouched || forceSavePost) {
                     self.postPhotoButtonTouched = NO;
-                    [self savePostWithDescription:self.postDescription attachedProducts:self.attachedProducts];
+                    [self savePostWithDescription:self.postDescription facebookShare:self.facebookShare attachedProducts:self.attachedProducts];
                 }
             } else {
                 [self changeState:GTIOPostStateError];
@@ -137,15 +137,16 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
 
 #pragma mark - Post
 
-- (void)savePostWithDescription:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts
+- (void)savePostWithDescription:(NSString *)description facebookShare:(BOOL)facebookShare attachedProducts:(NSDictionary *)attachedProducts
 {
     self.postDescription = description;
     self.attachedProducts = attachedProducts;
+    self.facebookShare = facebookShare;
     
     if (self.state == GTIOPostStateUploadingImageComplete && self.photo) {
         [self changeState:GTIOPostStateSavingPost];
         [self savePhotoToDisk];
-        [GTIOPost postGTIOPhoto:self.photo description:self.postDescription attachedProducts:self.attachedProducts completionHandler:^(GTIOPost *post, NSError *error) {
+        [GTIOPost postGTIOPhoto:self.photo description:self.postDescription facebookShare:self.facebookShare attachedProducts:self.attachedProducts completionHandler:^(GTIOPost *post, NSError *error) {
             if (!error) {
                 _post = post;
                 [self changeState:GTIOPostStateComplete];
