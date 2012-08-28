@@ -19,8 +19,8 @@ static CGFloat const kGTIOWhoHeartedThisOriginX = 13.0f;
 static CGFloat const kGTIOWhoHeartedThisTopPadding = -8.0f;
 static CGFloat const kGTIOWhoHeartedThisWidth = 250.0f;
 static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
-static CGFloat const kGITOEllipsisPopOverViewXOriginOffset = -3.5f;
-static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
+static CGFloat const kGITOEllipsisPopOverViewXOriginOffset = 8.5f;
+static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 14.5f;
 
 @interface GTIOFeedCell () <UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
