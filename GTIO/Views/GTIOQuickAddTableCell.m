@@ -16,13 +16,11 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
 @interface GTIOQuickAddTableCell()
 
 @property (nonatomic, strong) GTIOUIButton *checkbox;
-@property (nonatomic, strong) UIImageView *badge;
+@property (nonatomic, strong) UIImageView *badgeImageView;
 
 @end
 
 @implementation GTIOQuickAddTableCell
-
-@synthesize user = _user, delegate = _delegate, checkbox = _checkbox, badge = _badge;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -53,8 +51,8 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
         [self setAccessoryView:_checkbox];
         
         // Badge
-        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_badge];
+        _badgeImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_badgeImageView];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
@@ -64,7 +62,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
 - (void)prepareForReuse
 {
     self.user = nil;
-    [self.badge setFrame:CGRectZero];
+    [self.badgeImageView setFrame:CGRectZero];
 }
 
 - (void)setUser:(GTIOUser *)user
@@ -79,7 +77,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
     } failure:nil];
     [self.checkbox setSelected:self.user.selected];
     if (self.user.badge) {
-        [self.badge setImageWithURL:[user.badge badgeImageURLForUserList] success:nil failure:nil];
+        [self.badgeImageView setImageWithURL:[user.badge badgeImageURLForUserList] success:nil failure:nil];
     }
     [self setNeedsLayout];
 }
@@ -104,7 +102,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
     [self.textLabel setFrame:CGRectOffset(self.textLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 3.0)];
     [self.detailTextLabel setFrame:CGRectOffset(self.detailTextLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 1.0)];
     if (self.user.badge) {
-        [self.badge setFrame:(CGRect){ (self.textLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.textLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
+        [self.badgeImageView setFrame:(CGRect){ (self.textLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.textLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
     }
 }
 

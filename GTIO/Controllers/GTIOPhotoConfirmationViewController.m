@@ -96,10 +96,15 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     [self.view addSubview:self.photoFilterSelectorView];
 }
 
+//- (void)didReceiveMemoryWarning {
+//    return;
+//}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    self.photoConfirmationToolbarView = nil;
+    // TODO: cleaing up photoConfirmationToolbarView is causing a crash on iOS 5.
+//    self.photoConfirmationToolbarView = nil;
     self.photoFilterSelectorView = nil;
 }
 
