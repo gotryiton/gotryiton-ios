@@ -124,6 +124,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     self.profileHeaderView = nil;
     self.tableView = nil;
     self.tableData = nil;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -160,6 +161,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             int numberOfRows = 0;
             int numberOfSections = 0;
+            [self.tableData removeAllObjects];
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {                    
                     GTIOMyManagementScreen *screen = (GTIOMyManagementScreen *)object;
@@ -320,7 +322,11 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                                         withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                  @"mymanagement", @"screen", nil]
                                                 andLoginHandler:nil];
+            GTIOButton *privateButton = (GTIOButton *)[self.tableData objectAtIndex:(self.indexOfPrivateToggle.section * self.sections.count) + self.indexOfPrivateToggle.row];
+            privateButton.value = [NSNumber numberWithInt:0];
+            
         } else {
+            
             GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexOfPrivateToggle];
             [cell setToggleState:NO];
         }
@@ -332,6 +338,8 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                                         withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                  @"mymanagement", @"screen", nil]
                                                 andLoginHandler:nil];
+            GTIOButton *privateButton = (GTIOButton *)[self.tableData objectAtIndex:(self.indexOfPrivateToggle.section * self.sections.count) + self.indexOfPrivateToggle.row];
+            privateButton.value = [NSNumber numberWithInt:1];
         } else {
             GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexOfPrivateToggle];
             [cell setToggleState:YES];
