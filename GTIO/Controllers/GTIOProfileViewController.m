@@ -15,6 +15,7 @@
 #import "GTIOPostMasonryView.h"
 #import "GTIODualViewSegmentedControlView.h"
 #import "GTIOPagination.h"
+#import "GTIOHeart.h"
 #import "GTIOFullScreenImageViewer.h"
 #import "GTIORouter.h"
 
@@ -24,7 +25,7 @@
 @property (nonatomic, strong) GTIOUIButton *followingButton;
 @property (nonatomic, strong) GTIOUIButton *requestedButton;
 @property (nonatomic, strong) GTIOProfileHeaderView *profileHeaderView;
-@property (nonatomic, strong) GTIOUserProfile *userProfile;
+@property (nonatomic, retain) GTIOUserProfile *userProfile;
 @property (nonatomic, strong) GTIODualViewSegmentedControlView *postsHeartsWithSegmentedControlView;
 @property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
 @property (nonatomic, strong) NSString *heartsResourcePath;
@@ -121,7 +122,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
     self.followButton = nil;
     self.followingButton = nil;
     self.requestedButton = nil;
@@ -138,9 +138,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];   
     
-    [self loadUserProfile];
+    if (self.userProfile.postsList.posts.count==0 && self.userProfile.heartsList.hearts.count==0){
+        [self loadUserProfile];
+    } else if (![self isBeingPresented]) {
+        [self refreshUserProfile];
+    }
+
 }
 
 - (void)pushViewController:(UIViewController *)viewController
@@ -161,7 +166,7 @@
                     self.userProfile = (GTIOUserProfile *)object;
                     [self.profileHeaderView setUserProfile:self.userProfile completionHandler:^(id sender) {
                         [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:blockSelf.userProfile];
-                        [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.heartsList.posts GTIOPostType:GTIOPostTypeHeart userProfile:blockSelf.userProfile];
+                        [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.heartsList.hearts GTIOPostType:GTIOPostTypeHeart userProfile:blockSelf.userProfile];
                         [blockSelf adjustVerticalLayout];
                     }];
                     [self refreshFollowButton];
@@ -298,7 +303,9 @@
 {
     __block typeof(self) blockSelf = self;
     __block GTIOMasonGridView *gridView = (postType==GTIOPostTypeHeart) ? self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView : self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView;
-    __block GTIOPostList *postsList = (postType==GTIOPostTypeHeart) ? self.userProfile.heartsList : self.userProfile.postsList ;
+    __block GTIOPostList *postsList = self.userProfile.postsList ;
+    __block GTIOHeartList *heartsList = self.userProfile.heartsList;
+
     __block GTIOPagination *pagination = (postType==GTIOPostTypeHeart) ? self.userProfile.heartsList.pagination : self.userProfile.postsList.pagination;
     
     
@@ -314,12 +321,20 @@
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOPost class]]) {
                     [postsList.posts addObject:object];                    
+                } else if ([object isKindOfClass:[GTIOHeart class]]) {
+                    [heartsList.hearts addObject:object];
                 } else if ([object isKindOfClass:[GTIOPagination class]]) {
                     postsList.pagination = object;
                 }
             }
-            [blockSelf.postsHeartsWithSegmentedControlView setItems:postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:blockSelf.userProfile];
-
+            if (postsList.posts.count>0){
+                [blockSelf.postsHeartsWithSegmentedControlView setItems:postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:blockSelf.userProfile];
+            }
+            if (heartsList.hearts.count>0){
+                [blockSelf.postsHeartsWithSegmentedControlView setItems:heartsList.hearts GTIOPostType:GTIOPostTypeHeart userProfile:blockSelf.userProfile];
+            }
+            
+            
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [gridView.pullToRefreshView finishLoading];
         };
@@ -334,7 +349,8 @@
 {
 
     __block GTIOMasonGridView *gridView = (postType==GTIOPostTypeHeart) ? self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView : self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView;
-    __block GTIOPostList *postsList = (postType==GTIOPostTypeHeart) ? self.userProfile.heartsList : self.userProfile.postsList ;
+    __block GTIOPostList *postsList = self.userProfile.postsList ;
+    __block GTIOHeartList *heartsList = self.userProfile.heartsList;
     __block GTIOPagination *pagination = (postType==GTIOPostTypeHeart) ? self.userProfile.heartsList.pagination : self.userProfile.postsList.pagination;
     
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
@@ -347,12 +363,14 @@
             pagination = nil;
             
             NSMutableArray *paginationPosts = [NSMutableArray array];
+            NSMutableArray *paginationHearts = [NSMutableArray array];
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOPost class]]) {
                     [paginationPosts addObject:object];
-
+                } else if ([object isKindOfClass:[GTIOHeart class]]) {
+                    [paginationHearts addObject:object];                    
                 } else if ([object isKindOfClass:[GTIOPagination class]]) {
-                    pagination = object;
+                    postsList.pagination = object;
                 }
             }
             
@@ -366,6 +384,17 @@
                 if ([foundExistingPosts count] == 0) {
                     [gridView addItem:post postType:postType];
                     [postsList.posts addObject:post];
+                }
+            }];
+            // Only add hearts that are not already on mason grid
+            [paginationHearts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                GTIOHeart *heart = obj;
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"heartID == %i", heart.heartID];
+                NSArray *foundExistingHearts = [heartsList.hearts filteredArrayUsingPredicate:predicate];
+                
+                if ([foundExistingHearts count] == 0) {
+                    [gridView addItem:heart postType:postType];
+                    [heartsList.hearts addObject:heart];
                 }
             }];
         };

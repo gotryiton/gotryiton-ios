@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		5C25D0F115C4699000F6E8F6 /* GTIOSinglePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C25D0F015C4699000F6E8F6 /* GTIOSinglePostViewController.m */; };
+		5C34905515EBD2C6007B4141 /* GTIOHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905415EBD2C6007B4141 /* GTIOHeart.m */; };
+		5C34905615EBD2C6007B4141 /* GTIOHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905415EBD2C6007B4141 /* GTIOHeart.m */; };
+		5C34905715EBD2C6007B4141 /* GTIOHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905415EBD2C6007B4141 /* GTIOHeart.m */; };
+		5C34905A15EBD326007B4141 /* GTIOHeartList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905915EBD326007B4141 /* GTIOHeartList.m */; };
+		5C34905B15EBD326007B4141 /* GTIOHeartList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905915EBD326007B4141 /* GTIOHeartList.m */; };
+		5C34905C15EBD326007B4141 /* GTIOHeartList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905915EBD326007B4141 /* GTIOHeartList.m */; };
 		5C39C47215C0682600A83F95 /* search.area.no.results.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C39C46E15C0682600A83F95 /* search.area.no.results.png */; };
 		5C39C47315C0682600A83F95 /* search.area.no.results@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C39C46F15C0682600A83F95 /* search.area.no.results@2x.png */; };
 		5C39C47415C0682600A83F95 /* search.area.start.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C39C47015C0682600A83F95 /* search.area.start.png */; };
@@ -4209,6 +4215,10 @@
 /* Begin PBXFileReference section */
 		5C25D0EF15C4699000F6E8F6 /* GTIOSinglePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSinglePostViewController.h; sourceTree = "<group>"; };
 		5C25D0F015C4699000F6E8F6 /* GTIOSinglePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSinglePostViewController.m; sourceTree = "<group>"; };
+		5C34905315EBD2C6007B4141 /* GTIOHeart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOHeart.h; sourceTree = "<group>"; };
+		5C34905415EBD2C6007B4141 /* GTIOHeart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOHeart.m; sourceTree = "<group>"; };
+		5C34905815EBD326007B4141 /* GTIOHeartList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOHeartList.h; sourceTree = "<group>"; };
+		5C34905915EBD326007B4141 /* GTIOHeartList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOHeartList.m; sourceTree = "<group>"; };
 		5C39C46E15C0682600A83F95 /* search.area.no.results.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.area.no.results.png; sourceTree = "<group>"; };
 		5C39C46F15C0682600A83F95 /* search.area.no.results@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search.area.no.results@2x.png"; sourceTree = "<group>"; };
 		5C39C47015C0682600A83F95 /* search.area.start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.area.start.png; sourceTree = "<group>"; };
@@ -7152,6 +7162,10 @@
 				8E7C984C15937BFF006347DE /* GTIOFollowRequestAcceptBar.m */,
 				8E794FCA159CAE4000A0D192 /* GTIOSuggestedFriendsIcon.h */,
 				8E794FCB159CAE4000A0D192 /* GTIOSuggestedFriendsIcon.m */,
+				5C34905315EBD2C6007B4141 /* GTIOHeart.h */,
+				5C34905415EBD2C6007B4141 /* GTIOHeart.m */,
+				5C34905815EBD326007B4141 /* GTIOHeartList.h */,
+				5C34905915EBD326007B4141 /* GTIOHeartList.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -12348,6 +12362,8 @@
 				D224F15615CC1018004DE550 /* AFURLConnectionOperation.m in Sources */,
 				D224F15715CC1018004DE550 /* AFXMLRequestOperation.m in Sources */,
 				D224F15815CC1018004DE550 /* UIImageView+AFNetworking.m in Sources */,
+				5C34905715EBD2C6007B4141 /* GTIOHeart.m in Sources */,
+				5C34905C15EBD326007B4141 /* GTIOHeartList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12608,6 +12624,8 @@
 				D275561A15CC0EEB00425921 /* AFURLConnectionOperation.m in Sources */,
 				D275561B15CC0EEB00425921 /* AFXMLRequestOperation.m in Sources */,
 				D275561C15CC0EEB00425921 /* UIImageView+AFNetworking.m in Sources */,
+				5C34905615EBD2C6007B4141 /* GTIOHeart.m in Sources */,
+				5C34905B15EBD326007B4141 /* GTIOHeartList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12868,6 +12886,8 @@
 				D2947ABA15CA219C00D01688 /* AFURLConnectionOperation.m in Sources */,
 				D2947ABB15CA219C00D01688 /* AFXMLRequestOperation.m in Sources */,
 				D2947ABC15CA219C00D01688 /* UIImageView+AFNetworking.m in Sources */,
+				5C34905515EBD2C6007B4141 /* GTIOHeart.m in Sources */,
+				5C34905A15EBD326007B4141 /* GTIOHeartList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
