@@ -230,7 +230,9 @@
 
 - (GTIOUIButton *)activeFollowButton
 {
-    return [self setActiveFollowButtonForState:[self.userProfile.user.button.state intValue]];
+    if (self.userProfile.user.button!=nil)
+        return [self setActiveFollowButtonForState:[self.userProfile.user.button.state intValue]];
+    return nil;
 }
 
 - (void)refreshFollowButton
