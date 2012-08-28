@@ -120,6 +120,7 @@ static NSString * const kGTIOOpenInSafari = @"open in Safari";
 	
     self.webView = [[GTIOWebView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height } }];
     [self.webView setBackgroundColor:[UIColor whiteColor]];
+    self.webView.scalesPageToFit = YES;
     [self.webView.scrollView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.webView.scrollView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.webView setDelegate:self];
