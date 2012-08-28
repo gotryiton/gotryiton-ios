@@ -3110,13 +3110,13 @@ gtio://posts/feed
          - triggers 'dot dot dot menu' (see story below)
    - dot dot dot menu
       - assets are 'dot-menu.png' with top/middle/bottom states, each with active and inactive
-      - bottom cell
+      - bottom cell (152px x 51px)
          - position 3px from right edge of screen (point of arrow should appear to be horizontally centered inside dot dot dot button)
          - position 26px above bottom of dot dot dot button (top of dot dot dot button should line up with the base of the menu's triangle pointer)
-      - middle cell
+      - middle cell (152px x 40px)
          - position flush with top of below cell
          - use multiple instances for menus with more items
-      - top cell
+      - top cell (152px x 45px)
          - position flush with top of topmost 'middle' cell
       - text is Proxima Nova Regular, 12pt, #8f8f8f
          - Text-shadow: 1px 90 degrees (point down), #ffffff
@@ -3768,6 +3768,9 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
 		- 13px from left edge of screen
    - Source Menu
       - stack 'source-menu.png' (top/middle/bottom versions with active and inactive states)
+         - top: 152px x 45px
+         - middle: 152px x 40px
+         - bottom: 152px x 51px
       - all buttons are 4px from left edge of screen
       - buttom button is 52px from bottom edge of screen
 	- Photoshoot Grid ('shootgrid') Button (12/button.shootgrid.png)
