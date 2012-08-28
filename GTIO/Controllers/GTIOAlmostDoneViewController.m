@@ -47,13 +47,13 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
         _profilePicture = [currentUser icon];
         
         _tableData = [NSArray arrayWithObjects:
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"email" andTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:[currentUser email] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:25],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"email" andTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:[currentUser email] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:50],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"name" andTitleText:@"name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser name] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:25],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"city" andTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:20],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"state" andTitleText:@"state or country" andPlaceHolderText:@"NY" andAccessoryText:[currentUser state] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:20],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"gender" andTitleText:@"gender" andPlaceHolderText:@"select" andAccessoryText:[currentUser gender] andPickerItems:selectableGenders isRequired:YES usesPicker:YES isMultiline:NO characterLimit:25 ],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"born_in" andTitleText:@"year born" andPlaceHolderText:@"select year" andAccessoryText:[NSString stringWithFormat:@"%i",[[currentUser birthYear] intValue]] andPickerItems:selectableYears isRequired:NO usesPicker:YES isMultiline:NO characterLimit:25],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"url" andTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:[currentUser url] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:45],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"url" andTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:[currentUser url] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:50],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"about" andTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" andAccessoryText:[currentUser aboutMe] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:YES characterLimit:250],
                       nil];
         
