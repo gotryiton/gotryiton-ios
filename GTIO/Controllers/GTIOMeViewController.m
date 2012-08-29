@@ -115,6 +115,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [self.view addSubview:self.tableView];
     
     [self refreshScreenLayout];
+    
 }
 
 - (void)viewDidUnload
@@ -134,6 +135,10 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [self useTitleView:self.titleView];
     [self.titleView forceUpdateCountLabel];
     [self.tableView setUserInteractionEnabled:YES];
+    
+    if (self.tableData.count==0){
+        [self refreshScreenLayout];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
