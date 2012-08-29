@@ -102,8 +102,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
                     GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
                     [self.navigationController pushViewController:quickAddViewController animated:YES];
                 } else {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to save your profile." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-                    [alert show];
+                    [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
                 }
             }];
         }

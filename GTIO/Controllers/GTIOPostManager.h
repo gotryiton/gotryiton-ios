@@ -28,6 +28,7 @@ typedef enum GTIOPostState {
 @property (nonatomic, assign, readonly) CGFloat progress;
 @property (nonatomic, strong, readonly) GTIOPost *post;
 @property (nonatomic, assign) BOOL framed;
+@property (nonatomic, assign) BOOL facebookShare;
 
 + (GTIOPostManager *)sharedManager;
 
@@ -36,6 +37,6 @@ typedef enum GTIOPostState {
 - (void)uploadImage:(UIImage *)image framed:(BOOL)framed filterNames:(NSDictionary *)filterNames forceSavePost:(BOOL)forceSavePost;
 - (void)cancelUploadImage;
 
-- (void)savePostWithDescription:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts;
+- (void)savePostWithDescription:(NSString *)description facebookShare:(BOOL)facebookShare attachedProducts:(NSDictionary *)attachedProducts;
 
 @end

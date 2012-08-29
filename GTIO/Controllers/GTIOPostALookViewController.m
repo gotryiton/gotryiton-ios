@@ -166,6 +166,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [self.navigationController.navigationBar addGestureRecognizer:tapGestureRecognizer];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
+
 }
 
 - (void)viewDidUnload
@@ -269,7 +270,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         [alert show];
     } else {
         NSLog(@"description submissionText: %@", [self.descriptionBox.textView processDescriptionString] );
-        
+
         [self beginPostLookToGTIO];
     }
 }
@@ -305,7 +306,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 {
     [[GTIOPostManager sharedManager] setPostPhotoButtonTouched:YES];
     
-    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] attachedProducts:(NSDictionary *)[self attachedProducts]];
+    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] facebookShare:self.optionsView.facebookSwitch.isOn attachedProducts:(NSDictionary *)[self attachedProducts]];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         [self reset];
     }];

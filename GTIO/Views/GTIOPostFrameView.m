@@ -45,8 +45,10 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 @property (nonatomic, strong) DTAttributedTextView *descriptionTextView;
 @property (nonatomic, strong) NSDictionary *descriptionAttributeTextOptions;
 @property (nonatomic, strong) GTIOHeartButton *heartButton;
+@property (nonatomic, strong) UIImageView *heartAnimationImage;
 @property (nonatomic, strong) GTIOButton *photoHeartButtonModel;
 @property (nonatomic, strong) UITapGestureRecognizer *photoTapRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *photoDoubleTapRecognizer;
 @property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) GTIOUIButton *shopThisLookButton;
@@ -72,9 +74,22 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
         [self addSubview:_photoImageView];
         
         self.photoTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showFullScreenImage)];
+        [self.photoTapRecognizer setNumberOfTapsRequired:1];
+        [self.photoTapRecognizer setDelaysTouchesBegan:YES];
+
+        self.photoDoubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(heartDoubleTap)];
+        [self.photoDoubleTapRecognizer setDelaysTouchesBegan:YES];
+        [self.photoDoubleTapRecognizer setNumberOfTapsRequired:2];
+        
+        [self.photoTapRecognizer requireGestureRecognizerToFail:self.photoDoubleTapRecognizer];
 
         _heartButton = [GTIOHeartButton heartButtonWithTapHandler:nil];
         [self addSubview:_heartButton];
+
+        _heartAnimationImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [_heartAnimationImage setImage:[UIImage imageNamed:@"heart-notifier.png"]];
+        _heartAnimationImage.contentMode = UIViewContentModeScaleAspectFit;
+        [self addSubview:_heartAnimationImage];
         
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _descriptionTextView = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
@@ -132,6 +147,11 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 
     [self.photoImageView setFrame:(CGRect){ 10, kGTIOPhotoTopPadding, photoSize }];
     [self.heartButton setFrame:(CGRect){ { self.photoImageView.frame.origin.x + kGTIOHeartButtonPadding, self.photoImageView.frame.origin.y + kGTIOHeartButtonPadding }, self.heartButton.frame.size }];
+
+    self.heartAnimationImage.center = self.photoImageView.center;
+    self.heartAnimationImage.bounds = self.heartButton.bounds;
+    [self.heartAnimationImage setAlpha:0];
+
     [self.progressView setFrame:(CGRect){ { kGTIOPhotoLeftRightPadding + (self.photoImageView.frame.size.width - self.progressView.frame.size.width) / 2, (self.photoImageView.frame.size.height - self.progressView.frame.size.height) / 2 }, self.progressView.frame.size }];
     
     CGSize descriptionTextSize = [self.descriptionTextView.contentView sizeThatFits:(CGSize){ kGTIODescriptionTextWidth, CGFLOAT_MAX }];
@@ -196,6 +216,7 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
     [self.photoImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         [self.progressView removeFromSuperview];
         [self.photoImageView addGestureRecognizer:self.photoTapRecognizer];
+        [self.photoImageView addGestureRecognizer:self.photoDoubleTapRecognizer];
         [blockSelf setNeedsLayout];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         [self.progressView removeFromSuperview];
@@ -217,12 +238,9 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
     
     if (self.photoHeartButtonModel) {
         [self.heartButton setHearted:self.photoHeartButtonModel.state.boolValue];
+        __block id blockSelf = self;
         [self.heartButton setTapHandler:^(id sender) {
-            BOOL hearted = ![self.heartButton isHearted];
-            [self.heartButton setHearted:hearted];
-            [self.photoHeartButtonModel setState:@(hearted)];
-            
-            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.photoHeartButtonModel.action.endpoint delegate:nil];
+            [blockSelf heartButtonTapWithAnimation:NO];
         }];
     }
 
@@ -316,6 +334,43 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 {    
     self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:self.post.photo.mainImageURL];
     [self.fullScreenImageViewer show];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+}
+
+- (void)heartDoubleTap{
+    [self heartButtonTapWithAnimation:YES];
+}
+- (void)heartButtonTapWithAnimation:(BOOL)animation
+{    
+    if (self.photoHeartButtonModel) {
+        BOOL hearted = ![self.heartButton isHearted];
+        if (animation){
+            [self.heartAnimationImage setAlpha:1];
+            [self.heartAnimationImage setBounds:(CGRect){ self.heartButton.bounds.origin.x, self.heartButton.bounds.origin.y, self.heartButton.bounds.size.width *5, self.heartButton.bounds.size.height *5}];
+            self.heartAnimationImage.center = self.photoImageView.center;
+            
+            [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+            [UIView animateWithDuration:0.5 animations:^(void) {
+                self.heartAnimationImage.alpha = 0;
+                [self.heartAnimationImage setBounds:(CGRect){ self.heartButton.bounds.origin.x, self.heartButton.bounds.origin.y, self.heartButton.bounds.size.width, self.heartButton.bounds.size.height}];
+                self.heartAnimationImage.center = self.photoImageView.center;
+                
+            }];
+        }
+        
+        if (animation && !hearted){
+            return;
+        }        
+        [self.heartButton setHearted:hearted];
+        [self.photoHeartButtonModel setState:@(hearted)];
+      
+        if (!hearted){
+            [self.heartAnimationImage setBounds:self.heartButton.bounds];
+            self.heartAnimationImage.center = self.photoImageView.center;
+            [self.heartAnimationImage setAlpha:0];   
+        }
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.photoHeartButtonModel.action.endpoint delegate:nil];
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
 }
 
