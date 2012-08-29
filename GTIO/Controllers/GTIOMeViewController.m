@@ -114,8 +114,6 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     
     [self.view addSubview:self.tableView];
     
-    [self refreshScreenLayout];
-    
 }
 
 - (void)viewDidUnload
