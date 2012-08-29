@@ -11,6 +11,7 @@
 #import "GTIOPhoto.h"
 
 static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
+static NSTimeInterval const kGTIOPhotoCreateInitialTimeoutInterval = 40.0f;
 
 @interface GTIOPostManager () <RKRequestDelegate>
 
@@ -70,7 +71,7 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
     
     [[RKClient sharedClient] post:@"/photo/create" usingBlock:^(RKRequest *request) {
         self.uploadImageRequest = request;
-        self.photoCreateTimer = [NSTimer scheduledTimerWithTimeInterval:kGTIOPhotoCreateTimeoutInterval target:self selector:@selector(uploadImageTimeout) userInfo:nil repeats:NO];
+        self.photoCreateTimer = [NSTimer scheduledTimerWithTimeInterval:kGTIOPhotoCreateInitialTimeoutInterval target:self selector:@selector(uploadImageTimeout) userInfo:nil repeats:NO];
         
         RKParams *params = [RKParams params];
         [params setValue:[NSNumber numberWithBool:self.framed] forParam:@"using_frame"];
