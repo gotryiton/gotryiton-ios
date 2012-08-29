@@ -82,7 +82,7 @@ static CGFloat const kGTIOCameraButtonTapPadding = 5.0;
         // Have to create new UIImageView each time image gets set because on swap
         // the frame size was getting huge and couldn't figure out why
         [self.imageView removeFromSuperview];
-        self.imageView = [[UIImageView alloc] initWithFrame:(CGRect){ CGPointZero, _filteredImage.size }];
+        self.imageView = [[UIImageView alloc] initWithFrame:(CGRect){ CGPointZero, {MAX(_filteredImage.size.width, self.scrollView.bounds.size.width), MAX(_filteredImage.size.height, self.scrollView.bounds.size.height) } }];
         [self.imageView setUserInteractionEnabled:YES];
         [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
         [self.imageView setImage:_filteredImage];
@@ -284,6 +284,11 @@ static CGFloat const kGTIOCameraButtonTapPadding = 5.0;
 
     [self.scrollView setFrame:self.bounds];
     [self.photoSelectButton setFrame:self.bounds];
+    
+    self.imageView.bounds = (CGRect){ CGPointZero, {MAX(_filteredImage.size.width, self.scrollView.bounds.size.width), MAX(_filteredImage.size.height, self.scrollView.bounds.size.height) } };
+    [self zoom];
+    
+    [self addSubview:self.editPhotoButton];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
 }

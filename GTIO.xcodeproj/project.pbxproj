@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F01763915EE5B720075D8DE /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		3FCBE75915E6A69200D1FB63 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		3FE9C43B15E7F867001FDF52 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		5C25D0F115C4699000F6E8F6 /* GTIOSinglePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C25D0F015C4699000F6E8F6 /* GTIOSinglePostViewController.m */; };
@@ -4089,6 +4090,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3F01763715EE5B430075D8DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3FCBE74015E6A5BD00D1FB63 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160D1514564E810060A5C5;
+			remoteInfo = RestKit;
+		};
 		3FCBE74B15E6A5BD00D1FB63 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3FCBE74015E6A5BD00D1FB63 /* RestKit.xcodeproj */;
@@ -5865,6 +5873,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F01763915EE5B720075D8DE /* libRestKit.a in Frameworks */,
 				D224F15A15CC1018004DE550 /* Twitter.framework in Frameworks */,
 				D224F15B15CC1018004DE550 /* CoreLocation.framework in Frameworks */,
 				D224F15C15CC1018004DE550 /* StoreKit.framework in Frameworks */,
@@ -8650,6 +8659,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3F01763815EE5B430075D8DE /* PBXTargetDependency */,
 				D224F05715CC1018004DE550 /* PBXTargetDependency */,
 			);
 			name = "GTIO Production";
@@ -12909,6 +12919,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3F01763815EE5B430075D8DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKit;
+			targetProxy = 3F01763715EE5B430075D8DE /* PBXContainerItemProxy */;
+		};
 		3FCBE75B15E6A6CB00D1FB63 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RestKit;
