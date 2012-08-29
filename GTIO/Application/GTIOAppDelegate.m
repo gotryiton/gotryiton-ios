@@ -78,7 +78,7 @@
 //    [self listAllFonts];
     
     // Simulate memory warnings.
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(triggerMemoryWarning) userInfo:nil repeats:YES];
+    //    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(triggerMemoryWarning) userInfo:nil repeats:YES];
     
 #endif
     
