@@ -57,7 +57,6 @@
                 if (!error) {
                     [self.navigationController popViewControllerAnimated:YES];
                 } else {
-                    NSLog(@"here");
                     [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
                 }
             }];
