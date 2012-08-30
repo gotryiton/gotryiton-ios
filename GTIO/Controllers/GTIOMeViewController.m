@@ -55,8 +55,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _tableData = [NSMutableArray array];
-        _sections = [NSMutableDictionary dictionary];
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserProfile:) name:kGTIOShowProfileUserNotification object:nil];
     }
@@ -134,7 +133,11 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [self.titleView forceUpdateCountLabel];
     [self.tableView setUserInteractionEnabled:YES];
     
-    if (self.tableData.count==0){
+    if (self.sections == nil){
+        self.sections = [NSMutableDictionary dictionary];
+    }
+    if (self.tableData==nil){
+        self.tableData = [NSMutableArray array];
         [self refreshScreenLayout];
     }
 }
@@ -166,7 +169,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
             int numberOfSections = 0;
             [self.tableData removeAllObjects];
             for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {                    
+                if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {     
                     GTIOMyManagementScreen *screen = (GTIOMyManagementScreen *)object;
                     self.userInfoButtons = screen.userInfo;
                     [self.profileHeaderView setUser:[GTIOUser currentUser]];
@@ -187,6 +190,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                     }
                     [self.tableView setTableFooterView:self.footerView];
                     [self.tableView reloadData];
+                    [self.tableView layoutSubviews];
                 }
             }
         }
