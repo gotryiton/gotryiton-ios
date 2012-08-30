@@ -45,7 +45,7 @@ typedef enum GTIOReviewsAlertView {
 @property (nonatomic, strong) UIImageView *userProfilePictureOverlay;
 @property (nonatomic, strong) UILabel *userNameLabel;
 @property (nonatomic, strong) UILabel *postedAtLabel;
-@property (nonatomic, strong) UIImageView *badge;
+@property (nonatomic, strong) UIImageView *badgeImageView;
 
 @property (nonatomic, strong) DTAttributedTextView *reviewTextView;
 @property (nonatomic, strong) NSDictionary *reviewAttributeTextOptions;
@@ -94,8 +94,8 @@ typedef enum GTIOReviewsAlertView {
         _postedAtLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_postedAtLabel];
         
-        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self addSubview:_badge];
+        _badgeImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_badgeImageView];
 
         _heartCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _heartCountLabel.textColor = [UIColor gtio_grayTextColorDCDCDC];
@@ -173,11 +173,11 @@ typedef enum GTIOReviewsAlertView {
     self.removeButton.enabled = YES;
 
     if (self.review.user.badge){
-        [self.badge setImageWithURL:[self.review.user.badge badgeImageURLForCommenter]];
-        [self.badge setFrame:(CGRect){ self.userNameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset, self.userNameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset, [self.review.user.badge badgeImageSizeForCommenter]}];
+        [self.badgeImageView setImageWithURL:[self.review.user.badge badgeImageURLForCommenter]];
+        [self.badgeImageView setFrame:(CGRect){ self.userNameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset, self.userNameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset, [self.review.user.badge badgeImageSizeForCommenter]}];
         
     } else {
-        [self.badge setFrame:CGRectZero];
+        [self.badgeImageView setFrame:CGRectZero];
     }
 }
 
@@ -252,7 +252,7 @@ typedef enum GTIOReviewsAlertView {
     }
 
     if (_review.user.badge) {
-        [self.badge setImageWithURL:[_review.user.badge badgeImageURLForCommenter]];
+        [self.badgeImageView setImageWithURL:[_review.user.badge badgeImageURLForCommenter]];
     }
 }
 

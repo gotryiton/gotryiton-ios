@@ -181,6 +181,11 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self.postThisButton = nil;
 }
 
+- (void)didReceiveMemoryWarning {
+    // Don't release this view in the event of a memory warning, it's holding state. May be refactorable. Fixes #
+    return;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
