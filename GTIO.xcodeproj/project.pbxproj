@@ -10,6 +10,7 @@
 		3FCBE75915E6A69200D1FB63 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		3FE9C43B15E7F867001FDF52 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		5C25D0F115C4699000F6E8F6 /* GTIOSinglePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C25D0F015C4699000F6E8F6 /* GTIOSinglePostViewController.m */; };
+		5C262DA415EFDC8F00E3C02C /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		5C34905515EBD2C6007B4141 /* GTIOHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905415EBD2C6007B4141 /* GTIOHeart.m */; };
 		5C34905615EBD2C6007B4141 /* GTIOHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905415EBD2C6007B4141 /* GTIOHeart.m */; };
 		5C34905715EBD2C6007B4141 /* GTIOHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905415EBD2C6007B4141 /* GTIOHeart.m */; };
@@ -5865,6 +5866,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C262DA415EFDC8F00E3C02C /* libRestKit.a in Frameworks */,
 				D224F15A15CC1018004DE550 /* Twitter.framework in Frameworks */,
 				D224F15B15CC1018004DE550 /* CoreLocation.framework in Frameworks */,
 				D224F15C15CC1018004DE550 /* StoreKit.framework in Frameworks */,
