@@ -2908,7 +2908,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.2 Post dot options: ([outfit item](http://invis.io/N92PN2YP)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/3/_0011_Feed.VJ.Scrolled.Dot.Options.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.X.Dot.Menu.png" width=420px/>
 
 8.1.3 feed scrolled: ([wireframe](http://invis.io/DA2PN3TC)) 
 
@@ -2937,7 +2937,6 @@ Each user has a personalized feed of content on the first tab.  The content cont
 8.1.6 shop this look
 
 <img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.X.Shop.This.Look.png" width=420px/>
-
 
 
 #### User Flow
@@ -3108,16 +3107,16 @@ gtio://posts/feed
          - horizontally centered around accent line
          - bottom of circle (not including 'glow') should line up with bottom of photo (see minimum height note above)
          - triggers 'dot dot dot menu' (see story below)
-   - dot dot dot menu
+   - dot dot dot menu (screen 8.1.2)
       - assets are 'dot-menu.png' with top/middle/bottom states, each with active and inactive
-      - bottom cell (152px x 51px)
+      - top cell (152px x 50px)
          - position 3px from right edge of screen (point of arrow should appear to be horizontally centered inside dot dot dot button)
-         - position 26px above bottom of dot dot dot button (top of dot dot dot button should line up with the base of the menu's triangle pointer)
+         - position 26px below top of dot dot dot button (bottom of dot dot dot button should line up with the base of the menu's triangle pointer)
       - middle cell (152px x 40px)
-         - position flush with top of below cell
+         - position flush with bottom of above cell
          - use multiple instances for menus with more items
-      - top cell (152px x 45px)
-         - position flush with top of topmost 'middle' cell
+      - bottom cell (152px x 46px)
+         - position flush with bottom of bottommost 'middle' cell
       - text is Proxima Nova Regular, 12pt, #8f8f8f
          - Text-shadow: 1px 90 degrees (point down), #ffffff
          - each line vertically and horizontally centered within respective cell
