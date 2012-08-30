@@ -11,7 +11,7 @@
 #import "GTIOPhoto.h"
 
 static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
-static NSTimeInterval const kGTIOPhotoCreateInitialTimeoutInterval = 40.0f;
+static NSTimeInterval const kGTIOPhotoCreateInitialTimeoutInterval = 50.0f;
 
 @interface GTIOPostManager () <RKRequestDelegate>
 
