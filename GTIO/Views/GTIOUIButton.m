@@ -603,7 +603,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)gtio_productShoppingListNavButton
 {
     GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
-    [button setFrame:(CGRect){ button.bounds.origin.x, button.bounds.origin.y + 2, button.bounds.size.width , button.bounds.size.height }];
+    [button.imageView setFrame:(CGRect){ button.bounds.origin.x, button.bounds.origin.y+2, button.bounds.size.width, button.bounds.size.height	 }];
     return button;
 }
 
