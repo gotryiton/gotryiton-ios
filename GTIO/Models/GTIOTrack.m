@@ -13,6 +13,7 @@
 NSString * const kGTIOTrackAppLaunch = @"App Launch";
 NSString * const kGTIOTrackAppResumeFromBackground = @"Resume from background";
 NSString * const kGTIOTrackSignIn = @"Sign in view";
+NSString * const kGTIOTrackPhotoShootStarted = @"Photoshoot started";
 
 NSString * const kGTIOTrackIDKey = @"GTIOTrackIDKey";
 NSString * const kGTIOPageNumberKey = @"GTIOPageNumberKey";
