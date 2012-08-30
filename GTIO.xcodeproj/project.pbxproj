@@ -49,6 +49,9 @@
 		5C6E34CD15C84B15000D386B /* keyboard-top-control-start-3-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C6E34B915C84B15000D386B /* keyboard-top-control-start-3-active@2x.png */; };
 		5C6E34CE15C84B15000D386B /* keyboard-top-control-start-3-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C6E34BA15C84B15000D386B /* keyboard-top-control-start-3-inactive.png */; };
 		5C6E34CF15C84B15000D386B /* keyboard-top-control-start-3-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C6E34BB15C84B15000D386B /* keyboard-top-control-start-3-inactive@2x.png */; };
+		5C98445315F001E200ED4612 /* CollectionFooter.css in Resources */ = {isa = PBXBuildFile; fileRef = 5C98445215F001E200ED4612 /* CollectionFooter.css */; };
+		5C98445415F001E200ED4612 /* CollectionFooter.css in Resources */ = {isa = PBXBuildFile; fileRef = 5C98445215F001E200ED4612 /* CollectionFooter.css */; };
+		5C98445515F001E200ED4612 /* CollectionFooter.css in Resources */ = {isa = PBXBuildFile; fileRef = 5C98445215F001E200ED4612 /* CollectionFooter.css */; };
 		5C9B6E1C15ED921900F2A72B /* heart-notifier.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9B6E1A15ED921900F2A72B /* heart-notifier.png */; };
 		5C9B6E1D15ED921900F2A72B /* heart-notifier.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9B6E1A15ED921900F2A72B /* heart-notifier.png */; };
 		5C9B6E1E15ED921900F2A72B /* heart-notifier.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9B6E1A15ED921900F2A72B /* heart-notifier.png */; };
@@ -4258,6 +4261,7 @@
 		5C6E34B915C84B15000D386B /* keyboard-top-control-start-3-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-3-active@2x.png"; sourceTree = "<group>"; };
 		5C6E34BA15C84B15000D386B /* keyboard-top-control-start-3-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-3-inactive.png"; sourceTree = "<group>"; };
 		5C6E34BB15C84B15000D386B /* keyboard-top-control-start-3-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-top-control-start-3-inactive@2x.png"; sourceTree = "<group>"; };
+		5C98445215F001E200ED4612 /* CollectionFooter.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = CollectionFooter.css; path = CSS/CollectionFooter.css; sourceTree = "<group>"; };
 		5C9B6E1A15ED921900F2A72B /* heart-notifier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-notifier.png"; sourceTree = "<group>"; };
 		5C9B6E1B15ED921900F2A72B /* heart-notifier@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-notifier@2x.png"; sourceTree = "<group>"; };
 		5CB394F815C8DE6700EA0F27 /* invite.topbuttons.twitter.off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = invite.topbuttons.twitter.off.png; sourceTree = "<group>"; };
@@ -8232,6 +8236,7 @@
 		D2C1C85E159DFF08001026BC /* CSS */ = {
 			isa = PBXGroup;
 			children = (
+				5C98445215F001E200ED4612 /* CollectionFooter.css */,
 				D2C1C85F159DFF23001026BC /* PostDescription.css */,
 				8ED52EF915ACA63200F5C05B /* ReviewText.css */,
 				8E8FC10F15AF3623004E0CBE /* NotificationTableCellText.css */,
@@ -9927,6 +9932,7 @@
 				D224F5A715CC1018004DE550 /* shop-this-look-button-inactive.png in Resources */,
 				5C9B6E1E15ED921900F2A72B /* heart-notifier.png in Resources */,
 				5C9B6E2115ED921900F2A72B /* heart-notifier@2x.png in Resources */,
+				5C98445515F001E200ED4612 /* CollectionFooter.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11009,6 +11015,7 @@
 				D2755A6B15CC0EEB00425921 /* shop-this-look-button-inactive.png in Resources */,
 				5C9B6E1D15ED921900F2A72B /* heart-notifier.png in Resources */,
 				5C9B6E2015ED921900F2A72B /* heart-notifier@2x.png in Resources */,
+				5C98445415F001E200ED4612 /* CollectionFooter.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12091,6 +12098,7 @@
 				5C5FFAE915C9B2EB006FD6A3 /* shop-this-look-button-inactive.png in Resources */,
 				5C9B6E1C15ED921900F2A72B /* heart-notifier.png in Resources */,
 				5C9B6E1F15ED921900F2A72B /* heart-notifier@2x.png in Resources */,
+				5C98445315F001E200ED4612 /* CollectionFooter.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

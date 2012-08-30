@@ -48,6 +48,8 @@
 {
     [super viewDidLoad];
 	
+    NSLog(@"starting viewDIDload");
+
     __block typeof(self) blockSelf = self;
 
     GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"profile" italic:YES];
@@ -117,6 +119,17 @@
     [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
         [blockSelf loadPaginationForPostType:GTIOPostTypeHeart];
     }];
+
+    if (self.userID !=nil && (self.userProfile==nil || self.userProfile.postsList==nil || self.userProfile.heartsList==nil)) {
+        [self loadUserProfile];
+    } else if (self.userID) {
+        __block typeof(self) blockSelf = self;
+        [self.profileHeaderView setUserProfile:self.userProfile completionHandler:^(id sender) {
+            [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.postsList.posts GTIOPostType:GTIOPostTypeNone userProfile:blockSelf.userProfile];
+            [blockSelf.postsHeartsWithSegmentedControlView setItems:blockSelf.userProfile.heartsList.hearts GTIOPostType:GTIOPostTypeHeart userProfile:blockSelf.userProfile];
+            [blockSelf adjustVerticalLayout];
+        }];
+    }
 }
 
 - (void)viewDidUnload
@@ -140,10 +153,6 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];   
     
-    if (![self isBeingPresented]) {
-        [self refreshUserProfile];
-    }
-
 }
 
 - (void)pushViewController:(UIViewController *)viewController
@@ -168,7 +177,6 @@
                         [blockSelf adjustVerticalLayout];
                     }];
                     [self refreshFollowButton];
-                
                 }
             }
         } else {
@@ -186,7 +194,11 @@
         if (!error) {
             for (id object in loadedObjects) {
                 if ([object isMemberOfClass:[GTIOUserProfile class]]) {
-                    self.userProfile = (GTIOUserProfile *)object;
+                    GTIOUserProfile *newProfile = (GTIOUserProfile *)object;
+                    newProfile.postsList = self.userProfile.postsList;
+                    newProfile.heartsList = self.userProfile.heartsList;
+                    self.userProfile = newProfile;
+
                     [self.profileHeaderView setUserProfile:self.userProfile completionHandler:^(id sender) {
                         [blockSelf adjustVerticalLayout];
                     }];

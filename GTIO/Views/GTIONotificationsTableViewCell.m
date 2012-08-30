@@ -43,6 +43,8 @@ static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _text = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
         _text.textDelegate = self;
+        _text.contentView.clipsToBounds = NO;
+        _text.clipsToBounds = NO;
         _text.contentView.edgeInsets = (UIEdgeInsets) { -4, 0, 0, 0 };
         _text.userInteractionEnabled = NO;
         [_text setScrollEnabled:NO];
@@ -91,7 +93,7 @@ static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
         notificationText = [NSString stringWithFormat:@"<div id='viewed'>%@</div>", _notification.text];
         self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.45];
     } else {
-        notificationText = _notification.text;
+        notificationText = [NSString stringWithFormat:@"<div>%@</div>", _notification.text];
         self.backgroundColor = [UIColor whiteColor];
     }
     

@@ -8,9 +8,11 @@
 
 #import "GTIOViewController.h"
 #import "GTIOProductTableViewCell.h"
+#import "DTCoreText.h"
 
-@interface GTIOProductNativeListViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOProductTableViewCellDelegate>
+@interface GTIOProductNativeListViewController : GTIOViewController <DTAttributedTextContentViewDelegate, UITableViewDelegate, UITableViewDataSource, GTIOProductTableViewCellDelegate>
 
 @property (nonatomic, strong) NSNumber *collectionID;
+
 
 @end

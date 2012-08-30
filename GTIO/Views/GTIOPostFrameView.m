@@ -94,6 +94,7 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _descriptionTextView = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
         _descriptionTextView.textDelegate = self;
+        _descriptionTextView.contentView.clipsToBounds = NO;
         _descriptionTextView.contentView.edgeInsets = (UIEdgeInsets) { -2, 0, 0, 0 };
         [_descriptionTextView setScrollEnabled:NO];
         [_descriptionTextView setScrollsToTop:NO];

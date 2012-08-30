@@ -129,6 +129,7 @@
         [collectionMapping mapKeyPath:@"name" toAttribute:@"name"];
         [collectionMapping mapKeyPath:@"banner_image" toRelationship:@"bannerImage" withMapping:bannerImageMapping];
         [collectionMapping mapKeyPath:@"custom_nav_image" toAttribute:@"customNavigationImageURL"];
+        [collectionMapping mapKeyPath:@"footer_text" toAttribute:@"footerText"];
         [collectionMapping mapKeyPath:@"options" toRelationship:@"dotOptions" withMapping:buttonMapping];
         [self setMapping:collectionMapping forKeyPath:@"collection"];
         

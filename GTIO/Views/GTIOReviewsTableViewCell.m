@@ -14,6 +14,7 @@
 
 static CGFloat const kGTIOCellPaddingLeftRight = 12.0;
 static CGFloat const kGTIOCellPaddingTop = 12.0;
+static CGFloat const kGTIOReviewTextPaddingTop = 10.0;
 static CGFloat const kGTIOCellPaddingBottom = 15.0;
 static CGFloat const kGTIOAvatarWidthHeight = 27.0;
 static CGFloat const kGTIOCellWidth = 314.0;
@@ -123,7 +124,8 @@ typedef enum GTIOReviewsAlertView {
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _reviewTextView = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
         _reviewTextView.textDelegate = self;
-        _reviewTextView.contentView.edgeInsets = (UIEdgeInsets) { -7, 0, 0, 0 };
+        _reviewTextView.contentView.edgeInsets = (UIEdgeInsets) { -6, 0, 0, 0 };
+        _reviewTextView.contentView.clipsToBounds = NO;
         [_reviewTextView setScrollEnabled:NO];
         [_reviewTextView setScrollsToTop:NO];
         [_reviewTextView setBackgroundColor:[UIColor clearColor]];
@@ -158,7 +160,7 @@ typedef enum GTIOReviewsAlertView {
     
     [self.background setFrame:(CGRect){ kGTIOBackgroundLeftMargin, 0, kGTIOCellWidth, self.bounds.size.height - kGTIODefaultPadding }];
     CGSize reviewTextSize = [self.reviewTextView.contentView sizeThatFits:(CGSize){ kGTIOReviewTextWidth, CGFLOAT_MAX }];
-    [self.reviewTextView setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + kGTIOCellPaddingTop, kGTIOReviewTextWidth, reviewTextSize.height }];
+    [self.reviewTextView setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + kGTIOReviewTextPaddingTop, kGTIOReviewTextWidth, reviewTextSize.height }];
     [self.userProfilePicture setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - kGTIOAvatarWidthHeight - kGTIOCellPaddingBottom + 1, kGTIOAvatarWidthHeight, kGTIOAvatarWidthHeight }];
     [self.userProfilePictureOverlay setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - kGTIOAvatarWidthHeight - kGTIOCellPaddingBottom + 1, kGTIOAvatarWidthHeight, kGTIOAvatarWidthHeight }];
     [self.heartButton setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellHeartRightPadding - self.heartButton.bounds.size.width, self.userNameLabel.frame.origin.y + kGTIOHeartButtonVerticalOffset, self.heartButton.bounds.size }];

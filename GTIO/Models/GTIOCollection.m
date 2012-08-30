@@ -10,6 +10,5 @@
 
 @implementation GTIOCollection
 
-@synthesize collectionID = _collectionID, name = _name, bannerImage = _bannerImage, customNavigationImageURL = _customNavigationImageURL, dotOptions = _dotOptions;
 
 @end

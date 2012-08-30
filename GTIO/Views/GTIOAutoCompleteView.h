@@ -39,6 +39,7 @@
 
 @property (assign) BOOL isScrollViewShowing;
 @property (assign) BOOL isTyping;
+@property (assign) BOOL preventTyping;
 
 @property (assign) int autoCompleteMatchCharacterCount;
 @property (copy) NSString *autoCompleteMode;

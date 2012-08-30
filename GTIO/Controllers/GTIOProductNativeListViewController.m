@@ -16,15 +16,26 @@
 #import "UIImageView+WebCache.h"
 #import "GTIOFullScreenImageViewer.h"
 #import "GTIORouter.h"
+#import "DTCoreText.h"
 
 static CGFloat const kGTIONavigationBarHeight = 44.0f;
 
-@interface GTIOProductNativeListViewController ()
+static CGFloat const kGTIOFooterXPadding = 10.0f;
+static CGFloat const kGTIOFooterTopPadding = 6.0f;
+static CGFloat const kGTIOFooterBottomPadding = 3.0f;
+static NSString * const kGTIOFooterCss = @"CollectionFooter";
+
+@interface GTIOProductNativeListViewController () <DTAttributedTextContentViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *products;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GTIOCollection *collection;
 @property (nonatomic, strong) GTIOActionSheet *actionSheet;
+@property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) UILabel *footerNotice;
+
+@property (nonatomic, strong) DTAttributedTextView *footerTextView;
+@property (nonatomic, strong) NSDictionary *footerAttributeTextOptions;
 
 @property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
 
@@ -58,6 +69,38 @@ static CGFloat const kGTIONavigationBarHeight = 44.0f;
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tableView];
     
+    NSLog(@"view size %@", NSStringFromCGRect(self.view.frame));
+    self.footerView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.footerNotice = [[UILabel alloc] initWithFrame: CGRectZero];
+    [self.footerNotice setBackgroundColor:[UIColor clearColor]];
+    [self.footerNotice setTextAlignment:UITextAlignmentCenter];
+    [self.footerNotice setNumberOfLines:0];
+    [self.footerNotice setLineBreakMode:UILineBreakModeWordWrap];
+
+    [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
+    self.footerTextView = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
+    self.footerTextView.textDelegate = self;
+    self.footerTextView.contentView.edgeInsets = (UIEdgeInsets) { -7, 0, 0, 0 };
+    self.footerTextView.contentView.clipsToBounds = NO;
+    [self.footerTextView setScrollEnabled:NO];
+    [self.footerTextView setScrollsToTop:NO];
+    [self.footerTextView setBackgroundColor:[UIColor clearColor]];
+    [self.footerView addSubview:self.footerTextView];
+
+
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:kGTIOFooterCss ofType:@"css"];  
+    NSData *cssData = [NSData dataWithContentsOfFile:filePath];
+    NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
+    DTCSSStylesheet *defaultDTCSSStylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
+
+    self.footerAttributeTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            [UIColor gtio_grayTextColor232323], DTDefaultTextColor,
+                                            [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
+                                            [UIColor gtio_pinkTextColor], DTDefaultLinkColor,
+                                            [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
+                                            defaultDTCSSStylesheet, DTDefaultStyleSheet,
+                                            nil];
+
     [self loadProducts];
 }
 
@@ -96,7 +139,34 @@ static CGFloat const kGTIONavigationBarHeight = 44.0f;
                 if ([object isMemberOfClass:[GTIOCollection class]]) {
                     self.collection = (GTIOCollection *)object;
                 }
+                
             }
+            
+            if (self.collection.footerText) {
+                
+                NSData *data = [self.collection.footerText dataUsingEncoding:NSUTF8StringEncoding];
+    
+                NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:self.footerAttributeTextOptions documentAttributes:NULL];
+                self.footerTextView.attributedString = string;
+
+                CGFloat footerWidth = self.tableView.frame.size.width - (2 * kGTIOFooterXPadding);
+                CGSize expectedLabelSize = CGSizeMake(footerWidth,[self heightWithText:self.collection.footerText width:footerWidth]);
+                
+                // [self.footerNotice setText:self.collection.footerText];
+                // [self.footerNotice setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:11.0]];
+                
+                
+                // [self.footerNotice setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
+                
+                
+                
+                [self.footerTextView setFrame:(CGRect){self.footerTextView.frame.origin.x, kGTIOFooterTopPadding, footerWidth, expectedLabelSize.height}];
+                [self.tableView setTableFooterView:self.footerView];    
+                [self.footerView setFrame:(CGRect){kGTIOFooterXPadding, self.footerView.frame.origin.y, footerWidth , expectedLabelSize.height + kGTIOFooterBottomPadding + kGTIOFooterTopPadding}];
+     
+            }
+
+            
             if (self.products.count > 0) {
                 [self.tableView reloadData];
             }
@@ -242,16 +312,68 @@ static CGFloat const kGTIONavigationBarHeight = 44.0f;
         [bannerImageDownloader setImageWithURL:_collection.bannerImage.imageURL success:^(UIImage *image) {
             [bannerHeader setImage:image forState:UIControlStateNormal];
             bannerHeader.tapHandler = ^(id sender) {
-                UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:_collection.bannerImage.action.destination];
-                if (viewController) {
-                    [self.navigationController pushViewController:viewController animated:YES];
-                } else if ([GTIORouter sharedRouter].fullScreenImageURL) {
-                    self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:[GTIORouter sharedRouter].fullScreenImageURL];
-                    [self.fullScreenImageViewer show];
-                }
+                [self handleUrl:[NSURL URLWithString:_collection.bannerImage.action.destination]];
             };
             self.tableView.tableHeaderView = bannerHeader;
         } failure:nil];
+    }
+}
+
+
+- (CGFloat)heightWithText:(NSString *)text width:(CGFloat)width
+{
+    [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
+    DTAttributedTextView *attributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ CGPointZero, { width, 0 } }];
+    attributedTextView.contentView.edgeInsets = (UIEdgeInsets) { -7, 0, 0, 0 };
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:kGTIOFooterCss ofType:@"css"];  
+    NSData *cssData = [NSData dataWithContentsOfFile:filePath];
+    NSString *cssString = [[NSString alloc] initWithData:cssData encoding:NSUTF8StringEncoding];
+    DTCSSStylesheet *stylesheet = [[DTCSSStylesheet alloc] initWithStyleBlock:cssString];
+    
+    NSDictionary *attributedTextOptions = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                      [NSNumber numberWithBool:NO], DTDefaultLinkDecoration,
+                                                      [NSNumber numberWithFloat:1.2], DTDefaultLineHeightMultiplier,
+                                                      stylesheet, DTDefaultStyleSheet,
+                                                      nil];
+    
+    NSData *data = [text dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSAttributedString *string = [[NSAttributedString alloc] initWithHTMLData:data options:attributedTextOptions documentAttributes:NULL];
+    attributedTextView.attributedString = string;
+    
+    CGSize textSize = [attributedTextView.contentView sizeThatFits:(CGSize){ width, CGFLOAT_MAX }];
+    
+    return textSize.height;
+}
+
+
+#pragma mark Custom Views on Text
+
+- (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame
+{
+    DTLinkButton *button = [[DTLinkButton alloc] initWithFrame:frame];
+    button.URL = url;
+    button.minimumHitSize = CGSizeMake(20, 20); // adjusts it's bounds so that button is always large enough
+    button.GUID = identifier;
+    [button addTarget:self action:@selector(linkPushed:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
+#pragma mark Actions
+
+- (void)linkPushed:(DTLinkButton *)button
+{
+    [self handleUrl:button.URL];
+}
+
+- (void)handleUrl:(NSURL *)url
+{
+    UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURL:url];
+    if (viewController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+    } else if ([GTIORouter sharedRouter].fullScreenImageURL) {
+        self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:[GTIORouter sharedRouter].fullScreenImageURL];
+        [self.fullScreenImageViewer show];
     }
 }
 
