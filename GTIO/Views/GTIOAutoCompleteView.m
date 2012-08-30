@@ -157,7 +157,7 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
         return NO;
     }
 
-    [self textView:self.textInput shouldChangeTextWithAutoCompleteInRange:range replacementText:inputString];
+    return [self textView:self.textInput shouldChangeTextWithAutoCompleteInRange:range replacementText:inputString];
 }
 
 - (BOOL)textView:(UITextView *)field shouldChangeTextWithAutoCompleteInRange:(NSRange)range replacementText:(NSString *)inputString 

@@ -13,12 +13,13 @@
 #import "GTIOProduct.h"
 #import "GTIOPost.h"
 
-@interface GTIOHeart : NSObject
+@interface GTIOHeart : NSObject <GTIOGridItem>
 
 @property (nonatomic, strong) NSNumber *heartID;
 @property (nonatomic, strong) GTIOPost *post;
 @property (nonatomic, strong) GTIOProduct *product;
 @property (nonatomic, strong) GTIOPhoto *photo;
 @property (nonatomic, strong) GTIOButtonAction *action;
+
 
 @end
