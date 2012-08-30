@@ -134,25 +134,39 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
 - (BOOL)textView:(UITextView *)field shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)inputString 
 {
     [self.searchTextTimer invalidate];
+    
     self.isTyping = YES;
-    // always hide the placeholder text if the user is inputtting
-    [self hidePlaceholderText];
     
     //resign if the user's done
     if([inputString isEqualToString:@"\n"]) {
         //close the keyboard and hide the text input
         [field resignFirstResponder];
         
+        self.isTyping = NO;
+        return NO;
+    }
+    
+    if ([self availableCharactersIn:field.text input:inputString range:range]<0){
+        self.isTyping = NO;
         return NO;
     }
 
-    NSString *existingString = field.text;
-    
-    if ([self availableCharactersIn:existingString input:inputString range:range]<0){
+    //if in the process of inserting
+    if (self.preventTyping){
+        self.isTyping = NO;
         return NO;
     }
+
+    [self textView:self.textInput shouldChangeTextWithAutoCompleteInRange:range replacementText:inputString];
+}
+
+- (BOOL)textView:(UITextView *)field shouldChangeTextWithAutoCompleteInRange:(NSRange)range replacementText:(NSString *)inputString 
+{   
+    // always hide the placeholder text if the user is inputtting
+    [self hidePlaceholderText];
+
     //update the cursor position
-    self.positionOfCursor = [self getUpdatedCursorPositionByReplacingCharactersInRange:range existingString:existingString inputString:inputString];
+    self.positionOfCursor = [self getUpdatedCursorPositionByReplacingCharactersInRange:range existingString:field.text inputString:inputString];
 
     // figure out the new input text
     self.inputText = [field.text stringByReplacingCharactersInRange:range withString:inputString];
@@ -553,6 +567,7 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
 
 -(NSRange) insertIntoInput:(NSString *)str 
 {
+    self.preventTyping = YES;
 
     self.positionOfCursor = [self getUpdatedCursorPositionByReplacingCharactersInRange:self.textInput.selectedRange existingString:self.inputText inputString:@""];
 
@@ -566,18 +581,20 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     if (editedRage.location!=NSNotFound) {
         return NSMakeRange(editedRage.location + padded, editedRage.length );
     }
+
     return editedRage;
 
 }
 
 -(NSRange) insertIntoInput:(NSString *)str range:(NSRange)range
 {
+    self.preventTyping = YES;
 
     NSRange editedRange = NSMakeRange(NSNotFound, 0);
 
     if (self.inputText.length == 0) {
         
-        if ([self textView:self.textInput shouldChangeTextInRange:NSMakeRange(0,0) replacementText:str]){
+        if ([self textView:self.textInput shouldChangeTextWithAutoCompleteInRange:NSMakeRange(0,0) replacementText:str]){
             self.textInput.text = str;
             
             editedRange = NSMakeRange(0, str.length);
@@ -587,7 +604,7 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     }
     else {
         
-        if ([self textView:self.textInput shouldChangeTextInRange:range replacementText:str]){
+        if ([self textView:self.textInput shouldChangeTextWithAutoCompleteInRange:range replacementText:str]){
             self.textInput.text = [self.textInput.text stringByReplacingCharactersInRange:range withString:str];
              editedRange = NSMakeRange(range.location, str.length);
         }
@@ -598,6 +615,8 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     UITextPosition *end = [self.textInput positionFromPosition:start offset:self.positionOfCursor.length];
     [self.textInput setSelectedTextRange:[self.textInput textRangeFromPosition:start toPosition:end]];
     
+    self.preventTyping = NO;
+
     return editedRange;
 }
 
