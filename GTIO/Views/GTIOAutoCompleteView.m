@@ -18,32 +18,11 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
 
 
 static CGFloat kGTIOMaxCharacterCount = 255.0;
+static CGFloat kGTIOSearchTextTimerLength = 0.75;
+static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
 
 @implementation GTIOAutoCompleteView
 
-@synthesize autoCompleteArray = _autoCompleteArray;
-@synthesize autoCompleteButtonOptions = _autoCompleteButtonOptions;
-@synthesize scrollView = _scrollView;
-@synthesize textInput = _textInput;
-// @synthesize textView = _textView;
-@synthesize previewTextView = _previewTextView;
-@synthesize attrString = _attrString;
-@synthesize positionOfLastWordTyped =_positionOfLastWordTyped;
-@synthesize positionOfLastTwoWordsTyped =_positionOfLastTwoWordsTyped;
-@synthesize positionOfCursor =_positionOfCursor;
-@synthesize inputText = _inputText;
-@synthesize placeholderText = _placeholderText;
-
-@synthesize ACInputFont = _ACInputFont;
-@synthesize ACInputColor = _ACInputColor;
-@synthesize ACPlaceholderFont = _ACPlaceholderFont;
-@synthesize ACPlaceholderColor = _ACPlaceholderColor;
-@synthesize ACHighlightFont = _ACHighlightFont;
-@synthesize ACHighlightColor = _ACHighlightColor;
-
-@synthesize isScrollViewShowing = _isScrollViewShowing;
-@synthesize autoCompleteMatchCharacterCount = _autoCompleteMatchCharacterCount;
-@synthesize autoCompleteMode = _autoCompleteMode;
 
 - (id)initWithFrame:(CGRect)frame outerBox:(CGRect)outerFrame placeholder:(NSString *) text
 {
@@ -154,6 +133,8 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
 
 - (BOOL)textView:(UITextView *)field shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)inputString 
 {
+    [self.searchTextTimer invalidate];
+    self.isTyping = YES;
     // always hide the placeholder text if the user is inputtting
     [self hidePlaceholderText];
     
@@ -180,10 +161,12 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
     [self updateAttributedStringInRange:range string:inputString];
     [self setPositionOfLastWordsTypedInText:[self stringThroughCursorPositionWithRange:range]];
     
+    CGFloat searchTime = kGTIOSearchTextTimerLength;
+    
     if (self.inputText.length > 0) {
 
         [self highlightHashTag];
-        NSArray *foundAutoCompleters = [self searchLastTypedWordsForAutoCompletes];
+        
         if ([self hashtagMode] && ![self isValidHashTag:[self lastWordTyped]]){
             // NSLog(@"hashtagMode");
             [self resetAutoCompleteMode];
@@ -193,7 +176,33 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
         } else if (![self attagMode] && [[self lastWordTyped] isEqualToString:@"@"]){
             // NSLog(@"checking for attagMode");
             [self autoCompleterModeSelected:@"@"];
-        } else if (![self hashtagMode] && ![self brandtagMode] && [foundAutoCompleters count] == 0) {
+        } else if ([[self lastWordTyped] isEqualToString:@" "] && range.length == 1){
+            [self resetAutoCompleteMode];
+        }
+
+        if ([self brandtagMode] || [self attagMode]){
+            searchTime = kGTIOSearchTextFastTimerLength;
+        }
+            
+    } else {
+        [self resetAutoCompleteMode];
+        [self.scrollView showScrollViewNav];
+        [self displayPlaceholderText];
+    }
+    
+    self.searchTextTimer = [NSTimer scheduledTimerWithTimeInterval:searchTime target:self selector:@selector(delayedAutoCompleteTextSearch) userInfo:nil repeats:NO];
+    
+    self.isTyping = NO;
+    return YES;
+}
+
+- (void)delayedAutoCompleteTextSearch
+{
+    [self.searchTextTimer invalidate];
+
+    if (![self hashtagMode] && !self.isTyping){
+        NSArray *foundAutoCompleters = [self searchLastTypedWordsForAutoCompletes];
+        if (![self hashtagMode] && ![self brandtagMode] && ![self attagMode] && [foundAutoCompleters count] == 0) {
             // NSLog(@"notHash mode resetting");
             [self resetAutoCompleteMode];         
         }
@@ -202,16 +211,11 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
             [self.scrollView clearScrollView];
             [self showButtonsWithAutoCompleters: foundAutoCompleters];
         } 
-        
-        
-    } else {
-        [self.scrollView showScrollViewNav];
-        [self displayPlaceholderText];
     }
     [self cleanUpAttrString];
-    return YES;
+    
+    return;
 }
-
 
 - (NSInteger)availableCharactersIn:(NSString *)existingString input:(NSString *)inputString range:(NSRange)range
 {
@@ -410,9 +414,13 @@ static CGFloat kGTIOMaxCharacterCount = 255.0;
         completers = [self brandTagCompleters];
     }
     for (GTIOAutoCompleter *option in completers) {
+        if (self.isTyping){
+            break;
+        }        
         if ([self startedTypingCompleterInLastTwoWords:option]) {
             [foundAutoCompleters addObject:option];  
-        } else if ([self startedTypingCompleterInLastWord:option] ){
+        }
+        else if ([self startedTypingCompleterInLastWord:option] ){
             [foundAutoCompleters addObject:option];
         }
     }

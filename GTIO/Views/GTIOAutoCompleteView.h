@@ -38,9 +38,12 @@
 @property (assign) NSRange positionOfLastTwoWordsTyped;
 
 @property (assign) BOOL isScrollViewShowing;
+@property (assign) BOOL isTyping;
 
 @property (assign) int autoCompleteMatchCharacterCount;
 @property (copy) NSString *autoCompleteMode;
+
+@property (nonatomic, strong) NSTimer *searchTextTimer;
 
 - (UIView *)initWithFrame:(CGRect)frame outerBox:(CGRect)outerFrame placeholder:(NSString *)text;
 - (void)addCompleters:(NSMutableArray *)completers;

@@ -36,6 +36,7 @@
         
         _canvas = [[UIView alloc] initWithFrame:CGRectZero];
         [_canvas.layer setCornerRadius:3.0f];
+        _canvas.layer.masksToBounds = YES;
         [self addSubview:_canvas];
         
         _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setIsSelectedGesture:)];

@@ -9,6 +9,7 @@
 #import "GTIOVisit.h"
 
 extern NSString * const kGTIOTrackAppLaunch;
+extern NSString * const kGTIOTrackPhotoShootStarted;
 extern NSString * const kGTIOTrackAppResumeFromBackground;
 extern NSString * const kGTIOTrackSignIn; // 1.3 Sign in screen
 

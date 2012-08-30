@@ -25,7 +25,7 @@
 @property (nonatomic, strong) GTIOUIButton *followingButton;
 @property (nonatomic, strong) GTIOUIButton *requestedButton;
 @property (nonatomic, strong) GTIOProfileHeaderView *profileHeaderView;
-@property (nonatomic, retain) GTIOUserProfile *userProfile;
+@property (nonatomic, strong) GTIOUserProfile *userProfile;
 @property (nonatomic, strong) GTIODualViewSegmentedControlView *postsHeartsWithSegmentedControlView;
 @property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
 @property (nonatomic, strong) NSString *heartsResourcePath;
@@ -140,9 +140,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];   
     
-    if (self.userProfile.postsList.posts.count==0 && self.userProfile.heartsList.hearts.count==0){
-        [self loadUserProfile];
-    } else if (![self isBeingPresented]) {
+    if (![self isBeingPresented]) {
         [self refreshUserProfile];
     }
 

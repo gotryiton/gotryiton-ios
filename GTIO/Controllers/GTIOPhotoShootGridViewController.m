@@ -14,6 +14,8 @@
 
 #import "GTIOPhotoManager.h"
 
+#import "GTIOTrack.h"
+
 @interface GTIOPhotoShootGridViewController ()
 
 @property (nonatomic, strong) GTIOPhotoShootGridView *photoShootGridView;
@@ -39,6 +41,8 @@
         [self.navigationController popViewControllerAnimated:YES];
     }];
     [self setLeftNavigationButton:backButton];
+
+    [GTIOTrack postTrackWithID:kGTIOTrackPhotoShootStarted handler:nil];
 }
 
 - (void)viewDidLoad
