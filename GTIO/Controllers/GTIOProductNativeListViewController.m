@@ -76,7 +76,6 @@ static NSString * const kGTIOFooterCss = @"CollectionFooter";
     [self.footerNotice setTextAlignment:UITextAlignmentCenter];
     [self.footerNotice setNumberOfLines:0];
     [self.footerNotice setLineBreakMode:UILineBreakModeWordWrap];
-    // [self.footerView addSubview:self.footerNotice];
 
     [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
     self.footerTextView = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
