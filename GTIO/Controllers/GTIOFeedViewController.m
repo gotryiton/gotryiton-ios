@@ -338,6 +338,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section 
 {
     if (self.postUpload && section == 0) {
+        self.uploadView.frame = self.uploadView.bounds; // Reset to (0,0) in case you were scrolled down.
         return self.uploadView;
     }
     

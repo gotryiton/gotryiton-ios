@@ -375,8 +375,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 
 - (void)showPhotoShootModePopOverView
 {
-    if (self.isPhotoShootModeFirstToggle && 
-        self.photoShootModeCount < kGTIOShowPhotoShootModeHelperCount) {
+    if (self.isPhotoShootModeFirstToggle) {
         
         self.photoShootModeFirstToggle = NO;
         self.photoShootModeCount++;
