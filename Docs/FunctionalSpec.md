@@ -2936,7 +2936,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.6 shop this look
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Shop.This.Look.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.X.Shop.This.Look.png" width=420px/>
 
 
 
