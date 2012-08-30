@@ -303,6 +303,12 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)beginPostLookToGTIO
 {
+    // Check to see if the timer is ticking. If it is, trigger it before we go away.
+    if ([self.photoSaveTimer isValid]) {
+        [self.photoSaveTimer invalidate];
+        [self createGTIOPhoto:self];
+    }
+    
     [[GTIOPostManager sharedManager] setPostPhotoButtonTouched:YES];
     
     [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] attachedProducts:(NSDictionary *)[self attachedProducts]];
