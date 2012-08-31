@@ -53,14 +53,11 @@
     [self.facebookButton setFrame:(CGRect){ { (self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 245 }, self.facebookButton.frame.size }];
     [self.facebookButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.facebookButton setTapHandler:^(id sender) {
-        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         [[GTIOUser currentUser] signUpWithFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
             if (error) {
-                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 GTIOFailedSignInViewController *failedSignInViewController = [[GTIOFailedSignInViewController alloc] initWithNibName:nil bundle:nil];
                 [self.navigationController pushViewController:failedSignInViewController animated:YES];
             } else {
-                [GTIOProgressHUD hideHUDForView:self.view animated:YES];
                 if ([user.isNewUser boolValue]) {
                     if ([user.hasCompleteProfile boolValue]) {
                         GTIOQuickAddViewController *quickAddViewController = [[GTIOQuickAddViewController alloc] initWithNibName:nil bundle:nil];
