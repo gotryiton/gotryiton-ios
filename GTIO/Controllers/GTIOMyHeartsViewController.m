@@ -231,7 +231,7 @@
                 GTIOProduct *product = obj;
                 
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"productID == %@", product.productID];
-                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                NSArray *foundExistingPosts = [self.products filteredArrayUsingPredicate:predicate];
                 if ([foundExistingPosts count] == 0) {
                     [self.segmentedControl.rightPostsView.masonGridView addItem:product postType:GTIOPostTypeNone];
                     [self.products addObject:product];
