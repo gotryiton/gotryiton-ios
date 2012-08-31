@@ -51,7 +51,6 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 @property (nonatomic, strong) UITapGestureRecognizer *photoDoubleTapRecognizer;
 @property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
 @property (nonatomic, strong) UIProgressView *progressView;
-// @property (nonatomic, strong) GTIOUIButton *shopThisLookButton;
 
 
 @end
@@ -120,9 +119,6 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
         [_progressView setTrackImage:[UIImage imageNamed:@"uploading.min.track.png"]];
         [_progressView setProgressImage:[[UIImage imageNamed:@"uploading.max.track.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 3, 3, 3, 3 }]];
 
-        // _shopThisLookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFeedShopThisLook tapHandler:nil];
-        // [self addSubview:_shopThisLookButton];
-
         _star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star-corner-feed.png"]];
         _star.hidden = YES;
         [self addSubview:_star];
@@ -162,31 +158,6 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
         [self.descriptionTextView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.photoImageView.frame.origin.y + self.photoImageView.frame.size.height, kGTIODescriptionTextWidth, descriptionTextSize.height}];
     }
 
-    /*CGFloat shopThisLookButtonHeight = 0.0;
-
-    for (GTIOButton *button in self.post.buttons) {
-        if ([button.name isEqualToString:kGTIOPostSideShopButton]) {
-            
-            if (descriptionTextSize.height > 0) {
-                extraHeight += kGTIOShopThisLookButtonTopPadding;
-            } else {
-                extraHeight += kGTIOShopThisLookButtonTopPaddingNoDescription;
-            }
-            shopThisLookButtonHeight = kGTIOShopThisLookButtonHeight;
-
-            __block id tapDelegate = self.delegate;
-            [self.shopThisLookButton setTapHandler:^(id sender) {
-                if ([tapDelegate respondsToSelector:@selector(buttonTap:)]) {
-                    [tapDelegate buttonTap:button];
-                }
-            }];
-
-            extraParentFrameHeight += kGTIOShopThisLookButtonBottomPadding;
-        }
-    }
-
-    [self.shopThisLookButton setFrame:(CGRect){ self.photoImageView.frame.size.width - self.shopThisLookButton.frame.size.width - kGTIOShopThisLookButtonRightPadding, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + extraHeight, self.shopThisLookButton.bounds.size.width, shopThisLookButtonHeight }];
-    */
     [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
     
     [self setFrame:(CGRect){ self.frame.origin, self.frameImageView.frame.size }];
@@ -319,13 +290,6 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
     if (descriptionTextSize.height > 0) {
         descriptionTextSize.height += kGTIODescriptionLabelTopPadding;
     }
-    
-    /*CGFloat shopThisLookHeight = 0;
-    for (GTIOButton *button in post.buttons) {
-        if([button.name isEqualToString:kGTIOPostSideShopButton]) {
-            shopThisLookHeight = kGTIOShopThisLookButtonHeight + kGTIOShopThisLookButtonTopPadding;
-        }
-    }*/
     
     return photoSize.height + descriptionTextSize.height + kGTIOFrameHeightWithShadowPadding;
 }
