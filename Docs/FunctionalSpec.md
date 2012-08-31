@@ -2908,7 +2908,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.2 Post dot options: ([outfit item](http://invis.io/N92PN2YP)) 
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/_0011_Feed.VJ.Scrolled.Dot.Options.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.X.Dot.Menu.png" width=420px/>
 
 8.1.3 feed scrolled: ([wireframe](http://invis.io/DA2PN3TC)) 
 
@@ -2936,8 +2936,7 @@ Each user has a personalized feed of content on the first tab.  The content cont
 
 8.1.6 shop this look
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.1.Feed.Shop.This.Look.png" width=420px/>
-
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/8.X.Shop.This.Look.png" width=420px/>
 
 
 #### User Flow
@@ -3108,17 +3107,18 @@ gtio://posts/feed
          - horizontally centered around accent line
          - bottom of circle (not including 'glow') should line up with bottom of photo (see minimum height note above)
          - triggers 'dot dot dot menu' (see story below)
-   - dot dot dot menu
+   - dot dot dot menu (screen 8.1.2)
       - assets are 'dot-menu.png' with top/middle/bottom states, each with active and inactive
-      - bottom cell
-         - position 7px from right edge of screen (point of arrow should appear to be horizontally centered inside dot dot dot button)
-         - position 24px from bottom of dot dot dot button (should overlap about 20% of the dot dot dot button)
-      - middle cell
-         - position flush with top of below cell
+      - top cell (152px x 50px)
+         - position 3px from right edge of screen (point of arrow should appear to be horizontally centered inside dot dot dot button)
+         - position 26px below top of dot dot dot button (bottom of dot dot dot button should line up with the base of the menu's triangle pointer)
+      - middle cell (152px x 40px)
+         - position flush with bottom of above cell
          - use multiple instances for menus with more items
-      - top cell
-         - position flush with top of topmost 'middle' cell
-      - text is Proxima Nova Regular, 12pt, rgb(88,88,88)
+      - bottom cell (152px x 46px)
+         - position flush with bottom of bottommost 'middle' cell
+      - text is Proxima Nova Regular, 12pt, #8f8f8f
+         - Text-shadow: 1px 90 degrees (point down), #ffffff
          - each line vertically and horizontally centered within respective cell
    - feed posts positioning
       - top item
@@ -3670,7 +3670,7 @@ A user can start an upload by opening their camera within the GTIO app.  They ca
 
 12.1.4 Upload Start with Source Menu
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/12.1.D.Upload.Start.Source.Menu.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/2/12.1.D.Upload.Start.Source.Menu.png" width=420px/>
 
 #### API Usage
 
@@ -3766,9 +3766,12 @@ see documentation [Api-Track](http://gtio-dev.gotryiton.com/docs/api-track)
 		- 14px from bottom of screen
 		- 13px from left edge of screen
    - Source Menu
-      - stack 'source-menu.png' (top/middle/bottom versions)
-      - 4px from left edge of screen
-      - 42px from bottom edge of screen
+      - stack 'source-menu.png' (top/middle/bottom versions with active and inactive states)
+         - top: 152px x 45px
+         - middle: 152px x 40px
+         - bottom: 152px x 51px
+      - all buttons are 4px from left edge of screen
+      - buttom button is 52px from bottom edge of screen
 	- Photoshoot Grid ('shootgrid') Button (12/button.shootgrid.png)
       - 16px from bottom of screen
       - 53px from left edge of screen

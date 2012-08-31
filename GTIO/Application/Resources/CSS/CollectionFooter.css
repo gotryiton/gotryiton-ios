@@ -1,0 +1,25 @@
+html
+{
+	/* bla */
+	display:block;
+}
+
+
+body 
+{
+	/* safari has a 8 px margin here */
+	display:block;
+    font-weight:Verlag-Light;
+    font-family:V-XLght;
+    font-size:13px;
+    line-height: 18px;
+
+}
+
+
+a
+{
+    font-weight:Verlag-Book;
+    font-family:V-Bk;
+}
+

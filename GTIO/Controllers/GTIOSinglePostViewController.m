@@ -49,7 +49,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 @interface GTIOSinglePostViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedCellDelegate, GTIOFeedHeaderViewDelegate, SSPullToRefreshViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) GTIOFeedNavigationBarView *navTitleView;
+@property (nonatomic, strong) GTIONavigationNotificationTitleView *navTitleView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
 @property (nonatomic, strong) GTIOPagination *pagination;
 @property (nonatomic, strong) GTIOButton *deleteButton;
@@ -106,12 +106,11 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         
     __block typeof(self) blockSelf = self;
     
-    GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
+    _navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
         GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
         [blockSelf presentModalViewController:navigationController animated:YES];
     }];
-    [self useTitleView:navTitleView];
 
      GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -150,6 +149,15 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     self.pullToRefreshView = nil;
     self.navBarView = nil;
     self.tableView = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self useTitleView:self.navTitleView];
+    [self.navTitleView setUserInteractionEnabled:YES];
+    [self.navTitleView forceUpdateCountLabel];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -201,6 +209,12 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
                         }
                         [self.navigationController pushViewController:reviewsViewController animated:YES];
                     };
+                    if (self.post.products.count>0){
+                        self.post.shopTheLookButtonTapHandler = ^(id sender) {
+                            UIViewController *viewController = [[GTIOShopThisLookViewController alloc] initWithPostID:self.post.postID];
+                            [self.navigationController pushViewController:viewController animated:YES];
+                        };
+                    }
                     
                     GTIOPostHeaderView *headerView = [[GTIOPostHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight }];
                     [headerView setDelegate:self];

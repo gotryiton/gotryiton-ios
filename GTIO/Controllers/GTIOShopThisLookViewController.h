@@ -11,8 +11,8 @@
 
 @interface GTIOShopThisLookViewController : GTIOViewController <UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, GTIOProductTableViewCellDelegate>
 
-@property (nonatomic, strong) NSNumber *postID;
+@property (nonatomic, strong) NSString *postID;
 
-- (id)initWithPostID:(NSNumber *)postID;
+- (id)initWithPostID:(NSString *)postID;
 
 @end

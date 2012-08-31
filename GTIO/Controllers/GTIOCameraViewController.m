@@ -30,7 +30,7 @@ NSString * const kGTIOPhotoAcceptedNotification = @"GTIOPhotoAcceptedNotificatio
 
 static CGFloat const kGTIOToolbarHeight = 53.0f;
 static CGFloat const kGTIOSourcePopOverXOriginPadding = 4.0f;
-static CGFloat const kGTIOSourcePopOverYOriginPadding = 42.0f;
+static CGFloat const kGTIOSourcePopOverYOriginPadding = 52.0f;
 static CGFloat const kGTIOPhotoShootModePopOverXOriginPadding = 25.5f;
 static CGFloat const kGTIOPhotoShootModePopOverYOriginPadding = 30.0f;
 
@@ -375,8 +375,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 
 - (void)showPhotoShootModePopOverView
 {
-    if (self.isPhotoShootModeFirstToggle && 
-        self.photoShootModeCount < kGTIOShowPhotoShootModeHelperCount) {
+    if (self.isPhotoShootModeFirstToggle) {
         
         self.photoShootModeFirstToggle = NO;
         self.photoShootModeCount++;

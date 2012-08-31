@@ -65,7 +65,7 @@
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
 #endif
 
-NSString * const kGTIOAcceptHeader = @"application/v4-json";
+NSString * const kGTIOAcceptHeader = @"application/v4.0.1-json";
 NSString * const kGTIOAuthenticationHeaderKey = @"Authentication";
 NSString * const kGTIOTrackingHeaderKey = @"Tracking-Id";
 

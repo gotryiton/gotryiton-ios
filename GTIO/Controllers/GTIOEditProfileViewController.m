@@ -57,8 +57,7 @@
                 if (!error) {
                     [self.navigationController popViewControllerAnimated:YES];
                 } else {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to save your profile." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-                    [alert show];
+                    [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
                 }
             }];
         }

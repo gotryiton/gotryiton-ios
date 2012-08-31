@@ -173,6 +173,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self showStatusBarBackgroundWithoutNavigationBar];
     [self.tableView bringSubviewToFront:self.navBarView];
+    [self.navBarView.titleView forceUpdateCountLabel];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:kGTIOPostFeedOpenLinkNotification object:nil];
     
     if ([self.posts count] == 0) {
@@ -226,6 +227,12 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
                         }
                         [self.navigationController pushViewController:reviewsViewController animated:YES];
                     };
+                    if ([post.products count]>0){
+                        post.shopTheLookButtonTapHandler = ^(id sender) {
+                            UIViewController *viewController = [[GTIOShopThisLookViewController alloc] initWithPostID:post.postID];
+                            [self.navigationController pushViewController:viewController animated:YES];
+                        };
+                    }
                     [self.posts addObject:object];
                 } else if ([object isKindOfClass:[GTIOPagination class]]) {
                     self.pagination = object;
@@ -284,6 +291,13 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
                     [self.navigationController pushViewController:reviewsViewController animated:YES];
                 };
                 
+                if (post.products.count>0){
+                    post.shopTheLookButtonTapHandler = ^(id sender) {
+                        UIViewController *viewController = [[GTIOShopThisLookViewController alloc] initWithPostID:post.postID];
+                        [self.navigationController pushViewController:viewController animated:YES];
+                    };
+                }
+
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
                 NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
                 if ([foundExistingPosts count] == 0) {
@@ -338,6 +352,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section 
 {
     if (self.postUpload && section == 0) {
+        self.uploadView.frame = self.uploadView.bounds; // Reset to (0,0) in case you were scrolled down.
         return self.uploadView;
     }
     
@@ -605,6 +620,13 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
                 }
                 [self.navigationController pushViewController:reviewsViewController animated:YES];
             };
+
+            if (newPost.products.count>0){
+                newPost.shopTheLookButtonTapHandler = ^(id sender) {
+                    UIViewController *viewController = [[GTIOShopThisLookViewController alloc] initWithPostID:newPost.postID];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                };
+            }
             [self.posts insertObject:newPost atIndex:0];
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         }

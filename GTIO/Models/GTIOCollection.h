@@ -16,5 +16,6 @@
 @property (nonatomic, strong) GTIOBannerImage *bannerImage;
 @property (nonatomic, copy) NSURL *customNavigationImageURL;
 @property (nonatomic, strong) NSArray *dotOptions;
+@property (nonatomic, copy) NSString *footerText;
 
 @end

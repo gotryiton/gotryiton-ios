@@ -19,8 +19,8 @@ static CGFloat const kGTIOWhoHeartedThisOriginX = 13.0f;
 static CGFloat const kGTIOWhoHeartedThisTopPadding = -8.0f;
 static CGFloat const kGTIOWhoHeartedThisWidth = 250.0f;
 static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
-static CGFloat const kGITOEllipsisPopOverViewXOriginOffset = -3.5f;
-static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
+static CGFloat const kGITOEllipsisPopOverViewXOriginOffset = 8.5f;
+static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 14.0f;
 
 @interface GTIOFeedCell () <UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
@@ -103,7 +103,7 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 13.5f;
             if (!blockSelf.ellipsisPopOverView) {
                 blockSelf.ellipsisPopOverView = [GTIOPopOverView ellipsisPopOverViewWithButtonModels:_post.dotOptionsButtons];
 
-                [blockSelf.ellipsisPopOverView setFrame:(CGRect){ { self.frame.size.width - blockSelf.ellipsisPopOverView.frame.size.width + kGITOEllipsisPopOverViewXOriginOffset, self.postButtonColumnView.ellipsisButton.frame.origin.y - blockSelf.ellipsisPopOverView.frame.size.height + kGITOEllipsisPopOverViewYOriginOffset }, blockSelf.ellipsisPopOverView.frame.size }];
+                [blockSelf.ellipsisPopOverView setFrame:(CGRect){ { self.frame.size.width - blockSelf.ellipsisPopOverView.frame.size.width + kGITOEllipsisPopOverViewXOriginOffset, self.postButtonColumnView.ellipsisButton.frame.origin.y + self.postButtonColumnView.ellipsisButton.frame.size.height - kGITOEllipsisPopOverViewYOriginOffset }, blockSelf.ellipsisPopOverView.frame.size }];
                 [blockSelf addSubview:blockSelf.ellipsisPopOverView];
                 
                 id tapDelegate = self.delegate;

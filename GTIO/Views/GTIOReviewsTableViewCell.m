@@ -14,6 +14,7 @@
 
 static CGFloat const kGTIOCellPaddingLeftRight = 12.0;
 static CGFloat const kGTIOCellPaddingTop = 12.0;
+static CGFloat const kGTIOReviewTextPaddingTop = 10.0;
 static CGFloat const kGTIOCellPaddingBottom = 15.0;
 static CGFloat const kGTIOAvatarWidthHeight = 27.0;
 static CGFloat const kGTIOCellWidth = 314.0;
@@ -45,7 +46,7 @@ typedef enum GTIOReviewsAlertView {
 @property (nonatomic, strong) UIImageView *userProfilePictureOverlay;
 @property (nonatomic, strong) UILabel *userNameLabel;
 @property (nonatomic, strong) UILabel *postedAtLabel;
-@property (nonatomic, strong) UIImageView *badge;
+@property (nonatomic, strong) UIImageView *badgeImageView;
 
 @property (nonatomic, strong) DTAttributedTextView *reviewTextView;
 @property (nonatomic, strong) NSDictionary *reviewAttributeTextOptions;
@@ -94,8 +95,8 @@ typedef enum GTIOReviewsAlertView {
         _postedAtLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_postedAtLabel];
         
-        _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self addSubview:_badge];
+        _badgeImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_badgeImageView];
 
         _heartCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _heartCountLabel.textColor = [UIColor gtio_grayTextColorDCDCDC];
@@ -123,7 +124,8 @@ typedef enum GTIOReviewsAlertView {
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _reviewTextView = [[DTAttributedTextView alloc] initWithFrame:CGRectZero];
         _reviewTextView.textDelegate = self;
-        _reviewTextView.contentView.edgeInsets = (UIEdgeInsets) { -7, 0, 0, 0 };
+        _reviewTextView.contentView.edgeInsets = (UIEdgeInsets) { -6, 0, 0, 0 };
+        _reviewTextView.contentView.clipsToBounds = NO;
         [_reviewTextView setScrollEnabled:NO];
         [_reviewTextView setScrollsToTop:NO];
         [_reviewTextView setBackgroundColor:[UIColor clearColor]];
@@ -158,7 +160,7 @@ typedef enum GTIOReviewsAlertView {
     
     [self.background setFrame:(CGRect){ kGTIOBackgroundLeftMargin, 0, kGTIOCellWidth, self.bounds.size.height - kGTIODefaultPadding }];
     CGSize reviewTextSize = [self.reviewTextView.contentView sizeThatFits:(CGSize){ kGTIOReviewTextWidth, CGFLOAT_MAX }];
-    [self.reviewTextView setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + kGTIOCellPaddingTop, kGTIOReviewTextWidth, reviewTextSize.height }];
+    [self.reviewTextView setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + kGTIOReviewTextPaddingTop, kGTIOReviewTextWidth, reviewTextSize.height }];
     [self.userProfilePicture setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - kGTIOAvatarWidthHeight - kGTIOCellPaddingBottom + 1, kGTIOAvatarWidthHeight, kGTIOAvatarWidthHeight }];
     [self.userProfilePictureOverlay setFrame:(CGRect){ self.background.frame.origin.x + kGTIOCellPaddingLeftRight, self.background.frame.origin.y + self.background.bounds.size.height - kGTIOAvatarWidthHeight - kGTIOCellPaddingBottom + 1, kGTIOAvatarWidthHeight, kGTIOAvatarWidthHeight }];
     [self.heartButton setFrame:(CGRect){ self.background.frame.origin.x + self.background.bounds.size.width - kGTIOCellHeartRightPadding - self.heartButton.bounds.size.width, self.userNameLabel.frame.origin.y + kGTIOHeartButtonVerticalOffset, self.heartButton.bounds.size }];
@@ -173,11 +175,11 @@ typedef enum GTIOReviewsAlertView {
     self.removeButton.enabled = YES;
 
     if (self.review.user.badge){
-        [self.badge setImageWithURL:[self.review.user.badge badgeImageURLForCommenter]];
-        [self.badge setFrame:(CGRect){ self.userNameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset, self.userNameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset, [self.review.user.badge badgeImageSizeForCommenter]}];
+        [self.badgeImageView setImageWithURL:[self.review.user.badge badgeImageURLForCommenter]];
+        [self.badgeImageView setFrame:(CGRect){ self.userNameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset, self.userNameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset, [self.review.user.badge badgeImageSizeForCommenter]}];
         
     } else {
-        [self.badge setFrame:CGRectZero];
+        [self.badgeImageView setFrame:CGRectZero];
     }
 }
 
@@ -252,7 +254,7 @@ typedef enum GTIOReviewsAlertView {
     }
 
     if (_review.user.badge) {
-        [self.badge setImageWithURL:[_review.user.badge badgeImageURLForCommenter]];
+        [self.badgeImageView setImageWithURL:[_review.user.badge badgeImageURLForCommenter]];
     }
 }
 

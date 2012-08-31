@@ -24,6 +24,7 @@ typedef void(^GTIONotificationsRefreshCompletionHandler)(NSArray *loadedNotifica
 - (void)loadNotificationsIfNeeded;
 - (void)refreshNotificationsWithCompletionHandler:(GTIONotificationsRefreshCompletionHandler)completionHandler;
 - (NSInteger)unreadNotificationCount;
+- (void)broadcastNotificationCount;
 //- (void)notificationID:(NSNumber *)notificationID markAsViewed:(BOOL)viewed;
 
 @end

@@ -92,6 +92,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeProductShoppingListEmailMyList: return [self gtio_productShoppingListEmailMyListButton];
         case GTIOButtonTypeProductShoppingListProductOption: return [self gtio_productShoppingListProductOptionButton];
         case GTIOButtonTypeProductShoppingListNav: return [self gtio_productShoppingListNavButton];
+        case GTIOButtonTypeShopThisLookHeaderButton: return [self gtio_shopThisLookHeaderButton];
         case GTIOButtonTypeInviteFriendsSMS: return [self gtio_inviteFriendsSMSButton];
         case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
         case GTIOButtonTypeInviteFriendsTwitter: return [self gtio_inviteFriendsTwitterButton];
@@ -581,6 +582,11 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     return [self buttonWithImage:[UIImage imageNamed:@"photo-frame-handle-inactive.png"] hightlightImage:nil];
 }
 
++ (id)gtio_shopThisLookHeaderButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"shop-this-look-header.png"] hightlightImage:[UIImage imageNamed:@"shop-this-look-header.png"]];
+}
+
 + (id)gtio_feedShopThisLook
 {
     GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shop-this-look-button-inactive.png"] hightlightImage:[UIImage imageNamed:@"shop-this-look-button-active.png"]];
@@ -603,7 +609,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)gtio_productShoppingListNavButton
 {
     GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
-    [button setFrame:(CGRect){ button.bounds.origin.x, button.bounds.origin.y + 2, button.bounds.size.width , button.bounds.size.height }];
+    [button.imageView setFrame:(CGRect){ button.bounds.origin.x, button.bounds.origin.y+2, button.bounds.size.width, button.bounds.size.height	 }];
     return button;
 }
 

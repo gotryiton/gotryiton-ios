@@ -55,8 +55,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _tableData = [NSMutableArray array];
-        _sections = [NSMutableDictionary dictionary];
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserProfile:) name:kGTIOShowProfileUserNotification object:nil];
     }
@@ -114,7 +113,6 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     
     [self.view addSubview:self.tableView];
     
-    [self refreshScreenLayout];
 }
 
 - (void)viewDidUnload
@@ -124,6 +122,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     self.profileHeaderView = nil;
     self.tableView = nil;
     self.tableData = nil;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -131,7 +130,16 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [super viewWillAppear:animated];
     
     [self useTitleView:self.titleView];
+    [self.titleView forceUpdateCountLabel];
     [self.tableView setUserInteractionEnabled:YES];
+    
+    if (self.sections == nil){
+        self.sections = [NSMutableDictionary dictionary];
+    }
+    if (self.tableData==nil){
+        self.tableData = [NSMutableArray array];
+        [self refreshScreenLayout];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -159,8 +167,9 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             int numberOfRows = 0;
             int numberOfSections = 0;
+            [self.tableData removeAllObjects];
             for (id object in loadedObjects) {
-                if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {                    
+                if ([object isMemberOfClass:[GTIOMyManagementScreen class]]) {     
                     GTIOMyManagementScreen *screen = (GTIOMyManagementScreen *)object;
                     self.userInfoButtons = screen.userInfo;
                     [self.profileHeaderView setUser:[GTIOUser currentUser]];
@@ -181,6 +190,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                     }
                     [self.tableView setTableFooterView:self.footerView];
                     [self.tableView reloadData];
+                    [self.tableView layoutSubviews];
                 }
             }
         }
@@ -319,7 +329,11 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                                         withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                  @"mymanagement", @"screen", nil]
                                                 andLoginHandler:nil];
+            GTIOButton *privateButton = (GTIOButton *)[self.tableData objectAtIndex:(self.indexOfPrivateToggle.section * self.sections.count) + self.indexOfPrivateToggle.row];
+            privateButton.value = [NSNumber numberWithInt:0];
+            
         } else {
+            
             GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexOfPrivateToggle];
             [cell setToggleState:NO];
         }
@@ -331,6 +345,8 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                                         withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                  @"mymanagement", @"screen", nil]
                                                 andLoginHandler:nil];
+            GTIOButton *privateButton = (GTIOButton *)[self.tableData objectAtIndex:(self.indexOfPrivateToggle.section * self.sections.count) + self.indexOfPrivateToggle.row];
+            privateButton.value = [NSNumber numberWithInt:1];
         } else {
             GTIOMeTableViewCell *cell = (GTIOMeTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexOfPrivateToggle];
             [cell setToggleState:YES];

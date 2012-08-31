@@ -15,19 +15,19 @@
 + (id)gtio_popOverButtonWithButtonType:(GTIOPopOverButtonType)buttonType position:(GTIOPopOverButtonPosition)position 
 {
     GTIOPopOverButton *uiButton = [self buttonWithType:UIButtonTypeCustom];
-    [uiButton setTitleColor:[UIColor gtio_grayTextColor585858] forState:UIControlStateNormal];
+    [uiButton setTitleColor:[UIColor gtio_grayTextColor8F8F8F] forState:UIControlStateNormal];
     [uiButton.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0f]];
 
     UIEdgeInsets titleEdgeInsets;
     switch (position) {
         case GTIOPopOverButtonPositionTop:
-            titleEdgeInsets = (UIEdgeInsets){ 5, 0, 0, 0 };
+            titleEdgeInsets = (buttonType==GTIOPopOverButtonTypeDot) ? (UIEdgeInsets){ 8, 0, 0, 0 } : (UIEdgeInsets){ 5, 0, 0, 0 };
             break;
         case GTIOPopOverButtonPositionMiddle:
             titleEdgeInsets = (UIEdgeInsets){ 0, 0, 0, 0 };
             break;
         case GTIOPopOverButtonPositionBottom:
-            titleEdgeInsets = (UIEdgeInsets){ 0, 0, 8, 0 };
+            titleEdgeInsets = (buttonType==GTIOPopOverButtonTypeDot) ? (UIEdgeInsets){ 0, 0, 8, 0 } : (UIEdgeInsets){ 0, 0, 8, 0 };
             break;
         default:
             titleEdgeInsets = UIEdgeInsetsZero;
@@ -39,6 +39,7 @@
     [uiButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@-active.png", GTIOPopOverButtonTypeImagePrefix[buttonType], GTIOPopOverButtonPositionButtonName[position]]] forState:UIControlStateHighlighted];
     [uiButton addTarget:uiButton action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [uiButton setFrame:(CGRect){ CGPointZero, [uiButton backgroundImageForState:UIControlStateNormal].size }];
+
     return uiButton;
 }
 

@@ -41,6 +41,7 @@ static CGFloat const kGTIOTextWidth = 228.0f;
         [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
         _namesAttributedTextView = [[DTAttributedTextView alloc] initWithFrame:(CGRect){ _heartImageView.image.size.width + 1, kGTIOTextTopPadding, { kGTIOTextWidth, 0 } }];
         _namesAttributedTextView.textDelegate = self;
+        _namesAttributedTextView.contentView.clipsToBounds = NO;
         _namesAttributedTextView.contentView.edgeInsets = (UIEdgeInsets){ -4, 0, 8, 0 };
         [_namesAttributedTextView setScrollEnabled:NO];
         [_namesAttributedTextView setScrollsToTop:NO];

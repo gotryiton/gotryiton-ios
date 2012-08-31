@@ -11,6 +11,7 @@
 #import "GTIOPhoto.h"
 
 static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
+static NSTimeInterval const kGTIOPhotoCreateInitialTimeoutInterval = 50.0f;
 
 @interface GTIOPostManager () <RKRequestDelegate>
 
@@ -70,7 +71,7 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
     
     [[RKClient sharedClient] post:@"/photo/create" usingBlock:^(RKRequest *request) {
         self.uploadImageRequest = request;
-        self.photoCreateTimer = [NSTimer scheduledTimerWithTimeInterval:kGTIOPhotoCreateTimeoutInterval target:self selector:@selector(uploadImageTimeout) userInfo:nil repeats:NO];
+        self.photoCreateTimer = [NSTimer scheduledTimerWithTimeInterval:kGTIOPhotoCreateInitialTimeoutInterval target:self selector:@selector(uploadImageTimeout) userInfo:nil repeats:NO];
         
         RKParams *params = [RKParams params];
         [params setValue:[NSNumber numberWithBool:self.framed] forParam:@"using_frame"];
@@ -104,7 +105,7 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
                 
                 if (self.postPhotoButtonTouched || forceSavePost) {
                     self.postPhotoButtonTouched = NO;
-                    [self savePostWithDescription:self.postDescription attachedProducts:self.attachedProducts];
+                    [self savePostWithDescription:self.postDescription facebookShare:self.facebookShare attachedProducts:self.attachedProducts];
                 }
             } else {
                 [self changeState:GTIOPostStateError];
@@ -137,15 +138,16 @@ static NSTimeInterval const kGTIOPhotoCreateTimeoutInterval = 15.0f;
 
 #pragma mark - Post
 
-- (void)savePostWithDescription:(NSString *)description attachedProducts:(NSDictionary *)attachedProducts
+- (void)savePostWithDescription:(NSString *)description facebookShare:(BOOL)facebookShare attachedProducts:(NSDictionary *)attachedProducts
 {
     self.postDescription = description;
     self.attachedProducts = attachedProducts;
+    self.facebookShare = facebookShare;
     
     if (self.state == GTIOPostStateUploadingImageComplete && self.photo) {
         [self changeState:GTIOPostStateSavingPost];
         [self savePhotoToDisk];
-        [GTIOPost postGTIOPhoto:self.photo description:self.postDescription attachedProducts:self.attachedProducts completionHandler:^(GTIOPost *post, NSError *error) {
+        [GTIOPost postGTIOPhoto:self.photo description:self.postDescription facebookShare:self.facebookShare attachedProducts:self.attachedProducts completionHandler:^(GTIOPost *post, NSError *error) {
             if (!error) {
                 _post = post;
                 [self changeState:GTIOPostStateComplete];

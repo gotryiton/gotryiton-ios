@@ -216,9 +216,10 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
     } else if ([urlHost isEqualToString:kGTIOURLHostProduct]) {
         if ([pathComponents count] >= 2) {
             // Change to Style tab
-            NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabStyle) };
-            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
-            
+            if (fromExternal) {
+                NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabStyle) };
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
+            }
             viewController = [[GTIOProductViewController alloc] initWithProductID:[pathComponents objectAtIndex:1]];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostShopThisLook]) {

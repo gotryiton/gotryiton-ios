@@ -37,6 +37,8 @@
 #import "GTIONotification.h"
 #import "GTIOTab.h"
 #import "GTIOProduct.h"
+#import "GTIOHeart.h"
+#import "GTIOHeartList.h"
 #import "GTIOProductOption.h"
 #import "GTIOCollection.h"
 #import "GTIOBannerImage.h"
@@ -63,6 +65,7 @@
         RKObjectMapping *userIconMapping = [RKObjectMapping mappingForClass:[GTIOIcon class]];
         RKObjectMapping *userPhotoMapping = [RKObjectMapping mappingForClass:[GTIOPhoto class]];
         RKObjectMapping *postMapping = [RKObjectMapping mappingForClass:[GTIOPost class]];
+        RKObjectMapping *heartMapping = [RKObjectMapping mappingForClass:[GTIOHeart class]];
         RKObjectMapping *badgeMapping = [RKObjectMapping mappingForClass:[GTIOBadge class]];
         RKObjectMapping *buttonMapping = [RKObjectMapping mappingForClass:[GTIOButton class]];
         RKObjectMapping *buttonActionMapping = [RKObjectMapping mappingForClass:[GTIOButtonAction class]];
@@ -72,6 +75,7 @@
         RKObjectMapping *profileCalloutMapping = [RKObjectMapping mappingForClass:[GTIOProfileCallout class]];
         RKObjectMapping *followRequestAcceptBarMapping = [RKObjectMapping mappingForClass:[GTIOFollowRequestAcceptBar class]];
         RKObjectMapping *postListMapping = [RKObjectMapping mappingForClass:[GTIOPostList class]];
+        RKObjectMapping *heartListMapping = [RKObjectMapping mappingForClass:[GTIOHeartList class]];
         RKObjectMapping *paginationMapping = [RKObjectMapping mappingForClass:[GTIOPagination class]];
         RKObjectMapping *suggestedFriendIconMapping = [RKObjectMapping mappingForClass:[GTIOSuggestedFriendsIcon class]];
         RKObjectMapping *friendsManagementScreenMapping = [RKObjectMapping mappingForClass:[GTIOFriendsManagementScreen class]];
@@ -125,6 +129,7 @@
         [collectionMapping mapKeyPath:@"name" toAttribute:@"name"];
         [collectionMapping mapKeyPath:@"banner_image" toRelationship:@"bannerImage" withMapping:bannerImageMapping];
         [collectionMapping mapKeyPath:@"custom_nav_image" toAttribute:@"customNavigationImageURL"];
+        [collectionMapping mapKeyPath:@"footer_text" toAttribute:@"footerText"];
         [collectionMapping mapKeyPath:@"options" toRelationship:@"dotOptions" withMapping:buttonMapping];
         [self setMapping:collectionMapping forKeyPath:@"collection"];
         
@@ -214,6 +219,15 @@
         // Post list
         [postListMapping mapKeyPath:@"posts" toRelationship:@"posts" withMapping:postMapping];
         [postListMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
+
+        // Hearts list
+        [heartListMapping mapKeyPath:@"hearts" toRelationship:@"hearts" withMapping:heartMapping];
+        [heartListMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
+        
+        // GTIOHeart
+        [heartMapping mapKeyPath:@"id" toAttribute:@"heartID"];
+        [heartMapping mapKeyPath:@"post" toRelationship:@"post" withMapping:postMapping];
+        [heartMapping mapKeyPath:@"product" toRelationship:@"product" withMapping:productMapping];
         
         // User Profile
         [userProfileMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping];
@@ -223,7 +237,7 @@
         [userProfileMapping mapKeyPath:@"ui-profile.accept_bar" toRelationship:@"acceptBar" withMapping:followRequestAcceptBarMapping];
         [userProfileMapping mapKeyPath:@"ui-profile.profile_locked" toAttribute:@"profileLocked"];
         [userProfileMapping mapKeyPath:@"posts_list" toRelationship:@"postsList" withMapping:postListMapping];
-        [userProfileMapping mapKeyPath:@"hearts_list" toRelationship:@"heartsList" withMapping:postListMapping];
+        [userProfileMapping mapKeyPath:@"hearts_list" toRelationship:@"heartsList" withMapping:heartListMapping];
         [self setMapping:userProfileMapping forKeyPath:@"userProfile"];
         
         // Follow request accept bar
@@ -297,6 +311,7 @@
         [postMapping mapKeyPath:@"brands.buttons" toRelationship:@"brandsButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
         [postMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
+        [postMapping mapKeyPath:@"products" toRelationship:@"products" withMapping:productMapping];
         [postMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping];
         [self setMapping:postMapping forKeyPath:@"post"];
         [self setMapping:postMapping forKeyPath:@"posts"];

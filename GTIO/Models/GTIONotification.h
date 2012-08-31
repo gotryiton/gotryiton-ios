@@ -17,5 +17,6 @@
 
 // local management
 @property (nonatomic, strong) NSNumber *viewed;
+@property (nonatomic, strong) NSNumber *tapped;
 
 @end

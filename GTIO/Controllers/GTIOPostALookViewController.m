@@ -166,6 +166,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [self.navigationController.navigationBar addGestureRecognizer:tapGestureRecognizer];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOLooksUpdated object:nil];
+
 }
 
 - (void)viewDidUnload
@@ -178,6 +179,11 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     self.optionsView = nil;
     self.descriptionBox = nil;
     self.postThisButton = nil;
+}
+
+- (void)didReceiveMemoryWarning {
+    // Don't release this view in the event of a memory warning, it's holding state. May be refactorable. Fixes #
+    return;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -264,7 +270,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
         [alert show];
     } else {
         NSLog(@"description submissionText: %@", [self.descriptionBox.textView processDescriptionString] );
-        
+
         [self beginPostLookToGTIO];
     }
 }
@@ -298,9 +304,15 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)beginPostLookToGTIO
 {
+    // Check to see if the timer is ticking. If it is, trigger it before we go away.
+    if ([self.photoSaveTimer isValid]) {
+        [self.photoSaveTimer invalidate];
+        [self createGTIOPhoto:self];
+    }
+    
     [[GTIOPostManager sharedManager] setPostPhotoButtonTouched:YES];
     
-    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] attachedProducts:(NSDictionary *)[self attachedProducts]];
+    [[GTIOPostManager sharedManager] savePostWithDescription:[self.descriptionBox.textView processDescriptionString] facebookShare:self.optionsView.facebookSwitch.isOn attachedProducts:(NSDictionary *)[self attachedProducts]];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         [self reset];
     }];
