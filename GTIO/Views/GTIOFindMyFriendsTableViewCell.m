@@ -80,6 +80,9 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
     self.followButton.userInteractionEnabled = YES;
     self.followingButton.userInteractionEnabled = YES;
     self.requestedButton.userInteractionEnabled = YES;
+    [self.requestedButton setSelected:NO];
+    [self.followingButton setSelected:NO];
+    [self.followButton setSelected:NO];
     [self.badgeImageView setFrame:CGRectZero];
 }
 
@@ -121,6 +124,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
         } else if ([_user.button.state intValue] == GTIOFollowButtonStateRequested) {
             followButton = self.requestedButton;
         }
+
     }
     
     followButton.hidden = NO;
