@@ -209,6 +209,12 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
                         }
                         [self.navigationController pushViewController:reviewsViewController animated:YES];
                     };
+                    if (self.post.products.count>0){
+                        self.post.shopTheLookButtonTapHandler = ^(id sender) {
+                            UIViewController *viewController = [[GTIOShopThisLookViewController alloc] initWithPostID:self.post.postID];
+                            [self.navigationController pushViewController:viewController animated:YES];
+                        };
+                    }
                     
                     GTIOPostHeaderView *headerView = [[GTIOPostHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, self.tableView.sectionHeaderHeight }];
                     [headerView setDelegate:self];

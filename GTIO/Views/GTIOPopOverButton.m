@@ -21,13 +21,13 @@
     UIEdgeInsets titleEdgeInsets;
     switch (position) {
         case GTIOPopOverButtonPositionTop:
-            titleEdgeInsets = (UIEdgeInsets){ 5, 0, 0, 0 };
+            titleEdgeInsets = (buttonType==GTIOPopOverButtonTypeDot) ? (UIEdgeInsets){ 8, 0, 0, 0 } : (UIEdgeInsets){ 5, 0, 0, 0 };
             break;
         case GTIOPopOverButtonPositionMiddle:
             titleEdgeInsets = (UIEdgeInsets){ 0, 0, 0, 0 };
             break;
         case GTIOPopOverButtonPositionBottom:
-            titleEdgeInsets = (UIEdgeInsets){ 0, 0, 8, 0 };
+            titleEdgeInsets = (buttonType==GTIOPopOverButtonTypeDot) ? (UIEdgeInsets){ 0, 0, 8, 0 } : (UIEdgeInsets){ 0, 0, 8, 0 };
             break;
         default:
             titleEdgeInsets = UIEdgeInsetsZero;

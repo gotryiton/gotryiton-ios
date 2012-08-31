@@ -51,8 +51,8 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 @property (nonatomic, strong) UITapGestureRecognizer *photoDoubleTapRecognizer;
 @property (nonatomic, strong) GTIOFullScreenImageViewer *fullScreenImageViewer;
 @property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) GTIOUIButton *shopThisLookButton;
-@property (nonatomic, strong) NSString *shopThisLookDestination;
+// @property (nonatomic, strong) GTIOUIButton *shopThisLookButton;
+
 
 @end
 
@@ -120,8 +120,8 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
         [_progressView setTrackImage:[UIImage imageNamed:@"uploading.min.track.png"]];
         [_progressView setProgressImage:[[UIImage imageNamed:@"uploading.max.track.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 3, 3, 3, 3 }]];
 
-        _shopThisLookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFeedShopThisLook tapHandler:nil];
-        [self addSubview:_shopThisLookButton];
+        // _shopThisLookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFeedShopThisLook tapHandler:nil];
+        // [self addSubview:_shopThisLookButton];
 
         _star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star-corner-feed.png"]];
         _star.hidden = YES;
@@ -134,7 +134,6 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 {
     [super layoutSubviews];
     
-    CGFloat extraHeight = 0.0f; // This height is used for placing view frames
     CGFloat extraParentFrameHeight = 0.0f; // This height is used for making container frame bigger
 
     CGSize photoSize = [GTIOPostFrameView scalePhotoSize:self.post.photo.photoSize];
@@ -163,7 +162,7 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
         [self.descriptionTextView setFrame:(CGRect){ self.photoImageView.frame.origin.x + 5, self.photoImageView.frame.origin.y + self.photoImageView.frame.size.height, kGTIODescriptionTextWidth, descriptionTextSize.height}];
     }
 
-    CGFloat shopThisLookButtonHeight = 0.0;
+    /*CGFloat shopThisLookButtonHeight = 0.0;
 
     for (GTIOButton *button in self.post.buttons) {
         if ([button.name isEqualToString:kGTIOPostSideShopButton]) {
@@ -187,8 +186,8 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
     }
 
     [self.shopThisLookButton setFrame:(CGRect){ self.photoImageView.frame.size.width - self.shopThisLookButton.frame.size.width - kGTIOShopThisLookButtonRightPadding, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + extraHeight, self.shopThisLookButton.bounds.size.width, shopThisLookButtonHeight }];
-    
-    [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.shopThisLookButton.frame.origin.y + self.shopThisLookButton.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
+    */
+    [self.frameImageView setFrame:(CGRect){ self.frameImageView.frame.origin, { kGTIOFrameWidth, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + kGTIOFrameHeightPadding + extraParentFrameHeight } }];
     
     [self setFrame:(CGRect){ self.frame.origin, self.frameImageView.frame.size }];
 }    
@@ -321,14 +320,14 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
         descriptionTextSize.height += kGTIODescriptionLabelTopPadding;
     }
     
-    CGFloat shopThisLookHeight = 0;
+    /*CGFloat shopThisLookHeight = 0;
     for (GTIOButton *button in post.buttons) {
         if([button.name isEqualToString:kGTIOPostSideShopButton]) {
             shopThisLookHeight = kGTIOShopThisLookButtonHeight + kGTIOShopThisLookButtonTopPadding;
         }
-    }
+    }*/
     
-    return photoSize.height + descriptionTextSize.height + shopThisLookHeight + kGTIOFrameHeightWithShadowPadding;
+    return photoSize.height + descriptionTextSize.height + kGTIOFrameHeightWithShadowPadding;
 }
 
 - (void)showFullScreenImage

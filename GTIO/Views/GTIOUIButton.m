@@ -92,6 +92,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeProductShoppingListEmailMyList: return [self gtio_productShoppingListEmailMyListButton];
         case GTIOButtonTypeProductShoppingListProductOption: return [self gtio_productShoppingListProductOptionButton];
         case GTIOButtonTypeProductShoppingListNav: return [self gtio_productShoppingListNavButton];
+        case GTIOButtonTypeShopThisLookHeaderButton: return [self gtio_shopThisLookHeaderButton];
         case GTIOButtonTypeInviteFriendsSMS: return [self gtio_inviteFriendsSMSButton];
         case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
         case GTIOButtonTypeInviteFriendsTwitter: return [self gtio_inviteFriendsTwitterButton];
@@ -579,6 +580,11 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)gtio_photoFrameHandleButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"photo-frame-handle-inactive.png"] hightlightImage:nil];
+}
+
++ (id)gtio_shopThisLookHeaderButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"shop-this-look-header.png"] hightlightImage:[UIImage imageNamed:@"shop-this-look-header.png"]];
 }
 
 + (id)gtio_feedShopThisLook

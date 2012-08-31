@@ -41,7 +41,9 @@ static CGFloat const kGTIOButtonWidth = 164.0f;
             }];
             [button setFrame:(CGRect){ { 0, yOrigin }, button.frame.size }];
             [self addSubview:button];
-            yOrigin += button.frame.size.height;
+            
+            yOrigin += button.frame.size.height;    
+            
         }];
         
         [self setFrame:(CGRect){ CGPointZero, { kGTIOButtonWidth, yOrigin } }];

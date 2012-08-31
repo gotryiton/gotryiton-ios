@@ -311,6 +311,7 @@
         [postMapping mapKeyPath:@"brands.buttons" toRelationship:@"brandsButtons" withMapping:buttonMapping];
         [postMapping mapKeyPath:@"pagination" toRelationship:@"pagination" withMapping:paginationMapping];
         [postMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
+        [postMapping mapKeyPath:@"products" toRelationship:@"products" withMapping:productMapping];
         [postMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping];
         [self setMapping:postMapping forKeyPath:@"post"];
         [self setMapping:postMapping forKeyPath:@"posts"];
