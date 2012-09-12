@@ -14,6 +14,10 @@
 @property (nonatomic, copy) NSString *endpoint;
 @property (nonatomic, copy) NSURL *twitterURL;
 @property (nonatomic, copy) NSString *twitterText;
+@property (nonatomic, copy) NSString *instagramImageURL;
+@property (nonatomic, copy) NSString *instagramCaption;
+@property (nonatomic, copy) NSString *facebookText;
+@property (nonatomic, copy) NSURL *facebookURL;
 @property (nonatomic, strong) NSNumber *spinner;
 
 + (id)buttonActionWithDestination:(NSString *)destination;

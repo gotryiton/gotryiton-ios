@@ -65,7 +65,7 @@
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
 #endif
 
-NSString * const kGTIOAcceptHeader = @"application/v4.0.1-json";
+NSString * const kGTIOAcceptHeader = @"application/v4.0.2-json";
 NSString * const kGTIOAuthenticationHeaderKey = @"Authentication";
 NSString * const kGTIOTrackingHeaderKey = @"Tracking-Id";
 
@@ -78,7 +78,6 @@ NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 // Notification Constants
 NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
 NSString * const kGTIOPostFeedOpenLinkNotification = @"kGTIOPostFeedOpenLinkNotification";
-NSString * const kGTIODismissEllipsisPopOverViewNotification = @"kGTIODismissEllipsisPopOverViewNotification";
 NSString * const kGTIONotificationCountNofitication = @"kGTIONotificationCountNofitication";
 NSString * const kGTIOChangeSelectedTabNotification = @"kGTIOChangeSelectedTabNotification";
 NSString * const kGTIOAddTabBarToWindowNotification = @"kGTIOAddTabBarToWindowNotification";

@@ -170,6 +170,7 @@
         
         [trackMapping mapKeyPath:@"id" toAttribute:@"trackID"];
         [trackMapping mapKeyPath:@"page_number" toAttribute:@"pageNumber"];
+        [trackMapping mapKeyPath:@"post_id" toAttribute:@"postID"];
         [trackMapping mapKeyPath:@"visit" toRelationship:@"visit" withMapping:visitMapping serialize:YES];
         [self setMapping:trackMapping forKeyPath:@"track"];
         
@@ -251,6 +252,10 @@
         [buttonActionMapping mapAttributes:@"destination", @"endpoint", @"spinner", nil];
         [buttonActionMapping mapKeyPath:@"twitter_url" toAttribute:@"twitterURL"];
         [buttonActionMapping mapKeyPath:@"twitter_text" toAttribute:@"twitterText"];
+        [buttonActionMapping mapKeyPath:@"facebook_text" toAttribute:@"facebookText"];
+        [buttonActionMapping mapKeyPath:@"facebook_url" toAttribute:@"facebookURL"];
+        [buttonActionMapping mapKeyPath:@"instagram_image_url" toAttribute:@"instagramImageURL"];
+        [buttonActionMapping mapKeyPath:@"instagram_caption" toAttribute:@"instagramCaption"];
         [buttonMapping mapKeyPath:@"image" toAttribute:@"imageURL"];
         [buttonMapping mapKeyPath:@"type" toAttribute:@"buttonType"];
         [buttonMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];

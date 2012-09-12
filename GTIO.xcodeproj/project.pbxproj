@@ -91,6 +91,7 @@
 		5CDFD9061593BA7B00994416 /* GTIOAutoCompleteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */; };
 		5CDFD9091593BAAD00994416 /* GTIOAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */; };
 		5CDFD90C1593C53C00994416 /* GTIOAutoCompleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD90B1593C53C00994416 /* GTIOAutoCompleteButton.m */; };
+		5CE018FE16012CC400A05E8F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE018FD16012CC400A05E8F /* Social.framework */; };
 		5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CECED7E159B76EC0051FA94 /* CoreImage.framework */; };
 		5CF3AF5615C9A31400704971 /* nav.bar.out.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CF3AF5415C9A31400704971 /* nav.bar.out.png */; };
 		5CF3AF5715C9A31400704971 /* nav.bar.out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CF3AF5515C9A31400704971 /* nav.bar.out@2x.png */; };
@@ -4308,6 +4309,7 @@
 		5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleter.m; sourceTree = "<group>"; };
 		5CDFD90A1593C53C00994416 /* GTIOAutoCompleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAutoCompleteButton.h; sourceTree = "<group>"; };
 		5CDFD90B1593C53C00994416 /* GTIOAutoCompleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAutoCompleteButton.m; sourceTree = "<group>"; };
+		5CE018FD16012CC400A05E8F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		5CECED7E159B76EC0051FA94 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		5CF3AF5415C9A31400704971 /* nav.bar.out.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav.bar.out.png; sourceTree = "<group>"; };
 		5CF3AF5515C9A31400704971 /* nav.bar.out@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav.bar.out@2x.png"; sourceTree = "<group>"; };
@@ -5968,6 +5970,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CE018FE16012CC400A05E8F /* Social.framework in Frameworks */,
 				3FCBE75915E6A69200D1FB63 /* libRestKit.a in Frameworks */,
 				5CCC2B3615C8AF7B0036A2E3 /* Twitter.framework in Frameworks */,
 				D2AAA02215BDA3CD0038ACB4 /* CoreLocation.framework in Frameworks */,
@@ -8273,6 +8276,7 @@
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
+				5CE018FD16012CC400A05E8F /* Social.framework */,
 				D2CDA96C15502F02009B7E24 /* GTIO */,
 				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
 				D2CDA99B15503058009B7E24 /* Libraries */,

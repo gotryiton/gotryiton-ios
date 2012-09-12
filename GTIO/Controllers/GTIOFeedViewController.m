@@ -40,10 +40,14 @@
 #import "GTIOPullToLoadMoreContentView.h"
 
 #import "GTIOTweetComposer.h"
+#import "Social/Social.h"
+#import "GTIOTrack.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet! Find the Twitter option in your iPhone's Settings to get started!";
+static NSString * const kGTIONoFacebookMessage = @"You're not set up to post to Facebook yet! Find the Facebook option in your iPhone's Settings to get started!";
+static NSString * const kGTIONoInstagramMessage = @"We couldn't find Instagram on your device.  Try installing from the App Store!";
 static NSString * const kGTIOAlertForDeletingPost = @"do you want to delete this post permanently?";
 static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 
@@ -69,6 +73,8 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 
 @property (nonatomic, strong) UIImageView *emptyView;
 @property (nonatomic, strong) UITapGestureRecognizer *emptyViewTapGestureRecognizer;
+
+@property (nonatomic, strong) UIDocumentInteractionController *documentInteractionController;
 
 @end
 
@@ -165,6 +171,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     [self.pullToLoadMoreView removeObservers];
     self.pullToLoadMoreView = nil;
     self.tableView = nil;
+    self.documentInteractionController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -658,28 +665,83 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         [[[UIAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
     } else if (button.action.endpoint) {
         [self endpointRequestForButton:button];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+        
     } else if (button.action.destination) {
         UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
         [self.navigationController pushViewController:viewController animated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+        
         
     } else if (button.action.twitterText) {
         if ([TWTweetComposeViewController canSendTweet]) {
             GTIOTweetComposer *tweetComposer = [[GTIOTweetComposer alloc] initWithText:button.action.twitterText URL:button.action.twitterURL completionHandler:^(TWTweetComposeViewControllerResult result) {
-                    [self dismissModalViewControllerAnimated:YES];
-
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
+                [self dismissModalViewControllerAnimated:YES];
+                if (result == TWTweetComposeViewControllerResultDone){
+                    [GTIOTrack postTrackWithID:kGTIOTrackPostSharedTwitter postID:button.postID handler:nil];
+                }
             }];
-
             [self presentViewController:tweetComposer animated:YES completion:nil];
         } else {
             [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 
-            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
         }
+    } else if (button.action.facebookText) {
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]){
+            
+
+            SLComposeViewController *facebookComposer=[[SLComposeViewController alloc] init];
+           
+            facebookComposer = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+            
+
+            [facebookComposer setInitialText:button.action.facebookText];
+            [facebookComposer addURL:button.action.facebookURL];
+            [facebookComposer setCompletionHandler:^(SLComposeViewControllerResult result){
+                [self dismissViewControllerAnimated:YES completion:nil];
+                if (result == SLComposeViewControllerResultDone){
+                    [GTIOTrack postTrackWithID:kGTIOTrackPostSharedFacebook postID:button.postID handler:nil];
+                }
+            }];
+
+            [self presentViewController:facebookComposer animated:YES completion:nil];
+
+        } else {
+            [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoFacebookMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+
+    } else if (button.action.instagramImageURL) {
+        NSURL *instagramURL = [NSURL URLWithString:@"instagram://camera"];
+        if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
+            
+            [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:YES];
+            [GTIOTrack postTrackWithID:kGTIOTrackPostSharedInstagram postID:button.postID handler:nil];
+            
+            NSString* fileName  = [[NSFileManager defaultManager] displayNameAtPath:button.action.instagramImageURL];
+            fileName = [fileName substringToIndex:[fileName length] - 3];
+            fileName = [NSString stringWithFormat:@"%@igo",fileName];
+
+            NSURL* fileurl = [NSURL URLWithString:button.action.instagramImageURL];
+            NSData* data = [NSData dataWithContentsOfURL:fileurl];
+            NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString* docsDirectory = [paths objectAtIndex:0];
+            NSString* filePath = [docsDirectory stringByAppendingPathComponent:fileName];
+            [data writeToFile:filePath atomically:YES];
+            NSURL* url = [NSURL fileURLWithPath:filePath];
+            //UIDocInteractionController API gets the list of devices that support the file type
+            self.documentInteractionController = [UIDocumentInteractionController interactionControllerWithURL:url];
+            self.documentInteractionController.UTI = @"com.instagram.exclusivegram";
+            self.documentInteractionController.annotation = [NSDictionary dictionaryWithObject:button.action.instagramCaption forKey:@"InstagramCaption"];
+
+            [self.documentInteractionController presentOpenInMenuFromRect:CGRectZero inView:self.view animated:YES];
+            
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
+
+        } else {
+            [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoInstagramMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+
+        }   
     }
 }
+
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
