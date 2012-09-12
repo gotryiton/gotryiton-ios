@@ -24,8 +24,6 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
 @property (nonatomic, strong) GTIOWhoHeartedThisView *whoHeartedThisView;
 @property (nonatomic, strong) GTIOPostButtonColumnView *postButtonColumnView;
 
-@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
-
 @end
 
 @implementation GTIOFeedCell
@@ -49,9 +47,6 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
         _postButtonColumnView = [[GTIOPostButtonColumnView alloc] initWithFrame:(CGRectZero)];
         [self.contentView addSubview:_postButtonColumnView];
         
-        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
-        [_tapGestureRecognizer setDelegate:self];
-        [self addGestureRecognizer:_tapGestureRecognizer];
     }
     return self;
 }
@@ -72,8 +67,6 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
 {
     [self.postButtonColumnView prepareForReuse];
     [self.frameView prepareForReuse];
-    [self.ellipsisPopOverView removeFromSuperview];
-    self.ellipsisPopOverView = nil;    
 }
 
 #pragma mark - Properties
@@ -117,42 +110,6 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
     }
 }
 
-#pragma mark - NSNotifcations
-
-- (void)dismissEllipsisPopOverView:(NSNotification *)notification
-{
-    [self.ellipsisPopOverView removeFromSuperview];
-    self.ellipsisPopOverView = nil;
-}
-
-#pragma mark - UIGestureRecognizer
-
-- (void)didTap:(UIGestureRecognizer *)gesture
-{
-    switch ([gesture state]) {
-        case UIGestureRecognizerStateRecognized:
-            break;
-        default:
-            break;
-    }
-}
-
-#pragma mark - UIGestureRecognizerDelegate
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    
-    if ([touch.view isEqual:self.postButtonColumnView.ellipsisButton]) {
-        // Disallow recognition of tap gestures in the button but do not remove overlay
-        return NO;
-    } else if ([[touch.view class] isSubclassOfClass:[GTIOPopOverButton class]]) {
-        // Disallow recognition of tap gestures in the pop over button but do not remove overlay
-        return NO;
-    } else if ([[touch.view class] isSubclassOfClass:[UIButton class]]) {
-        // Disallow recognition of tap gestures in the button and remove overlay
-        return NO;
-    } 
-    return YES;
-}
 
 #pragma mark - Height
 

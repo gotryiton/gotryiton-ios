@@ -29,11 +29,11 @@ typedef void(^GTIOTrackHandler)(GTIOTrack *track, NSError *error);
 
 /** Intro screens */
 @property (nonatomic, strong) NSNumber *pageNumber;
-@property (nonatomic, strong) NSNumber *postID;
+@property (nonatomic, strong) NSString *postID;
 
 + (void)postTrack:(GTIOTrack *)track handler:(GTIOTrackHandler)trackHandler;
 + (void)postTrackWithID:(NSString *)trackID handler:(GTIOTrackHandler)trackHandler;
-+ (void)postTrackWithID:(NSString *)trackID postID:(NSNumber *)postID handler:(GTIOTrackHandler)trackHandler;
++ (void)postTrackWithID:(NSString *)trackID postID:(NSString *)postID handler:(GTIOTrackHandler)trackHandler;
 + (void)postTrackAndVisitWithID:(NSString *)trackID handler:(GTIOTrackHandler)trackHandler;
 
 @end

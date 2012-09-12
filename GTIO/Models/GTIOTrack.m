@@ -73,7 +73,7 @@ NSString * const kGTIOPostIDKey = @"GTIOPostIDKey";
     [GTIOTrack postTrack:track];
 }
 
-+ (void)postTrackWithID:(NSString *)trackID postID:(NSNumber *)postID handler:(GTIOTrackHandler)trackHandler
++ (void)postTrackWithID:(NSString *)trackID postID:(NSString *)postID handler:(GTIOTrackHandler)trackHandler
 {
     GTIOTrack *track = [GTIOTrack trackWithID:trackID visit:NO handler:trackHandler];
     track.postID = postID;
