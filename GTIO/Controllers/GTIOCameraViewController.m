@@ -43,10 +43,13 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 @property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 @property (nonatomic, strong) AVCaptureDevice *captureDevice;
+@property (nonatomic, strong) AVCaptureDevice *frontCamera;
+@property (nonatomic, strong) AVCaptureDevice *backCamera;
 
 @property (nonatomic, strong) GTIOCameraToolbarView *photoToolbarView;
 @property (nonatomic, strong) GTIOPhotoShootProgressToolbarView *photoShootProgresToolbarView;
 @property (nonatomic, strong) GTIOUIButton *flashButton;
+@property (nonatomic, strong) GTIOUIButton *cameraDirectionButton;
 @property (nonatomic, strong) UIImageView *shutterFlashOverlay;
 @property (nonatomic, strong) GTIOPhotoShootTimerView *photoShootTimerView;
 @property (nonatomic, strong) UIImageView *focusImageView;
@@ -64,6 +67,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
 @property (nonatomic, assign, getter = isShootingPhotoShoot) BOOL shootingPhotoShoot;
+@property (nonatomic, assign) BOOL usingBackCamera;
 
 @end
 
@@ -77,22 +81,30 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
         
         _captureSession = [[AVCaptureSession alloc] init];
         
-        _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        
+
+        NSArray *devices = [AVCaptureDevice devices];
+               
+        for (AVCaptureDevice *device in devices) {
+            
+            if ([device hasMediaType:AVMediaTypeVideo]) {
+                
+                if ([device position] == AVCaptureDevicePositionBack) {
+                    _backCamera = device;
+                    self.usingBackCamera = true;
+                }
+                else {
+                    _frontCamera = device;
+                }
+            }
+        }
+
+        [self changeCameraDirection];
         [self changeFlashMode:AVCaptureFlashModeOff];
         
         _captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
         
-        NSError *error = nil;
-        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:_captureDevice error:&error];
-        if (!input) {
-            NSLog(@"Error: %@", [error localizedDescription]);
-        }
-        
-        if ([_captureSession canAddInput:input]) {
-            [_captureSession addInput:input];
-        } else {
-            NSLog(@"Can't add video");
-        }
+        [self changeCaptureDevice];
         
         _capturedImageCount = 0;
         
@@ -152,17 +164,26 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     [self.stillImageOutput setOutputSettings:outputSettings];
     [self.captureSession addOutput:self.stillImageOutput];
     
+
+    __block typeof(self) blockSelf = self;
+    // Camera direction button
+    self.cameraDirectionButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoCameraDirection];
+    [self.cameraDirectionButton setFrame:(CGRect){ { 5, 26 }, self.cameraDirectionButton.frame.size }];
+    [self.cameraDirectionButton setTapHandler:^(id sender) {
+        blockSelf.usingBackCamera = !blockSelf.usingBackCamera;
+        [blockSelf changeCameraDirection];
+    }];
+    [self.view addSubview:self.cameraDirectionButton];
+
+
     // Flash button
     self.flashButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoFlash];
-    [self.flashButton setFrame:(CGRect){ { 5, 26 }, self.flashButton.frame.size }];
-    __block typeof(self) blockSelf = self;
+    [self.flashButton setFrame:(CGRect){ { 5, self.cameraDirectionButton.frame.origin.y + self.cameraDirectionButton.frame.size.height + 5 }, self.flashButton.frame.size }];
     [self.flashButton setTapHandler:^(id sender) {
         blockSelf.flashOn = !blockSelf.isFlashOn;
-    }];
-    
-    if ([self.captureDevice isFlashAvailable]) {
-        [self.view addSubview:self.flashButton];
-    }
+    }];   
+    [self.view addSubview:self.flashButton];
+         
     
     // Photo Shoot Pop Over
     self.photoShootPopOverView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photoshoot-info-callout.png"]];
@@ -229,7 +250,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
         [self.navigationController pushViewController:photoShootGridViewController animated:YES];
     }];
     [self.photoToolbarView.shutterButton setPhotoModeSwitchChangedHandler:^(BOOL on) {
-        [blockSelf showFlashButton:!on];
+        [blockSelf showFlashButton:(!on && [self.captureDevice isFlashAvailable])];
         
         if ([self.captureDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
             NSError *error;
@@ -265,6 +286,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 {
     [super viewDidUnload];
     self.flashButton = nil;
+    self.cameraDirectionButton = nil;
     self.photoToolbarView = nil;
     self.shutterFlashOverlay = nil;
     self.photoShootTimerView = nil;
@@ -273,6 +295,8 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     [self.captureSession removeOutput:self.stillImageOutput];
     self.stillImageOutput = nil;
     self.captureVideoPreviewLayer = nil;
+    self.frontCamera = nil;
+    self.backCamera = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -352,7 +376,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     }
     
     [self.photoToolbarView enableAllButtons:YES];
-    [self showFlashButton:!self.photoToolbarView.shutterButton.isPhotoShootMode];
+    [self showFlashButton:(!self.photoToolbarView.shutterButton.isPhotoShootMode && [self.captureDevice isFlashAvailable])];
     [self.sourcePopOverView removeFromSuperview];
     
     self.forcePhotoShootModeButtonToggle = YES;
@@ -576,6 +600,38 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     }
 }
 
+- (void)changeCameraDirection
+{
+    if (!self.usingBackCamera) {
+        NSLog(@"switching to front camera");
+        self.captureDevice = self.frontCamera;
+    } else {
+        NSLog(@"switching to back camera");
+        self.captureDevice = self.backCamera;
+    }
+    [self changeCaptureDevice];
+    [self showFlashButton:([self.captureDevice isFlashAvailable] && !self.photoToolbarView.shutterButton.isPhotoShootMode)];
+}
+
+- (void)changeCaptureDevice
+{
+    NSError *error = nil;
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:self.captureDevice error:&error];
+    if (!input) {
+        NSLog(@"Error: %@", [error localizedDescription]);
+    }
+    
+    for (AVCaptureInput *oldinput in self.captureSession.inputs) {
+        [self.captureSession removeInput:oldinput];      
+    }
+
+    if ([self.captureSession canAddInput:input]) {
+        [self.captureSession addInput:input];
+    } else {
+        NSLog(@"Can't add video");
+    }
+}
+
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -615,6 +671,8 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     CGRect flashButtonTouchRect = (CGRect){ 0, 0, self.flashButton.frame.origin.x * 2 + self.flashButton.frame.size.width, (self.flashButton.frame.origin.y - 10) * 2 + self.flashButton.frame.size.height };
+//  to do: i need to do something here?
+//    CGRect flashButtonTouchRect = (CGRect){ 0, 0, self.flashButton.frame.origin.x * 2 + self.flashButton.frame.size.width, (self.flashButton.frame.origin.y - 10) * 2 + self.flashButton.frame.size.height };
     
     if ([self.captureVideoPreviewLayer containsPoint:[touch locationInView:self.view]] && 
         !self.photoToolbarView.shutterButton.isPhotoShootMode  &&
