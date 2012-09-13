@@ -35,6 +35,7 @@ static CGFloat const kGTIOProductBottomInformationInnerBackgroundLeftMargin = 5.
 static CGFloat const kGTIOProductBottomInformationInnerBackgroundTopMargin = 8.0;
 static CGFloat const kGTIOProductBottomInformationInnerBackgroundWidth = 310.0;
 static CGFloat const kGTIOProductBottomInformationInnerBackgroundHeight = 66.0;
+static CGFloat const kGTIOProductPostButtonHeight = 46.0;
 static CGFloat const kGTIOSocialShareButtonWidthHeight = 23.0;
 static CGFloat const kGTIOSocialShareButtonTopMargin = 14.0;
 static CGFloat const kGTIOTopRightRightPadding = 5.0;
@@ -123,7 +124,7 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     [self.bottomInformationBackground addGestureRecognizer:productInfoTapRecocgnizer];
 
     self.postThisButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductPostThis];
-    [self.postThisButton setFrame:(CGRect){ 5, 365, self.postThisButton.bounds.size }];
+    [self.postThisButton setFrame:(CGRect){ 5, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height - kGTIOProductPostButtonHeight - 5, self.postThisButton.bounds.size }];
     self.postThisButton.alpha = 0.0;
     [self.view addSubview:self.postThisButton];
     
