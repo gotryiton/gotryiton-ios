@@ -32,6 +32,7 @@
 #import "JREngage.h"
 #import "UAirship.h"
 #import "FlurryAnalytics.h"
+#import "BPXLUUIDHandler.h"
 
 @interface GTIOAppDelegate ()
 
@@ -215,8 +216,8 @@
     [RKClient sharedClient].requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
     
     // Headers
-    [objectManager.client setValue:@"142" forHTTPHeaderField:kGTIOTrackingHeaderKey];
-    
+    [objectManager.client setValue:[BPXLUUIDHandler UUID] forHTTPHeaderField:kGTIOTrackingHeaderKey];
+
     NSString *authToken = [[GTIOAuth alloc] init].token;
     if ([authToken length] > 0) {
         [[RKObjectManager sharedManager].client.HTTPHeaders setObject:authToken forKey:kGTIOAuthenticationHeaderKey];

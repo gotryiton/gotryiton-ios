@@ -10,6 +10,16 @@
 		3F01763915EE5B720075D8DE /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		3FCBE75915E6A69200D1FB63 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		3FE9C43B15E7F867001FDF52 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
+		5C1A40C216025B8C0075B0E2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A40C116025B8B0075B0E2 /* Default-568h@2x.png */; };
+		5C1A411C16027E380075B0E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A411816027E380075B0E2 /* .gitignore */; };
+		5C1A411D16027E380075B0E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A411816027E380075B0E2 /* .gitignore */; };
+		5C1A411E16027E380075B0E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A411816027E380075B0E2 /* .gitignore */; };
+		5C1A411F16027E380075B0E2 /* BPXLUUIDHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A411A16027E380075B0E2 /* BPXLUUIDHandler.m */; };
+		5C1A412016027E380075B0E2 /* BPXLUUIDHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A411A16027E380075B0E2 /* BPXLUUIDHandler.m */; };
+		5C1A412116027E380075B0E2 /* BPXLUUIDHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A411A16027E380075B0E2 /* BPXLUUIDHandler.m */; };
+		5C1A412216027E380075B0E2 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A411B16027E380075B0E2 /* README.markdown */; };
+		5C1A412316027E380075B0E2 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A411B16027E380075B0E2 /* README.markdown */; };
+		5C1A412416027E380075B0E2 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A411B16027E380075B0E2 /* README.markdown */; };
 		5C25D0F115C4699000F6E8F6 /* GTIOSinglePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C25D0F015C4699000F6E8F6 /* GTIOSinglePostViewController.m */; };
 		5C34905515EBD2C6007B4141 /* GTIOHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905415EBD2C6007B4141 /* GTIOHeart.m */; };
 		5C34905615EBD2C6007B4141 /* GTIOHeart.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C34905415EBD2C6007B4141 /* GTIOHeart.m */; };
@@ -91,7 +101,8 @@
 		5CDFD9061593BA7B00994416 /* GTIOAutoCompleteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9051593BA7B00994416 /* GTIOAutoCompleteScrollView.m */; };
 		5CDFD9091593BAAD00994416 /* GTIOAutoCompleter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD9081593BAAD00994416 /* GTIOAutoCompleter.m */; };
 		5CDFD90C1593C53C00994416 /* GTIOAutoCompleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDFD90B1593C53C00994416 /* GTIOAutoCompleteButton.m */; };
-		5CE018FE16012CC400A05E8F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE018FD16012CC400A05E8F /* Social.framework */; };
+		5CE018FE16012CC400A05E8F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE018FD16012CC400A05E8F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		5CE018FF16014DD400A05E8F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE018FD16012CC400A05E8F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5CECED7F159B76EC0051FA94 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CECED7E159B76EC0051FA94 /* CoreImage.framework */; };
 		5CF3AF5615C9A31400704971 /* nav.bar.out.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CF3AF5415C9A31400704971 /* nav.bar.out.png */; };
 		5CF3AF5715C9A31400704971 /* nav.bar.out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CF3AF5515C9A31400704971 /* nav.bar.out@2x.png */; };
@@ -4239,6 +4250,11 @@
 
 /* Begin PBXFileReference section */
 		3FCBE74015E6A5BD00D1FB63 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = Libraries/RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		5C1A40C116025B8B0075B0E2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		5C1A411816027E380075B0E2 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5C1A411916027E380075B0E2 /* BPXLUUIDHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPXLUUIDHandler.h; sourceTree = "<group>"; };
+		5C1A411A16027E380075B0E2 /* BPXLUUIDHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPXLUUIDHandler.m; sourceTree = "<group>"; };
+		5C1A411B16027E380075B0E2 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		5C25D0EF15C4699000F6E8F6 /* GTIOSinglePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSinglePostViewController.h; sourceTree = "<group>"; };
 		5C25D0F015C4699000F6E8F6 /* GTIOSinglePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSinglePostViewController.m; sourceTree = "<group>"; };
 		5C34905315EBD2C6007B4141 /* GTIOHeart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOHeart.h; sourceTree = "<group>"; };
@@ -5900,6 +5916,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CE018FF16014DD400A05E8F /* Social.framework in Frameworks */,
 				3F01763915EE5B720075D8DE /* libRestKit.a in Frameworks */,
 				D224F15A15CC1018004DE550 /* Twitter.framework in Frameworks */,
 				D224F15B15CC1018004DE550 /* CoreLocation.framework in Frameworks */,
@@ -6025,6 +6042,18 @@
 				3FCBE75415E6A5BD00D1FB63 /* RestKitResources.bundle */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5C1A411716027E380075B0E2 /* BPXLUUIDHandler */ = {
+			isa = PBXGroup;
+			children = (
+				5C1A411816027E380075B0E2 /* .gitignore */,
+				5C1A411916027E380075B0E2 /* BPXLUUIDHandler.h */,
+				5C1A411A16027E380075B0E2 /* BPXLUUIDHandler.m */,
+				5C1A411B16027E380075B0E2 /* README.markdown */,
+			);
+			name = BPXLUUIDHandler;
+			path = Libraries/BPXLUUIDHandler;
 			sourceTree = "<group>";
 		};
 		5CCC2B3A15C8CE590036A2E3 /* Invitation */ = {
@@ -8276,6 +8305,7 @@
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
+				5C1A40C116025B8B0075B0E2 /* Default-568h@2x.png */,
 				5CE018FD16012CC400A05E8F /* Social.framework */,
 				D2CDA96C15502F02009B7E24 /* GTIO */,
 				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
@@ -8389,6 +8419,7 @@
 		D2CDA99B15503058009B7E24 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5C1A411716027E380075B0E2 /* BPXLUUIDHandler */,
 				D2947A9D15CA219C00D01688 /* AFNetworking */,
 				D2A5F17915C9AABC003D4B90 /* Flurry */,
 				D2AAA01815BDA2F40038ACB4 /* UrbanAirship */,
@@ -9968,6 +9999,8 @@
 				5CC218C315F04549001AC1DC /* shop-this-look-header@2x.png in Resources */,
 				5CC218C615F04549001AC1DC /* shop-this-look-thumb-overlay.png in Resources */,
 				5CC218C915F04549001AC1DC /* shop-this-look-thumb-overlay@2x.png in Resources */,
+				5C1A411E16027E380075B0E2 /* .gitignore in Resources */,
+				5C1A412416027E380075B0E2 /* README.markdown in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11055,6 +11088,8 @@
 				5CC218C215F04549001AC1DC /* shop-this-look-header@2x.png in Resources */,
 				5CC218C515F04549001AC1DC /* shop-this-look-thumb-overlay.png in Resources */,
 				5CC218C815F04549001AC1DC /* shop-this-look-thumb-overlay@2x.png in Resources */,
+				5C1A411D16027E380075B0E2 /* .gitignore in Resources */,
+				5C1A412316027E380075B0E2 /* README.markdown in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12142,6 +12177,9 @@
 				5CC218C115F04549001AC1DC /* shop-this-look-header@2x.png in Resources */,
 				5CC218C415F04549001AC1DC /* shop-this-look-thumb-overlay.png in Resources */,
 				5CC218C715F04549001AC1DC /* shop-this-look-thumb-overlay@2x.png in Resources */,
+				5C1A40C216025B8C0075B0E2 /* Default-568h@2x.png in Resources */,
+				5C1A411C16027E380075B0E2 /* .gitignore in Resources */,
+				5C1A412216027E380075B0E2 /* README.markdown in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12432,6 +12470,7 @@
 				5C34905715EBD2C6007B4141 /* GTIOHeart.m in Sources */,
 				5C34905C15EBD326007B4141 /* GTIOHeartList.m in Sources */,
 				5CC218CE15F060DC001AC1DC /* GTIOProductFeedButton.m in Sources */,
+				5C1A412116027E380075B0E2 /* BPXLUUIDHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12695,6 +12734,7 @@
 				5C34905615EBD2C6007B4141 /* GTIOHeart.m in Sources */,
 				5C34905B15EBD326007B4141 /* GTIOHeartList.m in Sources */,
 				5CC218CD15F060DC001AC1DC /* GTIOProductFeedButton.m in Sources */,
+				5C1A412016027E380075B0E2 /* BPXLUUIDHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12958,6 +12998,7 @@
 				5C34905515EBD2C6007B4141 /* GTIOHeart.m in Sources */,
 				5C34905A15EBD326007B4141 /* GTIOHeartList.m in Sources */,
 				5CC218CC15F060DC001AC1DC /* GTIOProductFeedButton.m in Sources */,
+				5C1A411F16027E380075B0E2 /* BPXLUUIDHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13059,6 +13100,7 @@
 					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"",
 					"\"$(SRCROOT)/Libraries/Flurry\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -13098,6 +13140,7 @@
 					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"",
 					"\"$(SRCROOT)/Libraries/Flurry\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -13138,6 +13181,7 @@
 					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"",
 					"\"$(SRCROOT)/Libraries/Flurry\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -13176,6 +13220,7 @@
 					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"",
 					"\"$(SRCROOT)/Libraries/Flurry\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -13265,6 +13310,7 @@
 					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"",
 					"\"$(SRCROOT)/Libraries/Flurry\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -13303,6 +13349,7 @@
 					"\"$(SOURCE_ROOT)/Libraries/UrbanAirship\"",
 					"\"$(SRCROOT)/Libraries/Flurry\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
