@@ -113,6 +113,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
+    [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [self.tableView setSeparatorColor:[UIColor gtio_grayBorderColorE6E6E6]];
     self.originalContentFrame = self.tableView.frame;
