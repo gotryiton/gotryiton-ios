@@ -679,21 +679,26 @@ Request should include an array of user objects (nested under ```users```) that 
 
 #### Design Stories
 - Top module (success, user info)
-   - 'top-info-container.png'
+   - 'top-info-container.png' (314 x 148)
    - place asset (inc. shadow) 4px down from status bar
    - user icon resized to 46px x 46px, placed underneath mask area of 'top-info-container.png'
-   - user name
-      - Archer Medium Italic, rgb(255,106,114), 20pt
-      - 10px to the right of user icon
-      - if location exists, baseline is 25px up from the bottom of the user icon
-      - if location does not exist, baseline is 6px up from the bottom of the user icon
+   - username
+      - Verlag Book, rgb(114,114,114), 18pt
+      - 11px to the right of user icon
+      - if location exists, baseline is 31px up from the bottom of the user icon
+      - if location does not exist, baseline is 24px up from the bottom of the user icon
+   - display name
+      - Proxima Nova Regular, rgb(167,167,167), 10pt
+      - 11px to right of user icon
+      - if location exists, baseline is 17px up from bottom of user icon
+      - if location does not exist, baseline is 10px up from the bottom of the user icon
    - location
-      - Proxima Nova Regular, rgb(143,143,143), 12pt
-      - 10px to right of user icon
-      - 6px up from bottom of user icon
+      - Proxima Nova Regular, rgb(167,167,167), 10pt
+      - 11px to right of user icon
+      - baseline is 3px up from bottom of user icon
    - edit button
       - 'edit-info.png' with active and inactive versions
-      - place asset (including shadow) 38px from right edge of screen
+      - place asset (including shadow) 35px from right edge of screen
       - vertically center inside gray 'info' area
 - 'style is better when shared!'
    - Archer Book Italic, 17pt, rgb(64,64,65)
@@ -716,18 +721,17 @@ Request should include an array of user objects (nested under ```users```) that 
    - user name
       - Verlag Book, rgb(114,114,114), 18pt
       - 10px from right edge of user icon
-      - if location exists, baseline is 18px up from bottom of user icon
+      - if location exists, baseline is 19px up from bottom of user icon
       - if location does not exist, text is vertically centered in cell
    - User Badge
       - use size "32_32.png" for 2x
       - use size "16_16.png" for 1x
       - 4px away from right edge of user name
       - bottom of asset is 2px below baseline of user name
-   - location
-   - description
+   - location and/or description
       - Proxima Nova Regular, 10pt, rgb (167,167,167)
-      - all caps
-      - baseline is 4px up from bottom of user icon
+      - normal case
+      - baseline is 5px up from bottom of user icon
    - checkbox
       - 'checkbox.png' with on and off states
       - 21px from right edge of screen, vertically centered in cell
