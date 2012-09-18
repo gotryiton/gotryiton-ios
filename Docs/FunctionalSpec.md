@@ -1320,7 +1320,12 @@ previous screen
       - Height: 48px (without border)
       - Background: rgb(255,255,255) #ffffff
       - Active State background: rgb(237,235,224) #c6f0de
-      - Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
+      - Username
+         - Font: Verlag Light 16pt rgb(114,114,114) #727272
+         - Positioning: 10px away from user icon, baseline 19px up from bottom of user icon
+      - Display Name
+         - Font: Verlag Light 16pt rgb(167,167,167) #a7a7a7
+         - Positioning: 10px away from user icon, baseline 5px up from bottom of user icon
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
       - Bottom border: 1px rgba(217,215,206) #d9d7ce
    - Profile Icons
