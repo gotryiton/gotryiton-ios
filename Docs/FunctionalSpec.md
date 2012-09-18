@@ -602,6 +602,12 @@ POST /User (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api
       - 7pt Proxima Nova Regular #8f8f8f
    - text prompting picker controls (select, select year)
       - 7pt Proxima Nova Semibold #8f8f8f
+   - username available/unavailable indicators
+      - '1.7/username-unavailable.png' and '1.7/username-available.png'
+         - both are 17px x 13px
+      - 21px away from right edge of screen
+      - 1px below baseline of accompanying text field
+      - while checking, use gray spinner resized to 13 x 13, in approx same area as unavailable circle
 
 ### 1.8 Quick add  
 
