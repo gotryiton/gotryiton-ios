@@ -48,6 +48,7 @@
 #import "GTIOError.h"
 #import "GTIOAlert.h"
 #import "GTIOInvitation.h"
+#import "GTIONameValidation.h"
 
 @implementation GTIOMappingProvider
 
@@ -96,6 +97,7 @@
         RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[GTIOError class]];
         RKObjectMapping *alertMapping = [RKObjectMapping mappingForClass:[GTIOAlert class]];
         RKObjectMapping *invitationMapping = [RKObjectMapping mappingForClass:[GTIOInvitation class]];
+        RKObjectMapping *nameValidationMapping = [RKObjectMapping mappingForClass:[GTIONameValidation class]];
         
         /** Products
          */
@@ -185,6 +187,7 @@
         [userMapping mapKeyPath:@"id" toAttribute:@"userID"];
         [userMapping mapKeyPath:@"born_in" toAttribute:@"birthYear"];
         [userMapping mapKeyPath:@"about" toAttribute:@"aboutMe"];
+        [userMapping mapKeyPath:@"unique_name" toAttribute:@"uniqueName"];
         [userMapping mapKeyPath:@"is_new_user" toAttribute:@"isNewUser"];
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
         [userMapping mapKeyPath:@"is_facebook_connected" toAttribute:@"isFacebookConnected"];
@@ -202,7 +205,12 @@
         
         [badgeMapping mapAttributes:@"path", nil];
         [self setMapping:badgeMapping forKeyPath:@"badge"];
+
+        //Name validation model
+        [nameValidationMapping mapAttributes:@"name", @"valid", nil];
+        [self setMapping:nameValidationMapping forKeyPath:@"name_validation"];
         
+
         // User Photo
         [userPhotoMapping mapKeyPath:@"id" toAttribute:@"photoID"];
         [userPhotoMapping mapKeyPath:@"user_id" toAttribute:@"userID"];

@@ -23,6 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.usesPicker = NO;
+        self.usesBoldFont = NO;
         self.firstSettingOfTheText = YES;
         self.keyboardType = UIKeyboardTypeASCIICapable;
     }
@@ -34,6 +35,9 @@
     [super setText:text];
     if (self.firstSettingOfTheText && self.usesPicker) {
         [self setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaBold size:14.0]];
+        [self setTextColor:[UIColor gtio_signInColor]];
+    } else if (self.usesBoldFont) {
+        [self setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:14.0]];
         [self setTextColor:[UIColor gtio_signInColor]];
     } else {
         [self setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:14.0]];

@@ -17,9 +17,10 @@
 @property (nonatomic, retain) NSArray *pickerItems;
 @property (nonatomic, assign) BOOL required;
 @property (nonatomic, assign) BOOL usesPicker;
+@property (nonatomic, assign) BOOL usesNameValidation;
 @property (nonatomic, assign) BOOL multiline;
 @property (nonatomic, assign) NSUInteger characterLimit;
 
-- (id)initWithApiKey:(NSString *)apiKey andTitleText:(NSString *)title andPlaceHolderText:(NSString *)placeholder andAccessoryText:(NSString *)accessoryText andPickerItems:(NSArray *)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline characterLimit:(NSUInteger)characterLimit;
+- (id)initWithApiKey:(NSString *)apiKey andTitleText:(NSString *)title andPlaceHolderText:(NSString *)placeholder andAccessoryText:(NSString *)accessoryText andPickerItems:(NSArray *)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline characterLimit:(NSUInteger)characterLimit usesNameValidation:(BOOL)usesNameValidation;
 
 @end
