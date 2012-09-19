@@ -10,7 +10,6 @@
 
 #import "GTIONavigationTitleView.h"
 #import "GTIONavigationNotificationTitleView.h"
-#import "GTIOWebView.h"
 
 #import "GTIORouter.h"
 #import "GTIONotificationsViewController.h"
@@ -19,7 +18,6 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 
 @interface GTIOInternalWebViewController () <UIWebViewDelegate>
 
-@property (nonatomic, strong) GTIOWebView *webView;
 @property (nonatomic, strong) GTIONavigationTitleView *navTitleView;
 
 @end

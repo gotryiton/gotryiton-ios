@@ -56,7 +56,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserProfile:) name:kGTIOShowProfileUserNotification object:nil];
     }
     return self;
@@ -155,6 +155,13 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Refresh after inactive methods
+
+- (void)refreshAfterInactive
+{
+    [self refreshScreenLayout];
 }
 
 #pragma mark -

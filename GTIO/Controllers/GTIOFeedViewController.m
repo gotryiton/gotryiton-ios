@@ -85,6 +85,8 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         
         _addNavToHeaderOffsetXOrigin = -44.0f;
         _removeNavToHeaderOffsetXOrigin = -0.0f;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFeedAfterInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
     }
     return self;
 }
@@ -199,6 +201,13 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Refresh After Inactive
+
+- (void)refreshFeedAfterInactive
+{
+    [self loadFeed];
 }
 
 #pragma mark - Load Data

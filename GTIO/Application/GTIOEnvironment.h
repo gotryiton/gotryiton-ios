@@ -56,6 +56,7 @@ extern NSString * const kGTIOAddTabBarToWindowNotification;
 extern NSString * const kGTIOExploreLooksChangeResourcePathNotification;
 extern NSString * const kGTIOTabBarViewsResize;
 extern NSString * const kGTIOShowProfileUserNotification;
+extern NSString * const kGTIOAppReturningFromInactiveStateNotification;
 
 // Notification UserInfo
 extern NSString * const kGTIOChangeSelectedTabToUserInfo;
@@ -112,3 +113,6 @@ id GTIOJSONParams(id obj);
 
 // Generic Completion Handler
 typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
+
+// Inactive session timing
+extern NSInteger const kGTIOSecondsInactiveBeforeRefresh;

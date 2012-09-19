@@ -55,6 +55,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         
         _resourcePath = @"/posts/explore";
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeResourcePathNotification:) name:kGTIOExploreLooksChangeResourcePathNotification object:nil];
     }
     return self;
@@ -144,6 +145,13 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Refresh After Inactive methods
+
+- (void)refreshAfterInactive
+{
+    [self loadTabsAndData];
 }
 
 #pragma mark - Properties

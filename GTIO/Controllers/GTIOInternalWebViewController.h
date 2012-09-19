@@ -7,6 +7,7 @@
 //
 
 #import "GTIOViewController.h"
+#import "GTIOWebView.h"
 
 extern NSString * const kGTIOStyleResourcePath;
 
@@ -14,6 +15,11 @@ extern NSString * const kGTIOStyleResourcePath;
     gtio://InternalWebview/[custom title (urlencoded)]/[url (url encoded)]
  */
 @interface GTIOInternalWebViewController : GTIOViewController
+
+/** 
+ Exposed to allow subclasses to reload the webview at will
+ */
+@property (nonatomic, strong) GTIOWebView *webView;
 
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, strong) NSString *navigationTitle;

@@ -15,6 +15,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
 
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        
     }
     return self;
 }
@@ -23,6 +25,11 @@
 {
     self.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, kGTIOStyleResourcePath]];
     [super viewDidLoad];
+}
+
+- (void)refreshAfterInactive
+{
+    [self.webView loadGTIORequestWithURL:self.URL];
 }
 
 @end
