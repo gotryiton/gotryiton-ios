@@ -1,4 +1,29 @@
-***TFriday, August 3rd - Standup Notes***
+***Wednesday, September 19th - Standup Notes***
+
+**Attendees**
+- TT - Duncan, Matt
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- TT- Work off of prioritized list
+
+**Status**
+- Continue to work on 
+- Plan on performing code reviews after current feature
+- Link Loading / Notifcation story is pending assets.  Will mostlikely move over to Duncan's plate
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Target submission date is 9/26
+
+**General Notes**
+- NA
+
+---
+
+***Friday, August 3rd - Standup Notes***
 
 **Attendees**
 - TT - Scott, Kayla, Matt
