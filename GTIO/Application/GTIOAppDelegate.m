@@ -158,19 +158,39 @@
     if(self.dateAppDidBecomeInactive) {
         NSTimeInterval secondsAppHasBeenInactive = [[NSDate date] timeIntervalSinceDate:self.dateAppDidBecomeInactive];
         
-        NSLog(@"Time interval app did become inactive: %@", self.dateAppDidBecomeInactive);
         NSLog(@"Seconds app has been inactive: %f (min: %.2f)", secondsAppHasBeenInactive, secondsAppHasBeenInactive/60.0f);
         
         if(secondsAppHasBeenInactive > kGTIOSecondsInactiveBeforeRefresh) {
-            
-            // notify that the app is returning from an inactive state
-            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAppReturningFromInactiveStateNotification object:nil];
-            
+                        
             // pop the navigation controllers back to their root view
             for(id controller in self.tabBarViewControllers) {
                 if([controller isKindOfClass:[UINavigationController class]]) {
                     [(UINavigationController*)controller popToRootViewControllerAnimated:NO];
                 }
+            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAppReturningFromInactiveStateNotification object:nil];
+            
+            // find the selected root view controller and notify it to load
+            switch (self.tabBarController.selectedIndex) {
+                case 0:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOFeedControllerShouldRefreshAfterInactive object:nil];
+                    break;
+                case 1:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOExploreLooksControllerShouldRefreshAfterInactive object:nil];
+                    break;
+                case 2:
+                    // load all in background
+                    
+                    break;
+                case 3:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOStyleControllerShouldRefreshAfterInactive object:nil];
+                    break;
+                case 4:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOMeControllerShouldRefreshAfterInactive object:nil];
+                    break;
+                default:
+                    break;
             }
         }
     }

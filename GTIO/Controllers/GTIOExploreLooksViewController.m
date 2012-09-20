@@ -41,6 +41,8 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 @property (nonatomic, assign, getter = isInitialLoadingFromExternalLink) BOOL initialLoadingFromExternalLink;
 
+@property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
+
 @end
 
 @implementation GTIOExploreLooksViewController
@@ -55,7 +57,9 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         
         _resourcePath = @"/posts/explore";
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefreshAfterInactive object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefreshAfterInactive object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeResourcePathNotification:) name:kGTIOExploreLooksChangeResourcePathNotification object:nil];
     }
     return self;
@@ -147,11 +151,21 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Refresh After Inactive methods
+#pragma mark - Refresh After Inactive
+
+- (void)appReturnedFromInactive
+{
+    self.shouldRefreshAfterInactive = YES;
+}
 
 - (void)refreshAfterInactive
 {
-    [self loadTabsAndData];
+    if(self.shouldRefreshAfterInactive) {
+        self.shouldRefreshAfterInactive = NO;
+        [self loadTabsAndData];
+        // load all the rest here
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefreshAfterInactive object:nil];
+    }
 }
 
 #pragma mark - Properties

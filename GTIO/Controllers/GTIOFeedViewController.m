@@ -70,6 +70,8 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 @property (nonatomic, strong) UIImageView *emptyView;
 @property (nonatomic, strong) UITapGestureRecognizer *emptyViewTapGestureRecognizer;
 
+@property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
+
 @end
 
 @implementation GTIOFeedViewController
@@ -86,7 +88,9 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         _addNavToHeaderOffsetXOrigin = -44.0f;
         _removeNavToHeaderOffsetXOrigin = -0.0f;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFeedAfterInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefreshAfterInactive object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefreshAfterInactive object:nil];
     }
     return self;
 }
@@ -205,9 +209,19 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 
 #pragma mark - Refresh After Inactive
 
-- (void)refreshFeedAfterInactive
+- (void)appReturnedFromInactive
 {
-    [self loadFeed];
+    self.shouldRefreshAfterInactive = YES;
+}
+
+- (void)refreshAfterInactive
+{
+    if(self.shouldRefreshAfterInactive) {
+        self.shouldRefreshAfterInactive = NO;
+        [self loadFeed];
+        // load all the rest here
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefreshAfterInactive object:nil];
+    }
 }
 
 #pragma mark - Load Data

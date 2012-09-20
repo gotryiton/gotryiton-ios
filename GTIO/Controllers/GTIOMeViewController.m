@@ -47,6 +47,8 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 @property (nonatomic, strong) GTIONavigationNotificationTitleView *titleView;
 @property (nonatomic, strong) UIView *footerView;
 
+@property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
+
 @end
 
 @implementation GTIOMeViewController
@@ -56,7 +58,9 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefreshAfterInactive object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefreshAfterInactive object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserProfile:) name:kGTIOShowProfileUserNotification object:nil];
     }
     return self;
@@ -157,11 +161,21 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Refresh after inactive methods
+#pragma mark - Refresh After Inactive
+
+- (void)appReturnedFromInactive
+{
+    self.shouldRefreshAfterInactive = YES;
+}
 
 - (void)refreshAfterInactive
 {
-    [self refreshScreenLayout];
+    if(self.shouldRefreshAfterInactive) {
+        self.shouldRefreshAfterInactive = NO;
+        [self refreshScreenLayout];
+        // load all the rest here
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefreshAfterInactive object:nil];
+    }
 }
 
 #pragma mark -

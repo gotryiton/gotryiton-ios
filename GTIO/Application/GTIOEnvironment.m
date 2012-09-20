@@ -89,6 +89,11 @@ NSString * const kGTIOExploreLooksChangeResourcePathNotification = @"kGTIOExplor
 NSString * const kGTIOTabBarViewsResize = @"kGTIOTabBarViewsResize";
 NSString * const kGTIOShowProfileUserNotification = @"kGTIOShowProfileUserNotification";
 NSString * const kGTIOAppReturningFromInactiveStateNotification = @"kGTIOAppReturningFromInactiveStateNotification";
+NSString * const kGTIOFeedControllerShouldRefreshAfterInactive = @"kGTIOFeedControllerShouldRefreshAfterInactive";
+NSString * const kGTIOExploreLooksControllerShouldRefreshAfterInactive = @"kGTIOExploreLooksControllerShouldRefreshAfterInactive";
+NSString * const kGTIOStyleControllerShouldRefreshAfterInactive = @"kGTIOLooksControllerShouldRefreshAfterInactive";
+NSString * const kGTIOMeControllerShouldRefreshAfterInactive = @"kGTIOMeControllerShouldRefreshAfterInactive";
+NSString * const kGTIOAllControllersShouldRefreshAfterInactive = @"kGTIOAllControllersShouldRefreshAfterInactive";
 
 // Notification UserInfo
 NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";
