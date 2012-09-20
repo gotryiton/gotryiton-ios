@@ -13239,8 +13239,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Duncan Lewis (585NPZ9785)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Duncan Lewis (585NPZ9785)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13266,8 +13266,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTIO;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -13279,8 +13279,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Simon Holroyd (38H5GULJQJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Duncan Lewis (585NPZ9785)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Duncan Lewis (585NPZ9785)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
@@ -13304,8 +13304,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTIO;
-				PROVISIONING_PROFILE = "E8074B56-5C0A-4262-80EB-8F602BB9CEE5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
