@@ -1,3 +1,28 @@
+***Friday, September 21st - Standup Notes***
+
+**Attendees**
+- TT - Duncan, Matt
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- TT- Continue to work off of prioritized list
+- GTIO - provide notifications to Duncan's test user
+- GTIO - Provide taller assets to account for iPhone 5
+
+**Status**
+- Working on notification controller, then moving on to links item with help from Scott
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Target submission date is 9/28
+
+**General Notes**
+- NA
+
+---
+
 ***Thursday, September 20th - Standup Notes***
 
 **Attendees**
