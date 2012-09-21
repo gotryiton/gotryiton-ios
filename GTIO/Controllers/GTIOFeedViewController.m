@@ -70,6 +70,8 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 @property (nonatomic, strong) UIImageView *emptyView;
 @property (nonatomic, strong) UITapGestureRecognizer *emptyViewTapGestureRecognizer;
 
+@property (nonatomic, strong) GTIONotificationsViewController *notificationsViewController;
+
 @property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
 
 @end
@@ -117,9 +119,37 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     }];
 
     self.navBarView.titleView.tapHandler = ^(void) {
-        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
-        [blockSelf presentModalViewController:navigationController animated:YES];
+        if(self.notificationsViewController == nil) {
+            self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        }
+        
+        // if a child, remove it
+        if([blockSelf.childViewControllers containsObject:self.notificationsViewController]) {
+            [self.notificationsViewController willMoveToParentViewController:nil];
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [self.notificationsViewController.view setAlpha:0.0];
+                             }
+                             completion:^(BOOL finished) {
+                                 [self.notificationsViewController.view removeFromSuperview];
+                                 [self.notificationsViewController removeFromParentViewController];
+                                 [self.notificationsViewController didMoveToParentViewController:nil];
+                             }];
+        } else {
+            [self.notificationsViewController willMoveToParentViewController:blockSelf];
+            [blockSelf addChildViewController:self.notificationsViewController];
+            [self.notificationsViewController.view setAlpha:0.0];
+            [self.notificationsViewController.view setFrame:(CGRect){ { 0, self.navBarView.frame.size.height }, self.notificationsViewController.view.frame.size} ];
+            [self.tableView scrollRectToVisible:(CGRect){0,0,1,1} animated:YES];
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [self.view addSubview:self.notificationsViewController.view];
+                                 [self.notificationsViewController.view setAlpha:1.0];
+                             }
+                             completion:^(BOOL finished) {
+                                 [self.notificationsViewController didMoveToParentViewController:blockSelf];
+                             }];
+        }
     };
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -163,6 +193,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     [super viewDidUnload];
     [[GTIOPostManager sharedManager] removeObserver:self forKeyPath:@"progress"];
     [[GTIOPostManager sharedManager] removeObserver:self forKeyPath:@"state"];
+    self.notificationsViewController = nil;
     self.navBarView = nil;
     self.emptyView = nil;
     self.uploadView = nil;

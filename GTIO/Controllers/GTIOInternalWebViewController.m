@@ -20,6 +20,8 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 
 @property (nonatomic, strong) GTIONavigationTitleView *navTitleView;
 
+@property (nonatomic, strong) GTIONotificationsViewController *notificationsViewController;
+
 @end
 
 @implementation GTIOInternalWebViewController
@@ -37,9 +39,35 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
     
     if ([[self.URL absoluteString] isEqualToString:[NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, kGTIOStyleResourcePath]]) {
         GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
-            GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
-            [self presentModalViewController:navigationController animated:YES];
+            if(self.notificationsViewController == nil) {
+                self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+            }
+            
+            // if a child, remove it
+            if([self.childViewControllers containsObject:self.notificationsViewController]) {
+                [self.notificationsViewController willMoveToParentViewController:nil];
+                [UIView animateWithDuration:0.25
+                                 animations:^{
+                                     [self.notificationsViewController.view setAlpha:0.0];
+                                 }
+                                 completion:^(BOOL finished) {
+                                     [self.notificationsViewController.view removeFromSuperview];
+                                     [self.notificationsViewController removeFromParentViewController];
+                                     [self.notificationsViewController didMoveToParentViewController:nil];
+                                 }];
+            } else {
+                [self.notificationsViewController willMoveToParentViewController:self];
+                [self addChildViewController:self.notificationsViewController];
+                [self.notificationsViewController.view setAlpha:0.0];
+                [UIView animateWithDuration:0.25
+                                 animations:^{
+                                     [self.view addSubview:self.notificationsViewController.view];
+                                     [self.notificationsViewController.view setAlpha:1.0];
+                                 }
+                                 completion:^(BOOL finished) {
+                                     [self.notificationsViewController didMoveToParentViewController:self];
+                                 }];
+            }
         }];
         [self useTitleView:navTitleView];
     } else {

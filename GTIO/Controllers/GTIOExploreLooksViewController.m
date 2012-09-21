@@ -43,6 +43,8 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 @property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
 
+@property (nonatomic, strong) GTIONotificationsViewController *notificationsViewController;
+
 @end
 
 @implementation GTIOExploreLooksViewController
@@ -75,10 +77,36 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [super viewDidLoad];
     
     __block typeof(self) blockSelf = self;
-    _navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
-        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
-        [blockSelf presentModalViewController:navigationController animated:YES];
+    self.navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
+        if(self.notificationsViewController == nil) {
+            self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        }
+        
+        // if a child, remove it
+        if([blockSelf.childViewControllers containsObject:self.notificationsViewController]) {
+            [self.notificationsViewController willMoveToParentViewController:nil];
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [self.notificationsViewController.view setAlpha:0.0];
+                             }
+                             completion:^(BOOL finished) {
+                                 [self.notificationsViewController.view removeFromSuperview];
+                                 [self.notificationsViewController removeFromParentViewController];
+                                 [self.notificationsViewController didMoveToParentViewController:nil];
+                             }];
+        } else {
+            [self.notificationsViewController willMoveToParentViewController:blockSelf];
+            [blockSelf addChildViewController:self.notificationsViewController];
+            [self.notificationsViewController.view setAlpha:0.0];
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [self.view addSubview:self.notificationsViewController.view];
+                                 [self.notificationsViewController.view setAlpha:1.0];
+                             }
+                             completion:^(BOOL finished) {
+                                 [self.notificationsViewController didMoveToParentViewController:blockSelf];
+                             }];
+        }
     }];
     
     // Segmented Control

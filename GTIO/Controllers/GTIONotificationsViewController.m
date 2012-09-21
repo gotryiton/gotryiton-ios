@@ -33,23 +33,29 @@
     return self;
 }
 
+- (void)loadView
+{
+    self.view = [[UIView alloc] initWithFrame:(CGRect){ { 0, 0 }, { self.parentViewController.view.bounds.size.width, self.parentViewController.view.bounds.size.height - self.tabBarController.tabBar.bounds.size.height } }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    GTIONavigationTitleView *navTitleView = [[GTIONavigationTitleView alloc] initWithTitle:@"notifications" italic:YES];
-    [self useTitleView:navTitleView];
     
-    GTIOUIButton *closeButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeCloseButtonForNavBar tapHandler:^(id sender) {
-        [self dismissModalViewControllerAnimated:YES];
-    }];
-    self.leftNavigationButton = closeButton;
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"container.png"]];
+    [backgroundView setFrame:(CGRect){ { self.view.frame.size.width/2 - backgroundView.image.size.width/2, 0 }, backgroundView.image.size }];
+    [self.view addSubview:backgroundView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:UIEdgeInsetsInsetRect(backgroundView.frame, UIEdgeInsetsMake(13, 9, 11, 9)) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    UIImageView *tableFooterView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-shadow.png"]];
+    [tableFooterView setFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, 5 }];
+    self.tableView.tableFooterView = tableFooterView;
+
+    [self.tableView.layer setCornerRadius:3.0];
     [self.view addSubview:self.tableView];
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];

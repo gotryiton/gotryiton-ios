@@ -15,7 +15,7 @@ static CGFloat const kGTIOCellTopBottomPadding = 16.0;
 static CGFloat const kGTIOCellLeftRightPadding = 8.0;
 static CGFloat const kGTIOIconWidthHeight = 21.0;
 static CGFloat const kGTIOIconTextSpacing = 10.0;
-static CGFloat const kGTIOTextWidth = 273.0;
+static CGFloat const kGTIOTextWidth = 247.0;
 static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
 
 

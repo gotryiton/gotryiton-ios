@@ -49,6 +49,8 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 
 @property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
 
+@property (nonatomic, strong) GTIONotificationsViewController *notificationsViewController;
+
 @end
 
 @implementation GTIOMeViewController
@@ -76,9 +78,35 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [super viewDidLoad];
     
     self.titleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
-        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
-        [self presentModalViewController:navigationController animated:YES];
+        if(self.notificationsViewController == nil) {
+            self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        }
+        
+        // if a child, remove it
+        if([self.childViewControllers containsObject:self.notificationsViewController]) {
+            [self.notificationsViewController willMoveToParentViewController:nil];
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [self.notificationsViewController.view setAlpha:0.0];
+                             }
+                             completion:^(BOOL finished) {
+                                 [self.notificationsViewController.view removeFromSuperview];
+                                 [self.notificationsViewController removeFromParentViewController];
+                                 [self.notificationsViewController didMoveToParentViewController:nil];
+                             }];
+        } else {
+            [self.notificationsViewController willMoveToParentViewController:self];
+            [self addChildViewController:self.notificationsViewController];
+            [self.notificationsViewController.view setAlpha:0.0];
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [self.view addSubview:self.notificationsViewController.view];
+                                 [self.notificationsViewController.view setAlpha:1.0];
+                             }
+                             completion:^(BOOL finished) {
+                                 [self.notificationsViewController didMoveToParentViewController:self];
+                             }];
+        }
     }];
 
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];

@@ -8,6 +8,6 @@
 
 #import "GTIOViewController.h"
 
-@interface GTIONotificationsViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GTIONotificationsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end
