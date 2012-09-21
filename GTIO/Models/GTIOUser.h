@@ -25,6 +25,7 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uniqueName;
+@property (nonatomic, strong) NSString *realName;
 @property (nonatomic, strong) NSURL *icon;
 @property (nonatomic, strong) NSNumber *birthYear;
 @property (nonatomic, strong) NSString *location;

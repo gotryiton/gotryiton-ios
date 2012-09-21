@@ -39,6 +39,11 @@
     return userProfile;
 }
 
+- (NSString *)name
+{
+    return self.uniqueName;
+}
+
 #pragma mark - Update
 
 - (void)updateCurrentUserWithFields:(NSDictionary*)updateFields withTrackingInformation:(NSDictionary*)trackingInfo andLoginHandler:(GTIOLoginHandler)loginHandler

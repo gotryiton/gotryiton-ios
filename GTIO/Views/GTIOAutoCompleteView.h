@@ -13,26 +13,22 @@
 
 #import "GTIOAutoCompleteScrollView.h"
 #import "GTIOAutoCompleter.h"
+#import "GTIOCommentViewController.h"
 
 @interface GTIOAutoCompleteView : UIView <UITextViewDelegate, GTIOAutoCompleteScrollViewDelegate>
+
+
+@property (nonatomic, weak) id<GTIOAutoCompleteViewDelegate> delegate; 
 
 @property (nonatomic, strong) NSMutableArray *autoCompleteArray;
 @property (nonatomic, strong) GTIOAutoCompleteScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *autoCompleteButtonOptions;
 @property (nonatomic, strong) UITextView *textInput;
 
-@property (nonatomic, strong) CATextLayer *previewTextView;
+@property (nonatomic, strong) UILabel *previewTextView;
 @property (nonatomic, strong) NSMutableAttributedString *attrString;
 
-@property (assign) CTFontRef ACInputFont;
-@property (assign) CGColorRef ACInputColor;
-@property (assign) CTFontRef ACPlaceholderFont;
-@property (assign) CGColorRef ACPlaceholderColor;
-@property (assign) CTFontRef ACHighlightFont;
-@property (assign) CGColorRef ACHighlightColor;
-
 @property (copy) NSString *inputText;
-@property (copy) NSString *placeholderText;
 @property (assign) NSRange positionOfCursor;
 @property (assign) NSRange positionOfLastWordTyped;
 @property (assign) NSRange positionOfLastTwoWordsTyped;
@@ -54,5 +50,6 @@
 - (void) resetView;
 - (void) displayPlaceholderText;
 - (BOOL)textView:(UITextView *)field shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)inputString;
+- (void)textViewDidChange:(UITextView *)textView;
 
 @end

@@ -12,7 +12,7 @@
 #import "GTIOReview.h"
 #import "GTIOProgressHUD.h"
 
-static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks great! @Becky E.)";
+static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks great! @becky)";
 
 
 @interface GTIOCommentViewController ()
@@ -63,7 +63,7 @@ static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks gr
     [self.commentInputView displayPlaceholderText];
     
     [self.view addSubview:self.commentInputView];
-    self.commentInputView.textInput.delegate = self; 
+    self.commentInputView.delegate = self; 
 
     [GTIOAutoCompleter loadBrandDictionaryWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
         if (!error) {
@@ -108,27 +108,7 @@ static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks gr
     self.commentInputView = nil;
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    BOOL response = [self.commentInputView textView:textView shouldChangeTextInRange:range replacementText:text];
 
-    if([text isEqualToString:@"\n"]) {
-        
-        [self.commentInputView resignFirstResponder];
-        
-        [self postComment];
-        return NO;
-    }
-    
-    if (self.commentInputView.textInput.text.length>0){
-        self.rightNavigationButton = self.saveButton;
-    }
-    else {
-        self.rightNavigationButton = nil;   
-    }
-    
-    return response; 
-}
 
 - (void)postComment
 {
@@ -162,5 +142,22 @@ static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks gr
     return saveButton;
 }
 
+#pragma mark GTIOAutoCompleteViewDelegate methods
+
+- (void)textViewDidSubmit
+{
+    [self.commentInputView resignFirstResponder];
+    [self postComment];
+}
+
+- (void)textInputIsEmpty:(BOOL)empty
+{
+    if (!empty){
+        self.rightNavigationButton = self.saveButton;
+    }
+    else {
+        self.rightNavigationButton = nil;   
+    }
+}
 
 @end
