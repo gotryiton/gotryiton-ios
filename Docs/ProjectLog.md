@@ -1,4 +1,79 @@
-***TFriday, August 3rd - Standup Notes***
+***Friday, September 21st - Standup Notes***
+
+**Attendees**
+- TT - Duncan, Matt
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- TT- Continue to work off of prioritized list
+- GTIO - provide notifications to Duncan's test user
+- GTIO - Provide taller assets to account for iPhone 5
+
+**Status**
+- Working on notification controller, then moving on to links item with help from Scott
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Target submission date is 9/28
+
+**General Notes**
+- NA
+
+---
+
+***Thursday, September 20th - Standup Notes***
+
+**Attendees**
+- TT - Duncan, Matt
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- TT- Continue to work off of prioritized list
+- GTIO - Add details and assign notifications story to Duncan
+
+**Status**
+- Code reviewed Simon's pull request - made a few comments in line
+- Matt finished assets needed for notifications story
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Target submission date is 9/28
+
+**General Notes**
+- NA
+
+---
+
+***Wednesday, September 19th - Standup Notes***
+
+**Attendees**
+- TT - Duncan, Matt
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- TT- Work off of prioritized list
+
+**Status**
+- Continue to work on 
+- Plan on performing code reviews after current feature
+- Link Loading / Notifcation story is pending assets.  Will mostlikely move over to Duncan's plate
+
+**Updates to Planned Work**
+- NA
+
+**Updates to Important Dates / Deadlines**
+- Target submission date is 9/28
+
+**General Notes**
+- NA
+
+---
+
+***Friday, August 3rd - Standup Notes***
 
 **Attendees**
 - TT - Scott, Kayla, Matt
