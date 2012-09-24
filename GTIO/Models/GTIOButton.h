@@ -39,6 +39,6 @@ typedef enum GTIOAcceptRelationshipButtonState {
 // None API Properties
 @property (nonatomic, strong) UIImage *suffixImage;
 
-- (BOOL)isValid;
+- (BOOL)isAvilableForIOSDevice;
 
 @end
