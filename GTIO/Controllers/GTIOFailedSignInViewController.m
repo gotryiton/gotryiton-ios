@@ -30,6 +30,9 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"login-nav.png"] forBarMetrics:UIBarMetricsDefault];
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setShadowImage:)]) {
+        self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    }
 }
 
 - (void)viewDidLoad
