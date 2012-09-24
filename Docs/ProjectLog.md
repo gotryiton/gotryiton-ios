@@ -1,3 +1,28 @@
+***Monday, September 22nd - Standup Notes***
+
+**Attendees**
+- TT - Duncan, Matt
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- TT - Continue to work through assigned list
+- TT - plan to review Simon pull request tomorrow
+- TT/GTIO - discuss future dev plan on tomorrows call
+
+**Status**
+- Working through notifcation links right now.  Commenting on issues with questions as needed
+- Should the notifcations view be closed when switching tabs?
+ - yes.  TT to update to the functional spec
+- GTIO working on iOS 5/6 bugs.  Will merge into featured dev branch that was code reviewed last week
+
+**Updates to Important Dates / Deadlines**
+- Target submission date is 9/28
+
+**General Notes**
+- NA
+
+---
+
 ***Friday, September 21st - Standup Notes***
 
 **Attendees**
