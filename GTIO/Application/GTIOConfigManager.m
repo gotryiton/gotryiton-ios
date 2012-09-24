@@ -40,7 +40,6 @@ NSInteger const kGTIOImageDownloadTimeout = 30;
 - (void)loadConfigFromWebUsingBlock:(GTIOConfigHandler)configHandler
 {
     // TODO: On first load we need to put images from bundle into disk cache with keys
-    
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/config" usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObject = ^(id object) {
             if ([object isKindOfClass:[GTIOConfig class]]) {
@@ -48,7 +47,6 @@ NSInteger const kGTIOImageDownloadTimeout = 30;
                     if (loader.response.statusCode == 200 && ![loader.response wasLoadedFromCache]) {
                         GTIOConfig *config = object;
                         GTIOConfig *currentConfig = [self config];
-                        
                         // No current config download all images
                         if (!currentConfig) {
                             for (GTIOIntroScreen *introScreen in config.introScreens) {
@@ -58,10 +56,9 @@ NSInteger const kGTIOImageDownloadTimeout = 30;
                             // Load images if new
                             for (GTIOIntroScreen *introScreen in config.introScreens) {
                                 for (GTIOIntroScreen *currentIntroScreen in currentConfig.introScreens) {
-                                    if ([introScreen.introScreenID isEqual:currentIntroScreen.introScreenID] && 
-                                        (![[introScreen.imageURL absoluteURL] isEqual:[currentIntroScreen.imageURL absoluteURL]] || 
-                                         ![[SDImageCache sharedImageCache] imageFromKey:introScreen.introScreenID])) {
-                                            
+                                    if ([[introScreen deviceSpecificId] isEqual:[currentIntroScreen deviceSpecificId]] && 
+                                        (![[[introScreen deviceSpecificImageURL] absoluteURL] isEqual:[[currentIntroScreen deviceSpecificImageURL] absoluteURL]] || 
+                                         ![[SDImageCache sharedImageCache] imageFromKey:[introScreen deviceSpecificId]])) {
                                             [self downloadImageForIntroScreen:introScreen];
                                         }
                                 }
@@ -120,8 +117,8 @@ NSInteger const kGTIOImageDownloadTimeout = 30;
 {
     // This is a new image so load it and save to filesystem
     self.imagesDownloading++;
-    __block NSString *imageKey = introScreen.introScreenID;
-    [[SDWebImageManager sharedManager] downloadWithURL:introScreen.imageURL delegate:self options:0 success:^(UIImage *image) {
+    __block NSString *imageKey = [introScreen deviceSpecificId];
+    [[SDWebImageManager sharedManager] downloadWithURL:[introScreen deviceSpecificImageURL] delegate:self options:0 success:^(UIImage *image) {
         [[SDImageCache sharedImageCache] storeImage:image forKey:imageKey];
         self.imagesDownloading--;
     } failure:^(NSError *error) {

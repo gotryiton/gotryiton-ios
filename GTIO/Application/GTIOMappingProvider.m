@@ -139,6 +139,7 @@
         // GTIOIntroScreen
         [introScreenMapping mapKeyPath:@"id" toAttribute:@"introScreenID"];
         [introScreenMapping mapKeyPath:@"image_url" toAttribute:@"imageURL"];
+        [introScreenMapping mapKeyPath:@"universal_image_url" toAttribute:@"universalImageURL"];
         [introScreenMapping mapKeyPath:@"track" toRelationship:@"track" withMapping:trackMapping];
         
         // GTIOConfig
