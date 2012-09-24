@@ -8,11 +8,19 @@
 
 #import "GTIOViewController.h"
 
-@interface GTIOCommentViewController : GTIOViewController <UITextViewDelegate>
+@protocol GTIOAutoCompleteViewDelegate <NSObject>
+
+@required
+- (void)textViewDidSubmit;
+- (void)textInputIsEmpty:(BOOL)empty;
+@end
+
+@interface GTIOCommentViewController : GTIOViewController <GTIOAutoCompleteViewDelegate>
 
 @property (nonatomic, retain) GTIOUIButton *saveButton;
 
 - (id)initWithPostID:(NSString *)postID;
-
+- (void)textViewDidSubmit;
+- (void)textInputIsEmpty;
 
 @end

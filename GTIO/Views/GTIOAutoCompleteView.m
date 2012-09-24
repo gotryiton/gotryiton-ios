@@ -114,6 +114,11 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     return self;
 }
 
+- (void)dealloc
+{
+    _delegate = nil;
+}
+
 - (void)addCompleters:(NSMutableArray *)completers
 {
     for (GTIOAutoCompleter *completer in completers) {
@@ -142,6 +147,10 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
         //close the keyboard and hide the text input
         [field resignFirstResponder];
         
+        if (self.delegate && [self.delegate respondsToSelector:@selector(textViewDidSubmit)]){
+            [self.delegate textViewDidSubmit];
+        }
+
         self.isTyping = NO;
         return NO;
     }
@@ -179,6 +188,10 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     
     if (self.inputText.length > 0) {
 
+        if (self.delegate && [self.delegate respondsToSelector:@selector(textInputIsEmpty:)]){
+            [self.delegate textInputIsEmpty:NO];
+        }
+
         [self highlightHashTag];
         
         if ([self hashtagMode] && ![self isValidHashTag:[self lastWordTyped]]){
@@ -202,12 +215,24 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
         [self resetAutoCompleteMode];
         [self.scrollView showScrollViewNav];
         [self displayPlaceholderText];
+
+        if (self.delegate && [self.delegate respondsToSelector:@selector(textInputIsEmpty:)]){
+            [self.delegate textInputIsEmpty:YES];
+        }
     }
     
     self.searchTextTimer = [NSTimer scheduledTimerWithTimeInterval:searchTime target:self selector:@selector(delayedAutoCompleteTextSearch) userInfo:nil repeats:NO];
     
     self.isTyping = NO;
     return YES;
+}
+
+
+- (void)textViewDidChange:(UITextView *)textView 
+{
+
+    [self cleanUpAttrString];
+    
 }
 
 - (void)delayedAutoCompleteTextSearch
@@ -226,7 +251,7 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
             [self showButtonsWithAutoCompleters: foundAutoCompleters];
         } 
     }
-    [self cleanUpAttrString];
+    
     
     return;
 }
