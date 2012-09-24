@@ -54,6 +54,7 @@ extern NSString * const kGTIONotificationCountNofitication;
 extern NSString * const kGTIOChangeSelectedTabNotification;
 extern NSString * const kGTIOAddTabBarToWindowNotification;
 extern NSString * const kGTIOExploreLooksChangeResourcePathNotification;
+extern NSString * const kGTIOStylesChangeCollectionIDNotification;
 extern NSString * const kGTIOTabBarViewsResize;
 extern NSString * const kGTIOShowProfileUserNotification;
 extern NSString * const kGTIOAppReturningFromInactiveStateNotification;
@@ -67,6 +68,7 @@ extern NSString * const kGTIOAllControllersShouldRefreshAfterInactive;
 extern NSString * const kGTIOChangeSelectedTabToUserInfo;
 extern NSString * const kGTIOResourcePathKey;
 extern NSString * const kGTIOProfileUserIDUserInfo;
+extern NSString * const kGTIOCollectionIDUserInfoKey;
 
 // UrbanAirship Constants
 extern BOOL const kGTIOUAirshipAppStoreOrAdHocBuild;

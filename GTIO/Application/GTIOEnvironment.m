@@ -86,6 +86,7 @@ NSString * const kGTIONotificationCountNofitication = @"kGTIONotificationCountNo
 NSString * const kGTIOChangeSelectedTabNotification = @"kGTIOChangeSelectedTabNotification";
 NSString * const kGTIOAddTabBarToWindowNotification = @"kGTIOAddTabBarToWindowNotification";
 NSString * const kGTIOExploreLooksChangeResourcePathNotification = @"kGTIOExploreLooksChangeResourcePathNotification";
+NSString * const kGTIOStylesChangeCollectionIDNotification = @"kGTIOStylesChangeCollectionIDNotification";
 NSString * const kGTIOTabBarViewsResize = @"kGTIOTabBarViewsResize";
 NSString * const kGTIOShowProfileUserNotification = @"kGTIOShowProfileUserNotification";
 NSString * const kGTIOAppReturningFromInactiveStateNotification = @"kGTIOAppReturningFromInactiveStateNotification";
@@ -99,6 +100,7 @@ NSString * const kGTIOAllControllersShouldRefreshAfterInactive = @"kGTIOAllContr
 NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";
 NSString * const kGTIOResourcePathKey = @"kGTIOResourcePathKey";
 NSString * const kGTIOProfileUserIDUserInfo = @"kGTIOProfileUserIDUserInfo";
+NSString * const kGTIOCollectionIDUserInfoKey = @"kGTIOCollectionIDUserInfoKey";
 
 // UrbanAirship
 NSString * const kGTIOUAirshipProductionAppKey = @"***REMOVED***";

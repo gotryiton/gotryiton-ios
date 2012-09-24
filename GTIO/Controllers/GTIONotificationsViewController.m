@@ -101,7 +101,9 @@
     [[GTIONotificationManager sharedManager] save];
     
     UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:notificationForIndexPath.action];
-    [self.navigationController pushViewController:viewController animated:YES];
+    if(viewController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 #pragma mark - UITableViewDataSource methods

@@ -5693,7 +5693,7 @@
 		D2735BD21586842600563A19 /* GTIOPhotoFilterSelectorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoFilterSelectorView.m; sourceTree = "<group>"; };
 		D2735BD41586891D00563A19 /* GTIOPhotoFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPhotoFilterView.h; sourceTree = "<group>"; };
 		D2735BD51586891D00563A19 /* GTIOPhotoFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOPhotoFilterView.m; sourceTree = "<group>"; };
-		D2755A6F15CC0EEB00425921 /* GTIO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTIO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2755A6F15CC0EEB00425921 /* GTIO STAGING.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GTIO STAGING.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D27C2F9F1598A3DA006C9ACB /* GTIOFeedNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOFeedNavigationBarView.m; sourceTree = "<group>"; };
 		D27C2FA11598B99B006C9ACB /* GTIOFeedNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOFeedNavigationBarView.h; sourceTree = "<group>"; };
 		D27C2FA21598CE01006C9ACB /* GTIOPostBrandButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOPostBrandButtonsView.h; sourceTree = "<group>"; };
@@ -5813,7 +5813,7 @@
 		D2C4BF4A15B05EDB00422B98 /* GTIOWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOWebViewController.m; sourceTree = "<group>"; };
 		D2C4BF4F15B0623400422B98 /* GTIOToolBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOToolBarButton.h; sourceTree = "<group>"; };
 		D2C4BF5015B0623400422B98 /* GTIOToolBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOToolBarButton.m; sourceTree = "<group>"; };
-		D2CDA96215502F02009B7E24 /* GTIO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTIO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2CDA96215502F02009B7E24 /* GTIO DEV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GTIO DEV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2CDA96615502F02009B7E24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D2CDA96815502F02009B7E24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2CDA96A15502F02009B7E24 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -8296,9 +8296,9 @@
 		D2CDA96315502F02009B7E24 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2CDA96215502F02009B7E24 /* GTIO.app */,
+				D2CDA96215502F02009B7E24 /* GTIO DEV.app */,
 				D2CDA97D15502F02009B7E24 /* GTIOTests.octest */,
-				D2755A6F15CC0EEB00425921 /* GTIO.app */,
+				D2755A6F15CC0EEB00425921 /* GTIO STAGING.app */,
 				D224F5AB15CC1018004DE550 /* GTIO.app */,
 			);
 			name = Products;
@@ -8727,7 +8727,7 @@
 			);
 			name = "GTIO Staging";
 			productName = GTIO;
-			productReference = D2755A6F15CC0EEB00425921 /* GTIO.app */;
+			productReference = D2755A6F15CC0EEB00425921 /* GTIO STAGING.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D2CDA96115502F02009B7E24 /* GTIO Development */ = {
@@ -8746,7 +8746,7 @@
 			);
 			name = "GTIO Development";
 			productName = GTIO;
-			productReference = D2CDA96215502F02009B7E24 /* GTIO.app */;
+			productReference = D2CDA96215502F02009B7E24 /* GTIO DEV.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D2CDA97C15502F02009B7E24 /* GTIOTests */ = {
@@ -13130,8 +13130,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Duncan Lewis (585NPZ9785)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Duncan Lewis (585NPZ9785)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13156,9 +13156,9 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = GTIO;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PRODUCT_NAME = "GTIO STAGING";
+				PROVISIONING_PROFILE = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -13170,8 +13170,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Duncan Lewis (585NPZ9785)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Duncan Lewis (585NPZ9785)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTIO/Application/Supporting Files/GTIO-Prefix.pch";
@@ -13194,9 +13194,9 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = GTIO;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PRODUCT_NAME = "GTIO STAGING";
+				PROVISIONING_PROFILE = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -13283,7 +13283,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = GTIO;
+				PRODUCT_NAME = "GTIO DEV";
 				PROVISIONING_PROFILE = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";
@@ -13321,7 +13321,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = GTIO;
+				PRODUCT_NAME = "GTIO DEV";
 				PROVISIONING_PROFILE = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3CC4BDCD-4665-4DC5-BA3A-99AC0E242C2C";
 				USER_HEADER_SEARCH_PATHS = "\"Libraries/DTCoreText\"/**";

@@ -7,6 +7,7 @@
 //
 
 #import "GTIOStyleViewController.h"
+#import "GTIOProductNativeListViewController.h"
 
 @interface GTIOStyleViewController()
 
@@ -24,7 +25,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefreshAfterInactive object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefreshAfterInactive object:nil];
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCollectionIDNotification:) name:kGTIOStylesChangeCollectionIDNotification object:nil];
     }
     return self;
 }
@@ -50,6 +51,16 @@
         // load all the rest here
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefreshAfterInactive object:nil];
     }
+}
+
+#pragma mark - Notification methods
+
+- (void)changeCollectionIDNotification:(NSNotification*)notification
+{
+    NSNumber *collectionID = [[notification userInfo] objectForKey:kGTIOCollectionIDUserInfoKey];
+    GTIOProductNativeListViewController *viewController = [[GTIOProductNativeListViewController alloc] initWithNibName:nil bundle:nil];
+    [viewController setCollectionID:collectionID];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

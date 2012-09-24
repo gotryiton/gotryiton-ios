@@ -219,6 +219,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadTabs
 {
+    NSLog(@"Loading tabs with resourcePath: %@", self.resourcePath);
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.tabs removeAllObjects];
@@ -232,6 +233,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
             [self.masonGridView.pullToRefreshView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.segmentedControlView setTabs:self.tabs];
+            [self loadData];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToRefreshView finishLoading];
@@ -247,6 +249,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadData
 {
+    NSLog(@"Loading tabs with resourcePath: %@", self.resourcePath);
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];
@@ -302,6 +305,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
             [self.masonGridView setItems:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
             [self.masonGridView.pullToRefreshView finishLoading];
+            [self loadData];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToRefreshView finishLoading];
@@ -368,6 +372,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 - (void)changeResourcePathNotification:(NSNotification *)notification
 {
     NSString *resourcePath = [[notification userInfo] objectForKey:kGTIOResourcePathKey];
+    NSLog(@"changeResourcePathNotification with path: %@", resourcePath);
     if ([resourcePath length] > 0) {
         self.initialLoadingFromExternalLink = YES;
         _resourcePath = [resourcePath copy];
