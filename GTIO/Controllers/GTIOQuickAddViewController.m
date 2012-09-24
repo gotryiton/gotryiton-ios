@@ -65,6 +65,7 @@
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
+    [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorColor:[UIColor gtio_groupedTableBorderColor]];
     self.tableView.tableHeaderView = self.accountCreatedView;
     [self.view addSubview:self.tableView];
