@@ -90,8 +90,9 @@
                     [self displaySignInViewController];
                 }
                 
-                [GTIOTrack postTrackAndVisitWithID:kGTIOTrackAppLaunch handler:nil];
             }
+            
+            [GTIOTrack postTrackAndVisitWithID:kGTIOTrackAppLaunch handler:nil];
         }
     }];
 }
