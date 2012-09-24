@@ -51,13 +51,14 @@ CGFloat const kGTIOIphoneDefaultScreenHeight = 480.0;
 }
 
 - (NSURL*)deviceSpecificImageURL
-{
-
-    NSError *error = NULL;
-    NSString *template = [NSString stringWithFormat:@"%@.$1", [self retinaImageString]];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".(png|jpg|jpeg)$" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSString *url = [regex stringByReplacingMatchesInString:[self.universalImageURL absoluteString] options:0 range:NSMakeRange(0, [[self.universalImageURL absoluteString] length]) withTemplate:template];
-    return [NSURL URLWithString:url];
+    if (self.universalImageURL) {
+        NSError *error = NULL;
+        NSString *template = [NSString stringWithFormat:@"%@.$1", [self retinaImageString]];
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".(png|jpg|jpeg)$" options:NSRegularExpressionCaseInsensitive error:&error];
+        NSString *url = [regex stringByReplacingMatchesInString:[self.universalImageURL absoluteString] options:0 range:NSMakeRange(0, [[self.universalImageURL absoluteString] length]) withTemplate:template];
+        return [NSURL URLWithString:url];
+    }
+    return [[NSURL alloc] init];
 }
 
 - (NSString*)retinaImageString
