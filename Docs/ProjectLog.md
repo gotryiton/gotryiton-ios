@@ -12,7 +12,7 @@
 **Status**
 - Working through notifcation links right now.  Commenting on issues with questions as needed
 - Should the notifcations view be closed when switching tabs?
- - yes.  TT to update to the functional spec
+ - yes.  TT to update to the functional spec.
 - GTIO working on iOS 5/6 bugs.  Will merge into featured dev branch that was code reviewed last week
 
 **Updates to Important Dates / Deadlines**
