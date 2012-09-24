@@ -50,7 +50,7 @@ CGFloat const kGTIOIphoneDefaultScreenHeight = 480.0;
     return [NSString stringWithFormat:@"%@%@", self.introScreenID, [self retinaImageString]];
 }
 
-- (NSURL*)deviceSpecificImageURL
+- (NSURL*)deviceSpecificImageURL {
     if (self.universalImageURL) {
         NSError *error = NULL;
         NSString *template = [NSString stringWithFormat:@"%@.$1", [self retinaImageString]];
