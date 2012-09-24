@@ -78,35 +78,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     
     __block typeof(self) blockSelf = self;
     self.navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
-        if(self.notificationsViewController == nil) {
-            self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        }
-        
-        // if a child, remove it
-        if([blockSelf.childViewControllers containsObject:self.notificationsViewController]) {
-            [self.notificationsViewController willMoveToParentViewController:nil];
-            [UIView animateWithDuration:0.25
-                             animations:^{
-                                 [self.notificationsViewController.view setAlpha:0.0];
-                             }
-                             completion:^(BOOL finished) {
-                                 [self.notificationsViewController.view removeFromSuperview];
-                                 [self.notificationsViewController removeFromParentViewController];
-                                 [self.notificationsViewController didMoveToParentViewController:nil];
-                             }];
-        } else {
-            [self.notificationsViewController willMoveToParentViewController:blockSelf];
-            [blockSelf addChildViewController:self.notificationsViewController];
-            [self.notificationsViewController.view setAlpha:0.0];
-            [UIView animateWithDuration:0.25
-                             animations:^{
-                                 [self.view addSubview:self.notificationsViewController.view];
-                                 [self.notificationsViewController.view setAlpha:1.0];
-                             }
-                             completion:^(BOOL finished) {
-                                 [self.notificationsViewController didMoveToParentViewController:blockSelf];
-                             }];
-        }
+        [blockSelf toggleNotificationView:YES];
     }];
     
     // Segmented Control
@@ -177,6 +149,41 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - GTIONotificationViewDisplayProtocol methods
+
+- (void)toggleNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController == nil) {
+        self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+    }
+    
+    // if a child, remove it
+    if([self.childViewControllers containsObject:self.notificationsViewController]) {
+        [self.notificationsViewController willMoveToParentViewController:nil];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.notificationsViewController.view setAlpha:0.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController.view removeFromSuperview];
+                             [self.notificationsViewController removeFromParentViewController];
+                             [self.notificationsViewController didMoveToParentViewController:nil];
+                         }];
+    } else {
+        [self.notificationsViewController willMoveToParentViewController:self];
+        [self addChildViewController:self.notificationsViewController];
+        [self.notificationsViewController.view setAlpha:0.0];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.view addSubview:self.notificationsViewController.view];
+                             [self.notificationsViewController.view setAlpha:1.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController didMoveToParentViewController:self];
+                         }];
+    }
 }
 
 #pragma mark - Refresh After Inactive

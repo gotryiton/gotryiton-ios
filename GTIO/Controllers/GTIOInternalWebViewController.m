@@ -39,35 +39,7 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
     
     if ([[self.URL absoluteString] isEqualToString:[NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, kGTIOStyleResourcePath]]) {
         GTIONavigationNotificationTitleView *navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
-            if(self.notificationsViewController == nil) {
-                self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-            }
-            
-            // if a child, remove it
-            if([self.childViewControllers containsObject:self.notificationsViewController]) {
-                [self.notificationsViewController willMoveToParentViewController:nil];
-                [UIView animateWithDuration:0.25
-                                 animations:^{
-                                     [self.notificationsViewController.view setAlpha:0.0];
-                                 }
-                                 completion:^(BOOL finished) {
-                                     [self.notificationsViewController.view removeFromSuperview];
-                                     [self.notificationsViewController removeFromParentViewController];
-                                     [self.notificationsViewController didMoveToParentViewController:nil];
-                                 }];
-            } else {
-                [self.notificationsViewController willMoveToParentViewController:self];
-                [self addChildViewController:self.notificationsViewController];
-                [self.notificationsViewController.view setAlpha:0.0];
-                [UIView animateWithDuration:0.25
-                                 animations:^{
-                                     [self.view addSubview:self.notificationsViewController.view];
-                                     [self.notificationsViewController.view setAlpha:1.0];
-                                 }
-                                 completion:^(BOOL finished) {
-                                     [self.notificationsViewController didMoveToParentViewController:self];
-                                 }];
-            }
+            [self toggleNotificationView:YES];
         }];
         [self useTitleView:navTitleView];
     } else {
@@ -112,6 +84,41 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - GTIONotificationViewDisplayProtocol
+
+- (void)toggleNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController == nil) {
+        self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+    }
+    
+    // if a child, remove it
+    if([self.childViewControllers containsObject:self.notificationsViewController]) {
+        [self.notificationsViewController willMoveToParentViewController:nil];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.notificationsViewController.view setAlpha:0.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController.view removeFromSuperview];
+                             [self.notificationsViewController removeFromParentViewController];
+                             [self.notificationsViewController didMoveToParentViewController:nil];
+                         }];
+    } else {
+        [self.notificationsViewController willMoveToParentViewController:self];
+        [self addChildViewController:self.notificationsViewController];
+        [self.notificationsViewController.view setAlpha:0.0];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.view addSubview:self.notificationsViewController.view];
+                             [self.notificationsViewController.view setAlpha:1.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController didMoveToParentViewController:self];
+                         }];
+    }
 }
 
 #pragma mark - Properties

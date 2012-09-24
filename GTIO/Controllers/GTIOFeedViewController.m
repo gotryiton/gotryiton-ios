@@ -119,37 +119,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     }];
 
     self.navBarView.titleView.tapHandler = ^(void) {
-        if(self.notificationsViewController == nil) {
-            self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        }
-        
-        // if a child, remove it
-        if([blockSelf.childViewControllers containsObject:self.notificationsViewController]) {
-            [self.notificationsViewController willMoveToParentViewController:nil];
-            [UIView animateWithDuration:0.25
-                             animations:^{
-                                 [self.notificationsViewController.view setAlpha:0.0];
-                             }
-                             completion:^(BOOL finished) {
-                                 [self.notificationsViewController.view removeFromSuperview];
-                                 [self.notificationsViewController removeFromParentViewController];
-                                 [self.notificationsViewController didMoveToParentViewController:nil];
-                             }];
-        } else {
-            [self.notificationsViewController willMoveToParentViewController:blockSelf];
-            [blockSelf addChildViewController:self.notificationsViewController];
-            [self.notificationsViewController.view setAlpha:0.0];
-            [self.notificationsViewController.view setFrame:(CGRect){ { 0, self.navBarView.frame.size.height }, self.notificationsViewController.view.frame.size} ];
-            [self.tableView scrollRectToVisible:(CGRect){0,0,1,1} animated:YES];
-            [UIView animateWithDuration:0.25
-                             animations:^{
-                                 [self.view addSubview:self.notificationsViewController.view];
-                                 [self.notificationsViewController.view setAlpha:1.0];
-                             }
-                             completion:^(BOOL finished) {
-                                 [self.notificationsViewController didMoveToParentViewController:blockSelf];
-                             }];
-        }
+        [blockSelf toggleNotificationView:YES];
     };
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -378,6 +348,43 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     } else {
         [self.view addSubview:self.emptyView];
         [self.emptyView addGestureRecognizer:self.emptyViewTapGestureRecognizer];
+    }
+}
+
+#pragma mark - GTIONotificationViewDisplayProtocol methods
+
+- (void)toggleNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController == nil) {
+        self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+    }
+    
+    // if a child, remove it
+    if([self.childViewControllers containsObject:self.notificationsViewController]) {
+        [self.notificationsViewController willMoveToParentViewController:nil];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.notificationsViewController.view setAlpha:0.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController.view removeFromSuperview];
+                             [self.notificationsViewController removeFromParentViewController];
+                             [self.notificationsViewController didMoveToParentViewController:nil];
+                         }];
+    } else {
+        [self.notificationsViewController willMoveToParentViewController:self];
+        [self addChildViewController:self.notificationsViewController];
+        [self.notificationsViewController.view setAlpha:0.0];
+        [self.notificationsViewController.view setFrame:(CGRect){ { 0, self.navBarView.frame.size.height }, self.notificationsViewController.view.frame.size} ];
+        [self.tableView scrollRectToVisible:(CGRect){0,0,1,1} animated:YES];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.view addSubview:self.notificationsViewController.view];
+                             [self.notificationsViewController.view setAlpha:1.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController didMoveToParentViewController:self];
+                         }];
     }
 }
 

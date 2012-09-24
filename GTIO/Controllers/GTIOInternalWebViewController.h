@@ -8,13 +8,14 @@
 
 #import "GTIOViewController.h"
 #import "GTIOWebView.h"
+#import "GTIONotificationViewDisplayProtocol.h"
 
 extern NSString * const kGTIOStyleResourcePath;
 
 /** Internal GTIO links with the following route go here
     gtio://InternalWebview/[custom title (urlencoded)]/[url (url encoded)]
  */
-@interface GTIOInternalWebViewController : GTIOViewController
+@interface GTIOInternalWebViewController : GTIOViewController <GTIONotificationViewDisplayProtocol>
 
 /** 
  Exposed to allow subclasses to reload the webview at will

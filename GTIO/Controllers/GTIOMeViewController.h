@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GTIOViewController.h"
 #import "GTIOMeTableViewCell.h"
+#import "GTIONotificationViewDisplayProtocol.h"
 
 @protocol GTIOMeTableHeaderViewDelegate <NSObject>
 
@@ -17,6 +18,6 @@
 
 @end
 
-@interface GTIOMeViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOMeTableHeaderViewDelegate, GTIOMeTableViewCellToggleDelegate, UIAlertViewDelegate>
+@interface GTIOMeViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOMeTableHeaderViewDelegate, GTIOMeTableViewCellToggleDelegate, UIAlertViewDelegate, GTIONotificationViewDisplayProtocol>
 
 @end

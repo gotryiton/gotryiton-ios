@@ -7,8 +7,9 @@
 //
 
 #import "GTIOViewController.h"
+#import "GTIONotificationViewDisplayProtocol.h"
 
-@interface GTIOExploreLooksViewController : GTIOViewController
+@interface GTIOExploreLooksViewController : GTIOViewController <GTIONotificationViewDisplayProtocol>
 
 @property (nonatomic, copy) NSString *resourcePath;
 

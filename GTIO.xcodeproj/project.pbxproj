@@ -4245,6 +4245,7 @@
 /* Begin PBXFileReference section */
 		1322E96C160CB16A0044FF54 /* container.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = container.png; sourceTree = "<group>"; };
 		1322E96D160CB16A0044FF54 /* container@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "container@2x.png"; sourceTree = "<group>"; };
+		137DE10A1610A38E0099D442 /* GTIONotificationViewDisplayProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTIONotificationViewDisplayProtocol.h; path = Protocols/GTIONotificationViewDisplayProtocol.h; sourceTree = "<group>"; };
 		3FCBE74015E6A5BD00D1FB63 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = Libraries/RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		5C25D0EF15C4699000F6E8F6 /* GTIOSinglePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOSinglePostViewController.h; sourceTree = "<group>"; };
 		5C25D0F015C4699000F6E8F6 /* GTIOSinglePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOSinglePostViewController.m; sourceTree = "<group>"; };
@@ -7493,6 +7494,7 @@
 				8EA1D31C159E183400E93577 /* GTIOFriendsSearchEmptyStateViewDelegate.h */,
 				8EDA556815757B8A009F0404 /* GTIOLookSelectorControlDelegate.h */,
 				D2E954BC15B855570039BCDC /* GTIOGridItem.h */,
+				137DE10A1610A38E0099D442 /* GTIONotificationViewDisplayProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
