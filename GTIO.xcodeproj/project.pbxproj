@@ -76,6 +76,7 @@
 		5C7754AC161111710012DE55 /* empty-bg-overlay-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7754AB161111710012DE55 /* empty-bg-overlay-568h@2x.png */; };
 		5C7754AD161111710012DE55 /* empty-bg-overlay-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7754AB161111710012DE55 /* empty-bg-overlay-568h@2x.png */; };
 		5C7754AE161111710012DE55 /* empty-bg-overlay-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7754AB161111710012DE55 /* empty-bg-overlay-568h@2x.png */; };
+		5C7754AF16111B5C0012DE55 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE018FD16012CC400A05E8F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5C98445315F001E200ED4612 /* CollectionFooter.css in Resources */ = {isa = PBXBuildFile; fileRef = 5C98445215F001E200ED4612 /* CollectionFooter.css */; };
 		5C98445415F001E200ED4612 /* CollectionFooter.css in Resources */ = {isa = PBXBuildFile; fileRef = 5C98445215F001E200ED4612 /* CollectionFooter.css */; };
 		5C98445515F001E200ED4612 /* CollectionFooter.css in Resources */ = {isa = PBXBuildFile; fileRef = 5C98445215F001E200ED4612 /* CollectionFooter.css */; };
@@ -5974,6 +5975,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C7754AF16111B5C0012DE55 /* Social.framework in Frameworks */,
 				3FE9C43B15E7F867001FDF52 /* libRestKit.a in Frameworks */,
 				D275561E15CC0EEB00425921 /* Twitter.framework in Frameworks */,
 				D275561F15CC0EEB00425921 /* CoreLocation.framework in Frameworks */,
