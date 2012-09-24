@@ -14,6 +14,7 @@
 #import "GTIOAppDelegate.h"
 
 #import "GTIOProgressHUD.h"
+#import "GTIOUIImage.h"
 
 @interface GTIOReturningUsersViewController ()
 
@@ -63,7 +64,7 @@
     [super viewDidLoad];
     
     NSString *backgroundImageResourcePath = (self.returningUser) ? @"login-return-bg.png" : @"login-janrain-new-bg.png";
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[GTIOUIImage imageNamed
                                                                            :backgroundImageResourcePath]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -64)];
     [self.view addSubview:backgroundImageView];

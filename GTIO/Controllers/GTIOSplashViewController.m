@@ -22,6 +22,7 @@
 
 #import "GTIOQuickAddViewController.h"
 #import "GTIOErrorController.h"
+#import "GTIOUIImage.h"
 
 @interface GTIOSplashViewController ()
 
@@ -36,7 +37,7 @@
     [super viewDidLoad];
     
     // Splash Image
-    UIImageView *splashImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Default.png"]];
+    UIImageView *splashImageView = [[UIImageView alloc] initWithImage:[GTIOUIImage imageNamed:@"Default.png"]];
     [splashImageView setFrame:CGRectOffset(splashImageView.frame, 0, -20)];
     [self.view addSubview:splashImageView];
     

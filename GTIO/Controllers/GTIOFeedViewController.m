@@ -42,6 +42,7 @@
 #import "GTIOTweetComposer.h"
 #import "Social/Social.h"
 #import "GTIOTrack.h"
+#import "GTIOUIImage.h"
 
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
@@ -137,7 +138,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:NULL];
     [[GTIOPostManager sharedManager] addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:NULL];
     
-    self.emptyView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-bg-overlay.png"]];
+    self.emptyView = [[UIImageView alloc] initWithImage:[GTIOUIImage imageNamed:@"empty-bg-overlay.png"]];
     [self.emptyView setFrame:(CGRect){ { 0, self.navigationController.navigationBar.frame.size.height }, self.emptyView.image.size }];
     [self.emptyView setUserInteractionEnabled:YES];
     self.emptyViewTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadFeed)];

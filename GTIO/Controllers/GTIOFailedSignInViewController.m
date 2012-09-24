@@ -9,6 +9,7 @@
 #import "GTIOFailedSignInViewController.h"
 
 #import "GTIOMailComposer.h"
+#import "GTIOUIImage.h"
 
 @interface GTIOFailedSignInViewController ()
 
@@ -39,7 +40,7 @@
 {
     [super viewDidLoad];
     
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login-fail-bg.png"]];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[GTIOUIImage imageNamed:@"login-fail-bg.png"]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -64)];
     [self.view addSubview:backgroundImageView];
     
