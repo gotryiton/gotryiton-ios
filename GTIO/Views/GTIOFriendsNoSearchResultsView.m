@@ -35,7 +35,7 @@
 
 - (void)layoutSubviews
 {
-    [self.sadFaceImageView setFrame:(CGRect){ self.bounds.size.width / 2 - _sadFaceImageView.bounds.size.width / 2, 137, _sadFaceImageView.bounds.size }];
+    [self.sadFaceImageView setFrame:(CGRect){ self.bounds.size.width / 2 - _sadFaceImageView.bounds.size.width / 2, self.frame.size.height /2 - self.sadFaceImageView.bounds.size.height/2, _sadFaceImageView.bounds.size }];
     
     if ([self.delegate respondsToSelector:@selector(reloadTableData)]) {
         [self.delegate reloadTableData];
