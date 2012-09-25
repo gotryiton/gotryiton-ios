@@ -182,7 +182,7 @@
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"productID == %@", product.productID];
                 NSArray *foundExistingProducts = [self.heartedProducts filteredArrayUsingPredicate:predicate];
                 if ([foundExistingProducts count] == 0) {
-                    [self.segmentedControl.rightPostsView.masonGridView addItem:product postType:GTIOPostTypeNone];
+                    [self.segmentedControl.leftPostsView.masonGridView addItem:product postType:GTIOPostTypeNone];
                     [self.heartedProducts addObject:product];
                 }
             }];
@@ -231,22 +231,22 @@
 
 - (void)loadPopularProductsPagination
 {
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.heartedProductsPagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.popularProductsPagination.nextPage usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.segmentedControl.rightPostsView.masonGridView.pullToLoadMoreView finishLoading];
-            self.heartedProductsPagination = nil;
+            self.popularProductsPagination = nil;
             
-            NSMutableArray *paginationHeartedProducts = [NSMutableArray array];
+            NSMutableArray *paginationPopularProducts = [NSMutableArray array];
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOProduct class]]) {
-                    [paginationHeartedProducts addObject:object];
+                    [paginationPopularProducts addObject:object];
                 } else if ([object isKindOfClass:[GTIOPagination class]]) {
-                    self.heartedProductsPagination = object;
+                    self.popularProductsPagination = object;
                 }
             }
             
             // Only add posts that are not already on mason grid
-            [paginationHeartedProducts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [paginationPopularProducts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 GTIOProduct *product = obj;
                 
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"productID == %@", product.productID];
