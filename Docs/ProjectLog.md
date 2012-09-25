@@ -1,3 +1,33 @@
+***Tuesday, September 23rd - Standup Notes***
+
+**Attendees**
+- TT - Duncan, Matt
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- GTIO - Submit bug fix to the store
+- TT - continue to work off of production fix
+
+**Status**
+- Simon to merge code into master and submit 4.0.1 to the App Store
+- Simon/Duncan to rebase after merge to continue development
+- Working on notification links.  close notification page when switching tabs
+- Starting to receive 500 errors on styling tab - Simon to commit fix
+
+Ongoing Dev
+- not sprints after this one
+- will utilize critical development
+- iPad development is shelved for the time being
+ - Team needs to focus on iPhone, growing distribution channels, getting featured
+
+**Updates to Important Dates / Deadlines**
+- Target submission date is 9/28
+
+**General Notes**
+- NA
+
+---
+
 ***Monday, September 22nd - Standup Notes***
 
 **Attendees**
