@@ -191,8 +191,6 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
         if (self.delegate && [self.delegate respondsToSelector:@selector(textInputIsEmpty:)]){
             [self.delegate textInputIsEmpty:NO];
         }
-
-        [self highlightHashTag];
         
         if ([self hashtagMode] && ![self isValidHashTag:[self lastWordTyped]]){
             // NSLog(@"hashtagMode");
@@ -358,17 +356,19 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
 
 - (void)highlightAttributedStringInRange:(NSRange)range completerID:(NSString *)completerID type:(NSString *)type
 {
-    // NSLog(@"highlighting range: %@ completer: %@ type: %@", NSStringFromRange(range), completerID, type );
-    // NSLog(@"self.attrString length: %i", self.attrString.length);
-    NSDictionary *highlightTextAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       (id)self.ACHighlightColor, (id)kCTForegroundColorAttributeName, 
-                                       completerID, @"completerId",
-                                       type, @"completerType",
-                                       nil];
-    
-    [self.attrString addAttributes:highlightTextAttr range:range];
-    /* Set the attributes string in the text layer :) */
-    // self.textView.string = self.attrString;
+    if (![type isEqualToString:@"#"]) {
+        // NSLog(@"highlighting range: %@ completer: %@ type: %@", NSStringFromRange(range), completerID, type );
+        // NSLog(@"self.attrString length: %i", self.attrString.length);
+        NSDictionary *highlightTextAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+                                           (id)self.ACHighlightColor, (id)kCTForegroundColorAttributeName, 
+                                           completerID, @"completerId",
+                                           type, @"completerType",
+                                           nil];
+        
+        [self.attrString addAttributes:highlightTextAttr range:range];
+        /* Set the attributes string in the text layer :) */
+        // self.textView.string = self.attrString;
+    }
 }
 
 - (void)unHighlightAttributedStringInRange:(NSRange)range 
@@ -429,16 +429,16 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     }
 }
 
-- (void) highlightHashTag
-{
-    NSString *lastword = [self lastWordTyped];
-    if (lastword.length>0){
-        if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
-            // NSLog(@"highlighting hash: %@", NSStringFromRange(self.positionOfLastWordTyped));
-            [self highlightAttributedStringInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
-        }
-    }
-}
+// - (void) highlightHashTag
+// {
+//     NSString *lastword = [self lastWordTyped];
+//     if (lastword.length>0){
+//         if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
+//             // NSLog(@"highlighting hash: %@", NSStringFromRange(self.positionOfLastWordTyped));
+//             [self highlightAttributedStringInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
+//         }
+//     }
+// }
 
 - (NSMutableArray *)searchLastTypedWordsForAutoCompletes
 {
@@ -682,14 +682,8 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
             if ([attributes objectForKey:@"completerType"]) {
                 GTIOAutoCompleter * completer = [self completerWithID:[attributes objectForKey:@"completerId"]];
 
-                //if its a hashtag, make sure the hashtag is at the front of the string
-                if ([[attributes objectForKey:@"completerType"] isEqualToString:@"#"] ){
-                    if (![self isValidHashTag:[[self.attrString string] substringWithRange:effectiveRange]]){
-                        [self unHighlightAttributedStringInRange:effectiveRange];
-                    }
-                }
                 // if its some other tag, make sure the string still matches
-                else if (![[[self.attrString string] substringWithRange:effectiveRange] isEqualToString:[completer completerString]]){
+                if (![[[self.attrString string] substringWithRange:effectiveRange] isEqualToString:[completer completerString]]){
                     [self unHighlightAttributedStringInRange:effectiveRange];
                 }
             }
