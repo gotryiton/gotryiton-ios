@@ -10,9 +10,9 @@ NSString * const kGTIOIntroScreenIDKey = @"GTIOIntroScreenIDKey";
 NSString * const kGTIOImageURLKey = @"GTIOImageURLKey";
 NSString * const kGTIOUniversalImageURLKey = @"GTIOUniversalImageURLKey";
 NSString * const kGTIOTrackKey = @"GTIOTrackKey";
-CGFloat const kGTIOIphoneDefaultScreenHeight = 480.0;
 
 #import "GTIOIntroScreen.h"
+#import "GTIOUIImage.h"
 
 @implementation GTIOIntroScreen
 
@@ -47,30 +47,14 @@ CGFloat const kGTIOIphoneDefaultScreenHeight = 480.0;
 
 - (NSString *)deviceSpecificId
 {
-    return [NSString stringWithFormat:@"%@%@", self.introScreenID, [self retinaImageString]];
+    return [NSString stringWithFormat:@"%@%@", self.introScreenID, [GTIOUIImage retinaImageStringForUIImage:NO]];
 }
 
 - (NSURL*)deviceSpecificImageURL {
     if (self.universalImageURL) {
-        NSError *error = NULL;
-        NSString *template = [NSString stringWithFormat:@"%@.$1", [self retinaImageString]];
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".(png|jpg|jpeg)$" options:NSRegularExpressionCaseInsensitive error:&error];
-        NSString *url = [regex stringByReplacingMatchesInString:[self.universalImageURL absoluteString] options:0 range:NSMakeRange(0, [[self.universalImageURL absoluteString] length]) withTemplate:template];
-        return [NSURL URLWithString:url];
+        return [GTIOUIImage deviceSpecificURL:self.universalImageURL];
     }
     return [[NSURL alloc] init];
 }
 
-- (NSString*)retinaImageString
-{
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2){
-        if([[UIScreen mainScreen] bounds].size.height != kGTIOIphoneDefaultScreenHeight){
-            // @2x on iphone 5
-            return [NSString stringWithFormat:@"-%ih@2x",(int)[[UIScreen mainScreen] bounds].size.height];
-        }
-        // @2x on old phone
-        return @"@2x";
-    } 
-    return @"";
-}
 @end

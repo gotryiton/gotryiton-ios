@@ -57,7 +57,7 @@ NSInteger const kGTIOImageDownloadTimeout = 30;
                             for (GTIOIntroScreen *introScreen in config.introScreens) {
                                 for (GTIOIntroScreen *currentIntroScreen in currentConfig.introScreens) {
                                     if ([[introScreen deviceSpecificId] isEqual:[currentIntroScreen deviceSpecificId]] && 
-                                        (![[[introScreen deviceSpecificImageURL] absoluteURL] isEqual:[[currentIntroScreen deviceSpecificImageURL] absoluteURL]] || 
+                                        (![[[introScreen deviceSpecificImageURL] absoluteString] isEqual:[[currentIntroScreen deviceSpecificImageURL] absoluteString]] || 
                                          ![[SDImageCache sharedImageCache] imageFromKey:[introScreen deviceSpecificId]])) {
                                             [self downloadImageForIntroScreen:introScreen];
                                         }
