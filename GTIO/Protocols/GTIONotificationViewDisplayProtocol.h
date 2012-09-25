@@ -11,5 +11,7 @@
 @protocol GTIONotificationViewDisplayProtocol <NSObject>
 
 - (void)toggleNotificationView:(BOOL)animated;
+- (void)closeNotificationView:(BOOL)animated;
+- (void)openNotificationView:(BOOL)animated;
 
 @end

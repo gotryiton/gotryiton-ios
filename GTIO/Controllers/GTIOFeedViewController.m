@@ -200,6 +200,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    [self closeNotificationView:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kGTIOPostFeedOpenLinkNotification object:nil];
 }
 
@@ -361,6 +362,15 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     
     // if a child, remove it
     if([self.childViewControllers containsObject:self.notificationsViewController]) {
+        [self closeNotificationView:YES];
+    } else {
+        [self openNotificationView:YES];
+    }
+}
+
+- (void)closeNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController) {
         [self.notificationsViewController willMoveToParentViewController:nil];
         [UIView animateWithDuration:0.25
                          animations:^{
@@ -371,7 +381,12 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
                              [self.notificationsViewController removeFromParentViewController];
                              [self.notificationsViewController didMoveToParentViewController:nil];
                          }];
-    } else {
+    }
+}
+
+- (void)openNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController == nil) {
         [self.notificationsViewController willMoveToParentViewController:self];
         [self addChildViewController:self.notificationsViewController];
         [self.notificationsViewController.view setAlpha:0.0];

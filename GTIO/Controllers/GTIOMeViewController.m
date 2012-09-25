@@ -156,6 +156,13 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [self.profileHeaderView setUser:[GTIOUser currentUser]];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self closeNotificationView:NO];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -171,6 +178,15 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     
     // if a child, remove it
     if([self.childViewControllers containsObject:self.notificationsViewController]) {
+        [self closeNotificationView:YES];
+    } else {
+        [self openNotificationView:YES];
+    }
+}
+
+- (void)closeNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController) {
         [self.notificationsViewController willMoveToParentViewController:nil];
         [UIView animateWithDuration:0.25
                          animations:^{
@@ -181,7 +197,12 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                              [self.notificationsViewController removeFromParentViewController];
                              [self.notificationsViewController didMoveToParentViewController:nil];
                          }];
-    } else {
+    }
+}
+
+- (void)openNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController == nil) {
         [self.notificationsViewController willMoveToParentViewController:self];
         [self addChildViewController:self.notificationsViewController];
         [self.notificationsViewController.view setAlpha:0.0];

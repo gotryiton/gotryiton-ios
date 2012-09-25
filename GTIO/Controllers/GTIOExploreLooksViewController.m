@@ -145,6 +145,12 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self closeNotificationView:NO];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -161,6 +167,15 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     
     // if a child, remove it
     if([self.childViewControllers containsObject:self.notificationsViewController]) {
+        [self closeNotificationView:YES];
+    } else {
+        [self openNotificationView:YES];
+    }
+}
+
+- (void)closeNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController) {
         [self.notificationsViewController willMoveToParentViewController:nil];
         [UIView animateWithDuration:0.25
                          animations:^{
@@ -171,7 +186,12 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
                              [self.notificationsViewController removeFromParentViewController];
                              [self.notificationsViewController didMoveToParentViewController:nil];
                          }];
-    } else {
+    }
+}
+
+- (void)openNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController == nil) {
         [self.notificationsViewController willMoveToParentViewController:self];
         [self addChildViewController:self.notificationsViewController];
         [self.notificationsViewController.view setAlpha:0.0];
