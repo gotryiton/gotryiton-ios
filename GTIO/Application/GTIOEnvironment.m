@@ -35,7 +35,7 @@
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
     NSString * const kGTIOEnvironmentName = @"Staging";
-    NSString * const kGTIOBaseURLString = @"http://beta-stage.gotryiton.com";
+    NSString * const kGTIOBaseURLString = @"http://staging.gotryiton.com";
     NSString * const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString * const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString * const kGTIOFacebookAppID = @"125885160757300";
@@ -65,7 +65,7 @@
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
 #endif
 
-NSString * const kGTIOAcceptHeader = @"application/v4.0.1-json";
+NSString * const kGTIOAcceptHeader = @"application/v4.0.2-json";
 NSString * const kGTIOAuthenticationHeaderKey = @"Authentication";
 NSString * const kGTIOTrackingHeaderKey = @"Tracking-Id";
 
@@ -78,7 +78,6 @@ NSString * const kGTIOJanRainProviderYahoo = @"yahoo";
 // Notification Constants
 NSString * const kGTIOLooksUpdated = @"kGTIOLooksUpdated";
 NSString * const kGTIOPostFeedOpenLinkNotification = @"kGTIOPostFeedOpenLinkNotification";
-NSString * const kGTIODismissEllipsisPopOverViewNotification = @"kGTIODismissEllipsisPopOverViewNotification";
 NSString * const kGTIONotificationCountNofitication = @"kGTIONotificationCountNofitication";
 NSString * const kGTIOChangeSelectedTabNotification = @"kGTIOChangeSelectedTabNotification";
 NSString * const kGTIOAddTabBarToWindowNotification = @"kGTIOAddTabBarToWindowNotification";

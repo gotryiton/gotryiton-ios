@@ -11,7 +11,6 @@
 #import "GTIOPostFrameView.h"
 #import "GTIOWhoHeartedThisView.h"
 #import "GTIOPostButtonColumnView.h"
-#import "GTIOPopOverView.h"
 #import "GTIOPopOverButton.h"
 
 static CGFloat const kGTIOFrameOriginX = 3.5f;
@@ -19,16 +18,11 @@ static CGFloat const kGTIOWhoHeartedThisOriginX = 13.0f;
 static CGFloat const kGTIOWhoHeartedThisTopPadding = -8.0f;
 static CGFloat const kGTIOWhoHeartedThisWidth = 250.0f;
 static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
-static CGFloat const kGITOEllipsisPopOverViewXOriginOffset = 8.5f;
-static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 14.0f;
 
 @interface GTIOFeedCell () <UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) GTIOWhoHeartedThisView *whoHeartedThisView;
 @property (nonatomic, strong) GTIOPostButtonColumnView *postButtonColumnView;
-
-@property (nonatomic, strong) GTIOPopOverView *ellipsisPopOverView;
-@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
 
@@ -53,11 +47,6 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 14.0f;
         _postButtonColumnView = [[GTIOPostButtonColumnView alloc] initWithFrame:(CGRectZero)];
         [self.contentView addSubview:_postButtonColumnView];
         
-        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
-        [_tapGestureRecognizer setDelegate:self];
-        [self addGestureRecognizer:_tapGestureRecognizer];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissEllipsisPopOverView:) name:kGTIODismissEllipsisPopOverViewNotification object:nil];
     }
     return self;
 }
@@ -78,8 +67,6 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 14.0f;
 {
     [self.postButtonColumnView prepareForReuse];
     [self.frameView prepareForReuse];
-    [self.ellipsisPopOverView removeFromSuperview];
-    self.ellipsisPopOverView = nil;    
 }
 
 #pragma mark - Properties
@@ -99,67 +86,24 @@ static CGFloat const kGITOEllipsisPopOverViewYOriginOffset = 14.0f;
         [self.postButtonColumnView setFrame:(CGRect){ { postButtonColumnViewOriginX, 0 }, { self.frame.size.width - postButtonColumnViewOriginX, self.frame.size.height } }];
         [self.postButtonColumnView setPost:_post];
         __block typeof(self) blockSelf = self;
-        [self.postButtonColumnView setEllipsisButtonTapHandler:^(id sender){ 
-            if (!blockSelf.ellipsisPopOverView) {
-                blockSelf.ellipsisPopOverView = [GTIOPopOverView ellipsisPopOverViewWithButtonModels:_post.dotOptionsButtons];
 
-                [blockSelf.ellipsisPopOverView setFrame:(CGRect){ { self.frame.size.width - blockSelf.ellipsisPopOverView.frame.size.width + kGITOEllipsisPopOverViewXOriginOffset, self.postButtonColumnView.ellipsisButton.frame.origin.y + self.postButtonColumnView.ellipsisButton.frame.size.height - kGITOEllipsisPopOverViewYOriginOffset }, blockSelf.ellipsisPopOverView.frame.size }];
-                [blockSelf addSubview:blockSelf.ellipsisPopOverView];
-                
-                id tapDelegate = self.delegate;
-                [blockSelf.ellipsisPopOverView setTapHandler:^(GTIOButton *buttonModel) {
-                    if ([tapDelegate respondsToSelector:@selector(buttonTap:)]) {
-                        [tapDelegate buttonTap:buttonModel];
-                    }
-                }];
-            }
-            else {
-                [blockSelf.ellipsisPopOverView removeFromSuperview];
-                blockSelf.ellipsisPopOverView = nil;
-            }
+        [self.postButtonColumnView setEllipsisButtonTapHandler:^(id sender){ 
             
+            id tapDelegate = blockSelf.delegate;
+            blockSelf.actionSheet = [[GTIOActionSheet alloc] initWithButtons:_post.dotOptionsButtons buttonTapHandler:^(GTIOActionSheet *actionSheet, GTIOButton *buttonModel) {
+                [actionSheet dismiss];
+                if ([tapDelegate respondsToSelector:@selector(buttonTap:)]) {
+                    buttonModel.postID = blockSelf.post.postID;
+                    [tapDelegate buttonTap:buttonModel];
+                }
+            }];
+
+            [blockSelf.actionSheet showWithConfigurationBlock:nil];
+
         }];
     }
 }
 
-#pragma mark - NSNotifcations
-
-- (void)dismissEllipsisPopOverView:(NSNotification *)notification
-{
-    [self.ellipsisPopOverView removeFromSuperview];
-    self.ellipsisPopOverView = nil;
-}
-
-#pragma mark - UIGestureRecognizer
-
-- (void)didTap:(UIGestureRecognizer *)gesture
-{
-    switch ([gesture state]) {
-        case UIGestureRecognizerStateRecognized:
-            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
-            break;
-        default:
-            break;
-    }
-}
-
-#pragma mark - UIGestureRecognizerDelegate
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    
-    if ([touch.view isEqual:self.postButtonColumnView.ellipsisButton]) {
-        // Disallow recognition of tap gestures in the button but do not remove overlay
-        return NO;
-    } else if ([[touch.view class] isSubclassOfClass:[GTIOPopOverButton class]]) {
-        // Disallow recognition of tap gestures in the pop over button but do not remove overlay
-        return NO;
-    } else if ([[touch.view class] isSubclassOfClass:[UIButton class]]) {
-        // Disallow recognition of tap gestures in the button and remove overlay
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
-        return NO;
-    } 
-    return YES;
-}
 
 #pragma mark - Height
 

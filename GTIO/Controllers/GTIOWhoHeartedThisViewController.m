@@ -63,7 +63,8 @@
     [self.view addSubview:self.tableView];
     
     self.pullToLoadMoreView = [[SSPullToLoadMoreView alloc] initWithScrollView:self.tableView delegate:self];
-    self.pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 0.0f } }];
+    self.pullToLoadMoreView.contentView = [[GTIOPullToLoadMoreContentView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.tableView.frame.size.height } }];
+    [self.pullToLoadMoreView setExpandedHeight:0.0f];
 
     [self loadUsers];
 }

@@ -20,7 +20,6 @@ static NSString * kGTIOMDefaultPostText = @"Say something about this look! (e.g.
 {
     self = [super initWithFrame:frame outerBox:outerFrame placeholder:kGTIOMDefaultPostText];
     if (self) {
-        [self.textInput setDelegate:self];
 
         self.placeHolderLabelView = [[UIView alloc] initWithFrame:(CGRect){ CGRectGetMinX(frame) , 0, frame.size.width + 5, 30 }];
         [self addSubview:self.placeHolderLabelView];

@@ -25,3 +25,6 @@
 [submodule "Libraries/AFNetworking"]
 	path = Libraries/AFNetworking
 	url = git@github.com:twotoasters/AFNetworking.git
+[submodule "Libraries/BPXLUUIDHandler"]
+	path = Libraries/BPXLUUIDHandler
+	url = https://github.com/blackpixel/BPXLUUIDHandler.git
