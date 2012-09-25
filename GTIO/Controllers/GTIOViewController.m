@@ -53,6 +53,9 @@
     
     [self.navigationItem setHidesBackButton:YES];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"green-pattern-nav-bar.png"] forBarMetrics:UIBarMetricsDefault];
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setShadowImage:)]) {
+        self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    }
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
