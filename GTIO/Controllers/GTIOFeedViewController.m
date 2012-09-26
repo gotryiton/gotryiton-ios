@@ -91,8 +91,9 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         _removeNavToHeaderOffsetXOrigin = -0.0f;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefreshAfterInactive object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefreshAfterInactive object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterLogout) name:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
     }
     return self;
 }
@@ -222,8 +223,15 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         self.shouldRefreshAfterInactive = NO;
         [self loadFeed];
         // load all the rest here
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefreshAfterInactive object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
     }
+}
+
+#pragma mark - Refresh after Logout
+
+- (void)refreshAfterLogout
+{
+    [self loadFeed];
 }
 
 #pragma mark - Load Data
@@ -664,9 +672,11 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     
     if (!self.postUpload) {
         self.postUpload = [[GTIOPostUpload alloc] init];
-        [self.posts insertObject:self.postUpload atIndex:0];
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView setContentOffset:CGPointZero];
+        [self.posts insertObject:self.postUpload atIndex:0];
+        [self.tableView reloadData];
+        // seems like this tableview insertion is causing the ghost cell above the upload cell. Not sure why. 
+//        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         
         // Go to feed tab
         NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabFeed) };
@@ -718,7 +728,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     }
 }
 
--(void) postHeaderViewTapWithUserId:(NSString *)userID
+-(void)postHeaderViewTapWithUserId:(NSString *)userID
 {
     GTIOProfileViewController *viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
     [viewController setUserID:userID];

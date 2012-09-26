@@ -90,11 +90,12 @@ NSString * const kGTIOStylesChangeCollectionIDNotification = @"kGTIOStylesChange
 NSString * const kGTIOTabBarViewsResize = @"kGTIOTabBarViewsResize";
 NSString * const kGTIOShowProfileUserNotification = @"kGTIOShowProfileUserNotification";
 NSString * const kGTIOAppReturningFromInactiveStateNotification = @"kGTIOAppReturningFromInactiveStateNotification";
-NSString * const kGTIOFeedControllerShouldRefreshAfterInactive = @"kGTIOFeedControllerShouldRefreshAfterInactive";
-NSString * const kGTIOExploreLooksControllerShouldRefreshAfterInactive = @"kGTIOExploreLooksControllerShouldRefreshAfterInactive";
-NSString * const kGTIOStyleControllerShouldRefreshAfterInactive = @"kGTIOLooksControllerShouldRefreshAfterInactive";
-NSString * const kGTIOMeControllerShouldRefreshAfterInactive = @"kGTIOMeControllerShouldRefreshAfterInactive";
-NSString * const kGTIOAllControllersShouldRefreshAfterInactive = @"kGTIOAllControllersShouldRefreshAfterInactive";
+NSString * const kGTIOFeedControllerShouldRefresh = @"kGTIOFeedControllerShouldRefresh";
+NSString * const kGTIOExploreLooksControllerShouldRefresh = @"kGTIOExploreLooksControllerShouldRefresh";
+NSString * const kGTIOStyleControllerShouldRefresh = @"kGTIOLooksControllerShouldRefresh";
+NSString * const kGTIOMeControllerShouldRefresh = @"kGTIOMeControllerShouldRefresh";
+NSString * const kGTIOAllControllersShouldRefresh = @"kGTIOAllControllersShouldRefresh";
+NSString * const kGTIOAllControllersShouldRefreshAfterLogout = @"kGTIOAllControllersShouldRefreshAfterLogout";
 
 // Notification UserInfo
 NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";

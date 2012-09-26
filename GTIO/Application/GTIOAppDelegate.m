@@ -174,20 +174,20 @@
             // find the selected root view controller and notify it to load
             switch (self.tabBarController.selectedIndex) {
                 case 0:
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOFeedControllerShouldRefreshAfterInactive object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOFeedControllerShouldRefresh object:nil];
                     break;
                 case 1:
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOExploreLooksControllerShouldRefreshAfterInactive object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOExploreLooksControllerShouldRefresh object:nil];
                     break;
                 case 2:
                     // load all in background
                     
                     break;
                 case 3:
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOStyleControllerShouldRefreshAfterInactive object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOStyleControllerShouldRefresh object:nil];
                     break;
                 case 4:
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOMeControllerShouldRefreshAfterInactive object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOMeControllerShouldRefresh object:nil];
                     break;
                 default:
                     break;

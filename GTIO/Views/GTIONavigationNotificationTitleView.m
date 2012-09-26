@@ -112,6 +112,8 @@ static CGFloat const kGTIONotificationLabelOriginY = 8.0f;
     UIImage *bubbleImage = [UIImage imageNamed:[NSString stringWithFormat:@"nav.counter.empty.%@active.png", active ? @"" : @"in"]];
     if (self.notificationCount > 0) {
         bubbleImage = [UIImage imageNamed:[NSString stringWithFormat:@"nav.counter.%@active.png", active ? @"" : @"in"]];
+    } else if([[[GTIONotificationManager sharedManager] notifications] count] == 0) {
+        bubbleImage = nil;
     }
     [self.bubbleImageView setImage:bubbleImage];
 }

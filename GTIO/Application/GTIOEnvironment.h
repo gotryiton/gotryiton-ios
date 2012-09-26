@@ -58,11 +58,12 @@ extern NSString * const kGTIOStylesChangeCollectionIDNotification;
 extern NSString * const kGTIOTabBarViewsResize;
 extern NSString * const kGTIOShowProfileUserNotification;
 extern NSString * const kGTIOAppReturningFromInactiveStateNotification;
-extern NSString * const kGTIOFeedControllerShouldRefreshAfterInactive;
-extern NSString * const kGTIOExploreLooksControllerShouldRefreshAfterInactive;
-extern NSString * const kGTIOStyleControllerShouldRefreshAfterInactive;
-extern NSString * const kGTIOMeControllerShouldRefreshAfterInactive;
-extern NSString * const kGTIOAllControllersShouldRefreshAfterInactive;
+extern NSString * const kGTIOFeedControllerShouldRefresh;
+extern NSString * const kGTIOExploreLooksControllerShouldRefresh;
+extern NSString * const kGTIOStyleControllerShouldRefresh;
+extern NSString * const kGTIOMeControllerShouldRefresh;
+extern NSString * const kGTIOAllControllersShouldRefresh;
+extern NSString * const kGTIOAllControllersShouldRefreshAfterLogout;
 
 // Notification UserInfo
 extern NSString * const kGTIOChangeSelectedTabToUserInfo;
