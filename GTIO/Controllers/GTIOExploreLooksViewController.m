@@ -85,6 +85,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     // Segmented Control
     self.segmentedControlView = [[GTIOLooksSegmentedControlView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 50 } }];
     [self.segmentedControlView setSegmentedControlValueChangedHandler:^(GTIOTab *tab) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         [blockSelf loadDataWithResourcePath:tab.endpoint];
     }];
     [self.view addSubview:self.segmentedControlView];
@@ -291,6 +292,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
                 }
             }
 
+            [GTIOProgressHUD hideAllHUDsForView:self.view animated:YES];
             [self.masonGridView setItems:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
             [self.masonGridView.pullToRefreshView finishLoading];
