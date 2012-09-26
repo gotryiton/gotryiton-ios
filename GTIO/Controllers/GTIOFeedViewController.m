@@ -437,6 +437,8 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 {
     if (self.postUpload && section == 0) {
         self.uploadView.frame = self.uploadView.bounds; // Reset to (0,0) in case you were scrolled down.
+        self.uploadView.alpha = 1;
+        NSLog(@"UploadView: %@", self.uploadView);
         return self.uploadView;
     }
     
@@ -625,6 +627,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 {
     CGFloat progress = [[change objectForKey:@"new"] floatValue];
     [self.uploadView setProgress:progress];
+    NSLog(@"upload view: %@", self.uploadView);
 }
 
 - (void)stateValueChanged:(NSDictionary *)change
