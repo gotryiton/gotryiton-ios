@@ -35,7 +35,7 @@
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
     NSString * const kGTIOEnvironmentName = @"Staging";
-    NSString * const kGTIOBaseURLString = @"http://beta-stage.gotryiton.com";
+    NSString * const kGTIOBaseURLString = @"http://staging.gotryiton.com";
     NSString * const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString * const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString * const kGTIOFacebookAppID = @"125885160757300";

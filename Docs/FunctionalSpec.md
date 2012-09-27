@@ -996,9 +996,9 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 When a user is on one of the top level tabs, they see a navigation bar with notifications 
 
 #### Mockups
-2.2 Notifications ([wireframe](http://invis.io/QR2OBP8N))
+2.2 Notifications Overlay ([wireframe](http://invis.io/QR2OBP8N))
 
-<img src="https://github.com/twotoasters/GTIO-iOS/raw/master/GTIO/Application/Resources/Mockups/2.2.notifications.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/2.2-Notifications-Overlay.jpg" width=420px/>
 
 #### User Flow
 
@@ -1019,16 +1019,19 @@ TBD
 
 #### Stories
 - A user can view their notifications in a notifications view
-   - View has close button in top left
-      - closes overlay 
-      - TBD: matt to add animation details
+   - View is list cells that appear inside a background container
+      - List is masked with rounded corners (3px radius)
+   - View opens and closes by hitting logo/notification count area on nav bar
+   - View should open and close with quick fading animation
    - View has cell layout with dynamic text
       - description text allows for bold html styling
          - ```<b>```Person's Name```</b>``` should make the name appear bold
       - heights depending on description text
+      - Last cell in list should show a drop shadow
 - A user can tap on each notification item
    - each notification item has a destination 
       - can be gtio:// link or http:// link
+   - tapping on a notification closes the view, THEN immediately initiates navigation to the linked destination
 - The app will only highlight the number of notifications that the user has not seen
    - app will keep track of notificiation ids
       - ids that have been seen will get a read state
@@ -1038,18 +1041,23 @@ TBD
       - this behavior will mimmick current 3.0 behavior
 
 #### Design Stories
+- Container
+   - '2/container.png'
+- List is masked with rounded corners (3px radius)
+- Last item drop shadow
+   - 0.15 opacity, 5px 90 degrees (point down)
 - Text: 16pt Verlag Bold/Light
-	- Active State: rgb(98,98,98) #626262
-	- Read State: rgb(143,143,143) #8f8f8f
-	- Top/Bottom Padding: 16px
+   - Active State: rgb(98,98,98) #626262
+   - Read State: rgb(143,143,143) #8f8f8f
+   - Top/Bottom Padding: 16px
 - Icons: 21x21px
-	- 8px from left
-	- Vertically centered
-	- 10px right padding to text
+   - 8px from left
+   - Vertically centered
+   - 10px right padding to text
 - Cell:
-	- Active State: rgb(255,255,255)
-	- Read State: rgb(255,255,255) with an alpha of .45
-	- Bottom border: 1px rgb(217,215,206) #d9d7ce
+   - Active State: rgb(255,255,255)
+   - Read State: rgb(255,255,255) with an alpha of .45
+   - Bottom border: 1px rgb(217,215,206) #d9d7ce
  
 
 ## 3. Product and Outfit Post Detail pages

@@ -14,7 +14,7 @@ static NSString * const kGTIOFacebookButtonType = @"facebook";
 
 @implementation GTIOButton
 
-- (BOOL)isValid
+- (BOOL)isAvilableForIOSDevice
 {
     if ([self.buttonType isEqualToString:kGTIOFacebookButtonType]){
         return ([[[UIDevice currentDevice] systemVersion] compare:@"6" options:NSNumericSearch] != NSOrderedAscending);

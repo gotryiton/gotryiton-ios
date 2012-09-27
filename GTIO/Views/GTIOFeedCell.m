@@ -89,7 +89,7 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
 
         [self.postButtonColumnView setEllipsisButtonTapHandler:^(id sender){ 
             
-            id tapDelegate = self.delegate;
+            id tapDelegate = blockSelf.delegate;
             blockSelf.actionSheet = [[GTIOActionSheet alloc] initWithButtons:_post.dotOptionsButtons buttonTapHandler:^(GTIOActionSheet *actionSheet, GTIOButton *buttonModel) {
                 [actionSheet dismiss];
                 if ([tapDelegate respondsToSelector:@selector(buttonTap:)]) {
@@ -98,13 +98,7 @@ static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
                 }
             }];
 
-            [blockSelf.actionSheet showWithConfigurationBlock:^(GTIOActionSheet *actionSheet) {
-                actionSheet.didDismiss = ^(GTIOActionSheet *actionSheet) {
-                    if (!actionSheet.wasCancelled) {
-                        
-                    }
-                };
-            }];
+            [blockSelf.actionSheet showWithConfigurationBlock:nil];
 
         }];
     }

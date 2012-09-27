@@ -263,7 +263,6 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
         } 
     }
 
-    
     return;
 }
 
@@ -355,7 +354,7 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
 
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:string attributes:self.inputTextAttributes];
     [self.attrString replaceCharactersInRange:range withAttributedString:attrStr];
-    
+
 }
 
 - (void)highlightAttributedStringInRange:(NSRange)range 
@@ -392,32 +391,16 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     }
 }
 
-- (void) highlightTags
-{
-
-    if ([self.textInput respondsToSelector:@selector(setAttributedText:)] && [self.textInput.text length]>0){
-
-        [self updateAttributedStringInRange:NSMakeRange(0,[self.attrString length]) string:self.inputText];
-
-        NSError *error = NULL;
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(^|[\\s])([@#][\\w\\d\\-\\&\\.]*)" options:NSRegularExpressionCaseInsensitive error:&error];
-        [regex enumerateMatchesInString:self.inputText options:0 range:NSMakeRange(0, [self.inputText length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
-             
-             NSRange highlight = [match rangeAtIndex:2];
-             // NSLog(@"found tag at %@", NSStringFromRange(highlight));
-             [self highlightAttributedStringInRange:highlight];
-
-        }];
-
-        NSRange range = self.textInput.selectedRange;
-        if (range.length ==0 && range.location == 0){
-            range = self.lastEditRange;
-        }
-        self.textInput.text = @"";
-        self.textInput.attributedText = self.attrString;
-        [self.textInput setSelectedRange:range];
-    }
-}
+// - (void) highlightHashTag
+// {
+//     NSString *lastword = [self lastWordTyped];
+//     if (lastword.length>0){
+//         if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
+//             // NSLog(@"highlighting hash: %@", NSStringFromRange(self.positionOfLastWordTyped));
+//             [self highlightAttributedStringInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
+//         }
+//     }
+// }
 
 - (NSMutableArray *)searchLastTypedWordsForAutoCompletes
 {

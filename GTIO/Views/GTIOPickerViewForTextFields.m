@@ -35,7 +35,9 @@
         if ([rowLabel isEqualToString:[self.pickerItems objectAtIndex:i]]){
             self.selectedRowLabel = rowLabel;
            [self selectRow:i inComponent:0 animated:NO];
+           
            [self.bindingTextField setText:self.selectedRowLabel];
+           [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:self.bindingTextField];
         }
     }
 }
@@ -81,6 +83,8 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [self.bindingTextField setText:[self selectedRowLabel]];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:self.bindingTextField];
 }
 
 @end

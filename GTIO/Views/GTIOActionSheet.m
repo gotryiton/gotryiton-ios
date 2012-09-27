@@ -108,7 +108,7 @@ static double const buttonWidth = 292.0;
                     }];
                 };
             }
-            if ([button isValid]) {
+            if ([button isAvilableForIOSDevice]) {
                 [_otherButtons addObject:actionSheetButton];
                 [_buttonsContainer addSubview:actionSheetButton];
             }
