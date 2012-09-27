@@ -8,8 +8,9 @@
 
 #import "GTIOViewController.h"
 #import "GTIONotificationViewDisplayProtocol.h"
+#import "GTIOMasonGridView.h"
 
-@interface GTIOExploreLooksViewController : GTIOViewController <GTIONotificationViewDisplayProtocol>
+@interface GTIOExploreLooksViewController : GTIOViewController <GTIONotificationViewDisplayProtocol, GTIOMasonGridViewPaginationDelegate>
 
 @property (nonatomic, copy) NSString *resourcePath;
 

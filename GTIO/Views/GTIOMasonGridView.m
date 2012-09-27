@@ -31,6 +31,7 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
     self = [super initWithFrame:frame];
     if (self) {
         _padding = 5.0f;
+        self.delegate = self;
     }
     return self;
 }
@@ -137,6 +138,35 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
     [super setFrame:frame];
     [self.pullToRefreshView.contentView setFrame:(CGRect){ self.pullToRefreshView.contentView.frame.origin, { self.frame.size.width, self.pullToRefreshView.contentView.frame.size.height } }];
     [self.pullToLoadMoreView.contentView setFrame:(CGRect){ self.pullToLoadMoreView.contentView.frame.origin, { self.frame.size.width, self.pullToLoadMoreView.contentView.frame.size.height } }];
+}
+
+#pragma mark - UIScrollViewDelegate methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    // since we don't have dequeue'ing or 'willDisplayGridItemAtRowAndColumn' or something similar...
+    // take the tallest column, find the last 3 images, and if you've scrolled to the top one yet, pagniate
+    GTIOMasonGridColumn *tallestColumn = nil;
+    for (GTIOMasonGridColumn *column in self.columns) {
+        if (tallestColumn == nil || column.height > tallestColumn.height) {
+            tallestColumn = column;
+        }
+    }
+    
+    NSInteger numImages = [[tallestColumn items] count] > 3 ? 3 : [[tallestColumn items] count];
+    CGFloat heightOfImages = 0.0f;
+    for(int i = 0; i < numImages; i++) {
+        heightOfImages += ((GTIOMasonGridItem *)[[tallestColumn items] objectAtIndex:numImages-i]).image.size.height;
+        heightOfImages += self.padding;
+    }
+    
+//    NSLog(@"masonGridView scrollView.contentOffset: %f, pagniation threshold: %f", scrollView.contentOffset.y + scrollView.frame.size.height, (scrollView.contentSize.height - heightOfImages));
+    if( (scrollView.contentOffset.y + scrollView.frame.size.height) > (scrollView.contentSize.height - heightOfImages) ) {
+        if(self.pagniationDelegate && [self.pagniationDelegate respondsToSelector:@selector(masonGridViewShouldPagniate:)]) {
+            [self.pagniationDelegate masonGridViewShouldPagniate:self];
+        }
+    }
+    
 }
 
 #pragma mark - Pull to ...

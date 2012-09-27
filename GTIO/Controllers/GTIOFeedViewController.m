@@ -47,6 +47,8 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 static NSString * const kGTIOAlertForDeletingPost = @"do you want to delete this post permanently?";
 static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 
+static NSInteger const kGTIOPaginationCellThreshold = 3;
+
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, GTIOFeedCellDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -291,6 +293,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 
 - (void)loadPagination
 {
+    self.pagination.loading = YES;
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.pullToLoadMoreView finishLoading];
@@ -343,6 +346,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToLoadMoreView finishLoading];
+            self.pagination.loading = NO;
             NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
         };
     }];
@@ -438,7 +442,6 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     if (self.postUpload && section == 0) {
         self.uploadView.frame = self.uploadView.bounds; // Reset to (0,0) in case you were scrolled down.
         self.uploadView.alpha = 1;
-        NSLog(@"UploadView: %@", self.uploadView);
         return self.uploadView;
     }
     
@@ -466,6 +469,11 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     if ([cell isKindOfClass:[GTIOFeedCell class]]) {
         GTIOPost *post = [self.posts objectAtIndex:indexPath.section];
         ((GTIOFeedCell *)cell).post = post;
+    }
+    
+    if(indexPath.section >= [tableView numberOfSections]-1-kGTIOPaginationCellThreshold && !self.pagination.loading) {
+        [[self pullToLoadMoreView] startLoading];
+        [self loadPagination];
     }
 }
 
@@ -627,7 +635,6 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 {
     CGFloat progress = [[change objectForKey:@"new"] floatValue];
     [self.uploadView setProgress:progress];
-    NSLog(@"upload view: %@", self.uploadView);
 }
 
 - (void)stateValueChanged:(NSDictionary *)change

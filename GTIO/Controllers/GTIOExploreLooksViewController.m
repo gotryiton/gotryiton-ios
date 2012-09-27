@@ -108,6 +108,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [self.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
         [blockSelf loadPagination];
     }];
+    [self.masonGridView setPagniationDelegate:self];
     [self.view addSubview:self.masonGridView];
     
     // Accent line
@@ -349,6 +350,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadPagination
 {
+    self.pagination.loading = YES;
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.masonGridView.pullToLoadMoreView finishLoading];
@@ -377,9 +379,20 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToLoadMoreView finishLoading];
+            self.pagination.loading = NO;
             NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
         };
     }];
+}
+
+#pragma mark - GTIOMasonGridViewPaginationDelegate methods
+
+- (void)masonGridViewShouldPagniate:(GTIOMasonGridView *)masonGridView
+{
+    if(!self.pagination.loading) {
+        [[[self masonGridView] pullToLoadMoreView] startLoading];
+        [self loadPagination];
+    }
 }
 
 #pragma mark - Empty State
