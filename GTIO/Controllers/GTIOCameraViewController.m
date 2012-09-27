@@ -671,9 +671,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     CGRect flashButtonTouchRect = (CGRect){ 0, 0, self.flashButton.frame.origin.x * 2 + self.flashButton.frame.size.width, (self.flashButton.frame.origin.y - 10) * 2 + self.flashButton.frame.size.height };
-//  to do: i need to do something here?
-//    CGRect flashButtonTouchRect = (CGRect){ 0, 0, self.flashButton.frame.origin.x * 2 + self.flashButton.frame.size.width, (self.flashButton.frame.origin.y - 10) * 2 + self.flashButton.frame.size.height };
-    
+
     if ([self.captureVideoPreviewLayer containsPoint:[touch locationInView:self.view]] && 
         !self.photoToolbarView.shutterButton.isPhotoShootMode  &&
         !CGRectContainsPoint(flashButtonTouchRect, [touch locationInView:self.view]) &&
