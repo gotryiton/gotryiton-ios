@@ -114,6 +114,11 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     return self;
 }
 
+- (void)dealloc
+{
+    _delegate = nil;
+}
+
 - (void)addCompleters:(NSMutableArray *)completers
 {
     for (GTIOAutoCompleter *completer in completers) {
@@ -142,6 +147,10 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
         //close the keyboard and hide the text input
         [field resignFirstResponder];
         
+        if (self.delegate && [self.delegate respondsToSelector:@selector(textViewDidSubmit)]){
+            [self.delegate textViewDidSubmit];
+        }
+
         self.isTyping = NO;
         return NO;
     }
@@ -179,7 +188,9 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     
     if (self.inputText.length > 0) {
 
-        [self highlightHashTag];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(textInputIsEmpty:)]){
+            [self.delegate textInputIsEmpty:NO];
+        }
         
         if ([self hashtagMode] && ![self isValidHashTag:[self lastWordTyped]]){
             // NSLog(@"hashtagMode");
@@ -202,12 +213,24 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
         [self resetAutoCompleteMode];
         [self.scrollView showScrollViewNav];
         [self displayPlaceholderText];
+
+        if (self.delegate && [self.delegate respondsToSelector:@selector(textInputIsEmpty:)]){
+            [self.delegate textInputIsEmpty:YES];
+        }
     }
     
     self.searchTextTimer = [NSTimer scheduledTimerWithTimeInterval:searchTime target:self selector:@selector(delayedAutoCompleteTextSearch) userInfo:nil repeats:NO];
     
     self.isTyping = NO;
     return YES;
+}
+
+
+- (void)textViewDidChange:(UITextView *)textView 
+{
+
+    [self cleanUpAttrString];
+    
 }
 
 - (void)delayedAutoCompleteTextSearch
@@ -226,7 +249,7 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
             [self showButtonsWithAutoCompleters: foundAutoCompleters];
         } 
     }
-    [self cleanUpAttrString];
+    
     
     return;
 }
@@ -333,17 +356,19 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
 
 - (void)highlightAttributedStringInRange:(NSRange)range completerID:(NSString *)completerID type:(NSString *)type
 {
-    // NSLog(@"highlighting range: %@ completer: %@ type: %@", NSStringFromRange(range), completerID, type );
-    // NSLog(@"self.attrString length: %i", self.attrString.length);
-    NSDictionary *highlightTextAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       (id)self.ACHighlightColor, (id)kCTForegroundColorAttributeName, 
-                                       completerID, @"completerId",
-                                       type, @"completerType",
-                                       nil];
-    
-    [self.attrString addAttributes:highlightTextAttr range:range];
-    /* Set the attributes string in the text layer :) */
-    // self.textView.string = self.attrString;
+    if (![type isEqualToString:@"#"]) {
+        // NSLog(@"highlighting range: %@ completer: %@ type: %@", NSStringFromRange(range), completerID, type );
+        // NSLog(@"self.attrString length: %i", self.attrString.length);
+        NSDictionary *highlightTextAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+                                           (id)self.ACHighlightColor, (id)kCTForegroundColorAttributeName, 
+                                           completerID, @"completerId",
+                                           type, @"completerType",
+                                           nil];
+        
+        [self.attrString addAttributes:highlightTextAttr range:range];
+        /* Set the attributes string in the text layer :) */
+        // self.textView.string = self.attrString;
+    }
 }
 
 - (void)unHighlightAttributedStringInRange:(NSRange)range 
@@ -404,16 +429,16 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     }
 }
 
-- (void) highlightHashTag
-{
-    NSString *lastword = [self lastWordTyped];
-    if (lastword.length>0){
-        if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
-            // NSLog(@"highlighting hash: %@", NSStringFromRange(self.positionOfLastWordTyped));
-            [self highlightAttributedStringInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
-        }
-    }
-}
+// - (void) highlightHashTag
+// {
+//     NSString *lastword = [self lastWordTyped];
+//     if (lastword.length>0){
+//         if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
+//             // NSLog(@"highlighting hash: %@", NSStringFromRange(self.positionOfLastWordTyped));
+//             [self highlightAttributedStringInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
+//         }
+//     }
+// }
 
 - (NSMutableArray *)searchLastTypedWordsForAutoCompletes
 {
@@ -657,14 +682,8 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
             if ([attributes objectForKey:@"completerType"]) {
                 GTIOAutoCompleter * completer = [self completerWithID:[attributes objectForKey:@"completerId"]];
 
-                //if its a hashtag, make sure the hashtag is at the front of the string
-                if ([[attributes objectForKey:@"completerType"] isEqualToString:@"#"] ){
-                    if (![self isValidHashTag:[[self.attrString string] substringWithRange:effectiveRange]]){
-                        [self unHighlightAttributedStringInRange:effectiveRange];
-                    }
-                }
                 // if its some other tag, make sure the string still matches
-                else if (![[[self.attrString string] substringWithRange:effectiveRange] isEqualToString:[completer completerString]]){
+                if (![[[self.attrString string] substringWithRange:effectiveRange] isEqualToString:[completer completerString]]){
                     [self unHighlightAttributedStringInRange:effectiveRange];
                 }
             }

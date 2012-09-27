@@ -14,9 +14,13 @@ NSString * const kGTIOTrackAppLaunch = @"App Launch";
 NSString * const kGTIOTrackAppResumeFromBackground = @"Resume from background";
 NSString * const kGTIOTrackSignIn = @"Sign in view";
 NSString * const kGTIOTrackPhotoShootStarted = @"Photoshoot started";
+NSString * const kGTIOTrackPostSharedTwitter = @"post shared on twitter";
+NSString * const kGTIOTrackPostSharedFacebook = @"post shared on facebook";
+NSString * const kGTIOTrackPostSharedInstagram = @"post shared on instagram";
 
 NSString * const kGTIOTrackIDKey = @"GTIOTrackIDKey";
 NSString * const kGTIOPageNumberKey = @"GTIOPageNumberKey";
+NSString * const kGTIOPostIDKey = @"GTIOPostIDKey";
 
 @interface GTIOTrack ()
 
@@ -27,9 +31,6 @@ NSString * const kGTIOPageNumberKey = @"GTIOPageNumberKey";
 
 @implementation GTIOTrack
 
-@synthesize trackID = _trackID, visit = _visit;
-@synthesize pageNumber = _pageNumber;
-@synthesize trackHandler = _trackHandler;
 
 + (GTIOTrack *)trackWithID:(NSString *)trackID visit:(BOOL)visit handler:(GTIOTrackHandler)handler
 {
@@ -72,6 +73,13 @@ NSString * const kGTIOPageNumberKey = @"GTIOPageNumberKey";
     [GTIOTrack postTrack:track];
 }
 
++ (void)postTrackWithID:(NSString *)trackID postID:(NSString *)postID handler:(GTIOTrackHandler)trackHandler
+{
+    GTIOTrack *track = [GTIOTrack trackWithID:trackID visit:NO handler:trackHandler];
+    track.postID = postID;
+    [GTIOTrack postTrack:track];
+}
+
 + (void)postTrackAndVisitWithID:(NSString *)trackID handler:(GTIOTrackHandler)trackHandler
 {
     GTIOTrack *track = [GTIOTrack trackWithID:trackID visit:YES handler:trackHandler];
@@ -84,6 +92,7 @@ NSString * const kGTIOPageNumberKey = @"GTIOPageNumberKey";
     if (self) {
         self.trackID = [coder decodeObjectForKey:kGTIOTrackIDKey];
         self.pageNumber = [coder decodeObjectForKey:kGTIOPageNumberKey];
+        self.postID = [coder decodeObjectForKey:kGTIOPostIDKey];
     }
     return self;
 }
@@ -95,6 +104,9 @@ NSString * const kGTIOPageNumberKey = @"GTIOPageNumberKey";
     }
     if (self.pageNumber) {
         [coder encodeObject:self.pageNumber forKey:kGTIOPageNumberKey];
+    }
+    if (self.postID) {
+        [coder encodeObject:self.postID forKey:kGTIOPostIDKey];
     }
 }
 

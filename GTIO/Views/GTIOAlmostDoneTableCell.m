@@ -51,7 +51,8 @@ static NSInteger kGTIOMaxCharacterCount = 20;
         [self.cellAccessoryText setTextAlignment:UITextAlignmentRight];
         [self.cellAccessoryText setReturnKeyType:UIReturnKeyNext];
         [self.cellAccessoryText setDelegate:self];
-        [self.cellAccessoryText addTarget:self action:@selector(updateSaveData:) forControlEvents:UIControlEventEditingChanged];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSaveDataFromNotification:) name:UITextFieldTextDidChangeNotification object:self.cellAccessoryText];
+
         [self.contentView addSubview:self.cellAccessoryText];
         _accessoryToolBar = [[GTIODoneToolBar alloc] initWithTarget:self action:@selector(keyboardDoneTapped:)];
         
@@ -64,7 +65,7 @@ static NSInteger kGTIOMaxCharacterCount = 20;
         [self.cellAccessoryTextMulti setReturnKeyType:UIReturnKeyDone];
         [self.cellAccessoryTextMulti setDelegate:self];
         [self.cellAccessoryTextMulti setBackgroundColor:[UIColor clearColor]];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSaveDataMulti:) name:UITextViewTextDidChangeNotification object:self.cellAccessoryTextMulti];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSaveDataFromNotification:) name:UITextViewTextDidChangeNotification object:self.cellAccessoryTextMulti];
             
         _usesPicker = NO;
     }
@@ -153,7 +154,7 @@ static NSInteger kGTIOMaxCharacterCount = 20;
     }
 }
 
-- (void)updateSaveDataMulti:(NSNotification*)notification
+- (void)updateSaveDataFromNotification:(NSNotification*)notification
 {
     [self updateSaveData:notification.object];
 }

@@ -19,7 +19,7 @@
 
 static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
 static CGFloat const kGTIOOffsetForShadowOnProductOptionsBackground = 3.0;
-static CGFloat const kGTIOEmptyStateViewVerticalCenterOffset = 15.0;
+static CGFloat const kGTIOEmptyStateViewVerticalCenterOffset = -8.0;
 
 @interface GTIOShoppingListViewController ()
 
@@ -87,7 +87,7 @@ static CGFloat const kGTIOEmptyStateViewVerticalCenterOffset = 15.0;
         NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabStyle) };
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
     }];
-    self.emptyStateView.center = (CGPoint){ self.view.bounds.size.width / 2, (self.view.bounds.size.height / 2) - self.navigationController.navigationBar.bounds.size.height - kGTIOEmptyStateViewVerticalCenterOffset };
+    self.emptyStateView.center = (CGPoint){ self.view.bounds.size.width / 2, (self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height - self.emptyStateView.frame.size.height) / 2 + kGTIOEmptyStateViewVerticalCenterOffset };
     self.emptyStateView.hidden = YES;
     [self.view addSubview:self.emptyStateView];
       

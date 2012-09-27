@@ -63,11 +63,15 @@ static double const buttonWidth = 292.0;
         [_buttonsContainer addSubview:_cancelButton];
         for (GTIOButton *button in buttons) {
             GTIOLargeButton *actionSheetButton = nil;
+            
+            if (!button.state)
+                button.state = [NSNumber numberWithInt:1];
+
             switch (button.state.intValue) {
                 case 0: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
                 case 1: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGreen]; break;
                 case 2: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleRed]; break;
-                default: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGray]; break;
+                default: actionSheetButton = [GTIOLargeButton largeButtonWithGTIOStyle:GTIOLargeButtonStyleGreen]; break;
             }
             [self setFrame:(CGRect){ CGPointZero, { buttonWidth, buttonHeight } }];
             
@@ -104,9 +108,10 @@ static double const buttonWidth = 292.0;
                     }];
                 };
             }
-            
-            [_otherButtons addObject:actionSheetButton];
-            [_buttonsContainer addSubview:actionSheetButton];
+            if ([button isAvilableForIOSDevice]) {
+                [_otherButtons addObject:actionSheetButton];
+                [_buttonsContainer addSubview:actionSheetButton];
+            }
         }
         
         _buttonsContainerHeight = containerPadding * 2 + (_otherButtons.count + 1) * (buttonSpacing + buttonHeight) + cancelButtonTopMargin;

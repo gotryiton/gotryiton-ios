@@ -298,7 +298,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     if ([self.posts count] == 0) {
         if (!self.emptyImageView) {
             self.emptyImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty.png"]];
-            [self.emptyImageView setFrame:(CGRect){ { (self.view.frame.size.width - self.emptyImageView.image.size.width) / 2, kGTIOEmptyStateTopPadding }, self.emptyImageView.image.size }];
+            [self.emptyImageView setFrame:(CGRect){ { (self.view.frame.size.width - self.emptyImageView.image.size.width) / 2, self.segmentedControlView.frame.size.height + (self.view.frame.size.height - self.segmentedControlView.frame.size.height - self.emptyImageView.image.size.height ) / 2 }, self.emptyImageView.image.size }];
         }
         [self.view addSubview:self.emptyImageView];
     } else {

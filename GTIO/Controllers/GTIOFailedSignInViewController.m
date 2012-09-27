@@ -9,6 +9,7 @@
 #import "GTIOFailedSignInViewController.h"
 
 #import "GTIOMailComposer.h"
+#import "GTIOUIImage.h"
 
 @interface GTIOFailedSignInViewController ()
 
@@ -30,13 +31,16 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"login-nav.png"] forBarMetrics:UIBarMetricsDefault];
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setShadowImage:)]) {
+        self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login-fail-bg.png"]];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[GTIOUIImage imageNamed:@"login-fail-bg.png"]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -64)];
     [self.view addSubview:backgroundImageView];
     
