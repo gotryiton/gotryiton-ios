@@ -1,3 +1,25 @@
+***Thursday, September 27th - Standup Notes***
+
+**Attendees**
+- TT - Duncan
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- TT - have current dev branch ready on Friday to evauluate monday's tasks
+- TT - Image precaching
+- TT - Rebase off master, reconcile conflicts with Simon
+
+**Status**
+- TT - working on Image precaching, taking some extra time to make a reusable component for a new screen simon is currently working on. 
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Wednesday, September 26th - Standup Notes***
 
 **Attendees**
