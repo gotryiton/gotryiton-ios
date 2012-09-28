@@ -156,7 +156,7 @@ static CGFloat const kGTIOFirstColumnXOrigin = 5.0f;
     NSInteger numImages = [[tallestColumn items] count] > 3 ? 3 : [[tallestColumn items] count];
     CGFloat heightOfImages = 0.0f;
     for(int i = 0; i < numImages; i++) {
-        heightOfImages += ((GTIOMasonGridItem *)[[tallestColumn items] objectAtIndex:numImages-i]).image.size.height;
+        heightOfImages += ((GTIOMasonGridItem *)[[tallestColumn items] objectAtIndex:(numImages-1)-i]).image.size.height;
         heightOfImages += self.padding;
     }
     

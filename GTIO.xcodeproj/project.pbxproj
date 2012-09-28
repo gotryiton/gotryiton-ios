@@ -324,6 +324,9 @@
 		138ACE3C1613861500F3BDBF /* UASubscriptionUserProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138ACD041613861500F3BDBF /* UASubscriptionUserProductsViewController.xib */; };
 		138FE67D1614ABFB009C057E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13CE5DA2161388790077C533 /* AudioToolbox.framework */; };
 		138FE67E1614BEF0009C057E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13CE5DA2161388790077C533 /* AudioToolbox.framework */; };
+		138FE6811614D31B009C057E /* GTIOImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 138FE6801614D31B009C057E /* GTIOImageManager.m */; };
+		138FE6821614D31B009C057E /* GTIOImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 138FE6801614D31B009C057E /* GTIOImageManager.m */; };
+		138FE6831614D31B009C057E /* GTIOImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 138FE6801614D31B009C057E /* GTIOImageManager.m */; };
 		13C93E471613825C007FD80F /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 13C93E461613825C007FD80F /* release_notes.txt */; };
 		13C93E4816138262007FD80F /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 13C93E461613825C007FD80F /* release_notes.txt */; };
 		13C93E4916138263007FD80F /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 13C93E461613825C007FD80F /* release_notes.txt */; };
@@ -4783,6 +4786,8 @@
 		138ACD021613861500F3BDBF /* UASubscriptionRootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UASubscriptionRootViewController.xib; sourceTree = "<group>"; };
 		138ACD031613861500F3BDBF /* UASubscriptionSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UASubscriptionSettingsViewController.xib; sourceTree = "<group>"; };
 		138ACD041613861500F3BDBF /* UASubscriptionUserProductsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UASubscriptionUserProductsViewController.xib; sourceTree = "<group>"; };
+		138FE67F1614D31B009C057E /* GTIOImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOImageManager.h; sourceTree = "<group>"; };
+		138FE6801614D31B009C057E /* GTIOImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOImageManager.m; sourceTree = "<group>"; };
 		13C93E461613825C007FD80F /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = release_notes.txt; path = Libraries/TestFlight/release_notes.txt; sourceTree = "<group>"; };
 		13CE5DA2161388790077C533 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		3FCBE74015E6A5BD00D1FB63 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = Libraries/RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
@@ -8249,6 +8254,8 @@
 				D201915B15C8572E00B15D24 /* GTIOErrorController.m */,
 				D28983ED15C984C900EB7587 /* GTIOTweetComposer.h */,
 				D28983EE15C984C900EB7587 /* GTIOTweetComposer.m */,
+				138FE67F1614D31B009C057E /* GTIOImageManager.h */,
+				138FE6801614D31B009C057E /* GTIOImageManager.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -13744,6 +13751,7 @@
 				138ACE061613861500F3BDBF /* UASubscriptionTableViewDelegate.m in Sources */,
 				138ACE091613861500F3BDBF /* UASubscriptionUI.m in Sources */,
 				138ACE0C1613861500F3BDBF /* UASubscriptionUIUtil.m in Sources */,
+				138FE6831614D31B009C057E /* GTIOImageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14048,6 +14056,7 @@
 				138ACE051613861500F3BDBF /* UASubscriptionTableViewDelegate.m in Sources */,
 				138ACE081613861500F3BDBF /* UASubscriptionUI.m in Sources */,
 				138ACE0B1613861500F3BDBF /* UASubscriptionUIUtil.m in Sources */,
+				138FE6821614D31B009C057E /* GTIOImageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14352,6 +14361,7 @@
 				138ACE041613861500F3BDBF /* UASubscriptionTableViewDelegate.m in Sources */,
 				138ACE071613861500F3BDBF /* UASubscriptionUI.m in Sources */,
 				138ACE0A1613861500F3BDBF /* UASubscriptionUIUtil.m in Sources */,
+				138FE6811614D31B009C057E /* GTIOImageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

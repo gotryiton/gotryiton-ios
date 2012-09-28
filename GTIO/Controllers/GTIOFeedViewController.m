@@ -29,6 +29,8 @@
 
 #import "GTIOPullToRefreshContentView.h"
 
+#import "GTIOImageManager.h"
+
 #import "GTIOReviewsViewController.h"
 #import "GTIONotificationsViewController.h"
 
@@ -76,6 +78,8 @@ static NSInteger const kGTIOPaginationCellThreshold = 3;
 
 @property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
 
+@property (nonatomic, strong) GTIOImageManager *imageManager;
+
 @end
 
 @implementation GTIOFeedViewController
@@ -91,6 +95,8 @@ static NSInteger const kGTIOPaginationCellThreshold = 3;
         
         _addNavToHeaderOffsetXOrigin = -44.0f;
         _removeNavToHeaderOffsetXOrigin = -0.0f;
+        
+        _imageManager = [[GTIOImageManager alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefresh object:nil];
@@ -250,6 +256,7 @@ static NSInteger const kGTIOPaginationCellThreshold = 3;
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOPost class]]) {
                     GTIOPost *post = (GTIOPost *)object;
+                    
                     post.reviewsButtonTapHandler = ^(id sender) {
                         UIViewController *reviewsViewController;
                         for (id object in post.buttons) {
@@ -469,6 +476,12 @@ static NSInteger const kGTIOPaginationCellThreshold = 3;
     if ([cell isKindOfClass:[GTIOFeedCell class]]) {
         GTIOPost *post = [self.posts objectAtIndex:indexPath.section];
         ((GTIOFeedCell *)cell).post = post;
+    }
+    
+    // preload 3 images ahead of this cell
+    NSInteger numImagesToPreload = (indexPath.row + 3) <= ([self.posts count] - 1) ? 3 : ([self.posts count] - 1) - (indexPath.row + 3);
+    for(int i = 0; i < numImagesToPreload; i++) {
+        [self.imageManager queueImageURL:[[(GTIOPost *)[self.posts objectAtIndex:i+1] photo] mainImageURL]];
     }
     
     if(indexPath.section >= [tableView numberOfSections]-1-kGTIOPaginationCellThreshold && !self.pagination.loading) {
