@@ -95,6 +95,7 @@
 - (void)logOutWithLogoutHandler:(GTIOLogoutHandler)logoutHandler
 {
     [GTIOAuth removeToken];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/logout" usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadResponse = ^(RKResponse *response) {
             if (logoutHandler) {

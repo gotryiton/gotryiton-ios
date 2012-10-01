@@ -8,6 +8,7 @@
 
 #import "GTIOViewController.h"
 #import "GTIOPost.h"
+#import "GTIONotificationViewDisplayProtocol.h"
 
 @protocol GTIOFeedHeaderViewDelegate <NSObject>
 
@@ -23,6 +24,6 @@
 
 @end
 
-@interface GTIOFeedViewController : GTIOViewController
+@interface GTIOFeedViewController : GTIOViewController <GTIONotificationViewDisplayProtocol>
 
 @end

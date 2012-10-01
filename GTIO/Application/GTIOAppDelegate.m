@@ -48,6 +48,8 @@
 
 @property (nonatomic, strong) NSArray *tabBarViewControllers;
 
+@property (nonatomic, strong) NSDate *dateAppDidBecomeInactive;
+
 - (void)setupTabBar;
 - (void)setupRestKit;
 
@@ -130,6 +132,8 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
+    self.dateAppDidBecomeInactive = [NSDate date];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -150,6 +154,47 @@
 
     // Reset the badge number back to zero.
     application.applicationIconBadgeNumber = 0;
+    
+    // Test if the app has been inactive for a long time
+    if(self.dateAppDidBecomeInactive) {
+        NSTimeInterval secondsAppHasBeenInactive = [[NSDate date] timeIntervalSinceDate:self.dateAppDidBecomeInactive];
+        
+        NSLog(@"Seconds app has been inactive: %f (min: %.2f)", secondsAppHasBeenInactive, secondsAppHasBeenInactive/60.0f);
+        
+        if(secondsAppHasBeenInactive > kGTIOSecondsInactiveBeforeRefresh) {
+                        
+            // pop the navigation controllers back to their root view
+            for(id controller in self.tabBarViewControllers) {
+                if([controller isKindOfClass:[UINavigationController class]]) {
+                    [(UINavigationController*)controller popToRootViewControllerAnimated:NO];
+                }
+            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAppReturningFromInactiveStateNotification object:nil];
+            
+            // find the selected root view controller and notify it to load
+            switch (self.tabBarController.selectedIndex) {
+                case 0:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOFeedControllerShouldRefresh object:nil];
+                    break;
+                case 1:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOExploreLooksControllerShouldRefresh object:nil];
+                    break;
+                case 2:
+                    // load all in background
+                    
+                    break;
+                case 3:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOStyleControllerShouldRefresh object:nil];
+                    break;
+                case 4:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOMeControllerShouldRefresh object:nil];
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -31,6 +31,7 @@
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
+    NSInteger const kGTIOSecondsInactiveBeforeRefresh = 1 * 60; // num minutes * num seconds/min
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
@@ -47,6 +48,7 @@
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
+    NSInteger const kGTIOSecondsInactiveBeforeRefresh = 5 * 60; // num minutes * num seconds/min
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
@@ -63,6 +65,7 @@
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"";
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
+    NSInteger const kGTIOSecondsInactiveBeforeRefresh = 30 * 60; // num minutes * num seconds/min
 #endif
 
 NSString * const kGTIOAcceptHeader = @"application/v4.0.2-json";
@@ -82,13 +85,22 @@ NSString * const kGTIONotificationCountNofitication = @"kGTIONotificationCountNo
 NSString * const kGTIOChangeSelectedTabNotification = @"kGTIOChangeSelectedTabNotification";
 NSString * const kGTIOAddTabBarToWindowNotification = @"kGTIOAddTabBarToWindowNotification";
 NSString * const kGTIOExploreLooksChangeResourcePathNotification = @"kGTIOExploreLooksChangeResourcePathNotification";
+NSString * const kGTIOStylesChangeCollectionIDNotification = @"kGTIOStylesChangeCollectionIDNotification";
 NSString * const kGTIOTabBarViewsResize = @"kGTIOTabBarViewsResize";
 NSString * const kGTIOShowProfileUserNotification = @"kGTIOShowProfileUserNotification";
+NSString * const kGTIOAppReturningFromInactiveStateNotification = @"kGTIOAppReturningFromInactiveStateNotification";
+NSString * const kGTIOFeedControllerShouldRefresh = @"kGTIOFeedControllerShouldRefresh";
+NSString * const kGTIOExploreLooksControllerShouldRefresh = @"kGTIOExploreLooksControllerShouldRefresh";
+NSString * const kGTIOStyleControllerShouldRefresh = @"kGTIOLooksControllerShouldRefresh";
+NSString * const kGTIOMeControllerShouldRefresh = @"kGTIOMeControllerShouldRefresh";
+NSString * const kGTIOAllControllersShouldRefresh = @"kGTIOAllControllersShouldRefresh";
+NSString * const kGTIOAllControllersShouldRefreshAfterLogout = @"kGTIOAllControllersShouldRefreshAfterLogout";
 
 // Notification UserInfo
 NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";
 NSString * const kGTIOResourcePathKey = @"kGTIOResourcePathKey";
 NSString * const kGTIOProfileUserIDUserInfo = @"kGTIOProfileUserIDUserInfo";
+NSString * const kGTIOCollectionIDUserInfoKey = @"kGTIOCollectionIDUserInfoKey";
 
 // UrbanAirship
 NSString * const kGTIOUAirshipProductionAppKey = @"***REMOVED***";

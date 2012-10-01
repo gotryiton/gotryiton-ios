@@ -29,6 +29,8 @@
 
 #import "GTIOPullToRefreshContentView.h"
 
+#import "GTIOImageManager.h"
+
 #import "GTIOReviewsViewController.h"
 #import "GTIONotificationsViewController.h"
 
@@ -51,6 +53,8 @@ static NSString * const kGTIONoFacebookMessage = @"You're not set up to post to 
 static NSString * const kGTIONoInstagramMessage = @"We couldn't find Instagram on your device.  Try installing from the App Store!";
 static NSString * const kGTIOAlertForDeletingPost = @"do you want to delete this post permanently?";
 static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
+
+static NSInteger const kGTIOPaginationCellThreshold = 3;
 
 @interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, GTIOFeedCellDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate, UIAlertViewDelegate>
 
@@ -76,6 +80,11 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 @property (nonatomic, strong) UITapGestureRecognizer *emptyViewTapGestureRecognizer;
 
 @property (nonatomic, strong) UIDocumentInteractionController *documentInteractionController;
+@property (nonatomic, strong) GTIONotificationsViewController *notificationsViewController;
+
+@property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
+
+@property (nonatomic, strong) GTIOImageManager *imageManager;
 
 @end
 
@@ -92,6 +101,13 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         
         _addNavToHeaderOffsetXOrigin = -44.0f;
         _removeNavToHeaderOffsetXOrigin = -0.0f;
+        
+        _imageManager = [[GTIOImageManager alloc] init];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterLogout) name:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
     }
     return self;
 }
@@ -118,9 +134,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     }];
 
     self.navBarView.titleView.tapHandler = ^(void) {
-        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
-        [blockSelf presentModalViewController:navigationController animated:YES];
+        [blockSelf toggleNotificationView:YES];
     };
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -164,6 +178,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     [super viewDidUnload];
     [[GTIOPostManager sharedManager] removeObserver:self forKeyPath:@"progress"];
     [[GTIOPostManager sharedManager] removeObserver:self forKeyPath:@"state"];
+    self.notificationsViewController = nil;
     self.navBarView = nil;
     self.emptyView = nil;
     self.uploadView = nil;
@@ -201,12 +216,37 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    [self closeNotificationView:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kGTIOPostFeedOpenLinkNotification object:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Refresh After Inactive
+
+- (void)appReturnedFromInactive
+{
+    self.shouldRefreshAfterInactive = YES;
+}
+
+- (void)refreshAfterInactive
+{
+    if(self.shouldRefreshAfterInactive) {
+        self.shouldRefreshAfterInactive = NO;
+        [self loadFeed];
+        // load all the rest here
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
+    }
+}
+
+#pragma mark - Refresh after Logout
+
+- (void)refreshAfterLogout
+{
+    [self loadFeed];
 }
 
 #pragma mark - Load Data
@@ -223,6 +263,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOPost class]]) {
                     GTIOPost *post = (GTIOPost *)object;
+                    
                     post.reviewsButtonTapHandler = ^(id sender) {
                         UIViewController *reviewsViewController;
                         for (id object in post.buttons) {
@@ -266,6 +307,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 
 - (void)loadPagination
 {
+    self.pagination.loading = YES;
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.pullToLoadMoreView finishLoading];
@@ -318,6 +360,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.pullToLoadMoreView finishLoading];
+            self.pagination.loading = NO;
             NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
         };
     }];
@@ -332,6 +375,57 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     } else {
         [self.view addSubview:self.emptyView];
         [self.emptyView addGestureRecognizer:self.emptyViewTapGestureRecognizer];
+    }
+}
+
+#pragma mark - GTIONotificationViewDisplayProtocol methods
+
+- (void)toggleNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController == nil) {
+        self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+    }
+    
+    // if a child, remove it
+    if([self.childViewControllers containsObject:self.notificationsViewController]) {
+        [self closeNotificationView:YES];
+    } else {
+        [self openNotificationView:YES];
+    }
+}
+
+- (void)closeNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController) {
+        [self.notificationsViewController willMoveToParentViewController:nil];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.notificationsViewController.view setAlpha:0.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController.view removeFromSuperview];
+                             [self.notificationsViewController removeFromParentViewController];
+                             [self.notificationsViewController didMoveToParentViewController:nil];
+                         }];
+    }
+}
+
+- (void)openNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController == nil) {
+        [self.notificationsViewController willMoveToParentViewController:self];
+        [self addChildViewController:self.notificationsViewController];
+        [self.notificationsViewController.view setAlpha:0.0];
+        [self.notificationsViewController.view setFrame:(CGRect){ { 0, self.navBarView.frame.size.height }, self.notificationsViewController.view.frame.size} ];
+        [self.tableView scrollRectToVisible:(CGRect){0,0,1,1} animated:YES];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.view addSubview:self.notificationsViewController.view];
+                             [self.notificationsViewController.view setAlpha:1.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController didMoveToParentViewController:self];
+                         }];
     }
 }
 
@@ -361,6 +455,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 {
     if (self.postUpload && section == 0) {
         self.uploadView.frame = self.uploadView.bounds; // Reset to (0,0) in case you were scrolled down.
+        self.uploadView.alpha = 1;
         return self.uploadView;
     }
     
@@ -388,6 +483,17 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     if ([cell isKindOfClass:[GTIOFeedCell class]]) {
         GTIOPost *post = [self.posts objectAtIndex:indexPath.section];
         ((GTIOFeedCell *)cell).post = post;
+    }
+    
+    // preload 3 images ahead of this cell
+    NSInteger numImagesToPreload = (indexPath.row + 3) <= ([self.posts count] - 1) ? 3 : ([self.posts count] - 1) - (indexPath.row + 3);
+    for(int i = 0; i < numImagesToPreload; i++) {
+        [self.imageManager queueImageURL:[[(GTIOPost *)[self.posts objectAtIndex:i+1] photo] mainImageURL]];
+    }
+    
+    if(indexPath.section >= [tableView numberOfSections]-1-kGTIOPaginationCellThreshold && !self.pagination.loading) {
+        [[self pullToLoadMoreView] startLoading];
+        [self loadPagination];
     }
 }
 
@@ -596,9 +702,11 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     
     if (!self.postUpload) {
         self.postUpload = [[GTIOPostUpload alloc] init];
-        [self.posts insertObject:self.postUpload atIndex:0];
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView setContentOffset:CGPointZero];
+        [self.posts insertObject:self.postUpload atIndex:0];
+        [self.tableView reloadData];
+        // seems like this tableview insertion is causing the ghost cell above the upload cell. Not sure why. 
+//        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         
         // Go to feed tab
         NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabFeed) };
@@ -650,7 +758,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     }
 }
 
--(void) postHeaderViewTapWithUserId:(NSString *)userID
+-(void)postHeaderViewTapWithUserId:(NSString *)userID
 {
     GTIOProfileViewController *viewController = [[GTIOProfileViewController alloc] initWithNibName:nil bundle:nil];
     [viewController setUserID:userID];

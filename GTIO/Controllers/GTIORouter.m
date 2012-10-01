@@ -232,9 +232,10 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
             NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarTabStyle) };
             [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
             
-            viewController = [[GTIOProductNativeListViewController alloc] initWithNibName:nil bundle:nil];
+            // Set collection ID
             NSNumber *collectionID = (NSNumber *)[self.numberFormatter numberFromString:[pathComponents objectAtIndex:1]];
-            [((GTIOProductNativeListViewController *)viewController) setCollectionID:collectionID];
+            NSDictionary *collectionIDUserInfo = @{ kGTIOCollectionIDUserInfoKey : collectionID };
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOStylesChangeCollectionIDNotification object:nil userInfo:collectionIDUserInfo];
         }
     } else if ([urlHost isEqualToString:kGTIOURLHostShoppingList]) {
         viewController = [[GTIOShoppingListViewController alloc] initWithNibName:nil bundle:nil];

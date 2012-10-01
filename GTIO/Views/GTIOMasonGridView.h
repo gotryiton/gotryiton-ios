@@ -18,13 +18,20 @@
 
 @class GTIOMasonGridView;
 
+@protocol GTIOMasonGridViewPaginationDelegate <NSObject>
+
+- (void)masonGridViewShouldPagniate:(GTIOMasonGridView *)masonGridView;
+
+@end
+
 typedef void(^GTIOMasonGridPullToRefreshDidStartLoading)(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD);
 typedef void(^GTIOMasonGridPullToLoadMoreDidStartLoading)(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView);
 
-@interface GTIOMasonGridView : UIScrollView <GTIOMasonGridItemDelegate>
+@interface GTIOMasonGridView : UIScrollView <GTIOMasonGridItemDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, assign) CGFloat padding;
 @property (nonatomic, copy) GTIOMasonGridItemTapHandler gridItemTapHandler;
+@property (nonatomic, weak) id<GTIOMasonGridViewPaginationDelegate> pagniationDelegate;
 
 @property (nonatomic, strong) SSPullToRefreshView *pullToRefreshView;
 @property (nonatomic, strong) SSPullToLoadMoreView *pullToLoadMoreView;

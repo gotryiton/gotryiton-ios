@@ -47,6 +47,10 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 @property (nonatomic, strong) GTIONavigationNotificationTitleView *titleView;
 @property (nonatomic, strong) UIView *footerView;
 
+@property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
+
+@property (nonatomic, strong) GTIONotificationsViewController *notificationsViewController;
+
 @end
 
 @implementation GTIOMeViewController
@@ -56,7 +60,9 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserProfile:) name:kGTIOShowProfileUserNotification object:nil];
     }
     return self;
@@ -72,9 +78,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [super viewDidLoad];
     
     self.titleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
-        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
-        [self presentModalViewController:navigationController animated:YES];
+        [self toggleNotificationView:YES];
     }];
 
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
@@ -153,9 +157,82 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [self.profileHeaderView setUser:[GTIOUser currentUser]];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self closeNotificationView:NO];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - GTIONotificationViewDisplayProtocol methods
+
+- (void)toggleNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController == nil) {
+        self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+    }
+    
+    // if a child, remove it
+    if([self.childViewControllers containsObject:self.notificationsViewController]) {
+        [self closeNotificationView:YES];
+    } else {
+        [self openNotificationView:YES];
+    }
+}
+
+- (void)closeNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController) {
+        [self.notificationsViewController willMoveToParentViewController:nil];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.notificationsViewController.view setAlpha:0.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController.view removeFromSuperview];
+                             [self.notificationsViewController removeFromParentViewController];
+                             [self.notificationsViewController didMoveToParentViewController:nil];
+                         }];
+    }
+}
+
+- (void)openNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController == nil) {
+        [self.notificationsViewController willMoveToParentViewController:self];
+        [self addChildViewController:self.notificationsViewController];
+        [self.notificationsViewController.view setAlpha:0.0];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.view addSubview:self.notificationsViewController.view];
+                             [self.notificationsViewController.view setAlpha:1.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController didMoveToParentViewController:self];
+                         }];
+    }
+}
+
+#pragma mark - Refresh After Inactive
+
+- (void)appReturnedFromInactive
+{
+    self.shouldRefreshAfterInactive = YES;
+}
+
+- (void)refreshAfterInactive
+{
+    if(self.shouldRefreshAfterInactive) {
+        self.shouldRefreshAfterInactive = NO;
+        [self refreshScreenLayout];
+        // load all the rest here
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
+    }
 }
 
 #pragma mark -
