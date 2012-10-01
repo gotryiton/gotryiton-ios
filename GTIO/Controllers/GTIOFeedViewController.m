@@ -43,6 +43,8 @@
 
 #import "GTIOTweetComposer.h"
 
+#import "GTIOAlertView.h"
+
 static NSString * const kGTIOKVOSuffix = @"ValueChanged";
 
 static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet! Find the Twitter option in your iPhone's Settings to get started!";
@@ -405,6 +407,11 @@ static NSInteger const kGTIOPaginationCellThreshold = 3;
 
 - (void)openNotificationView:(BOOL)animated
 {
+    #warning TODO remove testing code
+    // testing code
+//    GTIOAlertView *alertView = [[GTIOAlertView alloc] initWithTitle:@"Test Dialog" message:@"Test message with\nmultiple lines\ntest" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitle:@"Test"];
+//    [alertView show];
+    
     if(self.notificationsViewController.parentViewController == nil) {
         [self.notificationsViewController willMoveToParentViewController:self];
         [self addChildViewController:self.notificationsViewController];

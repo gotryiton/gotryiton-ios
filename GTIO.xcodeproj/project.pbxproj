@@ -327,6 +327,9 @@
 		138FE6811614D31B009C057E /* GTIOImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 138FE6801614D31B009C057E /* GTIOImageManager.m */; };
 		138FE6821614D31B009C057E /* GTIOImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 138FE6801614D31B009C057E /* GTIOImageManager.m */; };
 		138FE6831614D31B009C057E /* GTIOImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 138FE6801614D31B009C057E /* GTIOImageManager.m */; };
+		139F9B691618DF910063A196 /* GTIOAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F9B681618DF910063A196 /* GTIOAlertView.m */; };
+		139F9B6A1618DF910063A196 /* GTIOAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F9B681618DF910063A196 /* GTIOAlertView.m */; };
+		139F9B6B1618DF910063A196 /* GTIOAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 139F9B681618DF910063A196 /* GTIOAlertView.m */; };
 		13C93E471613825C007FD80F /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 13C93E461613825C007FD80F /* release_notes.txt */; };
 		13C93E4816138262007FD80F /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 13C93E461613825C007FD80F /* release_notes.txt */; };
 		13C93E4916138263007FD80F /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 13C93E461613825C007FD80F /* release_notes.txt */; };
@@ -4788,6 +4791,9 @@
 		138ACD041613861500F3BDBF /* UASubscriptionUserProductsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UASubscriptionUserProductsViewController.xib; sourceTree = "<group>"; };
 		138FE67F1614D31B009C057E /* GTIOImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOImageManager.h; sourceTree = "<group>"; };
 		138FE6801614D31B009C057E /* GTIOImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOImageManager.m; sourceTree = "<group>"; };
+		139F9B651618DC460063A196 /* GTIOAlertViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTIOAlertViewProtocol.h; path = Protocols/GTIOAlertViewProtocol.h; sourceTree = "<group>"; };
+		139F9B671618DF910063A196 /* GTIOAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOAlertView.h; sourceTree = "<group>"; };
+		139F9B681618DF910063A196 /* GTIOAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOAlertView.m; sourceTree = "<group>"; };
 		13C93E461613825C007FD80F /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = release_notes.txt; path = Libraries/TestFlight/release_notes.txt; sourceTree = "<group>"; };
 		13CE5DA2161388790077C533 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		3FCBE74015E6A5BD00D1FB63 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = Libraries/RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
@@ -7089,6 +7095,15 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		139F9B661618DF440063A196 /* Alert View */ = {
+			isa = PBXGroup;
+			children = (
+				139F9B671618DF910063A196 /* GTIOAlertView.h */,
+				139F9B681618DF910063A196 /* GTIOAlertView.m */,
+			);
+			name = "Alert View";
+			sourceTree = "<group>";
+		};
 		3FCBE74115E6A5BD00D1FB63 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -8565,6 +8580,7 @@
 				8EDA556815757B8A009F0404 /* GTIOLookSelectorControlDelegate.h */,
 				D2E954BC15B855570039BCDC /* GTIOGridItem.h */,
 				137DE10A1610A38E0099D442 /* GTIONotificationViewDisplayProtocol.h */,
+				139F9B651618DC460063A196 /* GTIOAlertViewProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -9362,7 +9378,6 @@
 		D2CDA95715502F01009B7E24 = {
 			isa = PBXGroup;
 			children = (
-				13CE5DA2161388790077C533 /* AudioToolbox.framework */,
 				D2CDA96C15502F02009B7E24 /* GTIO */,
 				D2CDA98415502F02009B7E24 /* GTIO-UnitTests */,
 				D2CDA99B15503058009B7E24 /* Libraries */,
@@ -9385,6 +9400,7 @@
 		D2CDA96515502F02009B7E24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				13CE5DA2161388790077C533 /* AudioToolbox.framework */,
 				5CCC2B3515C8AF7B0036A2E3 /* Twitter.framework */,
 				D2AAA02115BDA3CD0038ACB4 /* CoreLocation.framework */,
 				D2AAA01F15BDA3C60038ACB4 /* StoreKit.framework */,
@@ -9596,6 +9612,7 @@
 		D2CDA9B115503307009B7E24 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				139F9B661618DF440063A196 /* Alert View */,
 				D2066FBD159A1584003E8193 /* Auto Complete */,
 				D2D96EEE156D275B009B9A72 /* Camera */,
 				8E969F55158BDD60009E19B3 /* Feed */,
@@ -13752,6 +13769,7 @@
 				138ACE091613861500F3BDBF /* UASubscriptionUI.m in Sources */,
 				138ACE0C1613861500F3BDBF /* UASubscriptionUIUtil.m in Sources */,
 				138FE6831614D31B009C057E /* GTIOImageManager.m in Sources */,
+				139F9B6B1618DF910063A196 /* GTIOAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14057,6 +14075,7 @@
 				138ACE081613861500F3BDBF /* UASubscriptionUI.m in Sources */,
 				138ACE0B1613861500F3BDBF /* UASubscriptionUIUtil.m in Sources */,
 				138FE6821614D31B009C057E /* GTIOImageManager.m in Sources */,
+				139F9B6A1618DF910063A196 /* GTIOAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14362,6 +14381,7 @@
 				138ACE071613861500F3BDBF /* UASubscriptionUI.m in Sources */,
 				138ACE0A1613861500F3BDBF /* UASubscriptionUIUtil.m in Sources */,
 				138FE6811614D31B009C057E /* GTIOImageManager.m in Sources */,
+				139F9B691618DF910063A196 /* GTIOAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
