@@ -288,19 +288,21 @@ static CGFloat const kGTIOCompositeImageWidth = 640.0f;
 
 - (CGRect)drawTakePhotoView:(GTIOTakePhotoView *)takePhotoView origin:(CGPoint)origin frameScale:(CGFloat)frameScale
 {
+
     CGSize specificFrameSize = takePhotoView.frame.size;
     CGFloat specificFrameScale = (takePhotoView.frame.size.width * frameScale) / specificFrameSize.width;
-    CGSize specificCompositeImageFrameSize = (CGSize){ specificFrameSize.width * specificFrameScale, specificFrameSize.height * specificFrameScale };
-    
+    CGSize specificCompositeImageFrameSize = (CGSize){ roundf(specificFrameSize.width * specificFrameScale), roundf(specificFrameSize.height * specificFrameScale) };
+
     UIImage *image = takePhotoView.imageView.image;
     CGSize imageSize = takePhotoView.imageView.frame.size;
-    CGSize compositeImageSize = (CGSize){ imageSize.width * specificFrameScale, imageSize.height * specificFrameScale };
+    CGSize compositeImageSize = (CGSize){ roundf(imageSize.width * specificFrameScale), roundf(imageSize.height * specificFrameScale) };
     CGPoint contentOffset = takePhotoView.scrollView.contentOffset;
-    CGPoint compositeContentOffset = (CGPoint){ -contentOffset.x * specificFrameScale, -contentOffset.y * specificFrameScale };
+    CGPoint compositeContentOffset = (CGPoint){ roundf(-contentOffset.x * specificFrameScale), roundf(-contentOffset.y * specificFrameScale) };
     
     UIImage *croppedImage = [image cropImageWithFrameSize:specificCompositeImageFrameSize rect:(CGRect){ compositeContentOffset, compositeImageSize }];
     CGRect drawRect = (CGRect){ origin, specificCompositeImageFrameSize };
     [croppedImage drawInRect:drawRect];
+
     return drawRect;
 }
 
