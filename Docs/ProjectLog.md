@@ -1,3 +1,25 @@
+***Monday, October 1st - Standup Notes***
+
+**Attendees**
+- TT - Duncan
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- Change all alter views to GTIO altert view 
+
+**Status**
+- wrapping up styling on alter view
+- wrap up remaining issues on project sheet (preloading / feed)
+- remaining notification bugs are less critical
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
 ***Thursday, September 27th - Standup Notes***
 
 **Attendees**
