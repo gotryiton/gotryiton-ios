@@ -42,6 +42,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypePhotoShootGrid: return [self gtio_photoShootGridButton];
         case GTIOButtonTypePhotoShutter: return [self gtio_photoShutterButton];
         case GTIOButtonTypePhotoFlash: return [self gtio_photoFlashButton];
+        case GTIOButtonTypePhotoCameraDirection: return [self gtio_photoCameraDirectionButton];
         case GTIOButtonTypePhotoConfirm: return [self gtio_photoConfirmButton];
         case GTIOButtonTypeBackBottomMargin: return [self gtio_backButtonBottomMargin];
         case GTIOButtonTypeBackTopMargin: return [self gtio_backButtonTopMargin];
@@ -297,6 +298,11 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)gtio_photoFlashButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"upload.flash-OFF.png"] hightlightImage:nil];
+}
+
++ (id)gtio_photoCameraDirectionButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"camera-overlay-switcher-inactive.png"] hightlightImage:[UIImage imageNamed:@"camera-overlay-switcher-active.png"]];
 }
 
 + (id)gtio_photoSelectBox
