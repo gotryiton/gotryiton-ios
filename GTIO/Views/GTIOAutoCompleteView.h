@@ -13,8 +13,12 @@
 
 #import "GTIOAutoCompleteScrollView.h"
 #import "GTIOAutoCompleter.h"
+#import "GTIOCommentViewController.h"
 
 @interface GTIOAutoCompleteView : UIView <UITextViewDelegate, GTIOAutoCompleteScrollViewDelegate>
+
+
+@property (nonatomic, weak) id<GTIOAutoCompleteViewDelegate> delegate; 
 
 @property (nonatomic, strong) NSMutableArray *autoCompleteArray;
 @property (nonatomic, strong) GTIOAutoCompleteScrollView *scrollView;
@@ -54,5 +58,6 @@
 - (void) resetView;
 - (void) displayPlaceholderText;
 - (BOOL)textView:(UITextView *)field shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)inputString;
+- (void)textViewDidChange:(UITextView *)textView;
 
 @end

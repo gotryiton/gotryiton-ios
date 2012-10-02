@@ -632,7 +632,7 @@
 {
     [self.noSearchResultsView removeFromSuperview];
     [self.searchCommunityView removeFromSuperview];
-    [self.searchCommunityView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
+    [self.searchCommunityView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.frame.size.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
     [self.friendsTableView addSubview:self.searchCommunityView];
     [self.friendsTableView bringSubviewToFront:self.searchCommunityView];
     self.friendsTableView.tableFooterView.hidden = YES;
@@ -642,7 +642,7 @@
 {
     [self.noSearchResultsView removeFromSuperview];
     [self.searchCommunityView removeFromSuperview];
-    [self.noSearchResultsView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.contentSize.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
+    [self.noSearchResultsView setFrame:(CGRect){ 0, [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType], self.friendsTableView.bounds.size.width, self.friendsTableView.frame.size.height - [GTIOFriendsTableHeaderView heightForGTIOFriendsTableHeaderViewType:self.tableHeaderViewType] }];
     [self.friendsTableView addSubview:self.noSearchResultsView];
     [self.friendsTableView bringSubviewToFront:self.noSearchResultsView];
     self.friendsTableView.tableFooterView.hidden = YES;

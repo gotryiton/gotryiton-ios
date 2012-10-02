@@ -8,13 +8,14 @@
 
 NSString * const kGTIOIntroScreenIDKey = @"GTIOIntroScreenIDKey";
 NSString * const kGTIOImageURLKey = @"GTIOImageURLKey";
+NSString * const kGTIOUniversalImageURLKey = @"GTIOUniversalImageURLKey";
 NSString * const kGTIOTrackKey = @"GTIOTrackKey";
 
 #import "GTIOIntroScreen.h"
+#import "GTIOUIImage.h"
 
 @implementation GTIOIntroScreen
 
-@synthesize introScreenID = _introScreenID, imageURL = _imageURL, track = _track;
 
 - (id)initWithCoder:(NSCoder *)coder
 {
@@ -22,6 +23,7 @@ NSString * const kGTIOTrackKey = @"GTIOTrackKey";
     if (self) {
         self.introScreenID = [coder decodeObjectForKey:kGTIOIntroScreenIDKey];
         self.imageURL = [coder decodeObjectForKey:kGTIOImageURLKey];
+        self.universalImageURL = [coder decodeObjectForKey:kGTIOUniversalImageURLKey];
         self.track = [coder decodeObjectForKey:kGTIOTrackKey];
     }
     return self;
@@ -38,6 +40,21 @@ NSString * const kGTIOTrackKey = @"GTIOTrackKey";
     if (self.track) {
         [coder encodeObject:self.track forKey:kGTIOTrackKey];
     }
+    if (self.universalImageURL) {
+        [coder encodeObject:self.universalImageURL forKey:kGTIOUniversalImageURLKey];
+    }
+}
+
+- (NSString *)deviceSpecificId
+{
+    return [NSString stringWithFormat:@"%@%@", self.introScreenID, [GTIOUIImage retinaImageStringForUIImage:NO]];
+}
+
+- (NSURL*)deviceSpecificImageURL {
+    if (self.universalImageURL) {
+        return [GTIOUIImage deviceSpecificURL:self.universalImageURL];
+    }
+    return [[NSURL alloc] init];
 }
 
 @end

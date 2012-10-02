@@ -35,7 +35,7 @@
 {
     [super viewDidLoad];
     
-    UIImage *image = [[SDImageCache sharedImageCache] imageFromKey:self.introScreen.introScreenID];
+    UIImage *image = [[SDImageCache sharedImageCache] imageFromKey:[self.introScreen deviceSpecificId]];
     self.imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [self.imageView setImage:image];
     [self.imageView setAutoresizingMask:(UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth)];

@@ -13,6 +13,7 @@
 #import "UIImageView+WebCache.h"
 #import "GTIOProgressHUD.h"
 #import "GTIOAppDelegate.h"
+#import "GTIOUIImage.h"
 
 @interface GTIOQuickAddViewController () <GTIOAccountCreatedDelegate, UITableViewDelegate, UITableViewDataSource, GTIOQuickAddTableCellDelegate>
 
@@ -53,7 +54,7 @@
 {
     [super viewDidLoad];
     
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"quick-add-bg.png"]];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[GTIOUIImage imageNamed:@"quick-add-bg.png"]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
     [self.view addSubview:backgroundImageView];
 
@@ -65,6 +66,7 @@
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
+    [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorColor:[UIColor gtio_groupedTableBorderColor]];
     self.tableView.tableHeaderView = self.accountCreatedView;
     [self.view addSubview:self.tableView];

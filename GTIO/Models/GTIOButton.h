@@ -34,8 +34,11 @@ typedef enum GTIOAcceptRelationshipButtonState {
 @property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) GTIOButtonAction *action;
 @property (nonatomic, strong) NSArray *icons;
+@property (nonatomic, strong) NSString *postID;
 
 // None API Properties
 @property (nonatomic, strong) UIImage *suffixImage;
+
+- (BOOL)isAvilableForIOSDevice;
 
 @end

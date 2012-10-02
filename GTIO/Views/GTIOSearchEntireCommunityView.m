@@ -9,6 +9,8 @@
 #import "GTIOSearchEntireCommunityView.h"
 #import "TTTAttributedLabel.h"
 
+CGFloat const kGTIOSearchEntireCommunityViewPadding = -28.0;
+
 @interface GTIOSearchEntireCommunityView()
 
 @property (nonatomic, strong) UIImageView *magnifyingGlassImageView;
@@ -34,7 +36,7 @@
 
 - (void)layoutSubviews
 {
-    [self.magnifyingGlassImageView setFrame:(CGRect){ self.bounds.size.width / 2 - self.magnifyingGlassImageView.bounds.size.width / 2, 107, self.magnifyingGlassImageView.bounds.size }];
+    [self.magnifyingGlassImageView setFrame:(CGRect){ self.bounds.size.width / 2 - self.magnifyingGlassImageView.bounds.size.width / 2, self.frame.size.height /2 - self.magnifyingGlassImageView.bounds.size.height/2 + kGTIOSearchEntireCommunityViewPadding, self.magnifyingGlassImageView.bounds.size }];
     
     if ([self.delegate respondsToSelector:@selector(reloadTableData)]) {
         [self.delegate reloadTableData];

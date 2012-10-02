@@ -298,7 +298,6 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
 {    
     self.fullScreenImageViewer = [[GTIOFullScreenImageViewer alloc] initWithPhotoURL:self.post.photo.mainImageURL];
     [self.fullScreenImageViewer show];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
 }
 
 - (void)heartDoubleTap{
@@ -335,7 +334,6 @@ static CGFloat const kGTIOShopThisLookButtonRightPadding = -5.0f;
         }
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.photoHeartButtonModel.action.endpoint delegate:nil];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
 }
 
 @end

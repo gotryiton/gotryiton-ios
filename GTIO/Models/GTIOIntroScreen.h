@@ -12,6 +12,10 @@
 
 @property (nonatomic, strong) NSString *introScreenID;
 @property (nonatomic, strong) NSURL *imageURL;
+@property (nonatomic, strong) NSURL *universalImageURL;
 @property (nonatomic, strong) GTIOTrack *track;
+
+- (NSURL*)deviceSpecificImageURL;
+- (NSString *)deviceSpecificId;
 
 @end
