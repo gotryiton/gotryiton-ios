@@ -203,7 +203,7 @@
         if (!error) {
             [self loadTabBarWithTabSelectedAtIndex:GTIOTabBarTabFeed];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:@"There was an error while communicating with the server. Please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:@"Server Error" message:@"There was an error while communicating with the server. Please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [alert show];
         }
     }];

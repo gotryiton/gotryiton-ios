@@ -21,7 +21,7 @@
 
 @end
 
-@interface GTIOReviewsTableViewCell : UITableViewCell <DTAttributedTextContentViewDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate>
+@interface GTIOReviewsTableViewCell : UITableViewCell <DTAttributedTextContentViewDelegate, GTIOAlertViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) GTIOReview *review;
 @property (nonatomic, weak) id<GTIOReviewsTableViewCellDelegate> delegate;

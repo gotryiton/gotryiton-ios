@@ -14,6 +14,7 @@ typedef void(^GTIOAlertViewButtonActionBlock)(void);
 
 @protocol GTIOAlertViewDelegate <NSObject>
 
+@optional
 // Called when a button is clicked. The view will be automatically dismissed after this call returns
 - (void)alertView:(GTIOAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
@@ -36,6 +37,7 @@ typedef void(^GTIOAlertViewButtonActionBlock)(void);
 @property (nonatomic, copy) GTIOAlertViewButtonActionBlock otherButtonBlock;
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id<GTIOAlertViewDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle;
+- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id<GTIOAlertViewDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;
 - (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id<GTIOAlertViewDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle cancelButtonBlock:(GTIOAlertViewButtonActionBlock)cancelButtonBlock otherButtonBlock:(GTIOAlertViewButtonActionBlock)otherButtonBlock;
 - (void)show;
 - (void)dismissWithClickedButtonIndex:(NSInteger)index animated:(BOOL)animated;

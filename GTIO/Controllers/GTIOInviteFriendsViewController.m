@@ -309,7 +309,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
         
         [self presentViewController:tweetComposer animated:YES completion:nil];
     } else {
-        [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 

@@ -133,7 +133,7 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     } failure:^(NSError *error) {
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         NSLog(@"Failed to download product image");
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Could now download product image" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:@"Error" message:@"Could now download product image" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 

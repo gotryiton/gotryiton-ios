@@ -39,6 +39,11 @@ static CGFloat const kGTIODialogButtonPadding = 10.0f;
     return self;
 }
 
+- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id<GTIOAlertViewDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...
+{   
+    return [self initWithTitle:title message:message delegate:delegate cancelButtonTitle:cancelButtonTitle otherButtonTitle:otherButtonTitles];
+}
+
 - (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id<GTIOAlertViewDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle cancelButtonBlock:(GTIOAlertViewButtonActionBlock)cancelButtonBlock otherButtonBlock:(GTIOAlertViewButtonActionBlock)otherButtonBlock
 {
     self = [super init];

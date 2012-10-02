@@ -52,8 +52,9 @@ static NSString * const kGTIOAlertForDeletingPost = @"do you want to delete this
 static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 
 static NSInteger const kGTIOPaginationCellThreshold = 3;
+static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
 
-@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, GTIOFeedCellDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate, UIAlertViewDelegate>
+@interface GTIOFeedViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedHeaderViewDelegate, GTIOFeedCellDelegate, SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate, GTIOAlertViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GTIOFeedNavigationBarView *navBarView;
@@ -485,9 +486,9 @@ static NSInteger const kGTIOPaginationCellThreshold = 3;
         ((GTIOFeedCell *)cell).post = post;
     }
     
-    // preload 3 images ahead of this cell
-    NSInteger numImagesToPreload = (indexPath.row + 3) <= ([self.posts count] - 1) ? 3 : ([self.posts count] - 1) - (indexPath.row + 3);
-    for(int i = 0; i < numImagesToPreload; i++) {
+    // preload numOfCellImagesToPreload images ahead of this cell
+    NSInteger numImagesToPreload = (indexPath.row + kGTIONumberOfCellImagesToPreload) <= ([self.posts count] - 1) ? kGTIONumberOfCellImagesToPreload : ([self.posts count] - 1) - indexPath.row;
+    for(int i = indexPath.row; i < numImagesToPreload+indexPath.row; i++) {
         [self.imageManager queueImageURL:[[(GTIOPost *)[self.posts objectAtIndex:i+1] photo] mainImageURL]];
     }
     
@@ -771,7 +772,7 @@ static NSInteger const kGTIOPaginationCellThreshold = 3;
 {
     if ([button.buttonType isEqualToString:@"delete"]){
         self.deleteButton = button;
-        [[[UIAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
     } else if (button.action.endpoint) {
         [self endpointRequestForButton:button];
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
@@ -790,14 +791,14 @@ static NSInteger const kGTIOPaginationCellThreshold = 3;
 
             [self presentViewController:tweetComposer animated:YES completion:nil];
         } else {
-            [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[GTIOAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:kGTIODismissEllipsisPopOverViewNotification object:nil];
         }
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)alertView:(GTIOAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([alertView.message isEqualToString:kGTIOAlertForDeletingPost]){
         if (buttonIndex == 0){

@@ -73,7 +73,7 @@
                 [[GTIOUser currentUser] setIcon:[NSURL URLWithString:[user.icon absoluteString]]];
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to update your profile picture." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:nil message:@"We were not able to update your profile picture." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
                 [alert show];
             }
         }];
@@ -233,7 +233,7 @@
             [self.myLooksIcons setContentSize:(CGSize){ numberOfIcons * (55 + iconSpacing), 70 }];
             
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to load your looks." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:nil message:@"We were not able to load your looks." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [alert show];
         }
     }];
@@ -256,7 +256,7 @@
             [self.facebookConnectButton removeFromSuperview];
             [self refreshContent];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"We were not able to connect your account to facebook." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:nil message:@"We were not able to connect your account to facebook." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [alert show];
         }
     }];
