@@ -402,6 +402,9 @@
     }];
         
     [self.tabBarController.delegate tabBarController:self.tabBarController didSelectViewController:self.tabBarController.selectedViewController];
+    
+    // start first time load
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
 
     [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];
 }
