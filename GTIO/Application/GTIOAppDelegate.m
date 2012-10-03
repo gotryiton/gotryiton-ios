@@ -79,6 +79,7 @@
     // List all fonts on iPhone
 #if DEBUG
 //    [self listAllFonts];
+     // [NSClassFromString(@"WebView") performSelector:@selector(_enableRemoteInspector)];
     
     // Simulate memory warnings.
     //    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(triggerMemoryWarning) userInfo:nil repeats:YES];
