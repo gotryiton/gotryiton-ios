@@ -31,6 +31,8 @@
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsURL = @"http://yoz.io/e?app_key=%@&device_name=%@";
     NSInteger const kGTIOSecondsInactiveBeforeRefresh = 1 * 60; // num minutes * num seconds/min
 #endif
 
@@ -48,6 +50,8 @@
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsURL = @"http://yoz.io/e?app_key=%@&device_name=%@";
     NSInteger const kGTIOSecondsInactiveBeforeRefresh = 5 * 60; // num minutes * num seconds/min
 #endif
 
@@ -65,6 +69,8 @@
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"";
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsURL = @"http://yoz.io/e?app_key=%@&device_name=%@";
     NSInteger const kGTIOSecondsInactiveBeforeRefresh = 30 * 60; // num minutes * num seconds/min
 #endif
 

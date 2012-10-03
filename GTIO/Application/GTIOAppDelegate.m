@@ -126,6 +126,11 @@
     
     [self.window makeKeyAndVisible];
     
+
+    NSString *deviceName = [[[UIDevice currentDevice] name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *url = [NSString stringWithFormat:kGTIOYozioAnalyticsURL, kGTIOYozioAnalyticsKey, deviceName];
+    [NSURLConnection connectionWithRequest:[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]] delegate:nil];
+
     return YES;
 }
 
