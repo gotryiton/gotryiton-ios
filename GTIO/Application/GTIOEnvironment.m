@@ -68,7 +68,7 @@
     NSInteger const kGTIOSecondsInactiveBeforeRefresh = 30 * 60; // num minutes * num seconds/min
 #endif
 
-NSString * const kGTIOAcceptHeader = @"application/v4.0.2-json";
+NSString * const kGTIOAcceptHeader = @"application/v4.1-json";
 NSString * const kGTIOAuthenticationHeaderKey = @"Authentication";
 NSString * const kGTIOTrackingHeaderKey = @"Tracking-Id";
 
