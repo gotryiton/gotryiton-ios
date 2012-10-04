@@ -143,7 +143,9 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     }
     if (self.tableData==nil){
         self.tableData = [NSMutableArray array];
-        [self refreshScreenLayout];
+        [self refreshScreenLayoutWithSpinner:YES];
+    } else {
+        [self refreshScreenLayoutWithSpinner:NO];
     }
 }
 
@@ -229,7 +231,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 {
     if(self.shouldRefreshAfterInactive) {
         self.shouldRefreshAfterInactive = NO;
-        [self refreshScreenLayout];
+        [self refreshScreenLayoutWithSpinner:YES];
         // load all the rest here
         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
     }
@@ -237,12 +239,14 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 
 #pragma mark -
 
-- (void)refreshScreenLayout
+- (void)refreshScreenLayoutWithSpinner:(BOOL)showSpinner
 {
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    if (showSpinner)
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        [GTIOProgressHUD hideAllHUDsForView:self.view animated:YES];
         if (!error) {
-            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             int numberOfRows = 0;
             int numberOfSections = 0;
             [self.tableData removeAllObjects];
@@ -388,7 +392,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                                 [self.navigationController dismissModalViewControllerAnimated:YES];
                                 [self.tableView setUserInteractionEnabled:YES];
-                                [self refreshScreenLayout];
+                                [self refreshScreenLayoutWithSpinner:NO];
                                 [self.profileHeaderView refreshUserData];
                             });
                         }];
