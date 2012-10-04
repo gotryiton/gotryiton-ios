@@ -18,6 +18,6 @@
 
 @end
 
-@interface GTIOMeViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOMeTableHeaderViewDelegate, GTIOMeTableViewCellToggleDelegate, UIAlertViewDelegate, GTIONotificationViewDisplayProtocol>
+@interface GTIOMeViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOMeTableHeaderViewDelegate, GTIOMeTableViewCellToggleDelegate, GTIOAlertViewDelegate, GTIONotificationViewDisplayProtocol>
 
 @end

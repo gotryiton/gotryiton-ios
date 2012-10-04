@@ -409,6 +409,10 @@
     }];
         
     [self.tabBarController.delegate tabBarController:self.tabBarController didSelectViewController:self.tabBarController.selectedViewController];
+    
+    // start first time load & pretend that we're `returning` from inactive
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAppReturningFromInactiveStateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
 
     [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];
 }

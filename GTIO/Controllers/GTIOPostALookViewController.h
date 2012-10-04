@@ -15,7 +15,7 @@ typedef enum GTIOPostPhotoSection {
     GTIOPostPhotoSectionBottom
 } GTIOPostPhotoSection;
 
-@interface GTIOPostALookViewController : GTIOViewController <UIAlertViewDelegate, UIScrollViewDelegate>
+@interface GTIOPostALookViewController : GTIOViewController <GTIOAlertViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, assign) GTIOPostPhotoSection currentSection;
 

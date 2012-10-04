@@ -98,7 +98,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
         case GTIOButtonTypeInviteFriendsTwitter: return [self gtio_inviteFriendsTwitterButton];
         case GTIOButtonTypeErrorRetry: return [self gtio_errorRetryButton];
-        default: 
+        case GTIOButtonTypeCustom: return [self gtio_customButton];
+        default:
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
     }
@@ -708,6 +709,13 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 {
     id button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"connect-error-retry-inactive.png"] hightlightImage:[UIImage imageNamed:@"connect-error-retry-active.png"]];
     [button setTapAreaPadding:10.0f];
+    return button;
+}
+
++ (id)gtio_customButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 

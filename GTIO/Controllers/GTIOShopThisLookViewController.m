@@ -58,7 +58,7 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
     self.leftNavigationButton = backButton;
     
     GTIOUIButton *emailMeMyListButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListEmailMyList tapHandler:^(id sender) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Would you like to email this list to yourself?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:nil message:@"Would you like to email this list to yourself?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         alert.tag = kGTIOEmailMeMyShoppingListAlert;
         [alert show];
     }];
@@ -212,9 +212,9 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
     return cell;
 }
 
-#pragma mark - UIAlertViewDelegate Methods
+#pragma mark - GTIOAlertViewDelegate Methods
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)alertView:(GTIOAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag == kGTIOEmailMeMyShoppingListAlert && buttonIndex == 1) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];

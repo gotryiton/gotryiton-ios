@@ -10,6 +10,6 @@
 #import "GTIOProductTableViewCell.h"
 #import "GTIOProductOptionAddButton.h"
 
-@interface GTIOShoppingListViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOProductTableViewCellDelegate, UIAlertViewDelegate, GTIOProductOptionAddButtonDelegate>
+@interface GTIOShoppingListViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOProductTableViewCellDelegate, GTIOAlertViewDelegate, GTIOProductOptionAddButtonDelegate>
 
 @end

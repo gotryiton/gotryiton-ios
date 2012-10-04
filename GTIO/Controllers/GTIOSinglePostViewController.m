@@ -367,7 +367,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 {
     if ([button.buttonType isEqualToString:@"delete"]){
         self.deleteButton = button;
-        [[[UIAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
     } else if (button.action.endpoint) {
         [self endpointRequestForButton:button];
         
@@ -386,7 +386,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
             }];
             [self presentViewController:tweetComposer animated:YES completion:nil];
         } else {
-            [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[GTIOAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 
         }
     } else if (button.action.facebookText) {
@@ -446,7 +446,8 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         }   
     }
 }
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+
+- (void)alertView:(GTIOAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([alertView.message isEqualToString:kGTIOAlertForDeletingPost]){
         if (buttonIndex == 0){

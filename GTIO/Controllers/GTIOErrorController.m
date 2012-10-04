@@ -50,7 +50,7 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
         return;
     }
     
-    [[[UIAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    [[[GTIOAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 }
 
 + (void)handleAlert:(GTIOAlert *)alert showRetryInView:(UIView *)view retryHandler:(GTIORetryHUDRetryHandler)retryHandler
@@ -77,7 +77,7 @@ static NSString * const kGTIODefaultMessage = @"couldn't connect to Go Try It On
             }
             NSString *errorMessage = alert.message;
             
-            [[[UIAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[GTIOAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
     }
 }

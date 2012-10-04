@@ -85,8 +85,7 @@
         NSURL *URL = [self.imageURLs objectAtIndex:0];
         [self.imageURLs removeObject:URL];
         [self.downloadQueue addObject:URL];
-        NSLog(@"downloading image at: %@", [URL absoluteString]);
-        NSLog(@"downloadQueue count: %d", [self.downloadQueue count]);
+//        NSLog(@"downloading image at: %@", [URL absoluteString]);
         [[SDWebImageManager sharedManager] downloadWithURL:URL delegate:self];
     }
 }
@@ -95,17 +94,15 @@
 
 - (void)webImageManager:(SDWebImageManager *)imageManager didFinishWithImage:(UIImage *)image forURL:(NSURL *)url
 {
-    NSLog(@"downloaded image at: %@", [url absoluteString]);
-    NSLog(@"downloadQueue contains URL: %d", [self.downloadQueue containsObject:url]);
+//    NSLog(@"downloaded image at: %@", [url absoluteString]);
     [self.downloadQueue removeObject:url];
-    NSLog(@"downloadQueue count: %d", [self.downloadQueue count]);
     [self downloadNextImage];
 }
 
 - (void)webImageManager:(SDWebImageManager *)imageManager didFailWithError:(NSError *)error forURL:(NSURL *)url
 {
+//    NSLog(@"failed to download image: %@", [url absoluteString]);
     [self.downloadQueue removeObject:url];
-    NSLog(@"downloadQueue count: %d", [self.downloadQueue count]);
     [self downloadNextImage];
 }
 

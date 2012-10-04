@@ -19,7 +19,7 @@ static CGFloat const kGTIOWhoHeartedThisTopPadding = -8.0f;
 static CGFloat const kGTIOWhoHeartedThisWidth = 250.0f;
 static CGFloat const kGTIOWhoHeartedThisBottomPadding = 7.0f;
 
-@interface GTIOFeedCell () <UIGestureRecognizerDelegate, UIAlertViewDelegate>
+@interface GTIOFeedCell () <UIGestureRecognizerDelegate, GTIOAlertViewDelegate>
 
 @property (nonatomic, strong) GTIOWhoHeartedThisView *whoHeartedThisView;
 @property (nonatomic, strong) GTIOPostButtonColumnView *postButtonColumnView;

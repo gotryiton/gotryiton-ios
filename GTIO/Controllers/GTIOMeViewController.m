@@ -293,7 +293,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
         [self.tableView setUserInteractionEnabled:NO];
         // handle any special cases
         if ([buttonForRow.action.destination isEqualToString:@"gtio://sign-out"]) {
-            [[[UIAlertView alloc] initWithTitle:nil message:kGTIOAlertForLogout delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+            [[[GTIOAlertView alloc] initWithTitle:nil message:kGTIOAlertForLogout delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
         } else {
             [self.navigationController pushViewController:self.viewControllerToRouteTo animated:YES];
         }
@@ -356,10 +356,10 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     GTIOSwitch *switchView = (GTIOSwitch *)cell.accessoryView;
        
     if (switchView.isOn){
-        [[[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
     }
     else {
-        [[[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:@"No" otherButtonTitles: @"Yes", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:@"No" otherButtonTitles: @"Yes", nil] show];
     }    
 }
 
@@ -370,9 +370,9 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-#pragma mark - UIAlertViewDelegate Methods
+#pragma mark - GTIOAlertViewDelegate Methods
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)alertView:(GTIOAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([alertView.message isEqualToString:kGTIOAlertForLogout]){
             if (buttonIndex == 0) {
