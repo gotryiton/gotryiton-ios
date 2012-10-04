@@ -64,6 +64,10 @@
         if (!error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             self.notifications = loadedNotifications;
+            for (GTIONotification *notification in self.notifications){
+                notification.viewed = [NSNumber numberWithBool:YES];
+            }
+            [[GTIONotificationManager sharedManager] broadcastNotificationCount];
             [self.tableView reloadData];
         } else {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
@@ -127,7 +131,6 @@
     GTIONotification *notificationForCell = [self.notifications objectAtIndex:indexPath.row];
     GTIONotificationsTableViewCell *notificationCell = (GTIONotificationsTableViewCell *)cell;
     
-    notificationForCell.viewed = [NSNumber numberWithBool:YES];
     [notificationCell setNotification:notificationForCell];    
 }
 
