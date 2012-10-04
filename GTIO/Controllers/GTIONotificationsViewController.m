@@ -12,6 +12,7 @@
 #import "GTIOProgressHUD.h"
 
 #import "GTIORouter.h"
+#import "GTIOUIImage.h"
 
 @interface GTIONotificationsViewController ()
 
@@ -42,7 +43,7 @@
 {
     [super viewDidLoad];
     
-    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"container.png"]];
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[GTIOUIImage imageNamed:@"container.png"]];
     [backgroundView setFrame:(CGRect){ { self.view.frame.size.width/2 - backgroundView.image.size.width/2, 0 }, backgroundView.image.size }];
     [self.view addSubview:backgroundView];
     
@@ -54,7 +55,7 @@
     UIImageView *tableFooterView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-shadow.png"]];
     [tableFooterView setFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, 5 }];
     self.tableView.tableFooterView = tableFooterView;
-
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, -self.tableView.tableFooterView.frame.size.height - 1, 0)];
     [self.tableView.layer setCornerRadius:3.0];
     [self.view addSubview:self.tableView];
     
