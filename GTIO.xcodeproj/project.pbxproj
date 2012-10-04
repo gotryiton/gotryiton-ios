@@ -338,6 +338,9 @@
 		3F01763915EE5B720075D8DE /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		3FCBE75915E6A69200D1FB63 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		3FE9C43B15E7F867001FDF52 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
+		5C1846AD161E1D4C00116783 /* container-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1846AC161E1D4C00116783 /* container-568h@2x.png */; };
+		5C1846AE161E1D4C00116783 /* container-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1846AC161E1D4C00116783 /* container-568h@2x.png */; };
+		5C1846AF161E1D4C00116783 /* container-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1846AC161E1D4C00116783 /* container-568h@2x.png */; };
 		5C1A411C16027E380075B0E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A411816027E380075B0E2 /* .gitignore */; };
 		5C1A411D16027E380075B0E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A411816027E380075B0E2 /* .gitignore */; };
 		5C1A411E16027E380075B0E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A411816027E380075B0E2 /* .gitignore */; };
@@ -4830,6 +4833,7 @@
 		13C93E461613825C007FD80F /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = release_notes.txt; path = Libraries/TestFlight/release_notes.txt; sourceTree = "<group>"; };
 		13CE5DA2161388790077C533 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		3FCBE74015E6A5BD00D1FB63 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = Libraries/RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		5C1846AC161E1D4C00116783 /* container-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "container-568h@2x.png"; sourceTree = "<group>"; };
 		5C1A411816027E380075B0E2 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5C1A411916027E380075B0E2 /* BPXLUUIDHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPXLUUIDHandler.h; sourceTree = "<group>"; };
 		5C1A411A16027E380075B0E2 /* BPXLUUIDHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPXLUUIDHandler.m; sourceTree = "<group>"; };
@@ -7391,6 +7395,7 @@
 		8082877515B8F06C00682775 /* 2 */ = {
 			isa = PBXGroup;
 			children = (
+				5C1846AC161E1D4C00116783 /* container-568h@2x.png */,
 				1322E96C160CB16A0044FF54 /* container.png */,
 				1322E96D160CB16A0044FF54 /* container@2x.png */,
 				8082877615B8F06C00682775 /* nav.bar.bg.png */,
@@ -11214,6 +11219,7 @@
 				5C7754A6161111450012DE55 /* login-fail-bg-568h@2x.png in Resources */,
 				5C7754AA161111530012DE55 /* quick-add-bg-568h@2x.png in Resources */,
 				5C7754AE161111710012DE55 /* empty-bg-overlay-568h@2x.png in Resources */,
+				5C1846AF161E1D4C00116783 /* container-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12373,6 +12379,7 @@
 				5C7754A5161111450012DE55 /* login-fail-bg-568h@2x.png in Resources */,
 				5C7754A9161111530012DE55 /* quick-add-bg-568h@2x.png in Resources */,
 				5C7754AD161111710012DE55 /* empty-bg-overlay-568h@2x.png in Resources */,
+				5C1846AE161E1D4C00116783 /* container-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13532,6 +13539,7 @@
 				5C7754A4161111450012DE55 /* login-fail-bg-568h@2x.png in Resources */,
 				5C7754A8161111530012DE55 /* quick-add-bg-568h@2x.png in Resources */,
 				5C7754AC161111710012DE55 /* empty-bg-overlay-568h@2x.png in Resources */,
+				5C1846AD161E1D4C00116783 /* container-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
