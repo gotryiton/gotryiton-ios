@@ -77,6 +77,10 @@ extern NSString * const kGTIOUAirshipDevelopmentAppSecret;
 extern NSString * const kGTIOUAirshipProductionAppKey;
 extern NSString * const kGTIOUAirshipProductionAppSecret;
 
+// Yoz.io constants
+extern NSString * const kGTIOYozioAnalyticsKey;
+extern NSString * const kGTIOYozioAnalyticsURL;
+
 // Push Notification Device Token
 extern NSString * const kGTIOPushNotificationDeviceTokenUserDefaults;
 
