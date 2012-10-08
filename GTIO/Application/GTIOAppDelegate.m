@@ -89,11 +89,11 @@
     // Appearance setup
     [GTIOAppearance setupAppearance];
     
-    // Customize Tab bar
-    [self setupTabBar];
-    
     // RestKit
     [self setupRestKit];
+
+    // Customize Tab bar
+    [self setupTabBar];
     
     // Initialize Janrain
     [GTIOUser currentUser].janrain = [JREngage jrEngageWithAppId:kGTIOJanRainEngageApplicationID andTokenUrl:nil delegate:[GTIOUser currentUser]];

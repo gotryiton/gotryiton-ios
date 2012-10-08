@@ -60,8 +60,11 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         
+        _tableData = [NSMutableArray array];
+        _sections = [NSMutableDictionary dictionary];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOMeControllerShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserProfile:) name:kGTIOShowProfileUserNotification object:nil];
     }
@@ -76,7 +79,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.titleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
         [self toggleNotificationView:YES];
     }];
@@ -141,10 +144,11 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     if (self.sections == nil){
         self.sections = [NSMutableDictionary dictionary];
     }
-    if (self.tableData==nil){
-        self.tableData = [NSMutableArray array];
+    if ([self.tableData count]==0){
         [self refreshScreenLayoutWithSpinner:YES];
     } else {
+        [self.tableView reloadData];
+        [self.tableView layoutSubviews];
         [self refreshScreenLayoutWithSpinner:NO];
     }
 }
@@ -232,8 +236,6 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     if(self.shouldRefreshAfterInactive) {
         self.shouldRefreshAfterInactive = NO;
         [self refreshScreenLayoutWithSpinner:YES];
-        // load all the rest here
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
     }
 }
 

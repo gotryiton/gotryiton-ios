@@ -21,9 +21,11 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
+        self.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, kGTIOStyleResourcePath]];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOStyleControllerShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCollectionIDNotification:) name:kGTIOStylesChangeCollectionIDNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterLogout) name:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
@@ -33,7 +35,6 @@
 
 - (void)viewDidLoad
 {
-    self.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kGTIOBaseURLString, kGTIOStyleResourcePath]];
     [super viewDidLoad];
 }
 
@@ -49,8 +50,6 @@
     if(self.shouldRefreshAfterInactive) {
         self.shouldRefreshAfterInactive = NO;
         [self.webView loadGTIORequestWithURL:self.URL];
-        // load all the rest here
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
     }
 }
 

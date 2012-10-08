@@ -60,7 +60,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         _resourcePath = @"/posts/explore";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOExploreLooksControllerShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeResourcePathNotification:) name:kGTIOExploreLooksChangeResourcePathNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterLogout) name:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
@@ -118,10 +118,6 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     
     [self.view bringSubviewToFront:self.masonGridView];
     
-    if (!self.isInitialLoadingFromExternalLink) {
-        [self loadTabs];
-        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    }
 }
 
 - (void)viewDidUnload
@@ -221,8 +217,6 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     if(self.shouldRefreshAfterInactive) {
         self.shouldRefreshAfterInactive = NO;
         [self loadTabsAndData];
-        // load all the rest here
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
     }
 }
 
@@ -239,10 +233,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 {
     _resourcePath = [resourcePath copy];
     [self loadTabsAndData];
-    GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    [self setLeftNavigationButton:backButton];
+    
 }
 
 #pragma mark - RestKit Load Objects
@@ -279,7 +270,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadData
 {
-    NSLog(@"Loading tabs with resourcePath: %@", self.resourcePath);
+    NSLog(@"Loading data with resourcePath: %@", self.resourcePath);
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];
@@ -297,9 +288,11 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
             [self.masonGridView setItems:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
             [self.masonGridView.pullToRefreshView finishLoading];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToRefreshView finishLoading];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
                 [self loadTabs];
             }];
@@ -316,33 +309,45 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadTabsAndData
 {
+    NSLog(@"Loading tabs & data with resourcePath: %@", self.resourcePath);
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.tabs removeAllObjects];
             [self.posts removeAllObjects];
             self.pagination = nil;
             
+            GTIOTab *selectedTab;
+
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOTab class]]) {
                     [self.tabs addObject:object];
+                    GTIOTab *tab = (GTIOTab *)object;
+                    if ([tab.selected integerValue] == 1) {
+                        selectedTab = tab;
+                    }
                 } else if ([object isKindOfClass:[GTIOPost class]]) {
                     [self.posts addObject:object];
                 } else if ([object isKindOfClass:[GTIOPagination class]]) {
                     self.pagination = object;
                 }
             }
+
+            if (![self.resourcePath isEqualToString:selectedTab.endpoint] && [self.posts count] == 0){
+                self.resourcePath = selectedTab.endpoint;
+            }
             
             [self.segmentedControlView setTabs:self.tabs];
             [self.masonGridView setItems:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
             [self.masonGridView.pullToRefreshView finishLoading];
-            [self loadData];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToRefreshView finishLoading];
             [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
                 [self loadTabs];
             }];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"Failed to load %@. error: %@", self.resourcePath, [error localizedDescription]);
         };
     }];
