@@ -2728,8 +2728,7 @@ gtio://my-shopping-list
       - Underneath 'shop.cell.png', so left side shadows are overlaid on product image
       - Heart
          - use '8/heart-toggle.png'
-         - 12px from left side of screen
-         - 7px from top of product image
+         - asset is placed offset in relation to product photo; top left corner of asset is -5,-5 from top left corner of photo
    - Text 
       - Product Name: Verlag Light 14px rgb(89,81,85) #595155
          - 173px from left edge of screen
