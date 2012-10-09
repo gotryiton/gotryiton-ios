@@ -1409,13 +1409,14 @@ previous screen
 		- On tap (product.heart.active.png)
 		- Highlighted (product.heart.highlight.png)
 			- On tap (product.heart.highlight.active.png)
-	- 89x34px
-	- 4px from left
-	- 3px from navigation bar (51px from top of screen)
+	- 68x34px
+	- 4px from left edge of screen
+	- 7px from navigation bar
 	- Count Text: Verlag bold 15px rgb(88,88,88) #585858
-		- Right aligned
-		- 11px from edge of element
-		- Vertically aligned in element
+		- Centered in 17px x 10px text area
+         - 44px from left edge of screen
+         - 17px from nav bar
+		- Should appear to be about visually centered (vertically and horizontally) in right half of 'pill' heart asset
 - Bottom Info
 	- Background (product.info.overlay.bg.png)--stretch image horizontally
 	- 260px high including shadow
