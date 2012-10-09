@@ -3074,8 +3074,8 @@ gtio://posts/feed
          - photo is placed offset 7px down from top of frame asset
          - photo is placed vertically centered within frame asset (should be 5px from the left edge of asset)
       - heart toggle
-         - 'heart-toggle.png' 34 x 34 with on/off states, each with active and inactive
-         - asset is placed flush with left and top edges of photo
+         - 'heart-toggle.png' 60 x 60 with on/off states, each with active and inactive
+         - asset is placed offset in relation to photo; top left corner of asset is -5,-5 from top left corner of photo
       - Star Corner
          - 'star-corner-feed.png'
          - placed at top right corner of post image (should appear to curve seamlessly into photo frame)
