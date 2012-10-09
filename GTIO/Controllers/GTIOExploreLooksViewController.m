@@ -41,6 +41,10 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 @property (nonatomic, assign, getter = isInitialLoadingFromExternalLink) BOOL initialLoadingFromExternalLink;
 
+@property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
+
+@property (nonatomic, strong) GTIONotificationsViewController *notificationsViewController;
+
 @end
 
 @implementation GTIOExploreLooksViewController
@@ -55,7 +59,11 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         
         _resourcePath = @"/posts/explore";
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOExploreLooksControllerShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeResourcePathNotification:) name:kGTIOExploreLooksChangeResourcePathNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterLogout) name:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
     }
     return self;
 }
@@ -70,15 +78,14 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [super viewDidLoad];
     
     __block typeof(self) blockSelf = self;
-    _navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
-        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
-        [blockSelf presentModalViewController:navigationController animated:YES];
+    self.navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
+        [blockSelf toggleNotificationView:YES];
     }];
     
     // Segmented Control
     self.segmentedControlView = [[GTIOLooksSegmentedControlView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, 50 } }];
     [self.segmentedControlView setSegmentedControlValueChangedHandler:^(GTIOTab *tab) {
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         [blockSelf loadDataWithResourcePath:tab.endpoint];
     }];
     [self.view addSubview:self.segmentedControlView];
@@ -101,6 +108,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [self.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
         [blockSelf loadPagination];
     }];
+    [self.masonGridView setPagniationDelegate:self];
     [self.view addSubview:self.masonGridView];
     
     // Accent line
@@ -110,10 +118,6 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     
     [self.view bringSubviewToFront:self.masonGridView];
     
-    if (!self.isInitialLoadingFromExternalLink) {
-        [self loadTabs];
-        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    }
 }
 
 - (void)viewDidUnload
@@ -140,10 +144,87 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self closeNotificationView:NO];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - GTIONotificationViewDisplayProtocol methods
+
+- (void)toggleNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController == nil) {
+        self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+    }
+    
+    // if a child, remove it
+    if([self.childViewControllers containsObject:self.notificationsViewController]) {
+        [self closeNotificationView:YES];
+    } else {
+        [self openNotificationView:YES];
+    }
+}
+
+- (void)closeNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController) {
+        [self.notificationsViewController willMoveToParentViewController:nil];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.notificationsViewController.view setAlpha:0.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController.view removeFromSuperview];
+                             [self.notificationsViewController removeFromParentViewController];
+                             [self.notificationsViewController didMoveToParentViewController:nil];
+                         }];
+    }
+}
+
+- (void)openNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController == nil) {
+        [self.notificationsViewController willMoveToParentViewController:self];
+        [self addChildViewController:self.notificationsViewController];
+        [self.notificationsViewController.view setAlpha:0.0];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.view addSubview:self.notificationsViewController.view];
+                             [self.notificationsViewController.view setAlpha:1.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController didMoveToParentViewController:self];
+                         }];
+    }
+}
+
+#pragma mark - Refresh After Inactive
+
+- (void)appReturnedFromInactive
+{
+    self.shouldRefreshAfterInactive = YES;
+}
+
+- (void)refreshAfterInactive
+{
+    if(self.shouldRefreshAfterInactive) {
+        self.shouldRefreshAfterInactive = NO;
+        [self loadTabsAndData];
+    }
+}
+
+#pragma mark - Refresh after Logout
+
+- (void)refreshAfterLogout
+{
+    [self loadTabsAndData];
 }
 
 #pragma mark - Properties
@@ -152,16 +233,14 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 {
     _resourcePath = [resourcePath copy];
     [self loadTabsAndData];
-    GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    [self setLeftNavigationButton:backButton];
+    
 }
 
 #pragma mark - RestKit Load Objects
 
 - (void)loadTabs
 {
+    NSLog(@"Loading tabs with resourcePath: %@", self.resourcePath);
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.tabs removeAllObjects];
@@ -175,6 +254,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
             [self.masonGridView.pullToRefreshView finishLoading];
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [self.segmentedControlView setTabs:self.tabs];
+            [self loadData];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToRefreshView finishLoading];
@@ -190,6 +270,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadData
 {
+    NSLog(@"Loading data with resourcePath: %@", self.resourcePath);
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.posts removeAllObjects];
@@ -203,12 +284,15 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
                 }
             }
 
+            [GTIOProgressHUD hideAllHUDsForView:self.view animated:YES];
             [self.masonGridView setItems:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
             [self.masonGridView.pullToRefreshView finishLoading];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToRefreshView finishLoading];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
                 [self loadTabs];
             }];
@@ -225,32 +309,45 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadTabsAndData
 {
+    NSLog(@"Loading tabs & data with resourcePath: %@", self.resourcePath);
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.tabs removeAllObjects];
             [self.posts removeAllObjects];
             self.pagination = nil;
             
+            GTIOTab *selectedTab;
+
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOTab class]]) {
                     [self.tabs addObject:object];
+                    GTIOTab *tab = (GTIOTab *)object;
+                    if ([tab.selected integerValue] == 1) {
+                        selectedTab = tab;
+                    }
                 } else if ([object isKindOfClass:[GTIOPost class]]) {
                     [self.posts addObject:object];
                 } else if ([object isKindOfClass:[GTIOPagination class]]) {
                     self.pagination = object;
                 }
             }
+
+            if (![self.resourcePath isEqualToString:selectedTab.endpoint] && [self.posts count] == 0){
+                self.resourcePath = selectedTab.endpoint;
+            }
             
             [self.segmentedControlView setTabs:self.tabs];
             [self.masonGridView setItems:self.posts postsType:GTIOPostTypeNone];
             [self checkForEmptyState];
             [self.masonGridView.pullToRefreshView finishLoading];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToRefreshView finishLoading];
             [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:^(GTIORetryHUD *retryHUD) {
                 [self loadTabs];
             }];
+            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"Failed to load %@. error: %@", self.resourcePath, [error localizedDescription]);
         };
     }];
@@ -258,6 +355,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadPagination
 {
+    self.pagination.loading = YES;
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             [self.masonGridView.pullToLoadMoreView finishLoading];
@@ -286,9 +384,20 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         };
         loader.onDidFailWithError = ^(NSError *error) {
             [self.masonGridView.pullToLoadMoreView finishLoading];
+            self.pagination.loading = NO;
             NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
         };
     }];
+}
+
+#pragma mark - GTIOMasonGridViewPaginationDelegate methods
+
+- (void)masonGridViewShouldPagniate:(GTIOMasonGridView *)masonGridView
+{
+    if(!self.pagination.loading) {
+        [[[self masonGridView] pullToLoadMoreView] startLoading];
+        [self loadPagination];
+    }
 }
 
 #pragma mark - Empty State
@@ -311,6 +420,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 - (void)changeResourcePathNotification:(NSNotification *)notification
 {
     NSString *resourcePath = [[notification userInfo] objectForKey:kGTIOResourcePathKey];
+    NSLog(@"changeResourcePathNotification with path: %@", resourcePath);
     if ([resourcePath length] > 0) {
         self.initialLoadingFromExternalLink = YES;
         _resourcePath = [resourcePath copy];

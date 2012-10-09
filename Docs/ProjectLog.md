@@ -1,3 +1,73 @@
+***Monday, October 1st - Standup Notes***
+
+**Attendees**
+- TT - Duncan
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- Change all alter views to GTIO altert view 
+
+**Status**
+- wrapping up styling on alter view
+- wrap up remaining issues on project sheet (preloading / feed)
+- remaining notification bugs are less critical
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Thursday, September 27th - Standup Notes***
+
+**Attendees**
+- TT - Duncan
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- TT - have current dev branch ready on Friday to evauluate monday's tasks
+- TT - Image precaching
+- TT - Rebase off master, reconcile conflicts with Simon
+
+**Status**
+- TT - working on Image precaching, taking some extra time to make a reusable component for a new screen simon is currently working on. 
+
+**Updates to Important Dates / Deadlines**
+- NA
+
+**General Notes**
+- NA
+
+---
+
+***Wednesday, September 26th - Standup Notes***
+
+**Attendees**
+- TT - Duncan, Matt
+- GTIO - Matt, Simon
+
+**Tasks / To Do List**
+- GTIO - Submit bug fix to the store
+- TT - Move on to pagination
+- TT - Rebase off master, reconcile conflicts with Simon
+
+**Status**
+- TT - Made lots of progress on lower hanging issues today.
+     - animated insertion of table header is adding a 1+ second delay.  Fix is that data is added/view reloaded
+- Discussed possibly upgrading Flurry.  Duncan needs access to latest binary.
+- Reloading images.  Solution is to load next x images automatically while rest are loaded into a queue and will appear in sets of 3
+- GTIO may be utilizing larger images down the road
+
+**Updates to Important Dates / Deadlines**
+- Target submission date is 9/28
+
+**General Notes**
+- NA
+
+---
+
 ***Tuesday, September 23rd - Standup Notes***
 
 **Attendees**

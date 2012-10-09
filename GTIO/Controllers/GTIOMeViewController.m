@@ -47,6 +47,10 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 @property (nonatomic, strong) GTIONavigationNotificationTitleView *titleView;
 @property (nonatomic, strong) UIView *footerView;
 
+@property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
+
+@property (nonatomic, strong) GTIONotificationsViewController *notificationsViewController;
+
 @end
 
 @implementation GTIOMeViewController
@@ -56,7 +60,12 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         
-        
+        _tableData = [NSMutableArray array];
+        _sections = [NSMutableDictionary dictionary];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOMeControllerShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserProfile:) name:kGTIOShowProfileUserNotification object:nil];
     }
     return self;
@@ -70,11 +79,9 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.titleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
-        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
-        [self presentModalViewController:navigationController animated:YES];
+        [self toggleNotificationView:YES];
     }];
 
     self.profileHeaderView = [[GTIOMeTableHeaderView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, 72 }];
@@ -137,9 +144,12 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     if (self.sections == nil){
         self.sections = [NSMutableDictionary dictionary];
     }
-    if (self.tableData==nil){
-        self.tableData = [NSMutableArray array];
-        [self refreshScreenLayout];
+    if ([self.tableData count]==0){
+        [self refreshScreenLayoutWithSpinner:YES];
+    } else {
+        [self.tableView reloadData];
+        [self.tableView layoutSubviews];
+        [self refreshScreenLayoutWithSpinner:NO];
     }
 }
 
@@ -153,19 +163,92 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [self.profileHeaderView setUser:[GTIOUser currentUser]];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self closeNotificationView:NO];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - GTIONotificationViewDisplayProtocol methods
+
+- (void)toggleNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController == nil) {
+        self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+    }
+    
+    // if a child, remove it
+    if([self.childViewControllers containsObject:self.notificationsViewController]) {
+        [self closeNotificationView:YES];
+    } else {
+        [self openNotificationView:YES];
+    }
+}
+
+- (void)closeNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController) {
+        [self.notificationsViewController willMoveToParentViewController:nil];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.notificationsViewController.view setAlpha:0.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController.view removeFromSuperview];
+                             [self.notificationsViewController removeFromParentViewController];
+                             [self.notificationsViewController didMoveToParentViewController:nil];
+                         }];
+    }
+}
+
+- (void)openNotificationView:(BOOL)animated
+{
+    if(self.notificationsViewController.parentViewController == nil) {
+        [self.notificationsViewController willMoveToParentViewController:self];
+        [self addChildViewController:self.notificationsViewController];
+        [self.notificationsViewController.view setAlpha:0.0];
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             [self.view addSubview:self.notificationsViewController.view];
+                             [self.notificationsViewController.view setAlpha:1.0];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.notificationsViewController didMoveToParentViewController:self];
+                         }];
+    }
+}
+
+#pragma mark - Refresh After Inactive
+
+- (void)appReturnedFromInactive
+{
+    self.shouldRefreshAfterInactive = YES;
+}
+
+- (void)refreshAfterInactive
+{
+    if(self.shouldRefreshAfterInactive) {
+        self.shouldRefreshAfterInactive = NO;
+        [self refreshScreenLayoutWithSpinner:YES];
+    }
+}
+
 #pragma mark -
 
-- (void)refreshScreenLayout
+- (void)refreshScreenLayoutWithSpinner:(BOOL)showSpinner
 {
-    [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    if (showSpinner)
+        [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     [GTIOMyManagementScreen loadScreenLayoutDataWithCompletionHandler:^(NSArray *loadedObjects, NSError *error) {
+        [GTIOProgressHUD hideAllHUDsForView:self.view animated:YES];
         if (!error) {
-            [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             int numberOfRows = 0;
             int numberOfSections = 0;
             [self.tableData removeAllObjects];
@@ -216,7 +299,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
         [self.tableView setUserInteractionEnabled:NO];
         // handle any special cases
         if ([buttonForRow.action.destination isEqualToString:@"gtio://sign-out"]) {
-            [[[UIAlertView alloc] initWithTitle:nil message:kGTIOAlertForLogout delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+            [[[GTIOAlertView alloc] initWithTitle:nil message:kGTIOAlertForLogout delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
         } else {
             [self.navigationController pushViewController:self.viewControllerToRouteTo animated:YES];
         }
@@ -279,10 +362,10 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     GTIOSwitch *switchView = (GTIOSwitch *)cell.accessoryView;
        
     if (switchView.isOn){
-        [[[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
     }
     else {
-        [[[UIAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:@"No" otherButtonTitles: @"Yes", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:@"No" otherButtonTitles: @"Yes", nil] show];
     }    
 }
 
@@ -293,9 +376,9 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-#pragma mark - UIAlertViewDelegate Methods
+#pragma mark - GTIOAlertViewDelegate Methods
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)alertView:(GTIOAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([alertView.message isEqualToString:kGTIOAlertForLogout]){
             if (buttonIndex == 0) {
@@ -311,7 +394,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
                             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                                 [self.navigationController dismissModalViewControllerAnimated:YES];
                                 [self.tableView setUserInteractionEnabled:YES];
-                                [self refreshScreenLayout];
+                                [self refreshScreenLayoutWithSpinner:NO];
                                 [self.profileHeaderView refreshUserData];
                             });
                         }];

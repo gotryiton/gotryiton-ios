@@ -9,7 +9,7 @@
 #import "GTIOViewController.h"
 #import "GTIOProductTableViewCell.h"
 
-@interface GTIOShopThisLookViewController : GTIOViewController <UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, GTIOProductTableViewCellDelegate>
+@interface GTIOShopThisLookViewController : GTIOViewController <GTIOAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, GTIOProductTableViewCellDelegate>
 
 @property (nonatomic, strong) NSString *postID;
 

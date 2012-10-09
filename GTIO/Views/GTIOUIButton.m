@@ -42,6 +42,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypePhotoShootGrid: return [self gtio_photoShootGridButton];
         case GTIOButtonTypePhotoShutter: return [self gtio_photoShutterButton];
         case GTIOButtonTypePhotoFlash: return [self gtio_photoFlashButton];
+        case GTIOButtonTypePhotoCameraDirection: return [self gtio_photoCameraDirectionButton];
         case GTIOButtonTypePhotoConfirm: return [self gtio_photoConfirmButton];
         case GTIOButtonTypeBackBottomMargin: return [self gtio_backButtonBottomMargin];
         case GTIOButtonTypeBackTopMargin: return [self gtio_backButtonTopMargin];
@@ -97,7 +98,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
         case GTIOButtonTypeInviteFriendsTwitter: return [self gtio_inviteFriendsTwitterButton];
         case GTIOButtonTypeErrorRetry: return [self gtio_errorRetryButton];
-        default: 
+        case GTIOButtonTypeCustom: return [self gtio_customButton];
+        default:
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
     }
@@ -297,6 +299,11 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)gtio_photoFlashButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"upload.flash-OFF.png"] hightlightImage:nil];
+}
+
++ (id)gtio_photoCameraDirectionButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"camera-overlay-switcher-inactive.png"] hightlightImage:[UIImage imageNamed:@"camera-overlay-switcher-active.png"]];
 }
 
 + (id)gtio_photoSelectBox
@@ -702,6 +709,13 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 {
     id button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"connect-error-retry-inactive.png"] hightlightImage:[UIImage imageNamed:@"connect-error-retry-active.png"]];
     [button setTapAreaPadding:10.0f];
+    return button;
+}
+
++ (id)gtio_customButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 

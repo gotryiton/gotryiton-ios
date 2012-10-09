@@ -13,4 +13,9 @@
 @property (nonatomic, strong) NSString *previousPage;
 @property (nonatomic, strong) NSString *nextPage;
 
+/**
+ Use this to keep track when a pagination object is loading its next or previous page
+ */
+@property (nonatomic, assign) BOOL loading;
+
 @end

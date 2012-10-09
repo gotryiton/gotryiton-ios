@@ -18,4 +18,5 @@
     #import "GTIOUIButton.h"
     #import "GTIOProgressHUD.h"
     #import "GTIOErrorController.h"
+    #import "GTIOAlertView.h"
 #endif

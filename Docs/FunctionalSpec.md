@@ -996,9 +996,9 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 When a user is on one of the top level tabs, they see a navigation bar with notifications 
 
 #### Mockups
-2.2 Notifications Overlay ([wireframe](http://invis.io/QR2OBP8N))
+2.2 Notifications Overlay with Read/Unread States ([wireframe](http://invis.io/QR2OBP8N))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/2.2-Notifications-Overlay.jpg" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/320eb802d3/2.2-Notifications-Overlay-Unread.jpg" width=420px/>
 
 #### User Flow
 
@@ -1055,8 +1055,8 @@ TBD
    - Vertically centered
    - 10px right padding to text
 - Cell:
-   - Active State: rgb(255,255,255)
-   - Read State: rgb(255,255,255) with an alpha of .45
+   - Active State: #fffef5
+   - Read State: #ffffff
    - Bottom border: 1px rgb(217,215,206) #d9d7ce
  
 
