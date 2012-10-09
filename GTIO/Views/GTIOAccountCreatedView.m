@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIImageView *profilePicture;
 @property (nonatomic, strong) UIImageView *viewLayout;
 @property (nonatomic, strong) UILabel *userName;
+@property (nonatomic, strong) UILabel *userRealName;
 @property (nonatomic, strong) UILabel *userLocation;
 @property (nonatomic, strong) UILabel *betterWhenShared;
 @property (nonatomic, strong) UILabel *connectWithFriends;
@@ -25,7 +26,7 @@
 
 @implementation GTIOAccountCreatedView
 
-@synthesize delegate = _delegate, editProfileButton = _editProfileButton, profilePicture = _profilePicture, userName = _userName, userLocation = _userLocation, betterWhenShared = _betterWhenShared, viewLayout = _viewLayout, connectWithFriends = _connectWithFriends;
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -36,21 +37,28 @@
         [self addSubview:_profilePicture];
         
         _viewLayout = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-info-container.png"]];
-        [_viewLayout sizeToFit];
         [self addSubview:_viewLayout];
         
         _userName = [[UILabel alloc] initWithFrame:CGRectZero];
-        [_userName setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:18.0]];
-        [_userName setTextColor:[UIColor gtio_pinkTextColor]];
+        [_userName setFont:[UIFont gtio_verlagFontWithWeight:GTIOFontVerlagBook size:18.0]];
+        [_userName setTextColor:[UIColor gtio_grayTextColor727272]];
         [_userName setBackgroundColor:[UIColor clearColor]];
         [_userName setText:[GTIOUser currentUser].name];
         
         [self addSubview:_userName];
         
+        _userRealName = [[UILabel alloc] initWithFrame:CGRectZero];
+        [_userRealName setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
+        [_userRealName setTextColor:[UIColor gtio_grayTextColorA7A7A7]];
+        [_userRealName setBackgroundColor:[UIColor clearColor]];
+        [_userRealName setText:[GTIOUser currentUser].realName];
+        
+        [self addSubview:_userRealName];
+
         _userLocation = [[UILabel alloc] initWithFrame:CGRectZero];
-        [_userLocation setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:12.0]];
+        [_userLocation setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
         [_userLocation setBackgroundColor:[UIColor clearColor]];
-        [_userLocation setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
+        [_userLocation setTextColor:[UIColor gtio_grayTextColorA7A7A7]];
         [_userLocation setText:[[GTIOUser currentUser].location uppercaseString]];
         [self addSubview:_userLocation];
         
@@ -82,20 +90,25 @@
 {
     [super layoutSubviews];
     
-    [self.profilePicture setFrame:(CGRect){ 30, 70, 46, 46 }];
-    [self.viewLayout setFrame:(CGRect){ 5, 5, self.viewLayout.bounds.size }];
-    [self.userName setFrame:(CGRect){ 85, ([GTIOUser currentUser].location.length > 0) ? 76 : 85, 160, 22 }];
-    [self.userLocation setFrame:(CGRect){ 85, 98, 160, 14 }];
-    [self.editProfileButton setFrame:(CGRect){ 254, 78, self.editProfileButton.bounds.size }];
-    [self.betterWhenShared setFrame:(CGRect){ -1, self.viewLayout.frame.origin.y + self.viewLayout.bounds.size.height + 18, self.bounds.size.width, 20 }];
+    [self.profilePicture setFrame:(CGRect){ 34, 75, 46, 46 }];
+    [self.viewLayout setFrame:(CGRect){ 2, 5, self.viewLayout.bounds.size }];
+    [self.userName setFrame:(CGRect){ self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width+11, ([GTIOUser currentUser].location.length > 0) ? self.profilePicture.frame.origin.y + 2 : self.profilePicture.frame.origin.y + 8, 160, 17 }];
+    [self.userRealName setFrame:(CGRect){ self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width+11, self.userName.frame.origin.y+self.userName.frame.size.height, 160, 14 }];
+    [self.userLocation setFrame:(CGRect){ self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width+11, self.userRealName.frame.origin.y+self.userRealName.frame.size.height, 160, 14 }];
+    [self.editProfileButton setFrame:(CGRect){ 257, self.profilePicture.frame.origin.y + self.profilePicture.frame.size.height/2 - self.editProfileButton.bounds.size.height/2, self.editProfileButton.bounds.size }];
+    [self.betterWhenShared setFrame:(CGRect){ -1, self.viewLayout.frame.origin.y + self.viewLayout.bounds.size.height + 15, self.bounds.size.width, 20 }];
     [self.connectWithFriends setFrame:(CGRect){ 0, _betterWhenShared.frame.origin.y + _betterWhenShared.bounds.size.height - 3, self.bounds.size.width, 40 }];
 
     [self.userName setNumberOfLines:1];
     [self.userName setMinimumFontSize:12.0];
     self.userName.adjustsFontSizeToFitWidth = YES;
 
+    [self.userRealName setNumberOfLines:1];
+    [self.userRealName setMinimumFontSize:8.0];
+    self.userRealName.adjustsFontSizeToFitWidth = YES;
+
     [self.userLocation setNumberOfLines:1];
-    [self.userLocation setMinimumFontSize:9.0];
+    [self.userLocation setMinimumFontSize:8.0];
     self.userLocation.adjustsFontSizeToFitWidth = YES;
 }
 

@@ -107,7 +107,6 @@ static CGFloat const kGTIOAlmostDoneCellLeftPadding = 22.0;
         return NO;
     }
     if (textView.text.length == 1 && text.length == 0) {
-        textView.text = text;
         [textView setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegularItal size:14.0]];
         [textView setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
     } else {
@@ -213,7 +212,6 @@ static CGFloat const kGTIOAlmostDoneCellLeftPadding = 22.0;
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField.text.length == 1 && string.length == 0) {
-        textField.text = string;
         [textField setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegularItal size:14.0]];
         [textField setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
     } else {
