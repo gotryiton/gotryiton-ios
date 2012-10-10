@@ -12,7 +12,7 @@
 
 static CGFloat const kGTIORightPadding = 7.0;
 static CGFloat const kGTIOProfilePictureRightPadding = 10.0;
-static CGFloat const kGTIONameLabelYPosition = 17.0;
+static CGFloat const kGTIONameLabelYPosition = 11.0;
 static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
 static CGFloat const kGTIOUserBadgeVerticalOffset = -2.0;
 static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
@@ -21,6 +21,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
 
 @property (nonatomic, strong) GTIOSelectableProfilePicture *profilePicture;
 @property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *realNameLabel;
 
 @property (nonatomic, strong) GTIOUIButton *followingButton;
 @property (nonatomic, strong) GTIOUIButton *followButton;
@@ -45,9 +46,15 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:16.0];
-        _nameLabel.textColor = [UIColor gtio_grayTextColor8F8F8F];
+        _nameLabel.textColor = [UIColor gtio_grayTextColor727272];
         _nameLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_nameLabel];
+
+        _realNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _realNameLabel.font = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0];
+        _realNameLabel.textColor = [UIColor gtio_grayTextColorA7A7A7];
+        _realNameLabel.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:_realNameLabel];
         
         _followingButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowingButtonRegular];
         _followingButton.hidden = YES;
@@ -77,6 +84,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
     [super prepareForReuse];
     
     self.nameLabel.text = @"";
+    self.realNameLabel.text = @"";
     self.followButton.userInteractionEnabled = YES;
     self.followingButton.userInteractionEnabled = YES;
     self.requestedButton.userInteractionEnabled = YES;
@@ -95,7 +103,8 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
     [self.requestedButton setFrame:(CGRect){ self.bounds.size.width - self.requestedButton.bounds.size.width - kGTIORightPadding, 9, self.requestedButton.bounds.size }];
     
     double nameLableXPosition = self.profilePicture.frame.origin.x + self.profilePicture.bounds.size.width + kGTIOProfilePictureRightPadding;
-    [self.nameLabel setFrame:(CGRect){ nameLableXPosition, kGTIONameLabelYPosition, self.followingButton.frame.origin.x - nameLableXPosition - kGTIOProfilePictureRightPadding, 20 }];
+    [self.nameLabel setFrame:(CGRect){ nameLableXPosition, kGTIONameLabelYPosition, self.followingButton.frame.origin.x - nameLableXPosition - kGTIOProfilePictureRightPadding, 17 }];
+    [self.realNameLabel setFrame:(CGRect){ nameLableXPosition, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height, self.followingButton.frame.origin.x - nameLableXPosition - kGTIOProfilePictureRightPadding, 10 }];
     [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - kGTIOBottomBorderVerticalOffset, self.contentView.bounds.size.width, 1 }];
 
     if (self.user.badge) {
@@ -139,6 +148,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
     }
     [self.profilePicture setImageWithURL:_user.icon];
     self.nameLabel.text = _user.name;
+    self.realNameLabel.text = _user.realName;
     
     GTIOUIButton *followButton = [self activeFollowButton];
     
