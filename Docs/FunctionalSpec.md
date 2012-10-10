@@ -1484,13 +1484,14 @@ previous screen
 		- On tap (product.heart.active.png)
 		- Highlighted (product.heart.highlight.png)
 			- On tap (product.heart.highlight.active.png)
-	- 89x34px
-	- 4px from left
-	- 3px from navigation bar (51px from top of screen)
+	- 68x34px
+	- 4px from left edge of screen
+	- 7px from navigation bar
 	- Count Text: Verlag bold 15px rgb(88,88,88) #585858
-		- Right aligned
-		- 11px from edge of element
-		- Vertically aligned in element
+		- Centered in 17px x 10px text area
+         - 44px from left edge of screen
+         - 17px from nav bar
+		- Should appear to be about visually centered (vertically and horizontally) in right half of 'pill' heart asset
 - Bottom Info
 	- Background (product.info.overlay.bg.png)--stretch image horizontally
 	- 260px high including shadow
@@ -2803,8 +2804,7 @@ gtio://my-shopping-list
       - Underneath 'shop.cell.png', so left side shadows are overlaid on product image
       - Heart
          - use '8/heart-toggle.png'
-         - 12px from left side of screen
-         - 7px from top of product image
+         - asset is placed offset in relation to product photo; top left corner of asset is -5,-5 from top left corner of photo
    - Text 
       - Product Name: Verlag Light 14px rgb(89,81,85) #595155
          - 173px from left edge of screen
@@ -3149,8 +3149,8 @@ gtio://posts/feed
          - photo is placed offset 7px down from top of frame asset
          - photo is placed vertically centered within frame asset (should be 5px from the left edge of asset)
       - heart toggle
-         - 'heart-toggle.png' 34 x 34 with on/off states, each with active and inactive
-         - asset is placed flush with left and top edges of photo
+         - 'heart-toggle.png' 60 x 60 with on/off states, each with active and inactive
+         - asset is placed offset in relation to photo; top left corner of asset is -5,-5 from top left corner of photo
       - Star Corner
          - 'star-corner-feed.png'
          - placed at top right corner of post image (should appear to curve seamlessly into photo frame)
