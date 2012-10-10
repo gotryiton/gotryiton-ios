@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "GTIOAlmostDoneTableCell.h"
 #import "GTIOViewController.h"
+#import <RestKit/RestKit.h>
 
-@interface GTIOAlmostDoneViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOAlmostDoneTableCellDelegate>
+@interface GTIOAlmostDoneViewController : GTIOViewController <UITableViewDelegate, RKObjectLoaderDelegate, UITableViewDataSource, GTIOAlmostDoneTableCellDelegate>
 
 @property (nonatomic, strong) NSArray *tableData;
 @property (nonatomic, strong) UITableView *tableView;
@@ -18,9 +19,11 @@
 @property (nonatomic, strong) NSURL *profilePicture;
 @property (nonatomic, strong) NSMutableDictionary *saveData;
 @property (nonatomic, strong) NSMutableArray *textFields;
+@property (nonatomic, strong) GTIOAlmostDoneTableCell *validationCell;
 
 - (void)updateDataSourceWithValue:(id)value ForKey:(NSString*)key;
 - (void)dismissKeyboard;
 - (void)saveDataItems;
+
 
 @end

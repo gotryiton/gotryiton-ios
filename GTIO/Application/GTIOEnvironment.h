@@ -71,6 +71,10 @@ extern NSString * const kGTIOResourcePathKey;
 extern NSString * const kGTIOProfileUserIDUserInfo;
 extern NSString * const kGTIOCollectionIDUserInfoKey;
 
+// Unique Name modal flag
+extern NSString * const kGTIOUniqueNameModalDialogFlag; 
+extern int const kGTIOUniqueNameModalDialogMaxViews;
+
 // UrbanAirship Constants
 extern BOOL const kGTIOUAirshipAppStoreOrAdHocBuild;
 extern NSString * const kGTIOUAirshipDevelopmentAppKey;

@@ -424,18 +424,25 @@
 
 - (void)showUniqueNameModalScreen
 {
-    if ([GTIOUser currentUser].showUniqueNameScreen){
-        GTIOUniqueNameSplashViewController *uniqueNameViewController = [[GTIOUniqueNameSplashViewController alloc] initWithNibName:nil bundle:nil];
-        [uniqueNameViewController setDismissHandler:^(UIViewController *viewController) {
-           [viewController dismissViewControllerAnimated:YES completion:^{
-               [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
-           }];
-        }];
 
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uniqueNameViewController];
-        [self.tabBarController presentModalViewController:navController animated:YES];
- 
+    int viewsOfModalScreen = [[NSUserDefaults standardUserDefaults] integerForKey:kGTIOUniqueNameModalDialogFlag];
 
+    if (viewsOfModalScreen < kGTIOUniqueNameModalDialogMaxViews) {
+        viewsOfModalScreen++;
+        [[NSUserDefaults standardUserDefaults] setInteger:viewsOfModalScreen forKey:kGTIOUniqueNameModalDialogFlag];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        if ([GTIOUser currentUser].showUniqueNameScreen){
+            GTIOUniqueNameSplashViewController *uniqueNameViewController = [[GTIOUniqueNameSplashViewController alloc] initWithNibName:nil bundle:nil];
+            [uniqueNameViewController setDismissHandler:^(UIViewController *viewController) {
+               [viewController dismissViewControllerAnimated:YES completion:^{
+                   [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
+               }];
+            }];
+
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uniqueNameViewController];
+            [self.tabBarController presentModalViewController:navController animated:YES];
+     
+        }
     }
 }
 

@@ -212,10 +212,6 @@ static CGFloat const kGTIOAlmostDoneCellLeftPadding = 22.0;
 }
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    if (self.changeHandler){
-        self.changeHandler(self);
-    }
-
     return YES;
 }
 

@@ -61,6 +61,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeQuickAddCheckbox: return [self gtio_quickAddCheckbox];
         case GTIOButtonTypeFollowButton: return [self gtio_followButton];
         case GTIOButtonTypeAccept: return [self gtio_acceptButton];
+        case GTIOButtonTypeUniqueNameSave: return [self gtio_uniqueNameSaveButton];
         case GTIOButtonTypeBlock: return [self gtio_blockButton];
         case GTIOButtonTypeWebsiteLink: return [self gtio_websiteLinkButton];
         case GTIOButtonTypeFollowButtonForNavBar: return [self gtio_followButtonForNavBar];
@@ -371,6 +372,23 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     [button setTitle:@"follow" forState:UIControlStateDisabled];
     [button setTitleLabelText:@"follow"];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_uniqueNameSaveButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"save this username" forState:UIControlStateNormal];
+    [button setTitle:@"save this username" forState:UIControlStateDisabled];
+    [button setBackgroundImage:[UIImage imageNamed:@"claim-username-green-inactive.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"claim-username-green-active.png"] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[UIImage imageNamed:@"claim-username-gray-inactive.png"] forState:UIControlStateDisabled];
+    [button setFrame:(CGRect){ 0, 0, [UIImage imageNamed:@"claim-username-gray-inactive.png"].size }];
+    [button.titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0]];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateDisabled];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0.0, 0.0, 0.0)];
     return button;
 }
 

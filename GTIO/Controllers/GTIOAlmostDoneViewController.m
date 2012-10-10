@@ -20,6 +20,8 @@
 
 static NSInteger kGTIOGTIOMinimumAge = 13;
 
+
+
 @implementation GTIOAlmostDoneViewController
 
 
@@ -96,7 +98,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
             }
         }
         if ([missingDataElements count] > 0) {
-            GTIOAlertView *missingRequiredData = [[GTIOAlertView alloc] initWithTitle:@"Incomplete Profile!" message:[NSString stringWithFormat:@"Please complete the '%@' section%@.",[missingDataElements componentsJoinedByString:@", "], ([missingDataElements count] > 1) ? @"s" : @""] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            GTIOAlertView *missingRequiredData = [[GTIOAlertView alloc] initWithTitle:@"Incomplete Profile!" message:[NSString stringWithFormat:@"Please complete the '%@' section%@.",[missingDataElements componentsJoinedByString:@", "], ([missingDataElements count] > 1) ? @"s" : @""] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [missingRequiredData show];
         } else {
             [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -225,13 +227,14 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
             [cell setAccessoryTextIsMultipleLines:[dataItemForRow multiline]];
             [cell setAccessoryTextUsesPicker:[dataItemForRow usesPicker]];
             if ([dataItemForRow usesNameValidation]) {
+                self.validationCell = cell;
                 [cell setStatusIndicatorWithSuccessImage:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"username-available.png"]] failureImage:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"username-unavailable.png"]]];
                 [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusSuccess];
                 [cell boldInput];
                 __block typeof(self) blockSelf = self;
                 [cell setChangeHandler:^(id sender) {
                     GTIOAlmostDoneTableCell *cell = (GTIOAlmostDoneTableCell *) sender;
-                    [blockSelf validateName:cell.cellAccessoryText.text tableCell:cell];
+                    [blockSelf validateName:cell.cellAccessoryText.text];
                 }];
             }
             [cell setAccessoryTextPlaceholderText:[dataItemForRow placeHolderText]];
@@ -287,14 +290,16 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (void)scrollUpWhileEditing:(NSUInteger)cellIdentifier
 {
-    GTIOAlmostDoneTableCell *cell = (GTIOAlmostDoneTableCell *)[self.tableView viewWithTag:cellIdentifier];
-    CGRect frame = cell.frame;
-    frame.origin.y = frame.origin.y + 55;
-    if (CGRectEqualToRect(self.tableView.frame, self.originalContentFrame)) {
-        [self.tableView setFrame:(CGRect){ 0, 0, self.originalContentFrame.size.width, self.originalContentFrame.size.height - 260 }];
-        [self.tableView scrollRectToVisible:frame animated:NO];
-    } else {
-        [self.tableView scrollRectToVisible:frame animated:YES];
+    if (self.tableView.scrollEnabled) {
+        GTIOAlmostDoneTableCell *cell = (GTIOAlmostDoneTableCell *)[self.tableView viewWithTag:cellIdentifier];
+        CGRect frame = cell.frame;
+        frame.origin.y = frame.origin.y + 55;
+        if (CGRectEqualToRect(self.tableView.frame, self.originalContentFrame)) {
+            [self.tableView setFrame:(CGRect){ 0, 0, self.originalContentFrame.size.width, self.originalContentFrame.size.height - 260 }];
+            [self.tableView scrollRectToVisible:frame animated:NO];
+        } else {
+            [self.tableView scrollRectToVisible:frame animated:YES];
+        }
     }
 }
 
@@ -318,9 +323,11 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (void)resetScrollAfterEditing
 {
-    [self.tableView setFrame:self.originalContentFrame];
-    [self adjustContentSizeToFit];
-    [self scrollToBottom];
+    if (self.tableView.scrollEnabled) {
+        [self.tableView setFrame:self.originalContentFrame];
+        [self adjustContentSizeToFit];
+        [self scrollToBottom];
+    }
 }
 
 - (void)adjustContentSizeToFit
@@ -333,41 +340,53 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (void)scrollToBottom
 {
-    [self.tableView scrollRectToVisible:(CGRect){ 0, self.tableView.contentSize.height - 1, self.tableView.bounds.size.width, 1 } animated:NO];
+    if (self.tableView.scrollEnabled) {
+        [self.tableView scrollRectToVisible:(CGRect){ 0, self.tableView.contentSize.height - 1, self.tableView.bounds.size.width, 1 } animated:NO];
+    }
 }
 
 
 
-- (void)validateName:(NSString *)name tableCell:(GTIOAlmostDoneTableCell *)cell{
+- (void)validateName:(NSString *)name{
+    if (self.validationCell){
 
-    [[[RKObjectManager sharedManager] requestQueue] cancelRequestsWithDelegate:self];
+        [[[RKObjectManager sharedManager] requestQueue] cancelRequestsWithDelegate:self];
 
-    [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusLoading];
-    
-    NSString * urlEncodedName = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)name, NULL,(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
+        [self.validationCell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusLoading];
+        
+        NSString * urlEncodedName = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)name, NULL,(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
+        NSString * resourcePath = [NSString stringWithFormat:@"/user/name-validation/%@", urlEncodedName];
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath delegate:self];
 
-    NSString * resourcePath = [NSString stringWithFormat:@"/user/name-validation/%@", urlEncodedName];
-
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadObjects = ^(NSArray *objects) {
-            for (id object in objects) {
-                if ([object isKindOfClass:[GTIONameValidation class]]) {
-                    GTIONameValidation *validation = (GTIONameValidation *)object;
-                    if (validation.valid){
-                        [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusSuccess];
-                    } else {
-                        [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusFailure];
-                    }
-                } 
-            }
-        };
-        loader.onDidFailWithError = ^(NSError *error) {
-            [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
-            [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusFailure];
-            NSLog(@"Failed to load %@. error: %@", resourcePath, [error localizedDescription]);
-        };
-    }];
+    }
 }
 
+- (void)setValidationStatusIsValid:(BOOL)valid
+{
+    if (valid && self.validationCell){
+        [self.validationCell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusSuccess];
+    } else {
+        [self.validationCell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusFailure];
+    }
+}
+
+#pragma mark RKRequestDelegate methods
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
+{
+    for (id object in objects) {
+        if ([object isKindOfClass:[GTIONameValidation class]]) {
+            GTIONameValidation *validation = (GTIONameValidation *)object;
+            [self setValidationStatusIsValid:validation.valid];
+        } 
+    }
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
+{   
+    [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
+    [self setValidationStatusIsValid:NO];
+    NSLog(@"Failed to load validations: %@", [error localizedDescription]);
+}
 
 @end
