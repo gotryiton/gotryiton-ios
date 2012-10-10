@@ -46,6 +46,7 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
 @property (nonatomic, strong) GTIOButtonAction *action;
 
 @property (nonatomic, assign) BOOL selected;
+@property (nonatomic, assign) BOOL showUniqueNameScreen;
 
 @property (nonatomic, strong) Facebook *facebook;
 @property (nonatomic, strong) JREngage *janrain;

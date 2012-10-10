@@ -73,8 +73,10 @@
                             [user populateWithUser:object];
                             [user updateUrbanAirshipAliasWithUserID:user.userID];
                         }
-                        
+
                         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAddTabBarToWindowNotification object:nil];
+                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
                     };
                     loader.onDidFailWithError = ^(NSError *error) {
                         NSLog(@"Auth /user/me failed. User is not logged in.");

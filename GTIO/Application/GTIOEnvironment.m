@@ -101,6 +101,7 @@ NSString * const kGTIOStyleControllerShouldRefresh = @"kGTIOLooksControllerShoul
 NSString * const kGTIOMeControllerShouldRefresh = @"kGTIOMeControllerShouldRefresh";
 NSString * const kGTIOAllControllersShouldRefresh = @"kGTIOAllControllersShouldRefresh";
 NSString * const kGTIOAllControllersShouldRefreshAfterLogout = @"kGTIOAllControllersShouldRefreshAfterLogout";
+NSString * const kGTIOShouldShowUniqueNameModalView = @"kGTIOShouldShowUniqueNameModalView";
 
 // Notification UserInfo
 NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";

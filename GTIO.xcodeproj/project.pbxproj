@@ -338,6 +338,9 @@
 		3F01763915EE5B720075D8DE /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		3FCBE75915E6A69200D1FB63 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
 		3FE9C43B15E7F867001FDF52 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCBE74C15E6A5BD00D1FB63 /* libRestKit.a */; };
+		5C0BDF6E1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0BDF6D1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m */; };
+		5C0BDF6F1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0BDF6D1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m */; };
+		5C0BDF701625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0BDF6D1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m */; };
 		5C1846AD161E1D4C00116783 /* container-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1846AC161E1D4C00116783 /* container-568h@2x.png */; };
 		5C1846AE161E1D4C00116783 /* container-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1846AC161E1D4C00116783 /* container-568h@2x.png */; };
 		5C1846AF161E1D4C00116783 /* container-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1846AC161E1D4C00116783 /* container-568h@2x.png */; };
@@ -4848,6 +4851,8 @@
 		13C93E461613825C007FD80F /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = release_notes.txt; path = Libraries/TestFlight/release_notes.txt; sourceTree = "<group>"; };
 		13CE5DA2161388790077C533 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		3FCBE74015E6A5BD00D1FB63 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = Libraries/RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		5C0BDF6C1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUniqueNameSplashViewController.h; sourceTree = "<group>"; };
+		5C0BDF6D1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUniqueNameSplashViewController.m; sourceTree = "<group>"; };
 		5C1846AC161E1D4C00116783 /* container-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "container-568h@2x.png"; sourceTree = "<group>"; };
 		5C1A411816027E380075B0E2 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5C1A411916027E380075B0E2 /* BPXLUUIDHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPXLUUIDHandler.h; sourceTree = "<group>"; };
@@ -8765,6 +8770,8 @@
 				D2D0483A15642B6E0034E04F /* GTIOIntroImageViewController.m */,
 				D246B0E9155C683000E5546A /* GTIOSplashViewController.h */,
 				D246B0EA155C683000E5546A /* GTIOSplashViewController.m */,
+				5C0BDF6C1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.h */,
+				5C0BDF6D1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m */,
 			);
 			name = Splash/Intro;
 			sourceTree = "<group>";
@@ -13915,6 +13922,7 @@
 				5C1A412116027E380075B0E2 /* BPXLUUIDHandler.m in Sources */,
 				5C446388160A45D100332C29 /* GTIONameValidation.m in Sources */,
 				5C7754B91611228D0012DE55 /* GTIOUIImage.m in Sources */,
+				5C0BDF701625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14224,6 +14232,7 @@
 				5C1A412016027E380075B0E2 /* BPXLUUIDHandler.m in Sources */,
 				5C446387160A45D100332C29 /* GTIONameValidation.m in Sources */,
 				5C7754B81611228D0012DE55 /* GTIOUIImage.m in Sources */,
+				5C0BDF6F1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14533,6 +14542,7 @@
 				5C1A411F16027E380075B0E2 /* BPXLUUIDHandler.m in Sources */,
 				5C446386160A45D100332C29 /* GTIONameValidation.m in Sources */,
 				5C7754B71611228D0012DE55 /* GTIOUIImage.m in Sources */,
+				5C0BDF6E1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

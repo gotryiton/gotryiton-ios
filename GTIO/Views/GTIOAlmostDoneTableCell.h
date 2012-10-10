@@ -39,6 +39,7 @@ typedef void(^GTIOAlmostDoneTableCellChangeHandler)(id sender);
 @property (nonatomic, strong) UIView* cellAccessoryView;
 @property (nonatomic, weak) id<GTIOAlmostDoneTableCellDelegate> delegate;
 @property (nonatomic, copy) GTIOAlmostDoneTableCellChangeHandler changeHandler;
+@property (nonatomic, strong) UILabel *cellTitleLabel;
 
 - (void)setCellTitle:(NSString*)title;
 - (void)setRequired:(BOOL)required;

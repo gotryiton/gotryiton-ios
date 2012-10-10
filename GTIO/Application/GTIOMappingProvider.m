@@ -194,6 +194,7 @@
         [userMapping mapKeyPath:@"description" toAttribute:@"userDescription"];
         [userMapping mapKeyPath:@"real_name" toAttribute:@"realName"];
         [userMapping mapKeyPath:@"unique_name" toAttribute:@"uniqueName"];
+        [userMapping mapKeyPath:@"show_unique_name_screen" toAttribute:@"showUniqueNameScreen"];
         [userMapping mapAttributes:@"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", nil];
         [userMapping mapKeyPath:@"badge" toRelationship:@"badge" withMapping:badgeMapping];
         [userMapping mapKeyPath:@"button" toRelationship:@"button" withMapping:buttonMapping];

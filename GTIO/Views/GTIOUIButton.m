@@ -49,6 +49,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeSaveGreenTopMargin: return [self gtio_saveButtonGreenTopMargin];
         case GTIOButtonTypeCancelGrayTopMargin: return [self gtio_cancelButtonGrayTopMargin];
         case GTIOButtonTypeSaveGrayTopMargin: return [self gtio_saveButtonGrayTopMargin];
+        case GTIOButtonTypeSkipGrayTopMargin: return [self gtio_skipButtonGrayTopMargin];
         case GTIOButtonTypePhotoSelectBox: return [self gtio_photoSelectBox];
         case GTIOButtonTypeEditPhoto: return [self gtio_editPhotoButton];
         case GTIOButtonTypePostThis: return [self gtio_postThisButton];
@@ -241,6 +242,11 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)gtio_saveButtonGrayTopMargin
 {
     return [self gtio_navBarTopMarginWithText:@"save" tapHandler:nil];
+}
+
++ (id)gtio_skipButtonGrayTopMargin
+{
+    return [self gtio_navBarTopMarginWithText:@" skip " tapHandler:nil];
 }
 
 + (id)gtio_backButtonTopMargin

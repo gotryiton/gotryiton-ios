@@ -28,7 +28,6 @@ static CGFloat const kGTIOAlmostDoneCellLeftPadding = 22.0;
 
 @interface GTIOAlmostDoneTableCell()
 
-@property (nonatomic, strong) UILabel *cellTitleLabel;
 @property (nonatomic, strong) GTIOPlaceHolderTextView *cellAccessoryTextMulti;
 @property (nonatomic, strong) NSString *placeHolderText;
 @property (nonatomic, strong) GTIODoneToolBar *accessoryToolBar;
@@ -116,6 +115,18 @@ static CGFloat const kGTIOAlmostDoneCellLeftPadding = 22.0;
     if (self.usesPicker) {
         return NO;
     }
+
+    if (self.changeHandler){
+        // Wait 0.5 seconds then dispatch change handler 
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            if (self.changeHandler){
+                self.changeHandler(self);
+            }
+        });
+    }
+
     return YES;
 }
 
@@ -224,6 +235,18 @@ static CGFloat const kGTIOAlmostDoneCellLeftPadding = 22.0;
     if (self.usesPicker) {
         return NO;
     }
+
+    if (self.changeHandler){
+        // Wait 0.5 seconds then dispatch change handler 
+        double delayInSeconds = 0.5;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            if (self.changeHandler){
+                self.changeHandler(self);
+            }
+        });
+    }
+
     return YES;
 }
 

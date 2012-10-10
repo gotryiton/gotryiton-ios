@@ -63,6 +63,7 @@ extern NSString * const kGTIOStyleControllerShouldRefresh;
 extern NSString * const kGTIOMeControllerShouldRefresh;
 extern NSString * const kGTIOAllControllersShouldRefresh;
 extern NSString * const kGTIOAllControllersShouldRefreshAfterLogout;
+extern NSString * const kGTIOShouldShowUniqueNameModalView;
 
 // Notification UserInfo
 extern NSString * const kGTIOChangeSelectedTabToUserInfo;

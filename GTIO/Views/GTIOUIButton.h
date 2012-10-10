@@ -33,6 +33,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeBackBottomMargin,
     GTIOButtonTypeBackTopMargin,
     GTIOButtonTypeSaveGreenTopMargin,
+    GTIOButtonTypeSkipGrayTopMargin,
     GTIOButtonTypeCancelGrayTopMargin,
     GTIOButtonTypeSaveGrayTopMargin,
     GTIOButtonTypePhotoSelectBox,

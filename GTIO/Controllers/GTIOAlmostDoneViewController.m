@@ -22,7 +22,6 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 @implementation GTIOAlmostDoneViewController
 
-@synthesize tableData = _tableData, tableView = _tableView, originalContentFrame = _originalContentFrame, profilePicture = _profilePicture, saveData = _saveData, textFields = _textFields;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {    
@@ -41,9 +40,12 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
             [selectableYears addObject:[dateFormatter stringFromDate:startDate]];
             startDate = [startDate dateByAddingTimeInterval:-(60 * 60 * 24 * 365.25)];
         }
-        
+
         NSArray *selectableGenders = [NSArray arrayWithObjects:@"female", @"male", nil];
-        
+    
+       
+        _textFields = [NSMutableArray array];
+
         GTIOUser *currentUser = [GTIOUser currentUser];
         _profilePicture = [currentUser icon];
         
@@ -61,13 +63,17 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
         
         // prepopulate save data with values from current user
         _saveData = [NSMutableDictionary dictionary];
-        for (GTIOAlmostDoneTableDataItem *dataItem in _tableData) {
-            [_saveData setValue:[dataItem accessoryText] forKey:[dataItem apiKey]];
-        }
-        
-        _textFields = [NSMutableArray array];
+        [self saveDataItems];
     }
     return self;
+}
+
+- (void)saveDataItems
+{
+    for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
+        [self.saveData setValue:[dataItem accessoryText] forKey:[dataItem apiKey]];
+    }
+        
 }
 
 - (void)viewDidLoad
@@ -182,7 +188,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 && [self numberOfSectionsInTableView:tableView]>1) {
         return 88.0f;
     }
     if (indexPath.row == 7) {
@@ -208,7 +214,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
     GTIOAlmostDoneTableDataItem *dataItemForRow = (GTIOAlmostDoneTableDataItem *)[self.tableData objectAtIndex:indexPath.row];
     
     if (!cell) {
-        if (indexPath.section == 0) {
+        if (indexPath.section == 0 && [self numberOfSectionsInTableView:tableView]>1) {
             cell = (GTIOAlmostDoneTableHeaderCell *)[[GTIOAlmostDoneTableHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             [cell setProfilePictureWithURL:self.profilePicture];
             [cell setTag:(indexPath.section+indexPath.row)];
@@ -245,7 +251,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
         }
     }
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0  && [self numberOfSectionsInTableView:tableView]>1) {
         [cell setProfilePictureWithURL:self.profilePicture];
     } else {
         // prepopulate anything from the current user
@@ -261,7 +267,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.section == 0 && indexPath.row == 0 && [self numberOfSectionsInTableView:tableView]>1) {
         GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
     }
@@ -271,10 +277,12 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (void)moveResponderToNextCellFromCellAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row+1) inSection:1];
-    [self.tableView scrollToRowAtIndexPath:nextIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-    GTIOAlmostDoneTableCell *cellToFocus = (GTIOAlmostDoneTableCell *)[self.tableView cellForRowAtIndexPath:nextIndexPath];
-    [cellToFocus becomeFirstResponder];
+    if ([self numberOfSectionsInTableView:self.tableView]>1) {
+        NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row+1) inSection:1];
+        [self.tableView scrollToRowAtIndexPath:nextIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        GTIOAlmostDoneTableCell *cellToFocus = (GTIOAlmostDoneTableCell *)[self.tableView cellForRowAtIndexPath:nextIndexPath];
+        [cellToFocus becomeFirstResponder];
+    }
 }
 
 - (void)scrollUpWhileEditing:(NSUInteger)cellIdentifier
@@ -303,10 +311,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 - (void)refreshScreenData
 {
     self.profilePicture = [GTIOUser currentUser].icon;
-    for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData)
-    {
-        [dataItem setAccessoryText:[self.saveData valueForKey:[dataItem apiKey]]];
-    }
+    [self saveDataItems];
     [self.tableView reloadData];
     [self adjustContentSizeToFit];
 }
@@ -335,11 +340,14 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (void)validateName:(NSString *)name tableCell:(GTIOAlmostDoneTableCell *)cell{
 
+    [[[RKObjectManager sharedManager] requestQueue] cancelRequestsWithDelegate:self];
+
     [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusLoading];
     
     NSString * urlEncodedName = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)name, NULL,(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
 
     NSString * resourcePath = [NSString stringWithFormat:@"/user/name-validation/%@", urlEncodedName];
+
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
             for (id object in objects) {
@@ -347,7 +355,6 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
                     GTIONameValidation *validation = (GTIONameValidation *)object;
                     if (validation.valid){
                         [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusSuccess];
-                        cell.cellAccessoryText.text = validation.name;
                     } else {
                         [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusFailure];
                     }

@@ -17,6 +17,7 @@
 #import "GTIOExploreLooksViewController.h"
 #import "GTIOCameraViewController.h"
 #import "GTIOCameraTabBarPlaceholderViewController.h"
+#import "GTIOUniqueNameSplashViewController.h"
 #import "GTIOStyleViewController.h"
 #import "GTIOMeViewController.h"
 
@@ -123,6 +124,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectTab:) name:kGTIOChangeSelectedTabNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTabBarToWindow:) name:kGTIOAddTabBarToWindowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resizeTabBarViews:) name:kGTIOTabBarViewsResize object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUniqueNameModalScreen) name:kGTIOShouldShowUniqueNameModalView object:nil];
     
     [self.window makeKeyAndVisible];
     
@@ -413,8 +416,27 @@
     // start first time load & pretend that we're `returning` from inactive
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAppReturningFromInactiveStateNotification object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
+        
+    [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];  
+    
+       
+}
 
-    [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];
+- (void)showUniqueNameModalScreen
+{
+    if ([GTIOUser currentUser].showUniqueNameScreen){
+        GTIOUniqueNameSplashViewController *uniqueNameViewController = [[GTIOUniqueNameSplashViewController alloc] initWithNibName:nil bundle:nil];
+        [uniqueNameViewController setDismissHandler:^(UIViewController *viewController) {
+           [viewController dismissViewControllerAnimated:YES completion:^{
+               [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
+           }];
+        }];
+
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uniqueNameViewController];
+        [self.tabBarController presentModalViewController:navController animated:YES];
+ 
+
+    }
 }
 
 #pragma mark - UITabBarControllerDelegate
