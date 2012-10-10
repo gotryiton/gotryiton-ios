@@ -15,7 +15,10 @@
    1.6 [Failed Sigin In](#16-failed-sign-in)   
    1.7 [Almost Done](#17-almost-done)   
    1.8 [Quick Add](#18-quick-add)   
-   1.9 [Sign in Screen (2nd load)](#19-sign-in-screen-2nd-load)   
+   1.9 [Sign in Screen (2nd load)](#19-sign-in-screen-2nd-load)
+   1.10 [Facebook SSO](#110-facebook-sso)    
+   1.11 [Janrain SDK](#111-janrain-sdk)    
+   1.12 [Claim Username](#112-claim-username)     
 2. [Global Nav Bar and Notifications](#2-global-nav-bar-and-notifications)   
    2.1 [Navbar with notifications](#21-navbar-with-notifications)   
    2.2 [Notifications view](#22-notifications-view)   
@@ -895,6 +898,63 @@ A user should be able to log in via Janrain SDK
 #### Stories
 - A user should be able to log in via Janrain SDK
 
+
+
+### 1.12 Claim Username 
+
+#### Overview  
+When an existing user signs into the app for the first time, they will get the opportunity to confirm or change their unique username 
+
+#### Mockups
+1.12.1 Start / Available
+
+<img src="http://assets.gotryiton.com/img/spec/4/fdd0d665dd/claim-username-01-available.jpg" width=420px/>
+
+1.12.2 Checking
+
+<img src="http://assets.gotryiton.com/img/spec/4/b4a5383a5d/claim-username-02-checking.jpg" width=420px/>
+
+1.12.3 Unavailable
+
+<img src="http://assets.gotryiton.com/img/spec/4/ff254150cb/claim-username-03-unavailable.jpg" width=420px/>
+
+1.12.4 1136px height screen
+
+<img src="http://assets.gotryiton.com/img/spec/4/f587e06e67/claim-username-1136.jpg" width=420px/>
+
+#### User Flow
+
+**entry screens:**   
+TBD 
+
+**exit screens:**   
+TBD
+
+#### API Usage
+
+#### Stories
+
+#### Design Stories
+- Background
+   - '1.8/quick-add-bg.png'
+- Main Container
+   - 'claim-username-overlay.png'
+   - 268px x 308px
+   - 26px from left edge of screen
+   - 54px from bottom of nav bar
+- Save / Unavailable Button
+   - 'claim-username.png' in green, gray with active and inactive versions
+   - 69px from top edge of 'overlay' asset
+   - 19px from left edge of 'overlay' asset
+   - Button Text Label
+      - 10px from top of button asset
+      - horizontally centered within button asset
+      - Normal Text: Archer Medium Italic 16pt #555556
+      - Grayed Out Text (during 'checking' state): alpha 0.3
+- Text Input / Available Indicator
+   - same as 1.8 Quick Add
+   - 30px padding between available indicator and right edge of 'overlay' asset
+   - 32px padding between text area and top edge of 'overlay' asset
 
 ## 2. Global Nav bar and Notifications
 
