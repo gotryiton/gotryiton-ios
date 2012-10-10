@@ -16,7 +16,7 @@
 {    
     id button = [self buttonWithType:UIButtonTypeCustom];
     [button setHearted:NO];
-    [button setFrame:(CGRect){ CGPointZero, { 34,34 } }];
+    [button setFrame:(CGRect){ CGPointZero, { 60,60 } }];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button setTapHandler:tapHandler];
     return button;

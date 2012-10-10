@@ -8,7 +8,7 @@
 
 #import "GTIOProductHeartControl.h"
 
-static CGFloat const kGTIOHeartControlRightPadding = 11.0;
+static CGFloat const kGTIOHeartControlRightPadding = 7.0;
 static CGFloat const kGTIOHeartCountTopMargin = 2.0;
 
 @interface GTIOProductHeartControl()
@@ -44,7 +44,7 @@ static CGFloat const kGTIOHeartCountTopMargin = 2.0;
         _controlCountLabel.backgroundColor = [UIColor clearColor];
         _controlCountLabel.textColor = [UIColor gtio_grayTextColor585858];
         _controlCountLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagBold size:15.0];
-        _controlCountLabel.textAlignment = UITextAlignmentRight;
+        _controlCountLabel.textAlignment = UITextAlignmentCenter;
         [self addSubview:_controlCountLabel];
         
         _countButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
