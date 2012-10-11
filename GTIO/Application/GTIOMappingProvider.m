@@ -173,7 +173,7 @@
         
         [trackMapping mapKeyPath:@"id" toAttribute:@"trackID"];
         [trackMapping mapKeyPath:@"page_number" toAttribute:@"pageNumber"];
-        [trackMapping mapKeyPath:@"post_id" toAttribute:@"postID"];
+        [trackMapping mapKeyPath:@"tracking_params" toAttribute:@"trackingParams"];
         [trackMapping mapKeyPath:@"visit" toRelationship:@"visit" withMapping:visitMapping serialize:YES];
         [self setMapping:trackMapping forKeyPath:@"track"];
         

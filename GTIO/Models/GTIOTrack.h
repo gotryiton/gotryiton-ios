@@ -7,6 +7,7 @@
 //
 
 #import "GTIOVisit.h"
+#import <Restkit/Restkit.h>
 
 extern NSString * const kGTIOTrackAppLaunch;
 extern NSString * const kGTIOTrackPhotoShootStarted;
@@ -24,6 +25,8 @@ typedef void(^GTIOTrackHandler)(GTIOTrack *track, NSError *error);
 
 @property (nonatomic, strong) NSString *trackID;
 @property (nonatomic, strong) GTIOVisit *visit;
+
+@property (nonatomic, strong) NSDictionary *trackingParams;
 
 @property (nonatomic, copy) GTIOTrackHandler trackHandler;
 
