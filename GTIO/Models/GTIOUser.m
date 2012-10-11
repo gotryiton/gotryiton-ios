@@ -226,6 +226,7 @@
     self.auth = user.auth;
     self.isNewUser = user.isNewUser;
     self.hasCompleteProfile = user.hasCompleteProfile;
+    self.showUniqueNameScreen = user.showUniqueNameScreen;
     self.url = user.url;
     self.email = user.email;
     self.isFacebookConnected = user.isFacebookConnected;

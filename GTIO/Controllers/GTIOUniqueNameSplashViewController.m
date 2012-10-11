@@ -33,7 +33,7 @@ static CGFloat const kGTIOEditingCellTopPadding = 3.0;
         self.saveData = [NSMutableDictionary dictionary];
   
         self.tableData = [NSArray arrayWithObjects:
-                  [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"unique_name" andTitleText:@"@username" andPlaceHolderText:@"@gotryiton" andAccessoryText:[[GTIOUser currentUser] uniqueName] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:25 usesNameValidation:YES],
+                  [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"unique_name" andTitleText:@"@username" andPlaceHolderText:@"type a username" andAccessoryText:[[GTIOUser currentUser] uniqueName] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:25 usesNameValidation:YES],
                   nil];
         
         [self saveDataItems];
@@ -87,7 +87,7 @@ static CGFloat const kGTIOEditingCellTopPadding = 3.0;
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
     [self.view addSubview:backgroundImageView];
 
-    UIImageView *editingBackgroundView = [[UIImageView alloc] initWithImage:[GTIOUIImage imageNamed:@"claim-username-overlay.png"]];
+    UIImageView *editingBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"claim-username-overlay.png"]];
     [editingBackgroundView setFrame:(CGRect){kGTIOEditingViewLeftPadding, (self.view.frame.size.height )/2 - editingBackgroundView.bounds.size.height/2 - self.view.frame.origin.y, editingBackgroundView.bounds.size}];
 
     [self.view addSubview:editingBackgroundView];
@@ -140,17 +140,21 @@ static CGFloat const kGTIOEditingCellTopPadding = 3.0;
     return cell;
 }
 
+- (void)validateName:(NSString *)name{
+    [super validateName:name];
+    [self.saveButton setEnabled:NO];   
+}
 
-- (void)setValidationStatusForCell:(GTIOAlmostDoneTableCell *)cell valid:(BOOL)valid
+- (void)setValidationStatusIsValid:(BOOL)valid
 {
     if (valid){
         [self.saveButton setEnabled:YES];
         [self.saveButton setTitle:@"save this username" forState:UIControlStateDisabled];
-        [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusSuccess];
+        [self.validationCell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusSuccess];
     } else {
         [self.saveButton setEnabled:NO];
         [self.saveButton setTitle:@"unavailable, try again!" forState:UIControlStateDisabled];
-        [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusFailure];
+        [self.validationCell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusFailure];
     }
 }
 

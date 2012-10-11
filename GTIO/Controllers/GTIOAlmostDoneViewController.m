@@ -52,7 +52,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
         _profilePicture = [currentUser icon];
         
         _tableData = [NSArray arrayWithObjects:
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"unique_name" andTitleText:@"@username" andPlaceHolderText:@"@gotryiton" andAccessoryText:[currentUser uniqueName] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:25 usesNameValidation:YES],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"unique_name" andTitleText:@"@username" andPlaceHolderText:@"gotryiton" andAccessoryText:[currentUser uniqueName] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:25 usesNameValidation:YES],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"real_name" andTitleText:@"real name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser realName] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:25 usesNameValidation:NO],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"email" andTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:[currentUser email] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:50 usesNameValidation:NO],
                         [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"city" andTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:20 usesNameValidation:NO],
@@ -355,8 +355,13 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
         [self.validationCell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusLoading];
         
         NSString * urlEncodedName = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)name, NULL,(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
-        NSString * resourcePath = [NSString stringWithFormat:@"/user/name-validation/%@", urlEncodedName];
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath delegate:self];
+        if ([urlEncodedName length]>0) {
+            NSString * resourcePath = [NSString stringWithFormat:@"/user/name-validation/%@", urlEncodedName];
+            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath delegate:self];
+        }
+        else {
+            [self setValidationStatusIsValid:NO];
+        }
 
     }
 }

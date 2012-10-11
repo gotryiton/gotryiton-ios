@@ -62,6 +62,7 @@ extern NSString * const kGTIOExploreLooksControllerShouldRefresh;
 extern NSString * const kGTIOStyleControllerShouldRefresh;
 extern NSString * const kGTIOMeControllerShouldRefresh;
 extern NSString * const kGTIOAllControllersShouldRefresh;
+extern NSString * const kGTIOAllControllersShouldDoForcedRefresh;
 extern NSString * const kGTIOAllControllersShouldRefreshAfterLogout;
 extern NSString * const kGTIOShouldShowUniqueNameModalView;
 
@@ -73,7 +74,7 @@ extern NSString * const kGTIOCollectionIDUserInfoKey;
 
 // Unique Name modal flag
 extern NSString * const kGTIOUniqueNameModalDialogFlag; 
-extern int const kGTIOUniqueNameModalDialogMaxViews;
+extern NSInteger const kGTIOUniqueNameModalDialogMaxViews;
 
 // UrbanAirship Constants
 extern BOOL const kGTIOUAirshipAppStoreOrAdHocBuild;

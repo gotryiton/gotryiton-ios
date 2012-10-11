@@ -66,7 +66,9 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOMeControllerShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(forceRefresh) name:kGTIOAllControllersShouldDoForcedRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserProfile:) name:kGTIOShowProfileUserNotification object:nil];
+
     }
     return self;
 }
@@ -151,6 +153,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
         [self.tableView layoutSubviews];
         [self refreshScreenLayoutWithSpinner:NO];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -229,6 +232,12 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 - (void)appReturnedFromInactive
 {
     self.shouldRefreshAfterInactive = YES;
+}
+
+- (void)forceRefresh 
+{
+    self.shouldRefreshAfterInactive = YES;
+    [self refreshAfterInactive];
 }
 
 - (void)refreshAfterInactive

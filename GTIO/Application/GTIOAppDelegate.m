@@ -426,16 +426,15 @@
 {
 
     int viewsOfModalScreen = [[NSUserDefaults standardUserDefaults] integerForKey:kGTIOUniqueNameModalDialogFlag];
-
     if (viewsOfModalScreen < kGTIOUniqueNameModalDialogMaxViews) {
-        viewsOfModalScreen++;
-        [[NSUserDefaults standardUserDefaults] setInteger:viewsOfModalScreen forKey:kGTIOUniqueNameModalDialogFlag];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        if ([GTIOUser currentUser].showUniqueNameScreen){
+        if ([[GTIOUser currentUser].showUniqueNameScreen integerValue]>0){
+             viewsOfModalScreen++;
+            [[NSUserDefaults standardUserDefaults] setInteger:viewsOfModalScreen forKey:kGTIOUniqueNameModalDialogFlag];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             GTIOUniqueNameSplashViewController *uniqueNameViewController = [[GTIOUniqueNameSplashViewController alloc] initWithNibName:nil bundle:nil];
             [uniqueNameViewController setDismissHandler:^(UIViewController *viewController) {
                [viewController dismissViewControllerAnimated:YES completion:^{
-                   [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
+                   [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldDoForcedRefresh object:nil];
                }];
             }];
 

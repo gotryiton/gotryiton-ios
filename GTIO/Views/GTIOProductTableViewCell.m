@@ -14,7 +14,7 @@
 #import <RestKit/RestKit.h>
 
 static CGFloat const kGTIOProductImageViewXPosition = 5.0;
-static CGFloat const kGTIOProductImageViewYPosition = 2.0;
+static CGFloat const kGTIOProductImageViewYPosition = 1.0;
 static CGFloat const kGTIOBackgroundImageViewXPosition = 3.0;
 static CGFloat const kGTIOBackgroundImageViewYPosition = 0.0;
 static CGFloat const kGTIOHeartButtonXPosition = 0.0;

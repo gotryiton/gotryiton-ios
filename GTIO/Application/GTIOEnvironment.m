@@ -34,7 +34,7 @@
     NSString * const kGTIOYozioAnalyticsKey = @"***REMOVED***";
     NSString * const kGTIOYozioAnalyticsURL = @"http://yoz.io/e?app_key=%@&device_name=%@";
     NSInteger const kGTIOSecondsInactiveBeforeRefresh = 1 * 60; // num minutes * num seconds/min
-    int const kGTIOUniqueNameModalDialogMaxViews = 5;
+    NSInteger const kGTIOUniqueNameModalDialogMaxViews = 1;
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
@@ -54,7 +54,7 @@
     NSString * const kGTIOYozioAnalyticsKey = @"***REMOVED***";
     NSString * const kGTIOYozioAnalyticsURL = @"http://yoz.io/e?app_key=%@&device_name=%@";
     NSInteger const kGTIOSecondsInactiveBeforeRefresh = 5 * 60; // num minutes * num seconds/min
-    int const kGTIOUniqueNameModalDialogMaxViews = 5;
+    NSInteger const kGTIOUniqueNameModalDialogMaxViews = 1;
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
@@ -74,7 +74,7 @@
     NSString * const kGTIOYozioAnalyticsKey = @"***REMOVED***";
     NSString * const kGTIOYozioAnalyticsURL = @"http://yoz.io/e?app_key=%@&device_name=%@";
     NSInteger const kGTIOSecondsInactiveBeforeRefresh = 30 * 60; // num minutes * num seconds/min
-    int const kGTIOUniqueNameModalDialogMaxViews = 1;
+    NSInteger const kGTIOUniqueNameModalDialogMaxViews = 1;
 #endif
 
 NSString * const kGTIOAcceptHeader = @"application/v4.1-json";
@@ -103,6 +103,7 @@ NSString * const kGTIOExploreLooksControllerShouldRefresh = @"kGTIOExploreLooksC
 NSString * const kGTIOStyleControllerShouldRefresh = @"kGTIOLooksControllerShouldRefresh";
 NSString * const kGTIOMeControllerShouldRefresh = @"kGTIOMeControllerShouldRefresh";
 NSString * const kGTIOAllControllersShouldRefresh = @"kGTIOAllControllersShouldRefresh";
+NSString * const kGTIOAllControllersShouldDoForcedRefresh = @"kGTIOAllControllersShouldDoForcedRefresh";
 NSString * const kGTIOAllControllersShouldRefreshAfterLogout = @"kGTIOAllControllersShouldRefreshAfterLogout";
 NSString * const kGTIOShouldShowUniqueNameModalView = @"kGTIOShouldShowUniqueNameModalView";
 

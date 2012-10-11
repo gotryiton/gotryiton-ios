@@ -40,13 +40,14 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSNumber *isFacebookConnected;
+@property (nonatomic, strong) NSNumber *showUniqueNameScreen;
 @property (nonatomic, strong) GTIOBadge *badge;
 @property (nonatomic, strong) NSString *userDescription;
 @property (nonatomic, strong) GTIOButton *button;
 @property (nonatomic, strong) GTIOButtonAction *action;
 
 @property (nonatomic, assign) BOOL selected;
-@property (nonatomic, assign) BOOL showUniqueNameScreen;
+
 
 @property (nonatomic, strong) Facebook *facebook;
 @property (nonatomic, strong) JREngage *janrain;

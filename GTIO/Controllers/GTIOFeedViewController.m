@@ -111,6 +111,7 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(forceRefresh) name:kGTIOAllControllersShouldDoForcedRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterLogout) name:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
     }
     return self;
@@ -207,6 +208,8 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
         [self.pullToRefreshView startLoading];
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
     }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -234,6 +237,12 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
 - (void)appReturnedFromInactive
 {
     self.shouldRefreshAfterInactive = YES;
+}
+
+- (void)forceRefresh 
+{
+    self.shouldRefreshAfterInactive = YES;
+    [self refreshAfterInactive];
 }
 
 - (void)refreshAfterInactive

@@ -62,6 +62,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOExploreLooksControllerShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(forceRefresh) name:kGTIOAllControllersShouldDoForcedRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeResourcePathNotification:) name:kGTIOExploreLooksChangeResourcePathNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterLogout) name:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
     }
@@ -134,6 +135,8 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [self useTitleView:self.navTitleView];
     [self.navTitleView forceUpdateCountLabel];
     [self.navTitleView setUserInteractionEnabled:YES];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -210,6 +213,12 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 - (void)appReturnedFromInactive
 {
     self.shouldRefreshAfterInactive = YES;
+}
+
+- (void)forceRefresh 
+{
+    self.shouldRefreshAfterInactive = YES;
+    [self refreshAfterInactive];
 }
 
 - (void)refreshAfterInactive

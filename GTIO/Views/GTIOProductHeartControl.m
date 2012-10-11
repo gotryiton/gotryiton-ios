@@ -8,7 +8,7 @@
 
 #import "GTIOProductHeartControl.h"
 
-static CGFloat const kGTIOHeartControlRightPadding = 7.0;
+static CGFloat const kGTIOHeartControlRightPadding = 6.0;
 static CGFloat const kGTIOHeartCountTopMargin = 2.0;
 
 @interface GTIOProductHeartControl()
