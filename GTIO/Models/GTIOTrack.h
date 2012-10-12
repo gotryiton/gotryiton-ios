@@ -36,6 +36,7 @@ typedef void(^GTIOTrackHandler)(GTIOTrack *track, NSError *error);
 
 + (void)postTrack:(GTIOTrack *)track handler:(GTIOTrackHandler)trackHandler;
 + (void)postTrackWithID:(NSString *)trackID handler:(GTIOTrackHandler)trackHandler;
++ (void)postTrackWithID:(NSString *)trackID trackingParams:(NSDictionary *)trackingParams handler:(GTIOTrackHandler)trackHandler;
 + (void)postTrackWithID:(NSString *)trackID postID:(NSString *)postID handler:(GTIOTrackHandler)trackHandler;
 + (void)postTrackAndVisitWithID:(NSString *)trackID handler:(GTIOTrackHandler)trackHandler;
 

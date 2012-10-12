@@ -401,6 +401,12 @@
 		5C3C00781608972100A23DFF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C3C00771608972100A23DFF /* Default-568h@2x.png */; };
 		5C3C00791608972100A23DFF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C3C00771608972100A23DFF /* Default-568h@2x.png */; };
 		5C3C007A1608972100A23DFF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C3C00771608972100A23DFF /* Default-568h@2x.png */; };
+		5C40A20F1627655400F87695 /* NSString+XQueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40A20E1627655400F87695 /* NSString+XQueryComponents.m */; };
+		5C40A2101627655400F87695 /* NSString+XQueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40A20E1627655400F87695 /* NSString+XQueryComponents.m */; };
+		5C40A2111627655400F87695 /* NSString+XQueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40A20E1627655400F87695 /* NSString+XQueryComponents.m */; };
+		5C40A214162765A400F87695 /* NSURL+XQueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40A213162765A400F87695 /* NSURL+XQueryComponents.m */; };
+		5C40A215162765A400F87695 /* NSURL+XQueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40A213162765A400F87695 /* NSURL+XQueryComponents.m */; };
+		5C40A216162765A400F87695 /* NSURL+XQueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40A213162765A400F87695 /* NSURL+XQueryComponents.m */; };
 		5C446378160A3A8200332C29 /* username-available.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C446374160A3A8200332C29 /* username-available.png */; };
 		5C446379160A3A8200332C29 /* username-available.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C446374160A3A8200332C29 /* username-available.png */; };
 		5C44637A160A3A8200332C29 /* username-available.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C446374160A3A8200332C29 /* username-available.png */; };
@@ -4913,6 +4919,10 @@
 		5C39C47A15C09A2200A83F95 /* nav.search.icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav.search.icon.png; sourceTree = "<group>"; };
 		5C39C47B15C09A2200A83F95 /* nav.search.icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav.search.icon@2x.png"; sourceTree = "<group>"; };
 		5C3C00771608972100A23DFF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		5C40A20D1627655400F87695 /* NSString+XQueryComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XQueryComponents.h"; sourceTree = "<group>"; };
+		5C40A20E1627655400F87695 /* NSString+XQueryComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XQueryComponents.m"; sourceTree = "<group>"; };
+		5C40A212162765A400F87695 /* NSURL+XQueryComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+XQueryComponents.h"; sourceTree = "<group>"; };
+		5C40A213162765A400F87695 /* NSURL+XQueryComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+XQueryComponents.m"; sourceTree = "<group>"; };
 		5C446374160A3A8200332C29 /* username-available.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "username-available.png"; sourceTree = "<group>"; };
 		5C446375160A3A8200332C29 /* username-available@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "username-available@2x.png"; sourceTree = "<group>"; };
 		5C446376160A3A8200332C29 /* username-unavailable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "username-unavailable.png"; sourceTree = "<group>"; };
@@ -9703,6 +9713,10 @@
 				D245E1091576B3D6009DBCF7 /* UIImage+Resize.m */,
 				8EA1D318159E0B9B00E93577 /* NSString+GTIOAdditions.h */,
 				8EA1D319159E0B9B00E93577 /* NSString+GTIOAdditions.m */,
+				5C40A20D1627655400F87695 /* NSString+XQueryComponents.h */,
+				5C40A20E1627655400F87695 /* NSString+XQueryComponents.m */,
+				5C40A212162765A400F87695 /* NSURL+XQueryComponents.h */,
+				5C40A213162765A400F87695 /* NSURL+XQueryComponents.m */,
 			);
 			name = Categories;
 			path = Application/Categories;
@@ -14011,6 +14025,8 @@
 				5C446388160A45D100332C29 /* GTIONameValidation.m in Sources */,
 				5C7754B91611228D0012DE55 /* GTIOUIImage.m in Sources */,
 				5C0BDF701625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */,
+				5C40A2111627655400F87695 /* NSString+XQueryComponents.m in Sources */,
+				5C40A216162765A400F87695 /* NSURL+XQueryComponents.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14321,6 +14337,8 @@
 				5C446387160A45D100332C29 /* GTIONameValidation.m in Sources */,
 				5C7754B81611228D0012DE55 /* GTIOUIImage.m in Sources */,
 				5C0BDF6F1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */,
+				5C40A2101627655400F87695 /* NSString+XQueryComponents.m in Sources */,
+				5C40A215162765A400F87695 /* NSURL+XQueryComponents.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14631,6 +14649,8 @@
 				5C446386160A45D100332C29 /* GTIONameValidation.m in Sources */,
 				5C7754B71611228D0012DE55 /* GTIOUIImage.m in Sources */,
 				5C0BDF6E1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */,
+				5C40A20F1627655400F87695 /* NSString+XQueryComponents.m in Sources */,
+				5C40A214162765A400F87695 /* NSURL+XQueryComponents.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

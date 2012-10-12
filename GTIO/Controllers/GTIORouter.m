@@ -26,8 +26,11 @@
 #import "GTIOSinglePostViewController.h"
 #import "GTIOTagsViewController.h"
 #import "GTIOShopThisLookViewController.h"
+#import "GTIOTrack.h"
+#import "NSURL+XQueryComponents.h"
 
 #import "GTIOAppDelegate.h"
+
 
 NSString * const kGTIOURLScheme = @"gtio";
 NSString * const kGTIOHttpURLScheme = @"http";
@@ -65,6 +68,14 @@ static NSString * const kGTIOURLSubPathStarsByUser = @"stars-by-user";
 static NSString * const kGTIOURLSubPathStars = @"stars";
 static NSString * const kGTIOURLSubPathBrand = @"brand";
 static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
+
+
+static NSString * const kGTIOTrackIdKey = @"track_id";
+static NSString * const kGTIOPushTrackIdKey = @"push";
+static NSString * const kGTIOPushTrackId = @"app launch via push";
+static NSString * const kGTIODesktopTrackIdKey = @"desktop";
+static NSString * const kGTIODesktopTrackId = @"app launch via desktop";
+
 
 @interface GTIORouter()
 
@@ -119,7 +130,8 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
     NSString *urlHost = [URL host];
     NSArray *pathComponents = [URL pathComponents];
     NSArray *unencodedPathComponents = [self unencodedPathComponents:URL];
-    
+    NSDictionary *queryDictionary = [URL queryComponents];
+
     if ([urlHost isEqualToString:kGTIOURLHostProfile]) {
         if ([pathComponents count] >= 2) {
             if (fromExternal) {
@@ -257,6 +269,8 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         viewController = [[GTIOTagsViewController alloc] initWithNibName:nil bundle:nil];
     }
     
+    [self trackQueryStringDictionary:queryDictionary];
+
     return viewController;
 }
 
@@ -272,6 +286,19 @@ static NSString * const kGTIOURLSubPathHashtag = @"hashtag";
         [unencodedPathComponents addObject:[pathComponent stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     }
     return unencodedPathComponents;
+}
+
+#pragma mark - Tracking
+
+- (void)trackQueryStringDictionary:(NSDictionary *)queryDictionary
+{
+    if ([queryDictionary objectForKey:kGTIOTrackIdKey]) {
+        [GTIOTrack postTrackWithID:(NSString *)[queryDictionary objectForKey:kGTIOTrackIdKey] trackingParams:queryDictionary handler:nil];
+    } else if ([queryDictionary objectForKey:kGTIOPushTrackIdKey]) {
+        [GTIOTrack postTrackWithID:kGTIOPushTrackId trackingParams:queryDictionary handler:nil];
+    } else if ([queryDictionary objectForKey:kGTIODesktopTrackIdKey]) {
+        [GTIOTrack postTrackWithID:kGTIODesktopTrackId trackingParams:queryDictionary handler:nil];
+    }
 }
 
 @end

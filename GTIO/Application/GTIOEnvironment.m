@@ -19,7 +19,7 @@
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
     NSString * const kGTIOEnvironmentName = @"Development";
-    NSString * const kGTIOBaseURLString = @"http://gtio-dev.gotryiton.com";
+    NSString * const kGTIOBaseURLString = @"http://local.gotryiton.com";
     NSString * const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString * const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString * const kGTIOFacebookAppID = @"125885160757300";
@@ -106,12 +106,21 @@ NSString * const kGTIOAllControllersShouldRefresh = @"kGTIOAllControllersShouldR
 NSString * const kGTIOAllControllersShouldDoForcedRefresh = @"kGTIOAllControllersShouldDoForcedRefresh";
 NSString * const kGTIOAllControllersShouldRefreshAfterLogout = @"kGTIOAllControllersShouldRefreshAfterLogout";
 NSString * const kGTIOShouldShowUniqueNameModalView = @"kGTIOShouldShowUniqueNameModalView";
+NSString * const kGTIOFeedControllerShouldScrollToTopNotification = @"kGTIOFeedControllerShouldScrollToTopNotification";
 
 // Notification UserInfo
 NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";
 NSString * const kGTIOResourcePathKey = @"kGTIOResourcePathKey";
 NSString * const kGTIOProfileUserIDUserInfo = @"kGTIOProfileUserIDUserInfo";
 NSString * const kGTIOCollectionIDUserInfoKey = @"kGTIOCollectionIDUserInfoKey";
+
+// Nav bar tracking constants
+NSString * const kGTIOUserNavigatedToFeedTab = @"navigation to feed";
+NSString * const kGTIOUserNavigatedToExploreTab = @"navigation to explore";
+NSString * const kGTIOUserNavigatedToStyleTab = @"navigation to style";
+NSString * const kGTIOUserNavigatedToMeTab = @"navigation to me";
+NSString * const kGTIOUserNavigatedToCameraTab = @"navigation to camera";
+
 
 // Unique Name modal flag
 NSString * const kGTIOUniqueNameModalDialogFlag = @"kGTIOUniqueNameModalDialogFlag";

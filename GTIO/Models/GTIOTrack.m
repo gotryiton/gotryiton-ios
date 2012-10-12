@@ -49,18 +49,21 @@ NSString * const kGTIOPostIDRequestDictionaryKey = @"post_id";
 + (void)postTrack:(GTIOTrack *)track
 {
 
+    [RKObjectManager sharedManager].client.requestQueue.showsNetworkActivityIndicatorWhenBusy = NO;
     [[RKObjectManager sharedManager] postObject:track usingBlock:^(RKObjectLoader *loader) {
 
         loader.onDidLoadObject = ^(id object) {
             if (track.trackHandler) {
                 track.trackHandler(object, nil);
             }
+            [RKObjectManager sharedManager].client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
         };
 
         loader.onDidFailWithError = ^(NSError *error) {
             if (track.trackHandler) {
                 track.trackHandler(nil, error);
             }
+            [RKObjectManager sharedManager].client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
         };
     }];  
 }

@@ -65,6 +65,7 @@ extern NSString * const kGTIOAllControllersShouldRefresh;
 extern NSString * const kGTIOAllControllersShouldDoForcedRefresh;
 extern NSString * const kGTIOAllControllersShouldRefreshAfterLogout;
 extern NSString * const kGTIOShouldShowUniqueNameModalView;
+extern NSString * const kGTIOFeedControllerShouldScrollToTopNotification;
 
 // Notification UserInfo
 extern NSString * const kGTIOChangeSelectedTabToUserInfo;
@@ -86,6 +87,13 @@ extern NSString * const kGTIOUAirshipProductionAppSecret;
 // Yoz.io constants
 extern NSString * const kGTIOYozioAnalyticsKey;
 extern NSString * const kGTIOYozioAnalyticsURL;
+
+// Nav bar tracking constants
+extern NSString * const kGTIOUserNavigatedToFeedTab;
+extern NSString * const kGTIOUserNavigatedToStyleTab;
+extern NSString * const kGTIOUserNavigatedToExploreTab;
+extern NSString * const kGTIOUserNavigatedToCameraTab;
+extern NSString * const kGTIOUserNavigatedToMeTab;
 
 // Push Notification Device Token
 extern NSString * const kGTIOPushNotificationDeviceTokenUserDefaults;

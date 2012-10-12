@@ -41,6 +41,8 @@
 
 @property (nonatomic, strong) GTIOCameraViewController *cameraViewController;
 
+@property (nonatomic, strong) UIViewController *lastSelectedController;
+
 @property (nonatomic, strong) UIImageView *tab1ImageView;
 @property (nonatomic, strong) UIImageView *tab2ImageView;
 @property (nonatomic, strong) UIImageView *tab3ImageView;
@@ -460,7 +462,7 @@
         
         UINavigationController *navController = (UINavigationController *)viewController;
         UIViewController *rootViewController = [navController.viewControllers objectAtIndex:0];
-        
+
         if ([rootViewController isKindOfClass:[GTIOFeedViewController class]]) {
             [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];
         } else if ([rootViewController isKindOfClass:[GTIOMeViewController class]]) {
@@ -480,6 +482,8 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];
     });
+
+    self.lastSelectedController = viewController;
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
@@ -487,6 +491,9 @@
     BOOL shouldSelect = YES;
     
     if ([viewController isKindOfClass:[GTIOCameraTabBarPlaceholderViewController class]]) {
+        
+        [GTIOTrack postTrackWithID:kGTIOUserNavigatedToCameraTab handler:nil];
+
         shouldSelect = NO;
         [self.cameraViewController setDismissHandler:^(UIViewController *viewController) {
             [viewController dismissViewControllerAnimated:YES completion:^{
@@ -497,6 +504,33 @@
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.cameraViewController];
         [navController setNavigationBarHidden:YES animated:NO];
         [self.tabBarController presentModalViewController:navController animated:YES];
+    } else if ([viewController isKindOfClass:[UINavigationController class]]) {
+
+        UINavigationController *navController = (UINavigationController *)viewController;
+        UIViewController *rootViewController = [navController.viewControllers objectAtIndex:0];
+
+        NSString *trackContollerId = nil;
+       
+        if ([rootViewController isKindOfClass:[GTIOFeedViewController class]]) {
+            trackContollerId = kGTIOUserNavigatedToFeedTab;
+            //if feed is at the top of the stack, scroll to top
+            if ([navController.viewControllers count]==1 || self.lastSelectedController == viewController){
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOFeedControllerShouldScrollToTopNotification object:nil];
+            }
+        } else if ([rootViewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
+            trackContollerId = kGTIOUserNavigatedToExploreTab;
+        } else if ([rootViewController isKindOfClass:[GTIOMeViewController class]]) {
+            trackContollerId = kGTIOUserNavigatedToMeTab;
+        } else if ([rootViewController isKindOfClass:[GTIOStyleViewController class]]) {
+            trackContollerId = kGTIOUserNavigatedToStyleTab;
+        } 
+
+        if (self.lastSelectedController != viewController) {
+            [GTIOTrack postTrackWithID:trackContollerId handler:nil];
+        } else if ([navController.viewControllers count]>1){
+            [navController popToRootViewControllerAnimated:YES];
+        }
+            
     }
     
     return shouldSelect;

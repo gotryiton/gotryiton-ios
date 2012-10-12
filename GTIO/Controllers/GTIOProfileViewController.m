@@ -47,8 +47,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    NSLog(@"starting viewDIDload");
 
     __block typeof(self) blockSelf = self;
 
