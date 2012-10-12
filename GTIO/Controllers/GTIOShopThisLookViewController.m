@@ -28,7 +28,7 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
         _products = [NSMutableArray array];
     }
     return self;

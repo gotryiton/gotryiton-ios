@@ -87,7 +87,6 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
 @property (nonatomic, strong) GTIONotificationsViewController *notificationsViewController;
 
 @property (nonatomic, assign) BOOL shouldRefreshAfterInactive;
-@property (nonatomic, assign) BOOL allowScrollToTop;
 
 @property (nonatomic, strong) GTIOImageManager *imageManager;
 
@@ -108,15 +107,13 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
         _removeNavToHeaderOffsetXOrigin = -0.0f;
         
         _imageManager = [[GTIOImageManager alloc] init];
-        
-        _allowScrollToTop = NO;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReturnedFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOFeedControllerShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(forceRefresh) name:kGTIOAllControllersShouldDoForcedRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterLogout) name:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollToTopIfAppropriate) name:kGTIOFeedControllerShouldScrollToTopNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollToTop) name:kGTIOFeedControllerShouldScrollToTopNotification object:nil];
     }
     return self;
 }
@@ -387,21 +384,6 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
     [self.tableView scrollRectToVisible:(CGRect){0,0,1,1} animated:YES];
 }
 
-- (BOOL)shouldScrollToTop
-{
-    if (self.allowScrollToTop) {
-        self.allowScrollToTop = NO;
-        [self scrollToTop];
-        return YES;
-    } 
-    return NO;
-}
-
-- (void)scrollToTopIfAppropriate
-{
-    self.allowScrollToTop = ![self shouldScrollToTop];
-}
-
 #pragma mark - Empty
 
 - (void)checkAndDisplayEmptyState
@@ -448,12 +430,9 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
 
 - (void)openNotificationView:(BOOL)animated
 {
-    #warning TODO remove testing code
-    // testing code
-//    GTIOAlertView *alertView = [[GTIOAlertView alloc] initWithTitle:@"Test Dialog" message:@"Test message with\nmultiple lines\ntest" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitle:@"Test"];
-//    [alertView show];
-    
+   
     if(self.notificationsViewController.parentViewController == nil) {
+        [GTIOTrack postTrackWithID:kGTIONotificationViewTrackingId handler:nil];
         [self.notificationsViewController willMoveToParentViewController:self];
         [self addChildViewController:self.notificationsViewController];
         [self.notificationsViewController.view setAlpha:0.0];
@@ -575,7 +554,6 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
     [self headerViewDequeueing];
     [self navBarStyling];
     [self headerSectionViewsStyling];
-    self.allowScrollToTop = YES;
 }
 
 - (void)navBarStyling

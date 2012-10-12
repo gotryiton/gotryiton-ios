@@ -12,6 +12,7 @@
 #import "GTIONavigationNotificationTitleView.h"
 
 #import "GTIORouter.h"
+#import "GTIOTrack.h"
 #import "GTIONotificationsViewController.h"
 
 NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
@@ -128,6 +129,7 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 - (void)openNotificationView:(BOOL)animated
 {
     if(self.notificationsViewController.parentViewController == nil) {
+        [GTIOTrack postTrackWithID:kGTIONotificationViewTrackingId handler:nil];
         [self.notificationsViewController willMoveToParentViewController:self];
         [self addChildViewController:self.notificationsViewController];
         [self.notificationsViewController.view setAlpha:0.0];

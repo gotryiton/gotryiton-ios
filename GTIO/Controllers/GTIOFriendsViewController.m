@@ -61,7 +61,7 @@
         _searchResults = [NSMutableArray array];
         _friends = [NSMutableArray array];
         
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     }

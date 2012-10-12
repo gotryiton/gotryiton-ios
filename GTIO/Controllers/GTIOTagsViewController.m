@@ -45,7 +45,7 @@ static CGFloat const kGTIOTableSectionHeaderHeight = 21.0f;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setHidesBottomBarWhenPushed:YES];
+        [self setHidesBottomBarWhenPushed:NO];
     }
     return self;
 }

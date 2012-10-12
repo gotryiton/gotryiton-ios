@@ -21,7 +21,7 @@
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {    
-        [self setHidesBottomBarWhenPushed:YES];
+        [self setHidesBottomBarWhenPushed:NO];
     }
     return self;
 }

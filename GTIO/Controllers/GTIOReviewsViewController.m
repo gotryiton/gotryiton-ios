@@ -46,7 +46,7 @@ static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
     if (self) {
         _postID = postID;
         _reviews = [NSMutableArray array];
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
     }
     return self;
 }

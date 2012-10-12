@@ -472,8 +472,13 @@
         } else if ([rootViewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
             [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
         }
+
+        self.lastSelectedController = rootViewController;
+
     } else if ([viewController isKindOfClass:[GTIOCameraViewController class]]) {
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
+
+        self.lastSelectedController = viewController;
     }
     
     // Wait 1 second and then check for notifications so that we can let the page load.
@@ -483,7 +488,7 @@
         [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];
     });
 
-    self.lastSelectedController = viewController;
+    
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
@@ -513,19 +518,31 @@
        
         if ([rootViewController isKindOfClass:[GTIOFeedViewController class]]) {
             trackContollerId = kGTIOUserNavigatedToFeedTab;
-            //if feed is at the top of the stack, scroll to top
-            if ([navController.viewControllers count]==1 || self.lastSelectedController == viewController){
+            //if tab is at the in view already, scroll to top
+            if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOFeedViewController class]]){
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOFeedControllerShouldScrollToTopNotification object:nil];
             }
         } else if ([rootViewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
             trackContollerId = kGTIOUserNavigatedToExploreTab;
+            //if tab is at the in view already, scroll to top
+            if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOExploreLooksViewController class]]){
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOExploreControllerShouldScrollToTopNotification object:nil];
+            }
         } else if ([rootViewController isKindOfClass:[GTIOMeViewController class]]) {
             trackContollerId = kGTIOUserNavigatedToMeTab;
+            //if tab is at the in view already, scroll to top
+            if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOMeViewController class]]){
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOMeControllerShouldScrollToTopNotification object:nil];
+            }
         } else if ([rootViewController isKindOfClass:[GTIOStyleViewController class]]) {
             trackContollerId = kGTIOUserNavigatedToStyleTab;
+            //if tab is at the in view already, scroll to top
+            if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOStyleViewController class]]){
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOStyleControllerShouldScrollToTopNotification object:nil];
+            }
         } 
 
-        if (self.lastSelectedController != viewController) {
+        if (![rootViewController isKindOfClass:[self.lastSelectedController class]]) {
             [GTIOTrack postTrackWithID:trackContollerId handler:nil];
         } else if ([navController.viewControllers count]>1){
             [navController popToRootViewControllerAnimated:YES];

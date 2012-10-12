@@ -50,7 +50,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
     }
     return self;
 }

@@ -29,6 +29,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCollectionIDNotification:) name:kGTIOStylesChangeCollectionIDNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterLogout) name:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollToTop) name:kGTIOStyleControllerShouldScrollToTopNotification object:nil];
     }
     return self;
 }
@@ -51,6 +52,12 @@
         self.shouldRefreshAfterInactive = NO;
         [self.webView loadGTIORequestWithURL:self.URL];
     }
+}
+
+- (void)scrollToTop
+{
+    NSString *script = @"$('html, body').animate({scrollTop:0}, 'slow')";
+    [self.webView stringByEvaluatingJavaScriptFromString:script];
 }
 
 #pragma mark - Refresh after logout

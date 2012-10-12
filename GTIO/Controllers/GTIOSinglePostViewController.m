@@ -131,6 +131,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
                                  [self.notificationsViewController didMoveToParentViewController:nil];
                              }];
         } else {
+            [GTIOTrack postTrackWithID:kGTIONotificationViewTrackingId handler:nil];
             [self.notificationsViewController willMoveToParentViewController:blockSelf];
             [blockSelf addChildViewController:self.notificationsViewController];
             [self.notificationsViewController.view setAlpha:0.0];

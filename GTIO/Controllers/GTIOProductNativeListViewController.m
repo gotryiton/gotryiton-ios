@@ -47,7 +47,7 @@ static NSString * const kGTIOFooterCss = @"CollectionFooter";
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
         _products = [NSMutableArray array];
     }
     return self;

@@ -20,6 +20,8 @@
 #import "GTIOSignInViewController.h"
 #import "GTIOButton.h"
 #import "GTIOSwitch.h"
+#import "GTIOTrack.h"
+#import "GTIOTrack.h"
 #import "GTIOProgressHUD.h"
 
 #import "GTIOProfileViewController.h"
@@ -68,6 +70,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterInactive) name:kGTIOAllControllersShouldRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(forceRefresh) name:kGTIOAllControllersShouldDoForcedRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserProfile:) name:kGTIOShowProfileUserNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollToTop) name:kGTIOMeControllerShouldScrollToTopNotification object:nil];
 
     }
     return self;
@@ -178,6 +181,12 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)scrollToTop
+{
+    [self.tableView scrollRectToVisible:(CGRect){0,0,1,1} animated:YES];
+}
+
+
 #pragma mark - GTIONotificationViewDisplayProtocol methods
 
 - (void)toggleNotificationView:(BOOL)animated
@@ -213,6 +222,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
 - (void)openNotificationView:(BOOL)animated
 {
     if(self.notificationsViewController.parentViewController == nil) {
+        [GTIOTrack postTrackWithID:kGTIONotificationViewTrackingId handler:nil];
         [self.notificationsViewController willMoveToParentViewController:self];
         [self addChildViewController:self.notificationsViewController];
         [self.notificationsViewController.view setAlpha:0.0];

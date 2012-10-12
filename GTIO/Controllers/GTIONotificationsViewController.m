@@ -42,7 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[GTIOUIImage imageNamed:@"container.png"]];
     [backgroundView setFrame:(CGRect){ { self.view.frame.size.width/2 - backgroundView.image.size.width/2, 0 }, backgroundView.image.size }];
     [self.view addSubview:backgroundView];
@@ -75,6 +75,7 @@
             // TODO: Handler Error
         }
     }];
+    
 }
 
 - (void)viewDidUnload

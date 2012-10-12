@@ -13,6 +13,7 @@
 #import "GTIOPagination.h"
 #import "GTIOTab.h"
 #import "GTIOPost.h"
+#import "GTIOTrack.h"
 
 #import "GTIOLooksSegmentedControlView.h"
 #import "GTIONavigationNotificationTitleView.h"
@@ -65,6 +66,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(forceRefresh) name:kGTIOAllControllersShouldDoForcedRefresh object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeResourcePathNotification:) name:kGTIOExploreLooksChangeResourcePathNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAfterLogout) name:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollToTop) name:kGTIOExploreControllerShouldScrollToTopNotification object:nil];
     }
     return self;
 }
@@ -159,6 +161,11 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)scrollToTop
+{
+    [self.masonGridView scrollRectToVisible:(CGRect){0,0,1,1} animated:YES];
+}
+
 #pragma mark - GTIONotificationViewDisplayProtocol methods
 
 - (void)toggleNotificationView:(BOOL)animated
@@ -194,6 +201,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 - (void)openNotificationView:(BOOL)animated
 {
     if(self.notificationsViewController.parentViewController == nil) {
+        [GTIOTrack postTrackWithID:kGTIONotificationViewTrackingId handler:nil];
         [self.notificationsViewController willMoveToParentViewController:self];
         [self addChildViewController:self.notificationsViewController];
         [self.notificationsViewController.view setAlpha:0.0];

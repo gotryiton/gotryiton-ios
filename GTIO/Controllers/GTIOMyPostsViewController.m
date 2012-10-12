@@ -38,7 +38,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
         _postsType = postsType;
         _userID = (userID.length > 0) ? userID : [GTIOUser currentUser].userID;
     }
