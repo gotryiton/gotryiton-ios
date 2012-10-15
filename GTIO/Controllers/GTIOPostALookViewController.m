@@ -86,7 +86,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     
     GTIOUIButton *cancelButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
         if (self.postThisButton.enabled) {
-            GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:nil message:@"Are you sure you want to exit without posting?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes", @"No", nil];
+            GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:nil message:@"Discard your post?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
             [alert setTag:kGTIOEmptyPostAlertTag];
             [alert show];
         } else {
@@ -265,7 +265,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 - (void)postThis:(id)sender
 {
     if ([[self.descriptionBox.textView processDescriptionString] length] == 0) {
-            GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to post without a description?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+            GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to post without a description?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         [alert setTag:kGTIOEmptyDescriptionAlertTag];
         [alert show];
     } else {
@@ -294,10 +294,10 @@ static NSInteger const kGTIOMaskingViewTag = 100;
 
 - (void)alertView:(GTIOAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0 && alertView.tag == kGTIOEmptyDescriptionAlertTag) {
+    if (buttonIndex == 1 && alertView.tag == kGTIOEmptyDescriptionAlertTag) {
         [self beginPostLookToGTIO];
     }
-    if (buttonIndex == 0 && alertView.tag == kGTIOEmptyPostAlertTag) {
+    if (buttonIndex == 1 && alertView.tag == kGTIOEmptyPostAlertTag) {
         [self cancelPost];
     }
 }

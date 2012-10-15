@@ -98,7 +98,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
             }
         }
         if ([missingDataElements count] > 0) {
-            GTIOAlertView *missingRequiredData = [[GTIOAlertView alloc] initWithTitle:@"Incomplete Profile!" message:[NSString stringWithFormat:@"Please complete the '%@' section%@.",[missingDataElements componentsJoinedByString:@", "], ([missingDataElements count] > 1) ? @"s" : @""] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            GTIOAlertView *missingRequiredData = [[GTIOAlertView alloc] initWithTitle:@"incomplete profile!" message:[NSString stringWithFormat:@"Please complete the '%@' section%@.",[missingDataElements componentsJoinedByString:@", "], ([missingDataElements count] > 1) ? @"s" : @""] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [missingRequiredData show];
         } else {
             [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];

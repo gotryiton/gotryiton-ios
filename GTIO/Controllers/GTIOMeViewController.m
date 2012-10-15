@@ -381,10 +381,10 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     GTIOSwitch *switchView = (GTIOSwitch *)cell.accessoryView;
        
     if (switchView.isOn){
-        [[[GTIOAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOn delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil] show];
     }
     else {
-        [[[GTIOAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:@"No" otherButtonTitles: @"Yes", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:@"" message:kGTIOAlertForTurningPrivateOff delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"Yes", nil] show];
     }    
 }
 
@@ -426,7 +426,7 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
             }
     } else if ([alertView.message isEqualToString:kGTIOAlertForTurningPrivateOn]) {
         // YES!
-        if (buttonIndex == 0){
+        if (buttonIndex == 1){
             [[GTIOUser currentUser] updateCurrentUserWithFields:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                  [NSNumber numberWithBool:NO], @"public", nil]
                                         withTrackingInformation:[NSDictionary dictionaryWithObjectsAndKeys:
