@@ -61,7 +61,7 @@ static CGFloat const kGTIOEmptyStateViewVerticalCenterOffset = -8.0;
     self.leftNavigationButton = backButton;
     
     GTIOUIButton *emailMeMyListButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListEmailMyList tapHandler:^(id sender) {
-        GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:nil message:@"Would you like to email your shopping list to yourself?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:nil message:@"Would you like to email your shopping list to yourself?" delegate:self cancelButtonTitle:@"no" otherButtonTitles:@"yes", nil];
         alert.tag = kGTIOEmailMeMyShoppingListAlert;
         [alert show];
     }];

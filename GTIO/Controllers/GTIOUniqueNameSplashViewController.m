@@ -54,7 +54,7 @@ static CGFloat const kGTIOEditingCellTopPadding = 3.0;
                 }
             }
             if ([missingDataElements count] > 0) {
-                GTIOAlertView *missingRequiredData = [[GTIOAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a username" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                GTIOAlertView *missingRequiredData = [[GTIOAlertView alloc] initWithTitle:@"oops!" message:@"Please enter a username" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [missingRequiredData show];
             } else {
                 [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];

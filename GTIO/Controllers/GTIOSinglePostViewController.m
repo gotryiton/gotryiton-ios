@@ -368,7 +368,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 {
     if ([button.buttonType isEqualToString:@"delete"]){
         self.deleteButton = button;
-        [[[GTIOAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil] show];
     } else if (button.action.endpoint) {
         [self endpointRequestForButton:button];
         
@@ -451,7 +451,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 - (void)alertView:(GTIOAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([alertView.message isEqualToString:kGTIOAlertForDeletingPost]){
-        if (buttonIndex == 0){
+        if (buttonIndex == 1){
             [self endpointRequestForButton:self.deleteButton ];
             self.deleteButton = nil;
         }

@@ -791,7 +791,7 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
 {
     if ([button.buttonType isEqualToString:@"delete"]){
         self.deleteButton = button;
-        [[[GTIOAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"yes" otherButtonTitles:@"no", nil] show];
     } else if (button.action.endpoint) {
         [self endpointRequestForButton:button];
         
