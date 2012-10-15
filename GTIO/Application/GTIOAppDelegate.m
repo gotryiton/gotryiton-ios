@@ -357,7 +357,7 @@
     // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
     for(UIView *view in self.tabBarController.view.subviews) {
         if(![view isKindOfClass:[UITabBar class]]) {
-            [view setFrame:(CGRect){ view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height }];
+            [view setFrame:(CGRect){ view.frame.origin.x, view.frame.origin.y, view.frame.size.width, self.window.frame.size.height }];
         }
     }
 }

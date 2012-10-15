@@ -63,6 +63,12 @@
 {
     [super viewDidAppear:animated];
     [self.view bringSubviewToFront:self.topShadow];
+
+    if (!self.hidesBottomBarWhenPushed){
+        NSLog(@"sending kGTIOTabBarViewsResize");
+        // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
