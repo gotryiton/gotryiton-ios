@@ -9,10 +9,15 @@
 #import "GTIOAlertView.h"
 #import "GTIOLargeButton.h"
 
+static CGFloat const kGTIODialogWidth = 284.0f;
 static CGFloat const kGTIODialogLeftOffsetToContentArea = 16.0f;
-static CGFloat const kGTIODialogTitleOffsetFromTopOfDialog = 21.0f;
+static CGFloat const kGTIODialogMaxHeightOfMessageLabel = 220.0f;
+static CGFloat const kGTIODialogTitleOffsetFromTopOfDialog = 24.0f;
+static CGFloat const kGTIODialogMessageTopOffset = 38.0f;
+static CGFloat const kGTIODialogMessageTopOffsetWithoutTitle = 29.0f;
 static CGFloat const kGTIODialogMessageLeftRightOffsetFromSideOfDialog = 23.0f;
-static CGFloat const kGTIODialogButtonOffsetFromBottomOfDialog = 15.0f;
+static CGFloat const kGTIODialogButtonOffsetFromBottomOfDialog = 17.0f;
+static CGFloat const kGTIODialogButtonOffsetFromBottomOfMessage = 21.0f;
 static CGFloat const kGTIODialogButtonOffsetFromSidesOfDialog = 16.0f;
 static CGFloat const kGTIODialogButtonHeight = 42.0f;
 static CGFloat const kGTIODialogButtonPadding = 10.0f;
@@ -79,7 +84,7 @@ static CGFloat const kGTIODialogButtonPadding = 10.0f;
     // setup dialog background
     UIImageView *dialogBackground = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"alert.bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(11.0f, 13.0f, 14.0f, 13.0f)]];
     // dialog is currently a fixed size
-    [dialogBackground setFrame:(CGRect){0.0f,0.0f,284.0f,185.0f}];
+    [dialogBackground setFrame:(CGRect){0.0f,0.0f,kGTIODialogWidth,185.0f}];
     [dialogBackground setUserInteractionEnabled:YES];
     [self addSubview:dialogBackground];
     self.dialogBackground = dialogBackground;
@@ -100,7 +105,7 @@ static CGFloat const kGTIODialogButtonPadding = 10.0f;
     [messageLabel setTextColor:[UIColor gtio_grayTextColor8F8F8F]];
     [messageLabel setTextAlignment:UITextAlignmentCenter];
     [messageLabel setText:self.message];
-    [messageLabel setNumberOfLines:3];
+    [messageLabel setNumberOfLines:5];
     [self.dialogBackground addSubview:messageLabel];
     self.messageLabel = messageLabel;
     
@@ -129,25 +134,29 @@ static CGFloat const kGTIODialogButtonPadding = 10.0f;
 
 - (void)sizeViewInWindow:(UIWindow *)window
 {
-    // setup sizeing
+    // setup sizing
     [self setFrame:window.bounds];
     [self.darkenedBackground setFrame:window.bounds];
-    [self.dialogBackground setFrame:(CGRect){ { window.bounds.size.width/2 - self.dialogBackground.bounds.size.width/2, window.bounds.size.height/2 - self.dialogBackground.bounds.size.height/2 }, self.dialogBackground.bounds.size}];
-    
-    // all of these are subviews of the dialogBackground, sizing is relative to its frame
+
+    // grab sizes of strings
     CGSize titleTextSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font forWidth:self.dialogBackground.bounds.size.width-(2*kGTIODialogLeftOffsetToContentArea) lineBreakMode:UILineBreakModeTailTruncation];
-    [self.titleLabel setFrame:(CGRect){ kGTIODialogLeftOffsetToContentArea, kGTIODialogTitleOffsetFromTopOfDialog, self.dialogBackground.bounds.size.width-(2*kGTIODialogLeftOffsetToContentArea), titleTextSize.height }];
-    
-    CGFloat maxHeightOfMessageLabel = self.dialogBackground.bounds.size.height - kGTIODialogTitleOffsetFromTopOfDialog - self.titleLabel.bounds.size.height - kGTIODialogButtonHeight - kGTIODialogButtonOffsetFromBottomOfDialog;
-    CGSize messageTextSize = [self.messageLabel.text sizeWithFont:self.messageLabel.font constrainedToSize:CGSizeMake(self.dialogBackground.bounds.size.width - (2*kGTIODialogMessageLeftRightOffsetFromSideOfDialog), maxHeightOfMessageLabel) lineBreakMode:UILineBreakModeWordWrap];
-    [self.messageLabel setFrame:(CGRect){ kGTIODialogMessageLeftRightOffsetFromSideOfDialog, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + (maxHeightOfMessageLabel - messageTextSize.height)/2, self.dialogBackground.bounds.size.width - (2*kGTIODialogMessageLeftRightOffsetFromSideOfDialog), messageTextSize.height }];
+    CGSize messageTextSize = [self.messageLabel.text sizeWithFont:self.messageLabel.font constrainedToSize:CGSizeMake(self.dialogBackground.bounds.size.width - (2*kGTIODialogMessageLeftRightOffsetFromSideOfDialog), kGTIODialogMaxHeightOfMessageLabel) lineBreakMode:UILineBreakModeWordWrap];
+
+
+    // all of these are subviews of the dialogBackground, sizing is relative to its frame
+    [self.titleLabel setFrame:(CGRect){ kGTIODialogLeftOffsetToContentArea, kGTIODialogTitleOffsetFromTopOfDialog, self.dialogBackground.bounds.size.width-(2*kGTIODialogLeftOffsetToContentArea), (self.titleLabel.text.length == 0) ? 0 : titleTextSize.height }];
+ 
+    [self.messageLabel setFrame:(CGRect){ kGTIODialogMessageLeftRightOffsetFromSideOfDialog, (self.titleLabel.text.length == 0) ? kGTIODialogMessageTopOffsetWithoutTitle : self.titleLabel.frame.origin.y + kGTIODialogMessageTopOffset, self.dialogBackground.bounds.size.width - (2*kGTIODialogMessageLeftRightOffsetFromSideOfDialog), messageTextSize.height }];
     
     if(!self.otherButton) {
-        [self.cancelButton setFrame:(CGRect){ kGTIODialogButtonOffsetFromSidesOfDialog, self.dialogBackground.bounds.size.height - kGTIODialogButtonHeight - kGTIODialogButtonOffsetFromBottomOfDialog, self.dialogBackground.bounds.size.width - (2*kGTIODialogButtonOffsetFromSidesOfDialog), kGTIODialogButtonHeight }];
+        [self.cancelButton setFrame:(CGRect){ kGTIODialogButtonOffsetFromSidesOfDialog, self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height + kGTIODialogButtonOffsetFromBottomOfMessage, self.dialogBackground.bounds.size.width - (2*kGTIODialogButtonOffsetFromSidesOfDialog), kGTIODialogButtonHeight }];
     } else {
-        [self.cancelButton setFrame:(CGRect){ kGTIODialogButtonOffsetFromSidesOfDialog, self.dialogBackground.bounds.size.height - kGTIODialogButtonHeight - kGTIODialogButtonOffsetFromBottomOfDialog, floorf( (self.dialogBackground.bounds.size.width - (2*kGTIODialogButtonOffsetFromSidesOfDialog) - kGTIODialogButtonPadding) / 2.0f), kGTIODialogButtonHeight }];
-        [self.otherButton setFrame:(CGRect) { self.cancelButton.frame.origin.x + self.cancelButton.frame.size.width + kGTIODialogButtonPadding, self.dialogBackground.bounds.size.height - kGTIODialogButtonHeight - kGTIODialogButtonOffsetFromBottomOfDialog, floorf( (self.dialogBackground.bounds.size.width - (2*kGTIODialogButtonOffsetFromSidesOfDialog) - kGTIODialogButtonPadding) / 2.0f), kGTIODialogButtonHeight }];
+        [self.cancelButton setFrame:(CGRect){ kGTIODialogButtonOffsetFromSidesOfDialog, self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height + kGTIODialogButtonOffsetFromBottomOfMessage, floorf( (self.dialogBackground.bounds.size.width - (2*kGTIODialogButtonOffsetFromSidesOfDialog) - kGTIODialogButtonPadding) / 2.0f), kGTIODialogButtonHeight }];
+        [self.otherButton setFrame:(CGRect) { self.cancelButton.frame.origin.x + self.cancelButton.frame.size.width + kGTIODialogButtonPadding,self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height + kGTIODialogButtonOffsetFromBottomOfMessage, floorf( (self.dialogBackground.bounds.size.width - (2*kGTIODialogButtonOffsetFromSidesOfDialog) - kGTIODialogButtonPadding) / 2.0f), kGTIODialogButtonHeight }];
     }
+
+    CGFloat heightOfDialog = self.cancelButton.frame.origin.y + kGTIODialogButtonHeight + kGTIODialogButtonOffsetFromBottomOfDialog;
+    [self.dialogBackground setFrame:(CGRect){ window.bounds.size.width/2 - kGTIODialogWidth/2, window.bounds.size.height/2 - heightOfDialog/2 , kGTIODialogWidth, heightOfDialog}];
 }
 
 #pragma mark - Presentation and dismiss methods

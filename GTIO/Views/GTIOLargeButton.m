@@ -44,11 +44,12 @@
             break;
     }
     
-    [button setBackgroundImage:[[UIImage imageNamed:backgroundImageNormal] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0] forState:UIControlStateNormal];
-    [button setBackgroundImage:[[UIImage imageNamed:backgroundImageHighlighted] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[[UIImage imageNamed:backgroundImageNormal] resizableImageWithCapInsets:(UIEdgeInsets){2.0, 2.0, 2.0, 2.0}] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:backgroundImageHighlighted] resizableImageWithCapInsets:(UIEdgeInsets){2.0, 2.0, 2.0, 2.0}] forState:UIControlStateHighlighted];
     [button setTitleColor:[UIColor gtio_ActionSheetButtonTextColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:18.0]];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitleEdgeInsets:(UIEdgeInsets){0.0, 2.0, 0.0, 0.0}];
     return button;
 }
 
