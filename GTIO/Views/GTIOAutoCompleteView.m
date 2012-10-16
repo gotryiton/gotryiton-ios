@@ -20,6 +20,7 @@ static int const kGTIOAutoCompleteMatchCharacterDefault = 2;
 static CGFloat kGTIOMaxCharacterCount = 255.0;
 static CGFloat kGTIOSearchTextTimerLength = 0.75;
 static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
+static CGFloat kGTIOHighlightTimerLength = 0.3;
 
 
 @interface GTIOAutoCompleteView ()
@@ -27,6 +28,7 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
 @property (nonatomic, strong) NSDictionary *inputTextAttributes;
 @property (nonatomic, strong) NSDictionary *highlightTextAttributes;
 @property (nonatomic, assign) NSRange lastEditRange;
+@property (nonatomic, strong) NSString *lastInputString;
 
 @end
 
@@ -111,6 +113,7 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
         _autoCompleteMatchCharacterCount = kGTIOAutoCompleteMatchCharacterDefault;
         _autoCompleteMode = nil;
 
+
     }
     return self;
 }
@@ -143,6 +146,7 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     
     self.isTyping = YES;
     self.lastEditRange = range;
+    self.lastInputString = inputString;
     
     //resign if the user's done
     if([inputString isEqualToString:@"\n"]) {
@@ -182,7 +186,9 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
 
     // figure out the new input text
     self.inputText = [field.text stringByReplacingCharactersInRange:range withString:inputString];
-
+    
+    [self.attrString replaceCharactersInRange:range withAttributedString:[[NSAttributedString alloc] initWithString:inputString attributes:self.inputTextAttributes]];
+    
     // display the newly inputted text
     [self setPositionOfLastWordsTypedInText:[self stringThroughCursorPositionWithRange:range]];
     
@@ -228,22 +234,14 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
         }
     }
 
-
+    
     self.textInput.delegate = self;
 
     self.searchTextTimer = [NSTimer scheduledTimerWithTimeInterval:searchTime target:self selector:@selector(delayedAutoCompleteTextSearch) userInfo:nil repeats:NO];
-    
+        
     self.isTyping = NO;
 
-
     return YES;
-}
-
-- (void)textViewDidChange:(UITextView *)textView 
-{
-    // if this wasnt a deleted character
-        [self highlightTags];
-    
 }
 
 - (void)delayedAutoCompleteTextSearch
@@ -396,38 +394,21 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
  
     if ([self.textInput respondsToSelector:@selector(setAttributedText:)] && [self.textInput.text length]>0){
  
-        [self updateAttributedStringInRange:NSMakeRange(0,[self.attrString length]) string:self.inputText];
- 
         NSError *error = NULL;
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(^|[\\s])([@#][\\w\\d\\-\\&\\.]*)" options:NSRegularExpressionCaseInsensitive error:&error];
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(^|[\\s])([@#][\\w\\d\\-\\&\\_]*)" options:NSRegularExpressionCaseInsensitive error:&error];
         [regex enumerateMatchesInString:self.inputText options:0 range:NSMakeRange(0, [self.inputText length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
              
              NSRange highlight = [match rangeAtIndex:2];
-             // NSLog(@"found tag at %@", NSStringFromRange(highlight));
+
              [self highlightAttributedStringInRange:highlight];
  
         }];
- 
-        NSRange range = self.textInput.selectedRange;
-        if (range.length ==0 && range.location == 0){
-            range = self.lastEditRange;
-        }
-        self.textInput.text = @"";
+        
         self.textInput.attributedText = self.attrString;
-        [self.textInput setSelectedRange:range];
+        self.textInput.selectedRange = NSMakeRange(self.lastEditRange.location + self.lastInputString.length, 0);
+
     }
 }
-
-// - (void) highlightHashTag
-// {
-//     NSString *lastword = [self lastWordTyped];
-//     if (lastword.length>0){
-//         if ([[lastword substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"#"]){
-//             // NSLog(@"highlighting hash: %@", NSStringFromRange(self.positionOfLastWordTyped));
-//             [self highlightAttributedStringInRange:self.positionOfLastWordTyped completerID:[[self lastWordTyped] substringWithRange:NSMakeRange(1, [self lastWordTyped].length - 1 )] type:@"#" ];    
-//         }
-//     }
-// }
 
 - (NSMutableArray *)searchLastTypedWordsForAutoCompletes
 {
@@ -513,6 +494,8 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     self.autoCompleteMatchCharacterCount = kGTIOAutoCompleteMatchCharacterDefault;
     [self.scrollView clearScrollView];
     [self.scrollView showScrollViewNav];
+
+    [NSTimer scheduledTimerWithTimeInterval:kGTIOHighlightTimerLength target:self selector:@selector(highlightTags) userInfo:nil repeats:NO];
 }
 
 
@@ -562,7 +545,7 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
         self.autoCompleteMatchCharacterCount = 0;
     }
 
-    [self highlightTags];
+    [NSTimer scheduledTimerWithTimeInterval:kGTIOHighlightTimerLength target:self selector:@selector(highlightTags) userInfo:nil repeats:NO];
 }
 
 
@@ -633,6 +616,9 @@ static CGFloat kGTIOSearchTextFastTimerLength = 0.45;
     [self.textInput setSelectedTextRange:[self.textInput textRangeFromPosition:start toPosition:end]];
     
     self.preventTyping = NO;
+
+    self.lastEditRange = editedRange;
+    self.lastInputString = str;
 
     [self highlightTags];
 
