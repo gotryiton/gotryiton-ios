@@ -244,6 +244,14 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
     return YES;
 }
 
+
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    //update the cursor position
+    self.lastEditRange = textView.selectedRange;
+    self.lastInputString = @"";
+}
+
+
 - (void)delayedAutoCompleteTextSearch
 {
     [self.searchTextTimer invalidate];
