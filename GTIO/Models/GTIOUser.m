@@ -215,6 +215,7 @@
     self.userID = user.userID;
     self.name = user.name;
     self.uniqueName = user.uniqueName;
+    self.realName = user.realName;
     self.icon = user.icon;
     self.birthYear = user.birthYear;
     self.location = user.location;
