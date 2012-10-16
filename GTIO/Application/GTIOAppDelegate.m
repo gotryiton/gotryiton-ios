@@ -518,33 +518,36 @@
        
         if ([rootViewController isKindOfClass:[GTIOFeedViewController class]]) {
             trackContollerId = kGTIOUserNavigatedToFeedTab;
-            //if tab is at the in view already, scroll to top
+            //if tab is in view already, scroll to top
             if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOFeedViewController class]]){
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOFeedControllerShouldScrollToTopNotification object:nil];
             }
         } else if ([rootViewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
             trackContollerId = kGTIOUserNavigatedToExploreTab;
-            //if tab is at the in view already, scroll to top
+            //if tab is in view already, scroll to top
             if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOExploreLooksViewController class]]){
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOExploreControllerShouldScrollToTopNotification object:nil];
             }
         } else if ([rootViewController isKindOfClass:[GTIOMeViewController class]]) {
             trackContollerId = kGTIOUserNavigatedToMeTab;
-            //if tab is at the in view already, scroll to top
+            //if tab is in view already, scroll to top
             if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOMeViewController class]]){
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOMeControllerShouldScrollToTopNotification object:nil];
             }
         } else if ([rootViewController isKindOfClass:[GTIOStyleViewController class]]) {
             trackContollerId = kGTIOUserNavigatedToStyleTab;
-            //if tab is at the in view already, scroll to top
+            //if tab is in view already, scroll to top
             if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOStyleViewController class]]){
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOStyleControllerShouldScrollToTopNotification object:nil];
             }
         } 
 
+
         if (![rootViewController isKindOfClass:[self.lastSelectedController class]]) {
+            // track tab switching when user tabs on a tab
             [GTIOTrack postTrackWithID:trackContollerId handler:nil];
         } else if ([navController.viewControllers count]>1){
+            // handle taps on the tab bar when tab is already selected
             [navController popToRootViewControllerAnimated:YES];
         }
             
