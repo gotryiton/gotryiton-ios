@@ -93,7 +93,7 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
                     _backCamera = device;
                     self.usingBackCamera = true;
                 }
-                else {
+                else if ([device position] == AVCaptureDevicePositionFront) {
                     _frontCamera = device;
                 }
             }
@@ -168,13 +168,14 @@ static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
     __block typeof(self) blockSelf = self;
     // Camera direction button
     self.cameraDirectionButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoCameraDirection];
-    [self.cameraDirectionButton setFrame:(CGRect){ { 5, 26 }, self.cameraDirectionButton.frame.size }];
-    [self.cameraDirectionButton setTapHandler:^(id sender) {
-        blockSelf.usingBackCamera = !blockSelf.usingBackCamera;
-        [blockSelf changeCameraDirection];
-    }];
-    [self.view addSubview:self.cameraDirectionButton];
-
+    if (self.frontCamera) {
+        [self.cameraDirectionButton setFrame:(CGRect){ { 5, 26 }, self.cameraDirectionButton.frame.size }];
+        [self.cameraDirectionButton setTapHandler:^(id sender) {
+            blockSelf.usingBackCamera = !blockSelf.usingBackCamera;
+            [blockSelf changeCameraDirection];
+        }];
+        [self.view addSubview:self.cameraDirectionButton];
+    }
 
     // Flash button
     self.flashButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypePhotoFlash];
