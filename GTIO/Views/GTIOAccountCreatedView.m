@@ -11,6 +11,23 @@
 #import "UIImageView+WebCache.h"
 #import "GTIOUser.h"
 
+static CGFloat const kGTIOConnectWithFriendsLeftPadding = 0.0f;
+static CGFloat const kGTIOConnectWithFriendsTopPadding = -3.0f;
+static CGFloat const kGTIOBetterWhenSharedTopPadding = 15.0f;
+static CGFloat const kGTIOBetterWhenSharedLeftPadding = -1.0f;
+static CGFloat const kGTIOEditProfileButtonLeftPadding = 257.0f;
+static CGFloat const kGTIOUserNameLeftPadding = 11.0f;
+static CGFloat const kGTIOUserNameTopPaddingDefault = 2.0f;
+static CGFloat const kGTIOUserNameTopPaddingNoLocation = 8.0f;
+static CGFloat const kGTIOUserNameWidth = 160.0f;
+static CGFloat const kGTIOUserNameHeight = 17.0f;
+static CGFloat const kGTIORealNameHeight = 14.0f;
+static CGFloat const kGTIOViewLayoutTopPadding = 5.0f;
+static CGFloat const kGTIOViewLayoutLeftPadding = 2.0f;
+static CGFloat const kGTIOProfileIconTopPadding = 75.0f;
+static CGFloat const kGTIOProfileIconLeftPadding = 34.0f;
+static CGFloat const kGTIOProfileIconSize = 46.0f;
+
 @interface GTIOAccountCreatedView()
 
 @property (nonatomic, strong) GTIOUIButton *editProfileButton;
@@ -90,14 +107,53 @@
 {
     [super layoutSubviews];
     
-    [self.profilePicture setFrame:(CGRect){ 34, 75, 46, 46 }];
-    [self.viewLayout setFrame:(CGRect){ 2, 5, self.viewLayout.bounds.size }];
-    [self.userName setFrame:(CGRect){ self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width+11, ([GTIOUser currentUser].location.length > 0) ? self.profilePicture.frame.origin.y + 2 : self.profilePicture.frame.origin.y + 8, 160, 17 }];
-    [self.userRealName setFrame:(CGRect){ self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width+11, self.userName.frame.origin.y+self.userName.frame.size.height, 160, 14 }];
-    [self.userLocation setFrame:(CGRect){ self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width+11, self.userRealName.frame.origin.y+self.userRealName.frame.size.height, 160, 14 }];
-    [self.editProfileButton setFrame:(CGRect){ 257, self.profilePicture.frame.origin.y + self.profilePicture.frame.size.height/2 - self.editProfileButton.bounds.size.height/2, self.editProfileButton.bounds.size }];
-    [self.betterWhenShared setFrame:(CGRect){ -1, self.viewLayout.frame.origin.y + self.viewLayout.bounds.size.height + 15, self.bounds.size.width, 20 }];
-    [self.connectWithFriends setFrame:(CGRect){ 0, _betterWhenShared.frame.origin.y + _betterWhenShared.bounds.size.height - 3, self.bounds.size.width, 40 }];
+    [self.profilePicture setFrame:(CGRect){ kGTIOProfileIconLeftPadding, kGTIOProfileIconTopPadding, kGTIOProfileIconSize, kGTIOProfileIconSize }];
+    
+    [self.viewLayout setFrame:(CGRect){ kGTIOViewLayoutLeftPadding, kGTIOViewLayoutTopPadding, self.viewLayout.bounds.size }];
+
+    [self.userName setFrame:(CGRect){ 
+        // user name positioned from right side of profile icon
+        self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width + kGTIOUserNameLeftPadding,
+        // top padding is based on presence of a location 
+        ([GTIOUser currentUser].location.length > 0) ? self.profilePicture.frame.origin.y + kGTIOUserNameTopPaddingDefault : self.profilePicture.frame.origin.y + kGTIOUserNameTopPaddingNoLocation, 
+        kGTIOUserNameWidth, 
+        kGTIOUserNameHeight 
+    }];
+
+    [self.userRealName setFrame:(CGRect){ 
+        self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width + kGTIOUserNameLeftPadding, 
+        self.userName.frame.origin.y + self.userName.frame.size.height, 
+        kGTIOUserNameWidth, 
+        kGTIORealNameHeight 
+    }];
+
+    [self.userLocation setFrame:(CGRect){ 
+        self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width + kGTIOUserNameLeftPadding, 
+        self.userRealName.frame.origin.y+self.userRealName.frame.size.height, 
+        kGTIOUserNameWidth, 
+        kGTIORealNameHeight 
+    }];
+
+    [self.editProfileButton setFrame:(CGRect){ 
+        kGTIOEditProfileButtonLeftPadding, 
+        // edit button should be vertically centered
+        self.profilePicture.frame.origin.y + self.profilePicture.frame.size.height/2 - self.editProfileButton.bounds.size.height/2, 
+        self.editProfileButton.bounds.size 
+    }];
+
+    [self.betterWhenShared setFrame:(CGRect){ 
+        kGTIOBetterWhenSharedLeftPadding, 
+        self.viewLayout.frame.origin.y + self.viewLayout.bounds.size.height + kGTIOBetterWhenSharedTopPadding, 
+        self.bounds.size.width, 
+        20 
+    }];
+
+    [self.connectWithFriends setFrame:(CGRect){ 
+        kGTIOConnectWithFriendsLeftPadding, 
+        _betterWhenShared.frame.origin.y + _betterWhenShared.bounds.size.height + kGTIOConnectWithFriendsTopPadding, 
+        self.bounds.size.width, 
+        40 
+    }];
 
     [self.userName setNumberOfLines:1];
     [self.userName setMinimumFontSize:12.0];

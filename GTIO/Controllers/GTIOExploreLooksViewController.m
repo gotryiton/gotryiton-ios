@@ -339,7 +339,7 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
                 if ([object isKindOfClass:[GTIOTab class]]) {
                     [self.tabs addObject:object];
                     GTIOTab *tab = (GTIOTab *)object;
-                    if ([tab.selected integerValue] == 1) {
+                    if ([tab.selected boolValue]) {
                         selectedTab = tab;
                     }
                 } else if ([object isKindOfClass:[GTIOPost class]]) {
