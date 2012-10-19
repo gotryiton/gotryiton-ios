@@ -73,6 +73,8 @@ static CGFloat const kGTIOTableSectionHeaderHeight = 21.0f;
     
     // Table View
     self.tableView = [[GTIOTableView alloc] initWithFrame:(CGRect){ { 0, self.searchBoxView.frame.size.height }, { self.view.frame.size.width, self.view.frame.size.height - self.searchBoxView.frame.size.height - self.navigationController.navigationBar.frame.size.height } } style:UITableViewStylePlain];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setRowHeight:49.0f];

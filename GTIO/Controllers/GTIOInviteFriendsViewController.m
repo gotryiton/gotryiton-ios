@@ -83,6 +83,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     [self buildContacts];
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, self.tableHeader.frame.origin.y + self.tableHeader.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height - self.tableHeader.bounds.size.height }];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     self.tableView.separatorColor = [UIColor gtio_groupedTableBorderColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

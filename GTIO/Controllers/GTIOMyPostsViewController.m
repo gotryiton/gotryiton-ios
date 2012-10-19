@@ -75,7 +75,9 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
         id viewController = [[GTIORouter sharedRouter] viewControllerForURLString:gridItem.object.action.destination];
         [self.navigationController pushViewController:viewController animated:YES];
     }];
-    [self.postMasonGrid.masonGridView attachPullToRefreshAndPullToLoadMore];
+    [self.postMasonGrid.masonGridView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.postMasonGrid.masonGridView.pullToLoadMoreView setDefaultContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.postMasonGrid.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.postMasonGrid.masonGridView.pullToRefreshView setExpandedHeight:60.0f];
     [self.postMasonGrid.masonGridView.pullToLoadMoreView setExpandedHeight:0.0f];
     [self.postMasonGrid.masonGridView setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD) {
@@ -140,37 +142,41 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadPagination
 {
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadObjects = ^(NSArray *objects) {
-            [self.postMasonGrid.masonGridView.pullToLoadMoreView finishLoading];
-            self.pagination = nil;
-            
-            NSMutableArray *paginationPosts = [NSMutableArray array];
-            for (id object in objects) {
-                if ([object isKindOfClass:[GTIOPost class]]) {
-                    [paginationPosts addObject:object];
-                } else if ([object isKindOfClass:[GTIOPagination class]]) {
-                    self.pagination = object;
-                }
-            }
-            
-            // Only add posts that are not already on mason grid
-            [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                GTIOPost *post = obj;
+    if (self.pagination.nextPage){
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+            loader.onDidLoadObjects = ^(NSArray *objects) {
+                [self.postMasonGrid.masonGridView.pullToLoadMoreView finishLoading];
+                self.pagination = nil;
                 
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
-                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
-                if ([foundExistingPosts count] == 0) {
-                    [self.postMasonGrid.masonGridView addItem:post postType:GTIOPostTypeNone];
-                    [self.posts addObject:post];
+                NSMutableArray *paginationPosts = [NSMutableArray array];
+                for (id object in objects) {
+                    if ([object isKindOfClass:[GTIOPost class]]) {
+                        [paginationPosts addObject:object];
+                    } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                        self.pagination = object;
+                    }
                 }
-            }];
-        };
-        loader.onDidFailWithError = ^(NSError *error) {
-            [self.postMasonGrid.masonGridView.pullToLoadMoreView finishLoading];
-            NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
-        };
-    }];
+                
+                // Only add posts that are not already on mason grid
+                [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    GTIOPost *post = obj;
+                    
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                    NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                    if ([foundExistingPosts count] == 0) {
+                        [self.postMasonGrid.masonGridView addItem:post postType:GTIOPostTypeNone];
+                        [self.posts addObject:post];
+                    }
+                }];
+            };
+            loader.onDidFailWithError = ^(NSError *error) {
+                [self.postMasonGrid.masonGridView.pullToLoadMoreView finishLoading];
+                NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
+            };
+        }];
+    } else {
+        [self.postMasonGrid.masonGridView.pullToLoadMoreView finishLoading];
+    }
 }
 
 

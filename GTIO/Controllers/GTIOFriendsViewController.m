@@ -21,6 +21,8 @@
 #import "GTIOFollowersScreen.h"
 #import "GTIOFindMyFriendsScreen.h"
 
+static CGFloat const kGTIOScrollInsetPadding = 8.0f;
+
 @interface GTIOFriendsViewController () <SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) UITableView *friendsTableView;
@@ -126,6 +128,7 @@
     [self.friendsTableHeaderView setSearchBarDelegate:self];
     
     self.friendsTableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
+    [self.friendsTableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height - kGTIOScrollInsetPadding, 0 }];
     self.friendsTableView.tableHeaderView = self.friendsTableHeaderView;
     self.friendsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.friendsTableView.backgroundColor = [UIColor clearColor];
