@@ -75,17 +75,18 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
         [self addSubview:self.textInput];
 
 
-        _inputTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.f], NSFontAttributeName,
-                                   [UIColor gtio_grayTextColor404040], NSForegroundColorAttributeName, 
-                                   nil];
-
-        _highlightTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       [UIColor gtio_linkColor], NSForegroundColorAttributeName, 
+        if ([self.textInput respondsToSelector:@selector(setAttributedText:)]){
+            _inputTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.f], NSFontAttributeName,
+                                       [UIColor gtio_grayTextColor404040], NSForegroundColorAttributeName, 
                                        nil];
 
-       
-        _attrString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:_inputTextAttributes];
+            _highlightTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                           [UIColor gtio_linkColor], NSForegroundColorAttributeName, 
+                                           nil];
+
+            _attrString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:_inputTextAttributes];
+        }
         
         _previewTextView = [[UILabel alloc] initWithFrame:inputFrame];
         [_previewTextView setBackgroundColor:[UIColor clearColor]];
@@ -187,8 +188,10 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
     // figure out the new input text
     self.inputText = [field.text stringByReplacingCharactersInRange:range withString:inputString];
     
-    [self.attrString replaceCharactersInRange:range withAttributedString:[[NSAttributedString alloc] initWithString:inputString attributes:self.inputTextAttributes]];
-    
+    if ([self.textInput respondsToSelector:@selector(setAttributedText:)]){
+        [self.attrString replaceCharactersInRange:range withAttributedString:[[NSAttributedString alloc] initWithString:inputString attributes:self.inputTextAttributes]];
+    }
+
     // display the newly inputted text
     [self setPositionOfLastWordsTypedInText:[self stringThroughCursorPositionWithRange:range]];
     
