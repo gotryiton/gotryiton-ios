@@ -8,6 +8,6 @@
 
 #import "GTIOAlmostDoneViewController.h"
 
-@interface GTIOEditProfileViewController : GTIOAlmostDoneViewController
+@interface GTIOEditProfileViewController : GTIOAlmostDoneViewController <GTIOAlertViewDelegate>
 
 @end

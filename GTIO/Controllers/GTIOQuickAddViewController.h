@@ -10,6 +10,6 @@
 #import "GTIOAccountCreatedView.h"
 #import "GTIOQuickAddTableCell.h"
 
-@interface GTIOQuickAddViewController : UIViewController
+@interface GTIOQuickAddViewController : UIViewController <GTIOAlertViewDelegate>
 
 @end
