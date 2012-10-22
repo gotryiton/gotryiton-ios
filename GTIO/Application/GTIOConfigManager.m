@@ -118,7 +118,7 @@ NSInteger const kGTIOImageDownloadTimeout = 30;
     // This is a new image so load it and save to filesystem
     self.imagesDownloading++;
     __block NSString *imageKey = [introScreen deviceSpecificId];
-    [[SDWebImageManager sharedManager] downloadWithURL:[introScreen deviceSpecificImageURL] delegate:self options:0 success:^(UIImage *image) {
+    [[SDWebImageManager sharedManager] downloadWithURL:[introScreen deviceSpecificImageURL] delegate:self options:0 success:^(UIImage *image, BOOL cached) {
         [[SDImageCache sharedImageCache] storeImage:image forKey:imageKey];
         self.imagesDownloading--;
     } failure:^(NSError *error) {

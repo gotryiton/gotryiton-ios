@@ -72,7 +72,7 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
     [self.textLabel setText:self.user.name];
     [self.detailTextLabel setText:self.user.userDescription];
     __block GTIOQuickAddTableCell *blockSelf = self;
-    [self.imageView setImageWithURL:self.user.icon success:^(UIImage *image) {
+    [self.imageView setImageWithURL:self.user.icon success:^(UIImage *image, BOOL cached) {
         [blockSelf setNeedsLayout];
     } failure:nil];
     [self.checkbox setSelected:self.user.selected];

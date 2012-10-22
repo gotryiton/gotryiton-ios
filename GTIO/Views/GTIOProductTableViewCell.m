@@ -164,7 +164,7 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
     if (!self.productImageView.image) {
         self.productImageView.alpha = 0.0;
         __block typeof(self) blockSelf = self;
-        [self.productImageView setImageWithURL:_product.photo.squareThumbnailURL success:^(UIImage *image) {
+        [self.productImageView setImageWithURL:_product.photo.squareThumbnailURL success:^(UIImage *image, BOOL cached) {
             [UIView animateWithDuration:0.25 animations:^{
                 blockSelf.productImageView.alpha = 1.0;
             }];

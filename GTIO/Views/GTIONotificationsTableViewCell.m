@@ -85,7 +85,7 @@ static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
 {
     _notification = notification;
     __block typeof(self) blockSelf = self;
-    [self.icon setImageWithURL:_notification.icon success:^(UIImage *image) {
+    [self.icon setImageWithURL:_notification.icon success:^(UIImage *image, BOOL cached) {
         [blockSelf setNeedsLayout];
     } failure:nil];
     

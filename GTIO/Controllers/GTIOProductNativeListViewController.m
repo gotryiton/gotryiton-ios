@@ -311,7 +311,7 @@ static NSString * const kGTIOFooterCss = @"CollectionFooter";
         GTIOUIButton *bannerHeader = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
         [bannerHeader setFrame:(CGRect){ 0, 0, _collection.bannerImage.width.floatValue, _collection.bannerImage.height.floatValue }];
         UIImageView *bannerImageDownloader = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [bannerImageDownloader setImageWithURL:_collection.bannerImage.imageURL success:^(UIImage *image) {
+        [bannerImageDownloader setImageWithURL:_collection.bannerImage.imageURL success:^(UIImage *image, BOOL cached) {
             [bannerHeader setImage:image forState:UIControlStateNormal];
             bannerHeader.tapHandler = ^(id sender) {
                 [self handleUrl:[NSURL URLWithString:_collection.bannerImage.action.destination]];

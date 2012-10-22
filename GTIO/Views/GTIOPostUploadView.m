@@ -58,7 +58,7 @@ static CGFloat const kGTIOTextYOrigin = 23.0f;
         [_iconFrameImageView setImage:[UIImage imageNamed:@"user-pic-84-shadow-overlay.png"]];
         
         _iconImageView = [[UIImageView alloc] initWithFrame:(CGRect){ kGTIOPadding, kGTIOPadding, 42, 42 }];
-        [[SDWebImageManager sharedManager] downloadWithURL:[GTIOUser currentUser].icon delegate:self options:0 success:^(UIImage *image) {
+        [[SDWebImageManager sharedManager] downloadWithURL:[GTIOUser currentUser].icon delegate:self options:0 success:^(UIImage *image, BOOL cached) {
             UIImage *maskedImage = [image maskImageWithMask:[UIImage imageNamed:@"user-pic-84-mask.png"]];
             [self.iconImageView setImage:maskedImage];
             [self addSubview:self.iconFrameImageView];

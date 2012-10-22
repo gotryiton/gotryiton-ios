@@ -147,7 +147,7 @@ static CGFloat const kGTIOBannerAdHeight = 50.0f;
         if ([button.name isEqualToString:kGTIOUserInfoButtonNameBannerAd]) {
             self.hasBannerImage = YES;
             self.bannerDestination = button.action.destination;
-            [self.banner setImageWithURL:button.imageURL placeholderImage:nil success:^(UIImage *image) {
+            [self.banner setImageWithURL:button.imageURL placeholderImage:nil success:^(UIImage *image, BOOL cached) {
                 [blockSelf.banner setImage:image];
                 blockSelf.bannerImageDownloadProcessComplete = YES;
                 [blockSelf setNeedsLayout];

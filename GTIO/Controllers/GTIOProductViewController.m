@@ -199,7 +199,7 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
         self.postThisButton.alpha = 1.0;
         self.shoppingListButton.alpha = 1.0;
     } else {
-        [self.productImageView setImageWithURL:_product.photo.mainImageURL success:^(UIImage *image) {
+        [self.productImageView setImageWithURL:_product.photo.mainImageURL success:^(UIImage *image, BOOL cached) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [UIView animateWithDuration:0.25 animations:^{
                 self.productImageView.alpha = 1.0;

@@ -158,7 +158,7 @@ CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0f;
 {
     _post = post;
     
-    [[SDWebImageManager sharedManager] downloadWithURL:_post.user.icon delegate:self options:0 success:^(UIImage *image) {
+    [[SDWebImageManager sharedManager] downloadWithURL:_post.user.icon delegate:self options:0 success:^(UIImage *image, BOOL cached) {
         UIImage *maskedImage = [image maskImageWithMask:[UIImage imageNamed:@"user-pic-84-mask.png"]];
         [self.iconImageView setImage:maskedImage];
         [self addSubview:self.iconFrameImageView];

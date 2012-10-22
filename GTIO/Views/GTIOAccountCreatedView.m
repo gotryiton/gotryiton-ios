@@ -184,7 +184,7 @@ static CGFloat const kGTIOProfileIconSize = 46.0f;
 - (void)refreshUserData
 {
     UIImageView *testProfilePicture = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [testProfilePicture setImageWithURL:[GTIOUser currentUser].icon success:^(UIImage *image) {
+    [testProfilePicture setImageWithURL:[GTIOUser currentUser].icon success:^(UIImage *image, BOOL cached) {
         if (![self.profilePicture.image isEqual:image]) {
             [self.profilePicture setImage:image];
         }

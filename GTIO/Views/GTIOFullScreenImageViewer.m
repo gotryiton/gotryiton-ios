@@ -50,7 +50,7 @@
     [mainWindow insertSubview:self.windowMask aboveSubview:mainWindow];
     NSLog(@"full screen: %@", NSStringFromCGRect(self.windowMask.frame));
     __block typeof(self) blockSelf = self;
-    [_photo setImageWithURL:self.photoURL success:^(UIImage *image) {
+    [_photo setImageWithURL:self.photoURL success:^(UIImage *image, BOOL cached) {
         if (image.size.width > self.windowMask.bounds.size.width) {
             double imageWidthHeightRatio = image.size.width / image.size.height;
             [self.photo setFrame:(CGRect){ 0, 0, self.windowMask.bounds.size.width, self.windowMask.bounds.size.width / imageWidthHeightRatio }];
