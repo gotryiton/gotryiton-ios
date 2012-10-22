@@ -388,7 +388,7 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
 
 - (void)checkAndDisplayEmptyState
 {
-    if ([self.posts count] > 0) {
+    if ([self.posts count] > 0 || ![[GTIOUser currentUser].auth boolValue]) {
         [self.emptyView removeFromSuperview];
     } else {
         [self.view addSubview:self.emptyView];
