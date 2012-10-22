@@ -93,8 +93,7 @@
 
 - (BOOL)isLoggedIn
 {
-    NSString *authToken = [[GTIOAuth alloc] init].token;
-    return [authToken length] > 0;
+    return [self.auth boolValue];
 }
 
 - (void)logOutWithLogoutHandler:(GTIOLogoutHandler)logoutHandler

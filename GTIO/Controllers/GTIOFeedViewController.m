@@ -208,7 +208,7 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
     if ([self.posts count] == 0) {
         [self.pullToRefreshView startLoading];
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
-    }
+    } 
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
 }
@@ -388,7 +388,7 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
 
 - (void)checkAndDisplayEmptyState
 {
-    if ([self.posts count] > 0 || ![[GTIOUser currentUser].auth boolValue]) {
+    if ([self.posts count] > 0 || ![GTIOUser currentUser].isLoggedIn) {
         [self.emptyView removeFromSuperview];
     } else {
         [self.view addSubview:self.emptyView];
