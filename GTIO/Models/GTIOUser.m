@@ -10,7 +10,7 @@
 #import "GTIOConfigManager.h"
 #import "GTIOAuth.h"
 
-#import "UAirship.h"
+#import "UAPush.h"
 
 @interface GTIOUser ()
 
@@ -28,6 +28,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         user = [[self alloc] init];
+        user.auth = [NSNumber numberWithBool:NO];
     });
     return user;
 }
@@ -102,6 +103,9 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/logout" usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadResponse = ^(RKResponse *response) {
+
+            [self unregisterForPushNotifications];
+
             if (logoutHandler) {
                 logoutHandler(response);
             }
@@ -436,10 +440,24 @@
     NSData *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:kGTIOPushNotificationDeviceTokenUserDefaults];
     
     if (deviceToken && [userID length] > 0) {
-        [[UAirship shared] registerDeviceToken:deviceToken withAlias:userID];
+
+        // Sets the alias. It will be sent to the server on registration.
+        [UAPush shared].alias = userID; 
+     
+        // Updates the device token and registers the token with UA
+        [[UAPush shared] registerDeviceToken:deviceToken];
+
+        [[UAPush shared] updateRegistration];
+
     } else {
         NSLog(@"No device token or user id to register for push");
     }
+}
+
+- (void)unregisterForPushNotifications
+{
+    [[UAPush shared] setAlias:nil];
+    [[UAPush shared] updateRegistration];
 }
 
 @end
