@@ -25,7 +25,7 @@
     self = [super initWithFrame:[[UIApplication sharedApplication] keyWindow].frame];
     if (self) {
         _windowMask = [[UIView alloc] initWithFrame:CGRectZero];
-        _windowMask.backgroundColor = [UIColor whiteColor];
+        _windowMask.backgroundColor = [UIColor blackColor];
         _windowMask.alpha = 0.0;
         _windowMask.opaque = YES;
         
