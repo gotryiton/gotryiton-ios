@@ -69,6 +69,7 @@ extern NSString * const kGTIOFeedControllerShouldScrollToTopNotification;
 extern NSString * const kGTIOExploreControllerShouldScrollToTopNotification;
 extern NSString * const kGTIOMeControllerShouldScrollToTopNotification;
 extern NSString * const kGTIOStyleControllerShouldScrollToTopNotification;
+extern NSString * const kGTIOHideExploreLooksIntroOverlay;
 
 // Notification UserInfo
 extern NSString * const kGTIOChangeSelectedTabToUserInfo;

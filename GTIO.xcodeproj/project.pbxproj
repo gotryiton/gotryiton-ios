@@ -474,6 +474,18 @@
 		5C9B6E1F15ED921900F2A72B /* heart-notifier@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9B6E1B15ED921900F2A72B /* heart-notifier@2x.png */; };
 		5C9B6E2015ED921900F2A72B /* heart-notifier@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9B6E1B15ED921900F2A72B /* heart-notifier@2x.png */; };
 		5C9B6E2115ED921900F2A72B /* heart-notifier@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9B6E1B15ED921900F2A72B /* heart-notifier@2x.png */; };
+		5C9EA0161636F34A005966C7 /* GTIOIntroExploreLooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9EA0151636F34A005966C7 /* GTIOIntroExploreLooksViewController.m */; };
+		5C9EA0171636F34A005966C7 /* GTIOIntroExploreLooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9EA0151636F34A005966C7 /* GTIOIntroExploreLooksViewController.m */; };
+		5C9EA0181636F34A005966C7 /* GTIOIntroExploreLooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9EA0151636F34A005966C7 /* GTIOIntroExploreLooksViewController.m */; };
+		5C9EA01B16383443005966C7 /* GTIOExploreLooksIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9EA01A16383443005966C7 /* GTIOExploreLooksIntro.m */; };
+		5C9EA01C16383443005966C7 /* GTIOExploreLooksIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9EA01A16383443005966C7 /* GTIOExploreLooksIntro.m */; };
+		5C9EA01D16383443005966C7 /* GTIOExploreLooksIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9EA01A16383443005966C7 /* GTIOExploreLooksIntro.m */; };
+		5C9EA02816387891005966C7 /* login-close-x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9EA02616387891005966C7 /* login-close-x.png */; };
+		5C9EA02916387891005966C7 /* login-close-x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9EA02616387891005966C7 /* login-close-x.png */; };
+		5C9EA02A16387891005966C7 /* login-close-x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9EA02616387891005966C7 /* login-close-x.png */; };
+		5C9EA02B16387891005966C7 /* login-close-x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9EA02716387891005966C7 /* login-close-x@2x.png */; };
+		5C9EA02C16387891005966C7 /* login-close-x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9EA02716387891005966C7 /* login-close-x@2x.png */; };
+		5C9EA02D16387891005966C7 /* login-close-x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9EA02716387891005966C7 /* login-close-x@2x.png */; };
 		5CB394FC15C8DE6700EA0F27 /* invite.topbuttons.twitter.off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CB394F815C8DE6700EA0F27 /* invite.topbuttons.twitter.off.png */; };
 		5CB394FD15C8DE6700EA0F27 /* invite.topbuttons.twitter.off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CB394F915C8DE6700EA0F27 /* invite.topbuttons.twitter.off@2x.png */; };
 		5CB394FE15C8DE6700EA0F27 /* invite.topbuttons.twitter.on.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CB394FA15C8DE6700EA0F27 /* invite.topbuttons.twitter.on.png */; };
@@ -4963,6 +4975,12 @@
 		5C98445215F001E200ED4612 /* CollectionFooter.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = CollectionFooter.css; path = CSS/CollectionFooter.css; sourceTree = "<group>"; };
 		5C9B6E1A15ED921900F2A72B /* heart-notifier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-notifier.png"; sourceTree = "<group>"; };
 		5C9B6E1B15ED921900F2A72B /* heart-notifier@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-notifier@2x.png"; sourceTree = "<group>"; };
+		5C9EA0141636F34A005966C7 /* GTIOIntroExploreLooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOIntroExploreLooksViewController.h; sourceTree = "<group>"; };
+		5C9EA0151636F34A005966C7 /* GTIOIntroExploreLooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOIntroExploreLooksViewController.m; sourceTree = "<group>"; };
+		5C9EA01916383443005966C7 /* GTIOExploreLooksIntro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOExploreLooksIntro.h; sourceTree = "<group>"; };
+		5C9EA01A16383443005966C7 /* GTIOExploreLooksIntro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOExploreLooksIntro.m; sourceTree = "<group>"; };
+		5C9EA02616387891005966C7 /* login-close-x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-close-x.png"; sourceTree = "<group>"; };
+		5C9EA02716387891005966C7 /* login-close-x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-close-x@2x.png"; sourceTree = "<group>"; };
 		5CB394F815C8DE6700EA0F27 /* invite.topbuttons.twitter.off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = invite.topbuttons.twitter.off.png; sourceTree = "<group>"; };
 		5CB394F915C8DE6700EA0F27 /* invite.topbuttons.twitter.off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "invite.topbuttons.twitter.off@2x.png"; sourceTree = "<group>"; };
 		5CB394FA15C8DE6700EA0F27 /* invite.topbuttons.twitter.on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = invite.topbuttons.twitter.on.png; sourceTree = "<group>"; };
@@ -7353,6 +7371,8 @@
 		8082871E15B8F06C00682775 /* 1.3 */ = {
 			isa = PBXGroup;
 			children = (
+				5C9EA02616387891005966C7 /* login-close-x.png */,
+				5C9EA02716387891005966C7 /* login-close-x@2x.png */,
 				8082871F15B8F06C00682775 /* fb-sign-up-OFF.png */,
 				8082872015B8F06C00682775 /* fb-sign-up-OFF@2x.png */,
 				8082872115B8F06C00682775 /* fb-sign-up-ON.png */,
@@ -8840,6 +8860,8 @@
 				D246B0EA155C683000E5546A /* GTIOSplashViewController.m */,
 				5C0BDF6C1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.h */,
 				5C0BDF6D1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m */,
+				5C9EA0141636F34A005966C7 /* GTIOIntroExploreLooksViewController.h */,
+				5C9EA0151636F34A005966C7 /* GTIOIntroExploreLooksViewController.m */,
 			);
 			name = Splash/Intro;
 			sourceTree = "<group>";
@@ -8874,6 +8896,8 @@
 				D20C226A155B10800079D7D9 /* GTIOConfig.m */,
 				D20C2265155B0FBC0079D7D9 /* GTIOIntroScreen.h */,
 				D20C2266155B0FBC0079D7D9 /* GTIOIntroScreen.m */,
+				5C9EA01916383443005966C7 /* GTIOExploreLooksIntro.h */,
+				5C9EA01A16383443005966C7 /* GTIOExploreLooksIntro.m */,
 			);
 			name = Config;
 			sourceTree = "<group>";
@@ -11340,6 +11364,8 @@
 				5C0BDFE716260DD1004712A6 /* claim-username-green-inactive@2x.png in Resources */,
 				5C0BDFEA16260DD1004712A6 /* claim-username-overlay.png in Resources */,
 				5C0BDFED16260DD1004712A6 /* claim-username-overlay@2x.png in Resources */,
+				5C9EA02A16387891005966C7 /* login-close-x.png in Resources */,
+				5C9EA02D16387891005966C7 /* login-close-x@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12514,6 +12540,8 @@
 				5C0BDFE616260DD1004712A6 /* claim-username-green-inactive@2x.png in Resources */,
 				5C0BDFE916260DD1004712A6 /* claim-username-overlay.png in Resources */,
 				5C0BDFEC16260DD1004712A6 /* claim-username-overlay@2x.png in Resources */,
+				5C9EA02916387891005966C7 /* login-close-x.png in Resources */,
+				5C9EA02C16387891005966C7 /* login-close-x@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13688,6 +13716,8 @@
 				5C0BDFE516260DD1004712A6 /* claim-username-green-inactive@2x.png in Resources */,
 				5C0BDFE816260DD1004712A6 /* claim-username-overlay.png in Resources */,
 				5C0BDFEB16260DD1004712A6 /* claim-username-overlay@2x.png in Resources */,
+				5C9EA02816387891005966C7 /* login-close-x.png in Resources */,
+				5C9EA02B16387891005966C7 /* login-close-x@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14027,6 +14057,8 @@
 				5C0BDF701625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */,
 				5C40A2111627655400F87695 /* NSString+XQueryComponents.m in Sources */,
 				5C40A216162765A400F87695 /* NSURL+XQueryComponents.m in Sources */,
+				5C9EA0181636F34A005966C7 /* GTIOIntroExploreLooksViewController.m in Sources */,
+				5C9EA01D16383443005966C7 /* GTIOExploreLooksIntro.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14339,6 +14371,8 @@
 				5C0BDF6F1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */,
 				5C40A2101627655400F87695 /* NSString+XQueryComponents.m in Sources */,
 				5C40A215162765A400F87695 /* NSURL+XQueryComponents.m in Sources */,
+				5C9EA0171636F34A005966C7 /* GTIOIntroExploreLooksViewController.m in Sources */,
+				5C9EA01C16383443005966C7 /* GTIOExploreLooksIntro.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14651,6 +14685,8 @@
 				5C0BDF6E1625CBA8004712A6 /* GTIOUniqueNameSplashViewController.m in Sources */,
 				5C40A20F1627655400F87695 /* NSString+XQueryComponents.m in Sources */,
 				5C40A214162765A400F87695 /* NSURL+XQueryComponents.m in Sources */,
+				5C9EA0161636F34A005966C7 /* GTIOIntroExploreLooksViewController.m in Sources */,
+				5C9EA01B16383443005966C7 /* GTIOExploreLooksIntro.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -49,6 +49,7 @@
 #import "GTIOAlert.h"
 #import "GTIOInvitation.h"
 #import "GTIONameValidation.h"
+#import "GTIOExploreLooksIntro.h"
 
 @implementation GTIOMappingProvider
 
@@ -98,6 +99,7 @@
         RKObjectMapping *alertMapping = [RKObjectMapping mappingForClass:[GTIOAlert class]];
         RKObjectMapping *invitationMapping = [RKObjectMapping mappingForClass:[GTIOInvitation class]];
         RKObjectMapping *nameValidationMapping = [RKObjectMapping mappingForClass:[GTIONameValidation class]];
+        RKObjectMapping *exploreLooksIntroMapping = [RKObjectMapping mappingForClass:[GTIOExploreLooksIntro class]];
         
         /** Products
          */
@@ -144,14 +146,22 @@
         [introScreenMapping mapKeyPath:@"universal_image_url" toAttribute:@"universalImageURL"];
         [introScreenMapping mapKeyPath:@"track" toRelationship:@"track" withMapping:trackMapping];
         
+        [exploreLooksIntroMapping mapKeyPath:@"post_interaction_type" toAttribute:@"postInteractionType"];
+        [exploreLooksIntroMapping mapKeyPath:@"sign_up_button_image" toAttribute:@"signUpButtonImageURL"];
+        [exploreLooksIntroMapping mapKeyPath:@"sign_up_button_type" toAttribute:@"signUpButtonType"];
+        [exploreLooksIntroMapping mapKeyPath:@"intro_overlay_image" toAttribute:@"introOverlayImageURL"];
+        [exploreLooksIntroMapping mapKeyPath:@"intro_overlay_type" toAttribute:@"introOverlayType"];
+
         // GTIOConfig
         [configMapping mapKeyPath:@"facebook_permissions_requested" toAttribute:@"facebookPermissions"];
         [configMapping mapKeyPath:@"facebook_share_default_on" toAttribute:@"facebookShareDefaultOn"];
         [configMapping mapKeyPath:@"voting_default_on" toAttribute:@"votingDefaultOn"];
+        [configMapping mapKeyPath:@"show_explore_looks_intro" toAttribute:@"showExploreLooksIntro"];
         [configMapping mapKeyPath:@"photoshoot_first_timer" toAttribute:@"photoShootFirstTimer"];
         [configMapping mapKeyPath:@"photoshoot_second_timer" toAttribute:@"photoShootSecondTimer"];
         [configMapping mapKeyPath:@"photoshoot_third_timer" toAttribute:@"photoShootThirdTimer"];
         [configMapping mapKeyPath:@"intro_images" toRelationship:@"introScreens" withMapping:introScreenMapping];
+        [configMapping mapKeyPath:@"explore_looks_intro" toRelationship:@"exploreLooksIntro" withMapping:exploreLooksIntroMapping];
         [self setMapping:configMapping forKeyPath:@"config"];
         
         /** Visit

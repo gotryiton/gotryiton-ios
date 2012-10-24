@@ -20,6 +20,8 @@
 
 @interface GTIOSinglePostViewController : GTIOViewController <GTIOAlertViewDelegate>
 
+@property (nonatomic, assign) BOOL buttonTapsDisabled;
+
 - (id)initWithPostID:(NSString *)postID;
 - (id)initWithPost:(GTIOPost *)post;
 

@@ -110,6 +110,7 @@ NSString * const kGTIOFeedControllerShouldScrollToTopNotification = @"kGTIOFeedC
 NSString * const kGTIOExploreControllerShouldScrollToTopNotification = @"kGTIOExploreControllerShouldScrollToTopNotification";
 NSString * const kGTIOStyleControllerShouldScrollToTopNotification = @"kGTIOStyleControllerShouldScrollToTopNotification";
 NSString * const kGTIOMeControllerShouldScrollToTopNotification = @"kGTIOMeControllerShouldScrollToTopNotification";
+NSString * const kGTIOHideExploreLooksIntroOverlay = @"kGTIOHideExploreLooksIntroOverlay";
 
 // Notification UserInfo
 NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";

@@ -29,6 +29,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeNext: return [self gtio_nextButton];
         case GTIOButtonTypeFacebookSignIn: return [self gtio_facebookSignInButton];
         case GTIOButtonTypeFacebookSignUp: return [self gtio_facebookSignUpButton];
+        case GTIOButtonTypeSignInClose: return [self gtio_signInCloseButton];
+        case GTIOButtonTypeSignInNav: return [self gtio_signInNavButton];
         case GTIOButtonTypeAOL: return [self gtio_aolButton];
         case GTIOButtonTypeGoogle: return [self gtio_googleButton];
         case GTIOButtonTypeTwitter: return [self gtio_twitterButton];
@@ -212,6 +214,11 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     return [self buttonWithImage:[UIImage imageNamed:@"save-button-green-top-margin.png"] highlightImage:nil];
 }
 
++ (id)gtio_signInCloseButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"login-close-x.png"] highlightImage:nil];
+}
+
 + (id)gtio_navBarTopMarginWithText:(NSString *)text tapHandler:(GTIOButtonDidTapHandler)tapHandler
 {
     GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
@@ -248,6 +255,10 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)gtio_skipButtonGrayTopMargin
 {
     return [self gtio_navBarTopMarginWithText:@" skip " tapHandler:nil];
+}
++ (id)gtio_signInNavButton
+{
+    return [self gtio_navBarTopMarginWithText:@"sign in" tapHandler:nil];
 }
 
 + (id)gtio_backButtonTopMargin
