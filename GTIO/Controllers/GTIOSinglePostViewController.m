@@ -52,6 +52,8 @@ static NSString * const kGTIONoInstagramMessage = @"We couldn't find Instagram o
 static NSString * const kGTIOAlertForDeletingPost = @"do you want to delete this post permanently?";
 static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 
+static NSString * const kGTIOSinglePostTrackingId = @"single post view";
+
 @interface GTIOSinglePostViewController () <UITableViewDataSource, UITableViewDelegate, GTIOFeedCellDelegate, GTIOFeedHeaderViewDelegate, SSPullToRefreshViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -179,6 +181,10 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     [self.tableView bringSubviewToFront:self.navBarView];
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
+
+    if (self.buttonTapsDisabled){
+        [GTIOTrack postTrackWithID:kGTIOSinglePostTrackingId handler:nil];
+    }
 }
 
 - (void)viewDidUnload

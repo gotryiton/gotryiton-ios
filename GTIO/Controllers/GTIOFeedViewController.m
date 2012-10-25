@@ -277,7 +277,6 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOPost class]]) {
                     GTIOPost *post = (GTIOPost *)object;
-                    
                     post.reviewsButtonTapHandler = ^(id sender) {
                         UIViewController *reviewsViewController;
                         for (id object in post.buttons) {

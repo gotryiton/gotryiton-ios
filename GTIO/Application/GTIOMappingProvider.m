@@ -345,6 +345,7 @@
         
         // GTIOTab
         [tabMapping mapAttributes:@"name", @"text", @"endpoint", @"selected", nil];
+        [tabMapping mapKeyPath:@"tab_type" toAttribute:@"tabType"];
         [self setMapping:tabMapping forKeyPath:@"tabs"];
         
         /** Review

@@ -20,6 +20,8 @@
 
 #import "GTIOProgressHUD.h"
 
+static NSString * const kGTIOSignInScreenTrackingID = @"sign in screen";
+
 @interface GTIOSignInViewController ()
 
 @property (nonatomic, strong) GTIOUIButton *facebookButton;
@@ -142,6 +144,8 @@
     [signUpLink setFrame:(CGRect){ 47, 360, 228, 45 }];
     [signUpLink addTarget:self action:@selector(loadReturningUsersViewController) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signUpLink];
+
+    [GTIOTrack postTrackWithID:kGTIOSignInScreenTrackingID handler:nil];
 }
 
 - (void)viewDidUnload

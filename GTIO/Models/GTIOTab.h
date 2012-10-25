@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSString *endpoint;
+@property (nonatomic, copy) NSString *tabType;
 @property (nonatomic, strong) NSNumber *selected;
 
 @end

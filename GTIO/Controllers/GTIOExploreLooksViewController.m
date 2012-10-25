@@ -26,6 +26,9 @@
 static CGFloat const kGTIOMasonGridPadding = 2.0f;
 static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
+static NSString * const kGTIOExploreLooksNavigationTrackingId = @"explore looks navigation";
+static NSString * const kGTIOExploreLooksNavigationContentTypeId = @"content_type";
+
 @interface GTIOExploreLooksViewController () <SSPullToRefreshViewDelegate, SSPullToLoadMoreViewDelegate>
 
 @property (nonatomic, strong) GTIOLooksSegmentedControlView *segmentedControlView;
@@ -90,6 +93,10 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [self.segmentedControlView setSegmentedControlValueChangedHandler:^(GTIOTab *tab) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
         [blockSelf loadDataWithResourcePath:tab.endpoint];
+        NSDictionary *trackingParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                     tab.tabType, kGTIOExploreLooksNavigationContentTypeId,
+                     nil];
+        [GTIOTrack postTrackWithID:kGTIOExploreLooksNavigationTrackingId trackingParams:trackingParams handler:nil];
     }];
     [self.view addSubview:self.segmentedControlView];
     
@@ -108,9 +115,8 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
     [self.masonGridView setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD) {
         [blockSelf loadData];
     }];
-    [self.masonGridView setPullToLoadMoreHandler:^(GTIOMasonGridView *masonGridView, SSPullToLoadMoreView *pullToLoadMoreView) {
-        [blockSelf loadPagination];
-    }];
+    
+    
     [self.masonGridView setPagniationDelegate:self];
     [self.view addSubview:self.masonGridView];
     
@@ -265,6 +271,13 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOTab class]]) {
                     [self.tabs addObject:object];
+                    GTIOTab *tab = (GTIOTab *)object;
+                    if ([tab.selected boolValue]){
+                        NSDictionary *trackingParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                             tab.tabType, kGTIOExploreLooksNavigationContentTypeId,
+                             nil];
+                        [GTIOTrack postTrackWithID:kGTIOExploreLooksNavigationTrackingId trackingParams:trackingParams handler:nil];
+                    }
                 }
             }
             
@@ -372,39 +385,49 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 
 - (void)loadPagination
 {
-    self.pagination.loading = YES;
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadObjects = ^(NSArray *objects) {
-            [self.masonGridView.pullToLoadMoreView finishLoading];
-            self.pagination = nil;
-            
-            NSMutableArray *paginationPosts = [NSMutableArray array];
-            for (id object in objects) {
-                if ([object isKindOfClass:[GTIOPost class]]) {
-                    [paginationPosts addObject:object];
-                } else if ([object isKindOfClass:[GTIOPagination class]]) {
-                    self.pagination = object;
-                }
-            }
-            
-            // Only add posts that are not already on mason grid
-            [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                GTIOPost *post = obj;
+    if (self.pagination.nextPage){
+        [[[self masonGridView] pullToLoadMoreView] startLoading];
+
+        self.pagination.loading = YES;
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+            loader.onDidLoadObjects = ^(NSArray *objects) {
+
+                [self.masonGridView.pullToLoadMoreView finishLoading];
+                self.pagination = nil;
                 
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
-                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
-                if ([foundExistingPosts count] == 0) {
-                    [self.masonGridView addItem:post postType:GTIOPostTypeNone];
-                    [self.posts addObject:post];
+                NSMutableArray *paginationPosts = [NSMutableArray array];
+                for (id object in objects) {
+                    if ([object isKindOfClass:[GTIOPost class]]) {
+                        [paginationPosts addObject:object];
+                    } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                        self.pagination = object;
+                        self.pagination.loading = YES;
+                    }
                 }
-            }];
-        };
-        loader.onDidFailWithError = ^(NSError *error) {
-            [self.masonGridView.pullToLoadMoreView finishLoading];
-            self.pagination.loading = NO;
-            NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
-        };
-    }];
+                
+                // Only add posts that are not already on mason grid
+                [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    GTIOPost *post = obj;
+                    
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                    NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                    if ([foundExistingPosts count] == 0) {
+                        [self.masonGridView addItem:post postType:GTIOPostTypeNone];
+                        [self.posts addObject:post];
+                    }
+                }];
+
+                self.pagination.loading = NO;
+            };
+            loader.onDidFailWithError = ^(NSError *error) {
+                [self.masonGridView.pullToLoadMoreView finishLoading];
+                self.pagination.loading = NO;
+                NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
+            };
+        }];
+    } else {
+        [[[self masonGridView] pullToLoadMoreView] finishLoading];
+    }
 }
 
 #pragma mark - GTIOMasonGridViewPaginationDelegate methods
@@ -412,7 +435,6 @@ static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 - (void)masonGridViewShouldPagniate:(GTIOMasonGridView *)masonGridView
 {
     if(!self.pagination.loading) {
-        [[[self masonGridView] pullToLoadMoreView] startLoading];
         [self loadPagination];
     }
 }
