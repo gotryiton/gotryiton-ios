@@ -1088,6 +1088,7 @@ TBD
          - ```<b>```Person's Name```</b>``` should make the name appear bold
       - heights depending on description text
       - Last cell in list should show a drop shadow
+   - View should close if tabs are changed
 - A user can tap on each notification item
    - each notification item has a destination 
       - can be gtio:// link or http:// link
