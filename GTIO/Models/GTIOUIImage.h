@@ -11,7 +11,6 @@
 @interface GTIOUIImage : UIImage
 
 
-+ (NSString*)retinaImageString;
 + (NSURL*)deviceSpecificURL:(NSURL*)url;
 + (NSString*)deviceSpecificName:(NSString*)name;
 + (NSString*)retinaImageStringForUIImage:(BOOL)show2x;

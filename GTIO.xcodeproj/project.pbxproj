@@ -16,9 +16,6 @@
 		138ACD051613861500F3BDBF /* libUAirship-1.3.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 138ACC5B1613861400F3BDBF /* libUAirship-1.3.3.a */; };
 		138ACD061613861500F3BDBF /* libUAirship-1.3.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 138ACC5B1613861400F3BDBF /* libUAirship-1.3.3.a */; };
 		138ACD071613861500F3BDBF /* libUAirship-1.3.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 138ACC5B1613861400F3BDBF /* libUAirship-1.3.3.a */; };
-		138ACD0B1613861500F3BDBF /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 138ACC5D1613861400F3BDBF /* LICENSE */; };
-		138ACD0C1613861500F3BDBF /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 138ACC5D1613861400F3BDBF /* LICENSE */; };
-		138ACD0D1613861500F3BDBF /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 138ACC5D1613861400F3BDBF /* LICENSE */; };
 		138ACD0E1613861500F3BDBF /* README.rst in Resources */ = {isa = PBXBuildFile; fileRef = 138ACC5E1613861400F3BDBF /* README.rst */; };
 		138ACD0F1613861500F3BDBF /* README.rst in Resources */ = {isa = PBXBuildFile; fileRef = 138ACC5E1613861400F3BDBF /* README.rst */; };
 		138ACD101613861500F3BDBF /* README.rst in Resources */ = {isa = PBXBuildFile; fileRef = 138ACC5E1613861400F3BDBF /* README.rst */; };
@@ -220,18 +217,6 @@
 		138ACDD41613861500F3BDBF /* detail-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD21613861500F3BDBF /* detail-bottom@2x.png */; };
 		138ACDD51613861500F3BDBF /* detail-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD21613861500F3BDBF /* detail-bottom@2x.png */; };
 		138ACDD61613861500F3BDBF /* detail-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD21613861500F3BDBF /* detail-bottom@2x.png */; };
-		138ACDD71613861500F3BDBF /* middle-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD31613861500F3BDBF /* middle-detail.png */; };
-		138ACDD81613861500F3BDBF /* middle-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD31613861500F3BDBF /* middle-detail.png */; };
-		138ACDD91613861500F3BDBF /* middle-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD31613861500F3BDBF /* middle-detail.png */; };
-		138ACDDA1613861500F3BDBF /* middle-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD41613861500F3BDBF /* middle-detail@2x.png */; };
-		138ACDDB1613861500F3BDBF /* middle-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD41613861500F3BDBF /* middle-detail@2x.png */; };
-		138ACDDC1613861500F3BDBF /* middle-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD41613861500F3BDBF /* middle-detail@2x.png */; };
-		138ACDDD1613861500F3BDBF /* top-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD51613861500F3BDBF /* top-detail.png */; };
-		138ACDDE1613861500F3BDBF /* top-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD51613861500F3BDBF /* top-detail.png */; };
-		138ACDDF1613861500F3BDBF /* top-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD51613861500F3BDBF /* top-detail.png */; };
-		138ACDE01613861500F3BDBF /* top-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD61613861500F3BDBF /* top-detail@2x.png */; };
-		138ACDE11613861500F3BDBF /* top-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD61613861500F3BDBF /* top-detail@2x.png */; };
-		138ACDE21613861500F3BDBF /* top-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD61613861500F3BDBF /* top-detail@2x.png */; };
 		138ACDE31613861500F3BDBF /* UAProductDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD71613861500F3BDBF /* UAProductDetail.xib */; };
 		138ACDE41613861500F3BDBF /* UAProductDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD71613861500F3BDBF /* UAProductDetail.xib */; };
 		138ACDE51613861500F3BDBF /* UAProductDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCD71613861500F3BDBF /* UAProductDetail.xib */; };
@@ -274,30 +259,6 @@
 		138ACE0A1613861500F3BDBF /* UASubscriptionUIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 138ACCF21613861500F3BDBF /* UASubscriptionUIUtil.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		138ACE0B1613861500F3BDBF /* UASubscriptionUIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 138ACCF21613861500F3BDBF /* UASubscriptionUIUtil.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		138ACE0C1613861500F3BDBF /* UASubscriptionUIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 138ACCF21613861500F3BDBF /* UASubscriptionUIUtil.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		138ACE0D1613861500F3BDBF /* accessory.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF51613861500F3BDBF /* accessory.png */; };
-		138ACE0E1613861500F3BDBF /* accessory.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF51613861500F3BDBF /* accessory.png */; };
-		138ACE0F1613861500F3BDBF /* accessory.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF51613861500F3BDBF /* accessory.png */; };
-		138ACE101613861500F3BDBF /* accessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF61613861500F3BDBF /* accessory@2x.png */; };
-		138ACE111613861500F3BDBF /* accessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF61613861500F3BDBF /* accessory@2x.png */; };
-		138ACE121613861500F3BDBF /* accessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF61613861500F3BDBF /* accessory@2x.png */; };
-		138ACE131613861500F3BDBF /* detail-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF71613861500F3BDBF /* detail-bottom.png */; };
-		138ACE141613861500F3BDBF /* detail-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF71613861500F3BDBF /* detail-bottom.png */; };
-		138ACE151613861500F3BDBF /* detail-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF71613861500F3BDBF /* detail-bottom.png */; };
-		138ACE161613861500F3BDBF /* detail-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF81613861500F3BDBF /* detail-bottom@2x.png */; };
-		138ACE171613861500F3BDBF /* detail-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF81613861500F3BDBF /* detail-bottom@2x.png */; };
-		138ACE181613861500F3BDBF /* detail-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF81613861500F3BDBF /* detail-bottom@2x.png */; };
-		138ACE191613861500F3BDBF /* middle-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF91613861500F3BDBF /* middle-detail.png */; };
-		138ACE1A1613861500F3BDBF /* middle-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF91613861500F3BDBF /* middle-detail.png */; };
-		138ACE1B1613861500F3BDBF /* middle-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCF91613861500F3BDBF /* middle-detail.png */; };
-		138ACE1C1613861500F3BDBF /* middle-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFA1613861500F3BDBF /* middle-detail@2x.png */; };
-		138ACE1D1613861500F3BDBF /* middle-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFA1613861500F3BDBF /* middle-detail@2x.png */; };
-		138ACE1E1613861500F3BDBF /* middle-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFA1613861500F3BDBF /* middle-detail@2x.png */; };
-		138ACE1F1613861500F3BDBF /* top-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFB1613861500F3BDBF /* top-detail.png */; };
-		138ACE201613861500F3BDBF /* top-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFB1613861500F3BDBF /* top-detail.png */; };
-		138ACE211613861500F3BDBF /* top-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFB1613861500F3BDBF /* top-detail.png */; };
-		138ACE221613861500F3BDBF /* top-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFC1613861500F3BDBF /* top-detail@2x.png */; };
-		138ACE231613861500F3BDBF /* top-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFC1613861500F3BDBF /* top-detail@2x.png */; };
-		138ACE241613861500F3BDBF /* top-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFC1613861500F3BDBF /* top-detail@2x.png */; };
 		138ACE251613861500F3BDBF /* UASubscriptionContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFD1613861500F3BDBF /* UASubscriptionContentCell.xib */; };
 		138ACE261613861500F3BDBF /* UASubscriptionContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFD1613861500F3BDBF /* UASubscriptionContentCell.xib */; };
 		138ACE271613861500F3BDBF /* UASubscriptionContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 138ACCFD1613861500F3BDBF /* UASubscriptionContentCell.xib */; };
@@ -11280,7 +11241,6 @@
 				1322E970160CB16A0044FF54 /* container.png in Resources */,
 				1322E973160CB16A0044FF54 /* container@2x.png in Resources */,
 				13C93E4916138263007FD80F /* release_notes.txt in Resources */,
-				138ACD0D1613861500F3BDBF /* LICENSE in Resources */,
 				138ACD101613861500F3BDBF /* README.rst in Resources */,
 				138ACD2B1613861500F3BDBF /* check.png in Resources */,
 				138ACD2E1613861500F3BDBF /* check@2x.png in Resources */,
@@ -11318,21 +11278,9 @@
 				138ACDD01613861500F3BDBF /* accessory@2x.png in Resources */,
 				138ACDD31613861500F3BDBF /* detail-bottom.png in Resources */,
 				138ACDD61613861500F3BDBF /* detail-bottom@2x.png in Resources */,
-				138ACDD91613861500F3BDBF /* middle-detail.png in Resources */,
-				138ACDDC1613861500F3BDBF /* middle-detail@2x.png in Resources */,
-				138ACDDF1613861500F3BDBF /* top-detail.png in Resources */,
-				138ACDE21613861500F3BDBF /* top-detail@2x.png in Resources */,
 				138ACDE51613861500F3BDBF /* UAProductDetail.xib in Resources */,
 				138ACDE81613861500F3BDBF /* UAStoreFront.xib in Resources */,
 				138ACDEB1613861500F3BDBF /* UAStoreFrontLocalization.bundle in Resources */,
-				138ACE0F1613861500F3BDBF /* accessory.png in Resources */,
-				138ACE121613861500F3BDBF /* accessory@2x.png in Resources */,
-				138ACE151613861500F3BDBF /* detail-bottom.png in Resources */,
-				138ACE181613861500F3BDBF /* detail-bottom@2x.png in Resources */,
-				138ACE1B1613861500F3BDBF /* middle-detail.png in Resources */,
-				138ACE1E1613861500F3BDBF /* middle-detail@2x.png in Resources */,
-				138ACE211613861500F3BDBF /* top-detail.png in Resources */,
-				138ACE241613861500F3BDBF /* top-detail@2x.png in Resources */,
 				138ACE271613861500F3BDBF /* UASubscriptionContentCell.xib in Resources */,
 				138ACE2A1613861500F3BDBF /* UASubscriptionContentDetailView.xib in Resources */,
 				138ACE2D1613861500F3BDBF /* UASubscriptionContentsViewController.xib in Resources */,
@@ -12456,7 +12404,6 @@
 				1322E96F160CB16A0044FF54 /* container.png in Resources */,
 				1322E972160CB16A0044FF54 /* container@2x.png in Resources */,
 				13C93E4816138262007FD80F /* release_notes.txt in Resources */,
-				138ACD0C1613861500F3BDBF /* LICENSE in Resources */,
 				138ACD0F1613861500F3BDBF /* README.rst in Resources */,
 				138ACD2A1613861500F3BDBF /* check.png in Resources */,
 				138ACD2D1613861500F3BDBF /* check@2x.png in Resources */,
@@ -12494,21 +12441,9 @@
 				138ACDCF1613861500F3BDBF /* accessory@2x.png in Resources */,
 				138ACDD21613861500F3BDBF /* detail-bottom.png in Resources */,
 				138ACDD51613861500F3BDBF /* detail-bottom@2x.png in Resources */,
-				138ACDD81613861500F3BDBF /* middle-detail.png in Resources */,
-				138ACDDB1613861500F3BDBF /* middle-detail@2x.png in Resources */,
-				138ACDDE1613861500F3BDBF /* top-detail.png in Resources */,
-				138ACDE11613861500F3BDBF /* top-detail@2x.png in Resources */,
 				138ACDE41613861500F3BDBF /* UAProductDetail.xib in Resources */,
 				138ACDE71613861500F3BDBF /* UAStoreFront.xib in Resources */,
 				138ACDEA1613861500F3BDBF /* UAStoreFrontLocalization.bundle in Resources */,
-				138ACE0E1613861500F3BDBF /* accessory.png in Resources */,
-				138ACE111613861500F3BDBF /* accessory@2x.png in Resources */,
-				138ACE141613861500F3BDBF /* detail-bottom.png in Resources */,
-				138ACE171613861500F3BDBF /* detail-bottom@2x.png in Resources */,
-				138ACE1A1613861500F3BDBF /* middle-detail.png in Resources */,
-				138ACE1D1613861500F3BDBF /* middle-detail@2x.png in Resources */,
-				138ACE201613861500F3BDBF /* top-detail.png in Resources */,
-				138ACE231613861500F3BDBF /* top-detail@2x.png in Resources */,
 				138ACE261613861500F3BDBF /* UASubscriptionContentCell.xib in Resources */,
 				138ACE291613861500F3BDBF /* UASubscriptionContentDetailView.xib in Resources */,
 				138ACE2C1613861500F3BDBF /* UASubscriptionContentsViewController.xib in Resources */,
@@ -13632,7 +13567,6 @@
 				1322E96E160CB16A0044FF54 /* container.png in Resources */,
 				1322E971160CB16A0044FF54 /* container@2x.png in Resources */,
 				13C93E471613825C007FD80F /* release_notes.txt in Resources */,
-				138ACD0B1613861500F3BDBF /* LICENSE in Resources */,
 				138ACD0E1613861500F3BDBF /* README.rst in Resources */,
 				138ACD291613861500F3BDBF /* check.png in Resources */,
 				138ACD2C1613861500F3BDBF /* check@2x.png in Resources */,
@@ -13670,21 +13604,9 @@
 				138ACDCE1613861500F3BDBF /* accessory@2x.png in Resources */,
 				138ACDD11613861500F3BDBF /* detail-bottom.png in Resources */,
 				138ACDD41613861500F3BDBF /* detail-bottom@2x.png in Resources */,
-				138ACDD71613861500F3BDBF /* middle-detail.png in Resources */,
-				138ACDDA1613861500F3BDBF /* middle-detail@2x.png in Resources */,
-				138ACDDD1613861500F3BDBF /* top-detail.png in Resources */,
-				138ACDE01613861500F3BDBF /* top-detail@2x.png in Resources */,
 				138ACDE31613861500F3BDBF /* UAProductDetail.xib in Resources */,
 				138ACDE61613861500F3BDBF /* UAStoreFront.xib in Resources */,
 				138ACDE91613861500F3BDBF /* UAStoreFrontLocalization.bundle in Resources */,
-				138ACE0D1613861500F3BDBF /* accessory.png in Resources */,
-				138ACE101613861500F3BDBF /* accessory@2x.png in Resources */,
-				138ACE131613861500F3BDBF /* detail-bottom.png in Resources */,
-				138ACE161613861500F3BDBF /* detail-bottom@2x.png in Resources */,
-				138ACE191613861500F3BDBF /* middle-detail.png in Resources */,
-				138ACE1C1613861500F3BDBF /* middle-detail@2x.png in Resources */,
-				138ACE1F1613861500F3BDBF /* top-detail.png in Resources */,
-				138ACE221613861500F3BDBF /* top-detail@2x.png in Resources */,
 				138ACE251613861500F3BDBF /* UASubscriptionContentCell.xib in Resources */,
 				138ACE281613861500F3BDBF /* UASubscriptionContentDetailView.xib in Resources */,
 				138ACE2B1613861500F3BDBF /* UASubscriptionContentsViewController.xib in Resources */,

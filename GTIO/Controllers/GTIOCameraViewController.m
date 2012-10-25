@@ -35,7 +35,6 @@ static CGFloat const kGTIOPhotoShootModePopOverXOriginPadding = 25.5f;
 static CGFloat const kGTIOPhotoShootModePopOverYOriginPadding = 30.0f;
 
 NSString * const kGTIOPhotoShootModeCountUserDefaults = @"GTIOPhotoShootModeCountUserDefaults";
-static NSInteger kGTIOShowPhotoShootModeHelperCount = 3;
 
 @interface GTIOCameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate>
 
