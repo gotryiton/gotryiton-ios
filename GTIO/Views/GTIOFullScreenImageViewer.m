@@ -45,8 +45,7 @@
 - (void)show 
 {
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
-    double statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    [self.windowMask setFrame:(CGRect){ 0, statusBarHeight, mainWindow.bounds.size.width, mainWindow.bounds.size.height - statusBarHeight }];
+    [self.windowMask setFrame:(CGRect){ 0, 0, mainWindow.bounds.size.width, mainWindow.bounds.size.height  }];
     [mainWindow insertSubview:self.windowMask aboveSubview:mainWindow];
     NSLog(@"full screen: %@", NSStringFromCGRect(self.windowMask.frame));
     __block typeof(self) blockSelf = self;
