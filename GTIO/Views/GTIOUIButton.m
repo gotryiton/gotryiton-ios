@@ -563,9 +563,9 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     [button setTitle:@"post this" forState:UIControlStateNormal];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     UIImageView *postButtonIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"product.info.button.icon.post.png"]];
-    [postButtonIcon setFrame:(CGRect){ 24.0, 16.0, postButtonIcon.bounds.size }];
+    [postButtonIcon setFrame:(CGRect){ 35.0, 13.0, postButtonIcon.bounds.size }];
     [button addSubview:postButtonIcon];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 37.0, 0.0, 0.0)];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 24.0, 0.0, 0.0)];
     [button setFrame:(CGRect){ 0.0, 0.0, 153.0, 46.0 }];
     return button;
 }
