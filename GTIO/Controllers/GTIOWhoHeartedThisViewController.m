@@ -30,7 +30,7 @@
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
         _controllerType = controllerType;
         _users = [NSMutableArray array];
     }

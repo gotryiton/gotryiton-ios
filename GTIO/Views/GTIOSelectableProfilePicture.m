@@ -76,7 +76,7 @@
     BOOL animated = ![self.imageURL isEqual:url];
     self.imageURL = url;
     __block GTIOSelectableProfilePicture *blockSelf = self;
-    [self.imageView setImageWithURL:url placeholderImage:nil success:^(UIImage *image) {
+    [self.imageView setImageWithURL:url placeholderImage:nil success:^(UIImage *image, BOOL cached) {
         [blockSelf showImageViewAnimated:animated];
     } failure:^(NSError *error) {
         NSLog(@"%@", [error localizedDescription]);

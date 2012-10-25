@@ -127,13 +127,13 @@ static CGFloat const kGTIOToolbarHeight = 53.0f;
     _originalPhotoURL = originalPhotoURL;
     
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[SDWebImageManager sharedManager] downloadWithURL:_originalPhotoURL delegate:self options:0 success:^(UIImage *image) {
+    [[SDWebImageManager sharedManager] downloadWithURL:_originalPhotoURL delegate:self options:0 success:^(UIImage *image, BOOL cached) {
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         [self setOriginalPhoto:image];
     } failure:^(NSError *error) {
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         NSLog(@"Failed to download product image");
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Could now download product image" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:@"Error" message:@"Could now download product image" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 

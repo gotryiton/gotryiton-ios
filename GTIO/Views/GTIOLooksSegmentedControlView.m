@@ -141,7 +141,10 @@ static NSString * const kGTIOFeaturedTab = @"featured";
     [self.scrollView setContentSize:(CGSize){ totalTabWidth + 2 * kGTIOSegmentedControlPadding, self.scrollView.frame.size.height }];
     [self.segmentedControl setFrame:(CGRect){ self.segmentedControl.frame.origin, { totalTabWidth, kGTIOSegmentedControlHeight } }];
     [self.segmentedControl setSelectedSegmentIndex:selectedIndex];
-    [self valueChanged:self.segmentedControl];
+    [self scrollToCenterOfSelectedSegment:[self centerOfSelectedSegment]];
+
+    CGFloat centerOfSelectedSegment = [self centerOfSelectedSegment];
+    [self placeArrowAtCenterOfSelectedSegment:centerOfSelectedSegment];
 }
 
 #pragma mark - Image

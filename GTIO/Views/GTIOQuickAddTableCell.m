@@ -70,9 +70,9 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
     _user = user;
     
     [self.textLabel setText:self.user.name];
-    [self.detailTextLabel setText:[self.user.userDescription uppercaseString]];
+    [self.detailTextLabel setText:self.user.userDescription];
     __block GTIOQuickAddTableCell *blockSelf = self;
-    [self.imageView setImageWithURL:self.user.icon success:^(UIImage *image) {
+    [self.imageView setImageWithURL:self.user.icon success:^(UIImage *image, BOOL cached) {
         [blockSelf setNeedsLayout];
     } failure:nil];
     [self.checkbox setSelected:self.user.selected];
@@ -99,8 +99,8 @@ static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
     [super layoutSubviews];
     
     [self.imageView setFrame:(CGRect){ 8, 9, 36, 36 }];
-    [self.textLabel setFrame:CGRectOffset(self.textLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 3.0)];
-    [self.detailTextLabel setFrame:CGRectOffset(self.detailTextLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 1.0)];
+    [self.textLabel setFrame:CGRectOffset(self.textLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 2.0)];
+    [self.detailTextLabel setFrame:CGRectOffset(self.detailTextLabel.frame, (self.imageView.image) ? -10.0 : 0.0, 0.0)];
     if (self.user.badge) {
         [self.badgeImageView setFrame:(CGRect){ (self.textLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.textLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
     }

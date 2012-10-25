@@ -39,7 +39,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
     }
     return self;
 }
@@ -47,8 +47,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    NSLog(@"starting viewDIDload");
 
     __block typeof(self) blockSelf = self;
 

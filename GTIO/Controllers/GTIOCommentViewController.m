@@ -12,7 +12,7 @@
 #import "GTIOReview.h"
 #import "GTIOProgressHUD.h"
 
-static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks great! @Becky E.)";
+static NSString * kGTIOMDefaultPostText = @"Leave a comment! (e.g. That looks great! @becky)";
 
 
 @interface GTIOCommentViewController ()

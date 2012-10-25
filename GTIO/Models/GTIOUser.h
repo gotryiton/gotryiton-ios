@@ -24,6 +24,8 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
 
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *uniqueName;
+@property (nonatomic, strong) NSString *realName;
 @property (nonatomic, strong) NSURL *icon;
 @property (nonatomic, strong) NSNumber *birthYear;
 @property (nonatomic, strong) NSString *location;
@@ -38,12 +40,14 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSNumber *isFacebookConnected;
+@property (nonatomic, strong) NSNumber *showUniqueNameScreen;
 @property (nonatomic, strong) GTIOBadge *badge;
 @property (nonatomic, strong) NSString *userDescription;
 @property (nonatomic, strong) GTIOButton *button;
 @property (nonatomic, strong) GTIOButtonAction *action;
 
 @property (nonatomic, assign) BOOL selected;
+
 
 @property (nonatomic, strong) Facebook *facebook;
 @property (nonatomic, strong) JREngage *janrain;

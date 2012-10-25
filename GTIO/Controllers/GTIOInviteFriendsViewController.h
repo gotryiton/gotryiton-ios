@@ -8,6 +8,6 @@
 
 #import "GTIOViewController.h"
 
-@interface GTIOInviteFriendsViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GTIOInviteFriendsViewController : GTIOViewController <UITableViewDelegate, UITableViewDataSource, GTIOAlertViewDelegate>
 
 @end

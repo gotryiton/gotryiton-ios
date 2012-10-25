@@ -9,6 +9,7 @@
 #import "GTIOWebView.h"
 
 #import "GTIOAuth.h"
+#import "BPXLUUIDHandler.h"
 
 @implementation GTIOWebView
 
@@ -42,6 +43,7 @@
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:kGTIOWebViewTimeout];
     [request setValue:[[GTIOAuth alloc] init].token forHTTPHeaderField:kGTIOAuthenticationHeaderKey];
+    [request setValue:[BPXLUUIDHandler UUID] forHTTPHeaderField:kGTIOTrackingHeaderKey];
     
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING || GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
     // Use CFNetwork dummy request to create the basic HTTP authorization

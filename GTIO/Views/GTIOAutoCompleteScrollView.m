@@ -64,18 +64,18 @@ static NSString * const kGTIOBrandTagHelperText = @"start typing a brand...";
         [hashtagBtn setFrame:(CGRect){ { CGRectGetMaxX(attagBtn.frame) + kGTIOHorizontalButtonPadding, kGTIOVerticalButtonPadding }, hashtagBtn.bounds.size }];
         [_autoCompleteNav addSubview:hashtagBtn];
 
-        GTIOUIButton *brandtagBtn = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeAutoCompleteBrandtag tapHandler:^(id sender) {
-            if([blockSelf.autoCompleteDelegate respondsToSelector:@selector(autoCompleterModeSelected:)]) {
-                [blockSelf.autoCompleteDelegate autoCompleterModeSelected:@"b"];
-            }
+        // GTIOUIButton *brandtagBtn = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeAutoCompleteBrandtag tapHandler:^(id sender) {
+        //     if([blockSelf.autoCompleteDelegate respondsToSelector:@selector(autoCompleterModeSelected:)]) {
+        //         [blockSelf.autoCompleteDelegate autoCompleterModeSelected:@"b"];
+        //     }
 
-        }];
+        // }];
 
-        [brandtagBtn setFrame:(CGRect){ { CGRectGetMaxX(hashtagBtn.frame) + kGTIOHorizontalButtonPadding, kGTIOVerticalButtonPadding }, brandtagBtn.bounds.size }];
-        [_autoCompleteNav addSubview:brandtagBtn];
+        // [brandtagBtn setFrame:(CGRect){ { CGRectGetMaxX(hashtagBtn.frame) + kGTIOHorizontalButtonPadding, kGTIOVerticalButtonPadding }, brandtagBtn.bounds.size }];
+        // [_autoCompleteNav addSubview:brandtagBtn];
 
         UIImageView *arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"keyboard-top-control-arrow.png"]];
-        [arrowView setFrame:(CGRect){ { CGRectGetMaxX(brandtagBtn.frame) + kGTIONavTextPadding , CGRectGetMaxY(self.bounds) - arrowView.bounds.size.height  - kGTIONavArrowBaseline   }, arrowView.bounds.size }];
+        [arrowView setFrame:(CGRect){ { CGRectGetMaxX(hashtagBtn.frame) + kGTIONavTextPadding , CGRectGetMaxY(self.bounds) - arrowView.bounds.size.height  - kGTIONavArrowBaseline   }, arrowView.bounds.size }];
         [_autoCompleteNav addSubview:arrowView];
 
         UILabel *instructions = [[UILabel alloc] initWithFrame:(CGRect){ CGRectGetMaxX(arrowView.frame)+ kGTIOHorizontalButtonPadding, CGRectGetMaxY(self.bounds)- kGTIONavTextBaseline -kGTIONavTextLineHeight, 150, kGTIONavTextLineHeight }];

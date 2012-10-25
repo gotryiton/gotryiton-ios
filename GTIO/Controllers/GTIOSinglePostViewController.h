@@ -18,7 +18,7 @@
 
 @end
 
-@interface GTIOSinglePostViewController : GTIOViewController
+@interface GTIOSinglePostViewController : GTIOViewController <GTIOAlertViewDelegate>
 
 - (id)initWithPostID:(NSString *)postID;
 - (id)initWithPost:(GTIOPost *)post;

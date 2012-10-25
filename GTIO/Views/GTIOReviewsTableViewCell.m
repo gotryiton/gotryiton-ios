@@ -216,7 +216,7 @@ typedef enum GTIOReviewsAlertView {
                 self.flagButton.selected = button.state.boolValue;
                 self.flagButton.tapHandler = ^(id sender) {
                     if (button.action.endpoint.length > 0) {                    
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Flag this comment as inappropriate?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                        GTIOAlertView *alertView = [[GTIOAlertView alloc] initWithTitle:nil message:@"Flag this comment as inappropriate?" delegate:blockSelf cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil];
                         alertView.tag = GTIOReviewsAlertViewFlag;
                         [alertView show];
                     }
@@ -245,7 +245,7 @@ typedef enum GTIOReviewsAlertView {
                 self.removeButton.hidden = NO;
                 self.currentRemoveButtonModel = button;
                 self.removeButton.tapHandler = ^(id sender) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Delete this comment?" delegate:blockSelf cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                    GTIOAlertView *alertView = [[GTIOAlertView alloc] initWithTitle:nil message:@"Delete this comment?" delegate:blockSelf cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil];
                     alertView.tag = GTIOReviewsAlertViewRemove;
                     [alertView show];
                 };
@@ -322,9 +322,9 @@ typedef enum GTIOReviewsAlertView {
     }
 }
 
-#pragma mark - UIAlertViewDelegate Methods
+#pragma mark - GTIOAlertViewDelegate Methods
 
-- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)alertView:(GTIOAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag == GTIOReviewsAlertViewFlag) {
         if (buttonIndex == 1) {

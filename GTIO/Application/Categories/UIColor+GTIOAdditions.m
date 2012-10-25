@@ -206,4 +206,8 @@
 {
     return UIColorFromRGB(0xA7A7A7);
 }
++ (UIColor *)gtio_yellowBackgroundColorFFFEF5
+{
+    return UIColorFromRGB(0xFFFEF5);
+}
 @end

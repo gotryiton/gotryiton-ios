@@ -67,6 +67,8 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 
 @property (nonatomic, assign, getter = isInitialLoad) BOOL initialLoad;
 
+@property (nonatomic, strong) GTIONotificationsViewController *notificationsViewController;
+
 @end
 
 @implementation GTIOSinglePostViewController
@@ -112,9 +114,36 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
     __block typeof(self) blockSelf = self;
     
     _navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
-        GTIONotificationsViewController *notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
-        [blockSelf presentModalViewController:navigationController animated:YES];
+        if(self.notificationsViewController == nil) {
+            self.notificationsViewController = [[GTIONotificationsViewController alloc] initWithNibName:nil bundle:nil];
+        }
+        
+        // if a child, remove it
+        if([blockSelf.childViewControllers containsObject:self.notificationsViewController]) {
+            [self.notificationsViewController willMoveToParentViewController:nil];
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [self.notificationsViewController.view setAlpha:0.0];
+                             }
+                             completion:^(BOOL finished) {
+                                 [self.notificationsViewController.view removeFromSuperview];
+                                 [self.notificationsViewController removeFromParentViewController];
+                                 [self.notificationsViewController didMoveToParentViewController:nil];
+                             }];
+        } else {
+            [GTIOTrack postTrackWithID:kGTIONotificationViewTrackingId handler:nil];
+            [self.notificationsViewController willMoveToParentViewController:blockSelf];
+            [blockSelf addChildViewController:self.notificationsViewController];
+            [self.notificationsViewController.view setAlpha:0.0];
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [self.view addSubview:self.notificationsViewController.view];
+                                 [self.notificationsViewController.view setAlpha:1.0];
+                             }
+                             completion:^(BOOL finished) {
+                                 [self.notificationsViewController didMoveToParentViewController:blockSelf];
+                             }];
+        }
     }];
 
      GTIOUIButton *backButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeBackTopMargin tapHandler:^(id sender) {
@@ -124,6 +153,8 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 
     // Single post
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height } } style:UITableViewStylePlain];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setSectionHeaderHeight:56.0f];
     [self.tableView setSeparatorStyle:UITableViewCellSelectionStyleNone];
@@ -339,7 +370,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
 {
     if ([button.buttonType isEqualToString:@"delete"]){
         self.deleteButton = button;
-        [[[UIAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+        [[[GTIOAlertView alloc] initWithTitle:kGTIOAlertTitleForDeletingPost message:kGTIOAlertForDeletingPost delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil] show];
     } else if (button.action.endpoint) {
         [self endpointRequestForButton:button];
         
@@ -358,7 +389,7 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
             }];
             [self presentViewController:tweetComposer animated:YES completion:nil];
         } else {
-            [[[UIAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[GTIOAlertView alloc] initWithTitle:nil message:kGTIONoTwitterMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 
         }
     } else if (button.action.facebookText) {
@@ -418,10 +449,11 @@ static NSString * const kGTIOAlertTitleForDeletingPost = @"wait!";
         }   
     }
 }
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+
+- (void)alertView:(GTIOAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([alertView.message isEqualToString:kGTIOAlertForDeletingPost]){
-        if (buttonIndex == 0){
+        if (buttonIndex == 1){
             [self endpointRequestForButton:self.deleteButton ];
             self.deleteButton = nil;
         }

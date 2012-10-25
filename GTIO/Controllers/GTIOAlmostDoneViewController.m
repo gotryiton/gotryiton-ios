@@ -16,12 +16,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GTIOAlmostDoneTableDataItem.h"
 #import "GTIOQuickAddViewController.h"
+#import "GTIONameValidation.h"
 
 static NSInteger kGTIOGTIOMinimumAge = 13;
 
+
+
 @implementation GTIOAlmostDoneViewController
 
-@synthesize tableData = _tableData, tableView = _tableView, originalContentFrame = _originalContentFrame, profilePicture = _profilePicture, saveData = _saveData, textFields = _textFields;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {    
@@ -40,32 +42,40 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
             [selectableYears addObject:[dateFormatter stringFromDate:startDate]];
             startDate = [startDate dateByAddingTimeInterval:-(60 * 60 * 24 * 365.25)];
         }
-        
+
         NSArray *selectableGenders = [NSArray arrayWithObjects:@"female", @"male", nil];
-        
+    
+       
+        _textFields = [NSMutableArray array];
+
         GTIOUser *currentUser = [GTIOUser currentUser];
         _profilePicture = [currentUser icon];
         
         _tableData = [NSArray arrayWithObjects:
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"email" andTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:[currentUser email] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:50],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"name" andTitleText:@"name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser name] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:25],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"city" andTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:20],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"state" andTitleText:@"state or country" andPlaceHolderText:@"NY" andAccessoryText:[currentUser state] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:20],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"gender" andTitleText:@"gender" andPlaceHolderText:@"select" andAccessoryText:[currentUser gender] andPickerItems:selectableGenders isRequired:YES usesPicker:YES isMultiline:NO characterLimit:25 ],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"born_in" andTitleText:@"year born" andPlaceHolderText:@"select year" andAccessoryText:[NSString stringWithFormat:@"%i",[[currentUser birthYear] intValue]] andPickerItems:selectableYears isRequired:NO usesPicker:YES isMultiline:NO characterLimit:25],
-                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"url" andTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:[currentUser url] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:50],
-                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"about" andTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" andAccessoryText:[currentUser aboutMe] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:YES characterLimit:250],
+                      [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"unique_name" andTitleText:@"@username" andPlaceHolderText:@"gotryiton" andAccessoryText:[currentUser uniqueName] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:25 usesNameValidation:YES],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"real_name" andTitleText:@"real name" andPlaceHolderText:@"Jane Doe" andAccessoryText:[currentUser realName] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:25 usesNameValidation:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"email" andTitleText:@"email" andPlaceHolderText:@"user@domain.com" andAccessoryText:[currentUser email] andPickerItems:nil isRequired:YES usesPicker:NO isMultiline:NO characterLimit:50 usesNameValidation:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"city" andTitleText:@"city" andPlaceHolderText:@"New York" andAccessoryText:[currentUser city] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:20 usesNameValidation:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"state" andTitleText:@"state or country" andPlaceHolderText:@"NY" andAccessoryText:[currentUser state] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:20 usesNameValidation:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"gender" andTitleText:@"gender" andPlaceHolderText:@"select" andAccessoryText:[currentUser gender] andPickerItems:selectableGenders isRequired:YES usesPicker:YES isMultiline:NO characterLimit:25  usesNameValidation:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"born_in" andTitleText:@"year born" andPlaceHolderText:@"select year" andAccessoryText:[NSString stringWithFormat:@"%i",[[currentUser birthYear] intValue]] andPickerItems:selectableYears isRequired:NO usesPicker:YES isMultiline:NO characterLimit:25 usesNameValidation:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"url" andTitleText:@"website" andPlaceHolderText:@"http://myblog.tumblr.com" andAccessoryText:[currentUser url] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:NO characterLimit:50 usesNameValidation:NO],
+                        [[GTIOAlmostDoneTableDataItem alloc] initWithApiKey:@"about" andTitleText:@"about me" andPlaceHolderText:@"...tell us about your personal style!" andAccessoryText:[currentUser aboutMe] andPickerItems:nil isRequired:NO usesPicker:NO isMultiline:YES characterLimit:250 usesNameValidation:NO],
                       nil];
         
         // prepopulate save data with values from current user
         _saveData = [NSMutableDictionary dictionary];
-        for (GTIOAlmostDoneTableDataItem *dataItem in _tableData) {
-            [_saveData setValue:[dataItem accessoryText] forKey:[dataItem apiKey]];
-        }
-        
-        _textFields = [NSMutableArray array];
+        [self saveDataItems];
     }
     return self;
+}
+
+- (void)saveDataItems
+{
+    for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData) {
+        [self.saveData setValue:[dataItem accessoryText] forKey:[dataItem apiKey]];
+    }
+        
 }
 
 - (void)viewDidLoad
@@ -88,7 +98,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
             }
         }
         if ([missingDataElements count] > 0) {
-            UIAlertView *missingRequiredData = [[UIAlertView alloc] initWithTitle:@"Incomplete Profile!" message:[NSString stringWithFormat:@"Please complete the '%@' section%@.",[missingDataElements componentsJoinedByString:@", "], ([missingDataElements count] > 1) ? @"s" : @""] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            GTIOAlertView *missingRequiredData = [[GTIOAlertView alloc] initWithTitle:@"incomplete profile!" message:[NSString stringWithFormat:@"Please complete the '%@' section%@.",[missingDataElements componentsJoinedByString:@", "], ([missingDataElements count] > 1) ? @"s" : @""] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [missingRequiredData show];
         } else {
             [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -180,7 +190,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 && [self numberOfSectionsInTableView:tableView]>1) {
         return 88.0f;
     }
     if (indexPath.row == 7) {
@@ -206,7 +216,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
     GTIOAlmostDoneTableDataItem *dataItemForRow = (GTIOAlmostDoneTableDataItem *)[self.tableData objectAtIndex:indexPath.row];
     
     if (!cell) {
-        if (indexPath.section == 0) {
+        if (indexPath.section == 0 && [self numberOfSectionsInTableView:tableView]>1) {
             cell = (GTIOAlmostDoneTableHeaderCell *)[[GTIOAlmostDoneTableHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             [cell setProfilePictureWithURL:self.profilePicture];
             [cell setTag:(indexPath.section+indexPath.row)];
@@ -216,6 +226,17 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
             [cell setRequired:[dataItemForRow required]];
             [cell setAccessoryTextIsMultipleLines:[dataItemForRow multiline]];
             [cell setAccessoryTextUsesPicker:[dataItemForRow usesPicker]];
+            if ([dataItemForRow usesNameValidation]) {
+                self.validationCell = cell;
+                [cell setStatusIndicatorWithSuccessImage:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"username-available.png"]] failureImage:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"username-unavailable.png"]]];
+                [cell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusSuccess];
+                [cell boldInput];
+                __block typeof(self) blockSelf = self;
+                [cell setChangeHandler:^(id sender) {
+                    GTIOAlmostDoneTableCell *cell = (GTIOAlmostDoneTableCell *) sender;
+                    [blockSelf validateName:cell.cellAccessoryText.text];
+                }];
+            }
             [cell setAccessoryTextPlaceholderText:[dataItemForRow placeHolderText]];
             [cell setCharacterLimit:[dataItemForRow characterLimit]];
             [cell setApiKey:[dataItemForRow apiKey]];
@@ -233,7 +254,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
         }
     }
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0  && [self numberOfSectionsInTableView:tableView]>1) {
         [cell setProfilePictureWithURL:self.profilePicture];
     } else {
         // prepopulate anything from the current user
@@ -249,7 +270,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.section == 0 && indexPath.row == 0 && [self numberOfSectionsInTableView:tableView]>1) {
         GTIOEditProfilePictureViewController *editProfilePictureViewController = [[GTIOEditProfilePictureViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:editProfilePictureViewController animated:YES];
     }
@@ -259,22 +280,26 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (void)moveResponderToNextCellFromCellAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row+1) inSection:1];
-    [self.tableView scrollToRowAtIndexPath:nextIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-    GTIOAlmostDoneTableCell *cellToFocus = (GTIOAlmostDoneTableCell *)[self.tableView cellForRowAtIndexPath:nextIndexPath];
-    [cellToFocus becomeFirstResponder];
+    if ([self numberOfSectionsInTableView:self.tableView]>1) {
+        NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row+1) inSection:1];
+        [self.tableView scrollToRowAtIndexPath:nextIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        GTIOAlmostDoneTableCell *cellToFocus = (GTIOAlmostDoneTableCell *)[self.tableView cellForRowAtIndexPath:nextIndexPath];
+        [cellToFocus becomeFirstResponder];
+    }
 }
 
 - (void)scrollUpWhileEditing:(NSUInteger)cellIdentifier
 {
-    GTIOAlmostDoneTableCell *cell = (GTIOAlmostDoneTableCell *)[self.tableView viewWithTag:cellIdentifier];
-    CGRect frame = cell.frame;
-    frame.origin.y = frame.origin.y + 55;
-    if (CGRectEqualToRect(self.tableView.frame, self.originalContentFrame)) {
-        [self.tableView setFrame:(CGRect){ 0, 0, self.originalContentFrame.size.width, self.originalContentFrame.size.height - 260 }];
-        [self.tableView scrollRectToVisible:frame animated:NO];
-    } else {
-        [self.tableView scrollRectToVisible:frame animated:YES];
+    if (self.tableView.scrollEnabled) {
+        GTIOAlmostDoneTableCell *cell = (GTIOAlmostDoneTableCell *)[self.tableView viewWithTag:cellIdentifier];
+        CGRect frame = cell.frame;
+        frame.origin.y = frame.origin.y + 55;
+        if (CGRectEqualToRect(self.tableView.frame, self.originalContentFrame)) {
+            [self.tableView setFrame:(CGRect){ 0, 0, self.originalContentFrame.size.width, self.originalContentFrame.size.height - 260 }];
+            [self.tableView scrollRectToVisible:frame animated:NO];
+        } else {
+            [self.tableView scrollRectToVisible:frame animated:YES];
+        }
     }
 }
 
@@ -291,19 +316,18 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 - (void)refreshScreenData
 {
     self.profilePicture = [GTIOUser currentUser].icon;
-    for (GTIOAlmostDoneTableDataItem *dataItem in self.tableData)
-    {
-        [dataItem setAccessoryText:[self.saveData valueForKey:[dataItem apiKey]]];
-    }
+    [self saveDataItems];
     [self.tableView reloadData];
     [self adjustContentSizeToFit];
 }
 
 - (void)resetScrollAfterEditing
 {
-    [self.tableView setFrame:self.originalContentFrame];
-    [self adjustContentSizeToFit];
-    [self scrollToBottom];
+    if (self.tableView.scrollEnabled) {
+        [self.tableView setFrame:self.originalContentFrame];
+        [self adjustContentSizeToFit];
+        [self scrollToBottom];
+    }
 }
 
 - (void)adjustContentSizeToFit
@@ -316,7 +340,58 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
 
 - (void)scrollToBottom
 {
-    [self.tableView scrollRectToVisible:(CGRect){ 0, self.tableView.contentSize.height - 1, self.tableView.bounds.size.width, 1 } animated:NO];
+    if (self.tableView.scrollEnabled) {
+        [self.tableView scrollRectToVisible:(CGRect){ 0, self.tableView.contentSize.height - 1, self.tableView.bounds.size.width, 1 } animated:NO];
+    }
+}
+
+
+
+- (void)validateName:(NSString *)name{
+    if (self.validationCell){
+
+        [[[RKObjectManager sharedManager] requestQueue] cancelRequestsWithDelegate:self];
+
+        [self.validationCell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusLoading];
+        
+        NSString * urlEncodedName = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)name, NULL,(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
+        if ([urlEncodedName length]>0) {
+            NSString * resourcePath = [NSString stringWithFormat:@"/user/name-validation/%@", urlEncodedName];
+            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath delegate:self];
+        }
+        else {
+            [self setValidationStatusIsValid:NO];
+        }
+
+    }
+}
+
+- (void)setValidationStatusIsValid:(BOOL)valid
+{
+    if (valid && self.validationCell){
+        [self.validationCell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusSuccess];
+    } else {
+        [self.validationCell setStatusIndicatorStatus:GTIOAlmostDoneTableCellStatusFailure];
+    }
+}
+
+#pragma mark RKRequestDelegate methods
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
+{
+    for (id object in objects) {
+        if ([object isKindOfClass:[GTIONameValidation class]]) {
+            GTIONameValidation *validation = (GTIONameValidation *)object;
+            [self setValidationStatusIsValid:validation.valid];
+        } 
+    }
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
+{   
+    [GTIOErrorController handleError:error showRetryInView:self.view forceRetry:NO retryHandler:nil];
+    [self setValidationStatusIsValid:NO];
+    NSLog(@"Failed to load validations: %@", [error localizedDescription]);
 }
 
 @end

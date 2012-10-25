@@ -11,5 +11,6 @@
 @interface GTIOTextFieldForPickerViews : UITextField
 
 @property (nonatomic, assign) BOOL usesPicker;
+@property (nonatomic, assign) BOOL usesBoldFont;
 
 @end

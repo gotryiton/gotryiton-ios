@@ -53,13 +53,32 @@ extern NSString * const kGTIONotificationCountNofitication;
 extern NSString * const kGTIOChangeSelectedTabNotification;
 extern NSString * const kGTIOAddTabBarToWindowNotification;
 extern NSString * const kGTIOExploreLooksChangeResourcePathNotification;
+extern NSString * const kGTIOStylesChangeCollectionIDNotification;
 extern NSString * const kGTIOTabBarViewsResize;
 extern NSString * const kGTIOShowProfileUserNotification;
+extern NSString * const kGTIOAppReturningFromInactiveStateNotification;
+extern NSString * const kGTIOFeedControllerShouldRefresh;
+extern NSString * const kGTIOExploreLooksControllerShouldRefresh;
+extern NSString * const kGTIOStyleControllerShouldRefresh;
+extern NSString * const kGTIOMeControllerShouldRefresh;
+extern NSString * const kGTIOAllControllersShouldRefresh;
+extern NSString * const kGTIOAllControllersShouldDoForcedRefresh;
+extern NSString * const kGTIOAllControllersShouldRefreshAfterLogout;
+extern NSString * const kGTIOShouldShowUniqueNameModalView;
+extern NSString * const kGTIOFeedControllerShouldScrollToTopNotification;
+extern NSString * const kGTIOExploreControllerShouldScrollToTopNotification;
+extern NSString * const kGTIOMeControllerShouldScrollToTopNotification;
+extern NSString * const kGTIOStyleControllerShouldScrollToTopNotification;
 
 // Notification UserInfo
 extern NSString * const kGTIOChangeSelectedTabToUserInfo;
 extern NSString * const kGTIOResourcePathKey;
 extern NSString * const kGTIOProfileUserIDUserInfo;
+extern NSString * const kGTIOCollectionIDUserInfoKey;
+
+// Unique Name modal flag
+extern NSString * const kGTIOUniqueNameModalDialogFlag; 
+extern NSInteger const kGTIOUniqueNameModalDialogMaxViews;
 
 // UrbanAirship Constants
 extern BOOL const kGTIOUAirshipAppStoreOrAdHocBuild;
@@ -67,6 +86,18 @@ extern NSString * const kGTIOUAirshipDevelopmentAppKey;
 extern NSString * const kGTIOUAirshipDevelopmentAppSecret;
 extern NSString * const kGTIOUAirshipProductionAppKey;
 extern NSString * const kGTIOUAirshipProductionAppSecret;
+
+// Yoz.io constants
+extern NSString * const kGTIOYozioAnalyticsKey;
+extern NSString * const kGTIOYozioAnalyticsURL;
+
+// Tracking constants
+extern NSString * const kGTIOUserNavigatedToFeedTab;
+extern NSString * const kGTIOUserNavigatedToStyleTab;
+extern NSString * const kGTIOUserNavigatedToExploreTab;
+extern NSString * const kGTIOUserNavigatedToCameraTab;
+extern NSString * const kGTIOUserNavigatedToMeTab;
+extern NSString * const kGTIONotificationViewTrackingId;
 
 // Push Notification Device Token
 extern NSString * const kGTIOPushNotificationDeviceTokenUserDefaults;
@@ -111,3 +142,6 @@ id GTIOJSONParams(id obj);
 
 // Generic Completion Handler
 typedef void(^GTIOCompletionHandler)(NSArray *loadedObjects, NSError *error);
+
+// Inactive session timing
+extern NSInteger const kGTIOSecondsInactiveBeforeRefresh;

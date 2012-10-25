@@ -48,6 +48,7 @@
 #import "GTIOError.h"
 #import "GTIOAlert.h"
 #import "GTIOInvitation.h"
+#import "GTIONameValidation.h"
 
 @implementation GTIOMappingProvider
 
@@ -96,6 +97,7 @@
         RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[GTIOError class]];
         RKObjectMapping *alertMapping = [RKObjectMapping mappingForClass:[GTIOAlert class]];
         RKObjectMapping *invitationMapping = [RKObjectMapping mappingForClass:[GTIOInvitation class]];
+        RKObjectMapping *nameValidationMapping = [RKObjectMapping mappingForClass:[GTIONameValidation class]];
         
         /** Products
          */
@@ -171,7 +173,7 @@
         
         [trackMapping mapKeyPath:@"id" toAttribute:@"trackID"];
         [trackMapping mapKeyPath:@"page_number" toAttribute:@"pageNumber"];
-        [trackMapping mapKeyPath:@"post_id" toAttribute:@"postID"];
+        [trackMapping mapKeyPath:@"tracking_params" toAttribute:@"trackingParams"];
         [trackMapping mapKeyPath:@"visit" toRelationship:@"visit" withMapping:visitMapping serialize:YES];
         [self setMapping:trackMapping forKeyPath:@"track"];
         
@@ -190,7 +192,10 @@
         [userMapping mapKeyPath:@"has_complete_profile" toAttribute:@"hasCompleteProfile"];
         [userMapping mapKeyPath:@"is_facebook_connected" toAttribute:@"isFacebookConnected"];
         [userMapping mapKeyPath:@"description" toAttribute:@"userDescription"];
-        [userMapping mapAttributes:@"name", @"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", nil];
+        [userMapping mapKeyPath:@"real_name" toAttribute:@"realName"];
+        [userMapping mapKeyPath:@"unique_name" toAttribute:@"uniqueName"];
+        [userMapping mapKeyPath:@"show_unique_name_screen" toAttribute:@"showUniqueNameScreen"];
+        [userMapping mapAttributes:@"icon", @"location", @"city", @"state", @"gender", @"service", @"email", @"url", @"auth", nil];
         [userMapping mapKeyPath:@"badge" toRelationship:@"badge" withMapping:badgeMapping];
         [userMapping mapKeyPath:@"button" toRelationship:@"button" withMapping:buttonMapping];
         [userMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
@@ -203,7 +208,12 @@
         
         [badgeMapping mapAttributes:@"path", nil];
         [self setMapping:badgeMapping forKeyPath:@"badge"];
+
+        //Name validation model
+        [nameValidationMapping mapAttributes:@"name", @"valid", nil];
+        [self setMapping:nameValidationMapping forKeyPath:@"name_validation"];
         
+
         // User Photo
         [userPhotoMapping mapKeyPath:@"id" toAttribute:@"photoID"];
         [userPhotoMapping mapKeyPath:@"user_id" toAttribute:@"userID"];

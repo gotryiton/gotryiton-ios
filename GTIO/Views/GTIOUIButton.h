@@ -28,10 +28,12 @@ typedef enum GTIOButtonType {
     GTIOButtonTypePhotoShootGrid,
     GTIOButtonTypePhotoShutter,
     GTIOButtonTypePhotoFlash,
+    GTIOButtonTypePhotoCameraDirection,
     GTIOButtonTypePhotoConfirm,
     GTIOButtonTypeBackBottomMargin,
     GTIOButtonTypeBackTopMargin,
     GTIOButtonTypeSaveGreenTopMargin,
+    GTIOButtonTypeSkipGrayTopMargin,
     GTIOButtonTypeCancelGrayTopMargin,
     GTIOButtonTypeSaveGrayTopMargin,
     GTIOButtonTypePhotoSelectBox,
@@ -44,6 +46,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeEditProfilePencilCircle,
     GTIOButtonTypeQuickAddCheckbox,
     GTIOButtonTypeFollowButton,
+    GTIOButtonTypeUniqueNameSave,
     GTIOButtonTypeAccept,
     GTIOButtonTypeBlock,
     GTIOButtonTypeWebsiteLink,
@@ -85,6 +88,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeInviteFriendsTwitter,
     GTIOButtonTypeErrorRetry,
     GTIOButtonTypeShopThisLookHeaderButton,
+    GTIOButtonTypeCustom,
 } GTIOButtonType;
 
 @interface GTIOUIButton : UIButton

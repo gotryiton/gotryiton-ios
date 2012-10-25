@@ -58,7 +58,7 @@
     }];
     [self setLeftNavigationButton:backButton];
     
-    self.segmentedControl = [[GTIODualViewSegmentedControlView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } leftControlTitle:kGTIOMyHeartsTitle leftControlPostsType:GTIOPostTypeHeartedProducts rightControlTitle:@"products" rightControlPostsType:GTIOPostTypeNone];
+    self.segmentedControl = [[GTIODualViewSegmentedControlView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } leftControlTitle:kGTIOMyHeartsTitle leftControlPostsType:GTIOPostTypeHeartedProducts rightControlTitle:@"popular" rightControlPostsType:GTIOPostTypeNone];
     [self.view addSubview:self.segmentedControl];
     
     self.heartedProducts = [NSMutableArray array];

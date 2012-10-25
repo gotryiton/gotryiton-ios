@@ -185,7 +185,7 @@
 
 - (UIImage *)cropImageWithFrameSize:(CGSize)frameSize rect:(CGRect)rect
 {
-    UIGraphicsBeginImageContextWithOptions(frameSize, NO, [UIScreen mainScreen].scale);
+    UIGraphicsBeginImageContextWithOptions(frameSize, NO, 1.0);
     [self drawInRect:rect];
     UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

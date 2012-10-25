@@ -11,7 +11,7 @@
 @implementation GTIOAlmostDoneTableDataItem
 
 
-- (id)initWithApiKey:(NSString*)apiKey andTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline characterLimit:(NSUInteger)characterLimit
+- (id)initWithApiKey:(NSString*)apiKey andTitleText:(NSString*)title andPlaceHolderText:(NSString*)placeholder andAccessoryText:(NSString*)accessoryText andPickerItems:(NSArray*)pickerItems isRequired:(BOOL)required usesPicker:(BOOL)usesPicker isMultiline:(BOOL)multiline characterLimit:(NSUInteger)characterLimit usesNameValidation:(BOOL)usesNameValidation
 {
     self = [super init];
     if (self) {
@@ -24,6 +24,7 @@
         _usesPicker = usesPicker;
         _multiline = multiline;
         _characterLimit = characterLimit;
+        _usesNameValidation = usesNameValidation;
     }
     return self;
 }

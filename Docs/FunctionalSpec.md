@@ -15,7 +15,10 @@
    1.6 [Failed Sigin In](#16-failed-sign-in)   
    1.7 [Almost Done](#17-almost-done)   
    1.8 [Quick Add](#18-quick-add)   
-   1.9 [Sign in Screen (2nd load)](#19-sign-in-screen-2nd-load)   
+   1.9 [Sign in Screen (2nd load)](#19-sign-in-screen-2nd-load)
+   1.10 [Facebook SSO](#110-facebook-sso)    
+   1.11 [Janrain SDK](#111-janrain-sdk)    
+   1.12 [Claim Username](#112-claim-username)     
 2. [Global Nav Bar and Notifications](#2-global-nav-bar-and-notifications)   
    2.1 [Navbar with notifications](#21-navbar-with-notifications)   
    2.2 [Notifications view](#22-notifications-view)   
@@ -602,6 +605,12 @@ POST /User (see documentation [Api-Users](http://gtio-dev.gotryiton.com/docs/api
       - 7pt Proxima Nova Regular #8f8f8f
    - text prompting picker controls (select, select year)
       - 7pt Proxima Nova Semibold #8f8f8f
+   - username available/unavailable indicators
+      - '1.7/username-unavailable.png' and '1.7/username-available.png'
+         - both are 17px x 13px
+      - 21px away from right edge of screen
+      - 1px below baseline of accompanying text field
+      - while checking, use gray spinner resized to 13 x 13, in approx same area as unavailable circle
 
 ### 1.8 Quick add  
 
@@ -673,21 +682,26 @@ Request should include an array of user objects (nested under ```users```) that 
 
 #### Design Stories
 - Top module (success, user info)
-   - 'top-info-container.png'
+   - 'top-info-container.png' (314 x 148)
    - place asset (inc. shadow) 4px down from status bar
    - user icon resized to 46px x 46px, placed underneath mask area of 'top-info-container.png'
-   - user name
-      - Archer Medium Italic, rgb(255,106,114), 20pt
-      - 10px to the right of user icon
-      - if location exists, baseline is 25px up from the bottom of the user icon
-      - if location does not exist, baseline is 6px up from the bottom of the user icon
+   - username
+      - Verlag Book, rgb(114,114,114), 18pt
+      - 11px to the right of user icon
+      - if location exists, baseline is 31px up from the bottom of the user icon
+      - if location does not exist, baseline is 24px up from the bottom of the user icon
+   - display name
+      - Proxima Nova Regular, rgb(167,167,167), 10pt
+      - 11px to right of user icon
+      - if location exists, baseline is 17px up from bottom of user icon
+      - if location does not exist, baseline is 10px up from the bottom of the user icon
    - location
-      - Proxima Nova Regular, rgb(143,143,143), 12pt
-      - 10px to right of user icon
-      - 6px up from bottom of user icon
+      - Proxima Nova Regular, rgb(167,167,167), 10pt
+      - 11px to right of user icon
+      - baseline is 3px up from bottom of user icon
    - edit button
       - 'edit-info.png' with active and inactive versions
-      - place asset (including shadow) 38px from right edge of screen
+      - place asset (including shadow) 35px from right edge of screen
       - vertically center inside gray 'info' area
 - 'style is better when shared!'
    - Archer Book Italic, 17pt, rgb(64,64,65)
@@ -710,18 +724,17 @@ Request should include an array of user objects (nested under ```users```) that 
    - user name
       - Verlag Book, rgb(114,114,114), 18pt
       - 10px from right edge of user icon
-      - if location exists, baseline is 18px up from bottom of user icon
+      - if location exists, baseline is 19px up from bottom of user icon
       - if location does not exist, text is vertically centered in cell
    - User Badge
       - use size "32_32.png" for 2x
       - use size "16_16.png" for 1x
       - 4px away from right edge of user name
       - bottom of asset is 2px below baseline of user name
-   - location
-   - description
+   - location and/or description
       - Proxima Nova Regular, 10pt, rgb (167,167,167)
-      - all caps
-      - baseline is 4px up from bottom of user icon
+      - normal case
+      - baseline is 5px up from bottom of user icon
    - checkbox
       - 'checkbox.png' with on and off states
       - 21px from right edge of screen, vertically centered in cell
@@ -886,6 +899,63 @@ A user should be able to log in via Janrain SDK
 - A user should be able to log in via Janrain SDK
 
 
+
+### 1.12 Claim Username 
+
+#### Overview  
+When an existing user signs into the app for the first time, they will get the opportunity to confirm or change their unique username 
+
+#### Mockups
+1.12.1 Start / Available
+
+<img src="http://assets.gotryiton.com/img/spec/4/fdd0d665dd/claim-username-01-available.jpg" width=420px/>
+
+1.12.2 Checking
+
+<img src="http://assets.gotryiton.com/img/spec/4/b4a5383a5d/claim-username-02-checking.jpg" width=420px/>
+
+1.12.3 Unavailable
+
+<img src="http://assets.gotryiton.com/img/spec/4/ff254150cb/claim-username-03-unavailable.jpg" width=420px/>
+
+1.12.4 1136px height screen
+
+<img src="http://assets.gotryiton.com/img/spec/4/f587e06e67/claim-username-1136.jpg" width=420px/>
+
+#### User Flow
+
+**entry screens:**   
+TBD 
+
+**exit screens:**   
+TBD
+
+#### API Usage
+
+#### Stories
+
+#### Design Stories
+- Background
+   - '1.8/quick-add-bg.png'
+- Main Container
+   - 'claim-username-overlay.png'
+   - 268px x 308px
+   - 26px from left edge of screen
+   - 54px from bottom of nav bar
+- Save / Unavailable Button
+   - 'claim-username.png' in green, gray with active and inactive versions
+   - 69px from top edge of 'overlay' asset
+   - 19px from left edge of 'overlay' asset
+   - Button Text Label
+      - 10px from top of button asset
+      - horizontally centered within button asset
+      - Normal Text: Archer Medium Italic 16pt #555556
+      - Grayed Out Text (during 'checking' state): alpha 0.3
+- Text Input / Available Indicator
+   - same as 1.8 Quick Add
+   - 30px padding between available indicator and right edge of 'overlay' asset
+   - 32px padding between text area and top edge of 'overlay' asset
+
 ## 2. Global Nav bar and Notifications
 
 
@@ -986,9 +1056,9 @@ When a user is on one of the top level tabs, they see a navigation bar with noti
 When a user is on one of the top level tabs, they see a navigation bar with notifications 
 
 #### Mockups
-2.2 Notifications Overlay ([wireframe](http://invis.io/QR2OBP8N))
+2.2 Notifications Overlay with Read/Unread States ([wireframe](http://invis.io/QR2OBP8N))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/2.2-Notifications-Overlay.jpg" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/320eb802d3/2.2-Notifications-Overlay-Unread.jpg" width=420px/>
 
 #### User Flow
 
@@ -1045,8 +1115,8 @@ TBD
    - Vertically centered
    - 10px right padding to text
 - Cell:
-   - Active State: rgb(255,255,255)
-   - Read State: rgb(255,255,255) with an alpha of .45
+   - Active State: #fffef5
+   - Read State: #ffffff
    - Bottom border: 1px rgb(217,215,206) #d9d7ce
  
 
@@ -1318,7 +1388,12 @@ previous screen
       - Height: 48px (without border)
       - Background: rgb(255,255,255) #ffffff
       - Active State background: rgb(237,235,224) #c6f0de
-      - Font: Verlag Light 16pt rgb(143,143,143) #8f8f8f
+      - Username
+         - Font: Verlag Light 16pt rgb(114,114,114) #727272
+         - Positioning: 10px away from user icon, baseline 19px up from bottom of user icon
+      - Display Name
+         - Font: Verlag Light 16pt rgb(167,167,167) #a7a7a7
+         - Positioning: 10px away from user icon, baseline 5px up from bottom of user icon
       - Text-shadow: 1px 90 degrees (point down), rgb(255,255,255) #ffffff
       - Bottom border: 1px rgba(217,215,206) #d9d7ce
    - Profile Icons
@@ -1409,13 +1484,14 @@ previous screen
 		- On tap (product.heart.active.png)
 		- Highlighted (product.heart.highlight.png)
 			- On tap (product.heart.highlight.active.png)
-	- 89x34px
-	- 4px from left
-	- 3px from navigation bar (51px from top of screen)
+	- 68x34px
+	- 4px from left edge of screen
+	- 7px from navigation bar
 	- Count Text: Verlag bold 15px rgb(88,88,88) #585858
-		- Right aligned
-		- 11px from edge of element
-		- Vertically aligned in element
+		- Centered in 17px x 10px text area
+         - 44px from left edge of screen
+         - 17px from nav bar
+		- Should appear to be about visually centered (vertically and horizontally) in right half of 'pill' heart asset
 - Bottom Info
 	- Background (product.info.overlay.bg.png)--stretch image horizontally
 	- 260px high including shadow
@@ -2728,8 +2804,7 @@ gtio://my-shopping-list
       - Underneath 'shop.cell.png', so left side shadows are overlaid on product image
       - Heart
          - use '8/heart-toggle.png'
-         - 12px from left side of screen
-         - 7px from top of product image
+         - asset is placed offset in relation to product photo; top left corner of asset is -5,-5 from top left corner of photo
    - Text 
       - Product Name: Verlag Light 14px rgb(89,81,85) #595155
          - 173px from left edge of screen
@@ -3074,8 +3149,8 @@ gtio://posts/feed
          - photo is placed offset 7px down from top of frame asset
          - photo is placed vertically centered within frame asset (should be 5px from the left edge of asset)
       - heart toggle
-         - 'heart-toggle.png' 34 x 34 with on/off states, each with active and inactive
-         - asset is placed flush with left and top edges of photo
+         - 'heart-toggle.png' 60 x 60 with on/off states, each with active and inactive
+         - asset is placed offset in relation to photo; top left corner of asset is -5,-5 from top left corner of photo
       - Star Corner
          - 'star-corner-feed.png'
          - placed at top right corner of post image (should appear to curve seamlessly into photo frame)

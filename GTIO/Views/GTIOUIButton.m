@@ -42,12 +42,14 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypePhotoShootGrid: return [self gtio_photoShootGridButton];
         case GTIOButtonTypePhotoShutter: return [self gtio_photoShutterButton];
         case GTIOButtonTypePhotoFlash: return [self gtio_photoFlashButton];
+        case GTIOButtonTypePhotoCameraDirection: return [self gtio_photoCameraDirectionButton];
         case GTIOButtonTypePhotoConfirm: return [self gtio_photoConfirmButton];
         case GTIOButtonTypeBackBottomMargin: return [self gtio_backButtonBottomMargin];
         case GTIOButtonTypeBackTopMargin: return [self gtio_backButtonTopMargin];
         case GTIOButtonTypeSaveGreenTopMargin: return [self gtio_saveButtonGreenTopMargin];
         case GTIOButtonTypeCancelGrayTopMargin: return [self gtio_cancelButtonGrayTopMargin];
         case GTIOButtonTypeSaveGrayTopMargin: return [self gtio_saveButtonGrayTopMargin];
+        case GTIOButtonTypeSkipGrayTopMargin: return [self gtio_skipButtonGrayTopMargin];
         case GTIOButtonTypePhotoSelectBox: return [self gtio_photoSelectBox];
         case GTIOButtonTypeEditPhoto: return [self gtio_editPhotoButton];
         case GTIOButtonTypePostThis: return [self gtio_postThisButton];
@@ -59,6 +61,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeQuickAddCheckbox: return [self gtio_quickAddCheckbox];
         case GTIOButtonTypeFollowButton: return [self gtio_followButton];
         case GTIOButtonTypeAccept: return [self gtio_acceptButton];
+        case GTIOButtonTypeUniqueNameSave: return [self gtio_uniqueNameSaveButton];
         case GTIOButtonTypeBlock: return [self gtio_blockButton];
         case GTIOButtonTypeWebsiteLink: return [self gtio_websiteLinkButton];
         case GTIOButtonTypeFollowButtonForNavBar: return [self gtio_followButtonForNavBar];
@@ -97,7 +100,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeInviteFriendsEmail: return [self gtio_inviteFriendsEmailButton];
         case GTIOButtonTypeInviteFriendsTwitter: return [self gtio_inviteFriendsTwitterButton];
         case GTIOButtonTypeErrorRetry: return [self gtio_errorRetryButton];
-        default: 
+        case GTIOButtonTypeCustom: return [self gtio_customButton];
+        default:
             NSLog(@"Could not find button for type: %i", buttonType);
             return nil;
     }
@@ -241,6 +245,11 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     return [self gtio_navBarTopMarginWithText:@"save" tapHandler:nil];
 }
 
++ (id)gtio_skipButtonGrayTopMargin
+{
+    return [self gtio_navBarTopMarginWithText:@" skip " tapHandler:nil];
+}
+
 + (id)gtio_backButtonTopMargin
 {
     GTIOUIButton *button = [self buttonWithType:UIButtonTypeCustom];
@@ -297,6 +306,11 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)gtio_photoFlashButton
 {
     return [self buttonWithImage:[UIImage imageNamed:@"upload.flash-OFF.png"] hightlightImage:nil];
+}
+
++ (id)gtio_photoCameraDirectionButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"camera-overlay-switcher-inactive.png"] hightlightImage:[UIImage imageNamed:@"camera-overlay-switcher-active.png"]];
 }
 
 + (id)gtio_photoSelectBox
@@ -358,6 +372,23 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     [button setTitle:@"follow" forState:UIControlStateDisabled];
     [button setTitleLabelText:@"follow"];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (id)gtio_uniqueNameSaveButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"save this username" forState:UIControlStateNormal];
+    [button setTitle:@"save this username" forState:UIControlStateDisabled];
+    [button setBackgroundImage:[UIImage imageNamed:@"claim-username-green-inactive.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"claim-username-green-active.png"] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[UIImage imageNamed:@"claim-username-gray-inactive.png"] forState:UIControlStateDisabled];
+    [button setFrame:(CGRect){ 0, 0, [UIImage imageNamed:@"claim-username-gray-inactive.png"].size }];
+    [button.titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0]];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateDisabled];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0.0, 0.0, 0.0)];
     return button;
 }
 
@@ -609,7 +640,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)gtio_productShoppingListNavButton
 {
     GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
-    [button.imageView setFrame:(CGRect){ button.bounds.origin.x, button.bounds.origin.y+2, button.bounds.size.width, button.bounds.size.height	 }];
+    [button setImageEdgeInsets:(UIEdgeInsets){2, 0, -2, 0}];
+    [button.imageView setFrame:(CGRect){ button.bounds.origin.x, button.bounds.origin.y, button.bounds.size.width, button.bounds.size.height	 }];
     return button;
 }
 
@@ -702,6 +734,13 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 {
     id button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"connect-error-retry-inactive.png"] hightlightImage:[UIImage imageNamed:@"connect-error-retry-active.png"]];
     [button setTapAreaPadding:10.0f];
+    return button;
+}
+
++ (id)gtio_customButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 

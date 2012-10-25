@@ -46,7 +46,7 @@ static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
     if (self) {
         _postID = postID;
         _reviews = [NSMutableArray array];
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
     }
     return self;
 }
@@ -71,6 +71,8 @@ static CGFloat const kGITOReviewsTableHeaderHeight = 87.0f;
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
     self.tableView.backgroundColor = [UIColor clearColor];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

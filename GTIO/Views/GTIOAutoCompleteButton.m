@@ -44,7 +44,7 @@
         outerShadow.hidden = YES;
         [button addSubview:outerShadow];
 
-        [icon setImageWithURL:completer.icon placeholderImage:nil success:^(UIImage *image) {
+        [icon setImageWithURL:completer.icon placeholderImage:nil success:^(UIImage *image, BOOL cached) {
             icon.hidden = NO;
             outerShadow.hidden = NO;
         } failure:^(NSError *error) {

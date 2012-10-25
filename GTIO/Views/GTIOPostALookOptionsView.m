@@ -36,7 +36,7 @@
             if (on && !currentUser.isFacebookConnected) {
                 [currentUser connectToFacebookWithLoginHandler:^(GTIOUser *user, NSError *error) {
                     if (!user.isFacebookConnected) {
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"We were unable to connect you with facebook." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+                        GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:@"" message:@"We were unable to connect you with facebook." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                         [alert show];
                         [self.facebookSwitch setOn:NO];
                     }

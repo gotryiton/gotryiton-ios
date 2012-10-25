@@ -22,13 +22,13 @@
 static CGFloat const kGTIOMaximumNameLabelWidth = 204.0;
 static CGFloat const kGTIODefaultLabelHeight = 21.0;
 static CGFloat const kGTIODefaultHorizontalSpacing = 8.0;
-static CGFloat const kGTIOLocationLabelVerticalOffset = 4.0;
+static CGFloat const kGTIOrealNameLabelVerticalOffset = 4.0;
 static CGFloat const kGTIOUserBadgeWidthHeight = 17.0;
 static CGFloat const kGTIOUserBadgeVerticalOffset = 1.0;
 static CGFloat const kGTIOUserBadgeNameLabelSpacing = 3.0;
-static CGFloat const kGTIOLocationLabelWidth = 224.0;
-static CGFloat const kGTIOLocationLabelHeight = 13.0;
-static CGFloat const kGTIOFollowingLabelLocationLabelVerticalSpacing = 4.0;
+static CGFloat const kGTIOrealNameLabelWidth = 224.0;
+static CGFloat const kGTIOrealNameLabelHeight = 13.0;
+static CGFloat const kGTIOFollowingLabelrealNameLabelVerticalSpacing = 4.0;
 static CGFloat const kGTIOFollowingFollowersLabelWidth = 53.0;
 static CGFloat const kGTIOStarsLabelWidth = 23.0;
 static CGFloat const kGTIOEditButtonWidth = 3.0;
@@ -40,7 +40,7 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
 @property (nonatomic, strong) GTIOSelectableProfilePicture *profileIcon;
 @property (nonatomic, strong) GTIOUIButton *profileIconButton;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UILabel *locationLabel;
+@property (nonatomic, strong) UILabel *realNameLabel;
 @property (nonatomic, strong) UIImageView *badge;
 
 @property (nonatomic, strong) GTIOMeTableHeaderViewLabel *followingLabel;
@@ -62,7 +62,7 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
 @implementation GTIOMeTableHeaderView
 
 @synthesize backgroundImageView = _backgroundImageView, hasBackground = _hasBackground;
-@synthesize profileIcon = _profileIcon, profileIconButton = _profileIconButton, nameLabel = _nameLabel, locationLabel = _locationLabel, userInfoButtons = _userInfoButtons, badge = _badge;
+@synthesize profileIcon = _profileIcon, profileIconButton = _profileIconButton, nameLabel = _nameLabel, realNameLabel = _realNameLabel, userInfoButtons = _userInfoButtons, badge = _badge;
 @synthesize followingLabel = _followingLabel, followingCountLabel = _followingCountLabel, followersLabel = _followersLabel, followerCountLabel = _followerCountLabel, starsLabel = _starsLabel, starCountLabel = _starCountLabel, user = _user, usesGearInsteadOfPencil = _usesGearInsteadOfPencil;
 @synthesize followingButton = _followingButton, followersButton = _followersButton, starsButton = _starsButton, editButton = _editButton, editImage = _editImage, editButtonTapHandler = _editButtonTapHandler, profilePictureTapHandler = _profilePictureTapHandler;
 @synthesize delegate = _delegate, settingsButtonHidden = _settingsButtonHidden;
@@ -94,11 +94,11 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
         _badge = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self addSubview:_badge];
         
-        _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [_locationLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
-        [_locationLabel setTextColor:[UIColor gtio_grayTextColorB3B3B3]];
-        [_locationLabel setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:_locationLabel];
+        _realNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [_realNameLabel setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegular size:10.0]];
+        [_realNameLabel setTextColor:[UIColor gtio_grayTextColorB3B3B3]];
+        [_realNameLabel setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_realNameLabel];
         
         // following / followers / stars labels
 
@@ -188,8 +188,8 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
     if (self.user.badge) {
         [self.badge setFrame:(CGRect){ self.nameLabel.frame.origin.x + self.nameLabel.bounds.size.width + kGTIOUserBadgeNameLabelSpacing, self.nameLabel.frame.origin.y - kGTIOUserBadgeVerticalOffset, kGTIOUserBadgeWidthHeight, kGTIOUserBadgeWidthHeight }];
     }
-    [self.locationLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height - kGTIOLocationLabelVerticalOffset, kGTIOLocationLabelWidth, kGTIOLocationLabelHeight }];
-    [self.followingLabel setFrame:(CGRect){ self.locationLabel.frame.origin.x, self.locationLabel.frame.origin.y + self.locationLabel.frame.size.height + kGTIOFollowingLabelLocationLabelVerticalSpacing, kGTIOFollowingFollowersLabelWidth, kGTIODefaultLabelHeight }];
+    [self.realNameLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height - kGTIOrealNameLabelVerticalOffset, kGTIOrealNameLabelWidth, kGTIOrealNameLabelHeight }];
+    [self.followingLabel setFrame:(CGRect){ self.realNameLabel.frame.origin.x, self.realNameLabel.frame.origin.y + self.realNameLabel.frame.size.height + kGTIOFollowingLabelrealNameLabelVerticalSpacing, kGTIOFollowingFollowersLabelWidth, kGTIODefaultLabelHeight }];
     [self.followingCountLabel setFrame:(CGRect){ self.followingLabel.frame.origin.x + self.followingLabel.frame.size.width, self.followingLabel.frame.origin.y, 0, kGTIODefaultLabelHeight }];
     [self.followingCountLabel sizeToFitText];
     [self.followingButton setFrame:(CGRect){ self.followingLabel.frame.origin, self.followingLabel.bounds.size.width + self.followingCountLabel.bounds.size.width, self.followingLabel.bounds.size.height }];
@@ -244,7 +244,7 @@ static CGFloat const kGTIOEditButtonWidth = 3.0;
 {
     [self.profileIcon setImageWithURL:self.user.icon];
     [self.nameLabel setText:self.user.name];
-    [self.locationLabel setText:[self.user.location uppercaseString]];
+    [self.realNameLabel setText:self.user.realName];
     if (self.user.badge) {
         [self.badge setImageWithURL:[self.user.badge badgeImageURL]];
     }

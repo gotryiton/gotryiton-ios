@@ -9,13 +9,14 @@
 #import "GTIONotificationsTableViewCell.h"
 
 #import "UIImageView+WebCache.h"
+#import "UIColor+GTIOAdditions.h"
 #import "NSString+GTIOAdditions.h"
 
 static CGFloat const kGTIOCellTopBottomPadding = 16.0;
 static CGFloat const kGTIOCellLeftRightPadding = 8.0;
 static CGFloat const kGTIOIconWidthHeight = 21.0;
 static CGFloat const kGTIOIconTextSpacing = 10.0;
-static CGFloat const kGTIOTextWidth = 273.0;
+static CGFloat const kGTIOTextWidth = 247.0;
 static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
 
 
@@ -84,17 +85,17 @@ static CGFloat const kGTIOTextViewBottomPaddingInset = 6.0;
 {
     _notification = notification;
     __block typeof(self) blockSelf = self;
-    [self.icon setImageWithURL:_notification.icon success:^(UIImage *image) {
+    [self.icon setImageWithURL:_notification.icon success:^(UIImage *image, BOOL cached) {
         [blockSelf setNeedsLayout];
     } failure:nil];
     
     NSString *notificationText;
     if (notification.tapped.boolValue) {
         notificationText = [NSString stringWithFormat:@"<div id='viewed'>%@</div>", _notification.text];
-        self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.45];
+        self.backgroundColor = [UIColor whiteColor];
     } else {
         notificationText = [NSString stringWithFormat:@"<div>%@</div>", _notification.text];
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor gtio_yellowBackgroundColorFFFEF5];
     }
     
     NSData *data = [notificationText dataUsingEncoding:NSUTF8StringEncoding];

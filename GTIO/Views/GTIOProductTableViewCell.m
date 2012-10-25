@@ -14,11 +14,11 @@
 #import <RestKit/RestKit.h>
 
 static CGFloat const kGTIOProductImageViewXPosition = 5.0;
-static CGFloat const kGTIOProductImageViewYPosition = 2.0;
+static CGFloat const kGTIOProductImageViewYPosition = 1.0;
 static CGFloat const kGTIOBackgroundImageViewXPosition = 3.0;
 static CGFloat const kGTIOBackgroundImageViewYPosition = 0.0;
-static CGFloat const kGTIOHeartButtonXPosition = 5.0;
-static CGFloat const kGTIOHeartButtonYPosition = 0.0;
+static CGFloat const kGTIOHeartButtonXPosition = 0.0;
+static CGFloat const kGTIOHeartButtonYPosition = -4.0;
 static CGFloat const kGTIOProductNameLabelWidth = 109.0;
 static CGFloat const kGTIOProductNameLabelWidthWide = 130.0;
 static CGFloat const kGTIOProductNameLabelMaxHeight = 95.0;
@@ -164,7 +164,7 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
     if (!self.productImageView.image) {
         self.productImageView.alpha = 0.0;
         __block typeof(self) blockSelf = self;
-        [self.productImageView setImageWithURL:_product.photo.squareThumbnailURL success:^(UIImage *image) {
+        [self.productImageView setImageWithURL:_product.photo.squareThumbnailURL success:^(UIImage *image, BOOL cached) {
             [UIView animateWithDuration:0.25 animations:^{
                 blockSelf.productImageView.alpha = 1.0;
             }];
@@ -180,7 +180,7 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
             self.heartButton.tapHandler = ^(id sender) {
                 self.heartButton.selected = !self.heartButton.selected;
                 self.product.hearted = !self.product.hearted;
-                self.heartButton.enabled = NO;
+                //self.heartButton.enabled = NO;
 
                 if ([self.delegate respondsToSelector:@selector(productButtonTap:productID:)]) {
                     [self.delegate productButtonTap:button productID:self.product.productID];

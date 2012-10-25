@@ -37,7 +37,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
     }
     return self;
 }
@@ -90,6 +90,12 @@
     if (self.segmentedControl.leftPostsView.masonGridView.pullToRefreshHandler) {
         self.segmentedControl.leftPostsView.masonGridView.pullToRefreshHandler(self.segmentedControl.leftPostsView.masonGridView, self.segmentedControl.leftPostsView.masonGridView.pullToRefreshView, YES);
     }
+
+    [self.segmentedControl.leftPostsView.masonGridView.pullToLoadMoreView setDefaultContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.segmentedControl.rightPostsView.masonGridView.pullToLoadMoreView setDefaultContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.segmentedControl.leftPostsView.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.segmentedControl.rightPostsView.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+
 }
 
 - (void)viewDidUnload

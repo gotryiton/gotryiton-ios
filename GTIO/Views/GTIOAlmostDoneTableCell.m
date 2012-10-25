@@ -11,17 +11,31 @@
 #import "GTIOPlaceHolderTextView.h"
 #import "GTIOTextFieldForPickerViews.h"
 #import "GTIODoneToolBar.h"
+#import <QuartzCore/QuartzCore.h>
 
 static NSInteger kGTIOMaxCharacterCount = 20;
 
+
+static CGFloat const kGTIOSpinnerSize = 12.0;
+static CGFloat const kGTIOSpinnerDefaultSize = 21.0;
+static CGFloat const kGTIOSpinnerScale = 0.55;
+static CGFloat const kGTIOSpinnerTopPadding = 2.0;
+static CGFloat const kGTIOAlmostDoneCellRightPadding = 21.0;
+static CGFloat const kGTIOAlmostDoneCellStatusPadding = 10.0;
+static CGFloat const kGTIOAlmostDoneCellLeftPadding = 22.0;
+
+
+
 @interface GTIOAlmostDoneTableCell()
 
-@property (nonatomic, strong) UILabel *cellTitleLabel;
 @property (nonatomic, strong) GTIOPlaceHolderTextView *cellAccessoryTextMulti;
 @property (nonatomic, strong) NSString *placeHolderText;
 @property (nonatomic, strong) GTIODoneToolBar *accessoryToolBar;
 @property (nonatomic, strong) UIBarButtonItem *flexibleSpace;
 @property (nonatomic, strong) GTIOPickerViewForTextFields *pickerView;
+@property (nonatomic, strong) UIImageView *successStatusAccessoryView;
+@property (nonatomic, strong) UIImageView *failureStatusAccessoryView;
+@property (nonatomic, strong) UIActivityIndicatorView *spinnerStatusAccessoryView;
 @property (nonatomic, assign) BOOL usesPicker;
 @property (nonatomic, assign, getter = isMultiLine) BOOL multiLine;
 
@@ -92,7 +106,6 @@ static NSInteger kGTIOMaxCharacterCount = 20;
         return NO;
     }
     if (textView.text.length == 1 && text.length == 0) {
-        textView.text = text;
         [textView setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegularItal size:14.0]];
         [textView setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
     } else {
@@ -102,6 +115,18 @@ static NSInteger kGTIOMaxCharacterCount = 20;
     if (self.usesPicker) {
         return NO;
     }
+
+    if (self.changeHandler){
+        // Wait 1.0 seconds then dispatch change handler 
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            if (self.changeHandler){
+                self.changeHandler(self);
+            }
+        });
+    }
+
     return YES;
 }
 
@@ -146,6 +171,11 @@ static NSInteger kGTIOMaxCharacterCount = 20;
     }
 }
 
+- (void)boldInput
+{
+    self.cellAccessoryText.usesBoldFont = YES;
+}
+
 - (void)updateSaveData:(id)sender
 {
     UITextField *textField = (UITextField*)sender;
@@ -161,6 +191,7 @@ static NSInteger kGTIOMaxCharacterCount = 20;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+
     if ([textField returnKeyType] == UIReturnKeyNext) {
         [self moveToNextCell];
         return YES;
@@ -168,6 +199,7 @@ static NSInteger kGTIOMaxCharacterCount = 20;
     if ([self.delegate respondsToSelector:@selector(resetScrollAfterEditing)]) {
         [self.delegate resetScrollAfterEditing];
     }
+
     return [textField resignFirstResponder];
 }
 
@@ -178,12 +210,15 @@ static NSInteger kGTIOMaxCharacterCount = 20;
     }
     return YES;
 }
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    return YES;
+}
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField.text.length == 1 && string.length == 0) {
-        textField.text = string;
         [textField setFont:[UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaRegularItal size:14.0]];
         [textField setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
     } else {
@@ -196,6 +231,18 @@ static NSInteger kGTIOMaxCharacterCount = 20;
     if (self.usesPicker) {
         return NO;
     }
+
+    if (self.changeHandler){
+        // Wait 0.5 seconds then dispatch change handler 
+        double delayInSeconds = 0.5;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            if (self.changeHandler){
+                self.changeHandler(self);
+            }
+        });
+    }
+
     return YES;
 }
 
@@ -225,6 +272,7 @@ static NSInteger kGTIOMaxCharacterCount = 20;
     [self.cellAccessoryText setUsesPicker:usesPicker];
 }
 
+
 - (void)setPickerViewItems:(NSArray *)pickerViewItems
 {
     _pickerViewItems = pickerViewItems;
@@ -234,6 +282,52 @@ static NSInteger kGTIOMaxCharacterCount = 20;
     [self.pickerView setPlaceHolderText:self.placeHolderText];
     [self.pickerView bindToTextField:self.cellAccessoryText];
     [self.cellAccessoryText setInputView:self.pickerView];
+}
+
+
+- (void)setStatusIndicatorWithSuccessImage:(UIImageView *)success failureImage:(UIImageView *)failure
+{
+    _successStatusAccessoryView = success;
+    [_successStatusAccessoryView setFrame:CGRectZero];
+    [self addSubview:_successStatusAccessoryView];
+
+    _failureStatusAccessoryView = failure;
+    [_failureStatusAccessoryView setFrame:CGRectZero];
+    [self addSubview:_failureStatusAccessoryView];
+
+    self.spinnerStatusAccessoryView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
+    self.spinnerStatusAccessoryView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.spinnerStatusAccessoryView setFrame:CGRectZero];
+    self.spinnerStatusAccessoryView.transform = CGAffineTransformMakeScale(kGTIOSpinnerSize/kGTIOSpinnerDefaultSize, kGTIOSpinnerSize/kGTIOSpinnerDefaultSize);
+
+    [self addSubview:self.spinnerStatusAccessoryView];
+}
+
+- (void)setStatusIndicatorStatus:(GTIOAlmostDoneTableCellStatus)status
+{
+    if (!self.successStatusAccessoryView || !self.failureStatusAccessoryView || !self.spinnerStatusAccessoryView) {
+        return;
+    }
+    switch (status){
+        case GTIOAlmostDoneTableCellStatusSuccess:
+            [self.successStatusAccessoryView setHidden:NO];
+            [self.failureStatusAccessoryView setHidden:YES];
+            [self.spinnerStatusAccessoryView setHidden:YES];
+            [self.spinnerStatusAccessoryView stopAnimating];
+        break;
+        case GTIOAlmostDoneTableCellStatusFailure:
+            [self.successStatusAccessoryView setHidden:YES];
+            [self.failureStatusAccessoryView setHidden:NO];
+            [self.spinnerStatusAccessoryView setHidden:YES];
+            [self.spinnerStatusAccessoryView stopAnimating];
+        break;
+        case GTIOAlmostDoneTableCellStatusLoading:
+            [self.successStatusAccessoryView setHidden:YES];
+            [self.failureStatusAccessoryView setHidden:YES];
+            [self.spinnerStatusAccessoryView setHidden:NO];
+            [self.spinnerStatusAccessoryView startAnimating];
+        break;
+    }
 }
 
 - (void)setAccessoryTextIsMultipleLines:(BOOL)multipleLines
@@ -272,7 +366,24 @@ static NSInteger kGTIOMaxCharacterCount = 20;
         [self.cellAccessoryTextMulti setFrame:(CGRect){ self.cellTitleLabel.frame.origin.x, self.cellTitleLabel.frame.origin.y + self.cellTitleLabel.frame.size.height, self.frame.size.width - 40, 70 }];
     } else {
         [self.cellAccessoryText setPlaceholder:text];
-        [self.cellAccessoryText setFrame:(CGRect){ self.cellTitleLabel.frame.origin.x + self.cellTitleLabel.frame.size.width + 3, self.cellTitleLabel.frame.origin.y, self.frame.size.width - self.cellTitleLabel.frame.size.width - 43, self.cellTitleLabel.frame.size.height }];
+        
+        CGFloat rightPadding = 0;
+        if (self.successStatusAccessoryView){
+            rightPadding = self.successStatusAccessoryView.image.size.width +kGTIOAlmostDoneCellStatusPadding;
+        }
+        [self.cellAccessoryText setFrame:(CGRect){ self.cellTitleLabel.frame.origin.x + self.cellTitleLabel.frame.size.width + 3, self.cellTitleLabel.frame.origin.y, self.frame.size.width - self.cellTitleLabel.frame.size.width - kGTIOAlmostDoneCellRightPadding - kGTIOAlmostDoneCellLeftPadding - rightPadding, self.cellTitleLabel.frame.size.height }];
+        
+        if (self.successStatusAccessoryView){
+            [self.successStatusAccessoryView setFrame:(CGRect){ {self.cellAccessoryText.frame.origin.x + self.cellAccessoryText.frame.size.width  + 2*kGTIOAlmostDoneCellStatusPadding , self.cellAccessoryText.frame.origin.y + 3}, self.successStatusAccessoryView.image.size }];
+        }
+        if (self.failureStatusAccessoryView){
+            
+            [self.failureStatusAccessoryView setFrame:(CGRect){ {self.cellAccessoryText.frame.origin.x + self.cellAccessoryText.frame.size.width  + 2*kGTIOAlmostDoneCellStatusPadding, self.cellAccessoryText.frame.origin.y + 3}, self.failureStatusAccessoryView.image.size }];
+        }
+        if (self.spinnerStatusAccessoryView){
+            [self.spinnerStatusAccessoryView setFrame:(CGRect){ {self.cellAccessoryText.frame.origin.x + self.cellAccessoryText.frame.size.width + 2*kGTIOAlmostDoneCellStatusPadding, self.cellAccessoryText.frame.origin.y + 3}, self.failureStatusAccessoryView.image.size }];
+        }
+
     }
 }
 

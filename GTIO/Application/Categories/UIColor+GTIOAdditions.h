@@ -60,5 +60,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 + (UIColor *)gtio_grayTextColorA7A7A7;
 + (UIColor *)gtio_grayBorderColorD9D7CE;
 + (UIColor *)gtio_selectedCellBGColorC6F0DE;
++ (UIColor *)gtio_yellowBackgroundColorFFFEF5;
 
 @end

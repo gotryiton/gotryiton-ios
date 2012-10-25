@@ -73,7 +73,7 @@
                             [user populateWithUser:object];
                             [user updateUrbanAirshipAliasWithUserID:user.userID];
                         }
-                        
+
                         [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAddTabBarToWindowNotification object:nil];
                     };
                     loader.onDidFailWithError = ^(NSError *error) {

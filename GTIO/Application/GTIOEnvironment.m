@@ -31,6 +31,10 @@
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsURL = @"http://yoz.io/e?app_key=%@&device_name=%@";
+    NSInteger const kGTIOSecondsInactiveBeforeRefresh = 1 * 60; // num minutes * num seconds/min
+    NSInteger const kGTIOUniqueNameModalDialogMaxViews = 1;
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_STAGING
@@ -47,6 +51,10 @@
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"***REMOVED***";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"***REMOVED***";
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsURL = @"http://yoz.io/e?app_key=%@&device_name=%@";
+    NSInteger const kGTIOSecondsInactiveBeforeRefresh = 5 * 60; // num minutes * num seconds/min
+    NSInteger const kGTIOUniqueNameModalDialogMaxViews = 1;
 #endif
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_PRODUCTION
@@ -63,9 +71,13 @@
     NSString * const kGTIOUAirshipDevelopmentAppKey = @"";
     NSString * const kGTIOUAirshipDevelopmentAppSecret = @"";
     NSString * const kGTIOFlurryAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsKey = @"***REMOVED***";
+    NSString * const kGTIOYozioAnalyticsURL = @"http://yoz.io/e?app_key=%@&device_name=%@";
+    NSInteger const kGTIOSecondsInactiveBeforeRefresh = 30 * 60; // num minutes * num seconds/min
+    NSInteger const kGTIOUniqueNameModalDialogMaxViews = 1;
 #endif
 
-NSString * const kGTIOAcceptHeader = @"application/v4.0.2-json";
+NSString * const kGTIOAcceptHeader = @"application/v4.1-json";
 NSString * const kGTIOAuthenticationHeaderKey = @"Authentication";
 NSString * const kGTIOTrackingHeaderKey = @"Tracking-Id";
 
@@ -82,13 +94,40 @@ NSString * const kGTIONotificationCountNofitication = @"kGTIONotificationCountNo
 NSString * const kGTIOChangeSelectedTabNotification = @"kGTIOChangeSelectedTabNotification";
 NSString * const kGTIOAddTabBarToWindowNotification = @"kGTIOAddTabBarToWindowNotification";
 NSString * const kGTIOExploreLooksChangeResourcePathNotification = @"kGTIOExploreLooksChangeResourcePathNotification";
+NSString * const kGTIOStylesChangeCollectionIDNotification = @"kGTIOStylesChangeCollectionIDNotification";
 NSString * const kGTIOTabBarViewsResize = @"kGTIOTabBarViewsResize";
 NSString * const kGTIOShowProfileUserNotification = @"kGTIOShowProfileUserNotification";
+NSString * const kGTIOAppReturningFromInactiveStateNotification = @"kGTIOAppReturningFromInactiveStateNotification";
+NSString * const kGTIOFeedControllerShouldRefresh = @"kGTIOFeedControllerShouldRefresh";
+NSString * const kGTIOExploreLooksControllerShouldRefresh = @"kGTIOExploreLooksControllerShouldRefresh";
+NSString * const kGTIOStyleControllerShouldRefresh = @"kGTIOLooksControllerShouldRefresh";
+NSString * const kGTIOMeControllerShouldRefresh = @"kGTIOMeControllerShouldRefresh";
+NSString * const kGTIOAllControllersShouldRefresh = @"kGTIOAllControllersShouldRefresh";
+NSString * const kGTIOAllControllersShouldDoForcedRefresh = @"kGTIOAllControllersShouldDoForcedRefresh";
+NSString * const kGTIOAllControllersShouldRefreshAfterLogout = @"kGTIOAllControllersShouldRefreshAfterLogout";
+NSString * const kGTIOShouldShowUniqueNameModalView = @"kGTIOShouldShowUniqueNameModalView";
+NSString * const kGTIOFeedControllerShouldScrollToTopNotification = @"kGTIOFeedControllerShouldScrollToTopNotification";
+NSString * const kGTIOExploreControllerShouldScrollToTopNotification = @"kGTIOExploreControllerShouldScrollToTopNotification";
+NSString * const kGTIOStyleControllerShouldScrollToTopNotification = @"kGTIOStyleControllerShouldScrollToTopNotification";
+NSString * const kGTIOMeControllerShouldScrollToTopNotification = @"kGTIOMeControllerShouldScrollToTopNotification";
 
 // Notification UserInfo
 NSString * const kGTIOChangeSelectedTabToUserInfo = @"kGTIOChangeSelectedTabToUserInfo";
 NSString * const kGTIOResourcePathKey = @"kGTIOResourcePathKey";
 NSString * const kGTIOProfileUserIDUserInfo = @"kGTIOProfileUserIDUserInfo";
+NSString * const kGTIOCollectionIDUserInfoKey = @"kGTIOCollectionIDUserInfoKey";
+
+// Tracking constants
+NSString * const kGTIOUserNavigatedToFeedTab = @"navigation to feed";
+NSString * const kGTIOUserNavigatedToExploreTab = @"navigation to explore";
+NSString * const kGTIOUserNavigatedToStyleTab = @"navigation to style";
+NSString * const kGTIOUserNavigatedToMeTab = @"navigation to me";
+NSString * const kGTIOUserNavigatedToCameraTab = @"navigation to camera";
+NSString * const kGTIONotificationViewTrackingId = @"notification view";
+
+
+// Unique Name modal flag
+NSString * const kGTIOUniqueNameModalDialogFlag = @"kGTIOUniqueNameModalDialogFlag";
 
 // UrbanAirship
 NSString * const kGTIOUAirshipProductionAppKey = @"***REMOVED***";

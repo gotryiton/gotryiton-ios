@@ -19,7 +19,7 @@
 #import "DTCoreText.h"
 
 static CGFloat const kGTIONavigationBarHeight = 44.0f;
-
+static CGFloat const kGTIOTabBarHeight = 49.0f;
 static CGFloat const kGTIOFooterXPadding = 10.0f;
 static CGFloat const kGTIOFooterTopPadding = 6.0f;
 static CGFloat const kGTIOFooterBottomPadding = 3.0f;
@@ -47,7 +47,7 @@ static NSString * const kGTIOFooterCss = @"CollectionFooter";
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
         _products = [NSMutableArray array];
     }
     return self;
@@ -63,6 +63,8 @@ static NSString * const kGTIOFooterCss = @"CollectionFooter";
     self.leftNavigationButton = backButton;
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ CGPointZero, { self.view.bounds.size.width, self.view.bounds.size.height - kGTIONavigationBarHeight } } style:UITableViewStylePlain];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, kGTIOTabBarHeight, 0 }];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, kGTIOTabBarHeight, 0 }];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -86,7 +88,7 @@ static NSString * const kGTIOFooterCss = @"CollectionFooter";
     [self.footerTextView setScrollsToTop:NO];
     [self.footerTextView setBackgroundColor:[UIColor clearColor]];
     [self.footerView addSubview:self.footerTextView];
-
+    [self.tableView setTableFooterView:self.footerView];   
 
     NSString *filePath = [[NSBundle mainBundle] pathForResource:kGTIOFooterCss ofType:@"css"];  
     NSData *cssData = [NSData dataWithContentsOfFile:filePath];
@@ -161,8 +163,8 @@ static NSString * const kGTIOFooterCss = @"CollectionFooter";
                 
                 
                 [self.footerTextView setFrame:(CGRect){self.footerTextView.frame.origin.x, kGTIOFooterTopPadding, footerWidth, expectedLabelSize.height}];
-                [self.tableView setTableFooterView:self.footerView];    
                 [self.footerView setFrame:(CGRect){kGTIOFooterXPadding, self.footerView.frame.origin.y, footerWidth , expectedLabelSize.height + kGTIOFooterBottomPadding + kGTIOFooterTopPadding}];
+
      
             }
 
@@ -309,7 +311,7 @@ static NSString * const kGTIOFooterCss = @"CollectionFooter";
         GTIOUIButton *bannerHeader = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
         [bannerHeader setFrame:(CGRect){ 0, 0, _collection.bannerImage.width.floatValue, _collection.bannerImage.height.floatValue }];
         UIImageView *bannerImageDownloader = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [bannerImageDownloader setImageWithURL:_collection.bannerImage.imageURL success:^(UIImage *image) {
+        [bannerImageDownloader setImageWithURL:_collection.bannerImage.imageURL success:^(UIImage *image, BOOL cached) {
             [bannerHeader setImage:image forState:UIControlStateNormal];
             bannerHeader.tapHandler = ^(id sender) {
                 [self handleUrl:[NSURL URLWithString:_collection.bannerImage.action.destination]];

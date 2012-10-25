@@ -45,6 +45,8 @@ static NSTimeInterval const kGTIOPhotoCreateInitialTimeoutInterval = 50.0f;
     if (self) {
         _state = GTIOPostStateNone;
         _progress = 0.0f;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReturnFromInactive) name:kGTIOAppReturningFromInactiveStateNotification object:nil];
     }
     return self;
 }
@@ -52,6 +54,15 @@ static NSTimeInterval const kGTIOPhotoCreateInitialTimeoutInterval = 50.0f;
 - (void)dealloc
 {
     [self.photoCreateTimer invalidate];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Return from inactive helpers
+
+- (void)onReturnFromInactive
+{
+    [self cancelUploadImage];
 }
 
 #pragma mark Photo

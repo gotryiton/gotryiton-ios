@@ -17,6 +17,7 @@
 #import "GTIOExploreLooksViewController.h"
 #import "GTIOCameraViewController.h"
 #import "GTIOCameraTabBarPlaceholderViewController.h"
+#import "GTIOUniqueNameSplashViewController.h"
 #import "GTIOStyleViewController.h"
 #import "GTIOMeViewController.h"
 
@@ -40,6 +41,8 @@
 
 @property (nonatomic, strong) GTIOCameraViewController *cameraViewController;
 
+@property (nonatomic, strong) UIViewController *lastSelectedController;
+
 @property (nonatomic, strong) UIImageView *tab1ImageView;
 @property (nonatomic, strong) UIImageView *tab2ImageView;
 @property (nonatomic, strong) UIImageView *tab3ImageView;
@@ -47,6 +50,8 @@
 @property (nonatomic, strong) UIImageView *tab5ImageView;
 
 @property (nonatomic, strong) NSArray *tabBarViewControllers;
+
+@property (nonatomic, strong) NSDate *dateAppDidBecomeInactive;
 
 - (void)setupTabBar;
 - (void)setupRestKit;
@@ -77,6 +82,7 @@
     // List all fonts on iPhone
 #if DEBUG
 //    [self listAllFonts];
+     // [NSClassFromString(@"WebView") performSelector:@selector(_enableRemoteInspector)];
     
     // Simulate memory warnings.
     //    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(triggerMemoryWarning) userInfo:nil repeats:YES];
@@ -86,11 +92,11 @@
     // Appearance setup
     [GTIOAppearance setupAppearance];
     
-    // Customize Tab bar
-    [self setupTabBar];
-    
     // RestKit
     [self setupRestKit];
+
+    // Customize Tab bar
+    [self setupTabBar];
     
     // Initialize Janrain
     [GTIOUser currentUser].janrain = [JREngage jrEngageWithAppId:kGTIOJanRainEngageApplicationID andTokenUrl:nil delegate:[GTIOUser currentUser]];
@@ -120,9 +126,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectTab:) name:kGTIOChangeSelectedTabNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTabBarToWindow:) name:kGTIOAddTabBarToWindowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resizeTabBarViews:) name:kGTIOTabBarViewsResize object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUniqueNameModalScreen) name:kGTIOShouldShowUniqueNameModalView object:nil];
     
     [self.window makeKeyAndVisible];
     
+
+    NSString *deviceName = [[[UIDevice currentDevice] name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *url = [NSString stringWithFormat:kGTIOYozioAnalyticsURL, kGTIOYozioAnalyticsKey, deviceName];
+    [NSURLConnection connectionWithRequest:[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]] delegate:nil];
+
     return YES;
 }
 
@@ -130,6 +143,8 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
+    self.dateAppDidBecomeInactive = [NSDate date];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -150,6 +165,47 @@
 
     // Reset the badge number back to zero.
     application.applicationIconBadgeNumber = 0;
+    
+    // Test if the app has been inactive for a long time
+    if(self.dateAppDidBecomeInactive) {
+        NSTimeInterval secondsAppHasBeenInactive = [[NSDate date] timeIntervalSinceDate:self.dateAppDidBecomeInactive];
+        
+        NSLog(@"Seconds app has been inactive: %f (min: %.2f)", secondsAppHasBeenInactive, secondsAppHasBeenInactive/60.0f);
+        
+        if(secondsAppHasBeenInactive > kGTIOSecondsInactiveBeforeRefresh) {
+                        
+            // pop the navigation controllers back to their root view
+            for(id controller in self.tabBarViewControllers) {
+                if([controller isKindOfClass:[UINavigationController class]]) {
+                    [(UINavigationController*)controller popToRootViewControllerAnimated:NO];
+                }
+            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAppReturningFromInactiveStateNotification object:nil];
+            
+            // find the selected root view controller and notify it to load
+            switch (self.tabBarController.selectedIndex) {
+                case 0:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOFeedControllerShouldRefresh object:nil];
+                    break;
+                case 1:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOExploreLooksControllerShouldRefresh object:nil];
+                    break;
+                case 2:
+                    // load all in background
+                    
+                    break;
+                case 3:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOStyleControllerShouldRefresh object:nil];
+                    break;
+                case 4:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOMeControllerShouldRefresh object:nil];
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -301,7 +357,7 @@
     // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
     for(UIView *view in self.tabBarController.view.subviews) {
         if(![view isKindOfClass:[UITabBar class]]) {
-            [view setFrame:(CGRect){ view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height }];
+            [view setFrame:(CGRect){ view.frame.origin.x, view.frame.origin.y, view.frame.size.width, self.window.frame.size.height }];
         }
     }
 }
@@ -358,8 +414,37 @@
     }];
         
     [self.tabBarController.delegate tabBarController:self.tabBarController didSelectViewController:self.tabBarController.selectedViewController];
+    
+    // start first time load & pretend that we're `returning` from inactive
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAppReturningFromInactiveStateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefresh object:nil];
+        
+    [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];  
+    
+       
+}
 
-    [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];
+- (void)showUniqueNameModalScreen
+{
+
+    int viewsOfModalScreen = [[NSUserDefaults standardUserDefaults] integerForKey:kGTIOUniqueNameModalDialogFlag];
+    if (viewsOfModalScreen < kGTIOUniqueNameModalDialogMaxViews) {
+        if ([[GTIOUser currentUser].showUniqueNameScreen integerValue]>0){
+             viewsOfModalScreen++;
+            [[NSUserDefaults standardUserDefaults] setInteger:viewsOfModalScreen forKey:kGTIOUniqueNameModalDialogFlag];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            GTIOUniqueNameSplashViewController *uniqueNameViewController = [[GTIOUniqueNameSplashViewController alloc] initWithNibName:nil bundle:nil];
+            [uniqueNameViewController setDismissHandler:^(UIViewController *viewController) {
+               [viewController dismissViewControllerAnimated:YES completion:^{
+                   [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldDoForcedRefresh object:nil];
+               }];
+            }];
+
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uniqueNameViewController];
+            [self.tabBarController presentModalViewController:navController animated:YES];
+     
+        }
+    }
 }
 
 #pragma mark - UITabBarControllerDelegate
@@ -377,7 +462,7 @@
         
         UINavigationController *navController = (UINavigationController *)viewController;
         UIViewController *rootViewController = [navController.viewControllers objectAtIndex:0];
-        
+
         if ([rootViewController isKindOfClass:[GTIOFeedViewController class]]) {
             [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];
         } else if ([rootViewController isKindOfClass:[GTIOMeViewController class]]) {
@@ -387,8 +472,13 @@
         } else if ([rootViewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
             [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
         }
+
+        self.lastSelectedController = rootViewController;
+
     } else if ([viewController isKindOfClass:[GTIOCameraViewController class]]) {
         [self.tab3ImageView setImage:[UIImage imageNamed:@"UI-Tab-3-ON.png"]];
+
+        self.lastSelectedController = viewController;
     }
     
     // Wait 1 second and then check for notifications so that we can let the page load.
@@ -397,6 +487,8 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [[GTIONotificationManager sharedManager] loadNotificationsIfNeeded];
     });
+
+    
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
@@ -404,6 +496,9 @@
     BOOL shouldSelect = YES;
     
     if ([viewController isKindOfClass:[GTIOCameraTabBarPlaceholderViewController class]]) {
+        
+        [GTIOTrack postTrackWithID:kGTIOUserNavigatedToCameraTab handler:nil];
+
         shouldSelect = NO;
         [self.cameraViewController setDismissHandler:^(UIViewController *viewController) {
             [viewController dismissViewControllerAnimated:YES completion:^{
@@ -414,6 +509,48 @@
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.cameraViewController];
         [navController setNavigationBarHidden:YES animated:NO];
         [self.tabBarController presentModalViewController:navController animated:YES];
+    } else if ([viewController isKindOfClass:[UINavigationController class]]) {
+
+        UINavigationController *navController = (UINavigationController *)viewController;
+        UIViewController *rootViewController = [navController.viewControllers objectAtIndex:0];
+
+        NSString *trackContollerId = nil;
+       
+        if ([rootViewController isKindOfClass:[GTIOFeedViewController class]]) {
+            trackContollerId = kGTIOUserNavigatedToFeedTab;
+            //if tab is in view already, scroll to top
+            if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOFeedViewController class]]){
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOFeedControllerShouldScrollToTopNotification object:nil];
+            }
+        } else if ([rootViewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
+            trackContollerId = kGTIOUserNavigatedToExploreTab;
+            //if tab is in view already, scroll to top
+            if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOExploreLooksViewController class]]){
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOExploreControllerShouldScrollToTopNotification object:nil];
+            }
+        } else if ([rootViewController isKindOfClass:[GTIOMeViewController class]]) {
+            trackContollerId = kGTIOUserNavigatedToMeTab;
+            //if tab is in view already, scroll to top
+            if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOMeViewController class]]){
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOMeControllerShouldScrollToTopNotification object:nil];
+            }
+        } else if ([rootViewController isKindOfClass:[GTIOStyleViewController class]]) {
+            trackContollerId = kGTIOUserNavigatedToStyleTab;
+            //if tab is in view already, scroll to top
+            if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOStyleViewController class]]){
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOStyleControllerShouldScrollToTopNotification object:nil];
+            }
+        } 
+
+
+        if (![rootViewController isKindOfClass:[self.lastSelectedController class]]) {
+            // track tab switching when user tabs on a tab
+            [GTIOTrack postTrackWithID:trackContollerId handler:nil];
+        } else if ([navController.viewControllers count]>1){
+            // handle taps on the tab bar when tab is already selected
+            [navController popToRootViewControllerAnimated:YES];
+        }
+            
     }
     
     return shouldSelect;

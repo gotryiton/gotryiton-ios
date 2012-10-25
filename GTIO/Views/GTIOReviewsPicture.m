@@ -50,7 +50,7 @@
 
 - (void)proxySetImageWithURL:(NSURL *)url
 {
-    [self setImageWithURL:url success:^(UIImage *image) {
+    [self setImageWithURL:url success:^(UIImage *image, BOOL cached) {
         [UIView animateWithDuration:0.25 animations:^{
             self.alpha = 1.0;
         }];

@@ -58,7 +58,7 @@
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
     [self.view addSubview:backgroundImageView];
 
-    self.accountCreatedView = [[GTIOAccountCreatedView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width - 10, 200 }];
+    self.accountCreatedView = [[GTIOAccountCreatedView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width - 10, 208 }];
     [self.accountCreatedView setHidden:YES];
     [self.accountCreatedView setDelegate:self];
     
@@ -205,7 +205,7 @@
         if (!error) {
             [self loadTabBarWithTabSelectedAtIndex:GTIOTabBarTabFeed];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:@"There was an error while communicating with the server. Please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:@"server error" message:@"There was an error while communicating with the server. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
         }
     }];

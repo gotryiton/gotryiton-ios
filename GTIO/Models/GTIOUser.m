@@ -39,6 +39,11 @@
     return userProfile;
 }
 
+- (NSString *)name
+{
+    return self.uniqueName;
+}
+
 #pragma mark - Update
 
 - (void)updateCurrentUserWithFields:(NSDictionary*)updateFields withTrackingInformation:(NSDictionary*)trackingInfo andLoginHandler:(GTIOLoginHandler)loginHandler
@@ -88,13 +93,13 @@
 
 - (BOOL)isLoggedIn
 {
-    NSString *authToken = [[GTIOAuth alloc] init].token;
-    return [authToken length] > 0;
+    return [self.auth boolValue];
 }
 
 - (void)logOutWithLogoutHandler:(GTIOLogoutHandler)logoutHandler
 {
     [GTIOAuth removeToken];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/logout" usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadResponse = ^(RKResponse *response) {
             if (logoutHandler) {
@@ -208,6 +213,8 @@
 {
     self.userID = user.userID;
     self.name = user.name;
+    self.uniqueName = user.uniqueName;
+    self.realName = user.realName;
     self.icon = user.icon;
     self.birthYear = user.birthYear;
     self.location = user.location;
@@ -219,6 +226,7 @@
     self.auth = user.auth;
     self.isNewUser = user.isNewUser;
     self.hasCompleteProfile = user.hasCompleteProfile;
+    self.showUniqueNameScreen = user.showUniqueNameScreen;
     self.url = user.url;
     self.email = user.email;
     self.isFacebookConnected = user.isFacebookConnected;

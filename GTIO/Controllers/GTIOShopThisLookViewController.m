@@ -28,7 +28,7 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
         _products = [NSMutableArray array];
     }
     return self;
@@ -58,13 +58,15 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
     self.leftNavigationButton = backButton;
     
     GTIOUIButton *emailMeMyListButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListEmailMyList tapHandler:^(id sender) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Would you like to email this list to yourself?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:nil message:@"Would you like to email this list to yourself?" delegate:self cancelButtonTitle:@"no" otherButtonTitles:@"yes", nil];
         alert.tag = kGTIOEmailMeMyShoppingListAlert;
         [alert show];
     }];
     self.rightNavigationButton = emailMeMyListButton;
     
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height } style:UITableViewStylePlain];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -212,9 +214,9 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
     return cell;
 }
 
-#pragma mark - UIAlertViewDelegate Methods
+#pragma mark - GTIOAlertViewDelegate Methods
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)alertView:(GTIOAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag == kGTIOEmailMeMyShoppingListAlert && buttonIndex == 1) {
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
