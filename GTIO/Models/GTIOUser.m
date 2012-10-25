@@ -100,11 +100,17 @@
 - (void)logOutWithLogoutHandler:(GTIOLogoutHandler)logoutHandler
 {
     [GTIOAuth removeToken];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefreshAfterLogout object:nil];
+    self.auth = [NSNumber numberWithBool:NO];
+    
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:@"/user/logout" usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadResponse = ^(RKResponse *response) {
 
             [self unregisterForPushNotifications];
+
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:kGTIONotificationUnreadCountUserInfo];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIONotificationCountNofitication object:self userInfo:userInfo];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOAllControllersShouldRefreshAfterLogout object:nil];        
 
             if (logoutHandler) {
                 logoutHandler(response);
