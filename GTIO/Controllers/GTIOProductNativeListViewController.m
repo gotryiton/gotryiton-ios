@@ -165,6 +165,9 @@ static NSString * const kGTIOFooterCss = @"CollectionFooter";
                 [self.footerTextView setFrame:(CGRect){self.footerTextView.frame.origin.x, kGTIOFooterTopPadding, footerWidth, expectedLabelSize.height}];
                 [self.footerView setFrame:(CGRect){kGTIOFooterXPadding, self.footerView.frame.origin.y, footerWidth , expectedLabelSize.height + kGTIOFooterBottomPadding + kGTIOFooterTopPadding}];
 
+                [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, kGTIOTabBarHeight + self.footerView.frame.size.height, 0 }];
+                [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, kGTIOTabBarHeight + self.footerView.frame.size.height, 0 }];
+
      
             }
 
