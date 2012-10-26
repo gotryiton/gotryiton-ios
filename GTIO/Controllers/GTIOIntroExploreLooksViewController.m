@@ -35,7 +35,7 @@
 #import "GTIOQuickAddViewController.h"
 #import "GTIOSinglePostViewController.h"
 
-static CGFloat const kGTIOMasonGridPadding = 2.0f;
+static CGFloat const kGTIOMasonGridPadding = 5.0f;
 static CGFloat const kGTIOEmptyStateTopPadding = 178.0f;
 static NSString * const kGTIOSignUpButtonSlidUp = @"slide_up";
 static NSString * const kGTIOPostInteractionTypePostKey = @"post";
