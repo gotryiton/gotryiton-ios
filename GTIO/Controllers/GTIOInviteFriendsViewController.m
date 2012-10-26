@@ -188,7 +188,6 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"willDisplayCell");
     NSArray *sections = [self sortedContactListKeys];
     NSArray *people = [self.contactList objectForKey:[sections objectAtIndex:indexPath.section]];
     GTIOInviteFriendsPerson *person = (GTIOInviteFriendsPerson *)[people objectAtIndex:indexPath.row];
@@ -275,7 +274,6 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"cellForRowAtIndexPath");
     NSString *cellIdentifier = @"WhoHeartedThisCell";
     
     GTIOInviteFriendsTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
