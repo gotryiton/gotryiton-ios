@@ -314,13 +314,15 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 - (void)openMailComposerWithRecipients:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body
 {
     GTIOMailComposer *mailComposer = [[GTIOMailComposer alloc] init];
-    [mailComposer.mailComposeViewController setToRecipients:recipients];
-    [mailComposer.mailComposeViewController setSubject:subject];
-    [mailComposer.mailComposeViewController setMessageBody:body isHTML:NO];
-    [mailComposer setDidFinishHandler:^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *error){ 
-        [mailComposer.mailComposeViewController dismissModalViewControllerAnimated:YES];
-    }];
-    [self.navigationController presentModalViewController:mailComposer.mailComposeViewController animated:YES];
+    if (mailComposer){
+        [mailComposer.mailComposeViewController setToRecipients:recipients];
+        [mailComposer.mailComposeViewController setSubject:subject];
+        [mailComposer.mailComposeViewController setMessageBody:body isHTML:NO];
+        [mailComposer setDidFinishHandler:^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *error){ 
+            [mailComposer.mailComposeViewController dismissModalViewControllerAnimated:YES];
+        }];
+        [self.navigationController presentModalViewController:mailComposer.mailComposeViewController animated:YES];
+    }
 }
 
 - (void)openTweetComposerWithTweet:(NSString *)tweet url:(NSURL *)url
