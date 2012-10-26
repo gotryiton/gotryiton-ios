@@ -109,7 +109,7 @@ static CGFloat const kGTIOBannerAdHeight = 50.0f;
     
     
     double profileCalloutsYPosition = self.websiteLinkButton.frame.origin.y + self.websiteLinkButton.bounds.size.height;
-    profileCalloutsYPosition += (buttonTitle.length > 0) ? kGTIOWebsiteButtonPadding : 0;
+    profileCalloutsYPosition += (buttonTitle.length > 0) ? kGTIOWebsiteButtonPadding : 3;
     double profileCalloutsHeight = 11.0 ;
     GTIOProfileCalloutView *lastProfileCalloutView = nil;
     for (GTIOProfileCalloutView *profileCalloutView in self.profileCalloutViews) {
