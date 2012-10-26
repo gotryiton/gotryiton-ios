@@ -80,8 +80,29 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     }];
     [self.view addSubview:self.tableHeader];
     
-    [self buildContacts];
+
+    ABAddressBookRef addressBookRef = ABAddressBookCreate();
     
+    __block BOOL accessGranted = NO;
+    if (ABAddressBookRequestAccessWithCompletion != NULL) {
+        // iOS 6 needs permission
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
+            accessGranted = granted;
+            dispatch_semaphore_signal(sema);
+        });
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+        dispatch_release(sema);   
+    } else {
+        // iOS 5
+        accessGranted = YES;
+    }
+
+    if (accessGranted) {
+        [self buildContactsFromAddressBookRef:addressBookRef];
+    }
+
+
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, self.tableHeader.frame.origin.y + self.tableHeader.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height - self.tableHeader.bounds.size.height }];
     [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     self.tableView.separatorColor = [UIColor gtio_groupedTableBorderColor];
@@ -100,11 +121,11 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     self.contactList = nil;
 }
 
-- (void)buildContacts
+- (void)buildContactsFromAddressBookRef:(ABAddressBookRef)addressBook
 {
     self.contactList = [NSMutableDictionary dictionary];
-    
-    ABAddressBookRef addressBook = ABAddressBookCreate();
+
+
     ABRecordRef source = ABAddressBookCopyDefaultSource(addressBook);
     CFArrayRef people = ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, source, kABPersonSortByFirstName);
     NSArray *rawContacts = [NSArray arrayWithArray:(__bridge NSArray *)people];
@@ -155,6 +176,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
             }
         }
     }
+    
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -166,6 +188,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"willDisplayCell");
     NSArray *sections = [self sortedContactListKeys];
     NSArray *people = [self.contactList objectForKey:[sections objectAtIndex:indexPath.section]];
     GTIOInviteFriendsPerson *person = (GTIOInviteFriendsPerson *)[people objectAtIndex:indexPath.row];
@@ -252,6 +275,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"cellForRowAtIndexPath");
     NSString *cellIdentifier = @"WhoHeartedThisCell";
     
     GTIOInviteFriendsTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
