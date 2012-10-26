@@ -354,9 +354,9 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
                 if ([object isKindOfClass:[GTIOInvitation class]]) {
                     GTIOInvitation *invitation = (GTIOInvitation *)object;
                     if ([invitationType isEqualToString:kGTIOEmailMessageType]) {
-                        [blockSelf openMailComposerWithRecipients:[NSArray array] subject:invitation.subject body:invitation.body];
+                        [blockSelf openMailComposerWithRecipients:recipients subject:invitation.subject body:invitation.body];
                     } else if ([invitationType isEqualToString:kGTIOSMSMessageType]){
-                        [blockSelf openMessageComposerWithRecipients:[NSArray array] body:invitation.body];
+                        [blockSelf openMessageComposerWithRecipients:recipients body:invitation.body];
                     } else if ([invitationType isEqualToString:kGTIOTweetMessageType]){
                         [blockSelf openTweetComposerWithTweet:invitation.body url:invitation.twitterURL];
                     }                    
