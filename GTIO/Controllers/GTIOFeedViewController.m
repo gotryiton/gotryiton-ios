@@ -209,8 +209,6 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
         [self.pullToRefreshView startLoading];
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
     } 
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -219,6 +217,8 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
     
     // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

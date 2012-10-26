@@ -156,7 +156,6 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
         [self.tableView layoutSubviews];
         [self refreshScreenLayoutWithSpinner:NO];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -167,6 +166,8 @@ static NSString * const kGTIOAlertForTurningPrivateOff = @"Are you sure you want
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
 
     [self.profileHeaderView setUser:[GTIOUser currentUser]];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
