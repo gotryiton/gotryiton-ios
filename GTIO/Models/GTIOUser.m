@@ -443,20 +443,15 @@
 
 - (void)updateUrbanAirshipAliasWithUserID:(NSString *)userID
 {
-    NSData *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:kGTIOPushNotificationDeviceTokenUserDefaults];
-    
-    if (deviceToken && [userID length] > 0) {
+    if ([userID length] > 0) {
 
         // Sets the alias. It will be sent to the server on registration.
-        [UAPush shared].alias = userID; 
-     
-        // Updates the device token and registers the token with UA
-        [[UAPush shared] registerDeviceToken:deviceToken];
+        [[UAPush shared] setAlias:userID];
 
         [[UAPush shared] updateRegistration];
 
     } else {
-        NSLog(@"No device token or user id to register for push");
+        NSLog(@"No user id to register for push");
     }
 }
 

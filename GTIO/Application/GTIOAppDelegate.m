@@ -32,6 +32,7 @@
 
 #import "JREngage.h"
 #import "UAirship.h"
+#import "UAPush.h"
 #import "FlurryAnalytics.h"
 #import "BPXLUUIDHandler.h"
 
@@ -309,8 +310,9 @@
     [takeOffOptions setValue:configuration forKey:UAirshipTakeOffOptionsAirshipConfigKey];
     
     [UAirship takeOff:takeOffOptions];
+    // [UAirship setLogging:YES];
     
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    [[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken 
@@ -319,6 +321,8 @@
     
     [[NSUserDefaults standardUserDefaults] setValue:deviceToken forKey:kGTIOPushNotificationDeviceTokenUserDefaults];
     [[NSUserDefaults standardUserDefaults] synchronize];
+
+    [[UAPush shared] registerDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error 
