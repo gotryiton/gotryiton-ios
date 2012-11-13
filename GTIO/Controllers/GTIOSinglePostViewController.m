@@ -82,7 +82,7 @@ static NSString * const kGTIOSinglePostTrackingId = @"single post view";
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _initialLoad = YES;
-        _buttonTapsDisabled = ![GTIOUser currentUser].isLoggedIn;
+        _buttonTapsDisabled = YES;
     }
     return self;
 }
@@ -115,7 +115,9 @@ static NSString * const kGTIOSinglePostTrackingId = @"single post view";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
+    
+    self.buttonTapsDisabled = ![GTIOUser currentUser].isLoggedIn;
+
     __block typeof(self) blockSelf = self;
     
     _navTitleView = [[GTIONavigationNotificationTitleView alloc] initWithTapHandler:^(void) {
