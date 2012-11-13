@@ -65,7 +65,7 @@
    8.5 [Feed after completed upload](#85-feed-after-completed-upload)   
 9. [Explore Looks](#9-explore-looks)   
    9.1 [Popular Looks Grid](#91-popular-looks-grid)   
-10. [Shop Tab](#10-shop-tab)   
+10. [Shop Tab](#10-connect-tab)   
    10.1 [Shop landing page](#101-shop-landing-page)   
    10.2 [Shop Browse Webview Container](#102-shop-browse-webview-container)   
    10.3 ~~Shop 3rd Party Webview Container~~   
@@ -90,7 +90,9 @@
    13.8 [Custom UIActionsheet](#138-custom-uiactionsheet)   
    13.9 [Custom UIAlertView](#139-custom-uialertview)   
    13.10 [Unified autocomplete](#1310-unified-autocomplete)   
-   13.11 [Spinners](#1311-spinners)   
+   13.11 [Spinners](#1311-spinners)
+14. [Connect Tab](#14-connect-tab)   
+   14.1 [Featured Users](#141-shop-landing-page)  
 
 ---
 
@@ -4867,3 +4869,70 @@ Previously the GTIOv3 app supported multiple icons.  4.0 will only support 1.
    - 21px x 21px spinner #6e6e6e
       - horizontally centered within space where 'retry' asset was
       - vertically centered within bg asset area
+
+
+
+## 14. Connect Tab
+
+
+### 14.1 Featured Users
+
+#### Overview
+A user can see a page of featured users on GTIO
+
+#### Mockups
+
+10.1  Normal   
+<img src="http://assets.gotryiton.com/img/spec/4.2/mockups/36486c677e/connect-users.png" width=420px/>
+
+10.2  Loading More   
+<img src="http://assets.gotryiton.com/img/spec/4.2/mockups/43f60e0ec4/connect-users-loading.png" width=420px/>
+
+10.3  Pull-to-Refresh  
+<img src="http://assets.gotryiton.com/img/spec/4.2/mockups/a57a663eb9/connect-users-ptr.png" width=420px/>
+
+
+#### User Flow
+**entry screens:**   
+any screen with uiTabBar
+**exit screens:**   
+ 
+
+#### API Usage
+
+
+#### Stories 
+
+
+#### Design Stories 
+
+
+- user 'card'
+   - user icon (same styling as FEED user icon, except for position)
+      - 8px from left edge of screen
+      - user icon from API displayed at 42px x 42px
+      - image should be masked by 'user-pic-84-mask.png' (to hide corners)
+      - image should be overlaid by '8/user-pic-84-shadow-overlay.png'
+   - user info area
+      - background is '14/connect-info-bg.png'
+         - 8px to the right of user icon
+      - name is Archer Book Italic, 16pt, rgb(255,106,114)
+         - 7px left padding inside background area
+         - if location exists, baseline is 23px up from bottom of background area
+         - if location does not exist, baseline is 8px up from bottom of background area
+      - location is Proxima Nova Regular, 10pt, rgb(156,156,156)
+         - 7px left padding inside background area
+         - baseline is 8px up from bottom of background area
+      - User Badge
+         - use size "28_28.png" for 2x
+         - use size "14_14.png" for 1x
+         - 4px away from right edge of user name
+         - bottom of asset is 2px below baseline of user name
+      - Outfit Thumbs
+         - 8px from left edge of screen, 8px horizontal gaps
+         - outfit displayed at 70px x 70px
+         - image should be overlaid by '14/connect-thumb-overlay-70.png'  
+      - Separator
+         - '14/connect-separator.png'
+         - 3px below the bottom of any outfit thumbnails
+         - Next 'card' (if any) starts 3px below bottom of separator
