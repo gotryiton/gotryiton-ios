@@ -235,6 +235,13 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
         if (self.delegate && [self.delegate respondsToSelector:@selector(textInputIsEmpty:)]){
             [self.delegate textInputIsEmpty:YES];
         }
+        if ([self.textInput respondsToSelector:@selector(setAttributedText:)]){
+            self.attrString = [[NSMutableAttributedString alloc] initWithString:@" " attributes:self.inputTextAttributes];
+            self.textInput.attributedText = self.attrString;
+            self.attrString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:self.inputTextAttributes];
+            self.textInput.attributedText = self.attrString;
+        }
+     
     }
 
     

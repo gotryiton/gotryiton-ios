@@ -29,6 +29,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypeNext: return [self gtio_nextButton];
         case GTIOButtonTypeFacebookSignIn: return [self gtio_facebookSignInButton];
         case GTIOButtonTypeFacebookSignUp: return [self gtio_facebookSignUpButton];
+        case GTIOButtonTypeSignInClose: return [self gtio_signInCloseButton];
+        case GTIOButtonTypeSignInNav: return [self gtio_signInNavButton];
         case GTIOButtonTypeAOL: return [self gtio_aolButton];
         case GTIOButtonTypeGoogle: return [self gtio_googleButton];
         case GTIOButtonTypeTwitter: return [self gtio_twitterButton];
@@ -114,7 +116,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     return button;
 }
 
-+ (id)buttonWithImage:(UIImage *)image hightlightImage:(UIImage *)highlightImage
++ (id)buttonWithImage:(UIImage *)image highlightImage:(UIImage *)highlightImage
 {
     id button = [self buttonWithType:UIButtonTypeCustom];
     [button setImage:image forState:UIControlStateNormal];
@@ -127,8 +129,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 + (id)buttonWithCoreImageName:(NSString *)coreImageName
 {
     UIImage *buttonImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@-OFF.png", coreImageName]];
-    UIImage *buttonHightlightImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@-ON.png", coreImageName]];
-    return [self buttonWithImage:buttonImage hightlightImage:buttonHightlightImage];
+    UIImage *buttonhighlightImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@-ON.png", coreImageName]];
+    return [self buttonWithImage:buttonImage highlightImage:buttonhighlightImage];
 }
 
 #pragma mark - Buttons
@@ -209,7 +211,12 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_saveButtonGreenTopMargin
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"save-button-green-top-margin.png"] hightlightImage:nil];
+    return [self buttonWithImage:[UIImage imageNamed:@"save-button-green-top-margin.png"] highlightImage:nil];
+}
+
++ (id)gtio_signInCloseButton
+{
+    return [self buttonWithImage:[UIImage imageNamed:@"login-close-x.png"] highlightImage:nil];
 }
 
 + (id)gtio_navBarTopMarginWithText:(NSString *)text tapHandler:(GTIOButtonDidTapHandler)tapHandler
@@ -249,6 +256,10 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 {
     return [self gtio_navBarTopMarginWithText:@" skip " tapHandler:nil];
 }
++ (id)gtio_signInNavButton
+{
+    return [self gtio_navBarTopMarginWithText:@"sign in" tapHandler:nil];
+}
 
 + (id)gtio_backButtonTopMargin
 {
@@ -276,27 +287,27 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_photoCloseButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"button.x.inactive.png"] hightlightImage:[UIImage imageNamed:@"button.x.active.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"button.x.inactive.png"] highlightImage:[UIImage imageNamed:@"button.x.active.png"]];
 }
 
 + (id)gtio_photoSourceButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"button.source.inactive.png"] hightlightImage:[UIImage imageNamed:@"button.source.active.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"button.source.inactive.png"] highlightImage:[UIImage imageNamed:@"button.source.active.png"]];
 }
 
 + (id)gtio_photoShootGridButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"button.shootgrid.inactive.png"] hightlightImage:[UIImage imageNamed:@"button.shootgrid.active.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"button.shootgrid.inactive.png"] highlightImage:[UIImage imageNamed:@"button.shootgrid.active.png"]];
 }
 
 + (id)gtio_photoConfirmButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"button.check.inactive.png"] hightlightImage:[UIImage imageNamed:@"button.check.active.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"button.check.inactive.png"] highlightImage:[UIImage imageNamed:@"button.check.active.png"]];
 }
 
 + (id)gtio_photoShutterButton
 {
-    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"upload.bottom.bar.camera.button.icon.normal.png"] hightlightImage:nil];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"upload.bottom.bar.camera.button.icon.normal.png"] highlightImage:nil];
     [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.off.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateNormal];
     [button setBackgroundImage:[[UIImage imageNamed:@"upload.bottom.bar.camera.button.bg.on.png"] resizableImageWithCapInsets:(UIEdgeInsets){ 10, 9, 9, 9 }] forState:UIControlStateHighlighted];
     [button setFrame:(CGRect){ CGPointZero, { 93, 45 } }];
@@ -305,56 +316,56 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_photoFlashButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"upload.flash-OFF.png"] hightlightImage:nil];
+    return [self buttonWithImage:[UIImage imageNamed:@"upload.flash-OFF.png"] highlightImage:nil];
 }
 
 + (id)gtio_photoCameraDirectionButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"camera-overlay-switcher-inactive.png"] hightlightImage:[UIImage imageNamed:@"camera-overlay-switcher-active.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"camera-overlay-switcher-inactive.png"] highlightImage:[UIImage imageNamed:@"camera-overlay-switcher-active.png"]];
 }
 
 + (id)gtio_photoSelectBox
 {
-    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"frame-camera-icon-OFF.png"] hightlightImage:[UIImage imageNamed:@"frame-camera-icon-ON.png"]];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"frame-camera-icon-OFF.png"] highlightImage:[UIImage imageNamed:@"frame-camera-icon-ON.png"]];
     [button setContentMode:UIViewContentModeCenter];
     return button;
 }
 
 + (id)gtio_editPhotoButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"edit-photo-button-inactive.png"] hightlightImage:[UIImage imageNamed:@"edit-photo-button-active.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"edit-photo-button-inactive.png"] highlightImage:[UIImage imageNamed:@"edit-photo-button-active.png"]];
 }
 
 + (id)gtio_postThisButton
 {
-    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"post-button-OFF.png"] hightlightImage:[UIImage imageNamed:@"post-button-ON.png"]];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"post-button-OFF.png"] highlightImage:[UIImage imageNamed:@"post-button-ON.png"]];
     [button setImage:[UIImage imageNamed:@"post-button-disabled.png"] forState:UIControlStateDisabled];
     return button;
 }
 
 + (id)gtio_photoDeleteButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"remove-frame-OFF.png"] hightlightImage:[UIImage imageNamed:@"remove-frame-ON.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"remove-frame-OFF.png"] highlightImage:[UIImage imageNamed:@"remove-frame-ON.png"]];
 }
 
 + (id)gtio_notificationBubbleButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"nav.counter.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"nav.counter.inactive.png"] highlightImage:[UIImage imageNamed:@"nav.counter.active.png"]];
 }
 
 + (id)gtio_notificationBubbleEmptyButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"nav.counter.empty.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.counter.empty.active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"nav.counter.empty.inactive.png"] highlightImage:[UIImage imageNamed:@"nav.counter.empty.active.png"]];
 }
 
 + (id)gtio_editProfilePencilCircle
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"edit-info-inactive.png"] hightlightImage:[UIImage imageNamed:@"edit-info-active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"edit-info-inactive.png"] highlightImage:[UIImage imageNamed:@"edit-info-active.png"]];
 }
 
 + (id)gtio_quickAddCheckbox
 {
-    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"checkbox-off.png"] hightlightImage:[UIImage imageNamed:@"checkbox-off.png"]];
+    GTIOUIButton *button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"checkbox-off.png"] highlightImage:[UIImage imageNamed:@"checkbox-off.png"]];
     [button setImage:[UIImage imageNamed:@"checkbox-on.png"] forState:UIControlStateSelected];
     return button;
 }
@@ -552,9 +563,9 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     [button setTitle:@"post this" forState:UIControlStateNormal];
     [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
     UIImageView *postButtonIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"product.info.button.icon.post.png"]];
-    [postButtonIcon setFrame:(CGRect){ 24.0, 16.0, postButtonIcon.bounds.size }];
+    [postButtonIcon setFrame:(CGRect){ 35.0, 13.0, postButtonIcon.bounds.size }];
     [button addSubview:postButtonIcon];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 37.0, 0.0, 0.0)];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 24.0, 0.0, 0.0)];
     [button setFrame:(CGRect){ 0.0, 0.0, 153.0, 46.0 }];
     return button;
 }
@@ -595,38 +606,38 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_productShoppingListDeleteButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"shopping.cell.close.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.cell.close.active.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"shopping.cell.close.inactive.png"] highlightImage:[UIImage imageNamed:@"shopping.cell.close.active.png"]];
 }
 
 + (id)gtio_productListEmailButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.email.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.button.email.active.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.email.inactive.png"] highlightImage:[UIImage imageNamed:@"shopping.button.email.active.png"]];
 }
 
 + (id)gtio_productListBuyButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.buy.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.button.buy.active.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.buy.inactive.png"] highlightImage:[UIImage imageNamed:@"shopping.button.buy.active.png"]];
 }
 
 + (id)gtio_photoFrameHandleButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"photo-frame-handle-inactive.png"] hightlightImage:nil];
+    return [self buttonWithImage:[UIImage imageNamed:@"photo-frame-handle-inactive.png"] highlightImage:nil];
 }
 
 + (id)gtio_shopThisLookHeaderButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"shop-this-look-header.png"] hightlightImage:[UIImage imageNamed:@"shop-this-look-header.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"shop-this-look-header.png"] highlightImage:[UIImage imageNamed:@"shop-this-look-header.png"]];
 }
 
 + (id)gtio_feedShopThisLook
 {
-    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shop-this-look-button-inactive.png"] hightlightImage:[UIImage imageNamed:@"shop-this-look-button-active.png"]];
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shop-this-look-button-inactive.png"] highlightImage:[UIImage imageNamed:@"shop-this-look-button-active.png"]];
     return button;
 }
 
 + (id)gtio_productShoppingListProductOptionButton
 {
-    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shopping.bottom.image.overlay.png"] hightlightImage:[UIImage imageNamed:@"shopping.bottom.image.overlay.active.png"]];
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shopping.bottom.image.overlay.png"] highlightImage:[UIImage imageNamed:@"shopping.bottom.image.overlay.active.png"]];
     button.clipsToBounds = NO;
     UIImageView *plusSignView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shopping.bottom.plus.inactive.png"]];
     [plusSignView setFrame:(CGRect){ button.bounds.size.width - plusSignView.bounds.size.width + 7, -(plusSignView.bounds.size.height / 2) + 8, plusSignView.bounds.size }];
@@ -639,7 +650,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_productShoppingListNavButton
 {
-    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] hightlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.dot.inactive.png"] highlightImage:[UIImage imageNamed:@"nav.bar.dot.active.png"]];
     [button setImageEdgeInsets:(UIEdgeInsets){2, 0, -2, 0}];
     [button.imageView setFrame:(CGRect){ button.bounds.origin.x, button.bounds.origin.y, button.bounds.size.width, button.bounds.size.height	 }];
     return button;
@@ -656,51 +667,51 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_reloadButtonTopMargin
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.icon.refresh.png"] hightlightImage:nil];
+    return [self buttonWithImage:[UIImage imageNamed:@"nav.bar.icon.refresh.png"] highlightImage:nil];
 }
 
 + (id)gtio_findFriendsTopRightButton
 {
-    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.search.icon.png"] hightlightImage:nil];
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.search.icon.png"] highlightImage:nil];
     [button setFrame:(CGRect){ button.bounds.origin, button.bounds.size.width + 10, button.bounds.size.height }];
     return button;
 }
 
 + (id)gtio_productTopRightButton
 {
-    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.out.png"] hightlightImage:nil];
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.out.png"] highlightImage:nil];
     [button setFrame:(CGRect){button.frame.origin, button.bounds.size.width + 10, button.bounds.size.height}];
     return button;
 }
 
 + (id)gtio_postRetryButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"uploading.fail.avatar.overlay.inactive.png"] hightlightImage:[UIImage imageNamed:@"uploading.fail.avatar.overlay.active.png"]];
+    return [self buttonWithImage:[UIImage imageNamed:@"uploading.fail.avatar.overlay.inactive.png"] highlightImage:[UIImage imageNamed:@"uploading.fail.avatar.overlay.active.png"]];
 }
 
 + (id)gtio_facebookShareButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.fb.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.fb.active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.fb.inactive.png"] highlightImage:[UIImage imageNamed:@"product.social.fb.active.png"]];
 }
 
 + (id)gtio_twitterShareButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.twit.inactive.png"] hightlightImage:[UIImage imageNamed:@"product.social.twit.active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"product.social.twit.inactive.png"] highlightImage:[UIImage imageNamed:@"product.social.twit.active.png"]];
 }
 
 + (id)gtio_autoCompleteHashtagButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-2-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-2-active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-2-inactive.png"] highlightImage:[UIImage imageNamed:@"keyboard-top-control-start-2-active.png"]];
 }
 
 + (id)gtio_autoCompleteAttagButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-1-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-1-active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-1-inactive.png"] highlightImage:[UIImage imageNamed:@"keyboard-top-control-start-1-active.png"]];
 }
 
 + (id)gtio_autoCompleteBrandtagButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-3-inactive.png"] hightlightImage:[UIImage imageNamed:@"keyboard-top-control-start-3-active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"keyboard-top-control-start-3-inactive.png"] highlightImage:[UIImage imageNamed:@"keyboard-top-control-start-3-active.png"]];
 }
 + (id)gtio_productShoppingListHeartButton
 {
@@ -712,27 +723,27 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_productShoppingListEmailMyListButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"shopping.navigation.bar.button.share.inactive.png"] hightlightImage:[UIImage imageNamed:@"shopping.navigation.bar.button.share.active.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"shopping.navigation.bar.button.share.inactive.png"] highlightImage:[UIImage imageNamed:@"shopping.navigation.bar.button.share.active.png"]];
 }
 
 + (id)gtio_inviteFriendsSMSButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.sms.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.sms.on.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.sms.off.png"] highlightImage:[UIImage imageNamed:@"invite.topbuttons.sms.on.png"]];
 }
 
 + (id)gtio_inviteFriendsEmailButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.email.off.png"] highlightImage:[UIImage imageNamed:@"invite.topbuttons.email.on.png"]];
 }
 
 + (id)gtio_inviteFriendsTwitterButton
 {
-    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.twitter.off.png"] hightlightImage:[UIImage imageNamed:@"invite.topbuttons.twitter.on.png"]];
+    return [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"invite.topbuttons.twitter.off.png"] highlightImage:[UIImage imageNamed:@"invite.topbuttons.twitter.on.png"]];
 }
 
 + (id)gtio_errorRetryButton
 {
-    id button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"connect-error-retry-inactive.png"] hightlightImage:[UIImage imageNamed:@"connect-error-retry-active.png"]];
+    id button = [GTIOUIButton buttonWithImage:[UIImage imageNamed:@"connect-error-retry-inactive.png"] highlightImage:[UIImage imageNamed:@"connect-error-retry-active.png"]];
     [button setTapAreaPadding:10.0f];
     return button;
 }

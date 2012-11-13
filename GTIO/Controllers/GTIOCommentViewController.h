@@ -21,6 +21,6 @@
 
 - (id)initWithPostID:(NSString *)postID;
 - (void)textViewDidSubmit;
-- (void)textInputIsEmpty;
+- (void)textInputIsEmpty:(BOOL)empty;
 
 @end

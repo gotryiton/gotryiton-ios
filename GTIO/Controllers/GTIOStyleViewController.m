@@ -56,8 +56,9 @@
 
 - (void)scrollToTop
 {
-    NSString *script = @"$('html, body').animate({scrollTop:0}, 'slow')";
-    [self.webView stringByEvaluatingJavaScriptFromString:script];
+    // TODO:  this isnt working properly...
+    // NSString *script = @"$('html, body').animate({scrollTop:0}, 'slow')";
+    // [self.webView stringByEvaluatingJavaScriptFromString:script];
 }
 
 #pragma mark - Refresh after logout

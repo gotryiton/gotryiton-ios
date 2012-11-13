@@ -111,6 +111,12 @@ static CGFloat const kGTIOTextYOrigin = 23.0f;
     
     [self.statusLabel sizeToFit];
     [self.doneLabel setFrame:(CGRect){ _statusLabel.frame.origin.x + _statusLabel.frame.size.width + kGTIOPadding + 2, kGTIOTextYOrigin, kGTIOTextAreaWidth - _statusLabel.frame.size.width - 3 * kGTIOPadding, self.statusLabel.frame.size.height }];
+
+    [[SDWebImageManager sharedManager] downloadWithURL:[GTIOUser currentUser].icon delegate:self options:0 success:^(UIImage *image, BOOL cached) {
+            UIImage *maskedImage = [image maskImageWithMask:[UIImage imageNamed:@"user-pic-84-mask.png"]];
+            [self.iconImageView setImage:maskedImage];
+            [self addSubview:self.iconFrameImageView];
+        } failure:nil];
 }
 
 - (void)prepareForReuse

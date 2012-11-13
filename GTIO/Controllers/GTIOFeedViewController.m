@@ -209,8 +209,6 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
         [self.pullToRefreshView startLoading];
         [GTIOProgressHUD showHUDAddedTo:self.view animated:YES dimScreen:NO];
     } 
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -219,6 +217,8 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
     
     // Fix for the tab bar going opaque when you go to a view that hides it and back to a view that has the tab bar
     [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOTabBarViewsResize object:nil];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOShouldShowUniqueNameModalView object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -277,7 +277,6 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
             for (id object in objects) {
                 if ([object isKindOfClass:[GTIOPost class]]) {
                     GTIOPost *post = (GTIOPost *)object;
-                    
                     post.reviewsButtonTapHandler = ^(id sender) {
                         UIViewController *reviewsViewController;
                         for (id object in post.buttons) {
@@ -321,63 +320,72 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
 
 - (void)loadPagination
 {
-    self.pagination.loading = YES;
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
-        loader.onDidLoadObjects = ^(NSArray *objects) {
-            [self.pullToLoadMoreView finishLoading];
-            self.pagination = nil;
-            
-            NSMutableArray *paginationPosts = [NSMutableArray array];
-            for (id object in objects) {
-                if ([object isKindOfClass:[GTIOPost class]]) {
-                    [paginationPosts addObject:object];
-                } else if ([object isKindOfClass:[GTIOPagination class]]) {
-                    self.pagination = object;
-                }
-            }
-            
-            // Only add posts that are not already on mason grid
-            NSMutableArray *newPostsIndexPaths = [NSMutableArray array];
-            NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-            [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                GTIOPost *post = obj;
+    
+    if (self.pagination.nextPage){
+
+        self.pagination.loading = YES;
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:self.pagination.nextPage usingBlock:^(RKObjectLoader *loader) {
+            loader.onDidLoadObjects = ^(NSArray *objects) {
+                [self.pullToLoadMoreView finishLoading];
+                self.pagination = nil;
                 
-                post.reviewsButtonTapHandler = ^(id sender) {
-                    UIViewController *reviewsViewController;
-                    for (id object in post.buttons) {
-                        if ([object isMemberOfClass:[GTIOButton class]]) {
-                            GTIOButton *button = (GTIOButton *)object;
-                            if ([button.name isEqualToString:kGTIOPostSideReviewsButton]) {
-                                reviewsViewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+                NSMutableArray *paginationPosts = [NSMutableArray array];
+                for (id object in objects) {
+                    if ([object isKindOfClass:[GTIOPost class]]) {
+                        [paginationPosts addObject:object];
+                    } else if ([object isKindOfClass:[GTIOPagination class]]) {
+                        self.pagination = object;
+                        self.pagination.loading = YES;
+                    }
+                }
+                
+                // Only add posts that are not already on mason grid
+                NSMutableArray *newPostsIndexPaths = [NSMutableArray array];
+                NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+                [paginationPosts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    GTIOPost *post = obj;
+                    
+                    post.reviewsButtonTapHandler = ^(id sender) {
+                        UIViewController *reviewsViewController;
+                        for (id object in post.buttons) {
+                            if ([object isMemberOfClass:[GTIOButton class]]) {
+                                GTIOButton *button = (GTIOButton *)object;
+                                if ([button.name isEqualToString:kGTIOPostSideReviewsButton]) {
+                                    reviewsViewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
+                                }
                             }
                         }
-                    }
-                    [self.navigationController pushViewController:reviewsViewController animated:YES];
-                };
-                
-                if (post.products.count>0){
-                    post.shopTheLookButtonTapHandler = ^(id sender) {
-                        UIViewController *viewController = [[GTIOShopThisLookViewController alloc] initWithPostID:post.postID];
-                        [self.navigationController pushViewController:viewController animated:YES];
+                        [self.navigationController pushViewController:reviewsViewController animated:YES];
                     };
-                }
+                    
+                    if (post.products.count>0){
+                        post.shopTheLookButtonTapHandler = ^(id sender) {
+                            UIViewController *viewController = [[GTIOShopThisLookViewController alloc] initWithPostID:post.postID];
+                            [self.navigationController pushViewController:viewController animated:YES];
+                        };
+                    }
 
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
-                NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
-                if ([foundExistingPosts count] == 0) {
-                    [self.posts addObject:post];
-                    [newPostsIndexPaths addObject:[NSIndexPath indexPathForRow:0 inSection:[self.posts count] - 1]];
-                    [indexSet addIndex:[self.posts count] - 1];
-                }
-            }];
-            [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationBottom];
-        };
-        loader.onDidFailWithError = ^(NSError *error) {
-            [self.pullToLoadMoreView finishLoading];
-            self.pagination.loading = NO;
-            NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
-        };
-    }];
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"postID == %@", post.postID];
+                    NSArray *foundExistingPosts = [self.posts filteredArrayUsingPredicate:predicate];
+                    if ([foundExistingPosts count] == 0) {
+                        [self.posts addObject:post];
+                        [newPostsIndexPaths addObject:[NSIndexPath indexPathForRow:0 inSection:[self.posts count] - 1]];
+                        [indexSet addIndex:[self.posts count] - 1];
+                    }
+                }];
+                [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationBottom];
+
+                self.pagination.loading = NO;
+            };
+            loader.onDidFailWithError = ^(NSError *error) {
+                [self.pullToLoadMoreView finishLoading];
+                self.pagination.loading = NO;
+                NSLog(@"Failed to load pagination %@. error: %@", loader.resourcePath, [error localizedDescription]);
+            };
+        }];
+    } else {
+        [self.pullToLoadMoreView finishLoading];
+    }
 }
 - (void)scrollToTop
 {
@@ -454,13 +462,6 @@ static NSInteger const kGTIONumberOfCellImagesToPreload = 5;
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
     [self loadFeed];
-}
-
-#pragma mark - SSPullToRefreshDelegate Methods
-
-- (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
-{
-    [self loadPagination];
 }
 
 #pragma mark - UITableViewDelegate

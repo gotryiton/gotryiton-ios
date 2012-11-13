@@ -10,8 +10,6 @@
 
 #import <RestKit/RestKit.h>
 
-NSString * const kGTIONotificationUnreadCountUserInfo = @"kGTIONotificationUnreadCountUserInfo";
-
 static NSString * const kGTIONotificationsUserDefaults = @"kGTIONotificationsUserDefaults";
 static NSTimeInterval const kGTIOLoadNotificationsTimeDelta = 60.0f;
 

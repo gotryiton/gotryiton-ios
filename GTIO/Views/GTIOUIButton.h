@@ -15,6 +15,8 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeNext,
     GTIOButtonTypeFacebookSignUp,
     GTIOButtonTypeFacebookSignIn,
+    GTIOButtonTypeSignInClose,
+    GTIOButtonTypeSignInNav,
     GTIOButtonTypeAOL,
     GTIOButtonTypeGoogle,
     GTIOButtonTypeTwitter,

@@ -11,10 +11,13 @@
 #import "GTIOAlmostDoneTableCell.h"
 #import "GTIOUIImage.h"
 #import "GTIOUser.h"
+#import "GTIOTrack.h"
 
 static CGFloat const kGTIOEditingViewLeftPadding = 26.0;
 static CGFloat const kGTIOEditingCellLeftPadding = -36.0;
 static CGFloat const kGTIOEditingCellTopPadding = 3.0;
+
+static NSString * const kGTIOUniqueNameDialogTrackingId = @"unique name dialog";
 
 @interface GTIOUniqueNameSplashViewController ()
 
@@ -113,7 +116,7 @@ static CGFloat const kGTIOEditingCellTopPadding = 3.0;
     [self.saveButton setFrame:(CGRect){editingBackgroundView.frame.origin.x + 19, editingBackgroundView.frame.origin.y + 69, self.saveButton.frame.size }];
     [self.view addSubview:self.saveButton];
 
-    
+    [GTIOTrack postTrackWithID:kGTIOUniqueNameDialogTrackingId handler:nil];   
 }
 
 #pragma mark - TableViewDelegate Methods

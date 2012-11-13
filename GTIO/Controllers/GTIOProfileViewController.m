@@ -102,6 +102,15 @@
     [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView.pullToLoadMoreHandler setExpandedHeight:0.0f];
     [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView.pullToLoadMoreHandler setExpandedHeight:0.0f];
 
+    [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.postsHeartsWithSegmentedControlView.rightPostsView.masonGridView.pullToLoadMoreView setDefaultContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+
+    [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView.pullToLoadMoreView setDefaultContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+
+
     [self.postsHeartsWithSegmentedControlView.leftPostsView.masonGridView  setPullToRefreshHandler:^(GTIOMasonGridView *masonGridView, SSPullToRefreshView *pullToRefreshView, BOOL showProgressHUD) {
         [blockSelf loadDataForPostType:GTIOPostTypeNone];
     }];

@@ -60,6 +60,9 @@
     UIImageView *tableFooterView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-shadow.png"]];
     [tableFooterView setFrame:(CGRect){ 0, 0, self.tableView.bounds.size.width, 5 }];
     self.tableView.tableFooterView = tableFooterView;
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    
     [self.view addSubview:self.tableView];
     
     self.pullToLoadMoreView = [[SSPullToLoadMoreView alloc] initWithScrollView:self.tableView delegate:self];

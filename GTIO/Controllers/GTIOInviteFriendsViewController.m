@@ -80,8 +80,29 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     }];
     [self.view addSubview:self.tableHeader];
     
-    [self buildContacts];
+
+    ABAddressBookRef addressBookRef = ABAddressBookCreate();
     
+    __block BOOL accessGranted = NO;
+    if (ABAddressBookRequestAccessWithCompletion != NULL) {
+        // iOS 6 needs permission
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
+            accessGranted = granted;
+            dispatch_semaphore_signal(sema);
+        });
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+        dispatch_release(sema);   
+    } else {
+        // iOS 5
+        accessGranted = YES;
+    }
+
+    if (accessGranted) {
+        [self buildContactsFromAddressBookRef:addressBookRef];
+    }
+
+
     self.tableView = [[UITableView alloc] initWithFrame:(CGRect){ 0, self.tableHeader.frame.origin.y + self.tableHeader.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height - self.tableHeader.bounds.size.height }];
     [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
     self.tableView.separatorColor = [UIColor gtio_groupedTableBorderColor];
@@ -100,11 +121,11 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
     self.contactList = nil;
 }
 
-- (void)buildContacts
+- (void)buildContactsFromAddressBookRef:(ABAddressBookRef)addressBook
 {
     self.contactList = [NSMutableDictionary dictionary];
-    
-    ABAddressBookRef addressBook = ABAddressBookCreate();
+
+
     ABRecordRef source = ABAddressBookCopyDefaultSource(addressBook);
     CFArrayRef people = ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, source, kABPersonSortByFirstName);
     NSArray *rawContacts = [NSArray arrayWithArray:(__bridge NSArray *)people];
@@ -155,6 +176,7 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
             }
         }
     }
+    
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -292,13 +314,15 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
 - (void)openMailComposerWithRecipients:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body
 {
     GTIOMailComposer *mailComposer = [[GTIOMailComposer alloc] init];
-    [mailComposer.mailComposeViewController setToRecipients:recipients];
-    [mailComposer.mailComposeViewController setSubject:subject];
-    [mailComposer.mailComposeViewController setMessageBody:body isHTML:NO];
-    [mailComposer setDidFinishHandler:^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *error){ 
-        [mailComposer.mailComposeViewController dismissModalViewControllerAnimated:YES];
-    }];
-    [self.navigationController presentModalViewController:mailComposer.mailComposeViewController animated:YES];
+    if (mailComposer){
+        [mailComposer.mailComposeViewController setToRecipients:recipients];
+        [mailComposer.mailComposeViewController setSubject:subject];
+        [mailComposer.mailComposeViewController setMessageBody:body isHTML:NO];
+        [mailComposer setDidFinishHandler:^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *error){ 
+            [mailComposer.mailComposeViewController dismissModalViewControllerAnimated:YES];
+        }];
+        [self.navigationController presentModalViewController:mailComposer.mailComposeViewController animated:YES];
+    }
 }
 
 - (void)openTweetComposerWithTweet:(NSString *)tweet url:(NSURL *)url
@@ -332,9 +356,9 @@ static NSString * const kGTIONoTwitterMessage = @"You're not set up to Tweet yet
                 if ([object isKindOfClass:[GTIOInvitation class]]) {
                     GTIOInvitation *invitation = (GTIOInvitation *)object;
                     if ([invitationType isEqualToString:kGTIOEmailMessageType]) {
-                        [blockSelf openMailComposerWithRecipients:[NSArray array] subject:invitation.subject body:invitation.body];
+                        [blockSelf openMailComposerWithRecipients:recipients subject:invitation.subject body:invitation.body];
                     } else if ([invitationType isEqualToString:kGTIOSMSMessageType]){
-                        [blockSelf openMessageComposerWithRecipients:[NSArray array] body:invitation.body];
+                        [blockSelf openMessageComposerWithRecipients:recipients body:invitation.body];
                     } else if ([invitationType isEqualToString:kGTIOTweetMessageType]){
                         [blockSelf openTweetComposerWithTweet:invitation.body url:invitation.twitterURL];
                     }                    

@@ -25,7 +25,7 @@
     self = [super initWithFrame:[[UIApplication sharedApplication] keyWindow].frame];
     if (self) {
         _windowMask = [[UIView alloc] initWithFrame:CGRectZero];
-        _windowMask.backgroundColor = [UIColor whiteColor];
+        _windowMask.backgroundColor = [UIColor blackColor];
         _windowMask.alpha = 0.0;
         _windowMask.opaque = YES;
         
@@ -45,8 +45,7 @@
 - (void)show 
 {
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
-    double statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    [self.windowMask setFrame:(CGRect){ 0, statusBarHeight, mainWindow.bounds.size.width, mainWindow.bounds.size.height - statusBarHeight }];
+    [self.windowMask setFrame:(CGRect){ 0, 0, mainWindow.bounds.size.width, mainWindow.bounds.size.height  }];
     [mainWindow insertSubview:self.windowMask aboveSubview:mainWindow];
     NSLog(@"full screen: %@", NSStringFromCGRect(self.windowMask.frame));
     __block typeof(self) blockSelf = self;

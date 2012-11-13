@@ -85,6 +85,7 @@ static NSInteger const kGTIOMaskingViewTag = 100;
     [self useTitleView:navTitleView];
     
     GTIOUIButton *cancelButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeCancelGrayTopMargin tapHandler:^(id sender) {
+        [self.descriptionBox.textView.textInput resignFirstResponder];
         if (self.postThisButton.enabled) {
             GTIOAlertView *alert = [[GTIOAlertView alloc] initWithTitle:nil message:@"Discard your post?" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"yes", nil];
             [alert setTag:kGTIOEmptyPostAlertTag];

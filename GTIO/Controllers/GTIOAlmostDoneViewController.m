@@ -126,6 +126,9 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
     [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [self.tableView setSeparatorColor:[UIColor gtio_grayBorderColorE6E6E6]];
+    [self.tableView setScrollIndicatorInsets:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    [self.tableView setContentInset:(UIEdgeInsets){ 0, 0, self.tabBarController.tabBar.bounds.size.height, 0 }];
+    
     self.originalContentFrame = self.tableView.frame;
     [self.view addSubview:self.tableView];
 }
@@ -180,7 +183,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
     if (section == 0) {
         return 1;
     }
-    return 8;
+    return 9;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -193,7 +196,7 @@ static NSInteger kGTIOGTIOMinimumAge = 13;
     if (indexPath.section == 0 && [self numberOfSectionsInTableView:tableView]>1) {
         return 88.0f;
     }
-    if (indexPath.row == 7) {
+    if (indexPath.row == 8) {
         return 115.0f;
     }
     return 43.0f;

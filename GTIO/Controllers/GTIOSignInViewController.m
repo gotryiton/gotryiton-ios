@@ -20,10 +20,13 @@
 
 #import "GTIOProgressHUD.h"
 
+static NSString * const kGTIOSignInScreenTrackingID = @"sign in screen";
+
 @interface GTIOSignInViewController ()
 
 @property (nonatomic, strong) GTIOUIButton *facebookButton;
 @property (nonatomic, strong) GTIOUIButton *returningUserButton;
+@property (nonatomic, strong) GTIOUIButton *closeButton;
 
 @property (nonatomic, assign, getter = isTracked) BOOL tracked;
 
@@ -31,24 +34,45 @@
 
 @implementation GTIOSignInViewController
 
-@synthesize facebookButton = _facebookButton, returningUserButton = _returningUserButton;
-@synthesize tracked = _tracked, loginHandler = _loginHandler;
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        _showCloseButton = NO;
+    }
+    return self;
+}
 
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    __block typeof(self) blockSelf = self;
+    
+
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login-bg-logo.png"]];
     [backgroundImageView setFrame:CGRectOffset(backgroundImageView.frame, 0, -20)];
     [self.view addSubview:backgroundImageView];
     
+    if (self.showCloseButton){
+        self.closeButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeSignInClose tapHandler:^(id sender) {
+            [blockSelf.navigationController dismissModalViewControllerAnimated:YES];
+        }];
+        [self.closeButton setFrame:(CGRect){{self.view.frame.size.width - self.closeButton.bounds.size.width, 0}, self.closeButton.bounds.size}];
+        [self.view addSubview:self.closeButton];
+    }
+
+
     self.facebookButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFacebookSignUp];
     [self.facebookButton setFrame:(CGRect){ { (self.view.frame.size.width - self.facebookButton.frame.size.width) / 2, 245 }, self.facebookButton.frame.size }];
     [self.facebookButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
@@ -88,11 +112,11 @@
     [self.returningUserButton setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [self.returningUserButton setTapHandler:^(id sender) {
         GTIOReturningUsersViewController *returningUsersViewController = [[GTIOReturningUsersViewController alloc] initForReturningUsers:YES];
-        [returningUsersViewController setLoginHandler:self.loginHandler];
-        [self.navigationController pushViewController:returningUsersViewController animated:YES];
+        [returningUsersViewController setLoginHandler:blockSelf.loginHandler];
+        [blockSelf.navigationController pushViewController:returningUsersViewController animated:YES];
     }];
     [self.view addSubview:self.returningUserButton];
-    
+
     // Sign up with another provider
     TTTAttributedLabel *signUpLabel = [[TTTAttributedLabel alloc] initWithFrame:(CGRect){ 0, 372, self.view.frame.size.width, 20 }];
     [signUpLabel setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
@@ -120,6 +144,8 @@
     [signUpLink setFrame:(CGRect){ 47, 360, 228, 45 }];
     [signUpLink addTarget:self action:@selector(loadReturningUsersViewController) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signUpLink];
+
+    [GTIOTrack postTrackWithID:kGTIOSignInScreenTrackingID handler:nil];
 }
 
 - (void)viewDidUnload
@@ -132,6 +158,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 

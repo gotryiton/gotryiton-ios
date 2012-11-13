@@ -21,6 +21,7 @@
 #import "GTIOSignInViewController.h"
 
 #import "GTIOQuickAddViewController.h"
+#import "GTIOIntroExploreLooksViewController.h"
 #import "GTIOErrorController.h"
 #import "GTIOUIImage.h"
 
@@ -87,7 +88,11 @@
                     GTIOIntroScreensViewController *introScreensViewController = [[GTIOIntroScreensViewController alloc] initWithNibName:nil bundle:nil];
                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:introScreensViewController];
                     [[UIApplication sharedApplication].keyWindow setRootViewController:navController];
-                } else {
+                } else if (config.exploreLooksIntro) {
+                    GTIOIntroExploreLooksViewController *introExploreViewController = [[GTIOIntroExploreLooksViewController alloc] initWithNibName:nil bundle:nil];
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:introExploreViewController];
+                    [[UIApplication sharedApplication].keyWindow setRootViewController:navController];
+                }else {
                     [self displaySignInViewController];
                 }
                 

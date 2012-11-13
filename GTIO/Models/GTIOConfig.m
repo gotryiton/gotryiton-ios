@@ -15,13 +15,9 @@ NSString * const kGTIOVotingDefaultOn = @"GTIOVotingDefaultOn";
 NSString * const kGTIOPhotoShootFirstTimer = @"GTIOPhotoShootFirstTimer";
 NSString * const kGTIOPhotoShootSecondTimer = @"GTIOPhotoShootSecondTimer";
 NSString * const kGTIOPhotoShootThirdTimer = @"GTIOPhotoShootThirdTimer";
+NSString * const kGTIOExploreLooksIntro = @"GTIOExploreLooksIntro";
 
 @implementation GTIOConfig
-
-@synthesize introScreens = _introScreens;
-@synthesize facebookPermissions = _facebookPermissions;
-@synthesize facebookShareDefaultOn = _facebookShareDefaultOn, votingDefaultOn = _votingDefaultOn;
-@synthesize photoShootFirstTimer = _photoShootFirstTimer, photoShootSecondTimer = _photoShootSecondTimer, photoShootThirdTimer = _photoShootThirdTimer;
 
 - (id)initWithCoder:(NSCoder *)coder
 {
@@ -34,6 +30,7 @@ NSString * const kGTIOPhotoShootThirdTimer = @"GTIOPhotoShootThirdTimer";
         self.photoShootFirstTimer = [coder decodeObjectForKey:kGTIOPhotoShootFirstTimer];
         self.photoShootSecondTimer = [coder decodeObjectForKey:kGTIOPhotoShootSecondTimer];
         self.photoShootThirdTimer = [coder decodeObjectForKey:kGTIOPhotoShootThirdTimer];
+        self.exploreLooksIntro = [coder decodeObjectForKey:kGTIOExploreLooksIntro];
     }
     return self;
 }
@@ -60,6 +57,9 @@ NSString * const kGTIOPhotoShootThirdTimer = @"GTIOPhotoShootThirdTimer";
     }
     if (self.photoShootThirdTimer) {
         [coder encodeObject:self.photoShootThirdTimer forKey:kGTIOPhotoShootThirdTimer];
+    }
+    if (self.exploreLooksIntro) {
+        [coder encodeObject:self.exploreLooksIntro forKey:kGTIOExploreLooksIntro];
     }
 }
 
