@@ -4626,6 +4626,8 @@ Don't pass an e-tag cache ```If-None-Match``` id and send the same request.
 - Background area
    - 'ptr-bg.png'
       - pulling down 55px of this is sufficient to activate (before release), but user can pull a bit further
+   - on 'CONNECT' screen only - 'ptr-alt-bg.png'
+      - offset background so bottom of asset appears 17px below navigation bar
 - Arrow
    - 'arrow.png', placed 13px above bottom of background area and vertically centered around 'accent line' on background
    - points down on 'PULL' instruction, spins, points up on RELEASE instruction
