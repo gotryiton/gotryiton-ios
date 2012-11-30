@@ -679,8 +679,8 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_productTopRightButton
 {
-    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"nav.bar.out.png"] highlightImage:nil];
-    [button setFrame:(CGRect){button.frame.origin, button.bounds.size.width + 10, button.bounds.size.height}];
+    GTIOUIButton *button = [self buttonWithImage:[UIImage imageNamed:@"shop.link.button.inactive.png"] highlightImage:[UIImage imageNamed:@"shop.link.button.active.png"]];
+    [button setFrame:(CGRect){button.frame.origin, button.bounds.size.width, button.bounds.size.height}];
     return button;
 }
 
