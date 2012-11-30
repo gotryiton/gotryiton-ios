@@ -160,7 +160,6 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 {
 
     if ([request.URL.scheme isEqual:@"mailto"]) {
-        NSLog(@"mailto");
         [[UIApplication sharedApplication] openURL:request.URL];
         return NO;
     }
