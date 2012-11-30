@@ -1426,7 +1426,7 @@ A user can view a detailed page about a single product
 #### Mockups
 4.1 Product Page View ([wireframe](http://invis.io/8Y2OC5N7))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/4.1.Product.Detail.Page.png.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/a90e930206/product-page-alt-nav-button.png" width=420px/>
 
 
 #### User Flow
