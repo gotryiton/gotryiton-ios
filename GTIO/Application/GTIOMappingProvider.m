@@ -209,6 +209,7 @@
         [userMapping mapKeyPath:@"badge" toRelationship:@"badge" withMapping:badgeMapping];
         [userMapping mapKeyPath:@"button" toRelationship:@"button" withMapping:buttonMapping];
         [userMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
+        [userMapping mapKeyPath:@"recent_post_thumbnails" toRelationship:@"recentPostThumbnails" withMapping:postMapping];
         [self setMapping:userMapping forKeyPath:@"user"];
         [self setMapping:userMapping forKeyPath:@"users"];
         
