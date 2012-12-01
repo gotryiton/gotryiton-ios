@@ -12,9 +12,9 @@
 
 @protocol GTIOConnectTableViewCellDelegate <NSObject>
 
-// @required
-// - (void)updateDataSourceUser:(GTIOUser *)user withUser:(GTIOUser *)newUser;
-// - (void)buttonTapped:(GTIOButton *)button;
+@required
+- (void)updateDataSourceUser:(GTIOUser *)user withUser:(GTIOUser *)newUser;
+- (void)buttonTapped:(GTIOButton *)button;
 
 @end
 

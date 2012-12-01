@@ -17,14 +17,16 @@
 
 static CGFloat const kGTIORightPadding = 8.0;
 static CGFloat const kGTIOTopPadding = 3.0;
+static CGFloat const kGTIOTopFollowButtonPadding = 6.0;
 static CGFloat const kGTIOBottomPadding = 3.0;
 static CGFloat const kGTIOProfilePictureSize = 42.0;
 static CGFloat const kGTIOProfilePictureRightPadding = 10.0;
 static CGFloat const kGTIONameLabelXPosition = 7.0;
-static CGFloat const kGTIONameLabelYPosition = 11.0;
+static CGFloat const kGTIONameLabelYPosition = 7.0;
+static CGFloat const kGTIONameLabelYPositionCentered = 14.0;
 static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
-static CGFloat const kGTIOUserBadgeVerticalOffset = -2.0;
-static CGFloat const kGTIOUserBadgeHorizontalOffset = 4.0;
+static CGFloat const kGTIOUserBadgeVerticalOffset = 0.0;
+static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
 
 static CGFloat const kGTIOOutfitThumbSize = 70.0;
 static int const kGTIOMaxThumbnails = 4;
@@ -82,6 +84,23 @@ static int const kGTIOMaxThumbnails = 4;
         _locationLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_locationLabel];
 
+        // Badge
+        _badgeImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_badgeImageView];
+
+        _followingButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowingButtonRegular];
+        _followingButton.hidden = YES;
+        [self.contentView addSubview:_followingButton];
+        
+        _followButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeFollowButtonRegular];
+        _followButton.hidden = YES;
+        [self.contentView addSubview:_followButton];
+        
+        _requestedButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeRequestedButtonRegular];
+        _requestedButton.hidden = YES;
+        [self.contentView addSubview:_requestedButton];
+
+
         _postThumbnails = [[NSMutableArray alloc] initWithObjects:nil];
         _postThumbnailOverlays = [[NSMutableArray alloc] initWithObjects:nil];
         for (int i = 0; i<kGTIOMaxThumbnails; i++ ){
@@ -113,38 +132,38 @@ static int const kGTIOMaxThumbnails = 4;
     self.locationLabel.text = @"";
     [self.iconFrameImageView removeFromSuperview];
 
-    // self.followButton.userInteractionEnabled = YES;
-    // self.followingButton.userInteractionEnabled = YES;
-    // self.requestedButton.userInteractionEnabled = YES;
-    // [self.requestedButton setSelected:NO];
-    // [self.followingButton setSelected:NO];
-    // [self.followButton setSelected:NO];
-    // [self.badgeImageView setFrame:CGRectZero];
+    self.followButton.userInteractionEnabled = YES;
+    self.followingButton.userInteractionEnabled = YES;
+    self.requestedButton.userInteractionEnabled = YES;
+    [self.requestedButton setSelected:NO];
+    [self.followingButton setSelected:NO];
+    [self.followButton setSelected:NO];
+    [self.badgeImageView setFrame:CGRectZero];
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    // [self.followingButton setFrame:(CGRect){ self.bounds.size.width - self.followingButton.bounds.size.width - kGTIORightPadding, 9, self.followingButton.bounds.size }];
-    // [self.followButton setFrame:(CGRect){ self.bounds.size.width - self.followButton.bounds.size.width - kGTIORightPadding, 9, self.followButton.bounds.size }];
-    // [self.requestedButton setFrame:(CGRect){ self.bounds.size.width - self.requestedButton.bounds.size.width - kGTIORightPadding, 9, self.requestedButton.bounds.size }];
+    [self.followingButton setFrame:(CGRect){ self.bounds.size.width - self.followingButton.bounds.size.width - kGTIORightPadding, kGTIOTopPadding+kGTIOTopFollowButtonPadding, self.followingButton.bounds.size }];
+    [self.followButton setFrame:(CGRect){ self.bounds.size.width - self.followButton.bounds.size.width - kGTIORightPadding, kGTIOTopPadding+kGTIOTopFollowButtonPadding, self.followButton.bounds.size }];
+    [self.requestedButton setFrame:(CGRect){ self.bounds.size.width - self.requestedButton.bounds.size.width - kGTIORightPadding, kGTIOTopPadding+kGTIOTopFollowButtonPadding, self.requestedButton.bounds.size }];
     
-    double nameLabelYPosition = ([self.user.location length] > 0) ? 5 : 13;
-    [self.nameLabel setFrame:(CGRect){ self.backgroundImage.frame.origin.x + kGTIONameLabelXPosition, self.backgroundImage.frame.origin.y + nameLabelYPosition, 250, 17 }];
+    double nameLabelYPosition = ([self.user.location length] > 0) ? kGTIONameLabelYPosition : kGTIONameLabelYPositionCentered;
+    [self.nameLabel setFrame:(CGRect){ self.backgroundImage.frame.origin.x + kGTIONameLabelXPosition, self.backgroundImage.frame.origin.y + nameLabelYPosition, 178, 17 }];
     
     
-    [self.locationLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height, 250, 10 }];
+    [self.locationLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height + 1, 178, 10 }];
 
 
     [self.separatorImage setFrame:(CGRect){ 0, self.backgroundImage.frame.origin.y + self.backgroundImage.frame.size.height + kGTIORightPadding + kGTIOOutfitThumbSize + kGTIOBottomPadding , self.contentView.frame.size.width, self.separatorImage.bounds.size.height }];
-    // [self.bottomBorder setFrame:(CGRect){ 0, self.contentView.bounds.size.height - kGTIOBottomBorderVerticalOffset, self.contentView.bounds.size.width, 1 }];
 
-    // if (self.user.badge) {
-    //     [self.badgeImageView setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.nameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForUserList] }];
-    // }
+    if (self.user.badge) {
 
-//    [self activeFollowButton];
+        [self.badgeImageView setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.nameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForPostOwner] }];
+    }
+
+   [self activeFollowButton];
 }
 
 
@@ -181,33 +200,65 @@ static int const kGTIOMaxThumbnails = 4;
         }
 
     }
-    // GTIOUIButton *followButton = [self activeFollowButton];
+    GTIOUIButton *followButton = [self activeFollowButton];
     
-    // if (_user.button.action.endpoint.length > 0) {
-    //     __block typeof(self) blockSelf = self;
-    //     [followButton setTapHandler:^(id sender) {
-    //         GTIOUIButton *button = (GTIOUIButton *) sender;
-    //         [button showSpinner];
-    //         button.enabled = NO;
-    //         if ([blockSelf.delegate respondsToSelector:@selector(buttonTapped:)]) {
-    //             [blockSelf.delegate buttonTapped:_user.button];
-    //         }
-    //     }];
-    // } else {
-    //     followButton.userInteractionEnabled = NO;
-    // }
+    if (_user.button.action.endpoint.length > 0) {
+        __block typeof(self) blockSelf = self;
+        [followButton setTapHandler:^(id sender) {
+            GTIOUIButton *button = (GTIOUIButton *) sender;
+            [button showSpinner];
+            button.enabled = NO;
+            if ([blockSelf.delegate respondsToSelector:@selector(buttonTapped:)]) {
+                [blockSelf.delegate buttonTapped:_user.button];
+            }
+        }];
+    } else {
+        followButton.userInteractionEnabled = NO;
+    }
     
-    // if (_user.badge) {
-    //     [self.badgeImageView setImageWithURL:[user.badge badgeImageURLForUserList]];
-    // }
+    if (_user.badge) {
+        [self.badgeImageView setImageWithURL:[user.badge badgeImageURLForPostOwner]];
+    }
 
     [self setNeedsLayout];
 }
+
+- (GTIOUIButton *)activeFollowButton
+{
+    GTIOUIButton *followButton = nil;
+    
+    self.followingButton.hidden = YES;
+    [self.followingButton hideSpinner];
+    self.followButton.hidden = YES;
+    [self.followButton hideSpinner];
+    self.requestedButton.hidden = YES;
+    [self.requestedButton hideSpinner];
+    
+    if ([_user.button.name isEqualToString:kGTIOUserInfoButtonNameFollow]) {
+        if ([_user.button.state intValue] == GTIOFollowButtonStateFollowing) {
+            followButton = self.followingButton;
+        } else if ([_user.button.state intValue] == GTIOFollowButtonStateFollow) {
+            followButton = self.followButton;
+        } else if ([_user.button.state intValue] == GTIOFollowButtonStateRequested) {
+            followButton = self.requestedButton;
+        }
+
+    }
+    
+    followButton.hidden = NO;
+    
+    return followButton;
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     return;
 }
 
+-(CGSize)nameLabelSize
+{
+    return [self.user.name sizeWithFont:self.nameLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
+}
 
 @end

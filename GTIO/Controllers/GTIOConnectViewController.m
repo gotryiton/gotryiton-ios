@@ -196,6 +196,51 @@ static CGFloat const kGTIOTableHeaderViewVisibleHeight = 16.0f;
 
 }
 
+- (NSUInteger)indexOfUserID:(NSString *)userID
+{
+    return [self.suggestedFriends indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+       GTIOUser *user = (GTIOUser*)obj;
+       return ([user.userID isEqualToString:userID]);
+    }];
+}
+
+
+- (void)buttonTapped:(GTIOButton*)button;
+{
+    __block typeof(self) blockSelf = self;
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
+        loader.onDidLoadObjects = ^(NSArray *objects) {
+            for (id object in objects) {
+                if ([object isMemberOfClass:[GTIOUser class]]) {
+                    GTIOUser *newUser = (GTIOUser *)object;
+
+                    [blockSelf updateDataSourceUser:[self.suggestedFriends objectAtIndex:[blockSelf indexOfUserID:newUser.userID]] withUser:newUser];
+                }
+            }
+        };
+        loader.onDidFailWithError = ^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        };
+    }];
+}
+
+
+#pragma mark - GTIOConnectTableViewCellDelegate Methods
+
+- (void)updateDataSourceUser:(GTIOUser *)user withUser:(GTIOUser *)newUser
+{
+    NSUInteger indexForUser = [self.suggestedFriends indexOfObject:user];
+    GTIOUser *oldUser = [self.suggestedFriends objectAtIndex:indexForUser];
+    newUser.recentPostThumbnails = oldUser.recentPostThumbnails;
+    [self.suggestedFriends replaceObjectAtIndex:indexForUser withObject:newUser];
+
+    NSArray *indexes = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:indexForUser inSection:0], nil];
+    [self.friendsTableView reloadRowsAtIndexPaths:indexes withRowAnimation:NO];
+}
+
+
+
+
 #pragma mark - SSPullToLoadMoreDelegate Methods
 
 - (void)pullToLoadMoreViewDidStartLoading:(SSPullToLoadMoreView *)view
