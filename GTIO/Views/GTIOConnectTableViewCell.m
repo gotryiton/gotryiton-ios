@@ -22,8 +22,9 @@ static CGFloat const kGTIOBottomPadding = 3.0;
 static CGFloat const kGTIOProfilePictureSize = 42.0;
 static CGFloat const kGTIOProfilePictureRightPadding = 10.0;
 static CGFloat const kGTIONameLabelXPosition = 7.0;
-static CGFloat const kGTIONameLabelYPosition = 7.0;
-static CGFloat const kGTIONameLabelYPositionCentered = 14.0;
+static CGFloat const kGTIONameLabelWidth = 178.0;
+static CGFloat const kGTIONameLabelYPosition = 6.0;
+static CGFloat const kGTIONameLabelYPositionCentered = 13.0;
 static CGFloat const kGTIOBottomBorderVerticalOffset = 1.0;
 static CGFloat const kGTIOUserBadgeVerticalOffset = 0.0;
 static CGFloat const kGTIOUserBadgeHorizontalOffset = 5.0;
@@ -76,6 +77,9 @@ static int const kGTIOMaxThumbnails = 4;
         _nameLabel.font = [UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:16.0];
         _nameLabel.textColor = [UIColor gtio_pinkTextColor];
         _nameLabel.backgroundColor = [UIColor clearColor];
+        _nameLabel.numberOfLines = 1;
+        _nameLabel.minimumFontSize = 8;
+        _nameLabel.adjustsFontSizeToFitWidth = YES;
         [self.contentView addSubview:_nameLabel];
 
         _locationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -150,17 +154,18 @@ static int const kGTIOMaxThumbnails = 4;
     [self.requestedButton setFrame:(CGRect){ self.bounds.size.width - self.requestedButton.bounds.size.width - kGTIORightPadding, kGTIOTopPadding+kGTIOTopFollowButtonPadding, self.requestedButton.bounds.size }];
     
     double nameLabelYPosition = ([self.user.location length] > 0) ? kGTIONameLabelYPosition : kGTIONameLabelYPositionCentered;
-    [self.nameLabel setFrame:(CGRect){ self.backgroundImage.frame.origin.x + kGTIONameLabelXPosition, self.backgroundImage.frame.origin.y + nameLabelYPosition, 178, 17 }];
+    [self.nameLabel setFrame:(CGRect){ self.backgroundImage.frame.origin.x + kGTIONameLabelXPosition, self.backgroundImage.frame.origin.y + nameLabelYPosition, kGTIONameLabelWidth - kGTIORightPadding, 19 }];
     
     
-    [self.locationLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height + 1, 178, 10 }];
+    [self.locationLabel setFrame:(CGRect){ self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height + 1, kGTIONameLabelWidth - kGTIORightPadding, 10 }];
 
 
     [self.separatorImage setFrame:(CGRect){ 0, self.backgroundImage.frame.origin.y + self.backgroundImage.frame.size.height + kGTIORightPadding + kGTIOOutfitThumbSize + kGTIOBottomPadding , self.contentView.frame.size.width, self.separatorImage.bounds.size.height }];
 
     if (self.user.badge) {
-
-        [self.badgeImageView setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSize].width + kGTIOUserBadgeHorizontalOffset), (self.nameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForPostOwner] }];
+        [self.nameLabel setFrame:(CGRect){ self.nameLabel.frame.origin , {kGTIONameLabelWidth - kGTIORightPadding - [self.user.badge badgeImageSizeForPostOwner].width , 19 }}];
+        [self.badgeImageView setFrame:(CGRect){ (self.nameLabel.frame.origin.x + [self nameLabelSizeWithWidth:self.nameLabel.frame.size.width].width + kGTIOUserBadgeHorizontalOffset), (self.nameLabel.frame.origin.y + kGTIOUserBadgeVerticalOffset), [self.user.badge badgeImageSizeForPostOwner] }];
+        
     }
 
    [self activeFollowButton];
@@ -180,6 +185,7 @@ static int const kGTIOMaxThumbnails = 4;
     } failure:nil];
 
     self.nameLabel.text = _user.name;
+    [self.nameLabel sizeToFit];
     self.locationLabel.text = [_user.location uppercaseString];
     
     
@@ -256,9 +262,9 @@ static int const kGTIOMaxThumbnails = 4;
     return;
 }
 
--(CGSize)nameLabelSize
+-(CGSize)nameLabelSizeWithWidth:(CGFloat)width
 {
-    return [self.user.name sizeWithFont:self.nameLabel.font forWidth:400.0f lineBreakMode:UILineBreakModeTailTruncation];
+    return [self.nameLabel.text sizeWithFont:self.nameLabel.font forWidth:width lineBreakMode:UILineBreakModeTailTruncation];
 }
 
 @end
