@@ -2724,9 +2724,9 @@ Each user has a shopping list
 #### Mockups
 7.8 Shopping list ([wireframe](http://invis.io/8W2OD45T))   
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/4/7.8.Shopping.List.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/bb5fddb056/shopping-list-simplified-button.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.8.Shopping.List.Empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1e333fa729/shopping-list-empty.png" width=420px/>
 
 7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))   
 
@@ -2803,45 +2803,24 @@ gtio://my-shopping-list
          - use '8/heart-toggle.png'
          - asset is placed offset in relation to product photo; top left corner of asset is -5,-5 from top left corner of photo
    - Text 
-      - Product Name: Verlag Light 14px rgb(89,81,85) #595155
+      - Product Name: Verlag Light 14px #505051
          - 173px from left edge of screen
          - 12px from top of cell (non-shadow portion)
          - text area is 109px wide (each line, wrap to new lines as necessary)
-      - Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+      - Price: Verlag Light Italic 16px #ff6a72
          - 173px from left edge of screen
-         - baseline is 18px away from baseline of last line of Product Name
-         - text area is 109px wide (each line, wrap to new lines as necessary)
-      - Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
-         - 173px from left edge of screen
-         - baseline is 15px from bottom of cell (non-shadow portion)
-	- Buy Button
-		- Background (7/shopping.button.buy.inactive.png)
-			- Active state (7/shopping.button.buy.active.png)
-		- 39x21px
-		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
-		- 9px from bottom
-		- 8px from right
-	- Email Button
-		- Background (7/shopping.button.email.inactive.png)
-			- Active state (7/shopping.button.email.active.png)
-		- 39x21px
-		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
-		- 9px from bottom
-		- 7px padding from buy button
+         - top is approx 10px away from bottom of last line of Product Name
+	- Link Button
+		- Background (7/shopping.button.link.inactive.png)
+			- Active state (7/shopping.button.link.active.png)
+		- 136x36px
+      - 9px from bottom
+      - 8px from right
+		- Archer Medium Italic #505051 vertically and horizontally centered	
 - Nav bar share button
 	- 33x26px
 	- Background (7/shopping.navigation.bar.button.share.inactive.png)
 		- Active state (7/shopping.navigation.bar.button.share.active.png)
-- Bottom Area
-	- Background (7/shopping.bottom.bg.png) flush with bottom of screen
-	- Cells
-		- Overlay (7/shopping.bottom.image.overlay.png)
-			- Active (7/shopping.bottom.image.overlay.active.png)
-		- 60x60px
-		- Images are 55x55px
-		- Can clip image using (7/shopping.bottom.image.alpha.png) as an alpha
-		- Plus Button (7/shopping.bottom.plus.inactive.png)
-			- Active (7/shopping.bottom.plus.active.png)
 
 ### 7.9 My Stars
 
