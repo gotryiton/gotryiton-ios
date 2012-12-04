@@ -1426,7 +1426,7 @@ A user can view a detailed page about a single product
 #### Mockups
 4.1 Product Page View ([wireframe](http://invis.io/8Y2OC5N7))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/a90e930206/product-page-alt-nav-button.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/258c3fa732/product-page-link-button.jpg" width=420px/>
 
 
 #### User Flow
@@ -1505,25 +1505,19 @@ previous screen
 		- Height: 66px
 		- Text - Starts 10px from left and 12px from top
 			- Product name: Verlag Book 15px rgb(8,8,8), #585858
-			- Brand: Proxima Nova Semibold 12px rgb(143,143,143) #8f8f8f
-			- Price: Verlag 22px Bold 22px rgb(88,88,88) #585858
-				- 10px from right, 10px from bottom
+			- Price: Verlag Light Italic 22px Bold 22px #ff6a72
+				- 15px from right, 10px from bottom
+            - should appear to have same right and bottom margin as the product name's left and top margin
       - Chevron
          - 'General/general.chevron.png'
          - X: 297 Y: 370, asset is 9px x 13px
          - use default tap state, no 'active' asset supplied
-		- Bottom Buttons
+		- Bottom Button
          - 5px padding
-         - 4px in between buttons
-         - Left Side Button (Post)
-            - 'product.post.button.png' active and inactive states
-         - Right Side Button
-   			- Background (product.info.button.bg.inactive.png) stretch image
-   				- On tap (product.info.button.bg.active.png)
-   				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
-   					- On tap (product.info.button.bg.highlight.active.png)
-   			- Text: Archer Medium 16px rgb(85,85,86) #555556
-   			- Width: 153x46px
+         - Link Button
+            - 'product.link.button.png' active and inactive statest
+   			- Text: Archer Medium Italic 16px #555556
+               - vertically and horizontally centered inside button
 
 ### 4.1.2 Product Full Screen  
 
