@@ -469,6 +469,9 @@
 		5C7754B91611228D0012DE55 /* GTIOUIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7754B61611228D0012DE55 /* GTIOUIImage.m */; };
 		5C793C32163ACFEE0013B780 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE018FD16012CC400A05E8F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5C7CFAF8163AD3D7007CAB37 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7CFAF7163AD3D7007CAB37 /* AddressBook.framework */; };
+		5C7FF828166F9E9A00015C05 /* GTIOUIFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FF827166F9E9900015C05 /* GTIOUIFollowButton.m */; };
+		5C7FF829166F9E9A00015C05 /* GTIOUIFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FF827166F9E9900015C05 /* GTIOUIFollowButton.m */; };
+		5C7FF82A166F9E9A00015C05 /* GTIOUIFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FF827166F9E9900015C05 /* GTIOUIFollowButton.m */; };
 		5C98445315F001E200ED4612 /* CollectionFooter.css in Resources */ = {isa = PBXBuildFile; fileRef = 5C98445215F001E200ED4612 /* CollectionFooter.css */; };
 		5C98445415F001E200ED4612 /* CollectionFooter.css in Resources */ = {isa = PBXBuildFile; fileRef = 5C98445215F001E200ED4612 /* CollectionFooter.css */; };
 		5C98445515F001E200ED4612 /* CollectionFooter.css in Resources */ = {isa = PBXBuildFile; fileRef = 5C98445215F001E200ED4612 /* CollectionFooter.css */; };
@@ -4992,6 +4995,8 @@
 		5C7754B51611228D0012DE55 /* GTIOUIImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUIImage.h; sourceTree = "<group>"; };
 		5C7754B61611228D0012DE55 /* GTIOUIImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUIImage.m; sourceTree = "<group>"; };
 		5C7CFAF7163AD3D7007CAB37 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		5C7FF826166F9E9900015C05 /* GTIOUIFollowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTIOUIFollowButton.h; sourceTree = "<group>"; };
+		5C7FF827166F9E9900015C05 /* GTIOUIFollowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTIOUIFollowButton.m; sourceTree = "<group>"; };
 		5C98445215F001E200ED4612 /* CollectionFooter.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = CollectionFooter.css; path = CSS/CollectionFooter.css; sourceTree = "<group>"; };
 		5C9B6E1A15ED921900F2A72B /* heart-notifier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-notifier.png"; sourceTree = "<group>"; };
 		5C9B6E1B15ED921900F2A72B /* heart-notifier@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-notifier@2x.png"; sourceTree = "<group>"; };
@@ -9861,6 +9866,8 @@
 				D201916115C857DE00B15D24 /* GTIOAlert.m */,
 				5C7754B51611228D0012DE55 /* GTIOUIImage.h */,
 				5C7754B61611228D0012DE55 /* GTIOUIImage.m */,
+				5C7FF826166F9E9900015C05 /* GTIOUIFollowButton.h */,
+				5C7FF827166F9E9900015C05 /* GTIOUIFollowButton.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -14109,6 +14116,7 @@
 				5C9EA01D16383443005966C7 /* GTIOExploreLooksIntro.m in Sources */,
 				5C3DDEF9166950A8004A8989 /* GTIOConnectViewController.m in Sources */,
 				5C3DDF18166957A7004A8989 /* GTIOConnectTableViewCell.m in Sources */,
+				5C7FF82A166F9E9A00015C05 /* GTIOUIFollowButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14425,6 +14433,7 @@
 				5C9EA01C16383443005966C7 /* GTIOExploreLooksIntro.m in Sources */,
 				5C3DDEF8166950A8004A8989 /* GTIOConnectViewController.m in Sources */,
 				5C3DDF17166957A7004A8989 /* GTIOConnectTableViewCell.m in Sources */,
+				5C7FF829166F9E9A00015C05 /* GTIOUIFollowButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14741,6 +14750,7 @@
 				5C9EA01B16383443005966C7 /* GTIOExploreLooksIntro.m in Sources */,
 				5C3DDEF7166950A8004A8989 /* GTIOConnectViewController.m in Sources */,
 				5C3DDF16166957A7004A8989 /* GTIOConnectTableViewCell.m in Sources */,
+				5C7FF828166F9E9A00015C05 /* GTIOUIFollowButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
