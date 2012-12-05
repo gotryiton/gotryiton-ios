@@ -1426,7 +1426,7 @@ A user can view a detailed page about a single product
 #### Mockups
 4.1 Product Page View ([wireframe](http://invis.io/8Y2OC5N7))
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/a90e930206/product-page-alt-nav-button.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/258c3fa732/product-page-link-button.jpg" width=420px/>
 
 
 #### User Flow
@@ -1505,25 +1505,19 @@ previous screen
 		- Height: 66px
 		- Text - Starts 10px from left and 12px from top
 			- Product name: Verlag Book 15px rgb(8,8,8), #585858
-			- Brand: Proxima Nova Semibold 12px rgb(143,143,143) #8f8f8f
-			- Price: Verlag 22px Bold 22px rgb(88,88,88) #585858
-				- 10px from right, 10px from bottom
+			- Price: Verlag Light Italic 22px Bold 22px #ff6a72
+				- 15px from right, 10px from bottom
+            - should appear to have same right and bottom margin as the product name's left and top margin
       - Chevron
          - 'General/general.chevron.png'
          - X: 297 Y: 370, asset is 9px x 13px
          - use default tap state, no 'active' asset supplied
-		- Bottom Buttons
+		- Bottom Button
          - 5px padding
-         - 4px in between buttons
-         - Left Side Button (Post)
-            - 'product.post.button.png' active and inactive states
-         - Right Side Button
-   			- Background (product.info.button.bg.inactive.png) stretch image
-   				- On tap (product.info.button.bg.active.png)
-   				- Highlighted/added to list (product.info.button.bg.highlight.inactive.png)
-   					- On tap (product.info.button.bg.highlight.active.png)
-   			- Text: Archer Medium 16px rgb(85,85,86) #555556
-   			- Width: 153x46px
+         - Link Button
+            - 'product.link.button.png' active and inactive statest
+   			- Text: Archer Medium Italic 16px #555556
+               - vertically and horizontally centered inside button
 
 ### 4.1.2 Product Full Screen  
 
@@ -2730,9 +2724,9 @@ Each user has a shopping list
 #### Mockups
 7.8 Shopping list ([wireframe](http://invis.io/8W2OD45T))   
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/4/7.8.Shopping.List.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/bb5fddb056/shopping-list-simplified-button.png" width=420px/>
 
-<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1/7.8.Shopping.List.Empty.png" width=420px/>
+<img src="http://assets.gotryiton.com/img/spec/4.0/mockups/1e333fa729/shopping-list-empty.png" width=420px/>
 
 7.8.1 shopping list confirm: ([wireframe](http://invis.io/5Q2PN0WX))   
 
@@ -2809,45 +2803,24 @@ gtio://my-shopping-list
          - use '8/heart-toggle.png'
          - asset is placed offset in relation to product photo; top left corner of asset is -5,-5 from top left corner of photo
    - Text 
-      - Product Name: Verlag Light 14px rgb(89,81,85) #595155
+      - Product Name: Verlag Light 14px #505051
          - 173px from left edge of screen
          - 12px from top of cell (non-shadow portion)
          - text area is 109px wide (each line, wrap to new lines as necessary)
-      - Brand: Proxima Nova semibold 11px rgb(187,187,187) #bbbbbb
+      - Price: Verlag Light Italic 16px #ff6a72
          - 173px from left edge of screen
-         - baseline is 18px away from baseline of last line of Product Name
-         - text area is 109px wide (each line, wrap to new lines as necessary)
-      - Price: Verlag Bold 16px rgb(255,106,114) #ff6a72
-         - 173px from left edge of screen
-         - baseline is 15px from bottom of cell (non-shadow portion)
-	- Buy Button
-		- Background (7/shopping.button.buy.inactive.png)
-			- Active state (7/shopping.button.buy.active.png)
-		- 39x21px
-		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
-		- 9px from bottom
-		- 8px from right
-	- Email Button
-		- Background (7/shopping.button.email.inactive.png)
-			- Active state (7/shopping.button.email.active.png)
-		- 39x21px
-		- Proxima Nova semibold 9px rgb(143,143,143) #8f8f8f	
-		- 9px from bottom
-		- 7px padding from buy button
+         - top is approx 10px away from bottom of last line of Product Name
+	- Link Button
+		- Background (7/shopping.button.link.inactive.png)
+			- Active state (7/shopping.button.link.active.png)
+		- 136x36px
+      - 9px from bottom
+      - 8px from right
+		- Archer Medium Italic #505051 vertically and horizontally centered	
 - Nav bar share button
 	- 33x26px
 	- Background (7/shopping.navigation.bar.button.share.inactive.png)
 		- Active state (7/shopping.navigation.bar.button.share.active.png)
-- Bottom Area
-	- Background (7/shopping.bottom.bg.png) flush with bottom of screen
-	- Cells
-		- Overlay (7/shopping.bottom.image.overlay.png)
-			- Active (7/shopping.bottom.image.overlay.active.png)
-		- 60x60px
-		- Images are 55x55px
-		- Can clip image using (7/shopping.bottom.image.alpha.png) as an alpha
-		- Plus Button (7/shopping.bottom.plus.inactive.png)
-			- Active (7/shopping.bottom.plus.active.png)
 
 ### 7.9 My Stars
 
