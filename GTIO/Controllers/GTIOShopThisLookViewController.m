@@ -10,6 +10,7 @@
 #import "GTIOProduct.h"
 #import <RestKit/RestKit.h>
 #import "GTIOProductViewController.h"
+#import "GTIOWebViewController.h"
 
 static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
 
@@ -146,6 +147,14 @@ static NSInteger const kGTIOEmailMeMyShoppingListAlert = 0;
         };
     }];
 }
+
+- (void)loadWebViewControllerWithURL:(NSURL *)url
+{
+    GTIOWebViewController *webViewController = [[GTIOWebViewController alloc] initWithNibName:nil bundle:nil];
+    webViewController.URL = url;
+    [self.navigationController pushViewController:webViewController animated:YES];
+}
+
 
 #pragma mark - UITableViewDelegate Methods
 
