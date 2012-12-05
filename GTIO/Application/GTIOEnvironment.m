@@ -128,8 +128,9 @@ NSString * const kGTIOUserNavigatedToCameraTab = @"navigation to camera";
 NSString * const kGTIONotificationViewTrackingId = @"notification view";
 
 
-// Unique Name modal flag
+// Unique view flags
 NSString * const kGTIOUniqueNameModalDialogFlag = @"kGTIOUniqueNameModalDialogFlag";
+NSString * const kGTIOAddToShoppingListViewFlag = @"kGTIOAddToShoppingListViewFlag";
 
 // UrbanAirship
 NSString * const kGTIOUAirshipProductionAppKey = @"***REMOVED***";

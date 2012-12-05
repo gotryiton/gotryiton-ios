@@ -10,6 +10,8 @@
 
 static CGFloat const kGTIOHeartControlRightPadding = 6.0;
 static CGFloat const kGTIOHeartCountTopMargin = 2.0;
+static CGFloat const kGTIOAddToShoppingListPopOverXOriginPadding = 0.0;
+static CGFloat const kGTIOAddToShoppingListPopOverYOriginPadding = 0.0;
 
 @interface GTIOProductHeartControl()
 
@@ -18,6 +20,8 @@ static CGFloat const kGTIOHeartCountTopMargin = 2.0;
 
 @property (nonatomic, strong) GTIOUIButton *heartButton;
 @property (nonatomic, strong) GTIOUIButton *countButton;
+
+@property (nonatomic, strong) UIImageView *addToShoppingListPopOverView;
 
 @end
 
@@ -47,8 +51,12 @@ static CGFloat const kGTIOHeartCountTopMargin = 2.0;
         _controlCountLabel.textAlignment = UITextAlignmentCenter;
         [self addSubview:_controlCountLabel];
         
+        // Add To Shopping List Pop Over
+        self.addToShoppingListPopOverView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hearting-popup.png"]];
+    
         _countButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
         [self addSubview:_countButton];
+
     }
     return self;
 }
@@ -62,6 +70,9 @@ static CGFloat const kGTIOHeartCountTopMargin = 2.0;
     
     [self.heartButton setFrame:(CGRect){ 0, 0, self.controlBackground.bounds.size.width / 2, self.controlBackground.bounds.size.height }];
     [self.countButton setFrame:(CGRect){ self.controlCountLabel.frame.origin.x, 0, self.heartButton.bounds.size }];
+
+    [self showAddToShoppingListPopOverView];
+
 }
 
 - (void)setHeartCount:(NSNumber *)heartCount
@@ -108,4 +119,26 @@ static CGFloat const kGTIOHeartCountTopMargin = 2.0;
     }
 }
 
+
+
+- (void)showAddToShoppingListPopOverView
+{
+    int viewsOfAddToShoppingListPopOverView = [[NSUserDefaults standardUserDefaults] integerForKey:kGTIOAddToShoppingListViewFlag];
+    if (viewsOfAddToShoppingListPopOverView < 1) {
+        viewsOfAddToShoppingListPopOverView++;
+        [[NSUserDefaults standardUserDefaults] setInteger:viewsOfAddToShoppingListPopOverView forKey:kGTIOAddToShoppingListViewFlag];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self.addToShoppingListPopOverView setAlpha:1.0f];
+        [self.addToShoppingListPopOverView setFrame:(CGRect){ { self.controlBackground.frame.origin.x + self.controlBackground.frame.size.width + kGTIOAddToShoppingListPopOverXOriginPadding, kGTIOAddToShoppingListPopOverYOriginPadding }, self.addToShoppingListPopOverView.image.size }];
+        [self addSubview:self.addToShoppingListPopOverView];
+        
+        [UIView animateWithDuration:1.5f delay:1.75f options:0 animations:^{
+            [self.addToShoppingListPopOverView setFrame:CGRectOffset(self.addToShoppingListPopOverView.frame, 24.0f, 0)];
+            [self.addToShoppingListPopOverView setAlpha:0.0f];
+        } completion:^(BOOL finished) {
+            [self.addToShoppingListPopOverView removeFromSuperview];
+        }];
+    }
+}
 @end
