@@ -77,7 +77,7 @@
     NSInteger const kGTIOUniqueNameModalDialogMaxViews = 1;
 #endif
 
-NSString * const kGTIOAcceptHeader = @"application/v4.1-json";
+NSString * const kGTIOAcceptHeader = @"application/v4.2-json";
 NSString * const kGTIOAuthenticationHeaderKey = @"Authentication";
 NSString * const kGTIOTrackingHeaderKey = @"Tracking-Id";
 
