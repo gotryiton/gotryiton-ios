@@ -84,6 +84,7 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
         case GTIOButtonTypePostRetry: return [self gtio_postRetryButton];
         case GTIOButtonTypeProductBack: return [self gtio_productBackButton];
         case GTIOButtonTypeProductPostThis: return [self gtio_productPostThisButton];
+        case GTIOButtonTypeProductBigBuyButton: return [self gtio_productBigBuyButtonButton];
         case GTIOButtonTypeProductTopRightButton: return [self gtio_productTopRightButton];
         case GTIOButtonTypeProductShoppingList: return [self gtio_productShoppingListButton];
         case GTIOButtonTypeProductShoppingListChecked: return [self gtio_productShoppingListCheckedButton];
@@ -570,6 +571,20 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
     return button;
 }
 
++ (id)gtio_productBigBuyButtonButton
+{
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"product.link.button.inactive.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"product.link.button.active.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:16.0];
+    [button setTitleColor:[UIColor gtio_grayTextColor555556] forState:UIControlStateNormal];
+    [button setTitle:@"" forState:UIControlStateNormal];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:(CGRect){ {0.0, 0.0}, [UIImage imageNamed:@"product.link.button.inactive.png"].size }];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0.0, 0.0, 0.0)];
+    return button;
+}
+
 + (id)gtio_productShoppingListButton
 {
     GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
@@ -616,7 +631,16 @@ static CGFloat const kGTIOSpinnerTopPadding = 2.0;
 
 + (id)gtio_productListBuyButton
 {
-    return [self buttonWithImage:[UIImage imageNamed:@"shopping.button.buy.inactive.png"] highlightImage:[UIImage imageNamed:@"shopping.button.buy.active.png"]];
+    GTIOUIButton *button = [GTIOUIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[[UIImage imageNamed:@"shopping.button.inactive.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"shopping.button.active.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)] forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont gtio_archerFontWithWeight:GTIOFontArcherMediumItal size:12.0];
+    [button setTitleColor:[UIColor gtio_grayTextColor515152] forState:UIControlStateNormal];
+    [button setTitle:@"" forState:UIControlStateNormal];
+    [button addTarget:button action:@selector(buttonWasTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:(CGRect){ {0.0, 0.0}, [UIImage imageNamed:@"shopping.button.inactive.png"].size }];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(4.0, 0.0, 0.0, 0.0)];
+    return button;
 }
 
 + (id)gtio_photoFrameHandleButton

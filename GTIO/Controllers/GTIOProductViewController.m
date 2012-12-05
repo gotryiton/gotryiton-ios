@@ -54,8 +54,7 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 @property (nonatomic, strong) UIImageView *bottomInformationBackground;
 @property (nonatomic, strong) GTIOProductInformationBox *productInformationBox;
 
-@property (nonatomic, strong) GTIOUIButton *postThisButton;
-@property (nonatomic, strong) GTIOUIButton *shoppingListButton;
+@property (nonatomic, strong) GTIOUIButton *bigBuyButton;
 
 @end
 
@@ -119,14 +118,10 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     self.productInformationBox = [[GTIOProductInformationBox alloc] initWithFrame:(CGRect){ kGTIOProductBottomInformationInnerBackgroundLeftMargin, kGTIOProductBottomInformationInnerBackgroundTopMargin, kGTIOProductBottomInformationInnerBackgroundWidth, kGTIOProductBottomInformationInnerBackgroundHeight }];
     [self.bottomInformationBackground addSubview:self.productInformationBox];
     
-    self.bottomInformationBackground.userInteractionEnabled = YES;
-    UITapGestureRecognizer *productInfoTapRecocgnizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToProductUrl)];
-    [self.bottomInformationBackground addGestureRecognizer:productInfoTapRecocgnizer];
 
-    self.postThisButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductPostThis];
-    [self.postThisButton setFrame:(CGRect){ 5, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height - kGTIOProductPostButtonHeight - 5, self.postThisButton.bounds.size }];
-    self.postThisButton.alpha = 0.0;
-    [self.view addSubview:self.postThisButton];
+    self.bigBuyButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductBigBuyButton];
+    [self.bigBuyButton setFrame:(CGRect){ 5, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height - kGTIOProductPostButtonHeight - 5, self.bigBuyButton.bounds.size }];
+    [self.view addSubview:self.bigBuyButton];
     
     if (self.productID) {
         [self refreshProduct];
@@ -156,8 +151,7 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     self.heartControl = nil;
     self.bottomInformationBackground = nil;
     self.productInformationBox = nil;
-    self.postThisButton = nil;
-    self.shoppingListButton = nil;
+    self.bigBuyButton = nil;
 }
 
 - (void)refreshProduct
@@ -192,19 +186,17 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 - (void)setProduct:(GTIOProduct *)product
 {
     _product = product;
+
+    __block typeof(self) blockSelf = self;
     
     if (_product.photo.mainImageURL.host.length == 0) {
         [GTIOProgressHUD hideHUDForView:self.view animated:YES];
         self.productImageView.alpha = 1.0;
-        self.postThisButton.alpha = 1.0;
-        self.shoppingListButton.alpha = 1.0;
     } else {
         [self.productImageView setImageWithURL:_product.photo.mainImageURL success:^(UIImage *image, BOOL cached) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
             [UIView animateWithDuration:0.25 animations:^{
                 self.productImageView.alpha = 1.0;
-                self.postThisButton.alpha = 1.0;
-                self.shoppingListButton.alpha = 1.0;
             }];
         } failure:^(NSError *error) {
             [GTIOProgressHUD hideHUDForView:self.view animated:YES];
@@ -212,17 +204,9 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
         }];
     }
     
-    self.postThisButton.tapHandler = ^(id sender) {
-        NSDictionary *userInfo = @{ kGTIOChangeSelectedTabToUserInfo : @(GTIOTabBarCamera) };
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOChangeSelectedTabNotification object:nil userInfo:userInfo];
-        
-        NSDictionary *photoUserInfo = @{
-            @"originalPhoto": self.productImageView.image,
-            @"filteredPhoto": self.productImageView.image,
-            @"filterName": GTIOFilterTypeName[GTIOFilterTypeOriginal],
-            @"productID": self.productID
-        };
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOPhotoAcceptedNotification object:nil userInfo:photoUserInfo];
+    [self.self.bigBuyButton setTitle:[_product.retailerDomain lowercaseString] forState:UIControlStateNormal];
+    self.bigBuyButton.tapHandler = ^(id sender) {
+        [blockSelf tapToProductUrl];
     };
     
     for (GTIOButton *button in self.product.buttons) {
@@ -248,37 +232,10 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
                 [self.navigationController pushViewController:viewController animated:YES];
             };
         }
-        if ([button.name isEqualToString:kGTIOProductShoppingListButton]) {
-            [self.shoppingListButton removeFromSuperview];
-            if (button.state.intValue == 0) {
-                self.shoppingListButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingList];
-                self.shoppingListButton.tapHandler = ^(id sender) {
-                    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:button.action.endpoint usingBlock:^(RKObjectLoader *loader) {
-                        loader.onDidLoadObjects = ^(NSArray *loadedObjects) {
-                            [self refreshProductFromLoadedObjects:loadedObjects];
-                        };
-                        loader.onDidFailWithError = ^(NSError *error) {
-                            NSLog(@"%@", [error localizedDescription]);
-                        };
-                    }];
-                };
-            } else if (button.state.intValue == 1) {
-                self.shoppingListButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListChecked];
-                self.shoppingListButton.tapHandler = ^(id sender) {
-                    UIViewController *viewController = [[GTIORouter sharedRouter] viewControllerForURLString:button.action.destination];
-                    [self.navigationController pushViewController:viewController animated:YES];
-                };
-            }
-            [self.shoppingListButton setFrame:(CGRect){ self.postThisButton.frame.origin.x + self.postThisButton.bounds.size.width + 5, self.postThisButton.frame.origin.y, self.shoppingListButton.bounds.size }];
-            if (!self.productImageView.image) {
-                self.shoppingListButton.alpha = 0.0;
-            }
-            [self.view addSubview:self.shoppingListButton];
-        }
+        
     }
     
     self.productInformationBox.productName = _product.productName;
-    self.productInformationBox.productBrands = _product.brand;
     self.productInformationBox.productPrice = _product.prettyPrice;
 }
 

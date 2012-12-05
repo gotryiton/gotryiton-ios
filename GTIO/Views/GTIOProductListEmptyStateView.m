@@ -62,10 +62,12 @@ static CGFloat const kGTIOUnderlineHeight = 0.5;
         _maskButton.tapHandler = tapHandler;
         [self addSubview:_maskButton];
         
-        UIView *underline = [[UIView alloc] initWithFrame:(CGRect){ kGTIOUnderlineXPosition, kGTIOUnderlineYPosition, kGTIOUnderlineWidth, kGTIOUnderlineHeight }];
-        underline.backgroundColor = [UIColor gtio_linkColor];
-        underline.alpha = 0.50;
-        [self addSubview:underline];
+        if (linkText.length > 0) {
+            UIView *underline = [[UIView alloc] initWithFrame:(CGRect){ kGTIOUnderlineXPosition, kGTIOUnderlineYPosition, kGTIOUnderlineWidth, kGTIOUnderlineHeight }];
+            underline.backgroundColor = [UIColor gtio_linkColor];
+            underline.alpha = 0.50;
+            [self addSubview:underline];
+        }
     }
     return self;
 }

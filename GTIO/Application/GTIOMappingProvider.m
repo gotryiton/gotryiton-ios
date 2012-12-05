@@ -112,6 +112,7 @@
         [productMapping mapKeyPath:@"action" toRelationship:@"action" withMapping:buttonActionMapping];
         [productMapping mapKeyPath:@"photo" toRelationship:@"photo" withMapping:userPhotoMapping];
         [productMapping mapKeyPath:@"brand" toAttribute:@"brand"];
+        [productMapping mapKeyPath:@"retailer_domain" toAttribute:@"retailerDomain"];
         [productMapping mapKeyPath:@"buttons" toRelationship:@"buttons" withMapping:buttonMapping];
         [self setMapping:productMapping forKeyPath:@"product"];
         [self setMapping:productMapping forKeyPath:@"products"];
