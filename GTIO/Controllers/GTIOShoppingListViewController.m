@@ -174,6 +174,10 @@ static CGFloat const kGTIOEmptyStateViewVerticalCenterOffset = -8.0;
     NSUInteger indexOfProduct = [self.products indexOfObject:product];
     [self.products removeObjectAtIndex:indexOfProduct];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexOfProduct inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    if (self.products.count == 0){
+        self.emptyStateView.hidden = NO;
+    }
 }
 
 - (void)loadWebViewControllerWithURL:(NSURL *)url

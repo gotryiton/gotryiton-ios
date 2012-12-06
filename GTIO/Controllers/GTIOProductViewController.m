@@ -41,6 +41,9 @@ static CGFloat const kGTIOSocialShareButtonTopMargin = 14.0;
 static CGFloat const kGTIOTopRightRightPadding = 5.0;
 static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 
+static CGFloat const kGTIOAddToShoppingListPopOverXOriginPadding = 65.0;
+static CGFloat const kGTIOAddToShoppingListPopOverYOriginPadding = -2.0;
+
 @interface GTIOProductViewController ()
 
 @property (nonatomic, strong) GTIOProduct *product;
@@ -55,6 +58,9 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 @property (nonatomic, strong) GTIOProductInformationBox *productInformationBox;
 
 @property (nonatomic, strong) GTIOUIButton *bigBuyButton;
+@property (nonatomic, strong) GTIOUIButton *emailToMeButton;
+
+@property (nonatomic, strong) UIImageView *addToShoppingListPopOverView;
 
 @end
 
@@ -88,10 +94,8 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     }];
     self.leftNavigationButton = backButton;
 
-    GTIOUIButton *openUrlButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductTopRightButton tapHandler:^(id sender) {
-        [self tapToProductUrl];
-    }];
-    [self setRightNavigationButton:openUrlButton];
+    _emailToMeButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListEmailMyList tapHandler:nil];
+    [self setRightNavigationButton:_emailToMeButton];
 
     
     self.whiteBackground = [[UIView alloc] initWithFrame:(CGRect){ 0, - self.navigationController.navigationBar.bounds.size.height , self.view.bounds.size.width, self.view.bounds.size.height  }];
@@ -123,6 +127,10 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     [self.bigBuyButton setFrame:(CGRect){ 5, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height - kGTIOProductPostButtonHeight - 5, self.bigBuyButton.bounds.size }];
     [self.view addSubview:self.bigBuyButton];
     
+    // Add To Shopping List Pop Over
+    self.addToShoppingListPopOverView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hearting-popup.png"]];
+    
+
     if (self.productID) {
         [self refreshProduct];
     }
@@ -237,6 +245,24 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
     
     self.productInformationBox.productName = _product.productName;
     self.productInformationBox.productPrice = _product.prettyPrice;
+
+    [self.emailToMeButton setTapHandler:^(id sender) {
+        self.emailToMeButton.enabled = NO;
+        [GTIOProduct emailProductWithProductID:self.product.productID completionHandler:^(NSArray *loadedObjects, NSError *error) {
+            self.emailToMeButton.enabled = YES;
+            if (!error) {
+              for (id object in loadedObjects) {
+                  if ([object isMemberOfClass:[GTIOAlert class]]) {
+                        [GTIOErrorController handleAlert:(GTIOAlert *)object showRetryInView:blockSelf.view retryHandler:nil];
+                  }
+              }
+            } else {
+              [GTIOErrorController handleError:error showRetryInView:blockSelf.view forceRetry:NO retryHandler:nil];
+            }
+        }];
+    }];
+
+    [self showAddToShoppingListPopOverView];
 }
 
 - (void)showFullScreenImage
@@ -257,5 +283,36 @@ static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+
+- (void)showAddToShoppingListPopOverView
+{
+   int viewsOfAddToShoppingListPopOverView = [[NSUserDefaults standardUserDefaults] integerForKey:kGTIOAddToShoppingListProductPageViewFlag];
+   if (viewsOfAddToShoppingListPopOverView < 1) {
+       viewsOfAddToShoppingListPopOverView++;
+       [[NSUserDefaults standardUserDefaults] setInteger:viewsOfAddToShoppingListPopOverView forKey:kGTIOAddToShoppingListProductPageViewFlag];
+       [[NSUserDefaults standardUserDefaults] synchronize];
+       
+        [self.addToShoppingListPopOverView setAlpha:1.0f];
+        [self.addToShoppingListPopOverView setUserInteractionEnabled:YES];
+        [self.addToShoppingListPopOverView setFrame:(CGRect){ { self.heartControl.frame.origin.x + kGTIOAddToShoppingListPopOverXOriginPadding, self.heartControl.frame.origin.y + kGTIOAddToShoppingListPopOverYOriginPadding }, self.addToShoppingListPopOverView.image.size }];
+        [self.view addSubview:self.addToShoppingListPopOverView];
+        
+        UITapGestureRecognizer *closeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeAddToShoppingListPopOverView)];
+        [self.addToShoppingListPopOverView addGestureRecognizer:closeRecognizer];
+
+   }
+}
+
+- (void)removeAddToShoppingListPopOverView
+{
+    [self.addToShoppingListPopOverView setUserInteractionEnabled:NO];
+    [UIView animateWithDuration:0.75f delay:0 options:0 animations:^{
+        [self.addToShoppingListPopOverView setAlpha:0.0f];
+    } completion:^(BOOL finished) {
+        [self.addToShoppingListPopOverView removeFromSuperview];
+    }];
+}
+
 
 @end

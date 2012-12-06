@@ -21,19 +21,19 @@ static CGFloat const kGTIOHeartButtonXPosition = 0.0;
 static CGFloat const kGTIOHeartButtonYPosition = -4.0;
 static CGFloat const kGTIOProductNameLabelWidth = 109.0;
 static CGFloat const kGTIOProductNameLabelWidthWide = 130.0;
-static CGFloat const kGTIOProductNameLabelMaxHeight = 95.0;
-static CGFloat const kGTIOProductBrandLabelVerticalPadding = 2.0;
+static CGFloat const kGTIOProductNameLabelMaxHeight = 90.0;
+static CGFloat const kGTIOProductBrandLabelVerticalPadding = 4.0;
 static CGFloat const kGTIOPriceLabelYPosition = 129.0;
 static CGFloat const kGTIOEmailButtonXPosition = 222.0;
 static CGFloat const kGTIOEmailButtonYPosition = 126.0;
-static CGFloat const kGTIOBuyButtonRightMargin = 13.0;
+static CGFloat const kGTIOBuyButtonRightMargin = 15.0;
 static CGFloat const kGTIOBuyButtonBottomMargin = 13.0;
 static CGFloat const kGTIODeleteButtonYPosition = 0.0;
 static CGFloat const kGTIOProductNameLabelXPosition = 173.0;
-static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
+static CGFloat const kGTIOProductNameLabelYPosition = 13.0;
 static CGFloat const kGTIOCellButtonPadding = 6.0;
 
-static CGFloat const kGTIOAddToShoppingListPopOverXOriginPadding = -20.0;
+static CGFloat const kGTIOAddToShoppingListPopOverXOriginPadding = -16.0;
 static CGFloat const kGTIOAddToShoppingListPopOverYOriginPadding = 4.0;
 
 @interface GTIOProductTableViewCell()
@@ -105,6 +105,12 @@ static CGFloat const kGTIOAddToShoppingListPopOverYOriginPadding = 4.0;
         _priceLabel.adjustsFontSizeToFitWidth = YES;
         [self.contentView addSubview:_priceLabel];
         
+        if (_productTableCellType == GTIOProductTableViewCellTypeShoppingList) {
+            _deleteButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListDelete];
+            [_deleteButton setTapAreaPadding:kGTIOCellButtonPadding];
+            [self.contentView addSubview:_deleteButton];
+        }
+
         _buyButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListBuy];
         [self.contentView addSubview:_buyButton];
         
@@ -229,7 +235,7 @@ static CGFloat const kGTIOAddToShoppingListPopOverYOriginPadding = 4.0;
         [self.addToShoppingListPopOverView setFrame:(CGRect){ { self.heartButton.frame.origin.x + self.heartButton.frame.size.width + kGTIOAddToShoppingListPopOverXOriginPadding, kGTIOAddToShoppingListPopOverYOriginPadding }, self.addToShoppingListPopOverView.image.size }];
         [self addSubview:self.addToShoppingListPopOverView];
         
-        [UIView animateWithDuration:1.5f delay:1.75f options:0 animations:^{
+        [UIView animateWithDuration:1.5f delay:2.75f options:0 animations:^{
             [self.addToShoppingListPopOverView setFrame:CGRectOffset(self.addToShoppingListPopOverView.frame, 24.0f, 0)];
             [self.addToShoppingListPopOverView setAlpha:0.0f];
         } completion:^(BOOL finished) {

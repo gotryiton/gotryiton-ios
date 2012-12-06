@@ -83,6 +83,7 @@ extern NSString * const kGTIOUniqueNameModalDialogFlag;
 extern NSInteger const kGTIOUniqueNameModalDialogMaxViews;
 
 // Add to shopping list flag
+extern NSString * const kGTIOAddToShoppingListProductPageViewFlag; 
 extern NSString * const kGTIOAddToShoppingListViewFlag; 
 
 // UrbanAirship Constants
