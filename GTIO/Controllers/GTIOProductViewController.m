@@ -41,7 +41,7 @@ static CGFloat const kGTIOSocialShareButtonTopMargin = 14.0;
 static CGFloat const kGTIOTopRightRightPadding = 5.0;
 static CGFloat const kGTIOProductNavigationBarTopStripeHeight = 4.0;
 
-static CGFloat const kGTIOAddToShoppingListPopOverXOriginPadding = 65.0;
+static CGFloat const kGTIOAddToShoppingListPopOverXOriginPadding = 69.0;
 static CGFloat const kGTIOAddToShoppingListPopOverYOriginPadding = -2.0;
 
 @interface GTIOProductViewController ()

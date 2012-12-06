@@ -10,7 +10,7 @@
 #import "TTTAttributedLabel.h"
 
 static CGFloat const kGTIOTitleLabelXPosition = 10.0;
-static CGFloat const kGTIOTitleLabelYPosition = 8.0;
+static CGFloat const kGTIOTitleLabelYPosition = 6.0;
 static CGFloat const kGTIOMaskButtonXPosition = 10.0;
 static CGFloat const kGTIOMaskButtonYPosition = 12.0;
 static CGFloat const kGTIOMaskButtonWidth = 45.0;
