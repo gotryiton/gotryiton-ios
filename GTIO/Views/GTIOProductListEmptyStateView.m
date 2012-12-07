@@ -10,7 +10,7 @@
 #import "TTTAttributedLabel.h"
 
 static CGFloat const kGTIOTitleLabelXPosition = 10.0;
-static CGFloat const kGTIOTitleLabelYPosition = 6.0;
+static CGFloat const kGTIOTitleLabelYPosition = 11.0;
 static CGFloat const kGTIOMaskButtonXPosition = 10.0;
 static CGFloat const kGTIOMaskButtonYPosition = 12.0;
 static CGFloat const kGTIOMaskButtonWidth = 45.0;
@@ -42,6 +42,7 @@ static CGFloat const kGTIOUnderlineHeight = 0.5;
         
         _titleLabel = [[TTTAttributedLabel alloc] initWithFrame:(CGRect){ kGTIOTitleLabelXPosition, kGTIOTitleLabelYPosition, _backgroundImageView.bounds.size.width - kGTIOTitleLabelXPosition * 2, _backgroundImageView.bounds.size.height - kGTIOTitleLabelYPosition * 2 }];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
+        [_titleLabel setVerticalAlignment:TTTAttributedLabelVerticalAlignmentTop];
         [_titleLabel setFont:[UIFont gtio_archerFontWithWeight:GTIOFontArcherBookItal size:11.0]];
         [_titleLabel setTextColor:[UIColor gtio_grayTextColor9C9C9C]];
         [_titleLabel setLineHeightMultiple:1.20];
