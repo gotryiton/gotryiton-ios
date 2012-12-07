@@ -136,6 +136,7 @@ static CGFloat const kGTIOTableSectionHeaderHeight = 21.0f;
 
 - (void)loadTagsFromSearch:(NSString *)searchTerm
 {
+    [self.searchBoxView.searchBar resignFirstResponder];
     [GTIOProgressHUD showHUDAddedTo:self.view animated:YES];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"/tags/search/%@", searchTerm] usingBlock:^(RKObjectLoader *loader) {
         loader.onDidLoadObjects = ^(NSArray *objects) {
