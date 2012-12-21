@@ -23,7 +23,6 @@ static CGFloat const kGTIOHeartCountTopMargin = 2.0;
 
 @implementation GTIOProductHeartControl
 
-@synthesize heartCount = _heartCount, heartState = _heartState, controlBackground = _controlBackground, controlCountLabel = _controlCountLabel, heartTapHandler = _heartTapHandler, countTapHandler = _countTapHandler, heartButton = _heartButton, countButton = _countButton;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -49,6 +48,7 @@ static CGFloat const kGTIOHeartCountTopMargin = 2.0;
         
         _countButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeMask];
         [self addSubview:_countButton];
+
     }
     return self;
 }
@@ -62,6 +62,7 @@ static CGFloat const kGTIOHeartCountTopMargin = 2.0;
     
     [self.heartButton setFrame:(CGRect){ 0, 0, self.controlBackground.bounds.size.width / 2, self.controlBackground.bounds.size.height }];
     [self.countButton setFrame:(CGRect){ self.controlCountLabel.frame.origin.x, 0, self.heartButton.bounds.size }];
+
 }
 
 - (void)setHeartCount:(NSNumber *)heartCount
@@ -107,5 +108,7 @@ static CGFloat const kGTIOHeartCountTopMargin = 2.0;
         self.controlBackground.image = [UIImage imageNamed:@"product.heart.inactive.png"];
     }
 }
+
+
 
 @end

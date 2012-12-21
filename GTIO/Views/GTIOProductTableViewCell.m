@@ -21,16 +21,20 @@ static CGFloat const kGTIOHeartButtonXPosition = 0.0;
 static CGFloat const kGTIOHeartButtonYPosition = -4.0;
 static CGFloat const kGTIOProductNameLabelWidth = 109.0;
 static CGFloat const kGTIOProductNameLabelWidthWide = 130.0;
-static CGFloat const kGTIOProductNameLabelMaxHeight = 95.0;
-static CGFloat const kGTIOProductBrandLabelVerticalPadding = 2.0;
+static CGFloat const kGTIOProductNameLabelMaxHeight = 70.0;
+static CGFloat const kGTIOProductBrandLabelVerticalPadding = 4.0;
 static CGFloat const kGTIOPriceLabelYPosition = 129.0;
 static CGFloat const kGTIOEmailButtonXPosition = 222.0;
 static CGFloat const kGTIOEmailButtonYPosition = 126.0;
-static CGFloat const kGTIOBuyButtonLeftMargin = 7.0;
+static CGFloat const kGTIOBuyButtonRightMargin = 15.0;
+static CGFloat const kGTIOBuyButtonBottomMargin = 13.0;
 static CGFloat const kGTIODeleteButtonYPosition = 0.0;
 static CGFloat const kGTIOProductNameLabelXPosition = 173.0;
-static CGFloat const kGTIOProductNameLabelYPosition = 10.0;
+static CGFloat const kGTIOProductNameLabelYPosition = 13.0;
 static CGFloat const kGTIOCellButtonPadding = 6.0;
+
+static CGFloat const kGTIOAddToShoppingListPopOverXOriginPadding = -16.0;
+static CGFloat const kGTIOAddToShoppingListPopOverYOriginPadding = 4.0;
 
 @interface GTIOProductTableViewCell()
 
@@ -43,20 +47,19 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
 @property (nonatomic, strong) UIImage *backgroundImageActive;
 
 @property (nonatomic, strong) GTIOUIButton *heartButton;
-@property (nonatomic, strong) GTIOUIButton *emailButton;
 @property (nonatomic, strong) GTIOUIButton *buyButton;
 @property (nonatomic, strong) GTIOUIButton *deleteButton;
 
 @property (nonatomic, strong) UILabel *productNameLabel;
-@property (nonatomic, strong) UILabel *brandLabel;
 @property (nonatomic, strong) UILabel *priceLabel;
+
+@property (nonatomic, strong) UIImageView *addToShoppingListPopOverView;
+
 
 @end
 
 @implementation GTIOProductTableViewCell
 
-@synthesize product = _product, delegate = _delegate;
-@synthesize productTableCellType = _productTableCellType, productImageView = _productImageView, backgroundImageView = _backgroundImageView, backgroundImageInactive = _backgroundImageInactive, backgroundImageActive = _backgroundImageActive, heartButton = _heartButton, productNameLabel = _productNameLabel, brandLabel = _brandLabel, priceLabel = _priceLabel, emailButton = _emailButton, buyButton = _buyButton, deleteButton = _deleteButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier GTIOProductTableCellType:(GTIOProductTableCellType)type
 {
@@ -89,39 +92,30 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
         
         _productNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _productNameLabel.backgroundColor = [UIColor clearColor];
-        _productNameLabel.textColor = [UIColor gtio_grayTextColor595155];
+        _productNameLabel.textColor = [UIColor gtio_grayTextColor515152];
         _productNameLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLight size:14.0];
         _productNameLabel.numberOfLines = 0;
         _productNameLabel.lineBreakMode = UILineBreakModeWordWrap;
         [self.contentView addSubview:_productNameLabel];
         
-        _brandLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _brandLabel.backgroundColor = [UIColor clearColor];
-        _brandLabel.textColor = [UIColor gtio_grayTextColorBBBBBB];
-        _brandLabel.font = [UIFont gtio_proximaNovaFontWithWeight:GTIOFontProximaNovaSemiBold size:11.0];
-        [self.contentView addSubview:_brandLabel];
-        
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _priceLabel.backgroundColor = [UIColor clearColor];
         _priceLabel.textColor = [UIColor gtio_pinkTextColor];
-        _priceLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagBold size:16.0];
+        _priceLabel.font = [UIFont gtio_verlagFontWithWeight:GTIOFontVerlagLightItalic size:16.0];
         _priceLabel.adjustsFontSizeToFitWidth = YES;
         [self.contentView addSubview:_priceLabel];
         
-        
         if (_productTableCellType == GTIOProductTableViewCellTypeShoppingList) {
-            _emailButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListEmail];
-            [_emailButton setTapAreaPadding:kGTIOCellButtonPadding];
-            [self.contentView addSubview:_emailButton];
-            
-            _buyButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListBuy];
-            [_buyButton setTapAreaPadding:kGTIOCellButtonPadding];
-            [self.contentView addSubview:_buyButton];
-            
             _deleteButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListDelete];
             [_deleteButton setTapAreaPadding:kGTIOCellButtonPadding];
             [self.contentView addSubview:_deleteButton];
         }
+
+        _buyButton = [GTIOUIButton buttonWithGTIOType:GTIOButtonTypeProductShoppingListBuy];
+        [self.contentView addSubview:_buyButton];
+        
+        // Add To Shopping List Pop Over
+        self.addToShoppingListPopOverView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hearting-popup.png"]];
     }
     return self;
 }
@@ -134,9 +128,7 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
     self.heartButton.selected = NO;
     self.heartButton.tapHandler = nil;
     self.productNameLabel.text = @"";
-    self.brandLabel.text = @"";
     self.priceLabel.text = @"";
-    self.emailButton.tapHandler = nil;
     self.buyButton.tapHandler = nil;
 }
 
@@ -149,12 +141,12 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
     [self.heartButton setFrame:(CGRect){ kGTIOHeartButtonXPosition, kGTIOHeartButtonYPosition, self.heartButton.bounds.size }];
     CGSize productNameLabelSize = [self.productNameLabel sizeThatFits:(CGSize){ (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, CGFLOAT_MAX }];    
     [self.productNameLabel setFrame:(CGRect){ kGTIOProductNameLabelXPosition, kGTIOProductNameLabelYPosition, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, (productNameLabelSize.height <= kGTIOProductNameLabelMaxHeight) ? productNameLabelSize.height : kGTIOProductNameLabelMaxHeight }];
-    [self.brandLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height + kGTIOProductBrandLabelVerticalPadding, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, 15 }];
-    [self.priceLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, kGTIOPriceLabelYPosition, 45, 20 }];
-    [self.emailButton setFrame:(CGRect){ kGTIOEmailButtonXPosition, kGTIOEmailButtonYPosition, self.emailButton.bounds.size }];
-    [self.buyButton setFrame:(CGRect){ self.emailButton.frame.origin.x + self.emailButton.bounds.size.width + kGTIOBuyButtonLeftMargin, self.emailButton.frame.origin.y, self.buyButton.bounds.size }];
+
+    [self.priceLabel setFrame:(CGRect){ self.productNameLabel.frame.origin.x, self.productNameLabel.frame.origin.y + self.productNameLabel.bounds.size.height + kGTIOProductBrandLabelVerticalPadding, (self.productTableCellType == GTIOProductTableViewCellTypeShoppingList) ? kGTIOProductNameLabelWidth : kGTIOProductNameLabelWidthWide, 15 }];
+    [self.buyButton setFrame:(CGRect){ self.bounds.size.width - self.buyButton.bounds.size.width - kGTIOBuyButtonRightMargin, self.bounds.size.height - self.buyButton.bounds.size.height - kGTIOBuyButtonBottomMargin, self.buyButton.bounds.size }];
     [self.deleteButton setFrame:(CGRect){ self.bounds.size.width - self.deleteButton.bounds.size.width, kGTIODeleteButtonYPosition, 26, 20 }];
     self.heartButton.enabled = YES;
+
 }
 
 - (void)setProduct:(GTIOProduct *)product
@@ -190,22 +182,8 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
         }
     }
     __block typeof(self) blockSelf = self;
-    self.emailButton.tapHandler = ^(id sender) {
-        self.emailButton.enabled = NO;
-        [GTIOProduct emailProductWithProductID:_product.productID completionHandler:^(NSArray *loadedObjects, NSError *error) {
-          self.emailButton.enabled = YES;
-          if (!error) {
-              for (id object in loadedObjects) {
-                  if ([object isMemberOfClass:[GTIOAlert class]]) {
-                        [GTIOErrorController handleAlert:(GTIOAlert *)object showRetryInView:blockSelf retryHandler:nil];
-                  }
-              }
-          } else {
-              [GTIOErrorController handleError:error showRetryInView:blockSelf forceRetry:NO retryHandler:nil];
-          }
-        }];
-    };
     
+    [self.buyButton setTitle:product.retailerDomain forState:UIControlStateNormal];
     self.buyButton.tapHandler = ^(id sender) {
         if (_product.buyURL.host.length > 0) {
             if ([self.delegate respondsToSelector:@selector(loadWebViewControllerWithURL:)]) {
@@ -227,8 +205,11 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
     };
     
     self.productNameLabel.text = _product.productName;
-    self.brandLabel.text = [_product.brand uppercaseString];
     self.priceLabel.text = _product.prettyPrice;
+
+    if (self.productTableCellType != GTIOProductTableViewCellTypeShoppingList){
+        [self showAddToShoppingListPopOverView];
+    }
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
@@ -237,6 +218,29 @@ static CGFloat const kGTIOCellButtonPadding = 6.0;
         [_backgroundImageView setImage:_backgroundImageActive];
     } else {
         [_backgroundImageView setImage:_backgroundImageInactive];
+    }
+}
+
+
+
+- (void)showAddToShoppingListPopOverView
+{
+    int viewsOfAddToShoppingListPopOverView = [[NSUserDefaults standardUserDefaults] integerForKey:kGTIOAddToShoppingListViewFlag];
+    if (viewsOfAddToShoppingListPopOverView < 1) {
+        viewsOfAddToShoppingListPopOverView++;
+        [[NSUserDefaults standardUserDefaults] setInteger:viewsOfAddToShoppingListPopOverView forKey:kGTIOAddToShoppingListViewFlag];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
+        [self.addToShoppingListPopOverView setAlpha:1.0f];
+        [self.addToShoppingListPopOverView setFrame:(CGRect){ { self.heartButton.frame.origin.x + self.heartButton.frame.size.width + kGTIOAddToShoppingListPopOverXOriginPadding, kGTIOAddToShoppingListPopOverYOriginPadding }, self.addToShoppingListPopOverView.image.size }];
+        [self addSubview:self.addToShoppingListPopOverView];
+        
+        [UIView animateWithDuration:1.5f delay:2.75f options:0 animations:^{
+            [self.addToShoppingListPopOverView setFrame:CGRectOffset(self.addToShoppingListPopOverView.frame, 24.0f, 0)];
+            [self.addToShoppingListPopOverView setAlpha:0.0f];
+        } completion:^(BOOL finished) {
+            [self.addToShoppingListPopOverView removeFromSuperview];
+        }];
     }
 }
 

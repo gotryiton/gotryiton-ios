@@ -158,6 +158,12 @@ NSString * const kGTIOStyleResourcePath = @"/iphone/style-tab";
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+
+    if ([request.URL.scheme isEqual:@"mailto"]) {
+        [[UIApplication sharedApplication] openURL:request.URL];
+        return NO;
+    }
+
     // Open http links here but not gtio://
     if (![request.URL.scheme isEqualToString:kGTIOHttpURLScheme]) {
         id viewController = [[GTIORouter sharedRouter] viewControllerForURL:request.URL];

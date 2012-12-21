@@ -18,7 +18,7 @@
 #import "GTIOCameraViewController.h"
 #import "GTIOCameraTabBarPlaceholderViewController.h"
 #import "GTIOUniqueNameSplashViewController.h"
-#import "GTIOStyleViewController.h"
+#import "GTIOConnectViewController.h"
 #import "GTIOMeViewController.h"
 
 #import "GTIOAppearance.h"
@@ -383,7 +383,7 @@
     
     UINavigationController *meNavigationController = [[UINavigationController alloc] initWithRootViewController:[[GTIOMeViewController alloc] initWithNibName:nil bundle:nil]];
     UINavigationController *feedNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOFeedViewController alloc] initWithNibName:nil bundle:nil]];
-    UINavigationController *styleNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOStyleViewController alloc] initWithNibName:nil bundle:nil]];
+    UINavigationController *styleNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOConnectViewController alloc] initWithNibName:nil bundle:nil]];
     UINavigationController *looksNavController = [[UINavigationController alloc] initWithRootViewController:[[GTIOExploreLooksViewController alloc] initWithNibName:nil bundle:nil]];
     
     self.tabBarViewControllers = [NSArray arrayWithObjects:
@@ -471,7 +471,7 @@
             [self.tab1ImageView setImage:[UIImage imageNamed:@"UI-Tab-1-ON.png"]];
         } else if ([rootViewController isKindOfClass:[GTIOMeViewController class]]) {
             [self.tab5ImageView setImage:[UIImage imageNamed:@"UI-Tab-5-ON.png"]];
-        } else if ([rootViewController isKindOfClass:[GTIOStyleViewController class]]) {
+        } else if ([rootViewController isKindOfClass:[GTIOConnectViewController class]]) {
             [self.tab4ImageView setImage:[UIImage imageNamed:@"UI-Tab-4-ON.png"]];
         } else if ([rootViewController isKindOfClass:[GTIOExploreLooksViewController class]]) {
             [self.tab2ImageView setImage:[UIImage imageNamed:@"UI-Tab-2-ON.png"]];
@@ -538,10 +538,10 @@
             if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOMeViewController class]]){
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOMeControllerShouldScrollToTopNotification object:nil];
             }
-        } else if ([rootViewController isKindOfClass:[GTIOStyleViewController class]]) {
+        } else if ([rootViewController isKindOfClass:[GTIOConnectViewController class]]) {
             trackContollerId = kGTIOUserNavigatedToStyleTab;
             //if tab is in view already, scroll to top
-            if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOStyleViewController class]]){
+            if ([navController.viewControllers count]==1 && [self.lastSelectedController isKindOfClass:[GTIOConnectViewController class]]){
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGTIOStyleControllerShouldScrollToTopNotification object:nil];
             }
         } 

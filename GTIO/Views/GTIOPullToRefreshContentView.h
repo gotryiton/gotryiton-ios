@@ -12,5 +12,6 @@
 @interface GTIOPullToRefreshContentView : UIView <SSPullToRefreshContentView>
 
 @property (nonatomic, assign) UIEdgeInsets scrollInsets;
+@property (nonatomic, strong) UIImageView *background;
 
 @end

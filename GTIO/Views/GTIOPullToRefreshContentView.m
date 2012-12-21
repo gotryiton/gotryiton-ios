@@ -17,7 +17,7 @@ static CGFloat const kGTIOPullToRefreshYOffset = 8.0f;
 
 @interface GTIOPullToRefreshContentView()
 
-@property (nonatomic, strong) UIImageView *background;
+
 @property (nonatomic, strong) UILabel *statusLabel;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong) UIImageView *arrow;

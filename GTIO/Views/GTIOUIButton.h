@@ -90,6 +90,7 @@ typedef enum GTIOButtonType {
     GTIOButtonTypeInviteFriendsTwitter,
     GTIOButtonTypeErrorRetry,
     GTIOButtonTypeShopThisLookHeaderButton,
+    GTIOButtonTypeProductBigBuyButton,
     GTIOButtonTypeCustom,
 } GTIOButtonType;
 

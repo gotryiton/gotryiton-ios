@@ -77,7 +77,7 @@
     NSInteger const kGTIOUniqueNameModalDialogMaxViews = 1;
 #endif
 
-NSString * const kGTIOAcceptHeader = @"application/v4.1-json";
+NSString * const kGTIOAcceptHeader = @"application/v4.2-json";
 NSString * const kGTIOAuthenticationHeaderKey = @"Authentication";
 NSString * const kGTIOTrackingHeaderKey = @"Tracking-Id";
 
@@ -128,8 +128,10 @@ NSString * const kGTIOUserNavigatedToCameraTab = @"navigation to camera";
 NSString * const kGTIONotificationViewTrackingId = @"notification view";
 
 
-// Unique Name modal flag
+// Unique view flags
 NSString * const kGTIOUniqueNameModalDialogFlag = @"kGTIOUniqueNameModalDialogFlag";
+NSString * const kGTIOAddToShoppingListViewFlag = @"kGTIOAddToShoppingListViewFlag";
+NSString * const kGTIOAddToShoppingListProductPageViewFlag = @"kGTIOAddToShoppingListProductPageViewFlag";
 
 // UrbanAirship
 NSString * const kGTIOUAirshipProductionAppKey = @"***REMOVED***";

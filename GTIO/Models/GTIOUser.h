@@ -45,6 +45,7 @@ typedef void(^GTIOLogoutHandler)(RKResponse *response);
 @property (nonatomic, strong) NSString *userDescription;
 @property (nonatomic, strong) GTIOButton *button;
 @property (nonatomic, strong) GTIOButtonAction *action;
+@property (nonatomic, strong) NSArray *recentPostThumbnails;
 
 @property (nonatomic, assign) BOOL selected;
 
