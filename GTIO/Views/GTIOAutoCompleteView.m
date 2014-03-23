@@ -179,7 +179,7 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
 - (BOOL)textView:(UITextView *)field shouldChangeTextWithAutoCompleteInRange:(NSRange)range replacementText:(NSString *)inputString 
 {   
     
-    // always hide the placeholder text if the user is inputtting
+    // always hide the placeholder text if the user is inputing
     [self hidePlaceholderText];
 
     //update the cursor position
@@ -187,12 +187,12 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
 
     // figure out the new input text
     self.inputText = [field.text stringByReplacingCharactersInRange:range withString:inputString];
-    
+
+
     if ([self.textInput respondsToSelector:@selector(setAttributedText:)]){
         [self.attrString replaceCharactersInRange:range withAttributedString:[[NSAttributedString alloc] initWithString:inputString attributes:self.inputTextAttributes]];
     }
 
-    // display the newly inputted text
     [self setPositionOfLastWordsTypedInText:[self stringThroughCursorPositionWithRange:range]];
     
     CGFloat searchTime = kGTIOSearchTextTimerLength;
@@ -238,6 +238,7 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
         if ([self.textInput respondsToSelector:@selector(setAttributedText:)]){
             self.attrString = [[NSMutableAttributedString alloc] initWithString:@" " attributes:self.inputTextAttributes];
             self.textInput.attributedText = self.attrString;
+            // resets attributed string **needed for bugfix**
             self.attrString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:self.inputTextAttributes];
             self.textInput.attributedText = self.attrString;
         }
@@ -300,7 +301,7 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
     NSInteger length = str.length;
     self.positionOfLastWordTyped = NSMakeRange(MAX(0,length-1), MIN(length, 1));
     self.positionOfLastTwoWordsTyped = NSMakeRange(MAX(0,length-1), MIN(length, 1));
-    // NSLog(@"default: %@", NSStringFromRange( self.positionOfLastWordTyped ));
+
     //regex:  (\s?[\w\.\@\#&-]+?)?$
     NSRegularExpression* lastWordRegex = [[NSRegularExpression alloc] initWithPattern:@"\\s?([\\w\\.\\@\\#&-]+?)?$" options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *lastWordMatches = [lastWordRegex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
@@ -310,6 +311,10 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
             self.positionOfLastWordTyped = [match rangeAtIndex:1];
         }
     }
+
+    /*
+     *   searching back 2 words is no longer needed as of unique user names
+     */
     //regex: ([\w\.\@\#&-]+?\s?[\w\.\@\#&-]?)$
     // NSRegularExpression* lastTwoWordsRegex = [[NSRegularExpression alloc] initWithPattern:@"([\\w\\.\\@\\#&-]+?\\s?[\\w\\.\\@\\#&-]?)$" options:NSRegularExpressionCaseInsensitive error:nil];
     // NSArray *lastTwoWordsMatches = [lastTwoWordsRegex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
@@ -391,7 +396,7 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
 }
 
 
-- (void) hidePlaceholderText 
+- (void)hidePlaceholderText
 {
     if (self.previewTextView.alpha==1){
         [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^{
@@ -400,14 +405,14 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
     }
 }
 
-- (void) showPlaceholderText
+- (void)showPlaceholderText
 {
     if (self.inputText.length == 0) {
         [self displayPlaceholderText];
     }
 }
 
-- (void) highlightTags
+- (void)highlightTags
 {
  
     if ([self.textInput respondsToSelector:@selector(setAttributedText:)] && [self.textInput.text length]>0){
@@ -604,7 +609,7 @@ static CGFloat kGTIOHighlightTimerLength = 0.3;
 
 }
 
--(NSRange) insertIntoInput:(NSString *)str range:(NSRange)range
+-(NSRange)insertIntoInput:(NSString *)str range:(NSRange)range
 {
     self.preventTyping = YES;
 

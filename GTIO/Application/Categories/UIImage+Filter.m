@@ -29,7 +29,7 @@ static NSInteger const kGTIOStride = 4;
     // Alloc data buffer and Create context
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     void * buffer = malloc(bufferSize);
-    CGContextRef context = CGBitmapContextCreate (buffer,
+    CGContextRef context = CGBitmapContextCreate(buffer,
                                                   pixelsWide,
                                                   pixelsHigh,
                                                   8,
@@ -42,7 +42,7 @@ static NSInteger const kGTIOStride = 4;
     CGContextDrawImage(context, rect, imageRef);
     
     // release data
-    CGColorSpaceRelease( colorSpace );
+    CGColorSpaceRelease(colorSpace);
     
     // return result
     return context;
@@ -201,11 +201,13 @@ static NSInteger const kGTIOStride = 4;
     
     int length = height * width * kGTIOStride;
     for (int i = 0; i < length; i += kGTIOStride) {
+
+        // color intensity = 0.3 * Red + 0.59 * Green + 0.11 * Blue
         int current_intensity = SAFE(.3 * data[i+1] + .59 * data[i+2] +.11 * data[i+3]);
         
-        data[i + 1] = (int)(ratio*(current_intensity - data[i+1])) + data[i+1];
-        data[i + 2] = (int)(ratio*(current_intensity - data[i+2])) + data[i+2];
-        data[i + 3] = (int)(ratio*(current_intensity - data[i+3])) + data[i+3];
+        data[i + 1] = (unsigned char)(ratio*(current_intensity - data[i+1])) + data[i+1];
+        data[i + 2] = (unsigned char)(ratio*(current_intensity - data[i+2])) + data[i+2];
+        data[i + 3] = (unsigned char)(ratio*(current_intensity - data[i+3])) + data[i+3];
     }
     
     UIImage *finalImage = [self contextToImage:context];
@@ -226,9 +228,9 @@ static NSInteger const kGTIOStride = 4;
     for (int i = 0; i < length; i += kGTIOStride) {
         int current_intensity = SAFE(brightness * (.3 * data[i+1] + .59  * data[i+2] +.11 * data[i+3]));
         
-        data[i + 1] = current_intensity;
-        data[i + 2] = current_intensity;
-        data[i + 3] = current_intensity;
+        data[i + 1] = (unsigned char)current_intensity;
+        data[i + 2] = (unsigned char)current_intensity;
+        data[i + 3] = (unsigned char)current_intensity;
         
         i = MIN(i+4, length);
     }
