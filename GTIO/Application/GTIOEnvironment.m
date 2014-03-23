@@ -19,7 +19,10 @@
 
 #if GTIO_ENVIRONMENT == GTIO_ENVIRONMENT_DEVELOPMENT
     NSString * const kGTIOEnvironmentName = @"Development";
-    NSString * const kGTIOBaseURLString = @"http://gtio-dev.gotryiton.com";
+//    NSString * const kGTIOBaseURLString = @"http://local.gotryiton.com";
+    NSString * const kGTIOBaseURLString = @"http://ec2-54-234-82-113.compute-1.amazonaws.com/";
+//    NSString * const kGTIOBaseURLString = @"http://api.gotryiton.com";
+//    NSString * const kGTIOBaseURLString = @"http://33.33.33.11";
     NSString * const kGTIOJanRainEngageApplicationID = @"***REMOVED***";
     NSString * const kGTIOFlurryAPIKey = @"***REMOVED***";
     NSString * const kGTIOFacebookAppID = @"125885160757300";
